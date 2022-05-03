@@ -1,0 +1,4813 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+  <head class="at-element-marker">
+  <title>災難恢復工作流程</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1">
+  <meta http-equiv="language" content="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="災難恢復工作流程" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" />
+	<meta property="og:description" content="混合雲資料庫解決方案搭配SnapCenter 不含容災功能的工作流程" />
+  <meta property="og:image" content="https://docs.netapp.com/zh-tw/netapp-solutions/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="encoding" content="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation"/>
+  <meta http-equiv="nss-subtype" content="User Guide"/><meta name="description" content="混合雲資料庫解決方案搭配SnapCenter 不含容災功能的工作流程">
+  <meta name="keywords" content=" netapp, solutions, database, SnapCenter, DR, "business continuity", "disaster recovery""><!-- Icons -->
+  <link rel="icon" href="/zh-tw/netapp-solutions/images/favicon.ico" type="image/x-icon">
+
+  <!-- RSS Feed --><!-- CSS Definitions: NetApp CSS should be defined after generic css -->
+
+  <!-- Elastic Search -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css">
+
+  <!-- Controls AsciiDoctor Admonition Blocks -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/netapp-solutions/css/font-awesome.min.css">
+
+  <!-- Controls the shadow effect for search dropdown menu -->
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/boxshadowproperties.css">
+
+  <!-- NetApp CSS controls the technical content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/netapp-solutions/css/netapp.css">
+
+  <!-- WWW CSS Content -->
+  <link rel="stylesheet" type="text/css" href="/zh-tw/netapp-solutions/css/www-luci-dotcom.min.css">
+  <link rel="stylesheet" type="text/css" href="/zh-tw/netapp-solutions/css/www-netapp-dotcom.css">
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/www-netapp-library-critical.min.css" media="all" >
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/www-netapp-library-non-critical.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/www-netapp-library-global-header-footer.min.css">
+
+  <!-- NetApp IE Customizations -->
+  <link rel="stylesheet" href='/zh-tw/netapp-solutions/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/zh-tw/netapp-solutions/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/netapp-solutions/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/netapp-solutions/css/custom-dropdown.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/netapp-solutions/css/na-pagenav.css' type='text/css'>
+
+  
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/landing-page.css" type="text/css">
+  <link rel="stylesheet" href="/zh-tw/netapp-solutions/css/tabbed-blocks.css" type="text/css">
+  <!-- Canonical url -->
+  <link rel='stylesheet' href='/zh-tw/netapp-solutions/css/na-feature.css' type='text/css'><!-- Top level site integrations --><script>
+    if (document.location.hostname === "docs.netapp.com") {
+      var head = document.getElementsByTagName('head')[0];
+      var onetrustConsent = document.createElement("script");
+      onetrustConsent.type = "text/javascript";
+      onetrustConsent.src = "https://cdn.cookielaw.org/consent/72570c5c-fe30-465f-b0e0-b77f7fb4ae34/OtAutoBlock.js";
+      head.appendChild(onetrustConsent);
+
+      var onetrustScript = document.createElement("script");
+      onetrustScript.type = "text/javascript";
+      onetrustScript.src = "https://cdn.cookielaw.org/scripttemplates/otSDKStub.js";
+      onetrustScript.charset = "UTF-8";
+      onetrustScript.dataset.documentLanguage = "true";
+      onetrustScript.dataset.domainScript = "72570c5c-fe30-465f-b0e0-b77f7fb4ae34";
+      head.appendChild(onetrustScript);
+    }
+
+    function OptanonWrapper() { }
+
+    if (document.location.hostname === "docs.netapp.com") {
+      var adobe = document.createElement("script");
+      adobe.type = "text/plain";
+      adobe.className = "optanon-category-C0002";
+      adobe.src = "//assets.adobedtm.com/60287eadf1ee/c284da483c83/launch-e9ff3acac59f.min.js";
+      head.appendChild(adobe);
+
+      var google = document.createElement("script");
+      google.type = "text/plain";
+      google.className = "optanon-category-C0002";
+      google.src = "https://www.googletagmanager.com/gtag/js?id=UA-81697994-3";
+      head.appendChild(google);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-81697994-3');
+    }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
+  <!-- Used for Product Family Page Sidebar Visibility --><!-- Used to import Promise for IE. Required for SearchKit -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script><script src='/zh-tw/netapp-solutions/js/na-search.js'></script><script src='/zh-tw/netapp-solutions/js/na-pagenav.js'></script><link rel='stylesheet' href='/zh-tw/netapp-solutions/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/zh-tw/netapp-solutions/css/prism-netapp.css' type='text/css'>
+
+
+  <script src='/zh-tw/netapp-solutions/js/na-utility.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/clouddocs.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/zh-tw/netapp-solutions/js/toc.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/customscripts.js'></script><script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script>
+  <script src='/zh-tw/netapp-solutions/js/custom-dropdown.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/FileSaver.min.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/jszip-utils.min.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/jszip.min.js'></script>
+  <script src='/zh-tw/netapp-solutions/js/pdf-ux.js'></script>
+</head>
+
+
+  <body class role="document" data-flavor="">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner">
+  
+  <!-- Start Page Toolbar -->
+  
+  <div class="page-nav-toolbar"><div class="page-nav-contribute"><a target="_blank" href="https://github.com/NetAppDocs/netapp-solutions/issues/new?body=Page%3A%20[災難恢復工作流程](https://docs.netapp.com/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html)" class="page-nav-contribute-link" role="button"><img src="/zh-tw/netapp-solutions/images/discuss-sm.svg" class="github-icon" />要求變更文件</a><a target="_blank" href="https://github.com/NetAppDocs/netapp-solutions/blob/main/ent-apps-db/hybrid_dbops_snapcenter_dr.adoc" class="page-nav-contribute-link" role="button"><img src="/zh-tw/netapp-solutions/images/edit-sm.svg" class="github-icon" />編輯此頁面</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  ><img src="/zh-tw/netapp-solutions/images/article-sm.svg" class="github-icon" />瞭解如何作出貢獻</a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">在此頁面上</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  
+  <!-- Start top_hat -->
+  <div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/products-a-z/" class="n-top-hat__link">產品與解決方案</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/support-and-training/netapp-university/" class="n-top-hat__link">支援與訓練</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://cloud.netapp.com" class="n-top-hat__link">Cloud Central</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://community.netapp.com/" class="n-top-hat__link">社群</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://blog.netapp.com/" class="n-top-hat__link">部落格</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://customers.netapp.com/en/" class="n-top-hat__link">客戶成功案例</a>
+          </li>
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item">
+            <a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">聯絡人</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- End top_hat -->
+
+  <!-- Start property bar -->
+  <style>
+    .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span {
+    color: #34B0FF;
+    }
+  </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle">
+        <a href="#" class="n-property-bar__menu-toggle-link">
+          <span class="n-property-bar__menu-toggle-text">Menu</span>
+          <svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>bars</title>
+            <use xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#bars"></use>
+          </svg>
+        </a>
+      </div>
+      <div class="n-property-bar__property-mark ">
+        <a href="https://www.netapp.com" class="n-property-bar__property-link">
+          <div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>netapp-mark</title>
+              <use xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>netapp-logo</title>
+              <use xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      
+      <div class="search-property-bar">
+        <div id="search-demo-container" class="searchbox n-property-bar__search">
+          <div id="react-search" 
+          data-search-html="/zh-tw/netapp-solutions/search.html"
+          data-type="widget" 
+          data-placeholder="搜尋文件" 
+          data-no-results-found="找不到符合 {query} 的相關結果。" 
+          data-did-you-mean="搜尋 {suggestion}。" 
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
+          data-results-found="找到 {hitCount} 筆結果"  
+          data-sk-es-pf-indexes=""
+          data-flavor=""></div>
+          <button class="n-property-bar__search-toggle-button" type="button">
+            <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+              <title>search</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#search"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <div class="n-property-bar__toolbar">
+    <!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+      <div id="ie-i18n-menu">
+      <span class="ie-i18n-lang">繁體中文</span>
+        <button class="ie-i18n-icon-container" type="button">
+          <svg class="n-globe__icon" aria-labelledby="title">
+            <title>globe</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#globe"></use>
+          </svg>
+        </button>
+      </div>
+      <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none;">
+        <div class="n-language-selector-menu">
+          <ul class="n-menu__list">
+            <li class="n-menu__list-column">
+              <ul class="n-menu__list"><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/us-en/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" class="n-menu__header-text"><span translate="no" class="notranslate">English</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ja-jp/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" class="n-menu__header-text"><span translate="no" class="notranslate">日本語</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/ko-kr/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" class="n-menu__header-text"><span translate="no" class="notranslate">한국어</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-cn/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" class="n-menu__header-text"><span translate="no" class="notranslate">简体中文</span></a>
+                </li><li class="n-menu__list-item n-menu__list-item--level-1">
+                  <a href="https://docs.netapp.com/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html" class="n-menu__header-text"><span translate="no" class="notranslate">繁體中文</span></a>
+                </li></ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div><!-- End Language Selector -->
+
+    <div class="n-property-bar__cta"></div>
+  </div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script>
+  <!-- End property bar -->
+</header>
+
+
+        <main id="n-main-content" class="n-main-content">
+          <!-- Start Documentation Content -->
+<div class="ie-main">
+  <!-- Sidebar Column -->
+  
+  <div class="col-md-3" id="sidebar-height">
+      <div class="n-pdf-header">
+  <a id="toggleButtonPdf" class="n-pdf-button" type="button">
+    <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>可用的 PDF<span>
+    </span>
+  </a>
+</div>
+<div class="n-pdf-body-container">
+  <ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;"><li class="pdf-ux-container">
+        
+        
+        
+        <a target="_blank" href="/zh-tw/netapp-solutions/pdfs/fullsite-sidebar/NetApp解決方案.pdf" >
+          <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>此文件網站（PDF 格式）</a>
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/人工智慧.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            人工智慧
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/AI融合式基礎架構.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            AI融合式基礎架構
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/支援NVIDIA的AI_ONTAP.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            支援NVIDIA的AI ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用NVIDIA的EF系列AI.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用NVIDIA的EF系列AI
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/資料管道_資料湖區與管理.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            資料管道、資料湖區與管理
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_AI_Control_Plane.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp AI Control Plane
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_Trident部署與組態.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp Trident部署與組態
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Kubeflow作業與工作範例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Kubeflow作業與工作範例
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/適用於AI部署的高效能工作範例ONTAP.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            適用於AI部署的高效能工作範例ONTAP
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用Iguazio的MLRun_Pipeline.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用Iguazio的MLRun Pipeline
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/設定.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            設定
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/部署應用程式.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            部署應用程式
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/使用案例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            使用案例
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/運用NetApp_AI進行情緒分析.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            運用NetApp AI進行情緒分析
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Azure的分散式訓練_點選率預測.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Azure的分散式訓練：點選率預測
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/設定.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            設定
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/點選率預測資料處理與模型訓練.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            點選率預測資料處理與模型訓練
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/分散式Azure訓練_Lane偵測.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            分散式Azure訓練：Lane偵測
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用資料快取的混合雲AI作業系統.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用資料快取的混合雲AI作業系統
+          </a>
+          
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/解決方案部署與驗證詳細資料.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            解決方案部署與驗證詳細資料
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/AI在Edge大會上推斷__NetApp採用Lenovo_ThinkSystem__解決方案設計.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            AI在Edge大會上推斷- NetApp採用Lenovo ThinkSystem -解決方案設計
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/使用NVIDIA的對話AI.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            使用NVIDIA的對話AI
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/使用JARVIS_Cloud_Sync_VMware及Nemo建置虛擬助理.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            使用JARVIS、Cloud Sync VMware及Nemo建置虛擬助理
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用Run_AI的NetApp協調解決方案.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用Run:AI的NetApp協調解決方案
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/利用Run_AI實現最佳叢集與GPU使用率.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            利用Run AI實現最佳叢集與GPU使用率
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/現代化資料分析.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            現代化資料分析
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Big_Data分析資料到人工智慧.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Big Data分析資料到人工智慧
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Conflent_Kafka的最佳實務做法.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Conflent Kafka的最佳實務做法
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp混合雲資料解決方案_根據客戶使用案例_Spark和Hadoop.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp混合雲資料解決方案：根據客戶使用案例、Spark和Hadoop
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/企業混合雲.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            企業混合雲
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/適用於公有雲的VMware.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            適用於公有雲的VMware
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware混合雲使用案例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware混合雲使用案例
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp在Hyperscaler_Cloud中的重要功能.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp在Hyperscaler Cloud中的重要功能
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/虛擬化.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            虛擬化
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware_ONTAP_虛擬化技術.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware ONTAP 虛擬化技術
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_ONTAP_為VMware_vSphere管理員帶來的效益.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp ONTAP 為VMware vSphere管理員帶來的效益
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware_vSphere搭配ONTAP__最佳實務做法_.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware vSphere搭配ONTAP 《最佳實務做法》
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware_Site_Recovery_Manager搭配NetApp_ONTAP_功能9.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware Site Recovery Manager搭配NetApp ONTAP 功能9
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware_vSphere_Automation.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware vSphere Automation
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/傳統區塊儲存資源配置.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            傳統區塊儲存資源配置
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/傳統檔案儲存資源配置.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            傳統檔案儲存資源配置
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/適用於公有雲的VMware.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            適用於公有雲的VMware
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware混合雲使用案例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware混合雲使用案例
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/虛擬桌面.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            虛擬桌面
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/虛擬桌面服務_VDS_.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            虛擬桌面服務（VDS）
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用NetApp虛擬桌面服務的混合雲VDI.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用NetApp虛擬桌面服務的混合雲VDI
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/VMware_Horizon.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            VMware Horizon
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/示範與教學課程.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            示範與教學課程
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/部落格.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            部落格
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp與VMware_Cloud_Foundation_VCF_.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp與VMware Cloud Foundation（VCF）
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/容器.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            容器
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Red_Hat_OpenShift_with_NetApp.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Red Hat OpenShift with NetApp
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Red_Hat_Openshift總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Red Hat Openshift總覽
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp儲存系統總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp儲存系統總覽
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp儲存整合概述.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp儲存整合概述
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_Astra控制中心總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp Astra控制中心總覽
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_Astra_Trident總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp Astra Trident總覽
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/OpenShift的進階組態選項.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            OpenShift的進階組態選項
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/探索負載平衡器選項.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            探索負載平衡器選項
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/解決方案驗證與使用案例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            解決方案驗證與使用案例
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/使用NetApp_ONTAP_功能在Red_Hat_OpenShift上設定多租戶共享.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            使用NetApp ONTAP 功能在Red Hat OpenShift上設定多租戶共享
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/組態.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            組態
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Red_Hat_OpenShift虛擬化搭配NetApp_ONTAP_產品.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/部署.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            部署
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/工作流程.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            工作流程
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/採用NetApp的Red_Hat_OpenShift上的Kubernetes進階叢集管理.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/部署.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            部署
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/功能.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            功能
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Google_Anthos.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Google Anthos
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/裸機上的Anthos.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            裸機上的Anthos
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/企業應用程式與資料庫.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            企業應用程式與資料庫
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Oracle資料庫.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Oracle資料庫
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/部署Oracle資料庫.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            部署Oracle資料庫
+          </a>
+          
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/在ONTAP_NFS上自動部署Oracle_19c_for_Sfor.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            在ONTAP NFS上自動部署Oracle 19c for Sfor
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Oracle資料庫資料保護.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Oracle資料庫資料保護
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/自動化Oracle資料保護.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            自動化Oracle資料保護
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/Microsoft_SQL_Server.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            Microsoft SQL Server
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/SQL_Server_on_Azure_NetApp_Files.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            SQL Server on Azure NetApp Files
+          </a>
+          
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/混合雲資料庫解決方案SnapCenter_搭配.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            混合雲資料庫解決方案SnapCenter 搭配
+          </a>
+          
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/先決條件組態.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            先決條件組態
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/快速入門總覽.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            快速入門總覽
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+    <ul class="subfolders" style="display:none;"><li class="active pdf-hide">
+  <a target="_blank" href="/zh-tw/netapp-solutions/pdfs/pages/ent-apps-db/hybrid_dbops_snapcenter_dr.pdf" >
+    <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+    PDF of this page
+  </a>
+</li>
+
+</ul>
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/資料移轉與資料保護.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            資料移轉與資料保護
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/資料移轉.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            資料移轉
+          </a>
+          
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/NetApp_XCP最佳實務準則.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            NetApp XCP最佳實務準則
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/客戶案例.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            客戶案例
+          </a>
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/資料保護.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            資料保護
+          </a>
+          
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/安全性.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            安全性
+          </a>
+          
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/解決方案自動化.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            解決方案自動化
+          </a>
+          
+
+
+
+
+
+    
+      <ul class="subfolders" style="display:none;">
+        <li class="pdf-ux-container">
+          
+          
+          
+          <a target="_blank" 
+            
+              href="/zh-tw/netapp-solutions/pdfs/sidebar/設定Ansible控制節點_適用於CLI型部署_.pdf" 
+            
+          >
+            <img src="/zh-tw/netapp-solutions/images/pdf.png" width="16" height="16"/>
+            設定Ansible控制節點（適用於CLI型部署）
+          </a>
+          
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+          
+        </li>
+      </ul>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+</li></ul>
+  <div class="zip-pdf-link-container" style="display: none;">   
+    <a href="#" id="zipPdf">
+      <img src="/zh-tw/netapp-solutions/images/pdf-zip.png" width="16" height="16"/>
+      <pre>個別 PDF 文件的集合<span class="zip-size"></span></pre>
+    </a><div id="zip-link-popup" class="hide">
+    <div class="inner-modal">
+        <div class="downloading-progress">
+            <div class="spinner"></div>
+            <h1>Creating your file...</h1>
+            <div>This may take a few minutes. Thanks for your patience.</div>
+            <button class="cancel-download-btn" type="button">Cancel</button>
+        </div>
+        <div class="download-complete hide">
+            <div class="done-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>
+            </div>
+            <div>Your file is ready</div>
+            <button class="cancel-download-btn" type="button">OK</button>
+        </div>
+    </div>
+</div>
+<script>
+    $(".cancel-download-btn").click(function(){
+        $("#zip-link-popup").addClass("hide");
+        $("#zip-link-popup .downloading-progress").removeClass("hide");
+        $("#zip-link-popup .download-complete").addClass("hide");
+    });
+</script></div>
+</div>
+<script>
+  $("#toggleContainerPdf li.active:last-child").parents('ul.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+    $(".n-pdf-body-container .zip-pdf-link-container").toggle('display');
+  });
+</script><div class="sidebar-nav-container">
+  <ul id="mysidebar" class="nav"><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/index.html">
+        NetApp解決方案文件
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/index.html">
+        <div class="na-navbar-padding"> 人工智慧</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> AI融合式基礎架構</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/ontap-ai-overview.html">
+        <div class="na-navbar-padding"> 支援NVIDIA的AI ONTAP</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/19432-nva-1151-design.pdf">
+        採用NVIDIA DGX A100系統設計指南的AI ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/20708-nva-1151-deploy.pdf">
+        採用NVIDIA DGX A100系統的AI部署指南ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/21793-nva-1153-design.pdf">
+        採用NVIDIA DGX A100系統與Mellanox Spectrum乙太網路交換器設計指南的AI ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/21789-nva-1153-deploy.pdf">
+        採用NVIDIA DGX A100系統和Mellanox Spectrum Ethernet交換器的AI部署指南ONTAP
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/ef-series-ai-overview.html">
+        <div class="na-navbar-padding"> 採用NVIDIA的EF系列AI</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/25445-nva-1156-design.pdf">
+        採用NVIDIA DGX A100系統和BeeGFS設計的EF系列AI
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/25574-nva-1156-deploy.pdf">
+        EF系列AI搭配NVIDIA DGX A100系統與BeeGFS部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4755.pdf">
+        BeeGFS with NetApp E系列部署指南
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4782.pdf">
+        BeeGFS搭配NetApp E系列參考架構
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/22029-tr-4859.pdf">
+        部署IBM Spectrum scale搭配NetApp E系列儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/media/17115-tr-4810.pdf">
+        適用於ONTAP AI和ML模型訓練工作負載的NetApp支援與Lenovo ThinkSystem SR670
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17215-tr4815.pdf">
+        適用於AFF AI和ML模型訓練工作負載的NetApp RE-A800和Fujitsu Server PRIMERGY GX2570 M5
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料管道、資料湖區與管理</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="http://www.netapp.com/us/media/tr-4851.pdf">
+        適用於StorageGRID 自主駕駛工作負載的NetApp數據湖
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp AI Control Plane</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_concepts_and_components.html">
+        概念與元件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_hardware_and_software_requirements.html">
+        硬體與軟體需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_kubernetes_deployment.html">
+        Kubernetes部署
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/aicp_netapp_trident_deployment_and_configuration_overview.html">
+        <div class="na-navbar-padding"> NetApp Trident部署與組態</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_netapp_trident_deployment_and_configuration_overview.html">
+        Trident部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_trident_backends_for_ontap_ai_deployments.html">
+        Trident後端範例、適用於ONTAP AI部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html">
+        Kubernetes StorageClass範例ONTAP 、可用於進行AI部署
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_kubeflow_deployment_overview.html">
+        Kubeflow部署
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/aicp_example_kubeflow_operations_and_tasks_overview.html">
+        <div class="na-navbar-padding"> Kubeflow作業與工作範例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_kubeflow_operations_and_tasks_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html">
+        為資料科學家或開發人員提供Jupyter筆記型電腦工作區
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_notebooks_and_pipelines.html">
+        筆記型電腦和管線範例
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_apache_airflow_deployment.html">
+        Apache Airflow部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_apache_airflow_workflows_overview.html">
+        Apache氣流工作流程範例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_trident_operations_overview.html">
+        Trident作業範例
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/aicp_example_high-performance_jobs_for_ontap_ai_deployments_overview.html">
+        <div class="na-navbar-padding"> 適用於AI部署的高效能工作範例ONTAP</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_example_high-performance_jobs_for_ontap_ai_deployments_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_execute_a_single-node_ai_workload.html">
+        執行單節點AI工作負載
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_execute_a_synchronous_distributed_ai_workload.html">
+        執行同步分散式AI工作負載
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_performance_testing.html">
+        效能測試
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aicp_conclusion.html">
+        結論
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 採用Iguazio的MLRun Pipeline</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_technology_overview.html">
+        技術總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_software_and_hardware_requirements.html">
+        軟體與硬體需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_network_device_failure_prediction_use_case_summary.html">
+        網路裝置故障預測使用案例摘要
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/mlrun_setup_overview.html">
+        <div class="na-navbar-padding"> 設定</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_configuring_kubernetes_cluster.html">
+        設定Kubernetes叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_define_persistent_volume_claim.html">
+        定義持續Volume宣告
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/mlrun_deploying_the_application.html">
+        <div class="na-navbar-padding"> 部署應用程式</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_get_code_from_github.html">
+        從GitHub取得程式碼
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_configure_working_environment.html">
+        設定工作環境
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_deploy_grafana_dashboard.html">
+        部署Grafana儀表板
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/mlrun_where_to_find_additional_information.">
+        何處可找到其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://github.com/NetApp/netapp-dataops-toolkit">
+        NetApp DataOps工具套件
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/65882-tr-4915.pdf">
+        利用E系列和BeeGFS進行資料搬移、以利AI和分析工作流程
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用案例</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 運用NetApp AI進行情緒分析</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-support-center-analytics.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-use-cases.html">
+        使用案例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-architecture.html">
+        架構
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-design-considerations.html">
+        設計考量
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-deploying-support-center-sentiment-analysis.html">
+        部署支援中心意見分析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-validation-results.html">
+        驗證結果
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-videos-and-demos.html">
+        影片與示範
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-sent-where-to-find-additional-information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Azure的分散式訓練：點選率預測</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_technology_overview.html">
+        技術總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_software_requirements.html">
+        軟體需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_cloud_resource_requirements.html">
+        雲端資源需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_click-through_rate_prediction_use_case_summary.html">
+        點選率預測使用案例摘要
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 設定</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_install_and_set_up_the_aks_cluster.html">
+        安裝及設定高效能叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_create_a_delegated_subnet_for_azure_netapp_files.html">
+        建立委派子網路Azure NetApp Files 以供使用
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_peer_aks_vnet_and_azure_netapp_files_vnet.html">
+        Peer aks vnet和Azure NetApp Files vernet
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_install_trident.html">
+        安裝Trident
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_set_up_dask_with_rapids_deployment_on_aks_using_helm.html">
+        使用Helm在高峰上設定dask、並部署快速部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_azure_netapp_files_performance_tiers.html">
+        效能等級Azure NetApp Files
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 點選率預測資料處理與模型訓練</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_libraries_for_data_processing_and_model_training.html">
+        用於資料處理和模型訓練的程式庫
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_load_criteo_click_logs_day_15_in_pandas_and_train_a_scikit-learn_random_forest_model.html">
+        Load Criteo按一下「日誌第15天」（日誌第15天）、然後訓練sci套 件學習隨機樹系模式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_load_day_15_in_dask_and_train_a_dask_cuml_random_forest_model.html">
+        在dask中載入第15天、並訓練dask cuML隨機樹系模型
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_monitor_dask_using_native_task_streams_dashboard.html">
+        使用原生工作串流儀表板監控dsask
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_training_time_comparison.html">
+        訓練時間比較
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_monitor_dask_and_rapids_with_prometheus_and_grafana.html">
+        利用Prometheus和Grafana監控dask和水流
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_dataset_and_model_versioning_using_netapp_dataops_toolkit.html">
+        使用NetApp DataOps Toolkit的資料集與模型版本管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_jupyter_notebooks.html">
+        Jupyter筆記型電腦以供參考
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/aks-anf_version_history.html">
+        版本歷程記錄
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/runai-ld_executive_summary.html">
+        <div class="na-navbar-padding"> 分散式Azure訓練：Lane偵測</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/runai-ld_solution_overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/runai-ld_lane_detection_distributed_training_with_run_ai.html">
+        線道偵測–採用RUN AI的分散式訓練
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/runai-ld_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/runai-ld_additional_information.html">
+        其他資訊
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/hcaios_executive_summary.html">
+        <div class="na-navbar-padding"> 採用資料快取的混合雲AI作業系統</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_use_case_overview_and_problem_statement.html">
+        使用案例總覽與問題陳述
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_solution_overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_concepts_and_components.html">
+        概念與元件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_hardware_and_software_requirements.html">
+        硬體與軟體需求
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/hcaios_solution_deployment_and_validation_details.html">
+        <div class="na-navbar-padding"> 解決方案部署與驗證詳細資料</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_ontap_ai_deployment.html">
+        支援AI部署ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_kubernetes_deployment.html">
+        Kubernetes部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_cnvrg.io_deployment.html">
+        Cnvrg-IO部署
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_acknowledgments.html">
+        感謝
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/hcaios_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/media/17082-tr4732.pdf">
+        將資料從巨量資料環境移至AI環境
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> AI在Edge大會上推斷- NetApp採用Lenovo ThinkSystem -解決方案設計</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-technology-overview.html">
+        技術總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-test-plan.html">
+        測試計畫
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-test-configuration.html">
+        測試組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-test-procedure.html">
+        測試程序
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-test-results.html">
+        測試結果
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-architecture-sizing-options.html">
+        架構規模調整選項
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/ai-edge-conclusion.html">
+        結論
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/cainvidia_executive_summary.html">
+        <div class="na-navbar-padding"> 使用NVIDIA的對話AI</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_solution_overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_solution_technology.html">
+        解決方案技術
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/cainvidia_build_a_virtual_assistant_using_jarvis,_cloud_sync,_and_nemo_overview.html">
+        <div class="na-navbar-padding"> 使用JARVIS、Cloud Sync VMware及Nemo建置虛擬助理</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_jarvis_deployment.html">
+        JARVIS部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_customize_states_and_flows_for_retail_use_case.html">
+        針對零售使用案例自訂狀態和流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_connect_to_third-party_apis_as_fulfillment_engine.html">
+        將第三方API連線為履約引擎
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_netapp_retail_assistant_demonstration.html">
+        NetApp零售助理示範
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_use_netapp_cloud_sync_to_archive_conversation_history.html">
+        使用NetApp Cloud Sync 解決方案將對話記錄歸檔
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_expand_intent_models_using_nemo_training.html">
+        使用Nemo訓練來擴充Intent模式
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_acknowledgments.html">
+        感謝
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/cainvidia_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/osrunai_executive_summary.html">
+        <div class="na-navbar-padding"> 採用Run:AI的NetApp協調解決方案</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_solution_overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_solution_technology_overview.html">
+        解決方案技術
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ai/osrunai_optimal_cluster_and_gpu_utilization_with_run_ai_overview.html">
+        <div class="na-navbar-padding"> 利用Run AI實現最佳叢集與GPU使用率</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_run_ai_installation.html">
+        執行AI安裝
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_run_ai_dashboards_and_views.html">
+        執行AI儀表板和檢視
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_creating_projects_for_data_science_teams_and_allocating_gpus.html">
+        為Data科學團隊建立專案並分配GPU
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_submitting_jobs_in_run_ai_cli.html">
+        在Run AI CLI中提交工作
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_achieving_high_cluster_utilization.html">
+        實現高叢集使用率
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_fractional_gpu_allocation_for_less_demanding_or_interactive_workloads.html">
+        部分GPU配置、適用於要求較低或互動性較差的工作負載
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_achieving_high_cluster_utilization_with_over-uota_gpu_allocation.html">
+        透過過度配置GPU來實現高叢集使用率
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_basic_resource_allocation_fairness.html">
+        基本資源配置公平性
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_over-quota_fairness.html">
+        過度配額的公平性
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_saving_data_to_a_trident-provisioned_persistentvolume.html">
+        將資料儲存至Trident佈建的PersistentVolume
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_testing_details_for_section_4.8.html">
+        第4.8節的測試詳細資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_testing_details_for_section_4.9.html">
+        第4.9節的測試詳細資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_testing_details_for_section_4.10.html">
+        第4.10節的測試詳細資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ai/osrunai_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="http://www.netapp.com/us/media/tr-4799-design.pdf">
+        適用於ONTAP 自主駕駛工作負載的NetApp SAI解決方案設計
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/7395-tr4811.pdf">
+        適用於ONTAP 醫療產業的NetApp人工智慧參考架構：診斷影像
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17205-tr4807pdf.pdf">
+        適用於ONTAP 金融服務工作負載的NetApp AI參考架構
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4785.pdf">
+        採用NetApp E系列和BeeGFS進行AI部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/19426-nva-1150-design.pdf">
+        Quantum StorNext with NetApp E系列系統設計指南
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/19429-nva-1150-deploy.pdf">
+        Quantum StorNext with NetApp E系列系統部署指南
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/data-analytics/index.html">
+        <div class="na-navbar-padding"> 現代化資料分析</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Big Data分析資料到人工智慧</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-customer-challenges.html">
+        客戶挑戰
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-data-mover-solution.html">
+        資料移動機解決方案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-data-mover-solution-for-ai.html">
+        AI的資料移動機解決方案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-gpfs-to-netapp-ontap-nfs.html">
+        GPFS移轉至NetApp ONTAP 的不整NFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-hdfs-and-mapr-fs-to-ontap-nfs.html">
+        HDFS與MapR-FS移轉ONTAP 至不適用NFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-business-benefits.html">
+        商業效益
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-gpfs-to-nfs-detailed-steps.html">
+        GPFS至NFS -詳細步驟
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-mapr-fs-to-ontap-nfs.html">
+        從MapR-FS移轉ONTAP 到Sfnfs
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/bda-ai-where-to-find-additional-information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Conflent Kafka的最佳實務做法</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-solution.html">
+        解決方案架構詳細資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-technology-overview.html">
+        技術總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-confluent-kafka-certification.html">
+        一致驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-performance-tests-with-scalability.html">
+        可擴充性的效能測試
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-kafka-s3-connector.html">
+        Connent S3連接器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-confluent-kafka-rebalance.html">
+        協調自我重新平衡叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-best-practice-guidelines.html">
+        最佳實務準則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-sizing.html">
+        規模調整
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/confluent-kafka-conclusion.html">
+        結論
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp混合雲資料解決方案：根據客戶使用案例、Spark和Hadoop</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-solution-overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-data-fabric-powered-by-netapp-for-big-data-architecture.html">
+        採用NetApp技術的Data Fabric、適用於Big Data架構
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-hadoop-data-protection-and-netapp.html">
+        Hadoop資料保護與NetApp
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-overview-of-hadoop-data-protection-use-cases.html">
+        Hadoop資料保護使用案例總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-use-case-1--backing-up-hadoop-data.html">
+        使用案例1 -備份Hadoop資料
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-use-case-2--backup-and-disaster-recovery-from-the-cloud-to-on-premises.html">
+        使用案例2：從雲端到內部部署的備份與災難恢復
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-use-case-3--enabling-devtest-on-existing-hadoop-data.html">
+        使用案例3：在現有Hadoop資料上啟用DevTest
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-use-case-4--data-protection-and-multicloud-connectivity.html">
+        使用案例4：資料保護與多雲端連線
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-use-case-5--accelerate-analytic-workloads.html">
+        使用案例5：加速分析工作負載
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/data-analytics/hdcs-sh-conclusion.html">
+        結論
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/58015-sb-4154.pdf">
+        不同分析策略的不同解決方案解決方案簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/20646-tr-4869.pdf">
+        NetApp StorageGRID 支援Splunk SmartStore
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/16851-tr-4623pdf.pdf">
+        NetApp E系列E5700與Splunk Enterprise
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/26877-nva-1157-deploy.pdf">
+        Apache Spark Workload with NetApp儲存解決方案（部署指南）
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ehc/index.html">
+        <div class="na-navbar-padding"> 企業混合雲</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 適用於公有雲的VMware</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-hyperscalers.html">
+        超大規模雲端上的VMware Cloud
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-support-configs.html">
+        支援的組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-config-vmware-intro.html">
+        超大規模擴充組態中的VMware
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-datastore-intro.html">
+        超大規模雲端中的NetApp儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-summary.html">
+        摘要與結論
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> VMware混合雲使用案例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-use-cases.html">
+        使用案例總覽
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp在Hyperscaler Cloud中的重要功能</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/aws/aws-vmc.html">
+        NetApp for VMC on AWS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/azure/azure-avs.html">
+        適用於Azure上AVS的NetApp
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/gcp/gcp-gcve.html">
+        適用於Google Cloud上的GCVETM
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/index.html">
+        <div class="na-navbar-padding"> 虛擬化</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/netapp-vmware.html">
+        開始使用NetApp和VMware
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> VMware ONTAP 虛擬化技術</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp ONTAP 為VMware vSphere管理員帶來的效益</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_admin_introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_admin_unified_storage.html">
+        統一化儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_admin_storage_efficiencies.html">
+        儲存效率
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_admin_vvols_and_spbm.html">
+        虛擬Volume與儲存原則型管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_admin_hybrid_cloud.html">
+        混合雲
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_ontap_for_vsphere.html">
+        <div class="na-navbar-padding"> VMware vSphere搭配ONTAP 《最佳實務做法》</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_ontap_capabilities_for_vsphere.html">
+        vSphere的功能ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_best_practices.html">
+        最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_other_capabilities_for_vsphere.html">
+        vSphere的其他功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_ontap_and_vsphere_release-specific_information.html">
+        針對vSphere版本的資訊ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_recommended_esxi_host_and_other_ontap_settings.html">
+        建議的ESXi主機和其他ONTAP 功能設定
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_contact_us.html">
+        聯絡我們
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_1._introduction_to_srm_with_ontap.html">
+        <div class="na-navbar-padding"> VMware Site Recovery Manager搭配NetApp ONTAP 功能9</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_new_features_with_srm_and_ontap_tools.html">
+        SRM和ONTAP VMware Tools的新功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_deployment_best_practices.html">
+        部署最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_operational_best_practices.html">
+        營運最佳實務做法
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_replication_topologies.html">
+        複寫拓撲
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_appendix_a__troubleshooting_srm_when_using_vvols_replication.html">
+        使用vVols複寫時疑難排解SRM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsrm-ontap9_additional_information.html">
+        其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/tools-vmware-secure-development-activities.html">
+        VMware vSphere適用的VMware工具-產品安全性ONTAP
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/vsphere_auto_introduction.html">
+        <div class="na-navbar-padding"> VMware vSphere Automation</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_block.html">
+        <div class="na-navbar-padding"> 傳統區塊儲存資源配置</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_block_fc.html">
+        VMFS -光纖通道
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_block_fcoe.html">
+        VMFS -乙太網路光纖通道
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_block_iscsi.html">
+        VMFS - iSCSI
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_block_nvmeof.html">
+        VMFS - NVMe over Fabric
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_file.html">
+        <div class="na-navbar-padding"> 傳統檔案儲存資源配置</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_file_nfs.html">
+        NFS - v3
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_auto_file_nfs41.html">
+        NFS - v4.1
+      </a></li></ul></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_ontap_whats_new.html">
+        VMware vSphere的功能介紹ONTAP
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 適用於公有雲的VMware</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-hyperscalers.html">
+        超大規模雲端上的VMware Cloud
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-support-configs.html">
+        支援的組態
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-config-vmware-intro.html">
+        超大規模擴充組態中的VMware
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-datastore-intro.html">
+        超大規模雲端中的NetApp儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-summary.html">
+        摘要與結論
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> VMware混合雲使用案例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ehc/ehc-use-cases.html">
+        使用案例總覽
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 虛擬桌面</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 虛擬桌面服務（VDS）</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_hybrid_cloud_vdi_with_virtual_desktop_service.html">
+        <div class="na-navbar-padding"> 採用NetApp虛擬桌面服務的混合雲VDI</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_use_cases.html">
+        使用案例
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_netapp_virtual_desktop_service_overview.html">
+        NetApp虛擬桌面服務總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_netapp_hci_overview.html">
+        概述NetApp HCI
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_nvidia_licensing.html">
+        NVIDIA授權
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_deployment.html">
+        部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_hybrid_cloud_environment.html">
+        混合雲環境
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_single_server_load_test_with_login_vsi.html">
+        使用登入VSI進行單一伺服器負載測試
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_management_portal.html">
+        管理入口網站
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_user_management.html">
+        使用者管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_workspace_management.html">
+        工作區管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_application_management.html">
+        應用程式管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_why_ontap.html">
+        虛擬桌面服務的功能ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_data_management.html">
+        資料管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_operation_management.html">
+        營運管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_tools_and_logs.html">
+        工具與記錄
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_gpu_considerations.html">
+        GPU考量
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_solutions_for_industry.html">
+        業界解決方案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/vdi-vds/hcvdivds_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.esg-global.com/validation/esg-technical-validation-vdi-at-enterprise-scale-with-netapp-virtual-desktop-service">
+        ESG技術驗證：採用NetApp虛擬桌面服務的企業級VDI
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> VMware Horizon</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/nva-1132-design.pdf">
+        使用VMware進行終端使用者運算（設計指南）
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/nva-1129-design.pdf">
+        使用VMware與NVIDIA GPU進行終端使用者運算（設計指南）
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/nva-1129-deploy.pdf">
+        使用VMware與NVIDIA GPU進行終端使用者運算（部署指南）
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4792.pdf">
+        使用VMware for 3D Graphics進行終端使用者運算
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.cisco.com/c/en/us/solutions/design-zone/data-center-design-guides/flexpod-design-guides.html?flt1_general-table0=Desktop%20Virtualization">
+        解決方案FlexPod
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 示範與教學課程</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/virtualization/vsphere_demos_videos.html">
+        影片
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部落格</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp與VMware Cloud Foundation（VCF）</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/blog/netapp-vmware-cloud-foundation-getting-started">
+        第1部分：入門
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/blog/netapp-vmware-cloud-foundation-ontap-principal-storage">
+        第2部分：vcf和ONTAP 不完整的主要儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/blog/netapp-vmware-cloud-foundation-element-principal-storage">
+        第3部分：vcf和Element主要儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/blog/netapp-vmware-cloud-foundation-supplemental-storage">
+        第4部分ONTAP ：VMware的VMware及補充儲存工具
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://cloud.netapp.com/blog/azure-blg-optimize-storage-for-cloud-based-vmware-deployments">
+        最佳化雲端型VMware部署的儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://cloud.netapp.com/blog/azure-blg-netapp-cloud-offerings-with-azure-vmware-solution">
+        使用NetApp雲端產品開始使用Azure VMware解決方案
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 容器</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_solution_overview.html">
+        <div class="na-navbar-padding"> Red Hat OpenShift with NetApp</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_overview_openshift.html">
+        <div class="na-navbar-padding"> Red Hat Openshift總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_openshift_BM.html">
+        裸機上的OpenShift
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_openshift_OSP.html">
+        Red Hat OpenStack平台上的OpenShift
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_openshift_RHV.html">
+        Red Hat虛擬化的OpenShift
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_openshift_VMW.html">
+        VMware vSphere上的OpenShift
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_overview_netapp.html">
+        <div class="na-navbar-padding"> NetApp儲存系統總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_netapp_ontap.html">
+        NetApp ONTAP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_netapp_element.html">
+        NetApp Element
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_overview_storint.html">
+        <div class="na-navbar-padding"> NetApp儲存整合概述</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_overview_astra.html">
+        <div class="na-navbar-padding"> NetApp Astra控制中心總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_astra_register.html">
+        註冊Red Hat OpenShift叢集
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_astra_applications.html">
+        選擇要保護的應用程式
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_astra_protect.html">
+        保護您的應用程式
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_overview_trident.html">
+        <div class="na-navbar-padding"> NetApp Astra Trident總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_trident_ontap_nfs.html">
+        NetApp ONTAP 不適用於NFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_trident_ontap_iscsi.html">
+        NetApp ONTAP 支援iSCSI
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_trident_element_iscsi.html">
+        支援iSCSI NetApp Element
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> OpenShift的進階組態選項</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_load_balancers.html">
+        <div class="na-navbar-padding"> 探索負載平衡器選項</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_LB_MetalLB.html">
+        MetalLB.
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_LB_F5BigIP.html">
+        F5 BIG-IP
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_private_registry.html">
+        建立私有映像登錄
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_use_cases.html">
+        <div class="na-navbar-padding"> 解決方案驗證與使用案例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_pipeline.html">
+        使用持續儲存設備部署Jenkins CI/CD管道
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 使用NetApp ONTAP 功能在Red Hat OpenShift上設定多租戶共享</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_architecture.html">
+        架構
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_configuration.html">
+        <div class="na-navbar-padding"> 組態</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_configuration_prerequisites.html">
+        先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html">
+        叢集管理員工作
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html">
+        儲存管理員工作
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_validation.html">
+        驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_multitenancy_scaling.html">
+        擴充
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_overview.html">
+        總覽
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html">
+        先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_deployment.html">
+        透過營運者部署
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 工作流程</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_create_vm.html">
+        建立VM
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html">
+        VM即時移轉
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html">
+        虛擬機器複製
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html">
+        從Snapshot建立VM
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_overview.html">
+        總覽
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html">
+        先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html">
+        透過營運者部署
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 功能</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_features_cluster_lcm.html">
+        叢集生命週期管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_features_application_lcm.html">
+        應用程式生命週期管理
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_features_governance_risk.html">
+        治理與風險
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_features_observability.html">
+        觀察能力
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_use_case_advanced_cluster_management_features_create_resources.html">
+        建立資源
+      </a></li></ul></li></ul></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_videos_and_demos.html">
+        影片/示範
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/rh-os-n_additional_information.html">
+        其他資訊
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Google Anthos</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/containers/bmanthos_introduction.html">
+        <div class="na-navbar-padding"> 裸機上的Anthos</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_solution_overview.html">
+        解決方案總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_solution_requirements.html">
+        解決方案需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_deployment_summary.html">
+        部署摘要
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_solution_validation.html">
+        解決方案驗證
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/containers/bmanthos_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 企業應用程式與資料庫</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/netapp-solutions-sap/">
+        SAP與SAP HANA
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Oracle資料庫</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/25782-nva-1155.pdf">
+        Oracle 19c RAC資料庫位於FlexPod 包含Cisco UCS和NetApp AFF 透過FC的NetApp UCA800的不支援資料中心
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4250.pdf">
+        SAP搭配Oracle on UNIX和NFS搭配NetApp叢集Data ONTAP 式功能
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 部署Oracle資料庫</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/8744-tr3633.pdf">
+        在NetApp ONTAP 上部署Oracle資料庫
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ent-apps-db/marketing_overview.html">
+        <div class="na-navbar-padding"> 在ONTAP NFS上自動部署Oracle 19c for Sfor</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/getting_started_requirements.html">
+        入門與需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/awx_automation.html">
+        自動化Oracle 19c AWX/Tower部署
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/cli_automation.html">
+        自動化Oracle 19c CLI部署
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Oracle資料庫資料保護</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/ent-apps-db/db_protection_overview.html">
+        <div class="na-navbar-padding"> 自動化Oracle資料保護</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/db_protection_getting_started.html">
+        入門與需求
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/db_protection_awx_automation.html">
+        自動Oracle Data Protection for AWX/Tower
+      </a></li></ul></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17248-tr4794pdf.pdf">
+        NetApp EF系列上的Oracle資料庫
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> Microsoft SQL Server</div>
+      </a>
+      <ul><li class="subfolders "><a href="/zh-tw/netapp-solutions/ent-apps-db/sql-srv-anf_overview.html">
+        <div class="na-navbar-padding"> SQL Server on Azure NetApp Files</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/sql-srv-anf_factors_to_consider.html">
+        需要考量的因素
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/sql-srv-anf_reference_design_real-time_high-level_design.html">
+        參考設計（即時高階設計）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/sql-srv-anf_conclusion.html">
+        結論
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/sql-srv-anf_where_to_find_additional_information.html">
+        何處可找到其他資訊
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/tr-4467.pdf">
+        SAP搭配Microsoft SQL Server、在Windows上使用叢集Data ONTAP 式功能
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/15613-na-446.pdf">
+        現代化Microsoft SQL Server
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17086-tr4764pdf.pdf">
+        採用NetApp EF系列的Microsoft SQL Server最佳實務做法指南
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 混合雲資料庫解決方案SnapCenter 搭配</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_usecases.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_architecture.html">
+        解決方案架構
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_requirements.html">
+        解決方案需求
+      </a></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_prerequisite.html">
+        <div class="na-navbar-padding"> 先決條件組態</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_prereq_onprem.html">
+        內部部署的先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_prereq_cloud.html">
+        公有雲的先決條件
+      </a></li></ul></li><li class="subfolders "><a href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_getting_started.html">
+        <div class="na-navbar-padding"> 快速入門總覽</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_getting_started_onprem.html">
+        內部部署快速入門
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_getting_started_aws.html">
+        AWS公有雲入門
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_devtest.html">
+        開發/測試爆增至雲端的工作流程
+      </a></li><li class="  active "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/ent-apps-db/hybrid_dbops_snapcenter_dr.html">
+        災難恢復工作流程
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料移轉與資料保護</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料移轉</div>
+      </a>
+      <ul><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> NetApp XCP最佳實務準則</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-netapp-xcp-overview.html">
+        NetApp XCP
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-migration-workflow-overview.html">
+        移轉工作流程
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-file-analytics.html">
+        檔案分析
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-deployment-steps.html">
+        部署步驟
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-sizing-guidelines-overview.html">
+        規模調整準則
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-performance-tuning.html">
+        效能調校
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 客戶案例</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-customer-scenarios-overview.html">
+        總覽
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-data-lake-to-ontap-nfs.html">
+        資料湖到ONTAP SFC NFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-high-performance-computing-to-ontap-nfs.html">
+        將高效能運算技術整ONTAP 合至VMware NFS
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-using-the-xcp-data-mover-to-migrate-millions-of-small-files-to-flexible-storage.html">
+        使用XCP Data Mover將數百萬個小型檔案移轉至彈性儲存設備
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-using-the-xcp-data-mover-to-migrate-large-files.html">
+        使用XCP Data Mover移轉大型檔案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-duplicate-files.html">
+        重複的檔案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-specific-date-based-scan-and-copy-of-data.html">
+        資料的特定日期型掃描與複本
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-creating-a-csv-file-from-smb-cifs-share.html">
+        從SMB/CIFS共用區建立CSV檔案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-data-migration-from-7-mode-to-ontap.html">
+        資料從7-Mode移轉至ONTAP VMware
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html">
+        透過ACL從來源儲存箱移轉CIFS資料至ONTAP 功能區
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-best-practice-guidelines-and-recommendations.html">
+        最佳實務準則與建議
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-troubleshooting.html">
+        疑難排解
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-where-to-find-additional-information.html">
+        何處可找到其他資訊
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/xcp/xcp-bp-version-history.html">
+        版本歷程記錄
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 資料保護</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17042-tr4320pdf.pdf">
+        NetApp E系列與CommVault Data Platform V11
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/17159-tr4471pdf.pdf">
+        E系列與EF系列參考架構與儲存最佳實務做法搭配Veeam備份複寫9.5
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/pdf.html?item=/media/16433-tr-4704pdf.pdf">
+        使用NetApp E系列儲存設備部署Veritas NetBackup
+      </a></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 安全性</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="https://www.netapp.com/us/media/nva-1143.pdf">
+        適用於FISMA的NIST安全控管、適用於多租戶基礎架構的HyTrust
+      </a></li></ul></li></ul></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 解決方案自動化</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/automation_introduction.html">
+        簡介
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://netapp.io/2018/10/08/getting-started-with-netapp-and-ansible-install-ansible/">
+        NetApp解決方案自動化與Ansible入門
+      </a></li><li class="subfolders "><a href="#">
+        <div class="na-navbar-padding"> 設定Ansible控制節點（適用於CLI型部署）</div>
+      </a>
+      <ul><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/automation_rhel_centos_setup.html">
+        適用於RHEL/ CentOS機器
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/automation_ubuntu_debian_setup.html">
+        適用於Ubuntu / Debian機器
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/setup_awx.html">
+        設定AWX / Ansible Tower（適用於AWX /直立式部署）
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/authentication_tokens.html">
+        收集CVO和Connector部署的先決條件
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/automation/cloud_volumes_terraform.html">
+        透過Terraform實現雲端Volume自動化
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Automation]%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20<request_title>">
+        要求自動化
+      </a></li></ul></li><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/flexpod/">
+        解決方案FlexPod
+      </a></li><li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/hci-solutions/">
+        老NetApp HCI 舊的解決方案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/change-log-display.html">
+        變更記錄
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/about.html">
+        關於NetApp解決方案
+      </a></li><li class=" "><a class="na-navbar-padding" href="/zh-tw/netapp-solutions/reference_legal_notices.html">
+        法律聲明
+      </a></li></ul>
+</div>
+<script>
+  window.onscroll = () => {
+    const value = -40 - (document.body.scrollHeight - (window.innerHeight + document.scrollingElement.scrollTop));
+    
+    document.getElementById("sidebar-height").style.bottom = Math.max(0,value) + "px";
+};
+</script>
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code">
+    <!-- Begin of page container --><article class="page-content">
+      <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item">
+          <a href="https://docs.netapp.com">docs.netapp.com</a>
+        </li>
+        
+
+        
+
+        <li class="n-breadcrumb__list-item">
+          <a href="/zh-tw/netapp-solutions/">NetApp&nbsp;Solutions</a>
+        </li>
+
+      </ul>
+    </div>
+    <div style="clear: both"></div><!-- Main needs to have height -->
+  </div>
+</div>
+
+      <div class="ie-nmt-disclaimer">
+  <span>
+    <div class="ie-nmt-disclaimer-container">
+      <div class="ie-nmt-disclaimer-icon">
+        <svg class="luci-icon" aria-hidden="true">
+          <use xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#circle-info">
+        </svg>
+      </div>
+      <div class="ie-nmt-disclaimer-content">
+        <span> 本繁體中文版使用機器翻譯，譯文僅供參考，若與英文版本牴觸，應以英文版本為準。 </span>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </span>
+</div><div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">災難恢復工作流程</h1>
+</div>
+
+
+<p class="page-details">
+  
+    
+    <time datetime="2022-05-03 06:18:11 +0000">05/03/2022</time>
+    
+  
+
+
+</p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="hybrid_dbops_snapcenter_devtest.html">"上一篇：開發/測試爆增至雲端的工作流程。"</a></p>
+</div>
+<div class="paragraph">
+<p>企業已將公有雲視為可行的災難恢復資源和目的地。此程序盡可能順暢無礙。SnapCenter這項災難恢復工作流程與複製工作流程非常類似、但資料庫恢復會透過上次複寫到雲端的可用記錄執行、以恢復所有可能的商業交易。不過、災難恢復還有其他專屬的預先組態和組態後步驟。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="將內部部署的oracle正式作業db複製到雲端以進行災難恢復">將內部部署的Oracle正式作業DB複製到雲端以進行災難恢復</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>為了驗證實體複本還原是否透過上次可用的記錄執行、我們建立了一個小型測試表格、並插入一列。測試資料會在完整還原至上次可用的記錄後恢復。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_01.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>以SnapCenter Oracle資料庫管理使用者ID登入功能。瀏覽至「Resources（資源）」索引標籤、其中顯示SnapCenter 受支援的Oracle資料庫。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_02.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取Oracle記錄資源群組、然後按一下「立即備份」以手動執行Oracle記錄備份、以清除雲端中目的地的最新交易。在真正的災難恢復案例中、最後一筆可恢復的交易取決於資料庫記錄的磁碟區複寫頻率、而這又取決於公司的RTO或RPO原則。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_03.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_04.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/netapp-solutions/images/note.svg" alt="附註">
+</td>
+<td class="content">
+在災難恢復案例中、非同步SnapMirror會在資料庫記錄備份時間間隔內、遺失尚未將資料移至雲端目的地的資料。為了將資料遺失降至最低、可以排程更頻繁的記錄備份。不過、記錄備份頻率有技術上可達成的限制。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>選取次要鏡射備份上的最後一個記錄備份、然後掛載記錄備份。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_05.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_06.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取上次完整資料庫備份、然後按一下「Clone（複製）」以啟動複製工作流程。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_07.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>在主機上選取唯一的實體複本資料庫ID。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_08.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>為Oracle Flash恢復區域和線上記錄檔配置記錄磁碟區、並將其掛載至目標DR伺服器。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_09.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_10.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/netapp-solutions/images/note.svg" alt="附註">
+</td>
+<td class="content">
+Oracle複製程序不會建立記錄磁碟區、在複製之前、必須先在DR伺服器上進行資源配置。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>選取目標實體複製主機和位置、以放置資料檔案、控制檔和重作記錄。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_11.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取複本的認證資料。填寫目標伺服器上的Oracle主目錄組態詳細資料。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_12.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>指定要在複製前執行的指令碼。如有需要、可調整資料庫參數。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_13.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取「直到取消」作為還原選項、讓還原在所有可用的歸檔記錄中執行、以重新執行複寫到次要雲端位置的最後一筆交易。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_14.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>如有需要、請設定用於電子郵件通知的SMTP伺服器。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_15.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>災難恢復複製摘要。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_16.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>複製的DB會在SnapCenter 複製完成後立即以支援功能登錄、並可用於備份保護。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_16_1.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="oracle的災難恢復複製後驗證與組態">Oracle的災難恢復複製後驗證與組態</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>驗證上次在雲端的DR位置排清、複寫及恢復的測試交易。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_17.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>設定Flash恢復區域。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_ora_dr_18.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>設定Oracle接聽程式以供使用者存取。</p>
+</li>
+<li>
+<p>將複製的磁碟區從複製的來源磁碟區分割開。</p>
+</li>
+<li>
+<p>從雲端還原複寫至內部部署、然後重建故障的內部部署資料庫伺服器。</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/netapp-solutions/images/note.svg" alt="附註">
+</td>
+<td class="content">
+複本分割可能會產生比正常作業高出許多的暫用儲存空間使用率。不過、在內部部署資料庫伺服器重新建置之後、可以釋出額外空間。
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="將內部部署sql正式作業資料庫複製到雲端以進行災難恢復">將內部部署SQL正式作業資料庫複製到雲端以進行災難恢復</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>同樣地、為了驗證SQL複製還原是否透過上次可用的記錄執行、我們建立了一個小型測試表格、並插入一列。測試資料會在完整還原至最後可用的記錄後恢復。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_01.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>使用SQL Server的資料庫管理使用者ID登入SnapCenter 支援功能。瀏覽至「資源」索引標籤、此索引標籤會顯示SQL Server保護資源群組。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_02.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>手動執行記錄備份、以清空最後一筆交易、將其複寫至公有雲的次要儲存設備。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_03.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取上次完整的SQL Server備份以進行複本。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_04.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>設定Clone Server（Clone伺服器）、Clone Instance（複製執行個體）、Clone Name（複製名稱）及mount（掛載）選項等Clone設定。執行複製的次要儲存位置會自動填入。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_05.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>選取要套用的所有記錄備份。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_06.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>指定要在複製之前或之後執行的任何選用指令碼。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_07.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>如果需要電子郵件通知、請指定一個SMTP伺服器。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_08.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>災難恢復複製摘要。複製的資料庫會立即登錄SnapCenter 到支援資料中心、並提供備份保護。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_09.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_10.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="sql的災難恢復複製後驗證與組態">SQL的災難恢復複製後驗證與組態</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>監控複製工作狀態。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_11.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>驗證上一筆交易是否已複寫、並以所有記錄檔複製與還原進行還原。</p>
+<div class="paragraph">
+<p><span class="image"><img src="./../media/snapctr_sql_dr_12.PNG" alt="錯誤：缺少圖形影像"></span></p>
+</div>
+</li>
+<li>
+<p>在SnapCenter DR伺服器上設定新的靜態記錄目錄、以進行SQL Server記錄備份。</p>
+</li>
+<li>
+<p>將複製的磁碟區從複製的來源磁碟區分割開。</p>
+</li>
+<li>
+<p>從雲端還原複寫至內部部署、然後重建故障的內部部署資料庫伺服器。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="哪裡可以取得協助">哪裡可以取得協助？</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>如果您需要本解決方案和使用案例的協助、請加入 <a href="https://netapppub.slack.com/archives/C021R4WC0LC">"NetApp解決方案自動化社群支援Slack通路"</a> 並尋找解決方案自動化通路、以張貼您的問題或詢問。</p>
+</div>
+</div>
+</div>
+
+    </article>
+    <!-- Page Container -->
+  </div>
+
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/us/legal/copyright.aspx">© 2022 NetApp, Inc.</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/terms-of-use/">legal-terms</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/privacy-policy/">legal-privacy</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://www.netapp.com/company/legal/cookie-policy/">legal-cookies</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a class="ot-sdk-show-settings">cookie-settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="n-footer__bottom-right">
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link">
+              <span class="n-footer__fine-print">對我們的網站有任何意見或要求？</span>
+              <a target="_self" href="javascript:netapp_mailto()">請與我們聯絡</a>
+            </li>
+            <li class="n-footer__copyright-link">
+              <a href="https://docs.netapp.com/zh-tw/announcements/">公告</a>
+            </li>
+          </ul>
+        </div>
+        <div class="n-footer__social-links">
+          <ul class="n-footer__social-link-list">
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com"
+                target="_blank" title="blog" alt="blog">
+                <span class="n-footer__social-link-text">blog</span>
+                <svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+                  <title>blog@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#blog"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/"
+                target="_blank" title="community" alt="community">
+                <span class="n-footer__social-link-text">community</span>
+                <svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+                  <title>community@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#comments"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp"
+                target="_blank" title="twitter" alt="twitter">
+                <span class="n-footer__social-link-text">twitter</span>
+                <svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+                  <title>twitter@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#twitter"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp"
+                target="_blank" title="facebook" alt="facebook">
+                <span class="n-footer__social-link-text">facebook</span>
+                <svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+                  <title>facebook@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#facebook"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-linkedin"
+                href="https://www.linkedin.com/company/netapp" target="_blank" title="linkedin" alt="linkedin">
+                <span class="n-footer__social-link-text">linkedin</span>
+                <svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+                  <title>linkedin@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#linkedin"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-youtube"
+                href="https://www.youtube.com/user/NetAppTV" target="_blank" title="youtube" alt="youtube">
+                <span class="n-footer__social-link-text">youtube</span>
+                <svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+                  <title>youtube@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#youtube"></use>
+                </svg>
+              </a>
+            </li>
+            <li class="n-footer__social-link-list-item">
+              <a class="n-footer__social-link" data-ntap-social="follow-slideshare"
+                href="https://www.slideshare.net/NetApp" target="_blank" title="slideshare" alt="slideshare">
+                <span class="n-footer__social-link-text">slideshare</span>
+                <svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+                  <title>slideshare@</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xlink:href="/zh-tw/netapp-solutions/common/svg/sprite.svg#slideshare"></use>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+      </div><!-- Elasticsearch JS -->
+      <script type="text/javascript" src='/zh-tw/netapp-solutions/js/bundle.js'></script>
+
+      <!-- Syntax Highlighting -->
+      <script type="text/javascript" src='/zh-tw/netapp-solutions/js/prism.js'></script>
+      <script type="text/javascript" src='/zh-tw/netapp-solutions/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/zh-tw/netapp-solutions/js/www-ntap.js'></script>
+    <script src='/zh-tw/netapp-solutions/js/tabbed-blocks.js'></script>
+  </body></html>
