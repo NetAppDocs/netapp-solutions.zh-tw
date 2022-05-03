@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: ai/hcaios_hardware_and_software_requirements.html 
+keywords: Hardware, Software, Requirements, NVIDIA, Kubernetes, cnvrg.io, ONTAP 
+summary:  
+---
+= 硬體與軟體需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節涵蓋ONTAP 有關整個解決方案的技術要求。
+
+
+
+== 硬體需求
+
+雖然硬體需求取決ONTAP 於特定的客戶工作負載、但從單一GPU到機架規模的組態、都能以任何規模部署、以進行資料工程、模型訓練及正式作業提示、以利大規模的ML/DL作業。如需ONTAP 更多關於AI的資訊、請參閱 https://www.netapp.com/us/products/ontap-ai.aspx["AI網站ONTAP"^]。
+
+此解決方案已通過DGX-1系統的運算驗證、NetApp AFF 支援A800儲存系統、以及Cisco Nexus 3232C的網路連線能力驗證。本驗證所使用的功能豐富、最多可支援10個DGX-1系統、以滿足大多數ML/DL工作負載的需求。AFF下圖顯示ONTAP 此驗證中用於模型訓練的AI解決方案。
+
+image:hcaios_image6.png["錯誤：缺少圖形影像"]
+
+為了將此解決方案延伸至公有雲、Cloud Volumes ONTAP 可將其與雲端GPU運算資源一起部署、並整合至混合雲資料架構中、讓客戶能夠使用適合任何特定工作負載的任何資源。
+
+
+
+== 軟體需求
+
+下表顯示本解決方案驗證所使用的特定軟體版本。
+
+|===
+| 元件 | 版本 
+
+
+| Ubuntu | 18.04.4 LTS 
+
+
+| NVIDIA DGX OS | 4.4.0 
+
+
+| NVIDIA DeepOps | 20.02.1 
+
+
+| Kubernetes | 1.15 
+
+
+| 掌舵 | 3.1.0 
+
+
+| cnvrg-io | 3.0.00.0 
+
+
+| NetApp ONTAP | 9.6P4 
+|===
+在本解決方案驗證中、Kubernetes已部署為DGX-1系統上的單節點叢集。對於大規模部署、應部署獨立的Kubernetes主節點、以提供高可用度的管理服務、並為ML和DL工作負載保留寶貴的DGX資源。
+
+link:hcaios_solution_deployment_and_validation_details.html["下一步：解決方案部署與驗證詳細資料"]

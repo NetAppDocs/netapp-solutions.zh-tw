@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_pipeline.html 
+keywords: CI/CD, Continuous integration, continuous deployment, Jenkins, PVC 
+summary: 本節提供與Jenkins部署持續整合及持續交付或部署管線的步驟、以驗證解決方案的運作。 
+---
+= 部署Jenkins CI/CD管道搭配持續儲存設備：Red Hat OpenShift with NetApp
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+本節提供與Jenkins部署持續整合/持續交付或部署（CI/CD）管線的步驟、以驗證解決方案的運作。
+
+
+
+== 建立Jenkins部署所需的資源
+
+若要建立部署Jenkins應用程式所需的資源、請完成下列步驟：
+
+. 建立名為Jenkins的新專案。
++
+image:redhat_openshift_image15.jpeg["錯誤：缺少圖形影像"]
+
+. 在此範例中、我們部署Jenkins搭配持續儲存設備。若要支援Jenkins建置、請建立永久虛擬基礎架構。瀏覽至「儲存設備」>「持續磁碟區宣告」、然後按一下「建立持續磁碟區宣告」。選取建立的儲存類別、確定「持續Volume宣告名稱」為Jenkins、選取適當的大小和存取模式、然後按一下「建立」。
+
+
+image:redhat_openshift_image16.png["錯誤：缺少圖形影像"]
+
+
+
+== 使用持續儲存設備部署Jenkins
+
+若要使用持續儲存設備來部署Jenkins、請完成下列步驟：
+
+. 在左上角、將角色從「管理員」變更為「開發人員」。按一下「+新增」、然後從「目錄」中選取。在「依關鍵字篩選」列中、搜尋Jenkins。選取Jenkins Service with Persistent Storage。
++
+image:redhat_openshift_image17.png["錯誤：缺少圖形影像"]
+
+. 按一下「實體化範本」。
++
+image:redhat_openshift_image18.png["錯誤：缺少圖形影像"]
+
+. 根據預設、會填入Jenkins應用程式的詳細資料。根據您的需求修改參數、然後按一下「Create（建立）」。此程序可建立所有必要資源、以支援OpenShift上的Jenkins。
++
+image:redhat_openshift_image19.jpeg["錯誤：缺少圖形影像"]
+
+. Jenkins Pod約需10至12分鐘才能進入就緒狀態。
++
+image:redhat_openshift_image20.png["錯誤：缺少圖形影像"]
+
+. 建立Pod之後、請瀏覽至「Networking」（網路）>「Routes」（路由）。若要開啟Jenkins網頁、請按一下Jenkins路由提供的URL。
++
+image:redhat_openshift_image21.png["錯誤：缺少圖形影像"]
+
+. 由於在建立Jenkins應用程式時使用OpenShift Oauth、請按一下「使用OpenShift登入」。
++
+image:redhat_openshift_image22.jpeg["錯誤：缺少圖形影像"]
+
+. 授權Jenkins服務帳戶存取OpenShift使用者。
++
+image:redhat_openshift_image23.jpeg["錯誤：缺少圖形影像"]
+
+. 隨即顯示Jenkins歡迎頁面。因為我們使用的是墨文建置、所以請先完成墨文安裝。瀏覽至「Manage Jenkins（管理Jenkins）」>「Global Tool Configuration（全域工具組態）」、然後按一下「Men（新增）」子標題中的「Add Maven（新增輸入您選擇的名稱、並確定已選取「自動安裝」選項。按一下儲存。
++
+image:redhat_openshift_image24.png["錯誤：缺少圖形影像"]
+
+. 您現在可以建立管道來示範CI/CD工作流程。在首頁上、按一下左側功能表中的「Create New Jobs（建立新工作）」或「New item（新項目）」。
++
+image:redhat_openshift_image25.jpeg["錯誤：缺少圖形影像"]
+
+. 在「Create item（建立項目）」頁面上、輸入您選擇的名稱、選取「Pipeline（管道）」、然後按一下「OK（確定）」。
++
+image:redhat_openshift_image26.png["錯誤：缺少圖形影像"]
+
+. 選取Pipeline（管道）索引標籤。從「試用範例管道」下拉式功能表中、選取「Github + Maven」。程式碼會自動填入。按一下儲存。
++
+image:redhat_openshift_image27.png["錯誤：缺少圖形影像"]
+
+. 按一下「立即建置」、即可在準備、建置和測試階段觸發開發。完成整個建置程序並顯示建置結果可能需要幾分鐘的時間。
++
+image:redhat_openshift_image28.png["錯誤：缺少圖形影像"]
+
+. 只要有任何程式碼變更、就能重新建置管線、修補新版軟體、實現持續整合與持續交付。按一下「近期變更」以追蹤先前版本的變更。
++
+image:redhat_openshift_image29.png["錯誤：缺少圖形影像"]
+
+
+
+link:rh-os-n_videos_and_demos.html["下一步：影片與示範。"]

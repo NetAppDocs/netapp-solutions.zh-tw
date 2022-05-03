@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_run_ai_installation.html 
+keywords:  
+summary:  
+---
+= 執行：AI安裝
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+若要安裝Run：AI、請完成下列步驟：
+
+. 使用DeepOps安裝Kubernetes叢集、並設定NetApp預設儲存類別。
+. 準備GPU節點：
++
+.. 確認GPU節點上已安裝NVIDIA驅動程式。
+.. 確認「nvidia-Docker」已安裝並設定為預設的泊塢視窗執行時間。
+
+
+. 安裝執行：AI：
++
+.. 登入 https://app.run.ai["執行：AI管理UI"^] 以建立叢集。
+.. 下載建立的「runai-oper-<clustername>.yaml」檔案。
+.. 將操作員組態套用至Kubernetes叢集。
++
+....
+kubectl apply -f runai-operator-<clustername>.yaml
+....
+
+
+. 驗證安裝：
++
+.. 前往 https://app.run.ai/["https://app.run.ai/"^]。
+.. 前往「總覽」儀表板。
+.. 確認右上角的GPU數量反映出GPU的預期數量、而GPU節點全都列在伺服器清單中。如需執行：AI部署的詳細資訊、請參閱 https://docs.run.ai/Administrator/Cluster-Setup/Installing-Run-AI-on-an-on-premise-Kubernetes-Cluster/["在內部部署Kubernetes叢集上安裝Run:AI"^] 和 https://docs.run.ai/Administrator/Researcher-Setup/Installing-the-Run-AI-Command-Line-Interface/["安裝Run:AI CLI"^]。
+
+
+
+
+link:osrunai_run_ai_dashboards_and_views.html["下一步：執行AI儀表板和檢視"]

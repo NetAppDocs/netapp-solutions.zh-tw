@@ -1,0 +1,35 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_software_requirements.html 
+keywords: software, requirements, aks, azure, kubernetes, service, rapids, trident, helm 
+summary: 本頁列出本解決方案所需的軟體需求。 
+---
+= 軟體需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_technology_overview.html["上一篇：技術總覽。"]
+
+下表列出此解決方案所需的軟體需求。
+
+|===
+| 軟體 | 版本 
+
+
+| Azure Kubernetes服務 | 1.18.14 
+
+
+| 水流和dask容器影像 | 儲存庫：「rapidsai/rapidsai」標記：0.17-sula11.0- rime-ubuntu18.04 
+
+
+| NetApp Trident | 20.01.1 
+
+
+| 掌舵 | 3.0.00.0 
+|===
+link:aks-anf_cloud_resource_requirements.html["下一步：雲端資源需求。"]

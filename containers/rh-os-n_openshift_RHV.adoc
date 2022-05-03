@@ -1,0 +1,106 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_openshift_RHV.html 
+keywords: Red Hat Virtualization, OpenShift, RHV 
+summary: RHV是企業虛擬資料中心平台、可在Red Hat Enterprise Linux（RHEL）上執行、並使用KVM Hypervisor。 
+---
+= Red Hat虛擬化的OpenShift
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Red Hat虛擬化（RHV）是企業虛擬資料中心平台、可在Red Hat Enterprise Linux（RHEL）上執行、並使用KVM Hypervisor。
+
+如需更多有關RHV的資訊、請參閱 https://www.redhat.com/en/technologies/virtualization/enterprise-virtualization["Red Hat虛擬化網站"^]。
+
+RHV提供下列功能：
+
+* *集中管理VM和主機。* RHV管理程式在部署中以實體或虛擬機器（VM）的形式執行、並提供網路型GUI、以便從中央介面管理解決方案。
+* *自我代管引擎。*為了將硬體需求降至最低、RHV可將RHV Manager（RHV-M）部署為VM、部署在執行客體VM的同一部主機上。
+* *高可用度。*為了避免發生主機故障時造成中斷、RHV可讓VM設定為高可用度。高可用度的VM是使用恢復原則在叢集層級加以控制。
+* *高擴充性。*單一RHV叢集最多可有200部Hypervisor主機、讓IT能夠支援大型VM的需求、以裝載資源密集、企業級的工作負載。
+* *增強安全性。* RHV採用Secure Virtualization（sVirt）和Security Enhanced Linux（SELinux）技術、以提升主機和VM的安全性和強化功能。這些功能的主要優勢在於邏輯隔離VM及其相關資源。
+
+
+image:redhat_openshift_image3.png["錯誤：缺少圖形影像"]
+
+
+
+== 網路設計
+
+Red Hat OpenShift on NetApp解決方案使用兩個資料交換器、以25Gbps的速率提供主要資料連線能力。它也使用兩個額外的管理交換器、以1Gbps的速率提供連線能力、以進行儲存節點的頻內管理、以及IPMI功能的頻外管理。OCP使用RHV上的虛擬機器邏輯網路進行叢集管理。本節說明解決方案中所使用的每個虛擬網路區段的安排和用途、並概述部署解決方案的先決條件。
+
+
+
+=== VLAN需求
+
+RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以邏輯方式分隔不同用途的網路流量。此組態可擴充以滿足客戶需求、或進一步隔離特定的網路服務。下表列出在NetApp驗證解決方案時實作解決方案所需的VLAN。
+
+|===
+| VLAN | 目的 | VLAN ID 
+
+
+| 頻外管理網路 | 管理實體節點和IPMI | 16 
+
+
+| VM網路 | 虛擬訪客網路存取 | 1172 
+
+
+| 頻內管理網路 | 管理RHV-H節點、RHV-Manager和Ovirtmgmt網路 | 3343. 
+
+
+| 儲存網路 | 適用於iSCSI的儲存網路NetApp Element | 3344 
+
+
+| 移轉網路 | 用於虛擬來賓移轉的網路 | 3345 
+|===
+
+
+=== 網路基礎架構支援資源
+
+在部署OpenShift Container Platform之前、應先準備好下列基礎架構：
+
+* 至少有一部DNS伺服器提供完整的主機名稱解析、可從頻內管理網路和VM網路存取。
+* 至少有一部NTP伺服器可從頻內管理網路和VM網路存取。
+* （可選）用於帶內管理網路和VM網路的傳出網際網路連線。
+
+
+
+
+== 正式作業部署的最佳實務做法
+
+本節列出組織在將此解決方案部署至正式作業環境之前、應考慮的幾項最佳實務做法。
+
+
+
+=== 將OpenShift部署至至少三個節點的RHV叢集
+
+本文件所述的驗證架構、提供最小的硬體部署、適用於HA作業、方法是部署兩個RHV-H Hypervisor節點、並確保具備容錯功能的組態、讓兩個主機都能管理託管引擎和已部署的VM、在兩個Hypervisor之間移轉。
+
+由於Red Hat OpenShift一開始會部署三個主節點、因此在雙節點組態中、至少有兩個主節點會佔用同一個節點、因此如果該特定節點無法使用、可能會導致OpenShift中斷。因此、Red Hat的最佳實務做法是將至少三個RHV-H Hypervisor節點部署為解決方案的一部分、以便能平均分散OpenShift主節點、並使解決方案獲得更高程度的容錯能力。
+
+
+
+=== 設定虛擬機器/主機關聯性
+
+您可以啟用VM/主機關聯性、將OpenShift主控點分散到多個Hypervisor節點。
+
+關聯性是一種定義一組VM和/或主機規則的方法、可決定VM是在同一主機上一起執行、還是在群組中的主機上執行、或是在不同的主機上執行。它會透過建立關聯群組來套用至VM、這些群組由一組相同的參數和條件的VM和/或主機組成。根據關聯群組中的VM是在同一主機或群組中的主機上執行、還是分別在不同主機上執行、關聯群組的參數可以定義正關聯性或負關聯性。
+
+為參數定義的條件可以是強制或軟強制。強制強制性可確保關聯群組中的虛擬機器永遠嚴格遵循正面或負面關聯性、而不受任何外部條件影響。軟強制功能可確保關聯群組中的VM設定較高的喜好設定、以便在可行的情況下遵循正面或負面關聯性。在本文所述的兩或三個Hypervisor組態中、建議使用軟性關聯性。在較大型的叢集中、硬關聯性可以正確分散OpenShift節點。
+
+若要設定關聯群組、請參閱 https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/virtual_machine_management_guide/sect-affinity_groups["Red Hat 6.11.關聯群組文件"^]。
+
+
+
+=== 使用自訂安裝檔案進行OpenShift部署
+
+IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、在叢集部署過程中、可能需要變更某些預設值。
+
+在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈工作。而是會建立組態檔、以便稍後部署叢集。如果您想要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.4/installing/installing_rhv/installing-rhv-customizations.html["Red Hat OpenShift使用自訂功能在RHV上安裝叢集"^]。
+
+link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/confluent-kafka-introduction.html 
+keywords: tr-4912, tr4912, 4912, introduction, best practices, Kafka, confluent 
+summary: 本文件說明在NetApp儲存控制器上使用Kafka的最佳實務準則。 
+---
+= TR-4912：NetApp的Conflent Kafka階層式儲存設備最佳實務準則
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Karthikeyan Nagalingam、Joseph Kandatilparambil、NetApp Rankesh Kumar、Conflent
+
+Apache Kafka是一個社群分散式事件串流平台、能夠每天處理數兆次的事件。最初構想為訊息佇列的Kafka是以分散式提交記錄的抽象化為基礎。自從LinkedIn於2011年建立並開放原始碼之後、Kafka便從訊息佇列發展成功能完善的活動串流平台。Conflent提供Apache Kafka的Conflent Platform發佈版本。Conflent Platform為卡夫卡（Kafka）提供額外的社群和商業功能、旨在提升營運者和開發人員大規模上線的串流體驗。
+
+本文件說明在NetApp物件儲存產品上使用ConFluent分層儲存設備的最佳實務準則、提供下列內容：
+
+* 運用NetApp物件儲存設備進行一致驗證–NetApp StorageGRID 產品特色
+* 階層式儲存效能測試
+* NetApp儲存系統上的Conflent最佳實務準則
+
+
+
+
+== 為何要使用一致的分層儲存設備？
+
+Connent已成為許多應用程式的預設即時串流平台、尤其是巨量資料、分析和串流工作負載。階層式儲存設備可讓使用者在ConFluent平台中、將運算與儲存區分開。它可讓儲存資料更具成本效益、讓您儲存幾乎無限量的資料、並可隨需擴充（或縮減）工作負載、讓資料和租戶重新平衡等管理工作變得更輕鬆。S3相容的儲存系統可利用所有這些功能、在同一個位置將所有事件的資料民主化、免除複雜資料工程的需求。如需瞭解為何應使用卡夫卡階層式儲存設備的詳細資訊、請查看 link:https://docs.confluent.io/platform/current/kafka/tiered-storage.html#netapp-object-storage["本文作者：Conflent"^]。
+
+
+
+== 為何選擇NetApp StorageGRID 解決方案來進行階層式儲存？
+
+NetApp是領先業界的物件儲存平台。StorageGRID支援業界標準物件API（包括Amazon Simple Storage Service（S3）API）的軟體定義物件式儲存解決方案。StorageGRID可大規模儲存及管理非結構化資料、提供安全且持久的物件儲存。StorageGRID內容會放在適當的位置、適當的時間、以及適當的儲存層、以最佳化工作流程、並降低全球分散式多媒體的成本。
+
+與眾不同之處在於StorageGRID 其資訊生命週期管理（ILM）原則引擎、可實現原則導向的資料生命週期管理。原則引擎可以使用中繼資料來管理整個生命週期內的資料儲存方式、以期一開始就最佳化效能、並自動最佳化資料存留期的成本與持久性。
+
+
+
+== 實現一致的分層儲存
+
+階層式儲存的基本概念是將資料儲存的工作與資料處理區分開。如此分離之後、資料儲存層和資料處理層就變得更加容易獨立擴充。
+
+Conflent的階層式儲存解決方案必須面對兩個因素。首先、IT必須解決或避免常見的物件存放區一致性和可用度內容、例如清單作業不一致、偶爾物件無法使用。第二、IT必須正確處理階層式儲存設備與Kafka複寫與容錯模式之間的互動、包括殭屍領導廠商可能繼續分層調整偏移範圍。NetApp物件儲存設備提供一致的物件可用度和HA模式、讓舊舊儲存設備可用於層級偏移範圍。NetApp物件儲存設備提供一致的物件可用度、以及HA模式、可讓舊舊儲存設備用於層級偏移範圍。
+
+透過階層式儲存設備、您可以使用高效能平台、在串流資料的尾端附近進行低延遲的讀取和寫入、也可以使用更便宜、可擴充的物件存放區（例如NetApp StorageGRID 流通量高的歷史讀取）。我們也提供適用於Spark with NetApp儲存控制器的技術解決方案、詳情請見此處。下圖顯示Kafka如何融入即時分析管道。
+
+image:confluent-kafka-image2.png["錯誤：缺少圖形影像"]
+
+下圖說明NetApp StorageGRID 的物件儲存層如何融入ConFluent Kafka的物件儲存層。
+
+image:confluent-kafka-image3.png["錯誤：缺少圖形影像"]
+
+link:confluent-kafka-solution.html["下一步：解決方案架構詳細資料。"]

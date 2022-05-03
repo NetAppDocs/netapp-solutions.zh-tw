@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: ai/mlrun_get_code_from_github.html 
+keywords: NetApp GitHub Cloud Volume 
+summary:  
+---
+= 從GitHub取得程式碼
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+現在NetApp Cloud Volume或NetApp Trident Volume可用於Iguazio叢集和開發人員環境、您就可以開始檢閱應用程式。
+
+使用者擁有自己的工作區（目錄）。在每個筆記型電腦上、使用者目錄的路徑都是「/使用者」。Iguazio平台負責管理目錄。如果您依照上述指示操作、NetApp Cloud Volume可在「/NetApp」目錄中找到。
+
+使用Jupyter終端從GitHub取得程式碼。
+
+image:mlrun_image12.png["錯誤：缺少圖形影像"]
+
+在Jupyter終端機提示字元下、複製專案。
+
+....
+cd /User
+git clone .
+....
+現在您應該可以在Jupyter工作區的檔案樹狀結構中看到「netops-netapp'」資料夾。
+
+link:mlrun_configure_working_environment.html["下一步：設定工作環境"]

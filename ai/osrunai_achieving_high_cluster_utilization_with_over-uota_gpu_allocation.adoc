@@ -1,0 +1,70 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_achieving_high_cluster_utilization_with_over-uota_gpu_allocation.html 
+keywords:  
+summary:  
+---
+= 透過過度配額GPU配置、實現高叢集使用率
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+在本節和各節中 link:osrunai_basic_resource_allocation_fairness.html["基本資源配置公平性"]和 link:osrunai_over-quota_fairness.html["過度配額的公平性"]我們設計了進階測試案例、以展示Run:AI協調功能、適用於複雜的工作負載管理、自動優先排程、以及過度配額GPU資源配置。我們這樣做是為了在ONTAP 整個AI環境中、達到高叢集資源使用率、並最佳化企業級資料科學團隊的生產力。
+
+在這三個區段中、設定下列專案和配額：
+
+|===
+| 專案 | 配額 
+
+
+| 團隊A | 4. 
+
+
+| 團隊b | 2. 
+
+
+| 團隊 | 2. 
+
+
+| 團隊 | 8. 
+|===
+此外、這三個區段還使用下列容器：
+
+* Jupyter Notebook：《jupyter/base筆記型電腦》
+* RUN：AI quickstart：「GCR.IO/RUN–AI-DEMO / quickstart」
+
+
+我們為此測試案例設定下列目標：
+
+* 展現資源配置的簡易性、以及如何從使用者中抽取資源
+* 示範使用者如何輕鬆配置GPU的一部分和GPU的整數數目
+* 示範系統如何排除運算瓶頸、讓團隊或使用者在叢集中有可用的GPU時、可以跳過資源配額
+* 示範如何在執行運算密集工作（例如NetApp容器）時、使用NetApp解決方案來消除資料管線瓶頸
+* 示範多種容器如何使用系統執行
++
+** Jupyter筆記型電腦
+** 執行：AI Container
+
+
+* 叢集已滿時顯示高使用率
+
+
+如需測試期間實際執行命令順序的詳細資料、請參閱 link:osrunai_testing_details_for_section_4.8.html["第4.8節的測試詳細資料"]。
+
+提交所有13項工作負載時、您會看到已分配的容器名稱和GPU清單、如下圖所示。我們有七項訓練和六項互動工作、模擬四個資料科學團隊、每個團隊都有自己的執行或開發模式。對於互動工作、個別開發人員使用Jupyter Notebooks來撰寫或偵錯其程式碼。因此、它適合在不使用太多叢集資源的情況下配置GPU分數。
+
+image:osrunai_image8.png["錯誤：缺少圖形影像"]
+
+此測試案例的結果顯示下列項目：
+
+* 叢集應已滿：使用16/16 GPU。
+* 叢集使用率高。
+* 由於分數分配、實驗量比GPU多。
+* 因爲，“Team d”並沒有全部使用配額，所以“team－b”和“team－c”可以使用額外的GPU進行實驗，從而縮短創新時間。
+
+
+link:osrunai_basic_resource_allocation_fairness.html["下一步：基本資源配置公平性"]

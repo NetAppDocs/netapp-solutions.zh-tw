@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-best-practice-guidelines-and-recommendations.html 
+keywords: best practices, guidelines, recommendations, IMT 
+summary: 本節包含使用NetApp XCP移轉資料的最佳實務做法、準則和建議。 
+---
+= 最佳實務準則與建議
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html["先前版本：將CIFS資料從來源儲存設備的ACL移轉至ONTAP"]
+
+* 使用IMT 支援的XCP用戶端作業系統。支援的客戶端符合NetApp資格。IMT
+* 在Linux作業系統中以root使用者身分執行XCP、以執行移轉。您可以以Sudo使用者的身分執行XCP命令、但XCP不支援此命令。
+* 每個用戶端只能執行一個XCP執行個體。從技術上來說、您可以從不同位置在同一部主機上執行多個XCP執行階段、但這並不受支援。事實上、執行許多執行個體可能會導致故障。
+* 在目前的XCP版本中、不支援即時來源。如果來源NetApp磁碟區為作用中、且應用程式和使用者持續變更、您應該擷取來源磁碟區的快照、以執行移轉。
+* 最佳實務做法是為每個遞增同步建立名稱不同的新快照、以便在發生故障時、根據快照名稱輕鬆建立遞增移轉路徑。
+* 如果您執行的是以快照為基礎的移轉、則最好繼續以快照為基礎的移轉、直到轉換為止。
+* 如果您有超過1000萬個檔案、而且遞增資料變更率超過50%、則最佳做法是使用比安裝與管理指南中最低建議更高的核心數和更多記憶體。
+
+
+link:xcp-bp-troubleshooting.html["下一步：疑難排解。"]

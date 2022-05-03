@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-netapp-xcp-overview.html 
+keywords: multithread, nas, analytics, directory tree, deletion, delete, prerequisites 
+summary: NetApp XCP使用多執行緒和可自訂功能來傳輸資料。它的設計主要適用於三種使用案例：資料搬移或移轉、檔案系統分析、以及快速目錄樹狀結構刪除。 
+---
+= NetApp XCP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-introduction.html["上一篇：簡介。"]
+
+NetApp XCP使用多執行緒和可自訂功能來傳輸資料。它的設計主要適用於三種使用案例：資料搬移或移轉、檔案系統分析、以及快速目錄樹狀結構刪除。
+
+
+
+== 資料搬移或移轉
+
+NetApp XCP可將資料從任何NAS傳輸至NetApp NAS。此程序包含四項主要作業：掃描、複製、同步及驗證。還有一些其他功能可協助資料監控和傳輸：
+
+* *掃描。*提供NAS和MapR/HDFS資料的高階配置。
+* *複製。*執行基準資料傳輸。
+* *同步*執行遞增資料傳輸。
+* *驗證*執行目標的完整驗證。
+* *顯示（選用）。*探索NAS共用區。
+
+
+下圖說明XCP資料移轉與複寫作業。
+
+image:xcp-bp_image1.png["錯誤：缺少圖形影像"]
+
+
+
+== 檔案系統分析
+
+NetApp XCP原生可讓您識別、仔細檢查及分析非結構化資料、以改善洞見、這是企業客戶的一項關鍵需求、因為他們想要利用這些洞見來進行更好的規劃、將高價值的數位資產投入運作、以及透過報告與評估來進行資料治理。
+
+處理敏感資料的客戶可以使用NetApp XCP來回答典型的作業問題、例如：
+
+* 我的資料在哪裡？
+* 我們擁有多少資料和哪些類型的檔案？
+* 哪些資料會被積極使用、哪些資料會被休眠？
+
+
+下圖說明來自GUI的NetApp XCP檔案分析通訊。
+
+image:xcp-bp_image2.png["錯誤：缺少圖形影像"]
+
+
+
+== 刪除
+
+儲存團隊和電子設計自動化（EDA）工作負載對於清理大型目錄來說、無論是過時的資料、或是需要清理以恢復儲存空間的測試資料、都是非常艱鉅的挑戰。XCP提供快速刪除功能、可刪除完整的目錄樹狀結構。NetApp XCP刪除功能會從指定的NAS路徑中移除檔案和資料夾。您可以利用比對篩選器來刪除一組特定的檔案和資料夾。對於大量的檔案和資料夾、您可以使用「強制」選項、不需要確認即可刪除。
+
+
+
+== 即時來源移轉支援
+
+XCP 1.7中提供的即時來源移轉支援可讓您從使用中的資料來源（讀取和寫入活動）進行移轉。XCP會將移轉工作期間所使用的檔案（例如複本和同步執行）保留下來、而跳過的檔案資訊會擷取在XCP記錄中。
+
+此功能支援來源變更、但不支援目的地變更。移轉期間、目的地不應處於作用中狀態。即時來源移轉支援僅適用於NFS移轉。
+
+
+NOTE: 即時來源移轉不需要特殊設定。
+
+
+
+== XCP的先決條件
+
+部署NetApp XCP之前、必須符合下列先決條件：
+
+. 執行下列命令來驗證NFS伺服器使用的NFS連接埠：
++
+....
+rpcinfo -p < NAS IP or on-prem nfs data LIF ip >
+....
+. 若要存取執行XCP作業的位置、例如內部部署或雲端執行個體（例如Azure、AWS或Google虛擬機器[VM]執行個體）、請開啟NFS連接埠的防火牆連接埠。
+. 使用「<on－prem NFS data LIF IP or NAS IP >2049」（<內部NFS資料LIF IP或NAS IP >2049）命令、確認NFS連接埠可從XCP伺服器存取。預設連接埠為2049。如果您的環境有不同的連接埠、請使用該IP。
+. 對於NFS、請使用「show mount -e < NAS IP >」命令、確認可以從XCP伺服器存取共用區。
+. 將目的地磁碟區上的inode數量增加到超過來源檔案上的檔案數（檔案數）。
+. 從下載XCP授權 https://xcp.netapp.com/license/xcp.xwic["NetApp XCP授權入口網站"^]。
++
+.. 您必須在mysupport.netapp.com中擁有NetApp帳戶、或是可以免費註冊。
+.. 下載授權並準備就緒。
+
+
+. 為每個Azure NetApp Volume或雲端中的Cloud Volume Service（優質服務層級）建立內部部署的一個NFS共用、以供XCP目錄使用。
+. 建立NAS Volume並設定資料目的地的共用區。
+. 對於多個XCP執行個體、您必須有一或多個伺服器或雲端執行個體、才能將資料從多個來源資料夾或檔案傳輸到目的地。
+. 最大檔案大小（預設為308 MB）可定義單一資料夾中的最大檔案數（約100萬）。增加最大大小值以增加檔案數。增加此值會影響額外的CPU週期。
+. 在雲端中、NetApp建議您在內部部署和雲端之間使用ExpressRoute（Azure）、Direct Connect（AWS）或Cloud Interconnect（GCP）。
+
+
+link:xcp-bp-migration-workflow-overview.html["下一步：移轉工作流程。"]

@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_user_management.html 
+keywords: VDS, Azure, Active Directory, NTLM, Kerberos, ADConnect, 
+summary: NetApp VDS使用Azure Active Directory進行身分識別驗證、Azure Active Directory網域服務則進行NTLM/ Kerberos驗證。ADConnect工具可用於將內部Active Directory網域與Azure Active Directory同步。 
+---
+= 使用者管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp VDS使用Azure Active Directory進行身分識別驗證、Azure Active Directory網域服務則進行NTLM/ Kerberos驗證。ADConnect工具可用於將內部Active Directory網域與Azure Active Directory同步。
+
+您可以從入口網站新增新使用者、也可以為現有使用者啟用雲端工作區。工作區和應用程式服務的權限可由個別使用者或群組控制。您可以從管理入口網站定義管理使用者、以控制入口網站、工作區等的權限。
+
+下圖說明NetApp VDS中的使用者管理。
+
+image:hcvdivds_image10.png["錯誤：缺少圖形影像"]
+
+每個工作區都位於雲端工作區OU下的Active Directory組織單位（OU）中、如下圖所示。
+
+image:hcvdivds_image11.png["錯誤：缺少圖形影像"]
+
+如需詳細資訊、請參閱 https://youtu.be/RftG7v9n8hw["這段影片"^] 關於NetApp VDS中的使用者權限和使用者管理。
+
+當Active Directory群組定義為使用資料中心API呼叫的CRAUserGroup時、該群組中的所有使用者都會匯入CloudWorkspace、以便使用UI進行管理。當使用者啟用雲端工作區時、VDS會建立使用者主資料夾、設定權限、使用者內容更新等。
+
+如果核取「啟用VDI使用者」、VDS會建立專供該使用者使用的單一工作階段RDS機器。系統會提示您配置範本和資料存放區。
+
+image:hcvdivds_image26.png["錯誤：缺少圖形影像"]
+
+link:hcvdivds_workspace_management.html["下一步：工作區管理"]

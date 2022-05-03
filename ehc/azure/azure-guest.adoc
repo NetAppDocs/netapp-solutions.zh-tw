@@ -1,0 +1,219 @@
+---
+sidebar: sidebar 
+permalink: ehc/azure/azure-guest.html 
+keywords: NetApp Solutions, microsoft azure, avs, azure, vmware managed cloud, enterprise, hybrid, cloud, anf, azure netapp files, cvo, cloud volumes ontap, guest connected 
+summary:  
+---
+= 適用於Azure的NetApp來賓連線儲存設備選項
+:allow-uri-read: 
+
+
+[role="lead"]
+Azure以下列組態支援NetApp儲存設備：
+
+* link:#anf["以客體連線儲存設備的形式提供Azure NetApp Files"]
+* link:#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
+
+
+
+
+== 使用Azure NetApp Files Azure VMware解決方案（AVS）設定功能
+
+您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資料共享。Azure NetApp Files由於Azure NetApp Files 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需五個簡單步驟即可設定各個資料區。Azure NetApp Files
+
+VMware解決方案的VMware解決方案必須位於同一個Azure地區。Azure NetApp Files
+
+
+
+=== 建立及掛載Azure NetApp Files 功能
+
+若要建立及掛載Azure NetApp Files 此功能、請完成下列步驟：
+
+. 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files _AZ供應商Register --namespace_–wait_命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。Microsoft.NetApp註冊完成後、請建立NetApp帳戶。
++
+如需詳細步驟、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["共享Azure NetApp Files"]。本頁將引導您逐步完成程序。
+
++
+image:azure-anf-guest-1.png[""]
+
+. 建立NetApp帳戶之後、請使用所需的服務層級和大小來設定容量資源池。
++
+如需詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["設定容量資源池"]。
+
++
+image:azure-anf-guest-2.png[""]
+
+. 設定委派的子網路Azure NetApp Files 以供使用、並在建立磁碟區時指定此子網路。如需建立委派子網路的詳細步驟、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["將子網路委派Azure NetApp Files 給"]。
++
+image:azure-anf-guest-3.png[""]
+
+. 使用容量集區刀鋒下的Volume刀鋒來新增SMB Volume。在建立SMB磁碟區之前、請先確認已設定Active Directory連接器。
++
+image:azure-anf-guest-4.png[""]
+
+. 按一下「Review + Create（檢閱+建立）」以建立SMB Volume。
++
+如果應用程式是SQL Server、則啟用SMB持續可用度。
+
++
+image:azure-anf-guest-5.png[""]
+
++
+image:azure-anf-guest-6.png[""]
+
++
+如需深入瞭Azure NetApp Files 解根據大小或配額而提供的效能、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-performance-considerations["效能考量Azure NetApp Files"]。
+
+. 連線到位後、即可掛載磁碟區並用於應用程式資料。
++
+若要完成此作業、請從Azure入口網站按一下Volumes刀鋒、然後選取要掛載的磁碟區、並存取掛載指示。複製路徑、然後使用「對應網路磁碟機」選項、將磁碟區掛載到執行Azure VMware Solution SDDC的VM上。
+
++
+image:azure-anf-guest-7.png[""]
+
++
+image:azure-anf-guest-8.png[""]
+
+. 若要在Azure VMware Solution SDDC上執行的Linux VM上掛載NFS Volume、請使用相同的程序。使用Volume重新塑造或動態服務層級功能來滿足工作負載需求。
++
+image:azure-anf-guest-9.png[""]
+
++
+如需詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/dynamic-change-volume-service-level["動態變更磁碟區的服務層級"]。
+
+
+
+
+
+== 在Cloud Volumes ONTAP Azure中部署全新的功能
+
+您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP由於Cloud Volumes ONTAP 支援iSCSI、SMB及NFS傳輸協定、所以也可在Linux用戶端和Windows用戶端上掛載這些磁碟區。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
+
+若要將磁碟區從內部部署環境複寫至雲端以進行災難恢復或移轉、請使用站台對站台VPN或ExpressRoute、建立與Azure的網路連線。將內部部署的資料複寫到Cloud Volumes ONTAP 內部部署的不適用範圍。若要在內部部署Cloud Volumes ONTAP 和不間斷系統之間複寫資料、請參閱 link:https://docs.netapp.com/us-en/occm/task_replicating_data.html#setting-up-data-replication-between-systems["設定系統之間的資料複寫"]。
+
+
+NOTE: 使用 link:https://cloud.netapp.com/cvo-sizer["Szizer Cloud Volumes ONTAP"] 以準確調整Cloud Volumes ONTAP 實體執行個體的大小。同時監控內部部署的效能、以做Cloud Volumes ONTAP 為VMware內部資料的輸入。
+
+. 登入NetApp Cloud Central：「Fabric View（架構檢視）」畫面隨即顯示。找到Cloud Volumes ONTAP 「解決方案」索引標籤、然後選取「前往Cloud Manager」。登入之後、便會顯示「畫版」畫面。
++
+image:azure-cvo-guest-1.png[""]
+
+. 在Cloud Manager首頁上、按一下「Add a Working Environment（新增工作環境）」、然後選取「Microsoft Azure」做為雲端和系統組態類型。
++
+image:azure-cvo-guest-2.png[""]
+
+. 建立第一個Cloud Volumes ONTAP 運作環境時、Cloud Manager會提示您部署Connector。
++
+image:azure-cvo-guest-3.png[""]
+
+. 建立連接器之後、請更新詳細資料和認證欄位。
++
+image:azure-cvo-guest-4.png[""]
+
+. 提供要建立的環境詳細資料、包括環境名稱和管理員認證資料。將Azure環境的資源群組標記新增為選用參數。完成後、按一下「Continue（繼續）」。
++
+image:azure-cvo-guest-5.png[""]
+
+. 選擇Cloud Volumes ONTAP 用於進行支援的附加服務、包括Cloud Data Sense、Cloud Backup和Cloud Insights 效益。選取服務、然後按一下「Continue（繼續）」。
++
+image:azure-cvo-guest-6.png[""]
+
+. 設定Azure位置和連線能力。選取要使用的Azure區域、資源群組、vnet和子網路。
++
+image:azure-cvo-guest-7.png[""]
+
+. 選取使用許可選項：「隨用隨付」或「BYOL」以使用現有的授權。在此範例中、會使用隨用隨付選項。
++
+image:azure-cvo-guest-8.png[""]
+
+. 針對各種工作負載類型、可在多個預先設定的套件之間進行選擇。
++
+image:azure-cvo-guest-9.png[""]
+
+. 接受兩項有關啟動Azure資源支援與配置的協議。若要建立Cloud Volumes ONTAP 此解決方案、請按一下「Go（執行）」。
++
+image:azure-cvo-guest-10.png[""]
+
+. 完成供應後、此功能會列在「畫版」頁面上的工作環境中。Cloud Volumes ONTAP
++
+image:azure-cvo-guest-11.png[""]
+
+
+
+
+
+=== SMB Volume的其他組態
+
+. 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
++
+image:azure-cvo-guest-20.png[""]
+
+. 建立SMB Volume是一項簡單的程序。選取CVO執行個體以建立磁碟區、然後按一下Create Volume（建立磁碟區）選項。選擇適當的大小、然後由Cloud Manager選擇內含的Aggregate、或使用進階分配機制將其放置在特定的Aggregate上。在此示範中、SMB被選取為傳輸協定。
++
+image:azure-cvo-guest-21.png[""]
+
+. 在配置磁碟區之後、該磁碟區會出現在「Volumes（磁碟區）」窗格下方。由於CIFS共用區已配置完成、因此請授予使用者或群組檔案和資料夾的權限、並確認這些使用者可以存取共用區並建立檔案。如果從內部部署環境複寫磁碟區、則不需要執行此步驟、因為檔案和資料夾權限都會保留為SnapMirror複寫的一部分。
++
+image:azure-cvo-guest-22.png[""]
+
+. 建立磁碟區之後、請使用mount命令、從Azure VMware Solution SDDC主機上執行的VM連線至共用區。
+. 複製下列路徑、然後使用「對應網路磁碟機」選項將磁碟區掛載到執行Azure VMware Solution SDDC的VM上。
++
+image:azure-cvo-guest-23.png[""]
+
++
+image:azure-cvo-guest-24.png[""]
+
+
+
+
+
+=== 將LUN連接至主機
+
+若要將LUN連線至主機、請完成下列步驟：
+
+. 在「畫版」頁面上、按兩下Cloud Volumes ONTAP 「功能不全」環境以建立及管理Volume。
+. 按一下「Add Volume（新增Volume）」>「New Volume（新Volume）」、然後選取「iSCSI（iSCSI）」、按一下「繼續」。
++
+image:azure-cvo-guest-30.png[""]
+
+. 配置磁碟區之後、選取磁碟區、然後按一下「Target IQN」。若要複製iSCSI合格名稱（IQN）、請按一下複製。設定從主機到 LUN 的 iSCSI 連線。
++
+若要針對駐留在Azure VMware Solution SDDC上的主機達成相同目標：
+
++
+.. 將RDP移至Azure VMware Solution SDDC上裝載的VM。
+.. 開啟「iSCSI啟動器內容」對話方塊：「伺服器管理員」>「儀表板」>「工具」>「iSCSI啟動器」。
+.. 在「Discovery（探索）」索引標籤中、按一下「Discover Portal（探索入口網站）」或「Add Portal（新增入口網站）」、然後輸入iSCSI目標連接埠的IP位
+.. 從「目標」索引標籤中選取探索到的目標、然後按一下「登入」或「連線」。
+.. 選取「啟用多重路徑」、然後選取「電腦啟動時自動還原此連線」或「將此連線新增至最愛目標清單」。按一下進階。
++
+*附註：* Windows主機必須與叢集中的每個節點建立iSCSI連線。原生DSM會選取最佳路徑。
+
++
+image:azure-cvo-guest-31.png[""]
+
+
+
+
+
+儲存虛擬機器（SVM）上的LUN會在Windows主機上顯示為磁碟。主機不會自動探索任何新增的磁碟。完成下列步驟、觸發手動重新掃描以探索磁碟：
+
+. 開啟Windows電腦管理公用程式：「開始」>「系統管理工具」>「電腦管理」。
+. 展開導覽樹狀結構中的「Storage（儲存）」節點。
+. 按一下「磁碟管理」。
+. 按一下「行動」>「重新掃描磁碟」。
+
+
+image:azure-cvo-guest-32.png[""]
+
+當Windows主機首次存取新LUN時、它沒有分割區或檔案系統。初始化LUN；並可選擇完成下列步驟、以檔案系統格式化LUN：
+
+. 啟動Windows磁碟管理。
+. 以滑鼠右鍵按一下LUN、然後選取所需的磁碟或磁碟分割類型。
+. 依照精靈中的指示進行。在此範例中、磁碟機E：已掛載
+
+
+image:azure-cvo-guest-33.png[""]
+
+image:azure-cvo-guest-34.png[""]

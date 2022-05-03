@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_monitor_dask_using_native_task_streams_dashboard.html 
+keywords: dashboard, progress bar, bytes stored, task stream, dataframe, criteo click log 
+summary: 本頁說明如何使用原生工作串流儀表板來監控dask。 
+---
+= 使用原生工作串流儀表板監控dsask
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_load_day_15_in_dask_and_train_a_dask_cuml_random_forest_model.html["上一篇：在dask中載入第15天、並訓練dask cuML隨機樹系模型。"]
+
+。 https://docs.dask.org/en/latest/scheduling.html["dask分散式排程器"^] 提供兩種形式的即時回饋：
+
+* 互動式儀表板包含許多繪圖和含有即時資訊的表格
+* 進度列適合在主控台或筆記型電腦中互動使用
+
+
+在我們的案例中、下圖顯示如何監控工作進度、包括儲存的位元組、詳細細分串流數量的工作串流、以及執行相關功能的工作名稱進度。在我們的案例中、因為我們有三個工作節點、所以串流有三個主要區塊、而且色彩代碼會在每個串流中指出不同的工作。
+
+image:aks-anf_image13.png["錯誤：缺少圖形影像"]
+
+您可以選擇分析個別工作、以毫秒為單位檢查執行時間、或找出任何障礙或阻礙。例如、下圖顯示隨機樹系模型擬合階段的工作串流。執行的功能相當多、包括用於DataFrame處理的獨特區塊、用於調整隨機樹系的_Constrature_RF等。大多數時間都花在DataFrame作業上、因為Criteo Click記錄中一天資料的大小（45GB）太大。
+
+image:aks-anf_image14.png["錯誤：缺少圖形影像"]
+
+link:aks-anf_training_time_comparison.html["下一步：訓練時間比較。"]

@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_create_a_delegated_subnet_for_azure_netapp_files.html 
+keywords: delegated subnet, virtual network, azure portal, vnet, delegation 
+summary: 本頁說明建立委派子網路以Azure NetApp Files 利執行哪些步驟。 
+---
+= 建立委派子網路Azure NetApp Files 以供使用
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_install_and_set_up_the_aks_cluster.html["上一步：安裝並設定高效能叢集。"]
+
+若要建立Azure NetApp Files 委派的子網路以供使用、請完成下列步驟：
+
+. 瀏覽至Azure入口網站內的虛擬網路。尋找您新建立的虛擬網路。它應該有一個前置詞、例如「pak vnet」。
+. 按一下vnet的名稱。
++
+image:aks-anf_image5.png["錯誤：缺少圖形影像"]
+
+. 按一下子網路、然後按一下頂端工具列的+子網路。
++
+image:aks-anf_image6.png["錯誤：缺少圖形影像"]
+
+. 提供子網路名稱、例如「anf.sn」、然後在「Subnet委派」標題下選取「microsoft.Netapp/volumes`」。請勿變更任何其他項目。按一下「確定」。
++
+image:aks-anf_image7.png["錯誤：缺少圖形影像"]
+
+
+
+將實體磁碟區分配給應用程式叢集、並作為Kubernetes中的持續磁碟區宣告（PVCS）使用。Azure NetApp Files而這個程序也能讓您靈活地將它們對應到不同的服務、例如Jupyter筆記型電腦、無伺服器功能等。
+
+服務使用者可從平台使用多種儲存設備。在本技術報告討論NFSs的同時、Azure NetApp Files 本產品的主要優點是：
+
+* 讓使用者能夠使用Snapshot複本。
+* 讓使用者能夠將大量資料儲存在Azure NetApp Files 功能區上。
+* 在Azure NetApp Files 大量檔案上執行模型時、請善用效能優勢。
+
+
+link:aks-anf_peer_aks_vnet_and_azure_netapp_files_vnet.html["下一步：Peer aks vnet和Azure NetApp Files vernet。"]

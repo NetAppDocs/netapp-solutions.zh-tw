@@ -1,0 +1,393 @@
+= 
+:allow-uri-read: 
+
+
+[role="tabbed-block"]
+====
+.CVO單一節點部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上部署/設定單一節點NetApp CVO（英文）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVO_sine_node_deployment.tfvars」中的變數值
++
+
+NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gco_single_node" -var-file="vars/gcp_cvo_single_node_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_single_node" -var-file="vars/gcp_cvo_single_node_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * GCP_connector名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * GCP_connector專案_id* | 字串 | （必填）要建立連接器的GCP專案ID。 
+
+
+| * GCP_connector區域* | 字串 | （必填）要建立連接器的GCP區域。 
+
+
+| * GCP_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * GCP_connector服務帳戶電子郵件* | 字串 | （必填）連接器執行個體的service_account電子郵件。此服務帳戶可讓Connector建立Cloud Volume ONTAP 。 
+
+
+| * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
+
+
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+|===
+單一節點執行個體
+
+GCP上單一NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVO_name* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * GCP_CVO_PROPON_ID* | 字串 | （必填）GCP專案的ID。 
+
+
+| * GCP_CVO_ZONE * | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * GCP_CVO_GCP_service_account* | 字串 | （必填）GCP_service_Account電子郵件、以便將冷資料分層至Google Cloud Storage。 
+
+
+| * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
+
+
+| * GCP_CVO_capid_package_name* | 字串 | （選用）容量套件名稱：「Essential」、「Professional」、「Freemium」。預設為「Essential」。 
+|===
+--
+.CVO HA部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上以高可用度配對部署/設定NetApp CVO（候選）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVO_ha_deployment.tfvars」中的變數值。
++
+
+NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gcp_ha" -var-file="vars/gcp_cvo_ha_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_ha" -var-file="vars/gcp_cvo_ha_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * GCP_connector名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * GCP_connector專案_id* | 字串 | （必填）要建立連接器的GCP專案ID。 
+
+
+| * GCP_connector區域* | 字串 | （必填）要建立連接器的GCP區域。 
+
+
+| * GCP_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * GCP_connector服務帳戶電子郵件* | 字串 | （必填）連接器執行個體的service_account電子郵件。此服務帳戶可讓Connector建立Cloud Volume ONTAP 。 
+
+
+| * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
+
+
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+|===
+"HA配對"
+
+GCP上HA配對中NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVO_is_ha* | 布爾 | （選用）指出工作環境是否為HA配對（真、假）。預設值為假。 
+
+
+| * GCP_CVO_name* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * GCP_CVO_PROPON_ID* | 字串 | （必填）GCP專案的ID。 
+
+
+| * GCP_CVO_ZONE * | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * GCP_CVO_node1_ZONE * | 字串 | （選用）節點1的區域。 
+
+
+| * GCP_CVO_node2_ZONE * | 字串 | （選用）節點2的區域。 
+
+
+| * GCP_CVO _中介_區域* | 字串 | （選用）中介區域。 
+
+
+| * GCP_CVO_VPC_id* | 字串 | （選用）VPC的名稱。 
+
+
+| * GCP_CVO_SUBNET_ID* | 字串 | （選用）Cloud Volumes ONTAP 子網路名稱以供填寫。預設值為：「預設」。 
+
+
+| * GCP_CVO_vpc0_node_and _data_Connectivity * | 字串 | （選用）NIC 1的VPC路徑、節點和資料連線所需。如果使用共享VPC、則必須提供網路網路專案ID。 
+
+
+| * GCP_CVO_vpc1_cluster連線能力* | 字串 | （選用）叢集連線所需的NIC路徑。 
+
+
+| * GCP_CVO_vpc2_ha_Connectivity * | 字串 | （選用）NIC 3的VPC路徑、HA連線所需。 
+
+
+| * GCP_CVO_vpc3_data_repletion* | 字串 | （可選）用於NIC 4的VPC路徑、資料複寫所需的路徑。 
+
+
+| * GCP_CVO_Subnet0_node_and _data_netion* | 字串 | （選用）NIC 1的子網路路徑、節點和資料連線所需。如果使用共享VPC、則必須提供網路網路專案ID。 
+
+
+| * GCP_CVO_Subnet1_cluster連線能力* | 字串 | （選用）叢集連線所需的NIC 2子網路路徑。 
+
+
+| * GCP_CVO_Subnet2_ha_Connectivity * | 字串 | （選用）NIC 3的子網路路徑、HA連線所需的子網路路徑。 
+
+
+| * GCP_CVO_Subnet3_data_replet* | 字串 | （選用）資料複寫所需的NIC 4子網路路徑。 
+
+
+| * GCP_CVO_GCP_service_account* | 字串 | （必填）GCP_service_Account電子郵件、以便將冷資料分層至Google Cloud Storage。 
+
+
+| * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
+
+
+| * GCP_CVO_capid_package_name* | 字串 | （選用）容量套件名稱：「Essential」、「Professional」、「Freemium」。預設為「Essential」。 
+
+
+| * GCP_CVO_GCP_Volume _Size* | 字串 | （選用）第一個資料Aggregate的GCP Volume大小。若為GB、單位可以是：[100或500]。對於TB、單位可以是：[1、2、4、8]。預設值為「1」。 
+
+
+| * GCP_CVO_GCP_Volume _Size_unit* | 字串 | （選用）['GB'或'TB']。預設值為「TB」。 
+|===
+--
+.CVS Volume
+--
+本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVS磁碟區.tfvars」中的變數值。
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gcp_cvs_volume" -var-file="vars/gcp_cvs_volume.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_cvs_volume" -var-file="vars/gcp_cvs_volume.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+"CVS Volume（CVS Volume）"
+
+NetApp GCP CVS Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVs_name* | 字串 | （必填）NetApp CVS Volume的名稱。 
+
+
+| * GCP_CVs_PROPON_ID* | 字串 | （必填）要建立CVS Volume的GCP專案ID。 
+
+
+| * GCP_CVs_GCP_service_account_path* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立CVS Volume。 
+
+
+| * GCP_CVs_region* | 字串 | （必填）要建立CVS Volume的GCP區域。 
+
+
+| * GCP_CVs_network* | 字串 | （必要）磁碟區的網路VPC。 
+
+
+| * GCP_CVs_Size* | 整數 | （必填）Volume大小介於1、024至102400（含GiB）之間。 
+
+
+| * GCP_CVs_Volume路徑* | 字串 | （選用）Volume的Volume路徑名稱。 
+
+
+| * gcp_CVS傳輸協定類型* | 字串 | （必要）Volume的傳輸協定類型。對於NFS、請使用「NFSv3」或「NFSv3」、而對於SMB則使用「CIFS」或「SMB」。 
+|===
+--
+====

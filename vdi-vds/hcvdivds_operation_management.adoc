@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_operation_management.html 
+keywords: VDS, Cloud Insights, monitoring, logfile 
+summary: 透過NetApp VDS、系統管理員可以將工作委派給其他人。他們可以連線至已部署的伺服器、以進行疑難排解、檢視記錄及執行稽核報告。在協助客戶的同時、服務台或3級技術人員也能視需要對使用者工作階段進行陰影複製、檢視程序清單及終止程序。 
+---
+= 營運管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+透過NetApp VDS、系統管理員可以將工作委派給其他人。他們可以連線至已部署的伺服器、以進行疑難排解、檢視記錄及執行稽核報告。在協助客戶的同時、服務台或3級技術人員也能視需要對使用者工作階段進行陰影複製、檢視程序清單及終止程序。
+
+如需VDS記錄檔的相關資訊、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/guide_troubleshooting_failed_VDS_actions.html["疑難排解失敗的VDA動作頁面"^]。
+
+如需所需最低權限的詳細資訊、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/WVD_and_VDS_components_and_permissions.html["VDA元件與權限頁面"^]。
+
+如果您想要手動複製伺服器、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/guide_clone_VMs.html["複製虛擬機器頁面"^]。
+
+若要自動增加VM磁碟大小、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/guide_auto_add_disk_space.html["自動增加磁碟空間功能頁面"^]。
+
+若要識別閘道位址以手動設定用戶端、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/guide_user_requirements.html["終端使用者需求頁面"^]。
+
+
+
+== Cloud Insights
+
+NetApp Cloud Insights 解決方案是一套網路監控工具、可讓您完整掌握NetApp及其他協力廠商基礎架構元件上執行的基礎架構與應用程式。支援私有雲和公有雲、以監控、疑難排解及最佳化資源。Cloud Insights
+
+只有採購單位VM（可以是Windows或Linux）必須安裝在私有雲端上、才能從資料收集器收集度量資料、而不需要代理程式。代理型資料收集器可讓您從Windows效能監視器或任何Telegraf支援的輸入代理程式擷取自訂度量。
+
+下圖描述Cloud Insights 了「VDS的功能不整」儀表板。
+
+image:hcvdivds_image15.png["錯誤：缺少圖形影像"]
+
+如需NetApp Cloud Insights 解決方案的詳細資訊、請參閱 https://www.youtube.com/watch?v=AVQ-a-du664&ab_channel=NetApp["這段影片"^]。
+
+link:hcvdivds_tools_and_logs.html["下一步：工具與記錄"]

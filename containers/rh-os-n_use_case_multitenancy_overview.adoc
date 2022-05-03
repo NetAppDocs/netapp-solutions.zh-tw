@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_multitenancy_overview.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
+---
+= 使用NetApp在Red Hat OpenShift上設定多租戶共享
+:allow-uri-read: 
+
+
+許多在容器上執行多個應用程式或工作負載的組織、傾向於針對每個應用程式或工作負載部署一個Red Hat OpenShift叢集。這可讓他們針對應用程式或工作負載實作嚴格的隔離、最佳化效能並減少安全性弱點。不過、為每個應用程式部署個別的Red Hat OpenShift叢集、會產生自己的問題集。它會增加營運成本、必須自行監控及管理每個叢集、因為不同應用程式的專屬資源而增加成本、並阻礙有效的擴充性。
+
+若要克服這些問題、您可以考慮在單一Red Hat OpenShift叢集中執行所有應用程式或工作負載。但是在這樣的架構中、資源隔離和應用程式安全性弱點是其中一項重大挑戰。某個工作負載中的任何安全弱點都可能自然延伸到另一個工作負載、進而增加影響區域。此外、任何應用程式突然無法控制的資源使用率、都可能影響另一個應用程式的效能、因為預設不會有資源配置原則。
+
+因此、企業組織希望能在這兩個領域中找到最佳的解決方案、例如允許他們在單一叢集中執行所有工作負載、同時為每個工作負載提供專屬叢集的優點。
+
+其中一個有效的解決方案是在Red Hat OpenShift上設定多租戶共享。多租戶共享是一種架構、可讓多個租戶在同一個叢集上共存、並適當隔離資源、安全性等。在這種情況下、租戶可視為叢集資源的子集、而這些資源已設定為供特定使用者群組專用。在Red Hat OpenShift叢集上設定多租戶共享可提供下列優點：
+
+* 允許共用叢集資源、進而降低資本支出和營運成本
+* 降低營運與管理成本
+* 保護工作負載免於安全漏洞的交叉污染
+* 保護工作負載、避免資源爭用造成非預期的效能降級
+
+
+對於完全實現的多租戶OpenShift叢集、必須針對屬於不同資源桶的叢集資源設定配額和限制：運算、儲存、網路、安全性等。雖然我們涵蓋本解決方案中所有資源桶的某些層面、 我們將重點放在隔離和保護同一個Red Hat OpenShift叢集上多個工作負載所提供或使用的資料的最佳實務做法上、方法是在由Astra Trident以NetApp ONTAP S動地 配置的儲存資源上設定多租戶。
+
+link:rh-os-n_use_case_multitenancy_architecture.html["下一步：架構。"]

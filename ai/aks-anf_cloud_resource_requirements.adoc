@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_cloud_resource_requirements.html 
+keywords: configuration, configure, resource provider, dask, cloud, Requirements 
+summary: 本頁說明如何組態雲端資源Azure NetApp Files 以利執行功能。 
+---
+= 雲端資源需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_software_requirements.html["先前版本：軟體需求。"]
+
+
+
+== 設定Azure NetApp Files 功能
+
+如Azure NetApp Files 所述設定功能 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes?tabs=azure-portal["快速入門：設定Azure NetApp Files 功能以建立NFS磁碟區"^]。
+
+您可以跳過「Create NFS volume for Azure NetApp Files the Sfor the Sfor the」一節、因為您要透過Trident建立Volume。在繼續之前、請先完成下列步驟：
+
+. 註冊Azure NetApp Files 以取得NetApp資源供應商（透過Azure Shell）（ https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-register["連結"^]）。
+. 在Azure NetApp Files 以下網頁建立帳戶 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["連結"^]）。
+. 設定容量資源池（最低4TB標準或Premium、視您的需求而定）（ https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["連結"^]）。下表列出在雲端設定的網路組態需求。dask叢集與Azure NetApp Files VMware必須位於同一個Azure虛擬網路（vnet）或對等虛擬網路中。
+
+
+|===
+| 資源 | 類型/版本 
+
+
+| Azure Kubernetes服務 | 1.18.14 
+
+
+| 代理節點 | 3倍Standard_DS2_v2 
+
+
+| GPU節點 | 3倍Standard_NC6s_v3 
+
+
+| Azure NetApp Files | 標準容量資源池 
+
+
+| 容量（以TB為單位） | 4. 
+|===
+link:aks-anf_click-through_rate_prediction_use_case_summary.html["下一步：點選率預測使用案例摘要。"]

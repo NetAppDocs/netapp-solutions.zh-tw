@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vsphere_admin_storage_efficiencies.html 
+keywords: vSphere, efficiency, efficiencies, deduplication, compaction, compression, zero-block, inline, flexclone, adp, disk partitioning, ONTAP 
+summary: 本頁說明ONTAP 功能不完整的儲存效率。 
+---
+= 儲存效率ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 關於儲存效率
+
+雖然NetApp是第一家針對正式作業工作負載提供重複資料刪除技術的公司、但這項創新技術並非此領域的第一或最後一項。首先是ONTAP 使用不影響效能的空間效率資料保護機制、以及FlexClone技術來即時製作VM的讀寫複本、以供正式作業和備份使用。NetApp繼續提供內嵌功能、包括重複資料刪除、壓縮及零區塊重複資料刪除、讓昂貴的SSD發揮最大的儲存容量。最近ONTAP 、我們在強化儲存效率的過程中、加入了不實的功能。
+
+* *內嵌零區塊重複資料刪除技術。*消除了全零區塊浪費的空間。
+* *內嵌壓縮。*壓縮資料區塊、以減少所需的實體儲存容量。
+* *內嵌重複資料刪除技術。*利用磁碟上現有的區塊來消除傳入的區塊。
+* *即時資料壓縮。*將較小的I/O作業和檔案整合至每個實體區塊。
+
+
+image:vsphere_admin_storage_efficiencies.png["儲存效率"]
+
+您可以一起執行重複資料刪除、資料壓縮及資料壓縮、或是獨立執行、以在FlexVol 一個影像區上實現最佳的空間節約效益。這些功能的結合、讓客戶看到VSI的節約效益高達5：1、VDI的節約效益高達30：1。
+
+
+NOTE: 如需ONTAP 更多關於效能提升的資訊、請參閱 https://docs.netapp.com/ontap-9/index.jsp["使用重複資料刪除技術、資料壓縮及資料壓縮技術來提升儲存效率"] 在VMware的VMware®文件中心。ONTAP

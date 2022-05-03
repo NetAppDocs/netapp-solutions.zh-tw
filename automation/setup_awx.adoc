@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: automation/setup_awx.html 
+summary: NetApp解決方案自動化可讓客戶將許多常見的基礎架構和應用程式工作的部署、組態和執行自動化。 
+keywords: netapp, awx, tower, ansible tower, solutions, automation, ansible 
+---
+= NetApp解決方案自動化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+
+
+== 程序
+
+本節說明在AWX/Ansible Tower中設定參數所需的步驟、這些參數可讓環境做好使用NetApp自動化解決方案的準備。
+
+. 設定庫存。
++
+.. 瀏覽至「資源」→「庫存」→「新增」、然後按一下「新增庫存」。
+.. 提供名稱和組織詳細資料、然後按一下「Save（儲存）」。
+.. 在「Inventory（清單）」頁面中、按一下您剛建立的詳細目錄資源。
+.. 如果有任何庫存變數、請將其貼到變數欄位。
+.. 前往「Groups（群組）」子功能表、然後按一下「Add（新增）」
+.. 提供群組名稱、複製群組變數（如有必要）、然後按一下「Save（儲存）」。
+.. 按一下建立的群組、移至「hosts（主機）」子功能表、然後按一下「Add New Host（新增主機）」。
+.. 提供主機的主機名稱和IP位址、貼上主機變數（如有必要）、然後按一下「Save（儲存）」。
+
+
+. 建立認證類型。對於涉及ONTAP 到靜態、元素、VMware或任何其他HTTPS型傳輸連線的解決方案、您必須設定認證類型、使其符合使用者名稱和密碼項目。
++
+.. 瀏覽至「管理」→「認證類型」、然後按一下「新增」。
+.. 提供名稱和說明。
+.. 將下列內容貼到輸入組態：
+
+
+
+
+[listing]
+----
+fields:
+- id: username
+type: string
+label: Username
+- id: password
+type: string
+label: Password
+secret: true
+- id: vsadmin_password
+type: string
+label: vsadmin_password
+secret: true
+----
+. 將下列內容貼到Injector Configuration：
+
+
+[listing]
+----
+extra_vars:
+password: '{{ password }}'
+username: '{{ username }}'
+vsadmin_password: '{{ vsadmin_password }}'
+----
+. 設定認證資料。
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」
+.. 輸入名稱和組織詳細資料。
+.. 選取正確的認證類型；如果您想要使用標準SSH登入、請選取「機器」類型、或選取您建立的自訂認證類型。
+.. 輸入其他對應的詳細資料、然後按一下「Save（儲存）」。
+
+
+. 設定專案。
++
+.. 瀏覽至「資源」→「專案」、然後按一下「新增」。
+.. 輸入名稱和組織詳細資料。
+.. 選取「來源控制認證類型」的Git。
+.. 貼上與特定解決方案對應的來源控制URL（或git Clone URL）。
+.. 或者、如果Git URL受到存取控制、請在來源控制認證中建立並附加對應的認證資料。
+.. 按一下儲存。
+
+
+. 設定工作範本。
++
+.. 瀏覽至「資源」→「範本」→「新增」、然後按一下「新增工作範本」
+.. 輸入名稱和說明。
+.. 選取工作類型；執行會根據手冊來設定系統、檢查會執行播放手冊的乾式執行、而不會實際設定系統。
+.. 選取該方針的對應庫存、專案和認證資料。
+.. 選取您要作為工作範本一部分執行的方針。
+.. 這些變數通常會在執行時期貼上。因此、若要在執行時間期間收到填入變數的提示、請務必勾選對應於變數欄位的啟動時核取方塊提示。
+.. 視需要提供任何其他詳細資料、然後按一下「Save（儲存）」。
+
+
+. 啟動工作範本。
++
+.. 瀏覽至資源→範本。
+.. 按一下所需的範本、然後按一下啟動。
+.. 如果啟動時出現提示、請填寫任何變數、然後再按一下「Launch（重新啟動）」。
+
+
+

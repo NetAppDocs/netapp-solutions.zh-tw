@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-sent-videos-and-demos.html 
+keywords: video, demo, notebook 
+summary: 本節列出Jupyter筆記型電腦及其他對本解決方案有用的資源。 
+---
+= 影片與示範
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-sent-validation-results.html["先前：驗證結果。"]
+
+有兩部筆記型電腦包含意見分析管道： https://nbviewer.jupyter.org/github/NetAppDocs/netapp-solutions/blob/main/media/Support-Center-Model-Transfer-Learning-and-Fine-Tuning.ipynb["「Support-Center-Model-Transfer-Learning and精細調校.ipynb」"] 和 link:https://nbviewer.jupyter.org/github/NetAppDocs/netapp-solutions/blob/main/media/Support-Center-Sentiment-Analysis-Pipeline.ipynb["「支援中心-意見分析- Pipele.ipynb」"]。這些筆記型電腦一起示範如何利用最先進的深度學習模式、針對使用者的資料進行微調、來開發管道來擷取支援中心資料、並從每一句話中擷取意見。
+
+
+
+== 支援中心：情緒分析Pipeline.ipynb
+
+這份筆記型電腦內含用於擷取音訊、將音訊轉換成文字、以及擷取用於外部儀表板的想法的Riva預估管道。如果尚未下載及處理資料集、則會自動下載及處理。筆記型電腦的第一部分是「語音對文字」、負責將音訊檔案轉換成文字。接下來是「意見分析」區段、該區段會擷取每個文字句子的意見、並以類似建議儀表板的格式顯示這些結果。
+
+
+NOTE: 此筆記型電腦必須在模型訓練和微調之前執行、因為必須下載並轉換成正確格式的mp3資料集。
+
+image:ai-sent-image12.png["錯誤：缺少圖形影像"]
+
+
+
+== 支援中心：模型訓練與微調.ipynb
+
+在執行筆記型電腦之前、必須先設定TAO Toolkit虛擬環境（請參閱命令總覽中的TAO Toolkit一節以取得安裝說明）。
+
+這款筆記型電腦仰賴TAO工具套件來微調客戶資料的深度學習模式。如同先前的筆記型電腦、此筆記分為兩個區段、分別用於語音對文字和情緒分析元件。每個區段都會進行資料處理、模型訓練和微調、結果評估和模型匯出。最後、我們會提供一個端點來部署您專為Riva所設計的兩種調校模型。
+
+image:ai-sent-image13.png["錯誤：缺少圖形影像"]
+
+link:ai-sent-conclusion.html["下一步：結論。"]

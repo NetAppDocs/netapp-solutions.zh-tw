@@ -1,0 +1,25 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理 
+---
+= 為Kubernetes部署進階叢集管理
+:allow-uri-read: 
+
+
+
+
+== 先決條件
+
+. 用於顯示中樞叢集的Red Hat OpenShift叢集（高於4.5版）
+. 適用於託管叢集的Red Hat OpenShift叢集（高於4.4.3版）
+. 叢集管理存取Red Hat OpenShift叢集
+. 適用於Kubernetes的進階叢集管理Red Hat訂購
+
+
+進階叢集管理是OpenShift叢集的附加元件、因此根據整個集線器和託管叢集所使用的功能、對硬體資源有特定的需求和限制。在調整叢集規模時、您必須將這些問題納入考量。請參閱文件 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html-single/install/index#network-configuration["請按這裡"] 以取得更多詳細資料。
+
+或者、如果集線器叢集有專屬節點來裝載基礎架構元件、而且您只想在這些節點上安裝「進階叢集管理」資源、則必須相應地將容許值和選取器新增至這些節點。如需詳細資料、請參閱文件 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/html/install/installing#installing-on-infra-node["請按這裡"]。
+
+link:rh-os-n_use_case_advanced_cluster_management_deployment.html["下一步：安裝。"]

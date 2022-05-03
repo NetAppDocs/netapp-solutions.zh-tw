@@ -1,0 +1,279 @@
+= 
+:allow-uri-read: 
+
+
+. 登入NetApp支援網站、下載最新版本的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至管理工作站。
++
+
+NOTE: 若要開始使用Astra Control試用授權、請造訪 https://cloud.netapp.com/astra-register["Astra註冊網站"^]。
+
+. 解壓縮tar ball並將工作目錄變更為所產生的資料夾。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ tar -vxzf astra-control-center-21.08.65.tar.gz
+[netapp-user@rhel7 ~]$ cd astra-control-center-21.08.65
+----
+. 開始安裝之前、請先將Astra Control Center映像推送到映像登錄。
++
+
+NOTE: 您可以選擇使用Docker或Podman來執行此作業；本步驟提供這兩種方法的說明。
+
+
+
+[role="tabbed-block"]
+====
+'''
+. 將登錄FQDN與組織/命名空間/專案名稱匯出為環境變數「正式作業」。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ export registry=astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra
+----
+. 登入登錄。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ podman login -u ocp-user -p password --tls-verify=false astra-registry.apps.ocp-vmw.cie.netapp.com
+----
++
+
+NOTE: 如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖、而非密碼「podman登入-u ocp-user-p權杖--tlS-VERIF=假astra-registry.apps.ocp-vmw.cie.netapp.com`」。
+
++
+
+NOTE: 或者、您也可以建立服務帳戶、指派登錄編輯器和/或登錄檢視器角色（取決於您是否需要推入/拉取存取）、然後使用服務帳戶的權杖登入登錄。
+
+. 建立Shell指令碼檔案、然後將下列內容貼入其中。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ vi push-images-to-registry.sh
+
+for astraImageFile in $(ls images/*.tar); do
+   astraImage=$(podman load --input ${astraImageFile} | sed 's/Loaded image(s): //')
+   podman tag $astraImage $registry/$(echo $astraImage | sed 's/^[^\/]\+\///')
+   podman push $registry/$(echo $astraImage | sed 's/^[^\/]\+\///')
+done
+----
++
+
+NOTE: 如果您的登錄使用不受信任的憑證、請編輯Shell指令碼、並針對podman推送命令「podman push $註 冊表/$（ECAECA$astraImage | sed 's/^[^\/]\+//'）-TLS-VERIFE=假」使用「-TLS-VERIFY」。
+
+. 將檔案設定為可執行檔。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ chmod +x push-images-to-registry.sh
+----
+. 執行Shell指令碼。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ ./push-images-to-registry.sh
+----
++
+'''
++
+'''
+. 將登錄FQDN與組織/命名空間/專案名稱匯出為環境變數「正式作業」。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ export registry=astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra
+----
+. 登入登錄。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ docker login -u ocp-user -p password astra-registry.apps.ocp-vmw.cie.netapp.com
+----
++
+
+NOTE: 如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖而非密碼-「docker login-u ocp-user-p權杖astra-registry.apps.ocp-vmw.cie.netapp.com`」。
+
++
+
+NOTE: 或者、您也可以建立服務帳戶、指派登錄編輯器和/或登錄檢視器角色（取決於您是否需要推入/拉取存取）、然後使用服務帳戶的權杖登入登錄。
+
+. 建立Shell指令碼檔案、然後將下列內容貼入其中。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ vi push-images-to-registry.sh
+
+for astraImageFile in $(ls images/*.tar); do
+   astraImage=$(docker load --input ${astraImageFile} | sed 's/Loaded image: //')
+   docker tag $astraImage $registry/$(echo $astraImage | sed 's/^[^\/]\+\///')
+   docker push $registry/$(echo $astraImage | sed 's/^[^\/]\+\///')
+done
+----
+. 將檔案設定為可執行檔。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ chmod +x push-images-to-registry.sh
+----
+. 執行Shell指令碼。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ ./push-images-to-registry.sh
+----
++
+'''
+
+
+====
+. 接著、將映像登錄TLS憑證上傳至OpenShift節點。若要這麼做、請使用TLS憑證在openshift-config命名空間中建立組態對應、並將其修補至叢集映像組態、使憑證成為信任的憑證。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create configmap default-ingress-ca -n openshift-config --from-file=astra-registry.apps.ocp-vmw.cie.netapp.com=tls.crt
+
+[netapp-user@rhel7 ~]$ oc patch image.config.openshift.io/cluster --patch '{"spec":{"additionalTrustedCA":{"name":"default-ingress-ca"}}}' --type=merge
+----
++
+
+NOTE: 如果您使用OpenShift內部登錄搭配來自入口操作員的預設TLS憑證搭配路由、您仍需依照前一個步驟將憑證修補成路由主機名稱。若要從入口操作員擷取憑證、您可以使用命令「occExtract secret /路由器-ca --keys=ls.crt -n openshift-inemit-opoperers」。
+
+. 建立命名空間「NetApp-acc operator」、以安裝Astra Control Center操作員。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create ns netapp-acc-operator
+----
+. 使用認證資料建立秘密、以登入「NetApp-acc operator」命名空間中的映像登錄。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create secret docker-registry astra-registry-cred --docker-server=astra-registry.apps.ocp-vmw.cie.netapp.com --docker-username=ocp-user --docker-password=password -n netapp-acc-operator
+secret/astra-registry-cred created
+----
+. 編輯Astra Control Center運算子CR「Astra control_center_operator_deploy」、這是Astra Control Center部署的一組所有資源。在運算子CR中、找到「acc oper-控制 器管理程式」的部署定義、然後輸入登錄的FQDN、以及將映像推送到登錄時所提供的組織名稱（在本例中為「astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra`」）。 將「ASTRA_image_registry」取代為「ASTRA_image」、並提供我們剛在「imageplipSecrets」區段建立的機密名稱。驗證操作員的其他詳細資料、儲存及關閉。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ vim astra_control_center_operator_deploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+  name: acc-operator-controller-manager
+  namespace: netapp-acc-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+  template:
+    metadata:
+      labels:
+        control-plane: controller-manager
+    spec:
+      containers:
+      - args:
+        - --secure-listen-address=0.0.0.0:8443
+        - --upstream=http://127.0.0.1:8080/
+        - --logtostderr=true
+        - --v=10
+        image: ASTRA_IMAGE_REGISTRY/kube-rbac-proxy:v0.5.0
+        name: kube-rbac-proxy
+        ports:
+        - containerPort: 8443
+          name: https
+      - args:
+        - --health-probe-bind-address=:8081
+        - --metrics-bind-address=127.0.0.1:8080
+        - --leader-elect
+        command:
+        - /manager
+        env:
+        - name: ACCOP_LOG_LEVEL
+          value: "2"
+        image: astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra/acc-operator:21.08.7
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: manager
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 300m
+            memory: 750Mi
+          requests:
+            cpu: 100m
+            memory: 75Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+      imagePullSecrets: [name: astra-registry-cred]
+      securityContext:
+        runAsUser: 65532
+      terminationGracePeriodSeconds: 10
+----
+. 執行下列命令來建立運算子。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create -f astra_control_center_operator_deploy.yaml
+----
+. 建立專用命名空間、以安裝所有Astra Control Center資源。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create ns netapp-astra-cc
+namespace/netapp-astra-cc created
+----
+. 建立密碼以存取該命名空間中的映像登錄。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc create secret docker-registry astra-registry-cred --docker-server=astra-registry.apps.ocp-vmw.cie.netapp.com --docker-username=ocp-user --docker-password=password -n netapp-astra-cc
+
+secret/astra-registry-cred created
+----
+. 編輯Astra Control Center CRD檔案「Astra control_center_min.yaml」、然後輸入FQDN、映像登錄詳細資料、系統管理員電子郵件地址及其他詳細資料。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ vim astra_control_center_min.yaml
+
+apiVersion: astra.netapp.io/v1
+kind: AstraControlCenter
+metadata:
+  name: astra
+spec:
+  accountName: "NetApp HCG Solutions"
+  astraVersion: "21.08.65"
+  astraAddress: "astra-control-center.cie.netapp.com"
+  autoSupport:
+    enrolled: true
+  email: "solutions_tme@netapp.com"
+  firstName: "NetApp HCG"
+  lastName: "Admin"
+  imageRegistry:
+    name: "astra-registry.apps.ocp-vmw.cie.netapp.com/netapp-astra"     # use your registry
+    secret: "astra-registry-cred"             # comment out if not needed
+----
+. 在為其建立的命名空間中建立Astra Control Center CRD。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc apply -f astra_control_center_min.yaml -n netapp-astra-cc
+astracontrolcenter.astra.netapp.io/astra created
+----
+
+
+
+NOTE: 上一個檔案「Astra control_center_min.yaml」是Astra Control Center CRD的最低版本。如果您想要建立具有更多控制權的CRD、例如定義儲存裝置以外的預設建立PVCS、或提供郵件通知的SMTP詳細資料、您可以編輯檔案「Astra_control_center.yaml」、輸入所需的詳細資料、然後使用它來建立CRD。

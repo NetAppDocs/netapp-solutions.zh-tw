@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_training_time_comparison.html 
+keywords: training, time, comparison, pandas, dask, 
+summary: 本頁比較使用傳統Pandas的模型訓練時間與dask。對於Pandas而言、由於處理時間變慢、因此載入的資料量較少、以避免記憶體溢位。因此、我們將結果插補以提供公平的比較。 
+---
+= 訓練時間比較
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_monitor_dask_using_native_task_streams_dashboard.html["上一步：使用原生工作串流儀表板監控dask。"]
+
+本節比較使用傳統Pandas的模型訓練時間與dask。對於Pandas而言、由於處理時間變慢、因此載入的資料量較少、以避免記憶體溢位。因此、我們將結果插補以提供公平的比較。
+
+下表顯示隨機樹系模型使用的資料大幅減少時的原始訓練時間比較（資料集的20億個資料集中、有500萬列的資料）。此範例僅使用所有可用資料的0.25%以下。而對於dASK CUML、我們則針對所有200億個可用資料列、訓練隨機樹系模型。這兩種方法可提供相當的訓練時間。
+
+|===
+| 方法 | 訓練時間 
+
+
+| 科學套件學習：在第15天只使用50M列做為訓練資料 | 47分21秒 
+
+
+| 「激流勇進」：將第15天的全部20B列當作訓練資料 | 1小時12分鐘11秒 
+|===
+如果我們以線性方式插補訓練時間結果、如下表所示、則搭配使用dask的分散式訓練將有顯著的優勢。傳統的「大作大作」學習方法需要13天的時間來處理和訓練45GB的資料、只需一天的點擊記錄、而「大浪」方法則能以相同數量的資料處理速度快262.39倍。
+
+|===
+| 方法 | 訓練時間 
+
+
+| 科學套件-學習：將第15天的所有20B列當作訓練資料 | 13天、3小時、40分鐘及11秒 
+
+
+| 「激流勇進」：將第15天的全部20B列當作訓練資料 | 1小時12分鐘11秒 
+|===
+在上表中、您可以看到、透過使用配備DASK的PRUs將資料處理和模型訓練分散到多個GPU執行個體、相較於使用sciker-Learn模型訓練的傳統Pandas DataFrame處理、執行時間大幅縮短。此架構可在多節點、多GPU叢集內、在雲端及內部部署中進行橫向擴充。
+
+link:aks-anf_monitor_dask_and_rapids_with_prometheus_and_grafana.html["接下來：使用Prometheus和Grafana監控dask和水流。"]

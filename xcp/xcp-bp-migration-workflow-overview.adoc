@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-migration-workflow-overview.html 
+keywords: migration, workflow, nas, shares, copy, sync, truck, azure, expressroute 
+summary: 移轉有不同的階段需要遵循、以便更妥善規劃及完成移轉。若要使用NetApp XCP從協力廠商NAS儲存設備或直接附加的NAS匯出儲存設備移轉資料、請遵循本節所提供的移轉準則。 
+---
+= 移轉工作流程
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-netapp-xcp-overview.html["先前版本：NetApp XCP。"]
+
+移轉有不同的階段需要遵循、以便更妥善規劃及完成移轉。若要使用NetApp XCP從協力廠商NAS儲存設備或直接附加的NAS匯出儲存設備移轉資料、請遵循本節所提供的移轉準則。
+
+下圖說明從任何NAS到NetApp NAS的移轉工作流程。
+
+image:xcp-bp_image3.png["錯誤：缺少圖形影像"]
+
+
+
+== 內部部署
+
+從任何NAS移轉至NetApp NAS的工作流程包括下列步驟：
+
+. 探索NAS共用與資料。
+. 掃描資料並產生報告、以找出資料的配置。
+. 執行XCP Copy命令建立基準。若要加快移轉速度、請選取更多XCP執行個體、然後在子資料夾層級分割工作負載、以啟動平行移轉工作。
+. 如需遞增更新、請使用XCP同步、直到轉換期間的變更率偏低為止。
+. 將來源標示為唯讀、執行XCP sync命令以完成移轉、以執行最終同步。
+. 若要驗證資料傳輸是否正確、請執行「XCP VERIFY」命令來比較來源和目的地。
+
+
+
+
+== 雲端
+
+對於雲端、如果內部部署與雲端之間的連線是直接連線（AWS）、ExpressRoute（Azure）或雲端互連（GCP）、您可以遵循類似的內部部署移轉工作流程。
+
+下圖說明從內部部署到雲端的移轉工作流程。
+
+image:xcp-bp_image4.png["錯誤：缺少圖形影像"]
+
+如果內部部署與雲端之間沒有直接的網際網路連線、您必須透過卡車等離線資料傳輸方法、將資料從內部部署傳輸至雲端。每家雲端服務供應商都有不同的方法、並使用不同的術語將資料移至資料中心。
+
+下圖說明內部部署至Azure（不含ExpressRoute）的資料移轉解決方案。
+
+image:xcp-bp_image5.png["錯誤：缺少圖形影像"]
+
+您可以使用類似的架構、搭配來自不同雲端服務供應商的個別元件。
+
+link:xcp-bp-file-analytics.html["下一步：檔案分析。"]

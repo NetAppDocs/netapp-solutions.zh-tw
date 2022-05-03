@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
+---
+= 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
+:allow-uri-read: 
+
+
+
+
+== 虛擬機器複製
+
+支援Astra Trident的Volume csi複製功能、即可在OpenShift中複製現有VM。透過複製現有的PV、可以使用現有的PVc作為資料來源來建立新的PVc。建立新的永久虛擬基礎架構之後、它會做為獨立實體運作、而且不會與來源永久虛擬基礎架構有任何連結或相依關係。
+
+image::redhat_openshift_image57.jpg[VM複製架構]
+
+使用「csi Volume Cloning」時、必須考量下列限制：
+
+. 來源PVc和目的地PVc必須位於同一個專案中。
+. 同一儲存類別支援複製。
+. 只有在來源和目的地磁碟區使用相同的磁碟區模式設定時、才能執行複製；例如、區塊磁碟區只能複製到另一個區塊磁碟區。
+
+
+OpenShift叢集中的VM可透過兩種方式複製：
+
+. 關閉來源VM
+. 讓來源VM保持運作
+
+
+
+
+=== 關閉來源VM
+
+關閉VM來複製現有VM是一項原生OpenShift功能、可透過Astra Trident的支援來實作。完成下列步驟以複製VM。
+
+. 瀏覽至「工作負載」>「虛擬化」>「虛擬機器」、然後按一下您要複製的虛擬機器旁的省略符號。
+. 按一下「Clone Virtual Machine（複製虛擬機器）」、並提供新VM的詳細資料。
++
+image::redhat_openshift_image58.JPG[複製VM]
+
+. 按一下「Clone Virtual Machine（複製虛擬機器）」；這會關閉來源VM並開始建立複製VM。
+. 完成此步驟之後、您可以存取並驗證複製的VM內容。
+
+
+
+
+=== 讓來源VM保持運作
+
+也可以複製現有VM、方法是複製來源VM的現有PVC,然後使用複製的PVC,建立新VM。此方法不需要關閉來源VM。完成下列步驟、即可在不關閉VM的情況下複製VM。
+
+. 瀏覽至「Storage（儲存設備）」>「PeristentVolume Claims（永久磁碟區宣告）」、然後按一下附加至來源VM的永久磁碟旁的省略號。
+. 按一下Clone PVc（複製PVc）、並提供新PVc的詳細資料。
++
+image::redhat_openshift_image59.JPG[複製PVC]
+
+. 然後按一下Clone（複製）這會為新VM建立一個永久虛擬機器。
+. 瀏覽至「工作負載」>「虛擬化」>「虛擬機器」、然後按一下「建立」>「使用Yaml」
+. 在SPEC >範本> SPEC > Volume區段中、附加複製的PVc而非容器磁碟。請根據您的需求、提供新VM的所有其他詳細資料。
++
+[source, cli]
+----
+- name: rootdisk
+  persistentVolumeClaim:
+    claimName: rhel8-short-frog-rootdisk-28dvb-clone
+----
+. 按一下「Create（建立）」以建立新的VM。
+. 成功建立VM之後、請存取並確認新VM是來源VM的複本。
+
+
+link:rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html["下一步：工作流程：從Snapshot建立VM。"]

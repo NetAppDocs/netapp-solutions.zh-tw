@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: ai/mlrun_introduction.html 
+keywords: NetApp, MLRun, Introduction, Audience, Solution 
+summary:  
+---
+= TR-4834：適用於MLRun Pipeline的NetApp和Iguazio
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Rick Huang、David Arette、NetApp Marcelo Lettovsky、Iguazio
+
+本文件涵蓋採用NetApp ONTAP AI、NetApp AI Control Plane、NetApp Cloud Volumes軟體及Iguazio Data Science Platform的MLRun管線詳細資料。我們使用Nuclio無伺服器功能、Kubernetes持續磁碟區、NetApp Cloud Volumes、NetApp Snapshot複本、Grafana儀表板、 以及Iguazio平台上的其他服務、以建置端點對端點資料傳輸途徑來模擬網路故障偵測。我們整合了Iguazio和NetApp技術、可在內部部署和雲端上實現快速的模型部署、資料複寫和正式作業監控功能。
+
+資料科學家的工作重點應放在機器學習（ML）和人工智慧（AI）模式的訓練和調校。不過、根據Google的研究結果、資料科學家將約80%的時間花在研究如何讓他們的模型與企業應用程式搭配運作、並以大規模方式執行、如以下影像所示、說明AI/ML工作流程中的模型開發。
+
+image:mlrun_image1.png["錯誤：缺少圖形影像"]
+
+若要管理端點對端點的AI/ML專案、需要更深入瞭解企業元件。雖然DevOps已接管這些類型元件的定義、整合及部署、但機器學習作業的目標是類似流程、包括AI/ML專案。若要瞭解企業中端點對端點的AI/ML傳輸途徑、請參閱下列必要元件清單：
+
+* 儲存設備
+* 網路
+* 資料庫
+* 檔案系統
+* 容器
+* 持續整合與持續部署（CI/CD）管道
+* 開發整合式開發環境（IDE）
+* 安全性
+* 資料存取原則
+* 硬體
+* 雲端
+* 虛擬化
+* 資料科學工具集與程式庫
+
+
+在本白皮書中、我們將示範NetApp與Iguazio之間的合作關係如何大幅簡化端點對端點AI/ML管線的開發。這項簡化可加速所有AI / ML應用程式的上市時間。
+
+
+
+== 目標對象
+
+資料科學的世界涉及資訊技術和商業的多個領域。
+
+* 資料科學家需要靈活運用所選的工具和程式庫。
+* 資料工程師需要知道資料的流通方式及存放位置。
+* DevOps工程師需要工具、將新的AI/ML應用程式整合至其CI/CD管道。
+* 企業使用者想要存取AI / ML應用程式。我們說明NetApp和Iguazio如何協助這些角色、讓我們的平台為企業帶來價值。
+
+
+
+
+== 解決方案總覽
+
+此解決方案遵循AI / ML應用程式的生命週期。我們從資料科學家的工作開始著手、定義準備資料、以及訓練和部署模型所需的不同步驟。我們會依照所需的工作來建立完整的管道、以便追蹤成品、實驗執行、以及部署至Kubeflow。為了完成整個週期、我們將管線與NetApp Cloud Volumes整合、以啟用資料版本管理功能、如下圖所示。
+
+image:mlrun_image2.png["錯誤：缺少圖形影像"]
+
+link:mlrun_technology_overview.html["下一步：技術總覽"]

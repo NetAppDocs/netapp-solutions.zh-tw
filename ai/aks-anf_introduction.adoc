@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_introduction.html 
+keywords: introduction, tr-4904, 4904, tr4904, kubernetes, azure, anf, rapids, dask, ml, ai, machine learning, artificial intelligence, 
+summary: 此解決方案遵循AI / ML應用程式的生命週期。我們從資料科學家的工作開始、定義準備資料和訓練模型所需的不同步驟。我們運用dask上的快速發展、在Azure Kubernetes Service（aks）叢集上執行分散式訓練、大幅縮短訓練時間、相較於傳統的Python scisker-k套 件學習方法。為了完成完整的週期、我們整合了整合整個管線Azure NetApp Files 與功能的功能。 
+---
+= TR-4904：Azure中的分散式訓練-點擊率預測
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Rick Huang、Verron Martina、Muneer Ahmad、NetApp
+
+資料科學家的工作重點應放在機器學習（ML）和人工智慧（AI）模式的訓練和調校。不過、根據Google的研究結果、資料科學家約有80%的時間花在研究如何讓他們的模型與企業應用程式搭配運作、以及大規模執行。
+
+若要管理端點對端點的AI/ML專案、需要更深入瞭解企業元件。雖然DevOps已接管定義、整合及部署、但這些類型的元件、但ML作業的目標是類似流程、包括AI/ML專案。若要瞭解企業中端點對端點的AI/ML傳輸途徑、請參閱下列必要元件清單：
+
+* 儲存設備
+* 網路
+* 資料庫
+* 檔案系統
+* 容器
+* 持續整合與持續部署（CI/CD）管道
+* 整合式開發環境（IDE）
+* 安全性
+* 資料存取原則
+* 硬體
+* 雲端
+* 虛擬化
+* 資料科學工具集與程式庫
+
+
+
+
+== 目標對象
+
+資料科學領域涉及IT與企業的多個領域：
+
+* 資料科學家需要靈活運用所選的工具和程式庫。
+* 資料工程師需要知道資料的流通方式及存放位置。
+* DevOps工程師需要工具、將新的AI/ML應用程式整合至其CI/CD管道。
+* 雲端管理員與架構設計師必須能夠設定及管理Azure資源。
+* 企業使用者想要存取AI / ML應用程式。
+
+
+在本技術報告中、我們將說明Azure NetApp Files 各種角色的功能、包括功能性、速度性AI、dask和Azure如何協助企業實現價值。
+
+
+
+== 解決方案總覽
+
+此解決方案遵循AI / ML應用程式的生命週期。我們從資料科學家的工作開始、定義準備資料和訓練模型所需的不同步驟。我們運用dask上的快速發展、在Azure Kubernetes Service（aks）叢集上執行分散式訓練、大幅縮短訓練時間、相較於傳統的Python scisker-k套 件學習方法。為了完成完整的週期、我們整合了整合整個管線Azure NetApp Files 與功能的功能。
+
+提供多種效能等級。Azure NetApp Files客戶可以從標準層開始、在不中斷營運的情況下橫向擴充並擴充至高效能層、而不需移動任何資料。此功能可讓資料科學家在不發生任何效能問題的情況下、大規模訓練模型、避免跨叢集的任何資料封閉環境、如下圖所示。
+
+image:aks-anf_image1.png["錯誤：缺少圖形影像"]
+
+link:aks-anf_technology_overview.html["下一步：技術總覽。"]

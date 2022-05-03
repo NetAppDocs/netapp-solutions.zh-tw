@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_solution_technology_overview.html 
+keywords:  
+summary:  
+---
+= 解決方案技術
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+此解決方案是以一AFF 部NetApp Efora800系統、兩部DGX-1伺服器、以及兩部Cisco Nexus 3232C 100Gbe-switches來實作。每部DGX-1伺服器均連接至Nexus交換器、並具有四個100GbE連線、可透過融合式乙太網路（RoCE）使用遠端直接記憶體存取（RDMA）進行GPU間通訊。NFS儲存存取的傳統IP通訊也會發生在這些連結上。每個儲存控制器都使用四個100GbE連結連接至網路交換器。下圖顯示ONTAP 本技術報告中針對所有測試案例所使用的AI解決方案架構。
+
+image:osrunai_image2.png["錯誤：缺少圖形影像"]
+
+
+
+== 本解決方案所使用的硬體
+
+此解決方案已通過ONTAP 驗證、採用了一套支援整個AI參考架構、其中兩個DGX-1節點和一個AFF 支援完善的資料中心A800儲存系統。請參閱 https://www.netapp.com/us/media/nva-1121-design.pdf["NVA-1121."^] 如需此驗證所使用基礎架構的詳細資訊、請參閱。
+
+下表列出實作已測試解決方案所需的硬體元件。
+
+|===
+| 硬體 | 數量 
+
+
+| DGX-1系統 | 2. 
+
+
+| 解答800 AFF | 1. 
+
+
+| Nexus 3232C交換器 | 2. 
+|===
+
+
+== 軟體需求
+
+此解決方案已通過基本Kubernetes部署驗證、並已安裝Run:AI操作員。Kubernetes是使用部署的 https://github.com/NVIDIA/deepops["NVIDIA DeepOps"^] 部署引擎、可部署正式作業就緒環境所需的所有元件。DeepOps會自動部署 https://netapp.io/persistent-storage-provisioner-for-kubernetes/["NetApp Trident"^] 為了持續與k8s環境整合儲存設備、我們建立了預設的儲存類別、讓容器能夠利用AFF 來自於該系統的儲存設備。如需ONTAP 有關Trident with Kubernetes on AI的詳細資訊、請參閱 https://www.netapp.com/us/media/tr-4798.pdf["TR-4798"^]。
+
+下表列出實作已測試解決方案所需的軟體元件。
+
+|===
+| 軟體 | 版本或其他資訊 
+
+
+| NetApp ONTAP 資料管理軟體 | 9.6p4. 
+
+
+| Cisco NX-OS交換器韌體 | 7.0（3）I6（1） 
+
+
+| NVIDIA DGX OS | 4.0.4 - Ubuntu 18.04 LTS 
+
+
+| Kubernetes版本 | 1.17 
+
+
+| Trident版本 | 20.04.0 
+
+
+| 執行：AI CLI | v2.1.13 
+
+
+| RUN：AI Orchestration Kubernetes運算子版本 | 1.0.39 
+
+
+| Docker Container平台 | 18.06.1-CE [e68fc7a] 
+|===
+有關Run:AI的其他軟體需求、請參閱 https://docs.run.ai/Administrator/Cluster-Setup/Run-AI-GPU-Cluster-Prerequisites/["執行：AI GPU叢集先決條件"^]。
+
+link:osrunai_optimal_cluster_and_gpu_utilization_with_run_ai_overview.html["下一步：以Run AI實現最佳叢集與GPU使用率"]

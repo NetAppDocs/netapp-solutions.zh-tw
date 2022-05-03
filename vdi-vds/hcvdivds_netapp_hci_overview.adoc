@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_netapp_hci_overview.html 
+keywords: HCI, storage node, compute node, NetApp Deployment Engine, NDE, VMware vCenter 
+summary: VMware是混合雲基礎架構、由儲存節點和運算節點組成。NetApp HCI視機型而定、可提供雙機架單元或單機架單元。部署VM所需的安裝與組態、都是透過NetApp部署引擎（NDE）自動完成。運算叢集是透過VMware vCenter進行管理、而儲存叢集則是透過部署NDE的vCenter外掛程式進行管理。 
+---
+= 概述NetApp HCI
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+VMware是混合雲基礎架構、由儲存節點和運算節點組成。NetApp HCI視機型而定、可提供雙機架單元或單機架單元。部署VM所需的安裝與組態、都是透過NetApp部署引擎（NDE）自動完成。運算叢集是透過VMware vCenter進行管理、而儲存叢集則是透過部署NDE的vCenter外掛程式進行管理。稱為mNode的管理VM會部署為NDE的一部分。
+
+可處理下列功能：NetApp HCI
+
+* 版本升級
+* 將事件推送到vCenter
+* vCenter外掛程式管理
+* 支援的VPN通道
+* NetApp Active IQ 的收集器
+* 將NetApp Cloud Services延伸至內部部署環境、以實現混合雲基礎架構。下圖說明HCI元件。
+
+
+image:hcvdivds_image5.png["錯誤：缺少圖形影像"]
+
+
+
+== 儲存節點
+
+儲存節點可提供半寬或全寬機架單元。一開始至少需要四個儲存節點、叢集最多可擴充至40個節點。儲存叢集可在多個運算叢集之間共用。所有儲存節點都包含快取控制器、可改善寫入效能。單一節點以4K區塊大小提供50K或100K IOPS。
+
+執行支援功能的不支援區、可提供最低、最高和尖峰QoS限制。NetApp HCI NetApp Element儲存叢集支援混合式儲存節點、但一個儲存節點不得超過總容量的三分之一。
+
+
+
+== 運算節點
+
+
+NOTE: NetApp支援將儲存設備連接至中所列的任何運算伺服器 https://www.vmware.com/resources/compatibility/search.php?deviceCategory=server["VMware相容性指南"]。
+
+運算節點提供半寬、全寬及兩種機架單元大小。H410C和H610C均以可擴充的Intel Skylake處理器為基礎。NetApp HCIH615C採用第二代可擴充的Intel Cascade Lake處理器。有兩種運算模式包含GPU：H610C包含兩個NVIDIA M10卡、H615C則包含三個NVIDIA T4卡。
+
+image:hcvdivds_image6.png["錯誤：缺少圖形影像"]
+
+NVIDIA T4有40個RT核心、提供即時光跡追蹤所需的運算能力。設計師和工程師所使用的相同伺服器模式、現在也可讓藝術家使用、建立具有照片般擬真的影像、使表面的光彈射與真實生活一樣。這款支援RTX的GPU可產生高達每秒五個Giga Rays的即時光跡追蹤效能。NVIDIA T4搭配Quadro Virtual Data Center Workstation（Quadro vDWS）軟體、可讓演出者在任何位置的任何裝置上、建立具有精確陰影、反射和反折效果的照片設計。
+
+張量核心可讓您執行深入學習的推斷工作負載。執行這些工作負載時、採用Quadro vDWS的NVIDIA T4效能比僅使用CPU的伺服器所驅動的VM快25倍。NetApp H615C在單一機架單元中搭載三個NVIDIA T4卡、是圖形與運算密集工作負載的理想解決方案。
+
+下圖列出NVIDIA GPU卡並比較其功能。
+
+image:hcvdivds_image7.png["錯誤：缺少圖形影像"]
+
+M10 GPU仍是知識工作者使用案例的最佳TCO解決方案。但是、T4是理想的替代方案、因為它想要在GPU上標準化、以便在多種使用案例中使用、例如虛擬工作站、圖形效能、即時互動式呈現和推斷。有了T4、IT就能利用相同的GPU資源來執行混合式工作負載、例如在白天執行VDI、並重新規劃資源的用途、以便在夜間執行運算工作負載。
+
+H610C運算節點大小為兩個機架單元、H615C大小為一個機架單元、耗電量較低。H615C支援H.264和H.264（高效視訊編碼[HEVC]）4：4編碼和解碼。它也支援越來越多的主流VP9解碼器、即使YouTube提供的WebM容器套件也會使用VP9轉碼器來播放影片。
+
+運算叢集中的節點數由VMware決定、目前使用VMware vSphere 7.0 Update 1的節點數為96。啟用增強型VMotion相容性（EVC）時、即可在叢集中混合使用不同機型的運算節點。
+
+link:hcvdivds_nvidia_licensing.html["下一步：NVIDIA授權"]

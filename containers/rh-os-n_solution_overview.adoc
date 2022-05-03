@@ -1,0 +1,121 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_solution_overview.html 
+keywords: NVA-1160, Red Hat, OpenShift, Netapp, Astra Trident 
+summary: 本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。 
+---
+= NVA-1160：採用NetApp的Red Hat OpenShift
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp公司Alan Cowles和NIKhil M Kulkarni
+
+本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
+
+
+
+== 使用案例
+
+Red Hat OpenShift with NetApp解決方案的架構設計、可為下列使用案例的客戶提供卓越價值：
+
+* 使用裸機、Red Hat OpenStack平台、Red Hat虛擬化及VMware vSphere上的IPI（安裝程式佈建基礎架構）、輕鬆部署及管理部署的Red Hat OpenShift。
+* 結合企業容器和虛擬化工作負載的強大功能、搭配幾乎部署在OSP、RHV或vSphere上的Red Hat OpenShift、或是以OpenShift虛擬化技術部署在裸機上。
+* 真正的組態與使用案例、強調Red Hat OpenShift的功能、適用於Kubernetes的開放原始碼儲存協調程式NetApp儲存設備和Astra Trident。
+
+
+
+
+== 商業價值
+
+企業逐漸採用DevOps實務來建立新產品、縮短發行週期、並快速新增新功能。由於容器和微服務的本質天生敏捷、因此在支援DevOps實務做法上扮演著重要角色。然而、在企業環境中以正式作業規模實作DevOps、卻帶來了自身的挑戰、並對基礎架構提出特定要求、例如：
+
+* 堆疊中所有層級的高可用度
+* 易於部署的程序
+* 不中斷營運與升級
+* API導向且可程式化的基礎架構、可跟上微服務敏捷度的腳步
+* 多租戶共享、效能保證
+* 能夠同時執行虛擬化與容器化的工作負載
+* 能夠根據工作負載需求獨立擴充基礎架構
+
+
+Red Hat OpenShift with NetApp瞭解這些挑戰、並提供解決方案、在客戶選擇的資料中心環境中實作完整自動化的RedHat OpenShift IPI部署、協助解決每個疑慮。
+
+
+
+== 技術總覽
+
+Red Hat OpenShift with NetApp解決方案包含下列主要元件：
+
+
+
+=== Red Hat OpenShift Container Platform
+
+Red Hat OpenShift Container Platform是完全受支援的企業Kubernetes平台。Red Hat針對開放原始碼Kubernetes進行了多項增強功能、以提供一個應用程式平台、其中所有元件均已完全整合、可用來建置、部署及管理容器化應用程式。
+
+如需詳細資訊、請造訪OpenShift網站 https://www.openshift.com["請按這裡"]。
+
+
+
+=== NetApp儲存系統
+
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+
+如需詳細資訊、請參閱NetApp網站 https://www.netapp.com["請按這裡"]。
+
+
+
+=== NetApp儲存整合
+
+NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感知資料管理服務、可處理有狀態的Kubernetes工作負載、部署於內部環境、並採用值得信賴的NetApp資料保護技術。
+
+如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
+
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Red Hat OpenShift。
+
+如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+
+
+
+== 進階組態選項
+
+本節專供實際使用者在將此解決方案部署至正式作業環境時可能需要執行的自訂作業、例如建立專用的私有映像登錄或部署自訂負載平衡器執行個體。
+
+
+
+== 已驗證版本的目前支援對照表
+
+|===
+
+
+| 技術 | 目的 | 軟體版本 
+
+
+| NetApp ONTAP | 儲存設備 | 9.8、9.9.1 
+
+
+| NetApp Element | 儲存設備 | 12.3. 
+
+
+| NetApp Astra控制中心 | 應用程式感知資料管理 | 212.60 
+
+
+| NetApp Astra Trident | 儲存協調 | 22.01.0 
+
+
+| Red Hat OpenShift | 容器協調 | 4.6 EUS、4.7、4.8 
+
+
+| Red Hat OpenStack平台 | 私有雲基礎架構 | 16.1 
+
+
+| Red Hat虛擬化 | 資料中心虛擬化 | 4.4 
+
+
+| VMware vSphere | 資料中心虛擬化 | 6.7U3 
+|===
+link:rh-os-n_overview_openshift.html["下一步：Red Hat OpenShift總覽。"]

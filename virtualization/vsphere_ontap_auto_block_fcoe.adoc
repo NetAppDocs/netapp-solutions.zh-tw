@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vsphere_ontap_auto_block_fcoe.html 
+keywords: vSphere, datastore, VMFS, FCoE, ONTAP tools, zone, network interface 
+summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援區FCoE VMFS資料存放區的步驟。 
+---
+= vSphere VMFS資料存放區-採用ONTAP VMware解決方案的乙太網路光纖通道儲存傳輸協定
+:allow-uri-read: 
+
+
+
+
+== 關於這項工作
+
+本節說明如何使用乙太網路光纖通道（FCoE）傳輸傳輸傳輸傳輸傳輸傳輸傳輸傳輸協定、建立VMFS資料存放區。ONTAP
+
+如需自動化資源配置、請使用下列其中一個指令碼： <<PowerShell>>、 <<Ansible>>或 <<Terraform>>。
+
+
+
+== 您需要的一切
+
+* 管理vSphere環境與ONTAP VMware所需的基本技能
+* 執行｛ONTAP_version｝的支援系統（FAS/AFF/CVO/ONTAP Select）ONTAP
+* 資訊（SVM名稱、使用者ID和密碼）ONTAP
+* link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/GUID-CE5218C0-2572-4E12-9C72-BF04D5CE222A.html++["支援的FCoE組合"]
+* link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-429C4DDD-5EC0-4DBD-8EA8-76082AB7ADEC.html++["完整的組態工作表"]
+* vCenter Server認證
+* vSphere主機資訊
++
+** ｛vSphere_version｝
+
+
+* 網路交換器
++
+** 連接了VMware Data連接埠或vSphere主機ONTAP
+** 啟用了N_port ID虛擬化（NPIV）功能
+** 建立單一啟動器單一目標區域。
+** link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/GUID-374F3D38-43B3-423E-A710-2E2ABAC90D1A.html++["已設定FC/FCoE分區"]
+
+
+* 網路交換器
++
+** FCoE支援
+** DCB支援
+** link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/GUID-16DEF659-E9C8-42B0-9B94-E5C5E2FEFF9C.html++["FCoE的巨型框架"]
+
+
+* VMware vSphere適用的VMware vSphere工具已部署、已設定且隨時可供使用ONTAP
+
+
+
+
+== 配置VMFS資料存放區
+
+* 檢查與的相容性 https://mysupport.netapp.com/matrix["互通性對照表工具IMT （不含）"]。
+* link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-7D444A0D-02CE-4A21-8017-CB1DC99EFD9A.html++["驗證是否支援FCoE組態"]。
+
+
+
+
+== 執行任務ONTAP
+
+. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/system__license__show.html++["驗ONTAP 證FCP的不實授權。"]
++
+.. 使用「系統授權show」命令來驗證是否列出FCP。
+.. 使用「license add -license code-Code < license code>」來新增授權。
+
+
+. 確認SVM上已啟用FCP傳輸協定。
++
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-1C31DF2B-8453-4ED0-952A-DF68C3D8B76F.html++["驗證現有SVM上的FCP。"]
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-D322649F-0334-4AD7-9700-2A4494544CB9.html++["在現有SVM上設定FCP。"]
+.. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-0FCB46AA-DA18-417B-A9EF-B6A665DB77FC.html++["使用FCP建立新的SVM。"]
+
+
+. 驗證SVM上是否有FCP邏輯介面可用。
++
+.. 使用「Network Interface show」來驗證FCP介面卡。
+.. 使用GUI建立SVM時、邏輯介面即為該程序的一部分。
+.. 若要重新命名網路介面、請使用「網路介面修改」。
+
+
+. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanag/GUID-D4DAC7DB-A6B0-4696-B972-7327EE99FD72.html++["建立及對應LUN"]；如果您使用ONTAP VMware vSphere的VMware VMware vSphere的VMware工具、請跳過此步驟。
+
+
+
+
+== VMware vSphere工作
+
+. 確認已安裝HBA驅動程式。VMware支援的HBA已隨裝即用部署驅動程式、應可在中看到 link:++https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-ED20B7BE-0D1C-4BF7-85C9-631D45D96FEC.html++["儲存介面卡資訊"]。
+. link:++https://docs.netapp.com/vapp-98/topic/com.netapp.doc.vsc-iag/GUID-D7CAD8AF-E722-40C2-A4CB-5B4089A14B00.html++["使用ONTAP VMware不穩定工具來配置VMFS資料存放區"]。
+

@@ -1,0 +1,109 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_example_trident_operations_overview.html 
+keywords: Trident 
+summary: Trident作業範例 
+---
+= Trident作業範例
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節包含您可能想要使用Trident執行的各種作業範例。
+
+
+
+=== 匯入現有Volume
+
+如果您的NetApp儲存系統/平台上有您要掛載到Kubernetes叢集內的容器上的現有磁碟區、但這些磁碟區並未繫結到叢集中的PVCS、則您必須匯入這些磁碟區。您可以使用Trident Volume匯入功能匯入這些Volume。
+
+以下的命令範例顯示兩次匯入同一個磁碟區、名稱為「PB_FP_ALL」、一次匯入在本節範例中建立的每個Trident後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.以這種方式匯入相同的磁碟區兩次、可讓您在FlexGroup 不同的生命週期內多次掛載該磁碟區（現有的一套）、如一節所述 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.如需PVCS的詳細資訊、請參閱 https://kubernetes.io/docs/concepts/storage/persistent-volumes/["Kubernetes官方文件"^]。如需Volume匯入功能的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。
+
+在範例的PVc規格檔案中、會指定「存取模式」值「ReadOnlyMany」。如需「存取模式」欄位的詳細資訊、請參閱 https://kubernetes.io/docs/concepts/storage/persistent-volumes/["Kubernetes官方文件"^]。
+
+
+NOTE: 下列匯入命令範例中所指定的後端名稱、會對應至本節範例中所建立的後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.下列範例PVc定義檔中所指定的StorageClass名稱、會對應至本節範例中所建立的StorageClass link:aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html["Kubernetes StorageClass範例ONTAP 、可用於進行AI部署"]步驟1.
+
+....
+$ cat << EOF > ./pvc-import-pb_fg_all-iface1.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pb-fg-all-iface1
+  namespace: default
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ontap-ai-flexgroups-retain-iface1
+EOF
+$ tridentctl import volume ontap-ai-flexgroups-iface1 pb_fg_all -f ./pvc-import-pb_fg_all-iface1.yaml -n trident
++--------------------------------+--------+-----------------------------------+----------+--------------------------------------------+--------+---------+
+|          NAME                  |  SIZE  |       STORAGE CLASS               | PROTOCOL |             BACKEND UUID                         | STATE  | MANAGED |
++--------------------------------+--------+-----------------------------------+----------+------------------------------------------+--------+---------+
+| default-pb-fg-all-iface1-7d9f1 | 10 TiB | ontap-ai-flexgroups-retain-iface1 | file     | b74cbddb-e0b8-40b7-b263-b6da6dec0bdd | online | true    |
++--------------------------------+--------+-----------------------------------+----------+--------------------------------------------+--------+---------+
+$ cat << EOF > ./pvc-import-pb_fg_all-iface2.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pb-fg-all-iface2
+  namespace: default
+spec:
+  accessModes:
+    - ReadOnlyMany
+  storageClassName: ontap-ai-flexgroups-retain-iface2
+EOF
+$ tridentctl import volume ontap-ai-flexgroups-iface2 pb_fg_all -f ./pvc-import-pb_fg_all-iface2.yaml -n trident
++--------------------------------+--------+-----------------------------------+----------+--------------------------------------------+--------+---------+
+|          NAME                  |  SIZE  |       STORAGE CLASS               | PROTOCOL |             BACKEND UUID                         | STATE  | MANAGED |
++--------------------------------+--------+-----------------------------------+----------+------------------------------------------+--------+---------+
+| default-pb-fg-all-iface2-85aee | 10 TiB | ontap-ai-flexgroups-retain-iface2 | file     | 61814d48-c770-436b-9cb4-cf7ee661274d | online | true    |
++--------------------------------+--------+-----------------------------------+----------+--------------------------------------------+--------+---------+
+$ tridentctl get volume -n trident
++----------------------------------+---------+-----------------------------------+----------+--------------------------------------+--------+---------+
+|               NAME               |  SIZE   |           STORAGE CLASS           | PROTOCOL |             BACKEND UUID             | STATE  | MANAGED |
++----------------------------------+---------+-----------------------------------+----------+--------------------------------------+--------+---------+
+| default-pb-fg-all-iface1-7d9f1   | 10 TiB  | ontap-ai-flexgroups-retain-iface1 | file     | b74cbddb-e0b8-40b7-b263-b6da6dec0bdd | online | true    |
+| default-pb-fg-all-iface2-85aee   | 10 TiB  | ontap-ai-flexgroups-retain-iface2 | file     | 61814d48-c770-436b-9cb4-cf7ee661274d | online | true    |
++----------------------------------+---------+-----------------------------------+----------+--------------------------------------+--------+---------+
+$ kubectl get pvc
+NAME                 STATUS   VOLUME                             CAPACITY         ACCESS MODES   STORAGECLASS                        AGE
+pb-fg-all-iface1     Bound    default-pb-fg-all-iface1-7d9f1     10995116277760   ROX            ontap-ai-flexgroups-retain-iface1   25h
+pb-fg-all-iface2     Bound    default-pb-fg-all-iface2-85aee     10995116277760   ROX            ontap-ai-flexgroups-retain-iface2   25h
+....
+
+
+=== 配置新Volume
+
+您可以使用Trident在NetApp儲存系統或平台上配置新磁碟區。下列命令範例顯示新FlexVol 的供應功能。在此範例中、磁碟區是使用本節範例中所建立的StorageClass進行資源配置 link:aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html["Kubernetes StorageClass範例ONTAP 、可用於進行AI部署"]步驟2：
+
+以下範例的PVc定義檔中指定「存取模式」值「ReadWriteMany」。如需「存取模式」欄位的詳細資訊、請參閱 https://kubernetes.io/docs/concepts/storage/persistent-volumes/["Kubernetes官方文件"^]。
+
+....
+$ cat << EOF > ./pvc-tensorflow-results.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: tensorflow-results
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-ai-flexvols-retain
+EOF
+$ kubectl create -f ./pvc-tensorflow-results.yaml
+persistentvolumeclaim/tensorflow-results created
+$ kubectl get pvc
+NAME                              STATUS    VOLUME                             CAPACITY         ACCESS MODES   STORAGECLASS                        AGE
+pb-fg-all-iface1                  Bound     default-pb-fg-all-iface1-7d9f1     10995116277760   ROX            ontap-ai-flexgroups-retain-iface1   26h
+pb-fg-all-iface2                  Bound     default-pb-fg-all-iface2-85aee     10995116277760   ROX            ontap-ai-flexgroups-retain-iface2   26h
+tensorflow-results                Bound     default-tensorflow-results-2fd60   1073741824       RWX            ontap-ai-flexvols-retain            25h
+....
+link:aicp_example_high-performance_jobs_for_ontap_ai_deployments_overview.html["下一步：ONTAP 適用於AI部署的高效能工作範例總覽。"]

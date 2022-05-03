@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: automation/authentication_tokens.html 
+summary: 本頁提供透過NetApp Cloud Manager收集必要的Refresh Token和CVO和Cloud Manager Connector部署所需的存取/秘密金鑰的詳細資訊。 
+keywords: netapp, solutions, automation, ansible 
+---
+= NetApp解決方案自動化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+
+
+== 使用NetApp Cloud Manager的AWS驗證要求、適用於CVO和Connector
+
+若要透過AWX/Ansible Tower使用Ansible教戰手冊來設定CVO和連接器的自動部署、需要下列資訊：
+
+
+
+=== 從AWS取得存取/秘密金鑰
+
+. 若要在Cloud Manager中部署CVO和Connector、我們需要AWS存取/秘密金鑰。啟動IAM ->使用者->您的使用者名稱->安全性認證資料->建立存取金鑰、即可在AWS主控台取得金鑰。
+. 複製存取金鑰、並確保其安全、以便在Connector和CVO部署中使用。
+
+
+
+NOTE: 如果遺失金鑰、您可以建立另一個存取金鑰、然後刪除遺失的金鑰
+
+image::access_keys.png[重新整理權杖]
+
+
+
+=== 從NetApp Cloud Central取得更新Token
+
+. 使用您的帳戶認證資料登入雲端中央帳戶、網址為 https://services.cloud.netapp.com/refresh-token[]
+. 產生更新Token並儲存以供部署。
+
+
+image::token_authentication.png[重新整理權杖]
+
+
+
+=== 取得用戶端ID
+
+. 存取API頁面以複製用戶端ID、網址為 https://services.cloud.netapp.com/developer-hub[]。
+. 按一下右上角的「瞭解如何驗證」。
+. 如果您需要使用者名稱/密碼才能登入、請從彈出的「驗證」視窗、從「一般存取」複製用戶端ID。具有SSO的聯盟使用者應從「重新整理Token索引標籤」複製用戶端ID。
+
+
+image::client_id.JPG[用戶端ID]
+
+
+
+=== 從AWS取得金鑰配對
+
+. 在AWS主控台中、搜尋「金鑰配對」並建立與「pem」的金鑰配對。請記住您的key_pair名稱、我們會使用它來部署連接器。
+
+
+image::key_pair.png[金鑰配對]
+
+
+
+=== 取得帳戶ID
+
+. 在Cloud Manager中、按一下「Account（帳戶）」->「Manage Accounts（管理帳戶）」、然後複製帳戶ID以用於AWX的變數。
+
+
+image::account_id.JPG[用戶端ID]

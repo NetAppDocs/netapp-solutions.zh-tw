@@ -1,0 +1,208 @@
+---
+sidebar: sidebar 
+permalink: ent-apps-db/cli_automation.html 
+keywords: Linux, RHEL Oracle19c, NFS, ONTAP 
+summary: 本頁說明將Oracle19c部署在NetApp ONTAP 內存上的自動化方法。 
+---
+= 逐步部署程序
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== CLI部署Oracle 19c資料庫
+
+本節說明使用CLI準備及部署Oracle19c資料庫所需的步驟。請確定您已檢閱 link:getting_started_requirements.html["「使用入門與需求」一節"] 並據此準備環境。
+
+
+
+=== 下載Oracle19c repo
+
+
+[source, cli]
+----
+git clone https://github.com/NetApp-Automation/na_oracle19c_deploy.git
+----
+
+
+
+=== 編輯hosts檔案
+
+部署前請先完成下列事項：
+
+. 編輯主機檔案na_oracle19c_deploy目錄。
+. 在[ESI]下ONTAP 、將IP位址變更為叢集管理IP。
+. 在[Oracle]群組下、新增Oracle主機名稱。主機名稱必須透過DNS或主機檔案解析為其IP位址、或必須在主機中指定。
+. 完成這些步驟之後、請儲存任何變更。
+
+
+以下範例說明主機檔案：
+
+
+此範例執行方針、並在兩部Oracle資料庫伺服器上同時部署Oracle 19c。您也可以只用一部資料庫伺服器進行測試。在這種情況下、您只需要設定一個主機變數檔案。
+
+
+NOTE: 無論您部署多少Oracle主機和資料庫、實戰手冊的執行方式都相同。
+
+
+
+=== 在host_vars下編輯host_name.yml檔案
+
+每個Oracle主機的主機變數檔案都會以主機名稱識別、其中包含主機專屬的變數。您可以為主機指定任何名稱。編輯並複製「Host VARS Config（主機VARS組態）」區段中的「host_vars」、然後貼到您想要的「host_name.yml」檔案中。
+
+
+NOTE: 必須變更藍色項目、以符合您的環境。
+
+
+
+=== 主機VARS組態
+
+
+
+
+=== 編輯vars.yml檔案
+
+vars.yml檔案整合了ONTAP 所有環境特定的變數（例如、Linux或Oracle）、以供Oracle部署。
+
+* 編輯並複製VARS區段中的變數、然後將這些變數貼到您的「vars.yml」檔案中。
+
+
+
+
+=== VAR
+
+
+
+
+=== 執行教戰手冊
+
+在完成必要的環境先決條件、並將變數複製到「vars.yml」和「yer_host.yml」之後、您就可以開始部署教戰手冊了。
+
+
+NOTE: 必須變更以符合您的環境。
+
+
+[source, cli]
+----
+ansible-playbook -i hosts all_playbook.yml -u username -k -K -t ontap_config -e @vars/vars.yml
+----
+
+[source, cli]
+----
+ansible-playbook -i hosts all_playbook.yml -u username -k -K -t linux_config -e @vars/vars.yml
+----
+
+[source, cli]
+----
+ansible-playbook -i hosts all_playbook.yml -u username -k -K -t oracle_config -e @vars/vars.yml
+----
+
+
+=== 在相同的Oracle主機上部署額外的資料庫
+
+每次執行時、實戰手冊的Oracle部分會在Oracle伺服器上建立單一Oracle Container資料庫。若要在同一部伺服器上建立其他容器資料庫、請完成下列步驟：
+
+. 修改host_vars變數。
++
+.. 返回步驟3 -在「host_vars」下編輯「host_name.yml」檔案。
+.. 將Oracle SID變更為不同的命名字串。
+.. 將接聽程式連接埠變更為不同的號碼。
+.. 如果您已安裝EM Express、請將EM Express連接埠變更為不同的編號。
+.. 將修訂的主機變數複製並貼到Oracle主機變數檔案的「host_vars」下。
+
+
+. 執行含有「oracle_config」標記的方針、如上所示 <<Run the playbook>>。
+
+
+
+
+=== 驗證Oracle安裝
+
+
+[source, cli]
+----
+ps -ef | grep ora
+----
+
+NOTE: 如果安裝已如預期完成、且Oracle資料庫已啟動、則會列出Oracle程序
+
+
+[source, cli]
+----
+sqlplus / as sysdba
+----
+[Oracle@localhost ~]$ sqlplus / AS Sysdba
+
+SQL* Plus：19.0．0．0．0版- 5月6日（星期四）上線：12：52：51 2021版本19.8．0．0
+
+Copyright（c）1982,2019、Oracle。版權所有。
+
+連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
+
+SQL>
+
+[source, cli]
+----
+select name, log_mode from v$database;
+----
+SQL>從v$database_mode中選擇名稱、log_mode；名稱log_mode －－－－－－－ CDB2 ARCHIVELOG
+
+[source, cli]
+----
+show pdbs;
+----
+SQL>顯示PDF
+
+....
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+---------- ------------------------------ ---------- ----------
+         2 PDB$SEED                       READ ONLY  NO
+         3 CDB2_PDB1                      READ WRITE NO
+         4 CDB2_PDB2                      READ WRITE NO
+         5 CDB2_PDB3                      READ WRITE NO
+....
+[source, cli]
+----
+col svrname form a30
+col dirname form a30
+select svrname, dirname, nfsversion from v$dnfs_servers;
+----
+SQL> col svrname form A30 SQL> col dirname form A30 SQL>從v$dnfs_servers中選取svrname、dirname、nfsversion；
+
+SVRNAME目錄NFSVERSion －－－－－－－－－－－－－－－ －－－－－－－ 172.21.126.200 /rhelora03_u02 NFSv3.0 172.21.126.200 /rhelora03_u03 NFSv3.0 172.21.126.200 /rhelora03_u01 NFSv3.0
+
+[listing]
+----
+This confirms that dNFS is working properly.
+----
+
+[source, cli]
+----
+sqlplus system@//localhost:1523/cdb2_pdb1.cie.netapp.com
+----
+[Oracle@localhost ~]$ sqlplus system@//localhost:1523/ cdb2_pdb1.cie.netapp.com
+
+SQL* Plus：19.0．0．0．0版- 5月6日星期四正式上線13：19：57 2021版本19.8．0．0
+
+Copyright（c）1982,2019、Oracle。版權所有。
+
+輸入密碼：上次成功登入時間：2021年5月3日下午5：11：11 - 04：00
+
+連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
+
+SQL>顯示使用者為「system" SQL>顯示con_name con_name CDB2_PDB1
+
+[listing]
+----
+This confirms that Oracle listener is working properly.
+----
+
+
+=== 哪裡可以取得協助？
+
+如果您需要工具組的協助、請加入 link:https://netapppub.slack.com/archives/C021R4WC0LC["NetApp解決方案自動化社群支援閒散通道"] 並尋找解決方案自動化通路、以張貼您的問題或詢問。

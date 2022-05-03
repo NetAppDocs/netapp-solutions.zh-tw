@@ -1,0 +1,785 @@
+---
+sidebar: sidebar 
+permalink: ai/runai-ld_lane_detection_distributed_training_with_run_ai.html 
+keywords: azure, lane, detection, training, case, tusimple, dataset, aks, subnet, virtual, network, run, ai, deploy, install, download, process, back, end, storage, horovod, snapshot 
+summary: 本節詳細說明如何設定平台、以便使用RUN AI Orchestrator大規模執行線道偵測分散式訓練。 
+---
+= 線道偵測–採用RUN：AI的分散式訓練
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+本節詳細說明如何使用RUN：AI Orchestrator設定平台、以大規模執行線上偵測分散式訓練。我們將討論如何在上述平台上安裝所有解決方案元素、以及執行分散式訓練工作。使用與RUN：AI實驗連結的NetApp SnapshotTM來完成ML版本管理、以實現資料與模型的可重複性。ML版本管理在追蹤模型、團隊成員之間的共享工作、結果的重現性、將新的模型版本推向正式作業、以及資料來源等方面扮演著重要角色。NetApp ML版本控制（Snapshot）可擷取與每個實驗相關的資料、訓練模型和記錄的時間點版本。它提供豐富的API支援、可輕鬆與RUN：AI平台整合、您只需根據訓練狀態觸發事件即可。您也必須擷取整個實驗的狀態、而不需變更程式碼或在Kubernetes（K8s）上執行的容器中的任何內容。
+
+最後、本技術報告會在各個高架（大量）的多個GPU節點上進行效能評估、以做為總結。
+
+
+
+== 使用TuSimple資料集的線道偵測使用案例分散式訓練
+
+在本技術報告中、我們會在TuSimple資料集上執行分散式訓練、以偵測線道。Horovod用於訓練程式碼、可在Kubernetes叢集中的多個GPU節點上同時透過高層管理程式進行資料分散式訓練。程式碼會封裝成容器映像、以便下載及處理TuSimple資料。已處理的資料儲存在NetApp Trident外掛程式所配置的持續磁碟區上。在訓練過程中、會再建立一個容器映像、並使用下載資料時所建立之持續磁碟區中儲存的資料。
+
+若要提交資料和訓練工作、請使用RUN：AI來協調資源分配和管理。RUN：AI可讓您執行Horovod所需的訊息傳遞介面（MPI）作業。此配置可讓多個GPU節點彼此通訊、以便在每次訓練迷你批次後更新訓練權重。它也能透過UI和CLI監控訓練、讓您輕鬆監控實驗進度。
+
+NetApp Snapshot已整合於訓練程式碼中、可擷取每個實驗的資料狀態和訓練模式。此功能可讓您追蹤所使用的資料和程式碼版本、以及所產生的相關訓練模型。
+
+
+
+== 設定與安裝
+
+如需設定及安裝AKS叢集、請前往 https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-portal["建立一個高效能叢集"^]。接著、請遵循下列一系列步驟：
+
+. 選取節點類型（無論是系統（CPU）或工作（GPU）節點）時、請選取下列項目：
++
+.. 在「tandard_DS2_v2」大小新增名為「agentpool」的主要系統節點。使用預設的三個節點。
+.. 使用「Standard_NC6s_v3」資源池大小新增工作節點「gp池」。GPU節點至少使用三個節點。
++
+image:runai-ld_image3.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 部署需要5–10分鐘。
+
+
+
+. 部署完成後、按一下「Connect to Cluster（連線至叢集）」。若要連線至新建立的高層叢集、請從本機環境（筆記型電腦/電腦）安裝Kubernetes命令列工具。請造訪 https://kubernetes.io/docs/tasks/tools/install-kubectl/["安裝工具"^] 以根據您的作業系統進行安裝。
+. https://docs.microsoft.com/cli/azure/install-azure-cli["在您的本機環境中安裝Azure CLI"^]。
+. 若要從終端機存取高層叢集、請先輸入「AZ登入」、然後輸入認證資料。
+. 執行下列兩個命令：
++
+....
+az account set --subscription xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxxxx
+aks get-credentials --resource-group resourcegroup --name aksclustername
+....
+. 在Azure CLI中輸入此命令：
++
+....
+kubectl get nodes
+....
++
+
+NOTE: 如果這六個節點都已啟動並執行、則您的高效能叢集已準備就緒並連線至本機環境。
+
++
+image:runai-ld_image4.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 建立委派子網路Azure NetApp Files 以供使用
+
+若要建立Azure NetApp Files 委派的子網路以供使用、請依照下列一系列步驟操作：
+
+. 瀏覽至Azure入口網站內的虛擬網路。尋找您新建立的虛擬網路。它應該有一個前置詞、例如：在此處看到的；按一下虛擬網路的名稱。
++
+image:runai-ld_image5.png["錯誤：缺少圖形影像"]
+
+. 按一下子網路、然後從頂端工具列選取+子網路。
++
+image:runai-ld_image6.png["錯誤：缺少圖形影像"]
+
+. 在子網路委派標題下、輸入名稱「anf.sn」、然後選取Microsoft.NetApp/volumes。請勿變更任何其他項目。按一下「確定」。
++
+image:runai-ld_image7.png["錯誤：缺少圖形影像"]
+
+
+
+將實體磁碟區分配給應用程式叢集、並作為Kubernetes中的持續磁碟區宣告（PVCS）使用。Azure NetApp Files而這項配置則可讓我們靈活地將磁碟區對應到不同的服務、無論是Jupyter筆記型電腦、無伺服器功能等等
+
+服務使用者可從平台使用多種儲存設備。此功能的主要優點Azure NetApp Files 包括：
+
+* 提供使用者使用快照的能力。
+* 可讓使用者將大量資料儲存在Azure NetApp Files 功能區上。
+* 在Azure NetApp Files 大量檔案上執行機型時、請取得效能優勢。
+
+
+
+
+== 系統設定Azure NetApp Files
+
+若要完成Azure NetApp Files 設定、您必須先依照中所述進行設定 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["快速入門：設定Azure NetApp Files 功能以建立NFS磁碟區"^]。
+
+不過、您可以略過建立Azure NetApp Files NFS Volume以供使用的步驟、因為您將透過Trident建立Volume。在繼續之前、請確定您已：
+
+. https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-register["已註冊Azure NetApp Files 為NetApp資源供應商（透過Azure Cloud Shell）"^]。
+. https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["在Azure NetApp Files 不執行任何作業的情況下建立帳戶"^]。
+. https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["設定容量資源池"^] （視您的需求而定、最低4TiB標準或Premium）。
+
+
+
+
+== 利用虛擬網路和Azure NetApp Files 虛擬化網路來對等化
+
+接下來、Azure NetApp Files 請依照下列步驟、將使用者虛擬網路（vnet）與該虛擬網路（vnet）對等：
+
+. 在Azure入口網站頂端的搜尋方塊中、輸入虛擬網路。
+. 按一下vnet aks-vnet-name、然後在搜尋欄位中輸入「服務」。
+. 按一下「+新增」、然後輸入下表所提供的資訊：
++
+|===
+| 欄位 | 價值或說明 
+
+
+| 對等連結名稱 | aks-vnet-name_to_anf 
+
+
+| 訂閱ID | 訂閱Azure NetApp Files 您所要登入的物件網 
+
+
+| vnet對等合作夥伴 | 網版Azure NetApp Files 
+|===
++
+
+NOTE: 保留所有非星號區段的預設值
+
+. 按一下「新增」或「確定」、將對等新增至虛擬網路。
+
+
+如需詳細資訊、請造訪 https://docs.microsoft.com/azure/virtual-network/tutorial-connect-virtual-networks-portal["建立、變更或刪除虛擬網路對等關係"^]。
+
+
+
+== Trident
+
+Trident是NetApp為應用程式容器持續儲存所維護的開放原始碼專案。Trident已實作為外部資源配置程式控制器、以Pod本身的形式執行、監控磁碟區、並將資源配置程序完全自動化。
+
+NetApp Trident可建立及附加持續容量、以儲存訓練資料集和訓練模型、順利與K8s整合。這項功能可讓資料科學家和資料工程師更輕鬆地使用K8s、而不需費心手動儲存和管理資料集。Trident也不需要資料科學家學習管理新的資料平台、因為它透過邏輯API整合來整合資料管理相關工作。
+
+
+
+=== 安裝Trident
+
+若要安裝Trident軟體、請完成下列步驟：
+
+. https://helm.sh/docs/intro/install/["第一次安裝Helm"^]。
+. 下載並解壓縮Trident 21.01.1安裝程式。
++
+....
+wget https://github.com/NetApp/trident/releases/download/v21.01.1/trident-installer-21.01.1.tar.gz
+tar -xf trident-installer-21.01.1.tar.gz
+....
+. 將目錄變更為「Trident安裝程式」。
++
+....
+cd trident-installer
+....
+. 將「tridentctl」複製到系統「$path」中的目錄
++
+....
+cp ./tridentctl /usr/local/bin
+....
+. 使用Helm在K8s叢集上安裝Trident：
++
+.. 將目錄變更為helm目錄。
++
+....
+cd helm
+....
+.. 安裝Trident。
++
+....
+helm install trident trident-operator-21.01.1.tgz --namespace trident --create-namespace
+....
+.. 以一般的K8s方法檢查Trident Pod的狀態：
++
+....
+kubectl -n trident get pods
+....
+.. 如果所有的Pod都已啟動且正在執行、則會安裝Trident、您可以繼續向前邁進。
+
+
+
+
+
+
+== 設定Azure NetApp Files 不中斷的後端與儲存類別
+
+若要設定Azure NetApp Files 不完整的後端與儲存類別、請完成下列步驟：
+
+. 切換回主目錄。
++
+....
+cd ~
+....
+. 複製 https://github.com/dedmari/lane-detection-SCNN-horovod.git["專案儲存庫"^] 「lane detection-SCNN-Horovod」。
+. 移至「trident組態」目錄。
++
+....
+cd ./lane-detection-SCNN-horovod/trident-config
+....
+. 建立Azure服務原則（服務原則是Trident如何與Azure通訊以存取Azure NetApp Files 您的整套資源）。
++
+....
+az ad sp create-for-rbac --name
+....
++
+輸出應如下所示：
+
++
+....
+{
+  "appId": "xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+   "displayName": "netapptrident",
+    "name": "http://netapptrident",
+    "password": "xxxxxxxxxxxxxxx.xxxxxxxxxxxxxx",
+    "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"
+ }
+....
+. 建立Trident的「後端json」檔案。
+. 使用偏好的文字編輯器、從「anf-backend.json」檔案中的下表填寫下列欄位。
++
+|===
+| 欄位 | 價值 
+
+
+| 訂閱ID | 您的Azure訂閱ID 
+
+
+| TenantId | 您的Azure租戶ID（上一步AZ廣告服務輸出） 
+
+
+| ClientID | 您的應用程式ID（從上一步AZ廣告服務輸出） 
+
+
+| 用戶端機密 | 您的密碼（取自上一步AZ廣告服務的輸出） 
+|===
++
+檔案應如下所示：
+
++
+....
+{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "fakec765-4774-fake-ae98-a721add4fake",
+    "tenantID": "fakef836-edc1-fake-bff9-b2d865eefake",
+    "clientID": "fake0f63-bf8e-fake-8076-8de91e57fake",
+    "clientSecret": "SECRET",
+    "location": "westeurope",
+    "serviceLevel": "Standard",
+    "virtualNetwork": "anf-vnet",
+    "subnet": "default",
+    "nfsMountOptions": "vers=3,proto=tcp",
+    "limitVolumeSize": "500Gi",
+    "defaults": {
+    "exportRule": "0.0.0.0/0",
+    "size": "200Gi"
+}
+....
+. 指示Trident在Azure NetApp Files 「Trident」命名空間中建立「支援」後端、使用「anf-backend.json」做為組態檔、如下所示：
++
+....
+tridentctl create backend -f anf-backend.json -n trident
+....
+. 建立儲存類別：
++
+.. K8使用者使用以名稱指定儲存類別的PVCS來配置磁碟區。指示K8s建立儲存類別「azurenetappfiless」、以參照Azure NetApp Files 上一步建立的「背後」、使用下列項目：
++
+....
+kubectl create -f anf-storage-class.yaml
+....
+.. 使用下列命令檢查是否已建立儲存類別：
++
+....
+kubectl get sc azurenetappfiles
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image8.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+
+
+== 在高效能上部署及設定Volume Snapshot元件
+
+如果叢集未預先安裝正確的Volume Snapshot元件、您可以執行下列步驟、手動安裝這些元件：
+
+
+NOTE: 若為AKS 1.18.14、則不會預先安裝Snapshot控制器。
+
+. 使用下列命令安裝Snapshot Beta客戶需求日：
++
+....
+kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/client/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+....
+. 使用GitHub提供的下列文件來安裝Snapshot控制器：
++
+....
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+....
+. 設定K8s「volumesnapshotClass」：在建立Volume Snapshot之前、請先 https://netapp-trident.readthedocs.io/en/stable-v20.01/kubernetes/concepts/objects.html["Volume Snapshot類別"^] 必須設定。建立適用於Azure NetApp Files 功能不全的Volume Snapshot類別、並使用NetApp Snapshot技術來達到ML版本管理。建立「volumesnapshotClass NetApp-csi快照類別」、並將其設為預設的「volumesnapshotClass」、例如：
++
+....
+kubectl create -f netapp-volume-snapshot-class.yaml
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image9.png["錯誤：缺少圖形影像"]
+
+. 使用下列命令檢查是否已建立Volume Snapshot複本類別：
++
+....
+kubectl get volumesnapshotclass
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image10.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 執行：AI安裝
+
+若要安裝RUN：AI、請完成下列步驟：
+
+. https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI叢集於AKS上"^]。
+. 前往app.runai.ai、按一下「Create New Project（建立新專案）」、然後將其命名為「lane detection（線道偵測）它將在K8s叢集上建立命名空間、開頭為「Runai」、後面接著專案名稱。在這種情況下、建立的命名空間將會是Runae-lane偵測。
++
+image:runai-ld_image11.png["錯誤：缺少圖形影像"]
+
+. https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI CLI"^]。
+. 在終端機上、使用下列命令將lane偵測設為預設執行：AI project：
++
+....
+`runai config project lane-detection`
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image12.png["錯誤：缺少圖形影像"]
+
+. 為專案命名空間（例如「lane detection」）建立ClusterRole和Cluster勞力 綁定、因此屬於「Runae-lane detection」命名空間的預設服務帳戶、在工作執行期間有權執行「volumesnapshot」作業：
++
+.. 使用以下命令列出命名空間、檢查是否存在「Runae-lane偵測」：
++
+....
+kubectl get namespaces
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image13.png["錯誤：缺少圖形影像"]
+
+
+
+. 使用下列命令建立ClusterRole「netappsnapshot（netappsnapshot）、和Cluster勞力 綁定「netappsnapshot（netappsnapshot））：
++
+....
+`kubectl create -f runai-project-snap-role.yaml`
+`kubectl create -f runai-project-snap-role-binding.yaml`
+....
+
+
+
+
+== 下載並處理TuSimple資料集、做為RUN：AI工作
+
+下載和處理TuSimple資料集的流程為RUN：AI工作是選用的。其中包括下列步驟：
+
+. 建置並推送Docker映像檔、或是如果您想要使用現有的Docker映像檔（例如「muneer7589/download-tuSimple：1.0」）、請省略此步驟
++
+.. 切換至主目錄：
++
+....
+cd ~
+....
+.. 前往「lane detection-SCNN-Horovod」專案的資料目錄：
++
+....
+cd ./lane-detection-SCNN-horovod/data
+....
+.. 修改「build」（建置）「image」（映像）「sh」（sh）Shell指令碼、並將Docker儲存庫變更為您的。例如、將「muneer7589」取代為您的泊塢視窗儲存庫名稱。您也可以變更泊塢視窗的影像名稱和標記（例如「下載tusimple」和「1.0」）：
++
+image:runai-ld_image14.png["錯誤：缺少圖形影像"]
+
+.. 執行指令碼以建立泊塢視窗映像、並使用下列命令將其推送到泊塢視窗儲存庫：
++
+....
+chmod +x build_image.sh
+./build_image.sh
+....
+
+
+. 提交RUN：AI工作以下載、擷取、預先處理及儲存TuSimple lane偵測資料集至「PVC'」、這是由NetApp Trident動態建立的：
++
+.. 使用下列命令提交RUN：AI工作：
++
+....
+runai submit
+--name download-tusimple-data
+--pvc azurenetappfiles:100Gi:/mnt
+--image muneer7589/download-tusimple:1.0
+....
+.. 輸入下表中的資訊、以提交RUN：AI工作：
++
+|===
+| 欄位 | 價值或說明 
+
+
+| -name | 工作名稱 
+
+
+| -PVC | 格式為[StorageClassName]的PVc：大小：ContainerMountPath在上述工作提交中、您將使用Trident搭配儲存類別azurenetappFiles、根據需求建立一個PVc。持續磁碟區容量為100Gi、安裝於路徑/mnt. 
+
+
+| 映像 | 建立此工作的容器時要使用的Docker影像 
+|===
++
+輸出應如下所示：
+
++
+image:runai-ld_image15.png["錯誤：缺少圖形影像"]
+
+.. 列出提交的RUN：AI工作。
++
+....
+runai list jobs
+....
++
+image:runai-ld_image16.png["錯誤：缺少圖形影像"]
+
+.. 檢查提交的工作記錄。
++
+....
+runai logs download-tusimple-data -t 10
+....
++
+image:runai-ld_image17.png["錯誤：缺少圖形影像"]
+
+.. 列出所建立的「PVC'」。請使用這個「PVC'」命令進行下一步的訓練。
++
+....
+kubectl get pvc | grep download-tusimple-data
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image18.png["錯誤：缺少圖形影像"]
+
+.. 檢查執行中的工作：AI UI（或「app.run.ai`」）。
++
+image:runai-ld_image19.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+
+
+== 使用Horovod執行分散式線道偵測訓練
+
+使用Horovod進行分散式通道偵測訓練是一項選擇性程序。不過、以下是相關步驟：
+
+. 建置並推送泊塢視窗映像、或是如果您想要使用現有的泊塢視窗映像（例如「muneer7589/der-lane detection:3.1」）、請跳過此步驟
++
+.. 切換到主目錄。
++
+....
+cd ~
+....
+.. 轉到專案目錄「lane detection-SCNN-Horovod.」
++
+....
+cd ./lane-detection-SCNN-horovod
+....
+.. 修改「build」（建置）「image」（映像）「sh」（sh）Shell指令碼、並將泊塢視窗儲存庫變更為您的（例如、將「muneer7589」取代為您的泊塢視窗儲存庫名稱）。您也可以變更泊塢視窗的影像名稱和標記（例如「dist-lane detection」和「3.1」）。
++
+image:runai-ld_image20.png["錯誤：缺少圖形影像"]
+
+.. 執行指令碼以建立泊塢視窗映像、然後推送至泊塢視窗儲存庫。
++
+....
+chmod +x build_image.sh
+./build_image.sh
+....
+
+
+. 提交RUN：AI工作以執行分散式訓練（MPI）：
++
+.. 使用提交執行：AI在上一步（用於下載資料）自動建立永久虛擬基礎架構、僅允許您存取Rwo、這不允許多個Pod或節點存取相同的永久虛擬基礎架構以進行分散式訓練。將存取模式更新為ReadWriteMany、並使用Kubernetes修補程式來執行此作業。
+.. 首先、請執行下列命令來取得PVc的Volume名稱：
++
+....
+kubectl get pvc | grep download-tusimple-data
+....
++
+image:runai-ld_image21.png["錯誤：缺少圖形影像"]
+
+.. 修補磁碟區、並將存取模式更新為ReadWriteMany（以下列命令取代Volume名稱）：
++
+....
+kubectl patch pv pvc-bb03b74d-2c17-40c4-a445-79f3de8d16d5 -p '{"spec":{"accessModes":["ReadWriteMany"]}}'
+....
+.. 提交RUN：AI MPI工作、以便使用下表中的資訊來執行分散式訓練工作：
++
+....
+runai submit-mpi
+--name dist-lane-detection-training
+--large-shm
+--processes=3
+--gpu 1
+--pvc pvc-download-tusimple-data-0:/mnt
+--image muneer7589/dist-lane-detection:3.1
+-e USE_WORKERS="true"
+-e NUM_WORKERS=4
+-e BATCH_SIZE=33
+-e USE_VAL="false"
+-e VAL_BATCH_SIZE=99
+-e ENABLE_SNAPSHOT="true"
+-e PVC_NAME="pvc-download-tusimple-data-0"
+....
++
+|===
+| 欄位 | 價值或說明 
+
+
+| 名稱 | 分散式訓練工作的名稱 
+
+
+| 大型shm | 掛載大型的開發/ shm裝置這是安裝在RAM上的共享檔案系統、提供足夠大的共享記憶體、讓多個CPU工作者能夠處理批次並將其載入CPU RAM。 
+
+
+| 程序 | 分散式訓練程序的數量 
+
+
+| GPU | 要分配給此工作的GPU /程序數目、有三個GPU工作程序（--Processes=3）、每個都分配一個GPU（-GPU 1） 
+
+
+| PVC | 使用先前工作（download-tuSimple資料）所建立的現有持續磁碟區（PVC-download-tuSimple、data、PVC-download-tue-tuSimple）、並安裝在路徑/mnt 
+
+
+| 映像 | 建立此工作的容器時要使用的Docker影像 
+
+
+2+| 定義要在容器中設定的環境變數 
+
+
+| 使用工作者 | 將引數設為true會開啟多重程序資料載入 
+
+
+| 員工人數 | 資料載入器工作程序的數目 
+
+
+| 批次大小 | 訓練批次大小 
+
+
+| US_VAL | 將引數設為true可進行驗證 
+
+
+| Val_batch_size | 驗證批次大小 
+
+
+| 啟用快照 | 將引數設為true可取得資料和訓練模型快照、以利ML版本管理 
+
+
+| PVC_name | 要擷取快照的PVc名稱。在上述提交工作時、您將取得PVC-download-tuSimple資料0的快照、其中包含資料集和訓練模型 
+|===
++
+輸出應如下所示：
+
++
+image:runai-ld_image22.png["錯誤：缺少圖形影像"]
+
+.. 列出已提交的工作。
++
+....
+runai list jobs
+....
++
+image:runai-ld_image23.png["錯誤：缺少圖形影像"]
+
+.. 提交的工作記錄：
++
+....
+runai logs dist-lane-detection-training
+....
++
+image:runai-ld_image24.png["錯誤：缺少圖形影像"]
+
+.. 請在RUN（執行）中檢查訓練工作：AI GUI（或app.runai.ai): RUN：AI儀表板）、如下圖所示。第一張圖詳細說明分配給分散式訓練工作的三個GPU、分別位於下列三個節點上、以及第二個RUN：AI工作：
++
+image:runai-ld_image25.png["錯誤：缺少圖形影像"]
+
++
+image:runai-ld_image26.png["錯誤：缺少圖形影像"]
+
+.. 訓練完成後、請查看已建立並連結RUN：AI job.的NetApp Snapshot複本。
++
+....
+runai logs dist-lane-detection-training --tail 1
+....
++
+image:runai-ld_image27.png["錯誤：缺少圖形影像"]
+
++
+....
+kubectl get volumesnapshots | grep download-tusimple-data-0
+....
+
+
+
+
+
+
+== 從NetApp Snapshot複本還原資料
+
+若要從NetApp Snapshot複本還原資料、請完成下列步驟：
+
+. 切換到主目錄。
++
+....
+cd ~
+....
+. 轉到項目目錄"lane detection-SCNN-Horovod"。
++
+....
+cd ./lane-detection-SCNN-horovod
+....
+. 修改「REstore-snaphot-PVC.yaml」、並將「data來源」「名稱」欄位更新為您要從中還原資料的Snapshot複本。您也可以變更要將資料還原到的PVc名稱、例如「restore-tuSimple」。
++
+image:runai-ld_image29.png["錯誤：缺少圖形影像"]
+
+. 使用「REstore-snapshot -PVC.yaml」建立新的PVc。
++
+....
+kubectl create -f restore-snapshot-pvc.yaml
+....
++
+輸出應如下所示：
+
++
+image:runai-ld_image30.png["錯誤：缺少圖形影像"]
+
+. 如果您想要使用剛還原的資料進行訓練、則提交工作內容與之前相同；提交訓練工作時、只能以還原的「PVC_name」取代「PVC_name」、如下列命令所示：
++
+....
+runai submit-mpi
+--name dist-lane-detection-training
+--large-shm
+--processes=3
+--gpu 1
+--pvc restored-tusimple:/mnt
+--image muneer7589/dist-lane-detection:3.1
+-e USE_WORKERS="true"
+-e NUM_WORKERS=4
+-e BATCH_SIZE=33
+-e USE_VAL="false"
+-e VAL_BATCH_SIZE=99
+-e ENABLE_SNAPSHOT="true"
+-e PVC_NAME="restored-tusimple"
+....
+
+
+
+
+== 效能評估
+
+為了顯示解決方案的線性擴充性、我們針對兩種情境進行了效能測試：一種GPU和三種GPU。GPU配置、GPU和記憶體使用率、在TuSimple lane偵測資料集的訓練中、已擷取不同的單節點和三節點測量數據。資料增加五倍、只是為了在訓練過程中分析資源使用率。
+
+此解決方案可讓客戶從小型資料集和幾個GPU開始著手。當資料量和GPU需求增加時、客戶可以在標準層中動態橫向擴充TB、並快速擴充至頂級層、以獲得每TB 4倍的處理量、而無需移動任何資料。本節將進一步說明此程序： link:runai-ld_lane_detection_distributed_training_with_run_ai.html#azure-netapp-files-service-levels["服務層級Azure NetApp Files"]。
+
+單一GPU的處理時間為12小時45分鐘。三個節點上的三個GPU處理時間約為4小時30分鐘。
+
+本文件其餘部分所顯示的數字、說明根據個別業務需求而提供的效能與擴充性範例。
+
+下圖說明1 GPU配置與記憶體使用率。
+
+image:runai-ld_image31.png["錯誤：缺少圖形影像"]
+
+下圖說明單一節點GPU使用率。
+
+image:runai-ld_image32.png["錯誤：缺少圖形影像"]
+
+下圖說明單一節點記憶體大小（16GB）。
+
+image:runai-ld_image33.png["錯誤：缺少圖形影像"]
+
+下圖說明單一節點GPU數（1）。
+
+image:runai-ld_image34.png["錯誤：缺少圖形影像"]
+
+下圖說明單一節點GPU配置（%）。
+
+image:runai-ld_image35.png["錯誤：缺少圖形影像"]
+
+下圖說明三個節點的三個GPU：GPU配置與記憶體。
+
+image:runai-ld_image36.png["錯誤：缺少圖形影像"]
+
+下圖說明三個節點使用率的三個GPU（%）。
+
+image:runai-ld_image37.png["錯誤：缺少圖形影像"]
+
+下圖說明三個節點的三個GPU記憶體使用率（%）。
+
+image:runai-ld_image38.png["錯誤：缺少圖形影像"]
+
+
+
+== 服務層級Azure NetApp Files
+
+您可以將磁碟區移至另一個使用的容量集區、以變更現有磁碟區的服務層級 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級"^] 您想要的磁碟區。此磁碟區現有的服務層級變更不需要移轉資料。這也不會影響對磁碟區的存取。
+
+
+
+=== 動態變更磁碟區的服務層級
+
+若要變更Volume的服務層級、請執行下列步驟：
+
+. 在「Volumes（磁碟區）」頁面上、以滑鼠右鍵按一下您要變更其服務層級的磁碟區。選取變更資源池。
++
+image:runai-ld_image39.png["錯誤：缺少圖形影像"]
+
+. 在「變更資源池」視窗中、選取您要將磁碟區移至的容量資源池。然後按一下「OK（確定）」。
++
+image:runai-ld_image40.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 自動化服務層級變更
+
+動態服務層級變更目前仍在「公開預覽」中、但預設不會啟用。若要在Azure訂閱上啟用此功能、請依照文件中提供的步驟執行 file:///C:\Users\crich\Downloads\•%09https:\docs.microsoft.com\azure\azure-netapp-files\dynamic-change-volume-service-level["動態變更磁碟區的服務層級"^]。」
+
+* 您也可以針對Azure使用下列命令：CLI。如需變更Azure NetApp Files 資源池大小的詳細資訊、請造訪 https://docs.microsoft.com/cli/azure/netappfiles/volume?view=azure-cli-latest-az_netappfiles_volume_pool_change["AZ netappFiles Volume：管理Azure NetApp Files fz（anf）Volume資源"^]。
++
+....
+az netappfiles volume pool-change -g mygroup
+--account-name myaccname
+-pool-name mypoolname
+--name myvolname
+--new-pool-resource-id mynewresourceid
+....
+* 此處顯示的「set-aznetappfilesvolumepool」指令程式可變更Azure NetApp Files 一個現象區的集區。如需變更Volume Pool大小和Azure PowerShell的詳細資訊、請參閱 https://docs.microsoft.com/powershell/module/az.netappfiles/set-aznetappfilesvolumepool?view=azps-5.8.0["變更Azure NetApp Files 適用於某個需求量的資源池"^]。
++
+....
+Set-AzNetAppFilesVolumePool
+-ResourceGroupName "MyRG"
+-AccountName "MyAnfAccount"
+-PoolName "MyAnfPool"
+-Name "MyAnfVolume"
+-NewPoolResourceId 7d6e4069-6c78-6c61-7bf6-c60968e45fbf
+....
+

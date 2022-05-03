@@ -1,0 +1,67 @@
+= 
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+. 設定認證資料。
+. 建立認證類型。對於涉及ONTAP 到靜態的解決方案、您必須設定認證類型以符合使用者名稱和密碼項目。
++
+.. 瀏覽至「管理」→「認證類型」、然後按一下「新增」。
+.. 提供名稱和說明。
+.. 在輸入組態中貼上下列內容：
++
+[source, cli]
+----
+fields:
+  - id: dst_cluster_username
+    type: string
+    label: Destination Cluster Username
+  - id: dst_cluster_password
+    type: string
+    label: Destination Cluster Password
+    secret: true
+  - id: src_cluster_username
+    type: string
+    label: Source Cluster Username
+  - id: src_cluster_password
+    type: string
+    label: Source Cluster Password
+    secret: true
+----
+.. 將下列內容貼到Injector Configuration、然後按一下「Save（儲存）」：
++
+[source, cli]
+----
+extra_vars:
+  dst_cluster_username: '{{ dst_cluster_username }}'
+  dst_cluster_password: '{{ dst_cluster_password }}'
+  src_cluster_username: '{{ src_cluster_username }}'
+  src_cluster_password: '{{ src_cluster_password }}'
+----
+
+
+. 建立ONTAP 認證以供使用
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入ONTAP 名稱和組織詳細資料以取得「不完整資訊」認證
+.. 選取在上一步中建立的認證類型。
+.. 在類型詳細資料下、輸入來源和目的地叢集的使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 建立Oracle認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入Oracle的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在類型詳細資料下、輸入Oracle主機的使用者名稱和密碼。
+.. 選取正確的權限提高方法、然後輸入使用者名稱和密碼。
+.. 按一下儲存
+.. 如有需要、請為DR_Oracle主機重複此程序、以取得不同的認證資料。
+
+
+

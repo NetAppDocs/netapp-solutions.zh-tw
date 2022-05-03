@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: ai/hciai_edge_virtual_infrastructure_with_automated_deployment.html 
+keywords:  
+summary:  
+---
+= 利用NetApp HCI NDE在VMware Virtual Infrastructure上部署（自動化部署）
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== n取消部署先決條件
+
+請參閱 https://library.netapp.com/ecm/ecm_download_file/ECMLP2798490["必要條件檢查清單NetApp HCI"^] 在NetApp HCI 您開始部署之前、請先查看有關功能的要求與建議。
+
+. 網路與交換器需求與組態
+. 準備所需的VLAN ID
+. 交換器組態
+. IP位址要求NetApp HCI
+. DNS與時間保留需求
+. 最後準備
+
+
+
+
+== n取消執行
+
+在執行NDE之前、您必須先完成所有元件的機架和堆疊、網路交換器的組態、以及所有先決條件的驗證。如果您計畫允許NDE自動設定所有位址、您可以連線至單一儲存節點的管理位址來執行NDE。
+
+NDE會執行下列工作、使HCI系統上線：
+
+. 在NetApp Element 至少兩個儲存節點上安裝儲存節點（例如、軟體）。
+. 在至少兩個運算節點上安裝VMware Hypervisor。
+. 安裝VMware vCenter以管理整個NetApp HCI VMware堆疊。
+. 安裝及設定NetApp儲存管理節點（mNode）和NetApp監控代理程式。
++
+
+NOTE: 此驗證會使用NDE自動設定所有位址。您也可以在環境中設定DHCP、或為每個儲存節點和運算節點手動指派IP位址。本指南不涵蓋這些步驟。
+
++
+如前所述、此驗證會使用雙纜線組態來執行運算節點。
+
++
+本文件未涵蓋NDE的詳細步驟。
+
++
+如需有關完成基礎NetApp HCI 型材架裝部署的逐步指引、請參閱 http://docs.netapp.com/hci/topic/com.netapp.doc.hci-ude-180/home.html?cp=3_0["部署指南"^]。
+
+. NDE完成後、登入vCenter並建立一個分散式連接埠群組NetApp HCI 「VMware VDS 01-NFs_Network」、供ONTAP Select NFS網路用於供VMware和應用程式使用。
+
+
+link:hciai_edge_netapp_h615cmanual_deployment.html["下一步：設定NetApp H615c（手動部署）"]

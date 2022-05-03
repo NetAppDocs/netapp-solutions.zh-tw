@@ -1,0 +1,76 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_netapp_ontap.html 
+keywords: NetApp, ONTAP, AFF, FAS, iSCSI, NFS 
+summary: NetApp ONTAP 功能強大的儲存軟體工具、具備直覺式GUI、REST API與自動化整合、AI資訊預測分析與修正行動、不中斷營運的硬體升級、以及跨儲存設備匯入等功能。 
+---
+= NetApp ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp ONTAP 功能強大的儲存軟體工具、具備直覺式GUI、REST API與自動化整合、AI資訊預測分析與修正行動、不中斷營運的硬體升級、以及跨儲存設備匯入等功能。
+
+如需更多關於NetApp ONTAP NetApp NetApp資訊儲存系統的資訊、請造訪 https://www.netapp.com/data-management/ontap-data-management-software/["NetApp ONTAP 產品網站"^]。
+
+支援下列功能：ONTAP
+
+* 統一化儲存系統、可同時存取及管理NFS、CIFS、iSCSI、FC、FCoE、 和FC-NVMe傳輸協定。
+* 不同的部署模式包括在All Flash、混合式和All HDD硬體組態上的內部部署、ONTAP Select 在支援的Hypervisor上的VM型儲存平台（例如：用作支援的Hypervisor）、以及在雲端上用Cloud Volumes ONTAP 作支援的
+* 支援自動資料分層、即時資料壓縮、重複資料刪除及壓縮、可提升ONTAP 資料在支援功能完善的系統上的儲存效率。
+* 工作負載型QoS控制儲存設備。
+* 與公有雲無縫整合、以利資料分層和保護。此外、支援強大的資料保護功能、可在任何環境中脫穎而出：ONTAP
++
+** * NetApp Snapshot複本。*快速的時間點資料備份、使用最少的磁碟空間、不需額外的效能負荷。
+** * NetApp SnapMirror.*將資料的Snapshot複本從一個儲存系統鏡射到另一個儲存系統。支援將資料鏡射到其他實體平台、以及雲端原生服務。ONTAP
+** * NetApp SnapLock 功能*可將不可重複寫入的資料寫入無法在指定期間覆寫或清除的特殊磁碟區、以有效管理不可重複寫入的資料。
+** * NetApp SnapVault 功能*可將多個儲存系統的資料備份至中央Snapshot複本、作為所有指定系統的備份。
+** * NetApp SyncMirror Real-.*可將資料即時、RAID層級的鏡射、鏡射到實體連接至相同控制器的兩個不同磁碟叢。
+** * NetApp SnapRestore 功能*可根據需求、從Snapshot複本快速還原備份資料。
+** * NetApp FlexClone。*可根據Snapshot複本、即時提供NetApp磁碟區完整讀取且可寫入的複本。
+
+
+
+
+如需ONTAP 更多關於效能的資訊、請參閱 https://docs.netapp.com/ontap-9/index.jsp["供應說明文件中心 ONTAP"^]。
+
+
+NOTE: NetApp ONTAP 產品可在內部部署、虛擬化或雲端上使用。
+
+image:redhat_openshift_image35.png["錯誤：缺少圖形影像"]
+
+
+
+== NetApp平台
+
+
+
+=== NetApp AFF/FAS
+
+NetApp提供強大的All Flash AFF （VMware）與橫向擴充混合式FAS （VMware）儲存平台、專為低延遲效能、整合式資料保護及多重傳輸協定支援而量身打造。
+
+這兩種系統均採用ONTAP NetApp的NetApp支援資料管理軟體、這是業界最先進的資料管理軟體、可提供高可用度、雲端整合、簡化的儲存管理、為您的資料架構提供企業級的速度、效率和安全性。
+
+如需NetApp AFF/FAS平台的詳細資訊、請按一下 https://docs.netapp.com/platstor/index.jsp["請按這裡"]。
+
+
+
+=== ONTAP Select
+
+透過軟體定義部署的NetApp解決方案、可將其部署到您環境中的Hypervisor上。ONTAP Select ONTAP可安裝在VMware vSphere或KVM上、並提供硬體ONTAP 型的完整功能與體驗。
+
+如需ONTAP Select 更多有關資訊、請按一下 https://docs.netapp.com/us-en/ontap-select/["請按這裡"]。
+
+
+
+=== Cloud Volumes ONTAP
+
+NetApp Cloud Volumes ONTAP 功能是雲端部署版本的NetApp ONTAP 功能、可部署在許多公有雲上、包括Amazon AWS、Microsoft Azure和Google Cloud。
+
+如需Cloud Volumes ONTAP 更多有關資訊、請按一下 https://docs.netapp.com/us-en/occm/#discover-whats-new["請按這裡"]。
+
+link:rh-os-n_overview_storint.html["下一步：NetApp儲存整合概述"]

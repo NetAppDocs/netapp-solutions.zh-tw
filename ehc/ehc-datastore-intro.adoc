@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ehc/ehc-datastore-intro.html 
+keywords: NetApp Solutions, amazon, vmc, aws, microsoft azure, avs, azure, google cloud, gcp, gcve, vmware managed cloud, enterprise, hybrid, cloud, cloud volumes ontap, cvo, datastore, fsx, fsx ontap 
+summary:  
+---
+= 適用於公有雲供應商的NetApp儲存選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+在三大大型超大規模擴充系統中探索NetApp儲存設備的選項。
+
+
+
+=== AWS對NetApp儲存設備的支援
+
+AWS支援下列組態的NetApp儲存設備：
+
+*來賓連線儲存設備*
+
+* link:aws/aws-guest.html#fsx-ontap["FSX ONTAP 支援以客為本的連線儲存設備"]
+* link:aws/aws-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
+
+
+*原生資料存放區*
+
+* link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]
+
+
+
+NOTE: 1 -目前處於私有預覽中
+
+
+
+=== Azure對NetApp儲存設備的支援
+
+Azure以下列組態支援NetApp儲存設備：
+
+*來賓連線儲存設備*
+
+* link:azure/azure-guest.html#anf["以客體連線儲存設備的形式提供Azure NetApp Files"]
+* link:azure/azure-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
+
+
+*原生資料存放區*
+
+* link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]
+
+
+
+NOTE: 1 -目前處於私有預覽中
+
+
+
+=== NetApp儲存設備的GCP支援
+
+Google Cloud支援下列組態的NetApp儲存設備：
+
+*來賓連線儲存設備*
+
+* link:gcp/gcp-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
+* link:gcp/gcp-guest.html#cvs["以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service"]
+
+
+*原生資料存放區*
+
+* link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]
+
+
+
+NOTE: 1 -目前處於私有預覽中

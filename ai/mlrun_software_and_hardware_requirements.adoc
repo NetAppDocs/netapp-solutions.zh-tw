@@ -1,0 +1,90 @@
+---
+sidebar: sidebar 
+permalink: ai/mlrun_software_and_hardware_requirements.html 
+keywords: NetApp, Software, Hardware, Network, Requirements 
+summary:  
+---
+= 軟體與硬體需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 網路組態
+
+以下是在雲端設定的網路組態需求：
+
+* Iguazio叢集和NetApp Cloud Volumes必須位於相同的虛擬私有雲中。
+* 雲端管理員必須能夠存取Iguazio應用程式節點上的連接埠6443。
+* 我們在本技術報告中使用Amazon Web Services。不過、使用者可以選擇在任何雲端供應商中部署解決方案。為了在ONTAP 採用NVIDIA DGX-1的AI中進行內部部署測試、我們使用Iguazio代管DNS服務、以方便使用。
+
+
+用戶端必須能夠存取動態建立的DNS網域。客戶可視需要使用自己的DNS。
+
+
+
+== 硬體需求
+
+您可以在自己的叢集內建安裝Iguazio。我們已使用ONTAP NVIDIA DGX-1系統、驗證NetApp的解決方案。下表列出用於測試此解決方案的硬體。
+
+|===
+| 硬體 | 數量 
+
+
+| DGX-1系統 | 1. 
+
+
+| NetApp AFF 產品系列A800系統 | 1個高可用度（HA）配對、包括2個控制器和48個NVMe SSD（3.8TB或以上） 
+
+
+| Cisco Nexus 3232C網路交換器 | 2. 
+|===
+下表列出內部部署測試所需的軟體元件：
+
+|===
+| 軟體 | 版本或其他資訊 
+
+
+| NetApp ONTAP 資料管理軟體 | 9.7 
+
+
+| Cisco NX-OS交換器韌體 | 7.0（3）I6（1） 
+
+
+| NVIDIA DGX OS | 4.4 - Ubuntu 18.04 LTS 
+
+
+| Docker Container平台 | 19.03.5 
+
+
+| Container版本 | 20.01-tF1-py2. 
+
+
+| 機器學習架構 | TensorFlow 1.15.0 
+
+
+| Iguazio | 版本2.8+ 
+
+
+| ESX Server | 6.5 
+|===
+此解決方案已通過Iguazio 2.5版和NetApp Cloud Volumes ONTAP 的AWS版完整測試。Iguazio叢集和NetApp軟體都在AWS上執行。
+
+|===
+| 軟體 | 版本或類型 
+
+
+| Iguazio | 版本2.8+ 
+
+
+| 應用程式節點 | M5.4xLarge 
+
+
+| 資料節點 | I3.4xLarge 
+|===
+link:mlrun_network_device_failure_prediction_use_case_summary.html["下一步：網路裝置故障預測使用案例摘要"]

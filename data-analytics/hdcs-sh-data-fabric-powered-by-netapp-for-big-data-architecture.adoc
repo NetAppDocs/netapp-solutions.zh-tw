@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/hdcs-sh-data-fabric-powered-by-netapp-for-big-data-architecture.html 
+keywords: architecture, data fabric, use cases, nfs, big data 
+summary: 採用NetApp技術的資料架構可簡化並整合雲端與內部部署環境的資料管理、加速數位轉型。採用NetApp技術的資料架構提供一致且整合的資料管理服務與應用程式（建置區塊）、可提供資料可見度與洞見、資料存取與控制、以及資料保護與安全性。 
+---
+= 採用NetApp技術的Data Fabric、適用於Big Data架構
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:hdcs-sh-solution-overview.html["上一篇：解決方案總覽。"]
+
+採用NetApp技術的資料架構可簡化並整合雲端與內部部署環境的資料管理、加速數位轉型。
+
+採用NetApp技術的資料架構提供一致且整合的資料管理服務與應用程式（建置區塊）、可提供資料可見度與洞見、資料存取與控制、以及資料保護與安全性、如下圖所示。
+
+image:hdcs-sh-image1.png["錯誤：缺少圖形影像"]
+
+
+
+== 備受肯定的Data Fabric客戶使用案例
+
+採用NetApp技術的資料架構可為客戶提供下列九個獲證實的使用案例：
+
+* 加速分析工作負載
+* 加速DevOps轉型
+* 建置雲端託管基礎架構
+* 整合雲端資料服務
+* 保護及保護資料安全
+* 最佳化非結構化資料
+* 提高資料中心效率
+* 提供資料洞見與控管能力
+* 簡化及自動化
+
+
+本文件涵蓋九種使用案例中的兩種（連同其解決方案）：
+
+* 加速分析工作負載
+* 保護及保護資料安全
+
+
+
+
+=== NetApp NFS直接存取
+
+NetApp NFS直接存取（先前稱為NetApp就地分析模組）（如下圖所示）可讓客戶在現有或新的NFSv3或NFSv4資料上執行巨量資料分析工作、而無需移動或複製資料。它可防止多個資料複本、並免除將資料與來源同步的需求。例如、在金融產業中、資料從一個地方搬移到另一個地方、必須符合法律義務、這不是一項容易的任務。在此案例中、NetApp NFS直接存取會從原始位置分析財務資料。另一項主要優點是使用NetApp NFS直接存取功能、使用原生Hadoop命令來簡化Hadoop資料的保護、並利用NetApp豐富的資料管理產品組合來啟用資料保護工作流程。
+
+image:hdcs-sh-image2.png["錯誤：缺少圖形影像"]
+
+NetApp NFS直接存取可為Hadoop / Spark叢集提供兩種部署選項：
+
+* 根據預設、Hadoop / Spark叢集會使用Hadoop分散式檔案系統（HDFS）進行資料儲存、並使用預設的檔案系統。NetApp NFS直接存取可將預設的HDFS取代為預設的NFS儲存系統、以便直接分析NFS資料。
+* 在另一個部署選項中、NetApp NFS直接存取可在單一Hadoop / Spark叢集中、將NFS設定為額外的儲存設備、以及HDFS。在這種情況下、客戶可以透過NFS匯出來共享資料、並從同一個叢集與HDFS資料一起存取。
+
+
+使用NetApp NFS直接存取的主要效益包括：
+
+* 從目前位置分析資料、避免將分析資料移至Hadoop基礎架構（例如HDFS）所需的時間與效能。
+* 將複本數量從三個減少為一個。
+* 讓使用者能夠分離運算和儲存設備、以獨立擴充。
+* 運用ONTAP 豐富的資料管理功能、提供企業資料保護功能。
+* 通過Hortonworks資料平台認證。
+* 實現混合式資料分析部署。
+* 運用動態多執行緒功能、縮短備份時間。
+
+
+
+
+=== 巨量資料的建置區塊
+
+採用NetApp技術的資料架構整合了資料管理服務與應用程式（建置區塊）、可用於資料存取、控制、保護及安全性、如下圖所示。
+
+image:hdcs-sh-image3.png["錯誤：缺少圖形影像"]
+
+上圖中的建置區塊包括：
+
+* * NetApp NFS直接存取。*提供最新的Hadoop和Spark叢集、可直接存取NetApp NFS磁碟區、無需額外的軟體或驅動程式需求。
+* * NetApp Cloud Volumes ONTAP 功能與雲端Volume Services。*軟體定義的連線儲存設備、以ONTAP Microsoft Azure NetApp Files Azure雲端服務中Amazon Web Services（AWS）或Sf2（anf）執行的功能為基礎。
+* * NetApp SnapMirror技術*。在內部部署ONTAP 與不支援的Cloud或NPS執行個體之間提供資料保護功能。
+* *雲端服務供應商。*這些供應商包括AWS、Microsoft Azure、Google Cloud和IBM Cloud。
+* * PaaS *雲端型分析服務、例如AWS中的Amazon Elastic MapReduce（EMR）和Databricks、以及Microsoft Azure HDInsight和Azure Databricks。
+
+
+link:hdcs-sh-hadoop-data-protection-and-netapp.html["下一步：Hadoop資料保護與NetApp。"]

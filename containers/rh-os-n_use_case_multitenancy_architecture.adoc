@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_multitenancy_architecture.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
+---
+= 架構
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+雖然Red Hat OpenShift和Astra Trident以NetApp ONTAP 支援、但在預設情況下並未隔離不同的工作負載、但它們提供多種功能、可用來設定多租戶。為了更深入瞭ONTAP 解如何在採用NetApp®技術的Astra Trident的Red Hat OpenShift叢集上設計多租戶解決方案、請讓我們參考一組需求範例、並概述相關的組態。
+
+假設某組織在Red Hat OpenShift叢集上執行兩項工作負載、這是兩個不同團隊正在進行的兩個專案的一部分。這些工作負載的資料位於PVCS上、由Astra Trident在NetApp ONTAP 的NAS後端動態配置。組織必須針對這兩項工作負載設計多租戶解決方案、並隔離用於這些專案的資源、以確保安全性和效能得以維持、主要著重於為這些應用程式提供服務的資料。
+
+下圖說明Red Hat OpenShift叢集上的多租戶解決方案、其中Astra Trident以NetApp ONTAP 效益為後盾。
+
+image::redhat_openshift_image40.jpg[Red Hat OpenShift叢集上的多租戶共享、具有由NetApp ONTAP 支援的Astra Trident]
+
+
+
+== 技術需求
+
+. NetApp ONTAP 解決方案儲存叢集
+. Red Hat OpenShift叢集
+. Astra Trident
+
+
+
+
+== Red Hat OpenShift–叢集資源
+
+從Red Hat OpenShift叢集觀點來看、最重要的資源是專案。OpenShift專案可視為叢集資源、將整個OpenShift叢集分成多個虛擬叢集。因此、專案層級的隔離功能可提供設定多租戶的基礎。
+
+接下來是在叢集中設定RBAC。最佳實務做法是讓所有開發人員在身分識別供應商（IDP）的單一使用者群組中、處理單一專案或工作負載。Red Hat OpenShift允許IDP整合和使用者群組同步、因此可將IDP中的使用者和群組匯入叢集。這有助於叢集管理員將專案專屬的叢集資源存取權、隔離給該專案的使用者群組、進而限制未獲授權存取任何叢集資源。若要深入瞭解IDP與Red Hat OpenShift的整合、請參閱文件 https://docs.openshift.com/container-platform/4.7/authentication/understanding-identity-provider.html["請按這裡"^]。
+
+
+
+== NetApp ONTAP
+
+將共享儲存設備隔離為Red Hat OpenShift叢集的持續儲存提供者非常重要、因為如此可確保在儲存設備上為每個專案建立的磁碟區、在主機看來就像是在不同的儲存設備上建立的磁碟區一樣。為達成此目標、請在NetApp ONTAP 支援上建立數量不限的SVM（儲存虛擬機器）、如同專案或工作負載一樣多、並將每個SVM專用於工作負載。
+
+
+
+== Astra Trident
+
+在NetApp ONTAP 支援上建立不同專案的不同SVM之後、您必須將每個SVM對應到不同的Trident後端。Trident上的後端組態會將持續儲存設備分配給OpenShift叢集資源、而且需要將SVM的詳細資料對應至該資源。這至少應該是後端的傳輸協定驅動程式。您也可以選擇定義如何在儲存設備上配置磁碟區、以及設定磁碟區大小或集合體使用量等限制。如需有關Trident後端定義的詳細資料、請參閱 https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"^]。
+
+
+
+== Red Hat OpenShift–儲存資源
+
+設定Trident後端之後、下一步是設定StorageClass。設定多個後端儲存類別、讓每個儲存類別都能存取、只在一個後端上增加磁碟區。我們可以在定義儲存類別時、使用storagePools參數、將StorageClass對應至特定的Trident後端。您可以找到定義儲存類別的詳細資料 https://docs.netapp.com/us-en/trident/trident-use/manage-stor-class.html["請按這裡"^]。因此、StorageClass與Trident後端之間有一對一對應關係、可指向一個SVM。如此可確保透過指派給該專案的StorageClass進行的所有儲存設備宣告、均由專屬該專案的SVM提供服務。
+
+由於儲存類別並非命名資源、我們如何確保另一個命名空間或專案中的Pod對某個專案的儲存類別提出的要求遭到拒絕？答案是使用資源配額。資源配額是控制每個專案資源總使用量的物件。它可以限制專案中物件可耗用的資源數量和總容量。使用資源配額幾乎可以限制專案的所有資源、而且有效率地使用資源、有助於組織降低因資源過度配置或過度使用而造成的成本與中斷。請參閱文件 https://docs.openshift.com/container-platform/4.7/applications/quotas/quotas-setting-per-project.html["請按這裡"^] 以取得更多資訊。
+
+在此使用案例中、我們需要限制特定專案中的Pod、使其無法從非專屬專案的儲存類別中申請儲存設備。為達成此目標、我們必須將「<storage-class-name>.storageclass.storage.k8s.io/永久性 磁碟區」設為0、以限制其他儲存類別的持續磁碟區宣告。此外、叢集管理員必須確保專案中的開發人員不應擁有修改資源配額的存取權。
+
+link:rh-os-n_use_case_multitenancy_configuration.html["下一步：組態。"]

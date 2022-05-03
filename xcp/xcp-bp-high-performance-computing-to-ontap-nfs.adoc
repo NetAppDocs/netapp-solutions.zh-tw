@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-high-performance-computing-to-ontap-nfs.html 
+keywords: use case, gpfs, nfs 
+summary: 我們使用NetApp XCP將資料從GPFS移轉至NFS、以便GPU處理資料。AI通常會處理來自網路檔案系統的資料。 
+---
+= 將高效能運算技術整ONTAP 合至VMware NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-data-lake-to-ontap-nfs.html["上一篇：資料湖到ONTAP 不再是NFS。"]
+
+此使用案例是根據現場組織的要求而設計。部分NetApp客戶的資料位於高效能運算環境中、可針對訓練模式提供資料分析、讓研究組織深入瞭解並瞭解大量的數位資料。NetApp現場工程師需要詳細的程序、才能從IBM的GPFS擷取資料至NFS。我們使用NetApp XCP將資料從GPFS移轉至NFS、以便GPU處理資料。AI通常會處理來自網路檔案系統的資料。
+
+如需ONTAP 有關高效能運算至Suse NFS的使用案例、錄製的示範和測試結果的詳細資訊、請參閱 https://blog.netapp.com/data-migration-xcp["使用XCP將資料從資料湖和高效能運算移至ONTAP 支援NFS"^] 部落格：
+
+如需ONTAP 使用NetApp XCP將MapR-FS資料移至Rse-NFS的詳細步驟、請參閱附錄A：GPFS移至NFS—中的詳細步驟 https://www.netapp.com/us/media/tr-4732.pdf["TR-4732：Big Data Analytics Data to Artificial Intelligence"^]。
+
+link:xcp-bp-using-the-xcp-data-mover-to-migrate-millions-of-small-files-to-flexible-storage.html["接下來：使用XCP Data Mover將數百萬個小型檔案移轉至彈性儲存設備。"]

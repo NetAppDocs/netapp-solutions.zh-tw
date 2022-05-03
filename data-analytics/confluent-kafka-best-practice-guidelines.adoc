@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/confluent-kafka-best-practice-guidelines.html 
+keywords: best practices, guidelines, nfs, san 
+summary: 本節將說明從本認證中學到的經驗教訓。 
+---
+= 最佳實務準則
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:confluent-kafka-confluent-kafka-rebalance.html["先前版本：Conflent自我重新平衡叢集。"]
+
+* 根據我們的驗證結果、S3物件儲存設備最適合Connent來保存資料。
+* 我們可以使用高處理量SAN（特別是FC）來保留代理程式的熱資料或本機磁碟、因為在Conflent階層式儲存組態中、 代理資料目錄中的資料大小取決於資料移至物件儲存設備時的區段大小和保留時間。
+* 當sege.bytes較高時、物件存放區可提供較佳的效能；我們測試了512MB。
+* 在Kafka中、針對主題所產生的每筆記錄、其金鑰或值長度（以位元組為單位）是由「length、key、Value」（長度、金鑰、值）參數所控制。針對VMware、S3物件擷取和擷取效能提升至更高的價值。StorageGRID例如、512位元組提供5.8GBps擷取、而1024位元組提供7.5GBps S3擷取、以及提供接近10Gbps的2048位元組。
+
+
+下圖顯示根據「length、key、Value」擷取和擷取S3物件。
+
+image:confluent-kafka-image11.png["錯誤：缺少圖形影像"]
+
+* * Kafka調校。*若要提升階層式儲存設備的效能、您可以增加TierFetcherNumThreades和TierArchiverNum執行 緒。一般而言、您想要增加TierFetcherNum執行 緒、以符合實體CPU核心數量、並將TierArchiverNum執行 緒增加到CPU核心數量的一半。例如、在伺服器內容中、如果您的機器有八個實體核心、請將confucere.Tier .etcher。num.thread = 8和puceter.Tier。archiver.nm.thread = 4。
+* *主題刪除的時間間隔。*刪除主題時、不會立即開始刪除物件儲存區中的記錄區段檔案。相反地、在刪除這些檔案之前、會有一個預設值為3小時的時間間隔。您可以修改組態confluent.tier.topic.delete.check.interval.ms來變更此時間間隔的值。如果您刪除主題或叢集、也可以手動刪除個別儲存區中的物件。
+* *階層式儲存內部主題的ACL。*內部部署的建議最佳實務做法是讓ACL授權者能夠處理階層式儲存所使用的內部主題。設定ACL規則、僅限代理使用者存取此資料。如此可保護內部主題、防止未獲授權存取階層式儲存資料和中繼資料。
+
+
+[listing]
+----
+kafka-acls --bootstrap-server localhost:9092 --command-config adminclient-configs.conf \
+--add --allow-principal User:<kafka> --operation All --topic "_confluent-tier-state"
+----
+
+NOTE: 將使用者「<Kafka>'」取代為部署中的實際代理主體。
+
+例如、命令「conflexe-層 狀態」會針對階層式儲存設備的內部主題設定ACL。目前只有一個與階層式儲存有關的內部主題。此範例會建立ACL、為內部主題的所有作業提供主要的Kafka權限。
+
+link:confluent-kafka-sizing.html["下一步：規模調整。"]

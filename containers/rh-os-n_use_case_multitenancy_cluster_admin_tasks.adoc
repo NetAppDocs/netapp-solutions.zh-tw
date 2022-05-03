@@ -1,0 +1,186 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
+---
+= 組態：叢集管理工作
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Red Hat OpenShift叢集管理會執行下列工作：
+
+. 以叢集管理的身分登入Red Hat OpenShift叢集。
+. 建立兩個對應於不同專案的專案。
++
+[source, console]
+----
+oc create namespace project-1
+oc create namespace project-2
+----
+. 建立專案1的開發人員角色。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: project-1
+  name: developer-project-1
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - apps
+      - batch
+      - autoscaling
+      - extensions
+      - networking.k8s.io
+      - policy
+      - apps.openshift.io
+      - build.openshift.io
+      - image.openshift.io
+      - ingress.operator.openshift.io
+      - route.openshift.io
+      - snapshot.storage.k8s.io
+      - template.openshift.io
+    resources:
+      - '*'
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - bindings
+      - configmaps
+      - endpoints
+      - events
+      - persistentvolumeclaims
+      - pods
+      - pods/log
+      - pods/attach
+      - podtemplates
+      - replicationcontrollers
+      - services
+      - limitranges
+      - namespaces
+      - componentstatuses
+      - nodes
+  - verbs:
+      - '*'
+    apiGroups:
+      - trident.netapp.io
+    resources:
+      - tridentsnapshots
+EOF
+----
+
+
+
+NOTE: 本節提供的角色定義只是一個範例。開發人員角色必須根據終端使用者需求加以定義。
+
+. 同樣地、請為專案2建立開發人員角色。
+. 所有OpenShift和NetApp儲存資源通常由儲存管理員管理。儲存管理員的存取權由安裝Trident時所建立的Trident操作員角色控制。此外、儲存管理員也需要存取資源配額、才能控制儲存設備的使用方式。
+. 在叢集中的所有專案中建立管理資源配額的角色、以將其附加至儲存設備管理員。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: resource-quotas-role
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - resourcequotas
+  - verbs:
+      - '*'
+    apiGroups:
+      - quota.openshift.io
+    resources:
+      - '*'
+EOF
+----
+. 請確定叢集已與組織的身分識別提供者整合、而且使用者群組已與叢集群組同步。下列範例顯示身分識別提供者已與叢集整合、並與使用者群組同步。
+
+
+....
+$ oc get groups
+NAME                        USERS
+ocp-netapp-storage-admins   ocp-netapp-storage-admin
+ocp-project-1               ocp-project-1-user
+ocp-project-2               ocp-project-2-user
+....
+. 為儲存管理員設定Cluster勞力 綁定。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: netapp-storage-admin-trident-operator
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-netapp-storage-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: trident-operator
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: netapp-storage-admin-resource-quotas-cr
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-netapp-storage-admins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: resource-quotas-role
+EOF
+----
+
+
+
+NOTE: 對於儲存管理員、必須綁定兩個角色：Trident運算子和資源配額。
+
+. 為開發人員建立角色連結、將開發人員專案1角色繫結至專案1中對應的群組（OCP專案-1）。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: project-1-developer
+  namespace: project-1
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-project-1
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: developer-project-1
+EOF
+----
+
+
+. 同樣地、請為開發人員建立角色連結至專案2中對應的使用者群組的角色連結。
+
+
+link:rh-os-n_use_case_multitenancy_storage_admin_tasks.html["下一步：儲存管理員工作。"]

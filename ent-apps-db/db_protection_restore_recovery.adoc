@@ -1,0 +1,31 @@
+= 
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+排程記錄複寫教戰手冊
+
+. 設定並啟動工作範本。
++
+.. 複製先前建立的工作範本。
++
+... 瀏覽至資源→範本。
+... 找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本
+... 按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「Restore and Recovery Playbook（還原與還原教戰守則）」
+... 保留相同的範本庫存、專案、認證資料。
+... 選取ora_recovery .yml作為要執行的方針。
+... 變數將維持不變、但CVO叢集IP必須設定在變數DST_叢 集IP中。
+... 按一下儲存。
+
+
+
+
++
+
+NOTE: 在您準備好在遠端站台還原資料庫之前、系統不會執行本方針。
+
+

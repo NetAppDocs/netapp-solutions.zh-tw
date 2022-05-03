@@ -1,0 +1,226 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-edge-technology-overview.html 
+keywords: tech, technology, overview, aff, a220, a250, ef280, ef300, 
+summary: 本節說明此AI解決方案的技術基礎。 
+---
+= 技術總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-edge-introduction.html["上一篇：簡介。"]
+
+
+
+== NetApp AFF 產品
+
+最先進的NetApp AFF ®不中斷儲存系統可讓AI在邊緣部署、以領先業界的效能、優異的靈活度、雲端整合及同級最佳的資料管理功能、滿足企業儲存需求。專為Flash所設計的NetApp AFF 支援功能、有助於加速、管理及保護業務關鍵資料。
+
+* 入門級NetApp AFF 支援儲存系統是以FAS2750硬體和SSD Flash媒體為基礎
+* HA組態中有兩個控制器
+
+
+image:ai-edge-image5.png["錯誤：缺少圖形影像"]
+
+NetApp入門級AFF 的C190儲存系統支援下列功能：
+
+* 磁碟機數量上限為24 x 960GB SSD
+* 兩種可能的組態：
++
+** 乙太網路（10GbE）：4個10GBASE-T（RJ-45）連接埠
+** 統一化（16GB FC或10GbE）：4個統一化目標介面卡2（UTA2）連接埠
+
+
+* 最大有效容量為50.5 TB
++
+
+NOTE: 對於NAS工作負載、單一入門級AFF 的432C190系統可支援4.4GBps的連續讀取處理量、以及230K IOPS、以1毫秒或更短的延遲時間進行小型隨機讀取。
+
+
+
+
+
+== NetApp AFF 解決方案-A220
+
+NetApp也提供其他入門級儲存系統、為大規模部署提供更高的效能與擴充性。對於NAS工作負載、單一入門級AFF 的AS20220系統支援：
+
+* 連續讀取的處理量為6.2GBps
+* 375K IOPS可在延遲1毫秒或更短時間內進行小型隨機讀取
+* 最大磁碟機數為144x 960GB、3.8TB或7.6TB SSD
+* 可用容量可擴充至大於1PB的部分AFF
+
+
+
+
+== NetApp AFF 產品-A250
+
+* 最大有效容量為35PB、最大橫向擴充為2-24個節點（12個HA配對）
+* 效能比AFF 不支援的A220高出≥45%
+* 440k IOPS隨機讀取@1ms
+* 以最新的NetApp ONTAP 產品資訊版本ONTAP 為基礎：《NetApp產品資訊
+* 利用兩個25GB乙太網路進行HA和叢集互連
+
+
+
+
+== NetApp E系列EF系統
+
+EF系列是入門級與中階All Flash SAN儲存陣列系列產品、可加速資料存取、並利用NetApp SANtricity 的Ef2軟體、更快從其中獲取價值。這些系統同時提供SAS和NVMe Flash儲存設備、並提供經濟實惠的極致IOPS、100微秒內的回應時間、以及高達44GBps的頻寬、是混合式工作負載和嚴苛應用程式（例如AI推斷和高效能運算（HPC）的理想選擇。
+
+下圖顯示NetApp EF280儲存系統。
+
+image:ai-edge-image7.png["錯誤：缺少圖形影像"]
+
+
+
+== NetApp EF280
+
+* 32GB/16GB FC、25GB/10Gb iSCSI及12Gb SAS支援
+* 最大有效容量為96個磁碟機、總計1.5PB
+* 10Gbps的處理量（循序讀取）
+* 300K IOPs（隨機讀取）
+* NetApp EF280是NetApp產品組合中成本最低的All Flash Array（AFF）
+
+
+
+
+== NetApp EF300
+
+* 24個NVMe SSD磁碟機、總容量為367TB
+* 擴充選項總計240x NL-SAS HDD、96x SAS SSD或組合
+* 100GB NVMe / IB、NVMe / RoCE、iSER / IB和SRP/IB
+* 32GB NVMe/FC、FCP
+* 25GB iSCSI
+* 20Gbps（循序讀取）
+* 670K IOPs（隨機讀取）
+
+
+
+NOTE: 如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/19339-DS-4082.pdf["NetApp EF系列NetApp EF系列All Flash Array EF600、F300、EF570及EF280資料表"^]。
+
+
+
+== NetApp ONTAP 產品9.
+
+NetApp最新一代的儲存管理軟體《支援》（NetApp）版本、可讓企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。NetApp 9.8.1包含多項功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP
+
+
+
+=== 簡化資料管理
+
+資料管理對企業IT營運至關重要、因此應用程式和資料集必須使用適當的資源。包含下列功能、可簡化及簡化作業、並降低總營運成本：ONTAP
+
+* *即時資料壓縮與擴充重複資料刪除技術。*資料壓縮技術可減少儲存區塊內的空間浪費、重複資料刪除技術則可大幅提升有效容量。這適用於本機儲存的資料、以及分層至雲端的資料。
+* *服務品質（AQO）的最低、最大及可調適性。*精細的服務品質（QoS）控制、有助於維持高共享環境中關鍵應用程式的效能等級。
+* * NetApp FabricPool 功能可將冷資料自動分層至公有雲和私有雲儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp StorageGRID 等儲存解決方案。如需FabricPool 更多有關資訊、請參閱 link:https://www.netapp.com/pdf.html?item=/media/17239-tr4598pdf.pdf["TR-4598"^]。
+
+
+
+
+=== 加速並保護資料
+
+供應優異的效能與資料保護、並以下列方式擴充這些功能：ONTAP
+
+* *效能與較低的延遲。ONTAP *
+* *資料保護* ONTAP 效能*功能提供內建的資料保護功能、並可在所有平台上進行通用管理。
+* * NetApp Volume Encryption（NVE）* ONTAP 。*支援內建和外部金鑰管理、提供原生Volume層級的加密功能。
+* *多租戶與多因素驗證。* ONTAP 支援以最高安全層級共享基礎架構資源。
+
+
+
+
+=== 符合未來需求的基礎架構
+
+下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP
+
+* *無縫擴充與不中斷營運。* ONTAP 支援在不中斷營運的情況下、為現有控制器和橫向擴充叢集增加容量。客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
+* * Cloud connection。ONTAP *效能不只是雲端連線能力最強的儲存管理軟體、ONTAP Select 還可在Cloud Volumes Service 所有公有雲中選擇軟體定義儲存（英文）和雲端原生執行個體（NetApp版本）。
+* *與新興應用程式整合* ONTAP 。*此功能使用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式（例如自動駕駛車輛、智慧城市和產業4.0）提供企業級資料服務。
+
+
+
+
+== NetApp SANtricity
+
+NetApp SANtricity 旨在為E系列混合式Flash與EF系列All Flash陣列提供領先業界的效能、可靠性與簡易性。針對繁重的工作負載應用、包括資料分析、視訊監控、備份與還原、實現E系列混合式Flash與EF系列All Flash陣列的最大效能與使用率。利用此功能、您可以在儲存設備保持連線的同時、完成組態調整、維護、容量擴充及其他工作。SANtricity此外、透過易於使用的內建System Manager介面、還能提供優異的資料保護、主動監控及認證安全功能。SANtricity若要深入瞭解、請參閱 https://www.netapp.com/pdf.html?item=/media/7676-ds-3891.pdf["NetApp E系列SANtricity 《軟體資料表》"^]。
+
+
+
+=== 效能最佳化
+
+效能最佳化SANtricity 的功能性支援功能可為您的所有資料分析、視訊監控及備份應用程式、提供高IOPs、高處理量及低延遲的資料。加速高IOPS、低延遲應用程式及高頻寬、高處理量應用程式的效能。
+
+
+
+=== 最大化正常運作時間
+
+在儲存設備保持連線的情況下、完成所有管理工作。在不中斷I/O的情況下調整組態、執行維護或擴充容量透過自動化功能、線上組態、最先進的動態磁碟資源池（DPP）技術等功能、實現同級最佳的可靠性。
+
+
+
+=== 高枕無憂
+
+透過易於使用的內建System Manager介面、即可提供優異的資料保護、主動監控及認證安全性。SANtricity簡化儲存管理工作。獲得所有E系列儲存系統進階調校所需的靈活度。隨時隨地管理NetApp E系列系統。我們隨裝即用的網路介面可簡化您的管理工作流程。
+
+
+
+== NetApp Trident
+
+https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Trident"^] NetApp是適用於Docker和Kubernetes的開放原始碼動態儲存協調工具、可簡化持續儲存的建立、管理和使用。Kubernetes原生應用程式Trident直接在Kubernetes叢集內執行。Trident可讓客戶將DL Container映像無縫部署到NetApp儲存設備、並為AI Container部署提供企業級體驗。Kubernetes使用者（例如ML開發人員和資料科學家）可以建立、管理及自動化協調與複製、以充分利用NetApp技術所提供的NetApp進階資料管理功能。
+
+
+
+== NetApp Cloud Sync
+
+https://docs.netapp.com/us-en/occm/concept_cloud_sync.html["Cloud Sync"^] 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署NFS或SMB檔案共享之間傳輸檔案、NetApp StorageGRID 效益、NetApp ONTAP S3、NetApp Cloud Volumes Service 效益、Azure NetApp Files 支援、Amazon Simple Storage Service（Amazon S3）、Amazon Elastic File System（Amazon EFS）、Azure Blob、Google Cloud Storage、 或者IBM Cloud Object Storage Cloud Sync 、讓您快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、因此能將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是軟體即服務（SaaS）工具、設定與使用極為簡單。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。
+
+
+
+=== Lenovo ThinkSystem伺服器
+
+聯想ThinkSystem伺服器採用創新的硬體、軟體和服務、可解決客戶目前的挑戰、並提供革命性的符合用途的模組化設計方法、以因應未來的挑戰。這些伺服器運用同級最佳的業界標準技術、搭配與眾不同的Lenovo創新技術、為x86伺服器提供最大的靈活度。
+
+部署Lenovo ThinkSystem伺服器的主要優勢包括：
+
+* 可隨企業成長而擴充的模組化設計
+* 領先業界的恢復能力、可節省非計畫性停機所需的數小時成本
+* 快速Flash技術可降低延遲、縮短回應時間、並即時進行更聰明的資料管理
+
+
+在AI領域、Lenovo正採取實用的方法、協助企業瞭解ML和AI在工作負載方面的優勢、並將其納入其中。Lenovo客戶可在Lenovo AI創新中心中探索及評估Lenovo AI產品、充分瞭解其特定使用案例的價值。為了縮短實現價值所需的時間、這種以客戶為中心的方法可讓客戶針對已準備好使用並針對AI最佳化的解決方案開發平台、提供概念驗證。
+
+
+
+=== Lenovo ThinkSystem SE350 Edge Server
+
+邊緣運算可讓您在將IoT裝置的資料傳送到資料中心或雲端之前、先在網路邊緣分析資料。下圖所示的Lenovo ThinkSystem SE350、是專為邊緣部署的獨特需求所設計、採用精巧、堅固耐用且環境強化的尺寸規格、著重於靈活度、連線能力、安全性及遠端管理功能。
+
+SE350採用Intel Xeon D處理器、可靈活支援邊緣AI工作負載的加速、專為因應資料中心以外各種環境的伺服器部署挑戰而打造。
+
+image:ai-edge-image8.png["錯誤：缺少圖形影像"]
+
+image:ai-edge-image9.png["錯誤：缺少圖形影像"]
+
+
+
+==== MLPerf
+
+MLPerf是領先業界的基準測試套件、可用來評估AI效能。涵蓋多個應用AI領域、包括影像分類、物件偵測、醫療成像和自然語言處理（NLP）。在此驗證中、我們使用推斷v0.7工作負載、這是完成此驗證時最新一次的MLPerf推斷。。 https://mlcommons.org/en/news/mlperf-inference-v07/["MLPerf推斷v0.7"^] 套件包含四項資料中心與邊緣系統的新基準測試：
+
+* 由Transformers（Bert）提供的* Bert.*雙向編碼器表示、可利用Srog資料集微調以回答問題。
+* * DLRM-*深度學習建議模式（DLRM）是個人化的推薦模式、經過訓練可最佳化點閱率（CTR）。
+* * 3D U-Net.* 3D U-Net架構是針對腦部腫瘤分割（Brat）資料集進行訓練。
+* * RNN-T*重複神經網路換能器（RNN-T）是一種自動語音辨識（ASR）模式、訓練內容為LbridSpeech的子集。MLPerf推斷結果與程式碼均可公開取得、並在Apache授權下發佈。MLPerf推斷具有Edge部門、可支援下列案例：
+* *單一串流。*此案例模擬回應能力是關鍵因素的系統、例如在智慧型手機上執行離線AI查詢。個別查詢會傳送至系統、並記錄回應時間。結果會報告所有回應的90個百分位數延遲。
+* *多重串流*此基準測試適用於處理多個感應器輸入的系統。在測試期間、查詢會以固定時間間隔傳送。強制實施QoS限制（允許的最大延遲）。測試會報告系統在符合QoS限制的情況下可以處理的串流數量。
+* *離線。*這是最簡單的案例、涵蓋批次處理應用程式、而指標是每秒取樣的處理量。系統可取得所有資料、基準測試會測量處理所有樣本所需的時間。
+
+
+Lenovo已針對本文件所使用的伺服器「T4」（SE350）發表MLPerf推斷分數。請參閱以下網址的結果： https://mlperf.org/inference-results-0-7/["https://mlperf.org/inference-results-0-7/"] 在項目#0.7-145的「Edge、Closed Division」一節中。
+
+link:ai-edge-test-plan.html["下一步：測試計畫。"]

@@ -1,0 +1,102 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_set_up_dask_with_rapids_deployment_on_aks_using_helm.html 
+keywords: dask, rapids, deployment, aks, helm, pvc, persistent volume claim 
+summary: 本頁說明如何在使用Helm的高峰上設定具有快速部署功能的dask。 
+---
+= 使用Helm在高峰上設定dask、並部署快速部署
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_install_trident.html["上一步：安裝Trident。"]
+
+若要使用Helm在高峰上設定具有快速部署功能的dask、請完成下列步驟：
+
+. 建立命名空間、以安裝具有快速功能的dask。
++
+....
+kubectl create namespace rapids-dask
+....
+. 建立一個PVc來儲存點選率資料集：
++
+.. 將下列Y反 洗錢內容儲存至檔案以建立永久保存。
++
+....
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: pvc-criteo-data
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1000Gi
+  storageClassName: azurenetappfiles
+....
+.. 將Yaml檔案套用至Kubernetes叢集。
++
+....
+kubectl -n rapids-dask apply -f <your yaml file>
+....
+
+
+. 複製「rapidsai git」儲存庫（ https://github.com/rapidsai/helm-chart["https://github.com/rapidsai/helm-chart"^]）。
++
+....
+git clone https://github.com/rapidsai/helm-chart helm-chart
+....
+. 修改「values.yaml」、並加入先前為工作者和Jupyter工作區所建立的永久虛擬網路。
++
+.. 轉到儲存庫的「rapidsai」目錄。
++
+....
+cd helm-chart/rapidsai
+....
+.. 更新「values.yaml」檔案、然後使用PVc掛載磁碟區。
++
+....
+dask:
+  …
+  worker:
+    name: worker
+    …
+    mounts:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-criteo-data
+      volumeMounts:
+        - name: data
+          mountPath: /data
+    …
+  jupyter:
+    name: jupyter
+    …
+    mounts:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pvc-criteo-data
+      volumeMounts:
+        - name: data
+          mountPath: /data
+    …
+....
+
+
+. 移至儲存庫的主目錄、然後使用Helm在使用者節點上部署具有三個工作節點的dask。
++
+....
+cd ..
+helm dep update rapidsai
+helm install rapids-dask --namespace rapids-dask rapidsai
+....
+
+
+link:aks-anf_azure_netapp_files_performance_tiers.html["下一步：Azure NetApp Files 不一樣的效能等級。"]

@@ -1,0 +1,183 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_multitenancy_scaling.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
+---
+= 擴充：新增更多專案
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+在多租戶組態中、新增含有儲存資源的專案需要額外的組態、以確保不違反多租戶共享。若要在多租戶叢集中新增更多專案、請完成下列步驟：
+
+. 以儲存管理員身分登入NetApp ONTAP 解決方案叢集。
+. 瀏覽至「儲存虛擬機器」、然後按一下「Add（新增）」。建立專案3專用的新SVM。也可建立vsadmin帳戶來管理SVM及其資源。
+
+
+image::redhat_openshift_image42.jpg[建立SVM以進行擴充]
+
+. 以叢集管理身分登入Red Hat OpenShift叢集。
+. 建立新專案。
++
+[source, console]
+----
+oc create ns project-3
+----
+. 確認專案3的使用者群組是在IDP上建立、並與OpenShift叢集同步。
++
+[source, console]
+----
+oc get groups
+----
+. 建立專案3的開發人員角色。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: project-3
+  name: developer-project-3
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - apps
+      - batch
+      - autoscaling
+      - extensions
+      - networking.k8s.io
+      - policy
+      - apps.openshift.io
+      - build.openshift.io
+      - image.openshift.io
+      - ingress.operator.openshift.io
+      - route.openshift.io
+      - snapshot.storage.k8s.io
+      - template.openshift.io
+    resources:
+      - '*'
+  - verbs:
+      - '*'
+    apiGroups:
+      - ''
+    resources:
+      - bindings
+      - configmaps
+      - endpoints
+      - events
+      - persistentvolumeclaims
+      - pods
+      - pods/log
+      - pods/attach
+      - podtemplates
+      - replicationcontrollers
+      - services
+      - limitranges
+      - namespaces
+      - componentstatuses
+      - nodes
+  - verbs:
+      - '*'
+    apiGroups:
+      - trident.netapp.io
+    resources:
+      - tridentsnapshots
+EOF
+----
+
+
+
+NOTE: 本節提供的角色定義只是一個範例。開發人員角色必須根據終端使用者需求加以定義。
+
+. 在Project 3中為開發人員建立角色繫結、將開發人員專案3角色繫結至專案3中對應的群組（OCP專案3）。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: project-3-developer
+  namespace: project-3
+subjects:
+  - kind: Group
+    apiGroup: rbac.authorization.k8s.io
+    name: ocp-project-3
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: developer-project-3
+EOF
+----
+. 以儲存管理員身分登入Red Hat OpenShift叢集
+. 建立Trident後端、並將其對應至專案3專用的SVM。NetApp建議使用SVM的vsadmin帳戶、將後端連線至SVM、而非ONTAP 使用叢集管理員。
++
+[source, console]
+----
+cat << EOF | tridentctl -n trident create backend -f
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "nfs_project_3",
+    "managementLIF": "172.21.224.210",
+    "dataLIF": "10.61.181.228",
+    "svm": "project-3-svm",
+    "username": "vsadmin",
+    "password": "NetApp!23"
+}
+EOF
+----
+
+
+
+NOTE: 本例使用的是ONTAP-NAS驅動程式。根據使用案例、使用適當的驅動程式來建立後端。
+
+
+NOTE: 我們假設Trident安裝在Trident專案中。
+
+. 建立專案3的儲存類別、並將其設定為使用從專案3專用後端的儲存資源池。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: project-3-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: ontap-nas
+  storagePools: "nfs_project_3:.*"
+EOF
+----
+. 建立資源配額、以限制專案3中的資源、要求儲存資源來自其他專案專用的儲存設備。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: project-3-sc-rq
+  namespace: project-3
+spec:
+  hard:
+    project-1-sc.storageclass.storage.k8s.io/persistentvolumeclaims: 0
+    project-2-sc.storageclass.storage.k8s.io/persistentvolumeclaims: 0
+EOF
+----
+. 修補其他專案中的資源配額、限制這些專案中的資源無法從專案3專用的儲存設備存取儲存設備。
++
+[source, console]
+----
+oc patch resourcequotas project-1-sc-rq -n project-1 --patch '{"spec":{"hard":{ "project-3-sc.storageclass.storage.k8s.io/persistentvolumeclaims": 0}}}'
+oc patch resourcequotas project-2-sc-rq -n project-2 --patch '{"spec":{"hard":{ "project-3-sc.storageclass.storage.k8s.io/persistentvolumeclaims": 0}}}'
+----
+

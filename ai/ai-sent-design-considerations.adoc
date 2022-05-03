@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-sent-design-considerations.html 
+keywords: network, compute, design, storage, riva, best practices, 
+summary: 本節說明本解決方案不同元件的設計考量。 
+---
+= 設計考量
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-sent-architecture.html["上一篇：架構。"]
+
+
+
+== 網路與運算設計
+
+視資料安全性的限制而定、所有資料都必須保留在客戶的基礎架構或安全環境中。
+
+image:ai-sent-image9.png["錯誤：缺少圖形影像"]
+
+
+
+== 儲存設計
+
+NetApp DataOps Toolkit是管理儲存系統的主要服務。DataOps Toolkit是Python程式庫、讓開發人員、資料科學家、DevOps工程師和資料工程師能夠輕鬆執行各種資料管理工作、例如近乎即時地配置新的資料Volume或JupyterLab工作區、近乎即時地複製資料Volume或JupyterLab工作區、 以及近乎即時的資料磁碟區快照或JupyterLab工作區快照、以提供可追蹤性或基準化。此Python程式庫可做為命令列公用程式或可匯入任何Python程式或Jupyter Notebook的函數庫。
+
+
+
+== Riva最佳實務做法
+
+NVIDIA提供多項一般功能 https://docs.nvidia.com/deeplearning/riva/user-guide/docs/best-practices.html["最佳資料實務做法"^] 若使用Riva：
+
+* *如果可能、請使用無損音訊格式。*使用失真轉碼器（例如mp3）可能會降低品質。
+* *強化訓練資料。*在音訊訓練資料中加入背景雜訊、一開始就能降低準確度、同時提高健全度。
+* *如果使用剪貼的文字、請限制詞彙大小。*許多線上來源包含錯字或輔助詞彙、以及不常見的詞彙。移除這些項目可改善語言模式。
+* *如果可能、請使用最低16Khz取樣率。*不過、請盡量不要重新取樣、因為這樣會降低音訊品質。
+
+
+除了這些最佳實務做法之外、客戶還必須優先收集代表範例資料集、並針對管路的每個步驟提供正確的標籤。換句話說、範例資料集應按比例反映目標資料集中所示的特定特性。同樣地、資料集註釋者也有責任在準確度和標籤速度之間取得平衡、以使資料的品質和數量達到最大化。例如、此支援中心解決方案需要音訊檔案、標示文字和內容標記。此解決方案的連續性意味著從管線一開始的錯誤會一直傳播到最後如果音訊檔案品質不佳、文字轉譯和翻譯意指標籤也會一樣。
+
+此錯誤傳播同樣適用於受過此資料訓練的模型。如果情緒預測是100%準確、但語音對文字模式的效能不佳、則最終管道將受到初始音訊對文字轉譯的限制。開發人員必須個別考量每種模式的效能、並將其視為較大型管線的元件。在這個特定案例中、最終目標是開發可準確預測感受的管道。因此、評估管道的整體指標是感受的準確度、而這種觀點會直接影響到語音對文字的複本。
+
+image:ai-sent-image10.png["錯誤：缺少圖形影像"]
+
+NetApp DataOps Toolkit透過近乎即時的資料複製技術來輔助資料品質檢查管道。每個標示的檔案都必須進行評估、並與現有標示的檔案進行比較。在各種資料儲存系統之間散佈這些品質檢查、可確保這些檢查作業快速且有效率地執行。
+
+link:ai-sent-deploying-support-center-sentiment-analysis.html["下一步：部署支援中心意見分析。"]

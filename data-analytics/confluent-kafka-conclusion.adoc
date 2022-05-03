@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/confluent-kafka-conclusion.html 
+keywords: conclusion 
+summary: 本文件提供將Kafka搭配NetApp儲存設備使用的最佳實務準則、包括Connent Kafka認證測試、效能結果、調校、Kafka連接器及自我重新平衡功能。 
+---
+= 結論
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:confluent-kafka-sizing.html["上一篇：規模調整。"]
+
+本文件提供將ConFluent階層式儲存設備與NetApp儲存設備搭配使用的最佳實務準則、包括驗證測試、階層式儲存效能結果、調校、ConFluent S3連接器、以及自我平衡功能。考慮到ILM原則、透過多項驗證效能測試的一致效能、以及業界標準的S3 API、NetApp StorageGRID 物件儲存設備是Confluent階層式儲存設備的最佳選擇。
+
+
+
+== 何處可找到其他資訊
+
+若要深入瞭解本文所述資訊、請檢閱下列文件和 / 或網站：
+
+* 什麼是Apache Kafka
++
+https://www.confluent.io/what-is-apache-kafka/["https://www.confluent.io/what-is-apache-kafka/"^]
+
+* NetApp 產品文件
++
+https://www.netapp.com/support-and-training/documentation/["https://www.netapp.com/support-and-training/documentation/"^]
+
+* S3-sink參數詳細資料
++
+https://docs.confluent.io/kafka-connect-s3-sink/current/configuration_options.html["https://docs.confluent.io/kafka-connect-s3-sink/current/configuration_options.html#s3-configuration-options"^]
+
+* Apache Kafka
++
+https://en.wikipedia.org/wiki/Apache_Kafka["https://en.wikipedia.org/wiki/Apache_Kafka"^]
+
+* 在Confluent平台上實現無限儲存
++
+https://www.confluent.io/blog/infinite-kafka-storage-in-confluent-platform/["https://www.confluent.io/blog/infinite-kafka-storage-in-confluent-platform/"^]
+
+* 一致的分層儲存設備：最佳實務做法與規模調整
++
+https://docs.confluent.io/platform/current/kafka/tiered-storage.html#best-practices-and-recommendations["https://docs.confluent.io/platform/current/kafka/tiered-storage.html#best-practices-and-recommendations"^]
+
+* 適用於ConFluent Platform的Amazon S3接收器連接器
++
+https://docs.confluent.io/kafka-connect-s3-sink/current/overview.html["https://docs.confluent.io/kafka-connect-s3-sink/current/overview.html"^]
+
+* Kafka尺寸
++
+https://eventsizer.io["https://eventsizer.io"]
+
+* 規模調整StorageGRID
++
+https://fusion.netapp.com/["https://fusion.netapp.com/"^]
+
+* Kafka使用案例
++
+https://kafka.apache.org/uses["https://kafka.apache.org/uses"^]
+
+* 在conf最 合體平台6.0中實現卡夫卡叢集的自我平衡
++
+https://www.confluent.io/blog/self-balancing-kafka-clusters-in-confluent-platform-6-0/["https://www.confluent.io/blog/self-balancing-kafka-clusters-in-confluent-platform-6-0/"^]
+
++
+https://www.confluent.io/blog/confluent-platform-6-0-delivers-the-most-powerful-event-streaming-platform-to-date/["https://www.confluent.io/blog/confluent-platform-6-0-delivers-the-most-powerful-event-streaming-platform-to-date/"^]
+
+
+
+
+
+== 版本歷程記錄
+
+|===
+| 版本 | 日期 | 文件版本歷程記錄 
+
+
+| 1.0版 | 2021年12月 | 初始版本。 
+|===

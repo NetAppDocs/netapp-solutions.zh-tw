@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-troubleshooting.html 
+keywords: troubleshooting, problems, error 70, 
+summary: 本節提供使用NetApp XCP進行資料移轉的疑難排解指南。 
+---
+= 疑難排解
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-best-practice-guidelines-and-recommendations.html["上一篇：最佳實務準則與建議。"]
+
+
+
+= 錯誤1：XCP失敗、並顯示nfs3錯誤70：xcp.log中的過時檔案處理錯誤
+
+*理由與指引。*
+
+掛載來源資料夾、並確認資料夾存在。如果不存在或已移除、您將會收到「套用檔案處理」錯誤、在此情況下、您可以忽略此錯誤。
+
+
+
+= 錯誤2：NetApp NFS目的地Volume有空間、但XCP失敗、並顯示nfs3錯誤28：裝置上沒有剩餘空間
+
+*理由與指引。*
+
+. 執行「df」命令或檢查儲存設備、以檢查NFS目的地Volume的空間。
++
+....
+root@workr-140: USER3# df -h /xcpdest
+Filesystem                 Size  Used Avail Use% Mounted on
+10.63.150.127:/xcpsrc_vol  4.3T  1.7T  2.6T  40% /xcpsrc_vol
+....
+. 檢查儲存控制器中的inode。
++
+....
+A800-Node1-2::> volume show -volume xcpdest -fields files,files-used
+vserver        volume  files    files-used
+-------------- ------- -------- ----------
+A800-Node1_vs1 xcpdest 21251126 21251126
+A800-Node1-2::>
+....
+. 如果使用inode、請執行下列命令來增加inode數量：
++
+....
+A800-Node1-2::> volume modify -volume xcpdest -vserver A800-Node1_vs1 -files 40000000
+Volume modify successful on volume xcpdest of Vserver A800-Node1_vs1.
+A800-Node1-2::> volume show -volume xcpdest -fields files,files-used
+vserver        volume  files    files-used
+-------------- ------- -------- ----------
+A800-Node1_vs1 xcpdest 39999990 21251126
+A800-Node1-2::>
+....
+
+
+link:xcp-bp-where-to-find-additional-information.html["下一步：何處可找到其他資訊。"]

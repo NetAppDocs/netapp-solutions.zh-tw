@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_netapp_virtual_desktop_service_overview.html 
+keywords: virtual desktop, Azure NetApp Files, VDS 
+summary: NetApp提供許多雲端服務、包括利用WVD或遠端應用程式快速配置虛擬桌面、包括快速整合Azure NetApp Files 至效益管理系統。 
+---
+= NetApp虛擬桌面服務總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp提供許多雲端服務、包括快速配置虛擬桌面（含WVD或遠端應用程式）、以及快速整合Azure NetApp Files 至效益管理系統。
+
+傳統上、向客戶提供遠端桌面服務需要數週的時間。除了資源配置之外、管理應用程式、使用者設定檔、共用資料及群組原則物件也很困難、難以強制執行原則。防火牆規則可能會增加複雜度、並需要個別的專長類別和工具。
+
+Microsoft Azure Windows Virtual Desktop服務負責維護遠端桌面服務元件、讓客戶能夠專注於雲端上的資源配置工作區。客戶必須配置及管理完整的堆疊、這需要特殊技能來管理VDI環境。
+
+有了NetApp VDS、客戶就能快速部署虛擬桌面、而不必擔心要在何處安裝架構元件、例如代理商、閘道、代理程式等。需要完全掌控環境的客戶、可以與專業服務團隊合作、以達成目標。客戶使用VDS即服務、因此可以專注於主要的業務挑戰。
+
+NetApp VDS是一套軟體即服務方案、可集中管理AWS、Azure、GCP或私有雲端環境中的多個部署。Microsoft Windows Virtual Desktop僅適用於Microsoft Azure。NetApp VDS在其他環境中協調Microsoft遠端桌面服務。
+
+Microsoft僅針對Azure上的Windows Virtual Desktop環境提供Windows 10上的多工作階段。驗證與身分識別是由虛擬桌面技術處理；WVD需要Azure Active Directory同步（使用AD Connect）至Active Directory、並將工作階段VM加入Active Directory。RDS需要Active Directory來提供使用者身分識別與驗證、以及VM網域加入與管理。
+
+下圖顯示範例部署拓撲。
+
+image:hcvdivds_image1.png["錯誤：缺少圖形影像"]
+
+每個部署都與作用中目錄網域相關聯、並為用戶端提供工作區和應用程式的存取入口點。具有多個Active Directory網域的服務供應商或企業通常會有更多部署。橫跨多個區域的單一Active Directory網域通常具有單一部署與多個站台。
+
+對於Azure中的WVD、Microsoft提供由NetApp VDS使用的平台即服務。對於其他環境、NetApp VDS會協調Microsoft遠端桌面服務的部署與組態。NetApp VDS同時支援WVD Classic和WVD ARM 支援、也可用於升級現有版本。
+
+每個部署都有自己的平台服務、包括Cloud Workspace Manager（REST API端點）、HTML 5閘道（從VDS管理入口網站連線至VM）、RDS閘道（用戶端存取點）和網域控制器。下圖說明RDS實作的VDS控制面板架構。
+
+image:hcvdivds_image2.png["錯誤：缺少圖形影像"]
+
+對於RDS實作、NetApp VDS可透過Windows和瀏覽器輕鬆存取、使用可自訂以包含客戶標誌和影像的用戶端軟體。根據使用者認證資料、它可讓使用者存取核准的工作區和應用程式。不需要設定閘道詳細資料。
+
+下圖顯示NetApp VDS用戶端。
+
+image:hcvdivds_image3.png["錯誤：缺少圖形影像"]
+
+在Azure WVD實作中、Microsoft會處理用戶端的存取入口點、並可由Microsoft WVD用戶端使用、此用戶端原生可供各種作業系統使用。也可從網路型入口網站存取。用戶端軟體的組態必須由群組原則物件（GPO）或客戶偏好的其他方式來處理。
+
+下圖說明Azure WVD實作的VDS控制面板架構。
+
+image:hcvdivds_image4.png["錯誤：缺少圖形影像"]
+
+除了部署及設定所需元件之外、NetApp VDS也能處理使用者管理、應用程式管理、資源擴充及最佳化等問題。
+
+NetApp VDS可建立使用者、或授予現有使用者帳戶存取雲端工作區或應用程式服務的權限。入口網站也可用於密碼重設及委派管理元件子集。服務台管理員或3級技術人員可以陰影複製使用者工作階段、以便進行疑難排解或從入口網站連線至伺服器。
+
+NetApp VDS可以使用您建立的映像範本、也可以使用市場上現有的映像範本進行雲端型資源配置。若要減少要管理的映像數目、您可以使用基礎映像、而且任何其他需要的應用程式都可以使用提供的架構來進行資源配置、以納入任何命令列工具、例如chlicatey、MSIX應用程式附加、PowerShell等。即使是自訂指令碼、也能做為機器生命週期事件的一部分。
+
+link:hcvdivds_netapp_hci_overview.html["下一步：NetApp HCI 概述"]

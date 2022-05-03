@@ -1,0 +1,90 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/bda-ai-gpfs-to-netapp-ontap-nfs.html 
+keywords: GPFS, nfs, nsd, admin node, quorum node, manager node, nsd server, protocol node 
+summary: 在此驗證中、我們使用四部伺服器做為網路共用磁碟（NSD）伺服器、為GPFS提供實體磁碟。GPFS是在NSD磁碟上建立、以匯出為NFS匯出、讓NFS用戶端可以存取這些磁碟、如下圖所示。我們使用XCP將資料從GPFS匯出的NFS複製到NetApp NFS磁碟區。 
+---
+= GPFS移轉至NetApp ONTAP 的不整NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:bda-ai-data-mover-solution-for-ai.html["上一篇：AI的資料移動機解決方案。"]
+
+在此驗證中、我們使用四部伺服器做為網路共用磁碟（NSD）伺服器、為GPFS提供實體磁碟。GPFS是在NSD磁碟上建立、以匯出為NFS匯出、讓NFS用戶端可以存取這些磁碟、如下圖所示。我們使用XCP將資料從GPFS匯出的NFS複製到NetApp NFS磁碟區。
+
+image:bda-ai-image5.png["錯誤：缺少圖形影像"]
+
+
+
+== GPFS基本功能
+
+GPFS使用下列節點類型：
+
+* *管理節點。*指定選用欄位、其中包含管理命令用來在節點之間進行通訊的節點名稱。例如、管理節點「mastr-51.netapp.com`」可以將網路檢查傳遞給叢集中的所有其他節點。
+* *仲裁節點。*決定節點是否包含在從中衍生仲裁的節點集區中。您至少需要一個節點作為仲裁節點。
+* * Manager Nod.*表示節點是否為節點集區的一部分、可從中選取檔案系統管理程式和權杖管理程式。最好將多個節點定義為管理節點。您指定為管理程式的節點數量取決於工作負載和您擁有的GPFS伺服器授權數量。如果您執行的是大型平行工作、則可能需要比支援Web應用程式的四節點叢集更多的管理節點。
+* * NSD伺服器。*準備每個實體磁碟以搭配GPFS使用的伺服器。
+* *傳輸協定節點。*透過任何安全Shell（SSH）傳輸協定與NFS直接共用GPFS資料的節點。此節點需要GPFS伺服器授權。
+
+
+
+
+== GPFS、NFS和XCP的作業清單
+
+本節提供建立GPFS、將GPFS匯出為NFS匯出、以及使用XCP傳輸資料的作業清單。
+
+
+
+=== 建立GPFS
+
+若要建立GPFS、請完成下列步驟：
+
+. 在其中一部伺服器上、下載並安裝Linux版本的頻譜級資料存取。
+. 在所有節點上安裝必要的套件（例如主廚）、並在所有節點上停用增強安全性的Linux（SELinux）。
+. 設定安裝節點、並將管理節點和GPFS節點新增至叢集定義檔案。
+. 新增管理節點、仲裁節點、NSD伺服器和GPFS節點。
+. 新增GUI、admin和GPFS節點、並視需要新增額外的GUI伺服器。
+. 新增另一個GPFS節點、然後檢查所有節點的清單。
+. 在叢集定義檔中、指定要在所有GPFS節點上設定的叢集名稱、設定檔、遠端Shell二進位檔、遠端檔案複製二進位檔和連接埠範圍。
+. 檢視GPFS組態設定、並新增額外的管理節點。
+. 停用資料收集、並將資料套件上傳至IBM支援中心。
+. 啟用NTP並在安裝前預先檢查組態。
+. 設定、建立及檢查NSD磁碟。
+. 建立GPFS。
+. 掛載GPFS。
+. 驗證並提供GPFS所需的權限。
+. 執行「dd」命令來驗證GPFS的讀取和寫入。
+
+
+
+
+=== 將GPFS匯出至NFS
+
+若要將GPFS匯出至NFS、請完成下列步驟：
+
+. 透過「/etc/exports」檔案將GPFS匯出為NFS。
+. 安裝所需的NFS伺服器套件。
+. 啟動NFS服務。
+. 列出GPFS中的檔案以驗證NFS用戶端。
+
+
+
+
+=== 設定NFS用戶端
+
+若要設定NFS用戶端、請完成下列步驟：
+
+. 透過「/etc/exports」檔案將GPFS匯出為NFS。
+. 啟動NFS用戶端服務。
+. 透過NFS用戶端上的NFS傳輸協定掛載GPFS。
+. 驗證NFS掛載資料夾中的GPFS檔案清單。
+. 使用XCP將資料從GPFS匯出的NFS移至NetApp NFS。
+. 驗證NFS用戶端上的GPFS檔案。
+
+
+link:bda-ai-hdfs-and-mapr-fs-to-ontap-nfs.html["下一步：HDFS和MapR-FS移轉ONTAP 到Sfnfs。"]

@@ -1,0 +1,247 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-sent-architecture.html 
+keywords: technology, architectural diagram, hardware requirements, NVIDIA RIVA, NVIDIA TAO Toolkit, Flash storage system, Cloud Sync 
+summary: 此支援中心解決方案的架構以NVIDIA預先建置的工具和NetApp DataOps Toolkit為核心。NVIDIA的工具可用於使用預先建置的機型和管線、快速部署高效能AI解決方案。NetApp DataOps Toolkit可簡化各種資料管理工作、加速開發。 
+---
+= 架構
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-sent-use-cases.html["先前：使用案例。"]
+
+此支援中心解決方案的架構以NVIDIA預先建置的工具和NetApp DataOps Toolkit為核心。NVIDIA的工具可用於使用預先建置的機型和管線、快速部署高效能AI解決方案。NetApp DataOps Toolkit可簡化各種資料管理工作、加速開發。
+
+
+
+== 解決方案技術
+
+link:https://developer.nvidia.com/riva["NVIDIA Riva"^] 是GPU加速的SDK、可用於建置多式對話AI應用程式、在GPU上提供即時效能。NVIDIA訓練、調適及最佳化（TAO）工具套件提供更快速、更簡單的方法來加速訓練、並快速建立高度準確且效能優異的網域專屬AI模型。
+
+NetApp DataOps Toolkit是Python程式庫、可讓開發人員、資料科學家、DevOps工程師及資料工程師輕鬆執行各種資料管理工作。這包括近乎即時地配置新的資料磁碟區或JupyterLab工作區、近乎即時地複製資料磁碟區或JupyterLab工作區、以及近乎即時的資料磁碟區快照或JupyterLab工作區、以供追蹤及建立基準。
+
+
+
+== 架構圖
+
+下圖顯示解決方案架構。有三大環境類別：雲端、核心和邊緣。每個類別都可以分散在不同的地理位置。例如、雲端包含的物件儲存區位於不同區域的儲存區、音訊檔案則位於不同區域、而核心則可能包含透過高速網路或NetApp Cloud Sync 還原連結的資料中心。邊緣節點表示個人人力代理商的日常工作平台、其中提供互動式儀表板工具和麥克風、可視覺化感受、並從與客戶的對話中收集音訊資料。
+
+在GPU加速的資料中心中、企業可以使用NVIDIA https://docs.nvidia.com/deeplearning/riva/user-guide/docs/index.html["Riva"^] 構建對話式AI應用程式的架構 https://developer.nvidia.com/tao["TAO工具套件"^] 運用轉介L型學習技術、連接模型的微調和再訓練。這些運算應用程式和工作流程均由提供支援 https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"^]、實現ONTAP 最佳的資料管理功能。此工具組可讓企業資料團隊透過快照和複本、快速建立模型原型、並建立相關的結構化和非結構化資料、以利追蹤、版本管理和A/B測試、進而提供安全性、治理、 以及法規遵循。請參閱一節 link:ai-sent-design-considerations.html#storage-design["儲存設計"] 以取得更多詳細資料。
+
+本解決方案說明音訊檔案處理、NLP模式訓練、傳輸學習及資料管理詳細步驟。最終端點對端點的傳輸途徑會產生即時顯示在人力支援代理程式儀表板上的意見摘要。
+
+image:ai-sent-image4.png["錯誤：缺少圖形影像"]
+
+
+
+=== 硬體需求
+
+下表列出實作解決方案所需的硬體元件。在解決方案的任何特定實作中使用的硬體元件、可能會因客戶需求而異。
+
+|===
+| 回應延遲測試 | 時間（毫秒） 
+
+
+| 資料處理 | 10. 
+
+
+| 推斷 | 10. 
+|===
+這些回應時間測試是針對560個對話中超過50、000個音訊檔案執行。每個音訊檔案的大小約為100 KB、轉換成wav時約為1 MB。資料處理步驟會將mp3轉換成wav檔案。推斷步驟會將音訊檔案轉換成文字、並從文字擷取內容。這些步驟彼此獨立、可平行化以加速程序。
+
+考慮到在各直營店之間傳輸資料的延遲、經理應能在句子結尾的一秒內看到即時情緒分析的更新。
+
+
+
+==== NVIDIA Riva硬體
+
+|===
+| 硬體 | 需求 
+
+
+| 作業系統 | Linux x86_64 
+
+
+| GPU記憶體（ASR） | 串流模式：約5600 MB非串流機型：約3100 MB 
+
+
+| GPU記憶體（NLP） | 每個Bert機型約500MB 
+|===
+
+
+==== NVIDIA TAO工具套件硬體
+
+|===
+| 硬體 | 需求 
+
+
+| 系統RAM | 32GB 
+
+
+| GPU RAM | 32GB 
+
+
+| CPU | 8核心 
+
+
+| GPU | NVIDIA（A100、V100和RTX 30x0） 
+
+
+| SSD | 100GB 
+|===
+
+
+=== Flash儲存系統
+
+
+
+==== NetApp ONTAP 產品9.
+
+NetApp最新一代的儲存管理軟體- NetApp 9.9、可讓企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP
+
+
+
+==== NetApp Cloud Sync
+
+https://docs.netapp.com/us-en/occm/concept_cloud_sync.html["Cloud Sync"^] 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：
+
+* NetApp StorageGRID
+* NetApp ONTAP 產品S3
+* NetApp Cloud Volumes Service
+* Azure NetApp Files
+* Amazon簡易儲存服務（Amazon S3）
+* Amazon Elastic File System（Amazon EFS）
+* Azure Blob
+* Google Cloud Storage
+* IBM Cloud 物件儲存設備
+
+
+協助您快速安全地將檔案移至所需的位置。Cloud Sync資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是一種簡單易用的軟體即服務（SaaS）工具。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。
+
+
+
+==== NetApp StorageGRID
+
+由軟體定義的物件儲存套件可無縫支援各種公有、私有及混合式多雲端環境的使用案例。StorageGRIDNetApp StorageGRID 支援領先業界的創新技術、可儲存、保護及保留非結構化資料、以供多種用途使用、包括長期的自動化生命週期管理。如需詳細資訊、請參閱 https://www.netapp.com/data-storage/storagegrid/documentation/["NetApp StorageGRID"^] 網站。
+
+
+
+=== 軟體需求
+
+下表列出實作此解決方案所需的軟體元件。在解決方案的任何特定實作中使用的軟體元件、可能會因客戶需求而異。
+
+|===
+| 主機 | 需求 
+
+
+| Riva（前身為JARVIS） | 1.4.0 
+
+
+| TAO工具套件（前身為TransferLearning Toolkit） | 3.0 
+
+
+| ONTAP | 9.9.1 
+
+
+| DGX OS | 5.1 
+
+
+| DOTK | 2.0.00.0 
+|===
+
+
+==== NVIDIA Riva軟體
+
+|===
+| 軟體 | 需求 
+
+
+| Docker | >19.02（安裝NVIDIA泊塢視窗）>=19.03（若未使用DGX） 
+
+
+| NVIDIA驅動程式 | 465.19.01 + 418.40 +、440.33 +、450.51 +、460.27 +（適用於資料中心GPU） 
+
+
+| Container作業系統 | Ubuntu 20.04 
+
+
+| CUDA | 11.3.0 
+
+
+| cublas | 11.5.1.101. 
+
+
+| CUDNN | 8.2.0.41 
+
+
+| NCCL | 2.9.6 
+
+
+| TensorRT | 7.2.3.4 
+
+
+| Triton Inference伺服器 | 2.9.0 
+|===
+
+
+==== NVIDIA TAO Toolkit軟體
+
+|===
+| 軟體 | 需求 
+
+
+| Ubuntu 18.04 LTS | 18.04 
+
+
+| Python | >=3.6.9 
+
+
+| Docker | >19.03.5 
+
+
+| Docker API | 1.40 
+
+
+| nvidia-container工具套件 | >1.3.0-1 
+
+
+| nvidia-container執行時間 | 3.4.0-1 
+
+
+| nvidia-docker2 | 2.5.0-1 
+
+
+| NVIDIA驅動程式 | >455 
+
+
+| Python-pip | >21.06. 
+
+
+| nvidia-pyindex | 最新版本 
+|===
+
+
+=== 使用案例詳細資料
+
+本解決方案適用於下列使用案例：
+
+* 語音對文字
+* 情緒分析
+
+
+image:ai-sent-image6.png["錯誤：缺少圖形影像"]
+
+語音對文字的使用案例、是從擷取支援中心的音訊檔案開始。然後處理此音訊、以符合Riva所需的結構。如果音訊檔案尚未分割成分析單位、則必須先將音訊傳送至Riva。音訊檔案處理完畢後、會以API呼叫的形式傳送至Riva伺服器。伺服器採用其託管的眾多機型之一、並傳回回應。此語音對文字（自動語音辨識的一部分）會傳回音訊的文字呈現。之後、管線會切換至「意見分析」部分。
+
+對於情緒分析、自動語音辨識的文字輸出可做為文字分類的輸入。文字分類是NVIDIA元件、可將文字分類為任何類別。支援中心對話的感受類別從正面到負面、您可以使用套管套件來評估模型的效能、以判斷微調步驟是否成功。
+
+image:ai-sent-image8.png["錯誤：缺少圖形影像"]
+
+TAO工具套件中的語音對文字和情緒分析也使用類似的管道。主要差異在於使用標籤來微調模型。TAO工具套件管道從資料檔案的處理開始。然後是預先訓練的模型（來自 https://ngc.nvidia.com/catalog["NVIDIA NGC目錄"^]）使用支援中心資料進行微調。系統會根據其對應的效能指標來評估微調模型、如果它們的效能比預先訓練的模型更高、則會部署到Riva伺服器。
+
+link:ai-sent-design-considerations.html["下一步：設計考量。"]

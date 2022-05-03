@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_load_day_15_in_dask_and_train_a_dask_cuml_random_forest_model.html 
+keywords: dask, cuml, dataframe, criteo, click, logs, pandas, scikit, cudf 
+summary: 本節說明如何在大作中載入Criteo Click日誌第15天、並訓練sci套 件學習隨機樹系模式。在此範例中、我們使用dAsk couDF執行DataFrame載入、並在dask cuML中訓練隨機樹系模型。 
+---
+= 在dask中載入第15天、並訓練dask cuML隨機樹系模型
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_load_criteo_click_logs_day_15_in_pandas_and_train_a_scikit-learn_random_forest_model.html["上一篇：Load Criteo按一下「日誌第15天、在大作中記錄」、然後訓練scifack-記憶 隨機樹系模式。"]
+
+以類似上一節的方式、在Pandas中載入Criteo按一下「日誌第15天」、然後訓練scier-記憶 隨機樹系模式。在此範例中、我們使用dAsk couDF執行DataFrame載入、並在dask cuML中訓練隨機樹系模型。我們比較了本節訓練時間與規模的差異 link:aks-anf_training_time_comparison.html["「訓練時間比較」。"]
+
+
+
+== criteo_dASk_RF.ipynb
+
+本筆記型電腦會匯入「umpy」、「累計」及必要的「dask」程式庫、如下列範例所示：
+
+....
+import cuml
+from dask.distributed import Client, progress, wait
+import dask_cudf
+import numpy as np
+import cudf
+from cuml.dask.ensemble import RandomForestClassifier as cumlDaskRF
+from cuml.dask.common import utils as dask_utils
+....
+啟動dask Client()。
+
+....
+client = Client()
+....
+如果您的叢集設定正確、您可以看到工作節點的狀態。
+
+....
+client
+workers = client.has_what().keys()
+n_workers = len(workers)
+n_streams = 8 # Performance optimization
+....
+在我們的高層叢集中、會顯示下列狀態：
+
+image:aks-anf_image12.png["錯誤：缺少圖形影像"]
+
+請注意、dask採用的是閒置執行模式：dask並不是立即執行處理程式碼、而是建立直接執行的Acyclic圖表（DAG）。DAG包含一組工作及其互動、每位員工都需要執行這些工作。此配置表示在使用者指示dask以某種方式執行工作之前、工作不會執行。有了dask、您有三個主要選項：
+
+* *在DataFrame上呼叫compacter()。*此呼叫會處理所有分割區、然後將結果傳回排程器、以供最終集合併轉換至cuDF DataFrame。除非排程器節點的記憶體不足、否則此選項應謹慎使用、且僅用於大幅減少的結果。
+* * DataFrame上的呼叫持續（）。*此呼叫會執行圖表、但它不會將結果傳回排程器節點、而是將結果保留在整個叢集的記憶體中、讓使用者無需重新執行相同的處理、即可在管線中重複使用這些中繼結果。
+* * DataFrame上的呼叫標頭（）。*就像cuDF一樣、此呼叫會傳回10筆記錄給排程器節點。此選項可用來快速檢查DataFrame是否包含所需的輸出格式、或記錄本身是否合理、視處理和計算而定。
+
+
+因此、除非使用者撥打上述任一動作、否則工作人員會閒置等待排程器啟動處理。這種閒置執行模式在Apache Spark等現代化平行與分散式運算架構中相當常見。
+
+以下段落使用dask cuML來訓練隨機樹系模型、以進行分散式GPU加速運算、並計算模型預測準確度。
+
+....
+Adsf
+# Random Forest building parameters
+n_streams = 8 # optimization
+max_depth = 10
+n_bins = 16
+n_trees = 10
+cuml_model = cumlDaskRF(max_depth=max_depth, n_estimators=n_trees, n_bins=n_bins, n_streams=n_streams, verbose=True, client=client)
+cuml_model.fit(gdf_sliced_small, Y)
+# Model prediction
+pred_df = cuml_model.predict(gdf_test)
+# calculate accuracy
+cu_score = cuml.metrics.accuracy_score( test_y, pred_df )
+....
+link:aks-anf_monitor_dask_using_native_task_streams_dashboard.html["下一步：使用原生工作串流儀表板監控dask。"]

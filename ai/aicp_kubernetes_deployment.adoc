@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_kubernetes_deployment.html 
+keywords: NVIDIA, GPU, Kubernetes, Control Plane, Trident 
+summary: 本頁說明部署Kubernetes叢集所需完成的工作、以實作NetApp AI Control Plane解決方案。如果您已經有Kubernetes叢集、則只要您執行Kubernetes版本、且Kubeflow和NetApp Trident均支援此版本、就可以跳過本節。 
+---
+= Kubernetes部署
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節說明部署Kubernetes叢集所需完成的工作、以實作NetApp AI Control Plane解決方案。如果您已經有Kubernetes叢集、則只要您執行Kubernetes版本、且Kubeflow和NetApp Trident均支援此版本、就可以跳過本節。如需Kubernetes支援版本的清單、請參閱 https://www.kubeflow.org/docs/started/getting-started/["官方Kubeflow文件"^]。如需Trident支援的Kubernetes版本清單、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。
+
+對於採用裸機節點的內部部署Kubernetes、採用NVIDIA GPU、NetApp建議使用NVIDIA的DeepOps Kubernetes部署工具。本節概述如何使用DeepOps部署Kubernetes叢集。
+
+
+
+=== 先決條件
+
+在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
+
+. 您已根據ONTAP 標準組態指示、設定任何裸機Kubernetes節點（例如、NVIDIA DGX系統是整個AI Pod的一部分）。
+. 您已在所有Kubernetes主節點和工作節點、以及部署跨接主機上安裝支援的作業系統。如需DeepOps支援的作業系統清單、請參閱 https://github.com/NVIDIA/deepops["DeepOps GitHub網站"^]。
+
+
+
+
+=== 使用NVIDIA DeepOps來安裝及設定Kubernetes
+
+若要使用NVIDIA DeepOps部署及設定Kubernetes叢集、請從部署跳接主機執行下列工作：
+
+. 依照上的指示下載NVIDIA DeepOps https://github.com/NVIDIA/deepops/tree/master/docs["入門頁面"^] 在NVIDIA DeepOps GitHub網站上。
+. 依照上的指示、在叢集中部署Kubernetes https://github.com/NVIDIA/deepops/tree/master/docs/k8s-cluster["Kubernetes部署指南頁面"^] 在NVIDIA DeepOps GitHub網站上。
+
+
+link:aicp_netapp_trident_deployment_and_configuration_overview.html["下一步：NetApp Trident部署與組態總覽。"]

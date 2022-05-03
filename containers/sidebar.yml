@@ -1,0 +1,146 @@
+---
+section: containers
+title: 容器
+entries:
+- title: Red Hat OpenShift with NetApp
+  type: solutions
+  url: "/containers/rh-os-n_solution_overview.html"
+  entries:
+  - title: Red Hat Openshift總覽
+    url: "/containers/rh-os-n_overview_openshift.html"
+    entries:
+    - title: 裸機上的OpenShift
+      url: "/containers/rh-os-n_openshift_BM.html"
+    - title: Red Hat OpenStack平台上的OpenShift
+      url: "/containers/rh-os-n_openshift_OSP.html"
+    - title: Red Hat虛擬化的OpenShift
+      url: "/containers/rh-os-n_openshift_RHV.html"
+    - title: VMware vSphere上的OpenShift
+      url: "/containers/rh-os-n_openshift_VMW.html"
+  - title: NetApp儲存系統總覽
+    url: "/containers/rh-os-n_overview_netapp.html"
+    entries:
+    - title: NetApp ONTAP
+      url: "/containers/rh-os-n_netapp_ontap.html"
+    - title: NetApp Element
+      url: "/containers/rh-os-n_netapp_element.html"
+  - title: NetApp儲存整合概述
+    url: "/containers/rh-os-n_overview_storint.html"
+    entries:
+    - title: NetApp Astra控制中心總覽
+      url: "/containers/rh-os-n_overview_astra.html"
+      entries:
+      - title: 註冊Red Hat OpenShift叢集
+        url: "/containers/rh-os-n_astra_register.html"
+      - title: 選擇要保護的應用程式
+        url: "/containers/rh-os-n_astra_applications.html"
+      - title: 保護您的應用程式
+        url: "/containers/rh-os-n_astra_protect.html"
+    - title: NetApp Astra Trident總覽
+      url: "/containers/rh-os-n_overview_trident.html"
+      entries:
+      - title: NetApp ONTAP 不適用於NFS
+        url: "/containers/rh-os-n_trident_ontap_nfs.html"
+      - title: NetApp ONTAP 支援iSCSI
+        url: "/containers/rh-os-n_trident_ontap_iscsi.html"
+      - title: 支援iSCSI NetApp Element
+        url: "/containers/rh-os-n_trident_element_iscsi.html"
+  - title: OpenShift的進階組態選項
+    entries:
+    - title: 探索負載平衡器選項
+      url: "/containers/rh-os-n_load_balancers.html"
+      entries:
+      - title: MetalLB.
+        url: "/containers/rh-os-n_LB_MetalLB.html"
+      - title: F5 BIG-IP
+        url: "/containers/rh-os-n_LB_F5BigIP.html"
+    - title: 建立私有映像登錄
+      url: "/containers/rh-os-n_private_registry.html"
+  - title: 解決方案驗證與使用案例
+    url: "/containers/rh-os-n_use_cases.html"
+    entries:
+    - title: 使用持續儲存設備部署Jenkins CI/CD管道
+      url: "/containers/rh-os-n_use_case_pipeline.html"
+    - title: 使用NetApp ONTAP 功能在Red Hat OpenShift上設定多租戶共享
+      entries:
+      - title: 總覽
+        url: "/containers/rh-os-n_use_case_multitenancy_overview.html"
+      - title: 架構
+        url: "/containers/rh-os-n_use_case_multitenancy_architecture.html"
+      - title: 組態
+        url: "/containers/rh-os-n_use_case_multitenancy_configuration.html"
+        entries:
+        - title: 先決條件
+          url: "/containers/rh-os-n_use_case_multitenancy_configuration_prerequisites.html"
+        - title: 叢集管理員工作
+          url: "/containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html"
+        - title: 儲存管理員工作
+          url: "/containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html"
+      - title: 驗證
+        url: "/containers/rh-os-n_use_case_multitenancy_validation.html"
+      - title: 擴充
+        url: "/containers/rh-os-n_use_case_multitenancy_scaling.html"
+    - title: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+      entries:
+      - title: 總覽
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
+      - title: 部署
+        entries:
+        - title: 先決條件
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
+        - title: 透過營運者部署
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment.html"
+      - title: 工作流程
+        entries:
+        - title: 建立VM
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_create_vm.html"
+        - title: VM即時移轉
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html"
+        - title: 虛擬機器複製
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html"
+        - title: 從Snapshot建立VM
+          url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html"
+    - title: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
+      entries:
+      - title: 總覽
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_overview.html"
+      - title: 部署
+        entries:
+        - title: 先決條件
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html"
+        - title: 透過營運者部署
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html"
+      - title: 功能
+        entries:
+        - title: 叢集生命週期管理
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_cluster_lcm.html"
+        - title: 應用程式生命週期管理
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_application_lcm.html"
+        - title: 治理與風險
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_governance_risk.html"
+        - title: 觀察能力
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_observability.html"
+        - title: 建立資源
+          url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_create_resources.html"
+  - title: 影片/示範
+    url: "/containers/rh-os-n_videos_and_demos.html"
+  - title: 其他資訊
+    url: "/containers/rh-os-n_additional_information.html"
+- title: Google Anthos
+  entries:
+  - title: 裸機上的Anthos
+    url: "/containers/bmanthos_introduction.html"
+    type: solutions
+    entries:
+    - title: 解決方案總覽
+      url: "/containers/bmanthos_solution_overview.html"
+    - title: 解決方案需求
+      url: "/containers/bmanthos_solution_requirements.html"
+    - title: 部署摘要
+      url: "/containers/bmanthos_deployment_summary.html"
+    - title: 解決方案驗證
+      url: "/containers/bmanthos_solution_validation.html"
+    - title: 結論
+      url: "/containers/bmanthos_conclusion.html"
+    - title: 何處可找到其他資訊
+      url: "/containers/bmanthos_where_to_find_additional_information.html"

@@ -1,0 +1,355 @@
+---
+sidebar: sidebar 
+permalink: ai/cainvidia_customize_states_and_flows_for_retail_use_case.html 
+keywords: Customize, States, Flows, Retail, Dialog Manager, 
+summary:  
+---
+= 針對零售使用案例自訂狀態和流程
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+您可以針對特定使用案例自訂對話管理程式的狀態和流程。在我們的零售範例中、我們有下列四個yaml檔案、可根據不同的意圖來引導對話。
+
+請參閱下列每個檔案的檔案名稱和說明清單：
+
+* 「MAIN_flow：yml」：定義主要對話流程和狀態、並在必要時將流程導向其他三個yaml檔案。
+* 「REtail_flow。yml」：包含與零售或興趣點相關的狀態。系統會提供最近的零售店資訊、或是特定項目的價格。
+* 「Weather（天氣）」流程：包含與天氣問題相關的狀態。如果無法判斷位置、系統會詢問後續問題以釐清。
+* 「error_flow。yml」：處理使用者意圖不屬於上述三個yaml檔案的案例。顯示錯誤訊息後、系統會重新路由回接受使用者問題。下列各節包含這些yaml檔案的詳細定義。
+
+
+
+
+== main_flow
+
+....
+name: JarvisRetail
+intent_transitions:
+  jarvis_error: error
+  price_check: retail_price_check
+  inventory_check: retail_inventory_check
+  store_location: retail_store_location
+  weather.weather: weather
+  weather.temperature: temperature
+  weather.sunny: sunny
+  weather.cloudy: cloudy
+  weather.snow: snow
+  weather.rainfall: rain
+  weather.snow_yes_no: snowfall
+  weather.rainfall_yes_no: rainfall
+  weather.temperature_yes_no: tempyesno
+  weather.humidity: humidity
+  weather.humidity_yes_no: humidity
+  navigation.startnavigationpoi: retail # Transitions should be context and slot based. Redirecting for now.
+  navigation.geteta: retail
+  navigation.showdirection: retail
+  navigation.showmappoi: idk_what_you_talkin_about
+  nomatch.none: idk_what_you_talkin_about
+states:
+  init:
+    type: message_text
+    properties:
+      text: "Hi, welcome to NARA retail and weather service. How can I help you?"
+  input_intent:
+    type: input_context
+    properties:
+      nlp_type: jarvis
+      entities:
+        intent: dontcare
+# This state is executed if the intent was not understood
+  dont_get_the intent:
+    type: message_text_random
+    properties:
+      responses:
+        - "Sorry I didn't get that! Please come again."
+        - "I beg your pardon! Say that again?"
+        - "Are we talking about weather? What would you like to know?"
+        - "Sorry I know only about the weather"
+        - "You can ask me about the weather, the rainfall, the temperature, I don't know much more"
+      delay: 0
+    transitions:
+      next_state: input_intent
+  idk_what_you_talkin_about:
+    type: message_text_random
+    properties:
+      responses:
+        - "Sorry I didn't get that! Please come again."
+        - "I beg your pardon! Say that again?"
+        - "Are we talking about retail or weather? What would you like to know?"
+        - "Sorry I know only about retail and the weather"
+        - "You can ask me about retail information or the weather, the rainfall, the temperature. I don't know much more."
+      delay: 0
+    transitions:
+      next_state: input_intent
+  error:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'error'
+    transitions:
+        flow: error_flow
+  retail_inventory_check:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'retail_inventory_check'
+    transitions:
+        flow: retail_flow
+  retail_price_check:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'check_item_price'
+    transitions:
+        flow: retail_flow
+  retail_store_location:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'find_the_store'
+    transitions:
+        flow: retail_flow
+  weather:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'weather'
+    transitions:
+        flow: weather_flow
+  temperature:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'temperature'
+    transitions:
+        flow: weather_flow
+  rainfall:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'rainfall'
+    transitions:
+        flow: weather_flow
+  sunny:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'sunny'
+    transitions:
+        flow: weather_flow
+  cloudy:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'cloudy'
+    transitions:
+        flow: weather_flow
+  snow:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'snow'
+    transitions:
+        flow: weather_flow
+  rain:
+    type: change_context
+    properties:
+        update_keys:
+           intent: 'rain'
+    transitions:
+        flow: weather_flow
+  snowfall:
+      type: change_context
+      properties:
+          update_keys:
+             intent: 'snowfall'
+      transitions:
+          flow: weather_flow
+  tempyesno:
+      type: change_context
+      properties:
+          update_keys:
+             intent: 'tempyesno'
+      transitions:
+          flow: weather_flow
+  humidity:
+      type: change_context
+      properties:
+          update_keys:
+             intent: 'humidity'
+      transitions:
+          flow: weather_flow
+  end_state:
+    type: reset
+    transitions:
+      next_state: init
+....
+
+
+== 零售_流.yml
+
+....
+name: retail_flow
+states:
+  store_location:
+    type: conditional_exists
+    properties:
+      key: '{{location}}'
+    transitions:
+      exists: retail_state
+      notexists: ask_retail_location
+  retail_state:
+    type: Retail
+    properties:
+    transitions:
+      next_state: output_retail
+  output_retail:
+      type: message_text
+      properties:
+        text: '{{retail_status}}'
+      transitions:
+        next_state: input_intent
+  ask_retail_location:
+    type: message_text
+    properties:
+      text: "For which location? I can find the closest store near you."
+    transitions:
+      next_state: input_retail_location
+  input_retail_location:
+    type: input_user
+    properties:
+      nlp_type: jarvis
+      entities:
+        slot: location
+      require_match: true
+    transitions:
+      match: retail_state
+      notmatch: check_retail_jarvis_error
+  output_retail_acknowledge:
+    type: message_text_random
+    properties:
+      responses:
+        - 'ok in {{location}}'
+        - 'the store in {{location}}'
+        - 'I always wanted to shop in {{location}}'
+      delay: 0
+    transitions:
+      next_state: retail_state
+  output_retail_notlocation:
+    type: message_text
+    properties:
+      text: "I did not understand the location. Can you please repeat?"
+    transitions:
+      next_state: input_intent
+  check_rerail_jarvis_error:
+    type: conditional_exists
+    properties:
+      key: '{{jarvis_error}}'
+    transitions:
+      exists: show_retail_jarvis_api_error
+      notexists: output_retail_notlocation
+  show_retail_jarvis_api_error:
+    type: message_text
+    properties:
+      text: "I am having troubled understanding right now. Come again on that?"
+    transitions:
+      next_state: input_intent
+....
+
+
+== We天氣_流.yml
+
+....
+name: weather_flow
+states:
+  check_weather_location:
+    type: conditional_exists
+    properties:
+      key: '{{location}}'
+    transitions:
+      exists: weather_state
+      notexists: ask_weather_location
+  weather_state:
+    type: Weather
+    properties:
+    transitions:
+      next_state: output_weather
+  output_weather:
+      type: message_text
+      properties:
+        text: '{{weather_status}}'
+      transitions:
+        next_state: input_intent
+  ask_weather_location:
+    type: message_text
+    properties:
+      text: "For which location?"
+    transitions:
+      next_state: input_weather_location
+  input_weather_location:
+    type: input_user
+    properties:
+      nlp_type: jarvis
+      entities:
+        slot: location
+      require_match: true
+    transitions:
+      match: weather_state
+      notmatch: check_jarvis_error
+  output_weather_acknowledge:
+    type: message_text_random
+    properties:
+      responses:
+        - 'ok in {{location}}'
+        - 'the weather in {{location}}'
+        - 'I always wanted to go in {{location}}'
+      delay: 0
+    transitions:
+      next_state: weather_state
+  output_weather_notlocation:
+    type: message_text
+    properties:
+      text: "I did not understand the location, can you please repeat?"
+    transitions:
+      next_state: input_intent
+  check_jarvis_error:
+    type: conditional_exists
+    properties:
+      key: '{{jarvis_error}}'
+    transitions:
+      exists: show_jarvis_api_error
+      notexists: output_weather_notlocation
+  show_jarvis_api_error:
+    type: message_text
+    properties:
+      text: "I am having troubled understanding right now. Come again on that, else check jarvis services?"
+    transitions:
+      next_state: input_intent
+....
+
+
+== 錯誤_流.yml
+
+....
+name: error_flow
+states:
+  error_state:
+    type: message_text_random
+    properties:
+      responses:
+        - "Sorry I didn't get that!"
+        - "Are we talking about retail or weather? What would you like to know?"
+        - "Sorry I know only about retail information or the weather"
+        - "You can ask me about retail information or the weather, the rainfall, the temperature. I don't know much more"
+        - "Let's talk about retail or the weather!"
+      delay: 0
+    transitions:
+      next_state: input_intent
+....
+link:cainvidia_connect_to_third-party_apis_as_fulfillment_engine.html["下一步：將第三方API連線為履約引擎"]

@@ -1,0 +1,144 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_install_trident.html 
+keywords:  
+summary:  
+---
+= 安裝Trident
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_peer_aks_vnet_and_azure_netapp_files_vnet.html["上一篇：Peer aks vnet和Azure NetApp Files vernet。"]
+
+若要使用Helm安裝Trident、請完成下列步驟：
+
+. 安裝Helm（如需安裝指示、請造訪 https://helm.sh/docs/intro/install/["來源"^]）。
+. 下載並解壓縮Trident 20.01.1安裝程式。
++
+....
+$wget
+$tar -xf trident-installer-21.01.1.tar.gz
+....
+. 將目錄變更為「Trident安裝程式」。
++
+....
+$cd trident-installer
+....
+. 將「tridentctl」複製到系統「$path」中的目錄。
++
+....
+$sudo cp ./tridentctl /usr/local/bin
+....
+. 在Kubernetes（K8s）叢集上使用Helm（ https://scaleoutsean.github.io/2021/02/02/trident-21.01-install-with-helm-on-netapp-hci.html["來源"^]）：
++
+.. 將目錄變更為「helm」目錄。
++
+....
+$cd helm
+....
+.. 安裝Trident。
++
+....
+$helm install trident trident-operator-21.01.1.tgz --namespace trident --create-namespace
+....
+.. 檢查Trident Pod的狀態。
++
+....
+$kubectl -n trident get pods
+....
++
+如果所有的Pod都已啟動並正在執行、則會安裝Trident、您可以繼續前進。
+
+
+
+. 設定Azure NetApp Files 適用於高效能的不中斷端和儲存類別。
++
+.. 建立Azure服務原則。
++
+服務宗旨是Trident如何與Azure溝通、以操控Azure NetApp Files 您的整套資源。
+
++
+....
+$az ad sp create-for-rbac --name ""
+....
++
+輸出應如下所示：
+
++
+....
+{
+"appId": "xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", 
+"displayName": "netapptrident", 
+"name": "", 
+"password": "xxxxxxxxxxxxxxx.xxxxxxxxxxxxxx", 
+"tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx"
+} 
+....
+
+
+. 建立Trident後端json檔案、例如名稱「anf-backend.json」。
+. 使用您偏好的文字編輯器、在「anf-backend.json」檔案中填寫下列欄位：
++
+....
+{
+    "version": 1,
+    "storageDriverName": "azure-netapp-files",
+    "subscriptionID": "fakec765-4774-fake-ae98-a721add4fake",
+    "tenantID": "fakef836-edc1-fake-bff9-b2d865eefake",
+    "clientID": "fake0f63-bf8e-fake-8076-8de91e57fake",
+    "clientSecret": "SECRET",
+    "location": "westeurope",
+    "serviceLevel": "Standard",
+    "virtualNetwork": "anf-vnet",
+    "subnet": "default",
+    "nfsMountOptions": "vers=3,proto=tcp",
+    "limitVolumeSize": "500Gi",
+    "defaults": {
+    "exportRule": "0.0.0.0/0",
+    "size": "200Gi"
+}
+....
+. 請替換下列欄位：
++
+** 《訂閱ID》。您的Azure訂閱ID。
+** 「TenantId」。您的Azure租戶ID、來自上一步「AZ廣告服務」的輸出。
+** "clientID"。您的應用程式ID來自前一步驟的「AZ廣告服務」輸出。
+** 「客戶機密」。您的密碼來自上一步「AZ廣告服務」的輸出。
+
+
+. 指示Trident使用Azure NetApp Files 「anf-backend.json」作為組態檔、在「Trident」命名空間中建立支援功能的後端：
++
+....
+$tridentctl create backend -f anf-backend.json -n trident
+....
++
+image:aks-anf_image8.png["錯誤：缺少圖形影像"]
+
+. 建立儲存類別。Kubernetes使用者透過PVCS來配置磁碟區、這些PVCS會依名稱指定儲存類別。指示K8s建立儲存類別「azurenetappfiless」、以參照上一步建立的Trident後端。
+. 建立Yaml（「anf-storage - class.yaml」）檔案、以供儲存類別和複製。
++
+....
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+name: azurenetappfiles
+provisioner: netapp.io/trident
+parameters:
+backendType: "azure-netapp-files"
+$kubectl create -f anf-storage-class.yaml
+....
+. 驗證是否已建立儲存類別。
++
+....
+kubectl get sc azurenetappfiles
+....
+
+
+image:aks-anf_image9.png["錯誤：缺少圖形影像"]
+
+link:aks-anf_set_up_dask_with_rapids_deployment_on_aks_using_helm.html["下一步：使用Helm在高峰上設定dask、並進行快速部署。"]

@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: ai/hcaios_kubernetes_deployment.html 
+keywords: Kubernetes, Deployment, NVIDIA, DeepOps 
+summary:  
+---
+= Kubernetes部署
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+若要使用NVIDIA DeepOps部署及設定Kubernetes叢集、請從部署跳接主機執行下列工作：
+
+. 依照上的指示下載NVIDIA DeepOps https://github.com/NVIDIA/deepops/blob/master/docs/getting-started.md["入門頁面"^] 在NVIDIA DeepOps GitHub網站上。
+. 依照上的指示、在叢集中部署Kubernetes https://github.com/NVIDIA/deepops/blob/master/docs/kubernetes-cluster.md["Kubernetes部署指南"^] 在NVIDIA DeepOps GitHub網站上。
+
+
+
+NOTE: 若要讓DeepOps Kubernetes部署正常運作、所有Kubernetes主節點和工作節點上都必須有相同的使用者。
+
+如果部署失敗、請在「depops/config/group_vars/k8s-cluster．yml」中、將「kubecl_localhost」的值變更為「假」、然後重複步驟2。只有當值為「kubecl_localhost」時、「Copy kubectl二進位到Ansible host」工作才會執行、這項工作仰賴已知記憶體使用問題的擷取Ansible模組。這些記憶體使用量問題有時可能導致工作失敗。如果工作因為記憶體問題而失敗、則部署作業的其餘部分將無法成功完成。
+
+如果在您將「kubecl_localhost」的值變更為「假」之後、成功完成部署、則必須手動將「kubecl二進位」從Kubernetes主節點複製到部署跳接主機。您可以在特定主節點上直接執行「that kubecll」命令、找到「kubecl二進位」的位置。
+
+link:hcaios_cnvrg.io_deployment.html["下一步：Cnvrg-IO部署"]

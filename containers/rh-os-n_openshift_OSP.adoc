@@ -1,0 +1,156 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_openshift_OSP.html 
+keywords: OpenShift, OpenStack, private cloud 
+summary: Red Hat OpenStack平台提供整合式基礎、可建立、部署及擴充安全可靠的私有OpenStack雲端。 
+---
+= Red Hat OpenStack平台上的OpenShift
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Red Hat OpenStack平台提供整合式基礎、可建立、部署及擴充安全可靠的私有OpenStack雲端。
+
+OSP是一種基礎架構即服務（IaaS）雲端、由管理運算、儲存和網路資源的控制服務集合來實作。此環境是使用網路介面來管理、讓系統管理員和使用者能夠控制、配置及自動化OpenStack資源。此外、OpenStack基礎架構也可透過廣泛的命令列介面和API、為系統管理員和終端使用者提供完整的自動化功能。
+
+OpenStack專案是快速開發的社群專案、每六個月提供更新版本。Red Hat OpenStack Platform一開始會隨著每個上游版本一起發佈新版本、並為每個第三版提供長期支援、以跟上這個發行週期。最近、隨著OSP 16.0版（以OpenStack火車為基礎）的推出、Red Hat選擇不跟上發行版本的腳步、而是將新功能支援至次發行版本。最新版本為Red Hat OpenStack Platform 16.1、其中包含使用實例和上游版本的支援進階功能。
+
+如需OSP的詳細資訊、請參閱 https://www.redhat.com/en/technologies/linux-platforms/openstack-platform["Red Hat OpenStack Platform網站"^]。
+
+
+
+== OpenStack服務
+
+OpenStack平台服務部署為容器、可將服務彼此隔離、並可輕鬆升級。OpenStack平台使用一套以Kolla建置及管理的容器。服務的部署是從Red Hat Custom Portal擷取容器映像來執行。這些服務容器是使用Podman命令來管理、並透過Red Hat OpenStack Director進行部署、設定及維護。
+
+image:redhat_openshift_image34.png["錯誤：缺少圖形影像"]
+
+|===
+
+
+| 服務 | 專案名稱 | 說明 
+
+
+| 儀表板 | Horizon | 您用來管理OpenStack服務的網頁瀏覽器型儀表板。 
+
+
+| 身分識別 | 基礎概念 | 集中式服務、用於驗證和授權OpenStack服務、以及管理使用者、專案和角色。 
+
+
+| OpenStack網路 | 中和 | 提供OpenStack服務介面之間的連線功能。 
+
+
+| 區塊儲存 | 資料廢止者 | 管理虛擬機器（VM）的持續區塊儲存Volume。 
+
+
+| 運算 | Nova | 管理並配置執行於運算節點上的VM。 
+
+
+| 映像 | 概覽 | 用於儲存VM映像和Volume快照等資源的登錄服務。 
+
+
+| 物件儲存 | Swift | 可讓使用者儲存及擷取檔案及任意資料。 
+
+
+| 遙測 | Ceilometer | 提供雲端資源使用量的測量結果。 
+
+
+| 協調 | 熱能 | 以範本為基礎的協調引擎、可支援自動建立資源堆疊。 
+|===
+
+
+== 網路設計
+
+Red Hat OpenShift with NetApp解決方案使用兩個資料交換器、以25Gbps的速率提供主要資料連線能力。此外、它還使用兩個額外的管理交換器、以1Gbps的連線能力提供儲存節點的頻內管理、以及IPMI功能的頻外管理。
+
+Red Hat OpenStack Director需要IPMI功能、才能使用具有諷刺意味的裸機資源配置服務來部署Red Hat OpenStack平台。
+
+
+
+=== VLAN需求
+
+Red Hat OpenShift with NetApp的設計、是為了使用虛擬區域網路（VLAN）、以邏輯方式將網路流量分隔為不同用途。此組態可擴充以滿足客戶需求、或進一步隔離特定的網路服務。下表列出在NetApp驗證解決方案時實作解決方案所需的VLAN。
+
+|===
+| VLAN | 目的 | VLAN ID 
+
+
+| 頻外管理網路 | 用於管理實體節點的網路、以及用於諷刺的IPMI服務。 | 16 
+
+
+| 儲存基礎架構 | 用於控制器節點的網路、可直接對應磁碟區以支援Swift等基礎架構服務。 | 201. 
+
+
+| 儲存資料夾 | 用於將區塊磁碟區直接對應及附加到環境中部署的虛擬執行個體的網路。 | 202.02 
+
+
+| 內部API | 使用API通訊、RPC訊息和資料庫通訊、在OpenStack服務之間進行通訊所用的網路。 | 301.01 
+
+
+| 租戶 | 中子透過VXLAN的通道、為每個租戶提供自己的網路。網路流量會隔離在每個租戶網路內。每個租戶網路都有與其相關的IP子網路、而網路命名空間則表示多個租戶網路可以使用相同的位址範圍、而不會造成衝突。 | 302 
+
+
+| 儲存管理 | OpenStack物件儲存設備（Swift）使用此網路、在參與的複本節點之間同步資料物件。Proxy服務是使用者要求與基礎儲存層之間的中介介面。Proxy會接收傳入要求、並找出必要的複本以擷取要求的資料。 | 303 
+
+
+| PXE- | OpenStack Director提供的PXE開機是諷刺裸機資源配置服務的一部分、可協調OSP OverCloud的安裝。 | 3484. 
+
+
+| 外部 | 以開放式網路為基礎、裝載OpenStack儀表板（Horizon）進行圖形化管理、並允許公開API呼叫來管理OpenStack服務。 | 3485 
+
+
+| 頻內管理網路 | 提供系統管理功能的存取、例如SSH存取、DNS流量和網路時間傳輸協定（NTP）流量。此網路也可做為非控制器節點的閘道。 | 3486 
+|===
+
+
+=== 網路基礎架構支援資源
+
+在部署OpenShift Container Platform之前、應先準備好下列基礎架構：
+
+* 至少有一部DNS伺服器提供完整的主機名稱解析。
+* 至少三部NTP伺服器、可讓解決方案中的伺服器保持時間同步。
+* （選用）OpenShift環境的傳出網際網路連線功能。
+
+
+
+
+== 正式作業部署的最佳實務做法
+
+本節列出組織在將此解決方案部署至正式作業環境之前、應考慮的幾項最佳實務做法。
+
+
+
+=== 將OpenShift部署至至少有三個運算節點的OSP私有雲
+
+本文件所述的驗證架構、是部署三個OSP控制器節點和兩個OSP運算節點、提供最小的硬體部署、適合HA作業。此架構可確保容錯組態、讓兩個運算節點都能啟動虛擬執行個體、而已部署的VM則可在兩個Hypervisor之間移轉。
+
+由於Red Hat OpenShift一開始會部署三個主節點、因此雙節點組態可能會導致至少兩個主節點佔用同一個節點、因此如果該特定節點無法使用、可能會導致OpenShift中斷。因此、部署至少三個OSP運算節點是Red Hat的最佳實務做法、如此一來、OpenShift主節點就能平均分散、解決方案就能獲得更高程度的容錯能力。
+
+
+
+=== 設定虛擬機器/主機關聯性
+
+啟用VM/主機關聯性、即可在多個Hypervisor節點之間散佈OpenShift主機。
+
+關聯性是一種定義一組VM和/或主機規則的方法、可決定VM是在同一主機上一起執行、還是在群組中的主機上執行、或是在不同的主機上執行。它會透過建立關聯群組來套用至VM、這些群組由一組相同的參數和條件的VM和/或主機組成。根據關聯群組中的VM是在同一主機或群組中的主機上執行、還是分別在不同主機上執行、關聯群組的參數可以定義正關聯性或負關聯性。在Red Hat OpenStack平台中、可以建立和強制執行主機關聯性和反關聯性規則、方法是建立伺服器群組並設定篩選器、以便Nova在伺服器群組中部署的執行個體部署在不同的運算節點上。
+
+伺服器群組預設最多可管理10個虛擬執行個體的放置位置。您可以更新Nova的預設配額來修改此設定。
+
+
+NOTE: OSP伺服器群組有特定的硬關聯性/反關聯性限制；如果資源不足、無法部署在個別節點上、或資源不足、無法共用節點、則VM將無法開機。
+
+若要設定關聯群組、請參閱 https://access.redhat.com/solutions/1977943["如何設定OpenStack執行個體的關聯性和反關聯性？"^]。
+
+
+
+=== 使用自訂安裝檔案進行OpenShift部署
+
+IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、您可能需要在叢集部署中變更某些預設值。
+
+在這些執行個體中、您無需立即部署叢集、即可執行及執行wizard;而是建立組態檔、以便日後部署叢集。如果您需要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.7/installing/installing_openstack/installing-openstack-installer-custom.html["Red Hat OpenShift使用自訂功能在OpenStack上安裝叢集"^]。
+
+link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

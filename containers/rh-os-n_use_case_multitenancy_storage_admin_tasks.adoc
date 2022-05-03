@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
+---
+= 組態：儲存設備管理工作
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+儲存管理員必須設定下列資源：
+
+. 以admin身分登入NetApp ONTAP 解決方案叢集。
+. 瀏覽至Storage（儲存設備）> Storage VM（儲存設備VM）、然後按一下Add提供所需的詳細資料、建立兩個SVM、一個用於專案1、另一個用於專案2。也可建立vsadmin帳戶來管理SVM及其資源。
+
+
+image::redhat_openshift_image41.jpg[SVM建立ONTAP 於此]
+
+. 以儲存管理員身分登入Red Hat OpenShift叢集。
+. 建立專案1的後端、並將其對應至專案專用的SVM。NetApp建議使用SVM的vsadmin帳戶、將後端連線至SVM、而非ONTAP 使用該叢集管理員。
++
+[source, console]
+----
+cat << EOF | tridentctl -n trident create backend -f
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "nfs_project_1",
+    "managementLIF": "172.21.224.210",
+    "dataLIF": "10.61.181.224",
+    "svm": "project-1-svm",
+    "username": "vsadmin",
+    "password": "NetApp123"
+}
+EOF
+----
+
+
+
+NOTE: 本例使用的是ONTAP-NAS驅動程式。根據使用案例建立後端時、請使用適當的驅動程式。
+
+
+NOTE: 我們假設Trident安裝在Trident專案中。
+
+. 同樣地、請為專案2建立Trident後端、並將其對應至專案2專用的SVM。
+. 接下來、建立儲存類別。建立專案1的儲存類別、並設定storagePools參數、以使用從專屬後端到專案1的儲存資源池。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: project-1-sc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: ontap-nas
+  storagePools: "nfs_project_1:.*"
+EOF
+----
+. 同樣地、請為專案2建立儲存類別、並將其設定為使用從專屬後端到專案2的儲存資源池。
+. 建立資源配額、以限制專案1中的資源、要求儲存資源來自其他專案專用的儲存設備。
++
+[source, console]
+----
+cat << EOF | oc create -f -
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: project-1-sc-rq
+  namespace: project-1
+spec:
+  hard:
+    project-2-sc.storageclass.storage.k8s.io/persistentvolumeclaims: 0
+EOF
+----
+. 同樣地、也可以建立資源配額、以限制專案2中的資源、要求儲存資源來自其他專案專用的儲存設備。
+
+
+link:rh-os-n_use_case_multitenancy_validation.html["下一步：驗證。"]

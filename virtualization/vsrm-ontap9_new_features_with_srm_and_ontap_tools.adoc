@@ -1,0 +1,85 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vsrm-ontap9_new_features_with_srm_and_ontap_tools.html 
+keywords: vmware, site, recovery manager, vsrm, vsphere, ipv6, support, rest, api, replication, ccols, spbm, srm, appliance based 
+summary: 隨著舊有虛擬應用裝置的移轉、ONTAP VMware的功能豐富、限制更高、並提供全新vVols支援。 
+---
+= SRM和ONTAP VMware Tools的新功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+隨著舊有虛擬應用裝置的移轉、ONTAP VMware的功能豐富、限制更高、並提供全新vVols支援。
+
+
+
+== vSphere和Site Recovery Manager的最新版本
+
+隨著SRM 8.3及更新版本、以及9.7.1及更新版本ONTAP 的版次、您現在可以保護在VMware vSphere 7上執行的VM。
+
+NetApp已與VMware建立了近二十年的深厚合作關係、並致力於盡快提供最新版本的支援。請務必查看NetApp互通性對照表工具IMT （NetApp Interoperability Matrix Tool、簡稱「參考資訊」）、以取得最新的合格軟體組合。
+
+您IMT 可以找到NetApp解決方案 https://mysupport.netapp.com/matrix["請按這裡"^]。
+
+
+
+== VVols支援（以及SPBM為何重要、即使是SRM也沒問題）
+
+從8.3版開始、SRM現在支援利用vVols和陣列型複寫的儲存原則型管理（SPBM）。為達成此目標、SRM伺服器已更新為包含新的SRM vVols提供者服務、該服務會與vCenter伺服器的SMS服務通訊、以執行VASA相關工作。
+
+此架構的一項優點是不再需要SRA、因為所有的工作都是使用VASA來處理。
+
+SPBM是vSphere工具箱中功能強大的工具、可在私有雲和混合雲環境中、透過自動化架構、提供簡化、可預測且一致的儲存服務供使用。從根本上說、SPBM可讓您定義符合多元客戶群需求的服務類別。SRM現在可讓您針對需要健全的業界標準災難恢復協調與自動化的關鍵工作負載、向客戶展示複寫功能。
+
+image:vsrm-ontap9_image1.png["錯誤：缺少圖形影像"]
+
+
+
+== vVols架構2.3支援以應用裝置為基礎的SRM伺服器
+
+除了舊版的Windows平台之外、現在還支援以pherton OS為基礎的SRM伺服器。
+
+您現在可以安裝SRA介面卡、無論您偏好的SRM伺服器類型為何。
+
+
+
+== 支援IPv6
+
+現在支援IPv6、但有下列限制：
+
+* vCenter 6.7或更新版本
+* 不支援SRM 8.2（8.1、8.3和8）。支援4個）
+* 請檢查 https://mysupport.netapp.com/matrix/imt.jsp?components=84943;&solution=1777&isHWU&src=IMT["互通性對照表工具"^] 以取得最新的合格版本。
+
+
+
+
+== 提升效能
+
+營運效能是執行SRM工作的關鍵需求。為了滿足現代RTO和RPO的需求、採用ONTAP VMware技術的SRA新增了兩項改良功能。
+
+* *支援並行重新保護作業。*第一次於SRA 9.2.1中推出、啟用此功能可讓您同時在兩個以上的恢復計畫上執行重新保護、進而縮短容錯移轉或移轉後重新保護資料存放區所需的時間、並保留在RTO和RPO參數範圍內。
+* *《支援工具》9.8新增了一種僅限NAS的最佳化模式。*當您使用SVM範圍的帳戶、並僅使用NFS型資料存放區連線至VMware叢集時、您可以啟用僅限NAS的最佳化模式、在支援的環境中達到尖峰效能。ONTAP ONTAP
+
+
+
+
+== 擴充性更高
+
+搭配SRM 8.3及更新版本使用時、可支援多達500個保護群組（PG）的支援工具SRA。ONTAP
+
+
+
+== 同步複寫
+
+SnapMirror Synchronous（SM-S）搭配ONTAP 了一套功能、可提供大量精細零RPO資料複寫解決方案、適合任務關鍵型應用程式、這項功能值得期待且期待已久。SM - S需要ONTAP 使用VMware工具9.8或更新版本。
+
+
+
+== REST API支援
+
+SRA伺服器組態現在可由REST API管理。我們新增了Swagger UI來協助您建置自動化工作流程、您可在ONTAP 以下網址找到您的VMware Tools應用裝置：https://<appliance>:8143/api/rest/swagger-ui.html#/`。

@@ -1,0 +1,103 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_example_trident_backends_for_ontap_ai_deployments.html 
+keywords: ONTAP, Trident, AI, Deployment, 
+summary: 您必須先建立一或多個Trident後端、才能使用Trident在Kubernetes叢集中動態配置儲存資源。本頁的範例代表在ONTAP 將NetApp AI Control Plane解決方案部署到AI Pod上時、您可能會想要建立的不同類型後端。 
+---
+= Trident後端範例、適用於ONTAP AI部署
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+您必須先建立一或多個Trident後端、才能使用Trident在Kubernetes叢集中動態配置儲存資源。以下範例代表在ONTAP 將NetApp AI Control Plane解決方案部署到AI Pod上時、您可能會想要建立的不同類型後端。如需後端的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。
+
+. NetApp建議針對您想要在NetApp AFF 供應系統上使用的每個資料LIF（提供資料存取的邏輯網路介面）、建立具有FlexGroup功能的Trident後端。這可讓您在所有生命期之間平衡Volume掛載
++
+以下命令範例顯示為兩個不同的資料LIF建立兩個啟用FlexGroup的Trident後端、這些資料LIF與相同ONTAP 的物件儲存虛擬機器（SVM）相關聯。這些後端使用「ontap-nas flexgroup」儲存驅動程式。支援兩種主要資料Volume類型：功能完善和功能完善。ONTAP FlexVol FlexGroup由於資料不多（本文所述的最大大小取決於特定部署）、因此不受支援。FlexVol另一方面、由於支援的資料量可線性擴充至20PB和4000億個檔案、因此單一命名空間可大幅簡化資料管理。FlexGroup因此FlexGroup 、對於仰賴大量資料的AI和ML工作負載而言、此功能是最佳選擇。
+
++
+如果您使用的是少量資料、想要使用FlexVol 不FlexGroup 含「orfvolume」的「orfvolume」、您可以建立使用「ontap-nas」儲存驅動程式而非「ontap-nas flexgroup」儲存驅動程式的「Trident後端」。
+
++
+....
+$ cat << EOF > ./trident-backend-ontap-ai-flexgroups-iface1.json
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "backendName": "ontap-ai-flexgroups-iface1",
+    "managementLIF": "10.61.218.100",
+    "dataLIF": "192.168.11.11",
+    "svm": "ontapai_nfs",
+    "username": "admin",
+    "password": "ontapai"
+}
+EOF
+$ tridentctl create backend -f ./trident-backend-ontap-ai-flexgroups-iface1.json -n trident
++----------------------------+---------------------+--------------------------------------+--------+---------+
+|            NAME            |   STORAGE DRIVER    |                 UUID                 | STATE  | VOLUMES |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+| ontap-ai-flexgroups-iface1 | ontap-nas-flexgroup | b74cbddb-e0b8-40b7-b263-b6da6dec0bdd | online |       0 |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+$ cat << EOF > ./trident-backend-ontap-ai-flexgroups-iface2.json
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas-flexgroup",
+    "backendName": "ontap-ai-flexgroups-iface2",
+    "managementLIF": "10.61.218.100",
+    "dataLIF": "192.168.12.12",
+    "svm": "ontapai_nfs",
+    "username": "admin",
+    "password": "ontapai"
+}
+EOF
+$ tridentctl create backend -f ./trident-backend-ontap-ai-flexgroups-iface2.json -n trident
++----------------------------+---------------------+--------------------------------------+--------+---------+
+|            NAME            |   STORAGE DRIVER    |                 UUID                 | STATE  | VOLUMES |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+| ontap-ai-flexgroups-iface2 | ontap-nas-flexgroup | 61814d48-c770-436b-9cb4-cf7ee661274d | online |       0 |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+$ tridentctl get backend -n trident
++----------------------------+---------------------+--------------------------------------+--------+---------+
+|            NAME            |   STORAGE DRIVER    |                 UUID                 | STATE  | VOLUMES |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+| ontap-ai-flexgroups-iface1 | ontap-nas-flexgroup | b74cbddb-e0b8-40b7-b263-b6da6dec0bdd | online |       0 |
+| ontap-ai-flexgroups-iface2 | ontap-nas-flexgroup | 61814d48-c770-436b-9cb4-cf7ee661274d | online |       0 |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+....
+. NetApp也建議您建立一個或多個FlexVol 啟用了功能不全的Trident後端。如果您使用FlexGroup 支援資料集儲存設備的功能來進行測試、您可能會想要使用FlexVol 支援資料集的功能來儲存結果、輸出、偵錯資訊等。如果您想要使用FlexVol 「資料不全」、您必須建立一個或多個FlexVol 啟用「功能不全」的「資料不全」後端。以下的命令範例顯示如何建立FlexVol 使用單一資料LIF的單一啟用了功能不全的Trident後端。
+
+
+....
+$ cat << EOF > ./trident-backend-ontap-ai-flexvols.json
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "ontap-ai-flexvols",
+    "managementLIF": "10.61.218.100",
+    "dataLIF": "192.168.11.11",
+    "svm": "ontapai_nfs",
+    "username": "admin",
+    "password": "ontapai"
+}
+EOF
+$ tridentctl create backend -f ./trident-backend-ontap-ai-flexvols.json -n trident
++----------------------------+---------------------+--------------------------------------+--------+---------+
+|            NAME            |   STORAGE DRIVER    |                 UUID                 | STATE  | VOLUMES |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+| ontap-ai-flexvols          | ontap-nas           | 52bdb3b1-13a5-4513-a9c1-52a69657fabe | online |       0 |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+$ tridentctl get backend -n trident
++----------------------------+---------------------+--------------------------------------+--------+---------+
+|            NAME            |   STORAGE DRIVER    |                 UUID                 | STATE  | VOLUMES |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+| ontap-ai-flexvols          | ontap-nas           | 52bdb3b1-13a5-4513-a9c1-52a69657fabe | online |       0 |
+| ontap-ai-flexgroups-iface1 | ontap-nas-flexgroup | b74cbddb-e0b8-40b7-b263-b6da6dec0bdd | online |       0 |
+| ontap-ai-flexgroups-iface2 | ontap-nas-flexgroup | 61814d48-c770-436b-9cb4-cf7ee661274d | online |       0 |
++----------------------------+---------------------+--------------------------------------+--------+---------+
+....
+link:aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html["下一步：Kubernetes Storageclasses範例、適用於ONTAP 進行AI部署。"]

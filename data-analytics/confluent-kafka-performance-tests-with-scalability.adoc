@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/confluent-kafka-performance-tests-with-scalability.html 
+keywords: performance, tests, scalability 
+summary: 我們利用NetApp StorageGRID 的功能進行階層式儲存測試、以三到四個節點進行生產和消費性工作負載的測試。 
+---
+= 可擴充性的效能測試
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:confluent-kafka-confluent-kafka-certification.html["上一篇：Confluent驗證。"]
+
+我們利用NetApp StorageGRID 的支援功能、針對生產與消費型工作負載執行三到四個節點的階層式儲存測試。根據我們的測試、完成時間和效能結果與StorageGRID 各個節點的數量直接成比例。此功能需要至少三個節點。StorageGRID
+
+* 當儲存節點數量增加時、完成產品和消費者作業的時間會線性縮短。
+
+
+image:confluent-kafka-image9.png["錯誤：缺少圖形影像"]
+
+* S3擷取作業的效能會根據StorageGRID 各個節點的數量而線性提升。支援多達200個StorgeGRID節點。StorageGRID
+
+
+image:confluent-kafka-image10.png["錯誤：缺少圖形影像"]
+
+link:confluent-kafka-kafka-s3-connector.html["下一步：Connent S3連接器。"]

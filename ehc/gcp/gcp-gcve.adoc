@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp/gcp-gcve.html 
+keywords: NetApp Solutions, hyperscalers, google cloud, gcp, gcve, enterprise, hybrid, cloud, migrate, migration, disaster recovery, dr 
+summary:  
+---
+= 適用於Google Cloud Platform GCVE的NetApp功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+[role="lead"]
+深入瞭解NetApp為Google Cloud Platform（GCP）提供的功能Google Cloud Virtualization Ending（GCVETM）：從NetApp做為來賓連線儲存設備或原生資料存放區、到移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復、皆可獲得此功能。
+
+從下列選項中選取、跳至所需內容的區段：
+
+* 連結：#config[在GCP中設定GCVE
+* link:#datastore["適用於GCVE的NetApp儲存選項"]
+
+
+
+
+== 在GCP中設定GCVE
+
+如同內部部署、規劃雲端型虛擬化環境對於成功建立虛擬機器和移轉的正式作業就緒環境來說、是非常重要的。
+
+本節說明如何設定及管理GCVE,並搭配可用的選項來連接NetApp儲存設備。
+
+
+NOTE: 客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 「效益」和「雲端Volume服務」連線至GCVE.
+
+設定程序可分為下列步驟：
+
+* link:gcp-setup.html#deploy["部署及設定GCVE"]
+* link:gcp-setup.html#enable-access["啟用對GCVE的私有存取"]
+
+
+
+
+== 適用於GCVE的NetApp儲存選項
+
+NetApp儲存設備可在GCP GCVE中以多種方式使用、無論是作為猜測連線或原生資料存放區。
+
+請造訪 link:ehc-support-configs.html["支援的NetApp儲存選項"] 以取得更多資訊。
+
+Google Cloud支援下列組態的NetApp儲存設備：
+
+*來賓連線儲存設備*
+
+* link:gcp-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
+* link:gcp-guest.html#cvs["以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service"]
+
+
+*原生資料存放區*
+
+* link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]
+
+
+
+NOTE: 1 -目前處於私有預覽中

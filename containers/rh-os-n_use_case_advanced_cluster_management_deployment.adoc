@@ -1,0 +1,52 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_advanced_cluster_management_deployment.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理。 
+---
+= 為Kubernetes部署進階叢集管理
+:allow-uri-read: 
+
+
+若要在OpenShift叢集上安裝適用於Kubernetes的進階叢集管理、請完成下列步驟：
+
+. 選擇OpenShift叢集做為中樞叢集、並以叢集管理權限登入。
+. 瀏覽至「運算子」>「運算子中樞」、然後搜尋Kubernetes的「進階叢集管理」。
++
+image::redhat_openshift_image66.jpg[ACM方塊]
+
+. 選取適用於Kubernetes的進階叢集管理、然後按一下安裝。
++
+image::redhat_openshift_image67.jpg[ACM方塊詳細資料]
+
+. 在Install Operator（安裝操作員）畫面上、提供必要的詳細資料（NetApp建議保留預設參數）、然後按一下Install（安裝）。
++
+image::redhat_openshift_image68.jpg[安裝ACM操作員方塊]
+
+. 等待操作員安裝完成。
++
+image::redhat_openshift_image69.jpg[ACM操作員安裝正在進行中]
+
+. 安裝操作員之後、按一下「Create MultiClusterHub（建立MultiClusterHub）」。
++
+image::redhat_openshift_image70.jpg[ACM營運者多叢集集中樞]
+
+. 在Create MultiClusterHub（建立MultiClusterHub）畫面上、按一下「建立」（在提供詳細資料之後）。這會啟動多叢集集集集線器的安裝。
++
+image::redhat_openshift_image71.jpg[建立多叢集中樞畫面]
+
+. 在所有Pod移至開放式叢集管理命名空間中的執行狀態、且操作員移至成功狀態之後、就會安裝適用於Kubernetes的進階叢集管理。
++
+image::redhat_openshift_image72.jpg[已安裝ACM操作員]
+
+. 完成集線器安裝需要一些時間、完成之後、MultiCluster集線器會移至執行中狀態。
++
+image::redhat_openshift_image73.jpg[多叢集集集中樞就緒]
+
+. 它會在開放式叢集管理命名空間中建立路由。連線至路由中的URL、以存取進階叢集管理主控台。
++
+image::redhat_openshift_image74.jpg[ACM主控台路由]
+
+
+
+link:rh-os-n_use_case_advanced_cluster_management_features_cluster_lcm.html["下一步：功能-叢集生命週期管理。"]

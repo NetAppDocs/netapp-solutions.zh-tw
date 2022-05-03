@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/bda-ai-hdfs-and-mapr-fs-to-ontap-nfs.html 
+keywords: hdfs, mapr-fs, nfs, ml, dl 
+summary: 對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和MapR叢集資料移轉至ONTAP 不含NFS的情形。資料存放在MapR-FS和HDFS中。NetApp XCP推出一項新功能、可直接將資料從HDFS和MapR-FS等分散式檔案系統移轉至ONTAP 支援NFS。 
+---
+= HDFS與MapR-FS移轉ONTAP 至不適用NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:bda-ai-gpfs-to-netapp-ontap-nfs.html["上一篇：GPFS對NetApp ONTAP 的SfNFS。"]
+
+對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和MapR叢集資料移轉至ONTAP 不含NFS的情形。資料存放在MapR-FS和HDFS中。NetApp XCP推出一項新功能、可直接將資料從HDFS和MapR-FS等分散式檔案系統移轉至ONTAP 支援NFS。XCP使用非同步執行緒和HDFS C API呼叫來通訊和傳輸MapR-FS和HDFS的資料。下圖顯示資料從資料湖（HDFS）和MapR-FS移轉到ONTAP SNFS的資料。有了這項新功能、您不需要將來源匯出為NFS共用區。
+
+image:bda-ai-image6.png["錯誤：缺少圖形影像"]
+
+
+
+=== 為何客戶會從HDFS和MapR-FS移轉至NFS？
+
+大部分的Hadoop發佈（例如Cloudera和Hortonworks）都使用HDFS、而MapR發佈則使用自己的檔案系統（稱為MapR-FS）來儲存資料。HDFS與MapR-FS資料可為資料科學家提供寶貴的見解、並可用於機器學習（ML）和深度學習（DL）。HDFS和MapR-FS中的資料不會共用、這表示其他應用程式無法使用該資料。客戶正在尋找共享資料、尤其是在銀行部門、客戶的敏感資料會被多個應用程式使用。最新版本的Hadoop（3.x或更新版本）支援NFS資料來源、無需其他協力廠商軟體即可存取。有了全新的NetApp XCP功能、資料可以直接從HDFS和MapR-FS移至NetApp NFS、以便存取多個應用程式
+
+在Amazon Web Services（AWS）中進行測試、將資料從MapR-FS傳輸到NFS、以進行12個MapR節點和4個NFS伺服器的初始效能測試。
+
+|===
+|  | 數量 | 尺寸 | VCPU | 記憶體 | 儲存設備 | 網路 
+
+
+| NFS 伺服器 | 4. | i3en.24xLarge | 96 | 488GiB | 8個7500 NVMe SSD | 100 
+
+
+| MapR節點 | 12. | I3en.12xllarge | 48 | 384GiB | 4個7500 NVMe SSD | 50 
+|===
+根據初始測試結果、我們獲得20Gbps的處理量、而且能夠每天傳輸2PB的資料。
+
+如需不將HDFS匯出至NFS的HDFS資料移轉詳細資訊、請參閱中的「部署步驟- NAS」一節 https://docs.netapp.com/us-en/netapp-solutions/xcp/xcp-bp-deployment-steps.html["TR-4863：TR-4863：NetApp XCP最佳實務準則：資料移轉、檔案移轉及分析"^]。
+
+link:bda-ai-business-benefits.html["下一步：商業效益。"]

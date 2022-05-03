@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: ai/cainvidia_solution_overview.html 
+keywords: Solution Overview, ONTAP, AI, Cloud Sync, NVIDIA DGX, 
+summary:  
+---
+= 解決方案總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== NetApp ONTAP 產品AI與Cloud Sync 產品
+
+NetApp ONTAP 採用NVIDIA DGX系統和NetApp雲端連線儲存系統的NetApp AI架構、是由NetApp和NVIDIA開發與驗證的。此參考架構可為IT組織提供下列優勢：
+
+* 消除設計複雜性
+* 可獨立擴充運算與儲存設備
+* 讓客戶從小規模開始、並無縫擴充
+* 提供多種儲存選項、適用於各種效能與成本點NetApp ONTAP AI將DGX系統與NetApp AFF 推出先進的網路功能、緊密整合在一起。NetApp ONTAP 採用AI和DGX系統、可免除設計複雜度和猜測、簡化AI部署。客戶可以從小規模開始、以不中斷的方式擴充系統、同時以智慧方式管理從邊緣到核心到雲端及後端的資料。
+
+
+NetApp Cloud Sync 支援您在各種傳輸協定之間輕鬆移動資料、無論資料是在兩個NFS共用區、兩個CIFS共用區或一個檔案共用區、以及Amazon S3、Amazon Elastic File System（EFS）或Azure Blob儲存區之間。雙主動式作業表示您可以繼續同時使用來源和目標、並在必要時逐步同步資料變更。透過讓您在任何來源與目的地系統之間移動及逐步同步資料、Cloud Sync 無論是內部部署或雲端型、都能開啟各種新的資料使用方式。在內部部署系統、雲端內建與雲端移轉、或是協同作業與資料分析之間移轉資料、都能輕鬆達成。下圖顯示可用的來源和目的地。
+
+在對話式AI系統中、開發人員可以利用Cloud Sync 支援功能將對話歷史記錄從雲端歸檔至資料中心、以便進行自然語言處理（NLP）模式的離線訓練。透過訓練模式來辨識更多意圖、對話式AI系統將能更妥善地管理終端使用者提出的更複雜問題。
+
+
+
+== NVIDIA JARVIS多模式架構
+
+image:cainvidia_image2.png["錯誤：缺少圖形影像"]
+
+https://devblogs.nvidia.com/introducing-jarvis-framework-for-gpu-accelerated-conversational-ai-apps/["NVIDIA JARVIS"^] 是用於建立對話式AI服務的端點對端點架構。其中包括下列GPU最佳化服務：
+
+* 自動語音辨識（ASR）
+* 自然語言理解（NLU）
+* 與網域專屬履約服務整合
+* 文字轉換語音（TTS）
+* 以電腦視覺（CV）JARVIS為基礎的服務採用最先進的深度學習模式、以因應即時對話AI的複雜且具挑戰性的工作。為了與終端使用者進行即時且自然的互動、這些模型需要在300毫秒內完成運算。自然互動是一項挑戰、需要多式模式的感測整合。模型管線也很複雜、需要在上述服務之間進行協調。
+
+
+JARVIS是一個完全加速的應用程式架構、可用來建置多式對話AI服務、並使用端點對端深度學習管道。JARVIS架構包括預先訓練的對話AI模型、工具、以及針對語音、願景和NLU工作所提供的最佳化端對端服務。除了AI服務之外、JARVIS還能讓您同時融合視覺、音訊及其他感應器輸入、在虛擬助理、多位使用者的資訊化和客服中心助理等應用程式中、提供多重使用者、多重內容對話等功能。
+
+
+
+== NVIDIA Nemo
+
+https://developer.nvidia.com/nvidia-nemo["NVIDIA Nemo"^] 是開放原始碼的Python工具套件、使用易於使用的應用程式設計介面（API）、建置、訓練及微調GPU加速的最新對話AI模型。Nemo使用NVIDIA GPU中的Tensor Cores執行混合式精密運算、可輕鬆擴充至多個GPU、以提供最高的訓練效能。Nemo可用於建置即時ASR、NLP及TTS應用程式的模型、例如視訊通話轉譯、智慧型視訊助理、以及跨不同產業垂直市場（包括醫療、金融、零售及電信）的自動化呼叫中心支援。
+
+我們使用Nemo來訓練模型、以辨識歸檔對話記錄中使用者問題的複雜意圖。這項訓練將零售虛擬助理的能力延伸到JARVIS所提供的支援之外。
+
+
+
+== 零售使用案例摘要
+
+我們使用NVIDIA JARVIS打造虛擬零售助理、接受語音或文字輸入、並回答有關天氣、興趣點和庫存定價的問題。對話式AI系統能夠記住對話流程、例如、如果使用者未指定天氣或興趣點的位置、請詢問後續問題。系統也能辨識複雜的實體、例如「泰國菜」或「筆記型電腦記憶體」。 它瞭解自然語言問題、例如「下週洛杉磯會下雨嗎？」 您可以在中找到零售虛擬助理的示範 https://cainvidia_customize_states_and_flows_for_retail_use_case.html["針對零售使用案例自訂狀態和流程"]。
+
+link:cainvidia_solution_technology.html["下一步：解決方案技術"]

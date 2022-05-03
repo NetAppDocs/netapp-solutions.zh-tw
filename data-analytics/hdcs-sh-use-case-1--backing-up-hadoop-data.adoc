@@ -1,0 +1,171 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/hdcs-sh-use-case-1--backing-up-hadoop-data.html 
+keywords: use case 2, Hadoop repository, dr, disaster recovery 
+summary: 在此案例中、客戶擁有大型內部部署Hadoop儲存庫、並想要備份以供災難恢復之用。然而、客戶目前的備份解決方案成本高昂、而且備份時間長達24小時以上。 
+---
+= 使用案例1：備份Hadoop資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:hdcs-sh-overview-of-hadoop-data-protection-use-cases.html["上一篇：Hadoop資料保護使用案例總覽。"]
+
+
+
+== 案例
+
+在此案例中、客戶擁有大型內部部署Hadoop儲存庫、並想要備份以供災難恢復之用。然而、客戶目前的備份解決方案成本高昂、而且備份時間長達24小時以上。
+
+
+
+== 需求與挑戰
+
+此使用案例的主要要求與挑戰包括：
+
+* 軟體向下相容性：
++
+** 建議的替代備份解決方案應與目前在正式作業Hadoop叢集中使用的軟體版本相容。
+
+
+* 為了符合承諾的SLA、建議的替代解決方案應達到極低的RPO和RTO。
+* NetApp備份解決方案所建立的備份可用於本機建置於資料中心的Hadoop叢集、以及在遠端站台的災難恢復位置執行的Hadoop叢集。
+* 建議的解決方案必須符合成本效益。
+* 建議的解決方案必須在備份期間降低目前執行中的線上分析工作的效能影響。
+
+
+
+
+== 客戶現有的備份解決方案
+
+下圖顯示原始Hadoop原生備份解決方案。
+
+image:hdcs-sh-image5.png["錯誤：缺少圖形影像"]
+
+正式作業資料會透過中繼備份叢集保護至磁帶：
+
+* 執行「Hadoop distcp -update <hdfs1><hdfs2>'命令、將HDFS1資料複製到HDFS2。
+* 備份叢集做為NFS閘道、資料會透過磁帶庫透過Linux「CP」命令手動複製到磁帶。
+
+
+原始Hadoop原生備份解決方案的優點包括：
+
+* 此解決方案以Hadoop原生命令為基礎、讓使用者不必學習新程序。
+* 此解決方案採用業界標準的架構和硬體。
+
+
+原始Hadoop原生備份解決方案的缺點包括：
+
+* 備份時間過長超過24小時、使正式作業資料容易受到攻擊。
+* 在備份期間、叢集效能大幅降低。
+* 複製到磁帶是手動程序。
+* 就所需的硬體和人工程序所需的人力時間而言、備份解決方案的成本相當昂貴。
+
+
+
+
+== 備份解決方案
+
+根據這些挑戰和要求、並考慮到現有的備份系統、建議三種可能的備份解決方案。以下各小節分別說明這三種不同的備份解決方案、分別標示為解決方案A至解決方案C
+
+
+
+=== 解決方案A
+
+解決方案A將就地分析模組新增至備份Hadoop叢集、可將次要備份至NetApp NFS儲存系統、免除磁帶需求、如下圖所示。
+
+image:hdcs-sh-image6.png["錯誤：缺少圖形影像"]
+
+解決方案A的詳細工作包括：
+
+* 正式作業Hadoop叢集的HDFS中有客戶的分析資料需要保護。
+* 使用HDFS的備份Hadoop叢集可做為資料的中繼位置。在正式作業和備份Hadoop叢集中、只有一堆磁碟（JBOD）可為HDFS提供儲存設備。
+* 執行「Hadoop distcp–update–diff <hdfs1><hdfs2>'命令、保護Hadoop正式作業資料、使其免受正式作業叢集HDFS對備份叢集HDFS的影響。
+
+
+
+NOTE: Hadoop快照可用來保護資料、使其不受正式作業環境的影響、也不受Hadoop叢集的影響。
+
+* NetApp ONTAP 功能區儲存控制器提供NFS匯出的Volume、可配置給備份Hadoop叢集。
+* 藉由運用MapReduce和多個mappers執行「Hadoop distcp」命令、分析資料就能使用就地分析模組、從備份Hadoop叢集保護為NFS。
++
+在NetApp儲存系統的NFS中儲存資料之後、NetApp Snapshot、SnapRestore 支援功能和FlexClone技術可視需要備份、還原及複製Hadoop資料。
+
+
+
+
+NOTE: Hadoop資料可透過SnapMirror技術、保護至雲端及災難恢復位置。
+
+解決方案A的優點包括：
+
+* Hadoop正式作業資料受到保護、不受備份叢集的影響。
+* HDFS資料是透過NFS保護、可保護雲端和災難恢復位置。
+* 將備份作業卸載到備份叢集、藉此提升效能。
+* 免除手動磁帶操作
+* 可透過NetApp工具執行企業管理功能。
+* 只需對現有環境進行最少的變更。
+* 是具成本效益的解決方案。
+
+
+此解決方案的缺點是需要備份叢集和其他地圖來改善效能。
+
+客戶最近部署了解決方案A、因為它的簡易性、成本和整體效能。
+
+在本解決方案中、ONTAP 可以使用來自於支援的SAN磁碟來取代JBOD。此選項可將備份叢集儲存負載卸載ONTAP 至Ef2、但缺點是需要SAN光纖交換器。
+
+
+
+=== 解決方案B
+
+解決方案B將就地分析模組新增至正式作業Hadoop叢集、免除備份Hadoop叢集的需求、如下圖所示。
+
+image:hdcs-sh-image7.png["錯誤：缺少圖形影像"]
+
+解決方案B的詳細工作包括：
+
+* NetApp ONTAP 功能區儲存控制器會將NFS匯出至正式作業Hadoop叢集。
++
+Hadoop原生「Hadoop distcp」命令可透過就地分析模組、保護Hadoop資料、從正式作業叢集HDFS到NFS。
+
+* 在NetApp儲存系統的NFS中儲存資料之後、將SnapRestore 使用Snapshot、支援功能和FlexClone技術來備份、還原及複製Hadoop資料。
+
+
+解決方案B的優點包括：
+
+* 正式作業叢集已針對備份解決方案進行稍微修改、以簡化實作並降低額外的基礎架構成本。
+* 不需要備份作業的備份叢集。
+* HDFS正式作業資料在轉換為NFS資料時受到保護。
+* 此解決方案可透過NetApp工具提供企業管理功能。
+
+
+此解決方案的缺點在於它是在正式作業叢集中實作的、這可能會在正式作業叢集中新增額外的系統管理員工作。
+
+
+
+=== 解決方案C
+
+在解決方案C中、NetApp SAN磁碟區會直接配置給HDFS儲存設備的Hadoop正式作業叢集、如下圖所示。
+
+image:hdcs-sh-image8.png["錯誤：缺少圖形影像"]
+
+解決方案C的詳細步驟包括：
+
+* NetApp ONTAP 支援SAN儲存設備是在正式作業的Hadoop叢集上配置、以供HDFS資料儲存使用。
+* NetApp Snapshot與SnapMirror技術可用來備份來自正式作業Hadoop叢集的HDFS資料。
+* 在Snapshot複本備份程序期間、Hadoop / Spark叢集的正式作業效能不會受到影響、因為備份是在儲存層。
+
+
+
+NOTE: Snapshot技術提供的備份、無論資料大小為何、都能在數秒內完成。
+
+解決方案C的優點包括：
+
+* 使用Snapshot技術可以建立節省空間的備份。
+* 可透過NetApp工具執行企業管理功能。
+
+
+link:hdcs-sh-use-case-2--backup-and-disaster-recovery-from-the-cloud-to-on-premises.html["下一步：使用案例2：從雲端到內部部署的備份與災難恢復。"]

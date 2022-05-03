@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: ent-apps-db/sql-srv-anf_factors_to_consider.html 
+keywords: performance, redundancy, high availability, storage configuration, continuously available shares, validation, 
+summary: 本節說明Azure NetApp Files 當在雲端使用SQL Server時、您應該考慮的不同問題。 
+---
+= 需要考量的因素
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== VM效能
+
+選取適當的VM大小、對於公有雲中的關聯式資料庫達到最佳效能非常重要。Microsoft建議您繼續使用適用於內部部署伺服器環境中SQL Server的相同資料庫效能調校選項。使用 https://docs.microsoft.com/en-us/azure/virtual-machines/sizes-memory["記憶體最佳化"^] VM大小可提供SQL Server工作負載的最佳效能。收集現有部署的效能資料、以識別RAM和CPU使用率、同時選擇適當的執行個體。大多數部署都是在D、E或M系列之間選擇。
+
+* 附註： *
+
+* 若要獲得SQL Server工作負載的最佳效能、請使用記憶體最佳化的VM大小。
+* NetApp與Microsoft建議您先找出儲存效能需求、再以適當的記憶體對VCORE比率選擇執行個體類型。這也有助於選擇具有適當網路頻寬的較低執行個體類型、以克服VM的儲存處理量限制。
+
+
+
+
+== VM備援
+
+若要增加備援和高可用度、SQL Server VM應該是相同的 https://docs.microsoft.com/en-us/azure/virtual-machines/availability-set-overview["可用度設定"^] 或不同的 https://docs.microsoft.com/en-us/azure/availability-zones/az-overview["可用度區域"^]。建立Azure VM時、您必須在設定可用度集與可用度區域之間做出選擇、Azure VM無法同時參與兩者。
+
+
+
+== 高可用度
+
+若要獲得高可用度、最佳選項是設定SQL Server AOAG或永遠在容錯移轉叢集執行個體（FCI）。對於AOAG而言、這涉及虛擬網路中Azure虛擬機器上的多個SQL Server執行個體。如果資料庫層級需要高可用度、請考慮設定SQL Server可用度群組。
+
+
+
+== 儲存組態
+
+Microsoft SQL Server可以部署SMB檔案共用區做為儲存選項。從SQL Server 2012開始、系統資料庫（master、model、msdbb或Tempdb）、 和使用者資料庫可搭配伺服器訊息區（SMB）檔案伺服器作為儲存選項來安裝。這適用於SQL Server獨立式和SQL Server FCI。
+
+
+NOTE: SQL Server資料庫的檔案共用儲存設備應支援持續可用的內容。如此可不中斷地存取檔案共用資料。
+
+與區塊儲存解決方案相比、支援高效能的檔案儲存設備、可滿足任何嚴苛的工作負載、並降低SQL Server的TCO。Azure NetApp Files有了區塊儲存設備、虛擬機器已對磁碟作業的I/O和頻寬設定限制、僅針對Azure NetApp Files 不支援的情況套用網路頻寬限制。換句話說Azure NetApp Files 、不將VM層級的I/O限制套用至功能表。如果沒有這些I/O限制、則SQL Server可在連接Azure NetApp Files 至支援的較小VM上執行、也可在較大VM上執行SQL Server。可降低運算與軟體授權成本、進而降低SQL Server部署成本。Azure NetApp Files如需使用Azure NetApp Files VMware for SQL Server部署的詳細成本分析與效能優勢、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/solutions-benefits-azure-netapp-files-sql-server["使用支援SQL Server部署的效益Azure NetApp Files"^]。
+
+
+
+=== 效益
+
+使用支援SQL Server的功能包括Azure NetApp Files ：
+
+* 使用支援功能可讓您使用較小的執行個體、進而降低運算成本。Azure NetApp Files
+* 此外、還能降低軟體授權成本、進而降低整體TCO。Azure NetApp Files
+* Volume重新塑造和動態服務層級功能可調整穩定狀態工作負載的規模、避免過度資源配置、藉此最佳化成本。
+
+
+* 附註： *
+
+* 若要增加備援和高可用度、SQL Server VM應該是相同的 https://docs.microsoft.com/en-us/azure/virtual-machines/availability-set-overview["可用度設定"^] 或是在不同的環境中 https://docs.microsoft.com/en-us/azure/availability-zones/az-overview["可用度區域"^]。如果需要使用者定義的資料檔案、請考量檔案路徑需求；在這種情況下、請選取SQL FCI over SQL AOAG。
+* 支援下列的UNC路徑： file:///\\ANFSMB-b4ca.anf.test\SQLDB%20and%20\\ANFSMB-b4ca.anf.test\SQLDB\["\ANFSMB/b4ca .anf.test\SQLDB和\ANFSMB - b4ca .anf.test\SQLDB\"^]。
+* 不支援環回的UNC路徑。
+* 若要調整規模、請使用內部部署環境中的歷史資料。在OLTP工作負載中、使用平均和尖峰時間的工作負載、以及磁碟讀取/秒和磁碟寫入/秒效能計數器、將目標IOPS與效能需求配對。對於資料倉儲和報告工作負載、請使用平均和尖峰時間的工作負載、以及每秒磁碟讀取位元組和磁碟寫入位元組來比對目標處理量平均值可與Volume重新塑形功能搭配使用。
+
+
+
+
+== 建立持續可用的共享區
+
+與Azure入口網站或Azure CLI建立持續可用的共用區。在入口網站中、選取「Enable Continuous Availability」（啟用持續可用度）內容選項。對於Azure CLI、請使用「AZ netappfiles volume create with smbs-連續aVl」選項設為「$True」、將共用區指定為持續可用的共用區。若要深入瞭解如何建立啟用持續可用度的新Volume、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-volumes-smb["建立持續可用的共用區"^]。
+
+* 附註： *
+
+* 如下圖所示、為SMB Volume啟用持續可用度。
+* 如果使用非系統管理員網域帳戶、請確定該帳戶已指派必要的安全權限。
+* 在共用層級設定適當的權限、以及適當的檔案層級權限。
+* 無法在現有的SMB磁碟區上啟用持續可用的內容。若要轉換現有磁碟區以使用持續可用的共用區、請使用NetApp Snapshot技術。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/convert-smb-continuous-availability["將現有的SMB磁碟區轉換成使用持續可用度"^]。
+
+
+image:sql-srv-anf_image1.png["錯誤：缺少圖形影像"]
+
+
+
+== 效能
+
+支援三種服務層級：標準（每TB 16Mbps）、高級（每TB 64MBps）和超高（每TB 12MBps）Azure NetApp Files 。配置適當的磁碟區大小、對於資料庫工作負載的最佳效能而言非常重要。利用VMware、磁碟區效能和處理量限制取決於下列因素的組合：Azure NetApp Files
+
+* 磁碟區所屬之容量集區的服務層級
+* 指派給磁碟區的配額
+* 容量集區的服務品質（QoS）類型（自動或手動）
+
+
+如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^]。
+
+image:sql-srv-anf_image2.png["錯誤：缺少圖形影像"]
+
+
+
+== 效能驗證
+
+如同任何部署、測試VM和儲存設備是非常重要的。對於儲存驗證、例如HammerDB、Apploader https://github.com/NetApp/SQL_Storage_Benchmark["SQL Server儲存基準測試（小型企業）工具"^]或任何具有適當讀寫組合的自訂指令碼或FIO。不過請記住、大部分的SQL Server工作負載、甚至是忙碌的OLTP工作負載、讀取率接近80%–90%、寫入率接近10%–20%。
+
+為了展現效能、我們使用優質服務層級、針對某個磁碟區執行快速測試。在此測試中、磁碟區大小已從100GB即時增加至2TB、而不會中斷應用程式存取、也不會進行資料移轉。
+
+image:sql-srv-anf_image3.png["錯誤：缺少圖形影像"]
+
+以下是針對本白皮書所涵蓋的部署、執行HammerDB即時效能測試的另一個範例。在這項測試中、我們使用的是一個小型執行個體、其中包含八個vCPU、一個500GB Premium SSD和一個500GB SMB Azure NetApp Files 不支援磁碟區。HammerDB配置有80個倉庫和8個使用者。
+
+下表顯示Azure NetApp Files 、使用同級大小的Volume（500GB）時、由於延遲時間縮短4倍、所以每分鐘的交易量只有2.6倍。
+
+另一項測試是將32個vCPU和16TB Azure NetApp Files 的容量調整為較大的執行個體、以執行額外的測試。每分鐘交易量大幅增加、延遲一致1毫秒。HammerDB已設定80個倉儲和64個使用者進行此測試。
+
+image:sql-srv-anf_image4.png["錯誤：缺少圖形影像"]
+
+
+
+== 成本最佳化
+
+支援不中斷、透明的Volume大小調整、並能在零停機的情況下變更服務層級、而不會對應用程式造成任何影響。Azure NetApp Files這是一項獨特的功能、可進行動態成本管理、避免使用尖峰度量來執行資料庫規模調整。您可以使用穩定狀態的工作負載、避免前期成本。Volume重新塑形和動態服務層級變更、讓您Azure NetApp Files 幾乎即時調整需求時的支援頻寬和服務層級、而無需暫停I/O、同時保留資料存取。
+
+Azure PaaS產品（例如、LogicApp或功能）可根據特定的網路掛機或警示規則觸發、輕鬆調整磁碟區大小、以滿足工作負載需求、同時動態處理成本。
+
+例如、假設某個資料庫需要250Mbps才能進行穩定狀態作業、但它也需要400Mbps的尖峰處理量。在這種情況下、部署應在Premium服務層級內以4TB磁碟區執行、以符合穩定狀態的效能需求。若要處理尖峰工作負載、請使用Azure功能將該特定期間的磁碟區大小增加至7TB、然後縮減磁碟區大小、使部署更具成本效益。此組態可避免過度配置儲存設備。

@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_load_balancers.html 
+keywords: Advanced Configuration, Load Balancers, MetalLB 
+summary: 本節專為想要使用NetApp部署自訂Red Hat OpenShift的使用者、探討負載平衡器選項。 
+---
+= 探索負載平衡器選項：採用NetApp的Red Hat OpenShift
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+在大多數情況下、Red Hat OpenShift會透過路由、讓外部使用者能夠使用應用程式。提供可從外部存取的主機名稱、即可公開服務。OpenShift路由器可以使用定義的路由及其服務所識別的端點、以提供與外部用戶端的命名連線。
+
+不過在某些情況下、應用程式需要部署和設定自訂的負載平衡器、才能提供適當的服務。其中一個例子是NetApp Astra Control Center。為了滿足這項需求、我們評估了許多自訂負載平衡器選項。本節將說明其安裝與組態。
+
+以下頁面提供有關Red Hat OpenShift with NetApp解決方案中驗證的負載平衡器選項的其他資訊：
+
+* link:rh-os-n_LB_MetalLB.html["MetalLB."]
+* link:rh-os-n_LB_F5BigIP.html["F5 BIG-IP"]
+
+
+link:rh-os-n_use_cases.html["下一步：解決方案驗證/使用案例：採用NetApp的Red Hat OpenShift。"]

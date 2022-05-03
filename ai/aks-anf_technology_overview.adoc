@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: ai/aks-anf_technology_overview.html 
+keywords: overview, technology, microsoft, azure, anf, dask, nvidia, rapids 
+summary: 本頁概述本解決方案所使用的技術。 
+---
+= 技術總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:aks-anf_introduction.html["上一篇：簡介。"]
+
+
+
+== Microsoft與NetApp
+
+自2019年5月起、Microsoft針對企業NFS和SMB檔案服務提供Azure原生的第一方入口網站服務、以NetApp ONTAP 的更新技術為基礎。這項開發是由Microsoft與NetApp之間的策略合作關係所推動、進一步將世界級ONTAP 的流向資料服務延伸至Azure。
+
+
+
+== Azure NetApp Files
+
+此功能是一項企業級的高效能計量檔案儲存服務。Azure NetApp Files支援任何工作負載類型、預設為高可用度。Azure NetApp Files您可以選擇服務和效能層級、並透過服務設定Snapshot複本。NetApp是Azure第一方服務、可在雲端移轉及執行最嚴苛的企業檔案工作負載、包括資料庫、SAP及高效能運算應用程式、而且不需變更程式碼。Azure NetApp Files
+
+此參考架構可為IT組織提供下列優勢：
+
+* 消除設計複雜性
+* 可獨立擴充運算與儲存設備
+* 讓客戶從小規模開始、並無縫擴充
+* 提供多種儲存層、以滿足各種效能與成本效益
+
+
+
+
+== DAsk與NVIDIA的水流總覽
+
+dask是一款開放原始碼的平行運算工具、可在多部機器上擴充Python程式庫、並提供更快的大量資料處理速度。它提供的API類似於單執行緒傳統Python程式庫、例如pandas、Numbery和sciKit學習。因此、原生Python使用者不會被迫在現有程式碼中大幅變更、以使用整個叢集的資源。
+
+NVIDIA Nirps是一套開放原始碼程式庫、可在GPU上執行端點對端點ML和資料分析工作流程。搭配dask、您可以輕鬆地從GPU工作站（垂直擴充）擴充至多節點、多GPU叢集（橫向擴充）。
+
+若要在叢集上部署dask、您可以使用Kubernetes進行資源協調。您也可以根據程序需求來垂直擴充或向下擴充工作節點、如此有助於最佳化叢集資源使用量、如下圖所示。
+
+image:aks-anf_image2.png["錯誤：缺少圖形影像"]
+
+link:aks-anf_software_requirements.html["下一步：軟體需求。"]

@@ -1,0 +1,41 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-performance-tuning.html 
+keywords: performance, tuning, operations, windows 
+summary: 本節提供一些調校參數、有助於提升XCP作業的效能。 
+---
+= 效能調校
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-sizing-guidelines-overview.html["上一篇：規模調整準則。"]
+
+本節提供一些調校參數、有助於提升XCP作業的效能：
+
+* 為了更有效地擴充及分散多個XCP執行個體的工作負載、請分割每個XCP執行個體的子資料夾、以便進行移轉和資料傳輸。
+* XCP可以使用最大的CPU資源、CPU核心越多、效能就越好。因此、您應該在XCP伺服器中擁有更多CPU。我們實驗室測試了128GB RAM和48個核心CPU、提供比8個CPU和8 GB RAM更好的效能。
+* 使用「-parallel」選項的XCP複本是根據CPU數量而設計。平行執行緒（七個）的預設數量有時足以執行大多數XCP資料傳輸與移轉作業。在XCP Windows中、平行處理程序的數量預設為CPU數量。「平行」選項的最大數量應小於或等於核心數。
+* 10GbE是資料傳輸的良好開端。然而、我們測試了25GbE和100GbE、提供更好的資料傳輸、建議用於大型檔案大小的資料傳輸。
+* 對於VMware、效能會因服務層級而異。Azure NetApp Files如需詳細資訊、請參閱下表、其中顯示Azure NetApp Files 了「服務層級」和「效能」的詳細資料。
+
+
+|===
+| 服務層級 | 標準 | 優質 | 超高效能 
+
+
+| 處理量 | 16Mbps/ TB（TB） | 64MBps / TB | 128 MBps / TB 
+
+
+| 工作負載類型 | 通用檔案共用、電子郵件和網路 | BMS、資料庫和應用程式 | 對延遲敏感的應用程式 
+
+
+| 效能說明 | 標準效能：每TB 1、000 IOPS（16K I/O）和16Mbps/ TB | 優異效能：每TB 4、000 IOPS（16k I/O）和64MBps / TB | 極速效能：每TB 8、000 IOPS（16k I/O）和每TB 128 MB 
+|===
+您必須根據處理量和工作負載類型、選擇適當的服務層級。大多數客戶都從Premium層級開始、然後根據工作負載變更服務層級。
+
+link:xcp-bp-customer-scenarios-overview.html["下一步：客戶案例。"]

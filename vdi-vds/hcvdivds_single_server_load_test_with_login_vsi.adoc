@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_single_server_load_test_with_login_vsi.html 
+keywords: VDS, Cloud Insights, monitoring, logfile 
+summary: 透過NetApp VDS、系統管理員可以將工作委派給其他人。他們可以連線至已部署的伺服器、以進行疑難排解、檢視記錄及執行稽核報告。在協助客戶的同時、服務台或3級技術人員也能視需要對使用者工作階段進行陰影複製、檢視程序清單及終止程序。 
+---
+= 使用Login VSI進行單一伺服器負載測試
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp虛擬桌面服務使用Microsoft遠端桌面傳輸協定來存取虛擬桌面工作階段和應用程式、而登入VSI工具則決定可裝載於特定伺服器機型上的使用者人數上限。登入VSI會模擬使用者以特定時間間隔登入、並執行使用者作業、例如開啟文件、讀取及撰寫郵件、使用Excel和PowerPoint、列印文件、壓縮檔案及隨機中斷。然後測量回應時間。當伺服器使用率偏低時、使用者回應時間會較短、而且新增更多使用者工作階段時、使用者回應時間會增加。登入VSI會根據初始使用者登入工作階段來決定基準、並在使用者回應超過基準2秒時報告最大使用者工作階段。
+
+NetApp虛擬桌面服務利用Microsoft遠端桌面傳輸協定來存取虛擬桌面工作階段和應用程式。為了判斷特定伺服器機型上可裝載的使用者人數上限、我們使用登入VSI工具。登入VSI會以特定時間間隔模擬使用者登入、並執行使用者作業、例如開啟文件、讀取及撰寫郵件、使用Excel和PowerPoint、列印文件、壓縮檔案、隨機中斷等等。它也會測量回應時間。當伺服器使用率偏低時、使用者回應時間會較短、而且新增更多使用者工作階段時、使用者回應時間會增加。登入VSI會根據初始使用者登入工作階段來決定基準、並在使用者回應超過基準2秒時報告最大使用者工作階段。
+
+下表包含用於此驗證的硬體。
+
+[cols="33,33,33"]
+|===
+| 模型 | 數 | 說明 
+
+
+| H610C NetApp HCI | 4. | 叢集內有三個用於啟動器、AD、DHCP等。一台伺服器進行負載測試。 
+
+
+| H615C NetApp HCI | 1. | 2x24C Intel Xeon Gold 6282@2.1GHz。1.5TB RAM。 
+|===
+下表包含用於此驗證的軟體。
+
+[cols="50,50"]
+|===
+| 產品 | 說明 
+
+
+| NetApp VDS 5.4 | 協調 
+
+
+| VM範本Windows 2019 1809 | 適用於RDSH的伺服器作業系統 
+
+
+| 登入VSI | 4.1.32.1 
+
+
+| VMware vSphere 6.7 Update 3 | Hypervisor 
+
+
+| VMware vCenter 6.7 Update 3f | VMware管理工具 
+|===
+登入VSI測試結果如下：
+
+[cols="25,25,25,25"]
+|===
+| 模型 | VM組態 | 登入VSI基準 | 登入VSI上限 
+
+
+| H610C | 8個vCPU、48GB RAM、75GB磁碟、8Q vGPU設定檔 | 799 | 178. 
+
+
+| H615C | 12個vCPU、128GB RAM、75GB磁碟 | 763 | 272.72 
+|===
+考慮到子NUMA界限和超執行緒、選擇用於VM測試和組態的八個VM取決於主機上可用的核心。
+
+我們在H610C上使用10個啟動器VM、使用RDP傳輸協定連線至使用者工作階段。下圖說明登入VSI連線資訊。
+
+image:hcvdivds_image22.png["錯誤：缺少圖形影像"]
+
+下圖顯示H610C的登入VSI回應時間與作用中工作階段的比較。
+
+image:hcvdivds_image23.png["錯誤：缺少圖形影像"]
+
+下圖顯示H615C的登入VSI回應時間與作用中工作階段的比較。
+
+image:hcvdivds_image24.png["錯誤：缺少圖形影像"]
+
+下圖顯示在vSphere主機和VM的H615C登入VSI測試期間、來自VMware的效能指標Cloud Insights 。
+
+image:hcvdivds_image25.png["錯誤：缺少圖形影像"]
+
+link:hcvdivds_management_portal.html["下一步：管理入口網站"]

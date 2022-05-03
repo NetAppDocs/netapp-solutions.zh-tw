@@ -1,0 +1,462 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_LB_F5BigIP.html 
+summary:  
+keywords: OpenShift, Kubernetes, F5, BIG-IP, F5 CIS, F5 IPAM 
+---
+= 安裝F5 BIG-IP負載平衡器
+:allow-uri-read: 
+
+
+F5 BIG-IP是應用程式交付控制器（ADC）、提供一系列進階的正式作業級流量管理與安全服務、例如L4-L7負載平衡、SSL/TLS卸載、DNS、防火牆等。這些服務可大幅提升應用程式的可用度、安全性和效能。
+
+您可以在專屬硬體、雲端或內部部署的虛擬應用裝置上、以各種方式部署和使用F5 BIG-IP。請參閱此處的文件、依照需求探索及部署F5 BIG-IP。
+
+為有效整合使用Red Hat OpenShift的F5 BIG-IP服務、F5提供Big IP Container Ingress Service（CI）。CI是以控制器Pod的形式安裝、可針對特定的自訂資源定義（CRD）來觀看OpenShift API、並管理F5 BIG-IP系統組態。您可以在OpenShift中設定F5 BIG-IP CI、以控制服務類型負載平衡器和路由。
+
+此外、若要自動分配IP位址以服務負載平衡器類型、您可以使用F5 IPAM控制器。將F5 IPAM控制器安裝為控制器Pod、會使用ipamLabel附註來監視負載平衡器服務的OpenShift API、以便從預先設定的集區分配IP位址。
+
+本頁列出適用於F5 BIG-IP CI和IPAM控制器的安裝與組態指示。您必須部署並授權使用F5 BIG-IP系統、才能做為先決條件。也必須授權使用SDN服務、此服務預設隨附於Big IP VE基礎授權中。
+
+
+NOTE: 可以在獨立或叢集模式中部署F5 BIG-IP。為了進行此驗證、在獨立模式下部署了F5 BIG-IP、但為了正式作業目的、最好使用一個BIG-IP叢集、以避免單點故障。
+
+
+NOTE: 您可以在專屬硬體、雲端或內部部署的虛擬應用裝置上部署一個F5 BIG-IP系統、其版本超過12.x、以便與F5 CI整合。就本文件而言、以虛擬應用裝置（例如使用BIG-IP VE版本）的形式驗證的F5 BIG-IP系統。
+
+
+
+== 已驗證的版本
+
+|===
+
+
+| 技術 | 軟體版本 
+
+
+| Red Hat OpenShift | 4.6 EUS、4.7 
+
+
+| F5 BIG-IP VE版本 | 16.1.0 
+
+
+| F5 Container Ingress服務 | 2.5.1 
+
+
+| F5 IPAM控制器 | 0.1.4 
+
+
+| F5 AS3 | 3.30.0 
+|===
+
+
+== 安裝
+
+. 安裝F5 Application Services 3擴充功能、讓BIG-IP系統接受Json中的組態、而非命令命令。前往 https://github.com/F5Networks/f5-appsvcs-extension/releases["F5 AS3 GitHub儲存庫"^]下載最新的RPM檔案。
+. 登入F5 BIG-IP系統、瀏覽至iApps >「套件管理Lx」、然後按一下「匯入」。
+. 按一下"選擇檔案"並選取下載的AS3 RPM檔案、按一下"確定"、然後按一下"上傳"。
++
+image:redhat_openshift_image109.jpg["iApps上傳"]
+
+. 確認已成功安裝AS3擴充功能。
++
+image:redhat_openshift_image110.jpg["AS3安裝驗證"]
+
+. 接下來、設定OpenShift與BIG-IP系統之間通訊所需的資源。首先在OpenShift和Big IP伺服器之間建立通道、方法是在適用於OpenShift SDN的Big IP系統上建立VXLAN通道介面。瀏覽至「Network（網路）」>「Tunnels（通道）」>「Profiles（設定檔）」、按一下「Create（建立）」、然後將「Parent Profile（父設定檔）」設定為VXLAN、「輸入設定檔的名稱、然後按一下「完成」。
++
+image:redhat_openshift_image111.jpg["建立VXLAN設定檔"]
+
+. 瀏覽至「網路」>「通道」>「通道清單」、按一下「建立」、然後輸入通道的名稱和本機IP位址。選取在上一個步驟中建立的通道設定檔、然後按一下「完成」。
++
+image:redhat_openshift_image112.jpg["建立VXLAN通道"]
+
+. 以叢集管理權限登入Red Hat OpenShift叢集。
+. 在OpenShift上為F5 BIG-IP伺服器建立主機子網路、將子網路從OpenShift叢集延伸至F5 BIG-IP伺服器。下載主機子網路Yaml定義。
++
+[source, cli]
+----
+wget https://github.com/F5Networks/k8s-bigip-ctlr/blob/master/docs/config_examples/openshift/f5-kctlr-openshift-hostsubnet.yaml
+----
+. 編輯主機子網路檔案、並為OpenShift SDN新增BIG-IP VTEP（VXLAN通道）IP。
++
+[source, cli]
+----
+apiVersion: v1
+kind: HostSubnet
+metadata:
+  name: f5-server
+  annotations:
+    pod.network.openshift.io/fixed-vnid-host: "0"
+    pod.network.openshift.io/assign-subnet: "true"
+# provide a name for the node that will serve as BIG-IP's entry into the cluster
+host: f5-server
+# The hostIP address will be the BIG-IP interface address routable to the
+# OpenShift Origin nodes.
+# This address is the BIG-IP VTEP in the SDN's VXLAN.
+hostIP: 10.63.172.239
+----
++
+
+NOTE: 變更適用於您環境的主機IP和其他詳細資料。
+
+. 建立主機子網路資源。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f f5-kctlr-openshift-hostsubnet.yaml
+
+hostsubnet.network.openshift.io/f5-server created
+----
+. 取得為F5 BIG-IP伺服器所建立之主機子網路的叢集IP子網路範圍。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc get hostsubnet
+
+NAME                         HOST                         HOST IP         SUBNET          EGRESS CIDRS   EGRESS IPS
+f5-server                    f5-server                    10.63.172.239   10.131.0.0/23
+ocp-vmw-nszws-master-0       ocp-vmw-nszws-master-0       10.63.172.44    10.128.0.0/23
+ocp-vmw-nszws-master-1       ocp-vmw-nszws-master-1       10.63.172.47    10.130.0.0/23
+ocp-vmw-nszws-master-2       ocp-vmw-nszws-master-2       10.63.172.48    10.129.0.0/23
+ocp-vmw-nszws-worker-r8fh4   ocp-vmw-nszws-worker-r8fh4   10.63.172.7     10.130.2.0/23
+ocp-vmw-nszws-worker-tvr46   ocp-vmw-nszws-worker-tvr46   10.63.172.11    10.129.2.0/23
+ocp-vmw-nszws-worker-wdxhg   ocp-vmw-nszws-worker-wdxhg   10.63.172.24    10.128.2.0/23
+ocp-vmw-nszws-worker-wg8r4   ocp-vmw-nszws-worker-wg8r4   10.63.172.15    10.131.2.0/23
+ocp-vmw-nszws-worker-wtgfw   ocp-vmw-nszws-worker-wtgfw   10.63.172.17    10.128.4.0/23
+----
+. 在OpenShift VXLAN上建立一個自有IP、並在OpenShift的主機子網路範圍中建立對應於F5 BIG-IP伺服器的IP。登入F5 BIG-IP系統、瀏覽至「網路」>「自助IP」、然後按一下「建立」。從為F5 BIG-IP主機子網路建立的叢集IP子網路輸入IP、選取VXLAN通道、然後輸入其他詳細資料。然後按一下「完成」。
++
+image:redhat_openshift_image113.jpg["為VXLAN建立自我IP"]
+
+. 在要設定並搭配CI使用的F5 BIG-IP系統中建立分割區。瀏覽至「系統」>「使用者」>「分割清單」、按一下「建立」、然後輸入詳細資料。然後按一下「完成」。
++
+image:redhat_openshift_image114.jpg["建立BIG-IP分割區"]
+
++
+
+NOTE: F5建議您不要在由CI管理的分割區上進行手動設定。
+
+. 使用來自作業系統集線器的操作員來安裝F5 BIG-IP CI。以叢集管理權限登入Red Hat OpenShift叢集、並使用F5 BIG-IP系統登入認證建立密碼、這是操作員的必要條件。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create secret generic bigip-login -n kube-system --from-literal=username=admin --from-literal=password=admin
+
+secret/bigip-login created
+----
+. 安裝5個CI客戶需求日。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc apply -f https://raw.githubusercontent.com/F5Networks/k8s-bigip-ctlr/master/docs/config_examples/crd/Install/customresourcedefinitions.yml
+
+customresourcedefinition.apiextensions.k8s.io/virtualservers.cis.f5.com created
+customresourcedefinition.apiextensions.k8s.io/tlsprofiles.cis.f5.com created
+customresourcedefinition.apiextensions.k8s.io/transportservers.cis.f5.com created
+customresourcedefinition.apiextensions.k8s.io/externaldnss.cis.f5.com created
+customresourcedefinition.apiextensions.k8s.io/ingresslinks.cis.f5.com created
+----
+. 瀏覽至「運算子」>「作業系統集線器」、搜尋關鍵字F5、然後按一下「F5 Container Ingress Service」方塊。
++
+image:redhat_openshift_image115.jpg["在作業系統集線器中的5個CI"]
+
+. 閱讀操作員資訊、然後按一下「Install（安裝）」。
++
+image:redhat_openshift_image116.jpg["在作業系統集線器中的「F5 CI資訊」方塊"]
+
+. 在「Install（安裝）」操作員畫面上、保留所有預設參數、然後按一下「Install（安裝）」。
++
+image:redhat_openshift_image117.jpg["安裝F5 CI操作員"]
+
+. 安裝操作員需要一段時間。
++
+image:redhat_openshift_image118.jpg["5 CI操作員安裝進度"]
+
+. 安裝操作員之後、會顯示安裝成功訊息。
+. 瀏覽至「運算子」>「安裝的運算子」、按一下「F5 Container Ingress Service」、然後按一下「F5BigIprcr」方塊下方的「Create Instance（建立執行個體）」。
++
+image:redhat_openshift_image119.jpg["建立F5BigIprvr"]
+
+. 按一下「Yaml View（Yaml檢視）」、然後在更新必要的參數後貼上下列內容。
++
+
+NOTE: 請更新下列參數「bigip_partition'、「openshift_SDN_name'、「bigip_URL」和「bigip_login_secret」、以反映設定值、然後再複製內容。
+
++
+[listing]
+----
+apiVersion: cis.f5.com/v1
+kind: F5BigIpCtlr
+metadata:
+  name: f5-server
+  namespace: openshift-operators
+spec:
+  args:
+    log_as3_response: true
+    agent: as3
+    log_level: DEBUG
+    bigip_partition: ocp-vmw
+    openshift_sdn_name: /Common/openshift_vxlan
+    bigip_url: 10.61.181.19
+    insecure: true
+    pool-member-type: cluster
+    custom_resource_mode: true
+    as3_validation: true
+    ipam: true
+    manage_configmaps: true
+  bigip_login_secret: bigip-login
+  image:
+    pullPolicy: Always
+    repo: f5networks/cntr-ingress-svcs
+    user: registry.connect.redhat.com
+  namespace: kube-system
+  rbac:
+    create: true
+  resources: {}
+  serviceAccount:
+    create: true
+  version: latest
+----
+. 貼上此內容之後、按一下「建立」。這會在K資料庫 系統命名空間中安裝CI Pod。
++
+image:redhat_openshift_image120.jpg["驗證F5 CI Pod"]
+
++
+
+NOTE: Red Hat OpenShift依預設提供一種方法、可透過L7負載平衡的路由來公開服務。內建的OpenShift路由器負責廣告和處理這些路由的流量。不過、您也可以設定F5 CI來支援透過外部的F5 BIG-IP系統的路由、以便作為輔助路由器執行、或取代自行代管的OpenShift路由器。CI會在Big IP系統中建立虛擬伺服器、做為OpenShift路由的路由器、而Big IP則負責通告和流量路由。如需啟用此功能的參數資訊、請參閱此處的文件。請注意、這些參數是針對APS/v1 API中的OpenShift部署資源所定義。因此、將這些項目搭配F5BigIprvtrr資源cis.f5.com/v1 API使用時、請將參數名稱的連字號（-）取代為底線（_）。
+
+. 傳遞給CI資源建立的引數包括「ipam: true」和「custom_resource_mode：true」。這些參數是啟用與IPAM控制器的CI整合所需的參數。建立F5 IPAM資源、確認CI已啟用IPAM整合。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc get f5ipam -n kube-system
+
+NAMESPACE   NAME                       	 	AGE
+kube-system   ipam.10.61.181.19.ocp-vmw  	 43s
+----
+. 建立F5 IPAM控制器所需的服務帳戶、角色和角色繫結。建立Yaml檔案並貼上下列內容。
++
+[listing]
+----
+[admin@rhel-7 ~]$ vi f5-ipam-rbac.yaml
+
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ipam-ctlr-clusterrole
+rules:
+  - apiGroups: ["fic.f5.com"]
+    resources: ["ipams","ipams/status"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ipam-ctlr-clusterrole-binding
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ipam-ctlr-clusterrole
+subjects:
+  - apiGroup: ""
+    kind: ServiceAccount
+    name: ipam-ctlr
+    namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ipam-ctlr
+  namespace: kube-system
+----
+. 建立資源。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f f5-ipam-rbac.yaml
+
+clusterrole.rbac.authorization.k8s.io/ipam-ctlr-clusterrole created
+clusterrolebinding.rbac.authorization.k8s.io/ipam-ctlr-clusterrole-binding created
+serviceaccount/ipam-ctlr created
+----
+. 建立Yaml檔案、然後貼上以下提供的F5 IPAM部署定義。
++
+
+NOTE: 請更新下方spec.template.spec.contains[0].args中的IP範圍參數、以反映與您設定相對應的ipamLabel和IP位址範圍。
+
++
+
+NOTE: IPAM控制器的負載平衡器類型服務需要註釋ipamLabels ['range1'和'range2'、才能從定義的範圍偵測和指派IP位址。
+
++
+[listing]
+----
+[admin@rhel-7 ~]$ vi f5-ipam-deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: f5-ipam-controller
+  name: f5-ipam-controller
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: f5-ipam-controller
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: f5-ipam-controller
+    spec:
+      containers:
+      - args:
+        - --orchestration=openshift
+        - --ip-range='{"range1":"10.63.172.242-10.63.172.249", "range2":"10.63.170.111-10.63.170.129"}'
+        - --log-level=DEBUG
+        command:
+        - /app/bin/f5-ipam-controller
+        image: registry.connect.redhat.com/f5networks/f5-ipam-controller:latest
+        imagePullPolicy: IfNotPresent
+        name: f5-ipam-controller
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: ipam-ctlr
+      serviceAccountName: ipam-ctlr
+----
+. 建立F5 IPAM控制器部署。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f f5-ipam-deployment.yaml
+
+deployment/f5-ipam-controller created
+----
+. 確認F5 IPAM控制器Pod正在執行。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc get pods -n kube-system
+
+NAME                                       READY   STATUS    RESTARTS   AGE
+f5-ipam-controller-5986cff5bd-2bvn6        1/1     Running   0          30s
+f5-server-f5-bigip-ctlr-5d7578667d-qxdgj   1/1     Running   0          14m
+----
+. 建立F5 IPAM架構。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f https://raw.githubusercontent.com/F5Networks/f5-ipam-controller/main/docs/_static/schemas/ipam_schema.yaml
+
+customresourcedefinition.apiextensions.k8s.io/ipams.fic.f5.com
+----
+
+
+
+
+== 驗證
+
+. 建立負載平衡器類型的服務
++
+[listing]
+----
+[admin@rhel-7 ~]$ vi example_svc.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    cis.f5.com/ipamLabel: range1
+  labels:
+    app: f5-demo-test
+  name: f5-demo-test
+  namespace: default
+spec:
+  ports:
+  - name: f5-demo-test
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: f5-demo-test
+  sessionAffinity: None
+  type: LoadBalancer
+----
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f example_svc.yaml
+
+service/f5-demo-test created
+----
+. 檢查IPAM控制器是否指派外部IP給它。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc get svc
+
+NAME           TYPE           CLUSTER-IP       EXTERNAL-IP                            PORT(S)        AGE
+f5-demo-test   LoadBalancer   172.30.210.108   10.63.172.242                          80:32605/TCP   27s
+----
+. 建立部署並使用所建立的負載平衡器服務。
++
+[listing]
+----
+[admin@rhel-7 ~]$ vi example_deployment.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: f5-demo-test
+  name: f5-demo-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: f5-demo-test
+  template:
+    metadata:
+      labels:
+        app: f5-demo-test
+    spec:
+      containers:
+      - env:
+        - name: service_name
+          value: f5-demo-test
+        image: nginx
+        imagePullPolicy: Always
+        name: f5-demo-test
+        ports:
+        - containerPort: 80
+          protocol: TCP
+----
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc create -f example_deployment.yaml
+
+deployment/f5-demo-test created
+----
+. 檢查Pod是否正在執行。
++
+[listing]
+----
+[admin@rhel-7 ~]$ oc get pods
+
+NAME                            READY   STATUS    RESTARTS   AGE
+f5-demo-test-57c46f6f98-47wwp   1/1     Running   0          27s
+f5-demo-test-57c46f6f98-cl2m8   1/1     Running   0          27s
+----
+. 檢查OpenShift中是否針對負載平衡器類型的服務、在Big IP系統中建立對應的虛擬伺服器。瀏覽至本機流量>虛擬伺服器>虛擬伺服器清單。
++
+image:redhat_openshift_image121.jpg["驗證為對應的服務類型負載平衡器建立BIG-IP虛擬伺服器"]
+
+
+
+link:rh-os-n_use_cases.html["下一步：解決方案驗證/使用案例：採用NetApp的Red Hat OpenShift。"]

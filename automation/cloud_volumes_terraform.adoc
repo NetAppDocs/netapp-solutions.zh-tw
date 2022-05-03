@@ -1,0 +1,1758 @@
+---
+sidebar: sidebar 
+permalink: automation/cloud_volumes_terraform.html 
+keywords: AWS, Azure, GCP, FSX, CVO, ANF, CVS, Terraform, automation 
+summary: 本頁說明使用Terraform在雲端供應商（AWS、Azure、GCP）上部署NetApp Volume的自動化方法。 
+---
+= 透過Terraform實現雲端Volume自動化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本解決方案使用ONTAP Terraform模組、記錄AWS（CVO單一節點、CVO HA和FSX0）和Azure（CVO單一節點、CVO HA和ANF）上的雲端Volume自動化部署。您可以在找到該程式碼 https://github.com/NetApp-Automation/na_cloud_volumes_automation[]
+
+
+
+== 先決條件
+
+. Terraform >= 0.13
+. Cloud Manager帳戶
+. 雲端供應商帳戶：AWS、Azure
+. 主機（Terraform支援的任何作業系統）
+
+
+
+
+== 供應商文件
+
+Terraform Cloud Manager供應商的文件可在下列網址取得： link:https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs["https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs"]
+
+
+
+=== 控制供應商版本
+
+請注意、您也可以控制供應商版本。這是由Terraform組態中的必要供應商區塊所控制。
+
+語法如下：
+
+[source, cli]
+----
+terraform {
+  required_providers {
+    netapp-cloudmanager = {
+      source = "NetApp/netapp-cloudmanager"
+      version = "20.10.0"
+    }
+  }
+}
+----
+深入瞭解供應商版本控制。
+
+
+
+== 執行特定模組
+
+.AWS
+====
+[role="tabbed-block"]
+=====
+.CVO單一節點部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上部署/設定單一節點NetApp CVO（英文）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從CLI設定AWS認證資料。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS存取金鑰ID [無]：存取金鑰
+** AWS秘密存取金鑰[無]：秘密金鑰
+** 預設區域名稱[無]：us-west-2
+** 預設輸出格式[無]：JSON
+
+
+. 更新「vars/AWS/CVO_sine_node_deployment.tfvars」中的變數值
++
+
+NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_sn" -var-file="vars/aws_cvo_single_node_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_sn" -var-file="vars/aws_cvo_single_node_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AWs_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * AWS連接器名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * AWS連接器區域* | 字串 | （必填）建立Cloud Manager Connector的區域。 
+
+
+| * AWS連接器_key_name* | 字串 | （必填）連接器執行個體要使用的金鑰配對名稱。 
+
+
+| * AWs_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * AWs_connector執行個體類型* | 字串 | （必要）執行個體類型（例如T3.xLarge）。至少需要4個CPU和16 GB記憶體。 
+
+
+| * AWs_connector子網路ID * | 字串 | （必要）執行個體的子網路ID。 
+
+
+| * AWs_connector安全性群組ID * | 字串 | （必填）執行個體的安全性群組ID、可提供以'、'分隔的多個安全性群組。 
+
+
+| * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
+
+
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
+|===
+單一節點執行個體
+
+單一NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * CVO名稱* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * CVO_region* | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * CVO_SUBNET_ID* | 字串 | （必填）要建立工作環境的子網路ID。 
+
+
+| * CVO_VPC_id* | 字串 | （選用）將建立工作環境的VPC ID。如果未提供此引數、則會使用提供的子網路ID來計算VPC。 
+
+
+| * CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * CVO寫入速度狀態* | 字串 | （選用）Cloud Volumes ONTAP 適用於下列項目的寫入速度設定：['正常'、'高速'。預設值為「正常」。 
+|===
+--
+.CVO HA部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上以高可用度配對部署/設定NetApp CVO（BIOS）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從CLI設定AWS認證資料。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS存取金鑰ID [無]：存取金鑰
+** AWS秘密存取金鑰[無]：秘密金鑰
+** 預設區域名稱[無]：us-west-2
+** 預設輸出格式[無]：JSON
+
+
+. 更新「vars/AWS/CVO_ha_deployment.tfvars」中的變數值。
++
+
+NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_ha" -var-file="vars/aws_cvo_ha_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_ha" -var-file="vars/aws_cvo_ha_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AWs_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * AWS連接器名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * AWS連接器區域* | 字串 | （必填）建立Cloud Manager Connector的區域。 
+
+
+| * AWS連接器_key_name* | 字串 | （必填）連接器執行個體要使用的金鑰配對名稱。 
+
+
+| * AWs_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * AWs_connector執行個體類型* | 字串 | （必要）執行個體類型（例如T3.xLarge）。至少需要4個CPU和16 GB記憶體。 
+
+
+| * AWs_connector子網路ID * | 字串 | （必要）執行個體的子網路ID。 
+
+
+| * AWs_connector安全性群組ID * | 字串 | （必填）執行個體的安全性群組ID、可提供以'、'分隔的多個安全性群組。 
+
+
+| * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
+
+
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
+|===
+"HA配對"
+
+HA配對中NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * CVO_is_ha* | 布爾 | （選用）指出工作環境是否為HA配對（真、假）。預設值為假。 
+
+
+| * CVO名稱* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * CVO_region* | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * CVO節點1_SUBNET_ID* | 字串 | （必填）要建立第一個節點的子網路ID。 
+
+
+| * CVO節點2_SUBNET_ID* | 字串 | （必填）要建立第二個節點的子網路ID。 
+
+
+| * CVO_VPC_id* | 字串 | （選用）將建立工作環境的VPC ID。如果未提供此引數、則會使用提供的子網路ID來計算VPC。 
+
+
+| * CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * CVO_UVOD_MOUSON* | 字串 | （可選）對於HA、HA配對的容錯移轉模式為：['權限IP'、'FlatingIP']。「Private IP」適用於單一可用度區域、而「FlatingIP」適用於多個可用度區域。 
+
+
+| * CVO _中介_子網路_id* | 字串 | （可選）對於HA、是中介器的子網路ID。 
+
+
+| * CVO _中介_金鑰_配對名稱* | 字串 | （選用）HA是中介執行個體的金鑰配對名稱。 
+
+
+| * CVO叢集浮點IP * | 字串 | （選用）對於HA FlatingIP、即叢集管理浮動IP位址。 
+
+
+| * CVO資料浮動IP * | 字串 | （選用）對於HA FlatingIP、即資料浮動IP位址。 
+
+
+| * CVO_data_浮 點_IP2* | 字串 | （選用）對於HA FlatingIP、即資料浮動IP位址。 
+
+
+| * CVO_SVM_浮 點IP * | 字串 | （可選）對於HA FlatingIP、SVM管理浮動IP位址。 
+
+
+| * CVO_route_Table_IDS* | 清單 | （選用）對於HA FlatingIP、將以浮動IP更新的路由表ID清單。 
+|===
+--
+.FSX部署
+--
+本節包含各種Terraform組態檔案、可在ONTAP AWS（Amazon Web Services）上部署/設定NetApp SfSX。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 從CLI設定AWS認證資料。
++
+[source, cli]
+----
+    aws configure
+----
++
+** AWS存取金鑰ID [無]：存取金鑰
+** AWS秘密存取金鑰[無]：秘密金鑰
+** 預設區域名稱[無]：us-west-2
+** 預設輸出格式[無]：
+
+
+. 請更新「vars/AWS/FSx_deployment.tfvars」中的變數值
++
+
+NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.aws_fsx" -var-file="vars/aws_fsx_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.aws_fsx" -var-file="vars/aws_fsx_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp AWS連接器執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AWs_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * AWS連接器名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * AWS連接器區域* | 字串 | （必填）建立Cloud Manager Connector的區域。 
+
+
+| * AWS連接器_key_name* | 字串 | （必填）連接器執行個體要使用的金鑰配對名稱。 
+
+
+| * AWs_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * AWs_connector執行個體類型* | 字串 | （必要）執行個體類型（例如T3.xLarge）。至少需要4個CPU和16 GB記憶體。 
+
+
+| * AWs_connector子網路ID * | 字串 | （必要）執行個體的子網路ID。 
+
+
+| * AWs_connector安全性群組ID * | 字串 | （必填）執行個體的安全性群組ID、可提供以'、'分隔的多個安全性群組。 
+
+
+| * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
+
+
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
+|===
+《FSX Instance》（FSX實例）
+
+NetApp ONTAP 的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * FSx_name* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * FSx_region* | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * FSX_PRIMAR_SUBNET_ID* | 字串 | （必填）建立工作環境的主要子網路ID。 
+
+
+| * FSx_secondary子網路識別碼* | 字串 | （必填）要建立工作環境的次子網路ID。 
+
+
+| * FSx_account_id* | 字串 | （必填）將與FSX執行 個體相關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * FSx_Workby_id* | 字串 | （必填）工作環境的Cloud Manager工作區ID。 
+
+
+| * FSx_admin_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * FSx_PFFUFF_capid* | 字串 | （選用）處理量的容量。 
+
+
+| * FSx_storage儲存容量_Size* | 字串 | （選用）第一個資料Aggregate的EBS Volume大小。若為GB、單位可以是：[100或500]。對於TB、單位可以是：[1、2、4、8、16]。預設值為「1」 
+
+
+| * FSx_storage儲存容量_Size_unit* | 字串 | （選用）['GB'或'TB']。預設值為「TB」。 
+
+
+| * FSx_cloudmanager_AWs_認 證名稱* | 字串 | （必填）AWS認證帳戶名稱。 
+|===
+--
+=====
+====
+.Azure
+====
+[role="tabbed-block"]
+=====
+.ANF
+--
+本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定anf（簡稱「還原」）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars/azure_anf.tfvars」中的變數值。
++
+
+NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方法是將變數「vnet_creation_bool」和「subnet_creation_bool」值設為假、並提供「subnet_id_for_anf_vol」。您也可以將這些值設為true、然後建立新的vnet和子網路、在這種情況下、子網路ID會自動取自新建立的子網路。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.anf" -var-file="vars/azure_anf.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.anf" -var-file="vars/azure_anf.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+單一節點執行個體
+
+單一NetApp ANF Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AZ位置* | 字串 | （必填）指定資源所在的受支援Azure位置。變更這項設定會強制建立新資源。 
+
+
+| * AZ_prefix* | 字串 | （必填）應建立NetApp Volume的資源群組名稱。變更這項設定會強制建立新資源。 
+
+
+| * AZ_vnet_address_space* | 字串 | （必要）新建立的vnet用於ANF Volume部署的位址空間。 
+
+
+| * AZ_SUBNET_address_prefix* | 字串 | （必填）新建立的vnet用於anf Volume部署的子網路位址首碼。 
+
+
+| * AZ Volume路徑* | 字串 | （必要）磁碟區的唯一檔案路徑。用於建立掛載目標。變更這項設定會強制建立新資源。 
+
+
+| * AZ容量_Pool_Size* | 整數 | （必填）容量資源池大小、以TB為範圍。 
+
+
+| * AZ vnet_creation_bbool * | 布林值 | （必填）如果您要建立新的vnet、請將此布林值設為「true」。將其設為「假」以使用現有的vnet。 
+
+
+| * AZ子網路_建立_ bool * | 布林值 | （必填）將布林值設為「true」、以建立新的子網路。將其設為「假」以使用現有的子網路。 
+
+
+| * AZ子網路_id_for_anf_vol* | 字串 | （必填）如果您決定使用現有子網路、請提及子網路ID、方法是將「shubnet_creation_bool」設為true。如果設為假、請保留預設值。 
+
+
+| * AZ _NetApp_Pool_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ _NetApp_vol_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ_NetApp_vol_PROPON* | 字串 | （選用）以清單形式表示的目標Volume傳輸協定。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NetApp_vol_SECID_風格* | 字串 | （選用）Volume安全型態、接受的值為「Unix」或「NTFS」。如果未提供、則會建立單一傳輸協定磁碟區、如果是「NFSv3」或「NFSv4.1」磁碟區、如果是「CIFS」、則預設為「NTFS」。如果未提供雙傳輸協定磁碟區、其值將為「NTFS」。 
+
+
+| * AZ_NetApp_vol_storage儲存配額* | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
+|===
+--
+.ANF資料保護
+--
+本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定含資料保護功能的ANF（還原）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars/azure_anf_data_protection」中的變數值。
++
+
+NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方法是將變數「vnet_creation_bool」和「subnet_creation_bool」值設為假、並提供「subnet_id_for_anf_vol」。您也可以將這些值設為true、然後建立新的vnet和子網路、在這種情況下、子網路ID會自動取自新建立的子網路。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.anf_data_protection" -var-file="vars/azure_anf_data_protection.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.anf_data_protection" -var-file="vars/azure_anf_data_protection.tfvars
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+「ANF資料保護」
+
+啟用資料保護的單一anf Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AZ位置* | 字串 | （必填）指定資源所在的受支援Azure位置。變更這項設定會強制建立新資源。 
+
+
+| * AZ_Alt_location * | 字串 | （必填）要建立次要Volume的Azure位置 
+
+
+| * AZ_prefix* | 字串 | （必填）應建立NetApp Volume的資源群組名稱。變更這項設定會強制建立新資源。 
+
+
+| * AZ_vnet_primer_address_space* | 字串 | （必要）新建立的vnet用於ANF主要Volume部署的位址空間。 
+
+
+| * AZ_vnet_secondary地址空間* | 字串 | （必要）新建立的vnet用於ANF次要Volume部署的位址空間。 
+
+
+| * AZ_SUBNET_PRIMAR_address_prefix* | 字串 | （必填）新建立的vnet用於ANF主要Volume部署的子網路位址首碼。 
+
+
+| * AZ_SUBNET_SUBNET_address_prefix* | 字串 | （必填）新建立的vnet用於ANF次要Volume部署的子網路位址首碼。 
+
+
+| * AZ Volume路徑_主要* | 字串 | （必填）主磁碟區的唯一檔案路徑。用於建立掛載目標。變更這項設定會強制建立新資源。 
+
+
+| * AZ Volume路徑_次要* | 字串 | （必要）次要Volume的唯一檔案路徑。用於建立掛載目標。變更這項設定會強制建立新資源。 
+
+
+| * AZ容量_Pool_Size_primary * | 整數 | （必填）容量資源池大小、以TB為範圍。 
+
+
+| * AZ容量_Pool_Size_secondary * | 整數 | （必填）容量資源池大小、以TB為範圍。 
+
+
+| * AZ_vnet_primer_creation_bool * | 布林值 | （必填）如果您要為主要Volume建立新的vnet、請將此布林值設為「true」。將其設為「假」以使用現有的vnet。 
+
+
+| * AZ _vnet_secondary _creation_bool * | 布林值 | （必填）如果您要為次要Volume建立新的vnet、請將此布林值設為「true」。將其設為「假」以使用現有的vnet。 
+
+
+| * AZ_SUBNET_PRIMAR_creation_bool * | 布林值 | （必填）將此布林值設為「true」、為主要Volume建立新的子網路。將其設為「假」以使用現有的子網路。 
+
+
+| * AZ子網路_二線建立_ bool * | 布林值 | （必填）將此布林值設為「true」、為次要Volume建立新的子網路。將其設為「假」以使用現有的子網路。 
+
+
+| * AZ_PRIMAR_SUBNET_ID_for_anf_vol* | 字串 | （必填）如果您決定使用現有子網路、請將「shubnet_primary _creation_bool」設為true。如果設為假、請保留預設值。 
+
+
+| * AZ_SUBNET_ID_for_anf_vol* | 字串 | （必填）如果您決定使用現有子網路、請提及子網路ID、方法是將「shubnet_secondary _creation_bool」設為true。如果設為假、請保留預設值。 
+
+
+| * AZ _NetApp_Pool_service_level _primary * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ _NetApp_Pool_service_level _secondary * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ_NetApp_vol_service_level主* | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ _NetApp_vol_service_level _secondary * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ_NETAPP _vol_PROPON_PRIMAR* | 字串 | （選用）以清單形式表示的目標Volume傳輸協定。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NETAPP _vol_PROPIDATER_secondary * | 字串 | （選用）以清單形式表示的目標Volume傳輸協定。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NetApp_vol_storage儲存配額_primary * | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
+
+
+| * AZ_NetApp_vol_storage儲存配額_secondary * | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
+
+
+| * AZ_DP_replation_frequency * | 字串 | （必填）複寫頻率、支援的值為「10分鐘」、「每小時」、「每日」、值區分大小寫。 
+|===
+--
+.ANF雙協定
+--
+本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上啟用雙傳輸協定的情況下部署/設定ANF（還原）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars/azure_anf_die_protocol.tfvars」中的變數值。
++
+
+NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方法是將變數「vnet_creation_bool」和「subnet_creation_bool」值設為假、並提供「subnet_id_for_anf_vol」。您也可以將這些值設為true、然後建立新的vnet和子網路、在這種情況下、子網路ID會自動取自新建立的子網路。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.anf_dual_protocol" -var-file="vars/azure_anf_dual_protocol.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.anf_dual_protocol" -var-file="vars/azure_anf_dual_protocol.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+單一節點執行個體
+
+已啟用雙傳輸協定的單一anf Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AZ位置* | 字串 | （必填）指定資源所在的受支援Azure位置。變更這項設定會強制建立新資源。 
+
+
+| * AZ_prefix* | 字串 | （必填）應建立NetApp Volume的資源群組名稱。變更這項設定會強制建立新資源。 
+
+
+| * AZ_vnet_address_space* | 字串 | （必要）新建立的vnet用於ANF Volume部署的位址空間。 
+
+
+| * AZ_SUBNET_address_prefix* | 字串 | （必填）新建立的vnet用於anf Volume部署的子網路位址首碼。 
+
+
+| * AZ Volume路徑* | 字串 | （必要）磁碟區的唯一檔案路徑。用於建立掛載目標。變更這項設定會強制建立新資源。 
+
+
+| * AZ容量_Pool_Size* | 整數 | （必填）容量資源池大小、以TB為範圍。 
+
+
+| * AZ vnet_creation_bbool * | 布林值 | （必填）如果您要建立新的vnet、請將此布林值設為「true」。將其設為「假」以使用現有的vnet。 
+
+
+| * AZ子網路_建立_ bool * | 布林值 | （必填）將布林值設為「true」、以建立新的子網路。將其設為「假」以使用現有的子網路。 
+
+
+| * AZ子網路_id_for_anf_vol* | 字串 | （必填）如果您決定使用現有子網路、請提及子網路ID、方法是將「shubnet_creation_bool」設為true。如果設為假、請保留預設值。 
+
+
+| * AZ _NetApp_Pool_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ _NetApp_vol_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ_NetApp_vol_Protocol1* | 字串 | （必填）目標Volume傳輸協定、以清單形式表示。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NetApp_vol_Protocol2* | 字串 | （必填）目標Volume傳輸協定、以清單形式表示。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NetApp_vol_storage儲存配額* | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
+
+
+| * AZ SMB伺服器使用者名稱* | 字串 | （必填）建立ActiveDirectory物件的使用者名稱。 
+
+
+| * AZ SMB伺服器密碼* | 字串 | （必填）建立ActiveDirectory物件的使用者密碼。 
+
+
+| * AZ SMB伺服器名稱* | 字串 | （必填）建立ActiveDirectory物件的伺服器名稱。 
+
+
+| * AZ SMB DNS伺服器* | 字串 | （必要）DNS伺服器IP以建立ActiveDirectory物件。 
+|===
+--
+.ANF Volume（快照）
+--
+本節包含各種Terraform組態檔案、可從Azure NetApp Files Azure上的Snapshot部署/設定anf（簡稱「EF」）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars/azure_anf_volume _from快照.tfvars」中的變數值。
+
+
+
+NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方法是將變數「vnet_creation_bool」和「subnet_creation_bool」值設為假、並提供「subnet_id_for_anf_vol」。您也可以將這些值設為true、然後建立新的vnet和子網路、在這種情況下、子網路ID會自動取自新建立的子網路。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.anf_volume_from_snapshot" -var-file="vars/azure_anf_volume_from_snapshot.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.anf_volume_from_snapshot" -var-file="vars/azure_anf_volume_from_snapshot.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+單一節點執行個體
+
+使用Snapshot的單一anf Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * AZ位置* | 字串 | （必填）指定資源所在的受支援Azure位置。變更這項設定會強制建立新資源。 
+
+
+| * AZ_prefix* | 字串 | （必填）應建立NetApp Volume的資源群組名稱。變更這項設定會強制建立新資源。 
+
+
+| * AZ_vnet_address_space* | 字串 | （必要）新建立的vnet用於ANF Volume部署的位址空間。 
+
+
+| * AZ_SUBNET_address_prefix* | 字串 | （必填）新建立的vnet用於anf Volume部署的子網路位址首碼。 
+
+
+| * AZ Volume路徑* | 字串 | （必要）磁碟區的唯一檔案路徑。用於建立掛載目標。變更這項設定會強制建立新資源。 
+
+
+| * AZ容量_Pool_Size* | 整數 | （必填）容量資源池大小、以TB為範圍。 
+
+
+| * AZ vnet_creation_bbool * | 布林值 | （必填）如果您要建立新的vnet、請將此布林值設為「true」。將其設為「假」以使用現有的vnet。 
+
+
+| * AZ子網路_建立_ bool * | 布林值 | （必填）將布林值設為「true」、以建立新的子網路。將其設為「假」以使用現有的子網路。 
+
+
+| * AZ子網路_id_for_anf_vol* | 字串 | （必填）如果您決定使用現有子網路、請提及子網路ID、方法是將「shubnet_creation_bool」設為true。如果設為假、請保留預設值。 
+
+
+| * AZ _NetApp_Pool_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ _NetApp_vol_service_level * | 字串 | （必要）檔案系統的目標效能。有效值包括"Premium"、"tandard"或"Ultra"。 
+
+
+| * AZ_NetApp_vol_PROPON* | 字串 | （選用）以清單形式表示的目標Volume傳輸協定。支援的單一值包括「CIFS」、「NFSv3」或「NFSv4.1」。如果未定義參數、則預設為NFSv3。變更這項設定會強制建立新資源、而且資料將會遺失。 
+
+
+| * AZ_NetApp_vol_storage儲存配額* | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
+
+
+| * AZ_snapshot _id* | 字串 | （必填）將使用哪個Snapshot ID建立新的ANF磁碟區。 
+|===
+--
+.CVO單一節點部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定單一節點CVO（英文）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars\azure_CVO_sine_node_deployment.tfvars」中的變數。
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.az_cvo_single_node_deployment" -var-file="vars\azure_cvo_single_node_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.az_cvo_single_node_deployment" -var-file="vars\azure_cvo_single_node_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+單一節點執行個體
+
+單節點Cloud Volumes ONTAP 的Terraform變數（CVO）。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| *重新整理權杖* | 字串 | （必填）NetApp雲端管理程式的更新權杖。這可從NetApp Cloud Central產生。 
+
+
+| * AZ連接器名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * AZ_connector位置* | 字串 | （必填）建立Cloud Manager Connector的位置。 
+
+
+| * AZ_connector訂購_id* | 字串 | （必填）Azure訂閱的ID。 
+
+
+| * AZ_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * AZ_connector資源群組* | 整數 | （必填）Azure中要建立資源的資源群組。 
+
+
+| * AZ連接器_SUBNET_ID* | 字串 | （必填）虛擬機器的子網路名稱。 
+
+
+| * AZ連接器_vnet_id* | 字串 | （必填）虛擬網路的名稱。 
+
+
+| * AZ連接器_網路_安全_群組名稱* | 字串 | （必填）執行個體的安全性群組名稱。 
+
+
+| * AZ連接器_關聯_公用IP位址* | 字串 | （必填）指出是否要將公用IP位址與虛擬機器建立關聯。 
+
+
+| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * AZ連接器管理密碼* | 字串 | （必填）Connector的密碼。 
+
+
+| * AZ連接器_admin_username* | 字串 | （必填）Connector的使用者名稱。 
+
+
+| * AZ CVO名稱* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * AZ _CVO位置* | 字串 | （必填）工作環境的建立位置。 
+
+
+| * AZ_CVO_SUBNET_ID* | 字串 | （必填）Cloud Volumes ONTAP 該子網路的名稱。 
+
+
+| * AZ_CVO_vnet_id* | 字串 | （必填）虛擬網路的名稱。 
+
+
+| * AZ_CVO_vnet_resource_group* | 字串 | （必填）Azure中與虛擬網路相關的資源群組。 
+
+
+| * AZ CVO資料加密類型* | 字串 | （必填）用於工作環境的加密類型：['Azure '、'none'。預設值為「Azure」。 
+
+
+| * AZ _CVO儲存設備類型* | 字串 | （必填）第一個資料Aggregate的儲存類型：['Premium_LRs'、'tandard_LRs'、'tandardSSD_LRs'。預設值為「Premium_LRS」 
+
+
+| * AZ_CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * AZ_CVO_capize_Tier * | 字串 | （必填）是否為第一個資料Aggregate啟用資料分層：['Blob、'none]。預設值為「BLOB」。 
+
+
+| * AZ _CVO寫入速度狀態* | 字串 | （必填）Cloud Volumes ONTAP 寫入速度設定：['normal'、'High（高速）]。預設值為「正常」。此論點與HA配對無關。 
+
+
+| * AZ_CVO_ONTAP_VERV* | 字串 | （必填）所需ONTAP 的版本。如果「US_Latest版本」設定為true、則會忽略此選項。預設為使用最新版本。 
+
+
+| * AZ _CVO執行個體類型* | 字串 | （必填）要使用的執行個體類型、取決於您選擇的授權類型：Explore：['標準dard_DS3_v2'、標準：['標準dard_DS4_v2、標準_DS13_v2、標準_L8s_v2]、Premium：['標準DS5_v2'、標準dard_DS14_v2'、依「全部」、依使用者類型」、「全部使用者」、「全部」、「全部」、「全部」、「全部」如需更多支援的執行個體類型、請參閱Cloud Volumes ONTAP 《發行說明》。預設值為「tandard_DS4_v2」。 
+
+
+| * AZ_CVO授權類型* | 字串 | （必填）要使用的授權類型。單一節點：[azure-cot-explore-payga]、"azure-cot-Standard-payga"、"azure-cot-payga"、"azure-cot-payol"、"capite-payga"。HA：[azure-ha-cot-Standard-payga]、"azure-ha-cot-payga"、"azure-ha-cot-payol"、"ha-cape-payga"。預設值為「azure-cot-Standard-paygo」。在選擇「自帶授權類型容量型」或「Freemium」時、請使用HA的「cape-paygo」或「ha-cape-paygo」。在選擇「自帶授權類型節點型」時、請使用HA的「azure-cot-Premium byol」或「azure-ha-cot-Premium byol」。 
+
+
+| * AZ_CVO_NSS_ACON* | 字串 | （必填）NetApp支援網站帳戶ID、可搭配此Cloud Volumes ONTAP 系統使用。如果授權類型為BYOL、但未提供任何NSS-帳戶、Cloud Manager會嘗試使用第一個現有的NSS-帳戶。 
+
+
+| * AZ租戶ID * | 字串 | （必填）Azure中註冊之應用程式/服務委託人的租戶ID。 
+
+
+| * AZ_Application_id* | 字串 | （必填）在Azure中註冊之應用程式/服務委託人的應用程式ID。 
+
+
+| * AZ應用程式金鑰* | 字串 | （必填）在Azure中註冊之應用程式/服務委託金鑰。 
+|===
+--
+.CVO HA部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定CVO（簡稱「還原」）HA（高可用度）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation
+----
+. 登入Azure CLI（必須安裝Azure CLI）。
++
+[source, cli]
+----
+    az login
+----
+. 更新「vars\azure_CVO_ha_deployment.tfvars」中的變數。
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.az_cvo_ha_deployment" -var-file="vars\azure_cvo_ha_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.az_cvo_ha_deployment" -var-file="vars\azure_cvo_ha_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+  terraform destroy
+----
+"HA配對執行個體"
+
+HA配對Cloud Volumes ONTAP 的Terraform變數（CVO）。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| *重新整理權杖* | 字串 | （必填）NetApp雲端管理程式的更新權杖。這可從NetApp Cloud Central產生。 
+
+
+| * AZ連接器名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * AZ_connector位置* | 字串 | （必填）建立Cloud Manager Connector的位置。 
+
+
+| * AZ_connector訂購_id* | 字串 | （必填）Azure訂閱的ID。 
+
+
+| * AZ_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * AZ_connector資源群組* | 整數 | （必填）Azure中要建立資源的資源群組。 
+
+
+| * AZ連接器_SUBNET_ID* | 字串 | （必填）虛擬機器的子網路名稱。 
+
+
+| * AZ連接器_vnet_id* | 字串 | （必填）虛擬網路的名稱。 
+
+
+| * AZ連接器_網路_安全_群組名稱* | 字串 | （必填）執行個體的安全性群組名稱。 
+
+
+| * AZ連接器_關聯_公用IP位址* | 字串 | （必填）指出是否要將公用IP位址與虛擬機器建立關聯。 
+
+
+| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+
+
+| * AZ連接器管理密碼* | 字串 | （必填）Connector的密碼。 
+
+
+| * AZ連接器_admin_username* | 字串 | （必填）Connector的使用者名稱。 
+
+
+| * AZ CVO名稱* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * AZ _CVO位置* | 字串 | （必填）工作環境的建立位置。 
+
+
+| * AZ_CVO_SUBNET_ID* | 字串 | （必填）Cloud Volumes ONTAP 該子網路的名稱。 
+
+
+| * AZ_CVO_vnet_id* | 字串 | （必填）虛擬網路的名稱。 
+
+
+| * AZ_CVO_vnet_resource_group* | 字串 | （必填）Azure中與虛擬網路相關的資源群組。 
+
+
+| * AZ CVO資料加密類型* | 字串 | （必填）用於工作環境的加密類型：['Azure '、'none'。預設值為「Azure」。 
+
+
+| * AZ _CVO儲存設備類型* | 字串 | （必填）第一個資料Aggregate的儲存類型：['Premium_LRs'、'tandard_LRs'、'tandardSSD_LRs'。預設值為「Premium_LRS」 
+
+
+| * AZ_CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * AZ_CVO_capize_Tier * | 字串 | （必填）是否為第一個資料Aggregate啟用資料分層：['Blob、'none]。預設值為「BLOB」。 
+
+
+| * AZ _CVO寫入速度狀態* | 字串 | （必填）Cloud Volumes ONTAP 寫入速度設定：['normal'、'High（高速）]。預設值為「正常」。此論點與HA配對無關。 
+
+
+| * AZ_CVO_ONTAP_VERV* | 字串 | （必填）所需ONTAP 的版本。如果「US_Latest版本」設定為true、則會忽略此選項。預設為使用最新版本。 
+
+
+| * AZ _CVO執行個體類型* | 字串 | （必填）要使用的執行個體類型、取決於您選擇的授權類型：Explore：['標準dard_DS3_v2'、標準：[「標準dard_DS4_v2、標準DS13_v2、標準L8s_v2」]、Premium：['標準DS5_v2'、 「tandard_DS14_v2」、BYOL：為PayGo定義的所有執行個體類型。如需更多支援的執行個體類型、請參閱Cloud Volumes ONTAP 《發行說明》。預設值為「tandard_DS4_v2」。 
+
+
+| * AZ_CVO授權類型* | 字串 | （必填）要使用的授權類型。單一節點：['azure-cot-explore-paygo、azure-cot-Standard-paygo、azure-cot-paygo、azure-cot-payol、cape-payga]。對於HA：['azure-ha-cot-Standard-paygo、azure-ha-cot-paygo、azure-ha-cot-payol、ha-cape-payga]。預設值為「azure-cot-Standard-paygo」。在選擇「自帶授權類型容量型」或「Freemium」時、請使用HA的「cape-paygo」或「ha-cape-paygo」。在選擇「自帶授權類型節點型」時、請使用HA的「azure-cot-Premium byol」或「azure-ha-cot-Premium byol」。 
+
+
+| * AZ_CVO_NSS_ACON* | 字串 | （必填）NetApp支援網站帳戶ID、可搭配此Cloud Volumes ONTAP 系統使用。如果授權類型為BYOL、但未提供任何NSS-帳戶、Cloud Manager會嘗試使用第一個現有的NSS-帳戶。 
+
+
+| * AZ租戶ID * | 字串 | （必填）Azure中註冊之應用程式/服務委託人的租戶ID。 
+
+
+| * AZ_Application_id* | 字串 | （必填）在Azure中註冊之應用程式/服務委託人的應用程式ID。 
+
+
+| * AZ應用程式金鑰* | 字串 | （必填）在Azure中註冊之應用程式/服務委託金鑰。 
+|===
+--
+=====
+====
+.GCP
+====
+[role="tabbed-block"]
+=====
+.CVO單一節點部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上部署/設定單一節點NetApp CVO（英文）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVO_sine_node_deployment.tfvars」中的變數值
++
+
+NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+    terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gco_single_node" -var-file="vars/gcp_cvo_single_node_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_single_node" -var-file="vars/gcp_cvo_single_node_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * GCP_connector名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * GCP_connector專案_id* | 字串 | （必填）要建立連接器的GCP專案ID。 
+
+
+| * GCP_connector區域* | 字串 | （必填）要建立連接器的GCP區域。 
+
+
+| * GCP_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * GCP_connector服務帳戶電子郵件* | 字串 | （必填）連接器執行個體的service_account電子郵件。此服務帳戶可讓Connector建立Cloud Volume ONTAP 。 
+
+
+| * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
+
+
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+|===
+單一節點執行個體
+
+GCP上單一NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVO_name* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * GCP_CVO_PROPON_ID* | 字串 | （必填）GCP專案的ID。 
+
+
+| * GCP_CVO_ZONE * | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * GCP_CVO_GCP_service_account* | 字串 | （必填）GCP_service_Account電子郵件、以便將冷資料分層至Google Cloud Storage。 
+
+
+| * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
+
+
+| * GCP_CVO_capid_package_name* | 字串 | （選用）容量套件名稱：「Essential」、「Professional」、「Freemium」。預設為「Essential」。 
+|===
+--
+.CVO HA部署
+--
+本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上以高可用度配對部署/設定NetApp CVO（候選）。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVO_ha_deployment.tfvars」中的變數值。
++
+
+NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以選擇部署連接器。
+
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gcp_ha" -var-file="vars/gcp_cvo_ha_deployment.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_ha" -var-file="vars/gcp_cvo_ha_deployment.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+《Connector》（連接器）
+
+NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_connector部署布爾* | 布爾 | （必填）檢查連接器部署。 
+
+
+| * GCP_connector名稱* | 字串 | （必填）Cloud Manager Connector的名稱。 
+
+
+| * GCP_connector專案_id* | 字串 | （必填）要建立連接器的GCP專案ID。 
+
+
+| * GCP_connector區域* | 字串 | （必填）要建立連接器的GCP區域。 
+
+
+| * GCP_connector公司* | 字串 | （必填）使用者的公司名稱。 
+
+
+| * GCP_connector服務帳戶電子郵件* | 字串 | （必填）連接器執行個體的service_account電子郵件。此服務帳戶可讓Connector建立Cloud Volume ONTAP 。 
+
+
+| * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
+
+
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+|===
+"HA配對"
+
+GCP上HA配對中NetApp CVO執行個體的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVO_is_ha* | 布爾 | （選用）指出工作環境是否為HA配對（真、假）。預設值為假。 
+
+
+| * GCP_CVO_name* | 字串 | （必填）Cloud Volumes ONTAP 運作環境的名稱。 
+
+
+| * GCP_CVO_PROPON_ID* | 字串 | （必填）GCP專案的ID。 
+
+
+| * GCP_CVO_ZONE * | 字串 | （必填）將建立工作環境的區域。 
+
+
+| * GCP_CVO_node1_ZONE * | 字串 | （選用）節點1的區域。 
+
+
+| * GCP_CVO_node2_ZONE * | 字串 | （選用）節點2的區域。 
+
+
+| * GCP_CVO _中介_區域* | 字串 | （選用）中介區域。 
+
+
+| * GCP_CVO_VPC_id* | 字串 | （選用）VPC的名稱。 
+
+
+| * GCP_CVO_SUBNET_ID* | 字串 | （選用）Cloud Volumes ONTAP 子網路名稱以供填寫。預設值為：「預設」。 
+
+
+| * GCP_CVO_vpc0_node_and _data_Connectivity * | 字串 | （選用）NIC 1的VPC路徑、節點和資料連線所需。如果使用共享VPC、則必須提供網路網路專案ID。 
+
+
+| * GCP_CVO_vpc1_cluster連線能力* | 字串 | （選用）叢集連線所需的NIC路徑。 
+
+
+| * GCP_CVO_vpc2_ha_Connectivity * | 字串 | （選用）NIC 3的VPC路徑、HA連線所需。 
+
+
+| * GCP_CVO_vpc3_data_repletion* | 字串 | （可選）用於NIC 4的VPC路徑、資料複寫所需的路徑。 
+
+
+| * GCP_CVO_Subnet0_node_and _data_netion* | 字串 | （選用）NIC 1的子網路路徑、節點和資料連線所需。如果使用共享VPC、則必須提供網路網路專案ID。 
+
+
+| * GCP_CVO_Subnet1_cluster連線能力* | 字串 | （選用）叢集連線所需的NIC 2子網路路徑。 
+
+
+| * GCP_CVO_Subnet2_ha_Connectivity * | 字串 | （選用）NIC 3的子網路路徑、HA連線所需的子網路路徑。 
+
+
+| * GCP_CVO_Subnet3_data_replet* | 字串 | （選用）資料複寫所需的NIC 4子網路路徑。 
+
+
+| * GCP_CVO_GCP_service_account* | 字串 | （必填）GCP_service_Account電子郵件、以便將冷資料分層至Google Cloud Storage。 
+
+
+| * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
+
+
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+
+
+| * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
+
+
+| * GCP_CVO_capid_package_name* | 字串 | （選用）容量套件名稱：「Essential」、「Professional」、「Freemium」。預設為「Essential」。 
+
+
+| * GCP_CVO_GCP_Volume _Size* | 字串 | （選用）第一個資料Aggregate的GCP Volume大小。若為GB、單位可以是：[100或500]。對於TB、單位可以是：[1、2、4、8]。預設值為「1」。 
+
+
+| * GCP_CVO_GCP_Volume _Size_unit* | 字串 | （選用）['GB'或'TB']。預設值為「TB」。 
+|===
+--
+.CVS Volume
+--
+本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
+
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
+
+若要執行範本：
+
+. 複製儲存庫。
++
+[source, cli]
+----
+    git clone https://github.com/NetApp-Automation/na_cloud_volumes_automation.git
+----
+. 瀏覽至所需的資料夾
++
+[source, cli]
+----
+    cd na_cloud_volumes_automation/
+----
+. 將GCP驗證金鑰Json檔案儲存在目錄中。
+. 更新「vars/gcp_CVS磁碟區.tfvars」中的變數值。
+. 初始化Terraform儲存庫、以安裝所有先決條件並準備部署。
++
+[source, cli]
+----
+      terraform init
+----
+. 使用Terraform validate命令驗證Terraform檔案。
++
+[source, cli]
+----
+    terraform validate
+----
+. 執行組態的乾燥執行、預覽部署所預期的所有變更。
++
+[source, cli]
+----
+    terraform plan -target="module.gcp_cvs_volume" -var-file="vars/gcp_cvs_volume.tfvars"
+----
+. 執行部署
++
+[source, cli]
+----
+    terraform apply -target="module.gcp_cvs_volume" -var-file="vars/gcp_cvs_volume.tfvars"
+----
+
+
+以刪除部署
+
+[source, cli]
+----
+    terraform destroy
+----
+"CVS Volume（CVS Volume）"
+
+NetApp GCP CVS Volume的Terraform變數。
+
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * GCP_CVs_name* | 字串 | （必填）NetApp CVS Volume的名稱。 
+
+
+| * GCP_CVs_PROPON_ID* | 字串 | （必填）要建立CVS Volume的GCP專案ID。 
+
+
+| * GCP_CVs_GCP_service_account_path* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立CVS Volume。 
+
+
+| * GCP_CVs_region* | 字串 | （必填）要建立CVS Volume的GCP區域。 
+
+
+| * GCP_CVs_network* | 字串 | （必要）磁碟區的網路VPC。 
+
+
+| * GCP_CVs_Size* | 整數 | （必填）Volume大小介於1、024至102400（含GiB）之間。 
+
+
+| * GCP_CVs_Volume路徑* | 字串 | （選用）Volume的Volume路徑名稱。 
+
+
+| * gcp_CVS傳輸協定類型* | 字串 | （必要）Volume的傳輸協定類型。對於NFS、請使用「NFSv3」或「NFSv3」、而對於SMB則使用「CIFS」或「SMB」。 
+|===
+--
+=====
+====

@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_over-quota_fairness.html 
+keywords:  
+summary:  
+---
+= 過度配額的公平性
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+在本節中、我們將展開多個團隊提交工作負載並超過其配額的案例。如此一來、我們就能示範Run：AI的公平演算法如何根據預設配額的比率來配置叢集資源。
+
+本測試案例的目標：
+
+* 當多個團隊要求GPU超出配額時、顯示佇列機制。
+* 示範系統如何根據配額之間的比率、在多個超出配額的團隊之間分配公平的叢集共用區、讓具有較大配額的團隊獲得較大的備用容量份額。
+
+
+結束時 link:osrunai_basic_resource_allocation_fairness.html["基本資源配置公平性"]有兩個工作負載排入佇列：一個用於「team b」、一個用於「team c」。在本節中、我們會排入其他工作負載的佇列。
+
+如需工作提交、使用的容器映像及執行命令順序等詳細資料、請參閱 link:osrunai_testing_details_for_section_4.10.html["第4.10節的測試詳細資料"]。
+
+當所有工作都根據區段提交時 link:osrunai_testing_details_for_section_4.10.html["第4.10節的測試詳細資料"]系統儀表板顯示：“team－a（團隊A）”、“team－b（團隊b）”和“team－c（團隊c）”都比預設配額多出GPU。與預設的軟配額（4個）相比、「團隊A」（team A）佔據4個GPU、而「團隊b」（team b）和「團隊c」（team c）則各佔2個GPU、而非軟配額（2個）。分配的配額過多GPU比例等於預設配額的比例。這是因為當多個團隊要求更多GPU、超過配額時、系統會使用預設配額作為優先順序的參考資料、並據此進行資源配置。當企業資料科學團隊積極參與AI模式的開發與正式作業時、這種自動負載平衡可提供公平性和優先順序。
+
+image:osrunai_image10.png["錯誤：缺少圖形影像"]
+
+此測試案例的結果顯示下列項目：
+
+* 系統開始將其他團隊的工作負載取消佇列。
+* 根據公平演算法決定取消佇列的順序、例如「team-b」和「team-c」獲得相同數量的配額GPU（因為配額相似）、 而A組的配額比B組和C組的配額高出兩倍、因此獲得兩倍的GPU數量。
+* 所有分配都會自動完成。
+
+
+因此、系統應穩定在下列狀態：
+
+|===
+| 專案 | 已分配的GPU | 留言 
+
+
+| 團隊A | 8/4. | 超過配額的四個GPU。空佇列。 
+
+
+| 團隊b | 4/2. | 超過配額的兩個GPU。一個工作負載已排入佇列。 
+
+
+| 團隊 | 4/2. | 超過配額的兩個GPU。一個工作負載已排入佇列。 
+
+
+| 團隊 | 0/8. | 完全不使用GPU、沒有排入佇列的工作負載。 
+|===
+下圖顯示各區段的「執行：AI分析」儀表板中、隨著時間推移、每個專案的GPU配置 link:osrunai_achieving_high_cluster_utilization_with_over-uota_gpu_allocation.html["透過過度配額GPU配置、實現高叢集使用率"]、 link:osrunai_basic_resource_allocation_fairness.html["基本資源配置公平性"]和 link:osrunai_over-quota_fairness.html["過度配額的公平性"]。圖中的每一行都會指出任何時間為特定資料科學團隊配置的GPU數量。我們可以看到、系統會根據提交的工作負載動態配置GPU。如此一來、當叢集中有可用的GPU時、團隊就能跳過配額、然後根據公平原則預先部署工作、最後才會達到四個團隊的穩定狀態。
+
+image:osrunai_image11.png["錯誤：缺少圖形影像"]
+
+link:osrunai_saving_data_to_a_trident-provisioned_persistentvolume.html["下一步：將資料儲存至Trident佈建的PersistentVolume"]

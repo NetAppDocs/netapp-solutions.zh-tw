@@ -1,0 +1,24 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/confluent-kafka-confluent-kafka-rebalance.html 
+keywords: rebalance, test, self balancing, brokers 
+summary: 此測試是以自我平衡叢集功能為基礎、可根據叢集拓撲變更或負載不均、自動重新平衡。 
+---
+= ConFluent自我平衡叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:confluent-kafka-kafka-s3-connector.html["先前版本：Kafka S3連接器。"]
+
+如果您之前曾管理過Kafka叢集、您可能會熟悉手動將分割區重新指派給不同的代理人所帶來的挑戰、以確保整個叢集的工作負載平衡。對於部署較大Kafka的組織而言、重新安排大量資料可能會令人望而生畏、繁瑣且風險高、尤其是當任務關鍵型應用程式建置於叢集之上時。然而、即使是卡夫卡最小的使用案例、這項程序仍耗時且容易發生人為錯誤。
+
+在實驗室中、我們測試了Confluent自我平衡叢集功能、此功能可根據叢集拓撲變更或負載不均而自動重新平衡。當節點故障或擴充節點需要跨代理程式重新平衡資料時、「Confluent reBalance」測試有助於測量新增代理程式的時間。在傳統的Kafka組態中、隨著叢集成長、要重新平衡的資料量會隨之增加、但在階層式儲存設備中、重新平衡的資料量僅限於少量資料。根據我們的驗證結果、在傳統的Kafka架構中重新平衡階層式儲存設備需要數秒鐘或數分鐘、並隨著叢集成長線性成長。
+
+在自我平衡叢集中、磁碟分割重新平衡已完全自動化、可最佳化Kafka的處理量、加速代理程式擴充、並減輕執行大型叢集的作業負擔。在穩定狀態下、自我平衡叢集會監控所有代理程式的資料偏移、並持續重新分配分割區、以最佳化叢集效能。當垂直或向下擴充平台時、自我平衡叢集會自動辨識新的代理人是否存在、或移除舊的代理人、並觸發後續的分割區重新指派。這可讓您輕鬆新增及取消委任代理人、讓Kafka叢集更具彈性。這些效益不需要手動介入、複雜的數學運算、或是分割區重新指派通常會造成人為錯誤的風險。如此一來、資料重新平衡的完成時間就會大幅縮短、您可以專注於價值更高的事件串流專案、而不需要持續監督叢集。
+
+link:confluent-kafka-best-practice-guidelines.html["下一步：最佳實務準則。"]

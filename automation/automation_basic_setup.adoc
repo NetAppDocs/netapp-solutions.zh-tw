@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: automation/automation_basic_setup.html 
+summary: NetApp解決方案自動化運用RedHat Ansible進行組態設定與管理。 
+keywords: netapp, solutions, automation, ansible, terraform 
+---
+= NetApp解決方案自動化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./media/
+
+
+[role="lead"]
+自動化可簡化NetApp解決方案的使用。
+
+
+
+=== 設定Ansible Control節點
+
+Ansible是一種無代理自動化工具、因此您只需在一部機器（Ansible控制節點）上安裝即可。透過您的控制節點、您可以管理整個遠端機器機隊、而不需要在這些機器上進行任何額外的組態設定。
+
+根據您要安裝的作業系統類型、按一下下列其中一個連結、以瞭解設定控制節點的詳細步驟：。 link:automation_rhel8_centos8_setup.adoc["RHEL8/CentOS8"^]。 link:automation_rhel7_centos7_setup.adoc["RHEL7/CentOS7"^]。 link:automation_ubuntu_debian_setup.adoc["Ubuntu / DEBIAN"^]

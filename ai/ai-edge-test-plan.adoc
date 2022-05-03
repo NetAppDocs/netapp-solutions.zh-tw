@@ -1,0 +1,66 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-edge-test-plan.html 
+keywords: test, plan, mlperf, inference, benchmarks 
+summary: 本文件遵循MLPerf Inverence v0.7程式碼、MLPerf Inverence v1.1程式碼與規則。我們執行的基準測試是根據本節表格中的定義、在邊緣進行推斷。 
+---
+= 測試計畫
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-edge-technology-overview.html["上一篇：技術總覽。"]
+
+本文件遵循MLPerf推斷v0.7 https://github.com/mlperf/inference_results_v0.7/tree/master/closed/Lenovo["程式碼"^]（MLPerf推斷v1.1） https://github.com/mlcommons/inference_results_v1.1/tree/main/closed/Lenovo["程式碼"^]和 https://github.com/mlcommons/inference_policies/blob/master/inference_rules.adoc["規則"^]。我們執行MLPerf基準測試、設計用於在邊緣進行推斷、如下表所定義。
+
+|===
+| 區域 | 工作 | 模型 | 資料集 | QSL大小 | 品質 | 多重串流延遲限制 
+
+
+| 願景 | 映像分類 | Resnet50v1.5 | ImageNet（224x224） | 1024. | 99%的FP32 | 50ms 
+
+
+| 願景 | 物件偵測（大型） | SSD - ResNet34 | 可可（1200 x 1200） | 64 | 99%的FP32 | 66毫秒 
+
+
+| 願景 | 物件偵測（小型） | SSD：移動Netsv1 | 可可（300x300） | 256 | 99%的FP32 | 50ms 
+
+
+| 願景 | 醫療影像分割 | 3D UNIT | 2019年（全年無休、全年無休、每天24小時160） | 16 | 99%和99.9%的FP32 | 不適用 
+
+
+| 演講 | 語音對文字 | RNNT | Lithpech開發-乾淨 | 2513 | 99%的FP32 | 不適用 
+
+
+| 語言 | 語言處理 | Bert | Squad v1.1 | 10833 | 99%的FP32 | 不適用 
+|===
+下表列出Edge基準測試案例。
+
+|===
+| 區域 | 工作 | 案例 
+
+
+| 願景 | 映像分類 | 單一串流、離線、多重串流 
+
+
+| 願景 | 物件偵測（大型） | 單一串流、離線、多重串流 
+
+
+| 願景 | 物件偵測（小型） | 單一串流、離線、多重串流 
+
+
+| 願景 | 醫療影像分割 | 單一串流、離線 
+
+
+| 演講 | 語音對文字 | 單一串流、離線 
+
+
+| 語言 | 語言處理 | 單一串流、離線 
+|===
+我們使用此驗證所開發的網路儲存架構來執行這些基準測試、並將結果與先前提交給MLPerf之邊緣伺服器上本機執行的結果進行比較。比較的目的是判斷共享儲存設備對推斷效能的影響程度。
+
+link:ai-edge-test-configuration.html["下一步：測試組態。"]

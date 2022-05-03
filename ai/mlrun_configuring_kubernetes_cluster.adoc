@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: ai/mlrun_configuring_kubernetes_cluster.html 
+keywords: NetApp, Kubernetes, Cluster, Configuring 
+summary:  
+---
+= 設定Kubernetes叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節分為兩部分、分別用於雲端和內部部署。
+
+
+
+== 雲端部署Kubernetes組態
+
+透過NetApp Cloud Manager、您可以定義與Iguazio Kubernetes叢集的連線。Trident需要存取叢集中的多個資源、才能使磁碟區可用。
+
+. 若要啟用存取、請從其中一個Iguazio節點取得Kubernetes組態檔案。檔案位於「/home/Iguazio/.kue/config」下 將此檔案下載至桌面。
+. 前往探索叢集進行設定。
++
+image:mlrun_image9.png["錯誤：缺少圖形影像"]
+
+. 上傳Kubernetes組態檔案。請參閱下圖。
++
+image:mlrun_image10.PNG["錯誤：缺少圖形影像"]
+
+. 部署Trident、並將磁碟區與叢集建立關聯。請參閱下列影像、瞭解如何定義及指派持續Volume給Iguazio叢集。此程序可在Iguazio的Kubernetes叢集中建立持續Volume（PV）。在使用之前、您必須先定義持續磁碟區宣告（PVc）。
+
+
+image:mlrun_image5.png["錯誤：缺少圖形影像"]
+
+
+
+== 內部部署Kubernetes組態
+
+如需NetApp Trident的內部部署安裝、請參閱 https://www.netapp.com/us/media/tr-4798.pdf["TR-4798"^] 以取得詳細資料。在設定Kubernetes叢集並安裝NetApp Trident之後、您可以將Trident連線至Iguazio叢集、以啟用NetApp資料管理功能、例如建立資料與模型的Snapshot複本。
+
+link:mlrun_define_persistent_volume_claim.html["下一步：定義持續磁碟區宣告"]

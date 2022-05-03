@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: containers/bmanthos_solution_overview.html 
+keywords: AFF, NFS, CIFS, iSCSI, FC, FCoE, FC-NVMe, 
+summary: NetApp AFF 支援功能強大的All Flash儲存平台、可提供低延遲效能、整合式資料保護、多重傳輸協定支援及不中斷營運。NetApp功能採用NetApp ONTAP 的支援資料管理軟體、AFF 可確保不中斷營運、從維護到升級、到儲存系統的完整更換、皆可順利完成。 
+---
+= 解決方案總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== NetApp ONTAP 的NetApp產品介紹：NetApp AFF/FAS
+
+NetApp AFF 支援功能強大的All Flash儲存平台、可提供低延遲效能、整合式資料保護、多重傳輸協定支援及不中斷營運。NetApp功能採用NetApp ONTAP 的支援資料管理軟體、AFF 可確保不中斷營運、從維護到升級、到儲存系統的完整更換、皆可順利完成。
+
+NetApp ONTAP 功能強大的儲存軟體工具、具備直覺式GUI、REST API與自動化整合、AI資訊預測分析與修正行動、不中斷的硬體升級、以及跨儲存匯入等功能。
+
+支援下列功能：ONTAP
+
+* 統一化儲存系統、可同時存取及管理NFS、CIFS、iSCSI、FC、FCoE、 和FC-NVMe傳輸協定。
+* 不同的部署模式包括在All Flash、混合式和All HDD硬體組態上的內部部署、ONTAP Select 在支援的Hypervisor上的VM型儲存平台（例如：用作支援的Hypervisor）、以及在雲端上用Cloud Volumes ONTAP 作支援的
+* 支援自動資料分層、即時資料壓縮、重複資料刪除及壓縮、可提升ONTAP 資料在支援功能完善的系統上的儲存效率。
+* 工作負載型QoS控制儲存設備。
+* 與公有雲無縫整合、以利資料分層和保護。此外、支援強大的資料保護功能、可在任何環境中脫穎而出：ONTAP
++
+** * NetApp Snapshot複本。*快速的時間點資料備份、使用最少的磁碟空間、不需額外的效能負荷。
+** * NetApp SnapMirror.*將資料的Snapshot複本從一個儲存系統鏡射到另一個儲存系統。支援將資料鏡射到其他實體平台、以及雲端原生服務。ONTAP
+** * NetApp SnapLock 功能*可將不可重複寫入的資料寫入無法在指定期間覆寫或清除的特殊磁碟區、以有效管理不可重複寫入的資料。
+** * NetApp SnapVault 功能*可將多個儲存系統的資料備份至中央Snapshot複本、作為所有指定系統的備份。
+** * NetApp SyncMirror Real-.*可將資料即時、RAID層級的鏡射、鏡射到實體連接至相同控制器的兩個不同磁碟叢。
+** * NetApp SnapRestore 功能*可根據需求、從Snapshot複本快速還原備份資料。
+** * NetApp FlexClone。*可根據Snapshot複本、即時提供NetApp磁碟區完整讀取且可寫入的複本。如需ONTAP 更多關於效能的資訊、請參閱 https://docs.netapp.com/ontap-9/index.jsp["供應說明文件中心 ONTAP"^]。
+
+
+
+
+NetApp ONTAP 產品可在內部部署、虛擬化或雲端上使用。
+
+image:bmanthos_image1.png["錯誤：缺少圖形影像"]
+
+
+
+== NetApp Trident
+
+NetApp Trident是開放原始碼且完全支援的儲存協調工具、適用於Container和Kubernetes配送、包括Google Cloud Anthos。它可搭配完整的NetApp儲存產品組合、包括NetApp ONTAP 的整套軟體。Trident完全符合CSI標準、可讓您從NetApp儲存系統進行資源配置與管理、而無需儲存管理員介入、進而加速DevOps工作流程。Trident是以營運者的形式部署、透過在NetApp儲存系統上建立及管理磁碟區、直接與Kubernetes API端點通訊、以持續磁碟區宣告（PVCS）的形式來處理容器的儲存要求。
+
+持續磁碟區（PV）是根據Kubernetes環境中定義的儲存類別來配置。他們使用儲存管理員所建立的儲存後端（可根據專案需求自訂）和儲存系統模型、以允許任何數量的進階儲存功能、例如壓縮、特定磁碟類型或QoS層級來保證效能。
+
+如需NetApp Trident的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/en/stable-v20.10/["Trident"^] 頁面。
+
+Trident協調NetApp產品組合中每個系統和服務的儲存設備。
+
+image:bmanthos_image2.png["錯誤：缺少圖形影像"]
+
+
+
+== Google Cloud的特質
+
+Google Cloud的Anthos是雲端型Kubernetes資料中心解決方案、可讓組織建構及管理現代化的混合雲基礎架構、同時採用著重於應用程式開發的敏捷工作流程。Anthos on Bare meter可延伸Anthos在實體伺服器上直接執行內部部署的能力、而無需Hypervisor層、並可與Google Cloud中的Anthos GKE叢集互通。
+
+採用容器、服務網格及其他轉型技術、可讓組織在本機和雲端型環境中、體驗一致的應用程式開發週期和正式作業就緒工作負載。
+
+Anthos提供下列功能：
+
+* * Anthos組態管理。*自動化混合式Kubernetes部署的原則與安全性。
+* * Anthos Service Mesh。*利用Istio驅動的服務網格、強化應用程式的觀察能力、安全性及控制能力。
+* * Google Cloud Marketplace for Kubernetes應用程式。*這是精選的容器應用程式目錄、可供輕鬆部署。
+* *移轉至Anthos *自動將實體服務和VM從內部部署移轉至雲端。圖3說明了Anthos解決方案、以及內部部署資料中心的部署如何與雲端的基礎架構互連。
+
+
+如需有關Anthos的詳細資訊、請參閱 https://cloud.google.com/anthos/["Anthos網站"^]。
+
+下圖顯示Google Cloud的Anthos架構。
+
+image:bmanthos_image3.png["錯誤：缺少圖形影像"]
+
+
+
+=== 裸機上的Anthos
+
+裸機上的Anthos是GKE的延伸、部署於客戶的私有資料中心。組織可以在內部部署的Anthos叢集上、部署專為在Google Cloud的容器中執行而設計的相同應用程式。Anthos在裸機上直接在實體伺服器上執行、使用者可選擇基礎Linux作業系統、並為客戶提供完整的混合雲環境、讓客戶能夠在資料中心的核心或邊緣執行。
+
+裸機上的Anthos具有下列優點：
+
+* *不受硬體限制。*客戶可在現有資料中心的最佳化硬體平台上執行Anthos。
+* *成本節約效益*您可以將自己的實體資源用於應用程式部署、而非在Google Cloud環境中配置資源、藉此大幅節省成本。
+* *開發然後發佈。*您可以在開發應用程式時使用內部部署、以便在您將應用程式公開在雲端上使用之前、先在本機資料中心的隱私環境中測試應用程式。
+* *效能更佳。*需要低延遲和最高效能的密集應用程式、可以在硬體附近執行。
+* *安全性需求。*安全性考量日益增加的客戶、或是無法儲存在公有雲中的敏感資料集、都能從自己資料中心的安全性執行應用程式、進而滿足組織需求。
+* *管理與營運。* Anthos on裸機隨附多種設施、可提升營運效率、例如內建網路、生命週期管理、診斷、健全狀況檢查、記錄、 和監控。
+
+
+link:bmanthos_solution_requirements.html["下一步：解決方案需求。"]

@@ -1,0 +1,30 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_basic_resource_allocation_fairness.html 
+keywords:  
+summary:  
+---
+= 基本資源配置公平性
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+在本節中、我們顯示、當「team d」要求更多GPU（以配額為限）時、系統會暫停「team b」和「team c」的工作負載、並以公平的共享方式將其移至待處理狀態。
+
+如需工作提交、使用的容器映像及執行命令順序等詳細資料、請參閱一節 link:osrunai_testing_details_for_section_4.9.html["第4.9節的測試詳細資料"]。
+
+下圖顯示所產生的叢集使用率、每個群組分配的GPU、以及由於自動負載平衡和優先排程而產生的擱置工作。我們可以觀察到、當所有團隊工作負載所要求的GPU總數超過叢集中可用的GPU總數時、Run:AI的內部公平演算法會因為達到專案配額、而在「team b」和「team -c」中各暫停一項工作。這可提供整體高叢集使用率、而資料科學團隊仍在系統管理員設定的資源限制下工作。
+
+image:osrunai_image9.png["錯誤：缺少圖形影像"]
+
+此測試案例的結果顯示下列項目：
+
+* *自動負載平衡。*系統會自動平衡GPU的配額、使每個團隊現在都使用配額。暫停的工作負載屬於超出配額的團隊。
+* *公平共用暫停。*系統會選擇停止某個團隊的工作負載、使其超出配額、然後停止另一個團隊的工作負載。RUN：AI具有內部公平演算法。
+
+
+link:osrunai_over-quota_fairness.html["下一步：過度配額的公平性"]

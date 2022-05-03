@@ -1,0 +1,27 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_advanced_cluster_management_overview.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, ONTAP, Trident, Red Hat OpenShift, Advanced Cluster Management, Advanced Cluster Management for Kubernetes 
+summary: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理 
+---
+= 適用於Kubernetes的進階叢集管理：採用NetApp的Red Hat OpenShift
+:allow-uri-read: 
+
+
+隨著容器化應用程式從開發移轉至正式作業、許多組織需要多個Red Hat OpenShift叢集來支援該應用程式的測試與部署。因此、組織通常會在OpenShift叢集上裝載多個應用程式或工作負載。因此、每個組織最終都必須管理一組叢集、因此OpenShift系統管理員必須面對新增的挑戰、即在橫跨多個內部部署資料中心和公有雲的各種環境中、管理及維護多個叢集。為了因應這些挑戰、Red Hat推出適用於Kubernetes的進階叢集管理。
+
+適用於Kubernetes的Red Hat Advanced Cluster Management可讓您執行下列工作：
+
+. 跨資料中心和公有雲建立、匯入及管理多個叢集
+. 從單一主控台部署及管理多個叢集上的應用程式或工作負載
+. 監控及分析不同叢集資源的健全狀況與狀態
+. 監控並強制執行多個叢集的安全法規遵循
+
+
+Red Hat Advanced Cluster Management for Kubernetes是以附加元件安裝至Red Hat OpenShift叢集的方式、它會將此叢集當作中央控制器來執行所有作業。此叢集稱為集線器叢集、會公開使用者連線至「進階叢集管理」的管理層面。透過進階叢集管理主控台匯入或建立的所有其他OpenShift叢集、均由中樞叢集管理、稱為託管叢集。它會在託管叢集上安裝名為Klusterlet的代理程式、將其連線至集線器叢集、並針對與叢集生命週期管理、應用程式生命週期管理、觀察性及安全性法規遵循相關的各種活動、提供服務要求。
+
+image::redhat_openshift_image65.jpg[ACM架構]
+
+如需詳細資訊、請參閱文件 https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.2/["請按這裡"]。
+
+link:rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html["下一步：部署先決條件。"]

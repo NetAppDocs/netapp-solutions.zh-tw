@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: ai/osrunai_saving_data_to_a_trident-provisioned_persistentvolume.html 
+keywords:  
+summary:  
+---
+= 將資料儲存至Trident佈建的PersistentVolume
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp Trident是完全受支援的開放原始碼專案、旨在協助您滿足容器化應用程式的複雜持續需求。您可以將資料讀寫至Trident佈建的Kubernetes PeristentVolume（PV）、並享有NetApp ONTAP 供應的資料分層、加密、NetApp Snapshot技術、法規遵循及高效能等額外優點。
+
+
+
+== 重新使用現有命名空間中的PVCS
+
+對於較大型的AI專案、不同的容器可能會更有效率地讀取資料並將資料寫入相同的Kubernetes PV。若要重複使用Kubernetes持續Volume宣告（PVc）、使用者必須已建立一個PVc。請參閱 https://netapp-trident.readthedocs.io/["NetApp Trident文件"^] 以取得建立永久虛擬基礎資料的詳細資料。以下是重複使用現有的永久虛擬資料的範例：
+
+....
+$ runai submit pvc-test -p team-a --pvc test:/tmp/pvc1mount -i gcr.io/run-ai-demo/quickstart -g 1
+....
+執行下列命令、查看專案「團隊A」的「PVC-TEST」工作狀態：
+
+....
+$ runai get pvc-test -p team-a
+....
+您應該會看到PV /tmp/pvc1mount掛載到「team A」工作「PVC-test」。如此一來、多個容器就能從同一個磁碟區讀取、當開發或正式作業中有多個相競的模型時、此功能非常實用。資料科學家可以建立一組模型、然後以多數投票或其他技術來結合預測結果。
+
+使用下列項目存取Container Shell：
+
+....
+$ runai bash pvc-test -p team-a
+....
+然後、您可以檢查掛載的Volume、並存取容器內的資料。
+
+這項可重複使用PVCS的功能可搭配NetApp FlexVol 的功能、以及NetApp ONTAP FlexGroup 的NetApp功能、讓資料工程師擁有更靈活、更健全的資料管理選項、以充分運用NetApp技術所提供的資料架構。
+
+link:osrunai_conclusion.html["下一步：結論"]

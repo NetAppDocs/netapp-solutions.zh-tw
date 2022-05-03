@@ -1,0 +1,87 @@
+---
+sidebar: sidebar 
+permalink: containers/bmanthos_solution_requirements.html 
+keywords: Hardware, software, compute, storage, requirements 
+summary: Anthos在裸機上的硬體無關功能、可讓您選擇專為使用案例最佳化的運算平台。因此、您的可以符合現有的基礎架構、並降低資本支出。 
+---
+= 解決方案需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 硬體需求
+
+
+
+=== 運算：自帶伺服器
+
+Anthos在裸機上的硬體無關功能、可讓您選擇專為使用案例最佳化的運算平台。因此、您的可以符合現有的基礎架構、並降低資本支出。
+
+下表列出實作此解決方案所需的運算硬體元件數量下限、不過所使用的硬體機型可能會因客戶需求而異。
+
+|===
+| 使用量 | 硬體與機型 | 數量 
+
+
+| 管理節點 | Cisco UCS B200 | 3. 
+
+
+| 工作節點 | HP ProLiant 360 | 4. 
+|===
+
+
+=== 儲存設備：ONTAP NetApp
+
+下表列出實作解決方案所需的最低儲存硬體元件數量、不過所使用的硬體機型可能會因客戶需求而異。
+
+|===
+| 硬體 | 模型 | 數量 
+
+
+| NetApp AFF | NetApp AFF 解決方案 | 2（1個HA配對） 
+|===
+
+
+== 軟體需求
+
+下表所列的軟體版本是由NetApp與我們的合作夥伴使用、以與NetApp一起驗證解決方案、不過所使用的軟體元件可能會因客戶需求而異。
+
+|===
+| 軟體 | 目的 | 版本 
+
+
+| Ubuntu | 3名系統管理員的作業系統 | 20.04 
+
+
+|  | 作業系統on Worker4. | 20.04 
+
+
+|  | 作業系統on Worker3 | 18.04 
+
+
+| CentOS | 作業系統on Worker2 | 8.2 
+
+
+| Red Hat Enterprise Linux | 作業系統on Worker1 | 8.1 
+
+
+| 裸機上的Anthos | Container協調 | 1.6.0 
+
+
+| NetApp ONTAP | 儲存作業系統 | 9.7P8. 
+
+
+| NetApp Trident | Container Storage Management | 20.10 
+|===
+
+NOTE: 此多作業系統環境顯示與裸機解決方案上的Anthos支援OS版本之間的互通性。我們預期客戶會將部署的一或一部分作業系統標準化。
+
+如需裸機硬體和軟體需求的Anthos、請參閱 https://cloud.google.com/anthos/gke/docs/bare-metal/concepts/hw-sw-storage["Anthos的裸機文件"^] 頁面。
+
+link:bmanthos_deployment_summary.html["下一步：部署摘要。"]

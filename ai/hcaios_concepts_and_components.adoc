@@ -1,0 +1,99 @@
+---
+sidebar: sidebar 
+permalink: ai/hcaios_concepts_and_components.html 
+keywords: Concepts, Components, Machine Learning, Kubernetes 
+summary:  
+---
+= 概念與元件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節涵蓋與ML工作流程中的資料快取相關的概念與元件。
+
+
+
+== 機器學習
+
+對於全球許多企業和組織而言、ML正迅速成為不可或缺的一環。因此、IT與DevOps團隊現在面臨著將ML工作負載標準化、以及配置雲端、內部部署與混合式運算資源的挑戰、這些資源可支援ML工作與管線所需的動態密集工作流程。
+
+
+
+== 以Container為基礎的機器學習與Kubernetes
+
+容器是獨立的使用者空間執行個體、可在共享主機作業系統核心上執行。容器的採用率迅速增加。Container提供許多與虛擬機器（VM）相同的應用程式沙箱效益。不過、由於虛擬機器所仰賴的Hypervisor和客體作業系統層已經被淘汰、因此容器的重量遠較輕。
+
+容器也能直接透過應用程式、有效地封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、這也是如此、因為所有相依性都會封裝在容器本身中。如需詳細資訊、請參閱 https://www.docker.com/["Docker網站"^]。
+
+廣受歡迎的Container Orchestrator Kubernetes可讓資料科學家啟動靈活、以容器為基礎的工作和管線。此外、基礎架構團隊也能在單一託管與雲端原生環境中、管理及監控ML工作負載。如需詳細資訊、請參閱 https://kubernetes.io/["Kubernetes網站"^]。
+
+
+
+== cnvrg-io
+
+Cnvrg-IO是一套AI作業系統、可將企業管理、擴充及加速AI與資料科學的開發、從研究到正式作業的方式轉變成全新的方式。程式碼優先平台是由資料科學家為資料科學家所建置、可靈活地在內部部署或雲端上執行。利用模型管理、MLOps和持續的ML解決方案、cnvrg-IO將頂尖技術引進資料科學團隊、讓他們能將更少的時間花在DevOps上、專注於真正的魔力演算法。自從使用cnvrg-IO之後、各產業的團隊已獲得更多的生產模式、進而提高商業價值。
+
+
+
+=== Cnvrg-IO中繼排程器
+
+Cnvrg：IO具有獨特的架構、可讓IT和工程師將不同的運算資源附加至同一個控制面板、並讓cnvrg-IO管理所有資源中的ML工作。這表示它可以附加多個內部部署的Kubernetes叢集、VM伺服器和雲端帳戶、並在所有資源上執行ML工作負載、如下圖所示。
+
+image:hcaios_image5.png["錯誤：缺少圖形影像"]
+
+
+
+=== Cnvrg-IO資料快取
+
+Cnvrg-IO可讓資料科學家利用其資料快取技術來定義冷熱資料集版本。根據預設、資料集會儲存在集中式物件儲存資料庫中。然後、資料科學家可以快取所選運算資源上的特定資料版本、以節省下載時間、進而提高ML開發與生產力。快取且未使用數天的資料集會自動從選取的NFS清除。快取和清除快取只要按一下滑鼠、不需要編碼、IT或DevOps工作。
+
+
+
+=== Cnvrg-IO流程和ML管路
+
+Cnvrg-IO流程是建置正式作業ML管線的工具。流程中的每個元件都是在使用基礎泊塢視窗映像的選定運算上執行的指令碼/程式碼。這項設計可讓資料科學家和工程師建立單一管線、同時在內部部署和雲端上執行。Cnvrg-IO可確保資料、參數和成品在不同的元件之間移動。此外、系統會監控並追蹤每個流程、以確保100%可重現的資料科學。
+
+
+
+=== Cnvrg-IO核心
+
+Cnvrg-IO核心是資料科學社群的免費平台、可協助資料科學家更專注於資料科學、而非DevOps。核心的靈活基礎架構可讓資料科學家控制使用任何語言、AI架構或運算環境、無論是內部部署或雲端環境、讓他們能夠發揮最佳功能、建置演算法。在任何Kubernetes叢集上、只要使用一個命令、就能輕鬆安裝Cnvrg-IO核心。
+
+
+
+== NetApp ONTAP AI
+
+支援ML和深度學習（DL）工作負載的資料中心參考架構、使用NetApp支援儲存系統、以及搭配Tesla V100 GPU的NVIDIA DGX系統。ONTAP AFFAI採用業界標準的NFS檔案傳輸協定、透過100Gb乙太網路、為客戶提供高效能的ML/DL基礎架構、使用標準資料中心技術來降低實作與管理成本。ONTAP使用標準化的網路和傳輸協定、ONTAP 讓AI能夠整合到混合雲環境、同時維持作業一致性和簡易性。作為預先驗證的基礎架構解決方案、ONTAP Realize AI可縮短部署時間與風險、大幅降低管理成本、讓客戶更快實現價值。
+
+
+
+== NVIDIA DeepOps
+
+DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://github.com/NVIDIA/deepops["DeepOps網站"^]。
+
+
+
+== NetApp Trident
+
+Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身就是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://netapp-trident.readthedocs.io/en/stable-v18.07/kubernetes/["Trident網站"^]。
+
+
+
+== NetApp StorageGRID
+
+NetApp StorageGRID 功能區是軟體定義的物件儲存平台、可提供簡單、類似雲端的儲存設備、讓使用者使用S3傳輸協定來存取、以滿足這些需求。支援跨網際網路連線站台多個節點的橫向擴充系統、不受距離限制。StorageGRID有了NetApp的智慧型原則引擎StorageGRID 、使用者可以選擇跨站台的銷毀編碼物件、在遠端站台之間進行地理恢復或物件複寫、以將WAN存取延遲降至最低。本解決方案提供優異的私有雲主要物件儲存資料湖。StorageGRID
+
+
+
+== NetApp Cloud Volumes ONTAP
+
+NetApp Cloud Volumes ONTAP 的資料管理軟體具備AWS、Google Cloud Platform和Microsoft Azure等公有雲供應商的靈活彈性、可為使用者資料提供控制、保護和效率。NetApp是以NetApp解決方案儲存軟體為基礎打造的雲端原生資料管理軟體、可為使用者提供卓越的通用儲存平台、滿足雲端資料需求。Cloud Volumes ONTAP ONTAP在雲端和內部部署使用相同的儲存軟體、讓使用者能夠享有Data Fabric的價值、而無需訓練IT人員採用全新的方法來管理資料。
+
+對於對混合雲部署模式感興趣的客戶、Cloud Volumes ONTAP 在大多數公有雲中、可提供相同的功能和領先同級的效能、在任何環境中都能提供一致且無縫的使用者體驗。
+
+link:hcaios_hardware_and_software_requirements.html["下一步：硬體與軟體需求"]

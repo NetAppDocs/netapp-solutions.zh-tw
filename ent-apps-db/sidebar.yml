@@ -1,0 +1,82 @@
+---
+section: ent-apps-db
+title: 企業應用程式與資料庫
+entries:
+- title: SAP與SAP HANA
+  url: https://docs.netapp.com/us-en/netapp-solutions-sap/
+- title: Oracle資料庫
+  entries:
+  - title: Oracle 19c RAC資料庫位於FlexPod 包含Cisco UCS和NetApp AFF 透過FC的NetApp UCA800的不支援資料中心
+    url: https://www.netapp.com/pdf.html?item=/media/25782-nva-1155.pdf
+  - title: SAP搭配Oracle on UNIX和NFS搭配NetApp叢集Data ONTAP 式功能
+    url: https://www.netapp.com/us/media/tr-4250.pdf
+  - title: 部署Oracle資料庫
+    entries:
+    - title: 在NetApp ONTAP 上部署Oracle資料庫
+      url: https://www.netapp.com/pdf.html?item=/media/8744-tr3633.pdf
+    - title: 在ONTAP NFS上自動部署Oracle 19c for Sfor
+      url: "/ent-apps-db/marketing_overview.html"
+      entries:
+      - title: 入門與需求
+        url: "/ent-apps-db/getting_started_requirements.html"
+      - title: 自動化Oracle 19c AWX/Tower部署
+        url: "/ent-apps-db/awx_automation.html"
+      - title: 自動化Oracle 19c CLI部署
+        url: "/ent-apps-db/cli_automation.html"
+  - title: Oracle資料庫資料保護
+    entries:
+    - title: 自動化Oracle資料保護
+      url: "/ent-apps-db/db_protection_overview.html"
+      entries:
+      - title: 入門與需求
+        url: "/ent-apps-db/db_protection_getting_started.html"
+      - title: 自動Oracle Data Protection for AWX/Tower
+        url: "/ent-apps-db/db_protection_awx_automation.html"
+  - title: NetApp EF系列上的Oracle資料庫
+    url: https://www.netapp.com/pdf.html?item=/media/17248-tr4794pdf.pdf
+- title: Microsoft SQL Server
+  entries:
+  - title: SQL Server on Azure NetApp Files
+    url: "/ent-apps-db/sql-srv-anf_overview.html"
+    entries:
+    - title: 需要考量的因素
+      url: "/ent-apps-db/sql-srv-anf_factors_to_consider.html"
+    - title: 參考設計（即時高階設計）
+      url: "/ent-apps-db/sql-srv-anf_reference_design_real-time_high-level_design.html"
+    - title: 結論
+      url: "/ent-apps-db/sql-srv-anf_conclusion.html"
+    - title: 何處可找到其他資訊
+      url: "/ent-apps-db/sql-srv-anf_where_to_find_additional_information.html"
+  - title: SAP搭配Microsoft SQL Server、在Windows上使用叢集Data ONTAP 式功能
+    url: https://www.netapp.com/us/media/tr-4467.pdf
+  - title: 現代化Microsoft SQL Server
+    url: https://www.netapp.com/pdf.html?item=/media/15613-na-446.pdf
+  - title: 採用NetApp EF系列的Microsoft SQL Server最佳實務做法指南
+    url: https://www.netapp.com/pdf.html?item=/media/17086-tr4764pdf.pdf
+- title: 混合雲資料庫解決方案SnapCenter 搭配
+  type: solutions
+  entries:
+  - title: 簡介
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_usecases.html"
+  - title: 解決方案架構
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_architecture.html"
+  - title: 解決方案需求
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_requirements.html"
+  - title: 先決條件組態
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_prerequisite.html"
+    entries:
+    - title: 內部部署的先決條件
+      url: "/ent-apps-db/hybrid_dbops_snapcenter_prereq_onprem.html"
+    - title: 公有雲的先決條件
+      url: "/ent-apps-db/hybrid_dbops_snapcenter_prereq_cloud.html"
+  - title: 快速入門總覽
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_getting_started.html"
+    entries:
+    - title: 內部部署快速入門
+      url: "/ent-apps-db/hybrid_dbops_snapcenter_getting_started_onprem.html"
+    - title: AWS公有雲入門
+      url: "/ent-apps-db/hybrid_dbops_snapcenter_getting_started_aws.html"
+  - title: 開發/測試爆增至雲端的工作流程
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_devtest.html"
+  - title: 災難恢復工作流程
+    url: "/ent-apps-db/hybrid_dbops_snapcenter_dr.html"

@@ -1,0 +1,38 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_create_vm.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
+---
+= 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
+:allow-uri-read: 
+
+
+
+
+== 建立VM
+
+VM是有狀態的部署、需要磁碟區來裝載作業系統和資料。有了CNV、因為VM是以Pod形式執行、所以VM有NetApp ONTAP 透過Trident代管的PV作為後盾。這些磁碟區會附加為磁碟、並儲存整個檔案系統、包括VM的開機來源。
+
+image::redhat_openshift_image52.jpg[建立VM架構]
+
+若要在OpenShift叢集上建立虛擬機器、請完成下列步驟：
+
+. 瀏覽至工作負載>虛擬化>虛擬機器、然後按一下建立>使用精靈。
+. 選取所需的作業系統、然後按「Next（下一步）」。
+. 如果選取的作業系統未設定開機來源、則必須加以設定。針對開機來源、選取是要從URL或登錄匯入OS映像、然後提供對應的詳細資料。展開「進階」、然後選取「Trident備份的StorageClass」。然後按「Next（下一步）」
++
+image::redhat_openshift_image53.JPG[建立VM的開機來源]
+
+. 如果選取的作業系統已設定開機來源、則可以跳過上一個步驟。
+. 在「Review and Create（檢閱與建立）」窗格中、選取您要在其中建立VM的專案、並提供VM詳細資料。請確定已選取要複製的開機來源、並使用指派給所選作業系統的適當永久磁碟從CD-ROM開機。
++
+image::redhat_openshift_image54.JPG[建立VM]
+
+. 如果您要自訂虛擬機器、請按一下「自訂虛擬機器」、然後修改所需的參數。
+. 按一下「Create Virtual Machine」（建立虛擬機器）以建立虛擬機器；這會使背景中的對應Pod旋轉。
+
+
+當從URL或登錄設定範本或作業系統的開機來源時、會在「openshift-virtualization作業系統映像」專案中建立一個PVc、並將KVM來賓映像下載至PVc。您必須確定範本PVCS有足夠的資源配置空間、以容納對應作業系統的KVM來賓映像。這些PVCS隨後會以rootdisks的形式複製並附加至虛擬機器、並在任何專案中使用各自的範本建立。
+
+link:rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html["下一步：工作流程：VM即時移轉。"]

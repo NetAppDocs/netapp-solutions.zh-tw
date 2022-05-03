@@ -1,0 +1,116 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-file-analytics.html 
+keywords: file analytics, rest api, gui, nas, nfs, smb systemtl, postgres, dashboard, stats, xcp scan, match, filter 
+summary: NetApp XCP檔案分析GUI可在後端使用XCP執行檔案系統掃描、並可視覺化統計資料、例如任何NAS（NFS、SMB）檔案系統的圖表和檢視。 
+---
+= 檔案分析
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-migration-workflow-overview.html["上一個：移轉工作流程。"]
+
+NetApp XCP檔案分析GUI可在後端使用XCP執行檔案系統掃描、並可視覺化統計資料、例如任何NAS（NFS、SMB）檔案系統的圖表和檢視。從1.6版開始、您可以使用Configure和systemctl選項、在簡單的部署步驟協助下、以服務形式執行XCP。XCP Configure選項可引導您安裝及設定Postgres和Web伺服器、以及收集認證資料。systemctl選項會執行XCP作為從GUI進行REST API通訊的服務。
+
+下圖說明XCP檔案分析流程。
+
+image:xcp-bp_image6.png["錯誤：缺少圖形影像"]
+
+
+NOTE: 如需XCP檔案分析的高層架構、統計資料檢視等GUI型儀表板檢視、以及檔案發佈檢視詳細資料的詳細資訊、請參閱部落格文章 https://blog.netapp.com/xcp-data-migration-software["NetApp XCP 1.6提供開放式檔案分析與基礎架構改善"^]。
+
+XCP 1.6中的自訂圖形使用的GUI有限。若要建立所需的圖表、您可以使用CLI執行含有相符篩選器的「XCP」掃描命令。請參閱下列範例。
+
+. 使用「XCP掃描」和「比對」篩選器來產生一年後修改的檔案清單、並使用所耗用的空間。
++
+....
+[root@ch-vm-cent7-2 linux]# ./xcp scan -match "modified > 1*year" -l -q 192.168.89.110:/ifs/data_for_analysis  > modified_morethan_year
+XCP 1.6P1; (c) 2020 NetApp, Inc.; Licensed to Karthikeyan Nagalingam [NetApp Inc] until Wed Sep  9 13:19:35 2020
+ 
+xcp: WARNING: CPU count is only 1!
+ 
+Filtered: 1 did not match
+ 
+Xcp command : xcp scan -match modified > 1*year -l -q 192.168.89.110:/ifs/data_for_analysis
+5,055 scanned, 5,054 matched, 0 error
+Speed       : 1.10 MiB in (510 KiB/s), 110 KiB out (49.5 KiB/s)
+Total Time  : 2s.
+STATUS      : PASSED
+[root@ch-vm-cent7-2 linux]#
+[root@ch-vm-cent7-2 linux]# cat modified_morethan_year
+ rwxr-xr-x --- 7056 503        0     512  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/6/_SUCCESS
+ rwxr-xr-x --- 7056 503      270 8.50KiB  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/6/part-r-00000
+ rw-r--r-- --- 7056 503        0     512  7y58d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/6/SUCCESS.crc
+ rw-r--r-- --- 7056 503      270 8.50KiB  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/6/out_original
+ rw-r--r-- --- 7056 503      270 8.50KiB  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/6/out_sorted
+ rwxr-xr-x --- 7056 503        0     512  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/2/_SUCCESS
+ rwxr-xr-x --- 7056 503       90 8.50KiB  7y99d data_for_analysis/benchmarks/benchmarks/udf_TOBAGandTOTUPLE_7_benchmark.out/2/part-r-00000
+…
+< console output removed due o page space size >
+…
+....
+. 找出一年以上檔案所使用的空間。
++
+....
+[root@ch-vm-cent7-2 linux]# ./xcp -du -match "modified > 1*year"  192.168.89.110:/ifs/data_for_analysis/
+XCP 1.6.1; (c) 2020 NetApp, Inc.; Licensed to Karthikeyan Nagalingam [NetApp Inc] until Wed Sep  9 13:19:35 2020
+xcp: WARNING: CPU count is only 1!
+52.5KiB data_for_analysis/benchmarks/benchmarks/Macro_Scope_1_benchmark.out
+28.5KiB data_for_analysis/benchmarks/benchmarks/CollectedGroup_6_benchmark.out
+28.5KiB data_for_analysis/benchmarks/benchmarks/Foreach_11_benchmark.out
+ 153KiB data_for_analysis/benchmarks/benchmarks/SecondarySort_9_benchmark.out
+ 412KiB data_for_analysis/benchmarks/benchmarks/CoGroupFlatten_6_benchmark.out
+ 652KiB data_for_analysis/benchmarks/benchmarks/Iterator_1_benchmark.out
+ 652KiB data_for_analysis/benchmarks/benchmarks/LoaderDefaultDir_1_benchmark.out
+ 652KiB data_for_analysis/benchmarks/benchmarks/Order_4_benchmark.out
+28.5KiB data_for_analysis/benchmarks/benchmarks/MapPartialAgg_4_benchmark.out/2
+28.5KiB data_for_analysis/benchmarks/benchmarks/CastScalar_11_benchmark.out/2
+1.29MiB data_for_analysis/benchmarks/benchmarks/Order_18_benchmark.out
+ 652KiB data_for_analysis/benchmarks/benchmarks/FilterBoolean_5_benchmark.out
+20.5KiB data_for_analysis/benchmarks/benchmarks/Macro_DefinitionAndInline_5_benchmark.out/2
+ 628KiB data_for_analysis/benchmarks/benchmarks/Types_29_benchmark.out
+…
+< console output removed due o page space size >
+…
+3.18MiB data_for_analysis/benchmarks/benchmarks/hadoop10
+ 340KiB data_for_analysis/benchmarks/benchmarks/Split_5_benchmark.out
+5.90GiB data_for_analysis/benchmarks/benchmarks
+6.56GiB data_for_analysis/benchmarks
+6.56GiB data_for_analysis
+
+Filtered: 488 did not match
+
+Xcp command : xcp -du -match modified > 1*year 192.168.89.110:/ifs/data_for_analysis/
+Stats       : 5,055 scanned, 4,567 matched
+Speed       : 1.10 MiB in (1.36 MiB/s), 110 KiB out (135 KiB/s)
+Total Time  : 0s.
+STATUS      : PASSED
+[root@ch-vm-cent7-2 linux]#
+....
+. 尋找一年前修改過的資料總大小和圖形檢視。
++
+....
+[root@ch-vm-cent7-2 linux]# ./xcp -stats -match "modified > 1*year" -html  192.168.89.110:/ifs/data_for_analysis/ > modified_morethan_year_stats.html
+XCP 1.6.1; (c) 2020 NetApp, Inc.; Licensed to Karthikeyan Nagalingam [NetApp Inc] until Wed Sep  9 13:19:35 2020
+
+xcp: WARNING: CPU count is only 1!
+
+Xcp command : xcp -stats -match modified > 1*year -html 192.168.89.110:/ifs/data_for_analysis/
+Stats       : 5,055 scanned, 4,567 matched
+Speed       : 1.10 MiB in (919 KiB/s), 110 KiB out (89.1 KiB/s)
+Total Time  : 1s.
+STATUS      : PASSED
+[root@ch-vm-cent7-2 linux]#
+....
+
+
+下列報告是一年前修改過的檔案的自訂掃描範例。
+
+image:xcp-bp_image7.png["錯誤：缺少圖形影像"]
+
+link:xcp-bp-deployment-steps.html["下一步：部署步驟。"]

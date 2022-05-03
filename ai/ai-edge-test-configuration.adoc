@@ -1,0 +1,76 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-edge-test-configuration.html 
+keywords: test, configuration, network infrastructure, storage provisioning, SE350 server 
+summary: 本節說明已測試的組態、網路基礎架構、SE350伺服器、以及儲存資源配置詳細資料。 
+---
+= 測試組態
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-edge-test-plan.html["上一步：測試計畫。"]
+
+下圖顯示測試組態。我們使用NetApp AFF 的C190儲存系統和兩部Lenovo ThinkSystem SE350伺服器（每部伺服器都有一個NVIDIA T4加速器）。這些元件是透過10GbE網路交換器來連接。網路儲存設備擁有驗證/測試資料集和預先訓練的模型。伺服器提供運算能力、而且儲存設備可透過NFS傳輸協定存取。
+
+本節說明已測試的組態、網路基礎架構、SE350伺服器、以及儲存資源配置詳細資料。下表列出解決方案架構的基礎元件。
+
+|===
+| 解決方案元件 | 詳細資料 
+
+
+| Lenovo ThinkSystem伺服器  a| 
+* 2部SE350伺服器各配備1個NVIDIA T4 GPU卡
+
+
+
+
+|   a| 
+* 每部伺服器都包含一個Intel Xeon D-2123IT CPU、其中四個實體核心執行速度為2.20GHz和128GB RAM
+
+
+
+
+| 入門級NetApp AFF 產品資料儲存系統（HA配對）  a| 
+* NetApp ONTAP ®9軟體
+* 24個960GB SSD
+* NFS傳輸協定
+* 每個控制器一個介面群組、其中四個邏輯IP位址用於掛載點
+
+
+|===
+image:ai-edge-image10.png["錯誤：缺少圖形影像"]
+
+下表列出儲存組態：AFF 搭載2RU、24個磁碟機插槽的__LW_C190。
+
+|===
+| 控制器 | Aggregate | 流通量FlexGroup | Aggregatesize | 體積化 | 作業系統掛載點 
+
+
+| 控制器1. | Aggr1. | /netapplenovo_AI_FG | 8.42TiB | 15TB | /NetApp_聯想_FG 
+
+
+| 控制器2. | Aggr2. |  | 8.42TiB |  |  
+|===
+/netapp聯想_AI _fg資料夾包含用於模型驗證的資料集。
+
+下圖顯示測試組態。我們使用NetApp EF280儲存系統和兩個Lenovo ThinkSystem SE350伺服器（每個伺服器都有一個NVIDIA T4加速器）。這些元件是透過10GbE網路交換器來連接。網路儲存設備擁有驗證/測試資料集和預先訓練的模型。伺服器提供運算能力、而且儲存設備可透過NFS傳輸協定存取。
+
+下表列出EF280的儲存組態。
+
+|===
+| 控制器 | Volume群組 | Volume | 體積化 | DDPsize | 連線方法 
+
+
+| 控制器1. | DDP1 | Volume 1 | 8.42TiB | 16TB | SE350-1至iSCSI LUN 0 
+
+
+| 控制器2. |  | Volume 2 | 8.42TiB |  | SE350-2至iSCSI LUN 1 
+|===
+image:ai-edge-image11.png["錯誤：缺少圖形影像"]
+
+link:ai-edge-test-procedure.html["下一步：測試程序。"]

@@ -1,0 +1,111 @@
+= 
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+. 設定認證資料。
+. 建立認證類型。若為涉及ONTAP 到解決方案的解決方案、您必須設定認證類型以符合使用者名稱和密碼項目、我們也會新增Cloud Central和AWS的項目。
++
+.. 瀏覽至「管理」→「認證類型」、然後按一下「新增」。
+.. 提供名稱和說明。
+.. 在輸入組態中貼上下列內容：
++
+[source, cli]
+----
+fields:
+  - id: dst_cluster_username
+    type: string
+    label: CVO Username
+  - id: dst_cluster_password
+    type: string
+    label: CVO Password
+    secret: true
+  - id: cvo_svm_password
+    type: string
+    label: CVO SVM Password
+    secret: true
+  - id: src_cluster_username
+    type: string
+    label: Source Cluster Username
+  - id: src_cluster_password
+    type: string
+    label: Source Cluster Password
+    secret: true
+  - id: regular_id
+    type: string
+    label: Cloud Central ID
+    secret: true
+  - id: email_id
+    type: string
+    label: Cloud Manager Email
+    secret: true
+  - id: cm_password
+    type: string
+    label: Cloud Manager Password
+    secret: true
+  - id: access_key
+    type: string
+    label: AWS Access Key
+    secret: true
+  - id: secret_key
+    type: string
+    label: AWS Secret Key
+    secret: true
+  - id: token
+    type: string
+    label: Cloud Central Refresh Token
+    secret: true
+----
+.. 將下列內容貼到Injector Configuration中、然後按一下「Save（儲存）」：
++
+[source, cli]
+----
+extra_vars:
+  dst_cluster_username: '{{ dst_cluster_username }}'
+  dst_cluster_password: '{{ dst_cluster_password }}'
+  cvo_svm_password: '{{ cvo_svm_password }}'
+  src_cluster_username: '{{ src_cluster_username }}'
+  src_cluster_password: '{{ src_cluster_password }}'
+  regular_id: '{{ regular_id }}'
+  email_id: '{{ email_id }}'
+  cm_password: '{{ cm_password }}'
+  access_key: '{{ access_key }}'
+  secret_key: '{{ secret_key }}'
+  token: '{{ token }}'
+----
+
+
+. 為ONTAP/CVO/AWS建立認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入ONTAP 名稱和組織詳細資料以取得「不完整資訊」認證
+.. 選取在上一步中建立的認證類型。
+.. 在類型詳細資料下、輸入來源和CVO叢集、Cloud Central/Manager、AWS存取/秘密金鑰和Cloud Central Refresh Token的使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 建立Oracle認證（來源）
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入Oracle主機的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在類型詳細資料下、輸入Oracle主機的使用者名稱和密碼。
+.. 選取正確的權限提高方法、然後輸入使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 為Oracle目的地建立認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入DR Oracle主機的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在「Type Details（類型詳細資料）」下、輸入使用者名稱（EC2使用者、或是您已將其從預設輸入）和SSH私密金鑰
+.. 選取正確的權限提高方法（Sudo）、並視需要輸入使用者名稱和密碼。
+.. 按一下儲存
+
+
+

@@ -1,0 +1,67 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_hardware_and_software_requirements.html 
+keywords: Hardware, Software, Requirements, Trident, DeepOps, ONTAP, Ubuntu 
+summary: NetApp AI Control Plane解決方案不依賴於此特定硬體。 
+---
+= 硬體與軟體需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+NetApp AI Control Plane解決方案不依賴於此特定硬體。此解決方案可與Trident支援的任何NetApp實體儲存設備、軟體定義執行個體或雲端服務相容。範例包括NetApp AFF 的不完整儲存系統Azure NetApp Files 、功能完善、NetApp Cloud Volumes Service 功能完善、NetApp ONTAP Select 功能完善、由軟體定義的儲存執行個體、或是NetApp Cloud Volumes ONTAP 的不完整執行個體。此外、只要Kubernetes和NetApp Trident支援所使用的Kubernetes版本、即可在任何Kubernetes叢集上實作解決方案。如需Kubernetes支援版本的清單、請參閱 https://www.kubeflow.org/docs/started/getting-started/["官方Kubeflow文件"^]。如需Trident支援的Kubernetes版本清單、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。如需驗證解決方案所用環境的詳細資訊、請參閱下表。
+
+|===
+| 基礎架構元件 | 數量 | 詳細資料 | 作業系統 
+
+
+| 部署跳接主機 | 1. | VM | Ubuntu 20.04.2 LTS 
+
+
+| Kubernetes主節點 | 1. | VM | Ubuntu 20.04.2 LTS 
+
+
+| Kubernetes工作節點 | 2. | VM | Ubuntu 20.04.2 LTS 
+
+
+| Kubernetes GPU工作節點 | 2. | NVIDIA DGX-1（裸機） | NVIDIA DGX OS 4.0.5（以Ubuntu 18.04.2 LTS為基礎） 
+
+
+| 儲存設備 | 1個HA配對 | NetApp AFF 解決方案-A220 | NetApp ONTAP 產品9.7 P6 
+|===
+|===
+| 軟體元件 | 版本 
+
+
+| Apache Airflow | 2.0.1 
+
+
+| Apache Airflow Helm圖表 | 8.0.8 
+
+
+| Docker | 19.03.12 
+
+
+| Kubeflow | 1.2 
+
+
+| Kubernetes | 1.18.9. 
+
+
+| NetApp Trident | 21.01.2 
+
+
+| NVIDIA DeepOps | 主分支機構在提交時的Trident部署功能 link:https://github.com/NVIDIA/deepops/tree/61898cdfdaa0c59c07e9fabf3022945a905b148e/docs/k8s-cluster["61898cdfda"]；所有其他功能（版本21.03） 
+|===
+
+
+=== 支援
+
+NetApp不提供Apache Airflow、Docker、Kubeflow、Kubernetes或NVIDIA DeepOps的企業支援。如果您對具備類似NetApp AI Control Plane解決方案功能的完整支援解決方案感興趣、 link:https://www.netapp.com/us/contact-us/index.aspx?for_cr=us["請聯絡NetApp"] 關於NetApp與合作夥伴共同提供的完全支援的AI/ML解決方案。
+
+link:aicp_kubernetes_deployment.html["下一步：Kubernetes部署。"]

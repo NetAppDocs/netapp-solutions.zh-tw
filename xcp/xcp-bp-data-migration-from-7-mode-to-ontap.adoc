@@ -1,0 +1,1390 @@
+---
+sidebar: sidebar 
+permalink: xcp/xcp-bp-data-migration-from-7-mode-to-ontap.html 
+keywords: 7-mode, ontap, migration 
+summary: 本節提供將Data ONTAP 資料從以7-Mode運作的NetApp功能移轉至ONTAP VMware的詳細步驟。 
+---
+= 資料從7-Mode移轉至ONTAP VMware
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:xcp-bp-creating-a-csv-file-from-smb-cifs-share.html["先前：從SMB/CIFS共用區建立CSV檔案。"]
+
+本節提供將Data ONTAP 資料從以7-Mode運作的NetApp功能移轉至ONTAP VMware的詳細步驟。
+
+
+
+== 將7-Mode NFSv3儲存設備轉換為ONTAP 適用於NFS資料的功能
+
+本節提供下表中的逐步程序、可將來源7-Mode NFSv3匯出移轉至ONTAP VMware系統。
+
+NetApp假設來源7-Mode NFSv3 Volume已匯出並掛載到用戶端系統、而且XCP已安裝在Linux系統上。
+
+. 驗證目標ONTAP 系統是否健全。
++
+....
+CLUSTER::> cluster show
+Node                  Health  Eligibility
+--------------------- ------- ------------
+CLUSTER-01            true    true
+CLUSTER-02            true    true
+2 entries were displayed.
+CLUSTER::> node show
+Node      Health Eligibility Uptime        Model       Owner    Location
+--------- ------ ----------- ------------- ----------- -------- ---------------
+CLUSTER-01
+          true   true        78 days 21:01 FAS8060              RTP
+CLUSTER-02
+          true   true        78 days 20:50 FAS8060              RTP
+2 entries were displayed.
+CLUSTER::> storage failover show
+                              Takeover
+Node           Partner        Possible State Description
+-------------- -------------- -------- -------------------------------------
+CLUSTER-01     CLUSTER-02     true     Connected to CLUSTER-02
+CLUSTER-02     CLUSTER-01     true     Connected to CLUSTER-01
+2 entries were displayed.
+....
+. 確認目標系統上至少存在一個非根Aggregate。Aggregate是正常的。
++
+....
+CLUSTER::> storage aggregate show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0      368.4GB   17.85GB   95% online       1 CLUSTER-01       raid_dp,
+                                                                   normal
+aggr0_CLUSTER_02_0
+           368.4GB   17.85GB   95% online       1 CLUSTER-02       raid_dp,
+                                                                   normal
+source      1.23TB    1.10TB   11% online       6 CLUSTER-01       raid_dp,
+                                                                   normal
+3 entries were displayed.
+....
++
+如果沒有資料Aggregate、請使用「shorage aggr create」命令建立新的集合體。
+
+. 在目標叢集系統上建立儲存虛擬機器（SVM）。
++
+....
+CLUSTER::> vserver create -vserver dest -rootvolume dest_root -aggregate poc -rootvolume-security-style mixed
+[Job 647] Job succeeded:
+Vserver creation completed
+Verify the security style and language settings of the source
+
+Verify that the SVM was successfully created.
+CLUSTER::> vserver show -vserver dest
+                                    Vserver: dest
+                               Vserver Type: data
+                            Vserver Subtype: default
+                               Vserver UUID: 91f6d786-0063-11e5-b114-00a09853a969
+                                Root Volume: dest_root
+                                  Aggregate: poc
+                                 NIS Domain: -
+                 Root Volume Security Style: mixed
+                                LDAP Client: -
+               Default Volume Language Code: C.UTF-8
+                            Snapshot Policy: default
+                                    Comment:
+                               Quota Policy: default
+                List of Aggregates Assigned: -
+ Limit on Maximum Number of Volumes allowed: unlimited
+                        Vserver Admin State: running
+                  Vserver Operational State: running
+   Vserver Operational State Stopped Reason: -
+                          Allowed Protocols: nfs, cifs, fcp, iscsi, ndmp
+                       Disallowed Protocols: -
+            Is Vserver with Infinite Volume: false
+                           QoS Policy Group: -
+                                Config Lock: false
+                               IPspace Name: Default
+....
+. 從目標SVM移除FCP、iSCSI、NDMP及CIDS傳輸協定。
++
+....
+CLUSTER::> vserver remove-protocols -vserver dest -protocols fcp,iscsi,ndmp,cifs
+....
++
+確認NFS是此SVM允許的傳輸協定。
+
++
+....
+CLUSTER::> vserver show -vserver dest -fields allowed-protocols
+vserver allowed-protocols
+------- -----------------
+dest    nfs
+....
+. 在目的地SVM上建立新的讀寫資料磁碟區。確認安全樣式、語言設定和容量需求符合來源Volume。
++
+....
+CLUSTER::> vol create -vserver dest -volume dest_nfs -aggregate poc -size 150g -type RW -state online -security-style mixed
+[Job 648] Job succeeded: Successful
+....
+. 建立資料LIF以處理NFS用戶端要求。
++
+....
+CLUSTER::> network interface create -vserver dest -lif dest_lif -address 10.61.73.115 -netmask 255.255.255.0 -role data -data-protocol nfs -home-node CLUSTER-01 -home-port e0l
+....
++
+確認LIF已成功建立。
+
++
+....
+CLUSTER::> network interface show -vserver dest
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+dest
+            dest_lif
+                         up/up    10.61.73.113/24    CLUSTER-01    e0i     true
+....
+. 視需要使用SVM建立靜態路由。
++
+....
+CLUSTER::> network route create -vserver dest -destination 0.0.0.0/0 -gateway 192.168.100.111
+....
++
+確認路由已成功建立。
+
++
+....
+CLUSTER::> network route show -vserver source
+Vserver             Destination     Gateway         Metric
+------------------- --------------- --------------- ------
+dest
+                    0.0.0.0/0       10.61.73.1      20
+....
+. 在SVM命名空間中掛載目標NFS資料磁碟區。
++
+....
+CLUSTER::> volume mount -vserver dest -volume dest_nfs -junction-path /dest_nfs -active true
+....
++
+確認磁碟區已成功掛載。
+
++
+....
+CLUSTER::> volume show -vserver dest -fields junction-path
+vserver volume   junction-path
+------- -------- -------------
+dest    dest_nfs /dest_nfs
+dest    dest_root
+                 /
+2 entries were displayed.
+....
++
+您也可以使用「volume create」命令來指定Volume掛載選項（交會路徑）。
+
+. 在目標SVM上啟動NFS服務。
++
+....
+CLUSTER::> vserver nfs start -vserver dest
+....
++
+確認服務已啟動並正在執行。
+
++
+....
+CLUSTER::> vserver nfs status
+The NFS server is running on Vserver "dest".
+CLUSTER::> nfs show
+Vserver: dest
+        General Access:  true
+                    v3:  enabled
+                  v4.0:  disabled
+                   4.1:  disabled
+                   UDP:  enabled
+                   TCP:  enabled
+  Default Windows User:  -
+ Default Windows Group:  -
+....
+. 確認預設的NFS匯出原則已套用至目標SVM。
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+....
+. 如有需要、請為目標SVM建立新的自訂匯出原則。
++
+....
+CLUSTER::> vserver export-policy create -vserver dest -policyname xcpexportpolicy
+....
++
+確認已成功建立新的自訂匯出原則。
+
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+dest             xcpexportpolicy
+2 entries were displayed.
+....
+. 修改匯出原則規則、以允許存取NFS用戶端。
++
+....
+CLUSTER::> export-policy rule modify -vserver dest -ruleindex 1 -policyname xcpexportpolicy -clientmatch 0.0.0.0/0 -rorule any -rwrule any -anon 0
+Verify the policy rules have modified
+CLUSTER::> export-policy rule show -instance
+                                    Vserver: dest
+                                Policy Name: xcpexportpolicy
+                                 Rule Index: 1
+                            Access Protocol: nfs3
+Client Match Hostname, IP Address, Netgroup, or Domain: 0.0.0.0/0
+                             RO Access Rule: none
+                             RW Access Rule: none
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: true
+                  Allow Creation of Devices: true
+....
+. 驗證是否允許用戶端存取磁碟區。
++
+....
+CLUSTER::> export-policy check-access -vserver dest -volume dest_nfs -client-ip 10.61.82.215 -authentication-method none -protocol nfs3 -access-type read-write
+                                         Policy    Policy       Rule
+Path                          Policy     Owner     Owner Type  Index Access
+----------------------------- ---------- --------- ---------- ------ ----------
+/                             xcpexportpolicy
+                                         dest_root volume          1 read
+/dest_nfs                     xcpexportpolicy
+                                         dest_nfs  volume          1 read-write
+2 entries were displayed.
+....
+. 連線至Linux NFS伺服器。為NFS匯出的Volume建立掛載點。
++
+....
+[root@localhost /]# cd /mnt
+[root@localhost mnt]# mkdir dest
+....
+. 在此掛載點掛載目標NFSv3匯出的Volume。
++
+
+NOTE: NFSv3磁碟區應匯出、但不一定要由NFS伺服器掛載。如果可以掛載、XCP Linux主機用戶端就會掛載這些磁碟區。
+
++
+....
+[root@localhost mnt]# mount -t nfs 10.61.73.115:/dest_nfs /mnt/dest
+....
++
+確認已成功建立掛載點。
+
++
+....
+[root@ localhost /]# mount | grep nfs
+10.61.73.115:/dest_nfs on /mnt/dest type nfs (rw,relatime,vers=3,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,retrans=2,sec=sys,mountaddr=10.61.82.215,mountvers=3,mountport=4046,mountproto=udp,local_lock=none,addr=10.61.73.115)
+....
+. 在NFS匯出的掛載點上建立測試檔案、以啟用讀寫存取。
++
+....
+[root@localhost dest]# touch test.txt
+Verify the file is created
+[root@localhost dest]# ls -l
+total 0
+-rw-r--r-- 1 root bin 0 Jun  2 03:16 test.txt
+....
++
+
+NOTE: 讀寫測試完成後、請從目標NFS掛載點刪除檔案。
+
+. 連線至安裝XCP的Linux用戶端系統。瀏覽至XCP安裝路徑。
++
+....
+[root@localhost ~]# cd /linux/
+[root@localhost linux]#
+....
+. 在XCP Linux用戶端主機系統上執行「XCP show」命令、查詢來源7-Mode NFSv3匯出。
++
+....
+[root@localhost]#./xcp show 10.61.82.215
+== NFS Exports ==
+Mounts  Errors  Server
+      4       0  10.61.82.215
+     Space    Files      Space    Files
+      Free     Free       Used     Used Export
+  23.7 GiB  778,134    356 KiB       96 10.61.82.215:/vol/nfsvol1
+  17.5 GiB  622,463   1.46 GiB      117 10.61.82.215:/vol/nfsvol
+   328 GiB    10.8M   2.86 GiB    7,904 10.61.82.215:/vol/vol0/home
+   328 GiB    10.8M   2.86 GiB    7,904 10.61.82.215:/vol/vol0
+== Attributes of NFS Exports ==
+drwxr-xr-x --- root wheel 4KiB 4KiB 2d21h 10.61.82.215:/vol/nfsvol1
+drwxr-xr-x --- root wheel 4KiB 4KiB 2d21h 10.61.82.215:/vol/nfsvol
+drwxrwxrwx --t root wheel 4KiB 4KiB 9d22h 10.61.82.215:/vol/vol0/home
+drwxr-xr-x --- root wheel 4KiB 4KiB  4d0h 10.61.82.215:/vol/vol0
+3.89 KiB in (5.70 KiB/s), 7.96 KiB out (11.7 KiB/s), 0s.
+....
+. 掃描來源NFSv3匯出路徑、並列印其檔案結構的統計資料。
++
+NetApp建議在XCP「shcan」、「copy」和「sh同步」作業期間、將來源NFSv3匯出設定為唯讀模式。
+
++
+....
+[root@localhost /]# ./xcp scan 10.61.82.215:/vol/nfsvol
+nfsvol
+nfsvol/n5000-uk9.5.2.1.N1.1.bin
+nfsvol/821_q_image.tgz
+nfsvol/822RC2_q_image.tgz
+nfsvol/NX5010_12_node_RCF_v1.3.txt
+nfsvol/n5000-uk9-kickstart.5.2.1.N1.1.bin
+nfsvol/NetApp_CN1610_1.1.0.5.stk
+nfsvol/glibc-common-2.7-2.x86_64.rpm
+nfsvol/glibc-2.7-2.x86_64.rpm
+nfsvol/rhel-server-5.6-x86_64-dvd.iso.filepart
+nfsvol/xcp
+nfsvol/xcp_source
+nfsvol/catalog
+23 scanned, 7.79 KiB in (5.52 KiB/s), 1.51 KiB out (1.07 KiB/s), 1s.
+....
+. 將來源7-Mode NFSv3匯出複製到目標ONTAP 系統上的NFSv3匯出。
++
+....
+[root@localhost /]# ./xcp copy 10.61.82.215:/vol/nfsvol 10.61.73.115:/dest_nfs
+ 44 scanned, 39 copied, 264 MiB in (51.9 MiB/s), 262 MiB out (51.5 MiB/s), 5s
+ 44 scanned, 39 copied, 481 MiB in (43.3 MiB/s), 479 MiB out (43.4 MiB/s), 10s
+ 44 scanned, 40 copied, 748 MiB in (51.2 MiB/s), 747 MiB out (51.3 MiB/s), 16s
+ 44 scanned, 40 copied, 1.00 GiB in (55.9 MiB/s), 1.00 GiB out (55.9 MiB/s), 21s
+ 44 scanned, 40 copied, 1.21 GiB in (42.8 MiB/s), 1.21 GiB out (42.8 MiB/s), 26s
+Sending statistics...
+44 scanned, 43 copied, 1.46 GiB in (47.6 MiB/s), 1.45 GiB out (47.6 MiB/s), 31s.
+....
+. 複本完成後、請確認來源與目的地NFSv3匯出的資料相同。執行「XCP VERIFY」命令。
++
+....
+[root@localhost /]# ./xcp verify 10.61.82.215:/vol/nfsvol 10.61.73.115:/dest_nfs
+44 scanned, 44 found, 28 compared, 27 same data, 2.41 GiB in (98.4 MiB/s), 6.25 MiB out (255 KiB/s), 26s
+44 scanned, 44 found, 30 compared, 29 same data, 2.88 GiB in (96.4 MiB/s), 7.46 MiB out (249 KiB/s), 31s
+44 scanned, 100% found (43 have data), 43 compared, 100% verified (data, attrs, mods), 2.90 GiB in (92.6 MiB/s), 7.53 MiB out (240 KiB/s), 32s.
+....
++
+如果「XCP VERIFY」發現來源與目的地資料之間有差異、則摘要中會報告錯誤「no then file or directory」（無此類檔案或目錄）。若要修正此問題、請執行「XCP sync」命令、將來源變更複製到目的地。
+
+. 在轉換之前和期間、再次執行「驗證」。如果來源有新的或更新的資料、請執行遞增更新。執行「XCP sync」命令。
++
+....
+For this operation, the previous copy index name or number is required.
+[root@localhost /]# ./xcp sync -id 3
+Index: {source: '10.61.82.215:/vol/nfsvol', target: '10.61.73.115:/dest_nfs1'}
+64 reviewed, 64 checked at source, 6 changes, 6 modifications, 51.7 KiB in (62.5 KiB/s), 22.7 KiB out (27.5 KiB/s), 0s.
+xcp: sync '3': Starting search pass for 1 modified directory...
+xcp: sync '3': Found 6 indexed files in the 1 changed directory
+xcp: sync '3': Rereading the 1 modified directory to find what's new...
+xcp: sync '3': Deep scanning the 1 directory that changed...
+11 scanned, 11 copied, 12.6KiB in (6.19KiBps), 9.50 KiB out (4.66KiBps), 2s.
+....
+. 若要恢復先前中斷的複製作業、請執行「XCP RESUME」命令。
++
+....
+[root@localhost /]# ./xcp resume -id 4
+Index: {source: '10.61.82.215:/vol/nfsvol', target: '10.61.73.115:/dest_nfs7'}
+xcp: resume '4': WARNING: Incomplete index.
+xcp: resume '4': Found 18 completed directories and 1 in progress
+106 reviewed, 24.2 KiB in (30.3 KiB/s), 7.23 KiB out (9.06 KiB/s), 0s.
+xcp: resume '4': Starting second pass for the in-progress directory...
+xcp: resume '4': Found 3 indexed directories and 0 indexed files in the 1 in-progress directory
+xcp: resume '4': In progress dirs: unindexed 1, indexed 0
+xcp: resume '4': Resuming the 1 in-progress directory...
+ 20 scanned, 7 copied, 205 MiB in (39.6 MiB/s), 205 MiB out (39.6 MiB/s), 5s
+ 20 scanned, 14 copied, 425 MiB in (42.1 MiB/s), 423 MiB out (41.8 MiB/s), 11s
+ 20 scanned, 14 copied, 540 MiB in (23.0 MiB/s), 538 MiB out (23.0 MiB/s), 16s
+ 20 scanned, 14 copied, 721 MiB in (35.6 MiB/s), 720 MiB out (35.6 MiB/s), 21s
+ 20 scanned, 15 copied, 835 MiB in (22.7 MiB/s), 833 MiB out (22.7 MiB/s), 26s
+ 20 scanned, 16 copied, 1007 MiB in (34.3 MiB/s), 1005 MiB out (34.3 MiB/s), 31s
+ 20 scanned, 17 copied, 1.15 GiB in (33.9 MiB/s), 1.15 GiB out (33.9 MiB/s), 36s
+ 20 scanned, 17 copied, 1.27 GiB in (25.5 MiB/s), 1.27 GiB out (25.5 MiB/s), 41s
+ 20 scanned, 17 copied, 1.45 GiB in (36.1 MiB/s), 1.45 GiB out (36.1 MiB/s), 46s
+ 20 scanned, 17 copied, 1.69 GiB in (48.7 MiB/s), 1.69 GiB out (48.7 MiB/s), 51s
+Sending statistics...
+20 scanned, 20 copied, 21 indexed, 1.77 GiB in (33.5 MiB/s), 1.77 GiB out (33.4 MiB/s), 54s.
+....
++
+在「假定」完成複製檔案之後、再次執行「驗證」、讓來源和目的地儲存設備擁有相同的資料。
+
+. NFSv3用戶端主機需要卸載從7-Mode儲存設備配置的來源NFSv3匯出、並掛載目標NFSv3從ONTAP VMware匯出。轉換需要中斷運作。
+
+
+
+
+== 將7-Mode Volume Snapshot複本移轉至ONTAP VMware
+
+本節說明將來源7-Mode Volume NetApp Snapshot複本轉換至ONTAP VMware的程序。
+
+
+NOTE: NetApp假設來源7-Mode磁碟區已匯出並掛載到用戶端系統、而且XCP已安裝在Linux系統上。Snapshot複本是磁碟區的時間點映像、記錄自上次Snapshot複本以來的遞增變更。使用7-Mode系統的「抓取」選項作為來源。
+
+*警告：*保留基礎Snapshot複本。基準複本完成後、請勿刪除基礎Snapshot複本。需要基礎Snapshot複本才能進行進一步的同步作業。
+
+. 驗證目標ONTAP 系統是否健全。
++
+....
+CLUSTER::> cluster show
+Node                  Health  Eligibility
+--------------------- ------- ------------
+CLUSTER-01            true    true
+CLUSTER-02            true    true
+2 entries were displayed.
+CLUSTER::> node show
+Node      Health Eligibility Uptime        Model       Owner    Location
+--------- ------ ----------- ------------- ----------- -------- ---------------
+CLUSTER-01
+          true   true        78 days 21:01 FAS8060              RTP
+CLUSTER-02
+          true   true        78 days 20:50 FAS8060              RTP
+2 entries were displayed.
+CLUSTER::> storage failover show
+                              Takeover
+Node           Partner        Possible State Description
+-------------- -------------- -------- -------------------------------------
+CLUSTER-01     CLUSTER-02     true     Connected to CLUSTER-02
+CLUSTER-02     CLUSTER-01     true     Connected to CLUSTER-01
+2 entries were displayed.
+....
+. 確認目標系統上至少存在一個非根Aggregate。Aggregate是正常的。
++
+....
+CLUSTER::> storage aggregate show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0      368.4GB   17.85GB   95% online       1 CLUSTER-01       raid_dp,
+                                                                   normal
+aggr0_CLUSTER_02_0
+           368.4GB   17.85GB   95% online       1 CLUSTER-02       raid_dp,
+                                                                   normal
+source      1.23TB    1.10TB   11% online       6 CLUSTER-01       raid_dp,
+                                                                   normal
+3 entries were displayed.
+....
++
+如果沒有資料Aggregate、請使用「shorage aggr create」命令建立新的集合體。
+
+. 在目標叢集系統上建立SVM。
++
+....
+CLUSTER::> vserver create -vserver dest -rootvolume dest_root -aggregate poc -rootvolume-security-style mixed
+[Job 647] Job succeeded:
+Vserver creation completed
+Verify the security style and language settings of the source
+
+Verify that the SVM was successfully created.
+CLUSTER::> vserver show -vserver dest
+                                    Vserver: dest
+                               Vserver Type: data
+                            Vserver Subtype: default
+                               Vserver UUID: 91f6d786-0063-11e5-b114-00a09853a969
+                                Root Volume: dest_root
+                                  Aggregate: poc
+                                 NIS Domain: -
+                 Root Volume Security Style: mixed
+                                LDAP Client: -
+               Default Volume Language Code: C.UTF-8
+                            Snapshot Policy: default
+                                    Comment:
+                               Quota Policy: default
+                List of Aggregates Assigned: -
+ Limit on Maximum Number of Volumes allowed: unlimited
+                        Vserver Admin State: running
+                  Vserver Operational State: running
+   Vserver Operational State Stopped Reason: -
+                          Allowed Protocols: nfs, cifs, fcp, iscsi, ndmp
+                       Disallowed Protocols: -
+            Is Vserver with Infinite Volume: false
+                           QoS Policy Group: -
+                                Config Lock: false
+                               IPspace Name: Default
+....
+. 從目標SVM移除FCP、iSCSI、NDMP及CIFS傳輸協定。
++
+....
+CLUSTER::> vserver remove-protocols -vserver dest -protocols fcp,iscsi,ndmp,cifs
+Verify that NFS is the allowed protocol for this SVM.
+CLUSTER::> vserver show -vserver dest -fields allowed-protocols
+vserver allowed-protocols
+------- -----------------
+dest    nfs
+....
+. 在目的地SVM上建立新的讀寫資料磁碟區。確認安全樣式、語言設定和容量需求符合來源Volume。
++
+....
+CLUSTER::> vol create -vserver dest -volume dest_nfs -aggregate poc -size 150g -type RW -state online -security-style mixed
+[Job 648] Job succeeded: Successful
+....
+. 建立資料LIF以處理NFS用戶端要求。
++
+....
+CLUSTER::> network interface create -vserver dest -lif dest_lif -address 10.61.73.115 -netmask 255.255.255.0 -role data -data-protocol nfs -home-node CLUSTER-01 -home-port e0l
+....
++
+確認LIF已成功建立。
+
++
+....
+CLUSTER::> network interface show -vserver dest
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+dest
+            dest_lif
+                         up/up    10.61.73.113/24    CLUSTER-01    e0i     true
+....
+. 如有需要、請使用SVM建立靜態路由。
++
+....
+CLUSTER::> network route create -vserver dest -destination 0.0.0.0/0 -gateway 192.168.100.111
+....
++
+確認路由已成功建立。
+
++
+....
+CLUSTER::> network route show -vserver source
+Vserver             Destination     Gateway         Metric
+------------------- --------------- --------------- ------
+dest
+                    0.0.0.0/0       10.61.73.1      20
+....
+. 在SVM命名空間中掛載目標NFS資料磁碟區。
++
+....
+CLUSTER::> volume mount -vserver dest -volume dest_nfs -junction-path /dest_nfs -active true
+....
++
+確認磁碟區已成功掛載。
+
++
+....
+CLUSTER::> volume show -vserver dest -fields junction-path
+vserver volume   junction-path
+------- -------- -------------
+dest    dest_nfs /dest_nfs
+dest    dest_root
+                 /
+2 entries were displayed.
+....
++
+您也可以使用「volume create」命令來指定Volume掛載選項（交會路徑）。
+
+. 在目標SVM上啟動NFS服務。
++
+....
+CLUSTER::> vserver nfs start -vserver dest
+....
++
+確認服務已啟動並正在執行。
+
++
+....
+CLUSTER::> vserver nfs status
+The NFS server is running on Vserver "dest".
+CLUSTER::> nfs show
+Vserver: dest
+        General Access:  true
+                    v3:  enabled
+                  v4.0:  disabled
+                   4.1:  disabled
+                   UDP:  enabled
+                   TCP:  enabled
+  Default Windows User:  -
+ Default Windows Group:  -
+....
+. 確認預設的NFS匯出原則已套用至目標SVM。
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+....
+. 如有需要、請為目標SVM建立新的自訂匯出原則。
++
+....
+CLUSTER::> vserver export-policy create -vserver dest -policyname xcpexportpolicy
+....
++
+確認已成功建立新的自訂匯出原則。
+
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+dest             xcpexportpolicy
+2 entries were displayed.
+....
+. 修改匯出原則規則、以允許存取目標系統上的NFS用戶端。
++
+....
+CLUSTER::> export-policy rule modify -vserver dest -ruleindex 1 -policyname xcpexportpolicy -clientmatch 0.0.0.0/0 -rorule any -rwrule any -anon 0
+Verify the policy rules have modified
+CLUSTER::> export-policy rule show -instance
+                                    Vserver: dest
+                                Policy Name: xcpexportpolicy
+                                 Rule Index: 1
+                            Access Protocol: nfs3
+Client Match Hostname, IP Address, Netgroup, or Domain: 0.0.0.0/0
+                             RO Access Rule: none
+                             RW Access Rule: none
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: true
+                  Allow Creation of Devices: true
+....
+. 確認用戶端可存取目標Volume。
++
+....
+CLUSTER::> export-policy check-access -vserver dest -volume dest_nfs -client-ip 10.61.82.215 -authentication-method none -protocol nfs3 -access-type read-write
+                                         Policy    Policy       Rule
+Path                          Policy     Owner     Owner Type  Index Access
+----------------------------- ---------- --------- ---------- ------ ----------
+/                             xcpexportpolicy
+                                         dest_root volume          1 read
+/dest_nfs                     xcpexportpolicy
+                                         dest_nfs  volume          1 read-write
+2 entries were displayed.
+....
+. 連線至Linux NFS伺服器。為NFS匯出的Volume建立掛載點。
++
+....
+[root@localhost /]# cd /mnt
+[root@localhost mnt]# mkdir dest
+....
+. 在此掛載點掛載目標NFSv3匯出的Volume。
++
+
+NOTE: NFSv3磁碟區應匯出、但不一定要由NFS伺服器掛載。如果可以掛載、XCP Linux主機用戶端就會掛載這些磁碟區。
+
++
+....
+[root@localhost mnt]# mount -t nfs 10.61.73.115:/dest_nfs /mnt/dest
+....
++
+確認已成功建立掛載點。
+
++
+....
+[root@ localhost /]# mount | grep nfs
+10.61.73.115:/dest_nfs on /mnt/dest type nfs
+....
+. 在NFS匯出的掛載點上建立測試檔案、以啟用讀寫存取。
++
+....
+[root@localhost dest]# touch test.txt
+Verify the file is created
+[root@localhost dest]# ls -l
+total 0
+-rw-r--r-- 1 root bin 0 Jun  2 03:16 test.txt
+....
++
+
+NOTE: 讀寫測試完成後、請從目標NFS掛載點刪除檔案。
+
+. 連線至安裝XCP的Linux用戶端系統。瀏覽至XCP安裝路徑。
++
+....
+[root@localhost ~]# cd /linux/
+[root@localhost linux]#
+....
+. 在XCP Linux用戶端主機系統上執行「XCP show」命令、查詢來源7-Mode NFSv3匯出。
++
+....
+[root@localhost]#./xcp show 10.61.82.215
+== NFS Exports ==
+Mounts  Errors  Server
+      4       0  10.61.82.215
+     Space    Files      Space    Files
+      Free     Free       Used     Used Export
+  23.7 GiB  778,134    356 KiB       96 10.61.82.215:/vol/nfsvol1
+  17.5 GiB  622,463   1.46 GiB      117 10.61.82.215:/vol/nfsvol
+   328 GiB    10.8M   2.86 GiB    7,904 10.61.82.215:/vol/vol0/home
+   328 GiB    10.8M   2.86 GiB    7,904 10.61.82.215:/vol/vol0
+== Attributes of NFS Exports ==
+drwxr-xr-x --- root wheel 4KiB 4KiB 2d21h 10.61.82.215:/vol/nfsvol1
+drwxr-xr-x --- root wheel 4KiB 4KiB 2d21h 10.61.82.215:/vol/nfsvol
+drwxrwxrwx --t root wheel 4KiB 4KiB 9d22h 10.61.82.215:/vol/vol0/home
+drwxr-xr-x --- root wheel 4KiB 4KiB  4d0h 10.61.82.215:/vol/vol0
+3.89 KiB in (5.70 KiB/s), 7.96 KiB out (11.7 KiB/s), 0s.
+....
+. 掃描來源NFSv3匯出路徑、並列印其檔案結構的統計資料。
++
+NetApp建議在執行「XCP掃描」、「複本」和「同步」作業時、將來源NFSv3匯出設定為唯讀模式。在「同步」作業中、您必須以對應的值傳遞「snap」選項。
+
++
+....
+[root@localhost /]# ./xcp scan 10.61.82.215:/vol/nfsvol/.snapshot/snap1
+nfsvol
+nfsvol/n5000-uk9.5.2.1.N1.1.bin
+nfsvol/821_q_image.tgz
+nfsvol/822RC2_q_image.tgz
+nfsvol/NX5010_12_node_RCF_v1.3.txt
+nfsvol/n5000-uk9-kickstart.5.2.1.N1.1.bin
+nfsvol/catalog
+23 scanned, 7.79 KiB in (5.52 KiB/s), 1.51 KiB out (1.07 KiB/s), 1s.
+[root@scspr1202780001 vol_acl4]# ./xcp  sync -id 7msnap1  -snap 10.236.66.199:/vol/nfsvol/.snapshot/snap10
+(show scan and sync)
+....
+. 將來源7-Mode NFSv3快照（基礎）複製到目標ONTAP 系統上的NFSv3匯出。
++
+....
+[root@localhost /]# /xcp copy 10.61.82.215:/vol/nfsvol/.snapshot/snap1
+10.61.73.115:/dest_nfs
+ 44 scanned, 39 copied, 264 MiB in (51.9 MiB/s), 262 MiB out (51.5 MiB/s), 5s
+ 44 scanned, 39 copied, 481 MiB in (43.3 MiB/s), 479 MiB out (43.4 MiB/s), 10s
+ 44 scanned, 40 copied, 748 MiB in (51.2 MiB/s), 747 MiB out (51.3 MiB/s), 16s
+ 44 scanned, 40 copied, 1.00 GiB in (55.9 MiB/s), 1.00 GiB out (55.9 MiB/s), 21s
+ 44 scanned, 40 copied, 1.21 GiB in (42.8 MiB/s), 1.21 GiB out (42.8 MiB/s), 26s
+Sending statistics...
+44 scanned, 43 copied, 1.46 GiB in (47.6 MiB/s), 1.45 GiB out (47.6 MiB/s), 31s.
+....
++
+
+NOTE: 請保留此基礎快照、以便進一步同步作業。
+
+. 複製完成後、請確認來源和目的地NFSv3匯出的資料相同。執行「XCP VERIFY」命令。
++
+....
+[root@localhost /]# ./xcp verify 10.61.82.215:/vol/nfsvol 10.61.73.115:/dest_nfs
+44 scanned, 44 found, 28 compared, 27 same data, 2.41 GiB in (98.4 MiB/s), 6.25 MiB out (255 KiB/s), 26s
+44 scanned, 44 found, 30 compared, 29 same data, 2.88 GiB in (96.4 MiB/s), 7.46 MiB out (249 KiB/s), 31s
+44 scanned, 100% found (43 have data), 43 compared, 100% verified (data, attrs, mods), 2.90 GiB in (92.6 MiB/s), 7.53 MiB out (240 KiB/s), 32s.
+....
++
+如果「驗證」發現來源與目的地資料之間有差異、則摘要中不會報告「沒有」這類檔案或目錄。若要修正此問題、請執行「XCP sync」命令、將來源變更複製到目的地。
+
+. 在轉換之前和期間、再次執行「驗證」。如果來源有新的或更新的資料、請執行遞增更新。如果有遞增變更、請為這些變更建立新的Snapshot複本、並使用「-snap」選項傳遞該Snapshot路徑以進行同步作業。
++
+使用「-snap」選項和快照路徑執行「XCP sync」命令。
+
++
+....
+ [root@localhost /]# ./xcp sync -id 3
+Index: {source: '10.61.82.215:/vol/nfsvol/.snapshot/snap1', target: '10.61.73.115:/dest_nfs1'}
+64 reviewed, 64 checked at source, 6 changes, 6 modifications, 51.7 KiB in (62.5
+KiB/s), 22.7 KiB out (27.5 KiB/s), 0s.
+xcp: sync '3': Starting search pass for 1 modified directory...
+xcp: sync '3': Found 6 indexed files in the 1 changed directory
+xcp: sync '3': Rereading the 1 modified directory to find what's new...
+xcp: sync '3': Deep scanning the 1 directory that changed...
+11 scanned, 11 copied, 12.6 KiB in (6.19 KiB/s), 9.50 KiB out (4.66 KiB/s), 2s..
+....
++
+
+NOTE: 此作業需要基礎快照。
+
+. 若要恢復先前中斷的複製作業、請執行「XCP RESUME」命令。
++
+....
+[root@scspr1202780001 534h_dest_vol]# ./xcp resume -id 3
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxxxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+xcp: Index: {source: '10.61.82.215:/vol/nfsvol',/.snapshot/snap1, target: 10.237.160.55:/dest_vol}
+xcp: resume '7msnap_res1': Reviewing the incomplete index...
+xcp: diff '7msnap_res1': Found 143 completed directories and 230 in progress
+39,688 reviewed, 1.28 MiB in (1.84 MiB/s), 13.3 KiB out (19.1 KiB/s), 0s.
+xcp: resume '7msnap_res1': Starting second pass for the in-progress directories...
+xcp: resume '7msnap_res1': Resuming the in-progress directories...
+xcp: resume '7msnap_res1': Resumed command: copy {-newid: u'7msnap_res1'}
+xcp: resume '7msnap_res1': Current options: {-id: '7msnap_res1'}
+xcp: resume '7msnap_res1': Merged options: {-id: '7msnap_res1', -newid: u'7msnap_res1'}
+xcp: resume '7msnap_res1': Values marked with a * include operations before resume
+ 68,848 scanned*, 54,651 copied*, 39,688 indexed*, 35.6 MiB in (7.04 MiB/s), 28.1 MiB out (5.57 MiB/s), 5s
+....
+. NFSv3用戶端主機必須卸載從7-Mode儲存設備配置的來源NFSv3匯出、然後掛載目標NFSv3匯出資料ONTAP 來自VMware。轉換作業需要中斷運作。
+
+
+
+
+== 將ACLv4從NetApp 7-Mode移轉至NetApp儲存系統
+
+本節說明將來源NFSv4匯出移轉至ONTAP 某個作業系統的逐步程序。
+
+
+NOTE: NetApp假設來源NFSv4磁碟區已匯出並掛載到用戶端系統、而且XCP已安裝在Linux系統上。來源應為支援ACL的NetApp 7-Mode系統。ACL移轉僅支援從NetApp移轉至NetApp。若要複製名稱中含有特殊字元的檔案、請確定來源和目的地支援UTF-8編碼語言。
+
+
+
+=== 將來源NFSv4匯出移轉ONTAP 至S目的地 的先決條件
+
+在將來源NFSv4匯出移轉ONTAP 至無法使用之前、必須符合下列先決條件：
+
+* 目的地系統必須設定NFSv4。
+* NFSv4來源和目標必須掛載於XCP主機上。選取NFS v4.0以符合來源和目標儲存設備、並確認來源和目標系統上已啟用ACL。
+* XCP需要在XCP主機上掛載來源/目標路徑以進行ACL處理。在下列範例中、「vol1（10.63.5.56：/vol1）」會掛載於「/mnt/vol1」路徑：
+
+
+....
+ [root@localhost ~]# df -h
+Filesystem                                                   Size  Used Avail Use% Mounted on
+10.63.5.56:/vol1                                             973M  4.2M  969M   1% /mnt/vol1
+[root@localhost ~]# ./xcp scan -l -acl4 10.63.5.56:/vol1/
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to XXX [NetApp Inc] until Sun Mar 31 00:00:00 2029
+drwxr-xr-x --- root root 4KiB 4KiB 23h42m vol1
+rw-r--r-- --- root root    4    0 23h42m vol1/DIR1/FILE
+drwxr-xr-x --- root root 4KiB 4KiB 23h42m vol1/DIR1/DIR11
+drwxr-xr-x --- root root 4KiB 4KiB 23h42m vol1/DIR1
+rw-r--r-- --- root root    4    0 23h42m vol1/DIR1/DIR11/FILE
+drwxr-xr-x --- root root 4KiB 4KiB 23h42m vol1/DIR1/DIR11/DIR2
+rw-r--r-- --- root root    4    0 23h42m vol1/DIR1/DIR11/DIR2/FILE
+drwxr-xr-x --- root root 4KiB 4KiB 17m43s vol1/DIR1/DIR11/DIR2/DIR22
+8 scanned, 8 getacls, 1 v3perm, 7 acls, 3.80 KiB in (3.86 KiB/s), 1.21 KiB out (1.23 KiB/s), 0s.
+....
+
+
+=== 子目錄選項
+
+使用子目錄的兩個選項如下：
+
+* 若要讓XCP在子目錄上運作、請在XCP主機上掛載完整路徑（「10.63.5.56：/vol1/dir1/DIR11」）。
++
+如果未掛載完整路徑、XCP會報告下列錯誤：
+
+
+
+....
+[root@localhost ~]# ./xcp scan -l -acl4 10.63.5.56:/vol1/DIR1/DIR11
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to XXX [NetApp Inc] until Sun Mar 31 00:00:00 2029
+xcp: ERROR: For xcp to process ACLs, please mount 10.63.5.56:/vol1/DIR1/DIR11 using the OS nfs4 client.
+....
+* 使用子目錄語法（「mount: subnet/sqtree /.snapshot」）、如下例所示：
+
+
+....
+[root@localhost ~]# ./xcp scan -l -acl4 10.63.5.56:/vol1:/DIR1/DIR11
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to XXX [NetApp Inc] until Sun Mar 31 00:00:00 2029
+drwxr-xr-x --- root root 4KiB 4KiB 23h51m DIR11
+rw-r--r-- --- root root    4    0 23h51m DIR11/DIR2/FILE
+drwxr-xr-x --- root root 4KiB 4KiB  26m9s DIR11/DIR2/DIR22
+rw-r--r-- --- root root    4    0 23h51m DIR11/FILE
+drwxr-xr-x --- root root 4KiB 4KiB 23h51m DIR11/DIR2
+5 scanned, 5 getacls, 5 acls, 2.04 KiB in (3.22 KiB/s), 540 out (850/s), 0s.
+....
+完成下列步驟、將ACLv4從NetApp 7-Mode移轉至NetApp儲存系統。
+
+. 驗證目標ONTAP 系統是否健全。
++
+....
+CLUSTER::> cluster show
+Node                  Health  Eligibility
+--------------------- ------- ------------
+CLUSTER-01            true    true
+CLUSTER-02            true    true
+2 entries were displayed.
+CLUSTER::> node show
+Node      Health Eligibility Uptime        Model       Owner    Location
+--------- ------ ----------- ------------- ----------- -------- ---------------
+CLUSTER-01
+          true   true        78 days 21:01 FAS8060              RTP
+CLUSTER-02
+          true   true        78 days 20:50 FAS8060              RTP
+2 entries were displayed.
+CLUSTER::> storage failover show
+                              Takeover
+Node           Partner        Possible State Description
+-------------- -------------- -------- -------------------------------------
+CLUSTER-01     CLUSTER-02     true     Connected to CLUSTER-02
+CLUSTER-02     CLUSTER-01     true     Connected to CLUSTER-01
+2 entries were displayed.
+....
+. 確認目標系統上至少存在一個非根Aggregate。Aggregate是正常的。
++
+....
+CLUSTER::> storage aggregate show
+Aggregate     Size Available Used% State   #Vols  Nodes            RAID Status
+--------- -------- --------- ----- ------- ------ ---------------- ------------
+aggr0      368.4GB   17.85GB   95% online       1 CLUSTER-01       raid_dp,
+                                                                   normal
+aggr0_CLUSTER_02_0
+           368.4GB   17.85GB   95% online       1 CLUSTER-02       raid_dp,
+                                                                   normal
+source      1.23TB    1.10TB   11% online       6 CLUSTER-01       raid_dp,
+                                                                   normal
+3 entries were displayed.
+....
++
+如果沒有資料Aggregate、請使用「shorage aggr create」命令建立新的集合體。
+
+. 在目標叢集系統上建立SVM。
++
+....
+CLUSTER::> vserver create -vserver dest -rootvolume dest_root -aggregate poc -rootvolume-security-style mixed
+[Job 647] Job succeeded:
+Vserver creation completed
+Verify the security style and language settings of the source
+....
++
+確認SVM已成功建立。
+
++
+....
+CLUSTER::> vserver show -vserver dest
+                                    Vserver: dest
+                               Vserver Type: data
+                            Vserver Subtype: default
+                               Vserver UUID: 91f6d786-0063-11e5-b114-00a09853a969
+                                Root Volume: dest_root
+                                  Aggregate: poc
+                                 NIS Domain: -
+                 Root Volume Security Style: mixed
+                                LDAP Client: -
+               Default Volume Language Code: C.UTF-8
+                            Snapshot Policy: default
+                                    Comment:
+                               Quota Policy: default
+                List of Aggregates Assigned: -
+ Limit on Maximum Number of Volumes allowed: unlimited
+                        Vserver Admin State: running
+                  Vserver Operational State: running
+   Vserver Operational State Stopped Reason: -
+                          Allowed Protocols: nfs, cifs, fcp, iscsi, ndmp
+                       Disallowed Protocols: -
+            Is Vserver with Infinite Volume: false
+                           QoS Policy Group: -
+                                Config Lock: false
+                               IPspace Name: Default
+....
+. 從目標SVM移除FCP、iSCSI、NDMP及CIFS傳輸協定。
++
+....
+CLUSTER::> vserver remove-protocols -vserver dest -protocols fcp,iscsi,ndmp,cifs
+....
++
+確認NFS是此SVM允許的傳輸協定。
+
++
+....
+CLUSTER::> vserver show -vserver dest -fields allowed-protocols
+vserver allowed-protocols
+------- -----------------
+dest    nfs
+....
+. 在目的地SVM上建立新的讀寫資料磁碟區。確認安全樣式、語言設定和容量需求符合來源Volume。
++
+....
+CLUSTER::> vol create -vserver dest -volume dest_nfs -aggregate poc -size 150g -type RW -state online -security-style mixed
+[Job 648] Job succeeded: Successful
+....
+. 建立資料LIF以處理NFS用戶端要求。
++
+....
+CLUSTER::> network interface create -vserver dest -lif dest_lif -address 10.61.73.115 -netmask 255.255.255.0 -role data -data-protocol nfs -home-node CLUSTER-01 -home-port e0l
+....
++
+確認LIF已成功建立。
+
++
+....
+CLUSTER::> network interface show -vserver dest
+            Logical    Status     Network            Current       Current Is
+Vserver     Interface  Admin/Oper Address/Mask       Node          Port    Home
+----------- ---------- ---------- ------------------ ------------- ------- ----
+dest
+            dest_lif
+                         up/up    10.61.73.113/24    CLUSTER-01    e0i     true
+....
+. 如有需要、請使用SVM建立靜態路由。
++
+....
+CLUSTER::> network route create -vserver dest -destination 0.0.0.0/0 -gateway 192.168.100.111
+....
++
+確認路由已成功建立。
+
++
+....
+CLUSTER::> network route show -vserver source
+Vserver             Destination     Gateway         Metric
+------------------- --------------- --------------- ------
+dest
+                    0.0.0.0/0       10.61.73.1      20
+....
+. 在SVM命名空間中掛載目標NFS資料磁碟區。
++
+....
+CLUSTER::> volume mount -vserver dest -volume dest_nfs -junction-path /dest_nfs -active true
+....
++
+確認磁碟區已成功掛載。
+
++
+....
+CLUSTER::> volume show -vserver dest -fields junction-path
+vserver volume   junction-path
+------- -------- -------------
+dest    dest_nfs /dest_nfs
+dest    dest_root
+                 /
+2 entries were displayed.
+....
++
+您也可以使用「volume create」命令來指定Volume掛載選項（交會路徑）。
+
+. 在目標SVM上啟動NFS服務。
++
+....
+CLUSTER::> vserver nfs start -vserver dest
+....
++
+確認服務已啟動並正在執行。
+
++
+....
+CLUSTER::> vserver nfs status
+The NFS server is running on Vserver "dest".
+CLUSTER::> nfs show
+Vserver: dest
+        General Access:  true
+                    v3:  enabled
+                  v4.0:  enabled
+                   4.1:  disabled
+                   UDP:  enabled
+                   TCP:  enabled
+  Default Windows User:  -
+ Default Windows Group:  -
+....
+. 檢查預設的NFS匯出原則是否已套用至目標SVM。
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+....
+. 如有需要、請為目標SVM建立新的自訂匯出原則。
++
+....
+CLUSTER::> vserver export-policy create -vserver dest -policyname xcpexportpolicy
+....
++
+確認已成功建立新的自訂匯出原則。
+
++
+....
+CLUSTER::> vserver export-policy show -vserver dest
+Vserver          Policy Name
+---------------  -------------------
+dest             default
+dest             xcpexportpolicy
+2 entries were displayed.
+....
+. 修改匯出原則規則、以允許存取NFS用戶端。
++
+....
+CLUSTER::> export-policy rule modify -vserver dest -ruleindex 1 -policyname xcpexportpolicy -clientmatch 0.0.0.0/0 -rorule any -rwrule any -anon 0
+....
++
+確認原則規則已修改。
+
++
+....
+CLUSTER::> export-policy rule show -instance
+                                    Vserver: dest
+                                Policy Name: xcpexportpolicy
+                                 Rule Index: 1
+                            Access Protocol: nfs3
+Client Match Hostname, IP Address, Netgroup, or Domain: 0.0.0.0/0
+                             RO Access Rule: none
+                             RW Access Rule: none
+User ID To Which Anonymous Users Are Mapped: 65534
+                   Superuser Security Types: none
+               Honor SetUID Bits in SETATTR: true
+                  Allow Creation of Devices: true
+....
+. 驗證是否允許用戶端存取磁碟區。
++
+....
+CLUSTER::> export-policy check-access -vserver dest -volume dest_nfs -client-ip 10.61.82.215 -authentication-method none -protocol nfs3 -access-type read-write
+                                         Policy    Policy       Rule
+Path                          Policy     Owner     Owner Type  Index Access
+----------------------------- ---------- --------- ---------- ------ ----------
+/                             xcpexportpolicy
+                                         dest_root volume          1 read
+/dest_nfs                     xcpexportpolicy
+                                         dest_nfs  volume          1 read-write
+2 entries were displayed.
+....
+. 連線至Linux NFS伺服器。為NFS匯出的Volume建立掛載點。
++
+....
+[root@localhost /]# cd /mnt
+[root@localhost mnt]# mkdir dest
+....
+. 在此掛載點掛載目標NFSv4匯出的Volume。
++
+
+NOTE: NFSv4磁碟區應匯出、但不一定要由NFS伺服器掛載。如果可以掛載、XCP Linux主機用戶端就會掛載這些磁碟區。
+
++
+....
+[root@localhost mnt]# mount -t nfs4 10.63.5.56:/vol1 /mnt/vol1
+....
++
+確認已成功建立掛載點。
+
++
+....
+[root@localhost mnt]# mount | grep nfs
+10.63.5.56:/vol1 on /mnt/vol1 type nfs4 (rw,relatime,vers=4.0,rsize=65536,wsize=65536,namlen=255,hard,proto=tcp,timeo=600,
+retrans=2,sec=sys,clientaddr=10.234.152.84,local_lock=none,addr=10.63.5.56)
+....
+. 在NFS匯出的掛載點上建立測試檔案、以啟用讀寫存取。
++
+....
+[root@localhost dest]# touch test.txt
+....
++
+確認檔案已建立。
+
++
+....
+[root@localhost dest]# ls -l
+total 0
+-rw-r--r-- 1 root bin 0 Jun  2 03:16 test.txt
+....
++
+
+NOTE: 讀寫測試完成後、請從目標NFS掛載點刪除檔案。
+
+. 連線至安裝XCP的Linux用戶端系統。瀏覽至XCP安裝路徑。
++
+....
+[root@localhost ~]# cd /linux/
+[root@localhost linux]#
+....
+. 在XCP Linux用戶端主機系統上執行「XCP show」命令、查詢來源NFSv4匯出。
++
+....
+root@localhost]# ./xcp show 10.63.5.56
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+getting pmap dump from 10.63.5.56 port 111...
+getting export list from 10.63.5.56...
+sending 6 mounts and 24 nfs requests to 10.63.5.56...
+== RPC Services ==
+'10.63.5.56': UDP rpc services: MNT v1/2/3, NFS v3, NLM v4, PMAP v2/3/4, STATUS v1
+'10.63.5.56': TCP rpc services: MNT v1/2/3, NFS v3/4, NLM v4, PMAP v2/3/4, STATUS v1
+== NFS Exports ==
+ Mounts  Errors  Server
+      6       0  10.63.5.56
+     Space    Files      Space    Files
+      Free     Free       Used     Used Export
+  94.7 MiB   19,883    324 KiB      107 10.63.5.56:/
+   971 MiB   31,023   2.19 MiB       99 10.63.5.56:/vol2
+   970 MiB   31,024   2.83 MiB       98 10.63.5.56:/vol1
+  9.33 GiB  310,697    172 MiB      590 10.63.5.56:/vol_005
+  43.3 GiB    1.10M   4.17 GiB    1.00M 10.63.5.56:/vol3
+  36.4 GiB    1.10M   11.1 GiB    1.00M 10.63.5.56:/vol4
+== Attributes of NFS Exports ==
+drwxr-xr-x --- root root 4KiB 4KiB 6d2h 10.63.5.56:/
+drwxr-xr-x --- root root 4KiB 4KiB 3d2h 10.63.5.56:/vol2
+drwxr-xr-x --- root root 4KiB 4KiB 3d2h 10.63.5.56:/vol1
+drwxr-xr-x --- root root 4KiB 4KiB 9d2h 10.63.5.56:/vol_005
+drwxr-xr-x --- root root 4KiB 4KiB 9d4h 10.63.5.56:/vol3
+drwxr-xr-x --- root root 4KiB 4KiB 9d4h 10.63.5.56:/vol4
+6.09 KiB in (9.19 KiB/s), 12.2 KiB out (18.3 KiB/s), 0s.
+....
+. 掃描來源NFSv4匯出路徑、並列印其檔案結構的統計資料。
++
+NetApp建議在執行「XCP掃描」、「複本」和「同步」作業時、將來源NFSv4匯出設定為唯讀模式。
+
++
+....
+[root@localhost]# ./xcp scan -acl4 10.63.5.56:/vol1
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+vol1
+vol1/test/f1
+vol1/test
+3 scanned, 3 getacls, 3 v3perms, 1.59 KiB in (1.72 KiB/s), 696 out (753/s), 0s.
+....
+. 將來源NFSv4匯出至目標ONTAP 系統上的NFSv4匯出。
++
+....
+[root@localhost]# ./xcp copy -acl4 -newid id1 10.63.5.56:/vol1 10.63.5.56:/vol2
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+3 scanned, 2 copied, 3 indexed, 3 getacls, 3 v3perms, 1 setacl, 14.7 KiB in (11.7 KiB/s), 61 KiB out (48.4 KiB/s), 1s..
+....
+. 完成「複製」之後、請確認來源和目的地NFSv4匯出的資料相同。執行「XCP VERIFY」命令。
++
+....
+[root@localhost]# ./xcp verify -acl4 -noid 10.63.5.56:/vol1 10.63.5.56:/vol2
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+3 scanned, 100% found (0 have data), 100% verified (data, attrs, mods, acls), 6 getacls, 6 v3perms, 2.90 KiB in (4.16 KiB/s), 2.94 KiB out (4.22 KiB/s), 0s.
+....
++
+如果「驗證」發現來源與目的地資料之間有差異、則摘要中會報告「沒有這類檔案或目錄」錯誤。若要修正此問題、請執行「XCP sync」命令、將來源變更複製到目的地。
+
+. 在轉換之前和期間、再次執行「驗證」。如果來源有新的或更新的資料、請執行遞增更新。執行「XCP sync」命令。
++
+....
+[root@ root@localhost]# ./xcp sync -id id1
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+xcp: Index: {source: 10.63.5.56:/vol1, target: 10.63.5.56:/vol2}
+3 reviewed, 3 checked at source, no changes, 3 reindexed, 25.6 KiB in (32.3 KiB/s), 23.3 KiB out (29.5 KiB/s), 0s.
+....
++
+
+NOTE: 此作業需要先前的複本索引名稱或編號。
+
+. 若要恢復先前中斷的「複製」作業、請執行「XCP恢復」命令。
++
+....
+[root@localhost]# ./xcp resume -id id1
+XCP <version>; (c) 2020 NetApp, Inc.; Licensed to xxx [NetApp Inc] until Mon Dec 31 00:00:00 2029
+xcp: Index: {source: 10.63.5.56:/vol3, target: 10.63.5.56:/vol4}
+xcp: resume 'id1': Reviewing the incomplete index...
+xcp: diff 'id1': Found 0 completed directories and 8 in progress
+39,899 reviewed, 1.64 MiB in (1.03 MiB/s), 14.6 KiB out (9.23 KiB/s), 1s.
+xcp: resume 'id1': Starting second pass for the in-progress directories...
+xcp: resume 'id1': Resuming the in-progress directories...
+xcp: resume 'id1': Resumed command: copy {-acl4: True}
+xcp: resume 'id1': Current options: {-id: 'id1'}
+xcp: resume 'id1': Merged options: {-acl4: True, -id: 'id1'}
+xcp: resume 'id1': Values marked with a * include operations before resume
+ 86,404 scanned, 39,912 copied, 39,899 indexed, 13.0 MiB in (2.60 MiB/s), 78.4 KiB out (15.6 KiB/s), 5s 86,404 scanned, 39,912 copied, 39,899 indexed, 13.0 MiB in (0/s), 78.4 KiB out (0/s), 10s
+1.00M scanned, 100% found (1M have data), 1M compared, 100% verified (data, attrs, mods, acls), 2.00M getacls, 202 v3perms, 1.00M same acls, 2.56 GiB in (2.76 MiB/s), 485 MiB out (524 KiB/s), 15m48s.
+....
++
+在「假定」完成複製檔案之後、再次執行「驗證」、讓來源和目的地儲存設備擁有相同的資料。
+
+
+
+
+
+== 將7-Mode SMB儲存設備移轉ONTAP 至支援CIFS資料的功能區
+
+本節說明將來源7-Mode SMB共用區轉換為ONTAP VMware系統的逐步程序。
+
+
+NOTE: NetApp假設7-Mode和ONTAP VMware系統是SMB授權的系統。系統會建立目的地SVM、匯出來源和目的地SMB共用、並安裝和授權XCP。
+
+. 掃描SMB共用區中的檔案和目錄。
++
+....
+C:\xcp>xcp scan -stats \\10.61.77.189\performance_SMB_home_dirs
+XCP SMB 1.6; (c) 2020 NetApp, Inc.; Licensed to xxxx xxxx[NetApp Inc] until Mon Dec 31 00:00:00 2029
+== Maximum Values ==
+Size Depth Namelen Dirsize
+15.6MiB 2 8 200
+== Average Values ==
+Size Depth Namelen Dirsize
+540KiB 2 7 81
+== Top File Extensions ==
+.txt .tmp
+5601 2200
+== Number of files ==
+empty <8KiB 8-64KiB 64KiB-1MiB 1-10MiB 10-100MiB >100MiB
+46 6301 700 302 200 252
+== Space used ==
+empty <8KiB 8-64KiB 64KiB-1MiB 1-10MiB 10-100MiB >100MiB
+0 6.80MiB 8.04MiB 120MiB 251MiB 3.64GiB 0
+== Directory entries ==
+empty 1-10 10-100 100-1K 1K-10K >10k
+18 1 77 1
+== Depth ==
+0-5 6-10 11-15 16-20 21-100 >100
+7898
+== Modified ==
+>1 year >1 month 1-31 days 1-24 hrs <1 hour <15 mins future
+2167 56 322 5353
+== Created ==
+>1 year >1 month 1-31 days 1-24 hrs <1 hour <15 mins future
+2171 54 373 5300
+Total count: 7898
+Directories: 97
+Regular files: 7801
+Symbolic links:
+Junctions:
+Special files:
+Total space for regular files: 4.02GiB
+Total space for directories: 0
+Total space used: 4.02GiB
+7,898 scanned, 0 errors, 0s
+....
+. 將檔案（含或不含ACL）從來源複製到目的地SMB共用區。以下範例顯示含有ACL的複本。
++
+....
+C:\xcp>xcp copy -acl -fallback-user "DOMAIN\gabi" -fallback-group "DOMAIN\Group" \\10.61.77.189\performance_SMB_home_dirs \\10.61.77.56\performance_SMB_home_dirs
+XCP SMB 1.6; (c) 2020 NetApp, Inc.; Licensed to xxxx xxxx[NetApp Inc] until Mon Dec 31 00:00:00 2029
+7,898 scanned, 0 errors, 0 skipped, 184 copied, 96.1MiB (19.2MiB/s), 5s
+7,898 scanned, 0 errors, 0 skipped, 333 copied, 519MiB (84.7MiB/s), 10s
+7,898 scanned, 0 errors, 0 skipped, 366 copied, 969MiB (89.9MiB/s), 15s
+7,898 scanned, 0 errors, 0 skipped, 422 copied, 1.43GiB (99.8MiB/s), 20s
+7,898 scanned, 0 errors, 0 skipped, 1,100 copied, 1.69GiB (52.9MiB/s), 25s
+7,898 scanned, 0 errors, 0 skipped, 1,834 copied, 1.94GiB (50.4MiB/s), 30s
+7,898 scanned, 0 errors, 0 skipped, 1,906 copied, 2.43GiB (100MiB/s), 35s
+7,898 scanned, 0 errors, 0 skipped, 2,937 copied, 2.61GiB (36.6MiB/s), 40s
+7,898 scanned, 0 errors, 0 skipped, 2,969 copied, 3.09GiB (100.0MiB/s), 45s
+7,898 scanned, 0 errors, 0 skipped, 3,001 copied, 3.58GiB (100.0MiB/s), 50s
+7,898 scanned, 0 errors, 0 skipped, 3,298 copied, 4.01GiB (88.0MiB/s), 55s
+7,898 scanned, 0 errors, 0 skipped, 5,614 copied, 4.01GiB (679KiB/s), 1m0s
+7,898 scanned, 0 errors, 0 skipped, 7,879 copied, 4.02GiB (445KiB/s), 1m5s
+7,898 scanned, 0 errors, 0 skipped, 7,897 copied, 4.02GiB (63.2MiB/s), 1m5s
+....
++
+
+NOTE: 如果沒有資料Aggregate、請使用storage「aggr create」命令建立新的集合體。
+
+. 同步來源和目的地上的檔案。
++
+....
+C:\xcp>xcp sync -acl -fallback-user "DOMAIN\gabi" -fallback-group "DOMAIN\Group" \\10.61.77.189\performance_SMB_home_dirs \\10.61.77.56\performance_SMB_home_dirs
+XCP SMB 1.6; (c) 2020 NetApp, Inc.; Licensed to xxxx xxxx[NetApp Inc] until Mon Dec 31 00:00:00 2029
+10,796 scanned, 4,002 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 5s
+15,796 scanned, 8,038 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 10s
+15,796 scanned, 8,505 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 15s
+15,796 scanned, 8,707 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 20s
+15,796 scanned, 8,730 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 25s
+15,796 scanned, 8,749 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 30s
+15,796 scanned, 8,765 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 35s
+15,796 scanned, 8,786 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 40s
+15,796 scanned, 8,956 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 45s
+8 XCP v1.6 User Guide © 2020 NetApp, Inc. All rights reserved.
+Step Description
+15,796 scanned, 9,320 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 50s
+15,796 scanned, 9,339 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 55s
+15,796 scanned, 9,363 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m0s
+15,796 scanned, 10,019 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m5s
+15,796 scanned, 10,042 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m10s
+15,796 scanned, 10,059 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m15s
+15,796 scanned, 10,075 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m20s
+15,796 scanned, 10,091 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m25s
+15,796 scanned, 10,108 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m30s
+15,796 scanned, 10,929 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m35s
+15,796 scanned, 12,443 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m40s
+15,796 scanned, 13,963 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m45s
+15,796 scanned, 15,488 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m50s
+15,796 scanned, 15,796 compared, 0 errors, 0 skipped, 0 copied, 0 removed, 1m51s
+....
+. 確認檔案已正確複製。
++
+....
+C:\xcp> xcp verify \\10.61.77.189\performance_SMB_home_dirs \\10.61.77.56\performance_SMB_home_dir
+XCP SMB 1.6; (c) 2020 NetApp, Inc.; Licensed to xxxx xxxx[NetApp Inc] until Mon Dec 31 00:00:00 2029
+8 compared, 8 same, 0 different, 0 missing, 5s
+24 compared, 24 same, 0 different, 0 missing, 10s
+41 compared, 41 same, 0 different, 0 missing, 15s
+63 compared, 63 same, 0 different, 0 missing, 20s
+86 compared, 86 same, 0 different, 0 missing, 25s
+423 compared, 423 same, 0 different, 0 missing, 30s
+691 compared, 691 same, 0 different, 0 missing, 35s
+1,226 compared, 1,226 same, 0 different, 0 missing, 40s
+1,524 compared, 1,524 same, 0 different, 0 missing, 45s
+1,547 compared, 1,547 same, 0 different, 0 missing, 50s
+1,564 compared, 1,564 same, 0 different, 0 missing, 55s
+2,026 compared, 2,026 same, 0 different, 0 missing, 1m0s
+2,045 compared, 2,045 same, 0 different, 0 missing, 1m5s
+2,061 compared, 2,061 same, 0 different, 0 missing, 1m10s
+2,081 compared, 2,081 same, 0 different, 0 missing, 1m15s
+2,098 compared, 2,098 same, 0 different, 0 missing, 1m20s
+2,116 compared, 2,116 same, 0 different, 0 missing, 1m25s
+3,232 compared, 3,232 same, 0 different, 0 missing, 1m30s
+4,817 compared, 4,817 same, 0 different, 0 missing, 1m35s
+6,267 compared, 6,267 same, 0 different, 0 missing, 1m40s
+7,844 compared, 7,844 same, 0 different, 0 missing, 1m45s
+7,898 compared, 7,898 same, 0 different, 0 missing, 1m45s,cifs
+....
+
+
+link:xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html["下一步：將CIFS資料從來源儲存設備的ACL移轉至ONTAP"]

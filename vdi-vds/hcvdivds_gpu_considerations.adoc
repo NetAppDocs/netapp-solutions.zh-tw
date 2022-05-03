@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_gpu_considerations.html 
+keywords: GPU, Azure, NVIDIA, Tesla M60, 
+summary: GPU通常用於圖形視覺化（呈現）、方法是執行重複的運算計算。這種重複運算功能通常用於AI和深度學習使用案例。 
+---
+= GPU考量
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+GPU通常用於圖形視覺化（呈現）、方法是執行重複的運算計算。這種重複運算功能通常用於AI和深度學習使用案例。
+
+對於圖形密集的應用程式、Microsoft Azure提供以NVIDIA Tesla M60卡為基礎的內華達系列、每部VM有一到四個GPU。每個NVIDIA Tesla M60卡都包含兩個基於Maxwell的GPU、每個GPU都有8GB的GDDR5記憶體、總計16GB。
+
+
+NOTE: NVA系列隨附NVIDIA授權。
+
+image:hcvdivds_image37.png["錯誤：缺少圖形影像"]
+
+H615C GPU搭配NetApp HCI 使用包含三個NVIDIA Tesla T4卡。每個NVIDIA Tesla T4卡都有一個巡迴顯示GPU、配備16GB的GDDR6記憶體。在VMware vSphere環境中使用時、虛擬機器可以共用GPU、每個VM都有專屬的框架緩衝記憶體。利用位於《不穩定的H615C」上的GPU提供光跡追蹤NetApp HCI 功能、以產生真實影像、包括光反射。請注意、您必須擁有NVIDIA授權伺服器、並取得GPU功能的授權。
+
+image:hcvdivds_image38.png["錯誤：缺少圖形影像"]
+
+若要使用GPU、您必須安裝適當的驅動程式、該驅動程式可從NVIDIA授權入口網站下載。在Azure環境中、NVIDIA驅動程式可做為GPU驅動程式擴充。接下來、必須更新下列螢幕快照中的群組原則、才能使用GPU硬體進行遠端桌面服務工作階段。您應該優先設定H.264圖形模式、並啟用編碼器功能。
+
+image:hcvdivds_image39.png["錯誤：缺少圖形影像"]
+
+使用工作管理員或在執行WebGL範例時使用nvidia-smi CLI來驗證GPU效能監控。請確定GPU、記憶體和編碼器資源已耗用。
+
+image:hcvdivds_image40.png["錯誤：缺少圖形影像"]
+
+為了確保虛擬機器已透過NetApp HCI Virtual Desktop Service部署至VMware View H615C、請使用vCenter叢集資源定義一個具有H615C主機的站台。VM範本必須附加所需的vGPU設定檔。
+
+對於共享的多工作階段環境、請考慮分配多個同質vGPU設定檔。不過、對於高階專業繪圖應用程式、最好讓每個VM都專供使用者使用、以隔離VM。
+
+GPU處理器可由QoS原則控制、而每個vGPU設定檔都可以有專屬的框架緩衝區。不過、編碼器和解碼器會針對每個卡共用。將vGPU設定檔放置在GPU卡上、是由vSphere主機GPU指派原則所控制、可強調效能（分散VM）或整合（群組VM）。
+
+link:hcvdivds_solutions_for_industry.html["下一步：產業解決方案。"]

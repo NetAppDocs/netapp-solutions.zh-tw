@@ -1,0 +1,413 @@
+---
+sidebar: sidebar 
+permalink: ent-apps-db/db_protection_awx_automation.html 
+keywords: Linux, RHEL Oracle19c, NFS, ONTAP 
+summary: 本頁說明NetApp ONTAP 支援儲存設備上Oracle19c的自動化資料保護。 
+---
+= 逐步部署程序
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== AWX/Tower Oracle資料保護
+
+
+
+=== 1.為您的環境建立詳細目錄、群組、主機和認證資料
+
+本節說明在AWX/Ansible Tower中設定庫存、群組、主機和存取認證資料、為使用NetApp自動化解決方案的環境做好準備。
+
+. 設定庫存。
++
+.. 瀏覽至「資源」→「庫存」→「新增」、然後按一下「新增庫存」。
+.. 提供名稱和組織詳細資料、然後按一下「Save（儲存）」。
+.. 在「庫存」頁面上、按一下建立的庫存。
+.. 瀏覽至「群組」子功能表、然後按一下「新增」。
+.. 為第一個群組提供Oracle名稱、然後按一下「Save（儲存）」。
+.. 針對第二個群組（稱為DR_Oracle）重複此程序。
+.. 選取已建立的Oracle群組、移至「hosts」子功能表、然後按一下「Add New Host（新增主機）」。
+.. 提供來源Oracle主機管理IP的IP位址、然後按一下「Save（儲存）」。
+.. 此程序必須針對DR_Oracle群組重複、並新增DR/目的地Oracle主機的管理IP/主機名稱。
+
+
++
+
+NOTE: 以下說明如何在ONTAP AWS上建立適用於Prem with憑據或CVO的認證類型和認證。
+
+
+
+[role="tabbed-block"]
+====
+.內部部署
+--
+. 設定認證資料。
+. 建立認證類型。對於涉及ONTAP 到靜態的解決方案、您必須設定認證類型以符合使用者名稱和密碼項目。
++
+.. 瀏覽至「管理」→「認證類型」、然後按一下「新增」。
+.. 提供名稱和說明。
+.. 在輸入組態中貼上下列內容：
++
+[source, cli]
+----
+fields:
+  - id: dst_cluster_username
+    type: string
+    label: Destination Cluster Username
+  - id: dst_cluster_password
+    type: string
+    label: Destination Cluster Password
+    secret: true
+  - id: src_cluster_username
+    type: string
+    label: Source Cluster Username
+  - id: src_cluster_password
+    type: string
+    label: Source Cluster Password
+    secret: true
+----
+.. 將下列內容貼到Injector Configuration、然後按一下「Save（儲存）」：
++
+[source, cli]
+----
+extra_vars:
+  dst_cluster_username: '{{ dst_cluster_username }}'
+  dst_cluster_password: '{{ dst_cluster_password }}'
+  src_cluster_username: '{{ src_cluster_username }}'
+  src_cluster_password: '{{ src_cluster_password }}'
+----
+
+
+. 建立ONTAP 認證以供使用
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入ONTAP 名稱和組織詳細資料以取得「不完整資訊」認證
+.. 選取在上一步中建立的認證類型。
+.. 在類型詳細資料下、輸入來源和目的地叢集的使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 建立Oracle認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入Oracle的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在類型詳細資料下、輸入Oracle主機的使用者名稱和密碼。
+.. 選取正確的權限提高方法、然後輸入使用者名稱和密碼。
+.. 按一下儲存
+.. 如有需要、請為DR_Oracle主機重複此程序、以取得不同的認證資料。
+
+
+
+
+--
+.CVO
+--
+. 設定認證資料。
+. 建立認證類型。若為涉及ONTAP 到解決方案的解決方案、您必須設定認證類型以符合使用者名稱和密碼項目、我們也會新增Cloud Central和AWS的項目。
++
+.. 瀏覽至「管理」→「認證類型」、然後按一下「新增」。
+.. 提供名稱和說明。
+.. 在輸入組態中貼上下列內容：
++
+[source, cli]
+----
+fields:
+  - id: dst_cluster_username
+    type: string
+    label: CVO Username
+  - id: dst_cluster_password
+    type: string
+    label: CVO Password
+    secret: true
+  - id: cvo_svm_password
+    type: string
+    label: CVO SVM Password
+    secret: true
+  - id: src_cluster_username
+    type: string
+    label: Source Cluster Username
+  - id: src_cluster_password
+    type: string
+    label: Source Cluster Password
+    secret: true
+  - id: regular_id
+    type: string
+    label: Cloud Central ID
+    secret: true
+  - id: email_id
+    type: string
+    label: Cloud Manager Email
+    secret: true
+  - id: cm_password
+    type: string
+    label: Cloud Manager Password
+    secret: true
+  - id: access_key
+    type: string
+    label: AWS Access Key
+    secret: true
+  - id: secret_key
+    type: string
+    label: AWS Secret Key
+    secret: true
+  - id: token
+    type: string
+    label: Cloud Central Refresh Token
+    secret: true
+----
+.. 將下列內容貼到Injector Configuration中、然後按一下「Save（儲存）」：
++
+[source, cli]
+----
+extra_vars:
+  dst_cluster_username: '{{ dst_cluster_username }}'
+  dst_cluster_password: '{{ dst_cluster_password }}'
+  cvo_svm_password: '{{ cvo_svm_password }}'
+  src_cluster_username: '{{ src_cluster_username }}'
+  src_cluster_password: '{{ src_cluster_password }}'
+  regular_id: '{{ regular_id }}'
+  email_id: '{{ email_id }}'
+  cm_password: '{{ cm_password }}'
+  access_key: '{{ access_key }}'
+  secret_key: '{{ secret_key }}'
+  token: '{{ token }}'
+----
+
+
+. 為ONTAP/CVO/AWS建立認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入ONTAP 名稱和組織詳細資料以取得「不完整資訊」認證
+.. 選取在上一步中建立的認證類型。
+.. 在類型詳細資料下、輸入來源和CVO叢集、Cloud Central/Manager、AWS存取/秘密金鑰和Cloud Central Refresh Token的使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 建立Oracle認證（來源）
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入Oracle主機的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在類型詳細資料下、輸入Oracle主機的使用者名稱和密碼。
+.. 選取正確的權限提高方法、然後輸入使用者名稱和密碼。
+.. 按一下儲存
+
+
+. 為Oracle目的地建立認證
++
+.. 瀏覽至「資源」→「認證」、然後按一下「新增」。
+.. 輸入DR Oracle主機的名稱和組織詳細資料
+.. 選取機器認證類型。
+.. 在「Type Details（類型詳細資料）」下、輸入使用者名稱（EC2使用者、或是您已將其從預設輸入）和SSH私密金鑰
+.. 選取正確的權限提高方法（Sudo）、並視需要輸入使用者名稱和密碼。
+.. 按一下儲存
+
+
+
+
+--
+====
+
+
+=== 2.建立專案
+
+. 前往「資源」→「專案」、然後按一下「新增」。
++
+.. 輸入名稱和組織詳細資料。
+.. 在來源控制認證類型欄位中選取Git。
+.. 輸入 <https://github.com/NetApp-Automation/na_oracle19c_data_protection.git>[] 做為來源控制URL。
+.. 按一下儲存。
+.. 當來源程式碼變更時、專案可能需要偶爾同步。
+
+
+
+
+
+
+=== 3.設定全域變數
+
+本節中定義的變數適用於所有Oracle主機、資料庫和ONTAP 叢集。
+
+. 在下列內嵌的整體變數或vars表單中輸入您的環境特定參數。
++
+
+NOTE: 必須變更藍色項目、以符合您的環境。
+
++
+[role="tabbed-block"]
+====
+.內部部署
+--
+
+--
+.CVO
+--
+
+--
+====
+
+
+
+
+=== 4、自動化教戰守則
+
+有四本獨立的教戰手冊需要執行。
+
+. 教戰手冊、用於設定環境、內部部署或CVO。
+. 教戰手冊、可依照排程複寫Oracle二進位檔和資料庫
+. 教戰手冊、可在排程中複寫Oracle記錄
+. 用於在目的地主機上還原資料庫的教戰手冊
+
+
+[role="tabbed-block"]
+====
+.ONTAP/CVO設定
+--
+BIOS和CVO設定ONTAP
+
+. 設定並啟動工作範本。
++
+.. 建立工作範本。
++
+... 瀏覽至「資源」→「範本」→「新增」、然後按一下「新增工作範本」
+... 輸入名稱ONTAP/CVO Setup
+... 選取「工作類型」；「執行」會根據方針來設定系統。
+... 選取相應的資源清冊、專案、方針及方針認證、以供教戰手冊使用。
+... 針對內部部署環境選取ONTAP_setup.yml方針、或選取CVO_setup.yml以複寫至CVO執行個體。
+... 將從步驟4複製的全域變數貼到Yaml索引標籤下的「範本變數」欄位。
+... 按一下儲存。
+
+
+.. 啟動工作範本。
++
+... 瀏覽至資源→範本。
+... 按一下所需的範本、然後按一下啟動。
++
+
+NOTE: 我們將使用此範本、並將其複製到其他教戰手冊中。
+
+
+
+
+
+
+
+--
+.二進位磁碟區和資料庫磁碟區的複寫
+--
+排程二進位和資料庫複寫教戰守則
+
+. 設定並啟動工作範本。
++
+.. 複製先前建立的工作範本。
++
+... 瀏覽至資源→範本。
+... 找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本
+... 按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「Binary and Database Replication教戰手冊」。
+... 保留相同的範本庫存、專案、認證資料。
+... 選取ora_replite_CG。yml做為要執行的方針。
+... 變數將維持不變、但CVO叢集IP必須設定在變數DST_叢 集IP中。
+... 按一下儲存。
+
+
+.. 排程工作範本。
++
+... 瀏覽至資源→範本。
+... 按一下二進位和資料庫複寫教戰手冊範本、然後按一下選項頂端的排程。
+... 按一下「新增」、「新增二進位和資料庫複寫的名稱排程」、選擇一小時開始的開始日期/時間、選擇您的本機時區和「執行頻率」。執行頻率通常會更新SnapMirror複寫。
++
+
+NOTE: 將為記錄磁碟區複寫建立個別的排程、以便更頻繁地複寫。
+
+
+
+
+
+
+
+--
+.記錄磁碟區的複寫
+--
+排程記錄複寫教戰手冊
+
+. 設定並啟動工作範本。
++
+.. 複製先前建立的工作範本。
++
+... 瀏覽至資源→範本。
+... 找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本
+... 按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「記錄複寫教戰手冊」。
+... 保留相同的範本庫存、專案、認證資料。
+... 選取ora_replite_logs.yml作為要執行的方針。
+... 變數將維持不變、但CVO叢集IP必須設定在變數DST_叢 集IP中。
+... 按一下儲存。
+
+
+.. 排程工作範本。
++
+... 瀏覽至資源→範本。
+... 按一下記錄複寫教戰手冊範本、然後按一下頂端選項集的排程。
+... 按一下「新增」、「新增記錄複寫的名稱排程」、選擇一小時開始的開始日期/時間、選擇您的本機時區和「執行頻率」。執行頻率通常會更新SnapMirror複寫。
+
+
+
+
++
+
+NOTE: 建議您設定每小時更新一次的記錄排程、以確保恢復到上次每小時更新。
+
+
+
+--
+.還原及還原資料庫
+--
+排程記錄複寫教戰手冊
+
+. 設定並啟動工作範本。
++
+.. 複製先前建立的工作範本。
++
+... 瀏覽至資源→範本。
+... 找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本
+... 按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「Restore and Recovery Playbook（還原與還原教戰守則）」
+... 保留相同的範本庫存、專案、認證資料。
+... 選取ora_recovery .yml作為要執行的方針。
+... 變數將維持不變、但CVO叢集IP必須設定在變數DST_叢 集IP中。
+... 按一下儲存。
+
+
+
+
++
+
+NOTE: 在您準備好在遠端站台還原資料庫之前、系統不會執行本方針。
+
+
+
+--
+====
+
+
+=== 5.恢復Oracle資料庫
+
+. 內部部署正式作業的Oracle資料庫資料Volume可透過NetApp SnapMirror複寫、保護至ONTAP 二線資料中心的備援式叢集或ONTAP 公有雲的Cloud Volume。在完整設定的災難恢復環境中、二線資料中心或公有雲中的還原運算執行個體都是待命狀態、可在發生災難時恢復正式作業資料庫。待命運算執行個體會在OS核心修補程式上執行半連結更新、或在鎖定步驟中進行升級、以保持與內部部署執行個體的同步。
+. 在本解決方案中、Oracle二進位磁碟區會複寫到目標執行個體、並掛載到目標執行個體、以啟動Oracle軟體堆疊。這種恢復Oracle的方法比在發生災難的最後一刻重新安裝Oracle更具優勢。它保證Oracle安裝與目前的內部正式作業軟體安裝和修補程式層級等完全同步。不過、視軟體授權與Oracle的結構化方式而定、這可能會也可能不會對恢復站台上的複寫Oracle二進位磁碟區產生額外的軟體授權影響。建議使用者先洽詢其軟體授權人員、以評估可能的Oracle授權需求、再決定採用相同方法。
+. 目的地的備用Oracle主機是以Oracle必要組態設定。
+. Snap模式 會中斷、磁碟區會設為可寫入、並掛載至備用Oracle主機。
+. 在待命運算執行個體掛載所有DB磁碟區之後、Oracle恢復模組會在恢復站台執行下列工作來恢復及啟動Oracle。
++
+.. 同步控制檔：我們在不同的資料庫Volume上部署重複的Oracle控制檔、以保護關鍵資料庫控制檔。其中一個位於資料磁碟區、另一個位於記錄磁碟區。由於資料和記錄磁碟區會以不同頻率複寫、因此在恢復時、它們會不同步。
+.. 重新連結Oracle二進位檔：由於Oracle二進位檔已重新配置至新主機、因此需要重新連結。
+.. 恢復Oracle資料庫：恢復機制會從控制檔擷取Oracle記錄Volume上一個可用的歸檔記錄中的上次系統變更編號、並恢復Oracle資料庫、以便在故障時恢復所有可複寫至DR站台的商業交易。接著、資料庫會以新的轉世模式啟動、以便在恢復站台進行使用者連線和商業交易。
+
+
+
+
+
+NOTE: 在執行恢復的教戰手冊之前、請確定您擁有下列內容：請務必將其複製到來源Oracle主機的/etc/oratab和/etc/oraInst.loc

@@ -1,0 +1,72 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/bda-ai-introduction.html 
+keywords: tr-4732, tr4732, 4732, introduction, concepts, components 
+summary: 本白皮書提供使用NetApp XCP和NIPAM將巨量資料分析資料和HPC資料移轉至AI的準則。我們也會討論將資料從Big Data和HPC移轉至AI的商業效益。 
+---
+= TR-4732：巨量資料分析資料與人工智慧
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp的Karthithkeyan Nagalingam
+
+本文件說明如何將巨量資料分析資料和HPC資料移至AI。AI透過NFS匯出來處理NFS資料、而客戶通常會將AI資料放在大資料分析平台、例如HDFS、Blob或S3儲存設備、以及GPFS等HPC平台。本白皮書提供使用NetApp XCP和NIPAM將巨量資料分析資料和HPC資料移轉至AI的準則。我們也會討論將資料從Big Data和HPC移轉至AI的商業效益。
+
+
+
+== 概念與元件
+
+
+
+=== Big Data分析儲存設備
+
+Big Data分析是HDFS的主要儲存供應商。客戶通常使用Hadoop相容的檔案系統（HCFS）、例如Windows Azure Blob Storage、MapR檔案系統（MapR-FS）和S3物件儲存設備。
+
+
+
+=== 通用平行檔案系統
+
+IBM的GPFS是企業級檔案系統、可取代HDFS。GPFS可讓應用程式靈活決定區塊大小和複寫配置、以提供良好的效能和效率。
+
+
+
+=== NetApp就地分析模組
+
+NetApp就地分析模組（NIPAM）是Hadoop叢集存取NFS資料的驅動程式。它有四個元件：連線集區、NFS輸入串流、檔案處理快取和NFS輸出串流。如需詳細資訊、請參閱 https://www.netapp.com/us/media/tr-4382.pdf["TR-4382：NetApp就地分析模組。"^]
+
+
+
+=== Hadoop分散式複本
+
+Hadoop分散式複製（DistCp）是一種分散式複製工具、用於大型叢集間和叢集內的處理工作。此工具使用MapReduce進行資料發佈、錯誤處理及報告。它會展開檔案和目錄清單、並輸入它們來對應工作、以便從來源清單複製資料。下圖顯示HDFS和非HDFS的DistCp作業。
+
+image:bda-ai-image1.png["錯誤：缺少圖形影像"]
+
+Hadoop DistCp可在兩個HDFS系統之間移動資料、而無需使用額外的驅動程式。NetApp為非HDFS系統提供驅動程式。對於NFS目的地、NIPAM提供驅動程式、可複製Hadoop DistCp在複製資料時用於與NFS目的地通訊的資料。
+
+
+
+== NetApp Cloud Volumes Service
+
+NetApp Cloud Volumes Service 解決方案是雲端原生檔案服務、效能極佳。這項服務可快速將資源上下轉動、並使用NetApp功能來提高生產力並縮短員工停機時間、藉此協助客戶加速上市時間。此產品可減少整體資料中心佔用空間、減少使用原生公有雲儲存設備的成本、因此、此產品是災難恢復與雲端備份的理想替代方案。Cloud Volumes Service
+
+
+
+== NetApp XCP
+
+NetApp XCP是用戶端軟體、可快速且可靠地進行NetApp與NetApp之間的資料移轉。此工具旨在將大量非結構化NAS資料從任何NAS系統複製到NetApp儲存控制器。XCP移轉工具使用多核心、多通道I/O串流引擎、可平行處理許多要求、例如資料移轉、檔案或目錄清單、以及空間報告。這是預設的NetApp資料移轉工具。您可以使用XCP將資料從Hadoop叢集和HPC複製到NetApp NFS儲存設備。下圖顯示使用XCP從Hadoop和HPC叢集傳輸到NetApp NFS磁碟區的資料。
+
+image:bda-ai-image2.png["錯誤：缺少圖形影像"]
+
+
+
+== NetApp Cloud Sync
+
+NetApp Cloud Sync 支援混合式資料複寫軟體即服務、可在內部部署儲存設備與雲端儲存設備之間順暢安全地傳輸及同步NFS、S3與CIFS資料。此軟體可用於資料移轉、歸檔、協同作業、分析等作業。資料傳輸完成後Cloud Sync 、Syncs地 會持續同步來源和目的地之間的資料。接下來、它會傳輸差異。它也能保護您自己網路、雲端或內部部署中的資料安全。本軟體以隨用隨付模式為基礎、提供具成本效益的解決方案、並提供監控與報告功能、方便您傳輸資料。
+
+link:bda-ai-customer-challenges.html["下一步：客戶挑戰。"]

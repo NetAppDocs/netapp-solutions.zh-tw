@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_hybrid_cloud_environment.html 
+keywords: Virtual Desktop Service, VDS, Azure, IPsec VPN 
+summary: 當內部部署資源與雲端資源之間存在連線時、可將NetApp虛擬桌面服務延伸至內部部署。企業可以使用Express Route或站台對站台IPsec VPN連線、建立Microsoft Azure的連結。您也可以使用專屬連結或使用IPsec VPN通道、以類似方式建立其他雲端的連結。 
+---
+= 混合雲環境
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+當內部部署資源與雲端資源之間存在連線時、可將NetApp虛擬桌面服務延伸至內部部署。企業可以使用Express Route或站台對站台IPsec VPN連線、建立Microsoft Azure的連結。您也可以使用專屬連結或使用IPsec VPN通道、以類似方式建立其他雲端的連結。
+
+對於解決方案驗證、我們使用下圖所示的環境。
+
+image:hcvdivds_image8.png["錯誤：缺少圖形影像"]
+
+內部部署的管理、遠端桌面工作階段主機等都有多個VLAN。它們位於172.21.146-150.0/24子網路、並使用Microsoft遠端路由存取服務路由傳送至公司網路。我們也執行下列工作：
+
+. 我們注意到Microsoft路由及遠端存取伺服器（由IPchicken.com識別的RAR;）的公有IP。
+. 我們在Azure訂閱上建立了虛擬網路閘道資源（路由型VPN）。
+. 我們建立的連線提供Microsoft RARserver公用IP的本機網路閘道位址。
+. 我們在建立VPN閘道時、已完成在RRAS上的VPN組態、使用預先共用的驗證來建立虛擬介面。如果設定正確、VPN應處於連線狀態。您也可以使用pfSense或其他相關工具來建立站台對站台IPsec VPN通道、而非Microsoft RAR。由於它是以路由為基礎、因此通道會根據所設定的特定子網路來重新導向流量。
+
+
+Microsoft Azure Active Directory提供以OAUTH為基礎的身分識別驗證。企業用戶端驗證通常需要以NTLM或Kerberos為基礎的驗證。Microsoft Azure Active Directory網域服務使用ADConnect在Azure Active Directory和內部部署網域控制器之間執行密碼雜湊同步。
+
+針對此混合式VDS解決方案驗證、我們最初部署至Microsoft Azure、並在vSphere中新增額外的站台。這種方法的優勢在於平台服務已部署至Microsoft Azure、之後便可使用入口網站輕鬆備份。如此一來、即使站台站台VPN連結中斷、也能從任何地方輕鬆存取服務。
+
+為了新增其他站台、我們使用了一個名為DCConfig的工具。該應用程式的捷徑可在Cloud Workspace Manager（WMgr）VM的桌面上使用。啟動此應用程式之後、請瀏覽至DataCenter Sites（資料中心站台）索引標籤、新增資料中心站台、然後填寫所需資訊、如下所示。URL指向vCenter IP。在新增組態之前、請先確認WMgr VM可以與vCenter通訊。
+
+
+NOTE: 請確定已安裝CloudWorkspace管理程式上的vSphere PowerCLI 5.1、以啟用與VMware vSphere環境的通訊。
+
+下圖說明內部部署資料中心站台組態。
+
+image:hcvdivds_image9.png["錯誤：缺少圖形影像"]
+
+請注意、根據特定叢集、主機名稱或可用RAM空間、有可供運算資源使用的篩選選項。儲存資源的篩選選項包括資料存放區上的最小可用空間或每個資料存放區的最大VM數。可使用規則運算式排除資料存放區。按一下「Save（儲存）」按鈕以儲存組態。
+
+若要驗證組態、請按一下「Test（測試）」按鈕或按一下「Load Hypervisor（載入Hypervisor）」、然後勾選vSphere區段下方的任何下拉式清單。應填入適當的值。對於預設資源配置網站、將主要Hypervisor設為「是」是最佳實務做法。
+
+在VMware vSphere上建立的VM範本會作為VDS上的資源配置集合使用。資源配置集合有兩種形式：共享和VDI。共享資源配置集合類型用於將單一資源原則套用至所有伺服器的遠端桌面服務。VDI類型用於個別指派資源原則的WVD執行個體。資源配置集合中的伺服器可指派下列三種角色之一：
+
+* * TSDATA。*終端機服務與資料伺服器角色的組合。
+* * TS。*終端機服務（工作階段主機）。
+* *資料。*檔案伺服器或資料庫伺服器。定義伺服器角色時、您必須挑選VM範本和儲存設備（資料存放區）。所選的資料存放區可限制為特定的資料存放區、也可以使用根據資料使用量選擇資料存放區的最少使用選項。
+
+
+每個部署都會根據使用者、固定、伺服器負載或使用者計數、為雲端資源配置設定VM資源預設值。
+
+link:hcvdivds_single_server_load_test_with_login_vsi.html["下一步：使用Login VSI進行單一伺服器負載測試"]

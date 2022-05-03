@@ -1,0 +1,42 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
+---
+= 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
+:allow-uri-read: 
+
+
+
+
+== VM即時移轉
+
+即時移轉是將VM執行個體從OpenShift叢集中的某個節點移轉到另一個節點的程序、不會造成停機。若要在OpenShift叢集中執行即時移轉、VM必須繫結至具有共用ReadWriteMany存取模式的PVCS。Astra Trident後端在啟用ONTAP NFS傳輸協定的NetApp支援叢集上設定SVM、可支援對PVCS進行共用的ReadWriteMany存取。因此、從採用NFS的SVM上的Trident配置的StorageClass所要求的具有PVCS的VM、可以在不中斷的情況下進行移轉。
+
+image::redhat_openshift_image55.jpg[VM即時移轉架構]
+
+若要建立連結至具有共用ReadWriteMany存取權之PVCS的VM：
+
+. 瀏覽至工作負載>虛擬化>虛擬機器、然後按一下建立>使用精靈。
+. 選取所需的作業系統、然後按「Next（下一步）」。讓我們假設所選的作業系統已經設定了開機來源。
+. 在「Review and Create（檢閱與建立）」窗格中、選取您要在其中建立VM的專案、並提供VM詳細資料。請確定已選取要複製的開機來源、並使用指派給所選作業系統的適當永久磁碟從CD-ROM開機。
+. 按一下[自訂虛擬機器]，然後按一下[儲存設備]
+. 按一下rootdisk旁的省略符號、並確定已選取使用Trident配置的儲存ageclasse。展開「進階」、然後選取「存取模式」的「共享存取（rwx）」。然後按一下「儲存」。
++
+image::redhat_openshift_image56.JPG[讓磁碟機rwx可供存取]
+
+. 按一下「Review（檢閱）」並確認、然後按一下「Create Virtual Machine（建立虛
+
+
+若要將VM手動移轉至OpenShift叢集中的其他節點、請完成下列步驟。
+
+. 瀏覽至「工作負載」>「虛擬化」>「虛擬機器」。
+. 針對您要移轉的VM、按一下省略符號、然後按一下「移轉虛擬機器」。
+. 當訊息快顯以確認時、請按一下「移轉」。
+
+
+
+NOTE: 如果將設備策略設定為LiveMigrate、則當原始節點置於維護模式時、OpenShift叢集中的VM執行個體會自動移轉至其他節點。
+
+link:rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html["下一步：工作流程：虛擬機器複製。"]

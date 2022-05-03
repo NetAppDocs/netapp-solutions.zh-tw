@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/hdcs-sh-solution-overview.html 
+keywords: tr-4657, tr4657, 4657, hybrid cloud, spark, hadoop, aff, fas 
+summary: 本文件說明混合雲資料解決方案、使用NetApp AFF 的解決方案、NetApp FAS 的解決方案、NetApp的NetApp連接儲存設備、以及適用於Spark和Hadoop的NetApp FlexClone技術。Cloud Volumes ONTAP這些解決方案架構可讓客戶針對其環境選擇適當的資料保護解決方案。NetApp根據與客戶及其商業使用案例的互動來設計這些解決方案。 
+---
+= TR-4657：NetApp混合雲資料解決方案：根據客戶使用案例而設計的Spark和Hadoop
+:allow-uri-read: 
+
+
+NetApp的Karthithkeyan Nagalingam和Sathish Thyagarajan
+
+本文件說明混合雲資料解決方案、使用NetApp AFF 的解決方案、NetApp FAS 的解決方案、NetApp的NetApp連接儲存設備、以及適用於Spark和Hadoop的NetApp FlexClone技術。Cloud Volumes ONTAP這些解決方案架構可讓客戶針對其環境選擇適當的資料保護解決方案。NetApp根據與客戶及其商業使用案例的互動來設計這些解決方案。本文件提供下列詳細資訊：
+
+* 為何我們需要針對Spark和Hadoop環境及客戶挑戰提供資料保護。
+* 採用NetApp願景及其建置區塊與服務的資料架構。
+* 如何使用這些建置區塊來架構靈活的資料保護工作流程。
+* 多種架構的優缺點是以實際客戶使用案例為基礎。每個使用案例均提供下列元件：
++
+** 客戶案例
+** 需求與挑戰
+** 解決方案
+** 解決方案摘要
+
+
+
+
+
+
+== 為何需要Hadoop資料保護？
+
+在Hadoop和Spark環境中、必須解決下列問題：
+
+* *軟體或人為故障。*執行Hadoop資料作業時、軟體更新中發生人為錯誤、可能導致錯誤行為、導致工作產生非預期的結果。在這種情況下、我們需要保護資料、以避免失敗或不合理的結果。例如、由於流量訊號分析應用程式的軟體更新執行不良、因此這項新功能無法以純文字格式正確分析流量訊號資料。此軟體仍會分析Json及其他非文字檔案格式、進而產生即時流量控制分析系統、產生遺漏資料點的預測結果。這種情況可能會造成輸出故障、導致交通號誌發生意外。資料保護可提供快速回復至先前工作應用程式版本的功能、藉此解決此問題。
+* *規模與規模。*由於資料來源與磁碟區數量不斷增加、分析資料的大小日增。社群媒體、行動應用程式、資料分析及雲端運算平台是目前巨量資料市場中資料的主要來源、而且資料的成長速度極快、因此資料必須受到保護、才能確保資料作業準確無誤。
+* * Hadoop的原生資料保護功能。* Hadoop具有原生命令來保護資料、但此命令無法在備份期間提供一致的資料。它僅支援目錄層級備份。Hadoop建立的快照為唯讀、無法直接重複使用備份資料。
+
+
+
+
+== Hadoop和Spark客戶面臨的資料保護挑戰
+
+Hadoop和Spark客戶的一項常見挑戰是縮短備份時間並提高備份可靠性、而不會在資料保護期間對正式作業叢集的效能造成負面影響。
+
+客戶也需要將恢復點目標（RPO）和恢復時間目標（RTO）停機時間降至最低、並控制內部部署和雲端型災難恢復站台、以達到最佳的營運持續性。這項控管措施通常來自於企業層級的管理工具。
+
+Hadoop和Spark環境非常複雜、因為不僅資料量龐大且不斷成長、而且資料的送達速度也不斷提高。此案例讓您難以從來源資料快速建立有效率且最新的DevTest與QA環境。NetApp瞭解這些挑戰、並提供本白皮書所述的解決方案。
+
+link:hdcs-sh-data-fabric-powered-by-netapp-for-big-data-architecture.html["下一步：採用NetApp技術的Data Fabric、適用於Big Data架構。"]

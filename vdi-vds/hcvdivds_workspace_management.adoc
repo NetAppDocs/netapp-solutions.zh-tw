@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: vdi-vds/hcvdivds_workspace_management.html 
+keywords: Microsoft Azure, Windows Virtual Desktops, workspace, WVD 
+summary: 工作區包含桌面環境、可在內部部署或任何支援雲端環境中共用遠端桌面工作階段。有了Microsoft Azure、桌面環境就能持續使用Windows Virtual Desktops。每個工作區都與特定組織或用戶端相關聯。 
+---
+= 工作區管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+工作區由桌面環境組成、可在內部部署或任何支援的雲端環境中、共用遠端桌面工作階段。有了Microsoft Azure、桌面環境就能持續使用Windows Virtual Desktops。每個工作區都與特定組織或用戶端相關聯。建立新工作區時可用的選項如下圖所示。
+
+image:hcvdivds_image12.png["錯誤：缺少圖形影像"]
+
+
+NOTE: 每個工作區都與特定部署相關聯。
+
+工作區包含相關的應用程式和應用程式服務、共用資料夾、伺服器和WVD執行個體。每個工作區都能控制安全選項、例如強制執行密碼複雜度、多因素驗證、檔案稽核等。
+
+工作區可控制工作負載排程、以開啟額外的伺服器、限制每個伺服器的使用者人數、或設定特定期間可用資源的排程（永遠開啟/關閉）。也可設定資源以隨需啟動。
+
+如果需要、工作區可以覆寫部署VM資源的預設值。對於WVD、也可從雲端工作區管理套件入口網站管理WVD主機集區（包含工作階段主機和應用程式群組）和WVD工作區。如需WVD主機集區的詳細資訊、請參閱此 https://www.youtube.com/watch?v=kaHZm9yCv8g&feature=youtu.be&ab_channel=NetApp["影片"^]。
+
+link:hcvdivds_application_management.html["下一步：應用程式管理"]
