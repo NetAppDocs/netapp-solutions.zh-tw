@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: containers/anthos-with-netapp/a-w-n_solution_overview.html 
+keywords: NVA-1165, Anthos, GKE, Netapp, Astra Trident 
+summary: 本參考文件提供Anthos with NetApp解決方案的部署驗證、部署於多個資料中心環境、並已通過NetApp與我們的工程合作夥伴的驗證。 
+---
+= NVA-1165：Anthos與NetApp合作
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+NetApp公司Alan Cowles和NIKhil Kulkarni
+
+本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。
+
+它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
+
+
+
+== 使用案例
+
+Anthos with NetApp解決方案的架構旨在為具有下列使用案例的客戶提供卓越價值：
+
+* 使用隨附的「bmctl」工具部署在裸機上、或使用VMware vSphere上的「gkectl」工具、即可輕鬆部署及管理Anthos環境。
+* 結合企業容器和虛擬化工作負載的強大威力、以及部署在vSphere上或裸機上的Anthos https://cloud.google.com/anthos/clusters/docs/bare-metal/1.9/how-to/vm-workloads["Kubevirt"^]。
+* 實際的組態與使用案例、突顯了Anthos在與NetApp儲存設備搭配使用時的功能、而Astra Trident則是Kubernetes的開放原始碼儲存協調工具。
+
+
+
+
+== 商業價值
+
+企業逐漸採用DevOps實務來建立新產品、縮短發行週期、並快速新增新功能。由於容器和微服務的本質天生敏捷、因此在支援DevOps實務做法上扮演著重要角色。然而、在企業環境中以正式作業規模實作DevOps、卻帶來了自身的挑戰、並對基礎架構提出特定要求、例如：
+
+* 堆疊中所有層級的高可用度
+* 易於部署的程序
+* 不中斷營運與升級
+* API導向且可程式化的基礎架構、可跟上微服務敏捷度的腳步
+* 多租戶共享、效能保證
+* 能夠同時執行虛擬化與容器化的工作負載
+* 能夠根據工作負載需求獨立擴充基礎架構
+
+
+「Anthos with NetApp」解決方案能肯定這些挑戰、並提供解決方案、在客戶所選的資料中心環境中實作Anthos on Prem的全自動部署、協助解決每個疑慮。
+
+
+
+== 技術總覽
+
+Anthos with NetApp解決方案包含下列主要元件：
+
+
+
+=== Anthos on Prem
+
+Anthos on Prem是完全受支援的企業Kubernetes平台、可部署在VMware vSphere Hypervisor或您選擇的裸機基礎架構上。
+
+如需更多關於Anthos的資訊、請參閱Anthos網站 https://https://cloud.google.com/anthos/["請按這裡"^]。
+
+
+
+=== NetApp儲存系統
+
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+
+如需詳細資訊、請參閱NetApp網站 https://www.netapp.com["請按這裡"]。
+
+
+
+=== NetApp儲存整合
+
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。
+
+如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+
+
+
+== 進階組態選項
+
+本節專供實際使用者在將此解決方案部署至正式作業環境時可能需要執行的自訂作業、例如建立專用的私有映像登錄或部署自訂負載平衡器執行個體。
+
+
+
+== 已驗證版本的目前支援對照表
+
+|===
+
+
+| 技術 | 目的 | 軟體版本 
+
+
+| NetApp ONTAP | 儲存設備 | 9.8、9.9.1 
+
+
+| NetApp Element | 儲存設備 | 12.3. 
+
+
+| NetApp Astra Trident | 儲存協調 | 22.01.0 
+
+
+| VMware上的Anthos叢集 | 容器協調 | 1.10 
+
+
+| 裸機上的Anthos | Container協調 | 1.10 
+
+
+| VMware vSphere | 資料中心虛擬化 | 6.7U3、7.0U3 
+|===
+link:a-w-n_overview_anthos.html["下一步：Anthos Overview：Anthos with NetApp。"]

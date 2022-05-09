@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: containers/bmanthos_solution_overview.html 
+permalink: containers/baremetal-anthos/bmanthos_solution_overview.html 
 keywords: AFF, NFS, CIFS, iSCSI, FC, FCoE, FC-NVMe, 
 summary: NetApp AFF 支援功能強大的All Flash儲存平台、可提供低延遲效能、整合式資料保護、多重傳輸協定支援及不中斷營運。NetApp功能採用NetApp ONTAP 的支援資料管理軟體、AFF 可確保不中斷營運、從維護到升級、到儲存系統的完整更換、皆可順利完成。 
 ---
@@ -10,7 +10,7 @@ summary: NetApp AFF 支援功能強大的All Flash儲存平台、可提供低延
 :nofooter: 
 :icons: font
 :linkattrs: 
-:imagesdir: ./../media/
+:imagesdir: ./../../media/
 
 
 
@@ -46,13 +46,13 @@ image:bmanthos_image1.png["錯誤：缺少圖形影像"]
 
 
 
-== NetApp Trident
+== NetApp Astra Trident
 
-NetApp Trident是開放原始碼且完全支援的儲存協調工具、適用於Container和Kubernetes配送、包括Google Cloud Anthos。它可搭配完整的NetApp儲存產品組合、包括NetApp ONTAP 的整套軟體。Trident完全符合CSI標準、可讓您從NetApp儲存系統進行資源配置與管理、而無需儲存管理員介入、進而加速DevOps工作流程。Trident是以營運者的形式部署、透過在NetApp儲存系統上建立及管理磁碟區、直接與Kubernetes API端點通訊、以持續磁碟區宣告（PVCS）的形式來處理容器的儲存要求。
+NetApp Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Google Cloud Anthos。它可搭配完整的NetApp儲存產品組合、包括NetApp ONTAP 的整套軟體。Trident完全符合CSI標準、可讓您從NetApp儲存系統進行資源配置與管理、而無需儲存管理員介入、進而加速DevOps工作流程。Trident是以營運者的形式部署、透過在NetApp儲存系統上建立及管理磁碟區、直接與Kubernetes API端點通訊、以持續磁碟區宣告（PVCS）的形式來處理容器的儲存要求。
 
 持續磁碟區（PV）是根據Kubernetes環境中定義的儲存類別來配置。他們使用儲存管理員所建立的儲存後端（可根據專案需求自訂）和儲存系統模型、以允許任何數量的進階儲存功能、例如壓縮、特定磁碟類型或QoS層級來保證效能。
 
-如需NetApp Trident的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/en/stable-v20.10/["Trident"^] 頁面。
+如需NetApp Astra Trident的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/en/stable-v20.10/["Trident"^] 頁面。
 
 Trident協調NetApp產品組合中每個系統和服務的儲存設備。
 

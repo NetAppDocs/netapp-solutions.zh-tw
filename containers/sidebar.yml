@@ -1,7 +1,39 @@
 ---
 section: containers
 title: 容器
+url: "/containers/index.html"
 entries:
+- title: 採用NetApp Astra的DevOps
+  type: solutions
+  url: "/containers/devops_with_netapp/dwn_solution_overview.html"
+  entries:
+  - title: DevOps總覽
+    url: "/containers/devops_with_netapp/dwn_overview_devops.html"
+  - title: NetApp儲存系統總覽
+    url: "/containers/devops_with_netapp/dwn_overview_netapp.html"
+    entries:
+    - title: NetApp ONTAP
+      url: "/containers/devops_with_netapp/dwn_netapp_ontap.html"
+  - title: NetApp儲存整合概述
+    url: "/containers/devops_with_netapp/dwn_overview_storint.html"
+    entries:
+    - title: NetApp Astra控制中心總覽
+      url: "/containers/devops_with_netapp/dwn_overview_astra.html"
+    - title: NetApp Astra Trident總覽
+      url: "/containers/devops_with_netapp/dwn_overview_trident.html"
+  - title: 使用案例驗證
+    url: "/containers/devops_with_netapp/dwn_use_cases_overview.html"
+    entries:
+    - title: 利用NetApp Astra Control將保護功能整合至CI/CD管路
+      url: "/containers/devops_with_netapp/dwn_use_case_integrated_data_protection.html"
+    - title: 運用Astra Control來協助事後分析及還原應用程式
+      url: "/containers/devops_with_netapp/dwn_use_case_postmortem_with_restore.html"
+    - title: 利用NetApp FlexClones加速軟體開發
+      url: "/containers/devops_with_netapp/dwn_use_case_flexclone.html"
+  - title: 影片/示範
+    url: "/containers/devops_with_netapp/dwn_videos_and_demos.html"
+  - title: 其他資訊
+    url: "/containers/devops_with_netapp/dwn_additional_information.html"
 - title: Red Hat OpenShift with NetApp
   type: solutions
   url: "/containers/rh-os-n_solution_overview.html"
@@ -76,20 +108,20 @@ entries:
           url: "/containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html"
         - title: 儲存管理員工作
           url: "/containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html"
-      - title: 驗證
-        url: "/containers/rh-os-n_use_case_multitenancy_validation.html"
-      - title: 擴充
-        url: "/containers/rh-os-n_use_case_multitenancy_scaling.html"
-    - title: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+        - title: 驗證
+          url: "/containers/rh-os-n_use_case_multitenancy_validation.html"
+        - title: 擴充
+          url: "/containers/rh-os-n_use_case_multitenancy_scaling.html"
+  - title: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+    entries:
+    - title: 總覽
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
+    - title: 部署
       entries:
-      - title: 總覽
-        url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
-      - title: 部署
-        entries:
-        - title: 先決條件
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
-        - title: 透過營運者部署
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment.html"
+      - title: 先決條件
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
+      - title: 透過營運者部署
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment.html"
       - title: 工作流程
         entries:
         - title: 建立VM
@@ -100,16 +132,16 @@ entries:
           url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html"
         - title: 從Snapshot建立VM
           url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html"
-    - title: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
+  - title: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
+    entries:
+    - title: 總覽
+      url: "/containers/rh-os-n_use_case_advanced_cluster_management_overview.html"
+    - title: 部署
       entries:
-      - title: 總覽
-        url: "/containers/rh-os-n_use_case_advanced_cluster_management_overview.html"
-      - title: 部署
-        entries:
-        - title: 先決條件
-          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html"
-        - title: 透過營運者部署
-          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html"
+      - title: 先決條件
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html"
+      - title: 透過營運者部署
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html"
       - title: 功能
         entries:
         - title: 叢集生命週期管理
@@ -126,21 +158,66 @@ entries:
     url: "/containers/rh-os-n_videos_and_demos.html"
   - title: 其他資訊
     url: "/containers/rh-os-n_additional_information.html"
-- title: Google Anthos
+- title: Anthos與NetApp合作
+  type: solutions
+  url: "/containers/anthos-with-netapp/a-w-n_solution_overview.html"
+  entries:
+  - title: Anthos總覽
+    url: "/containers/anthos-with-netapp/a-w-n_overview_anthos.html"
+    entries:
+    - title: VMware上的Anthos叢集
+      url: "/containers/anthos-with-netapp/a-w-n_anthos_VMW.html"
+    - title: 裸機上的Anthos
+      url: "/containers/anthos-with-netapp/a-w-n_anthos_BM.html"
+  - title: NetApp儲存系統總覽
+    url: "/containers/anthos-with-netapp/a-w-n_overview_netapp.html"
+    entries:
+    - title: NetApp ONTAP
+      url: "/containers/anthos-with-netapp/a-w-n_netapp_ontap.html"
+    - title: NetApp Element
+      url: "/containers/anthos-with-netapp/a-w-n_netapp_element.html"
+  - title: NetApp儲存整合概述
+    url: "/containers/anthos-with-netapp/a-w-n_overview_storint.html"
+    entries:
+    - title: NetApp Astra Trident總覽
+      url: "/containers/anthos-with-netapp/a-w-n_overview_trident.html"
+      entries:
+      - title: NetApp ONTAP 不適用於NFS
+        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_nfs.html"
+      - title: NetApp ONTAP 支援iSCSI
+        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_iscsi.html"
+      - title: 支援iSCSI NetApp Element
+        url: "/containers/anthos-with-netapp/a-w-n_trident_element_iscsi.html"
+  - title: Anthos的進階組態選項
+    entries:
+    - title: 探索負載平衡器選項
+      url: "/containers/anthos-with-netapp/a-w-n_load_balancers.html"
+      entries:
+      - title: F5 BIG-IP
+        url: "/containers/anthos-with-netapp/a-w-n_LB_F5BigIP.html"
+      - title: SEETAW
+        url: "/containers/anthos-with-netapp/a-w-n_LB_SeeSaw.html"
+  - title: 解決方案驗證與使用案例
+    url: "/containers/anthos-with-netapp/a-w-n_use_cases.html"
+  - title: 影片/示範
+    url: "/containers/anthos-with-netapp/a-w-n_videos_and_demos.html"
+  - title: 其他資訊
+    url: "/containers/anthos-with-netapp/a-w-n_additional_information.html"
+- title: 歸檔解決方案
   entries:
   - title: 裸機上的Anthos
-    url: "/containers/bmanthos_introduction.html"
+    url: "/containers/baremetal-anthos/bmanthos_introduction.html"
     type: solutions
     entries:
     - title: 解決方案總覽
-      url: "/containers/bmanthos_solution_overview.html"
+      url: "/containers/baremetal-anthos/bmanthos_solution_overview.html"
     - title: 解決方案需求
-      url: "/containers/bmanthos_solution_requirements.html"
+      url: "/containers/baremetal-anthos/bmanthos_solution_requirements.html"
     - title: 部署摘要
-      url: "/containers/bmanthos_deployment_summary.html"
+      url: "/containers/baremetal-anthos/bmanthos_deployment_summary.html"
     - title: 解決方案驗證
-      url: "/containers/bmanthos_solution_validation.html"
+      url: "/containers/baremetal-anthos/bmanthos_solution_validation.html"
     - title: 結論
-      url: "/containers/bmanthos_conclusion.html"
+      url: "/containers/baremetal-anthos/bmanthos_conclusion.html"
     - title: 何處可找到其他資訊
-      url: "/containers/bmanthos_where_to_find_additional_information.html"
+      url: "/containers/baremetal-anthos/bmanthos_where_to_find_additional_information.html"

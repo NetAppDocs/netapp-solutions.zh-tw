@@ -1,0 +1,34 @@
+---
+sidebar: sidebar 
+permalink: containers/devops_with_netapp/dwn_overview_trident.html 
+keywords: Trident, Astra Trident, Helm, Operator, iSCSI, NFS, DevOps 
+summary: Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Red Hat OpenShift。 
+---
+= Astra Trident總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+:k8s_distribution_name: Red Hat OpenShift, VMware Tanzu, Anthos by Google Cloud, Rancher etc
+
+
+[role="normal"]
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
+
+系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型或QoS層級、以保證特定層級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。
+
+image:redhat_openshift_image2.png["錯誤：缺少圖形影像"]
+
+Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。
+
+最新版的Astra Trident於2022年1月推出22.01版。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
+
+從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括自修復部署為Trident安裝一部分的Pod。
+
+有了21.01版、我們提供了Helm圖表、方便您安裝Trident操作員。
+
+請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["請按這裡"^] 安裝及使用Astra Trident。
+
+link:dwn_use_cases_overview.html["下一步：使用案例驗證：使用NetApp Astra實現DevOps。"]

@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: containers/anthos-with-netapp/a-w-n_anthos_BM.html 
+keywords: Anthos, bare metal, linux 
+summary:  
+---
+= Anthos on裸機：Anthos with NetApp
+:allow-uri-read: 
+
+
+
+
+== 效益
+
+Anthos在裸機上的硬體無關功能、可讓您選擇專為個人化使用案例最佳化的運算平台、並提供許多其他優點。
+
+範例包括：
+
+* *帶上您自己的伺服器。*您可以使用符合現有基礎架構的伺服器來降低資本支出和管理成本。
+* *帶上您專屬的Linux作業系統。*選擇想要在裸機環境中部署Anthos的Linux作業系統、即可確保Anthos環境能完全符合您現有的基礎架構和管理方案。
+* *效能提升、成本降低。*無需Hypervisor、裸機叢集的Anthos要求直接存取伺服器硬體資源、包括效能最佳化的硬體裝置（例如GPU）。
+* *提升網路效能並降低延遲。*由於裸機伺服器節點上的Anthos直接連線至您的網路、而無需虛擬化抽象層、因此可針對低延遲與效能進行最佳化。
+
+
+
+
+== 硬體需求
+
+
+
+=== 運算
+
+Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更新新版Anthos的合作夥伴伺服器平台驗證。您可以找到目前已驗證的伺服器平台清單、以及所支援的Anthos版本 https://cloud.google.com/anthos/docs/resources/partner-platforms["請按這裡"^]。
+
+下表包含NetApp與NetApp合作夥伴工程師已測試過的伺服器平台、以驗證裸機部署上的Anthos。
+
+|===
+
+
+| 製造商 | 製造 | 模型 
+
+
+| Cisco | UCS | B200 M5 
+
+
+| HPE | ProLiant | 360 
+|===
+
+
+=== 作業系統
+
+裸機節點上的Anthos可設定多種客戶選擇的Linux套裝作業系統、以協助符合其目前的資料中心基礎架構。
+
+下表列出NetApp與合作夥伴用來驗證解決方案的Linux作業系統清單。
+
+|===
+| 作業系統 | 版本 | Anthos版本 
+
+
+| CentOS | 8.4. | 1.10 
+
+
+| Red Hat Enterprise Linux | 8.4. | 1.10 
+
+
+| Ubuntu | 18.04 LTS | 1.10 
+
+
+| Ubuntu | 20.04 LTS | 1.10 
+|===
+
+
+=== 額外硬體
+
+為了完成將Anthos部署在裸機上、做為完全驗證的解決方案、NetApp與合作夥伴工程師已測試了網路與儲存設備的其他資料中心元件。
+
+下表包含這些額外基礎架構元件的相關資訊。
+
+|===
+| 製造商 | 硬體名稱 | 模型 
+
+
+| Cisco | Nexus | C9336C-FX2 
+
+
+| NetApp | AFF | A250 
+|===
+
+
+=== 其他軟體
+
+下表列出在驗證環境中部署的其他軟體版本。
+
+|===
+| 製造商 | 軟體名稱 | 版本 
+
+
+| Cisco | NXOS | 9.3（5） 
+
+
+| NetApp | ONTAP | 9.9.1 
+
+
+| NetApp | Astra Trident | 22.01 
+|===
+在由NetApp與我們的合作夥伴團隊在全球技術（WWT）執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎所打造、可讓我們測試每種伺服器類型、作業系統、網路裝置、 以及部署在解決方案中的儲存系統。
+
+image:a-w-n_anthos_baremetal_validation.png["錯誤：缺少圖形影像"]
+
+
+NOTE: 此多作業系統環境顯示與裸機解決方案上的Anthos支援OS版本之間的互通性。我們預期客戶將會在一或一組作業系統上進行標準化、以進行自己的部署。
+
+
+
+=== 基礎架構支援資源
+
+在裸機上部署Anthos之前、應先建立下列基礎架構：
+
+* 至少有一部DNS伺服器提供完整的主機名稱解析、可從頻內管理網路和VM網路存取。
+* 至少有一部NTP伺服器可從頻內管理網路和VM網路存取。
+* （可選）用於帶內管理網路和VM網路的傳出網際網路連線。
+
+
+link:a-w-n_overview_netapp.html["下一步：NetApp儲存設備總覽：Anthos with NetApp。"]

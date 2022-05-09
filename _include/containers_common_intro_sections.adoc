@@ -1,0 +1,162 @@
+= NetApp平台
+:allow-uri-read: 
+
+
+企業逐漸採用DevOps實務來建立新產品、縮短發行週期、並快速新增新功能。由於容器和微服務的本質天生敏捷、因此在支援DevOps實務做法上扮演著重要角色。然而、在企業環境中以正式作業規模實作DevOps、卻帶來了自身的挑戰、並對基礎架構提出特定要求、例如：
+
+* 堆疊中所有層級的高可用度
+* 易於部署的程序
+* 不中斷營運與升級
+* API導向且可程式化的基礎架構、可跟上微服務敏捷度的腳步
+* 多租戶共享、效能保證
+* 能夠同時執行虛擬化與容器化的工作負載
+* 能夠根據工作負載需求獨立擴充基礎架構
+
+
+Red Hat OpenShift Container Platform是完全受支援的企業Kubernetes平台。Red Hat針對開放原始碼Kubernetes進行了多項增強功能、以提供一個應用程式平台、其中所有元件均已完全整合、可用來建置、部署及管理容器化應用程式。
+
+如需詳細資訊、請造訪OpenShift網站 https://www.openshift.com["請按這裡"]。
+
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+
+如需詳細資訊、請造訪NetApp網站 https://www.netapp.com["請按這裡"]。
+
+NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資料管理服務、適用於部署在內部環境中且採用值得信賴的NetApp資料保護技術的狀態式Kubernetes工作負載。
+
+如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
+
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。
+
+如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+
+[role="normal"]
+NetApp擁有數個符合Astra Trident與Astra Control資格的儲存平台、可為容器化應用程式提供、保護及管理資料。
+
+image:redhat_openshift_image43.png["錯誤：缺少圖形影像"]
+
+* 支援以檔案為基礎（NFS）和區塊為基礎（iSCSI）的使用案例、可同時執行NetApp的支援功能和功能。AFF FAS ONTAP
+* 在雲端和虛擬空間中、使用者可分別獲得相同的效益。Cloud Volumes ONTAP ONTAP Select
+* NetApp Cloud Volumes Service 的功能（AWS/GCP）和Azure NetApp Files 功能豐富的功能、可在雲端提供檔案型儲存設備。
+
+
+* 在可高度擴充的環境中、支援以區塊為基礎的（iSCSI）使用案例。NetApp Element
+
+
+
+NOTE: NetApp產品組合中的每個儲存系統都能輕鬆管理內部部署站台和雲端之間的資料、讓您的資料成為應用程式所在。
+
+下列頁面提供｛Solution _名稱｝解決方案所驗證的NetApp儲存系統相關其他資訊：
+
+* link:{ontap_page_link}["NetApp ONTAP"]
+
+
+* link:{element_page_link}["NetApp Element"]
+
+
+[role="normal"]
+NetApp ONTAP 功能強大的儲存軟體工具、具備直覺式GUI、REST API與自動化整合、AI資訊預測分析與修正行動、不中斷營運的硬體升級、以及跨儲存設備匯入等功能。
+
+如需更多關於NetApp ONTAP NetApp NetApp資訊儲存系統的資訊、請造訪 https://www.netapp.com/data-management/ontap-data-management-software/["NetApp ONTAP 產品網站"^]。
+
+支援下列功能：ONTAP
+
+* 統一化儲存系統、可同時存取及管理NFS、CIFS、iSCSI、FC、FCoE、 和FC-NVMe傳輸協定。
+* 不同的部署模式包括在All Flash、混合式和All HDD硬體組態上的內部部署、ONTAP Select 在支援的Hypervisor上的VM型儲存平台（例如：用作支援的Hypervisor）、以及在雲端上用Cloud Volumes ONTAP 作支援的
+* 支援自動資料分層、即時資料壓縮、重複資料刪除及壓縮、可提升ONTAP 資料在支援功能完善的系統上的儲存效率。
+* 工作負載型QoS控制儲存設備。
+* 與公有雲無縫整合、以利分層和保護資料。此外、支援強大的資料保護功能、可在任何環境中脫穎而出：ONTAP
++
+** * NetApp Snapshot複本。*快速的時間點資料備份、使用最少的磁碟空間、不需額外的效能負荷。
+** * NetApp SnapMirror.*將資料的Snapshot複本從一個儲存系統鏡射到另一個儲存系統。支援將資料鏡射到其他實體平台、以及雲端原生服務。ONTAP
+** * NetApp SnapLock 功能*可將不可重複寫入的資料寫入無法在指定期間覆寫或清除的特殊磁碟區、以有效管理不可重複寫入的資料。
+** * NetApp SnapVault 功能*可將多個儲存系統的資料備份至中央Snapshot複本、作為所有指定系統的備份。
+** * NetApp SyncMirror Real-.*可將資料即時、RAID層級的鏡射、鏡射到實體連接至相同控制器的兩個不同磁碟叢。
+** * NetApp SnapRestore 功能*可根據需求、從Snapshot複本快速還原備份資料。
+** * NetApp FlexClone。*可根據Snapshot複本、即時提供NetApp磁碟區完整讀取且可寫入的複本。
+
+
+
+
+如需ONTAP 更多關於效能的資訊、請參閱 https://docs.netapp.com/us-en/ontap/index.html["供應說明文件中心 ONTAP"^]。
+
+
+NOTE: NetApp ONTAP 產品可在內部部署、虛擬化或雲端上使用。
+
+image:redhat_openshift_image35.png["錯誤：缺少圖形影像"]
+
+
+
+== NetApp平台
+
+
+
+=== NetApp AFF/FAS
+
+NetApp提供強大的All Flash AFF （VMware）與橫向擴充混合式FAS （VMware）儲存平台、專為低延遲效能、整合式資料保護及多重傳輸協定支援而量身打造。
+
+這兩種系統均採用ONTAP NetApp的NetApp支援資料管理軟體、這是業界最先進的資料管理軟體、可簡化、高可用度的雲端整合式儲存管理、為您的資料架構需求提供企業級的速度、效率和安全性。
+
+如需NetApp AFF/FAS平台的詳細資訊、請按一下 https://docs.netapp.com/platstor/index.jsp["請按這裡"]。
+
+
+
+=== ONTAP Select
+
+透過軟體定義部署的NetApp解決方案、可將其部署到您環境中的Hypervisor上。ONTAP Select ONTAP它可以安裝在VMware vSphere或KVM上、並提供硬體ONTAP 式的整套功能和體驗。
+
+如需ONTAP Select 更多有關資訊、請按一下 https://docs.netapp.com/us-en/ontap-select/["請按這裡"]。
+
+
+
+=== Cloud Volumes ONTAP
+
+NetApp Cloud Volumes ONTAP 功能是雲端部署版本的NetApp ONTAP 功能、可部署在許多公有雲上、包括Amazon AWS、Microsoft Azure和Google Cloud。
+
+如需Cloud Volumes ONTAP 更多有關資訊、請按一下 https://docs.netapp.com/us-en/occm/#discover-whats-new["請按這裡"]。
+
+[role="normal"]
+NetApp提供許多產品、協助您協調、管理、保護及移轉狀態化容器化應用程式及其資料。
+
+image:devops_with_netapp_image1.jpg["錯誤：缺少圖形影像"]
+
+NetApp Astra Control提供豐富的儲存設備與應用程式感知資料管理服務、適用於採用NetApp資料保護技術的狀態式Kubernetes工作負載。Astra Control Service可支援雲端原生Kubernetes部署中的狀態工作負載。Astra Control Center可支援企業Kubernetes平台（例如｛k8s_distribution_name｝）內部部署中的狀態工作負載。如需詳細資訊、請參閱NetApp Astra Control網站 https://cloud.netapp.com/astra["請按這裡"]。
+
+NetApp Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+
+下列頁面提供更多有關已通過｛Solution _名稱｝解決方案中應用程式與持續儲存管理驗證的NetApp產品資訊：
+
+* link:{astra_control_overview_page_link}["NetApp Astra控制中心"]
+* link:{trident_overview_page_link}["NetApp Astra Trident"]
+
+
+[role="normal"]
+NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資料管理服務、適用於部署在內部部署環境中且採用NetApp資料保護技術的狀態式Kubernetes工作負載。
+
+image:redhat_openshift_image44.png["錯誤：缺少圖形影像"]
+
+NetApp Astra Control Center可安裝在｛k8s_distribution_name｝叢集上、該叢集已部署Astra Trident Storage Orchestrator、並已設定儲存類別和儲存後端、以供NetApp ONTAP orsname儲存系統使用。
+
+如需Astra Trident的詳細資訊、請參閱 link:dwn_overview_trident.html["本文檔"^]。
+
+在雲端連線的環境中、Astra Control Center會使用Cloud Insights 效益技術來提供進階監控和遙測功能。若缺乏Cloud Insights 一個不穩定的連線、則可透過開放式指標端點、將有限的監控和遙測（價值七天的指標）匯出至Kubernetes原生監控工具（Prometheus和Grafana）。
+
+Astra Control Center已完全整合至NetApp AutoSupport 的整套功能和Active IQ 功能、可為使用者提供支援、協助疑難排解、以及顯示使用統計資料。
+
+除了Astra Control Center的付費版本、我們也提供90天的評估授權。評估版本可透過電子郵件和社群Slack通路支援。客戶可從產品內的支援儀表板存取這些資源、其他知識庫文章及文件。
+
+若要深入瞭解Astra產品組合、請造訪 link:https://cloud.netapp.com/astra["Astra網站"^]。
+
+[role="normal"]
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
+
+系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型或QoS層級、以保證特定層級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。
+
+image:redhat_openshift_image2.png["錯誤：缺少圖形影像"]
+
+Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。
+
+最新版的Astra Trident於2022年1月推出22.01版。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
+
+從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括自修復部署為Trident安裝一部分的Pod。
+
+有了21.01版、我們提供了Helm圖表、方便您安裝Trident操作員。
