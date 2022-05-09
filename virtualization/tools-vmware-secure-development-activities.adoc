@@ -65,34 +65,34 @@ permitted by applicable law.
 
 
 |===
-| TCP v4/v6連接埠# | 功能 
+| TCP v4/v6連接埠# | 方向 | 功能 
 
 
-| 8143個傳入 | 用於REST API的HTTPS連線 
+| 8143. | 傳入 | 用於REST API的HTTPS連線 
 
 
-| 8043傳入 | HTTPS連線 
+| 8043 | 傳入 | HTTPS連線 
 
 
-| 9060個傳入 | HTTPS連線用於透過https連線的SOAP此連接埠必須開啟、才能讓用戶端連線ONTAP 至VMware Tools API伺服器。 
+| 9060 | 傳入 | HTTPS連線用於透過https連線的SOAP此連接埠必須開啟、才能讓用戶端連線ONTAP 至VMware Tools API伺服器。 
 
 
-| 22個傳入 | SSH（預設為停用） 
+| 22 | 傳入 | SSH（預設為停用） 
 
 
-| 9080傳入 | HTTPS連線- VP和SRA -僅從回送進行內部連線 
+| 9080 | 傳入 | HTTPS連線- VP和SRA -僅從回送進行內部連線 
 
 
-| 9083傳入 | HTTPS連線：VP和SRA用於https連線上的SOAP 
+| 9083. | 傳入 | HTTPS連線：VP和SRA用於https連線上的SOAP 
 
 
-| 1162個傳入 | VP SNMP設陷封包 
+| 1162 | 傳入 | VP SNMP設陷封包 
 
 
-| 1527僅限內部使用 | 僅在此電腦與本身之間的外部連線不接受（僅限內部連線） 
+| 1527 | 僅限內部使用 | 僅在此電腦與本身之間的外部連線不接受（僅限內部連線） 
 
 
-| 443雙向 | 用於連線ONTAP 至叢集 
+| 443.. | 雙向 | 用於連線ONTAP 至叢集 
 |===
 * *支援憑證授權單位（CA）簽署的憑證。* ONTAP VMware vSphere的各種工具支援CA簽署的憑證。請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/VSC_and_VASA_Provider/Virtual_Storage_Console%3A_Implementing_CA_signed_certificates["知識庫文章"^] 以取得更多資訊。
 * *稽核記錄。*您可以下載支援套裝組合、而且內容極為詳細。使用者登入和登出活動會記錄在個別的記錄檔中。ONTAPVASA API呼叫會記錄在專屬的VASA稽核記錄（本機CXF.log）中。
