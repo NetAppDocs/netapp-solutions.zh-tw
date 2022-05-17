@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs/ncvs-gc-how-cloud-volumes-service-in-google-cloud-secures-your-data.html 
+keywords: secure, architecture, tenancy model, identity management, control plane, security hardening, encryption, zero trust, ransomware 
+summary: 在Google Cloud中使用支援多種方式、以原生方式保護資料安全。Cloud Volumes Service 
+---
+= Google Cloud的功能介紹如何保護資料安全Cloud Volumes Service
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:ncvs-gc-overview.html["上一步：總覽。"]
+
+在Google Cloud中使用支援多種方式、以原生方式保護資料安全。Cloud Volumes Service
+
+
+
+== 安全的架構與租戶模式
+
+透過分割不同端點的服務管理（控制面板）和資料存取（資料面板）、提供Google Cloud中的安全架構、使兩者都不會影響其他端點（請參閱一節）Cloud Volumes Service link:ncvs-gc-cloud-volumes-service-architecture.html["「架構」Cloud Volumes Service"]）。它使用Google的 https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["私有服務存取"^] （PSA）架構以提供服務。此架構可區分由NetApp提供及營運的服務供應商、以及客戶專案中的虛擬私有雲端（VPC）服務消費者、這些客戶是想要存取Cloud Volumes Service VMware檔案共享的客戶。
+
+在此架構中、租戶（請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#tenancy-model["「租賃模式」"]）定義為Google Cloud專案、除非使用者明確連線、否則這些專案彼此之間完全隔離。租戶可利用Cloud Volumes Service 這個功能、將資料磁碟區、外部名稱服務及解決方案的其他重要部分、與其他租戶完全隔離在一起。由於此平台是透過VPC對等連接、因此隔離也適用於此平台。Cloud Volumes Service您Cloud Volumes Service 可以使用共享VPC、在多個專案之間共用一個支援區塊（請參閱一節） link:ncvs-gc-cloud-volumes-service-architecture.html#tenancy-model#shared-vpcs["「共享VPC」"]）。您可以將存取控制套用至SMB共用和NFS匯出、以限制可以檢視或修改資料集的人員或內容。
+
+
+
+== 針對控制面板提供強大的身分識別管理功能
+
+在執行不完整組態的控制面板Cloud Volumes Service 中、使用管理身分識別管理 https://cloud.google.com/iam/docs/overview["身分識別存取管理（IAM）"^]。IAM是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。所有組態都是透過Cloud Volumes Service 使用TLS 1.2加密的安全HTTPS傳輸來執行、而驗證則是使用JWT權杖來執行、以提高安全性。Google Console UI Cloud Volumes Service for the取消功能、可將使用者輸入內容轉譯為Cloud Volumes Service 使用者對功能不整的API呼叫。
+
+
+
+== 安全強化：限制攻擊面
+
+有效安全性的一部分是限制服務中可用的攻擊面數量。攻擊面可能包括各種內容、包括閒置資料、飛行傳輸、登入及資料集本身。
+
+託管服務可移除設計中固有的部分攻擊面。基礎架構管理、如一節所述 link:ncvs-gc-service-operation.html["「服務營運、」"] 由專屬團隊處理、並自動化以減少人員實際接觸組態的次數、有助於減少刻意和非蓄意的錯誤數量。網路已被隔離、因此只有必要的服務才能彼此存取。加密會被納入資料儲存設備、只有資料層需要Cloud Volumes Service 得到資訊管理員的安全注意。藉由將大部分的管理隱藏在API介面之後、可藉由限制攻擊面來實現安全性。
+
+
+
+== 零信任模式
+
+過去、IT安全理念一直是信任、但卻是驗證、而且只是仰賴外部機制（例如防火牆和入侵偵測系統）來減輕威脅。然而、攻擊與入侵事件演變成透過網路釣魚、社交工程、內部威脅及其他驗證方法、規避環境中的驗證、進而進入網路並造成嚴重破壞。
+
+零信任已成為安全性的新方法、目前的宗旨是「在驗證一切的同時、不信任任何事物」。 因此、預設不允許任何存取。這項強制原則有多種執行方式、包括標準防火牆和入侵偵測系統（IDS）、也有下列方法：
+
+* 強式驗證方法（例如AES加密的Kerberos或JWT權杖）
+* 單一強身分識別來源（例如Windows Active Directory、輕量型目錄存取傳輸協定（LDAP）和Google IAM）
+* 網路區隔和安全的多租戶共享（預設只允許租戶存取）
+* 以最低權限存取原則進行精細的存取控制
+* 專屬且值得信賴的小型專屬系統管理員清單、提供數位稽核與書面記錄
+
+
+在Google Cloud上執行的解決方案採用零信任模式、實作「無信任、驗證一切」的立場。Cloud Volumes Service
+
+
+
+== 加密
+
+加密閒置資料（請參閱一節 link:ncvs-gc-data-encryption-at-rest.html["「閒置時的資料加密」"]）搭配NetApp Volume Encryption（NVE）和線上使用XTS-AES-256密碼 link:ncvs-gc-data-encryption-in-transit.html#nas-protocols#smb-encryption["「SMB加密」"] 或NFS Kerberos 5p支援。瞭解跨區域複寫傳輸受到TLS 1.2加密保護、讓您高枕無憂（請參閱一節） link:ncvs-gc-security-considerations-and-attack-surfaces.html#detection,-prevention-and-mitigation-of-ransomeware,-malware,-and-viruses#cross-region-replication["「跨區域複寫」"]）。此外、Google網路也提供加密通訊（請參閱一節 link:ncvs-gc-data-encryption-in-transit.html["「傳輸中的資料加密」"]）提供額外的保護層、防範攻擊。如需傳輸加密的詳細資訊、請參閱一節 link:ncvs-gc-data-encryption-in-transit.html#google-cloud-network["「Google Cloud Network」"]。
+
+
+
+== 資料保護與備份
+
+安全性不只是預防攻擊而已。這也與我們如何在攻擊發生時或發生時從攻擊中恢復有關。此策略包括資料保護與備份。提供在停電時複製到其他地區的方法（請參閱一節Cloud Volumes Service link:ncvs-gc-security-considerations-and-attack-surfaces.html#detection,-prevention-and-mitigation-of-ransomeware,-malware,-and-viruses#cross-region-replication["「跨區域複寫」"]）或資料集受到勒索軟體攻擊的影響。也Cloud Volumes Service 可以使用、將資料非同步備份到非執行個體的位置 link:ncvs-gc-security-considerations-and-attack-surfaces.html#detection,-prevention-and-mitigation-of-ransomeware,-malware,-and-viruses#cloud-volumes-service-backup["支援Cloud Volumes Service"]。透過定期備份、降低安全事件的時間、節省成本、並使系統管理員感到焦慮。
+
+
+
+== 利用領先業界的Snapshot複本、快速緩解勒索軟體
+
+除了資料保護與備份、Cloud Volumes Service 支援不可變的Snapshot複本（請參閱一節） link:ncvs-gc-security-considerations-and-attack-surfaces.html#detection,-prevention-and-mitigation-of-ransomeware,-malware,-and-viruses#immutable-snapshot-copies["「可永久保存的Snapshot複本」"]）允許從勒索軟體攻擊中恢復的磁碟區（請參閱一節 link:ncvs-gc-service-operation.html["「服務營運」"]）在發現問題的幾秒鐘內、並將中斷時間降至最低。恢復時間與影響取決於Snapshot排程、但您可以建立Snapshot複本、在勒索軟體攻擊中提供最少一小時的差異。Snapshot複本對效能和容量使用率的影響微乎其微、是保護資料集的低風險高報酬方法。
+
+link:ncvs-gc-security-considerations-and-attack-surfaces.html["下一步：安全考量與攻擊面。"]

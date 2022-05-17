@@ -1,0 +1,131 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs/ncvs-gc-data-encryption-in-transit.html 
+keywords: google cloud network, nas protocols, smb encryption, NFSv4.1 Kerberos 
+summary: 傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路本身也會加密、如下列各節所述。 
+---
+= 傳輸中的資料加密
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:ncvs-gc-data-plane-architecture.html["先前版本：資料平面架構。"]
+
+傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路本身也會加密、如下列各節所述。
+
+
+
+== Google Cloud網路
+
+Google Cloud會加密網路層級的流量、如所述 https://cloud.google.com/security/encryption-in-transit["傳輸中加密"^] 在Google文件中。如「Cloud Volumes Services Architecture」一節所述、Cloud Volumes Service NetApp控制的PSAPa生產商專案將提供此功能。
+
+在CVs-SW的情況下、生產商租戶會執行Google VM來提供服務。Google Cloud Volumes Service 會自動加密使用者VM和不支援的VM之間的流量。
+
+雖然CVS效能的資料路徑在網路層上並未完全加密、但NetApp與Google仍使用這種組合 https://1.ieee802.org/security/802-1ae/["IEEE 802.1AE加密（MAC安全）"^]、 https://datatracker.ietf.org/doc/html/rfc2003["封裝"^] （資料加密）和實體受限的網路、以保護Cloud Volumes Service 資料在整個過程中在整個過程中在靜止CVS效能服務類型和Google Cloud之間傳輸。
+
+
+
+== NAS傳輸協定
+
+NFS和SMB NAS傳輸協定可在傳輸協定層提供選用的傳輸加密。
+
+
+
+=== SMB加密
+
+https://docs.microsoft.com/en-us/windows-server/storage/file-server/smb-security["SMB加密"^] 提供SMB資料的端點對端點加密、並保護資料免於在不受信任的網路上遭人竊取。您可以啟用用戶端/伺服器資料連線（僅適用於支援SMB3.x的用戶端）和伺服器/網域控制器驗證的加密。
+
+啟用SMB加密時、不支援加密的用戶端將無法存取共用區。
+
+支援RC4-HMAC、AES-122-CTS-HMA-SHA1和AES-256-CTS-HMA-SHA1安全密碼、以進行SMB加密。Cloud Volumes ServiceSMB會交涉至伺服器支援的最高加密類型。
+
+
+
+=== NFSv4.1 Kerberos
+
+對於NFSv4.1、CVS效能提供如所述的Kerberos驗證 https://datatracker.ietf.org/doc/html/rfc7530["RFC7530"^]。您可以針對每個磁碟區啟用Kerberos。
+
+Kerberos目前最強大的加密類型是AES-256-CTS-HMA-SHA1。NetApp Cloud Volumes Service 支援AES-256-CTS-HMA-SHA1、AES-123-CTS-HMA-SHA1、DES3和DES for NFS。它也支援CIFS/SMB流量的ARCFOUR-HMAC（RC4）、但不支援NFS。
+
+Kerberos為NFS裝載提供三種不同的安全性層級、可讓您選擇Kerberos安全性的強度。
+
+根據RedHat https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s1-nfs-client-config-options["通用掛載選項"^] 文件：
+
+....
+sec=krb5 uses Kerberos V5 instead of local UNIX UIDs and GIDs to authenticate users.
+sec=krb5i uses Kerberos V5 for user authentication and performs integrity checking of NFS operations using secure checksums to prevent data tampering.
+sec=krb5p uses Kerberos V5 for user authentication, integrity checking, and encrypts NFS traffic to prevent traffic sniffing. This is the most secure setting, but it also involves the most performance overhead.
+....
+一般而言、Kerberos安全性層級越高、效能就越差、因為用戶端和伺服器花費時間來加密和解密所傳送的每個封包的NFS作業。許多用戶端和NFS伺服器都支援AES-NI卸載至CPU、以獲得更好的整體體驗、但Kerberos 5p（完整端對端加密）的效能影響遠高於Kerberos 5（使用者驗證）的影響。
+
+下表顯示每個層級在安全性和效能方面的差異。
+
+|===
+| 安全性層級 | 安全性 | 效能 
+
+
+| NFSv3—系統  a| 
+* 最不安全；純文字、含數字使用者ID /群組ID
+* 能夠檢視UID、GID、用戶端IP位址、匯出路徑、檔案名稱、 封包擷取的權限
+
+ a| 
+* 最適合大多數情況
+
+
+
+
+| NFSv4.x—系統  a| 
+* 比NFSv3（用戶端ID、名稱字串/網域字串比對）更安全、但仍是純文字
+* 能夠檢視UID、GID、用戶端IP位址、名稱字串、網域ID、 在封包擷取中匯出路徑、檔案名稱、權限
+
+ a| 
+* 適合連續工作負載（例如VM、資料庫、大型檔案）
+* 高檔案數/高中繼資料的不良（差30-50%）
+
+
+
+
+| NFS—KRB5  a| 
+* 每個NFS封包中的認證Kerberos加密：在GSS包裝程式的RPC呼叫中、將使用者/群組的UID/GID封包起來
+* 要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動金鑰索引標籤交換）；票證會在指定的時間段後過期、使用者必須重新驗證才能存取
+* 不加密NFS作業或掛載/連接埠對應器/ NLM等輔助通訊協定（可參閱匯出路徑、IP位址、檔案處理、權限、檔案名稱、 封包擷取的時間/時間）
+
+ a| 
+* 在大多數情況下最佳的Kerberos；比AUTH_SYS更糟
+
+
+
+
+| NFS：krb5i  a| 
+* 每個NFS封包中的認證Kerberos加密：在GSS包裝程式的RPC呼叫中、將使用者/群組的UID/GID封包起來
+* 要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動金鑰索引標籤交換）；票證會在指定的時間段後過期、使用者必須重新驗證才能存取
+* 不加密NFS作業或掛載/連接埠對應器/ NLM等輔助通訊協定（可參閱匯出路徑、IP位址、檔案處理、權限、檔案名稱、 封包擷取的時間/時間）
+* 每個封包都會新增Kerberos GSS Checksum、以確保不會攔截封包。如果校驗和相符、則允許對話。
+
+ a| 
+* 優於krb5p、因為NFS有效負載未加密；只有與krb5相比、新增的額外負荷才是完整性Checksum。krb5i的效能不會比krb5差很多、但會有一些降低。
+
+
+
+
+| NFS–krb5p  a| 
+* 每個NFS封包中的認證Kerberos加密：在GSS包裝程式的RPC呼叫中、將使用者/群組的UID/GID封包起來
+* 要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動Keytab交換）；票證會在指定的時間段後過期、而且使用者必須重新驗證才能存取
+* 所有NFS封包有效負載都會使用GSS包裝進行加密（無法在封包擷取中看到檔案處理代碼、權限、檔案名稱、atime/mtime）。
+* 包括完整性檢查。
+* NFS作業類型可見（Fsinfo, access, GetAttr等）。
+* 輔助通訊協定（掛載、連接埠對應、NLM等）未加密-（請參閱匯出路徑、IP位址）
+
+ a| 
+* 安全性層級效能最差；krb5p必須加密/解密更多資料。
+* 使用NFSv4.x的效能優於krb5p、適用於高檔案數工作負載。
+
+
+|===
+在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關NFS Kerberos如何顯示在封包擷取中的資訊、請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#packet-sniffing/trace-considerations["「封包偵測/追蹤考量。」"]
+
+link:ncvs-gc-data-encryption-at-rest.html["下一步：閒置資料加密。"]

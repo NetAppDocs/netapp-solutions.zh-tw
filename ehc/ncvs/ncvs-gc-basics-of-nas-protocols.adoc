@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs/ncvs-gc-basics-of-nas-protocols.html 
+keywords: nas, basics, gcp, nfs, smb 
+summary: NAS傳輸協定是讓網路上的多個用戶端存取儲存系統上相同資料的方法、例如Cloud Volumes Service GPC上的NFS和SMB是定義的NAS傳輸協定、可在Cloud Volumes Service 客戶端/伺服器上運作、其中的伺服器是由支援服務器使用。 
+---
+= NAS傳輸協定的基本概念
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:ncvs-gc-nas-protocols_overview.html["上一篇：NAS傳輸協定總覽。"]
+
+NAS傳輸協定是讓網路上的多個用戶端存取儲存系統上相同資料的方法、例如Cloud Volumes Service GPC上的NFS和SMB是定義的NAS傳輸協定、可在Cloud Volumes Service 客戶端/伺服器上運作、其中的伺服器是由支援服務器使用。用戶端會傳送存取、讀取和寫入要求給伺服器、伺服器負責協調檔案的鎖定機制、儲存權限、以及處理身分識別和驗證要求。
+
+例如、如果NAS用戶端想要在資料夾中建立新檔案、則會遵循下列一般程序。
+
+. 用戶端會要求伺服器提供目錄的相關資訊（權限、擁有者、群組、檔案ID、可用空間、 等）；如果要求的用戶端和使用者對父資料夾擁有必要的權限、伺服器就會回應該資訊。
+. 如果目錄上的權限允許存取、則用戶端會詢問伺服器所建立的檔案名稱是否已存在於檔案系統中。如果檔案名稱已在使用中、建立就會失敗。如果檔案名稱不存在、伺服器會讓用戶端知道它可以繼續。
+. 用戶端會呼叫伺服器、以使用目錄處理和檔案名稱來建立檔案、並設定存取和修改時間。伺服器會對檔案發出唯一的檔案ID、以確保沒有以相同的檔案ID建立其他檔案。
+. 用戶端會在寫入作業之前傳送呼叫來檢查檔案屬性。如果權限允許、用戶端就會寫入新檔案。如果傳輸協定/應用程式使用鎖定、用戶端會要求伺服器提供鎖定、以防止其他用戶端在鎖定時存取檔案、以避免資料毀損。
+
+
+link:ncvs-gc-nfs.html["下一步：NFS。"]

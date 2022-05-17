@@ -10891,4 +10891,1062 @@
   <block id="59b5f97219239806c778ffff9bda8ad0" category="sidebar">使用案例驗證</block>
   <block id="1a4f47ee7c7d8b59e68be952ac121268" category="sidebar">Anthos的進階組態選項</block>
   <block id="b0ed101b405f642695988c7ef3313b52" category="sidebar">歸檔解決方案</block>
+  <block id="9eb662185982de390339607d2ee459a4" category="summary">在Google Cloud中使用支援多種方式、以原生方式保護資料安全。Cloud Volumes Service</block>
+  <block id="52aa20c1efa9dfeda78d72f4c056c23f" category="doc">Google Cloud的功能介紹如何保護資料安全Cloud Volumes Service</block>
+  <block id="c0db72d078098472051229dbdb83118e" category="inline-link-macro">上一步：總覽。</block>
+  <block id="78dad9c3bba77d55493b24502dbe6a1d" category="paragraph"><block ref="78dad9c3bba77d55493b24502dbe6a1d" category="inline-link-macro-rx"></block></block>
+  <block id="9967209a1408f78f781d93dd0cdf88c4" category="section-title">安全的架構與租戶模式</block>
+  <block id="9ba9e0f1cce71f64d3188bfdc502a43d" category="inline-link-macro">「架構」Cloud Volumes Service</block>
+  <block id="33186704f78f73f32736a9ba7f8ddc85" category="inline-link">私有服務存取</block>
+  <block id="00d6cadb7a586713782bbffe59d5bc21" category="paragraph">透過分割不同端點的服務管理（控制面板）和資料存取（資料面板）、提供Google Cloud中的安全架構、使兩者都不會影響其他端點（請參閱一節）Cloud Volumes Service <block ref="d861c2ffd2960acc200167f08fd40005" category="inline-link-macro-rx"></block>）。它使用Google的<block ref="1ac65cff0d913f26dd36736caeefd5b7" category="inline-link-rx"></block> （PSA）架構以提供服務。此架構可區分由NetApp提供及營運的服務供應商、以及客戶專案中的虛擬私有雲端（VPC）服務消費者、這些客戶是想要存取Cloud Volumes Service VMware檔案共享的客戶。</block>
+  <block id="5971da0242ce7b616ff2972978613cef" category="inline-link-macro">「租賃模式」</block>
+  <block id="01760cb04e3a4a93404ab2c878b036db" category="inline-link-macro">「共享VPC」</block>
+  <block id="e70da8f06ec706ed45906f411481eda0" category="paragraph">在此架構中、租戶（請參閱一節 <block ref="0a088dd892133b6a77304655c2b8b829" category="inline-link-macro-rx"></block>）定義為Google Cloud專案、除非使用者明確連線、否則這些專案彼此之間完全隔離。租戶可利用Cloud Volumes Service 這個功能、將資料磁碟區、外部名稱服務及解決方案的其他重要部分、與其他租戶完全隔離在一起。由於此平台是透過VPC對等連接、因此隔離也適用於此平台。Cloud Volumes Service您Cloud Volumes Service 可以使用共享VPC、在多個專案之間共用一個支援區塊（請參閱一節） <block ref="c2426c8c5bcdce9adb82a8906c5a3478" category="inline-link-macro-rx"></block>）。您可以將存取控制套用至SMB共用和NFS匯出、以限制可以檢視或修改資料集的人員或內容。</block>
+  <block id="35a0e1620a03f33da8739635aaa3b607" category="section-title">針對控制面板提供強大的身分識別管理功能</block>
+  <block id="4504de40d15959838801111af31d224e" category="inline-link">身分識別存取管理（IAM）</block>
+  <block id="d242c9a4fc4e118d87391841845ef44b" category="paragraph">在執行不完整組態的控制面板Cloud Volumes Service 中、使用管理身分識別管理<block ref="490163f8d94b8a8397824811fb91c5ec" category="inline-link-rx"></block>。IAM是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。所有組態都是透過Cloud Volumes Service 使用TLS 1.2加密的安全HTTPS傳輸來執行、而驗證則是使用JWT權杖來執行、以提高安全性。Google Console UI Cloud Volumes Service for the取消功能、可將使用者輸入內容轉譯為Cloud Volumes Service 使用者對功能不整的API呼叫。</block>
+  <block id="688247a9da881160b1073a4b76442640" category="section-title">安全強化：限制攻擊面</block>
+  <block id="4901056002c8d64da3b67da6a5a2dbbb" category="paragraph">有效安全性的一部分是限制服務中可用的攻擊面數量。攻擊面可能包括各種內容、包括閒置資料、飛行傳輸、登入及資料集本身。</block>
+  <block id="733e720a346376b07eb9adac497c4063" category="inline-link-macro">「服務營運、」</block>
+  <block id="aa6187208cb06e0a43851ee1783a370c" category="paragraph">託管服務可移除設計中固有的部分攻擊面。基礎架構管理、如一節所述 <block ref="ddbc8ce5f4099ff7254959018f566688" category="inline-link-macro-rx"></block> 由專屬團隊處理、並自動化以減少人員實際接觸組態的次數、有助於減少刻意和非蓄意的錯誤數量。網路已被隔離、因此只有必要的服務才能彼此存取。加密會被納入資料儲存設備、只有資料層需要Cloud Volumes Service 得到資訊管理員的安全注意。藉由將大部分的管理隱藏在API介面之後、可藉由限制攻擊面來實現安全性。</block>
+  <block id="d8d81a048343e815b76f916e1c58e636" category="section-title">零信任模式</block>
+  <block id="d2c4e1022fc22d0780bd913d3f16498e" category="paragraph">過去、IT安全理念一直是信任、但卻是驗證、而且只是仰賴外部機制（例如防火牆和入侵偵測系統）來減輕威脅。然而、攻擊與入侵事件演變成透過網路釣魚、社交工程、內部威脅及其他驗證方法、規避環境中的驗證、進而進入網路並造成嚴重破壞。</block>
+  <block id="853f80d22a64d4fff24c05d305e800a8" category="paragraph">零信任已成為安全性的新方法、目前的宗旨是「在驗證一切的同時、不信任任何事物」。 因此、預設不允許任何存取。這項強制原則有多種執行方式、包括標準防火牆和入侵偵測系統（IDS）、也有下列方法：</block>
+  <block id="d07f4106373448c16aedf0c01749e560" category="list-text">強式驗證方法（例如AES加密的Kerberos或JWT權杖）</block>
+  <block id="4bbee6cac6b31b494ade66a9fc2f16e7" category="list-text">單一強身分識別來源（例如Windows Active Directory、輕量型目錄存取傳輸協定（LDAP）和Google IAM）</block>
+  <block id="da31693a70531052458cd4eff104672d" category="list-text">網路區隔和安全的多租戶共享（預設只允許租戶存取）</block>
+  <block id="a8ce5780cff146b27ae2c2b3fddc0447" category="list-text">以最低權限存取原則進行精細的存取控制</block>
+  <block id="493f70c348ea51d5c7cb8a28593df5a1" category="list-text">專屬且值得信賴的小型專屬系統管理員清單、提供數位稽核與書面記錄</block>
+  <block id="fd5070ec3e2f12398e4de9b77b900cbf" category="paragraph">在Google Cloud上執行的解決方案採用零信任模式、實作「無信任、驗證一切」的立場。Cloud Volumes Service</block>
+  <block id="d7f2615c71a1567cc13cf3a7f7de0aea" category="section-title">加密</block>
+  <block id="83c3a5400dd4f14665a803a22add4a9d" category="inline-link-macro">「閒置時的資料加密」</block>
+  <block id="a37154afafe65368d5170741a4669261" category="inline-link-macro">「SMB加密」</block>
+  <block id="e688fd1eb8866f914263d3493c30ccbb" category="inline-link-macro">「跨區域複寫」</block>
+  <block id="c05431edaaaefc20b48a7cd96f110e5d" category="inline-link-macro">「傳輸中的資料加密」</block>
+  <block id="48aa29a35d8e13e796333876f4ea9f62" category="inline-link-macro">「Google Cloud Network」</block>
+  <block id="31d64d3cd8b2a692701b32dd6a611c76" category="paragraph">加密閒置資料（請參閱一節 <block ref="ce3046d8bb0cfdf8a89295f31068c29b" category="inline-link-macro-rx"></block>）搭配NetApp Volume Encryption（NVE）和線上使用XTS-AES-256密碼 <block ref="9963d74c8d0d381d9818a5c550dd7163" category="inline-link-macro-rx"></block> 或NFS Kerberos 5p支援。瞭解跨區域複寫傳輸受到TLS 1.2加密保護、讓您高枕無憂（請參閱一節） <block ref="8b1fa1a1fab3125dbb820bfe80ca0428" category="inline-link-macro-rx"></block>）。此外、Google網路也提供加密通訊（請參閱一節 <block ref="051d363ef6081e123484b5da28bebf19" category="inline-link-macro-rx"></block>）提供額外的保護層、防範攻擊。如需傳輸加密的詳細資訊、請參閱一節 <block ref="0e3bb83173de6418179f08aaa25b48dd" category="inline-link-macro-rx"></block>。</block>
+  <block id="db57ea7882be0cb73c78bf1ba25a6823" category="section-title">資料保護與備份</block>
+  <block id="48b5832efbf50440742eee7bfd02733b" category="inline-link-macro">支援Cloud Volumes Service</block>
+  <block id="cdb185875636a141b69ddabde6df7040" category="paragraph">安全性不只是預防攻擊而已。這也與我們如何在攻擊發生時或發生時從攻擊中恢復有關。此策略包括資料保護與備份。提供在停電時複製到其他地區的方法（請參閱一節Cloud Volumes Service <block ref="8b1fa1a1fab3125dbb820bfe80ca0428" category="inline-link-macro-rx"></block>）或資料集受到勒索軟體攻擊的影響。也Cloud Volumes Service 可以使用、將資料非同步備份到非執行個體的位置 <block ref="92f2015a7a07a74ffc21a27b08fadbb0" category="inline-link-macro-rx"></block>。透過定期備份、降低安全事件的時間、節省成本、並使系統管理員感到焦慮。</block>
+  <block id="3b0aab94fdc89c539c78fcbbf0190080" category="section-title">利用領先業界的Snapshot複本、快速緩解勒索軟體</block>
+  <block id="e7d51c7f9901730a4f176b908516d9f0" category="inline-link-macro">「可永久保存的Snapshot複本」</block>
+  <block id="613542b40dc5d23e9b7129726e6901e9" category="inline-link-macro">「服務營運」</block>
+  <block id="06646d879e1be0df7191f42262dc1293" category="paragraph">除了資料保護與備份、Cloud Volumes Service 支援不可變的Snapshot複本（請參閱一節） <block ref="46dfee0c3fc63af00a088b428ebe2c09" category="inline-link-macro-rx"></block>）允許從勒索軟體攻擊中恢復的磁碟區（請參閱一節 <block ref="f545e9c9b1aa4e21f947ee53ac36de63" category="inline-link-macro-rx"></block>）在發現問題的幾秒鐘內、並將中斷時間降至最低。恢復時間與影響取決於Snapshot排程、但您可以建立Snapshot複本、在勒索軟體攻擊中提供最少一小時的差異。Snapshot複本對效能和容量使用率的影響微乎其微、是保護資料集的低風險高報酬方法。</block>
+  <block id="f21f1562468eeb7bb67162f8fc79596c" category="inline-link-macro">下一步：安全考量與攻擊面。</block>
+  <block id="d6cb5b8910b7e61e1d2a16900dff7414" category="paragraph"><block ref="d6cb5b8910b7e61e1d2a16900dff7414" category="inline-link-macro-rx"></block></block>
+  <block id="9b6e8c1f1a4d79991136cfd2b3fde77a" category="summary">支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。</block>
+  <block id="d099e6eafff98e1042c1029849e2db1b" category="doc">建立Active Directory連線的考量事項</block>
+  <block id="1ca3bc7ee6e687110fa43103bcff28e9" category="inline-link-macro">先前版本：雙傳輸協定/多傳輸協定。</block>
+  <block id="90e9716dfe1097d996980af0b2d435b6" category="paragraph"><block ref="90e9716dfe1097d996980af0b2d435b6" category="inline-link-macro-rx"></block></block>
+  <block id="b092138563f7b68473c3bf2a6a23a434" category="inline-link">私有 Google 存取</block>
+  <block id="dd1f65c08f03e8278da92a88b4c609b5" category="inline-link">在Google Cloud中使用Active Directory的最佳實務做法</block>
+  <block id="758d9a1746e1f53cf6e7882ed864c1a4" category="paragraph">此設定提供多種選項、需要考量安全性。外部Active Directory伺服器可以是內部部署執行個體或原生雲端。如果您使用的是內部部署的Active Directory伺服器，請勿將網域暴露給外部網路（例如使用DMZ或外部IP位址）。而是使用安全的私有通道或VPN、單向樹系信任或內部部署網路專用的網路連線<block ref="76bc9bf9d2d87bee997fb1ade7da1eaa" category="inline-link-rx"></block>。如需詳細資訊、請參閱Google Cloud文件<block ref="28831e2b31059cd3ce2ee26e8b5c8fcf" category="inline-link-rx"></block>。</block>
+  <block id="22900d9fe4089ff2f29ada31dfd82836" category="admonition">CVS軟體要求Active Directory伺服器位於同一個地區。如果嘗試在CVs-SW中連線至其他地區、嘗試就會失敗。使用CVs-SW時、請務必建立包含Active Directory DC的Active Directory網站、然後在Cloud Volumes Service 其中指定站台、以避免跨區域DC連線嘗試。</block>
+  <block id="9f69695f33b67147c3fd64e477aa784b" category="section-title">Active Directory認證</block>
+  <block id="2ae640f39e0e652f621ec44b74e57892" category="paragraph">啟用SMB或LDAP for NFS時Cloud Volumes Service 、支援使用者可與Active Directory控制器互動、以建立機器帳戶物件來進行驗證。這與Windows SMB用戶端加入網域的方式並不不同、而且需要對Active Directory中的組織單位（OU）擁有相同的存取權限。</block>
+  <block id="d5b16e2c41dd06274f88cd52182d8034" category="paragraph">在許多情況下、安全性群組不允許在Cloud Volumes Service 外部伺服器上使用Windows系統管理員帳戶、例如在某些情況下、Windows系統管理員使用者會完全停用、這是安全性最佳實務做法。</block>
+  <block id="e33d961644188dff361a3a61603aee23" category="section-title">建立SMB機器帳戶所需的權限</block>
+  <block id="7274d74c9decfd509d3c2a9c91098fca" category="inline-link">委派權限以建立及修改機器帳戶物件</block>
+  <block id="da90c2a52e7d047f641621a25fcd43c7" category="paragraph">若要新增Cloud Volumes Service 物件至Active Directory、則該帳戶具有網域的管理權限或擁有<block ref="39a1d8c5f0c0a4ae053b3e24111592ed" category="inline-link-rx"></block> 需要指定的OU。您可以透過Active Directory中的委派控制精靈來執行此作業、方法是建立自訂工作、讓使用者以提供下列存取權限來存取電腦物件的建立/刪除：</block>
+  <block id="db3317ceb65be02e43db6f277e0ad94e" category="list-text">讀取/寫入</block>
+  <block id="9da76760248a4997f94bdd63f1c04f01" category="list-text">建立/刪除所有子物件</block>
+  <block id="858ac25470b9539b8e2bb4d6958fde5b" category="list-text">讀取/寫入所有內容</block>
+  <block id="e798906fb7bcd7b0403d97d21044e339" category="list-text">變更/重設密碼</block>
+  <block id="4eb6bcf48028313e542c0964c09b46b9" category="paragraph">這樣做會自動將已定義使用者的安全ACL新增至Active Directory中的OU、並將Active Directory環境的存取權限減至最低。在委派使用者之後、此視窗中的使用者名稱和密碼可提供為Active Directory認證。</block>
+  <block id="66d939bc6b363153976bbd24624850b8" category="admonition">傳遞至Active Directory網域的使用者名稱和密碼會在機器帳戶物件查詢和建立期間、運用Kerberos加密技術來提高安全性。</block>
+  <block id="8575c9ec9ca166098f9d546c3c12e9b1" category="section-title">Active Directory連線詳細資料</block>
+  <block id="452740f6c26f32def386962441d5cb2c" category="inline-link">Active Directory連線詳細資料</block>
+  <block id="af31d4ab1f284e1f94d3522fd1fa36fe" category="paragraph">。<block ref="9255123c1378b2d08be170075ba389b5" category="inline-link-rx"></block> 提供欄位給系統管理員、以提供機器帳戶放置的特定Active Directory架構資訊、例如：</block>
+  <block id="353000b4dd170de2ebede38bb7420e40" category="list-text">* Active Directory連線類型。*用於指定區域中的Active Directory連線是用於Cloud Volumes Service 供應各種類型的SView或CVS效能服務的磁碟區。如果現有連線的設定不正確、使用或編輯時可能無法正常運作。</block>
+  <block id="d5cc4c55027c65e3b8d52c15d308935d" category="list-text">*網域。* Active Directory網域名稱。</block>
+  <block id="c3fab9d188d8e1e4a9e0ba27a52306c6" category="inline-link">考量</block>
+  <block id="925e235ec5866cd9c094261d9e20eec4" category="list-text">*站台。*將Active Directory伺服器限制為特定站台、以確保安全性和效能<block ref="cae534855afa8eaefaa37d26edea88d5" category="inline-link-rx"></block>。當多個Active Directory伺服器橫跨多個區域時、這是必要的、因為Cloud Volumes Service 目前不支援將Active Directory驗證要求允許在Cloud Volumes Service 不同於此執行個體的區域內執行Active Directory伺服器。（例如、Active Directory網域控制器所在的區域僅支援CVs-Performance、但您想要在CVs-SW執行個體中使用SMB共用區）。</block>
+  <block id="bc3a6531a92e21b83c95f7d7044fd498" category="list-text">* DNS伺服器。* DNS伺服器、用於名稱查詢。</block>
+  <block id="44ea07387884d17ba7d18393d327374b" category="inline-link-macro">如何在Active Directory中顯示此功能Cloud Volumes Service</block>
+  <block id="32b5af659fee51ef98e34710303d53ba" category="list-text">* NetBios名稱（選用）。*如果需要、則為伺服器的NetBios名稱。這是使用Active Directory連線建立新機器帳戶時所使用的功能。例如、如果將NetBios名稱設為CVs-East、則機器帳戶名稱將為CVs-East-{12334}。請參閱一節 <block ref="0bba591d00c255586e052c023629a690" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="00a4c212426e322a34af5aeccdc494f7" category="list-text">*組織單位（OU）。*建立電腦帳戶的特定OU。如果您要將機器帳戶的控制權委派給使用者至特定OU、這很有用。</block>
+  <block id="06852342816b885474a42d89311e2113" category="list-text">* AES Encryption。*您也可以勾選或取消勾選「啟用AD驗證的AES加密」核取方塊。啟用AES加密以進行Active Directory驗證、可在Cloud Volumes Service 使用者和群組查詢期間、提供額外的安全性、以利執行功能以進行通訊。啟用此選項之前、請先洽詢您的網域管理員、確認Active Directory網域控制器支援AES驗證。</block>
+  <block id="7d51d6a8b37a2763f6c84b7b3a3a7e97" category="admonition">根據預設、大部分的Windows伺服器不會停用較弱的密碼（例如：Des或RC4-HMAC）、但如果您選擇停用較弱的密碼、請確認Cloud Volumes Service 已設定「更新Active Directory」連線以啟用AES。否則會發生驗證失敗。啟用AES加密並不會停用較弱的密碼、而是將AES密碼的支援新增至Cloud Volumes Service 該SMB機器帳戶。</block>
+  <block id="3da975567fcd6ebd164f43cca13384f2" category="section-title">Kerberos領域詳細資料</block>
+  <block id="9a62ab6b4d79a99749d02cd8af945f25" category="paragraph">此選項不適用於SMB伺服器。而是在設定NFS Kerberos for Cloud Volumes Service the Sing系統時使用。填入這些詳細資料時、NFS Kerberos領域會設定（類似於Linux上的krb5..conf檔案）、並在Cloud Volumes Service 建立實體磁碟區時指定NFS Kerberos時使用、因為Active Directory連線會做為NFS Kerberos發佈中心（kdc）。</block>
+  <block id="e53ab7e80d5d436b4a496f0c2bef7cb2" category="admonition">非Windows KDC目前不支援Cloud Volumes Service 搭配使用。</block>
+  <block id="f447ac856e7e72435904956e3b15f433" category="section-title">區域</block>
+  <block id="38da42463bdc613d24159bd6e0405ba6" category="paragraph">區域可讓您指定Active Directory連線所在的位置。此區域必須與Cloud Volumes Service 《非洲地理區：</block>
+  <block id="4dfb982db9679a6eec578ccd86af978a" category="list-text">*本機NFS使用者搭配LDAP.*本節中、也有允許本機NFS使用者搭配LDAP的選項。如果您想要將UNIX使用者群組成員資格支援延伸到NFS（延伸群組）的16群組限制之外、則必須取消選取此選項。不過、使用延伸群組時、需要設定用於UNIX身分識別的LDAP伺服器。如果您沒有LDAP伺服器、請取消選取此選項。如果您有LDAP伺服器、而且想要使用本機UNIX使用者（例如root）、請選取此選項。</block>
+  <block id="5059a39455b0e2649d69d289516cdf1b" category="section-title">備份使用者</block>
+  <block id="0e051a51493712b34966f346e858a0c3" category="inline-link">啟用該使用者存取的稽核</block>
+  <block id="d3980aa1c5f0625161c9b0fb5a6cace0" category="paragraph">此選項可讓您指定對Cloud Volumes Service 該Windows Volume具有備份權限的Windows使用者。某些應用程式必須具備備份權限（SeBackup權限）、才能在NAS磁碟區中正確備份及還原資料。此使用者擁有大量的磁碟區資料存取權限、因此您應該考慮<block ref="b5fba80299f6d29935863b6604a98277" category="inline-link-rx"></block>。啟用後、稽核事件會顯示在「事件檢視器」&gt;「Windows記錄」&gt;「安全性」中。</block>
+  <block id="70136e0b9257bc91e1eb5216b32580de" category="paragraph"><block ref="70136e0b9257bc91e1eb5216b32580de" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6833e65d65b96c0d79b7fc114c9a2968" category="section-title">安全性權限使用者</block>
+  <block id="63a19a4d390181634079ba6ba20fe287" category="inline-link">例如SQL Server</block>
+  <block id="c9a97779c6062109c66675cc5368a6b8" category="inline-link">稽核使用者存取權限</block>
+  <block id="296bdd6f36456d0f48d21431f3bd7853" category="paragraph">此選項可讓您指定Windows使用者、這些使用者具有Cloud Volumes Service 對此功能進行安全性修改的權限。某些應用程式需要安全性權限（SeSecurityPrivilege） <block ref="cef5278acd430b226f8e7bcad71f9075" category="inline-link-rx"></block>）在安裝期間正確設定權限。管理安全性記錄時需要此權限。雖然此權限不如SeBackup權限強大、但NetApp建議您使用<block ref="2238ada9972b35c5f01addc7598ffd7a" category="inline-link-rx"></block> 如果需要、請使用此權限層級。</block>
+  <block id="f044d72e46ac4189129dc6e27333c449" category="inline-link">指派給新登入的特殊權限</block>
+  <block id="1384ec27890f8bac59aae8edf1ff83e9" category="paragraph">如需詳細資訊、請參閱<block ref="791e82319c9cb432525cbf92f3a07623" category="inline-link-rx"></block>。</block>
+  <block id="3fc6256a9aed6803167ff54873f78a00" category="paragraph">在Active Directory中顯示為一般機器帳戶物件。Cloud Volumes Service命名慣例如下。</block>
+  <block id="864917f152404280b59cd43c564f6733" category="list-text">CIFS/SMB和NFS Kerberos會建立個別的機器帳戶物件。</block>
+  <block id="79adcd3b0eb62b997e160c91e737deb2" category="list-text">啟用LDAP的NFS會在Active Directory中建立機器帳戶、以進行Kerberos LDAP繫結。</block>
+  <block id="2ed35f8c3fa643ff6b7226a2163085c5" category="list-text">具有LDAP的雙傳輸協定磁碟區會共用CIFS/SMB機器帳戶、以供LDAP和SMB使用。</block>
+  <block id="3028cc04aacef3f671388051ac5a05cf" category="list-text">CIFS/SMB機器帳戶的機器帳戶命名慣例為：名稱-1234（隨機四位數ID、加上連字號、加上&lt;10個字元名稱）。您可以使用Active Directory連線上的[NetBios名稱]設定來定義名稱（請參閱「」一節）<block ref="7d2ad38c1c26cdc0446a7f473a720f92" category="inline-xref-macro-rx"></block>」）。</block>
+  <block id="b3330aabe270fd3b52fec421dc299283" category="list-text">NFS Kerberos使用NFS-name-1234作為 命名慣例（最多15個字元）。如果使用超過15個字元、則名稱為nfs -截短名稱-1234.</block>
+  <block id="50b0fcc303b033d01b24dbb96023de81" category="list-text">僅NFS的CVS效能執行個體若啟用LDAP、則會建立SMB機器帳戶、以與CIFS/SMB執行個體相同的命名慣例來繫結至LDAP伺服器。</block>
+  <block id="d4895b82fd7385bed173b438d89c807e" category="inline-link-macro">「預設隱藏共用」</block>
+  <block id="6d7a9f810c1df414bda9e341201f414b" category="list-text">建立SMB機器帳戶時、預設的隱藏管理共用區（請參閱一節 <block ref="15f1050f174b7bbba32ef5b54c17bc40" category="inline-link-macro-rx"></block>）也會建立（c$、admin$、ipc$）、但這些共用區並未指派ACL、因此無法存取。</block>
+  <block id="e1547130d9a70017a557e263270469eb" category="list-text">依預設、機器帳戶物件會放置在CN=電腦中、但您可以在必要時指定不同的OU。請參閱「」一節<block ref="99b866e46eaefba106810f4a564a9de4" category="inline-xref-macro-rx"></block>」、以瞭解新增/移除Cloud Volumes Service 機器帳戶物件所需的存取權限。</block>
+  <block id="5a1324cda45cd652ecb95755709fd8e1" category="paragraph">當將SMB機器帳戶新增至Active Directory時Cloud Volumes Service 、會填入下列欄位：</block>
+  <block id="650ca2f93573bbd3b4e7f2e4fc5d536e" category="list-text">（使用指定的SMB伺服器名稱）</block>
+  <block id="493629591f73624fd57b9ff00cb6d94e" category="list-text">dnsHostName（含SMBserver.domain.com）</block>
+  <block id="ed877e9b9c0c0bb19ecf1f342cdda00f" category="list-text">MSDS-SupportedEncryptionTypes（如果未啟用AES加密、則允許使用DES_CBC_MD5、RC4 _HMAC_MD5；如果啟用AES加密、則允許使用DES_CBC_MD5、RC4 _HMAC_MD5、AES128 _CTs_HMAC_SHA1_96、AES256_CTs_HMAC_SHA1_96進行Kerberos票證交換）</block>
+  <block id="987e945fa65d0a9e76f890e3892961cc" category="list-text">名稱（使用SMB伺服器名稱）</block>
+  <block id="6c4b390273352496044f436350e3e996" category="list-text">SamAccountName（含SMBserver$）</block>
+  <block id="603c37960edbea70b7dd05f369016869" category="list-text">servicePrincipalName（含主機/smbserver.domain.com和主機/smbserver SPN for Kerberos）</block>
+  <block id="e4d5beb18aee5989e4944d5f91b181e4" category="paragraph">如果您要停用機器帳戶上較弱的Kerberos加密類型（加密類型）、可以將機器帳戶上的MSDS-SupportedEncryptionTypes值變更為下表中的其中一個值、以僅允許AES。</block>
+  <block id="d7b35b0eb85a800cd27ae4d86378e957" category="cell">msDS-SupportedEncryptionTypes值</block>
+  <block id="b20e97401d06f2734903c9c8ce3bd34e" category="cell">已啟用EncType</block>
+  <block id="3afb17e90ee63072dfd4ad5496e22ecf" category="cell">ds_CBC_MD5</block>
+  <block id="427e6bbc6e437e1008a5c41adc923d0e" category="cell">RC4_HMAC</block>
+  <block id="16105c1a0d76dfdb5c1df287b56762db" category="cell">僅限AES122_CTs_HMAC_SHA1_96</block>
+  <block id="bdacd7093a31449b44a8d708a5a055de" category="cell">僅限AES256_CTs_HMAC_SHA1_96</block>
+  <block id="1ff1de774005f8da13f42943881c655f" category="cell">24</block>
+  <block id="ea8f561ef42d9f42f97782208f239797" category="cell">AES122_CTs_HMAC_SHA1_96與AES256_CTs_HMAC_SHA1_96</block>
+  <block id="34173cb38f07f89ddbebc2ac9128303f" category="cell">30</block>
+  <block id="bbfe7622403fb2a786b158ba768ac4ca" category="cell">DES_CBC_MD5、RC4_HMAC、AES122_CTs_HMAC_SHA1_96和AES256_CTs_HMAC_SHA1_96</block>
+  <block id="adfa4c5560980c9b2841dda24bda5935" category="paragraph">若要啟用SMB機器帳戶的AES加密、請在建立Active Directory連線時按一下「啟用AD驗證的AES加密」。</block>
+  <block id="fd0625de17999274e1465433cabc43a7" category="inline-link">請參閱Cloud Volumes Service 《》文件</block>
+  <block id="9e167fdd1e36cc753653d71cef598f95" category="paragraph">若要啟用NFS Kerberos的AES加密、<block ref="a1ea73992eb480d81ba9d6fd0002e272" category="inline-link-rx"></block>。</block>
+  <block id="c36c6a3451be9921bddbe958fc50f971" category="inline-link-macro">下一步：其他NAS基礎架構服務相依性（Kdc、LDAP、DNS）。</block>
+  <block id="0a243881b9403f37a34293a498b9dcb8" category="paragraph"><block ref="0a243881b9403f37a34293a498b9dcb8" category="inline-link-macro-rx"></block></block>
+  <block id="5e64a4b25a4f107aefb7d4e2a56b9dfb" category="summary">使用Cloud Volumes Service 適用於NAS共享的功能時、可能需要外部相依性才能正常運作。在特定情況下、這些相依關係仍在發揮。</block>
+  <block id="f4b5e0cbc9d84ca994a4dc85d6f45205" category="doc">其他NAS基礎架構服務相依性（Kdc、LDAP和DNS）</block>
+  <block id="619169033066c83ff7d1cc580d748cd6" category="inline-link-macro">先前：建立Active Directory連線的考量事項。</block>
+  <block id="a67d66e488b843722a2bb6124e92d2c0" category="paragraph"><block ref="a67d66e488b843722a2bb6124e92d2c0" category="inline-link-macro-rx"></block></block>
+  <block id="c4c97073fa9e6d604787db13592331a3" category="paragraph">使用Cloud Volumes Service 適用於NAS共享的功能時、可能需要外部相依性才能正常運作。在特定情況下、這些相依關係仍在發揮。下表顯示各種組態選項、以及必要的相依性（如果有）。</block>
+  <block id="c9b3a27f085427ada9b946daa430f1f8" category="cell">所需相依性</block>
+  <block id="954898296a4e7ec7e15ab65964b50da0" category="cell">僅限NFSv3</block>
+  <block id="e69d896f8231ad7dd96dd4937ba18d07" category="cell">僅NFSv3 Kerberos</block>
+  <block id="6040c1d5c15727690384a7cd3e8d3fa4" category="cell">Windows Active Directory：* kdc * DNS * LDAP</block>
+  <block id="b88d0e1e32f67294d9d45e05a25495e7" category="cell">僅限NFSv4.1</block>
+  <block id="1cc44815edb1648976dd6fa410f26802" category="cell">用戶端ID對應組態（/etc/idmap.conf）</block>
+  <block id="c2e2e93edfc9ea6acddd551b71be27bf" category="cell">僅NFSv4.1 Kerberos</block>
+  <block id="411c501ecf4d59f4ef8d7e9c444b838a" category="list-text">Windows Active Directory：Kdc DNS LDAP</block>
+  <block id="59b6dd4c5b36405b29c64750f1e82401" category="cell">僅限SMB</block>
+  <block id="11a431c64d07fefe0bbb5880e03069c5" category="cell">Active Directory：* kdc * dns</block>
+  <block id="420da7f0cb45485c925482687369c1ad" category="cell">多重傳輸協定NAS（NFS和SMB）</block>
+  <block id="b756e6f6a894749273e32e03e551180c" category="list-text">用戶端ID對應組態（僅限NFSv4.1；/etc/idmap.conf）</block>
+  <block id="8777a112bd8b1e9205dda0717a12965b" category="section-title">機器帳戶物件的Kerberos Keytab旋轉/密碼重設</block>
+  <block id="b8333cf0e11040ea157a74560b3a6d77" category="paragraph">利用SMB機器帳戶Cloud Volumes Service 、此資訊可排定SMB機器帳戶的定期密碼重設。這些密碼會使用Kerberos加密進行重設、並在晚上11點到凌晨1點之間的隨機時間、於每四個星期日的排程中運作。這些密碼重設會變更Kerberos金鑰版本、旋轉Cloud Volumes Service 儲存在支援系統上的金鑰索引標籤、並協助維護執行Cloud Volumes Service 於支援更新版本的SMB伺服器的安全性。機器帳戶密碼是隨機配置的、系統管理員不知道。</block>
+  <block id="6df7123d2b1a64b11c7df1c2b837f752" category="paragraph">對於NFS Kerberos機器帳戶、密碼重設只會在建立新的金鑰索引標籤並與Kdc交換時進行。目前Cloud Volumes Service 無法在不執行此動作的情況下進行。</block>
+  <block id="7631991924ea0015e269781ad88bd8d3" category="section-title">用於LDAP和Kerberos的網路連接埠</block>
+  <block id="52d1b9583b81da6bee6ba24d74c4018b" category="inline-link">安全考量的相關文件Cloud Volumes Service</block>
+  <block id="1e21a0f8a8012a10d3db8d473ba52502" category="paragraph">使用LDAP和Kerberos時、您應該判斷這些服務所使用的網路連接埠。您可以在中找到Cloud Volumes Service 一份完整的清單、其中列出了供列舉使用的連接埠<block ref="0dc8f2243f86f97f7b6af9378a496f93" category="inline-link-rx"></block>。</block>
+  <block id="2363dee608bcd9f6ce7f980bfdad5789" category="section-title">LDAP</block>
+  <block id="d0a2de9b178b436803f7732ff69d0c14" category="paragraph">充當LDAP用戶端、並使用標準LDAP搜尋查詢來查詢UNIX身分識別的使用者和群組。Cloud Volumes Service如果您想要使用Cloud Volumes Service 超出由供應之標準預設使用者的使用者和群組、則必須使用LDAP。如果您打算搭配使用者主體使用NFS Kerberos（例如user1@domain.com）、也必須使用LDAP。目前僅支援使用Microsoft Active Directory的LDAP。</block>
+  <block id="2eaa173e56517db74fb0eb92806a0877" category="inline-link">RFC-2307-bis</block>
+  <block id="50af1bf8bee07c6cb1c61e9c19599403" category="paragraph">若要將Active Directory當作UNIX LDAP伺服器使用、您必須在要用於UNIX身分識別的使用者和群組上填入必要的UNIX屬性。使用預設的LDAP架構範本來查詢屬性Cloud Volumes Service<block ref="54011f528a38d24d58a7f02f98da0d00" category="inline-link-rx"></block>。因此、下表顯示使用者和群組所需的最低Active Directory屬性、以及每個屬性的用途。</block>
+  <block id="a6e75b8341b03d08fb1d6817635b1d47" category="inline-link">管理雙傳輸協定存取。</block>
+  <block id="c0f3d72f07b570cdf3f5d1376c72a389" category="paragraph">如需在Active Directory中設定LDAP屬性的詳細資訊、請參閱<block ref="c2741a8ac44d0c827e11ee9004dcd081" category="inline-link-rx"></block></block>
+  <block id="f2bbdf9f72c085adc4d0404e370f0f4c" category="cell">屬性</block>
+  <block id="b12c51b935d86f01d092fb23a1fa4f9f" category="cell">它的作用</block>
+  <block id="e266bea072e01571abba7fc5075c2c86" category="cell">UID*</block>
+  <block id="0689aaddc7bfae9cad3778f6d706bd7a" category="cell">指定UNIX使用者名稱</block>
+  <block id="525f84e25602ba8efb61d7b8ca793b7c" category="cell">uidNumber*</block>
+  <block id="604edb3bb733537b2d6c63b0b84fa1ec" category="cell">指定UNIX使用者的數字ID</block>
+  <block id="825c2f924ee564de1d57d2b63edd800d" category="cell">gidNumber*</block>
+  <block id="eb91949970817d632278971bdf06baef" category="cell">指定UNIX使用者的主要群組數字ID</block>
+  <block id="18b5aa92067bde95c39c3039f02bf70e" category="cell">objectClass *</block>
+  <block id="ce41297dde1628c606d60ef2bbe154cd" category="cell">指定要使用的物件類型；Cloud Volumes Service 物件類別清單中必須包含「使用者」（預設會包含在大部分的Active Directory部署中）。</block>
+  <block id="db108aa570113ecd6745a2e272d68544" category="cell">帳戶的一般資訊（真實姓名、電話號碼等、也稱為gecos）</block>
+  <block id="17a12df2f12fa6f25328eb6c9fcffedf" category="cell">unixUserPassword</block>
+  <block id="4306442303f7519026403fc1912e8e2e" category="cell">無需設定、不適用於NAS驗證的UNIX身分識別查詢。設定此選項會將設定的unixUserPassword值設為純文字。</block>
+  <block id="d146b96a250f5bcf84b56d2a0f8a2f87" category="cell">unixHomeDirectory</block>
+  <block id="1208d15552f3ca8721989c162201e0de" category="cell">當使用者從Linux用戶端驗證LDAP時、定義UNIX主目錄的路徑。如果您要使用LDAP來執行UNIX主目錄功能、請設定此選項。</block>
+  <block id="0693ba16c955b74875d26f79148b66f0" category="cell">LoginShell</block>
+  <block id="61940c4af8b62a3bb77f4ab0eb491c08" category="cell">當使用者根據LDAP驗證時、定義Linux用戶端的Basash/profile Shell路徑。</block>
+  <block id="9ed4554644da662e0634bf83a7e18666" category="paragraph">*表示屬性是使用Cloud Volumes Service 功能不正確的必要條件。其餘屬性僅供用戶端使用。</block>
+  <block id="ac975e575ff07bee5423d326c261e07e" category="cell">CN*</block>
+  <block id="b982e168cd50ef73d1f3ce851cb4ddac" category="cell">指定UNIX群組名稱。使用Active Directory for LDAP時、會在第一次建立物件時設定此選項、但稍後可加以變更。此名稱不得與其他物件相同。例如、如果您的UNIX使用者user1屬於Linux用戶端上名為user1的群組、則Windows不允許兩個具有相同CN屬性的物件。若要解決此問題、請將Windows使用者重新命名為唯一名稱（例如user-UNIX）；Cloud Volumes Service LDAP in Wesc使用UNIX使用者名稱的uid屬性。</block>
+  <block id="dc1d913bf6d70def379cf9f0d70abace" category="cell">指定UNIX群組的數字ID。</block>
+  <block id="1afbf0b9465b3d5c13329cd43dda4e9e" category="cell">指定要使用的物件類型；Cloud Volumes Service 使用物件類別清單時、需要將群組包含在物件類別清單中（此屬性預設會包含在大部分的Active Directory部署中）。</block>
+  <block id="5e4db984d78b91a65e9096eebf726d40" category="cell">memberUid</block>
+  <block id="6cd5795a9ccf8fa0d1da852e88da95cd" category="cell">指定哪些UNIX使用者是UNIX群組的成員。在Active Directory LDAP Cloud Volumes Service 的不實情況下、此欄位是不必要的。「支援組成員資格」功能使用「成員」欄位Cloud Volumes Service 。</block>
+  <block id="cadd4e3eefdff4ed3ad7de830179c314" category="cell">成員*</block>
+  <block id="defbfcaae1980c16f810c5ddaa1ecb87" category="cell">群組成員資格/次要UNIX群組所需。此欄位是透過新增Windows使用者至Windows群組來填入。但是，如果Windows群組未填入UNIX屬性，則不會包含在UNIX使用者的群組成員資格清單中。任何需要在NFS中使用的群組、都必須填入此表格中所列的必要UNIX群組屬性。</block>
+  <block id="14476f6ea303cd9ac37328cb484a1fa1" category="section-title">LDAP連結資訊</block>
+  <block id="af0c1d97230a1daa0f7341dc35f53a29" category="paragraph">若要查詢LDAP中的使用者、Cloud Volumes Service 必須將（登入）連結至LDAP服務。此登入具有唯讀權限、可用於查詢LDAP UNIX屬性以進行目錄查詢。目前只能使用SMB機器帳戶來進行LDAP連結。</block>
+  <block id="4a9b831487cab83d7de4d5a515e0eadd" category="paragraph">您只能針對「CVS效能」執行個體啟用LDAP、並將其用於NFSv3、NFSv4.1或雙傳輸協定磁碟區。Active Directory連線必須與Cloud Volumes Service 支援LDAP的Volume在相同的地區建立、才能成功部署。</block>
+  <block id="c41605f9de6fa81e35ab98dd9e8b1b02" category="paragraph">啟用LDAP時、會在特定情況下發生下列情況。</block>
+  <block id="f9f5dcaa4945ab96d402d905be4ed78c" category="list-text">如果Cloud Volumes Service 僅將NFSv3或NFSv4.1用於該項目、則會在Active Directory網域控制器中建立新的機器帳戶、Cloud Volumes Service 而在其中的LDAP用戶端則會使用機器帳戶認證來繫結至Active Directory。不會為NFS磁碟區和預設的隱藏管理共用建立SMB共用區（請參閱一節） <block ref="15f1050f174b7bbba32ef5b54c17bc40" category="inline-link-macro-rx"></block>）刪除共享ACL。</block>
+  <block id="f3dad67ce399cefb4b495c573d3ddcb8" category="list-text">如果Cloud Volumes Service 將雙傳輸協定磁碟區用於執行此項目、則Cloud Volumes Service 只會使用專為SMB存取所建立的單一機器帳戶、將位於的LDAP用戶端連結至Active Directory。不會建立其他機器帳戶。</block>
+  <block id="7168c010de7dd97d077c0e69f48cfbb5" category="list-text">如果專屬SMB磁碟區是分開建立（在啟用LDAP的NFS磁碟區之前或之後）、則LDAP繫結的機器帳戶會與SMB機器帳戶共用。</block>
+  <block id="248e702975c1b53305536e1e9c698e19" category="list-text">如果也啟用NFS Kerberos、則會建立兩個機器帳戶：一個用於SMB共用和（或）LDAP繫結、另一個用於NFS Kerberos驗證。</block>
+  <block id="738deb1a3cec2cc7d670e7de69d3a7c6" category="section-title">LDAP查詢</block>
+  <block id="a204dba492103f34b09fe60e7ab98921" category="paragraph">雖然LDAP繫結已加密、但LDAP查詢會使用通用LDAP連接埠389、以純文字形式透過線路傳送。這個廣為人知的連接埠目前無法在Cloud Volumes Service 更新過程中進行變更。因此、在網路中存取封包偵測功能的人可以看到使用者和群組名稱、數字ID和群組成員資格。</block>
+  <block id="d10f3c8108e06d8e622b7a6fb88adb08" category="inline-link-macro">「封包偵測/追蹤考量。」</block>
+  <block id="b046f19aab64225d509f228ccd32fb2c" category="paragraph">不過、Google Cloud VM無法窺探其他VM的單點傳播流量。只有主動參與LDAP流量（亦即能夠連結）的VM、才能看到來自LDAP伺服器的流量。如需Cloud Volumes Service 更多有關資料包偵測功能的資訊、請參閱一節 <block ref="e06a781bd551a4c8ed55a5dfd008a50c" category="inline-link-macro-rx"></block></block>
+  <block id="d815e456141423f092087c21cd312f23" category="section-title">LDAP用戶端組態預設值</block>
+  <block id="1c1b57ee3fb14f95067e88e579a44eec" category="paragraph">在Cloud Volumes Service 某個實例中啟用LDAP時、預設會以特定組態詳細資料建立LDAP用戶端組態。在某些情況下、選項可能不適用於Cloud Volumes Service 不支援的功能（不支援）、也可能無法設定。</block>
+  <block id="cc2eacdb2cc579f99a0f4359e61ed258" category="cell">LDAP用戶端選項</block>
+  <block id="31ce3cdcd67850870b616f75b555bbc5" category="cell">預設值</block>
+  <block id="216a8093d27a97d2912ed6822d19d410" category="cell">可以改變嗎？</block>
+  <block id="ffe990396bf99448f8fe6e6fa1c3c3ea" category="cell">LDAP伺服器清單</block>
+  <block id="0b22102603051537f2c4bfccc964b74e" category="cell">設定用於查詢的LDAP伺服器名稱或IP位址。這並不適用於Cloud Volumes Service 不適用。而是使用Active Directory網域來定義LDAP伺服器。</block>
+  <block id="9ba66a9f92056682b7d86a38b4bc18c0" category="cell">未設定</block>
+  <block id="f490d3302e7cd81f3dafead6c8311b60" category="cell">Active Directory網域</block>
+  <block id="63dfe9dc44b2881b25560d6d5bd5dff6" category="cell">設定Active Directory網域用於LDAP查詢。利用DNS中的SRVs LDAP記錄、在網域中尋找LDAP伺服器。Cloud Volumes Service</block>
+  <block id="6575821e7d2ff9eec297128f6e66933a" category="cell">設定為Active Directory連線中指定的Active Directory網域。</block>
+  <block id="00227bc990a551282373139d6439feb4" category="cell">慣用的Active Directory伺服器</block>
+  <block id="01d685ed68515214956910d3e26f1c71" category="cell">設定要用於LDAP的慣用Active Directory伺服器。不受Cloud Volumes Service 支援。而是使用Active Directory站台來控制LDAP伺服器選擇。</block>
+  <block id="f41520c4ef898fb19bb93ee749be3fdd" category="cell">未設定。</block>
+  <block id="b626ddcd91311f0f7c4622fdcb7ba05e" category="cell">使用SMB伺服器認證進行連結</block>
+  <block id="cb97b8ae4a5bb23e8ffa9e1547fe5078" category="cell">使用SMB機器帳戶連結至LDAP。目前Cloud Volumes Service 、唯一受支援的LDAP綁定方法就是支援的功能。</block>
+  <block id="f827cf462f62848df37c5e1e94a4da74" category="cell">是的</block>
+  <block id="d95e3278cf3c7f4cd1d7e40c5a89e7a7" category="cell">架構範本</block>
+  <block id="33387315b367e8397cc901a4bf37ad44" category="cell">用於LDAP查詢的架構範本。</block>
+  <block id="16165a1c7229a30ce1a980b0e648d65f" category="cell">MS-AD-BIS</block>
+  <block id="b825dd7cf8df99909db6f3117c567721" category="cell">LDAP伺服器連接埠</block>
+  <block id="731fba188f3670e36bac64d2ca64db37" category="cell">用於LDAP查詢的連接埠號碼。目前僅使用標準LDAP連接埠389。Cloud Volumes Service目前不支援LDAPS/Port 636。</block>
+  <block id="c86a7ee3d8ef0b551ed58e354a836f2b" category="cell">389</block>
+  <block id="9a76dbbba394b04594907973bb6c192e" category="cell">是否已啟用LDAPS</block>
+  <block id="98c3437e89f8128c7359f6b999731fcc" category="cell">控制LDAP over Secure Socket Layer（SSL）是否用於查詢和連結。目前不受Cloud Volumes Service 支援。</block>
+  <block id="3452a15eecd4e9b3215025c747cfce4e" category="cell">查詢逾時（秒）</block>
+  <block id="4fbc7a2f8fb9f56de093d04afac67fa3" category="cell">查詢逾時。如果查詢的時間超過指定值、查詢就會失敗。</block>
+  <block id="4211f908e9b523117776324e2349a87c" category="cell">最小綁定驗證層級</block>
+  <block id="cf6cfd37577ec3f1cc20caa7fb10bd45" category="cell">支援的最低連結層級。由於使用機器帳戶進行LDAP連結、且Active Directory預設不支援匿名連結、因此此選項不適用於安全性。Cloud Volumes Service</block>
+  <block id="7079c72c21415131774625ba1d64f4b0" category="cell">匿名</block>
+  <block id="58384d924f3205aaac5f4a09d3b33801" category="cell">連結DN</block>
+  <block id="4d73cec492ef07eaddad38a4a553639d" category="cell">使用簡單繫結時用於繫結的使用者/辨別名稱（DN）。使用機器帳戶進行LDAP連結、目前不支援簡單的連結驗證。Cloud Volumes Service</block>
+  <block id="6c22befafec962f5002017b68e639f92" category="cell">基礎DN</block>
+  <block id="413689794b4599826344869870d6e0a7" category="cell">用於LDAP搜尋的基礎DN。</block>
+  <block id="796658213567ec39e68bd43e48ac6eff" category="cell">Windows網域用於Active Directory連線、採用DN格式（亦即DC=DOWN, DC=local）。</block>
+  <block id="30e8b85f236e0c0e7b13a8a98bd46d6f" category="cell">基礎搜尋範圍</block>
+  <block id="26cbec2c997dd79e69cd5279817c5506" category="cell">基礎DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。僅支援子樹狀結構搜尋。Cloud Volumes Service</block>
+  <block id="187c471e7dfcb7890077311c532fffd0" category="cell">子樹狀結構</block>
+  <block id="de20d00fd9f0840e6c05dce6aca169e4" category="cell">使用者DN</block>
+  <block id="4ddd431d35193d0d6dc9555aeecf86e1" category="cell">定義使用者開始搜尋LDAP查詢的DN。目前不支援Cloud Volumes Service 使用此功能、因此所有使用者搜尋都從基礎DN開始。</block>
+  <block id="389048eda41eb7c0e810c83269814943" category="cell">使用者搜尋範圍</block>
+  <block id="0c5e0f35296916ccacc860481c53c663" category="cell">使用者DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援設定使用者搜尋範圍。Cloud Volumes Service</block>
+  <block id="68a7f97c57468e034a3f8016831c3c54" category="cell">群組DN</block>
+  <block id="5874ce023df38d8485da62d095f714f5" category="cell">定義群組開始搜尋LDAP查詢的DN。目前不支援Cloud Volumes Service 使用此功能、因此所有群組搜尋都會從基礎DN開始。</block>
+  <block id="c76b264e7f1c2aadf6b61ca4a7b9dc52" category="cell">群組搜尋範圍</block>
+  <block id="2d21b088cabd39a7f25a62fc99148f20" category="cell">群組DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援設定群組搜尋範圍。Cloud Volumes Service</block>
+  <block id="9819b4f0996b3e603488836501e3318e" category="cell">網路群組DN</block>
+  <block id="b5e1f3448b6d3c978f83c2d3d12a2d1e" category="cell">定義netgroup開始搜尋LDAP查詢的DN。目前不支援Cloud Volumes Service 使用此功能、因此所有網路群組搜尋都會從基礎DN開始。</block>
+  <block id="de25b155c30a2cba210598b604a5b8c8" category="cell">網路群組搜尋範圍</block>
+  <block id="334dde86dbe71e59b3c942c6a2384d70" category="cell">netgroup DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援設定netgroup搜尋範圍。Cloud Volumes Service</block>
+  <block id="e2bdddbf27283c0eca38d39759107a44" category="cell">透過LDAP使用start_tls</block>
+  <block id="24788f1c660aa47d895fa832d61d2fcf" category="cell">利用Start TLS透過連接埠389進行憑證型LDAP連線。目前不受Cloud Volumes Service 支援。</block>
+  <block id="cb64fc71803a6196ec2185116e525243" category="cell">啟用各主機的網路群組查詢</block>
+  <block id="d92aed09a16438d9bc4cf2735e54815f" category="cell">可依主機名稱進行網路群組查詢、而非展開網路群組以列出所有成員。目前不受Cloud Volumes Service 支援。</block>
+  <block id="ae1e3e9f0f050830d9ad4ff1441a4080" category="cell">網路群組的主機DN</block>
+  <block id="6dc9eeb7bc11f937a1c509e27237db6f" category="cell">定義netgroup by host開始搜尋LDAP查詢的DN。不支援Cloud Volumes Service 以主機為單位的netgroup。</block>
+  <block id="0b5200ff3b38841dd95a404d7e6ff385" category="cell">Netgroup依主機搜尋範圍</block>
+  <block id="4ce621e884478e7fc52e17ed91eed525" category="cell">netgroup by主機DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援Cloud Volumes Service 以主機為單位的netgroup。</block>
+  <block id="19a0fc26f19842a9f7bc78040d0c381c" category="cell">用戶端工作階段安全性</block>
+  <block id="f418eef9b6631e20135e14fc69c0bb8a" category="cell">定義LDAP使用的工作階段安全性層級（簽署、認證或無）。LDAP簽署受Cloud Volumes Service 支援、但目前不支援密封。</block>
+  <block id="16ed23b379774b2be1797f8efa0fe9a5" category="cell">LDAP參照追蹤</block>
+  <block id="a408a02f7b8e36f4913d8dc2debb2b95" category="cell">使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。目前不支援此功能Cloud Volumes Service 。</block>
+  <block id="5f362229a019eb903f4b21e28b15a1f5" category="cell">群組成員資格篩選器</block>
+  <block id="55ad576cc6cd581d8a2f558d69828312" category="cell">提供自訂LDAP搜尋篩選器、以便在從LDAP伺服器查詢群組成員資格時使用。目前不支援Cloud Volumes Service 使用此功能。</block>
+  <block id="b735835c02ee9b8eba41846beea27bc6" category="section-title">使用LDAP進行非對稱名稱對應</block>
+  <block id="10d248b3ae3729560e0f9f75ff23f70e" category="paragraph">根據預設、不需特殊組態、即可雙向對應具有相同使用者名稱的Windows使用者和UNIX使用者。Cloud Volumes Service只要Cloud Volumes Service 找到有效的UNIX使用者（使用LDAP）、就會產生1：1名稱對應。例如、如果使用Windows使用者「johnsmith」、Cloud Volumes Service 那麼如果在LDAP中找到名為「johnsmith」的UNIX使用者、則名稱對應會為該使用者成功、所有由「johnsmith」建立的檔案/資料夾都會顯示正確的使用者擁有權、 而影響「johnsmith」的所有ACL、無論使用的是哪種NAS傳輸協定、都是受到尊重的。這稱為對稱名稱對應。</block>
+  <block id="a4e6c429f8e2b5bc009025d9469cd6bd" category="paragraph">非對稱名稱對應是指Windows使用者和UNIX使用者身分不相符的情況。舉例Cloud Volumes Service 來說、如果Windows使用者「johnsmith」的UNIX身分為「jsmith」、那麼就需要一種方式來瞭解這種差異。由於目前不支援建立靜態名稱對應規則、因此LDAP必須用於查詢Windows和UNIX身分識別的使用者身分、以確保檔案和資料夾擁有適當的所有權、以及預期的權限。Cloud Volumes Service</block>
+  <block id="159e0e9db457fce00641b7a639cdfef9" category="paragraph">根據預設Cloud Volumes Service 、在名稱對應資料庫的n-switches中加入「LDAP」、以便使用LDAP提供非對稱名稱的名稱對應功能、您只需修改部分使用者/群組屬性、以反映Cloud Volumes Service 出本產品的外觀。</block>
+  <block id="5083578eb1523417a04b030704e11a97" category="paragraph">下表顯示在LDAP中必須填入哪些屬性才能使用非對稱名稱對應功能。在大多數情況下、Active Directory已設定為執行此作業。</block>
+  <block id="2e4b53007a09bf23d9111917c46d1902" category="cell">屬性Cloud Volumes Service</block>
+  <block id="009097a0950f2d6565c2cb446aa081dd" category="cell">供名稱對應之用的值Cloud Volumes Service</block>
+  <block id="df642bb30c436da15b0b74923cb45806" category="cell">Windows到UNIX的objectClass</block>
+  <block id="75f68f87af42701b9e548f875f39cefe" category="cell">指定要使用的物件類型。（也就是使用者、群組、posixAccount等）</block>
+  <block id="2b731e8ed189a8b7587c21b21d6620cf" category="cell">必須包含使用者（如有需要、可包含多個其他值）。</block>
+  <block id="288eebd1d2cddc03953f475edbcb2d5f" category="cell">Windows至UNIX屬性</block>
+  <block id="1b356493e583b25fdd7b1e44d6a4df0d" category="cell">定義建立時的Windows使用者名稱。可將此功能用於Windows到UNIX的查詢。Cloud Volumes Service</block>
+  <block id="5ce0ca6d681fede8d46460fed64bf8ef" category="cell">此處無需變更；sAMAccountName與Windows登入名稱相同。</block>
+  <block id="e7d22294bdcb7133967c3548ece982e5" category="cell">UID</block>
+  <block id="d93b9102027ae26f7bbfa53ff0cd3f28" category="cell">定義UNIX使用者名稱。</block>
+  <block id="abd2101078216980cdcf2dc6f87172b9" category="cell">所需的UNIX使用者名稱。</block>
+  <block id="78e7065e65f76fc53c1953f598d424de" category="paragraph">由於目前無法在LDAP查詢中使用網域前置碼、因此多個網域LDAP環境無法在LDAP namemap查詢中正常運作。Cloud Volumes Service</block>
+  <block id="1a19ad8ba3f26bc83d40bf699210c5b3" category="paragraph">以下範例顯示Windows名稱為「不對稱」、UNIX名稱為「UNIX使用者」的使用者、以及從SMB和NFS寫入檔案時所遵循的行為。</block>
+  <block id="cf613896f3bf97cfe22b19367188faac" category="paragraph">下圖顯示LDAP屬性從Windows伺服器的外觀。</block>
+  <block id="bb859b3ee7438471d7bd0441aec37b09" category="paragraph"><block ref="bb859b3ee7438471d7bd0441aec37b09" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="74a3bb1b92afc37821849f4d2c6a2e08" category="paragraph">從NFS用戶端、您可以查詢UNIX名稱、但不能查詢Windows名稱：</block>
+  <block id="9a9b54fd5d17009b1290538bd0bea332" category="paragraph">從NFS將檔案寫入為「UNIX使用者」時、NFS用戶端會產生下列結果：</block>
+  <block id="2d78fc711a4a8afa3553c40cb81a7f5a" category="paragraph">從Windows用戶端、您可以看到檔案擁有者已設定為適當的Windows使用者：</block>
+  <block id="dd276babf175f2baaf7d31c63630e9ce" category="paragraph">相反地、Windows使用者從SMB用戶端建立的「非對稱」檔案、會顯示適當的UNIX擁有者、如下文所示。</block>
+  <block id="840e343f2946d2e3ecafb4d3af6751c5" category="paragraph">中小企業：</block>
+  <block id="7369fcede1216c5a449bffa4016f597a" category="paragraph">NFS：</block>
+  <block id="1a2ced64ce54d0878867c66c1264ef73" category="section-title">LDAP通道繫結</block>
+  <block id="7bc3122060898b084ade9ae81cb840d5" category="inline-link">Microsoft安全性摘要報告ADV190023</block>
+  <block id="9c2bd50d1c3b17373f80735ce60e0d91" category="paragraph">由於Windows Active Directory網域控制器存在弱點、<block ref="9230172696f08489abbbe06ad2878984" category="inline-link-rx"></block> 變更DC允許LDAP繫結的方式。</block>
+  <block id="c389bcb5002ce56cb9cf28680eb6ff4c" category="paragraph">對功能的影響Cloud Volumes Service 與對任何LDAP用戶端的影響相同。目前不支援通道連結。Cloud Volumes Service由於根據預設、透過協商來支援LDAP簽署、因此LDAP通道繫結不應成為問題。Cloud Volumes Service如果您在啟用通道繫結的情況下、無法連結至LDAP、請遵循ADV190023的修正步驟、讓LDAP從Cloud Volumes Service 支援區連結成功。</block>
+  <block id="ed5f2bdecbd4bd349d09412d1ff6a6fb" category="section-title">DNS</block>
+  <block id="8cc300201cbc74e712f45393efb60e69" category="inline-link">動態DNS</block>
+  <block id="80052c998ef6da49a98a2d9004c75c33" category="paragraph">Active Directory和Kerberos都依賴DNS來解析主機名稱與IP / IP之間的主機名稱。DNS需要開啟連接埠53。不修改DNS記錄、也不支援使用Cloud Volumes Service<block ref="2df544fb17221302fef729d1eb6bd715" category="inline-link-rx"></block> 在網路介面上。</block>
+  <block id="5f36386498075ef9c05d674112b69981" category="inline-link">安全的Windows DNS</block>
+  <block id="e3aa134886f9dad39f14489844fe7763" category="paragraph">您可以設定Active Directory DNS、限制哪些伺服器可以更新DNS記錄。如需詳細資訊、請參閱<block ref="1abda701cc77717e0b1a0b391ec2fed8" category="inline-link-rx"></block>。</block>
+  <block id="e8ba0470f4bd2498fbecdead3ab1b183" category="paragraph">請注意、Google專案中的資源預設為使用Google Cloud DNS、而Google Cloud DNS並未與Active Directory DNS連線。使用Cloud DNS的用戶端無法解析Cloud Volumes Service 由解決所傳回的UNC路徑。加入Active Directory網域的Windows用戶端已設定為使用Active Directory DNS、並可解析此類的UNC路徑。</block>
+  <block id="71870bac7a9267067ab69566f75d36c3" category="inline-link">為什麼我的用戶端無法解析SMB NetBios名稱？</block>
+  <block id="b0ffc266c9e05cd7ae80810305b932bf" category="paragraph">若要將用戶端加入Active Directory、您必須將其DNS組態設定為使用Active Directory DNS。您也可以設定Cloud DNS、將要求轉送至Active Directory DNS。請參閱<block ref="d568657413aac86de4b237a9edcddc2d" category="inline-link-rx"></block>以取得更多資訊。</block>
+  <block id="a0c7db04deaabb45ee60d5a501e67eb8" category="admonition">目前不支援DNSSEC、DNS查詢則以純文字執行。Cloud Volumes Service</block>
+  <block id="c3a18bc4fd14cf11bc551540f29f6375" category="section-title">檔案存取稽核</block>
+  <block id="cc6e776769986190d1536969ad7e5307" category="paragraph">目前不支援Cloud Volumes Service 使用此功能。</block>
+  <block id="5cffe1f133f0ed3a472da05d0b1d3f0d" category="section-title">防毒保護</block>
+  <block id="2b91875198ddd07e9b4cff7f1fe46663" category="paragraph">您必須在Cloud Volumes Service 用戶端執行「從位向至NAS共享區的」功能中的防毒掃描。目前沒有原生的防毒整合Cloud Volumes Service 功能可搭配使用。</block>
+  <block id="f0e8b8e3bd62a1e919cd1935e44bf79c" category="inline-link-macro">下一步：服務營運。</block>
+  <block id="fba0107176535938bcee4c0774160668" category="paragraph"><block ref="fba0107176535938bcee4c0774160668" category="inline-link-macro-rx"></block></block>
+  <block id="fd7d290d66c64aa2fc13dd9bbca9c540" category="summary">支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的雙傳輸協定存取權限。Cloud Volumes Service這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。</block>
+  <block id="d27d01220b09abd6dc8be87dd2b7f8d4" category="doc">雙傳輸協定/多傳輸協定</block>
+  <block id="8c14d6d170254470aea76e2185e26901" category="inline-link-macro">上一篇：SMB。</block>
+  <block id="692e0ebc2797e7ae1a9618bdac0b5c02" category="paragraph"><block ref="692e0ebc2797e7ae1a9618bdac0b5c02" category="inline-link-macro-rx"></block></block>
+  <block id="9a5ba82ef925964774fad34d380585ce" category="inline-link">雙傳輸協定</block>
+  <block id="afbf550dbb927e70d6e5e81aba4cf54e" category="paragraph">支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的存取權限Cloud Volumes Service <block ref="090248040bf8d7cbf59e0f5bcb2aeb23" category="inline-link-rx"></block>）。這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。</block>
+  <block id="65bd83537129be15c8027ec94bec5bd3" category="section-title">存取控制</block>
+  <block id="b481dc764d87d694bd99e41051212b98" category="inline-link-macro">「擁有本機/BUILTIN/系統管理員/備份權限的帳戶。」</block>
+  <block id="4349221797619aa2539cd1d814d55cf3" category="inline-link">MMC/電腦管理</block>
+  <block id="ab67de3b2d37b16da324871c9cd7f96b" category="list-text">*共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用從SMB用戶端設定共用層級ACL<block ref="dbc4cec831b164bbb509e51caacd0209" category="inline-link-rx"></block> 擁有Cloud Volumes Service 管理員權限的帳戶（請參閱一節） <block ref="c9946e41ec7364b03516e2beacd1b339" category="inline-link-macro-rx"></block>）。</block>
+  <block id="1020ac8238c0e64a401514745b8a3c6a" category="list-text">*檔案存取控制。*控制檔案或資料夾層級的權限、且永遠從NAS用戶端進行管理。NFS用戶端可以使用傳統模式位元（rwx）或NFSv4 ACL。SMB用戶端運用NTFS權限。</block>
+  <block id="dcfd17a407b936210845de342300e631" category="paragraph">將資料提供給NFS和SMB的磁碟區存取控制權取決於使用中的傳輸協定。如需雙協定權限的相關資訊、請參閱「」一節<block ref="7251f6a3aba1b22d43e125a8c39f6f0a" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="20d918db09dacfd5fbfbaadfaede2f80" category="section-title">使用者對應</block>
+  <block id="c9677302c2548820abda217b496a541b" category="paragraph">當用戶端存取Volume時Cloud Volumes Service 、嘗試將傳入的使用者對應至相反方向的有效使用者。這是確定跨傳輸協定適當存取的必要條件、並確保要求存取的使用者確實是他們聲稱的對象。</block>
+  <block id="7e9b11fc569fee58c3b42b689df2fbec" category="paragraph">例如、如果名為「Joe」的Windows使用者嘗試透過SMB存取具有UNIX權限的Volume、Cloud Volumes Service 則會執行搜尋、尋找名為「Joe」的對應UNIX使用者。如果存在、則以Windows使用者「Joe」的身分寫入SMB共用區的檔案會顯示為來自NFS用戶端的UNIX使用者「Joe」。</block>
+  <block id="b9e4f77748fb373f23ad2bc9eb2d3de0" category="paragraph">或者、如果名為「Joe」的UNIX使用者嘗試以Cloud Volumes Service Windows權限存取某個Windows Volume、則UNIX使用者必須能夠對應至有效的Windows使用者。否則、將拒絕存取磁碟區。</block>
+  <block id="98b9b81e4ad07f5198dd8381a0c5d43c" category="inline-link">建立AD連線</block>
+  <block id="d6210f83492bb730b32d0e719a1d5100" category="paragraph">目前、只有Active Directory支援使用LDAP進行外部UNIX身分識別管理。如需設定此服務存取權的詳細資訊、請參閱<block ref="cfe0f81fca904ab10d3dcbbfceb0f3de" category="inline-link-rx"></block>。</block>
+  <block id="7fc7c5bf3cd7f453807f2e17dc846957" category="section-title">權限模式</block>
+  <block id="94b74cdf7c7dc9ef00fc04cf642127d9" category="paragraph">使用雙傳輸協定設定時Cloud Volumes Service 、利用磁碟區的安全樣式來判斷ACL的類型。這些安全型態是根據所指定的NAS傳輸協定來設定、或是在建立Cloud Volumes Service 完實體磁碟區時選擇使用雙傳輸協定。</block>
+  <block id="b3544688f5ad40244fc991f13471c525" category="list-text">如果您只使用NFS、Cloud Volumes Service 則Sfelles Volume會使用UNIX權限。</block>
+  <block id="95b899e9e3d21a94ae7e8ce04eac3bb3" category="list-text">如果您只使用SMB、Cloud Volumes Service 則支援使用NTFS權限的功能。</block>
+  <block id="51c16477dee3c257c4930e8614eda5ba" category="paragraph">如果要建立雙傳輸協定磁碟區、您可以在建立磁碟區時選擇ACL樣式。這項決定應以所需的權限管理為基礎。如果使用者管理來自Windows / SMB用戶端的權限、請選取NTFS。如果您的使用者偏好使用NFS用戶端和chmod/chown、請使用UNIX安全性樣式。</block>
+  <block id="fd859db4ea28a81227f07e2c125fc927" category="inline-link-macro">下一步：建立Active Directory連線的考量事項。</block>
+  <block id="bc695a7a8573373413beec401ab691e1" category="paragraph"><block ref="bc695a7a8573373413beec401ab691e1" category="inline-link-macro-rx"></block></block>
+  <block id="451abeb07875465ff669fc3bfc502564" category="summary">安全性、尤其是在基礎架構不受儲存管理員控制的雲端環境中、對於信任您的資料、以提供由雲端供應商提供的服務而言、是非常重要的。本文件概述NetApp Cloud Volumes Service 支援Google Cloud的安全功能。</block>
+  <block id="85f174d487aef272a0a9ea0f980e4827" category="doc">TR-4918：安全性總覽- Google Cloud Volumes Service Cloud中的NetApp功能</block>
+  <block id="09f7873d6f07efaef82aef2b95f42e0a" category="paragraph">Oliver Krause、Justin Parisi、NetApp</block>
+  <block id="1e06922fd676ae97f9dc69dbbfc93992" category="section-title">文件範圍</block>
+  <block id="c2f1a37c5b3a149d2e79ad5a41c86139" category="inline-link">支援Google Cloud Cloud Volumes Service</block>
+  <block id="c2197b5184a5af948e5dc6e6dcf6e5c3" category="paragraph">安全性、尤其是在基礎架構不受儲存管理員控制的雲端環境中、對於信任您的資料、以提供由雲端供應商提供的服務而言、是非常重要的。本文檔概述NetApp提供的安全產品<block ref="b29f7971c7793aea2bb4311fa5c38ee0" category="inline-link-rx"></block>。</block>
+  <block id="f2b84afd0523a6df7547c404aa3647d8" category="section-title">目標對象</block>
+  <block id="75ff467aeacdad8bd3ed9fe31431d022" category="paragraph">本文件的目標對象包括但不限於下列角色：</block>
+  <block id="3487d2ed085064f5b68318d25038bcd6" category="list-text">雲端供應商</block>
+  <block id="203ea32883f92321782cc1a312345903" category="list-text">儲存管理員</block>
+  <block id="7e89bd35a6b8558a95e9e4ec446df00d" category="list-text">儲存架構設計師</block>
+  <block id="528efe83de18ec1cf2eb982cc641bb89" category="list-text">現場資源</block>
+  <block id="a6205b388d7b872550efc1a57461e045" category="list-text">企業決策者</block>
+  <block id="d9a404dc3c51a0dfc2360a6f7f97c00c" category="inline-link-macro">「聯絡我們」。</block>
+  <block id="ec45e675f8dd5d470d6edacfc9ac6a2d" category="paragraph">如果您對本技術報告內容有任何疑問、請參閱一節 <block ref="bbd2d7f57ba5e479a6b271845e2b7ec0" category="inline-link-macro-rx"></block></block>
+  <block id="b54d58d7e43c404563f91e38d3efbcac" category="cell">縮寫</block>
+  <block id="0b890b1926b90387673882e6ccae7fdc" category="cell">定義</block>
+  <block id="e898e7a5df4dec909ad011657b510e2d" category="cell">CVS軟體</block>
+  <block id="3b558136fa0b6447d030d5fd2d28765b" category="cell">支援服務類型CVS Cloud Volumes Service</block>
+  <block id="439d7969e09b4b31626fcf209b8fdcb7" category="cell">CVS效能</block>
+  <block id="3da305112390b1f2d5e6ad8818e00065" category="cell">Cloud Volume Service、服務類型CVs-Performance</block>
+  <block id="041159b903daf7d5923837346de98407" category="cell">PSA</block>
+  <block id="eb2108209f61048e4b7ebba4b61f91ee" category="inline-link-macro">下一步：Cloud Volumes Service Google Cloud的功能介紹如何保護資料安全。</block>
+  <block id="4c9538193c211d1d025b959f6407da23" category="paragraph"><block ref="4c9538193c211d1d025b959f6407da23" category="inline-link-macro-rx"></block></block>
+  <block id="60298c0c8282022dec640948e48114c1" category="summary">這個支援團隊負責管理Google Cloud的後端服務、並運用多種策略來保護平台安全、防止不必要的存取。Cloud Volumes Service</block>
+  <block id="d5558f87207ef258cc599e6b4f31fa1f" category="doc">服務營運</block>
+  <block id="23fa70110ac44a6aa038c42f52919e60" category="inline-link-macro">先前版本：其他NAS基礎架構服務相依性（Kdc、LDAP、DNS）。</block>
+  <block id="09db248feade063e1b222ff7a6fa8bae" category="paragraph"><block ref="09db248feade063e1b222ff7a6fa8bae" category="inline-link-macro-rx"></block></block>
+  <block id="01f3694459a5570182960c35de3adea0" category="paragraph">每位客戶都有自己專屬的子網路、預設會有與其他客戶隔離的存取權限、Cloud Volumes Service 而在這個子網路中、每個租戶都會獲得自己的命名空間和VLAN、以實現整體資料隔離。驗證使用者之後、服務交付引擎（SDE）只能讀取該租戶專屬的組態資料。</block>
+  <block id="3efd389b601ec82d2d3d7d1fe8c7a952" category="section-title">實體安全性</block>
+  <block id="e6cbbd1872a42cfa36ceca16da55e6af" category="paragraph">在適當的預先核准下、只有現場工程師和NetApp認可的現場支援工程師（FSE）才能存取機箱和機架進行實體工作。不允許進行儲存與網路管理。只有這些現場資源能夠執行硬體維護工作。</block>
+  <block id="f4cc7ff420af18ead26b06b01e65be30" category="paragraph">對於現場工程師、會提出一份工作說明書（SOW）的票證、其中包括機架ID和裝置位置（RU）、以及所有其他詳細資料均包含在票證中。對於NetApp FSE、必須向Colo出示網站參訪票證、票證中必須包含訪客的詳細資料、日期和時間、以供稽核之用。FSE的SOW會在內部傳達給NetApp。</block>
+  <block id="e6da80db21921cfa31a2ec8ae71c8a44" category="section-title">營運團隊</block>
+  <block id="575c886f27b4fd6adbc422b9466a7d77" category="paragraph">支援此功能的營運團隊Cloud Volumes Service 由Production Engineering和Site可靠性工程師（SRE）組成、負責雲端Volume Services、以及NetApp現場支援工程師和硬體合作夥伴。所有營運團隊成員均已獲得Google Cloud認證、並會針對每張提出的問題單、維護詳細的工作記錄。此外、也有嚴格的變更控管與核准程序、確保每項決策都經過適當的審查。</block>
+  <block id="62b92b1afcd6e99ad8ef6fc6e66fe1c6" category="paragraph">SRE團隊負責管理控制面板、以及如何將資料從UI要求路由傳送至Cloud Volumes Service 支援的後端硬體和軟體。SRE團隊也會管理系統資源、例如磁碟區和inode上限。SRES不得與客戶資料互動或存取。SRES也能與退貨材料授權（RMA）協調、例如新磁碟或後端硬體的記憶體更換要求。</block>
+  <block id="20ac318b6aafb241498518b27a204f2d" category="section-title">客戶責任</block>
+  <block id="5b18708f6a9b76d94aad073287e9c4aa" category="paragraph">客戶負責管理組織的Active Directory和使用者角色管理、以及磁碟區和資料作業。Cloud Volumes Service客戶可以擁有管理角色、並可使用NetApp和Google Cloud提供的兩個預先定義角色（管理員和檢視者）、將權限委派給同一個Google Cloud專案中的其他終端使用者。</block>
+  <block id="70612d623f8ac2ccbad1aa9289e54eb2" category="paragraph">系統管理員可以對等客戶專案中的任何VPC、Cloud Volumes Service 使客戶認爲適當。客戶有責任管理其Google Cloud市場訂閱的存取權、以及管理可存取資料層面的VPC。</block>
+  <block id="1e9614b8d81927a9e9bad94fe64884d6" category="section-title">惡意SRE保護</block>
+  <block id="1ced9b3b1b2408070d8594c7310def52" category="paragraph">可能會產生的一項疑慮是Cloud Volumes Service 、當發生惡意SRE或SRE認證遭入侵時、如何保護不受攻擊？</block>
+  <block id="0cf58dc2d9a00ecaeb191e61685b36e5" category="paragraph">只有少數SRE人員能夠存取正式作業環境。系統管理權限進一步限制給少數經驗豐富的系統管理員。我們的安全資訊與事件管理（SIEM）威脅情報平台會記錄所有在整個流程環境中由任何人執行的行動Cloud Volumes Service 、並偵測到任何基礎異常或可疑活動。因此、在Cloud Volumes Service 對該後端造成太多損害之前、可以追蹤並減輕惡意行為。</block>
+  <block id="9893b21aa64e031fdfd6920fef8147a3" category="section-title">Volume生命週期</block>
+  <block id="1135939baa7babe550972f3d2430315f" category="paragraph">僅管理服務中的物件、而非磁碟區內的資料。Cloud Volumes Service只有存取磁碟區的用戶端才能管理資料、ACL、檔案擁有者等。這些磁碟區中的資料會在閒置時加密、而且只能由Cloud Volumes Service 執行個體的租戶存取。</block>
+  <block id="dd04bd242a373a0c9b066d0704ba4d66" category="paragraph">支援的Volume生命週期Cloud Volumes Service 是「cree-update-delete」。Volume會保留Volume的Snapshot複本、直到磁碟區被刪除為止、而且只有通過驗證Cloud Volumes Service 的NetApp管理員才能刪除Cloud Volumes Service 整個實體中的Volume。當系統管理員要求刪除磁碟區時、需要輸入磁碟區名稱的其他步驟來驗證刪除作業。刪除磁碟區後、磁碟區便會消失、無法恢復。</block>
+  <block id="1744c1e09f5b1b7990b7f2b80a7a9500" category="paragraph">如果終止了某個方面的合約、NetApp會在特定時間段後將磁碟區標示為刪除。Cloud Volumes Service在該期間到期之前、您可以應客戶的要求來恢復磁碟區。</block>
+  <block id="13e637fe96062929286b911c16b3c2df" category="section-title">認證</block>
+  <block id="af06a002abcc2b02896192d8fd1052cd" category="inline-link">法規遵循：資料安全與資料隱私</block>
+  <block id="258a58248bd2280e3d97717c4150b3cf" category="paragraph">Cloud Volumes Services for Google Cloud目前已通過ISO/IEC 27001：2013和ISO/IEC 27018：2019標準的認證。該服務最近也收到SOC2類型I證明報告。如需NetApp對資料安全性與隱私權承諾的相關資訊、請參閱<block ref="751448d9ace7c1569cfa25749b75ea26" category="inline-link-rx"></block>。</block>
+  <block id="4e94c8ad46c8aef1ca637841dfbe2159" category="section-title">GDPR</block>
+  <block id="ee69241049506ca93a3a1cd627e44851" category="inline-link">客戶合約</block>
+  <block id="15655a5f67808f893102ffa3cbde3b01" category="inline-link">客戶資料處理附錄</block>
+  <block id="cd0ae90a69c7d21d42b18252b9e1707d" category="inline-link">標準合約條款</block>
+  <block id="de315e46a9bdf4936de71254f87d2fe0" category="paragraph">我們對隱私權和遵守GDPR的承諾、已在我們的多個公司中提供 <block ref="c2118342007d8714fcb1b4f6106c575c" category="inline-link-rx"></block>、例如我們的<block ref="7f657124cd056ea8e74c57dcafd4df75" category="inline-link-rx"></block>、其中包括 <block ref="85bd1a4ed188bfd53fcaef2fb6e1962a" category="inline-link-rx"></block> 由歐盟委員會提供。我們也會在隱私權政策中做出這些承諾、並以公司行為準則中所列的核心價值為後盾。</block>
+  <block id="648d64814699b339816911e595b789cd" category="inline-link-macro">下一步：其他資訊、版本歷程記錄及聯絡資訊。</block>
+  <block id="259ea0e5275404f9f6b7793a369cf8d5" category="paragraph"><block ref="259ea0e5275404f9f6b7793a369cf8d5" category="inline-link-macro-rx"></block></block>
+  <block id="81e9930d895d3e301d9d41dffc998bf4" category="summary">信任雲端解決方案的一部分是瞭解架構及其安全性。本節說明Cloud Volumes Service Google中的各個環節、以協助您減輕資料安全的潛在疑慮、並指出可能需要採取額外組態步驟才能獲得最安全部署的領域。</block>
+  <block id="cce1d49f67059a9bd1ae8d0bdb0c40c6" category="inline-link-macro">先前版本：安全考量與攻擊面。</block>
+  <block id="64ff582fefc046b48708216a4686161c" category="paragraph"><block ref="64ff582fefc046b48708216a4686161c" category="inline-link-macro-rx"></block></block>
+  <block id="e5a9d7217b1490853e4230120cdedb32" category="paragraph">整體的架構Cloud Volumes Service 可以分為兩個主要元件：控制面板和資料面板。</block>
+  <block id="650717c72d7a99e6505592f83821e4ed" category="section-title">控制面</block>
+  <block id="b2b6e947ec64376b51417e89ab29e213" category="paragraph">在這個過程中、由NetApp原生自動化軟體的管理員負責管理後端基礎架構。Cloud Volumes Service Cloud Volumes Service此架構對終端使用者完全透明、包括網路、儲存硬體、軟體更新等、有助於為Cloud Volumes Service 諸如更新的雲端解決方案提供價值。</block>
+  <block id="52a0e67f81bfbe486860a8219dfb3707" category="section-title">資料平面</block>
+  <block id="9d4d4fccf74cab21d8073077985a0cf6" category="paragraph">在資料架構Cloud Volumes Service 中、資料層面包括實際的資料量和Cloud Volumes Service 整體的支援（例如存取控制、Kerberos驗證等）。資料平面完全由Cloud Volumes Service 最終使用者和使用者控制。</block>
+  <block id="099a80e29da5319c76116b6b2b41b2bf" category="paragraph">每個平面的安全與管理方式各有不同。以下各節涵蓋這些差異、從Cloud Volumes Service 架構概述開始。</block>
+  <block id="69259c19ec0d9503c7d352a664a85953" category="inline-link-macro">下一步：Cloud Volumes Service 架構。</block>
+  <block id="06ef1ecb5da986ebfb9901831437a0d8" category="paragraph"><block ref="06ef1ecb5da986ebfb9901831437a0d8" category="inline-link-macro-rx"></block></block>
+  <block id="9114bfd7ba3e781df4e595c0a3199bfb" category="summary">瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。</block>
+  <block id="d446619c29484b970941bed7884dfd57" category="doc">安全考量與攻擊面</block>
+  <block id="9835bd91d6121b399eb4318f5f6aecab" category="inline-link-macro">上一篇：Cloud Volumes Service Google Cloud的功能介紹如何保護資料安全。</block>
+  <block id="00bbf283b6d94328be9e19fd69a5e57d" category="paragraph"><block ref="00bbf283b6d94328be9e19fd69a5e57d" category="inline-link-macro-rx"></block></block>
+  <block id="da24915274d8feb20f2be6f37c42bb43" category="paragraph">瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。其中包括（但不限於）下列項目：</block>
+  <block id="1f48f12466296c53740ed0375b4d0111" category="list-text">系統管理與登入</block>
+  <block id="78b73d10586b526c3f0d3f97bd32dfba" category="list-text">閒置資料</block>
+  <block id="42517361027a563c9ab61d813badc939" category="list-text">資料傳輸中</block>
+  <block id="58be36e591707c2a60f9bed405a8ef25" category="list-text">網路和防火牆</block>
+  <block id="3a7d83d110f5fe7d4f435b9594806caf" category="list-text">勒索軟體、惡意軟體和病毒</block>
+  <block id="417a78919920edf51d22038b236740f1" category="paragraph">瞭解攻擊面可協助您更妥善地保護環境安全。在Google Cloud中、不需進行任何管理互動、即可將許多主題納入考量、並在預設情況下實作安全功能。Cloud Volumes Service</block>
+  <block id="70e43ccaf26985ea09dd44568ea9f36b" category="section-title">確保安全登入</block>
+  <block id="67fe2a3de92df4f2c45227cff1adea77" category="paragraph">保護關鍵基礎架構元件的安全時、必須確保只有獲核准的使用者才能登入及管理您的環境。如果不良的使用者違反您的管理認證、他們就能擁有城堡的金鑰、而且可以執行任何他們想要的動作：變更組態、刪除磁碟區和備份、建立後端或停用Snapshot排程。</block>
+  <block id="3a2f2973e275ef04d08d1dda935f1ee0" category="paragraph">支援Google Cloud的解決方案可透過模糊化的儲存即服務（StaaS）、防止未經授權的系統管理登入。Cloud Volumes Service由雲端供應商完全維護、無法從外部登入。Cloud Volumes Service所有的設定和組態作業都是完全自動化的、因此除非情況非常罕見、否則人員管理員永遠不需要與系統互動。</block>
+  <block id="22b01eb5fb8c08ffb16c6ef9ef8b71b6" category="inline-link-macro">「架構」Cloud Volumes Service 。</block>
+  <block id="b019d60ff2b9589700c94d2d71d13c8f" category="paragraph">如果需要登入、Cloud Volumes Service Google Cloud中的功能驗證可確保登入安全、只要維護一份可供登入系統之受信任系統管理員的簡短清單即可。這項網關保存功能有助於減少可能的不良使用者存取權。此外、Google Cloud網路也將系統隱藏在網路安全層的背後、只向外界公開所需的內容。如需Google Cloud Cloud Volumes Service 的資訊、請參閱「架構」一節 <block ref="d008df97450ac642ad54d58196f67862" category="inline-link-macro-rx"></block></block>
+  <block id="582157e9744c945cab3000f99e5c51f4" category="section-title">叢集管理與升級</block>
+  <block id="ac816ab3f2fb9ede37e87c223bf39690" category="paragraph">有潛在安全風險的兩個領域包括叢集管理（如果不良的使用者具有管理存取權限、會發生什麼事）和升級（如果軟體映像遭到破壞、會發生什麼事）。</block>
+  <block id="e3f83199a3d154c9a938a90ed76188d4" category="section-title">儲存管理保護</block>
+  <block id="e9406b6097629a60364e6b24a83dd40b" category="inline-link-macro">「服務營運。」</block>
+  <block id="a16c40cfa1517a64fe23c8a84e7fca32" category="paragraph">儲存設備即服務可移除對雲端資料中心外部終端使用者的存取權限、進而移除管理員曝險的額外風險。而唯一的組態是由客戶進行資料存取。每個租戶都會管理自己的磁碟區、而且沒有租戶能夠觸及其他Cloud Volumes Service 的實體執行個體。此服務是由自動化管理、其中只有一小份受信任的系統管理員清單、可透過本節所述的程序存取系統 <block ref="b466e98e9a7ec570a0e595b4839650b9" category="inline-link-macro-rx"></block></block>
+  <block id="bc94b58452719d0cfedd1ceb30c4fd53" category="paragraph">CVS效能服務類型提供跨區域複寫選項、可在區域故障時、為不同區域提供資料保護。在這些情況Cloud Volumes Service 下、可將無法存取的功能故障轉移至未受影響的區域、以維持資料存取。</block>
+  <block id="b8bb5b62315a69e1364d070de73bbfa5" category="section-title">服務升級</block>
+  <block id="a5e1144c0e37d7facbd53bdffaa58f52" category="paragraph">更新有助於保護易受影響的系統。每項更新都提供安全性增強功能和錯誤修正、可將攻擊面減至最低。軟體更新是從集中式儲存庫下載、並在允許更新之前驗證、以驗證是否使用正式映像、以及升級是否受到不良行為的影響。</block>
+  <block id="79f1689ccfaec67bc50dd620185adbac" category="paragraph">有了NetApp、雲端供應商團隊就能處理更新、提供具備組態與升級能力的專家、並將程序自動化且經過完整測試、藉此消除系統管理員團隊面臨的風險風險。Cloud Volumes Service升級不會中斷營運、Cloud Volumes Service 而為了獲得最佳整體效果、我們會維護最新的更新。</block>
+  <block id="6a274e2791c8f2a1f59a7a6f87261122" category="paragraph">如需執行這些服務升級之系統管理員團隊的相關資訊、請參閱一節 <block ref="b466e98e9a7ec570a0e595b4839650b9" category="inline-link-macro-rx"></block></block>
+  <block id="eeae9bcc33a487e1224ffb4815f79821" category="section-title">保護閒置資料的安全</block>
+  <block id="11062b94d57add7cf5c44a9ec7e9274c" category="paragraph">當磁碟遭竊、退回或重新使用時、靜止資料加密對於保護敏感資料非常重要。使用軟體式加密、可保護靜態資料Cloud Volumes Service 。</block>
+  <block id="ad04a8dc3b058793f75e8c97c787ceea" category="list-text">Google產生的金鑰用於CVs-SW。</block>
+  <block id="b114edcfa107ab9d459e2e75aea2cfdb" category="inline-link">FIPS 140-2認證編號4144</block>
+  <block id="855bcb8730de4b24527a09801b103d97" category="list-text">如需CVS效能、每個Volume金鑰會儲存在Cloud Volumes Service 內建於支援核心的金鑰管理程式中、此管理程式使用NetApp ONTAP 還原資料模組來產生AES-256加密金鑰。CryptoModis會列在CMVP FIPS 140-2驗證模組清單中。請參閱<block ref="c8bf3ef21e8efdca1f27a1e57e809607" category="inline-link-rx"></block>。</block>
+  <block id="a934c8bfa11942a4baa792ed229b8bb8" category="paragraph">自2021年11月起、客戶管理的加密（CMEK）功能預覽已推出CVS效能。此功能可讓您使用Google金鑰管理服務（KMS）中所裝載的個別專案、每個區域的主要金鑰、來加密每個Volume金鑰。KMS可讓您附加外部金鑰管理程式。</block>
+  <block id="fd313eaaaadfe56df9ec88896284165d" category="paragraph">如需如何設定KMS以獲得CVS效能的詳細資訊、<block ref="905a3b34ffbfe930acdbf23dd47d698f" category="inline-link-rx"></block>。</block>
+  <block id="08a22fe6e00e4ceb40cd56453b4a5864" category="paragraph">如需架構的詳細資訊、請參閱一節 <block ref="d008df97450ac642ad54d58196f67862" category="inline-link-macro-rx"></block></block>
+  <block id="fb787119808b111e9df5553be31361c8" category="section-title">保護資料傳輸安全</block>
+  <block id="8255b8a6d9844c87b5ecd1d2287b2f60" category="paragraph">除了確保閒置資料的安全、Cloud Volumes Service 您也必須能夠在資料在執行個體與用戶端或複寫目標之間傳輸時、保護資料安全。利用加密方法（例如使用Kerberos的SMB加密、封包的簽署/密封、以及用於資料傳輸端點對端點加密的NFS Kerberos 5p）、為透過NAS傳輸的傳輸中資料提供加密功能。Cloud Volumes Service</block>
+  <block id="c42b0018cf60c30c0490998e63dfdac1" category="paragraph">利用AES-GCM加密方法、複寫Cloud Volumes Service 不中斷的實體磁碟區使用TLS 1.2。</block>
+  <block id="17882f1649689ee4f6fcf4aeba6d150b" category="paragraph">預設會停用最不安全的傳輸協定、例如：Telnet、NDMP等。不過、DNS並非Cloud Volumes Service 由支援DNS的功能加密（不支援DNS安全）、因此應盡可能使用外部網路加密來加密。請參閱一節 <block ref="051d363ef6081e123484b5da28bebf19" category="inline-link-macro-rx"></block> 以取得更多關於保護資料傳輸安全的資訊。</block>
+  <block id="4bb00cc1adfaf9a4b73ae2593bc7d4e8" category="inline-link-macro">「NAS傳輸協定」。</block>
+  <block id="d47f2c6bf1e6a3776038244ab35f5415" category="paragraph">如需NAS傳輸協定加密的相關資訊、請參閱一節 <block ref="386abb448925212e530f9be720946265" category="inline-link-macro-rx"></block></block>
+  <block id="46dc4f8fa1d2951250a02fa29fccc4cb" category="section-title">NAS權限的使用者和群組</block>
+  <block id="4a6786c54b7ea4a860834c0ffda11c7f" category="paragraph">保護雲端資料的一部分是適當的使用者和群組驗證、其中存取資料的使用者會在環境中驗證為真實使用者、而群組則包含有效的使用者。這些使用者和群組提供初始共用和匯出存取、以及儲存系統中檔案和資料夾的權限驗證。</block>
+  <block id="52c7382ae7438c8a3366ad6f38d5d2a4" category="paragraph">針對SMB共用和Windows型權限、使用標準的Active Directory型Windows使用者和群組驗證。Cloud Volumes Service此服務也能運用UNIX身分識別供應商、例如LDAP for UNIX使用者和群組進行NFS匯出、NFSv4 ID驗證、Kerberos驗證及NFSv4 ACL。</block>
+  <block id="59935480b9f5ac6361a1a360ad8a9ec2" category="admonition">目前僅支援Active Directory LDAP Cloud Volumes Service 搭配「以供LDAP使用」功能。</block>
+  <block id="7c47e0b7c3aa389a1b437364885d5562" category="section-title">偵測、防範及防範勒索軟體、惡意軟體及病毒</block>
+  <block id="b647cba0e4b0ad0f479019e47713c5a2" category="paragraph">勒索軟體、惡意軟體和病毒是系統管理員持續面臨的威脅、企業組織最需要注意的是偵測、防範和防範這些威脅。關鍵資料集上的單一勒索軟體事件可能會花費數百萬美元、因此您可以採取最大程度的行動來降低風險。</block>
+  <block id="ba1e21a6e8310b88e0349770718e717c" category="inline-link">自動勒索軟體偵測</block>
+  <block id="b80fb0d337605da9f0fdaf2687c3de1e" category="paragraph">雖然目前不包含原生偵測或預防措施、例如防毒保護或Cloud Volumes Service<block ref="2ed126fbf9f5caf3d13a90f230e3475a" category="inline-link-rx"></block>、您可以透過啟用定期Snapshot排程、快速從勒索軟體事件中恢復。Snapshot複本是不可變更的、而且是檔案系統中變更區塊的唯讀指標、幾乎是即時性的、對效能的影響最小、而且只有在資料變更或刪除時才會佔用空間。您可以設定Snapshot複本的排程、以符合所需的可接受恢復點目標（RPO）/恢復時間目標（RTO）、而且每個Volume最多可保留1、024個Snapshot複本。</block>
+  <block id="e9c1c7d4ca860adb553d87c2c1d9ef35" category="inline-link">NetApp勒索軟體解決方案</block>
+  <block id="85ebd62090617323187e9e7827c343e7" category="paragraph">Snapshot支援不需額外付費（除了Snapshot複本所保留的變更區塊/資料的資料儲存費用）Cloud Volumes Service 、而且在發生勒索軟體攻擊時、也可在攻擊發生之前、用於回溯至Snapshot複本。快照還原只需幾秒鐘即可完成、之後您就能恢復正常的資料服務。如需詳細資訊、請參閱<block ref="e347ba4858ee244fead32d2fe59a64dd" category="inline-link-rx"></block>。</block>
+  <block id="7994d1312e8f4fe2cdf2f7e13347d8bf" category="paragraph">若要防止勒索軟體影響您的業務、需要採用多層方法、其中包括下列一項或多項：</block>
+  <block id="7aa2bd35ac13684bd5c9434296dd6b03" category="list-text">端點保護</block>
+  <block id="9cdff1d919782c79338864086178c7b0" category="list-text">透過網路防火牆防範外部威脅</block>
+  <block id="eb4079f2ecc7735fcfaa169c5562cbfd" category="list-text">偵測資料異常</block>
+  <block id="aac3c67c846910bdfd381a7101344e96" category="list-text">關鍵資料集的多重備份（現場與異地）</block>
+  <block id="3845e8b5ec9d78bcebac29ec50d8077f" category="list-text">定期還原備份測試</block>
+  <block id="a550fe6fd1b40af5260e9636cdea66fd" category="list-text">不可變的唯讀NetApp Snapshot複本</block>
+  <block id="533a4f72ffc639d4cc87d034dfe92f2c" category="list-text">關鍵基礎架構的多因素驗證</block>
+  <block id="b1d3b419f981a509b3c5203c7546b96b" category="list-text">系統登入的安全性稽核</block>
+  <block id="4e329c801824e6bdc0209c98146064c3" category="paragraph">這份清單遠非詳盡無遺、但在處理勒索軟體攻擊的可能性時、這是一個很好的藍圖。在Google Cloud中提供多種方法來保護勒索軟體事件、並減少其影響。Cloud Volumes Service</block>
+  <block id="2fdb508dbc71674add1fe7fc21ccbf8e" category="section-title">不可變的Snapshot複本</block>
+  <block id="1682a7464d9210c8161ec78abc8010e2" category="paragraph">由於資料刪除或整個磁碟區遭到勒索軟體攻擊、因此本機可提供可自訂排程的不可變唯讀Snapshot複本、以便在資料刪除或整個磁碟區遭到勒索軟體攻擊時、快速進行時間點還原。Cloud Volumes Service快照還原至先前的良好Snapshot複本、可根據Snapshot排程和RTO/RPO的保留期間、迅速將資料遺失減至最低。Snapshot技術的效能影響微乎其微。</block>
+  <block id="c0bd33c36fff1f6dbb2bf9253a7f40dd" category="paragraph">由於VMware的Snapshot複本Cloud Volumes Service 是唯讀的、因此除非勒索軟體擴散到未注意到的資料集、而且Snapshot複本已被勒索軟體感染、否則這些複本將不會受到勒索軟體的感染。因此、您也必須考慮根據資料異常狀況來偵測勒索軟體。目前無法原生提供偵測功能、但您可以使用外部監控軟體。Cloud Volumes Service</block>
+  <block id="9b641219ac63451505f5a25a887038d4" category="section-title">備份與還原</block>
+  <block id="5e2f84170723d4cfed011f9ebc6c557e" category="paragraph">支援標準NAS用戶端備份功能（例如透過NFS或SMB進行備份）Cloud Volumes Service 。</block>
+  <block id="0d69441d7fc21e56d3cf2eb944fbf6c1" category="inline-link">Volume複製</block>
+  <block id="9fd9d0ecc58c5d26f4934bc140ac2a41" category="list-text">CVS效能提供跨區域磁碟區複寫至其他CVS效能磁碟區的功能。如需詳細資訊、請參閱<block ref="ec408a29560fd662bec08bf50f9ff3d6" category="inline-link-rx"></block> 請參閱Cloud Volumes Service 《》文件。</block>
+  <block id="161b127f579db2727ace94e4fb6f9e5b" category="inline-link">雲端備份</block>
+  <block id="6a7870f99b17bbb49636a1e7be9d4be1" category="list-text">CVS軟體提供服務原生Volume備份/還原功能。如需詳細資訊、請參閱<block ref="2377dc7e4548195ed704b70f3ce6250c" category="inline-link-rx"></block> 請參閱Cloud Volumes Service 《》文件。</block>
+  <block id="56a32ac982c7663e59f24c58cfb673d6" category="paragraph">Volume複寫提供確切的來源磁碟區複本、可在發生災難時（包括勒索軟體事件）進行快速容錯移轉。</block>
+  <block id="ae2679a66d07f8c7efd50d972a34a112" category="section-title">跨區域複寫</block>
+  <block id="1a094951f7e9c42a89c4ef4b0b328eee" category="paragraph">CVS效能可讓您在Google雲端區域之間安全地複寫磁碟區、以便在NetApp控制的後端服務網路上使用TLS1.2 AES 256 GCM加密、並使用特定介面在Google網路上執行複寫、以保護資料及歸檔使用案例。主要（來源）Volume包含作用中正式作業資料、並複寫至次要（目的地）Volume、以提供主要資料集的確切複本。</block>
+  <block id="f8e2c7b5b15f4332525ac9687a100a28" category="paragraph">初始複寫會傳輸所有區塊、但更新只會傳輸主磁碟區中變更的區塊。例如、如果將位於主要磁碟區上的1TB資料庫複寫到次要磁碟區、則初始複寫時會傳輸1TB的空間。如果該資料庫在初始化與下一個更新之間有幾百列（假設、幾MB）的變更、則只有變更列的區塊會複寫到次要（幾MB）。這有助於確保傳輸時間保持低、並降低複寫費用。</block>
+  <block id="fd25283b48ea77209e43fe9173df1354" category="paragraph">檔案和資料夾的所有權限都會複寫到次要磁碟區、但共用存取權限（例如匯出原則和規則、SMB共用和共用ACL）必須分開處理。在站台容錯移轉的情況下、目的地站台應利用相同的名稱服務和Active Directory網域連線、以一致的方式處理使用者和群組的身分識別和權限。當發生災難時、您可以使用次要Volume做為容錯移轉目標、方法是打破複寫關係、將次要Volume轉換為讀寫。</block>
+  <block id="940c6fa9c7eb366ae4e471e545edb27b" category="paragraph">Volume複本為唯讀、可在異地提供不可改變的資料複本、以便在病毒感染資料或勒索軟體加密主要資料集的情況下、快速恢復資料。唯讀資料不會加密、但如果主要磁碟區受到影響並發生複寫、則受感染的區塊也會複寫。您可以使用較舊且不受影響的Snapshot複本進行還原、但SLA可能超出承諾的RTO/RPO範圍、視偵測到攻擊的速度而定。</block>
+  <block id="fe62647cc35dde214e0df1ae1fe9d0ab" category="inline-link">安全考量</block>
+  <block id="344c8cea0d31ef9e8c7c56863c714a04" category="paragraph">此外、您也可以利用Google Cloud的跨區域複寫（CRR）管理功能、防止惡意的管理動作、例如磁碟區刪除、Snapshot刪除或Snapshot排程變更。這是透過建立自訂角色來完成、這些角色可分隔磁碟區管理員、這些管理員可以刪除來源磁碟區、但不能中斷鏡射、因此無法從CRR管理員刪除目的地磁碟區、因為他們無法執行任何Volume作業。請參閱<block ref="bf2a9ccb864ad3a1fa1ddc1fec02a961" category="inline-link-rx"></block> 關於每個系統管理員群組所允許的權限、請參閱Cloud Volumes Service 《參考資料》文件。</block>
+  <block id="8ee215caafa31f1ecdd53056d288eb19" category="paragraph">雖然此功能可提供高資料持久性、但外部事件可能導致資料遺失。Cloud Volumes Service如果發生病毒或勒索軟體等安全事件、備份與還原對於及時恢復資料存取而言、將會變得非常重要。系統管理員可能不小心刪除Cloud Volumes Service 了一個聲音區。或者、使用者只是想保留資料的備份版本好幾個月、而在磁碟區內保留額外的Snapshot複本空間、就成為成本上的挑戰。雖然Snapshot複本應該是保留過去幾週備份版本以還原遺失資料的首選方法、但它們位於磁碟區內部、如果磁碟區消失、就會遺失。</block>
+  <block id="99144970696c7e366271871a0e83b6cd" category="paragraph">基於上述所有理由、NetApp Cloud Volumes Service 支援透過提供備份服務<block ref="253601e5d476a508040b734cbc7b3164" category="inline-link-rx"></block>。</block>
+  <block id="a5cef37749b0ea6b89d13e2bfc190bcc" category="paragraph">利用Google Cloud Storage（GCS）、即可在該磁碟區上產生一份複本。Cloud Volumes Service它只會備份儲存在磁碟區內的實際資料、而非可用空間。它的運作方式永遠是遞增的、也就是說、它只會在繼續備份變更的資料時、一次傳輸磁碟區內容、一次又一次從該處傳輸。相較於採用多個完整備份的傳統備份概念、它可節省大量備份儲存設備、進而降低成本。由於備份空間的每月價格比磁碟區低、因此是延長備份版本時間的理想選擇。</block>
+  <block id="d41618915810c18642064f885af2a835" category="paragraph">使用者可以使用Cloud Volumes Service 支援還原功能、將任何備份版本還原至相同區域內的相同或不同磁碟區。如果刪除來源磁碟區、則會保留備份資料、並需要獨立管理（例如刪除）。</block>
+  <block id="3289695e643b478f0efa19edc74cf567" category="inline-link">支援的文件Cloud Volumes Service</block>
+  <block id="be7923d42a302a1a86fdaa9f096fde63" category="inline-link">支援的最大備份版本數</block>
+  <block id="59aab28b54594c59dab8d19afd9478e4" category="inline-link">定價</block>
+  <block id="57e8b261ab803839f73416e368f552bc" category="paragraph">支援的支援功能已內建於支援的選項中。Cloud Volumes Service Cloud Volumes Service使用者可依Cloud Volumes Service 每個Volume啟動「支援功能」備份、以決定要保護的磁碟區。請參閱<block ref="218d9dd384a48541f627c5084c286ade" category="inline-link-rx"></block> 如需備份的相關資訊、請參閱<block ref="d724a11e2928bd8489b8ad8fe1eac94b" category="inline-link-rx"></block>、排程和<block ref="31e05107512c82ef17df4f5c4b3fe0bd" category="inline-link-rx"></block>。</block>
+  <block id="9a647ae53ed9b2a783aef42530e1fe97" category="paragraph">專案的所有備份資料都儲存在GCS儲存區內、此儲存區由服務管理、使用者看不到。每個專案都使用不同的儲存庫。目前、這些庫位與Cloud Volumes Service 《非洲地理區（Sin the Same volume）」位於同一個區域、但我們正在討論更多選項。如需最新狀態、請參閱文件。</block>
+  <block id="4e1c6d2a637d959db4ce4a09b3e5c580" category="paragraph">從資料庫傳輸Cloud Volumes Service 到GCS時、會使用內部服務的Google網路、搭配HTTPS和TLS1.2。資料會以Google管理的金鑰進行閒置加密。</block>
+  <block id="5e467dce18f46b1803b06097fae60b82" category="inline-link">角色/netappcloudVolumes.admin</block>
+  <block id="de8a90c8653195ed30cc4920de8c7921" category="paragraph">若要管理Cloud Volumes Service 此功能（建立、刪除及還原備份）、使用者必須擁有<block ref="595f329bf934dbc7996bb735e9664896" category="inline-link-rx"></block> 角色：</block>
+  <block id="d5588adba169169b3d9fbc3d40fa9e91" category="inline-link-macro">下一步：架構總覽。</block>
+  <block id="70c94a86f99e1aa5d40b6ca87c17a399" category="paragraph"><block ref="70c94a86f99e1aa5d40b6ca87c17a399" category="inline-link-macro-rx"></block></block>
+  <block id="6ab0778deb23383f6063990e47d38567" category="summary">所有的流通量Cloud Volumes Service 均使用AES-256加密進行閒置加密、這表示寫入媒體的所有使用者資料都會加密、而且只能使用每個磁碟區的金鑰來解密。</block>
+  <block id="05a42723f4aebc1b8fea32f0da56f531" category="doc">閒置資料加密</block>
+  <block id="914e9cc2016ed2891bc115163b671205" category="inline-link-macro">上一篇：傳輸中的資料加密。</block>
+  <block id="3ab72ed338391088a345040cc4ede7e0" category="paragraph"><block ref="3ab72ed338391088a345040cc4ede7e0" category="inline-link-macro-rx"></block></block>
+  <block id="4a41d68019f2643468ef37e122fc87a9" category="list-text">在CVS軟體中、會使用Google產生的金鑰。</block>
+  <block id="68056df8fa340722ff859d534da347e4" category="list-text">如需CVS效能、每個Volume金鑰會儲存在Cloud Volumes Service 內建於此功能的關鍵管理程式中。</block>
+  <block id="e23c4fadd8e7d70663bc3393bca7d576" category="inline-link">Google金鑰管理服務（KMS）。</block>
+  <block id="387ccb6d293c8d2f51b2730c375c3f3a" category="paragraph">自2021年11月起、客戶管理的加密金鑰（CMEK）功能已可供預覽。這可讓您使用裝載於的每個專案個別區域主金鑰來加密每個Volume金鑰<block ref="145d140dc09dde7f8aacc53f1269c2de" category="inline-link-rx"></block> KMS可讓您附加外部金鑰管理程式。</block>
+  <block id="1988a6b2308f38718c8100c2e344eb5c" category="inline-link">設定客戶管理的加密金鑰</block>
+  <block id="811bec2d7b00d479640fbf3259346fe6" category="paragraph">如需設定KMS以獲得CVS效能的相關資訊、請參閱<block ref="a0d8b07d63b271255da3bba6f51651a4" category="inline-link-rx"></block>。</block>
+  <block id="6a2064a5b36d77d1da28e1bb96fe613e" category="inline-link-macro">下一步：防火牆。</block>
+  <block id="d78ea12f26e93e819db4dd4772e8cb6e" category="paragraph"><block ref="d78ea12f26e93e819db4dd4772e8cb6e" category="inline-link-macro-rx"></block></block>
+  <block id="13a2c7416db43025d8318ec9db325859" category="summary">傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路本身也會加密、如下列各節所述。</block>
+  <block id="f7ccd4455f141bba37dd989458bfd1f3" category="doc">傳輸中的資料加密</block>
+  <block id="44782cad8de83a97138ea3bcbd36c028" category="inline-link-macro">先前版本：資料平面架構。</block>
+  <block id="9e17ee7c2f94201998bfd10292b5e098" category="paragraph"><block ref="9e17ee7c2f94201998bfd10292b5e098" category="inline-link-macro-rx"></block></block>
+  <block id="8de1715de3864b137091fa8f6d71053f" category="section-title">Google Cloud網路</block>
+  <block id="a94ac9daf8e09a31f9e81f7de9ee7ab6" category="inline-link">傳輸中加密</block>
+  <block id="57d5b464e5bc1a25ae2337c72e492c88" category="paragraph">Google Cloud會加密網路層級的流量、如所述<block ref="df3d10947a311abbd08a64a5cc9629d3" category="inline-link-rx"></block> 在Google文件中。如「Cloud Volumes Services Architecture」一節所述、Cloud Volumes Service NetApp控制的PSAPa生產商專案將提供此功能。</block>
+  <block id="4322a5ae7fc781564c1349bf92846311" category="paragraph">在CVs-SW的情況下、生產商租戶會執行Google VM來提供服務。Google Cloud Volumes Service 會自動加密使用者VM和不支援的VM之間的流量。</block>
+  <block id="d3072f2789ba193441ddf485cc806a82" category="inline-link">IEEE 802.1AE加密（MAC安全）</block>
+  <block id="6141361c43c6e429fa93fd0f6f8b2dac" category="inline-link">封裝</block>
+  <block id="2a5cd9c0503b957ff28d59f12a8bb05a" category="paragraph">雖然CVS效能的資料路徑在網路層上並未完全加密、但NetApp與Google仍使用這種組合<block ref="83e770b09a2e800e59cae429b60dde07" category="inline-link-rx"></block>、<block ref="c5a2137e5d30663db35a2f990a0275f0" category="inline-link-rx"></block> （資料加密）和實體受限的網路、以保護Cloud Volumes Service 資料在整個過程中在整個過程中在靜止CVS效能服務類型和Google Cloud之間傳輸。</block>
+  <block id="95151e0beeb1cf14e98ed9e0e0ebc86f" category="section-title">NAS傳輸協定</block>
+  <block id="7661437a0dea607fd6013193db5363be" category="paragraph">NFS和SMB NAS傳輸協定可在傳輸協定層提供選用的傳輸加密。</block>
+  <block id="198a269fc15076e5cc8ab572d6711771" category="section-title">SMB加密</block>
+  <block id="69c2cd6d510299a43f241a4afbeef373" category="paragraph"><block ref="ebb0763fea63f976f4d3ea586b6fe491" category="inline-link-rx"></block> 提供SMB資料的端點對端點加密、並保護資料免於在不受信任的網路上遭人竊取。您可以啟用用戶端/伺服器資料連線（僅適用於支援SMB3.x的用戶端）和伺服器/網域控制器驗證的加密。</block>
+  <block id="a8c42b910beec902a232a69b59a37847" category="paragraph">啟用SMB加密時、不支援加密的用戶端將無法存取共用區。</block>
+  <block id="72635a952bf12498ca4ca124b1a14d51" category="paragraph">支援RC4-HMAC、AES-122-CTS-HMA-SHA1和AES-256-CTS-HMA-SHA1安全密碼、以進行SMB加密。Cloud Volumes ServiceSMB會交涉至伺服器支援的最高加密類型。</block>
+  <block id="980b28eb45b1ea66cdd07d05e78099a3" category="section-title">NFSv4.1 Kerberos</block>
+  <block id="b97e4c9117cfcc0dd5d7a10e1a7a2631" category="inline-link">RFC7530</block>
+  <block id="69a4f8e652e19cfdfb26e27d4447ae98" category="paragraph">對於NFSv4.1、CVS效能提供如所述的Kerberos驗證<block ref="526af9c532c496dd16998f764e15dc87" category="inline-link-rx"></block>。您可以針對每個磁碟區啟用Kerberos。</block>
+  <block id="b2833929a77bd8c490997197ed3f00be" category="paragraph">Kerberos目前最強大的加密類型是AES-256-CTS-HMA-SHA1。NetApp Cloud Volumes Service 支援AES-256-CTS-HMA-SHA1、AES-123-CTS-HMA-SHA1、DES3和DES for NFS。它也支援CIFS/SMB流量的ARCFOUR-HMAC（RC4）、但不支援NFS。</block>
+  <block id="59417c70dd426d4c6a1a81a09043bb7b" category="paragraph">Kerberos為NFS裝載提供三種不同的安全性層級、可讓您選擇Kerberos安全性的強度。</block>
+  <block id="710c8a535ea62cee124026e31e71a5bd" category="inline-link">通用掛載選項</block>
+  <block id="224b49d2f24ee42bbb73b2ca635c6d9a" category="paragraph">根據RedHat<block ref="1849b335749f623c227052141b2e8b11" category="inline-link-rx"></block> 文件：</block>
+  <block id="babd6b3b4aea27ca41d56a231f2625af" category="paragraph">一般而言、Kerberos安全性層級越高、效能就越差、因為用戶端和伺服器花費時間來加密和解密所傳送的每個封包的NFS作業。許多用戶端和NFS伺服器都支援AES-NI卸載至CPU、以獲得更好的整體體驗、但Kerberos 5p（完整端對端加密）的效能影響遠高於Kerberos 5（使用者驗證）的影響。</block>
+  <block id="986c123032dbfdac18bc180d1a2c3562" category="paragraph">下表顯示每個層級在安全性和效能方面的差異。</block>
+  <block id="f12149bd43eabe8557e021017cfb9b1f" category="cell">安全性層級</block>
+  <block id="af75613ef5351b4f2563e49218c01d5b" category="cell">NFSv3—系統</block>
+  <block id="d65540b3d2f3c15e237b23f6d4d823e5" category="list-text">最不安全；純文字、含數字使用者ID /群組ID</block>
+  <block id="2310efb28386099d85b1dbcaf5f9c51f" category="list-text">能夠檢視UID、GID、用戶端IP位址、匯出路徑、檔案名稱、 封包擷取的權限</block>
+  <block id="07b50706d3894aa894686195ddeed426" category="list-text">最適合大多數情況</block>
+  <block id="54fcc149f825f18bfaaa374d6876e25a" category="cell">NFSv4.x—系統</block>
+  <block id="3777f761befcdc3f42a4d77cde2962fe" category="list-text">比NFSv3（用戶端ID、名稱字串/網域字串比對）更安全、但仍是純文字</block>
+  <block id="25199bb4f6f6a3eadd28c84579d0fcf7" category="list-text">能夠檢視UID、GID、用戶端IP位址、名稱字串、網域ID、 在封包擷取中匯出路徑、檔案名稱、權限</block>
+  <block id="5145a8956e4807aeba5a7a4a1677c598" category="list-text">適合連續工作負載（例如VM、資料庫、大型檔案）</block>
+  <block id="bc96a40b0174b0ec2f9133e1e704d7cb" category="list-text">高檔案數/高中繼資料的不良（差30-50%）</block>
+  <block id="f25baf1a23f237c73f28b4834def4161" category="cell">NFS—KRB5</block>
+  <block id="0661ead41dc806181d0a0bff696e49df" category="list-text">每個NFS封包中的認證Kerberos加密：在GSS包裝程式的RPC呼叫中、將使用者/群組的UID/GID封包起來</block>
+  <block id="b012a8b71e44e4c118c2a97f94c11c1f" category="list-text">要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動金鑰索引標籤交換）；票證會在指定的時間段後過期、使用者必須重新驗證才能存取</block>
+  <block id="ab2293d06a9e3594a17eb02b827c471a" category="list-text">不加密NFS作業或掛載/連接埠對應器/ NLM等輔助通訊協定（可參閱匯出路徑、IP位址、檔案處理、權限、檔案名稱、 封包擷取的時間/時間）</block>
+  <block id="6d140d250a49ec533ff2211674c16138" category="list-text">在大多數情況下最佳的Kerberos；比AUTH_SYS更糟</block>
+  <block id="bc578f6162e4255fe0d1d4445ec8d975" category="cell">NFS：krb5i</block>
+  <block id="7886fbf427a34b659783d690ee4ad3dd" category="list-text">要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動金鑰索引標籤交換）；票證會在指定的時間段後過期、使用者必須重新驗證才能存取</block>
+  <block id="49d02d7e5db8eb8139c3777891f63e2e" category="list-text">每個封包都會新增Kerberos GSS Checksum、以確保不會攔截封包。如果校驗和相符、則允許對話。</block>
+  <block id="0ea3431437c971e8ac8f271b60694b38" category="list-text">優於krb5p、因為NFS有效負載未加密；只有與krb5相比、新增的額外負荷才是完整性Checksum。krb5i的效能不會比krb5差很多、但會有一些降低。</block>
+  <block id="facbd78bc28fa0b36f521d74ff5f0cec" category="cell">NFS–krb5p</block>
+  <block id="d11093694c8bd1d8897446e4cf645e48" category="list-text">要求存取掛載的使用者需要有效的Kerberos票證（透過使用者名稱/密碼或手動Keytab交換）；票證會在指定的時間段後過期、而且使用者必須重新驗證才能存取</block>
+  <block id="29af1c9e08784f1ef0e42433aef21eee" category="list-text">所有NFS封包有效負載都會使用GSS包裝進行加密（無法在封包擷取中看到檔案處理代碼、權限、檔案名稱、atime/mtime）。</block>
+  <block id="70aa40903816c1fda65618ae32c56d8b" category="list-text">包括完整性檢查。</block>
+  <block id="3e7dfd7567a414307d5fe93ea83ce4f6" category="list-text">NFS作業類型可見（Fsinfo, access, GetAttr等）。</block>
+  <block id="6b375be1f905197ba21c586647e973f4" category="list-text">輔助通訊協定（掛載、連接埠對應、NLM等）未加密-（請參閱匯出路徑、IP位址）</block>
+  <block id="6de6f14759a24d6fcb16973384e01c00" category="list-text">安全性層級效能最差；krb5p必須加密/解密更多資料。</block>
+  <block id="6640e7cef3ca860543c49a5125ba4c5a" category="list-text">使用NFSv4.x的效能優於krb5p、適用於高檔案數工作負載。</block>
+  <block id="abac32415b4bfbaf4765dec9d36149cd" category="paragraph">在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關NFS Kerberos如何顯示在封包擷取中的資訊、請參閱一節 <block ref="e06a781bd551a4c8ed55a5dfd008a50c" category="inline-link-macro-rx"></block></block>
+  <block id="656b94b95418723e2acea6b86dc53e48" category="inline-link-macro">下一步：閒置資料加密。</block>
+  <block id="6ca1480f90da15333bae5670283ea19f" category="paragraph"><block ref="6ca1480f90da15333bae5670283ea19f" category="inline-link-macro-rx"></block></block>
+  <block id="d1a7050a3a677e1c229160462a179103" category="doc">其他資訊、版本歷程記錄及聯絡資訊</block>
+  <block id="b67313323e9670f2b3cc78a36af15174" category="inline-link-macro">上一篇：服務營運。</block>
+  <block id="5390c35bfa9dd0545fb51b84c8af3252" category="paragraph"><block ref="5390c35bfa9dd0545fb51b84c8af3252" category="inline-link-macro-rx"></block></block>
+  <block id="4780631a0451a6605045de3ace692cc6" category="list-text">Google Cloud文件Cloud Volumes Service</block>
+  <block id="6e0173c8a46418c9ee6c916c7c275ef8" category="inline-link"><block ref="6e0173c8a46418c9ee6c916c7c275ef8" category="inline-link-rx"></block></block>
+  <block id="8e65fc49f8ebbf3d9cc9651ce7940654" category="paragraph"><block ref="8e65fc49f8ebbf3d9cc9651ce7940654" category="inline-link-rx"></block></block>
+  <block id="0e8aec42089c0c73812fa42d1888b3c8" category="list-text">Google私有服務存取</block>
+  <block id="75956b9ee748b806549eeec3c9a81192" category="inline-link"><block ref="75956b9ee748b806549eeec3c9a81192" category="inline-link-rx"></block></block>
+  <block id="6c84917a571a2282fd9fb2a6f058a11e" category="paragraph"><block ref="6c84917a571a2282fd9fb2a6f058a11e" category="inline-link-rx"></block></block>
+  <block id="02aed7d7f25878a636d26b696ed151bb" category="list-text">NetApp產品文件</block>
+  <block id="f670e58416e680d41a98914939ff8b4d" category="list-text">密碼編譯驗證模組方案—NetApp CryptoMod</block>
+  <block id="904728949094c548bcec2129979a28a6" category="inline-link"><block ref="904728949094c548bcec2129979a28a6" category="inline-link-rx"></block></block>
+  <block id="50dc6dd0a76419597a78231ee45ad7f5" category="paragraph"><block ref="50dc6dd0a76419597a78231ee45ad7f5" category="inline-link-rx"></block></block>
+  <block id="fb35bc32af8e0bce21ef22bad9052b39" category="inline-link"><block ref="0ea855bd074e3e4be70d90c120079c12" category="inline-link-rx"></block></block>
+  <block id="56f0874ab11ee024b4419753f2a3f06f" category="paragraph"><block ref="801eea2aa1601f12cc3d53d718ad33a7" category="inline-link-rx"></block></block>
+  <block id="61eb0e8494826dc8f30af9122fd97664" category="list-text">TR-4616：ONTAP NFS Kerberos in Sf2</block>
+  <block id="ed78f5221deba5e60a950d28a62de702" category="inline-link"><block ref="ed78f5221deba5e60a950d28a62de702" category="inline-link-rx"></block></block>
+  <block id="d677acd46c811ecd9bac37aa26d8668c" category="paragraph"><block ref="d677acd46c811ecd9bac37aa26d8668c" category="inline-link-rx"></block></block>
+  <block id="b56a5394775a9f077c12cb3e770d913c" category="cell">2022年5月</block>
+  <block id="1bebe65011b1928d45d041533c04d2b1" category="paragraph">請告訴我們如何改善這份技術報告。</block>
+  <block id="8b1418ea0c579605e873907335ca62c7" category="paragraph">請聯絡我們：mailto：doccomments@netapp.com doccomments@netapp.com。在主題行中加入技術報告4918。</block>
+  <block id="402d245fd6f48d88ea661814c622456e" category="summary">NAS傳輸協定是讓網路上的多個用戶端存取儲存系統上相同資料的方法、例如Cloud Volumes Service GPC上的NFS和SMB是定義的NAS傳輸協定、可在Cloud Volumes Service 客戶端/伺服器上運作、其中的伺服器是由支援服務器使用。</block>
+  <block id="900608117b1be22303e2a172c6d9b280" category="doc">NAS傳輸協定的基本概念</block>
+  <block id="d23b6e095547133ec383cdcb0f080e6e" category="inline-link-macro">上一篇：NAS傳輸協定總覽。</block>
+  <block id="8de032a7ba389eddc7880273654515a6" category="paragraph"><block ref="8de032a7ba389eddc7880273654515a6" category="inline-link-macro-rx"></block></block>
+  <block id="b03874a8574793b2c634d05da5dae732" category="paragraph">NAS傳輸協定是讓網路上的多個用戶端存取儲存系統上相同資料的方法、例如Cloud Volumes Service GPC上的NFS和SMB是定義的NAS傳輸協定、可在Cloud Volumes Service 客戶端/伺服器上運作、其中的伺服器是由支援服務器使用。用戶端會傳送存取、讀取和寫入要求給伺服器、伺服器負責協調檔案的鎖定機制、儲存權限、以及處理身分識別和驗證要求。</block>
+  <block id="86a29faa66a25c7e3fd290cf1e53761c" category="paragraph">例如、如果NAS用戶端想要在資料夾中建立新檔案、則會遵循下列一般程序。</block>
+  <block id="817aaff54aa6b5cd0e96c54c0b20ea1d" category="list-text">用戶端會要求伺服器提供目錄的相關資訊（權限、擁有者、群組、檔案ID、可用空間、 等）；如果要求的用戶端和使用者對父資料夾擁有必要的權限、伺服器就會回應該資訊。</block>
+  <block id="9ec40c2869366ebe8cf1a8c690bb6471" category="list-text">如果目錄上的權限允許存取、則用戶端會詢問伺服器所建立的檔案名稱是否已存在於檔案系統中。如果檔案名稱已在使用中、建立就會失敗。如果檔案名稱不存在、伺服器會讓用戶端知道它可以繼續。</block>
+  <block id="83a9d09522edde42d016b5f2649ad9b6" category="list-text">用戶端會呼叫伺服器、以使用目錄處理和檔案名稱來建立檔案、並設定存取和修改時間。伺服器會對檔案發出唯一的檔案ID、以確保沒有以相同的檔案ID建立其他檔案。</block>
+  <block id="4884742626257d3e2fee8f3fa6d74f9c" category="list-text">用戶端會在寫入作業之前傳送呼叫來檢查檔案屬性。如果權限允許、用戶端就會寫入新檔案。如果傳輸協定/應用程式使用鎖定、用戶端會要求伺服器提供鎖定、以防止其他用戶端在鎖定時存取檔案、以避免資料毀損。</block>
+  <block id="9f36fd781ab1b50b7d007cb7bbd31f1f" category="inline-link-macro">下一步：NFS。</block>
+  <block id="e120d5e9a70a32a053802947c9767294" category="paragraph"><block ref="e120d5e9a70a32a053802947c9767294" category="inline-link-macro-rx"></block></block>
+  <block id="432be93985cd954e5f755048381e528d" category="summary">NFS是一種分散式檔案系統傳輸協定、是在Request for Comments（RFC）中定義的開放式IETF標準、可讓任何人實作該傳輸協定。</block>
+  <block id="ba3cb198ccc0137ff2861f85eff2b3ce" category="inline-link-macro">上一篇：NAS傳輸協定的基礎知識_總覽。</block>
+  <block id="2be8e5e3e57aed02dfb62a58afdadfad" category="paragraph"><block ref="2be8e5e3e57aed02dfb62a58afdadfad" category="inline-link-macro-rx"></block></block>
+  <block id="b53dfc952aa9d99343d94971cf6c3fee" category="paragraph">透過匯出可供用戶端或一組用戶端存取的路徑、將位於此功能的Volume Cloud Volumes Service 共享給NFS用戶端。掛載這些匯出的權限是由匯出原則和規則所定義、Cloud Volumes Service 這些原則和規則可由資訊管理員設定。</block>
+  <block id="0e3cb63bde3f98dbd812d470d8b100cf" category="paragraph">NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業NAS環境。以下各節涵蓋Cloud Volumes Service 支援的NFS和特定安全功能、以及如何實作這些功能。</block>
+  <block id="8b575afc20d2914501471190a68364ed" category="section-title">預設的本機UNIX使用者和群組</block>
+  <block id="c9f0864944a97085b2897c473c91dccc" category="paragraph">包含多個預設UNIX使用者和群組、可提供各種基本功能。Cloud Volumes Service這些使用者和群組目前無法修改或刪除。目前無法將新的本機使用者和群組新增Cloud Volumes Service 至無法更新的功能。外部LDAP名稱服務必須提供預設使用者和群組以外的UNIX使用者和群組。</block>
+  <block id="8002bcf6ec4e483483e32633f99bee00" category="paragraph">下表顯示預設使用者和群組及其對應的數字ID。NetApp建議不要在LDAP或重新使用這些數字ID的本機用戶端上建立新的使用者或群組。</block>
+  <block id="0346306b31bbb7a0ae5245da13ec03c4" category="cell">預設使用者：數字ID</block>
+  <block id="c782adef8851cb8855543f329d548bb2" category="cell">預設群組：數字ID</block>
+  <block id="a38b2868ff594195dcec8e7fe562b0be" category="list-text">根目錄：0</block>
+  <block id="44b4512252320c293616b69743e2a445" category="list-text">pcuser:65534</block>
+  <block id="95312f9502cf30aaff5cbbd3a4585a68" category="list-text">無人：65535</block>
+  <block id="39fff4671c3793536f3df78e41aed899" category="list-text">精靈：1.</block>
+  <block id="ffe991bd5946c28affb0a08326a88c3f" category="admonition">使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目錄時、可能會顯示為nobnobody。這是因為用戶端的ID網域對應組態。請參閱「」一節 <block ref="122d38ffc304701fda2219494370e55a" category="inline-xref-macro-rx"></block> 以取得此問題的詳細資訊及解決方法。</block>
+  <block id="97d69dfca64d2bd85ec6cc9736cd662b" category="section-title">root使用者</block>
+  <block id="767a04b899f673915ec8d6d78f549f3b" category="paragraph">在Linux中、root帳戶可以存取Linux型檔案系統中的所有命令、檔案和資料夾。由於此帳戶的強大功能、安全性最佳實務做法通常會要求root使用者停用或限制某種方式。在NFS匯出中、root使用者對檔案和資料夾的控制能力、可Cloud Volumes Service 透過匯出原則和規則、以及稱為root squash的概念、在整個過程中加以控制。</block>
+  <block id="7cd60419657f1f0735c557afd44724f0" category="inline-link">setuid/setgid命令（sticky位元）</block>
+  <block id="b95ee7e499b2b5ee7f9c911c9c86f8a2" category="paragraph">root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿名的數字使用者65534（請參閱「」一節）<block ref="07a7b24bc0f7cda943dc05060d1188d8" category="inline-xref-macro-rx"></block>」）、目前僅適用於使用CVS效能的情況、方法是在建立匯出原則規則期間選取「Off」（關閉）進行root存取。如果root使用者被擠到匿名使用者、就無法再執行chown或<block ref="451ac5d05b7e3e41db0c92126d9290ad" category="inline-link-rx"></block> 在NFS掛載的檔案或資料夾上、root使用者建立的檔案或資料夾會將anon UID顯示為擁有者/群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制root使用者的檔案和資料夾權限存取、請考慮使用具有NTFS ACL的磁碟區、建立名為「root」的Windows使用者、並將所需權限套用至檔案或資料夾。</block>
+  <block id="0b2cc4ee83c7e73e4426e294c95be2c7" category="section-title">匿名使用者</block>
+  <block id="f489703ccadc6e9616bab479ace6cf03" category="paragraph">匿名（anon）使用者ID會指定對應至用戶端要求的UNIX使用者ID或使用者名稱、而該用戶端要求沒有有效的NFS認證。使用root使用者時、這可能包括root使用者。Anon的Cloud Volumes Service 使用者是65534。</block>
+  <block id="48da046d67add0ab58d9cbc2c2da421c" category="paragraph">此UID通常與Linux環境中的使用者名稱「nobnob」或「nfsnobn」相關聯。也使用65534作為本機UNIX使用者的pcuser'（請參閱「Cloud Volumes Service<block ref="21f1cd16f2baec63c7c604945762d1f2" category="inline-xref-macro-rx"></block>」）、這也是Windows到UNIX名稱對應的預設後援使用者、但LDAP中找不到有效的相符UNIX使用者。</block>
+  <block id="1a64786b80a72f5b468ee5a6c27c19bb" category="paragraph">由於Linux使用者名稱與Cloud Volumes Service 適用於UID 65534的使用者名稱不同、因此使用NFSv4.1時對應至65534的使用者名稱字串可能不相符。因此、您可能會在某些檔案和資料夾上看到「無人」的使用者身分。請參閱「」一節<block ref="122d38ffc304701fda2219494370e55a" category="inline-xref-macro-rx"></block>」以取得此問題的相關資訊及解決方法。</block>
+  <block id="093b885796f6b6edbf133d153a574ee0" category="section-title">存取控制/匯出</block>
+  <block id="c40a72feaf9e622dcbd1a55edff6fdbf" category="paragraph">NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型匯出原則規則來控制。定義主機IP、主機名稱、子網路、網路群組或網域、以允許存取掛載NFS共用區、以及允許存取主機的層級。匯出原則規則組態選項取決於Cloud Volumes Service 哪些方面。</block>
+  <block id="519377bf4a5b0a2078c3d66b249040aa" category="paragraph">對於CVS軟體、下列選項可用於匯出原則組態：</block>
+  <block id="fdbbd602d808015eb2f536ce2add5b6e" category="list-text">*用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。</block>
+  <block id="fb467c38c5af2ca41ea3f09fe535144d" category="list-text">* RO/RW存取規則。*選取「讀取/寫入」或「唯讀」來控制對EXPE/CVs-Performance的存取層級、提供下列選項：</block>
+  <block id="4984ee657e0bd2919476369a84dfe159" category="list-text">* RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。</block>
+  <block id="3a3236a433ddc1bb46fe40e058aad584" category="list-text">*根存取權（開啟/關閉）。*設定根分區（請參閱「<block ref="60067fcb7aeefdc389264d741499b983" category="inline-xref-macro-rx"></block>」的詳細資料）。</block>
+  <block id="0c1b0b2a02124e4f1e2111f36d28432e" category="list-text">*傳輸協定類型。*這會將NFS掛載的存取限制為特定的傳輸協定版本。為Volume指定NFSv3和NFSv4.1時、請將兩者留白或同時勾選兩個方塊。</block>
+  <block id="553de93bd85985676f0ef4762f4de2ab" category="list-text">* Kerberos安全性層級（選取「啟用Kerberos」時）。*提供krb5、krb5i及/或krb5p選項、以進行唯讀或讀寫存取。</block>
+  <block id="a98abf6af551f8564e89efb200e37032" category="section-title">變更擁有權（chown）和變更群組（chgrp）</block>
+  <block id="545978eda72a981e986a37d84621575d" category="paragraph">NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾上執行chown / chgrp。其他使用者也會看到「不允許操作」錯誤、即使是他們自己擁有的檔案也一樣。如果您使用root quash（如一節中所述）<block ref="60067fcb7aeefdc389264d741499b983" category="inline-xref-macro-rx"></block>」）時、root會被擠到非root使用者、且不允許存取chown和chgrp。目前在不允許非root使用者使用chown和chgrp的因應措施Cloud Volumes Service 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。</block>
+  <block id="b40637b973f7941123dacf09ceef0fba" category="section-title">權限管理</block>
+  <block id="b48f3521890100492cddc30349f6e7b2" category="paragraph">支援兩種模式位元（例如rwx的644、777等）和NFSv4.1 ACL、以控制使用UNIX安全型態之磁碟區在NFS用戶端上的權限。Cloud Volumes Service標準權限管理用於這些項目（例如、chmod、chown或nfs4_setfacl）、並可與任何支援這些項目的Linux用戶端搭配使用。</block>
+  <block id="a4f4a04396f203764eb677e59aeea059" category="paragraph">此外、當使用設為NTFS的雙傳輸協定磁碟區時、NFS用戶端可以利用Cloud Volumes Service 指向Windows使用者的名稱對應功能來解析NTFS權限。這需要LDAP連線Cloud Volumes Service 至才能提供數字ID對使用者名稱的轉譯、因為Cloud Volumes Service 需要有效的UNIX使用者名稱才能正確對應至Windows使用者名稱。</block>
+  <block id="40c93306b7b5fa43d5bdeaaf6446b5c8" category="section-title">為NFSv3提供精細的ACL</block>
+  <block id="38244b1450366af1bc12c6d85adcf6d2" category="paragraph">模式位元權限僅涵蓋語義中的擁有者、群組及其他所有人、這表示基本NFSv3沒有精細的使用者存取控制。由於不支援POSIX ACL、也不支援擴充屬性（例如chatr）、因此使用NFSv3時、只有在下列情況下才能使用精細的ACL：Cloud Volumes Service</block>
+  <block id="15ad8d0b9866344d62ea9ffa4ae25982" category="list-text">NTFS安全型磁碟區（需要CIFS伺服器）、具有有效的UNIX至Windows使用者對應。</block>
+  <block id="c14f9a108935fe84b2ee2c80664062d4" category="list-text">使用管理用戶端掛載NFSv4.1套用NFSv4.1 ACL以套用ACL。</block>
+  <block id="b90aebde70afe18a23fa55cafb7bd6e7" category="inline-link-macro">「LDAP」</block>
+  <block id="fc96ac54908c774cd60159cf8c65272e" category="paragraph">這兩種方法都需要LDAP連線才能進行UNIX身分識別管理、並填入有效的UNIX使用者和群組資訊（請參閱一節 <block ref="941c88f858b9781fbfe78651e071df70" category="inline-link-macro-rx"></block>）和僅適用於CVS效能執行個體。若要將NTFS安全型磁碟區搭配NFS使用、您必須使用雙傳輸協定（SMB和NFSv3）或雙傳輸協定（SMB和NFSv4.1）、即使沒有建立SMB連線。若要在NFSv3掛載中使用NFSv4.1 ACL、您必須選取「兩者（NFSv3/NFSv4.1）」作為傳輸協定類型。</block>
+  <block id="b9fd9ad6fc3c3b72bb1d8b9db35c4ff8" category="inline-link">nfs4_ACL - NFSv4存取控制清單</block>
+  <block id="8454ec39d80a4c7dced33aed7bc5cc3c" category="paragraph">一般UNIX模式位元在權限方面的精細度與NTFS或NFSv4.x ACL所提供的精細度不同。下表比較NFSv3模式位元與NFSv4.1 ACL之間的權限精細度。如需NFSv4.1 ACL的相關資訊、請參閱<block ref="6f8990d4da30b2d9c1096f2d7fdec422" category="inline-link-rx"></block>。</block>
+  <block id="04bf6ba29148b02f9bc0aece8b1ab976" category="cell">NFSv3模式位元</block>
+  <block id="ec969632045eaebe3e92b63bc00edf03" category="cell">NFSv4.1 ACL</block>
+  <block id="b7073329ceba059aa3ad7875190c661f" category="list-text">設定執行時的使用者ID</block>
+  <block id="573fa671705c50ff1c121cd141dfeb90" category="list-text">設定執行時的群組ID</block>
+  <block id="0ab8eb5c98bf5a8e01cc9dc03065fd63" category="list-text">儲存交換的文字（未在POSIX中定義）</block>
+  <block id="78e3e57905e586d5d03519b5883d9b49" category="list-text">擁有者的讀取權限</block>
+  <block id="07ea3a6ddfd17ab896abc34a5fb98c32" category="list-text">擁有者的寫入權限</block>
+  <block id="ef1c725ac00a8daafb96e6f926b38e84" category="list-text">對檔案擁有者執行權限；或在目錄中查詢（搜尋）擁有者權限</block>
+  <block id="d51cc2a74a686e9f6b08108c215a677e" category="list-text">群組的讀取權限</block>
+  <block id="6750a7dbc586cfe9c3c1e6fc348bc47f" category="list-text">群組的寫入權限</block>
+  <block id="66471165b6102256624c1aaa1bf05ef9" category="list-text">對檔案上的群組執行權限；或查詢（搜尋）目錄中的群組權限</block>
+  <block id="860c8444d0dfe3bf1e1818fdbe8c3733" category="list-text">其他人的讀取權限</block>
+  <block id="95663f359ae8aaa2910488b36c7168fb" category="list-text">其他人的寫入權限</block>
+  <block id="54384d9f12231abb228dd692b2c7a689" category="list-text">對檔案上的其他人執行權限；或查詢（搜尋）目錄中的其他人權限</block>
+  <block id="4d6deb7613496d18f12d0d0d0fe84ecb" category="paragraph">存取控制項目（ACE）類型（允許/拒絕/稽核）*繼承旗標*目錄繼承*檔案繼承*不傳播繼承*僅繼承</block>
+  <block id="13640bb94453faf76256f49439337e2e" category="paragraph">權限*讀取資料（檔案）/ list-directory（目錄）*寫入資料（檔案）/建立檔案（目錄）*附加資料（檔案）/ create子目錄（目錄）*執行（檔案）/變更目錄（目錄）*刪除*刪除子項目*讀取屬性*寫入屬性*讀取命名屬性*寫入命名屬性*寫入命名屬性* ACL</block>
+  <block id="0bfe97b6a2010bf8a46c30c256d9bc67" category="paragraph">最後、根據RPC封包限制、NFS群組成員資格（NFSv3和NFSv4.x）的AUTH_SYS預設上限為16。NFS Kerberos最多可提供32個群組、NFSv4 ACL則可透過精細的使用者和群組ACL（每個ACE最多可容納1024個項目）來移除限制。</block>
+  <block id="27aabeb671232f388e6288cf9395fda9" category="inline-link">建立及管理NFS磁碟區</block>
+  <block id="b42b7de139bf4398a5d4b048ecf30c9f" category="paragraph">此外Cloud Volumes Service 、支援範圍更廣泛、最多可將支援的群組數量擴充至32個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此項目的詳細資訊、請參閱<block ref="744e76592290230cb7381c9b8a5414da" category="inline-link-rx"></block> 在Google文件中。</block>
+  <block id="75812520c9040a205064d0d2cb2263e9" category="section-title">NFSv3使用者與群組ID</block>
+  <block id="b1695eaaf5db3491be45228e42d7894f" category="paragraph">NFSv3使用者和群組ID會以數字ID而非名稱的形式出現在線路上。使用NFSv3時、由於UNIX安全型磁碟區只使用模式位元、因此無法針對這些數字ID進行使用者名稱解析。Cloud Volumes Service當NFSv4.1 ACL存在時、即使使用NFSv3、仍需要數字ID查詢和/或名稱字串查詢、才能正確解析ACL。使用NTFS安全型磁碟區時Cloud Volumes Service 、必須先將數字ID解析為有效的UNIX使用者、然後對應至有效的Windows使用者以協商存取權限。</block>
+  <block id="c88acee1e86a1d4e088392362c04bb3b" category="section-title">NFSv3使用者與群組ID的安全性限制</block>
+  <block id="51d0cb09f5edabf17b3490e1b53d7b22" category="paragraph">使用NFSv3時、用戶端和伺服器永遠不需要確認使用者使用數字ID進行讀取或寫入、這只是隱含信任而已。如此一來、只要偽造任何數字ID、檔案系統就會遭受潛在的資料外洩。為了避免這類安全漏洞、Cloud Volumes Service 我們提供一些選項供大家選擇。</block>
+  <block id="467b69ba310f54b371bbdbffe09e6497" category="list-text">實作Kerberos for NFS會強制使用者使用使用者名稱和密碼或Keytab檔案進行驗證、以取得Kerberos票證、以便存取掛載。Kerberos適用於CVS效能執行個體、僅適用於NFSv4.1。</block>
+  <block id="9120b024c7fefc321f0ebc6fee670c59" category="list-text">限制匯出原則規則中的主機清單、會限制NFSv3用戶端存取Cloud Volumes Service 該卷的權限。</block>
+  <block id="1b652183dcffb7bab733d50929de6844" category="list-text">使用雙傳輸協定磁碟區並將NTFS ACL套用至磁碟區、會強制NFSv3用戶端將數字ID解析為有效的UNIX使用者名稱、以便正確驗證以存取裝載。這需要啟用LDAP並設定UNIX使用者和群組身分識別。</block>
+  <block id="8d5c591e079f79f63fd9e9807dc0f747" category="list-text">浪費root使用者的力量可限制root使用者對NFS掛載所造成的損害、但並不會完全消除風險。如需詳細資訊、請參閱「」一節<block ref="60067fcb7aeefdc389264d741499b983" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="2013c75e17676506ba3c06142530277a" category="paragraph">最後、NFS安全性僅限於您所使用的傳輸協定版本。NFSv3的整體效能比NFSv4.1高、但提供的安全性層級卻不相同。</block>
+  <block id="1d9f0263509a5bc0f447962105bb1a92" category="paragraph">NFSv4.1提供比NFSv3更高的安全性與可靠性、原因如下：</block>
+  <block id="11d0cb4a0817a571de35b1a57bcd7b86" category="list-text">透過租賃型機制進行整合式鎖定</block>
+  <block id="2a7079f12b8b7175a78aa4192442cceb" category="list-text">狀態工作階段</block>
+  <block id="78d4290f55bf351449981f773525bc0b" category="list-text">單一連接埠上的所有NFS功能（2049）</block>
+  <block id="53ec1aa3e51de041ca30580dcd5695db" category="list-text">僅TCP</block>
+  <block id="762c048886aaa3279e7ff7d4bbe56f5c" category="list-text">ID網域對應</block>
+  <block id="7e6be8eb2ba9a556864cfd20857c1565" category="list-text">Kerberos整合（NFSv3可以使用Kerberos、但僅適用於NFS、而非用於NLM等輔助傳輸協定）</block>
+  <block id="1f2bcbb2c0049fcc033a40cb665f19fc" category="section-title">NFSv4.1相依性</block>
+  <block id="f83a89d33e724f74ff5a673c34fe9ac6" category="paragraph">由於NFSv4.1還有額外的安全功能、因此不需要使用NFSv3（類似於SMB需要相依性（例如Active Directory）的方式）、也會涉及一些外部相依性。</block>
+  <block id="0e8ff8f10d56a8534800018ecdbcbfb7" category="paragraph">支援NFSv4.x ACL、相較於一般的POSIX式權限、可提供明顯的優勢、例如：Cloud Volumes Service</block>
+  <block id="e7c21967cc185dee47ba9548ba30b26e" category="list-text">精細控制使用者對檔案和目錄的存取</block>
+  <block id="a5e0d0cbd4020f568d08cdaed3dedd6b" category="list-text">更好的NFS安全性</block>
+  <block id="fd272c227f4884473fc1b4409d1fa6f0" category="list-text">改善與CIFS/SMB的互通性</block>
+  <block id="1c0d9e3bfe82d85776be6deeefb1b8d1" category="list-text">使用AUTH_SYS安全性移除每位使用者16個群組的NFS限制</block>
+  <block id="37c82add6470c2f73fad45f1e887f214" category="list-text">ACL不需要群組ID（GID）解析、因此能有效移除GID限制NFSv4.1 ACL、而非Cloud Volumes Service 從無法更新的NFS用戶端控制。若要使用NFSv4.1 ACL、請確定用戶端的軟體版本支援這些ACL、並已安裝適當的NFS公用程式。</block>
+  <block id="f497540fbfe4bb6c8784249b7ca44322" category="section-title">NFSv4.1 ACL與SMB用戶端之間的相容性</block>
+  <block id="b18893becc5c5979b433330d581d0502" category="paragraph">NFSv4 ACL與Windows檔案層級ACL（NTFS ACL）不同、但具有類似的功能。不過、在多重傳輸協定NAS環境中、如果有NFSv4.1 ACL、而且您使用的是雙傳輸協定存取（NFS和SMB位於同一個資料集）、則使用SMB2.0及更新版本的用戶端將無法從Windows安全性索引標籤檢視或管理ACL。</block>
+  <block id="e24382a2de980eb4d0fad087c2279291" category="section-title">NFSv4.1 ACL的運作方式</block>
+  <block id="65da9b80e25e8e6b76e6f95a27e33773" category="paragraph">下列術語為參考定義：</block>
+  <block id="3f33ebc7aedc435f5da6f0cdb363e903" category="list-text">*存取控制清單（ACL）。*權限項目清單。</block>
+  <block id="e8b619b2feea9964d68e458010421937" category="list-text">*存取控制項目（ACE）。*清單中的權限項目。</block>
+  <block id="e22c8ddaa933012f7b9658b15556e1d9" category="paragraph">當用戶端在設定作業期間、在檔案上設定NFSv4.1 ACL時、Cloud Volumes Service 會將物件上的ACL設定為由任何現有的ACL取代。如果檔案上沒有ACL、則檔案的模式權限會從Owner@、group @和任何人@計算。如果檔案上有任何現有的SUID/SGID/便利貼位元、則不會受到影響。</block>
+  <block id="bbfc3dd393a8c0fb0275a317ea92cdb6" category="paragraph">當用戶端在GetAttr作業期間取得檔案的NFSv4.1 ACL時、Cloud Volumes Service 會讀取與物件相關聯的NFSv4.1 ACL、建構ACE清單、並將清單傳回用戶端。如果檔案具有NT ACL或模式位元、則會從模式位元建構ACL並傳回用戶端。</block>
+  <block id="e91b7b9c71eaf21c16d5232d74f4c5c3" category="paragraph">如果ACL中存在拒絕的ACE、則會拒絕存取；如果存在允許的ACE、則會授予存取權。不過、如果ACL中沒有任何ACE、也會拒絕存取。</block>
+  <block id="85e34118580ac115f838cd805832291e" category="paragraph">安全性描述元由安全性ACL（SACL）和判別ACL（DACL）組成。當NFSv4.1與CIFS/SMB互操作時、DACL會以一對一的方式對應NFSv4和CIFS。DACL由允許和拒絕的ACE組成。</block>
+  <block id="f26fe9c5bd9a38964b075295ff6b600f" category="paragraph">如果在已設定NFSv4.1 ACL的檔案或資料夾上執行基本的「chmod」、則會保留現有的使用者和群組ACL、但會修改預設的「擁有者」、「群組@」、「每個人@」ACL。</block>
+  <block id="51cdc67f907418899df11513b246dd1c" category="inline-link">繼承旗標</block>
+  <block id="bfb9f4f4e0b3ee74bbf0624c3acb6f05" category="paragraph">使用NFSv4.1 ACL的用戶端可以設定及檢視系統上檔案和目錄的ACL。當在具有ACL的目錄中建立新檔案或子目錄時、該物件會繼承ACL中已標記適當的所有ACE<block ref="efe32d9e162a0a9bfdfda1b55921a64c" category="inline-link-rx"></block>。</block>
+  <block id="4ede33bb65432e74e322d690608c2334" category="paragraph">如果檔案或目錄具有NFSv4.1 ACL、則無論使用哪種傳輸協定來存取檔案或目錄、該ACL都能用來控制存取。</block>
+  <block id="0d733f1633c2aa51a107a6e21dfd5644" category="paragraph">只要將ACE標記為正確的繼承旗標、檔案和目錄就會從父目錄的NFSv4 ACL繼承ACE（可能需要適當的修改）。</block>
+  <block id="a61aaa9a4f599d5b80e71c232d23147a" category="paragraph">當檔案或目錄是因NFSv4要求而建立時、產生的檔案或目錄上的ACL取決於檔案建立要求是否包含ACL或僅包含標準UNIX檔案存取權限。ACL也取決於父目錄是否具有ACL。</block>
+  <block id="5ac8b682abcf5cc600bff1df60b6eeb0" category="list-text">如果要求包含ACL、則會使用該ACL。</block>
+  <block id="68d4655ff3b6740e5735fd80c7910023" category="list-text">如果要求僅包含標準UNIX檔案存取權限、且父目錄沒有ACL、則會使用用戶端檔案模式來設定標準UNIX檔案存取權限。</block>
+  <block id="2cf6ef9c801da66f5a80033edc51acf8" category="list-text">如果要求僅包含標準UNIX檔案存取權限、且父目錄具有不可繼承的ACL、則會針對新物件設定以傳遞至要求的模式位元為基礎的預設ACL。</block>
+  <block id="c1eac2f9759f1dd2f7680287789d03f9" category="list-text">如果要求僅包含標準UNIX檔案存取權限、但父目錄具有ACL、則只要將ACE標記為適當的繼承旗標、父目錄ACL中的ACE就會由新檔案或目錄繼承。</block>
+  <block id="1aeffd8cf8d8faca5f1d6379d7ad7b42" category="section-title">ACE權限</block>
+  <block id="be30a66f742a1c4b197f654c5456f525" category="inline-link">使用方法：使用NFSv4 ACL</block>
+  <block id="1e0ba766d5b81a0076401367c75ba49d" category="paragraph">NFSv4.1 ACL權限使用一系列大小寫字母值（例如「raptncy」）來控制存取。如需這些字母值的詳細資訊、請參閱<block ref="19e15d2b871d5802ed53b8bb943cfa1d" category="inline-link-rx"></block>。</block>
+  <block id="e5db87d9c7835194478e833b1c2341a3" category="section-title">具有umask和ACL繼承的NFSv4.1 ACL行為</block>
+  <block id="2d01b8b9abf1cd5dd5dc3a87babfa478" category="inline-link">NFSv4 ACL可提供ACL繼承功能</block>
+  <block id="90f70b82033cb9c398aab9c2ab8e4b97" category="inline-link">ACL繼承旗標</block>
+  <block id="b40177dea06ae321d6ba903c296a8bf4" category="paragraph"><block ref="a4a4eca6555a8c7e71d54636b6d02bd2" category="inline-link-rx"></block>。ACL繼承意味著在使用NFSv4.1 ACL集的物件下建立的檔案或資料夾、可以根據的組態來繼承ACL<block ref="0dfdf6ea7cd5f3c14c3e752e09504ece" category="inline-link-rx"></block>。</block>
+  <block id="e3847e2a1d0d27fe2e50f7b68080126e" category="inline-link">umask</block>
+  <block id="391e42635de569b9fd15585f0b03777a" category="inline-link">RFC 5661</block>
+  <block id="a5147a6538ae36d50a705033dee8e1ea" category="paragraph"><block ref="63bfc707387dfd47bf50e485c5b4d27f" category="inline-link-rx"></block> 用於控制在目錄中建立檔案和資料夾的權限等級、而無需系統管理員互動。根據預設Cloud Volumes Service 、支援使用者使用支援功能來覆寫繼承的ACL、這是預期的行為<block ref="c202d210fe4151f93fd56939449ae558" category="inline-link-rx"></block>。</block>
+  <block id="c283f512453dfbe4a4d54a5de963c63a" category="section-title">ACL格式化</block>
+  <block id="af26ba96448cb4f36fa75d37c0c24884" category="paragraph">NFSv4.1 ACL具有特定格式化。下列範例是檔案上的ACE設定：</block>
+  <block id="90bdfef72a7e9f73c8492c28764bfecc" category="paragraph">上述範例遵循下列ACL格式準則：</block>
+  <block id="7d665626903fe1069f3c052eb3b93597" category="inline-link"><block ref="7d665626903fe1069f3c052eb3b93597" category="inline-link-rx"></block></block>
+  <block id="192707027419e02a79fe3b9af5a845c4" category="paragraph">一種「A」表示「允許」。 在此情況下不會設定繼承旗標、因為主體不是群組、不包含繼承。此外、由於ACE不是稽核項目、因此不需要設定稽核旗標。如需NFSv4.1 ACL的詳細資訊、請參閱<block ref="588b628ed19e81b60db990218fbd0aa2" category="inline-link-rx"></block>。</block>
+  <block id="767a03c18193757348519856b05f7d1c" category="paragraph">如果NFSv4.1 ACL設定不正確（或用戶端和伺服器無法解析名稱字串）、則ACL可能無法如預期般運作、或ACL變更可能無法套用及拋出錯誤。</block>
+  <block id="e0ad83b43ccb7e44bcdb46bcdc1189d9" category="paragraph">範例錯誤包括：</block>
+  <block id="bf837e35002530c307569ba2ec195e9a" category="section-title">明確拒絕</block>
+  <block id="68a14c985893a66fdf24403b891ddc6c" category="paragraph">NFSv4.1權限可包含擁有者、群組及所有人的明確拒絕屬性。這是因為NFSv4.1 ACL是預設拒絕ACL、這表示如果某個ACL未由ACE明確授予、就會拒絕該ACL。明確拒絕屬性會覆寫任何明確或不明確的存取ACE。</block>
+  <block id="22759a58413e45c1ab8a0a53300ea43c" category="paragraph">拒絕ACE的屬性標籤設定為「D」。</block>
+  <block id="3bce872a832106c5038ea04d532162ba" category="paragraph">在以下範例中、允許群組@擁有所有讀取和執行權限、但拒絕所有寫入權限。</block>
+  <block id="8b4ed201924d12a3d0ec41f5538460b2" category="paragraph">應盡可能避免使用拒絕的ACE、因為它們可能會造成混淆和複雜；允許不明確定義的ACL被隱含拒絕。當設定拒絕ACE時、使用者預期會被授予存取權限時、可能會被拒絕存取。</block>
+  <block id="fb976fa579c74ac9e0b64ac922a938d7" category="paragraph">上述一組ACE相當於模式位元中的755、這表示：</block>
+  <block id="de9d71e2841fbf06bf2e96e40b0655d0" category="list-text">擁有者擁有完整權利。</block>
+  <block id="391533122a44e47fc6d7eed8f3d46152" category="list-text">群組具有唯讀。</block>
+  <block id="233c314243fd8ff0f129355150358c9b" category="list-text">其他人則為唯讀。</block>
+  <block id="004367158d382df49675a222d852e2c2" category="paragraph">不過、即使權限調整為等同的775個權限、仍會因為每個人都設定明確的拒絕權限而拒絕存取。</block>
+  <block id="c9533a3d4ca28b597d9e4f0b7c2d7d28" category="section-title">NFSv4.1 ID網域對應相依性</block>
+  <block id="b8c7283821c3d4795f01644c47598298" category="paragraph">NFSv4.1利用ID網域對應邏輯做為安全層、協助驗證嘗試存取NFSv4.1掛載的使用者確實是他們宣稱的對象。在這些情況下、來自NFSv4.1用戶端的使用者名稱和群組名稱會附加名稱字串、並傳送至Cloud Volumes Service 該實例。如果該使用者名稱/群組名稱和ID字串組合不相符、則使用者和（或）群組會被擠到用戶端上「/etc/idmapd.conf」檔案中指定的預設nober使用者。</block>
+  <block id="5aec5d2b81e4e7bc2bb96b8eee7f6a1f" category="paragraph">此ID字串是適當遵循權限的必要條件、尤其是使用NFSv4.1 ACL和/或Kerberos時。因此、需要使用名稱服務伺服器相依性（例如LDAP伺服器）來確保用戶端之間的一致性、Cloud Volumes Service 以及使用者和群組名稱身分識別解析是否正確。</block>
+  <block id="ea6c924c6846969cae29ab27aa4c3d9e" category="paragraph">使用靜態預設ID網域名稱值「defaultv4iddomain.com」Cloud Volumes Service 。NFS用戶端的ID網域名稱設定預設為DNS網域名稱、但您可以在「/etc/idmapd.conf」中手動調整ID網域名稱。</block>
+  <block id="a524142e9e2e4c80b2545aea06b82fb6" category="paragraph">如果在Cloud Volumes Service 支援功能中啟用LDAP、Cloud Volumes Service 則當NFS ID網域在DNS中變更為搜尋網域所設定的項目時、不需要修改用戶端、除非他們使用不同的DNS網域搜尋名稱。</block>
+  <block id="13c371145cb8e423bcc06c41dafa7d27" category="paragraph">當能夠解析本機檔案或LDAP中的使用者名稱或群組名稱時、會使用網域字串、而非相符的網域ID則會對nobnobody進行儲存。Cloud Volumes Service如果Cloud Volumes Service 無法在本機檔案或LDAP中找到使用者名稱或群組名稱、則會使用數字ID值、NFS用戶端會正確解析名稱（這與NFSv3行為類似）。</block>
+  <block id="2920d1231c77a15a148be7e24a4224a8" category="paragraph">在不變更用戶端的NFSv4.1 ID網域以符合Cloud Volumes Service 使用的功能的情況下、您會看到下列行為：</block>
+  <block id="cf7f7139ed9bd9c2ce206642dd7fa858" category="list-text">UNIX使用者和群組的本機項目Cloud Volumes Service （例如root、如本機UNIX使用者和群組所定義）會被浪費在nobnobody值。</block>
+  <block id="b4aa27a84e1a2079915902824805faed" category="list-text">如果Cloud Volumes Service DNS網域不同於NFS用戶端和Cloud Volumes Service 更新、則UNIX使用者和在LDAP中有項目的群組（如果將Sfuse設定為使用LDAP）會被浪費給任何人。</block>
+  <block id="ef7ad0d3015777d2990a6af6b71f374b" category="list-text">沒有本機項目或LDAP項目的UNIX使用者和群組會使用數字ID值、並解析為NFS用戶端上指定的名稱。如果用戶端上不存在名稱、則只會顯示數字ID。</block>
+  <block id="62dcf28b3972264f1b30c2bd51a03def" category="paragraph">以下顯示上述案例的結果：</block>
+  <block id="696c02f546b2ffcdac74d99c917daa24" category="paragraph">當用戶端和伺服器ID網域相符時、相同的檔案清單看起來就像這樣：</block>
+  <block id="406ef9702da9a43b3a7b54a25411d799" category="paragraph">如需此問題及其解決方法的詳細資訊、請參閱「」一節<block ref="122d38ffc304701fda2219494370e55a" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="feb3aa3308fe030fd35a38b78a2300bd" category="section-title">Kerberos相依性</block>
+  <block id="40bbfae3ce12130d42058c7017ceb5ed" category="paragraph">如果您打算使用Kerberos搭配NFS、Cloud Volumes Service 則必須搭配下列功能搭配使用才能使用：</block>
+  <block id="97a82eff6d3d292af521c01da598a578" category="list-text">適用於Kerberos Distribution Center服務（Kdc）的Active Directory網域</block>
+  <block id="7539d3051db830d97dee8f6d5d504289" category="list-text">Active Directory網域中的使用者和群組屬性會填入UNIX資訊以供LDAP功能使用（Cloud Volumes Service 在列舉NFS Kerberos時、需要使用者的SPN-UNIX使用者對應才能正常運作）。</block>
+  <block id="39780a85d8e7edcc28fd4bc1f6b379f9" category="list-text">LDAP已在Cloud Volumes Service 實例上啟用</block>
+  <block id="9b306ebe81f909f9a456adcadd197090" category="list-text">DNS服務的Active Directory網域</block>
+  <block id="3f1e5b600401b83c49c16e0c80170842" category="section-title">NFSv4.1和nobody使用者/群組</block>
+  <block id="5c79e57a072b5ea9e69b08395268c3fe" category="paragraph">NFSv4.1組態最常見的問題之一、就是檔案或資料夾列在使用「ls」的清單中、顯示為「user:group」的「nobnon:nobnobnone」組合。</block>
+  <block id="2436a7de6f774d774219a86839e40d54" category="paragraph">數字ID是「99」。</block>
+  <block id="89429eb5e6061e2e0b04707c39588b82" category="paragraph">在某些情況下、檔案可能會顯示正確的擁有者、但不會顯示「nobody」為群組。</block>
+  <block id="8155be8c03c24d2ae2a39ba5b9659708" category="paragraph">誰是無人？</block>
+  <block id="01e2f333d529d07a7774464ebe7c0d52" category="paragraph">NFSv4.1中的「nobn」使用者與「nfsnobnobn」使用者不同。您可以執行「id」命令來檢視NFS用戶端如何查看每位使用者：</block>
+  <block id="bb1a16c53f7bf27e8010e55518128316" category="paragraph">使用NFSv4.1時、「noban」使用者是由「idmapd.conf」檔案定義的預設使用者、可定義為任何您要使用的使用者。</block>
+  <block id="25df38609547f38c12a30d2f7fa376e3" category="paragraph">為什麼會發生這種情況？</block>
+  <block id="0c52fa2fe9ffee5f1757712d7b9151d3" category="paragraph">由於透過名稱字串對應來確保安全性是NFSv4.1作業的重要宗旨、因此名稱字串不適當時的預設行為是將該使用者分成通常無法存取使用者和群組所擁有之檔案和資料夾的使用者。</block>
+  <block id="ee345fce71ab8dd58d64ab30df90665d" category="paragraph">當您在檔案清單中看到使用者和（或）群組的「nobnoby」時、這通常表示NFSv4.1中的某些項目設定錯誤。區分大小寫的功能可在此處發揮。</block>
+  <block id="6f0eaeb67bf8645d4cb5b6d6634d62e9" category="paragraph">例如、如果user1@CVSDEM.LOSLL（uid、1234、gid、1234）正在存取匯出、Cloud Volumes Service 則必須找到user1@CVSDEM.LOSLL（uid、gid、1234）。如果Cloud Volumes Service 使用者在支援資料的範本中是USER1@CVSDEMO.在許多情況下、您可以在用戶端的訊息檔案中看到下列內容：</block>
+  <block id="501dfba2ca7e696ebe3828fe0a72358d" category="paragraph">用戶端和伺服器必須都同意使用者確實是他們聲稱的對象、因此您必須檢查下列項目、以確保用戶端看到的使用者擁有Cloud Volumes Service 與此使用者相同的資訊。</block>
+  <block id="c45f88d46edf246ef524b5ae57bfd939" category="list-text">* NFSv4.x ID網域。*用戶端：「idmapd.conf」檔案；Cloud Volumes Service 使用「defaultv4iddomain.com」、無法手動變更。如果將LDAP搭配NFSv4.1使用、Cloud Volumes Service 則將ID網域變更為DNS搜尋網域所使用的網域、與AD網域相同。</block>
+  <block id="4ad682a8c77e394fdf80dd7dc8013933" category="list-text">*使用者名稱和數字ID。*這會決定用戶端尋找使用者名稱的位置、並運用名稱服務交換器組態：用戶端：「nsswitch.conf」和（或）本機密碼和群組檔案；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。</block>
+  <block id="278ba27763f1a046a43e86bd394f831b" category="list-text">*群組名稱和數字ID。*這會決定用戶端尋找群組名稱的位置、並運用名稱服務交換器組態（用戶端：「nsswitch.conf」和/或本機密碼和群組檔案）；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。</block>
+  <block id="6b9ce9cbf95dd872dc03e91534746dc9" category="paragraph">在幾乎所有的情況Cloud Volumes Service 下、如果您在用戶端的使用者和群組清單中看到「nobnoby」、問題在於使用者或群組名稱網域ID轉譯功能會在更新到NFS用戶端之間進行。若要避免這種情況發生、請使用LDAP來解決用戶端和Cloud Volumes Service 客戶端之間的使用者和群組資訊。</block>
+  <block id="55c4b4ea1ecc6c7d5d39c90a0b42830f" category="section-title">在用戶端上檢視NFSv4.1的名稱ID字串</block>
+  <block id="c194a1cc7281e9894e494f5ccc1267d9" category="paragraph">如果您使用NFSv4.1、NFS作業期間會發生名稱字串對應、如前所述。</block>
+  <block id="600a8e1223f644dfc8fc6d9eaf7c6585" category="inline-link">nfsidmap -l</block>
+  <block id="315b0c6cb599d172afa3879fb5aff687" category="paragraph">除了使用「/var/log/Messages」來找出NFSv4 ID的問題、您也可以使用<block ref="b0f2e0837ffda1ff0550aeef038779e7" category="inline-link-rx"></block> NFS用戶端上的命令、可檢視哪些使用者名稱已正確對應至NFSv4網域。</block>
+  <block id="c72321f4072e32fa1625318fcee53b38" category="paragraph">例如、此命令會在用戶端找到使用者之後輸出、Cloud Volumes Service 並由用戶端存取NFSv4.x掛載：</block>
+  <block id="7fdd86c292924f1df8a7d9127ece25dc" category="paragraph">如果未正確對應至NFSv4.1 ID網域的使用者（在此案例中為「NetApp-user」）嘗試存取相同的掛載、並接觸檔案、就會依照預期指派「nobnan:nobnobnobn」。</block>
+  <block id="bf667093961d1f59e9282ef8a28d89f7" category="paragraph">nfidmap -l輸出顯示螢幕上的使用者為「pcuser"、但不是「NetApp-user"；這是我們的匯出原則規則（「65534」）中的匿名使用者。</block>
+  <block id="5ec4dbbd0b1975ade000088ec562aebe" category="inline-link-macro">下一步：SMB。</block>
+  <block id="a1989578ae6cff04ad5b049565c028a6" category="paragraph"><block ref="a1989578ae6cff04ad5b049565c028a6" category="inline-link-macro-rx"></block></block>
+  <block id="f054dd8cc88786d8030b18d90271f377" category="summary">可公開多個TCP連接埠以服務NFS和SMB共用。Cloud Volumes Service</block>
+  <block id="c5381dc540506dbb210e2d300554e4cd" category="doc">防火牆</block>
+  <block id="3081ff6911f8297ddc53dab3c34d0811" category="inline-link-macro">上一篇：閒置資料加密。</block>
+  <block id="4591bc0b4ed2ba115e753bad56145791" category="paragraph"><block ref="4591bc0b4ed2ba115e753bad56145791" category="inline-link-macro-rx"></block></block>
+  <block id="1e45092c94634e40f68ce647e16109a4" category="paragraph">可公開多個TCP連接埠以服務NFS和SMB共用：Cloud Volumes Service</block>
+  <block id="8ace993e6a8c37342617dbf22185890a" category="inline-link">NFS存取所需的連接埠</block>
+  <block id="c56328227fc3affbe6ed0ef4ba04f494" category="list-text"><block ref="c56328227fc3affbe6ed0ef4ba04f494" category="inline-link-rx"></block></block>
+  <block id="259c7a7ef42d8165caa2c0238cb6f9fe" category="inline-link">SMB存取所需的連接埠</block>
+  <block id="c6563340810489dd712f25c2644eaed8" category="list-text"><block ref="c6563340810489dd712f25c2644eaed8" category="inline-link-rx"></block></block>
+  <block id="48e54afcf03ca45bfe38f6b7ff58764a" category="inline-link">已設定</block>
+  <block id="2957bc03d53f1be7c11d427906ed1479" category="inline-link">DNS型DC探索</block>
+  <block id="150a343c955aa3114dca2e9c39571ad8" category="paragraph">此外、SMB、含LDAP的NFS（包括Kerberos）及雙傳輸協定組態、都需要存取Windows Active Directory網域。Active Directory連線必須是<block ref="10ec0b3d8ec2c3b73be0dd7483e61c9e" category="inline-link-rx"></block> 以每個區域為基礎。Active Directory網域控制器（DC）是使用來識別<block ref="821541d595f9fee8c67d91aa5da861b4" category="inline-link-rx"></block> 使用指定的DNS伺服器。系統會使用任何傳回的DC。指定Active Directory站台可限制合格的DC清單。</block>
+  <block id="02d7b2e18b6bb033bf88be07d39aab4c" category="inline-link">登入Cloud Volumes Service 時</block>
+  <block id="7a9b1188e66f0581af9bc76ec3099a55" category="paragraph">從CIDR範圍中、利用「gCloud運算位址」命令配置IP位址、即可將其移出Cloud Volumes Service<block ref="e8e0c669039859d9678de67879e03e1d" category="inline-link-rx"></block>。您可以使用此CIDR做為來源位址、為Active Directory網域控制器設定傳入防火牆。</block>
+  <block id="934adb56d62c2e8a1334785cbb6d4987" category="inline-link">請依照Cloud Volumes Service 此處所述、將連接埠公開給這些開發署</block>
+  <block id="60bb23c83a123fdd2c99980eb34c8f80" category="paragraph">Active Directory網域控制器必須具備<block ref="7b35a292c67c7ee0f89d3dd389e188e4" category="inline-link-rx"></block>。</block>
+  <block id="fa995eb117a30c2365b6a07bf00e36e4" category="inline-link-macro">下一步：NAS傳輸協定總覽。</block>
+  <block id="6160acafbed3bd228bd0703f2991a4cb" category="paragraph"><block ref="6160acafbed3bd228bd0703f2991a4cb" category="inline-link-macro-rx"></block></block>
+  <block id="4a3327b1b286d1e67b6b26ccadab7e11" category="paragraph">請聯絡我們：mailto：doccomments@netapp.com doccomments@netapp.com。在主題行中加入技術報告4918。</block>
+  <block id="8a7d64073f6ea3e3562e48ad7babe165" category="summary">NAS傳輸協定包括NFS（v3和v4.1）和SMB/CIFS（2.x和3.x）。這些通訊協定是CVS如何允許跨多個NAS用戶端共用存取資料。此外Cloud Volumes Service 、支援同時存取NFS和SMB/CIFS用戶端（雙傳輸協定）、同時遵守NAS共用中檔案和資料夾的所有身分識別和權限設定。</block>
+  <block id="90654829f21fcf187b576a4c4bad0d65" category="doc">NAS傳輸協定總覽</block>
+  <block id="571468eb1eb9e9369a3f638191a66df7" category="inline-link-macro">先前版本：防火牆。</block>
+  <block id="01d123c65f0dd57ade00e4f9754df7de" category="paragraph"><block ref="01d123c65f0dd57ade00e4f9754df7de" category="inline-link-macro-rx"></block></block>
+  <block id="2ea1602d2ad8b38f601e3e9a049c625d" category="paragraph">NAS傳輸協定包括NFS（v3和v4.1）和SMB/CIFS（2.x和3.x）。這些通訊協定是CVS如何允許跨多個NAS用戶端共用存取資料。此外Cloud Volumes Service 、支援同時存取NFS和SMB/CIFS用戶端（雙傳輸協定）、同時遵守NAS共用中檔案和資料夾的所有身分識別和權限設定。為了維持最高的資料傳輸安全性、Cloud Volumes Service 支援使用SMB加密和NFS Kerberos 5p的傳輸協定加密。</block>
+  <block id="4fbbc372dd84225f54ba28f08d3ff4c7" category="admonition">雙傳輸協定僅適用於CVs-Performance。</block>
+  <block id="51f1eaeaea4deb044aabf0797f51c5c0" category="inline-link-macro">下一步：NAS傳輸協定的基本概念。</block>
+  <block id="fcb7e93b14f588cd063c2c111732d865" category="paragraph"><block ref="fcb7e93b14f588cd063c2c111732d865" category="inline-link-macro-rx"></block></block>
+  <block id="be0bbf78cc02e3b8c5c134bc7dd71544" category="summary">所有的功能都是透過API來執行。Cloud Volumes Service整合至GCP雲端主控台的BIOS管理也會使用此功能的Cloud Volumes Service Cloud Volumes Service</block>
+  <block id="dd03419f7f2124dca2e83694ae1b7211" category="doc">控制面板架構</block>
+  <block id="1d2a3e9b2f45b43494c66482366a665a" category="inline-link-macro">先前版本：Cloud Volumes Service 架構。</block>
+  <block id="f73a9343c8393a91c87eda2847dfab85" category="paragraph"><block ref="f73a9343c8393a91c87eda2847dfab85" category="inline-link-macro-rx"></block></block>
+  <block id="791716f366839a73d41b8ac1ae95bad0" category="section-title">身分識別與存取管理</block>
+  <block id="41dff7155cc7aeb11c06434f6a450bb3" category="inline-link">IAM</block>
+  <block id="d0455114933a93b857dff40ad9829c80" category="paragraph">身分識別與存取管理 <block ref="3e7f3b73b3f103986fbe162302b5e57e" category="inline-link-rx"></block>）是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。Google IAM提供完整的權限授權與移除稽核追蹤。目前Cloud Volumes Service 無法提供控制面板稽核。</block>
+  <block id="697308a09680ed006fe009f5a90fd74c" category="section-title">授權/權限總覽</block>
+  <block id="cb5b383a5c27210bdf8f2fd443c68ebb" category="inline-link">請在此填寫詳細權限清單</block>
+  <block id="73867c3747b10f9f7b4b54a4597ff38b" category="paragraph">IAM提供Cloud Volumes Service 內建的精細權限來執行功能。您可以找到<block ref="fefbe49b0be12af5b957eff3a3dc2826" category="inline-link-rx"></block>。</block>
+  <block id="f6c6a3fb346fa0197c1eeba05a4736c6" category="paragraph">IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「netappcloudVolumes.viewer」。這些角色可指派給特定使用者或服務帳戶。</block>
+  <block id="6d90e176a60105dd03d5580c615cc5fe" category="paragraph">指派適當的角色和權限、讓IAM使用者能夠管理Cloud Volumes Service 功能。</block>
+  <block id="010558e705f1d93db66b5a129431b39d" category="paragraph">使用精細權限的範例包括：</block>
+  <block id="cf95655b33a1e3a77d897074d8353e7e" category="list-text">建立只有「Get / List / cred/ update」權限的自訂角色、讓使用者無法刪除磁碟區。</block>
+  <block id="fdc24340d58c0f0e7d38a4a3f6a7218c" category="list-text">使用僅具有「napshot.*」權限的自訂角色、建立用於建置應用程式一致Snapshot整合的服務帳戶。</block>
+  <block id="b1ef9a9445de9905dc5e0ab77e08e183" category="list-text">建立自訂角色、將「volumereplication*」委派給特定使用者。</block>
+  <block id="c33f7c2cbeaca5f1462c1b3e1c276145" category="section-title">服務帳戶</block>
+  <block id="303e96f80576360d0c7b07ae7528fa4b" category="inline-link">Terraform</block>
+  <block id="b6d8efd38d2a5551a2c43104314740bd" category="paragraph">透過Cloud Volumes Service 指令碼或進行功能不均的API呼叫<block ref="d99d6c9612fe6a2189c372e0abf640d5" category="inline-link-rx"></block>、您必須建立角色為「角色/netappcloudVolumes.admin」的服務帳戶。您可以使用此服務帳戶、以Cloud Volumes Service 兩種不同的方式產生驗證申請表API要求所需的JWT權杖：</block>
+  <block id="87cacfdb2dd389d5d00fef712c2f874b" category="list-text">產生Json金鑰、並使用Google API從其衍生JWT權杖。這是最簡單的方法、但需要手動管理機密（Json金鑰）。</block>
+  <block id="d77fb2baf15918343921ee724cfacb2f" category="inline-link">服務帳戶模擬</block>
+  <block id="9d8270b5a4616fc246d5f96cccc9f61e" category="inline-link">應用程式預設認證</block>
+  <block id="c1f48ac217f6b993bda4f82835777177" category="list-text">使用<block ref="09540132e155f93461287a2e21a4e25d" category="inline-link-rx"></block> 使用角色/iam.serviceAccountTokenCreator`。程式碼（指令碼、Terraform等）會與一起執行<block ref="ffba44c35d88772fc8c63157b8dc0cf7" category="inline-link-rx"></block> 並模擬服務帳戶以取得其權限。這種方法反映了Google的最佳安全實務做法。</block>
+  <block id="01aa2fa55c64df5a4122b637c9ababc7" category="inline-link">建立您的服務帳戶和私密金鑰</block>
+  <block id="00aa2e143f3d3b00e94456b23d239a8d" category="paragraph">請參閱<block ref="5d862676de2107050ea35e71368d2326" category="inline-link-rx"></block> 如需詳細資訊、請參閱Google雲端文件。</block>
+  <block id="a325b85a1545e8c507701fb5aa32e6b8" category="section-title">部分API Cloud Volumes Service</block>
+  <block id="d06e940dcf329e87ca49cb2a665f5fd8" category="inline-link">Google雲端文件中的Cloud Volumes API</block>
+  <block id="4a0d70491e56eae6b1e0743d9c3a3777" category="paragraph">利用HTTPS（TLSv1.2）作為基礎網路傳輸、藉此使用REST型API。Cloud Volumes Service您可以找到最新的API定義<block ref="d30245d84ac801bb5beeb0b65de1621d" category="inline-link-rx"></block> 以及如何使用API的相關資訊、請參閱<block ref="00c944b7c7739b905457d5d21be6a7ef" category="inline-link-rx"></block>。</block>
+  <block id="de13c3e3b25af602f2652dd51a503a8a" category="paragraph">API端點由NetApp使用標準HTTPS（TLSv1.2）功能來操作及保護。</block>
+  <block id="8eac7c9151aa7742216ac387e27479a7" category="section-title">JWT權杖</block>
+  <block id="56ebd33e81a27d6c3c78f2f67f2d3c1a" category="inline-link">RFC-7519</block>
+  <block id="f2c16a4802323f9b9c1ac55acf92645f" category="paragraph">API驗證是以JWT承載權杖執行 <block ref="89a64c0d993ae56a4af8e7ccde6ee59e" category="inline-link-rx"></block>）。必須使用Google Cloud IAM驗證來取得有效的JWT權杖。這必須透過提供服務帳戶Json金鑰、從IAM擷取權杖來完成。</block>
+  <block id="f45362733fe1dd1af3c58ae64471d466" category="section-title">稽核記錄</block>
+  <block id="1ccbd48d467dc56358432c49ba82e95a" category="paragraph">目前沒有使用者可存取的控制面板稽核記錄可供使用。</block>
+  <block id="f2787c6d19935adb1d88d6c832b68083" category="inline-link-macro">下一步：資料平面架構。</block>
+  <block id="9025e4ef245b32ed6f318a902095bafc" category="paragraph"><block ref="9025e4ef245b32ed6f318a902095bafc" category="inline-link-macro-rx"></block></block>
+  <block id="9dfacef1e7d01943a3363c481a0ab54f" category="summary">適用於Google Cloud的解決方案運用Google Cloud私有服務存取架構。Cloud Volumes Service在此架構中、使用者可以連線Cloud Volumes Service 到這個功能。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。</block>
+  <block id="65d49b550fb0a0afd0ad601dc275ea12" category="doc">資料平面架構</block>
+  <block id="bbabe197f6618c2911a8ad624a658a46" category="inline-link-macro">先前版本：控制面板架構。</block>
+  <block id="dfb92e74bf9227851402850c5c488e3c" category="paragraph"><block ref="dfb92e74bf9227851402850c5c488e3c" category="inline-link-macro-rx"></block></block>
+  <block id="57e0a1cde7582cc59173756aff450054" category="paragraph">適用於Google Cloud的解決方案運用Google Cloud Cloud Volumes Service<block ref="466f20229cc0e1fa2efa2b4b45528417" category="inline-link-rx"></block> 架構。在此架構中、使用者可以連線Cloud Volumes Service 到這個功能。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。</block>
+  <block id="fabc0e878e19ad7e95bb8e906ab9e8a1" category="inline-link">架構Cloud Volumes Service</block>
+  <block id="81001e33ae42635e6a292ced69cda439" category="paragraph">如需Cloud Volumes Service Google Cloud的架構總覽、請參閱<block ref="7e96ff285aa6f06b814f61dc37a8da61" category="inline-link-rx"></block>。</block>
+  <block id="dcfa6d27a1891efb4ad8492d3a127b28" category="paragraph">使用者VPC（獨立式或共享）會在Cloud Volumes Service 託管的代管租戶專案中連接至VPC、以裝載這些磁碟區。</block>
+  <block id="fcf4e9439b20c7a36f8ee4116fd5bc6d" category="paragraph"><block ref="fcf4e9439b20c7a36f8ee4116fd5bc6d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7e3d4716c5a2ddac5bbd6a03d58d03af" category="paragraph">上圖顯示一個專案（中間是CVS消費者專案）、其中三個VPC網路連接Cloud Volumes Service 到多個運算引擎VM（GCE1-7）共用磁碟區：</block>
+  <block id="fbf1e8aceed7750d8ed8c4e7168cdb02" category="list-text">VPC1允許GCE1存取磁碟區A和B</block>
+  <block id="dc5d4ca9052ec8ea299a69ef985a32b0" category="list-text">VPC2可讓GCE2和GCE4存取Volume C</block>
+  <block id="3274f78cc9286288af4912642932b72e" category="list-text">第三個VPC網路是共享的VPC、與兩個服務專案共用。它可讓GCE3、GCE4、GCE5和GCE6存取Volume D和E共享VPC網路僅支援CVS效能服務類型的磁碟區。</block>
+  <block id="be3759e5f4a6574585df9e1159c20c30" category="admonition">GCE7無法存取任何Volume。</block>
+  <block id="597134b02aeec788dec5f24fa0adba89" category="paragraph">資料可在傳輸中（使用Kerberos和/或SMB加密）加密、Cloud Volumes Service 也可在支援中加密。</block>
+  <block id="f8426b7150021bc2586e9c150051a408" category="inline-link-macro">下一步：傳輸中的資料加密。</block>
+  <block id="39148875a23c5a4ea00752d82ac14b14" category="paragraph"><block ref="39148875a23c5a4ea00752d82ac14b14" category="inline-link-macro-rx"></block></block>
+  <block id="3e7c5a939584e1a53201dd8eddfe85d1" category="summary">以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和檔案儲存庫Cloud Volumes Service 、使用Google psa來提供服務。</block>
+  <block id="16929468b925d0d420441bcbba519e7d" category="doc">架構Cloud Volumes Service</block>
+  <block id="98cdf6a29cf39ecd5239e5071cb0dc88" category="inline-link">Google PSA</block>
+  <block id="d4d6aaf620a68430d28b38f847f2a6af" category="inline-link">VPC網路對等關係</block>
+  <block id="f84137720cfd9533352746a01677a6b2" category="paragraph">以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和Filestore Cloud Volumes Service 、即用功能<block ref="0f93a99b9e468a051182b66dabbf3bed" category="inline-link-rx"></block> 以提供服務。在PSAA中、服務是建置於服務製造商專案內、此專案使用的<block ref="2d8d4488e7ed7b53a7aafab379ba8587" category="inline-link-rx"></block> 連線至服務使用者。服務製造商由NetApp提供及營運、服務消費者是客戶專案中的VPC、負責託管想要存取Cloud Volumes Service VMware檔案共享的客戶。</block>
+  <block id="353164decd5aa0c4f58b4e56559e1b13" category="inline-link">架構區段</block>
+  <block id="9448d83a67980a22f2db155347fa277c" category="paragraph">下圖、請參閱<block ref="6a8b5039754626811ee5b8fe5289e273" category="inline-link-rx"></block> 在本文件中Cloud Volumes Service 、顯示了高階檢視。</block>
+  <block id="8055d5a25a1838f115c8636545abb21a" category="paragraph"><block ref="8055d5a25a1838f115c8636545abb21a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a6f34964d3060f5dd66e2cc7c8711679" category="paragraph">虛線上方的部分顯示服務的控制面、控制磁碟區生命週期。虛線下方的部分顯示資料平面。左藍色方塊描繪使用者VPC（服務消費者）、右藍色方塊則是NetApp提供的服務製造商。兩者都透過VPC對等連接。</block>
+  <block id="0d127864a05110e3053c2690dea7d914" category="section-title">租賃模式</block>
+  <block id="dc947df9f7b14883cbc411bc0a7de469" category="paragraph">在本例中、個別專案被視為獨特的租戶。Cloud Volumes Service這表示每個專案都會執行對磁碟區、Snapshot複本等的操作。換句話說、所有磁碟區都屬於在其中建立的專案、而且根據預設、只有該專案能管理及存取其中的資料。這被視為服務的控制面板檢視。</block>
+  <block id="b9ea9f76a11191d80f8fe1abc9437eb6" category="section-title">共享VPC</block>
+  <block id="cc11b3be8b129e07961938139b138eb5" category="paragraph">在資料平面檢視中Cloud Volumes Service 、無法連接至共享的VPC。您可以在託管專案或連接至共享VPC的其中一個服務專案中建立磁碟區。連接至該共享VPC的所有專案（主機或服務）都能到達網路層（TCP/IP）的磁碟區。由於在共享VPC上具有網路連線能力的所有用戶端都可能透過NAS傳輸協定存取資料、因此必須使用個別Volume上的存取控制（例如使用者/群組存取控制清單（ACL）和NFS匯出的主機名稱/ IP位址）來控制誰可以存取資料。</block>
+  <block id="0b97558649d416ff7a157c6ebb3415d9" category="paragraph">每個客戶專案最多可連接Cloud Volumes Service 到五部VPC。在控制面板上、專案可讓您管理所有建立的磁碟區、無論這些磁碟區連接到哪個VPC。在資料層面上、VPC彼此隔離、而且每個磁碟區只能連接至一個VPC。</block>
+  <block id="be52fe1bd184b72048acd2ba911bb069" category="paragraph">個別磁碟區的存取是由特定傳輸協定（NFS/SMB）存取控制機制所控制。</block>
+  <block id="a3328901555fee8fe9134fc5bd6e641b" category="paragraph">換句話說、在網路層上、所有連線至共享VPC的專案都能看到該磁碟區、而在管理端、控制面板只能讓擁有者專案查看該磁碟區。</block>
+  <block id="90f3668b3811dddcb8de24b77c6a6d64" category="section-title">VPC服務控制</block>
+  <block id="d5fc4459a5e756d9c4ad2c88c260092b" category="paragraph">VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些服務已連接至網際網路、可在全球各地存取。這些服務可透過使用者身分識別提供存取控制、但無法限制來自哪些網路位置要求。VPC服務控制功能引進限制存取已定義網路的功能、藉此彌補這項落差。</block>
+  <block id="601553f09795c6051748c4f4f63ce893" category="paragraph">此資料平面並未連線至外部網際網路、而是連線至具有明確定義網路邊界（周邊）的私有VPC。Cloud Volumes Service在該網路中、每個磁碟區都使用特定於傳輸協定的存取控制。任何外部網路連線都是由Google Cloud專案管理員明確建立。然而、控制面板並未提供與資料面板相同的保護、任何人只要擁有有效的認證資料（<block ref="f0e6a8c8639b1f1713f124143221142a" category="inline-link-rx"></block>）。</block>
+  <block id="7755a392158406ad802334080cd41f73" category="paragraph">簡而言之Cloud Volumes Service 、不需要支援VPC服務控制、也不明確使用VPC服務控制、即可透過資料中心提供網路存取控制功能。</block>
+  <block id="892d60d0a1c71243b5ddff2c66ed584c" category="section-title">封包偵測/追蹤考量</block>
+  <block id="93b0389d05d1b6926967749b8692f2f6" category="paragraph">封包擷取可用於疑難排解網路問題或其他問題（例如NAS權限、LDAP連線等）、但也可惡意用來取得網路IP位址、MAC位址、使用者和群組名稱、以及端點使用的安全層級等資訊。由於Google Cloud網路、VPC和防火牆規則的設定方式、如果沒有使用者登入認證或、就很難取得不必要的網路封包存取權 <block ref="2a18c6d0cd80103144f47d02366a785f" category="inline-link-macro-rx"></block> 雲端執行個體。封包擷取只能在端點（例如虛擬機器（VM））上進行、而且只能在VPC內部的端點上進行、除非使用共享VPC和（或）外部網路通道/ IP轉送來明確允許外部流量進入端點。無法從用戶端外部窺探流量。</block>
+  <block id="e3c8aa9de972ad666251b2d84c256972" category="paragraph">使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 <block ref="639817e82862065dd236f0597e0b07ea" category="inline-link-macro-rx"></block> 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 <block ref="c2e2f225386e22bd13a8b4b174f478da" category="inline-link-macro-rx"></block> 和 <block ref="86c1c13023c15e9d9a6317a0b69e7ce3" category="inline-link-macro-rx"></block>。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS軟體和CVS效能均支援LDAP簽署。</block>
+  <block id="ce58b63a24bebe6bac29cfe248428477" category="paragraph"><block ref="ce58b63a24bebe6bac29cfe248428477" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c72e76f5c978aa82e296df17081b6836" category="admonition">unixUserPassword是由LDAP查詢、不會以純文字傳送、而是以Salted雜湊傳送。根據預設、Windows LDAP不會填入unixUserPassword欄位。只有當您需要利用Windows LDAP透過LDAP互動登入用戶端時、才需要此欄位。不支援互動式LDAP登入執行個體。Cloud Volumes Service</block>
+  <block id="01b21a51d124432b5b7fe641eae6a004" category="paragraph">下圖顯示NFS Kerberos對話擷取的封包擷取、位於透過AUTH_SYS擷取NFS的旁邊。請注意、追蹤中的可用資訊在兩者之間有何差異、以及啟用飛行中加密如何為NAS流量提供更高的整體安全性。</block>
+  <block id="0d66010f122b3df766abd8a0cb2ff598" category="paragraph"><block ref="0d66010f122b3df766abd8a0cb2ff598" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5ba81028f56cfd4f5e21c7102a8eff68" category="paragraph"><block ref="5ba81028f56cfd4f5e21c7102a8eff68" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="04aa3ce627dbf5b220c8aa6d4955fb34" category="section-title">VM網路介面</block>
+  <block id="8ec45d68b7d371d25a3b82a76db3142b" category="inline-link">混雜模式</block>
+  <block id="e59b81e20588b0d3a3c495a545d75322" category="paragraph">攻擊者可能會嘗試將新的網路介面卡（NIC）新增至中的VM<block ref="39c80826df1f145e2784d4b04af9d477" category="inline-link-rx"></block> （連接埠鏡射）或在現有NIC上啟用雜亂模式、以利窺探所有流量。在Google Cloud中、新增NIC需要完全關閉虛擬機器、才能建立警示、因此攻擊者無法察覺。</block>
+  <block id="b726bce4fa04e9b7a6d788f212f00c17" category="paragraph">此外、NIC完全無法設定為雜亂模式、而且會在Google Cloud中觸發警示。</block>
+  <block id="5be5e913f29871f00d216882fc58f26a" category="inline-link-macro">下一步：控制面板架構。</block>
+  <block id="f9f0b661819d64fded86dba6dee4dd6b" category="paragraph"><block ref="f9f0b661819d64fded86dba6dee4dd6b" category="inline-link-macro-rx"></block></block>
+  <block id="599e7197321e9ab772426d7187714f67" category="summary">SMB是由Microsoft開發的網路檔案共用傳輸協定、可透過乙太網路為多個SMB用戶端提供集中式使用者/群組驗證、權限、鎖定及檔案共用。</block>
+  <block id="b4fdd997b1f33e0d4c6964444c2bf399" category="doc">中小企業</block>
+  <block id="b619a787e67dd6b7b38f5db3e4da5e80" category="inline-link-macro">上一篇：NFS。</block>
+  <block id="d5c73fd283fc4c7fcf6fefda8649450f" category="paragraph"><block ref="d5c73fd283fc4c7fcf6fefda8649450f" category="inline-link-macro-rx"></block></block>
+  <block id="e0a515b0910f55d3d1d5adda978e8e4f" category="paragraph"><block ref="395dbbdb78e4ae6be8daf8ab2b7828a7" category="inline-link-rx"></block> 是由Microsoft開發的網路檔案共用傳輸協定、可透過乙太網路為多個SMB用戶端提供集中式使用者/群組驗證、權限、鎖定及檔案共用。檔案和資料夾會以共用的方式呈現給用戶端、您可以設定各種共用內容、並透過共用層級權限來提供存取控制。SMB可以呈現給任何支援該傳輸協定的用戶端、包括Windows、Apple和Linux用戶端。</block>
+  <block id="63f2e3eee09c9d71b23530e2205eb36a" category="paragraph">支援SMB 2.1和3.x版的傳輸協定。Cloud Volumes Service</block>
+  <block id="cc4a835dfb2ac9e7ba402c068a4ef9a0" category="section-title">存取控制/SMB共用區</block>
+  <block id="f122c057113b41c182d10fddf2a82817" category="list-text">當Windows使用者名稱要求存取Cloud Volumes Service 到此卷時、Cloud Volumes Service 功能區會使用Cloud Volumes Service 由管理員設定的方法尋找UNIX使用者名稱。</block>
+  <block id="ac960a1b86a1625e4ff98dbb3feef120" category="list-text">如果已設定外部UNIX身分識別供應商（LDAP）、且Windows / UNIX使用者名稱相同、則Windows使用者名稱會將1：1對應至UNIX使用者名稱、而不需要任何額外的組態。啟用LDAP時、會使用Active Directory來裝載使用者和群組物件的UNIX屬性。</block>
+  <block id="3c60aff1fcf4407fc40492eebac8e37b" category="inline-link-macro">「使用LDAP進行非對稱名稱對應」</block>
+  <block id="e4adb9d6d8d5650dfb0663dde5495dff" category="list-text">如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） <block ref="1cca6755f54a82023ec645e8be5d4c82" category="inline-link-macro-rx"></block>）。</block>
+  <block id="5205bf34161159f00d7f28cb5e6e2a89" category="list-text">如果未使用LDAP、則Windows SMB使用者會對應至Cloud Volumes Service 預設的本地UNIX使用者、名稱為「pcuser" in fuse」。這表示在Windows中、對應到「pcuser'」的使用者所寫入的檔案、會在多重傳輸協定NAS環境中、將UNIX擁有權顯示為「pcuser'」。這裏的「pcuser」實際上是Linux環境中的「nobnobody」使用者（UID 65534）。</block>
+  <block id="0ff58f508b02c651e0b4ee271b1792d9" category="paragraph">在僅使用SMB的部署中、「pcuser'」對應仍會發生、但這並不重要、因為Windows使用者和群組擁有權已正確顯示、而且不允許NFS存取SMB專屬磁碟區。此外、純SMB磁碟區在建立之後、不支援轉換成NFS或雙傳輸協定磁碟區。</block>
+  <block id="9327392a148953617bfae88e7e46a666" category="paragraph">Windows利用Kerberos與Active Directory網域控制器進行使用者名稱驗證、這需要與Cloud Volumes Service AD DC交換使用者名稱/密碼、此區段是由實例外部的。當SMB用戶端使用「\伺服器名稱」的UNC路徑時、就會使用Kerberos驗證、下列情況為真：</block>
+  <block id="61caea7c1c859702c330a0781763fd23" category="list-text">伺服器名稱存在DNS A/Aaaa項目</block>
+  <block id="de4327d512f4e62f9b3ae80f8bb719cc" category="list-text">伺服器名稱具有SMB / CIFS存取的有效SPN</block>
+  <block id="f5c19a901f7d9431872c0e8893aaa498" category="inline-link-macro">「Cloud Volumes Service 如何在Active Directory中顯示此功能。」</block>
+  <block id="93c756ce24f344cc333703bcd2e7a06e" category="paragraph">建立一個支援功能的SMB Volume時、會依區段中的定義建立機器帳戶名稱Cloud Volumes Service <block ref="087d516981f271a0b6f0df624ae1e840" category="inline-link-macro-rx"></block> 該機器帳戶名稱也會成為SMB共用存取路徑、因為Cloud Volumes Service 它利用動態DNS（DDNS）在DNS中建立必要的A/AAAA和PTr項目、以及在機器帳戶主體上建立必要的SPN-s項目。</block>
+  <block id="aafa8c8c59e359a65d0c657f05772244" category="admonition">若要建立PTr項目、Cloud Volumes Service DNS伺服器上必須存在適用於此實例IP位址的反向對應區域。</block>
+  <block id="ecd31d9efcb752f09a0690c2f62bf88f" category="paragraph">例如Cloud Volumes Service 、此Sesvvolume使用下列的UNC共用路徑：「\cs-east- 433d.cvsdemo.local'」。</block>
+  <block id="c6ee58936680de9d2229f523a4c54ffb" category="paragraph">在Active Directory中、這些是Cloud Volumes Service產生的SPN項目：</block>
+  <block id="5c3c803198a53be899a500a43fcf1d24" category="paragraph"><block ref="5c3c803198a53be899a500a43fcf1d24" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="97422e33b69a5567af9908d5b2d397fc" category="paragraph">這是DNS轉送/反轉查詢結果：</block>
+  <block id="1d3d964bf7fdd6249507cb3738908e54" category="paragraph">或者、啟用Cloud Volumes Service /要求SMB加密以利執行更多存取控制、以利執行支援。如果其中一個端點不支援SMB加密、則不允許存取。</block>
+  <block id="e5e9be92303e18ef3f22dfa57dcbd0d3" category="section-title">使用SMB名稱別名</block>
+  <block id="500c4de8d7a022d507313e514b85d485" category="paragraph">在某些情況下、終端使用者可能會擔心安全問題、因為他們知道Cloud Volumes Service 使用中的機器帳戶名稱以供使用。在其他情況下、您可能只想提供更簡單的存取路徑給終端使用者。在這些情況下、您可以建立SMB別名。</block>
+  <block id="6c7c194988807a9112adc7f6bc9b1dd5" category="paragraph">如果您想要為SMB共用路徑建立別名、可以利用DNS中稱為「CNAME-」記錄的名稱。例如、如果您想要使用名稱「\CIFS」來存取共享區、而不是「\CVS東- 433d.cvsdemo.local」、但仍想要使用Kerberos驗證、DNS中的一種命名為「CNAME」、指向現有的A/AAAA記錄、以及新增至現有機器帳戶的其他SPN-s、則可提供Kerberos存取。</block>
+  <block id="620b0e4f14250d32e58b3411c5fd3044" category="paragraph"><block ref="620b0e4f14250d32e58b3411c5fd3044" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9a030a66483dc3115cd014273bad041d" category="paragraph">這是在新增CNAME:</block>
+  <block id="97ec437207d5ac6fb22613655e7e395e" category="paragraph">這是新增SPN後產生的SPN查詢：</block>
+  <block id="5730e2788651b014b918d2ee1bfdfe67" category="paragraph"><block ref="5730e2788651b014b918d2ee1bfdfe67" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="df91b2b002b78b2f9f87c79b56293060" category="paragraph">在封包擷取中、我們可以使用與CNAMA相關的SPN來查看工作階段設定要求。</block>
+  <block id="8b36b24049a6cda34019fd47ea0273fc" category="paragraph"><block ref="8b36b24049a6cda34019fd47ea0273fc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="65cc39e4fb8a95d5fcc2098d620ff3b6" category="section-title">SMB驗證的語言</block>
+  <block id="fe9fdc3d8157e10bf5b31e8d28fe7827" category="inline-link">方言</block>
+  <block id="c50c24feef6ada40d8e2f7be85359c0f" category="paragraph">支援下列項目Cloud Volumes Service<block ref="88f3097f4ad7d144185bbacf0330fbeb" category="inline-link-rx"></block> SMB驗證：</block>
+  <block id="dfd5b430bc4db2c2836d0227ad9ac0c4" category="list-text">LM</block>
+  <block id="d11322c1a7a2383491c23f13113c59ea" category="list-text">NTLM</block>
+  <block id="d0952ee882764dd5c3105f5b23a3e505" category="list-text">NTLMv2</block>
+  <block id="87b3695bfd6f672e2c7c4da7ca2b46a8" category="list-text">Kerberos</block>
+  <block id="11012bc0af4eda341c391c39cf6aa27c" category="paragraph">SMB共用存取的Kerberos驗證是您可以使用的最安全驗證層級。啟用AES和SMB加密後、安全層級會進一步提升。</block>
+  <block id="e5c584f1ac6fa07c9594321f8fc845e2" category="paragraph">支援LM和NTLM驗證的向下相容性。Cloud Volumes Service當Kerberos設定錯誤時（例如建立SMB別名時）、共用存取會回復到較弱的驗證方法（例如：NTLMv2）。由於這些機制較不安全、因此在某些Active Directory環境中會停用這些機制。如果停用較弱的驗證方法、但未正確設定Kerberos、則共用存取會失敗、因為沒有有效的驗證方法可以還原。</block>
+  <block id="d87250f3f8075c2dfbcfe941d0c7bde9" category="inline-link">網路安全性：LAN Manager驗證層級</block>
+  <block id="f4457a3dba045094cb39418e2233c8c1" category="paragraph">如需在Active Directory中設定/檢視支援的驗證層級的相關資訊、請參閱<block ref="d671b936eec72b8caa6e3a555955a849" category="inline-link-rx"></block>。</block>
+  <block id="6ccfb9a0791b337d38ef8ff2cdf26cf8" category="section-title">權限模式</block>
+  <block id="b1728e361f14c53940f081871f87e6ee" category="section-title">NTFS/檔案權限</block>
+  <block id="3e5348fb86c26b3cabf2912e6e597902" category="paragraph">NTFS權限是指套用至檔案系統中符合NTFS邏輯的檔案和資料夾。您可以在「基本」或「進階」中套用NTFS權限、並可設定為「允許」或「允許」以進行存取控制。</block>
+  <block id="80b0c49680a2b15ae6a40273fadefaa8" category="paragraph">基本權限包括：</block>
+  <block id="704a2a0ea2e007dae9f25d038a988076" category="list-text">完全控制</block>
+  <block id="7f090bbab1cc7f9c08bf4e54d932d3c0" category="list-text">修改</block>
+  <block id="3ed713666b4f5112539dd5ffb9376ff4" category="list-text">讀取與執行</block>
+  <block id="7a1a5f3e79fdc91edf2f5ead9d66abb4" category="list-text">讀取</block>
+  <block id="1129c0e4d43f2d121652a7302712cff6" category="list-text">寫入</block>
+  <block id="75484cb1059b92206b918bde1204007a" category="paragraph">當您設定使用者或群組的權限（稱為ACE）時、該使用者或群組會駐留在ACL中。NTFS權限使用與UNIX模式位元相同的讀取/寫入/執行基礎、但也可延伸至更精細且延伸的存取控制（也稱為特殊權限）、例如「取得所有權」、「建立資料夾/附加資料」、「寫入屬性」等。</block>
+  <block id="77636166006179e57dc5edc6df25b80c" category="paragraph">標準UNIX模式位元提供的精細度與NTFS權限不同（例如、能夠設定ACL中個別使用者和群組物件的權限、或是設定延伸屬性）。不過NFSv4.1 ACL確實提供與NTFS ACL相同的功能。</block>
+  <block id="9434d016806e0f50ac7f14efbfa3a3df" category="paragraph">NTFS權限比共用權限更為特定、可搭配共用權限使用。使用NTFS權限結構時、會套用最嚴格的限制。因此、在定義存取權限時、明確拒絕使用者或群組甚至會覆寫「完全控制」。</block>
+  <block id="c0ad12f90a714e04744ab070d26a9c80" category="paragraph">NTFS權限由Windows SMB用戶端控制。</block>
+  <block id="ef950b5546945ec414f9da7909c4fe8a" category="section-title">共用權限</block>
+  <block id="3df5ef25e4045d2e51c43effb69aa5de" category="paragraph">共用權限比NTFS權限更為一般（唯讀/變更/完全控制）、並控制SMB共用的初始項目、類似於NFS匯出原則規則的運作方式。</block>
+  <block id="41123e00ec2463c8d7c60a10f3d3ede4" category="paragraph">雖然NFS匯出原則規則可透過主機型資訊（例如IP位址或主機名稱）來控制存取、但SMB共用權限可以使用共用ACL中的使用者和群組ACE來控制存取。您可以從Windows用戶端或Cloud Volumes Service 從功能區管理UI設定共用ACL。</block>
+  <block id="7f455f054b3ad11fb335d2f9ec69e3ff" category="paragraph">根據預設、共用ACL和初始Volume ACL包括「完全控制的每個人」。檔案ACL應該變更、但共用權限會被共用區中物件的檔案權限所取代。</block>
+  <block id="8d37bee954f03966b12b65871768a438" category="paragraph">例如、如果使用者只能讀取Cloud Volumes Service 對此實體磁碟區檔案ACL的存取權、則即使共用ACL設定為「擁有完全控制權的所有人」、仍無法存取建立檔案和資料夾、如下圖所示。</block>
+  <block id="47ff9e7720c14a2a27bfa4ce12bbd268" category="paragraph"><block ref="47ff9e7720c14a2a27bfa4ce12bbd268" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ef46360b81c847c0d6f5015920fd5f3e" category="paragraph"><block ref="ef46360b81c847c0d6f5015920fd5f3e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="316a22056a64a8465269d31ac436fc22" category="paragraph">若要獲得最佳的安全性結果、請執行下列步驟：</block>
+  <block id="09fced4bea14e9b030bd1179b95f3b89" category="list-text">從共用和檔案ACL中移除「所有人」、改為設定使用者或群組的共用存取權。</block>
+  <block id="8941d253e49282460162b7dac68ad2ba" category="list-text">使用群組進行存取控制、而非個別使用者、以利管理、並更快移除/新增使用者、透過群組管理來共用ACL。</block>
+  <block id="f63df4fd4f9e10c567332b34b05d35ae" category="list-text">允許對共用權限上的ACE進行較少限制、較為一般的共用存取、並鎖定具有檔案權限的使用者和群組存取、以達到更精細的存取控制。</block>
+  <block id="afe52910905ef63730591f8a01bcb75e" category="list-text">避免一般使用明確拒絕ACL、因為它們會覆寫允許ACL。限制使用者或群組的明確拒絕ACL、以防止他們快速存取檔案系統。</block>
+  <block id="9a2191ac8d9f65679cdf29455149f6cb" category="inline-link">ACL繼承</block>
+  <block id="780d68252d03e9f7617f6bf5fe95c1ce" category="list-text">請務必注意<block ref="19af65d9616f33b3ccaee367e8d4dc82" category="inline-link-rx"></block> 修改權限時的設定；在目錄或磁碟區的最上層設定具有高檔案計數的繼承旗標、表示該目錄或磁碟區下方的每個檔案都已新增繼承權限、 這可能會在調整每個檔案時產生不必要的行為、例如非預期的存取/拒絕、以及冗長的權限修改。</block>
+  <block id="0c2104afa1bd6c96b5ccc9c7a7ee8a6a" category="section-title">SMB共享安全功能</block>
+  <block id="05ec24f8004d55ad7596b79266cd4691" category="paragraph">當您第一次在Cloud Volumes Service 支援SMB存取的情況下建立Volume時、系統會提供一系列的選項來保護該Volume。</block>
+  <block id="53eaeead30ddbd2dcb1526241312aedf" category="paragraph">這些選項中的部分取決於Cloud Volumes Service 「樣層」（「效能」或「軟體」）、選項包括：</block>
+  <block id="d65a6ba5ce40987a368f3f757b5721ae" category="list-text">*使Snapshot目錄可見（同時適用於CVs-Performance和CVs-SW）。*此選項控制SMB用戶端是否可以存取SMB共用區（「\伺服器\共用\~snapshot」和/或「舊版」索引標籤）中的Snapshot目錄。未核取預設設定、這表示磁碟區預設為隱藏及不允許存取「~snapshot」目錄、而且磁碟區的「舊版」索引標籤不會顯示Snapshot複本。</block>
+  <block id="9ebf5e1b6bf20c2942f0add8e979dd7a" category="paragraph"><block ref="9ebf5e1b6bf20c2942f0add8e979dd7a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="baf0124343f1806f3ff44f011e92c73f" category="paragraph">基於安全理由、效能理由（將這些資料夾隱藏在AV掃描之外）或偏好、可能需要從終端使用者處隱藏Snapshot複本。由於「支援快照」是唯讀的、因此即使這些快照可見、終端使用者仍無法刪除或修改Snapshot目錄中的檔案。Cloud Volumes Service應用Snapshot複本時、檔案或資料夾的檔案權限。如果檔案或資料夾的權限在Snapshot複本之間變更、則變更也會套用至Snapshot目錄中的檔案或資料夾。使用者和群組可以根據權限存取這些檔案或資料夾。雖然無法刪除或修改Snapshot目錄中的檔案、但仍可將檔案或資料夾從Snapshot目錄中複製出來。</block>
+  <block id="2716bd858fb85bb9b111c5d51138cb40" category="list-text">*啟用SMB加密（同時適用於CVs-Performance和CVs-SW）。* SMB加密預設為停用（未核取）。核取此方塊可啟用SMB加密、這表示SMB用戶端與伺服器之間的流量會在傳輸中加密、並以議定的最高支援加密層級進行加密。支援高達AES-256的SMB加密。Cloud Volumes Service啟用SMB加密確實會造成效能損失、而您的SMB用戶端可能會或可能不會察覺到這種情況、範圍大致介於10-20%之間。NetApp強烈建議測試、以瞭解效能損失是否可接受。</block>
+  <block id="ab7715a00a3e7691d84318bb2f1a3bc1" category="list-text">*隱藏SMB共用區（同時適用於CVS效能和CVS軟體）。*設定此選項會隱藏SMB共用路徑、使其無法正常瀏覽。這表示不知道共用路徑的用戶端在存取預設的UNC路徑（例如：「\CVS SMB」）時、無法看到共用區。核取此核取方塊時、只有明確知道SMB共用路徑或由群組原則物件定義共用路徑的用戶端才能存取該路徑（透過混淆來確保安全）。</block>
+  <block id="67699a5a5f5ec8d69977d9f44b521201" category="inline-link">存取型列舉（ABE）如何運作？</block>
+  <block id="eb36f3383eadcd01f954bc9848b7de21" category="list-text">*啟用存取型列舉（ABE）（僅限CVs-SW）。*這類似於隱藏SMB共用區、但共用區或檔案只會隱藏在沒有存取物件權限的使用者或群組中。例如、如果不允許Windows使用者「Joe」透過權限至少讀取存取權、則Windows使用者「Joe」根本看不到SMB共用區或檔案。此功能預設為停用、您可以選取核取方塊來啟用此功能。如需ABE的詳細資訊、請參閱NetApp知識庫文章<block ref="6d2d0139fec74415d85dc1015aa48640" category="inline-link-rx"></block></block>
+  <block id="5ff6480cf15803c821d9cc9bb3dcbe5c" category="inline-link">持續可用的SMB共用</block>
+  <block id="17faa8cfb0bc70572c6d4f120cb6de10" category="list-text">*啟用持續可用的（CA）共用支援（僅限CVS效能）。*<block ref="97476034cc2961d2c1c061d5bdcc519a" category="inline-link-rx"></block> 透過在Cloud Volumes Service 整個節點之間複寫鎖定狀態、將容錯移轉事件期間的應用程式中斷降至最低。這不是一項安全功能、但確實能提供更好的整體恢復能力。目前、此功能僅支援SQL Server和FSLogix應用程式。</block>
+  <block id="f816f594817af59eac10c8385f34d319" category="section-title">預設隱藏共用</block>
+  <block id="7ce84bf53b21b783ae6c62b61f60f9e3" category="inline-link">隱藏的管理共用</block>
+  <block id="31a7b0c828b1a1039c3fe9e855430acd" category="paragraph">當SMB伺服器是以Cloud Volumes Service 支援功能建立時、就會出現這種情況<block ref="e698db250309574e2563e69229bd950f" category="inline-link-rx"></block> （使用$命名慣例）、這是在資料Volume SMB共用區之外建立的。其中包括C$（命名空間存取）和IPC$（共用具名管道、用於程式之間的通訊、例如用於Microsoft管理主控台（MMC）存取的遠端程序呼叫（RPC）））。</block>
+  <block id="64667cec654fa57a129c5c1fe752d7ae" category="inline-link">Windows預設不允許匿名存取這些共用</block>
+  <block id="7962a42fa319b5ea9ccf0429193d4f3c" category="paragraph">IPC$共用區不含共用ACL、無法修改、嚴格用於RPC呼叫和<block ref="582b1e06ccfbbf9885ff446ec79f8b0f" category="inline-link-rx"></block>。</block>
+  <block id="c2c8a4f76f99f203d14ee3c1adae3c40" category="paragraph">依預設、C$共用可讓BUILTIN/系統管理員存取、但Cloud Volumes Service 由於能夠存取C$共用區、因此無法檢視Cloud Volumes Service 所有安裝於此的磁碟區、因此無法存取共享ACL。因此、嘗試瀏覽至「\SERVER\C$」失敗。</block>
+  <block id="444613ce56f4180cf88b531783a9e3bc" category="section-title">具有本機/BUILTIN/系統管理員/備份權限的帳戶</block>
+  <block id="5659f387517ed75a127b9a6bda6f1329" category="paragraph">由於本機群組（例如BUILTIN\Administrator）會套用存取權限給選取的網域使用者和群組、因此、支援SMB伺服器的功能與一般Windows SMB伺服器類似。Cloud Volumes Service</block>
+  <block id="709eb202e09b717ba82624b788948428" category="inline-link">SeBackup權限和Se恢復 權限</block>
+  <block id="03455d8db7797aab1e6e9efe9bf4d2a5" category="paragraph">當您指定要新增至備份使用者的使用者時、該使用者會新增至Cloud Volumes Service 使用該Active Directory連線的執行個體中BUILTIN\Backup Operators群組、然後取得<block ref="3d66e5b4422b04db3b01ddbcafb3649a" category="inline-link-rx"></block>。</block>
+  <block id="b5b39a908a856900d75e0b129fb9e349" category="inline-link">SMB共用上的SQL Server</block>
+  <block id="52f5e8856edf4d634cf608cb64bec885" category="paragraph">當您將使用者新增至「安全性權限使用者」時、系統會將SeSecurityPrivilege賦予使用者、這在某些應用程式使用案例（例如）中很有用<block ref="b685ff2242ac25f5022af8207109cc39" category="inline-link-rx"></block>。</block>
+  <block id="99c9211b9f5166d96d9e6613c4be9f77" category="paragraph"><block ref="99c9211b9f5166d96d9e6613c4be9f77" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="59976878f4cfcf8cd4a9bccf37270fec" category="paragraph">您可以Cloud Volumes Service 透過具有適當權限的MMC檢視本地的群組成員資格。下圖顯示使用Cloud Volumes Service 者已透過使用此功能新增的使用者。</block>
+  <block id="9b02abec53251430b553f5124b676b1f" category="paragraph"><block ref="9b02abec53251430b553f5124b676b1f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="09e7cb53843328fd35bff1d1075e8e04" category="paragraph">下表顯示預設BUILTIN群組清單、以及預設新增的使用者/群組。</block>
+  <block id="52087222d7968b7bd85e5698912f6cee" category="cell">本機/BUILTIN.群組</block>
+  <block id="c899fa178e9ccd9c46154a79773b9e8e" category="cell">預設成員</block>
+  <block id="f6c0ddae69a704e001f6cba9fba3f951" category="cell">內建\系統管理員*</block>
+  <block id="6930162f33d7d3cc792907afc2d709d6" category="cell">網域\網域管理員</block>
+  <block id="291b9d53abc37bd4eeab64a68607df4f" category="cell">內建\備份操作員*</block>
+  <block id="f87e4b3cc74234e59b0d07ad558b2c05" category="cell">內建\訪客</block>
+  <block id="bea5dc29e529ecf572942e7f6cbbf19b" category="cell">網域\網域來賓</block>
+  <block id="bafee069f6320499a0f630485028a961" category="cell">內建\超級使用者</block>
+  <block id="d3ffae89384cc2219d9dc26887d6422c" category="cell">內建\網域使用者</block>
+  <block id="a26444fe66f07a77f6e392ad714158ff" category="cell">網域\網域使用者</block>
+  <block id="ee6df957412594fad1ce714d75089e5f" category="paragraph">*群組成員資格是由Cloud Volumes Service 不實Active Directory連線組態所控制。</block>
+  <block id="c648fec724703de3d038fda21e884ef7" category="paragraph">您可以在MMC視窗中檢視本機使用者和群組（及群組成員）、但無法從這個主控台新增或刪除物件或變更群組成員資格。根據預設、Cloud Volumes Service 只有Domain Admins群組和Administrator會新增至功能區的BUILTIN\Administrator群組。目前您無法修改此項目。</block>
+  <block id="39aedbfda9a943aea0e4c841bc68dc0a" category="paragraph"><block ref="39aedbfda9a943aea0e4c841bc68dc0a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0ae7d2b2ec0c231b6934886bf6690c9e" category="paragraph"><block ref="0ae7d2b2ec0c231b6934886bf6690c9e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="255c5bd3cdece4dd4a7891941d9c964e" category="section-title">MMC/電腦管理存取</block>
+  <block id="7f956759e187dbb2b65022241e8053cd" category="paragraph">SMB存取Cloud Volumes Service 功能可連線至電腦管理MMC、讓您檢視共用區、管理共用ACL、以及檢視/管理SMB工作階段和開啟檔案。</block>
+  <block id="e3d561744b3b4f6ab5953c2f96daaad7" category="paragraph">若要使用MMC來檢視Cloud Volumes Service SMB共用區和Sessions、目前登入的使用者必須是網域管理員。其他使用者可以從MMC檢視或管理SMB伺服器、並在嘗試檢視Cloud Volumes Service 有關Sisb執行個體的共用或工作階段時、收到「您沒有權限」對話方塊。</block>
+  <block id="aaf8b324d80834b9d235cb6b6d84be89" category="paragraph">若要連線至SMB伺服器、請開啟「電腦管理」、在「電腦管理」上按一下滑鼠右鍵、然後選取「連線至其他電腦」。這會開啟「Select Computer（選取電腦）」對話方塊、您可以在其中輸入SMB伺服器名稱（可在Cloud Volumes Service 《支援資料》資料冊中找到）。</block>
+  <block id="c34ce8bbe19f26cf58867de938f87920" category="paragraph">當您檢視具有適當權限的SMB共用時、Cloud Volumes Service 您會看到共享Active Directory連線的所有可用共享區。若要控制這種行為、請在Cloud Volumes Service 現象區執行個體上設定隱藏SMB共用選項。</block>
+  <block id="5bcf8cb715ebf788ba3e70915f4256c2" category="paragraph">請記住、每個地區只允許一個Active Directory連線。</block>
+  <block id="b939aeb87de29dc576ad4adc5fa19bce" category="paragraph"><block ref="b939aeb87de29dc576ad4adc5fa19bce" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c57a1134332b8bafcaa5f411a65b4a49" category="paragraph"><block ref="c57a1134332b8bafcaa5f411a65b4a49" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1325fb66f29e707e7e3402f0d45d59dc" category="paragraph">下表顯示MMC支援/不支援的功能清單。</block>
+  <block id="241bac47978fca670a6b9c52e3432067" category="cell">支援的功能</block>
+  <block id="fe2de21fdfcaf4ed19a251aab83bf0ff" category="cell">不支援的功能</block>
+  <block id="ad338fe21209358afd2f29eee14817c6" category="list-text">檢視共享區</block>
+  <block id="a5dc19ca94f052a57587a2f4f1433678" category="list-text">檢視作用中的SMB工作階段</block>
+  <block id="ff50826288707e494282b4cf6bec983b" category="list-text">檢視開啟的檔案</block>
+  <block id="8c006cf58f2706f56d65e1431b1e128e" category="list-text">檢視本機使用者和群組</block>
+  <block id="bad02cc8e307a9ac8bf6899188811a54" category="list-text">檢視本機群組成員資格</block>
+  <block id="5ab1c0d0251d23bc086198a8fc219a69" category="list-text">列舉系統中的工作階段、檔案和樹狀結構連線清單</block>
+  <block id="bd7ff4b31e7eade785d74789a052242c" category="list-text">關閉系統中開啟的檔案</block>
+  <block id="3a6cd2ea18cf077c57b65c28c40f9851" category="list-text">關閉開啟的工作階段</block>
+  <block id="e5ded1413b3fd0a1690184029acf1845" category="list-text">建立/管理共用</block>
+  <block id="b4d1348a7ae3aa39ac1fbd299a07ebb9" category="list-text">建立新的本機使用者/群組</block>
+  <block id="5c3d34e6fdaee1edee0722fcef147f8a" category="list-text">管理/檢視現有的本機使用者/群組</block>
+  <block id="1c79052ffd16d848acb6278dd54f0d33" category="list-text">檢視事件或效能記錄</block>
+  <block id="eedf037c0977372c4f0adaa359d5f6e0" category="list-text">管理儲存設備</block>
+  <block id="d5d1ca904ae55c0d5399eb923b8d6d21" category="list-text">管理服務與應用程式</block>
+  <block id="dddaf61539328810b230a60430960038" category="section-title">SMB伺服器安全性資訊</block>
+  <block id="7c7ff5a0c882bba2c6d86dc13caa6e49" category="paragraph">本產品的SMB伺服器Cloud Volumes Service 使用一系列選項來定義SMB連線的安全性原則、包括Kerberos時鐘偏移、票證存留期、加密等。</block>
+  <block id="bdf80cb84c583e3d6af81c4778921102" category="paragraph">下表列出這些選項、其功能、預設組態、以及是否可以使用Cloud Volumes Service 更新。部分選項不適用於Cloud Volumes Service 此功能。</block>
+  <block id="708cc30ece03d9ba30511bea4ea09792" category="cell">安全選項</block>
+  <block id="ad67361f283520dada90173b5fbfaad7" category="cell">Kerberos時鐘最大偏差（分鐘）</block>
+  <block id="ebd83f9f3f1a10793a7aaf199f57a32b" category="cell">最大Cloud Volumes Service 程度地縮短了在各個領域控制器之間的時間偏差。如果時間偏移超過5分鐘、Kerberos驗證就會失敗。這會設為Active Directory預設值。</block>
+  <block id="e4da3b7fbbce2345d7772b0674a318d5" category="cell">5.</block>
+  <block id="ccf9068a42f159a1b1cd3e07b84c5ecd" category="cell">Kerberos票證壽命（小時）</block>
+  <block id="34c1c29ec6cffe3b75b5f4db3cd4e12f" category="cell">Kerberos票證在要求續約之前保持有效的最長時間。如果在10小時之前沒有續約、您必須取得新的通知單。系統會自動執行這些續約作業。Cloud Volumes Service10小時為Active Directory預設值。</block>
+  <block id="b63288488b52af4af602d79dce8aa252" category="cell">Kerberos票證續約上限（天）</block>
+  <block id="082ea39c709884c3439c0b1e937ee15a" category="cell">在需要新授權要求之前、可以續約Kerberos票證的最大天數。自動更新SMB連線的問題單。Cloud Volumes ServiceActive Directory預設值為七天。</block>
+  <block id="8f14e45fceea167a5a36dedd4bea2543" category="cell">7.</block>
+  <block id="2127af947646b417ab67c66e82922af5" category="cell">Kerberos Kdc連線逾時（秒）</block>
+  <block id="4a4dfa50ac48d9523d22b929a8df2e01" category="cell">Kdc連線逾時前的秒數。</block>
+  <block id="09b779421f875a0831c9165f7730b710" category="cell">需要簽署傳入的SMB流量</block>
+  <block id="8f4c5ae7b0c978c58bbe10790f9eb578" category="cell">設定為需要SMB流量的簽署。如果設為true、則不支援簽署的用戶端會失敗連線。</block>
+  <block id="c77326ff7e3ae38e2b7ed07e3bff97e8" category="cell">本機使用者帳戶需要密碼複雜度</block>
+  <block id="fab3a355aeb5f939ba8dcdc4ae0ea4b8" category="cell">用於本機SMB使用者的密碼。由於不支援建立本機使用者、因此此選項不適用於支援。Cloud Volumes Service Cloud Volumes Service</block>
+  <block id="a3ab2beb782b5f0d7b6d1eb3cacdff1f" category="cell">Active Directory LDAP連線使用start_tls</block>
+  <block id="0e46800ed1870ec055aaa1a1193ff94e" category="cell">用於啟用Active Directory LDAP的啟動TLS連線。目前不支援啟用此功能。Cloud Volumes Service</block>
+  <block id="b3734582301f762d04b757dd4bc38917" category="cell">為啟用Kerberos的AES-128和AES-256加密</block>
+  <block id="4f36af6c9bdde3ebcee7b34176ffe895" category="cell">這會控制AES加密是否用於Active Directory連線、並在建立/修改Active Directory連線時、使用「啟用Active Directory驗證的AES加密」選項加以控制。</block>
+  <block id="60a39bccb81f56ddfcbb75f0ffcd1fb6" category="cell">LM相容層級</block>
+  <block id="a4ada97522d5a887e144bf5d59b41a79" category="cell">Active Directory連線所支援的驗證語言層級。請參閱「」一節<block ref="17dc1460fa48a825f7967ddb6804d663" category="inline-xref-macro-rx"></block>」以取得更多資訊。</block>
+  <block id="cba8970659f15f342022079c22a97ee9" category="cell">vLMvb-krb</block>
+  <block id="5e22abe32604d6b7925fa4768934bb5d" category="cell">傳入CIFS流量需要SMB加密</block>
+  <block id="ae7c4fcb353d520e8996acadf9c9c42f" category="cell">所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節）<block ref="6931acdfb95dc44f28af40d26d20d65c" category="inline-xref-macro-rx"></block>」）。</block>
+  <block id="e00514b301b6206c1024de564d0d71fe" category="cell">用戶端工作階段安全性</block>
+  <block id="b9e69cb6a219e02ada3e29b808558c45" category="inline-link-macro">「LDAP通道繫結。」</block>
+  <block id="d16466e25f07f41d5c768e32becc9751" category="cell">設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 <block ref="4bb24ef2f48443c7e6d43902d0f8498e" category="inline-link-macro-rx"></block>。</block>
+  <block id="b4c17f5cf25d927d8fb7dbab5e1d84c5" category="cell">SMB2可啟用DC連線</block>
+  <block id="31a7643648d0d4454c1fd8a860f1a12d" category="cell">使用SMB2進行DC連線。預設為啟用。</block>
+  <block id="2cd88a3568a04efbfd46abb6cce9a411" category="cell">系統預設值</block>
+  <block id="6158881a00903bd45b66955e6487a27c" category="cell">LDAP轉介追蹤</block>
+  <block id="4ddc9ad0bd193ba15a48f662666ccd96" category="cell">使用LDAPS進行安全的Active Directory連線</block>
+  <block id="4182d7f699521f08b56835082e7caf27" category="cell">啟用LDAP over SSL。目前不受Cloud Volumes Service 支援。</block>
+  <block id="b31e0a21b1fa97ab2faf1479ea00c9db" category="cell">DC連線需要加密</block>
+  <block id="23cc5b51f575d3c458ac112689f7a2f1" category="cell">需要加密才能成功建立DC連線。在功能不完整的情況下、預設為停用Cloud Volumes Service 。</block>
+  <block id="595451bb2138edcd7bd73c4e11f8890d" category="inline-link-macro">下一步：雙傳輸協定/多傳輸協定。</block>
+  <block id="47b43136bb3740d6abdf3823c798bd7e" category="paragraph"><block ref="47b43136bb3740d6abdf3823c798bd7e" category="inline-link-macro-rx"></block></block>
+  <block id="3c22f403dc730d637a0fd61e97873829" category="sidebar">安全性總覽- NetApp Cloud Volumes Service 的Google Cloud解決方案</block>
+  <block id="ebd8431a0b14e9588377860f5d21d80b" category="sidebar">架構總覽</block>
+  <block id="a20fe2a1eb3b2546487a96f1e639d4f3" category="sidebar">其他NAS基礎架構服務相依性（Kdc、LDAP、DNS）</block>
 </blocks>

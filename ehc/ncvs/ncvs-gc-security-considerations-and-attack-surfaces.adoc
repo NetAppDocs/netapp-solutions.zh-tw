@@ -1,0 +1,180 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs/ncvs-gc-security-considerations-and-attack-surfaces.html 
+keywords: secure logins, cluster administration, upgrades, data at-rest, mitigation 
+summary: 瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。 
+---
+= 安全考量與攻擊面
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:ncvs-gc-how-cloud-volumes-service-in-google-cloud-secures-your-data.html["上一篇：Cloud Volumes Service Google Cloud的功能介紹如何保護資料安全。"]
+
+瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。其中包括（但不限於）下列項目：
+
+* 系統管理與登入
+* 閒置資料
+* 資料傳輸中
+* 網路和防火牆
+* 勒索軟體、惡意軟體和病毒
+
+
+瞭解攻擊面可協助您更妥善地保護環境安全。在Google Cloud中、不需進行任何管理互動、即可將許多主題納入考量、並在預設情況下實作安全功能。Cloud Volumes Service
+
+
+
+== 確保安全登入
+
+保護關鍵基礎架構元件的安全時、必須確保只有獲核准的使用者才能登入及管理您的環境。如果不良的使用者違反您的管理認證、他們就能擁有城堡的金鑰、而且可以執行任何他們想要的動作：變更組態、刪除磁碟區和備份、建立後端或停用Snapshot排程。
+
+支援Google Cloud的解決方案可透過模糊化的儲存即服務（StaaS）、防止未經授權的系統管理登入。Cloud Volumes Service由雲端供應商完全維護、無法從外部登入。Cloud Volumes Service所有的設定和組態作業都是完全自動化的、因此除非情況非常罕見、否則人員管理員永遠不需要與系統互動。
+
+如果需要登入、Cloud Volumes Service Google Cloud中的功能驗證可確保登入安全、只要維護一份可供登入系統之受信任系統管理員的簡短清單即可。這項網關保存功能有助於減少可能的不良使用者存取權。此外、Google Cloud網路也將系統隱藏在網路安全層的背後、只向外界公開所需的內容。如需Google Cloud Cloud Volumes Service 的資訊、請參閱「架構」一節 link:ncvs-gc-cloud-volumes-service-architecture.html["「架構」Cloud Volumes Service 。"]
+
+
+
+== 叢集管理與升級
+
+有潛在安全風險的兩個領域包括叢集管理（如果不良的使用者具有管理存取權限、會發生什麼事）和升級（如果軟體映像遭到破壞、會發生什麼事）。
+
+
+
+=== 儲存管理保護
+
+儲存設備即服務可移除對雲端資料中心外部終端使用者的存取權限、進而移除管理員曝險的額外風險。而唯一的組態是由客戶進行資料存取。每個租戶都會管理自己的磁碟區、而且沒有租戶能夠觸及其他Cloud Volumes Service 的實體執行個體。此服務是由自動化管理、其中只有一小份受信任的系統管理員清單、可透過本節所述的程序存取系統 link:ncvs-gc-service-operation.html["「服務營運。」"]
+
+CVS效能服務類型提供跨區域複寫選項、可在區域故障時、為不同區域提供資料保護。在這些情況Cloud Volumes Service 下、可將無法存取的功能故障轉移至未受影響的區域、以維持資料存取。
+
+
+
+=== 服務升級
+
+更新有助於保護易受影響的系統。每項更新都提供安全性增強功能和錯誤修正、可將攻擊面減至最低。軟體更新是從集中式儲存庫下載、並在允許更新之前驗證、以驗證是否使用正式映像、以及升級是否受到不良行為的影響。
+
+有了NetApp、雲端供應商團隊就能處理更新、提供具備組態與升級能力的專家、並將程序自動化且經過完整測試、藉此消除系統管理員團隊面臨的風險風險。Cloud Volumes Service升級不會中斷營運、Cloud Volumes Service 而為了獲得最佳整體效果、我們會維護最新的更新。
+
+如需執行這些服務升級之系統管理員團隊的相關資訊、請參閱一節 link:ncvs-gc-service-operation.html["「服務營運。」"]
+
+
+
+== 保護閒置資料的安全
+
+當磁碟遭竊、退回或重新使用時、靜止資料加密對於保護敏感資料非常重要。使用軟體式加密、可保護靜態資料Cloud Volumes Service 。
+
+* Google產生的金鑰用於CVs-SW。
+* 如需CVS效能、每個Volume金鑰會儲存在Cloud Volumes Service 內建於支援核心的金鑰管理程式中、此管理程式使用NetApp ONTAP 還原資料模組來產生AES-256加密金鑰。CryptoModis會列在CMVP FIPS 140-2驗證模組清單中。請參閱 https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4144["FIPS 140-2認證編號4144"^]。
+
+
+自2021年11月起、客戶管理的加密（CMEK）功能預覽已推出CVS效能。此功能可讓您使用Google金鑰管理服務（KMS）中所裝載的個別專案、每個區域的主要金鑰、來加密每個Volume金鑰。KMS可讓您附加外部金鑰管理程式。
+
+如需如何設定KMS以獲得CVS效能的詳細資訊、 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/customer-managed-keys?hl=en_US["請參閱Cloud Volumes Service 《》文件"^]。
+
+如需架構的詳細資訊、請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html["「架構」Cloud Volumes Service 。"]
+
+
+
+=== 保護資料傳輸安全
+
+除了確保閒置資料的安全、Cloud Volumes Service 您也必須能夠在資料在執行個體與用戶端或複寫目標之間傳輸時、保護資料安全。利用加密方法（例如使用Kerberos的SMB加密、封包的簽署/密封、以及用於資料傳輸端點對端點加密的NFS Kerberos 5p）、為透過NAS傳輸的傳輸中資料提供加密功能。Cloud Volumes Service
+
+利用AES-GCM加密方法、複寫Cloud Volumes Service 不中斷的實體磁碟區使用TLS 1.2。
+
+預設會停用最不安全的傳輸協定、例如：Telnet、NDMP等。不過、DNS並非Cloud Volumes Service 由支援DNS的功能加密（不支援DNS安全）、因此應盡可能使用外部網路加密來加密。請參閱一節 link:ncvs-gc-data-encryption-in-transit.html["「傳輸中的資料加密」"] 以取得更多關於保護資料傳輸安全的資訊。
+
+如需NAS傳輸協定加密的相關資訊、請參閱一節 link:ncvs-gc-data-encryption-in-transit.html#nas-protocols["「NAS傳輸協定」。"]
+
+
+
+== NAS權限的使用者和群組
+
+保護雲端資料的一部分是適當的使用者和群組驗證、其中存取資料的使用者會在環境中驗證為真實使用者、而群組則包含有效的使用者。這些使用者和群組提供初始共用和匯出存取、以及儲存系統中檔案和資料夾的權限驗證。
+
+針對SMB共用和Windows型權限、使用標準的Active Directory型Windows使用者和群組驗證。Cloud Volumes Service此服務也能運用UNIX身分識別供應商、例如LDAP for UNIX使用者和群組進行NFS匯出、NFSv4 ID驗證、Kerberos驗證及NFSv4 ACL。
+
+
+NOTE: 目前僅支援Active Directory LDAP Cloud Volumes Service 搭配「以供LDAP使用」功能。
+
+
+
+== 偵測、防範及防範勒索軟體、惡意軟體及病毒
+
+勒索軟體、惡意軟體和病毒是系統管理員持續面臨的威脅、企業組織最需要注意的是偵測、防範和防範這些威脅。關鍵資料集上的單一勒索軟體事件可能會花費數百萬美元、因此您可以採取最大程度的行動來降低風險。
+
+雖然目前不包含原生偵測或預防措施、例如防毒保護或Cloud Volumes Service https://www.netapp.com/blog/prevent-ransomware-spread-ONTAP/["自動勒索軟體偵測"^]、您可以透過啟用定期Snapshot排程、快速從勒索軟體事件中恢復。Snapshot複本是不可變更的、而且是檔案系統中變更區塊的唯讀指標、幾乎是即時性的、對效能的影響最小、而且只有在資料變更或刪除時才會佔用空間。您可以設定Snapshot複本的排程、以符合所需的可接受恢復點目標（RPO）/恢復時間目標（RTO）、而且每個Volume最多可保留1、024個Snapshot複本。
+
+Snapshot支援不需額外付費（除了Snapshot複本所保留的變更區塊/資料的資料儲存費用）Cloud Volumes Service 、而且在發生勒索軟體攻擊時、也可在攻擊發生之前、用於回溯至Snapshot複本。快照還原只需幾秒鐘即可完成、之後您就能恢復正常的資料服務。如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/16716-sb-3938pdf.pdf&v=202093745["NetApp勒索軟體解決方案"^]。
+
+若要防止勒索軟體影響您的業務、需要採用多層方法、其中包括下列一項或多項：
+
+* 端點保護
+* 透過網路防火牆防範外部威脅
+* 偵測資料異常
+* 關鍵資料集的多重備份（現場與異地）
+* 定期還原備份測試
+* 不可變的唯讀NetApp Snapshot複本
+* 關鍵基礎架構的多因素驗證
+* 系統登入的安全性稽核
+
+
+這份清單遠非詳盡無遺、但在處理勒索軟體攻擊的可能性時、這是一個很好的藍圖。在Google Cloud中提供多種方法來保護勒索軟體事件、並減少其影響。Cloud Volumes Service
+
+
+
+=== 不可變的Snapshot複本
+
+由於資料刪除或整個磁碟區遭到勒索軟體攻擊、因此本機可提供可自訂排程的不可變唯讀Snapshot複本、以便在資料刪除或整個磁碟區遭到勒索軟體攻擊時、快速進行時間點還原。Cloud Volumes Service快照還原至先前的良好Snapshot複本、可根據Snapshot排程和RTO/RPO的保留期間、迅速將資料遺失減至最低。Snapshot技術的效能影響微乎其微。
+
+由於VMware的Snapshot複本Cloud Volumes Service 是唯讀的、因此除非勒索軟體擴散到未注意到的資料集、而且Snapshot複本已被勒索軟體感染、否則這些複本將不會受到勒索軟體的感染。因此、您也必須考慮根據資料異常狀況來偵測勒索軟體。目前無法原生提供偵測功能、但您可以使用外部監控軟體。Cloud Volumes Service
+
+
+
+=== 備份與還原
+
+支援標準NAS用戶端備份功能（例如透過NFS或SMB進行備份）Cloud Volumes Service 。
+
+* CVS效能提供跨區域磁碟區複寫至其他CVS效能磁碟區的功能。如需詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/volume-replication?hl=en_US["Volume複製"^] 請參閱Cloud Volumes Service 《》文件。
+* CVS軟體提供服務原生Volume備份/還原功能。如需詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/back-up?hl=en_US["雲端備份"^] 請參閱Cloud Volumes Service 《》文件。
+
+
+Volume複寫提供確切的來源磁碟區複本、可在發生災難時（包括勒索軟體事件）進行快速容錯移轉。
+
+
+
+=== 跨區域複寫
+
+CVS效能可讓您在Google雲端區域之間安全地複寫磁碟區、以便在NetApp控制的後端服務網路上使用TLS1.2 AES 256 GCM加密、並使用特定介面在Google網路上執行複寫、以保護資料及歸檔使用案例。主要（來源）Volume包含作用中正式作業資料、並複寫至次要（目的地）Volume、以提供主要資料集的確切複本。
+
+初始複寫會傳輸所有區塊、但更新只會傳輸主磁碟區中變更的區塊。例如、如果將位於主要磁碟區上的1TB資料庫複寫到次要磁碟區、則初始複寫時會傳輸1TB的空間。如果該資料庫在初始化與下一個更新之間有幾百列（假設、幾MB）的變更、則只有變更列的區塊會複寫到次要（幾MB）。這有助於確保傳輸時間保持低、並降低複寫費用。
+
+檔案和資料夾的所有權限都會複寫到次要磁碟區、但共用存取權限（例如匯出原則和規則、SMB共用和共用ACL）必須分開處理。在站台容錯移轉的情況下、目的地站台應利用相同的名稱服務和Active Directory網域連線、以一致的方式處理使用者和群組的身分識別和權限。當發生災難時、您可以使用次要Volume做為容錯移轉目標、方法是打破複寫關係、將次要Volume轉換為讀寫。
+
+Volume複本為唯讀、可在異地提供不可改變的資料複本、以便在病毒感染資料或勒索軟體加密主要資料集的情況下、快速恢復資料。唯讀資料不會加密、但如果主要磁碟區受到影響並發生複寫、則受感染的區塊也會複寫。您可以使用較舊且不受影響的Snapshot複本進行還原、但SLA可能超出承諾的RTO/RPO範圍、視偵測到攻擊的速度而定。
+
+此外、您也可以利用Google Cloud的跨區域複寫（CRR）管理功能、防止惡意的管理動作、例如磁碟區刪除、Snapshot刪除或Snapshot排程變更。這是透過建立自訂角色來完成、這些角色可分隔磁碟區管理員、這些管理員可以刪除來源磁碟區、但不能中斷鏡射、因此無法從CRR管理員刪除目的地磁碟區、因為他們無法執行任何Volume作業。請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["安全考量"^] 關於每個系統管理員群組所允許的權限、請參閱Cloud Volumes Service 《參考資料》文件。
+
+
+
+=== 支援Cloud Volumes Service
+
+雖然此功能可提供高資料持久性、但外部事件可能導致資料遺失。Cloud Volumes Service如果發生病毒或勒索軟體等安全事件、備份與還原對於及時恢復資料存取而言、將會變得非常重要。系統管理員可能不小心刪除Cloud Volumes Service 了一個聲音區。或者、使用者只是想保留資料的備份版本好幾個月、而在磁碟區內保留額外的Snapshot複本空間、就成為成本上的挑戰。雖然Snapshot複本應該是保留過去幾週備份版本以還原遺失資料的首選方法、但它們位於磁碟區內部、如果磁碟區消失、就會遺失。
+
+基於上述所有理由、NetApp Cloud Volumes Service 支援透過提供備份服務 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/back-up?hl=en_US["支援Cloud Volumes Service"^]。
+
+利用Google Cloud Storage（GCS）、即可在該磁碟區上產生一份複本。Cloud Volumes Service它只會備份儲存在磁碟區內的實際資料、而非可用空間。它的運作方式永遠是遞增的、也就是說、它只會在繼續備份變更的資料時、一次傳輸磁碟區內容、一次又一次從該處傳輸。相較於採用多個完整備份的傳統備份概念、它可節省大量備份儲存設備、進而降低成本。由於備份空間的每月價格比磁碟區低、因此是延長備份版本時間的理想選擇。
+
+使用者可以使用Cloud Volumes Service 支援還原功能、將任何備份版本還原至相同區域內的相同或不同磁碟區。如果刪除來源磁碟區、則會保留備份資料、並需要獨立管理（例如刪除）。
+
+支援的支援功能已內建於支援的選項中。Cloud Volumes Service Cloud Volumes Service使用者可依Cloud Volumes Service 每個Volume啟動「支援功能」備份、以決定要保護的磁碟區。請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/back-up?hl=en_US["支援的文件Cloud Volumes Service"^] 如需備份的相關資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/resource-limits-quotas?hl=en_US["支援的最大備份版本數"^]、排程和 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/costs?hl=en_US["定價"^]。
+
+專案的所有備份資料都儲存在GCS儲存區內、此儲存區由服務管理、使用者看不到。每個專案都使用不同的儲存庫。目前、這些庫位與Cloud Volumes Service 《非洲地理區（Sin the Same volume）」位於同一個區域、但我們正在討論更多選項。如需最新狀態、請參閱文件。
+
+從資料庫傳輸Cloud Volumes Service 到GCS時、會使用內部服務的Google網路、搭配HTTPS和TLS1.2。資料會以Google管理的金鑰進行閒置加密。
+
+若要管理Cloud Volumes Service 此功能（建立、刪除及還原備份）、使用者必須擁有 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["角色/netappcloudVolumes.admin"^] 角色：
+
+link:ncvs-gc-architecture_overview.html["下一步：架構總覽。"]
