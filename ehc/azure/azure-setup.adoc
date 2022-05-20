@@ -22,15 +22,8 @@ NOTE: 客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決C
 
 設定程序可分為下列步驟：
 
-* link:#register["註冊資源供應商並建立私有雲"]
-* link:#connect["連線至新的或現有的ExpressRoute虛擬網路閘道"]
-* link:#validate["驗證網路連線能力並存取私有雲端"]
-
-
-
-
-== 註冊資源供應商並建立私有雲
-
+.註冊資源供應商並建立私有雲
+====
 若要使用Azure VMware解決方案、請先在指定的訂閱中註冊資源供應商：
 
 . 登入Azure入口網站。
@@ -68,10 +61,9 @@ Azure VMware解決方案私有雲需要Azure虛擬網路。由於Azure VMware解
 
 image:avs-register-create-pc-4.png[""]
 
-
-
-== 連線至新的或現有的ExpressRoute虛擬網路閘道
-
+====
+.連線至新的或現有的ExpressRoute虛擬網路閘道
+====
 若要建立新的Azure虛擬網路（vnet）、請選取Azure vnet Connect索引標籤。或者、您也可以使用「建立虛擬網路」精靈、從Azure入口網站手動建立一個：
 
 . 前往Azure VMware解決方案私有雲、並在「Manage（管理）」選項下存取「Connectivity（連線能力）」。
@@ -96,10 +88,9 @@ image:azure-connect-gateway-2.png[""]
 
 NOTE: 如果您手動建立vnet、請建立一個虛擬網路閘道、並以適當的SKU和ExpressRoute做為閘道類型。部署完成後、請使用授權金鑰、將ExpressRoute連線連接至內含Azure VMware Solution私有雲的虛擬網路閘道。如需詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-vmware/tutorial-configure-networking#create-a-vnet-manually["在Azure中設定VMware私有雲端的網路功能"]。
 
-
-
-== 驗證網路連線及存取Azure VMware解決方案私有雲的能力
-
+====
+.驗證網路連線及存取Azure VMware解決方案私有雲的能力
+====
 Azure VMware解決方案不允許您使用內部部署的VMware vCenter來管理私有雲。而是需要跨接主機才能連線至Azure VMware Solution vCenter執行個體。在指定的資源群組中建立跳接主機、然後登入Azure VMware Solution vCenter。這台跨接主機應該是在為連線所建立的同一個虛擬網路上的Windows VM、並應提供vCenter和NSX Manager的存取權。
 
 image:azure-validate-network-1.png[""]
@@ -122,3 +113,5 @@ image:azure-validate-network-4.png[""]
 image:azure-validate-network-5.png[""]
 
 Azure VMware解決方案SDDC現在已完成部署與設定。善用ExpressRoute Global Reach、將內部部署環境連接至Azure VMware解決方案私有雲。如需詳細資訊、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-vmware/tutorial-expressroute-global-reach-private-cloud["Azure VMware解決方案的對等內部部署環境"]。
+
+====

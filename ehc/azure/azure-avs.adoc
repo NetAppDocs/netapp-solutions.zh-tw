@@ -20,6 +20,7 @@ summary:
 
 * link:#config["在Azure中設定AVS"]
 * link:#datastore["適用於AVS的NetApp儲存選項"]
+* link:#solutions["NetApp / VMware雲端解決方案"]
 
 
 
@@ -35,10 +36,12 @@ NOTE: 客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決C
 
 設定程序可分為下列步驟：
 
-* link:azure-setup.html#register["註冊資源供應商並建立私有雲"]
-* link:azure-setup.html#connect["連線至新的或現有的ExpressRoute虛擬網路閘道"]
-* link:azure-setup.html#validate["驗證網路連線能力並存取私有雲端"]
+* 註冊資源供應商並建立私有雲
+* 連線至新的或現有的ExpressRoute虛擬網路閘道
+* 驗證網路連線能力並存取私有雲端
 
+
+檢視詳細資訊 link:azure-setup.html["AVS的組態步驟"]。
 
 
 
@@ -50,16 +53,27 @@ NetApp儲存設備可在Azure AVS中以多種方式使用、無論是作為猜�
 
 Azure以下列組態支援NetApp儲存設備：
 
-*來賓連線儲存設備*
+* 以客體連線儲存設備的形式提供Azure NetApp Files
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 以原生資料存放區形式提供的資料（ANF）Azure NetApp Files
 
-* link:azure-guest.html#anf["以客體連線儲存設備的形式提供Azure NetApp Files"]
-* link:azure-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:azure-guest.html["AVS的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]
-
+深入瞭解 link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
+
+
+
+== 解決方案使用案例
+
+有了NetApp和VMware雲端解決方案、在Azure AVS中部署的許多使用案例都很簡單。系統會針對VMware定義的每個雲端領域定義SE案例：
+
+* 保護（包括災難恢復和備份/還原）
+* 延伸
+* 移轉
+
+
+link:azure-solutions.html["瀏覽適用於Azure AVS的NetApp解決方案"]

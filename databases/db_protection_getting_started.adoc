@@ -1,0 +1,281 @@
+---
+sidebar: sidebar 
+permalink: databases/db_protection_getting_started.html 
+keywords: Linux, RHEL Oracle19c, NFS, ONTAP 
+summary: 本頁說明在NetApp ONTAP 知識庫儲存設備上部署Oracle資料保護的自動化方法。 
+---
+= 快速入門
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+此解決方案設計為在AWX/Tower環境中執行。
+
+
+
+== AWX/Tower
+
+對於AWX/Tower環境、我們會引導您建立ONTAP 一份關於您的叢集管理和Oracle伺服器（IP和主機名稱）的目錄、建立認證資料、設定從NetApp Automation Github擷取Ansible程式碼的專案、以及啟動自動化的工作範本。
+
+. 此解決方案設計用於私有雲端環境（內部部署到內部部署）、以及混合式雲端（內部部署到公有雲Cloud Volumes ONTAP ）。
+. 填寫環境專屬的變數、然後複製並貼到工作範本中的額外VAR欄位。
+. 將額外的虛擬檔案新增至工作範本之後、您就可以啟動自動化。
+. 自動化作業設定為執行三個階段（設定、Oracle二進位檔的複寫排程、資料庫、記錄及複寫排程（僅適用於記錄）、以及恢復DR站台資料庫的第四階段。
+. 如需取得CVO資料保護所需金鑰和權杖的詳細說明、請參訪 link:automation/authentication_tokens.html["收集CVO和Connector部署的先決條件"]
+
+
+
+
+== 需求
+
+[role="tabbed-block"]
+====
+.<strong>"Big ">內部部署</strong><Strong（高級）>|</Strong（高級）>
+--
+[cols="3, 9"]
+|===
+| 環境 | 需求 
+
+
+.4+| *可環境* | AWX/Tower 
+
+
+| Ansible v.不 包括更新版本 
+
+
+| Python 3. 
+
+
+| Python程式庫- NetApp-Lib - xmltodict - jmespath 
+
+
+.3+| *《*》ONTAP | 版本9.8 + ONTAP 
+
+
+| 兩個資料集合體 
+
+
+| NFS VLAN和ifgrp已建立 
+
+
+.5+| * Oracle伺服器* | RHEL 7/8 
+
+
+| Oracle Linux 7/8 
+
+
+| 網路介面、適用於NFS、公有及選用的管理 
+
+
+| 現有的Oracle來源環境、以及目的地的同等Linux作業系統（DR站台或公有雲） 
+|===
+--
+.<strong>CVO</strong>
+--
+[cols="3, 9"]
+|===
+| 環境 | 需求 
+
+
+.4+| *可環境* | AWX/Tower 
+
+
+| Ansible v.不 包括更新版本 
+
+
+| Python 3. 
+
+
+| Python程式庫- NetApp-Lib - xmltodict - jmespath 
+
+
+.3+| *《*》ONTAP | 版本9.8 + ONTAP 
+
+
+| 兩個資料集合體 
+
+
+| NFS VLAN和ifgrp已建立 
+
+
+.6+| * Oracle伺服器* |  
+
+
+| RHEL 7/8 
+
+
+| Oracle Linux 7/8 
+
+
+| 網路介面、適用於NFS、公有及選用的管理 
+
+
+| 現有的Oracle來源環境、以及目的地的同等Linux作業系統（DR站台或公有雲） 
+
+
+| 在Oracle EC2執行個體上設定適當的交換空間、預設會以0交換部署部分EC2執行個體 
+
+
+.3+| * Cloud Manager/AWS* | AWS存取/秘密金鑰 
+
+
+| NetApp Cloud Manager客戶 
+
+
+| NetApp Cloud Manager更新Token 
+|===
+--
+====
+
+
+== 自動化詳細資料
+
+[role="tabbed-block"]
+====
+.<strong>"Big ">內部部署</strong><Strong（高級）>|</Strong（高級）>
+--
+這項自動化部署是以單一的可執行教戰手冊所設計、其中包含三個不同的角色。這些角色適用於ONTAP 支援功能、Linux和Oracle組態。下表說明哪些工作正在自動化。
+
+[cols="3, 9"]
+|===
+| 教戰守則 | 工作 
+
+
+.5+| * ONTAP_setup* | 預先檢查ONTAP 整個環境 
+
+
+| 在來源叢集上建立叢集間LIF（選用） 
+
+
+| 在目的地叢集上建立叢集間LIF（選用） 
+
+
+| 建立叢集與SVM對等關係 
+
+
+| 建立目的地SnapMirror並初始化指定的Oracle磁碟區 
+
+
+.4+| * ora_repliting_CG * | 為/etc/oratab中的每個資料庫啟用備份模式 
+
+
+| Oracle二進位磁碟區和資料庫磁碟區的快照 
+
+
+| SnapMirror已更新 
+
+
+| 關閉/etc/oratab中每個資料庫的備份模式 
+
+
+.3+| * ora_repleting_log* | 切換/etc/oratab中每個資料庫的目前記錄 
+
+
+| Oracle記錄磁碟區的快照 
+
+
+| SnapMirror已更新 
+
+
+.5+| * ora_recovery * | 中斷SnapMirror 
+
+
+| 啟用NFS並為目的地上的Oracle磁碟區建立交會路徑 
+
+
+| 設定DR Oracle主機 
+
+
+| 掛載並驗證Oracle磁碟區 
+
+
+| 恢復並啟動Oracle資料庫 
+|===
+--
+.<strong>CVO</strong>
+--
+這項自動化部署是以單一的可執行教戰手冊所設計、其中包含三個不同的角色。這些角色適用於ONTAP 支援功能、Linux和Oracle組態。下表說明哪些工作正在自動化。
+
+[cols="4, 9"]
+|===
+| 教戰守則 | 工作 
+
+
+.7+| * CVO_setup* | 預先檢查環境 
+
+
+| AWS設定/AWS存取金鑰ID /秘密金鑰/預設區域 
+
+
+| 建立AWS角色 
+
+
+| 在AWS中建立NetApp Cloud Manager Connector執行個體 
+
+
+| 在Cloud Volumes ONTAP AWS中建立例項（CVO） 
+
+
+| 在ONTAP NetApp Cloud Manager中加入Prem來源的叢集 
+
+
+| 建立目的地SnapMirror並初始化指定的Oracle磁碟區 
+
+
+.4+| * ora_repliting_CG * | 為/etc/oratab中的每個資料庫啟用備份模式 
+
+
+| Oracle二進位磁碟區和資料庫磁碟區的快照 
+
+
+| SnapMirror已更新 
+
+
+| 關閉/etc/oratab中每個資料庫的備份模式 
+
+
+.3+| * ora_repleting_log* | 切換/etc/oratab中每個資料庫的目前記錄 
+
+
+| Oracle記錄磁碟區的快照 
+
+
+| SnapMirror已更新 
+
+
+.5+| * ora_recovery * | 中斷SnapMirror 
+
+
+| 在目的地CVO上啟用NFS並建立Oracle磁碟區的交會路徑 
+
+
+| 設定DR Oracle主機 
+
+
+| 掛載並驗證Oracle磁碟區 
+
+
+| 恢復並啟動Oracle資料庫 
+|===
+--
+====
+
+
+== 預設參數
+
+為了簡化自動化、我們預設了許多必要的Oracle參數、並提供預設值。一般而言、大多數部署都不需要變更預設參數。較進階的使用者可以謹慎變更預設參數。預設參數位於預設目錄下的每個角色資料夾中。
+
+
+
+== 授權
+
+您應該閱讀Github儲存庫中所述的授權資訊。存取、下載、安裝或使用此儲存庫中的內容、即表示您同意所規定的授權條款 link:https://github.com/NetApp-Automation/na_oracle19c_deploy/blob/master/LICENSE.TXT["請按這裡"^]。
+
+請注意、對於產生及/或分享任何衍生作品與此儲存庫中的內容有特定限制。請務必閱讀的條款 link:https://github.com/NetApp-Automation/na_oracle19c_deploy/blob/master/LICENSE.TXT["授權"^] 使用內容之前。如果您不同意所有條款、請勿存取、下載或使用此儲存庫中的內容。
+
+準備好之後、按一下 link:db_protection_awx_automation.html["請參閱此處以瞭解詳細的AWX/Tower程序"]。

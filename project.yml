@@ -12,12 +12,16 @@ sidebar:
   - title: NetApp解決方案文件
     url: "/index.html"
   - section: ai
+  - section: containers
+  - section: data-access
+  - title: 企業應用程式
+    entries:
+    - title: SAP SAP HANA
+      url: https://docs.netapp.com/us-en/netapp-solutions-sap/
+  - section: databases
   - section: data-analytics
   - section: ehc
   - section: virtualization
-  - section: containers
-  - section: ent-apps-db
-  - section: data-access
   - section: automation
   - title: 解決方案FlexPod
     url: https://docs.netapp.com/us-en/flexpod/
@@ -31,52 +35,40 @@ sidebar:
     url: "/reference_legal_notices.html"
 homepage:
   tiles:
-  - title: AI現代化資料分析
+  - title: 簡介
     links:
-    - title: 總覽
+    - title: 關於此儲存庫
+      url: about.html
+    - title: 變更記錄
+      url: change-log-display.html
+    - title: 部落格
+      url: blogs.html
+    - title: 影片示範
+      url: videos.html
+    - title: 法律聲明
+      url: reference_legal_notices.html
+  - title: 解決方案登陸頁面
+    links:
+    - title: 人工智慧
       url: ai/index.html
-    - title: 新增功能
-      url: aimda-whatsnew.html
-    - title: 影片與示範
-      url: aimda-videos.html
-    - title: 部落格
-      url: aimda-blogs.html
-  - title: 企業混合雲（EHC）
-    links:
-    - title: EHC總覽
-      url: ehc/ehc-overview.html
-    - title: 使用案例
-      url: ehc/ehc-use-cases.html
-    - title: 支援的組態
-      url: ehc/ehc-support-configs.html
-    - title: 超大規模雲端環境中的VMware Cloud
-      url: ehc/ehc-hyperscalers.html
-    - title: Hyperscaler特定內容
+    - title: 容器
+      url: containers/index.html
+    - title: 企業資料庫
+      url: databases/index.html
+    - title: 現代化資料分析
+      url: data-analytics/index.html
+    - title: NetApp混合式多雲端與VMware
       url: ehc/index.html
-    - title: 部落格
-      url: ehc-blogs.html
-  - title: 虛擬化、桌面虛擬化容器
-    links:
-    - title: 新增功能
-      url: hc-whatsnew.html
-    - title: 影片與示範
-      url: hc-videos.html
-    - title: 部落格
-      url: hc-blogs.html
-  - title: 企業應用程式資料庫
-    links:
-    - title: 新增功能
-      url: appsdb-whatsnew.html
-    - title: 影片與示範
-      url: appsdb-videos.html
-    - title: 部落格
-      url: appsdb-blogs.html
+    - title: SAP與SAP
+      url: https://docs.netapp.com/us-en/netapp-solutions-sap/index.html
+    - title: 虛擬化
+      url: virtualization/index.html
   - title: 解決方案自動化
     links:
-    - title: 新增功能
-      url: automation-whatsnew.html
-    - title: 影片與示範
-      url: automation-videos.html
+    - title: 簡介
+      url: automation/automation_introduction.html
+    - title: 快速入門
+      url: automation/getting-started.html
     - title: 要求自動化
       url: https://github.com/NetAppDocs/netapp-solutions/issues/new?body=[Request%20Automation]%0d%0a%0d%0aSolution%20Name:%20%0d%0aRequest%20Title:%20%0d%0aDescription:%0d%0aSuggestions:&title=Request%20Automation%20-%20%3Crequest_title%3E
   - title: NetApp Cisco解決方案FlexPod

@@ -16,62 +16,57 @@ summary:
 [role="lead"]
 在三大大型超大規模擴充系統中探索NetApp儲存設備的選項。
 
-
-
-=== AWS對NetApp儲存設備的支援
-
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
 AWS支援下列組態的NetApp儲存設備：
 
-*來賓連線儲存設備*
+* FSX ONTAP 支援以客為本的連線儲存設備
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* FSX ONTAP 支援原生資料存放區：1^
 
-* link:aws/aws-guest.html#fsx-ontap["FSX ONTAP 支援以客為本的連線儲存設備"]
-* link:aws/aws-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:aws/aws-guest.html["VMC的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]
-
+深入瞭解 link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
 
-
-
-=== Azure對NetApp儲存設備的支援
-
+--
+.Azure / AVS
+--
 Azure以下列組態支援NetApp儲存設備：
 
-*來賓連線儲存設備*
+* 以客體連線儲存設備的形式提供Azure NetApp Files
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 以原生資料存放區形式提供的資料（ANF）Azure NetApp Files
 
-* link:azure/azure-guest.html#anf["以客體連線儲存設備的形式提供Azure NetApp Files"]
-* link:azure/azure-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:azure/azure-guest.html["AVS的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]
-
+深入瞭解 link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
 
-
-
-=== NetApp儲存設備的GCP支援
-
+--
+.GCP / GCV
+--
 Google Cloud支援下列組態的NetApp儲存設備：
 
-*來賓連線儲存設備*
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
+* 以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service
 
-* link:gcp/gcp-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
-* link:gcp/gcp-guest.html#cvs["以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service"]
 
+檢視詳細資訊 link:gcp/gcp-guest.html["GCVE的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]
-
+深入瞭解 link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
+
+--
+====

@@ -1,0 +1,81 @@
+---
+sidebar: sidebar 
+permalink: databases/hybrid_dbops_snapcenter_requirements.html 
+summary: 此解決方案採用混合雲環境設計、可支援內部部署正式作業資料庫、這些資料庫可突發至所有熱門的公有雲、以便進行開發/測試及災難恢復作業。 
+keywords: requirements, virtualized, bare metal, versions, automation 
+---
+= 需求SnapCenter
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:hybrid_dbops_snapcenter_architecture.html["先前版本：解決方案架構。"]
+
+此解決方案採用混合雲環境設計、可支援內部部署正式作業資料庫、這些資料庫可突發至所有熱門的公有雲、以便進行開發/測試及災難恢復作業。
+
+本解決方案支援SnapCenter 目前支援的所有資料庫、不過此處僅展示Oracle和SQL Server資料庫。此解決方案已通過虛擬化資料庫工作負載的驗證、但也支援裸機工作負載。
+
+我們假設正式作業資料庫伺服器是在內部環境中代管、並將DB Volume呈現給ONTAP 來自某個儲存叢集的DB主機。內部部署安裝了支援資料庫備份和資料複寫至雲端的支援軟體。SnapCenter建議使用Ansible控制器、但資料庫部署自動化或OS核心與DB組態、並與待命災難恢復執行個體或公有雲中的開發/測試執行個體同步時、則不需要此控制器。
+
+
+
+== 需求
+
+[cols="3, 9"]
+|===
+| 環境 | 需求 
+
+
+.7+| *內部部署* | 支援的任何資料庫和版本SnapCenter 
+
+
+| 不含更新版本4.4 SnapCenter 
+
+
+| Ansible v2.09或更新版本 
+
+
+| 叢集9.x ONTAP 
+
+
+| 已設定叢集間LIF 
+
+
+| 從內部部署到雲端VPC（VPN、互連等）的連線能力 
+
+
+| 網路連接埠開啟- ssh 22 - TCP 8145、8146、10000、11104、11105 
+
+
+.3+| *雲端- AWS* | https://docs.netapp.com/us-en/occm/task_creating_connectors_aws.html["Cloud Manager Connector"^] 
+
+
+| https://docs.netapp.com/us-en/occm/task_getting_started_aws.html["Cloud Volumes ONTAP"^] 
+
+
+| 將資料庫OS EC2執行個體與內部部署相符 
+
+
+.3+| *雲端- Azure * | https://docs.netapp.com/us-en/occm/task_creating_connectors_azure.html["Cloud Manager Connector"^] 
+
+
+| https://docs.netapp.com/us-en/occm/task_getting_started_azure.html["Cloud Volumes ONTAP"^] 
+
+
+| 將資料庫OS Azure虛擬機器與內部部署配對 
+
+
+.3+| *雲端- GCP* | https://docs.netapp.com/us-en/occm/task_creating_connectors_gcp.html["Cloud Manager Connector"^] 
+
+
+| https://docs.netapp.com/us-en/occm/task_getting_started_gcp.html["Cloud Volumes ONTAP"^] 
+
+
+| 將資料庫OS Google Compute Engine執行個體與內部部署配對 
+|===
+link:hybrid_dbops_snapcenter_prerequisite.html["下一步：先決條件組態。"]

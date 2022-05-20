@@ -1,0 +1,62 @@
+= 
+:allow-uri-read: 
+
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+本節說明如何在AWS SDDC上設定及管理VMware Cloud、並搭配可用的選項來連接NetApp儲存設備。
+
+
+NOTE: 客體內儲存設備是唯一受支援的方法、可將FSXVMware ONTAP 和Cloud Volumes ONTAP VMware連接至AWS VMC。
+
+設定程序可分為下列步驟：
+
+* 部署及設定適用於AWS的VMware Cloud
+* 將VMware Cloud連接至FSX ONTAP VMware
+
+
+檢視詳細資訊 link:aws/aws-setup.html["VMC的組態步驟"]。
+
+檢視詳細資訊 link:aws-setup.html["VMC的組態步驟"]。
+
+--
+.Azure / AVS
+--
+本節說明如何設定及管理Azure VMware解決方案、以及如何搭配可用的選項來連接NetApp儲存設備。
+
+
+NOTE: 客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決Cloud Volumes ONTAP 方案與VMware解決方案連接的方法。
+
+設定程序可分為下列步驟：
+
+* 註冊資源供應商並建立私有雲
+* 連線至新的或現有的ExpressRoute虛擬網路閘道
+* 驗證網路連線能力並存取私有雲端
+
+
+檢視詳細資訊 link:azure/azure-setup.html["AVS的組態步驟"]。
+
+檢視詳細資訊 link:azure-setup.html["AVS的組態步驟"]。
+
+--
+.GCP / GCV
+--
+本節說明如何設定及管理GCVE,並搭配可用的選項來連接NetApp儲存設備。
+
+
+NOTE: 客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 「效益」和「雲端Volume服務」連線至GCVE.
+
+設定程序可分為下列步驟：
+
+* 部署及設定GCVE
+* 啟用對GCVE的私有存取
+
+
+檢視詳細資訊 link:gcp/gcp-setup.html["GCVE.的組態步驟"]。
+
+檢視詳細資訊 link:gcp-setup.html["GCVE.的組態步驟"]。
+
+--
+====

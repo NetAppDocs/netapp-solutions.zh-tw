@@ -1,0 +1,557 @@
+---
+sidebar: sidebar 
+permalink: databases/hybrid_dbops_snapcenter_getting_started_onprem.html 
+summary: NetApp SnapCenter 解決方案支援工具使用角色型存取控制（RBAC）來管理使用者資源存取和權限授予、SnapCenter 而安裝此工具則可建立預先填入的角色。您也可以根據自己的需求或應用程式來建立自訂角色。 
+keywords: workflow, on premises, rbac, roles, permissions 
+---
+= 內部部署入門
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:hybrid_dbops_snapcenter_getting_started.html["上一步：入門概述。"]
+
+
+
+== 內部部署
+
+
+
+=== 1 SnapCenter 、設定資料庫管理員使用者
+
+NetApp SnapCenter 解決方案支援工具使用角色型存取控制（RBAC）來管理使用者資源存取和權限授予、SnapCenter 而安裝過程則會建立預先填入的角色。您也可以根據自己的需求或應用程式來建立自訂角色。針對支援的每個資料庫平台、使用專屬的管理員使用者ID進行SnapCenter 資料庫備份、還原及/或災難恢復是很合理的做法。您也可以使用單一ID來管理所有資料庫。在我們的測試案例和示範中、我們分別為Oracle和SQL Server建立專屬的管理使用者。
+
+某些SnapCenter 支援功能資源只能以SnapCenterAdmin角色來配置。然後可以將資源指派給其他使用者ID以供存取。
+
+在預先安裝及設定的內部部署SnapCenter 環境中、下列工作可能已經完成。如果沒有、請執行下列步驟來建立資料庫管理員使用者：
+
+. 將管理使用者新增至Windows Active Directory。
+. 使用SnapCenterAdmin角色授予的ID登入SnapCenter 功能。
+. 瀏覽至「設定與使用者」下方的「存取」索引標籤、然後按一下「新增」以新增使用者。新的使用者ID會連結至步驟1中在Windows Active Directory中建立的管理員使用者。。視需要指派適當的角色給使用者。視情況指派資源給管理使用者。
+
+
+image:snapctr_admin_users.PNG["錯誤：缺少圖形影像"]
+
+
+
+=== 2、安裝此外掛程式的先決條件SnapCenter
+
+使用資料庫主機上執行的外掛程式代理程式執行備份、還原、複製及其他功能。SnapCenter它會透過設定和認證索引標籤下設定的認證、連線至資料庫主機和資料庫、以進行外掛程式安裝和其他管理功能。根據目標主機類型（例如Linux或Windows）以及資料庫類型、有特定的權限要求。
+
+資料庫主機認證資料必須先設定、才能SnapCenter 安裝非必要的外掛程式。一般而言、您想要使用資料庫主機上的系統管理員使用者帳戶做為外掛程式安裝的主機連線認證。您也可以使用OS型驗證、將相同的使用者ID授予資料庫存取。另一方面、您也可以使用資料庫驗證搭配不同的資料庫使用者ID來進行DB管理存取。如果您決定使用OS型驗證、則必須將OS管理使用者ID授予DB存取權。對於Windows網域型SQL Server安裝、網域管理帳戶可用於管理網域內的所有SQL Server。
+
+適用於SQL Server的Windows主機：
+
+. 如果您使用Windows認證來進行驗證、則必須先設定認證、才能安裝外掛程式。
+. 如果您使用SQL Server執行個體進行驗證、則必須在安裝外掛程式之後新增認證。
+. 如果您在設定認證資料時啟用SQL驗證、則探索到的執行個體或資料庫會顯示紅色鎖定圖示。如果出現鎖定圖示、您必須指定執行個體或資料庫認證、才能將執行個體或資料庫成功新增至資源群組。
+. 當符合下列條件時、您必須將認證指派給沒有Sysadmin存取權的RBAC使用者：
++
+** 認證資料會指派給SQL執行個體。
+** SQL執行個體或主機會指派給RBAC使用者。
+** RBAC DB管理使用者必須同時擁有資源群組和備份權限。
+
+
+
+
+適用於Oracle的UNIX主機：
+
+. 您必須編輯sshd.conf並重新啟動sshd服務、為root或非root使用者啟用密碼型SSH連線。AWS執行個體上的密碼型SSH驗證預設為關閉。
+. 設定非root使用者的Sudo權限、以安裝及啟動外掛程式程序。安裝外掛程式之後、程序會以有效的root使用者身分執行。
+. 使用Linux驗證模式為安裝使用者建立認證。
+. 您必須在Linux主機上安裝Java 1.8.x（64位元）。
+. 安裝Oracle資料庫外掛程式也會安裝SnapCenter 適用於Unix的支援程式。
+
+
+
+
+=== 3. SnapCenter 安裝支援主機外掛程式
+
+
+NOTE: 在嘗試在SnapCenter 雲端DB伺服器執行個體上安裝時、請先確認所有組態步驟均已完成、如運算執行個體部署的相關雲端區段所列。
+
+下列步驟說明如何在SnapCenter 主機上安裝一個支援程式的情況下、將資料庫主機新增至支援程式。SnapCenter此程序適用於新增內部部署主機和雲端主機。下列示範新增位於AWS中的Windows或Linux主機。
+
+
+
+==== 設定SnapCenter VMware全域設定
+
+瀏覽至「設定」>「全域設定」。選取Hypervisor設定下的「VM有iSCSI直接附加磁碟或所有主機的NFS」、然後按一下「Update（更新）」。
+
+image:snapctr_vmware_global.PNG["錯誤：缺少圖形影像"]
+
+
+
+==== 新增Windows主機、並在主機上安裝外掛程式
+
+. 使用具有SnapCenterAdmin權限的使用者ID登入SnapCenter 功能。
+. 按一下左側功能表中的「hosts（主機）」索引標籤、然後按一下「Add（新增）」以開啟「Add Host（新增主機）」工作流程。
+. 選擇Windows作為主機類型、主機名稱可以是主機名稱或IP位址。主機名稱必須從SnapCenter 該支援主機解析為正確的主機IP位址。選擇在步驟2中建立的主機認證資料。選擇Microsoft Windows和Microsoft SQL Server做為要安裝的外掛套件。
++
+image:snapctr_add_windows_host_01.PNG["錯誤：缺少圖形影像"]
+
+. 在Windows主機上安裝外掛程式之後、其整體狀態會顯示為「Configure log目錄」。
++
+image:snapctr_add_windows_host_02.PNG["錯誤：缺少圖形影像"]
+
+. 按一下主機名稱以開啟SQL Server記錄目錄組態。
++
+image:snapctr_add_windows_host_03.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「設定記錄目錄」以開啟「設定SQL Server的外掛程式」。
++
+image:snapctr_add_windows_host_04.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「瀏覽SnapCenter 」以探索NetApp儲存設備、以便設定記錄目錄；使用此記錄目錄來彙總SQL Server交易記錄檔。然後按一下「儲存」。
++
+image:snapctr_add_windows_host_05.PNG["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 若要探索配置至資料庫主機的NetApp儲存設備、必須將儲存設備（內部部署或CVO）新增至SnapCenter 支援區、如CVO步驟6所示。
+
+. 設定記錄目錄之後、Windows主機外掛程式的整體狀態會變更為執行中。
++
+image:snapctr_add_windows_host_06.PNG["錯誤：缺少圖形影像"]
+
+. 若要將主機指派給資料庫管理使用者ID、請瀏覽至「Settings and Users（設定與使用者）」下的「Access（存取）」索引標籤、按一下資料庫管理使用者ID（在我們的案例中是主機需要指派的sqldba）、然後按一下「Save（儲存）」完成主機資源指派。
++
+image:snapctr_add_windows_host_07.PNG["錯誤：缺少圖形影像"]
+
++
+image:snapctr_add_windows_host_08.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 新增Unix主機、並在主機上安裝外掛程式
+
+. 使用具有SnapCenterAdmin權限的使用者ID登入SnapCenter 功能。
+. 按一下左側功能表中的「主機」索引標籤、然後按一下「新增」以開啟「新增主機」工作流程。
+. 選擇Linux作為主機類型。主機名稱可以是主機名稱或IP位址。不過、主機名稱必須解析、才能從SnapCenter 功能主機修正主機IP位址。選擇在步驟2中建立的主機認證。主機認證資料需要Sudo權限。將Oracle資料庫核取為要安裝的外掛程式、安裝Oracle和Linux主機外掛程式。
++
+image:snapctr_add_linux_host_01.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「更多選項」、然後選取「跳過預先安裝檢查」。 系統會提示您確認跳過預先安裝檢查。按一下「Yes（是）」、然後按一
++
+image:snapctr_add_linux_host_02.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「提交」開始安裝外掛程式。系統會提示您確認指紋、如下所示。
++
+image:snapctr_add_linux_host_03.PNG["錯誤：缺少圖形影像"]
+
+. 執行主機驗證和登錄、然後在Linux主機上安裝外掛程式。SnapCenter狀態會從「安裝外掛程式」變更為「執行中」。
++
+image:snapctr_add_linux_host_04.PNG["錯誤：缺少圖形影像"]
+
+. 將新增的主機指派至適當的資料庫管理使用者ID（在我們的案例中為oradba）。
++
+image:snapctr_add_linux_host_05.PNG["錯誤：缺少圖形影像"]
+
++
+image:snapctr_add_linux_host_06.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 4.資料庫資源探索
+
+成功安裝外掛程式後、即可立即探索主機上的資料庫資源。按一下左側功能表中的「Resources（資源）」索引標籤。視資料庫平台的類型而定、有許多檢視可供使用、例如資料庫、資源群組等。如果未發現並顯示主機上的資源、您可能需要按一下「Refresh Resources（重新整理資源）」索引標籤。
+
+image:snapctr_resources_ora.PNG["錯誤：缺少圖形影像"]
+
+初次探索資料庫時、整體狀態會顯示為「未受保護」。 上一個螢幕快照顯示Oracle資料庫尚未受到備份原則的保護。
+
+設定備份組態或原則並執行備份時、資料庫的整體狀態會顯示備份狀態為「備份成功」、以及上次備份的時間戳記。下列螢幕擷取畫面顯示SQL Server使用者資料庫的備份狀態。
+
+image:snapctr_resources_sql.PNG["錯誤：缺少圖形影像"]
+
+如果資料庫存取認證未正確設定、則紅色鎖定按鈕表示無法存取資料庫。例如、如果Windows認證沒有資料庫執行個體的Sysadmin存取權、則必須重新設定資料庫認證、才能解除鎖定紅色鎖定。
+
+image:snapctr_add_windows_host_09.PNG["錯誤：缺少圖形影像"]
+
+image:snapctr_add_windows_host_10.PNG["錯誤：缺少圖形影像"]
+
+在Windows層級或資料庫層級設定適當的認證之後、紅色鎖定就會消失、SQL Server類型資訊也會收集並檢閱。
+
+image:snapctr_add_windows_host_11.PNG["錯誤：缺少圖形影像"]
+
+
+
+=== 5.設定儲存叢集對等和資料庫磁碟區複寫
+
+為了使用公有雲作為目標目的地來保護內部部署資料庫資料、內部部署ONTAP 的叢集資料庫磁碟區會使用NetApp SnapMirror技術複寫至雲端CVO。然後可以複製複寫的目標磁碟區、以供開發/營運或災難恢復之用。下列高層級步驟可讓您設定叢集對等和資料庫磁碟區複寫。
+
+. 在內部部署叢集和CVO叢集執行個體上設定叢集間對等關係。此步驟可透過ONTAP 「系統管理員」執行。預設的CVO部署會自動設定叢集間的LIF。
++
+內部部署叢集：
+
++
+image:snapctr_cluster_replication_01.PNG["錯誤：缺少圖形影像"]
+
++
+目標CVO叢集：
+
++
+image:snapctr_cluster_replication_02.PNG["錯誤：缺少圖形影像"]
+
+. 在設定叢集間生命體之後、您可以使用NetApp Cloud Manager中的拖放功能來設定叢集對等和磁碟區複寫。請參閱 link:hybrid_dbops_snapcenter_getting_started_aws.html#aws-public-cloud["入門指南- AWS公有雲"] 以取得詳細資料。
++
+或者、您ONTAP 也可以使用下列功能、使用下列的「系統管理程式」來執行叢集對等和資料庫Volume複寫：
+
+. 登入ONTAP 《系統管理程式》。瀏覽至「叢集」>「設定」、然後按一下「對等叢集」、以設定叢集與雲端中CVO執行個體的對等關係。
++
+image:snapctr_vol_snapmirror_00.PNG["錯誤：缺少圖形影像"]
+
+. 前往「Volumes（磁碟區）」索引標籤選取要複寫的資料庫磁碟區、然後按一下「Protect（保護）」。
++
+image:snapctr_vol_snapmirror_01.PNG["錯誤：缺少圖形影像"]
+
+. 將保護原則設為「非同步」。選取目的地叢集和儲存SVM。
++
+image:snapctr_vol_snapmirror_02.PNG["錯誤：缺少圖形影像"]
+
+. 驗證來源與目標之間的磁碟區是否同步、以及複寫關係是否健全。
++
+image:snapctr_vol_snapmirror_03.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 6.將CVO資料庫儲存SVM新增SnapCenter 至
+
+. 使用具有SnapCenterAdmin權限的使用者ID登入SnapCenter 功能。
+. 按一下功能表中的「Storage System（儲存系統）」索引標籤、然後按一下「New（新增）」以新增裝載複寫目標資料庫Volume的CVO儲存SVM SnapCenter 。在Storage System（儲存系統）欄位中輸入叢集管理IP、然後輸入適當的使用者名稱和密碼。
++
+image:snapctr_add_cvo_svm_01.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「更多選項」以開啟其他儲存組態選項。在「Platform（平台）」欄位中、選取Cloud Volumes ONTAP 「效益」、選取「次要」、然後按一下「Save（儲存）」。
++
+image:snapctr_add_cvo_svm_02.PNG["錯誤：缺少圖形影像"]
+
+. 如SnapCenter 所示、將儲存系統指派給不實的資料庫管理使用者ID <<3. SnapCenter host plugin installation>>。
++
+image:snapctr_add_cvo_svm_03.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 7. SnapCenter 在VMware中設定資料庫備份原則
+
+下列程序示範如何建立完整資料庫或記錄檔備份原則。然後可以實作原則來保護資料庫資源。恢復點目標（RPO）或恢復時間目標（RTO）決定了資料庫和（或）記錄備份的頻率。
+
+
+
+==== 建立Oracle的完整資料庫備份原則
+
+. 以SnapCenter 資料庫管理使用者ID登入功能表、按一下「設定」、然後按一下「原則」。
++
+image:snapctr_ora_policy_data_01.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
++
+image:snapctr_ora_policy_data_02.PNG["錯誤：缺少圖形影像"]
+
+. 選取備份類型和排程頻率。
++
+image:snapctr_ora_policy_data_03.PNG["錯誤：缺少圖形影像"]
+
+. 設定備份保留設定。這會定義要保留多少完整資料庫備份複本。
++
+image:snapctr_ora_policy_data_04.PNG["錯誤：缺少圖形影像"]
+
+. 選取次要複寫選項、將本機主要快照備份推送至雲端的次要位置。
++
+image:snapctr_ora_policy_data_05.PNG["錯誤：缺少圖形影像"]
+
+. 指定在備份執行前後執行的任何選用指令碼。
++
+image:snapctr_ora_policy_data_06.PNG["錯誤：缺少圖形影像"]
+
+. 視需要執行備份驗證。
++
+image:snapctr_ora_policy_data_07.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_ora_policy_data_08.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 為Oracle建立資料庫記錄備份原則
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」、然後按一下「原則」。
+. 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
++
+image:snapctr_ora_policy_log_01.PNG["錯誤：缺少圖形影像"]
+
+. 選取備份類型和排程頻率。
++
+image:snapctr_ora_policy_log_02.PNG["錯誤：缺少圖形影像"]
+
+. 設定記錄保留期間。
++
+image:snapctr_ora_policy_log_03.PNG["錯誤：缺少圖形影像"]
+
+. 啟用複寫至公有雲中的次要位置。
++
+image:snapctr_ora_policy_log_04.PNG["錯誤：缺少圖形影像"]
+
+. 指定在記錄備份前後執行的任何選用指令碼。
++
+image:snapctr_ora_policy_log_05.PNG["錯誤：缺少圖形影像"]
+
+. 指定任何備份驗證指令碼。
++
+image:snapctr_ora_policy_log_06.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_ora_policy_log_07.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 建立SQL的完整資料庫備份原則
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」、然後按一下「原則」。
++
+image:snapctr_sql_policy_data_01.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
++
+image:snapctr_sql_policy_data_02.PNG["錯誤：缺少圖形影像"]
+
+. 定義備份選項和排程頻率。對於使用可用度群組設定的SQL Server、可以設定偏好的備份複本。
++
+image:snapctr_sql_policy_data_03.PNG["錯誤：缺少圖形影像"]
+
+. 設定備份保留期間。
++
+image:snapctr_sql_policy_data_04.PNG["錯誤：缺少圖形影像"]
+
+. 啟用備份複本複寫至雲端的次要位置。
++
+image:snapctr_sql_policy_data_05.PNG["錯誤：缺少圖形影像"]
+
+. 指定在備份工作之前或之後執行的任何選用指令碼。
++
+image:snapctr_sql_policy_data_06.PNG["錯誤：缺少圖形影像"]
+
+. 指定執行備份驗證的選項。
++
+image:snapctr_sql_policy_data_07.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_sql_policy_data_08.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 建立SQL的資料庫記錄備份原則。
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」>「原則」、然後按一下「新增」以啟動新的原則建立工作流程。
++
+image:snapctr_sql_policy_log_01.PNG["錯誤：缺少圖形影像"]
+
+. 定義記錄備份選項和排程頻率。對於使用可用度群組設定的SQL Server、可以設定偏好的備份複本。
++
+image:snapctr_sql_policy_log_02.PNG["錯誤：缺少圖形影像"]
+
+. SQL Server資料備份原則會定義記錄備份保留；在此接受預設值。
++
+image:snapctr_sql_policy_log_03.PNG["錯誤：缺少圖形影像"]
+
+. 在雲端中啟用次要的記錄備份複寫。
++
+image:snapctr_sql_policy_log_04.PNG["錯誤：缺少圖形影像"]
+
+. 指定在備份工作之前或之後執行的任何選用指令碼。
++
+image:snapctr_sql_policy_log_05.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_sql_policy_log_06.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 8.實作備份原則以保護資料庫
+
+使用資源群組在資料庫資源的邏輯群組中備份資料庫、例如伺服器上裝載的多個資料庫、共用相同儲存磁碟區的資料庫、支援商業應用程式的多個資料庫等。SnapCenter保護單一資料庫會建立自己的資源群組。下列程序示範如何實作第7節所建立的備份原則、以保護Oracle和SQL Server資料庫。
+
+
+
+==== 建立資源群組以完整備份Oracle
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」以啟動資源群組建立工作流程。
++
+image:snapctr_ora_rgroup_full_01.PNG["錯誤：缺少圖形影像"]
+
+. 提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式、並略過備援歸檔記錄目的地（如果已設定）。
++
+image:snapctr_ora_rgroup_full_02.PNG["錯誤：缺少圖形影像"]
+
+. 將資料庫資源新增至資源群組。
++
+image:snapctr_ora_rgroup_full_03.PNG["錯誤：缺少圖形影像"]
+
+. 從下拉式清單中選取第7節所建立的完整備份原則。
++
+image:snapctr_ora_rgroup_full_04.PNG["錯誤：缺少圖形影像"]
+
+. 按一下（+）號以設定所需的備份排程。
++
+image:snapctr_ora_rgroup_full_05.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「Load Locators（載入定位器）」以載入來源和目的地Volume。
++
+image:snapctr_ora_rgroup_full_06.PNG["錯誤：缺少圖形影像"]
+
+. 如有需要、請設定用於電子郵件通知的SMTP伺服器。
++
+image:snapctr_ora_rgroup_full_07.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_ora_rgroup_full_08.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 建立資源群組以記錄Oracle備份
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」以啟動資源群組建立工作流程。
++
+image:snapctr_ora_rgroup_log_01.PNG["錯誤：缺少圖形影像"]
+
+. 提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式、並略過備援歸檔記錄目的地（如果已設定）。
++
+image:snapctr_ora_rgroup_log_02.PNG["錯誤：缺少圖形影像"]
+
+. 將資料庫資源新增至資源群組。
++
+image:snapctr_ora_rgroup_log_03.PNG["錯誤：缺少圖形影像"]
+
+. 從下拉式清單中選取第7節中建立的記錄備份原則。
++
+image:snapctr_ora_rgroup_log_04.PNG["錯誤：缺少圖形影像"]
+
+. 按一下（+）號以設定所需的備份排程。
++
+image:snapctr_ora_rgroup_log_05.PNG["錯誤：缺少圖形影像"]
+
+. 如果已設定備份驗證、則會顯示於此處。
++
+image:snapctr_ora_rgroup_log_06.PNG["錯誤：缺少圖形影像"]
+
+. 如有需要、請設定用於電子郵件通知的SMTP伺服器。
++
+image:snapctr_ora_rgroup_log_07.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_ora_rgroup_log_08.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 建立資源群組以完整備份SQL Server
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」來啟動資源群組建立工作流程。提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式。
++
+image:snapctr_sql_rgroup_full_01.PNG["錯誤：缺少圖形影像"]
+
+. 選取要備份的資料庫資源。
++
+image:snapctr_sql_rgroup_full_02.PNG["錯誤：缺少圖形影像"]
+
+. 選取在第7節中建立的完整SQL備份原則。
++
+image:snapctr_sql_rgroup_full_03.PNG["錯誤：缺少圖形影像"]
+
+. 增加準確的備份時間和頻率。
++
+image:snapctr_sql_rgroup_full_04.PNG["錯誤：缺少圖形影像"]
+
+. 如果要執行備份驗證、請選擇驗證伺服器進行次要備份。按一下「Load Locator（載入定位器）」以填入次要儲存位置。
++
+image:snapctr_sql_rgroup_full_05.PNG["錯誤：缺少圖形影像"]
+
+. 如有需要、請設定用於電子郵件通知的SMTP伺服器。
++
+image:snapctr_sql_rgroup_full_06.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_sql_rgroup_full_07.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+==== 建立資源群組以記錄SQL Server備份
+
+. 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」來啟動資源群組建立工作流程。提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式。
++
+image:snapctr_sql_rgroup_log_01.PNG["錯誤：缺少圖形影像"]
+
+. 選取要備份的資料庫資源。
++
+image:snapctr_sql_rgroup_log_02.PNG["錯誤：缺少圖形影像"]
+
+. 選取在第7節中建立的SQL記錄備份原則。
++
+image:snapctr_sql_rgroup_log_03.PNG["錯誤：缺少圖形影像"]
+
+. 新增確切的備份時間和頻率。
++
+image:snapctr_sql_rgroup_log_04.PNG["錯誤：缺少圖形影像"]
+
+. 如果要執行備份驗證、請選擇驗證伺服器進行次要備份。按一下「Load Locator（載入定位器）」以填入次要儲存位置。
++
+image:snapctr_sql_rgroup_log_05.PNG["錯誤：缺少圖形影像"]
+
+. 如有需要、請設定用於電子郵件通知的SMTP伺服器。
++
+image:snapctr_sql_rgroup_log_06.PNG["錯誤：缺少圖形影像"]
+
+. 摘要：
++
+image:snapctr_sql_rgroup_log_07.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 9.驗證備份
+
+建立資料庫備份資源群組以保護資料庫資源之後、備份工作會根據預先定義的排程執行。檢查「監控」索引標籤下的工作執行狀態。
+
+image:snapctr_job_status_sql.PNG["錯誤：缺少圖形影像"]
+
+移至「資源」索引標籤、按一下資料庫名稱以檢視資料庫備份的詳細資料、然後在本機複本和鏡射複本之間切換、以驗證Snapshot備份是否已複寫到公有雲的次要位置。
+
+image:snapctr_job_status_ora.PNG["錯誤：缺少圖形影像"]
+
+此時、雲端中的資料庫備份複本已準備好複製、以便在發生一線故障時執行開發/測試程序或進行災難恢復。
+
+link:hybrid_dbops_snapcenter_getting_started_aws.html["下一步：AWS公有雲入門。"]

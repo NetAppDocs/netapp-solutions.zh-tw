@@ -23,14 +23,8 @@ NOTE: 客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 
 
 設定程序可分為下列步驟：
 
-* link:#deploy["部署及設定GCVE"]
-* link:#enable-access["啟用對GCVE的私有存取"]
-
-
-
-
-== 部署及設定GCVE
-
+.部署及設定GCVE
+====
 若要在GCP上設定GCVE環境、請登入GCP主控台、然後存取VMware Engine入口網站。
 
 按一下「New Private Cloud」（新私有雲端）按鈕、然後輸入所需的GCVM私有雲端組態。在「位置」上、請務必在部署CVS/CVO的相同地區/區域中部署私有雲端、以確保最佳效能和最低延遲。
@@ -46,10 +40,9 @@ image:gcve-deploy-1.png[""]
 
 附註：建立私有雲端可能需要30分鐘到2小時的時間。
 
-
-
-== 啟用對GCVE的私有存取
-
+====
+.啟用對GCVE的私有存取
+====
 一旦私有雲端資源配置完成、請設定私有雲端存取、以實現高處理量和低延遲的資料路徑連線。
 
 如此可確保Cloud Volumes ONTAP 執行了某些執行個體的VPC網路能夠與GCVR私有雲端通訊。若要這麼做、請遵循 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/quickstart["GCP文件"]。對於Cloud Volume Service、請Cloud Volumes Service 在租戶主機專案之間執行一次對等、以建立VMware Engine與VMware Infrastructure之間的連線。如需詳細步驟、請遵循此步驟 link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service["連結"]。
@@ -67,3 +60,5 @@ image:gcve-access-2.png[""]
 image:gcve-access-3.png[""]
 
 image:gcve-access-4.png[""]
+
+====

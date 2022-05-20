@@ -4,7 +4,7 @@ permalink: ehc/ehc-support-configs.html
 keywords: NetApp Solutions, ehc, enterprise hybrid cloud, hyperscalers, vmware, supported config, config, configuration 
 summary:  
 ---
-= 企業混合雲（EHC）支援的組態
+= NetApp混合式多雲端搭配VMware的支援組態
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -16,26 +16,20 @@ summary:
 [role="lead"]
 瞭解NetApp儲存設備在主要大型大型大型大型大型擴充系統中的支援組合。
 
-[cols="6, 3, 3, 3"]
+[cols="3, 3, 3"]
 |===
 
 
-|  | * Azure AVS* | * AWS VMC* | * GCP GCVE* 
+|  | *來賓連線* | *原生資料存放區* 
 
 
-| *《*》（CVO）Cloud Volumes ONTAP * | link:azure/azure-guest.html#cvo["已連線來賓"] | link:aws/aws-guest.html#cvo["已連線來賓"] | link:gcp/gcp-guest.html#cvo["已連線來賓"] 
+| * AWS * | CVO FSX ONTAPlink:aws/aws-guest.html["詳細資料"] | FSX ONTAPlink:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["詳細資料1"^] 
 
 
-| *《*》（CVS）Cloud Volumes Service * | - | - | link:gcp/gcp-guest.html#cvs["已連線來賓"]
-link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["原生資料存放區"^] 
+| * Azure * | CVO ANFlink:azure/azure-guest.html["詳細資料"] | ANFlink:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["詳細資料1"^] 
 
 
-| *《*》（ANF）Azure NetApp Files * | link:azure/azure-guest.html#anf["已連線來賓"]
-link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["原生資料存放區"^] | 不適用 | 不適用 
-
-
-| * FSX* ONTAP | 不適用 | link:aws/aws-guest.html#fsx-ontap["已連線來賓"]
-link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["原生資料存放區"^] | 不適用 
+| * GCP* | CVO CVSlink:gcp/gcp-guest.html["詳細資料"] | CVSlink:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["詳細資料1"^] 
 |===
 
 NOTE: 1 -目前處於私有預覽中

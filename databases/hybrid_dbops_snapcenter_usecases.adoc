@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: databases/hybrid_dbops_snapcenter_usecases.html 
+summary: 本解決方案提供NetApp現場人員與客戶指示與指引、協助他們在SnapCenter 公有雲中使用NetApp支援GUI的工具和NetApp儲存服務CVO、將資料庫設定、操作及移轉至混合雲環境。 
+keywords: tr-4908, tr4908, 4908, hybrid cloud, database, snapcenter, gui 
+---
+= TR-4908：SnapCenter 混合式雲端資料庫解決方案、含更新概述
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+NetApp的Alan Cao、FellIX Melligan
+
+本解決方案提供NetApp現場人員與客戶指示與指引、協助他們在SnapCenter 公有雲中使用NetApp支援GUI的工具、以及NetApp儲存服務CVO、在下列使用案例中設定、操作及移轉資料庫至混合雲環境：
+
+* 混合雲中的資料庫開發/測試作業
+* 混合雲中的資料庫災難恢復
+
+
+目前、許多企業資料庫仍位於私有企業資料中心、因為效能、安全性及/或其他原因。這套混合雲資料庫解決方案可讓企業在現場操作主要資料庫、同時使用公有雲進行開發/測試資料庫作業、以及進行災難恢復、以降低授權與營運成本。
+
+許多企業資料庫、例如Oracle、SQL Server、SAP HANA等、 帶來高昂的授權與營運成本。許多客戶會根據其資料庫環境中的運算核心數量、支付一次性授權費用、以及年度支援成本、無論核心是用於開發、測試、正式作業或災難恢復。其中許多環境在整個應用程式生命週期內可能無法充分運用。
+
+這些解決方案可讓客戶選擇將開發、測試或災難恢復專用的資料庫環境移至雲端、藉此降低可授權核心的數量。使用公有雲規模、備援、高可用度及消費型計費模式、可大幅節省授權與營運成本、同時不會犧牲任何應用程式的使用性或可用度。
+
+除了潛在的資料庫授權成本節約效益之外、NetApp容量型CVO授權模式可讓客戶以每GB為單位來節省儲存成本、同時賦予他們高層級的資料庫管理能力、這是競爭對手的儲存服務無法提供的功能。下表顯示公有雲中常見儲存服務的儲存成本比較。
+
+image:cvo_cloud_cost_comparision.png["錯誤：缺少圖形影像"]
+
+本解決方案說明SnapCenter 、透過使用以圖形化GUI為基礎的軟體工具和NetApp SnapMirror技術、混合雲資料庫作業可輕鬆設定、實作及操作。
+
+下列影片展示SnapCenter 了《實作中的參考》：
+
+* https://www.youtube.com/watch?v=-8GPzwjX9CM&list=PLdXI3bZJEw7nofM6lN44eOe4aOSoryckg&index=35["使用SnapCenter 支援技術、跨混合雲備份Oracle資料庫"^]
+* https://www.youtube.com/watch?v=v3udynwJlpI["將開發/測試複製到AWS Cloud、以供Oracle資料庫使用SnapCenter"^]
+
+
+值得注意的是、雖然本文中的圖例顯示CVO是公有雲中的目標儲存執行個體、但該解決方案也已針對ONTAP AWS的新版FSX更新儲存引擎進行完整驗證。
+
+若要為自己測試解決方案和使用案例、請至下列連結申請NetApp實驗室隨需SL10680：https://labondemand.netapp.com/lod3/labtest/request?nodeid=68761&destination=lod3/testlabs[TL_AWS_004 HCoD：AWS - NW、SnapCenter（OnPrem）^。
+
+link:hybrid_dbops_snapcenter_architecture.html["下一步：解決方案架構。"]

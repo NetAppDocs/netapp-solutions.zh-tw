@@ -19,7 +19,6 @@
   <block id="ceba75f5c6f0a0eed497aaa1cc4f30ad" category="cell">建立登陸頁面、以便更妥善地組織虛擬化和企業混合雲的內容</block>
   <block id="c65463900a520919b522c30b6256e475" category="cell">新增影片示範：運用NetApp Astra Control執行事後分析、並將應用程式還原至NVA-1160</block>
   <block id="f63616bb6a8255ed08089231c746f285" category="cell">2021年6月12日</block>
-  <block id="3f2c1d118f7bc861eb20da58f81a2d0d" category="cell">混合雲/虛擬化</block>
   <block id="040fc8ca9c1b1eb9d408c7ae5e202acb" category="cell">為虛擬化環境和來賓連線儲存選項建立企業混合雲（EHC）內容</block>
   <block id="16784caec2e047ddf59bd5a51bd35a73" category="cell">11/15/2021</block>
   <block id="1c20ad7a11d1c2856906d55171b50126" category="cell">新增影片示範：利用Astra Control將CI/CD傳輸管道中的資料保護功能新增至NVA-1160</block>
@@ -235,7 +234,6 @@
   <block id="a123daaac5749e4d0965aca160f0adfd" category="doc">NetApp解決方案自動化</block>
   <block id="d78228187c1a83d3bb4d8e97cd657807" category="paragraph">自動化可簡化NetApp解決方案的使用。</block>
   <block id="d9a06854085afcd104157eb7f0b66c3a" category="summary">NetApp解決方案自動化運用RedHat Ansible進行組態設定與管理。</block>
-  <block id="8c4271e6faf2cea4cfc8e5b7108d8ee9" category="section-title">程序</block>
   <block id="d1029167179320d8b6d70b11c3d01bd3" category="list-text">Ansible控制節點的需求：</block>
   <block id="9ced761647f5d80fe615526ffff63937" category="list-text">安裝下列套件的Ubuntu / Debian機器：</block>
   <block id="ca60b3698dd3d27a5f91e4dc0a1a2546" category="list-text">Python3.</block>
@@ -507,7 +505,6 @@
   <block id="72170ff3a9ca936d7855297f0bbd1eeb" category="cell">（必填）要使用的執行個體類型、取決於您選擇的授權類型：Explore：['標準dard_DS3_v2'、標準：[「標準dard_DS4_v2、標準DS13_v2、標準L8s_v2」]、Premium：['標準DS5_v2'、 「tandard_DS14_v2」、BYOL：為PayGo定義的所有執行個體類型。如需更多支援的執行個體類型、請參閱Cloud Volumes ONTAP 《發行說明》。預設值為「tandard_DS4_v2」。</block>
   <block id="b515d8e49b6ef626aa91dbd970708132" category="cell">（必填）要使用的授權類型。單一節點：['azure-cot-explore-paygo、azure-cot-Standard-paygo、azure-cot-paygo、azure-cot-payol、cape-payga]。對於HA：['azure-ha-cot-Standard-paygo、azure-ha-cot-paygo、azure-ha-cot-payol、ha-cape-payga]。預設值為「azure-cot-Standard-paygo」。在選擇「自帶授權類型容量型」或「Freemium」時、請使用HA的「cape-paygo」或「ha-cape-paygo」。在選擇「自帶授權類型節點型」時、請使用HA的「azure-cot-Premium byol」或「azure-ha-cot-Premium byol」。</block>
   <block id="d82dd9b3245382b365106db0568113e8" category="summary">NetApp解決方案自動化可讓客戶將許多常見的基礎架構和應用程式工作的部署、組態和執行自動化。</block>
-  <block id="4d3d20acde2dac77a5502c201323aa01" category="doc">NetApp解決方案自動化</block>
   <block id="2aa17d37bd2483f97468ab7653396786" category="paragraph">本節說明在AWX/Ansible Tower中設定參數所需的步驟、這些參數可讓環境做好使用NetApp自動化解決方案的準備。</block>
   <block id="134d501fee5367069f0746f15302ce1f" category="list-text">設定庫存。</block>
   <block id="0fb1db9928d7fc107d96c13f1918b639" category="list-text">瀏覽至「資源」→「庫存」→「新增」、然後按一下「新增庫存」。</block>
@@ -566,11 +563,7 @@
   <block id="3a580f142203677f1f0bc30898f63f53" category="example-title">Azure</block>
   <block id="c731f72e1d22a7c5e01a7cb789a8885e" category="example-title">GCP</block>
   <block id="0b79795d3efc95b9976c7c5b933afce2" category="section-title">簡介</block>
-  <block id="544c3a861d86ce6658187399d91aaa44" category="paragraph">驗證和架構解決方案的其中一個目標、是讓解決方案易於使用。因此、透過我們的解決方案來簡化基礎架構和/或應用程式的部署和組態、是至關重要的。NetApp致力於使用RedHat Ansible透過自動化來簡化解決方案的使用。</block>
-  <block id="9043d5bb11e7b216a7308f7a9761d9fd" category="paragraph">Ansible是開放原始碼自動化引擎、可協助IT團隊自動化應用程式部署、雲端資源配置、組態管理及許多其他IT需求。Ansible是無代理程式、不需要自訂的安全基礎架構。您可以透過SSH從控制系統遠端管理多個系統的自動化作業、讓IT團隊能夠將冗長且重複的IT需求自動化。</block>
-  <block id="8d9887ce2700536b12e7847e2163026e" category="paragraph">如果您是NetApp解決方案自動化的新手、可以使用下列章節來設定Ansible控制器。</block>
   <block id="6c92285fa6d3e827b198d120ea3ac674" category="inline-link">請按這裡</block>
-  <block id="6061668c9cb1cddb071099d0e9da5444" category="paragraph">如需RedHat Ansible的詳細資訊、請參閱文件<block ref="228582a93333b3e21d695cbcfe7060d2" category="inline-link-rx"></block>。</block>
   <block id="88b11dbb43daa1023e1e0eac175e0e04" category="section-title">設定Ansible Control節點</block>
   <block id="cc720ba6fbd83dd2b0c222e5b1d4419c" category="paragraph">Ansible是一種無代理自動化工具、因此您只需在一部機器（Ansible控制節點）上安裝即可。透過您的控制節點、您可以管理整個遠端機器機隊、而不需要在這些機器上進行任何額外的組態設定。</block>
   <block id="1fd37248272971c6b09693c66e545794" category="inline-link-macro">RHEL8/CentOS8</block>
@@ -606,17 +599,7 @@
   <block id="e9982e506e30915713c7485a2e77633b" category="section-title">技術塔總覽</block>
   <block id="d67372be0bd12a2ddbcf795ccfacc7de" category="cell">*章節*</block>
   <block id="5cd2adc9e2a5254e4c1da803519f298b" category="cell">人工智慧</block>
-  <block id="7324b08f5dfbdb08191404d3fdacfcbd" category="cell">AI型解決方案的集合。解決方案分為下列類別之一：[Navy]#AI Converged基礎架構#[navy]#Data Pipelines、Data Lakes and Management #[navy]#use案例#</block>
-  <block id="f5f0336c80fe8cdd5a51752c1ce61ac3" category="cell">資料收集解決方案（例如 Splunk SmartStore、Apache Spark等）</block>
-  <block id="e6d792539f0b0370e43d76a3e05a211a" category="cell">虛擬化核心解決方案的集合。解決方案分為下列類別之一：[Navy]#VMware虛擬化#[navy]#Demos and Tutores#</block>
   <block id="f27edcc7a209983dc37cbcdb0df49ce7" category="cell">虛擬桌面</block>
-  <block id="b3f656e5589b8507fed35a5cde55c7ce" category="cell">終端使用者運算解決方案的集合。解決方案分為下列類別之一：[Navy]#Virtual Desktop Service（VDS）#[navy]#VMware Horizon #[navy]#Citrix Virtual Apps and Desktops#[navy]#Virtual Desktop Applications#</block>
-  <block id="f4d9ebd0d9f8b0ed1329093e48c11221" category="cell">容器型解決方案的集合。解決方案分為下列類別之一：[Navy]#Red Hat OpenShift #[navy]#Google Anths#</block>
-  <block id="861a3cbb41e90c0f7d83b50b7522b0bd" category="cell">商業應用程式</block>
-  <block id="c343bf84179077b4550742e0222d3349" category="cell">商業應用程式解決方案的集合。解決方案可分為下列類別之一：[Navy]#sap#</block>
-  <block id="8a0b9e6043677d9587a3e02ced9a6dfd" category="cell">資料庫解決方案的集合。解決方案分為下列類別之一：[Navy]#SAP HANA #[navy]#Oracle#[navy]#Microsoft SQL Server#</block>
-  <block id="f8aacfa5c683858912c498f517c9b457" category="cell">資料存取</block>
-  <block id="c14336a2319ce73616b0fa898a883fe0" category="cell">資料收集解決方案。解決方案分為下列類別之一：[Navy]#Data Migration #[navy]#Data Protection #[navy]#Security #</block>
   <block id="408649df4ac74ae19e47eef7d060c5cb" category="cell">解決方案自動化</block>
   <block id="d83d094e8e3ce7450bf099061814d148" category="cell">使用Red Hat Ansible開始使用解決方案自動化的總覽。</block>
   <block id="6174d88cc7c0409df3e035a5c9d089cb" category="section-title">變更記錄</block>
@@ -625,33 +608,15 @@
   <block id="bea4c2c8eb82d05891ddd71584881b56" category="section-title">意見反應</block>
   <block id="c2e2fce3a995f59900d7afbbe58683f5" category="inline-link-macro">此連結</block>
   <block id="fb6b632cdd61e02434568081cbbf0fae" category="paragraph">請使用 <block ref="a5f81f398e43efd62a061a201309bfa7" category="inline-link-macro-rx"></block> 要求變更內容或提供內容的意見反應。請盡可能具體、確保您的意見反應適當。</block>
-  <block id="a712a0e553d0302aa27009e1ebc815ce" category="summary">一系列影片和示範、討論企業混合雲解決方案</block>
-  <block id="a867425c6a29a742f3dc77c80f5adac8" category="doc">企業混合雲影片與示範</block>
-  <block id="02ca4b8a1f54adf2c0d931bc5bdb61f3" category="paragraph">請觀看下列影片和示範、重點介紹三家主要雲端供應商的企業混合雲解決方案特定功能。</block>
   <block id="46b8f9361fae73f13467cd1aaff186ba" category="summary">NetApp解決方案資料最近的變更記錄</block>
   <block id="679ce0aa9d3d54bfddd37e1b78b802de" category="doc">NetApp解決方案變更記錄</block>
   <block id="aceacf14369d872e8cb00f62613f52c6" category="paragraph">最近對NetApp解決方案資料所做的變更。最新的變更會先列出。</block>
   <block id="e63695c4dea40eefb2ef481c7b242192" category="open-title">所有變更</block>
-  <block id="b0522aa84a7257c47dd4b765cf173db9" category="open-title">AI /資料分析</block>
   <block id="6fb2815b4c371ee082a84cc14539d4cb" category="open-title">企業應用程式</block>
   <block id="18a2eb3f7faf7c44e3062e78cbeff089" category="inline-link-macro">SAP解決方案儲存庫</block>
   <block id="412b2ee09f2fbaf8cddb69ee6fe43a2e" category="admonition">如需SAP和SAP HANA更新的詳細資訊、請參閱中每個解決方案的「更新歷史記錄」內容 <block ref="c4ed54a973fb1aa472c2443732d93c13" category="inline-link-macro-rx"></block>。</block>
-  <block id="19751bc7a2f01e4ee4762945c90c0130" category="open-title">資料保護與擴大機；移轉</block>
-  <block id="0f984f9309c692c61a7fc7cc418f3aaf" category="summary">BData Protection and Security解決方案的最新補充資料</block>
-  <block id="d035e5417fa83f8b48e9410b914d70ed" category="doc">資料保護與安全解決方案的新功能</block>
-  <block id="d6aa2099009bf5a43f1d5210308a91de" category="paragraph">最新的資料保護與安全解決方案與解決方案資料總覽。</block>
-  <block id="1e1fe2d30ed5bb9c5276dddb65f4ce65" category="cell">*安全性*</block>
-  <block id="44516140f9860119a65bb3fc45b9ff39" category="inline-link-macro">通過PCI-DSS驗證的架構NetApp HCI</block>
-  <block id="5b03dcf0205060a9490f1d572aee619e" category="cell"><block ref="5b03dcf0205060a9490f1d572aee619e" category="inline-link-macro-rx"></block></block>
-  <block id="373f503ebd19225995680383c6e2d54a" category="summary">一系列部落格討論商業應用程式與企業資料庫解決方案功能</block>
-  <block id="e4f724bc105592da045b6dd008770bbf" category="doc">商業應用程式與企業資料庫部落格</block>
-  <block id="034233dab82dddd28f950b8d4198499e" category="paragraph">部落格總覽、重點介紹商業應用程式與企業資料庫解決方案的特定功能。</block>
-  <block id="8e90e89b52f60feebe2c0df72ca0f424" category="section-title">商業應用程式部落格</block>
-  <block id="9149421bcec7ca7e29560cd7fc83c4d0" category="section-title">企業資料庫部落格</block>
   <block id="c4ff33edf6e94fb434fb59e4ad2c286b" category="inline-link-macro">混合雲資料庫解決方案SnapCenter 搭配使用</block>
-  <block id="dcf8c21fbb1d22c97f20ace5649e8918" category="list-text"><block ref="dcf8c21fbb1d22c97f20ace5649e8918" category="inline-link-macro-rx"></block></block>
   <block id="fc25c016a8fb35a621842044a8d4f2e7" category="inline-link-macro">將混合雲中的Oracle資料庫基礎架構自動化</block>
-  <block id="59a4cf9e5720080358e0622f3c948571" category="list-text"><block ref="59a4cf9e5720080358e0622f3c948571" category="inline-link-macro-rx"></block></block>
   <block id="53cf9d36e61cc97b118ae4cc9589bac3" category="summary">NetApp VDS Cloud Workspace Management Suite入口網站可集中管理各種VDS部署、包括針對內部部署、管理使用者、應用程式目錄及指令碼事件定義站台的部署。管理使用者也會使用此入口網站、視需要手動配置應用程式、並連線至任何機器進行疑難排解。</block>
   <block id="e68a6dedaba6faaba6e7afd9197edc4f" category="doc">管理入口網站</block>
   <block id="76368893e7696218fc60d77f96235f35" category="paragraph">NetApp VDS Cloud Workspace Management Suite入口網站可供使用<block ref="1640f4040bca8395064a2ee51cb5f0ae" category="inline-link-rx"></block> 而且即將推出的版本也隨之推出<block ref="b6375c31f2253ef964d998b5762ba440" category="inline-link-rx"></block>。</block>
@@ -1067,9 +1032,6 @@
   <block id="175ba74f5b7d0ecd3f531c5fce21a240" category="paragraph">如需詳細資訊、請參閱<block ref="03e02ecfc967e94041a86f599e14ac44" category="inline-link-rx"></block>。</block>
   <block id="fd324b11a163d2dae6bf3f9654381d16" category="inline-link-macro">下一步：ONTAP 虛擬桌面服務的功能</block>
   <block id="25838148a81bcaa2b7e931ef8cd65a13" category="paragraph"><block ref="25838148a81bcaa2b7e931ef8cd65a13" category="inline-link-macro-rx"></block></block>
-  <block id="bfd22ae6cd60e663ed70e43729a64b1a" category="summary">一系列部落格討論混合雲、桌面虛擬化與容器解決方案功能</block>
-  <block id="0ffff76bcc7d5f89f6a352694b916dbd" category="doc">混合雲、桌面虛擬化和容器部落格</block>
-  <block id="0aef0d80b80eebee0590e019fffb3715" category="paragraph">部落格總覽、重點介紹混合雲、桌面虛擬化與容器解決方案的特定功能。</block>
   <block id="74d542ee52cd8400c9b9307ed9a99c12" category="list-text">Astra DevOps使用案例：</block>
   <block id="3da7df001d5e1f907d2527f52c6ccc00" category="inline-link-macro">透過NetApp Astra Control、輕鬆將保護功能整合至Kubernetes CI/CD傳輸途徑</block>
   <block id="3f1cbb7eb907b7cb7f46877360d4a588" category="list-text"><block ref="3f1cbb7eb907b7cb7f46877360d4a588" category="inline-link-macro-rx"></block></block>
@@ -1950,10 +1912,6 @@
   <block id="6371d61614d0beaedb75e85d2c297d8f" category="paragraph">如需不將HDFS匯出至NFS的HDFS資料移轉詳細資訊、請參閱中的「部署步驟- NAS」一節<block ref="6a602f6a965c96a94215a45f0077e771" category="inline-link-rx"></block>。</block>
   <block id="aa722a0d50c9e3bfe81a7128f0e649d7" category="inline-link-macro">下一步：商業效益。</block>
   <block id="4e39bc17db35d21d84b6fb1e9786fdb5" category="paragraph"><block ref="4e39bc17db35d21d84b6fb1e9786fdb5" category="inline-link-macro-rx"></block></block>
-  <block id="e59c383143e849c3183725256fd9a923" category="summary">一系列影片與示範、討論混合雲、桌面虛擬化與容器解決方案功能</block>
-  <block id="abcf24668eda72956736ac7e0d4363b2" category="doc">混合雲、桌面虛擬化與容器影片與示範</block>
-  <block id="45ab5f50e70c77a29d7191bf77c1ea15" category="paragraph">請觀看下列影片和示範、重點介紹混合雲、桌面虛擬化和Container解決方案的特定功能。</block>
-  <block id="e96910160219339e97abaf85c4323aaa" category="section-title">NetApp與VMware Tanzu影片系列</block>
   <block id="526cee55e2936716b5481f8a933bd217" category="inline-link-macro">如何將vVols與NetApp和VMware Tanzu Basic搭配使用、第1部分</block>
   <block id="c2240101c5a3a188541ce87c59265df9" category="list-text"><block ref="c2240101c5a3a188541ce87c59265df9" category="inline-link-macro-rx"></block></block>
   <block id="2e933c421900ce4ed68883bfdf00a487" category="inline-link-macro">如何搭配NetApp和VMware Tanzu Basic使用vVols、第2部分</block>
@@ -1967,8 +1925,6 @@
   <block id="bd6059cd679908cdb2d015167d51a3fe" category="list-text"><block ref="bd6059cd679908cdb2d015167d51a3fe" category="inline-link-macro-rx"></block></block>
   <block id="72feee9e055adc523c4c9ca3c1453409" category="inline-link-macro">影片：利用Astra Control在CI/CD傳輸途徑中提供資料保護</block>
   <block id="6dc07ae6ad84b77b5d06f9d3fff5b819" category="list-text"><block ref="6dc07ae6ad84b77b5d06f9d3fff5b819" category="inline-link-macro-rx"></block></block>
-  <block id="796fae61e057ed3cc6ad68fe313088d7" category="inline-link-macro">影片：使用Astra Control進行工作負載移轉-採用NetApp的Red Hat OpenShift</block>
-  <block id="6721f3769bff6250dbce3a06c2ae10ac" category="list-text"><block ref="6721f3769bff6250dbce3a06c2ae10ac" category="inline-link-macro-rx"></block></block>
   <block id="c0a8420c339dd9d57d40448c30a749df" category="inline-link-macro">影片：使用Astra Trident和SnapMirror進行工作負載移轉-採用NetApp的Red Hat OpenShift</block>
   <block id="77697d49d0c6b79e2642435a36c8c1e0" category="list-text"><block ref="77697d49d0c6b79e2642435a36c8c1e0" category="inline-link-macro-rx"></block></block>
   <block id="762a14964ee1713d320b8beefaf55b17" category="inline-link-macro">影片：安裝OpenShift虛擬化技術-採用NetApp的Red Hat OpenShift</block>
@@ -2002,23 +1958,10 @@
   <block id="1043b5153afff839b84d714aa9127913" category="cell"><block ref="1043b5153afff839b84d714aa9127913" category="inline-link-macro-rx"></block></block>
   <block id="da38226e07ff21f147182bb08be38f6f" category="inline-link-macro">Anthos on裸機與NetApp合作</block>
   <block id="ac1da2af455fc001ba8b58af0e62d151" category="cell"><block ref="ac1da2af455fc001ba8b58af0e62d151" category="inline-link-macro-rx"></block></block>
-  <block id="506b02d257f89febd090ded6564e8c4f" category="summary">NetApp解決方案自動化功能的最新新新增功能</block>
-  <block id="3b1dbad34c6f708a2653d9c6ae15b15d" category="doc">解決方案自動化的新功能</block>
-  <block id="a90193527119bcbd79a1084d94ec3914" category="paragraph">NetApp解決方案的最新自動化功能總覽。</block>
-  <block id="153fbde949ec10e69bae256a4114f480" category="cell">*解決方案自動化入門*</block>
   <block id="3d45b043c5518eca1e47fb4ba8a813da" category="inline-link-macro">在RHEL / CentOS上設定用於CLI部署的Ansible Control Node</block>
-  <block id="0d4c9e63678641d4ae0e23bd36684722" category="cell"><block ref="0d4c9e63678641d4ae0e23bd36684722" category="inline-link-macro-rx"></block></block>
   <block id="2afb5cc3404c6c8162722fd41895c2de" category="inline-link-macro">設定Ansible Control Node、以便在Ubuntu / Debian上部署CLI</block>
-  <block id="0f752948a660f9bbb5956c86d669a395" category="cell"><block ref="0f752948a660f9bbb5956c86d669a395" category="inline-link-macro-rx"></block></block>
   <block id="6b8c64be0bad88fb867c6576ac777b25" category="inline-link-macro">設定Ansible Tower或AWX進行直立式/ AWX部署</block>
-  <block id="b8c65aa5893cb554f17ec9c5b653c9bc" category="cell"><block ref="b8c65aa5893cb554f17ec9c5b653c9bc" category="inline-link-macro-rx"></block></block>
-  <block id="e7760fa86ac312b359215e15113fde9b" category="cell">*將混合雲中的Oracle資料庫基礎架構自動化*</block>
   <block id="e9dcec3e531a3cec5ee733f23baab91d" category="inline-link-macro">在ONTAP NFS上自動部署Oracle 19c for Sfor</block>
-  <block id="e10944318a093524b44d6671144720e9" category="cell"><block ref="e10944318a093524b44d6671144720e9" category="inline-link-macro-rx"></block></block>
-  <block id="8893b40d0413bdee0d28539b7201b89c" category="summary">一系列影片和示範、討論AI和現代化資料分析解決方案的功能</block>
-  <block id="d14e8dc770c2ede214d6db5eeb5d5167" category="doc">AI與現代資料分析影片與示範</block>
-  <block id="4696a661acac2c10910848bfebf30d2d" category="paragraph">影片和示範總覽、重點介紹AI和現代化資料分析解決方案的特定功能。</block>
-  <block id="bd86b07883a3c2983a874d3a11359cde" category="section-title">YouTube上的示範/影片</block>
   <block id="145706f4acca44c289ff5ca8cc5b2b86" category="inline-link-macro">NetApp AI解決方案</block>
   <block id="f4016f882c8544b575d00a8cb6a17809" category="list-text"><block ref="f4016f882c8544b575d00a8cb6a17809" category="inline-link-macro-rx"></block></block>
   <block id="895a85fc0a1a565ac547acc1bc9740f3" category="inline-link-macro">MLOps</block>
@@ -3216,7 +3159,6 @@
   <block id="96e41b2b281ca4b71edf4ed16e46a2be" category="paragraph"><block ref="96e41b2b281ca4b71edf4ed16e46a2be" category="inline-link-macro-rx"></block></block>
   <block id="7c12725837ee75c4c0a9bbc14f99934d" category="inline-link-macro">下一步：內部部署的先決條件。</block>
   <block id="bc57dd30a9059d494c9d76e4b0a9ce8f" category="paragraph"><block ref="bc57dd30a9059d494c9d76e4b0a9ce8f" category="inline-link-macro-rx"></block></block>
-  <block id="40640c0c34d4427f5d18b9ca476e3158" category="summary">本頁說明NetApp ONTAP 支援儲存設備上Oracle19c的自動化資料保護。</block>
   <block id="261e91a1afdfe1123497b1b9ba5ab3e1" category="section-title">AWX/Tower Oracle資料保護</block>
   <block id="db2b28449b6d868d910cd53527934988" category="list-text">為第一個群組提供Oracle名稱、然後按一下「Save（儲存）」。</block>
   <block id="200e1fa09608b23de5cd04d22d3a5bdb" category="list-text">針對第二個群組（稱為DR_Oracle）重複此程序。</block>
@@ -6108,31 +6050,6 @@
   <block id="fc248f74f5e36542f7f5627b8610e9a3" category="paragraph"><block ref="fc248f74f5e36542f7f5627b8610e9a3" category="inline-link-rx"></block></block>
   <block id="c0227cef6f07a8cd2ac72f2945b031aa" category="section-title">開放原始碼</block>
   <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">通知檔案提供有關 NetApp 軟體所使用之協力廠商版權與授權的資訊。</block>
-  <block id="b4a5303e0fac342c604f2250a077e3be" category="summary">AI和現代資料分析解決方案的最新推廣品</block>
-  <block id="3d94edd87fc615dfe301c7233c56c6c3" category="doc">AI與現代資料分析的新功能</block>
-  <block id="6c359c33f91503466661c814919afe18" category="paragraph">最新AI與現代Data Analytics解決方案與解決方案資料的總覽。</block>
-  <block id="b16e2e1566ba0fc14f6e0eb77d99cf93" category="cell">* NetApp ONTAP 支援NVIDIA DGX A100系統*</block>
-  <block id="70163cee23a15a309e4f1ec48b6928a8" category="cell">* NetApp ONTAP 採用NVIDIA DGX A100系統與Mellanox Spectrum乙太網路交換器*的AI</block>
-  <block id="706e736fcad235c710eab30a42b219b1" category="cell">*採用NVIDIA DGX A100系統與BeeGFS *的EF系列AI</block>
-  <block id="ec690c5998518cfa45b178a530da4125" category="cell">*邊緣的AI推斷-採用Lenovo ThinkSystem*的NetApp</block>
-  <block id="b1d14722f1d9c668c677c2c7f22cfcc6" category="cell"><block ref="b1d14722f1d9c668c677c2c7f22cfcc6" category="inline-link-macro-rx"></block></block>
-  <block id="0c70e09b2805fac4fb509aee9132fa97" category="cell">* NetApp DataOps Toolkit *</block>
-  <block id="9004ee13f10e4aa331cdbb0e05878d3f" category="inline-link-macro">存取GitHub上的工具套件</block>
-  <block id="604c2d197444e12a03e7c1ba2830e768" category="cell"><block ref="604c2d197444e12a03e7c1ba2830e768" category="inline-link-macro-rx"></block></block>
-  <block id="aa84da6cfda7179db9bbd5f34addb637" category="cell">*使用NetApp AI*進行意見分析</block>
-  <block id="7a25f90f4eb7f4d051b5e2903cea9546" category="cell"><block ref="7a25f90f4eb7f4d051b5e2903cea9546" category="inline-link-macro-rx"></block></block>
-  <block id="f48991e4773d2a30dd01c029e22e3f32" category="cell">*點選率預測- Azure的分散式訓練*</block>
-  <block id="2b48b8a77ebec6ee8be0f1146585b7c3" category="cell"><block ref="2b48b8a77ebec6ee8be0f1146585b7c3" category="inline-link-macro-rx"></block></block>
-  <block id="4810ca62a9687605d0a9c7471e75ec69" category="cell">*資料分析解決方案簡介*</block>
-  <block id="7cc3c71ee2fdbff1fd2efbfcded89f90" category="inline-link-macro">不同分析策略的不同解決方案</block>
-  <block id="478906eb475a111b93606dc484113cdc" category="cell"><block ref="478906eb475a111b93606dc484113cdc" category="inline-link-macro-rx"></block></block>
-  <block id="548bebbdb3ac596c6116cbd05e474fe0" category="summary">一系列部落格、討論適用於所有公有雲供應商的企業混合雲解決方案</block>
-  <block id="b8136929c18b90d36d40eb475da80f06" category="doc">企業混合雲部落格</block>
-  <block id="27f22a085d12c1434c2027f4d64f9418" category="paragraph">這三家主要雲端供應商的部落格總覽、重點介紹企業混合雲解決方案的特定功能。</block>
-  <block id="f3c961b3fcb2ae7229add932837c205a" category="summary">一系列影片和示範、討論商業應用程式和企業資料庫解決方案功能</block>
-  <block id="f7164629c6d69e9fc50c2435382e23c8" category="doc">商業應用程式與企業資料庫影片與示範</block>
-  <block id="9c8f0f2cea03121d5372f653983bb29b" category="paragraph">影片與示範總覽、重點介紹商業應用程式與企業資料庫解決方案的特定功能。</block>
-  <block id="a0d2b6fe9ab0a7e386c4c21f70331226" category="section-title">案例研究</block>
   <block id="33be49f7ebc56eb7d336a201f7ac0df6" category="inline-link-macro">SAP on Azure NetApp Files</block>
   <block id="626865aeb52c00e03e8f0df7695c5a5c" category="list-text"><block ref="626865aeb52c00e03e8f0df7695c5a5c" category="inline-link-macro-rx"></block></block>
   <block id="e131204502a58630f2f72937238604c8" category="section-title">影片/示範</block>
@@ -7504,14 +7421,10 @@
   <block id="6c7eefdca8e3859011afa00995879a32" category="inline-link-macro">下一步：組態。</block>
   <block id="0c86c0f2c0ad5b82864ef1b20a904132" category="paragraph"><block ref="0c86c0f2c0ad5b82864ef1b20a904132" category="inline-link-macro-rx"></block></block>
   <block id="68d13ef3d87e892878a6e6cbb44d1f21" category="doc">在RHV上部署Red Hat OpenShift：搭配NetApp的Red Hat OpenShift</block>
-  <block id="99d04ce0dcd35b869d3c86120b76a443" category="summary">NetApp企業混合式雲端解決方案是一套策略與技術功能、可在主要公有雲超大規模擴充系統中展現NetApp儲存設備的功能。</block>
-  <block id="63e6365ca9ee8eced75eccdd9a133b69" category="doc">適用於GCP / GCVE的NetApp企業混合雲解決方案</block>
   <block id="74eb4c6138d4b8cd8399b01966c5af28" category="doc">適用於GCP的NetApp儲存選項</block>
   <block id="8f08ff97ca555f50f0d05fdf950a0568" category="paragraph">Google Cloud支援下列組態的NetApp儲存設備：</block>
   <block id="3017a9031d66c55b0258c102decfd1b9" category="inline-link-macro">以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP</block>
-  <block id="426cc154d20d2e0075b81fa214c4d27d" category="list-text"><block ref="426cc154d20d2e0075b81fa214c4d27d" category="inline-link-macro-rx"></block></block>
   <block id="9bb210767ccb9c085c816c82f3b6b1cb" category="inline-link-macro">以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service</block>
-  <block id="8811a4f5d0046113ac94b851ec1b1990" category="list-text"><block ref="8811a4f5d0046113ac94b851ec1b1990" category="inline-link-macro-rx"></block></block>
   <block id="4177c39712dda5976b0ba657b24af234" category="section-title">在Cloud Volumes ONTAP Google Cloud部署功能（自行部署）</block>
   <block id="2839d8571363b149cc3fd9db82a7183d" category="paragraph">可從GCVM私有雲端環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP這些磁碟區也可掛載於Linux用戶端、Windows用戶端和LUN、在透過iSCSI掛載時、可在Linux或Windows用戶端上作為區塊裝置存取、因為Cloud Volumes ONTAP 此功能支援iSCSI、SMB及NFS傳輸協定。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP</block>
   <block id="3b020916a45973167bc70cb4517bd8c8" category="inline-link-macro">設定系統之間的資料複寫</block>
@@ -7676,9 +7589,7 @@
   <block id="a74a86037d1564ce62843a1252f6ad37" category="admonition">客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 「效益」和「雲端Volume服務」連線至GCVE.</block>
   <block id="d6d7fade0a5d1cd7723c64125e595b08" category="paragraph">設定程序可分為下列步驟：</block>
   <block id="11a31c6d83a723b3ea9c348c22e86238" category="inline-link-macro">部署及設定GCVE</block>
-  <block id="8514045c5551663f28246e665ca2f189" category="list-text"><block ref="8514045c5551663f28246e665ca2f189" category="inline-link-macro-rx"></block></block>
   <block id="3e5cc29621d2619be0d7b1569da6909c" category="inline-link-macro">啟用對GCVE的私有存取</block>
-  <block id="3cef16671ee166d12c5fd192fa419358" category="list-text"><block ref="3cef16671ee166d12c5fd192fa419358" category="inline-link-macro-rx"></block></block>
   <block id="fd558e50adcdcb0d667a4790f70f75a9" category="paragraph">若要在GCP上設定GCVE環境、請登入GCP主控台、然後存取VMware Engine入口網站。</block>
   <block id="fb33f758c28f8ef8d56e41f74b4c47ab" category="paragraph">按一下「New Private Cloud」（新私有雲端）按鈕、然後輸入所需的GCVM私有雲端組態。在「位置」上、請務必在部署CVS/CVO的相同地區/區域中部署私有雲端、以確保最佳效能和最低延遲。</block>
   <block id="63b31ca49de01854f780d1e1722cd1c1" category="paragraph">先決條件：</block>
@@ -7699,37 +7610,21 @@
   <block id="b433f901707e7fd0f6d64371dfca4af9" category="paragraph"><block ref="b433f901707e7fd0f6d64371dfca4af9" category="inline-image-macro-rx" type="image"></block></block>
   <block id="989afab9e0dfcc6d523ddb1d23145834" category="paragraph"><block ref="989afab9e0dfcc6d523ddb1d23145834" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0c138556fe4f10d4cdba4c61933afd91" category="doc">適用於Google Cloud虛擬化引擎的NetApp解決方案（GCVE）</block>
-  <block id="dc740fd7aabd59b53cda21fc57a7c10c" category="paragraph">深入瞭解NetApp為Google Cloud帶來的解決方案、包括移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
-  <block id="1d71c2a7928e8ff703779db43b80044f" category="section-title">GCVE.解決方案</block>
-  <block id="5a2d7e3c6d0ab5aa27c06042f28c3198" category="open-title">延伸/爆發</block>
-  <block id="ba32bd76ecebfdb42efa20b6de24b808" category="paragraph">&lt;指向TR&gt;中的適當區段</block>
-  <block id="8553825f2c93feb7d32c670401e5f338" category="open-title">資料中心維護</block>
   <block id="10b5b21ed1ee90eca305b558caf7d03b" category="open-title">移轉</block>
-  <block id="72b05a5f0a9b1e3f2eded42f0dbdd848" category="open-title">備份/還原</block>
-  <block id="e413eba49b15917b0c9dbf2620f3e66e" category="open-title">災難恢復</block>
   <block id="21a1e68164f738b8be1dae11d5a694b3" category="open-title">資料保護</block>
   <block id="9eaed1d83e18be57bbead8a1f4bf4abe" category="doc">適用於GCP的NetApp原生資料存放區選項</block>
   <block id="ade1814101b0113034e0f446307b3db3" category="doc">適用於Google Cloud Platform GCVE的NetApp功能</block>
-  <block id="e8650e82200d7cca856f3795833c4382" category="paragraph">深入瞭解NetApp為Google Cloud Platform（GCP）提供的功能Google Cloud Virtualization Ending（GCVETM）：從NetApp做為來賓連線儲存設備或原生資料存放區、到移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復、皆可獲得此功能。</block>
   <block id="addac5e706b2148d9c7b3bbe2d2fcdde" category="paragraph">從下列選項中選取、跳至所需內容的區段：</block>
-  <block id="6f1af1c4707c0ddb6d24c463fa4904f1" category="list-text">連結：#config[在GCP中設定GCVE</block>
   <block id="6eb516b97eae0ab93b8d6aab35fbb764" category="inline-link-macro">適用於GCVE的NetApp儲存選項</block>
   <block id="b4360d9dcce9e932e3b5b09fdc524745" category="list-text"><block ref="b4360d9dcce9e932e3b5b09fdc524745" category="inline-link-macro-rx"></block></block>
   <block id="fdab91853bf925f2256c6d39ec3f5351" category="section-title">在GCP中設定GCVE</block>
   <block id="833413440fbbe13837d8b58256cfba65" category="paragraph">如同內部部署、規劃雲端型虛擬化環境對於成功建立虛擬機器和移轉的正式作業就緒環境來說、是非常重要的。</block>
-  <block id="74a9966b070c1e73507b6ff0780e3733" category="list-text"><block ref="74a9966b070c1e73507b6ff0780e3733" category="inline-link-macro-rx"></block></block>
-  <block id="337bcf72d1e47b982df4965e1063ef67" category="list-text"><block ref="337bcf72d1e47b982df4965e1063ef67" category="inline-link-macro-rx"></block></block>
   <block id="50b53922d656bce75f35201b661fc378" category="paragraph">NetApp儲存設備可在GCP GCVE中以多種方式使用、無論是作為猜測連線或原生資料存放區。</block>
   <block id="94772ee4b241fe0706c3aaef6e3a4505" category="inline-link-macro">支援的NetApp儲存選項</block>
   <block id="67b586cdf9703ba67abe711415768cc0" category="paragraph">請造訪 <block ref="01a9bd21bfc714c8dec8aabc5b88eda7" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
-  <block id="703133f070dbe0ec953855a2291e151a" category="paragraph">*來賓連線儲存設備*</block>
-  <block id="b2b70627d90e90b2fcf0b37f68d18d32" category="list-text"><block ref="b2b70627d90e90b2fcf0b37f68d18d32" category="inline-link-macro-rx"></block></block>
-  <block id="74186fb00c70b9871392ea68443adfd5" category="list-text"><block ref="74186fb00c70b9871392ea68443adfd5" category="inline-link-macro-rx"></block></block>
   <block id="94f644afad50386ab13d527e1056ce71" category="paragraph">*原生資料存放區*</block>
   <block id="1234d67e696757e4666b0611f60b80d8" category="inline-link-macro">以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service</block>
-  <block id="a508a86f372584a11bee8d3d41e3afca" category="list-text"><block ref="a508a86f372584a11bee8d3d41e3afca" category="inline-link-macro-rx"></block></block>
   <block id="c567300e15e9f9b873771e56c72c938b" category="admonition">1 -目前處於私有預覽中</block>
-  <block id="76b7cf7d0f36f0986e2c7ef578303aab" category="doc">摘要與結論：為何選擇NetApp for Enterprise Hybrid Cloud（EHC）</block>
   <block id="dd6f2ba05323a537582c1f232e8a2c60" category="paragraph">NetApp Cloud Volumes搭配適用於大型超大規模擴充系統的VMware解決方案、可為想要運用混合雲的組織提供極大潛力。本節其餘部分提供使用案例、說明整合NetApp Cloud Volumes可實現真正的混合式多雲端功能。</block>
   <block id="e7441dbfabeaebba75ddd1bf2bcf25e9" category="section-title">使用案例1：最佳化儲存設備</block>
   <block id="b9a8c3d27aa6638e02992c8b76fea769" category="paragraph">使用RVtoolsouting執行規模調整練習時、總是能清楚看出、馬力（vcpU/vMem）的規模與儲存設備平行。許多時候、組織發現自己的儲存空間需要磁碟機的大小、遠超馬力所需的大小。</block>
@@ -7749,27 +7644,15 @@
   <block id="2993778cba8ea9a69af4ff9dc7e18fb8" category="paragraph">這是用來連接儲存設備的熟悉程序。請記住、這只是以新名稱變更資料的位置、工具和程序都維持不變、而NetApp Cloud Volumes則有助於最佳化整體部署。</block>
   <block id="6120544c737d67dd31f47d101fe21a84" category="doc">在雲端供應商中設定虛擬化環境</block>
   <block id="f4f7adb7cbe18f2cdd82be75a52b0417" category="paragraph">如需如何在每個受支援的超大規模擴充系統中設定虛擬化環境的詳細資訊、請參閱此處。</block>
-  <block id="09e89069d02379fc56daa781d256d7b6" category="section-title">AWS的虛擬化環境組態（VMC）</block>
   <block id="162e9e1fd4657b8d9588a5ae8c8e6e66" category="paragraph">本節說明如何在AWS SDDC上設定及管理VMware Cloud、並搭配可用的選項來連接NetApp儲存設備。</block>
   <block id="e6719013bc5803c0da0d4bf78fc8c4a0" category="admonition">客體內儲存設備是唯一受支援的方法、可將FSXVMware ONTAP 和Cloud Volumes ONTAP VMware連接至AWS VMC。</block>
   <block id="389544cc8199f2ddd936397695d0dbe9" category="inline-link-macro">部署及設定適用於AWS的VMware Cloud</block>
-  <block id="3fb5798a9396698dabb0ac96950db53b" category="list-text"><block ref="3fb5798a9396698dabb0ac96950db53b" category="inline-link-macro-rx"></block></block>
   <block id="b4f284d3b5bb40ee91901933b8f7ef5f" category="inline-link-macro">將VMware Cloud連接至FSX ONTAP VMware</block>
-  <block id="046546ab63b0ca36de368801c6fd8a9e" category="list-text"><block ref="046546ab63b0ca36de368801c6fd8a9e" category="inline-link-macro-rx"></block></block>
-  <block id="5c7b11ed146406e84fe971b132517bcd" category="section-title">Azure虛擬化環境組態（AVS）</block>
   <block id="491aa8f554f95207a4b7d47f89777e13" category="paragraph">本節說明如何設定及管理Azure VMware解決方案、以及如何搭配可用的選項來連接NetApp儲存設備。</block>
   <block id="cc887bc72eb6e7422bfa13437f902e54" category="admonition">客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決Cloud Volumes ONTAP 方案與VMware解決方案連接的方法。</block>
   <block id="3d24cd3e433bf1992e011c9f92c3fab6" category="inline-link-macro">註冊資源供應商並建立私有雲</block>
-  <block id="0027e14144945de23e255b58586424e1" category="list-text"><block ref="0027e14144945de23e255b58586424e1" category="inline-link-macro-rx"></block></block>
   <block id="a1123889b6465e93a2209c2a0ca667ef" category="inline-link-macro">連線至新的或現有的ExpressRoute虛擬網路閘道</block>
-  <block id="c2dd14a3829d81f8d6ccd1a2a41e114b" category="list-text"><block ref="c2dd14a3829d81f8d6ccd1a2a41e114b" category="inline-link-macro-rx"></block></block>
   <block id="ae1764c7cb70aed2d4548c424d7bf34a" category="inline-link-macro">驗證網路連線能力並存取私有雲端</block>
-  <block id="d70f78589c41399658959afc073dfede" category="list-text"><block ref="d70f78589c41399658959afc073dfede" category="inline-link-macro-rx"></block></block>
-  <block id="7ec8289b14700d8be0d8f376eea6b8bf" category="section-title">GCP的虛擬化環境組態（GCVE）</block>
-  <block id="9f7328009a38e32265481f8305d6aa75" category="list-text"><block ref="9f7328009a38e32265481f8305d6aa75" category="inline-link-macro-rx"></block></block>
-  <block id="5ee479af89822c5af943f78689918520" category="list-text"><block ref="5ee479af89822c5af943f78689918520" category="inline-link-macro-rx"></block></block>
-  <block id="3cce9a9057a6d96d9ac2ddab52d477fe" category="doc">NetApp企業混合雲解決方案</block>
-  <block id="2195b6c1bba772f631332c732395b829" category="doc">企業混合雲（EHC）的使用案例</block>
   <block id="5f1bd6ade489565bebba9a771b93fe70" category="paragraph">在規劃混合雲或雲端優先部署時、對IT組織而言重要的使用案例總覽。</block>
   <block id="0812fc943ecbd9a54d88fb25729d0aa5" category="section-title">熱門使用案例</block>
   <block id="f136615e6f2c1b330afb72bf4a45b4a4" category="paragraph">使用案例包括：</block>
@@ -7796,75 +7679,16 @@
   <block id="7f08237a127b62af444f720f15216cee" category="list-text"><block ref="7f08237a127b62af444f720f15216cee" category="inline-link-macro-rx"></block></block>
   <block id="c774c23e9a97e08bfa096f1cbf18cc17" category="inline-link-macro">NetApp儲存選項</block>
   <block id="d3fc27ff58dc3a0d839a16af858e7999" category="list-text"><block ref="d3fc27ff58dc3a0d839a16af858e7999" category="inline-link-macro-rx"></block></block>
-  <block id="3b141b6466b12e3acb21b96825ab3d1b" category="section-title">AWS和VMC</block>
-  <block id="f83f574b032c714479d3e32efdc3cbe3" category="section-title">Azure與AVS</block>
-  <block id="1789862d26aa4adb9f5c2737bbf6a1fc" category="section-title">GCP和GCV</block>
   <block id="ff264305bf70750f504c04f48ab02038" category="paragraph">NetApp儲存設備可在三大大型超大規模擴充系統中的每個系統中、以數種方式（例如猜測已連線或原生資料存放區）使用。</block>
   <block id="60ce80493de8468bdfd597af1c219a9f" category="paragraph">AWS支援下列組態的NetApp儲存設備：</block>
   <block id="4a7272ea95323d5fef2e377b91b5f16d" category="inline-link-macro">FSX ONTAP 支援以客為本的連線儲存設備</block>
-  <block id="70b9c790cc4671aad4f8d8322d13161b" category="list-text"><block ref="70b9c790cc4671aad4f8d8322d13161b" category="inline-link-macro-rx"></block></block>
-  <block id="2b1b2978337fa95de5057d99307c01aa" category="list-text"><block ref="2b1b2978337fa95de5057d99307c01aa" category="inline-link-macro-rx"></block></block>
   <block id="83c87929208a5770dfb09e33514193f4" category="inline-link-macro">FSX ONTAP 支援原生資料存放區</block>
-  <block id="ad476c4cac730935959743eb28c5ca66" category="list-text"><block ref="ad476c4cac730935959743eb28c5ca66" category="inline-link-macro-rx"></block></block>
   <block id="5f18b04dd7d7089a2177c4c930d8d57f" category="paragraph">Azure以下列組態支援NetApp儲存設備：</block>
   <block id="1ffaf40c19facb6829b48b667d1dcaa3" category="inline-link-macro">以客體連線儲存設備的形式提供Azure NetApp Files</block>
-  <block id="79fab3fcc59adc540e33fa185069b7ce" category="list-text"><block ref="79fab3fcc59adc540e33fa185069b7ce" category="inline-link-macro-rx"></block></block>
-  <block id="85a5820e8da21c627876736be5d694b8" category="list-text"><block ref="85a5820e8da21c627876736be5d694b8" category="inline-link-macro-rx"></block></block>
   <block id="98ba63f921be22bb183a43d868521ce1" category="inline-link-macro">以原生資料存放區形式提供的資料（anf）Azure NetApp Files</block>
-  <block id="c054a58e4fcd496e4fa5c1b0c16dfa69" category="list-text"><block ref="c054a58e4fcd496e4fa5c1b0c16dfa69" category="inline-link-macro-rx"></block></block>
-  <block id="28a7880d69d2603391bd4ae2a4de0d68" category="section-title">GCO和GCV</block>
-  <block id="3aa200e6ed258b413d3edac26b75184a" category="list-text"><block ref="3aa200e6ed258b413d3edac26b75184a" category="inline-link-macro-rx"></block></block>
-  <block id="236b2a8169de601ff6b72a6a78e1f572" category="list-text"><block ref="236b2a8169de601ff6b72a6a78e1f572" category="inline-link-macro-rx"></block></block>
-  <block id="22aae0cba6d6bb50053c5b84e36b16ad" category="list-text"><block ref="22aae0cba6d6bb50053c5b84e36b16ad" category="inline-link-macro-rx"></block></block>
-  <block id="f0969548cbf8208f26497f680b470705" category="list-text"><block ref="f0969548cbf8208f26497f680b470705" category="inline-link-macro-rx"></block></block>
-  <block id="44cf8e167821820f0ebe40745562219b" category="list-text"><block ref="44cf8e167821820f0ebe40745562219b" category="inline-link-macro-rx"></block></block>
-  <block id="27a2d4b0295d93eb20519fcf77df27f3" category="list-text"><block ref="27a2d4b0295d93eb20519fcf77df27f3" category="inline-link-macro-rx"></block></block>
-  <block id="07004cdc228cde7054ba825a728ee189" category="list-text"><block ref="07004cdc228cde7054ba825a728ee189" category="inline-link-macro-rx"></block></block>
-  <block id="335ef14df727dc9707e14629b77fcf30" category="doc">AWS對NetApp儲存設備的支援</block>
-  <block id="6a8abef867f53cd024908ab859c46238" category="list-text"><block ref="6a8abef867f53cd024908ab859c46238" category="inline-link-macro-rx"></block></block>
-  <block id="5fd057c554dfaf16f0d97e4defdb81fd" category="list-text"><block ref="5fd057c554dfaf16f0d97e4defdb81fd" category="inline-link-macro-rx"></block></block>
-  <block id="48a9e19e56cfc47077d0352f9d0f2693" category="section-title">Azure對NetApp儲存設備的支援</block>
-  <block id="de049193fe94b917d3e89452cdfee78d" category="list-text"><block ref="de049193fe94b917d3e89452cdfee78d" category="inline-link-macro-rx"></block></block>
-  <block id="5f68200d68deb8399b86dd57533f10a4" category="list-text"><block ref="5f68200d68deb8399b86dd57533f10a4" category="inline-link-macro-rx"></block></block>
-  <block id="5b7d2a7cd86311f868ed2f3d495a8f0f" category="section-title">NetApp儲存設備的GCP支援</block>
   <block id="b583dc49832a978014ef0d14fe7ef1ce" category="paragraph">深入瞭解NetApp為每個大型擴充系統帶來VMware環境的解決方案、包括移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
-  <block id="37cbb75112a68116251619ab33efe24a" category="section-title">適用於VMC的NetApp解決方案</block>
-  <block id="2c3412ea249289d455415fc5974540d7" category="paragraph">下列對照表定義了各個超大規模擴充系統和NetApp儲存選項的解決方案使用案例。按一下所需儲存格中的詳細資料、即可檢視解決方案詳細資料。</block>
-  <block id="205549244e00d8fc3aed42cc242b6e66" category="open-title">AWS（VMC）</block>
-  <block id="7fb61d6790786c6584895ba13b1d7acf" category="cell">*使用案例*</block>
-  <block id="23b14f1282da64a4a69cef795c672d69" category="cell">* FSX* ONTAP</block>
-  <block id="5e6a9c7508fcb882686fb57577c20564" category="cell">備份至雲端</block>
-  <block id="fca9cd52865f9c45b9c1c0810944323a" category="cell">雲端災難恢復</block>
-  <block id="1f7519825c9e66f611f1b8a2dfab6d98" category="cell">開發/測試</block>
-  <block id="03a85053364f989565c431e1f3cb14b6" category="cell">連到雲端</block>
-  <block id="520a0900399ea06bc457dd365ce39b56" category="cell">移轉至雲端</block>
-  <block id="1d8b77813302d5fc10b4a01c9d1f71ba" category="open-title">Azure（AVS）</block>
-  <block id="f06436d87956805c42a72d20c6e0c6aa" category="cell">* ANF*</block>
-  <block id="a060ea40d8e1f38832adc8dab3110308" category="cell">* CVO *</block>
-  <block id="7896a48b4cb2f9b6d3c3612c0b5a8886" category="open-title">Google（GCVE）</block>
-  <block id="cb56c4671d6ec2da0b5f3b248999cba7" category="cell">* CVS</block>
-  <block id="5b2a691ebf81d334bb42112bb635d34d" category="doc">企業混合雲（EHC）支援的組態</block>
   <block id="5e1c36a2c24e0aaf7844ec890c15e430" category="paragraph">瞭解NetApp儲存設備在主要大型大型大型大型大型擴充系統中的支援組合。</block>
-  <block id="aa1f7516e656fcf88a02be4feaa432c5" category="cell">* Azure AVS*</block>
-  <block id="9acf96fea18557ec8c6d660d6503f3bf" category="cell">* AWS VMC*</block>
-  <block id="66fbf46ae142d95c688698893879b8af" category="cell">* GCP GCVE*</block>
-  <block id="990372eb325efff403b4117c31a055a8" category="cell">*《*》（CVO）Cloud Volumes ONTAP *</block>
-  <block id="b7c8d0420d929de49959aae6ce8ba3e4" category="inline-link-macro">已連線來賓</block>
-  <block id="13dcdfd7bce3161be8066f52b4d2247a" category="cell"><block ref="13dcdfd7bce3161be8066f52b4d2247a" category="inline-link-macro-rx"></block></block>
-  <block id="7e2e877818cdb57ef3a43f99102f9d38" category="cell"><block ref="7e2e877818cdb57ef3a43f99102f9d38" category="inline-link-macro-rx"></block></block>
-  <block id="5909792f4a0287d5b5f88ee6f430a28f" category="cell"><block ref="5909792f4a0287d5b5f88ee6f430a28f" category="inline-link-macro-rx"></block></block>
-  <block id="33cc6e358d22c6f19d9b7924dc3cdc6d" category="cell">*《*》（CVS）Cloud Volumes Service *</block>
-  <block id="336d5ebc5436534e61d16e63ddfca327" category="cell">-</block>
-  <block id="53ece9afd987905da70066422fba9879" category="inline-link-macro">原生資料存放區</block>
-  <block id="99643699503906f6a149e103359b31d5" category="cell"><block ref="d35550b71de9d445d0f21340762112d5" category="inline-link-macro-rx"></block>
-<block ref="457b0b4c4f040ecdb73aa5b03853579f" category="inline-link-macro-rx"></block></block>
-  <block id="df635045d1bc577d1f8f5b4da11409be" category="cell">*《*》（ANF）Azure NetApp Files *</block>
-  <block id="7b1ff975fb6d48c12181b30da20dfab0" category="cell"><block ref="3c73250bfc490d47ce28b6cf808148ac" category="inline-link-macro-rx"></block>
-<block ref="0f2c04766507e4de89a1d44cbd408339" category="inline-link-macro-rx"></block></block>
   <block id="382b0f5185773fa0f67a8ed8056c7759" category="cell">不適用</block>
-  <block id="2a32702602a143372d93bf2d2f395a36" category="cell"><block ref="14800306dfb8ba898026bf23b6a9cfc5" category="inline-link-macro-rx"></block>
-<block ref="ef1833f411035de243ce008622899fb9" category="inline-link-macro-rx"></block></block>
-  <block id="104948b3593a97ed92fc801aaf126581" category="doc">企業混合雲（EHC）總覽</block>
   <block id="415be703c228d9c6838b18850a1d9f31" category="paragraph">大多數IT組織都採用混合式雲端優先方法。這些組織正處於轉型階段、客戶正在評估其目前的IT環境、然後根據評估與探索練習、將工作負載移轉至雲端。</block>
   <block id="346972233965e89cf5b17c3907b35f86" category="paragraph">客戶移轉至雲端的因素包括彈性與爆發、資料中心結束、資料中心整合、生命週期結束案例、合併、 併購等。此移轉的原因可能因組織及其各自的業務優先順序而異。移轉至混合雲時、在雲端中選擇適當的儲存設備、對於釋放雲端部署和彈性的威力十分重要。</block>
   <block id="0c4a16ed987359b14dc407a858d1a78e" category="section-title">公有雲的VMware Cloud選項</block>
@@ -7936,10 +7760,7 @@
   <block id="855b05f645c80247a3f11392cab187c2" category="paragraph"><block ref="855b05f645c80247a3f11392cab187c2" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a7714bc43e9a27f2c98a38e6b6d7f3d8" category="doc">適用於公有雲供應商的NetApp儲存選項</block>
   <block id="8db50e5729f7a5d770aaceef947a2982" category="paragraph">在三大大型超大規模擴充系統中探索NetApp儲存設備的選項。</block>
-  <block id="59eb8568bc4ce9e9a49ab2dd5bb08af1" category="doc">適用於AWS / VMC的NetApp企業混合雲解決方案</block>
   <block id="ae295ef15cb155f8a1af7d255e34298d" category="doc">適用於AWS的NetApp來賓連線儲存選項</block>
-  <block id="0d349db2638a92fd70bcc7d2f31663ab" category="paragraph">AWS支援下列組態的來賓連線NetApp儲存設備：</block>
-  <block id="ac68b9acaa4ad0b0a4dc57efbda279fc" category="list-text"><block ref="ac68b9acaa4ad0b0a4dc57efbda279fc" category="inline-link-macro-rx"></block></block>
   <block id="6e3fe132749fe21d23cf75f00317a6fe" category="section-title">使用ONTAP AWS上的VMware Cloud設定Amazon FSX for NetApp功能</block>
   <block id="5f19d821dc2e2e3a8e9418909df59733" category="paragraph">Amazon FSx for NetApp ONTAP 的支援文件共享和LUN可從在VMware Cloud AWS上的VMware SDDC環境中建立的VM掛載。這些磁碟區也可以安裝在Linux用戶端上、並使用NFS或SMB傳輸協定對應到Windows用戶端、而LUN則可在透過iSCSI掛載時、以區塊裝置的形式在Linux或Windows用戶端上存取。可ONTAP 透過下列步驟快速設定適用於NetApp的Amazon FSX。</block>
   <block id="190b27040d3191ccf35bdb35221f0682" category="admonition">Amazon FSX for NetApp ONTAP 的VMware解決方案和AWS上的VMware Cloud必須位於相同的可用度區域、才能達到更好的效能、並避免在可用度區域之間傳輸資料。</block>
@@ -8084,8 +7905,6 @@
   <block id="07b0eade4402d209b5dbe587a8ad3f6f" category="doc">在AWS上部署及設定虛擬化環境</block>
   <block id="e647d88b9bd859d2c3e943c24b4fef00" category="paragraph">如同內部部署、在AWS上規劃VMware Cloud對於成功建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。</block>
   <block id="35dcee3fd9faac08f48b3df2e8e0e63c" category="admonition">客體內儲存設備目前是唯一支援的方法、可將FSXVMware ONTAP 和Cloud Volumes ONTAP VMware連接至AWS VMC。</block>
-  <block id="fc6ca296e478de217b1d91ca6a51669e" category="list-text"><block ref="fc6ca296e478de217b1d91ca6a51669e" category="inline-link-macro-rx"></block></block>
-  <block id="0e488e496c84968dd373c3acab443dd7" category="list-text"><block ref="0e488e496c84968dd373c3acab443dd7" category="inline-link-macro-rx"></block></block>
   <block id="02b412692a538ee9dc2534f0f9c73dc1" category="paragraph"><block ref="560d5b2cd40977bd7b77b31d7088f657" category="inline-link-macro-rx"></block> 在AWS生態系統中為VMware工作負載提供雲端原生體驗。每個VMware軟體定義資料中心（SDDC）都會在Amazon Virtual Private Cloud（VPC）上執行、並提供完整的VMware堆疊（包括vCenter Server）、NSX-T軟體定義網路、vSAN軟體定義儲存設備、以及一或多個ESXi主機、為您的工作負載提供運算與儲存資源。</block>
   <block id="dc77b78f59a0c38a9a2e8927dc05e916" category="paragraph">本節說明如何在AWS上設定及管理VMware Cloud、並搭配Amazon FSX for NetApp ONTAP 時使用Cloud Volumes ONTAP 、以及/或在AWS上搭配來賓儲存設備使用VMware Cloud。</block>
   <block id="1687622e662f209ef64e3a88de409466" category="admonition">來賓儲存設備是唯一受支援的方法、可將Amazon FSX for NetApp ONTAP 的VMware功能與Cloud Volumes ONTAP VMware Cloud連線至AWS上的VMware Cloud。</block>
@@ -8094,10 +7913,7 @@
   <block id="4ca1486cd3276884e41ad4b36080c10b" category="list-text">註冊以取得 <block ref="ab3390028f6599a1b73b747febbf672d" category="inline-link-macro-rx"></block>。</block>
   <block id="020e995219c3fad42714462fc9368253" category="inline-link-macro">我的VMware</block>
   <block id="4f87cd22b54abb602d4264ede77c75fd" category="list-text">註冊以取得 <block ref="6fb1d438d7363efa930c55af527a6c23" category="inline-link-macro-rx"></block> 帳戶。</block>
-  <block id="969c176eb8515e73c2df6805bd09d5de" category="list-text">在VMware Cloud中配置SDDC。</block>
-  <block id="28cefea59e6b78bfecc1439107469038" category="section-title">註冊AWS帳戶</block>
   <block id="252c0d3625c410f643362d13f1e35681" category="paragraph">假設尚未建立AWS帳戶、您就需要AWS帳戶才能開始使用。無論是新的或現有的、您都需要在帳戶中擁有管理權限、才能執行此程序中的許多步驟。請參閱 <block ref="d01b332d778720bc2fe2a9a15e6ba01d" category="inline-link-macro-rx"></block> 如需AWS認證資料的詳細資訊、</block>
-  <block id="ed463b922006aa54f2aceda63f25caed" category="section-title">註冊My VMware帳戶</block>
   <block id="e1ed167660991d514f55d806a323f3b5" category="paragraph">若要存取VMware的雲端產品組合（包括AWS上的VMware Cloud）、您需要VMware客戶帳戶或My VMware帳戶。如果您尚未建立VMware帳戶、請建立該帳戶 <block ref="aefb6f511cceca70505b3e5bf76155fe" category="inline-link-macro-rx"></block>。</block>
   <block id="60fa505f14fb504e941cbc61b74d644a" category="section-title">在VMware Cloud中配置SDDC</block>
   <block id="6d931b72d8efc3fd87b7fdd5127cbba7" category="paragraph">設定VMware帳戶並執行適當規模調整之後、部署軟體定義的資料中心是在AWS服務上使用VMware Cloud的下一步。若要建立SDDC、請挑選一個AWS區域來裝載它、為SDDC命名、然後指定您希望SDDC包含多少ESXi主機。如果您尚未擁有AWS帳戶、您仍可建立包含單一ESXi主機的入門組態SDDC。</block>
@@ -8157,7 +7973,6 @@
   <block id="f1c1b29fad3f2bdb9d8d054686b86542" category="paragraph"><block ref="f1c1b29fad3f2bdb9d8d054686b86542" category="inline-image-macro-rx" type="image"></block></block>
   <block id="b8b86f112029b19bf6451ba4624a4090" category="paragraph">下一步是根據ONTAP 您的需求、確認Amazon FSX Sfor Cloud Volumes ONTAP 支援功能已設定完成、而且已配置磁碟區以卸載vSAN的儲存元件、以最佳化部署。</block>
   <block id="29f8b77f5f7c79b566706e0d55c9de8b" category="doc">適用於Amazon的NetApp解決方案VMware託管雲端（VMC）</block>
-  <block id="c24b87c4afee5d42310b2dd6144617af" category="paragraph">深入瞭解NetApp為AWS帶來的解決方案、包括移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
   <block id="ba756c1a2b93ad97a639914aae828a16" category="doc">適用於AWS VMC的NetApp功能</block>
   <block id="c31fafd8fe5f702d3722404547cc8cb5" category="paragraph">深入瞭解NetApp為AWS VMware Cloud（VMC）帶來的功能：從NetApp做為來賓連線儲存設備或原生資料存放區、移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
   <block id="8658ccb747e94ac624861f5761a34716" category="inline-link-macro">在AWS中設定VMC</block>
@@ -8172,15 +7987,9 @@
   <block id="cdac9a2e7f1dc52240712d4a191378e8" category="inline-link-macro">適用於AVS的NetApp儲存選項</block>
   <block id="553bafb094b811158ae732981f2dbb4e" category="list-text"><block ref="553bafb094b811158ae732981f2dbb4e" category="inline-link-macro-rx"></block></block>
   <block id="a69a7b9e874f9f6e0703191e7825cc4f" category="paragraph">NetApp儲存設備可在Azure AVS中以多種方式使用、無論是作為猜測連線或原生資料存放區。</block>
-  <block id="e858f513baeeed4d0c8f4edb6b0a7ce8" category="doc">適用於Azure / AVS的NetApp企業混合雲解決方案</block>
   <block id="7e0686a26bc7a91429819c2aeb7b414a" category="doc">適用於Azure VMware解決方案（AVS）</block>
-  <block id="7e868c580794349e459e166e04a5abcd" category="paragraph">深入瞭解NetApp為Azure帶來的解決方案、包括移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
-  <block id="93d6c31a1f56cb2d2f25af1274c4abdd" category="section-title">AVS解決方案</block>
   <block id="bb01fec2870d3f698517f8471454637b" category="doc">在Azure上部署及設定虛擬化環境</block>
   <block id="00ce356ad004b72efc4b99389b52af63" category="paragraph">如同內部部署、規劃Azure VMware解決方案對於成功建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。</block>
-  <block id="c33cce5b25d7b62b8be123136ad64ae1" category="list-text"><block ref="c33cce5b25d7b62b8be123136ad64ae1" category="inline-link-macro-rx"></block></block>
-  <block id="d47c67e14996fb3c08deb5311a358578" category="list-text"><block ref="d47c67e14996fb3c08deb5311a358578" category="inline-link-macro-rx"></block></block>
-  <block id="5a8521e0e0ab0935654c959eba47d6a0" category="list-text"><block ref="5a8521e0e0ab0935654c959eba47d6a0" category="inline-link-macro-rx"></block></block>
   <block id="6a3b9d31df0a58cc23207c2af925ef0f" category="paragraph">若要使用Azure VMware解決方案、請先在指定的訂閱中註冊資源供應商：</block>
   <block id="58c59ab4d5d488609913efa7b1daaa31" category="list-text">登入Azure入口網站。</block>
   <block id="5d704d400396fefbe3427ee665a0ec16" category="list-text">在Azure入口網站功能表上、選取All Services（所有服務）。</block>
@@ -8229,7 +8038,6 @@
   <block id="097529edf2feb9ed1237427eaa3b2599" category="paragraph">Azure VMware解決方案SDDC現在已完成部署與設定。善用ExpressRoute Global Reach、將內部部署環境連接至Azure VMware解決方案私有雲。如需詳細資訊、請參閱 <block ref="29749340a5d7bf5df1867a3f2d2723a1" category="inline-link-macro-rx"></block>。</block>
   <block id="e3a2a8e4a74a67a9514c2aec5e4fac69" category="doc">適用於Azure的NetApp原生資料存放區選項</block>
   <block id="a724b4fc4c5f79672a5c572466d5e001" category="doc">適用於Azure的NetApp來賓連線儲存設備選項</block>
-  <block id="ca0f2c52a62624ee3babda4927666866" category="list-text"><block ref="ca0f2c52a62624ee3babda4927666866" category="inline-link-macro-rx"></block></block>
   <block id="f43b203ec7020e7ea0e408d9d67255fc" category="section-title">使用Azure NetApp Files Azure VMware解決方案（AVS）設定功能</block>
   <block id="f9a184882060f3e5a8b6045e2a53107f" category="paragraph">您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資料共享。Azure NetApp Files由於Azure NetApp Files 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需五個簡單步驟即可設定各個資料區。Azure NetApp Files</block>
   <block id="5bb6f16c69df9b9f54bddaaa5e32b415" category="paragraph">VMware解決方案的VMware解決方案必須位於同一個Azure地區。Azure NetApp Files</block>
@@ -8757,16 +8565,6 @@
   <block id="974c1ef10ec8fef5b3ff19989555d061" category="list-text">確認檔案已正確複製。</block>
   <block id="8ae319b52e88ea41e78a01efdaab2143" category="inline-link-macro">下一步：將CIFS資料從來源儲存設備的ACL移轉至ONTAP</block>
   <block id="b6ea874ca7f1192a99c58fa3ff1199ba" category="paragraph"><block ref="b6ea874ca7f1192a99c58fa3ff1199ba" category="inline-link-macro-rx"></block></block>
-  <block id="61133eed21544af8c4988e345e562ce0" category="summary">一系列影片與示範、討論資料保護與安全解決方案功能</block>
-  <block id="80a9ba2a1f85a5cf26d01122fd696973" category="doc">資料保護與安全影片與示範</block>
-  <block id="ea233cf80b43de3a730e01b8e376a9bd" category="paragraph">影片與示範總覽、重點介紹資料保護與安全解決方案的特定功能。</block>
-  <block id="b9332d9812fee56d4f22fd8f245323a9" category="section-title">示範/影片</block>
-  <block id="c6f59500cff9fc154e284a0b9b18bb83" category="summary">一系列影片和示範、討論NetApp解決方案中的自動化功能</block>
-  <block id="cff1a9d42f081481f7d374df8bcbb26b" category="doc">解決方案自動化影片與示範</block>
-  <block id="4e59e2d3d9f78c4e87a82b3cbcc7e1a3" category="paragraph">影片與示範總覽、重點介紹NetApp解決方案自動化功能的特定功能。</block>
-  <block id="ec9f29e2bd26bf4a641b2964f3e3cf52" category="summary">一系列部落格、討論NetApp解決方案的自動化功能</block>
-  <block id="6d64ee49cfa68e79b6fc189f1f83eef9" category="doc">解決方案自動化部落格</block>
-  <block id="6380d01fb740985eb6892589e7579224" category="paragraph">介紹NetApp解決方案中特定自動化功能的部落格總覽。</block>
   <block id="3e4627f6667f830baceaaf35890b575a" category="summary">若要深入瞭解本文所述資訊、請檢閱下列文件和/或網站。</block>
   <block id="092bf78f9c97ba171b8232ddff585392" category="doc">其他資訊</block>
   <block id="ccc4b678df8ad6453b7f71661f118ae1" category="inline-link"><block ref="ccc4b678df8ad6453b7f71661f118ae1" category="inline-link-rx"></block></block>
@@ -9019,28 +8817,6 @@
   <block id="2118336fa447fcc0f213cb8c40c516af" category="paragraph">Unified Manager會在拓撲檢視中呈現虛擬環境的底層子系統、以判斷運算節點、網路或儲存設備是否發生延遲問題。此檢視也會強調導致效能延遲的特定物件、以便採取補救步驟並解決根本問題。</block>
   <block id="d8a78b994fcd4e04901203a2e7bc6414" category="paragraph">下列螢幕快照顯示AIQUM擴充拓撲。</block>
   <block id="e9659be2b7d3d69eccdb443ed2acec75" category="paragraph"><block ref="e9659be2b7d3d69eccdb443ed2acec75" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f1e09e8062c8a1cddb6f2f68289ea71b" category="doc">VMware虛擬化功能的最新ONTAP 動態</block>
-  <block id="2e130352b486464834bcc7dda1ff2603" category="section-title">VMware虛擬化</block>
-  <block id="b1d46fa388a75bf4a6fdf6431fd0f88f" category="paragraph">VMware整合與支援ONTAP 功能可透過FlexGroup 許多新功能（包括支援VMware資料儲存區）大幅提升。利用VMware NFS資料存放區、您可以配置一個作為VMware NFS資料存放區的Sforfvolume、以單一可擴充的資料存放區來簡化資料存放區管理、並提供完整的VMware vCenter叢集的強大功能。ONTAP FlexGroup ONTAPVMware vSphere 9.8版的《VMware vSphere 9.8版的參考資訊工具》提供許多新功能ONTAP 。</block>
-  <block id="8d22b59ce6a3f5f55852f641fe32f634" category="paragraph">這表示適用下列項目：</block>
-  <block id="edf6089078ece0618b0cbf28aadbd430" category="list-text">已驗證的效能與放置方式</block>
-  <block id="14ac1770aa6a961d17a35b60c5b87280" category="list-text">Interop資格</block>
-  <block id="3bad7ef0dfae0592627755796b25462b" category="list-text">增強的VAAI複本卸載功能、可在背景中更快完成</block>
-  <block id="19793deb9a49d2f5172b773dfc0118c5" category="list-text">虛擬儲存主控台支援功能、包括FlexGroup 提供功能不限的資源、調整大小及刪除、在個別VM上設定QoS、以及顯示VM的效能指標（延遲、IOPS及處理量）</block>
-  <block id="662d7a9e954fd7ecea04797658a67fdf" category="list-text">NetApp SnapCenter 支援主要儲存設備備份與還原</block>
-  <block id="cd6f7ff91fc5499199c6664de0434694" category="list-text">最多支援64TB VMFS LUN。藉由NetApp All SAN Array支援128TB LUNs/300TB FlexVol 的支援、您可以使用ONTAP VMware vSphere 9.8版的「VMware vCenter工具」中的「虛擬儲存主控台」來配置最多64TB的VMFS資料存放區。</block>
-  <block id="92ff10610f02d69d0210f44405b7168f" category="inline-link">Site Recovery Manager（SRM）</block>
-  <block id="0ce4ec45a946257ae8143d2cc90fcaca" category="list-text">增加<block ref="c9af02025b1bf45281286240e0215380" category="inline-link-rx"></block> 擴充。VMware vSphere 9.8版的《VMware vSphere的VMware vCenter工具》中的儲存複寫介面卡ONTAP 、可將資料存放區和保護群組的規模提升至512個。</block>
-  <block id="8e7ea82c671030c62dec6e5646ce0674" category="list-text">VMware vSphere vVols檔案度量搭配REST API。REST API支援vVols檔案指標已新增ONTAP 至VMware 9.8、可讓虛擬儲存主控台在ONTAP 儀表板和報告中顯示vVols的靜態儲存效能指標。</block>
-  <block id="410414402089bdca884f44be14088a59" category="inline-link">儲存複寫介面卡（SRA）</block>
-  <block id="63b956da14094cef99ccee71599fdd6d" category="list-text"><block ref="7e358b6730372bc2e637b94492dbbbf6" category="inline-link-rx"></block> 支援SnapMirror同步</block>
-  <block id="6015fcf0a9cd608ed0e3aa71296f41d4" category="inline-link">VMware Tanzu</block>
-  <block id="8196dcbf9586cd0081ca8c94d6eec4ad" category="list-text">支援<block ref="d0daefdc677909f35162a0118f978227" category="inline-link-rx"></block> 儲存設備</block>
-  <block id="ac66e55267029225d12d67c48e998acc" category="list-text">改善對vVols的支援、包括增強的SAN vVol重新平衡命令、以及儲存功能設定檔的增強功能。如需最新VMware虛擬化支援的詳細資訊、請參閱下列資源：</block>
-  <block id="da5bc71c64b621b3b18568cfd93032f4" category="inline-link">第263集：《以虛擬化技術為特色–2020年秋季》Tech OnTap ONTAP</block>
-  <block id="e4c4075a8c06d40ae4b59e37bb084cef" category="list-text"><block ref="e4c4075a8c06d40ae4b59e37bb084cef" category="inline-link-rx"></block></block>
-  <block id="75f86438e5e6bca3e9341dd22299f5bb" category="inline-link">TR-4597：VMware vSphere搭配ONTAP VMware</block>
-  <block id="ef5bb91ba96e022044cd2c0d3c47544b" category="list-text"><block ref="ef5bb91ba96e022044cd2c0d3c47544b" category="inline-link-rx"></block></block>
   <block id="93b94e62ad8cb02a1d1a7b0944a5445d" category="summary">本文件討論ONTAP VMware vSphere的產品安全性功能。</block>
   <block id="289953e1dbd51c07cae2ecf1e6fb88a1" category="doc">WP-7353：ONTAP VMware vSphere的基礎工具-產品安全性</block>
   <block id="595319f89334a6a0b8edd4f81172fc71" category="paragraph">NetApp Jenn Schrie的Dan Tulledge、Chance Bingen</block>
@@ -9265,29 +9041,19 @@
   <block id="c57f32bc5ce6f95f5f9bec8260ecdb08" category="inline-link-macro">使用ONTAP VMware不穩定工具來配置VMFS資料存放區</block>
   <block id="b3a5f140339b1ca0940c5875b2a76d0b" category="list-text"><block ref="89ebfed741bd060c10a4a1472581f4e2" category="inline-link-macro-rx"></block>。</block>
   <block id="fa7b524ea902bff51145e4279b653d84" category="summary">本頁提供影片和教學課程的簡介。</block>
-  <block id="246bb366fee5c7eda4fcd280728ec465" category="doc">混合雲、桌面虛擬化及容器影片與示範</block>
-  <block id="d04d1afcb2d01179846658f678623306" category="paragraph">請觀看下列影片和示範、重點介紹混合雲、桌面虛擬化和容器解決方案的特定功能。</block>
   <block id="7e5604b05604b8bee096192b96f1f0aa" category="section-title">適用於VMware vSphere的NetApp SnapCenter 功能和SnapCenter 功能不全的外掛程式</block>
   <block id="7dcf4233280fcc0e80d2c5b8ce82af91" category="paragraph">NetApp SnapCenter 流通軟體是易於使用的企業平台、可安全地協調及管理應用程式、資料庫及檔案系統之間的資料保護。</block>
   <block id="7dc8c97b0d6d3055290baa0eb36dbfa5" category="paragraph">VMware vSphere的《VMware vSphere支援VMware外掛程式」SnapCenter 可讓您針對VM執行備份、還原及附加作業、以及SnapCenter 針對直接在VMware vCenter內以「VMware vCenter」登錄的資料存放區執行備份與掛載作業。</block>
   <block id="00389b40803806e30e1877e1a0469e22" category="inline-link">適用於VMware vSphere的NetApp SnapCenter 功能外掛程式總覽</block>
-  <block id="fcc6a712ce7f5442bbd2f57648204a46" category="paragraph">如需有關SnapCenter 適用於VMware vSphere的NetApp解決方案外掛程式的詳細資訊、請參閱<block ref="1485382fd5c3efedbc25ff82295f89e4" category="inline-link-rx"></block>。</block>
-  <block id="5ce132296185f31c058a15a7058d54cd" category="section-title">NetApp與NetApp SnapCenter 的合作影片系列</block>
   <block id="47d7646bd1c6577d907ac316431ae609" category="inline-link">VMware vSphere的VMware外掛程式- SnapCenter 部署</block>
-  <block id="ebca3256e23edeee49556abb20fe537e" category="list-text"><block ref="ebca3256e23edeee49556abb20fe537e" category="inline-link-rx"></block></block>
   <block id="05799bad32c5bd80547efe4144fb57af" category="inline-link">VMware vSphere的解決方案外掛程式-解決方案先決條件SnapCenter</block>
-  <block id="96149d985874eaadc77a44f7b997c9cf" category="list-text"><block ref="96149d985874eaadc77a44f7b997c9cf" category="inline-link-rx"></block></block>
   <block id="11d13047d237d5bccdd941bafda45d9d" category="inline-link">VMware vSphere的VMware外掛程式-備份工作流程SnapCenter</block>
-  <block id="4b71351519775d9a4db9b60f8a094d97" category="list-text"><block ref="4b71351519775d9a4db9b60f8a094d97" category="inline-link-rx"></block></block>
   <block id="16bbc152851c33a02fcac2fbf943ffee" category="inline-link">VMware vSphere的VMware外掛程式-還原工作流程SnapCenter</block>
-  <block id="903203728b5609f7a556c985ba0a92ee" category="list-text"><block ref="903203728b5609f7a556c985ba0a92ee" category="inline-link-rx"></block></block>
   <block id="305f1daa74a8ec01eaf0ce2c9a8ce355" category="inline-link">支援SQL還原工作流程SnapCenter</block>
-  <block id="d75f24c9815f4210904b7e0de1c3bcd0" category="list-text"><block ref="d75f24c9815f4210904b7e0de1c3bcd0" category="inline-link-rx"></block></block>
   <block id="4267881eb271396086a3cc1387da9a3a" category="section-title">NetApp與VMware Tanzu合作</block>
   <block id="2dd739333b022cfeccd93e19c8c39d83" category="paragraph">VMware Tanzu可讓客戶透過vSphere或VMware Cloud Foundation來部署、管理及管理Kubernetes環境。VMware產品組合可讓客戶從單一控制面板管理所有相關的Kubernetes叢集、選擇最符合需求的VMware Tanzu版本。</block>
   <block id="f8d0723a562ed498a977795477b75cb0" category="inline-link">VMware Tanzu概述</block>
   <block id="2d3e9ef8ae693e8ff80c4d6e70f0a876" category="paragraph">如需VMware Tanzu的詳細資訊、請參閱<block ref="1951d4038519ab642a1c0f8898cecfe0" category="inline-link-rx"></block>。本審查涵蓋使用案例、可用的新增項目、以及有關VMware Tanzu的更多資訊。</block>
-  <block id="f90851c66bcfaa6ba091b34fe8a7428b" category="section-title">NetApp與VMware Tanzu影片系列</block>
   <block id="31c49b154032d3d6039542b651e0f3d4" category="list-text"><block ref="31c49b154032d3d6039542b651e0f3d4" category="inline-link-rx"></block></block>
   <block id="fcf1189eaf4e4e32d27ee5174d63ae3c" category="list-text"><block ref="fcf1189eaf4e4e32d27ee5174d63ae3c" category="inline-link-rx"></block></block>
   <block id="5963b1ea39cb7cc8a0a4f5ce7c5ef816" category="list-text"><block ref="5963b1ea39cb7cc8a0a4f5ce7c5ef816" category="inline-link-rx"></block></block>
@@ -9406,30 +9172,18 @@
   <block id="f0d8a1b084d604c4db4319a2c5bbd522" category="list-text"><block ref="f0d8a1b084d604c4db4319a2c5bbd522" category="inline-link-macro-rx"></block></block>
   <block id="5ab6c918ee903c74a7d7c97b2432ebaf" category="section-title">瀏覽最新VMware解決方案的示範影片</block>
   <block id="7128c22bfdae1fe8be75c9a9ee56eca9" category="inline-link-macro">VMware vSphere和NetApp ONTAP 的最佳實務做法</block>
-  <block id="04e008204e728ef166ffc8c85db580ed" category="list-text"><block ref="04e008204e728ef166ffc8c85db580ed" category="inline-link-macro-rx"></block></block>
   <block id="d2fa143a4aaef3477f2edb0d92676341" category="inline-link-macro">您的VMware環境：讓我們在NVMe上執行ONTAP 、搭配VMware</block>
   <block id="207681662de4971035cc8d5c9347c986" category="list-text"><block ref="207681662de4971035cc8d5c9347c986" category="inline-link-macro-rx"></block></block>
   <block id="e9c2b8b8a9962013c07f83742ca35f0e" category="inline-link-macro">vVols災難恢復：ONTAP 利用VMware SRM和VMware vCenter SRM</block>
   <block id="8ca7386c3cb63b01ffc6387ba41427ae" category="list-text"><block ref="8ca7386c3cb63b01ffc6387ba41427ae" category="inline-link-macro-rx"></block></block>
-  <block id="f156fde75de09cf5f045522cf738b2c7" category="inline-link-macro">利用FlexGroup 「資源開發工具」來資源配置和管理功能ONTAP</block>
-  <block id="c2a201ca982ecfefdcfec43a8df28397" category="list-text"><block ref="c2a201ca982ecfefdcfec43a8df28397" category="inline-link-macro-rx"></block></block>
-  <block id="977a548ba3853fdac6d708915a1b752a" category="inline-link-macro">NetApp NFS VAAI外掛程式更新</block>
-  <block id="a8e3bfc2dc840604c0168dd5f89aacec" category="list-text"><block ref="a8e3bfc2dc840604c0168dd5f89aacec" category="inline-link-macro-rx"></block></block>
-  <block id="233398cd850d9903958583fd85621f6d" category="inline-link-macro">利用NetApp ONTAP FlexGroup 功能橫向擴充虛擬桌面</block>
-  <block id="6ef66ca131701cfdb70302d3099b7550" category="list-text"><block ref="6ef66ca131701cfdb70302d3099b7550" category="inline-link-macro-rx"></block></block>
   <block id="e308c2a1dacddb5bc6ffa093081111e4" category="inline-link-macro">適用於Data Fabric的VMware備份與還原</block>
   <block id="9934e59457fa5f31d39a58f1d55ac5d5" category="list-text"><block ref="9934e59457fa5f31d39a58f1d55ac5d5" category="inline-link-macro-rx"></block></block>
-  <block id="a81738572d94bce863615a7d94a84051" category="inline-link-macro">利用VMware vSphere的VMware vSphere的VMware vCenter外掛程式來簡化資料保護SnapCenter</block>
-  <block id="f09e9fdda59d2e9d9172bd89b5dc9369" category="list-text"><block ref="f09e9fdda59d2e9d9172bd89b5dc9369" category="inline-link-macro-rx"></block></block>
   <block id="c10a86f3b9530baf3bed3b02aaaf873f" category="section-title">為VMware部署靈活的混合雲與現代化應用程式基礎架構</block>
   <block id="554cfab3938e21d9270bd6b75931f96f" category="section-title">影片</block>
   <block id="f20368920280b50131814db2f83fda66" category="inline-link-macro">在NetApp All Flash FAS 上架構VMware資料存放區</block>
   <block id="8ff6498eeabd53b4271d75f543dc3bc4" category="list-text"><block ref="8ff6498eeabd53b4271d75f543dc3bc4" category="inline-link-macro-rx"></block></block>
-  <block id="841a1e2733baa662db1207d5075a798f" category="inline-link-macro">自動化：ONTAP 利用VMware Cloud利用VMware Infrastructure建立您的VMware Cloud</block>
-  <block id="4d0f73eb280cb12c373e099d1c320690" category="list-text"><block ref="4d0f73eb280cb12c373e099d1c320690" category="inline-link-macro-rx"></block></block>
   <block id="f1c2408ffc6e67ac6b34eb8da2b3039c" category="list-text"><block ref="f1c2408ffc6e67ac6b34eb8da2b3039c" category="inline-link-macro-rx"></block></block>
   <block id="253d309203cf1f2c1bb57255bd0a5bdc" category="inline-link-macro">將VMware VM移轉至Google Cloud</block>
-  <block id="baa1898009cc7495f8c4e7732ce7433a" category="list-text"><block ref="baa1898009cc7495f8c4e7732ce7433a" category="inline-link-macro-rx"></block></block>
   <block id="7518aab5e189037f632ee46ea9e3cf07" category="video-title">部署適用於VMware Tanzu的動態持續NetApp儲存設備、第1部分</block>
   <block id="f86bf601d6e42c44cf076ea1772ae13c" category="video-title">部署適用於VMware Tanzu的動態持續NetApp儲存設備、第2部分</block>
   <block id="bf5c12d4eed319d2dc2b2b7279944f71" category="video-title">部署適用於VMware Tanzu的動態持續NetApp儲存設備、第3部分</block>
@@ -10031,36 +9785,8 @@
   <block id="6e62430b92a7c5a0b8512436b163a10d" category="list-text">可能不會報告儲存效率所節省的Aggregate空間。</block>
   <block id="93d86aa51e0909549d1b1210f887aef3" category="list-text">在支援的情況下、無法更新負載共用鏡像。</block>
   <block id="647d380b52e259fe7ed2e2582bc54b27" category="list-text">可能無法在ONTAP 以SVM範圍認證來管理的各種系統上執行EMS記錄。</block>
-  <block id="6a0ecfbed3f66ec0b5d8989880431ad7" category="summary">一系列部落格討論資料保護與安全解決方案功能</block>
-  <block id="16be77be7dcecad552bca4efda1efcb1" category="doc">資料保護與安全性部落格</block>
-  <block id="fdaef51553bfad628d1d8ee4cd314d79" category="paragraph">部落格總覽、重點介紹資料保護與安全解決方案的特定功能。</block>
-  <block id="cb1501db8fac0fe0b1cc3b53200f0ab9" category="summary">商業應用程式與企業資料庫解決方案的最新補充資料</block>
-  <block id="54998e7855609864b7a05e49355662b5" category="doc">商業應用程式與企業資料庫解決方案的新功能</block>
-  <block id="9de8e04d062d5eb8e2ff199783964174" category="paragraph">最新的商業應用程式與企業資料庫解決方案與解決方案輔助文件總覽。</block>
-  <block id="4878d0f06c45c7f565e6545cccf18c88" category="inline-link-macro">HyBird Cloud資料庫解決方案SnapCenter 搭配</block>
-  <block id="a07f396f8180d71ad8372bd51f3800d7" category="cell">*混合雲資料庫解決方案*<block ref="642bb53d1747dfdf3e6f0ebcbb604cfe" category="inline-link-macro-rx"></block></block>
-  <block id="2dc95f2080ad2dba9a9207db808106e5" category="cell">* Oracle資料庫*</block>
   <block id="14c4dbb7c61081eee1c499c4cf138c96" category="inline-link-macro">Oracle 19c RAC資料庫位於FlexPod 包含Cisco UCS和NetApp AFF 透過FC的NetApp UCA800的不支援資料中心</block>
-  <block id="24743f8350683e7f1d7d5f6802de3aab" category="cell"><block ref="24743f8350683e7f1d7d5f6802de3aab" category="inline-link-macro-rx"></block></block>
-  <block id="dcad2dec3906d4a902bdfb0b7093ce21" category="cell"><block ref="dcad2dec3906d4a902bdfb0b7093ce21" category="inline-link-macro-rx"></block></block>
-  <block id="71e4dd221a9f0c3610e81f8ebab870ea" category="cell">* SAP HANA *</block>
-  <block id="c55aef4f96cafe48d6e5cf37af33721b" category="inline-link-macro">SAP HANA B&amp;amp; R with SnapCenter Rs</block>
-  <block id="59fbb2b8017dcaa261a32ed33941a3bd" category="cell"><block ref="41f97968c03372ffce726ec89c54fc9a" category="inline-link-macro-rx"></block></block>
-  <block id="ffbfe314fcb0f0531b18b666e3f70bcc" category="inline-link-macro">FC SAN上的SAP HANA</block>
-  <block id="8e7cb8af41001c3eeb84421bdf0bf30f" category="cell"><block ref="8e7cb8af41001c3eeb84421bdf0bf30f" category="inline-link-macro-rx"></block></block>
-  <block id="03bd539868199e3d2eb12809418e0815" category="cell">* Microsoft SQL Server*</block>
   <block id="760b7d532df381143dc946fd59bf0b62" category="inline-link-macro">SQL Server on Azure NetApp Files</block>
-  <block id="5a6ed16cce1a08e1b3de84293a1c0a11" category="cell"><block ref="5a6ed16cce1a08e1b3de84293a1c0a11" category="inline-link-macro-rx"></block></block>
-  <block id="9b849a5e6a46a992279087781315f191" category="inline-link-macro">Microsoft SQL Server上的SAP應用程式</block>
-  <block id="7dffec91055830f84efb7bc18ab4f86d" category="cell"><block ref="7dffec91055830f84efb7bc18ab4f86d" category="inline-link-macro-rx"></block></block>
-  <block id="77c484629c9e9b5aed6fa32ebb0e7229" category="inline-link-macro">適用於SolidFire 虛擬化基礎架構的SQL Server</block>
-  <block id="cce65a4a66212b1b6a69449993338407" category="cell"><block ref="cce65a4a66212b1b6a69449993338407" category="inline-link-macro-rx"></block></block>
-  <block id="91be6e42fe122f20831dcd474322dc82" category="inline-link-macro">SQL Server - NetApp HCI 利用功能實現資料庫效能的保證</block>
-  <block id="de2b8e7716b57342938375941b7e521a" category="cell"><block ref="de2b8e7716b57342938375941b7e521a" category="inline-link-macro-rx"></block></block>
-  <block id="7108e02acdfbc9a7cf66345731d3ec5e" category="summary">一系列部落格討論AI和現代化資料分析解決方案功能</block>
-  <block id="407c5c4d36c8f404212036765bd911ac" category="doc">AI和現代資料分析部落格</block>
-  <block id="2aa8a49ee37d7496cf666062c18c3ad3" category="paragraph">部落格總覽、重點介紹AI和現代化資料分析解決方案的特定功能。</block>
-  <block id="27f80f5fcc8cfd10fa4ffd9f6c3bc57e" category="section-title">人工智慧部落格系列</block>
   <block id="78463a384a5aa4fad5fa73e2f506ecfc" category="inline-link-macro">英文</block>
   <block id="37ce0afb395b0346118a74c4f05f20a7" category="list-text"><block ref="3b277c3e8740f32e48fe9dd888ed34aa" category="inline-link-macro-rx"></block>&amp;f：@face_soultion_mktg=[AI、分析、人工智慧]+++[AI部落格位於NetApp.com</block>
   <block id="750b570f7c6cacf7b9f43c1c7919ad96" category="inline-link-macro">AI部落格</block>
@@ -10105,10 +9831,6 @@
   <block id="e7060d0555f178d672a4197df38e1d39" category="sidebar">設定虛擬化環境</block>
   <block id="96e706be9b4668c0923788c6a8905fef" category="sidebar">原生資料存放區選項</block>
   <block id="2408eed8aca98d53134097e8990c8225" category="sidebar">來賓連線儲存選項</block>
-  <block id="c39148c472a0504dc9c52734b79f5125" category="sidebar">客戶連線儲存設備解決方案</block>
-  <block id="511ff82335a683184e92371d0c9fe853" category="sidebar">原生資料存放區解決方案</block>
-  <block id="d1c8b02a1da8ed066c640468ff055a12" category="sidebar">EHC總覽</block>
-  <block id="a4dc228188fdd73342ee66658a9afdff" category="sidebar">NetApp在超大規模雲端環境中的優勢</block>
   <block id="624e816c7f229d54827ad7bc018eb8da" category="sidebar">支援的儲存選項</block>
   <block id="40d267fad784266cb59c36d76573e7c6" category="sidebar">NetApp on AWS（VMC）</block>
   <block id="a64cd881ec955d17faa5e396a891e1e6" category="sidebar">NetApp on Azure（AVS）</block>
@@ -10135,13 +9857,7 @@
   <block id="6f4bb0fa6fee4cf4ae1b8b1fc16e17cb" category="sidebar">老NetApp HCI 舊的解決方案</block>
   <block id="3523ec156cfc8217bb64d1273e5663fa" category="sidebar">關於NetApp解決方案</block>
   <block id="d648f2a68a54fd1b3329efc3cf24d29c" category="sidebar">法律聲明</block>
-  <block id="e799e148c709b216080d260919cc9b9f" category="sidebar">AI現代化資料分析</block>
-  <block id="4fdba571bc9e0ee81ec6ad364abe8141" category="sidebar">企業混合雲（EHC）</block>
   <block id="e673b6ab6c5649a4df8e874aaa9017b9" category="sidebar">支援的組態</block>
-  <block id="bee43f00a445d11a7c2f9ef81ad0c045" category="sidebar">超大規模雲端環境中的VMware Cloud</block>
-  <block id="e281a59ee9a608bff3a3a795963fa1b4" category="sidebar">Hyperscaler特定內容</block>
-  <block id="70321856a2bf47570f50f25e43e23bdf" category="sidebar">虛擬化、桌面虛擬化容器</block>
-  <block id="25a72d771c3846ba4da8732220f7a588" category="sidebar">企業應用程式資料庫</block>
   <block id="0333ddced253ee1c6929eda5612dea92" category="sidebar">要求自動化</block>
   <block id="bdca592f24222e5064192bb9e2f9af6e" category="sidebar">NetApp Cisco解決方案FlexPod</block>
   <block id="0da8a1ebf94a3a1e650dbfbd01c69dd9" category="sidebar">解決方案技術內容FlexPod</block>
@@ -10173,8 +9889,6 @@
   <block id="f38bc790ec57f948f20cbd270b996cc6" category="sidebar">使用案例5：加速分析工作負載</block>
   <block id="df6654a22cda1b94cf0f51d6ae94bb69" category="sidebar">不同分析策略的不同解決方案解決方案簡介</block>
   <block id="427d072a2c1690c6d9ece23bef05477b" category="sidebar">Apache Spark Workload with NetApp儲存解決方案（部署指南）</block>
-  <block id="6ff1dafebf930a9c5fef12bf43046987" category="sidebar">企業應用程式與資料庫</block>
-  <block id="e340bc103d02ce2b8e016eb60705029c" category="sidebar">SAP與SAP HANA</block>
   <block id="0a2866cc3e2ba203c7e2e3ebeca395be" category="sidebar">SAP搭配Oracle on UNIX和NFS搭配NetApp叢集Data ONTAP 式功能</block>
   <block id="54d2cdd3035ca1cdff5803c30f2ed2e1" category="sidebar">部署Oracle資料庫</block>
   <block id="c880b35e02dbb5854452c86028138e2a" category="sidebar">在NetApp ONTAP 上部署Oracle資料庫</block>
@@ -10254,10 +9968,6 @@
   <block id="2190ab0d2f6281b2f3a73e0fc8e1f560" category="sidebar">摘要與結論</block>
   <block id="75fcfea0185575f935a7f5f149efd8ca" category="sidebar">VMware混合雲使用案例</block>
   <block id="e251010eb0cac5793d760ab2e5f51473" category="sidebar">使用案例總覽</block>
-  <block id="c2080fddb65ca5c27930e1b56e9001b9" category="sidebar">NetApp在Hyperscaler Cloud中的重要功能</block>
-  <block id="c894f2bd2f75b76c40354457f85448dd" category="sidebar">NetApp for VMC on AWS</block>
-  <block id="7af96168c530ff4f25450ef6ed33bd95" category="sidebar">適用於Azure上AVS的NetApp</block>
-  <block id="3c4ca3bb6cded64b5f69a6e81c8b6a65" category="sidebar">適用於Google Cloud上的GCVETM</block>
   <block id="9d0be07780aeb437025d4b3420d12540" category="sidebar">NetApp XCP資料移轉</block>
   <block id="2a643eb4634917213492cef085506d45" category="sidebar">開始使用NetApp和VMware</block>
   <block id="6c30682e8603121e14abe8bab7bd88f3" category="sidebar">VMware ONTAP 虛擬化技術</block>
@@ -11946,7 +11656,6 @@
   <block id="23cc5b51f575d3c458ac112689f7a2f1" category="cell">需要加密才能成功建立DC連線。在功能不完整的情況下、預設為停用Cloud Volumes Service 。</block>
   <block id="595451bb2138edcd7bd73c4e11f8890d" category="inline-link-macro">下一步：雙傳輸協定/多傳輸協定。</block>
   <block id="47b43136bb3740d6abdf3823c798bd7e" category="paragraph"><block ref="47b43136bb3740d6abdf3823c798bd7e" category="inline-link-macro-rx"></block></block>
-  <block id="3c22f403dc730d637a0fd61e97873829" category="sidebar">安全性總覽- NetApp Cloud Volumes Service 的Google Cloud解決方案</block>
   <block id="ebd8431a0b14e9588377860f5d21d80b" category="sidebar">架構總覽</block>
   <block id="a20fe2a1eb3b2546487a96f1e639d4f3" category="sidebar">其他NAS基礎架構服務相依性（Kdc、LDAP、DNS）</block>
   <block id="92e704fe041898cac086cd4a192a1815" category="cell">05/20/2022</block>
@@ -11954,4 +11663,247 @@
   <block id="197d6fccbd337f46908b50e1ac3ece5d" category="sidebar">SupermPOD：NetApp與NVIDIA解決方案</block>
   <block id="ed05ff1aa7ef3023c5dc2359de4e2d15" category="sidebar">BeeGFS on NetApp（設計指南）</block>
   <block id="b877ddfe299c52df6f7a340fdcaa52eb" category="sidebar">BeeGFS on NetApp（部署指南）</block>
+  <block id="e6bec38fe69985a0817e3c0b2b3a0c20" category="cell">*內容登陸頁*</block>
+  <block id="b1dc18184f115680e9fe3b64295c4678" category="cell">AI型解決方案的集合。AI登陸頁面提供內容特定「區塊」中的熱門內容。</block>
+  <block id="e68818392f0eda6e918ccb9e7537e282" category="inline-link-macro">AI內容</block>
+  <block id="748eaad82fcc3f281aebd8c5467a4d91" category="cell"><block ref="748eaad82fcc3f281aebd8c5467a4d91" category="inline-link-macro-rx"></block></block>
+  <block id="53840db4921094507c6397fb6ee31d58" category="cell">現代資料分析解決方案的集合（例如 Splunk SmartStore、Apache Spark等）。現代化的Data Analytics登陸頁面提供內容特定「區塊」的熱門內容。</block>
+  <block id="1b1956b226e3085af9e004e60ce183b4" category="inline-link-macro">現代化資料分析內容</block>
+  <block id="16321f09e6ea361ef5515d5939fa73f1" category="cell"><block ref="16321f09e6ea361ef5515d5939fa73f1" category="inline-link-macro-rx"></block></block>
+  <block id="43d63079990be8e5ef1ecb6649af4bcd" category="cell">在混合雲模式中定義NetApp：包括公有雲中的VMware、以及每個超大規模擴充系統中的NetApp儲存選項。EHC登陸頁面提供內容特定「並排」的熱門內容。</block>
+  <block id="75669f8f07817aa5ef4a2b24a8f0fea8" category="inline-link-macro">EHC內容</block>
+  <block id="bbaa94237875b6674ca48f56a0037795" category="cell"><block ref="bbaa94237875b6674ca48f56a0037795" category="inline-link-macro-rx"></block></block>
+  <block id="87867e178542e6ed3cf6ea885807d4f1" category="cell">虛擬化核心解決方案的集合、包括桌面虛擬化。虛擬化登陸頁面提供內容特定「區塊」的熱門內容。</block>
+  <block id="5654a75155b39867a9f4372fcc292bab" category="inline-link-macro">虛擬化內容</block>
+  <block id="82e9b7248dcd1a1ae85e7fa485bf1f4b" category="cell"><block ref="82e9b7248dcd1a1ae85e7fa485bf1f4b" category="inline-link-macro-rx"></block></block>
+  <block id="24a8e607718680e8d1dd293b9d736add" category="cell">容器型解決方案的集合。虛擬化登陸頁面提供內容特定「區塊」的熱門內容。</block>
+  <block id="afb6dbef1b44c7f79b8883cae5cc3b30" category="inline-link-macro">容器內容</block>
+  <block id="d76e9a2c09fc047c91b6cb4c2f340644" category="cell"><block ref="d76e9a2c09fc047c91b6cb4c2f340644" category="inline-link-macro-rx"></block></block>
+  <block id="0cf49f958731e4b4c23d4b04f0802ba0" category="cell">商業應用程式與資料庫</block>
+  <block id="73c685140b2461529432f6e9628ef281" category="cell">商業應用程式與資料庫解決方案的集合。SAP與SAP HANA登陸頁面會顯示內容特定「區塊」中的熱門內容。Oracle與SQL Server資料庫解決方案也會在本節中說明。</block>
+  <block id="ef0bea1a6ce6e68dd3ebae18ea2de71f" category="inline-link-macro">SAP與SAP HANA內容</block>
+  <block id="589c17157183d6295af608cccff7c8da" category="cell"><block ref="589c17157183d6295af608cccff7c8da" category="inline-link-macro-rx"></block></block>
+  <block id="d7339a230985e723af5d49a6470f4fc8" category="cell">收集資料移轉、資料保護及資料安全解決方案。</block>
+  <block id="d3d4dd76fc599d6c513fa0434537bc08" category="summary">一系列部落格、討論所有NetApp解決方案內容的解決方案功能</block>
+  <block id="4d46b81ad5db47d845e86c95088ff47a" category="doc">NetApp解決方案：部落格</block>
+  <block id="a93daa19938c1852de52ce10350307a4" category="paragraph">部落格總覽、重點介紹許多NetApp解決方案的特定功能。</block>
+  <block id="bf20a476dd72893f0f21a3d56a601784" category="open-title">人工智慧</block>
+  <block id="e6c9e9316fee7048645938d93d674056" category="list-text"><block ref="e6c9e9316fee7048645938d93d674056" category="inline-link-macro-rx"></block></block>
+  <block id="3e78754f8bb90f06073e18a2399d0b7f" category="list-text"><block ref="3e78754f8bb90f06073e18a2399d0b7f" category="inline-link-macro-rx"></block></block>
+  <block id="82b010fd4d40369f1139d43f8dd909ba" category="open-title">混合式多雲端與VMware</block>
+  <block id="821c35321bcc709868cdd0b7f31165ee" category="cell">04/01/2022</block>
+  <block id="8b55e517e14aa53afa343c32eba6bc12" category="cell">企業混合雲解決方案的內容組織：每個超大規模擴充系統的登陸頁面、以及可用解決方案（使用案例）內容的涵蓋範圍</block>
+  <block id="b4ea7c36c784b6da08e2b44d82018c65" category="open-title">AWS / VMC</block>
+  <block id="b9b37266c1f6c6a5244f3fef48f644e1" category="list-text">部署及設定適用於AWS的VMware Cloud</block>
+  <block id="57669ed11798d25a8216675c3f0f6ecf" category="inline-link-macro">VMC的組態步驟</block>
+  <block id="fc835ae678d144f168b78fafb98286b2" category="paragraph">檢視詳細資訊 <block ref="0bca421d9cd22e10e81bd0c987fad54b" category="inline-link-macro-rx"></block>。</block>
+  <block id="9e88bf7f3ee359d8f536975aa39ab6a5" category="open-title">Azure / AVS</block>
+  <block id="293193a848a4345d095f41ff490fd1a4" category="inline-link-macro">AVS的組態步驟</block>
+  <block id="e2501a40b45cdc3295c28e82fc2ffa18" category="paragraph">檢視詳細資訊 <block ref="29745c898e96ab7473e2b2c19fa34fbf" category="inline-link-macro-rx"></block>。</block>
+  <block id="7e7790ea083a371632d0764a881695f6" category="open-title">GCP / GCV</block>
+  <block id="e44b11e9adb07a14c72f48599f700cd4" category="inline-link-macro">GCVE.的組態步驟</block>
+  <block id="0969e77be69a346b123e1b2c625e25b0" category="paragraph">檢視詳細資訊 <block ref="7ffa56a4f5c5cf9fb86200a4dd2e1a5d" category="inline-link-macro-rx"></block>。</block>
+  <block id="3996fc456f7fb8e9643bad43ea62cd11" category="list-text">FSX ONTAP 支援原生資料存放區：1^</block>
+  <block id="52be4c6acc8cca3a598e3a651421de3d" category="inline-link-macro">VMC的來賓連線儲存選項</block>
+  <block id="37f223a23d46bf8585529dd8d08bbcf7" category="paragraph">檢視詳細資訊 <block ref="faae832115390401ac20af18b263017a" category="inline-link-macro-rx"></block>。</block>
+  <block id="3af4e413622f71852c903c8c285c17c1" category="paragraph">深入瞭解 <block ref="ad476c4cac730935959743eb28c5ca66" category="inline-link-macro-rx"></block>。</block>
+  <block id="44ce1d8d9c5bbcf0eedde196ae5d5e31" category="list-text">以原生資料存放區形式提供的資料（ANF）Azure NetApp Files</block>
+  <block id="a8e9a5787febc7740af29cd0bebf2e95" category="inline-link-macro">AVS的來賓連線儲存選項</block>
+  <block id="ead358b28ecc307f6e89deb846b9a227" category="paragraph">檢視詳細資訊 <block ref="b477b575563628f6202758f8f4d6ef57" category="inline-link-macro-rx"></block>。</block>
+  <block id="875e7e40e7a6b211cb48faf456e54a83" category="paragraph">深入瞭解 <block ref="c054a58e4fcd496e4fa5c1b0c16dfa69" category="inline-link-macro-rx"></block>。</block>
+  <block id="464b588a9c3ed4df78ea220f48faf1bb" category="list-text">以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service</block>
+  <block id="2da991b20a7647acbdd67154515723cf" category="inline-link-macro">GCVE的來賓連線儲存選項</block>
+  <block id="5d49b0ee57ad4b529c897b49789aa965" category="paragraph">檢視詳細資訊 <block ref="39710aaf95ad3f60e444c45fa2d1a561" category="inline-link-macro-rx"></block>。</block>
+  <block id="9a1c3a40aef4ef7a29c07ec6176752dc" category="paragraph">深入瞭解 <block ref="a508a86f372584a11bee8d3d41e3afca" category="inline-link-macro-rx"></block>。</block>
+  <block id="6c41e8ee0d4c73cd0adbd0d885181685" category="doc">NetApp混合式多雲端搭配VMware的支援組態</block>
+  <block id="685435b4b2388bd8f370b8fbb6ef6cc7" category="cell">*來賓連線*</block>
+  <block id="8299249ba5f910704b6288ee7e271747" category="cell">* AWS *</block>
+  <block id="eb35b03ceb49f5f06a4570454e08c34c" category="cell">CVO FSX ONTAP<block ref="999b20d9470091fda2e66b2dde5b0af7" category="inline-link-macro-rx"></block></block>
+  <block id="45277e62e958e9bf8bc931edecd437e7" category="inline-link-macro">詳細資料1</block>
+  <block id="bc9fd0ccb4bb380dfa68898a47068750" category="cell">FSX ONTAP<block ref="9cc89337b0f4d367b9afbc83b3861049" category="inline-link-macro-rx"></block></block>
+  <block id="1bdeba09294eb5abc383607bb93ff443" category="cell">* Azure *</block>
+  <block id="06a1c60be3b7274c063385eaa240863f" category="cell">CVO ANF<block ref="f44f46a20eba78aa72ad4f68a0486a31" category="inline-link-macro-rx"></block></block>
+  <block id="fa82d0731ea0dd7f68fabd80ed35d735" category="cell">ANF<block ref="2a1aa534f80ec525a104223ee6483173" category="inline-link-macro-rx"></block></block>
+  <block id="25bdffbd4ab087e994a0e54fe22ff6bd" category="cell">* GCP*</block>
+  <block id="96e48152153beabed038aa4e41f2abf8" category="cell">CVO CVS<block ref="a54d2eac225d57696bf863778373ea0b" category="inline-link-macro-rx"></block></block>
+  <block id="f665ac6b98bc15a4557ff1ed235a09fa" category="cell">CVS<block ref="749be360288b143d7aff76573cdd9685" category="inline-link-macro-rx"></block></block>
+  <block id="15ce055d9a059e67d9ddb79a8c441848" category="example-title">以原生資料存放區形式提供的資料（anf）Azure NetApp Files</block>
+  <block id="6f4a225b29c0975663d0e4b9e1f4547f" category="example-title">步驟1.</block>
+  <block id="e31ad1284b7618a9c10777ed99b12e64" category="example-title">步驟2</block>
+  <block id="a46eb72d67c0cbcbbdfcde010fbc0b03" category="paragraph">深入瞭解NetApp為Azure提供的解決方案。</block>
+  <block id="d8732ebfbd98db5a8cd9db59aa5b0637" category="paragraph">VMware將雲端工作負載定義為三種類別之一：</block>
+  <block id="2cb256015e8585083bd2350f010676fb" category="list-text">保護（包括災難恢復和備份/還原）</block>
+  <block id="3bc026b815790a05493fa56fc4b8d8bd" category="list-text">延伸</block>
+  <block id="2c0a3f21d3cbc96381e4c2fe29329ec1" category="paragraph">請瀏覽下列各節提供的解決方案。</block>
+  <block id="97740c0c87b83b324e18993ba93f0617" category="open-title">保護</block>
+  <block id="e74fe990166c1a4bb77dde7f12823b5d" category="paragraph">即將推出！！</block>
+  <block id="3d98cfc43616995ea335b20aa9b10ef2" category="paragraph">Azure可透過原生Azure NetApp Files 的不穩定（anf）服務或Cloud Volumes ONTAP 使用支援以客體連線的NetApp儲存設備（CVO）。</block>
+  <block id="8f53b5241aa3284f9058318dcbc2504d" category="section-title">產品統計（ ANF ） Azure NetApp Files</block>
+  <block id="2295dc11d84df2756a1eaac36330b417" category="paragraph">支援Azure的企業級資料管理與儲存、讓您輕鬆管理工作負載與應用程式。Azure NetApp Files將工作負載移轉至雲端、然後在不犧牲效能的情況下執行。</block>
+  <block id="806f1ffa4d2e1d7ee40a30337658a5ef" category="paragraph">解決障礙、讓您將所有檔案型應用程式移至雲端。Azure NetApp Files第一次、您不需要重新建構應用程式、也能在不複雜的情況下、持續為應用程式提供儲存設備。</block>
+  <block id="12eb3a27c6c1134f55e12f1349b87a91" category="paragraph">由於此服務是透過Microsoft Azure Portal提供、因此使用者在Microsoft企業協議中享有完整的託管服務。由Microsoft管理的世界級支援、讓您完全安心。此單一解決方案可讓您快速輕鬆地新增多重傳輸協定工作負載。您可以建置及部署Windows和Linux檔案型應用程式、即使是舊有環境也沒問題。</block>
+  <block id="7afda8c8e445dfa1015ae8245fa8026e" category="section-title">驗證（CVO）Cloud Volumes ONTAP</block>
+  <block id="8560d03d6d9a5398acd72a06a8fddd12" category="paragraph">NetApp以NetApp的整套儲存軟體為基礎、是領先業界的雲端資料管理解決方案、原生可在Amazon Web Services（AWS）、Microsoft Azure和Google Cloud Platform（GCP）上使用。Cloud Volumes ONTAP ONTAP</block>
+  <block id="12f2a9cf238d1339eddfc43be9f107e1" category="paragraph">這是ONTAP 由軟體定義的版本、會消耗雲端原生儲存設備、讓您在雲端和內部環境中擁有相同的儲存軟體、減少重新訓練IT人員以全新方法管理資料的需求。</block>
+  <block id="62c9becbf4c5643c0df4cbe868b09f0c" category="paragraph">CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端和移回、將混合式雲端整合在一起、所有這些都是透過單一窗格管理主控台NetApp Cloud Manager進行管理。</block>
+  <block id="aafae379e910c7a153b831ce5122f5e8" category="paragraph">根據設計、CVO提供極致效能和進階資料管理功能、即使是雲端最嚴苛的應用程式、也能輕鬆滿足需求</block>
+  <block id="0a9acbcedeb8b79d98c080f7a1b27f90" category="summary">採用VMware解決方案的NetApp混合式多雲端解決方案是一套策略與技術功能、可在主要公有雲超大規模擴充程式中展現NetApp儲存設備的功能。</block>
+  <block id="9e46ac24e9caed79a586cc94846bc147" category="doc">適用於Azure / AVS的NetApp混合式多雲端解決方案</block>
+  <block id="6db49f93b02d752e6b80616d15759056" category="inline-link-macro">NetApp / VMware雲端解決方案</block>
+  <block id="a088d0b353502e225826d0feb3041d57" category="list-text"><block ref="a088d0b353502e225826d0feb3041d57" category="inline-link-macro-rx"></block></block>
+  <block id="9e348c60eb79913385ed14a65efffff6" category="paragraph">檢視詳細資訊 <block ref="be78464beb9b2a2b1696a7fe38c0e484" category="inline-link-macro-rx"></block>。</block>
+  <block id="6aaf01ee1fbdbdbf620af74ded86e81d" category="paragraph">檢視詳細資訊 <block ref="c21bcdb7b1f85738a3211dff01d327ef" category="inline-link-macro-rx"></block>。</block>
+  <block id="cb9ab2dcef988aa0eaa2da1d789cfdb4" category="section-title">解決方案使用案例</block>
+  <block id="c9c270552e6f44a0219e4d2459cb4b90" category="paragraph">有了NetApp和VMware雲端解決方案、在Azure AVS中部署的許多使用案例都很簡單。系統會針對VMware定義的每個雲端領域定義SE案例：</block>
+  <block id="3fac70d2bc4023bd8c5bb8f7c93b16e8" category="list-text">保護（包括災難恢復和備份/還原）</block>
+  <block id="79e4e4c7346c156a268641272a85c01e" category="inline-link-macro">瀏覽適用於Azure AVS的NetApp解決方案</block>
+  <block id="6626f21cba60531fb6ab33c5b686fd03" category="paragraph"><block ref="6626f21cba60531fb6ab33c5b686fd03" category="inline-link-macro-rx"></block></block>
+  <block id="ef3abc0e33a9bba2f6844fc8bc6416c6" category="section-title">適用於VMware環境的NetApp解決方案</block>
+  <block id="7c56979dc4b16fa4dd69a289608a432d" category="paragraph">無論您是以混合雲模式或「雲端優先」模式運作、NetApp都能提供各式各樣的解決方案、以因應在雲端或混合雲模式中管理工作負載的最常見使用案例。</block>
+  <block id="d3ef2bae3f82fd055da3c71b59653d9e" category="paragraph">NetApp也提供解決方案、可將儲存設備配置為客體內（客體連線）儲存設備、或是在每個超大規模擴充設備中做為原生資料存放區。所有解決方案均與VMware雲端工作負載分類一致。這些分類包括：</block>
+  <block id="14b428df74ec47d859b4b41c2a528f79" category="paragraph">如需每個超大規模擴充系統可用解決方案的詳細資訊、請造訪：</block>
+  <block id="d7d90ddf3d849c680942374007293390" category="inline-link-macro">AWS / VMC解決方案</block>
+  <block id="3efe4c396a8490c63650f3271e66c5ab" category="list-text"><block ref="3efe4c396a8490c63650f3271e66c5ab" category="inline-link-macro-rx"></block></block>
+  <block id="902d95c8e7b033260ed791d46b121684" category="inline-link-macro">Azure / AVS解決方案</block>
+  <block id="a22d65ac7c37a480dfd6ea3cc467903d" category="list-text"><block ref="a22d65ac7c37a480dfd6ea3cc467903d" category="inline-link-macro-rx"></block></block>
+  <block id="739e02805dc104b2c68811e1ea86f2e5" category="inline-link-macro">GCP / GCVE解決方案</block>
+  <block id="72792598cb09eae6cc992790a3677b2d" category="list-text"><block ref="72792598cb09eae6cc992790a3677b2d" category="inline-link-macro-rx"></block></block>
+  <block id="4c27cd4763075e77fef142db7e967384" category="paragraph">深入瞭解NetApp為AWS帶來的解決方案。</block>
+  <block id="6619dc0097706121ef2efa1294da110b" category="example-title">註冊AWS帳戶</block>
+  <block id="3f01bd52a695afbced7f2a43525ec966" category="example-title">註冊My VMware帳戶</block>
+  <block id="f52c436d16c8976963f940ce7dfbd3b0" category="paragraph">AWS支援以原生FSX服務（FSX0 ONTAP ）或Cloud Volumes ONTAP 透過Sfor（CVO）連接來賓的NetApp儲存設備。</block>
+  <block id="480bc55cb0b0c11472f598d17424afa2" category="section-title">FSX ONTAP</block>
+  <block id="6df37dbe4c736ce113cfd677b79431d8" category="paragraph">Amazon FSX for NetApp ONTAP Sfing是一項完全託管的服務、以NetApp廣受歡迎ONTAP 的Sfing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。FSX for ONTAP VMware將NetApp檔案系統熟悉的功能、效能、功能和API作業、以及完全託管的AWS服務的敏捷度、擴充性和簡易性結合在一起。</block>
+  <block id="f1afd8f76dc3ed417abd5daffa1d5a5f" category="paragraph">FSX for ONTAP FSfor支援功能豐富、快速且靈活的共享檔案儲存設備、可從在AWS或內部部署環境中執行的Linux、Windows及MacOS運算執行個體進行廣泛存取。FSX for ONTAP VMware提供高效能固態硬碟（SSD）儲存設備、延遲低於毫秒。使用FSXfor ONTAP Sfor Sf0、您可以為工作負載達到SSD等級的效能、同時只需支付一小部分資料的SSD儲存設備費用。</block>
+  <block id="dd29cd696f931f8230a783a5d65ab8c4" category="paragraph">只ONTAP 要按一下按鈕、就能輕鬆使用FSXfor Sfor Sfor功能來管理資料、快照、複製及複寫檔案。此外ONTAP 、FSX for Sfor Sfor Sfor Sfor Elfed會自動將您的資料分層、以降低成本、靈活儲存、減少您配置或管理容量的需求。</block>
+  <block id="697c147172074c2927997e2d7c472fc0" category="paragraph">FSX for ONTAP Sfor Sfor支援跨區域災難恢復、提供高度可用且持久的儲存設備、並具備完整的備份管理功能。為了讓資料更容易保護和保護、FSXfor ONTAP Sfor支援熱門的資料安全和防毒應用程式。</block>
+  <block id="461ab3a83d6c51e1cc25f42118f407bd" category="paragraph">檢視詳細資訊 <block ref="f56028ac73883785be6a54941a0e4e64" category="inline-link-macro-rx"></block>。</block>
+  <block id="4f51975b36e54a460a05d93e148202d8" category="paragraph">檢視詳細資訊 <block ref="cfba6c34c6cd33cf1694f8b48900db44" category="inline-link-macro-rx"></block>。</block>
+  <block id="3721bfebe60fa9888e0ea17bd294772d" category="paragraph">有了NetApp和VMware雲端解決方案、許多使用案例都很容易部署在AWS VMC中。每個VMware定義的雲端領域都定義了使用案例：</block>
+  <block id="7c9a6204c3d04cd593127efe773bc82e" category="inline-link-macro">瀏覽NetApp的AWS VMC解決方案</block>
+  <block id="e9923439d335946afaff146da3d107ff" category="paragraph"><block ref="e9923439d335946afaff146da3d107ff" category="inline-link-macro-rx"></block></block>
+  <block id="8d0d9bd2f38a28e941cd90a63a39eb8a" category="doc">NetApp災難恢復解決方案、採用與來賓連線的NetApp儲存設備</block>
+  <block id="61b3e6d83c470bf54334dc956dbc9ee4" category="paragraph">以NetApp作為來賓連線儲存設備的災難恢復解決方案適用於FSxO和CVO。</block>
+  <block id="b17ebc76cfd213d781cccb861a4e924f" category="paragraph">這些解決方案也會使用各種NetApp和協力廠商軟體產品來記錄。下列選項可讓您根據軟體產品和NetApp儲存選項來選擇解決方案。</block>
+  <block id="9081abd0659e441b14055b23b31c347d" category="open-title">適用於FSxO的Veeam</block>
+  <block id="ade19beadb0ae5203b8057b40a752714" category="paragraph">&lt;content will go here for the Solution with Veeam for FSxo&gt;</block>
+  <block id="4ad99bccac6922d9724bd73794e2b5c4" category="open-title">Veeam適用於CVO</block>
+  <block id="4c3dd331b0c803d969d8d48271a8955f" category="paragraph">&lt;content will go here for the Solution with Veeam for CVO&gt;（此處提供Veeam for CVO解決方案）</block>
+  <block id="5565aeb39738b6742e801f56fd6878b6" category="open-title">適用於FSxO的HCx</block>
+  <block id="d6dfff84d77a63fcf19e6f6359ac71c5" category="paragraph">&lt;content will go here for the Solution with HCX for FSxo&gt;（此處提供適用於FSxo&gt;的解決方案）</block>
+  <block id="711a160cd3b8c4ec32edd7ba5dfd5eca" category="open-title">CVO適用的HCx</block>
+  <block id="4956cdf8fd57c365bb7636be6c086ca5" category="paragraph">&lt;content will go here for the Solution with HCX for CVO&gt;</block>
+  <block id="a0e3b13b82c6cc2042ac9e057f0718b3" category="doc">適用於AWS / VMC的NetApp混合式多雲端解決方案</block>
+  <block id="7c0dae765c7854235808e7e373346d06" category="paragraph">深入瞭解NetApp為GCP帶來的解決方案。</block>
+  <block id="962dbad648dc58421e7347adf727a05a" category="paragraph">深入瞭解NetApp為Google Cloud Platform（GCP）Google Cloud Virtualization Engine（GCVG）帶來的功能、這些功能可從NetApp做為來賓連線儲存設備或原生資料存放區、移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
+  <block id="370e7d693bc429e40244684cac20b0cf" category="list-text"><block ref="370e7d693bc429e40244684cac20b0cf" category="inline-link-macro-rx"></block></block>
+  <block id="80d79003a84a32474624e54935709e67" category="paragraph">檢視詳細資訊 <block ref="996ade122099ed78c4d5fea15d95f62c" category="inline-link-macro-rx"></block>。</block>
+  <block id="80b43a415019d937ea5c38446043549a" category="paragraph">檢視詳細資訊 <block ref="8e20eef09273fc2519292ca4ed666573" category="inline-link-macro-rx"></block>。</block>
+  <block id="e67def868f3133574b28ffe738ad44c1" category="inline-link-macro">瀏覽適用於Google Cloud GCVE的NetApp解決方案</block>
+  <block id="5e7670e99ae7db80618f16965d677af6" category="paragraph"><block ref="5e7670e99ae7db80618f16965d677af6" category="inline-link-macro-rx"></block></block>
+  <block id="f0f52a47448cc3bc6237a09f83ad3e74" category="example-title">部署及設定GCVE</block>
+  <block id="d3e4750ab9c5f45877b08b537cffe841" category="doc">適用於GCP / GCVE的NetApp混合式多雲端解決方案</block>
+  <block id="7973cdedf3e9a37ff146bc9fd29ff017" category="paragraph">GCP支援客戶連線的NetApp儲存設備Cloud Volumes ONTAP 搭配使用NetApp功能（CVO）或Cloud Volumes Service 使用支援功能（CVS）。</block>
+  <block id="622f93ad4ff43627a425523c5e2538ad" category="section-title">CVS（CVS）Cloud Volumes Service</block>
+  <block id="b5a9beef520c0dd1f8e978800f35268e" category="paragraph">Cloud Volumes Services（CVS）是一套完整的資料服務產品組合、可提供進階雲端解決方案。Cloud Volumes Services支援主要雲端供應商的多種檔案存取傳輸協定（NFS和SMB支援）。</block>
+  <block id="82c8cb0896f20daa9ddbb9d49332f9b6" category="paragraph">其他優點與功能包括：使用Snapshot保護資料與還原；在內部部署或雲端上複寫、同步及移轉資料目的地的特殊功能；以及在專屬Flash儲存系統層級上提供一致的高效能。</block>
+  <block id="e1281543b82ca0740b9a14ecaccdf005" category="doc">摘要與結論：為何選擇NetApp混合式多雲端搭配VMware</block>
+  <block id="1c2d371e7885541a1df267029c76cfaa" category="doc">NetApp混合式多雲端與VMware的總覽</block>
+  <block id="abbe5e723ab5fce5f27612442575a63c" category="doc">NetApp混合式多雲端與VMware的使用案例</block>
+  <block id="443f43c84a8efb54c46feb5a61b1a9cc" category="paragraph">在本文件中、我們將使用VMware使用案例來詳細說明雲端工作負載參考資料。這些使用案例包括：</block>
+  <block id="0eb3c79e84e2e7074d851c728663251c" category="doc">NetApp混合式多雲端解決方案</block>
+  <block id="0198315ccfb9d5c56e9c865f01bee365" category="paragraph">有了NetApp和VMware雲端解決方案、許多使用案例都能輕鬆部署到您選擇的超大規模環境中。VMware將主要雲端工作負載使用案例定義為：</block>
+  <block id="e0525641cbca59e199eed50739c0c3b8" category="inline-link-macro">瀏覽NetApp的AWS / VMC解決方案</block>
+  <block id="3a602723648efc3d9a864906b6ec2d9c" category="paragraph"><block ref="3a602723648efc3d9a864906b6ec2d9c" category="inline-link-macro-rx"></block></block>
+  <block id="d18a9fea9b4ca38bf7f042e32420e14e" category="inline-link-macro">瀏覽適用於Azure / AVS的NetApp解決方案</block>
+  <block id="bd6708bcf0c060976324512475c1a212" category="paragraph"><block ref="bd6708bcf0c060976324512475c1a212" category="inline-link-macro-rx"></block></block>
+  <block id="cac969404c87e9e141b320e34ee1ba4b" category="inline-link-macro">瀏覽適用於Google Cloud Platform（GCP）/ GCVE的NetApp解決方案</block>
+  <block id="7f86100566a3de37a45dc2bd4ea422a0" category="paragraph"><block ref="7f86100566a3de37a45dc2bd4ea422a0" category="inline-link-macro-rx"></block></block>
+  <block id="fc6a84d7647419d401d691cc6c004cc4" category="paragraph">側欄：側欄Permalink：Databases/db_protection_awx_automation.html關鍵字：Linux、RHEL Oracle19c、NFS、ONTAP 效益摘要：本頁說明NetApp ONTAP ®資料儲存設備上Oracle19c的自動化資料保護。-</block>
+  <block id="c6cf4675ec6aec4e4edf9eac5122e022" category="paragraph">stdin&gt;中的未解析指令-包括：..//_iinclude/db_protection _log_replication.adication[]</block>
+  <block id="95adefbc130d345041c4487820a9ab16" category="summary">NetApp企業資料庫解決方案是一套策略與技術功能、可在主要企業資料庫中展現NetApp儲存設備的功能。</block>
+  <block id="e890f04973d00c3664a44f4cc586bb5d" category="doc">NetApp企業資料庫解決方案</block>
+  <block id="809247403bb2b3e7178b69b038356678" category="inline-link-macro">vSphere資料存放區與傳輸協定功能：NFS</block>
+  <block id="ff7854cc2ae62511b4a52320f31aa005" category="paragraph"><block ref="ff7854cc2ae62511b4a52320f31aa005" category="inline-link-macro-rx"></block></block>
+  <block id="6309162dffb4a082a2a106613c448e9f" category="doc">混合雲、虛擬化與容器影片與示範</block>
+  <block id="ccf0b7773e492df3e851d36b689b69b1" category="paragraph">請觀看下列影片和示範、重點介紹混合雲、虛擬化和容器解決方案的特定功能。</block>
+  <block id="ab5efb952cd51767fdde3f548f7d3f18" category="paragraph">如需有關SnapCenter 適用於VMware vSphere的NetApp解決方案外掛程式的詳細資訊、請參閱 <block ref="39b49e6fd504a137658d6db31d129abd" category="inline-link-macro-rx"></block>。</block>
+  <block id="668ed010c67826eb36328daf61db1909" category="example-title">NetApp與VMware Tanzu影片</block>
+  <block id="0b59976821e81163a037c4ed7f21b209" category="paragraph"><block ref="0b59976821e81163a037c4ed7f21b209" category="inline-link-macro-rx"></block></block>
+  <block id="4bff68299377013f00a500a01c7a2f19" category="list-text"><block ref="4bff68299377013f00a500a01c7a2f19" category="inline-link-macro-rx"></block></block>
+  <block id="e5f4fe92e1832b16532011df56ee39a5" category="list-text"><block ref="c30f78a476776106411b5cd1ee097f4f" category="inline-link-macro-rx"></block></block>
+  <block id="380fbb2dc2a4b42876553664c398fb3f" category="paragraph">在提供解決方案以因應現今的商業挑戰時、NetApp提供的解決方案具有下列目標：</block>
+  <block id="008347e050bccf7e2812ae39dd816f41" category="list-text">提供經過驗證的部署與組態步驟、</block>
+  <block id="4ef594072d2fdf53ad9ca6af7fe16569" category="list-text">提供易於使用的解決方案、</block>
+  <block id="3f68e576fe6e3e328b5feeea03707572" category="list-text">提供可預測結果的解決方案部署、可在客戶的企業中輕鬆重複且可擴充。</block>
+  <block id="928a4532882b0eb0208abcae9b7fd6f0" category="paragraph">為了達成這些目標、透過我們的解決方案來簡化基礎架構和/或應用程式的部署和組態、是非常重要的。NetApp致力於透過自動化來簡化解決方案使用。</block>
+  <block id="d6d7e89b087a9e69ae7622847dc932e5" category="paragraph">NetApp解決方案運用開放原始碼自動化工具、例如Red Hat Ansible、HashiCorp Terraform或Microsoft PowerShell、能夠自動化應用程式部署、雲端資源配置、組態管理及許多其他常見IT工作。NetApp的解決方案利用公開提供的自動化成品、以及NetApp著作的自動化功能、來簡化解決方案的整體部署。</block>
+  <block id="e532e5979d2ecc30b8177530683810e2" category="paragraph">若有自動化功能、解決方案文件將引導使用者透過特定的自動化工具、完成解決方案或解決方案步驟的自動化程序。</block>
+  <block id="aaac1ea7463ef799eaafc693b16b1f81" category="doc">NetApp解決方案自動化入門</block>
+  <block id="66bd3dbe1f46a5715420e201e457ff65" category="paragraph">NetApp解決方案自動化可為NetApp解決方案所使用的許多常見工作提供簡易性與重複性。</block>
+  <block id="bf7d92f5ef43a7e0ab10c8d11d28ef6e" category="paragraph">在執行任何解決方案自動化之前、必須針對自動化的執行方式設定環境。您可以選擇從命令列或透過AWX或直立式等工具來執行自動化作業。</block>
+  <block id="dcdcb9b7436ca5ceca042e84e9c3ccf5" category="paragraph">下列各節將概述設定每個指定環境的環境所需步驟。</block>
+  <block id="60e34857d044a02ae86f645c2e97e40f" category="paragraph">stdin&gt;中的未解析指令-包括：contains/RH-os-n_overview _Astra _cc_install手冊.adc[]</block>
+  <block id="2b0a99e34b337bd6d8ed27dd9482c9e6" category="paragraph">stdin&gt;中的未解析指令-包括：contains/RH-OS-n_overview、Astra _cc_install、Ansible、adc[]</block>
+  <block id="245ab73d4b9beb43ff76c082e9bc77db" category="open-title">AI /資料分析</block>
+  <block id="1cafbd014dfeeb64eb943c92af6abe86" category="open-title">混合式多雲端</block>
+  <block id="901b32f6abd15fbb3d43fbd044218a64" category="open-title">企業應用程式與資料庫</block>
+  <block id="71fbb346a6b64c94052f0e171d5d3eed" category="open-title">資料保護與資料移轉</block>
+  <block id="10b2aec15aae4d935355e27497e66c5f" category="summary">一系列影片和示範、討論NetApp許多解決方案的功能</block>
+  <block id="6354d74cd74c1d9f49224ac4e6209bab" category="doc">NetApp解決方案：影片與示範</block>
+  <block id="60b5065968cf0f66d862a344124f6415" category="paragraph">影片與示範總覽、重點介紹許多NetApp解決方案的特定功能。</block>
+  <block id="ab440644113265a70e7e0bb7c44b2f63" category="paragraph">*案例研究*</block>
+  <block id="25aa061b5bc79f1f85182fd8ca1f3165" category="inline-link-macro">VMware影片集</block>
+  <block id="847fff0b97afdc8ceabb5c717634d413" category="list-text"><block ref="847fff0b97afdc8ceabb5c717634d413" category="inline-link-macro-rx"></block></block>
+  <block id="6b8847bb26c687aff3755cd309c49318" category="inline-link-macro">利用Astra Control和NetApp FlexClone技術加速軟體開發</block>
+  <block id="204d792f06c32a352c6a2bab50edc884" category="list-text"><block ref="204d792f06c32a352c6a2bab50edc884" category="inline-link-macro-rx"></block></block>
+  <block id="5c0a0d6259b740ef046fce59145ef75c" category="list-text"><block ref="5c0a0d6259b740ef046fce59145ef75c" category="inline-link-macro-rx"></block></block>
+  <block id="d58d90722ff1d203cae3510d76dae738" category="inline-link-macro">利用Astra Control在CI/CD傳輸線中提供資料保護</block>
+  <block id="9c774469ec2a8f1726ced3c53a718435" category="list-text"><block ref="9c774469ec2a8f1726ced3c53a718435" category="inline-link-macro-rx"></block></block>
+  <block id="9ab414a5d38d00353db04e34b6c5214d" category="inline-link-macro">使用Astra Control進行工作負載移轉：採用NetApp的Red Hat OpenShift</block>
+  <block id="5b496b0bdc4a9eca4eeeec4a21625dac" category="list-text"><block ref="5b496b0bdc4a9eca4eeeec4a21625dac" category="inline-link-macro-rx"></block></block>
+  <block id="eda7c1200ab08f725c863bfd563c3d31" category="inline-link-macro">使用Astra Trident和SnapMirror進行工作負載移轉-採用NetApp的Red Hat OpenShift</block>
+  <block id="c3ddd010e97d096001492056c93aa883" category="list-text"><block ref="c3ddd010e97d096001492056c93aa883" category="inline-link-macro-rx"></block></block>
+  <block id="f572afcba8a95128ddd328e44a23a189" category="inline-link-macro">安裝OpenShift虛擬化：採用NetApp的Red Hat OpenShift</block>
+  <block id="1d7615053b7ca9824b9b85dc258c6643" category="list-text"><block ref="1d7615053b7ca9824b9b85dc258c6643" category="inline-link-macro-rx"></block></block>
+  <block id="c9e349766e4968ee277d240ff7b169e6" category="inline-link-macro">部署採用OpenShift虛擬化技術的虛擬機器-採用NetApp的Red Hat OpenShift</block>
+  <block id="9840e6cb0c2ab37a0e662398a6b3ffef" category="list-text"><block ref="9840e6cb0c2ab37a0e662398a6b3ffef" category="inline-link-macro-rx"></block></block>
+  <block id="55418abe87135e6107123ca2c087964c" category="sidebar">適用於超大規模雲端環境中VMware的NetApp解決方案</block>
+  <block id="195b49c0610d30d327f5440759b7b642" category="sidebar">支援的解決方案</block>
+  <block id="77abe5490624dabbaf53c9f3b9267e97" category="sidebar">原生資料存放區-私有預覽</block>
+  <block id="3ffbc70cc0bdd47bd7c4ed3cfa35be8a" category="sidebar">FSX ONTAP 不支援來賓連線儲存設備</block>
+  <block id="d4a26861760fe17cc2584cdd8453c938" category="sidebar">以客體連線儲存設備的形式提供（CVO）Cloud Volumes ONTAP</block>
+  <block id="5efd4fd33e2b8f8cc3fc45c42e47c9ad" category="sidebar">適用於AWS上VMC的解決方案</block>
+  <block id="b2f068db06c9b5b7c387193b8f186f81" category="sidebar">以客體連線儲存設備的形式提供（ANF）Azure NetApp Files</block>
+  <block id="c89fb832b55397ad57c36681741311d5" category="sidebar">Azure上的AVS解決方案</block>
+  <block id="7db85076649ba213cd747c06b9b19df7" category="sidebar">以客體連線儲存設備的形式提供（CVS）Cloud Volumes Service</block>
+  <block id="726e6f4bd2e690d08ae0a185cbe1c9b8" category="sidebar">GCP上的GCVE解決方案</block>
+  <block id="06e1970c26d133efed67d51224ceff1c" category="sidebar">安全性總覽- Cloud Volumes Service Google Cloud中的NetApp解決方案（CVS）</block>
+  <block id="860ab177fe05389a6d0ec0842bd1e818" category="sidebar">即將推出...</block>
+  <block id="c252fd6dfe5fa6dc4ba36515512a8070" category="sidebar">工作負載保護解決方案</block>
+  <block id="10b6eb5523fab1d4b99c4fdfb54bf176" category="sidebar">工作負載擴充解決方案</block>
+  <block id="d761cb8e8504381eb60fe9aea1bcb3e7" category="sidebar">工作負載移轉解決方案</block>
+  <block id="2e92adc6ace2b6d3c6626d5dc86f0956" category="sidebar">適用於Azure VMware解決方案的資料存放區（預覽）Azure NetApp Files</block>
+  <block id="2579e0b6258e495e90e159e678bd55a8" category="sidebar">AWS上的VMware Cloud：新區域、外部儲存設備與採購選項</block>
+  <block id="f74a2791289e2f0411e5ffbd3e5a1d68" category="sidebar">Google Cloud VMware Engine搭配NetApp Cloud Volumes Service 功能</block>
+  <block id="30162ed78b6c10f731411f2fc440c24f" category="sidebar">Oracle</block>
+  <block id="51b19c4a2c13c8f8a69b0608959bdfca" category="sidebar">Oracle 19c RAC資料庫、FlexPod 位於</block>
+  <block id="a71f76c3256e4c206a4841d8eb0fed35" category="sidebar">SQL Server</block>
+  <block id="81d59bad51a910734812cab3d20641b0" category="sidebar">混合雲資料庫解決方案</block>
+  <block id="934553b3e6b7dd417ef37d2b3213dd00" category="sidebar">SAP SAP HANA</block>
+  <block id="1f036821b23def9a55e4116bdbd60c1b" category="sidebar">變更記錄</block>
+  <block id="bb5dc731b06d417365e41cb2d0230213" category="sidebar">影片示範</block>
+  <block id="f9cffb4fda587c713c06e50699299f0f" category="sidebar">解決方案登陸頁面</block>
+  <block id="bf8e2974cd692b57a29e42874b662b52" category="sidebar">企業資料庫</block>
+  <block id="84145683557fc8692113a2a97c3ec239" category="sidebar">NetApp混合式多雲端與VMware</block>
+  <block id="10d42b4bab4fd3114da1e1eae0994d36" category="sidebar">SAP與SAP</block>
+  <block id="d4a3e435684aa9918c9dd0bada78d4fb" category="sidebar">設定VMC for AWS</block>
+  <block id="883512106f2cef4187ee5f6b5a94c6f8" category="sidebar">設定Azure的AVS</block>
+  <block id="a271625e92b27bca4202ba79dab27301" category="sidebar">設定GCP的GCVE</block>
+  <block id="76862b378878c90a8052499ae898932f" category="sidebar">VMC的來賓連線儲存設備</block>
+  <block id="5703f41cd5551fad387ed46631532278" category="sidebar">AVS的來賓連線儲存設備</block>
+  <block id="1f9511a418cf9a352bacd19d937a5237" category="sidebar">GCVE.訪客連線儲存設備</block>
+  <block id="a0e8297bc18713002f47301829625ea1" category="sidebar">適用於AWS / VMC的NetApp</block>
+  <block id="d530fb3a1e80511b2d7787728700d3fa" category="sidebar">適用於Azure / AVS的NetApp</block>
+  <block id="8d9d90a84ad6b34129f140e0b3e23326" category="sidebar">適用於GCP / GCVE</block>
 </blocks>

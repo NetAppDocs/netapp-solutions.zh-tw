@@ -20,6 +20,7 @@ summary:
 
 * link:#config["在AWS中設定VMC"]
 * link:#datastore["適用於VMC的NetApp儲存選項"]
+* link:#solutions["NetApp / VMware雲端解決方案"]
 
 
 
@@ -35,9 +36,11 @@ NOTE: 客體內儲存設備是唯一受支援的方法、可將FSXVMware ONTAP �
 
 設定程序可分為下列步驟：
 
-* link:aws-setup.html#deploy["部署及設定適用於AWS的VMware Cloud"]
-* link:aws-setup.html#connect["將VMware Cloud連接至FSX ONTAP VMware"]
+* 部署及設定適用於AWS的VMware Cloud
+* 將VMware Cloud連接至FSX ONTAP VMware
 
+
+檢視詳細資訊 link:aws-setup.html["VMC的組態步驟"]。
 
 
 
@@ -49,16 +52,27 @@ NetApp儲存設備可在AWS VMC中以多種方式使用、無論是猜測已連�
 
 AWS支援下列組態的NetApp儲存設備：
 
-*來賓連線儲存設備*
+* FSX ONTAP 支援以客為本的連線儲存設備
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* FSX ONTAP 支援原生資料存放區：1^
 
-* link:aws-guest.html#fsx-ontap["FSX ONTAP 支援以客為本的連線儲存設備"]
-* link:aws-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:aws-guest.html["VMC的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]
-
+深入瞭解 link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
+
+
+
+== 解決方案使用案例
+
+有了NetApp和VMware雲端解決方案、許多使用案例都很容易部署在AWS VMC中。每個VMware定義的雲端領域都定義了使用案例：
+
+* 保護（包括災難恢復和備份/還原）
+* 延伸
+* 移轉
+
+
+link:aws-solutions.html["瀏覽NetApp的AWS VMC解決方案"]

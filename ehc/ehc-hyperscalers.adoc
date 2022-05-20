@@ -27,6 +27,7 @@ NOTE: 若要查看特定超大規模擴充程式的功能、請按一下該超�
 
 * link:#config["超大規模擴充組態中的VMware"]
 * link:#datastore["NetApp儲存選項"]
+* link:#solutions["NetApp / VMware雲端解決方案"]
 
 
 
@@ -35,10 +36,10 @@ NOTE: 若要查看特定超大規模擴充程式的功能、請按一下該超�
 
 如同內部部署、規劃雲端型虛擬化環境對於成功建立虛擬機器和移轉的正式作業就緒環境來說、是非常重要的。
 
-
-
-=== AWS和VMC
-
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
 本節說明如何在AWS SDDC上設定及管理VMware Cloud、並搭配可用的選項來連接NetApp儲存設備。
 
 
@@ -46,14 +47,15 @@ NOTE: 客體內儲存設備是唯一受支援的方法、可將FSXVMware ONTAP �
 
 設定程序可分為下列步驟：
 
-* link:aws/aws-setup.html#deploy["部署及設定適用於AWS的VMware Cloud"]
-* link:aws/aws-setup.html#connect["將VMware Cloud連接至FSX ONTAP VMware"]
+* 部署及設定適用於AWS的VMware Cloud
+* 將VMware Cloud連接至FSX ONTAP VMware
 
 
+檢視詳細資訊 link:aws/aws-setup.html["VMC的組態步驟"]。
 
-
-=== Azure與AVS
-
+--
+.Azure / AVS
+--
 本節說明如何設定及管理Azure VMware解決方案、以及如何搭配可用的選項來連接NetApp儲存設備。
 
 
@@ -61,15 +63,16 @@ NOTE: 客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決C
 
 設定程序可分為下列步驟：
 
-* link:azure/azure-setup.html#register["註冊資源供應商並建立私有雲"]
-* link:azure/azure-setup.html#connect["連線至新的或現有的ExpressRoute虛擬網路閘道"]
-* link:azure/azure-setup.html#validate["驗證網路連線能力並存取私有雲端"]
+* 註冊資源供應商並建立私有雲
+* 連線至新的或現有的ExpressRoute虛擬網路閘道
+* 驗證網路連線能力並存取私有雲端
 
 
+檢視詳細資訊 link:azure/azure-setup.html["AVS的組態步驟"]。
 
-
-=== GCP和GCV
-
+--
+.GCP / GCV
+--
 本節說明如何設定及管理GCVE,並搭配可用的選項來連接NetApp儲存設備。
 
 
@@ -77,10 +80,14 @@ NOTE: 客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 
 
 設定程序可分為下列步驟：
 
-* link:gcp/gcp-setup.html#deploy["部署及設定GCVE"]
-* link:gcp/gcp-setup.html#enable-access["啟用對GCVE的私有存取"]
+* 部署及設定GCVE
+* 啟用對GCVE的私有存取
 
 
+檢視詳細資訊 link:gcp/gcp-setup.html["GCVE.的組態步驟"]。
+
+--
+====
 
 
 == NetApp儲存選項
@@ -89,62 +96,86 @@ NetApp儲存設備可在三大大型超大規模擴充系統中的每個系統�
 
 請造訪 link:ehc-support-configs.html["支援的NetApp儲存選項"] 以取得更多資訊。
 
-
-
-=== AWS和VMC
-
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
 AWS支援下列組態的NetApp儲存設備：
 
-*來賓連線儲存設備*
+* FSX ONTAP 支援以客為本的連線儲存設備
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* FSX ONTAP 支援原生資料存放區：1^
 
-* link:aws/aws-guest.html#fsx-ontap["FSX ONTAP 支援以客為本的連線儲存設備"]
-* link:aws/aws-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:aws/aws-guest.html["VMC的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]
-
+深入瞭解 link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援原生資料存放區"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
 
-
-
-=== Azure與AVS
-
+--
+.Azure / AVS
+--
 Azure以下列組態支援NetApp儲存設備：
 
-*來賓連線儲存設備*
+* 以客體連線儲存設備的形式提供Azure NetApp Files
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 以原生資料存放區形式提供的資料（ANF）Azure NetApp Files
 
-* link:azure/azure-guest.html#anf["以客體連線儲存設備的形式提供Azure NetApp Files"]
-* link:azure/azure-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
 
+檢視詳細資訊 link:azure/azure-guest.html["AVS的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]
-
+深入瞭解 link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["以原生資料存放區形式提供的資料（anf）Azure NetApp Files"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
 
-
-
-=== GCO和GCV
-
+--
+.GCP / GCV
+--
 Google Cloud支援下列組態的NetApp儲存設備：
 
-*來賓連線儲存設備*
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
+* 以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service
 
-* link:gcp/gcp-guest.html#cvo["以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP"]
-* link:gcp/gcp-guest.html#cvs["以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service"]
 
+檢視詳細資訊 link:gcp/gcp-guest.html["GCVE的來賓連線儲存選項"]。
 
-*原生資料存放區*
-
-* link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]
-
+深入瞭解 link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的支援（CVS）Cloud Volumes Service"^]。
 
 
 NOTE: 1 -目前處於私有預覽中
+
+--
+====
+
+
+== NetApp / VMware雲端解決方案
+
+有了NetApp和VMware雲端解決方案、許多使用案例都能輕鬆部署到您選擇的超大規模環境中。VMware將主要雲端工作負載使用案例定義為：
+
+* 保護（包括災難恢復和備份/還原）
+* 移轉
+* 延伸
+
+
+[role="tabbed-block"]
+====
+.AWS / VMC
+--
+link:aws/aws-solutions.html["瀏覽NetApp的AWS / VMC解決方案"]
+
+--
+.Azure / AVS
+--
+link:azure/azure-solutions.html["瀏覽適用於Azure / AVS的NetApp解決方案"]
+
+--
+.GCP / GCV
+--
+link:gcp/gcp-solutions.html["瀏覽適用於Google Cloud Platform（GCP）/ GCVE的NetApp解決方案"]
+
+--
+====

@@ -81,7 +81,7 @@ entries:
       - title: NFS - v4.1
         url: "/virtualization/vsphere_ontap_auto_file_nfs41.html"
   - title: VMware vSphere的功能介紹ONTAP
-    url: "/virtualization/vsphere_ontap_whats_new.html"
+    url: https://raw.githubusercontent.com/NetAppDocs/ontap-whatsnew/main/ontap98fo_vmware_virtualization.html
 - title: 適用於公有雲的VMware
   entries:
   - title: 總覽
@@ -92,8 +92,22 @@ entries:
     url: "/ehc/ehc-support-configs.html"
   - title: 超大規模擴充組態中的VMware
     url: "/ehc/ehc-config-vmware-intro.html"
+    entries:
+    - title: 設定VMC for AWS
+      url: "/ehc/aws/aws-setup.html"
+    - title: 設定Azure的AVS
+      url: "/ehc/azure/azure-setup.html"
+    - title: 設定GCP的GCVE
+      url: "/ehc/gcp/gcp-setup.html"
   - title: 超大規模雲端中的NetApp儲存設備
     url: "/ehc/ehc-datastore-intro.html"
+    entries:
+    - title: VMC的來賓連線儲存設備
+      url: "/ehc/aws/aws-guest.html"
+    - title: AVS的來賓連線儲存設備
+      url: "/ehc/azure/azure-guest.html"
+    - title: GCVE.訪客連線儲存設備
+      url: "/ehc/gcp/gcp-guest.html"
   - title: 摘要與結論
     url: "/ehc/ehc-summary.html"
 - title: VMware混合雲使用案例

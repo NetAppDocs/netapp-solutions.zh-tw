@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: databases/marketing_overview.html 
+keywords: Linux, RHEL Oracle19c, NFS, ONTAP, Ansible 
+summary: 本頁說明將Oracle19c部署在NetApp ONTAP 內存上的自動化方法。 
+---
+= 解決方案總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 在ONTAP NFS上自動部署Oracle19c for Sfor
+
+組織正在將環境自動化、以提高效率、加速部署、並減少手動作業。Ansible等組態管理工具正用於簡化企業資料庫作業。在本解決方案中、我們將示範如何使用Ansible來自動化Oracle 19c with NetApp ONTAP 供應與組態。藉由讓儲存管理員、系統管理員及DBA能夠一致且快速地部署新的儲存設備、設定資料庫伺服器、以及安裝Oracle 19c軟體、您將獲得下列效益：
+
+* 消除設計複雜性和人為錯誤、並實作可重複執行的一致部署和最佳實務做法
+* 縮短儲存資源配置、DB主機組態及Oracle安裝的時間
+* 提高資料庫管理員、系統和儲存管理員的生產力
+* 輕鬆擴充儲存設備和資料庫
+
+
+NetApp為客戶提供通過驗證的Ansible模組和角色、以加速Oracle資料庫環境的部署、組態和生命週期管理。本解決方案提供說明及可接受的方針代碼、協助您：
+
+* 建立及設定ONTAP Oracle資料庫的靜態NFS儲存設備
+* 在RedHat Enterprise Linux 7/8或Oracle Linux 7/8上安裝Oracle 19c
+* 在ONTAP 不支援的NFS儲存設備上設定Oracle 19c
+
+
+如需更多詳細資料或要開始、請參閱下方的總覽影片。
+
+
+
+=== AWX/Tower部署
+
+* 第1部分：入門、需求、自動化詳細資料及初始AWX/Tower組態
+
+
+video::oracle_deployment_auto_v1.mp4[]
+* 第2部分：變數與執行教戰手冊
+
+
+video::oracle_deployment_auto_v2.mp4[]
+
+
+=== CLI部署
+
+* 第1部分：入門、需求、自動化詳細資料和可控制主機設定
+
+
+video::oracle_deployment_auto_v4.mp4[]
+* 第2部分：變數與執行教戰手冊
+
+
+video::oracle3.mp4[]
