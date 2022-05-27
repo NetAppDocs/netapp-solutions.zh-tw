@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-protopia-inferencing-accuracy-comparison.html 
+keywords: faceboxes, alpha value, accuracy, comparison 
+summary: 為了進行此驗證、我們使用一組原始影像來推斷影像偵測使用案例。然後、我們在相同的影像集上執行相同的推斷工作、並在推斷之前新增Protopia模糊功能。我們使用不同的Alpha值來重複執行Protopia混淆元件的工作。 
+---
+= 推斷準確度比較
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-protopia-test-procedure.html["上一步：測試程序。"]
+
+為了進行此驗證、我們使用一組原始影像來推斷影像偵測使用案例。然後、我們在相同的影像集上執行相同的推斷工作、並在推斷之前新增Protopia模糊功能。我們使用不同的Alpha值來重複執行Protopia混淆元件的工作。在Protopia混淆的情況下、Alpha值代表套用的模糊處理量、而較高的Alpha值代表較高層級的模糊處理。然後我們比較這些不同路跑的推斷準確度。
+
+下表提供使用案例的詳細資料、並概述結果。
+
+Protopia直接與客戶合作、針對特定使用案例來判斷適當的Alpha值。
+
+|===
+| 元件 | 詳細資料 
+
+
+| 模型 | FaceBoxes（PyTorch）- 
+
+
+| 資料集 | FDDB資料集 
+|===
+|===
+| 普洛皮亞混淆 | Alpha | 準確度 
+
+
+| 否 | 不適用 | 0.9337148153739079 
+
+
+| 是的 | 0.05 | 0.9028766627325002 
+
+
+| 是的 | 0.1 | 0.9024301009661478 
+
+
+| 是的 | 0.2 | 0.9081836283186280 
+
+
+| 是的 | 0.4 | 0.90766107482036 
+
+
+| 是的 | 0.6 | 0.8847816568680239 
+
+
+| 是的 | 0.8 | 0.8841195749171925 
+
+
+| 是的 | 0.9. | 0.84554276775252052 
+
+
+| 是的 | 0.95 | 0.84554276775252052 
+|===
+link:ai-protopia-obfuscation-speed.html["下一步：模糊化速度。"]

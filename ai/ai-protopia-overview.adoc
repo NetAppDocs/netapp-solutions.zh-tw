@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-protopia-overview.html 
+keywords: tr4928, 4928, introduction, overview, inferencing, confidential 
+summary: 本文件說明已通過驗證的設計解決方案、可在三種不同的情境下、針對維護隱私權及部署負責的AI解決方案、提供或不提供影像模糊功能。 
+---
+= TR-4928：負責的AI和機密推斷-採用Protopia影像轉型的NetApp AI
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Sathish Thyagarajan、Michael Oglesby、NetApp秉恩、Jennifer Cwagenberg、Protopia
+
+視覺判讀已成為溝通不可或缺的一部分、因為影像擷取和影像處理的出現。數位影像處理中的人工智慧（AI）帶來嶄新商機、例如癌症醫學領域和其他疾病辨識、研究環境危害的地理空間視覺分析、模式辨識、打擊犯罪的影片處理等。然而、這次機會也帶來非凡的責任。
+
+企業組織將越多決策交給AI、就越能接受與資料隱私和安全性、以及法律、道德和法規問題有關的風險。負責的AI能讓公司和政府組織建立信任與治理、這對於大型企業的AI規模而言至關重要。本文件說明NetApp在三種不同案例中驗證的AI推斷解決方案、其方法是將NetApp資料管理技術與Protopia資料混淆軟體搭配使用、以將敏感資料私有化、並降低風險和道德疑慮。
+
+消費者和企業實體每天都會透過各種數位裝置產生數百萬個影像。隨著資料與運算工作負載的大規模爆炸、企業紛紛改用雲端運算平台來實現擴充性與效率。同時、將影像資料中所含的敏感資訊傳輸至公有雲時、也會產生隱私顧慮。缺乏安全性與隱私權保證、成為部署映像處理AI系統的主要障礙。
+
+此外、還有 https://gdpr.eu/right-to-be-forgotten/["銷毀權利"^] 根據GDPR、個人有權要求組織清除所有個人資料。也有 https://www.justice.gov/opcl/privacy-act-1974["隱私權法案"^]，建立公平資訊實務守則。照片等數位影像可能構成GDPR規定的個人資料、而GDPR規定必須如何收集、處理及清除資料。若未遵守GDPR、可能會因違反法規而導致高額罰款、嚴重傷害組織。隱私權原則是實作負責AI的骨幹、可確保機器學習（ML）和深度學習（DL）模型預測的公平性、並降低違反隱私權或法規遵循的相關風險。
+
+本文件說明已通過驗證的設計解決方案、可在三種不同的情境下、使用或不使用與維護隱私權及部署負責AI解決方案相關的影像模糊化：
+
+* *情境1.* Jupyter筆記型電腦內的隨需推斷。
+* *案例2.*在Kubernetes上進行批次推斷。
+* *情境3.* NVIDIA Triton推斷伺服器。
+
+
+針對此解決方案、我們使用專為研究不受限制的面偵測問題而設計的面向區域資料集（FDDB）、以及用於實作FaceBoxes的PyTorch機器學習架構。此資料集包含一組2845個不同解析度影像中5171個面的註釋。此外、本技術報告也提供一些解決方案領域、以及在適用本解決方案的情況下、從NetApp客戶和現場工程師收集到的相關使用案例。
+
+
+
+=== 目標對象
+
+本技術報告適用於下列對象：
+
+* 想要設計及部署負責AI、並解決公共空間中的面向影像處理相關資料保護與隱私權問題的企業領導者與企業架構設計師。
+* 資料科學家、資料工程師、AI /機器學習（ML）研究人員、以及致力保護及維護隱私權的AI/ML系統開發人員。
+* 企業架構設計師、為符合GDPR、CCPA或國防部隱私權法案（DoD）和政府組織等法規標準的AI/ML模型和應用程式設計資料混淆解決方案。
+* 資料科學家和AI工程師正在尋求有效方法來部署深度學習（DL）和AI / ML / DL推斷模型、以保護敏感資訊。
+* 負責部署及管理Edge推斷模型的Edge裝置管理員和Edge Server管理員。
+
+
+
+
+=== 解決方案架構
+
+此解決方案的設計、是為了處理大型資料集上的即時和批次推斷AI工作負載、其處理能力是利用GPU與傳統CPU的處理能力。這項驗證可證明對於ML的隱私保護推論、以及尋求負責AI部署的組織所需的最佳資料管理。此解決方案提供適用於單一或多節點Kubernetes平台的架構、可用於邊緣與雲端運算、透過ONTAP 內部部署核心的NetApp AI、NetApp DataOps Toolkit、以及使用Jupyter Lab和CLI介面的Protopia混淆軟體進行互連。下圖顯示採用DataOps Toolkit和Protopia技術之NetApp技術的資料架構邏輯架構總覽。
+
+image:ai-protopia-image1.png["錯誤：缺少圖形影像"]
+
+Protopia混淆軟體可在NetApp DataOps Toolkit上順暢執行、並在離開儲存伺服器之前轉換資料。
+
+link:ai-protopia-solution-areas.html["下一步：解決方案領域。"]

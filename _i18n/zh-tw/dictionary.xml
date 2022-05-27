@@ -11907,4 +11907,210 @@
   <block id="8d9d90a84ad6b34129f140e0b3e23326" category="sidebar">適用於GCP / GCVE</block>
   <block id="a3e92580de1a77cd25163bb63cd24a7d" category="inline-image-macro">LINK=<block ref="9b22e52230cfacf7992c01194e7a95d2" category="inline-link-rx"></block></block>
   <block id="f9da9dedda46425dea9fe2b0092e4b1a" category="paragraph"><block ref="f9da9dedda46425dea9fe2b0092e4b1a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="46ded0be5f6c48090d38435b6dafa3e2" category="summary">本節概述本解決方案已驗證的三種情境。</block>
+  <block id="71446ef316489c70b5279867eb81a86b" category="doc">測試與驗證計畫</block>
+  <block id="8e593eca45d74047c3d169456d36d74a" category="paragraph"><block ref="8e593eca45d74047c3d169456d36d74a" category="inline-link-macro-rx"></block></block>
+  <block id="68cdc250e271cc43502e5f009d0ebec7" category="paragraph">針對此解決方案設計、已驗證下列三種情境：</block>
+  <block id="83c38d8dc6bc37fe6bb9691e75d0f881" category="list-text">JupyterLab工作區中的一項推斷工作、無論是否使用Protopia混淆、都是使用適用於Kubernetes的NetApp DataOps Toolkit進行協調。</block>
+  <block id="da4ec54ac3b4b67b77d52ccf0ebaefc0" category="list-text">Kubernetes上的批次推斷工作（無論是否有Protopia混淆）、是使用NetApp DataOps Toolkit for Kubernetes所協調的資料Volume。</block>
+  <block id="5526e24c695504cfa8b2187b0a3da212" category="list-text">使用NVIDIA Triton Inference Server執行個體的推斷工作、使用適用於Kubernetes的NetApp DataOps Toolkit進行協調。在啟動Triton推斷API之前、我們先將Protopia混淆套用至映像、以模擬透過網路傳輸的任何資料都必須模糊不清的常見需求。此工作流程適用於在信任區域內收集資料、但必須在信任區域外傳遞資料以供推斷的使用案例。如果不使用Protopia混淆、就無法在未將敏感資料離開信任區域的情況下實作此類工作流程。</block>
+  <block id="9a1eb36c3c2949c4b9618b70f9947341" category="paragraph"><block ref="9a1eb36c3c2949c4b9618b70f9947341" category="inline-link-macro-rx"></block></block>
+  <block id="91bc87f1c8c087219cec868bb9eec3e7" category="summary">為了進行此驗證、我們使用一組原始影像來推斷影像偵測使用案例。然後、我們在相同的影像集上執行相同的推斷工作、並在推斷之前新增Protopia模糊功能。我們使用不同的Alpha值來重複執行Protopia混淆元件的工作。</block>
+  <block id="f63c4677c27e0489f346c0711720cc39" category="doc">推斷準確度比較</block>
+  <block id="c06030c36071611ee2f3a9a21205eaf8" category="paragraph"><block ref="c06030c36071611ee2f3a9a21205eaf8" category="inline-link-macro-rx"></block></block>
+  <block id="0c71eb4e1fba60fba81db988197da57d" category="paragraph">為了進行此驗證、我們使用一組原始影像來推斷影像偵測使用案例。然後、我們在相同的影像集上執行相同的推斷工作、並在推斷之前新增Protopia模糊功能。我們使用不同的Alpha值來重複執行Protopia混淆元件的工作。在Protopia混淆的情況下、Alpha值代表套用的模糊處理量、而較高的Alpha值代表較高層級的模糊處理。然後我們比較這些不同路跑的推斷準確度。</block>
+  <block id="93d52a2c23957d4188c7b2ce8b2ae884" category="paragraph">下表提供使用案例的詳細資料、並概述結果。</block>
+  <block id="65a3419ae19e457df9db4c0e110b2538" category="paragraph">Protopia直接與客戶合作、針對特定使用案例來判斷適當的Alpha值。</block>
+  <block id="e558777bd1568637c97294a33389e930" category="cell">FaceBoxes（PyTorch）-</block>
+  <block id="20172a059ee71423ad0d94393e819e10" category="cell">FDDB資料集</block>
+  <block id="06a8fb4576a28a6488c929097c870fe1" category="cell">普洛皮亞混淆</block>
+  <block id="002101f8725e5c78d9f30d87f3fa4c87" category="cell">Alpha</block>
+  <block id="d78f1fb7e69f7cddcf3e168f2663db20" category="cell">準確度</block>
+  <block id="646738dcd35eaf5c3f3c9bfdc6a90b78" category="cell">0.9337148153739079</block>
+  <block id="b14399cbaac6da4b5b733b483106383f" category="cell">0.05</block>
+  <block id="bcf8c22771ff8c7065180f5a6526d4a6" category="cell">0.9028766627325002</block>
+  <block id="cb5ae17636e975f9bf71ddf5bc542075" category="cell">0.1</block>
+  <block id="1336b1cb08d93aa0a453c53e27efa594" category="cell">0.9024301009661478</block>
+  <block id="b1cb1b288bfae3850c74795f5691dc4e" category="cell">0.9081836283186280</block>
+  <block id="b9e8c964d5c5d3e7c815896cd6235239" category="cell">0.90766107482036</block>
+  <block id="57489d9101ec373d9e2841292a5b3af9" category="cell">0.8847816568680239</block>
+  <block id="57eeec0a6974ecb4e9fcf68fab052f7b" category="cell">0.8</block>
+  <block id="8ab8d7756b82eb70d635bc66c1bc532b" category="cell">0.8841195749171925</block>
+  <block id="a894124cc6d5c5c71afe060d5dde0762" category="cell">0.9.</block>
+  <block id="226cc0951c1f30973a4c71f0f567936a" category="cell">0.84554276775252052</block>
+  <block id="248a7444f08189bb31ba143eabebe4e5" category="cell">0.95</block>
+  <block id="0f39c006b0d74178bc826c1d567a79dc" category="inline-link-macro">下一步：模糊化速度。</block>
+  <block id="ca9c4b25b025c5564f5ffb65a712a47c" category="paragraph"><block ref="ca9c4b25b025c5564f5ffb65a712a47c" category="inline-link-macro-rx"></block></block>
+  <block id="a41206687a4ac62c15fc883554a75883" category="summary">本節概述解決方案設計驗證環境。</block>
+  <block id="172ddae93475d6ccf42e145bb593da46" category="inline-link-macro">上一篇：測試與驗證計畫。</block>
+  <block id="9ea432ca0ec547aa219093f8f5f560cc" category="paragraph"><block ref="9ea432ca0ec547aa219093f8f5f560cc" category="inline-link-macro-rx"></block></block>
+  <block id="0d013965bb31fe1cc0ba44ef3b846d09" category="paragraph">下表概述解決方案設計驗證環境。</block>
+  <block id="32f014d18e1f60596057834de2864322" category="cell">1.21.6</block>
+  <block id="b0f69588db488e358ab3c85429ab6b3a" category="cell">NetApp Astra Trident SCSI驅動程式</block>
+  <block id="297924c1d3fec9d97f9a1f3b49ee0709" category="cell">適用於Kubernetes的NetApp DataOps工具套件</block>
+  <block id="70e2b24f7d348efe6b30b41469d5070c" category="cell">2.3.0</block>
+  <block id="2c5e74d45708e2fae638e03f88353b75" category="cell">NVIDIA Triton Inference伺服器</block>
+  <block id="099d96b4d8f70fb73f1d4661f98c337a" category="cell">21.11-py3.</block>
+  <block id="53e01217bc7db361f46a1f8e0e601655" category="paragraph"><block ref="53e01217bc7db361f46a1f8e0e601655" category="inline-link-macro-rx"></block></block>
+  <block id="fcd8d375e90bbb5d8febe3b3eac09c2b" category="doc">何處可以找到其他資訊、認知和版本歷程記錄</block>
+  <block id="86a4acc956f71e307a08f732dd442d3f" category="paragraph"><block ref="86a4acc956f71e307a08f732dd442d3f" category="inline-link-macro-rx"></block></block>
+  <block id="f85150beb9ce598095b212b1de60815f" category="list-text">NetApp ONTAP 數據管理軟體ONTAP —資訊庫</block>
+  <block id="eb87ce8a565e070f3b8c09faa4e840c1" category="inline-link"><block ref="eb87ce8a565e070f3b8c09faa4e840c1" category="inline-link-rx"></block></block>
+  <block id="20a0f3ab42054c3aa4add8c8901b4aa9" category="paragraph"><block ref="20a0f3ab42054c3aa4add8c8901b4aa9" category="inline-link-rx"></block></block>
+  <block id="2cd8f6bd0ec1bbc37315b8bc134e16c5" category="list-text">NetApp容器持續儲存設備：NetApp Astra Trident</block>
+  <block id="89f170193efdf8434f549c8e91adf860" category="list-text">Protopia AI—機密推論</block>
+  <block id="62faa8d62bfb6098877b809cce925de5" category="inline-link"><block ref="62faa8d62bfb6098877b809cce925de5" category="inline-link-rx"></block></block>
+  <block id="45b79877f4c11139882c88df94d50fa6" category="paragraph"><block ref="45b79877f4c11139882c88df94d50fa6" category="inline-link-rx"></block></block>
+  <block id="2c54e28a12ce15452929a28550a30a96" category="inline-link"><block ref="2c54e28a12ce15452929a28550a30a96" category="inline-link-rx"></block></block>
+  <block id="bc5345c4517d46bdf8a87f10d404839f" category="paragraph"><block ref="bc5345c4517d46bdf8a87f10d404839f" category="inline-link-rx"></block></block>
+  <block id="fba4b133e329411c361e02e05efed0b9" category="list-text">NVIDIA Triton Inference Server文件</block>
+  <block id="cce40efbd4a717916ccbab694b676e9c" category="inline-link"><block ref="cce40efbd4a717916ccbab694b676e9c" category="inline-link-rx"></block></block>
+  <block id="170ba65f4e4807f3643de39afb3f2e16" category="paragraph"><block ref="170ba65f4e4807f3643de39afb3f2e16" category="inline-link-rx"></block></block>
+  <block id="ba1d5cc71378020998752955821460b2" category="list-text">PyTorch中的FaceBoxes</block>
+  <block id="ace8d80d2ede0fadf07325408b376b83" category="inline-link"><block ref="ace8d80d2ede0fadf07325408b376b83" category="inline-link-rx"></block></block>
+  <block id="a688d324b63c4f882d06673058aa2f61" category="paragraph"><block ref="a688d324b63c4f882d06673058aa2f61" category="inline-link-rx"></block></block>
+  <block id="121ef407a6a3c08ce9fa247e382d7637" category="list-text">NetApp首席產品經理Mark Cates</block>
+  <block id="fb345adb43ea24ffc891d20327bdca09" category="list-text">NetApp技術行銷工程師Sufian Ahmad</block>
+  <block id="711ba3fec382e550526a6ab0f49bdf3a" category="list-text">Protopia AI技術長暨教授HADI Esmaeilzadeh</block>
+  <block id="0844bd2427e754de1d07ca91d15284a5" category="cell">文件版本歷程記錄</block>
+  <block id="cd24a85c5cf2d1a7af0bade6066be0aa" category="summary">資料存在於三種狀態：閒置、傳輸和運算。任何AI推斷服務的重要一環、都應該是在整個流程中保護資料免受威脅。在推斷過程中保護資料是非常重要的、因為此程序可能會揭露外部客戶和提供推斷服務的企業的私人資訊。</block>
+  <block id="fd8d4cefd4e31d8ce81b0b6c4cf90ae2" category="inline-link-macro">上一篇：模糊化速度。</block>
+  <block id="12deb7181b69808aaa08117bd40978a3" category="paragraph"><block ref="12deb7181b69808aaa08117bd40978a3" category="inline-link-macro-rx"></block></block>
+  <block id="4282c9ab06938351529fcc9258e39d5a" category="paragraph">資料存在三種狀態：閒置、傳輸和運算。任何AI推斷服務的重要一環、都應該是在整個流程中保護資料免受威脅。在推斷過程中保護資料是非常重要的、因為此程序可能會揭露外部客戶和提供推斷服務的企業的私人資訊。Protopia AI是專為機密AI提供的不突兀軟體專屬解決方案、可在當今市場中提供相關資訊。有了Protopia、AI只會在資料記錄中輸入經過轉換的資訊、而這些資訊對於執行手邊的AI/ML工作而言非常重要、而且不再需要其他資訊。這種隨機轉型並不是一種遮罩形式、而是以數學方式使用「精選雜訊」來變更資料的呈現方式為基礎。</block>
+  <block id="945691f1b395ce7af4d5e818b4e62b9b" category="paragraph">NetApp儲存系統ONTAP 具備各種功能、可提供與本機SSD儲存設備相同或更高的效能、並搭配NetApp DataOps Toolkit、為資料科學家、資料工程師、AI/ML開發人員、企業或企業IT決策者提供下列效益：</block>
+  <block id="2d1d64cb5768a8ce2a6d6bda322d2ecd" category="list-text">企業級的資料保護與資料治理功能、可滿足災難恢復、營運不中斷及法規要求。</block>
+  <block id="58b8e67477c25a96d3b430f4ee8d75cf" category="list-text">簡化資料管理作業的叫用作業；快速取得資料科學家工作區的Snapshot複本、以便從Jupyter筆記型電腦的NetApp DataOps Toolkit進行備份與追蹤。</block>
+  <block id="57e858ddb0a3e1c340cfe4ba7d5c3a14" category="paragraph">NetApp與Protopia解決方案提供靈活的橫向擴充架構、是企業級AI推斷部署的理想選擇。它能保護資料、並為敏感資訊提供隱私保護、在內部部署和混合雲部署中、均能以負責的AI實務做法來滿足機密AI推斷要求。</block>
+  <block id="6073423c521e84b849e3b84fa1cc380c" category="inline-link-macro">下一步：何處可以找到其他資訊、認知和版本歷程記錄。</block>
+  <block id="9eebc409a853e8c97008be61e4a0b83a" category="paragraph"><block ref="9eebc409a853e8c97008be61e4a0b83a" category="inline-link-macro-rx"></block></block>
+  <block id="6bee97571af49e4c38ff85a4abbbe0e9" category="summary">本節說明完成驗證所需的工作。</block>
+  <block id="c17e6835560e56c00184a993e1b0bfdb" category="paragraph"><block ref="c17e6835560e56c00184a993e1b0bfdb" category="inline-link-macro-rx"></block></block>
+  <block id="df06a8aa3d194f798e70c253c55d915c" category="paragraph">若要執行本節所述的工作、您必須安裝並設定下列工具、才能存取Linux或MacOS主機：</block>
+  <block id="c0ffe26d3756a5c964ff9bc591e1fc16" category="list-text">Kubectl（設定為存取現有的Kubernetes叢集）</block>
+  <block id="e436fe7c4ecfcca0f0327b41471955df" category="list-text">您可以找到安裝與組態指示<block ref="f6d4f9e359e394de0cb3015a4518672c" category="inline-link-rx"></block>。</block>
+  <block id="e3e34254666d96b8967227676b54e135" category="list-text">您可以找到安裝指示<block ref="9535953c30e005e9672e48b24a3ac733" category="inline-link-rx"></block>。</block>
+  <block id="1a66086f406852b100e9d8f85d007b87" category="section-title">案例1–JupyterLab的隨需推斷</block>
+  <block id="28876e2d40a33fcbc3630d7408b14046" category="list-text">為AI / ML推斷工作負載建立Kubernetes命名空間。</block>
+  <block id="1464ad61957a8ed3db5f67edbc20cc41" category="list-text">使用NetApp DataOps Toolkit來配置持續磁碟區、以儲存您要在其中執行推斷的資料。</block>
+  <block id="da33a6119aa0b49526bd284e9a865ed5" category="list-text">使用NetApp DataOps Toolkit建立新的JupyterLab工作區。使用「-mount-PVC'」選項來掛載上一步建立的持續磁碟區。使用「-nvidia-GPU」選項、視需要將NVIDIA GPU分配給工作區。</block>
+  <block id="810e88d69a6b7f454f24db3a25ba375a" category="paragraph">在以下範例中、持續性磁碟區「推斷資料」會掛載到JupyterLab工作區容器、位於「/home/jovyan/data」。使用正式的Project Jupyter Container映像時、「/home/jovyan」會顯示為JupyterLab網路介面中的頂層目錄。</block>
+  <block id="ecca64929aad192e0cdba66d89af6fc2" category="list-text">使用「create jupyterlab」命令輸出中指定的URL存取JupyterLab工作區。資料目錄代表掛載到工作區的持續磁碟區。</block>
+  <block id="1f069f45990199d6afbe5926fb26f127" category="paragraph"><block ref="1f069f45990199d6afbe5926fb26f127" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b5989087fa6f30a7b2ad79b3b28f4f68" category="list-text">開啟「DATA」目錄、然後上傳要執行提示的檔案。檔案上傳至資料目錄時、會自動儲存在掛載至工作區的持續磁碟區上。若要上傳檔案、請按一下「上傳檔案」圖示、如下圖所示。</block>
+  <block id="f6d07c27f458648455903cf09530655f" category="paragraph"><block ref="f6d07c27f458648455903cf09530655f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c6da42e23b9d4e193c2fb146b8189581" category="list-text">返回最上層目錄並建立新的筆記本。</block>
+  <block id="59e51e40d73317a796f7d0b25d8fa003" category="paragraph"><block ref="59e51e40d73317a796f7d0b25d8fa003" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8d6d5c0ae1c38484d2d4fd513ff80f90" category="list-text">在筆記本中加入推斷程式碼。下列範例顯示影像偵測使用案例的推斷代碼。</block>
+  <block id="901ae9d6148669912b400c6d2647bfbf" category="paragraph"><block ref="901ae9d6148669912b400c6d2647bfbf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="45f10850488ed018cdad31f8ac9e8bab" category="paragraph"><block ref="45f10850488ed018cdad31f8ac9e8bab" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="296d40736553e2033f5cf8817174bc7c" category="list-text">將Protopia混淆新增至您的推斷程式碼。Protopia直接與客戶合作、提供特定使用案例的文件、並不在本技術報告的範圍之內。以下範例顯示新增Protopia混淆功能時、影像偵測使用案例的推斷程式碼。</block>
+  <block id="5a10342224477df560528e700989b536" category="paragraph"><block ref="5a10342224477df560528e700989b536" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="20f77c05fa583bdc62074b26870e07e7" category="paragraph"><block ref="20f77c05fa583bdc62074b26870e07e7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9d5709eb5c3d3d4a700397ee447f9818" category="section-title">案例2：Kubernetes上的批次推斷</block>
+  <block id="77b69d61f1889c8321dce66f3c3e2e1a" category="list-text">在新的持續磁碟區中填入您要執行推斷的資料。</block>
+  <block id="8b6983cc7986c7b0553983d8ab669289" category="inline-link">NetApp DataOps Toolkit S3 Data Mover功能</block>
+  <block id="2933df0ebac7b47c349bd6bd7099fb90" category="paragraph">有多種方法可將資料載入至PVc。如果您的資料目前儲存在S3相容的物件儲存平台、例如NetApp StorageGRID 功能區或Amazon S3、您就可以使用<block ref="5d1617256d53e0547b237f3cf3fda5b0" category="inline-link-rx"></block>。另一種簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網頁介面上傳檔案、如「」一節中步驟3至5所述<block ref="db54c391b2f7c3a38c2e40a69aa744e3" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="a62147e18dbac7ad5eab17791c371ad4" category="list-text">為批次推斷工作建立Kubernetes工作。下列範例顯示影像偵測使用案例的批次推斷工作。此工作會在一組映像中的每個映像上執行推斷、並將推斷準確度指標寫入stdout。</block>
+  <block id="a883fb9f7bda67c6fbcab6dfb8f091ce" category="list-text">確認推斷工作已成功完成。</block>
+  <block id="590888c60942c47f5268c19f273109ee" category="list-text">在推斷工作中加入Protopia混淆。您可以在本技術報告範圍之外的Protopia中、找到直接新增Protopia混淆的使用案例特定指示。下列範例顯示使用0.8的Alpha值新增Protopia模糊處理時、面偵測使用案例的批次推斷工作。此工作會先套用Protopia混淆、再對一組影像中的每個影像進行推斷、然後將推斷準確度指標寫入stdout。</block>
+  <block id="7a1adb5cebbf78f3eddc08a64751149e" category="inline-link-macro">「推斷準確度比較」。</block>
+  <block id="da2c9dc305dff324654e67571156b295" category="paragraph">我們重複此步驟以取得Alpha值、包括0.05、0.1、0.2、0.4、0.6、 0.8、0.9及0.95。您可以在中看到結果 <block ref="af158494e4986d64d04037857fed2d1c" category="inline-link-macro-rx"></block></block>
+  <block id="76d6540fbdbbcd913fb6272a50d0e3f2" category="section-title">案例3–NVIDIA Triton Inference Server</block>
+  <block id="c470d7124546c64e8539c39ced806428" category="list-text">使用NetApp DataOps Toolkit來配置持續磁碟區、以作為NVIDIA Triton Inference Server的模型儲存庫。</block>
+  <block id="1ddcb92ade31c8fbd370001f9b29a7d9" category="inline-link">格式</block>
+  <block id="97be18cb741b4fd763ebe22e034705fa" category="list-text">將您的模型儲存在中的新持續磁碟區上<block ref="bfcdc35d352d3deff6efdd3b8b2ac7ac" category="inline-link-rx"></block> NVIDIA Triton Inference伺服器也能辨識這點。</block>
+  <block id="6c21d87641bab7a6c49bc29065185e4f" category="paragraph">有多種方法可將資料載入至PVc。簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網路介面上傳檔案、如「」中的步驟3至5所述<block ref="db54c391b2f7c3a38c2e40a69aa744e3" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="fc35606f82a544f9c79f09561d7a234d" category="list-text">使用NetApp DataOps Toolkit部署新的NVIDIA Triton Inference Server執行個體。</block>
+  <block id="27a920b35a8f949700a98b22803c70fc" category="list-text">使用Triton用戶端SDK執行推斷工作。下列Python程式碼摘錄使用Triton Python用戶端SDK、針對面偵測使用案例執行推斷工作。此範例會呼叫Triton API、並傳入影像以供參考。然後Triton Inference伺服器會收到要求、啟動模型、並傳回推斷輸出、做為API結果的一部分。</block>
+  <block id="7b5e296090a5d063fdbd3ebb69fc6547" category="list-text">將Protopia混淆新增至您的推斷程式碼。您可以找到直接從Protopia新增Protopia混淆的使用案例特定指示、不過此程序不在本技術報告的範圍之內。以下範例顯示與前述步驟5相同的Python程式碼、但新增了Protopia混淆功能。</block>
+  <block id="c3069165ee6fb9d5dde8d8472d8b4602" category="paragraph">請注意、Protopia混淆會套用至映像、然後再傳遞至Triton API。因此、不模糊的影像永遠不會離開本機機器。只有模糊的映像會透過網路傳送。此工作流程適用於在信任區域內收集資料、但需要在信任區域外傳遞資料以進行推斷的使用案例。如果沒有Protopia混淆、就無法在不敏感資料離開信任區域的情況下實作這類工作流程。</block>
+  <block id="38bb883cb543c747fc0f113099f5072d" category="inline-link-macro">下一步：推斷準確度比較。</block>
+  <block id="1f2c820475fbde991c6219936a645aea" category="paragraph"><block ref="1f2c820475fbde991c6219936a645aea" category="inline-link-macro-rx"></block></block>
+  <block id="c46aabfbeb0af662ede62f7325853fa2" category="summary">數位影像處理有許多優點、讓許多組織能夠充分利用視覺呈現的相關資料。此NetApp與Protopia解決方案提供獨特的AI推斷設計、可在ML/DL生命週期內保護及私有化AI/ML資料。它可讓客戶保留敏感資料的所有權、運用公有雲或混合雲部署模式來擴充規模和提高效率、減輕隱私權相關疑慮、並在邊緣部署AI推斷。</block>
+  <block id="b7aff368ab91b524750e403085893177" category="paragraph"><block ref="b7aff368ab91b524750e403085893177" category="inline-link-macro-rx"></block></block>
+  <block id="55ece983a5251583397e3db1cd3926ec" category="section-title">環境情報</block>
+  <block id="d0f24bc92f5b7838f03e893b41066a90" category="paragraph">產業在環境危害領域中、有許多方法可以利用地理空間分析。政府和公共工程部門可針對公共衛生和天氣狀況、提出可行的見解、以便在流行病或天然災難（例如野火）期間、更好地向大眾提供建議。例如、您可以在機場或醫院等公共空間中識別COVID-正向病患、而不會影響受影響個人的隱私、並提醒鄰近的相關機關和大眾採取必要的安全措施。</block>
+  <block id="4f9352e4f65872238d755155cd23edec" category="section-title">邊緣裝置穿戴式裝置</block>
+  <block id="315a1bbca88dbcbdc95471a0061c333f" category="paragraph">在軍事領域和戰場上、您可以使用邊緣的AI推斷裝置作為穿戴式裝置、來追蹤戰士的健康狀況、監控駕駛行為、並向主管機關警示接近軍事車輛的安全風險及相關風險、同時保留及保護戰士的隱私。軍事的未來將透過戰場物聯網（IoBT）和軍事物聯網（IoMT）來發展高科技、以提供穿戴式戰鬥裝備、協助戰士利用快速邊緣運算來識別敵人、並在戰鬥中表現更好。保護和保留從無人機和穿戴式設備等邊緣設備收集的視覺資料、對於讓駭客和敵人留在海灣是至關重要的。</block>
+  <block id="d6dded41a42f767150e641793fc0c929" category="section-title">非戰鬥人員清空作業</block>
+  <block id="c5b381de9b2a4ee73bcc524aa380d725" category="paragraph">非戰鬥人員清空作業（NEO）由國防部執行、以協助疏散美國公民和國民、DOD文職人員、以及生命面臨適當安全避風港危險的指定人員（接待國（HN）和第三國國民（TCN）。已實施的管理控管措施主要是手動進行疏散者篩選程序。不過、使用高度自動化的AI/ML工具搭配AI / ML影片混淆技術、可能會改善疏散人員識別、疏散追蹤及威脅篩選的準確度、安全性及速度。</block>
+  <block id="2d930616ec617ae047b7b7eaefb0822c" category="section-title">AI / ML分析的雲端移轉</block>
+  <block id="073395e7b5fc53b602884ac0aaf757fb" category="inline-link">資料保護</block>
+  <block id="e8f037292ae13077891a982b214e0739" category="paragraph">企業客戶過去曾接受過內部部署的AI/ML模式訓練與部署。基於規模經濟與效率的考量、這些客戶正不斷擴充、將AI/ML功能移轉至公有雲、混合雲或多雲端雲端部署。但是、它們受到其他基礎架構所能接觸到的資料所約束。NetApp解決方案可解決所需的各種網路安全威脅<block ref="9da3a9a08c9461b229d33f221e8caa37" category="inline-link-rx"></block> 以及安全性評估、並與Protopia資料轉型結合使用、將影像處理AI/ML工作負載移轉至雲端的相關風險降至最低。</block>
+  <block id="c9f2e6462caf995f1d336ab4bb33a7c2" category="inline-link">TR-4886 AI在邊緣推斷</block>
+  <block id="ae1b6ac445119145d739025d55fe616f" category="inline-link">情報與隱私</block>
+  <block id="215649425fa669fb4825e25a6ace492e" category="paragraph">如需其他跨其他產業的邊緣運算和AI推斷使用案例、請參閱<block ref="922342ea98ca297422c6dc441f974a04" category="inline-link-rx"></block> 以及NetApp AI部落格、<block ref="bc130be57ffb0325128dc7274bbdbc64" category="inline-link-rx"></block>。</block>
+  <block id="5318c453b0f0b1d5351026eca9f9899d" category="paragraph"><block ref="5318c453b0f0b1d5351026eca9f9899d" category="inline-link-macro-rx"></block></block>
+  <block id="4c787c1632a0a940cb0b44706b1d24c6" category="summary">本節概述完成本解決方案所需的各種技術元件。</block>
+  <block id="2c6beb1e15771dbe426409f9b5d4aaf9" category="inline-link-macro">先前：解決方案領域。</block>
+  <block id="8a26bc3756fc01f4b929845a326e9b9d" category="paragraph"><block ref="8a26bc3756fc01f4b929845a326e9b9d" category="inline-link-macro-rx"></block></block>
+  <block id="a6d48b22bcf266404bdb8c57102c14a4" category="section-title">Protopia</block>
+  <block id="b2cbc1ff8afd6c872961a852572e1782" category="paragraph">Protopia AI提供不引人注目的純軟體解決方案、可在當今市場上進行機密推論。Protopia解決方案可將敏感資訊的曝險降至最低、為推論服務提供無與倫比的保護。AI只會提供資料記錄中的資訊、而這些資訊對於執行手邊的工作而言、是真正不可或缺的。大多數推斷工作並不會使用每個資料記錄中的所有資訊。無論您的AI是使用影像、語音、視訊、甚至是結構化的表格式資料、Protopia都能提供您所需的推斷服務。專利的核心技術使用數學上精心策劃的雜訊、以隨機方式轉換資料、並找出特定ML服務不需要的資訊。此解決方案並不會遮罩資料、而是使用精選的隨機雜訊來變更資料呈現方式。</block>
+  <block id="46ce082967eab6fe2e33798614d50861" category="paragraph">Protopia解決方案會產生將呈現變更為漸層式的靜止最大化方法的問題、此方法仍會保留輸入功能空間中與模型功能相關的資訊。此探索程序會在訓練結束時、以微調通過的方式執行ML模型。通過後會自動產生一組機率分配、低成本的資料轉換會將這些分配的雜訊樣本套用至資料、在將其傳遞至模型進行推斷之前、先將其模糊化。</block>
+  <block id="4fb9892dc0183c3142a3629cecc3104a" category="paragraph">NetApp ONTAP 採用DGX A100系統和NetApp雲端連線儲存系統的NetApp AI參考架構、是由NetApp和NVIDIA開發與驗證的。它為IT組織提供以下優點的架構：</block>
+  <block id="988d7b305f79b990bbacdaed46f4b2bf" category="paragraph">AI將DGX A100系統與NetApp的Arde-A800儲存系統與最先進的網路技術緊密整合。ONTAP AFF藉由消除設計複雜度和猜測、AI簡化了AI部署。ONTAP客戶可以從小規模開始、不中斷營運地成長、同時以智慧方式管理從邊緣到核心到雲端及後端的資料。</block>
+  <block id="57e22b018aa5130ece9890cd6b45e779" category="paragraph">下圖顯示ONTAP 採用DGX A100系統的整個解決方案系列有多種差異。多達八個DGX A100系統可驗證系統效能。AFF透過將儲存控制器配對新增至ONTAP VMware叢集、架構可擴充至多個機架、以線性效能支援許多DGX A100系統及PB儲存容量。此方法可根據所使用的DL機型大小和所需的效能指標、靈活地改變運算與儲存設備的比率。</block>
+  <block id="316a5094893ef1b058844a75c53aaf04" category="paragraph"><block ref="316a5094893ef1b058844a75c53aaf04" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ecc164061fb57b585c892f0faa6f4dcf" category="inline-link">NVA-1153：採用ONTAP NVIDIA DGX A100系統和Mellanox Spectrum乙太網路交換器的NetApp W人工 智慧。</block>
+  <block id="3046083f382853b50c004323f2cda8f9" category="paragraph">如需ONTAP 更多關於AI的資訊、請參閱<block ref="2c1616ab9baa55036487e7ef75b3821d" category="inline-link-rx"></block></block>
+  <block id="862dcadd0f2887701abaa60bf59d5aa5" category="paragraph">NetApp最新一代的儲存管理軟體《支援產業》（NetApp）、可讓企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。包含許多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP</block>
+  <block id="94c4b42bd5bfaa12f328387b161a1686" category="paragraph">NetApp DataOps Toolkit是Python程式庫、讓開發人員、資料科學家、DevOps工程師及資料工程師能夠輕鬆執行各種資料管理工作、例如近乎即時地配置新的資料Volume或JupyterLab工作區、近乎即時地複製資料Volume或JupyterLab工作區、 並近乎即時地擷取資料磁碟區或JupyterLab工作區的快照、以供追蹤或建立基準。此Python程式庫可做為命令列公用程式、或是可匯入任何Python程式或Jupyter筆記型電腦的函數庫。</block>
+  <block id="dea84e2e635ce73ddc479a38d5616c98" category="paragraph">NVIDIA Triton Inference Server是開放原始碼的推斷服務軟體、可協助標準化模型部署與執行、在正式作業中提供快速且可擴充的AI。Triton Inference Server可讓團隊從任何GPU或CPU基礎架構上的任何架構、部署、執行及擴充訓練精良的AI模型、進而簡化AI推斷。Triton Inference Server支援所有主要架構、例如TensorFlow、NVIDIA TensorRT、PyTorch、MXNet、 OpenVINO等。Triton與Kubernetes整合、提供協調與擴充功能、可用於所有主要公有雲AI和Kubernetes平台。它也與許多MLOps軟體解決方案整合。</block>
+  <block id="95b88f180e9eb5678e0f9ebac2cbe643" category="section-title">PyTorch</block>
+  <block id="04f7f16178ab3e9bddfd0837b64d21a2" category="paragraph"><block ref="7b17fc2d2143dfdbd3bff6783f73e17c" category="inline-link-rx"></block> 是開放原始碼ML架構。這是最佳化的張量程式庫、可用於深度學習、使用GPU和CPU。PyTorch套件包含多維度游標的資料結構、可提供許多公用程式、以便在其他實用的公用程式之間有效序列化游標。它也有CUDA對應產品、可讓您在具有運算能力的NVIDIA GPU上執行張量運算。在這項驗證中、我們使用OpenCV-Python（CV2）程式庫來驗證我們的模型、同時充分運用Python最直覺式的電腦視覺概念。</block>
+  <block id="47b2e74e56111387efd2ff8314d1154c" category="paragraph">資料管理對於企業IT營運和資料科學家而言至關重要、因此可將適當的資源用於AI應用程式和訓練AI/ML資料集。下列關於NetApp技術的其他資訊超出此驗證範圍、但可能會因您的部署而有所差異。</block>
+  <block id="31c0318dee8b7049a328f752c457824f" category="paragraph">包含下列功能的資料管理軟體、可簡化及簡化作業、並降低您的總營運成本：ONTAP</block>
+  <block id="258ce6748736436345d3a4ade7bfcd47" category="list-text">即時資料精簡與擴充重複資料刪除技術。資料壓縮可減少儲存區塊內的空間浪費、重複資料刪除技術可大幅提升有效容量。這適用於本機儲存的資料、以及分層至雲端的資料。</block>
+  <block id="e0243dd3e4c9bff6b7a18cab1c1e37c8" category="list-text">最低、最大及可調適的服務品質（AQO）。精細的服務品質（QoS）控制有助於維持高共享環境中關鍵應用程式的效能等級。</block>
+  <block id="c3528a5e48bbe189e76cf8d737aa5961" category="inline-link">TR-4598：FabricPool 最佳實務做法</block>
+  <block id="adc171e1d8b6a0bed3a98762139c9875" category="list-text">NetApp FabricPool自動將冷資料分層至公有和私有雲端儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp StorageGRID 等儲存解決方案。如需FabricPool 更多有關資訊、請參閱<block ref="234c921b7066bc1bdd676ae1a510e5c5" category="inline-link-rx"></block>。</block>
+  <block id="d9cd75773d759d63134b34db3490eab3" category="paragraph">提供優異的效能與資料保護、並以下列方式擴充這些功能：ONTAP</block>
+  <block id="cdea8196113c492688981e0a035baa29" category="list-text">效能與較低的延遲。以最低的延遲提供最高的處理量。ONTAP</block>
+  <block id="fa126db4297464dd03b3ceef190df0d0" category="list-text">資料保護：支援所有平台的通用管理功能、可提供內建的資料保護功能。ONTAP</block>
+  <block id="892dd840b39835d7da795bbd29f99987" category="list-text">NetApp Volume Encryption（NVE）。支援內建和外部金鑰管理、提供原生Volume層級的加密功能。ONTAP</block>
+  <block id="1f17e94c6f48114ff29ad3267277420c" category="list-text">多租戶和多因素驗證。支援以最高安全等級共享基礎架構資源。ONTAP</block>
+  <block id="836ed833c0dea3b588f04d16ca3f850d" category="paragraph">下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP</block>
+  <block id="b816bfff9511bcd88a9aa06fe0fd6389" category="list-text">無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。</block>
+  <block id="74c384c0caae9c39b0e414cecc8c66ea" category="list-text">雲端連線：NetApp是最具雲端連線能力的儲存管理軟體、可在所有公有雲中選擇軟體定義儲存（AI）和雲端原生執行個體（NetApp）ONTAP ONTAP Select Cloud Volumes Service 。</block>
+  <block id="2a7e7bc180cc3d059089e02f091bac27" category="list-text">與新興應用程式整合。利用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式提供企業級資料服務、例如自動駕駛車輛、智慧城市和產業4.0。ONTAP</block>
+  <block id="377c9a91b43c5423691b5ce75db91350" category="section-title">NetApp Astra Control</block>
+  <block id="35b46e301702b6fcb16192f9f4cf4533" category="inline-link">Astra控制服務</block>
+  <block id="eb75cc706ac8cc6c0f4cb17f4fb073dd" category="paragraph">NetApp Astra產品系列提供儲存與應用程式感知資料管理服務、適用於Kubernetes應用程式的內部部署與公有雲、採用NetApp儲存與資料管理技術。它可讓您輕鬆備份Kubernetes應用程式、將資料移轉至不同的叢集、並即時建立運作中的應用程式複本。如果您需要管理在公有雲上執行的Kubernetes應用程式、請參閱的文件<block ref="6d442ad773e9d31651277931acd1583a" category="inline-link-rx"></block>。Astra Control Service是NetApp管理的服務、可在Google Kubernetes Engine（GKE）和Azure Kubernetes Service（KS）中、提供Kubernetes叢集的應用程式感知資料管理功能。</block>
+  <block id="545b3003eeeed3a05db492712188eaa8" category="paragraph">Astra<block ref="b792e70a7bbe82fe69049fd18abe3c18" category="inline-link-rx"></block> NetApp是適用於Docker和Kubernetes的開放原始碼動態儲存協調工具、可簡化持續儲存的建立、管理和使用。Kubernetes原生應用程式Trident直接在Kubernetes叢集內執行。Trident可讓客戶將DL Container映像無縫部署到NetApp儲存設備、並為AI Container部署提供企業級體驗。Kubernetes使用者（ML開發人員、資料科學家等）可以建立、管理及自動化協調與複製、以充分利用NetApp技術所提供的進階資料管理功能。</block>
+  <block id="434636f83b39076d7f319707cddbd844" category="paragraph"><block ref="f0ec1a9d50acb3759e364a1cdfa9961d" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署NFS或SMB檔案共享之間傳輸檔案、NetApp StorageGRID 效益、NetApp ONTAP S3、NetApp Cloud Volumes Service 效益、Azure NetApp Files 支援、Amazon Simple Storage Service（Amazon S3）、Amazon Elastic File System（Amazon EFS）、Azure Blob、Google Cloud Storage、 或者IBM Cloud Object Storage Cloud Sync 、讓您快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、因此能將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是軟體即服務（SaaS）工具、設定與使用極為簡單。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。</block>
+  <block id="66b5cd4a3c9ce410ceb216447176b92c" category="section-title">NetApp Cloud Data Sense</block>
+  <block id="37b37a18c5e4fe4e0985503adba1ee06" category="paragraph">採用強大的AI演算法、 <block ref="41205542004b3a03df744ae454bd65c9" category="inline-link-rx"></block> 在整個資料產業中提供自動化控管與資料治理功能。您可以輕鬆找出成本節約效益、找出法規遵循與隱私權的考量、並找出最佳化商機。Cloud Data Sense儀表板可讓您深入瞭解如何識別重複資料、以消除備援、對應個人、非個人及敏感資料、並針對敏感資料和異常狀況開啟警示。</block>
+  <block id="b391770315ecce50e9dae3b6506d3513" category="inline-link-macro">下一步：測試與驗證計畫。</block>
+  <block id="d063081c0d1c6aff0b7c690b473d4045" category="paragraph"><block ref="d063081c0d1c6aff0b7c690b473d4045" category="inline-link-macro-rx"></block></block>
+  <block id="fb0e25ed6b061ae8d5a55a94457e445e" category="summary">在這項驗證中、我們將Protopia混淆套用至1920 x 1080像素映像五倍、並測量每次執行模糊化步驟所需的時間量。</block>
+  <block id="9c6852dd5556b48ff70dd2583a5d3aa0" category="doc">模糊化速度</block>
+  <block id="237d31dab91fe077925e5102e132072f" category="inline-link-macro">上一篇：推斷準確度比較。</block>
+  <block id="6e3fd8b18c15e04e41fb57acfcafc5aa" category="paragraph"><block ref="6e3fd8b18c15e04e41fb57acfcafc5aa" category="inline-link-macro-rx"></block></block>
+  <block id="d6edf1cfcac22abc6c577706f85eb816" category="paragraph">在這項驗證中、我們將Protopia混淆套用至1920 x 1080像素映像五倍、並測量每次執行模糊化步驟所需的時間量。我們使用在單一NVIDIA V100 GPU上執行的PyTorch來套用混淆、並在執行期間清除GPU快取。在這五次路跑中、混淆步驟分別花費5.47毫秒、5.27毫秒、4.54毫秒、5.24毫秒和4.84毫秒來完成。平均速度為5.072ms。</block>
+  <block id="eee25724989c730f34a19e19a1db23b2" category="paragraph"><block ref="eee25724989c730f34a19e19a1db23b2" category="inline-link-macro-rx"></block></block>
+  <block id="6d01d0026564c98aa0d6274cd39c586a" category="summary">本文件說明已通過驗證的設計解決方案、可在三種不同的情境下、針對維護隱私權及部署負責的AI解決方案、提供或不提供影像模糊功能。</block>
+  <block id="5a438ff2cdda37bd7827c08d5bd3df59" category="doc">TR-4928：負責的AI和機密推斷-採用Protopia影像轉型的NetApp AI</block>
+  <block id="0bbb7f0a0d464779fc0832c366f3a4e7" category="paragraph">Sathish Thyagarajan、Michael Oglesby、NetApp秉恩、Jennifer Cwagenberg、Protopia</block>
+  <block id="c110f3156d66710a207ebd7135164ec1" category="paragraph">視覺判讀已成為溝通不可或缺的一部分、因為影像擷取和影像處理的出現。數位影像處理中的人工智慧（AI）帶來嶄新商機、例如癌症醫學領域和其他疾病辨識、研究環境危害的地理空間視覺分析、模式辨識、打擊犯罪的影片處理等。然而、這次機會也帶來非凡的責任。</block>
+  <block id="0159205b6d54375adfabd56a2258fcb9" category="paragraph">企業組織將越多決策交給AI、就越能接受與資料隱私和安全性、以及法律、道德和法規問題有關的風險。負責的AI能讓公司和政府組織建立信任與治理、這對於大型企業的AI規模而言至關重要。本文件說明NetApp在三種不同案例中驗證的AI推斷解決方案、其方法是將NetApp資料管理技術與Protopia資料混淆軟體搭配使用、以將敏感資料私有化、並降低風險和道德疑慮。</block>
+  <block id="fade8b24490b0ba74a7ffa05d3f8631a" category="paragraph">消費者和企業實體每天都會透過各種數位裝置產生數百萬個影像。隨著資料與運算工作負載的大規模爆炸、企業紛紛改用雲端運算平台來實現擴充性與效率。同時、將影像資料中所含的敏感資訊傳輸至公有雲時、也會產生隱私顧慮。缺乏安全性與隱私權保證、成為部署映像處理AI系統的主要障礙。</block>
+  <block id="e9ac7ec9dd27fe52477986ab1dccbcae" category="inline-link">銷毀權利</block>
+  <block id="49dca35d3e0662046425327194fd8965" category="inline-link">隱私權法案</block>
+  <block id="f615b294f87bd53494e01691ab95c654" category="paragraph">此外、還有<block ref="ac9ac606204db63758cb1efd6e89e43e" category="inline-link-rx"></block> 根據GDPR、個人有權要求組織清除所有個人資料。也有<block ref="fd57f794f9c27951b4a5b543db96bdb6" category="inline-link-rx"></block>，建立公平資訊實務守則。照片等數位影像可能構成GDPR規定的個人資料、而GDPR規定必須如何收集、處理及清除資料。若未遵守GDPR、可能會因違反法規而導致高額罰款、嚴重傷害組織。隱私權原則是實作負責AI的骨幹、可確保機器學習（ML）和深度學習（DL）模型預測的公平性、並降低違反隱私權或法規遵循的相關風險。</block>
+  <block id="d365f4ef3ed2b414236f81df850880a3" category="paragraph">本文件說明已通過驗證的設計解決方案、可在三種不同的情境下、使用或不使用與維護隱私權及部署負責AI解決方案相關的影像模糊化：</block>
+  <block id="bd12a6b0ed0be7808c1e30b1e360bee6" category="list-text">*情境1.* Jupyter筆記型電腦內的隨需推斷。</block>
+  <block id="bf93b5af78256f2e49d2c0351133b08d" category="list-text">*案例2.*在Kubernetes上進行批次推斷。</block>
+  <block id="d5a10e810e1d293a064388e4980bde15" category="list-text">*情境3.* NVIDIA Triton推斷伺服器。</block>
+  <block id="870f1cf4b101c66b438e8dd024f24118" category="paragraph">針對此解決方案、我們使用專為研究不受限制的面偵測問題而設計的面向區域資料集（FDDB）、以及用於實作FaceBoxes的PyTorch機器學習架構。此資料集包含一組2845個不同解析度影像中5171個面的註釋。此外、本技術報告也提供一些解決方案領域、以及在適用本解決方案的情況下、從NetApp客戶和現場工程師收集到的相關使用案例。</block>
+  <block id="e28a169eb64ee1d32c878a26595922f0" category="paragraph">本技術報告適用於下列對象：</block>
+  <block id="167e9693dfa764051f26b64ec22356a9" category="list-text">想要設計及部署負責AI、並解決公共空間中的面向影像處理相關資料保護與隱私權問題的企業領導者與企業架構設計師。</block>
+  <block id="304e871b0b1ea55fe3e4f07ead7a7d42" category="list-text">資料科學家、資料工程師、AI /機器學習（ML）研究人員、以及致力保護及維護隱私權的AI/ML系統開發人員。</block>
+  <block id="dcf26996b3ab9f385a95f72c1d0a0dce" category="list-text">企業架構設計師、為符合GDPR、CCPA或國防部隱私權法案（DoD）和政府組織等法規標準的AI/ML模型和應用程式設計資料混淆解決方案。</block>
+  <block id="bb6887ed7c7b07cbb7bd3ec71f951e6f" category="list-text">資料科學家和AI工程師正在尋求有效方法來部署深度學習（DL）和AI / ML / DL推斷模型、以保護敏感資訊。</block>
+  <block id="69adf8f52a6229e7062bda4b2b9679fb" category="paragraph">此解決方案的設計、是為了處理大型資料集上的即時和批次推斷AI工作負載、其處理能力是利用GPU與傳統CPU的處理能力。這項驗證可證明對於ML的隱私保護推論、以及尋求負責AI部署的組織所需的最佳資料管理。此解決方案提供適用於單一或多節點Kubernetes平台的架構、可用於邊緣與雲端運算、透過ONTAP 內部部署核心的NetApp AI、NetApp DataOps Toolkit、以及使用Jupyter Lab和CLI介面的Protopia混淆軟體進行互連。下圖顯示採用DataOps Toolkit和Protopia技術之NetApp技術的資料架構邏輯架構總覽。</block>
+  <block id="950724ad73ee22fd3b76ae9570281f64" category="paragraph"><block ref="950724ad73ee22fd3b76ae9570281f64" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7dfea85fd355e4966805c3504348aa8b" category="paragraph">Protopia混淆軟體可在NetApp DataOps Toolkit上順暢執行、並在離開儲存伺服器之前轉換資料。</block>
+  <block id="3d68457cd44385c7acbd55eeda70e8f8" category="inline-link-macro">下一步：解決方案領域。</block>
+  <block id="55da59d3fe9630935dbd4fc25d52b939" category="paragraph"><block ref="55da59d3fe9630935dbd4fc25d52b939" category="inline-link-macro-rx"></block></block>
+  <block id="c94ba9961c97321b49a2f0af40a3c81b" category="sidebar">負責的AI和機密推斷資料-採用Protopia Image Transformation的NetApp AI</block>
 </blocks>

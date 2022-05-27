@@ -1,0 +1,412 @@
+---
+sidebar: sidebar 
+permalink: ai/ai-protopia-test-procedure.html 
+keywords: prerequisites, scenario, jupyter lab, batch inference, kubernetes, NVIDIA Triton Inference Server 
+summary: 本節說明完成驗證所需的工作。 
+---
+= 測試程序
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ai-protopia-test-configuration.html["上一步：測試組態。"]
+
+本節說明完成驗證所需的工作。
+
+
+
+== 先決條件
+
+若要執行本節所述的工作、您必須安裝並設定下列工具、才能存取Linux或MacOS主機：
+
+* Kubectl（設定為存取現有的Kubernetes叢集）
++
+** 您可以找到安裝與組態指示 https://kubernetes.io/docs/tasks/tools/["請按這裡"^]。
+
+
+* 適用於Kubernetes的NetApp DataOps工具套件
++
+** 您可以找到安裝指示 https://github.com/NetApp/netapp-dataops-toolkit/tree/main/netapp_dataops_k8s["請按這裡"^]。
+
+
+
+
+
+
+== 案例1–JupyterLab的隨需推斷
+
+. 為AI / ML推斷工作負載建立Kubernetes命名空間。
++
+....
+$ kubectl create namespace inference
+namespace/inference created
+....
+. 使用NetApp DataOps Toolkit來配置持續磁碟區、以儲存您要在其中執行推斷的資料。
++
+....
+$ netapp_dataops_k8s_cli.py create volume --namespace=inference --pvc-name=inference-data --size=50Gi
+Creating PersistentVolumeClaim (PVC) 'inference-data' in namespace 'inference'.
+PersistentVolumeClaim (PVC) 'inference-data' created. Waiting for Kubernetes to bind volume to PVC.
+Volume successfully created and bound to PersistentVolumeClaim (PVC) 'inference-data' in namespace 'inference'.
+....
+. 使用NetApp DataOps Toolkit建立新的JupyterLab工作區。使用「-mount-PVC'」選項來掛載上一步建立的持續磁碟區。使用「-nvidia-GPU」選項、視需要將NVIDIA GPU分配給工作區。
++
+在以下範例中、持續性磁碟區「推斷資料」會掛載到JupyterLab工作區容器、位於「/home/jovyan/data」。使用正式的Project Jupyter Container映像時、「/home/jovyan」會顯示為JupyterLab網路介面中的頂層目錄。
+
++
+....
+$ netapp_dataops_k8s_cli.py create jupyterlab --namespace=inference --workspace-name=live-inference --size=50Gi --nvidia-gpu=2 --mount-pvc=inference-data:/home/jovyan/data
+Set workspace password (this password will be required in order to access the workspace):
+Re-enter password:
+Creating persistent volume for workspace...
+Creating PersistentVolumeClaim (PVC) 'ntap-dsutil-jupyterlab-live-inference' in namespace 'inference'.
+PersistentVolumeClaim (PVC) 'ntap-dsutil-jupyterlab-live-inference' created. Waiting for Kubernetes to bind volume to PVC.
+Volume successfully created and bound to PersistentVolumeClaim (PVC) 'ntap-dsutil-jupyterlab-live-inference' in namespace 'inference'.
+Creating Service 'ntap-dsutil-jupyterlab-live-inference' in namespace 'inference'.
+Service successfully created.
+Attaching Additional PVC: 'inference-data' at mount_path: '/home/jovyan/data'.
+Creating Deployment 'ntap-dsutil-jupyterlab-live-inference' in namespace 'inference'.
+Deployment 'ntap-dsutil-jupyterlab-live-inference' created.
+Waiting for Deployment 'ntap-dsutil-jupyterlab-live-inference' to reach Ready state.
+Deployment successfully created.
+Workspace successfully created.
+To access workspace, navigate to http://192.168.0.152:32721
+....
+. 使用「create jupyterlab」命令輸出中指定的URL存取JupyterLab工作區。資料目錄代表掛載到工作區的持續磁碟區。
++
+image:ai-protopia-image3.png["錯誤：缺少圖形影像"]
+
+. 開啟「DATA」目錄、然後上傳要執行提示的檔案。檔案上傳至資料目錄時、會自動儲存在掛載至工作區的持續磁碟區上。若要上傳檔案、請按一下「上傳檔案」圖示、如下圖所示。
++
+image:ai-protopia-image4.png["錯誤：缺少圖形影像"]
+
+. 返回最上層目錄並建立新的筆記本。
++
+image:ai-protopia-image5.png["錯誤：缺少圖形影像"]
+
+. 在筆記本中加入推斷程式碼。下列範例顯示影像偵測使用案例的推斷代碼。
++
+image:ai-protopia-image6.png["錯誤：缺少圖形影像"]
+
++
+image:ai-protopia-image7.png["錯誤：缺少圖形影像"]
+
+. 將Protopia混淆新增至您的推斷程式碼。Protopia直接與客戶合作、提供特定使用案例的文件、並不在本技術報告的範圍之內。以下範例顯示新增Protopia混淆功能時、影像偵測使用案例的推斷程式碼。
++
+image:ai-protopia-image8.png["錯誤：缺少圖形影像"]
+
++
+image:ai-protopia-image9.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 案例2：Kubernetes上的批次推斷
+
+. 為AI / ML推斷工作負載建立Kubernetes命名空間。
++
+....
+$ kubectl create namespace inference
+namespace/inference created
+....
+. 使用NetApp DataOps Toolkit來配置持續磁碟區、以儲存您要在其中執行推斷的資料。
++
+....
+$ netapp_dataops_k8s_cli.py create volume --namespace=inference --pvc-name=inference-data --size=50Gi
+Creating PersistentVolumeClaim (PVC) 'inference-data' in namespace 'inference'.
+PersistentVolumeClaim (PVC) 'inference-data' created. Waiting for Kubernetes to bind volume to PVC.
+Volume successfully created and bound to PersistentVolumeClaim (PVC) 'inference-data' in namespace 'inference'.
+....
+. 在新的持續磁碟區中填入您要執行推斷的資料。
++
+有多種方法可將資料載入至PVc。如果您的資料目前儲存在S3相容的物件儲存平台、例如NetApp StorageGRID 功能區或Amazon S3、您就可以使用 https://github.com/NetApp/netapp-dataops-toolkit/blob/main/netapp_dataops_k8s/docs/data_movement.md["NetApp DataOps Toolkit S3 Data Mover功能"^]。另一種簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網頁介面上傳檔案、如「」一節中步驟3至5所述<<Scenario 1 – On-demand inferencing in JupyterLab>>。」
+
+. 為批次推斷工作建立Kubernetes工作。下列範例顯示影像偵測使用案例的批次推斷工作。此工作會在一組映像中的每個映像上執行推斷、並將推斷準確度指標寫入stdout。
++
+....
+$ vi inference-job-raw.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: netapp-inference-raw
+  namespace: inference
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: inference-data
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      containers:
+      - name: inference
+        image: netapp-protopia-inference:latest
+        imagePullPolicy: IfNotPresent
+        command: ["python3", "run-accuracy-measurement.py", "--dataset", "/data/netapp-face-detection/FDDB"]
+        resources:
+          limits:
+            nvidia.com/gpu: 2
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/shm
+          name: dshm
+      restartPolicy: Never
+$ kubectl create -f inference-job-raw.yaml
+job.batch/netapp-inference-raw created
+....
+. 確認推斷工作已成功完成。
++
+....
+$ kubectl -n inference logs netapp-inference-raw-255sp
+100%|██████████| 89/89 [00:52<00:00,  1.68it/s]
+Reading Predictions : 100%|██████████| 10/10 [00:01<00:00,  6.23it/s]
+Predicting ... : 100%|██████████| 10/10 [00:16<00:00,  1.64s/it]
+==================== Results ====================
+FDDB-fold-1 Val AP: 0.9491256561145955
+FDDB-fold-2 Val AP: 0.9205024466101926
+FDDB-fold-3 Val AP: 0.9253013871078468
+FDDB-fold-4 Val AP: 0.9399781485863011
+FDDB-fold-5 Val AP: 0.9504280149478732
+FDDB-fold-6 Val AP: 0.9416473519339292
+FDDB-fold-7 Val AP: 0.9241631566241117
+FDDB-fold-8 Val AP: 0.9072663297546659
+FDDB-fold-9 Val AP: 0.9339648715035469
+FDDB-fold-10 Val AP: 0.9447707905560152
+FDDB Dataset Average AP: 0.9337148153739079
+=================================================
+mAP: 0.9337148153739079
+....
+. 在推斷工作中加入Protopia混淆。您可以在本技術報告範圍之外的Protopia中、找到直接新增Protopia混淆的使用案例特定指示。下列範例顯示使用0.8的Alpha值新增Protopia模糊處理時、面偵測使用案例的批次推斷工作。此工作會先套用Protopia混淆、再對一組影像中的每個影像進行推斷、然後將推斷準確度指標寫入stdout。
++
+我們重複此步驟以取得Alpha值、包括0.05、0.1、0.2、0.4、0.6、 0.8、0.9及0.95。您可以在中看到結果 link:ai-protopia-inferencing-accuracy-comparison.html["「推斷準確度比較」。"]
+
++
+....
+$ vi inference-job-protopia-0.8.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: netapp-inference-protopia-0.8
+  namespace: inference
+spec:
+  backoffLimit: 5
+  template:
+    spec:
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: inference-data
+      - name: dshm
+        emptyDir:
+          medium: Memory
+      containers:
+      - name: inference
+        image: netapp-protopia-inference:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: ALPHA
+          value: "0.8"
+        command: ["python3", "run-accuracy-measurement.py", "--dataset", "/data/netapp-face-detection/FDDB", "--alpha", "$(ALPHA)", "--noisy"]
+        resources:
+          limits:
+            nvidia.com/gpu: 2
+        volumeMounts:
+        - mountPath: /data
+          name: data
+        - mountPath: /dev/shm
+          name: dshm
+      restartPolicy: Never
+$ kubectl create -f inference-job-protopia-0.8.yaml
+job.batch/netapp-inference-protopia-0.8 created
+....
+. 確認推斷工作已成功完成。
++
+....
+$ kubectl -n inference logs netapp-inference-protopia-0.8-b4dkz
+100%|██████████| 89/89 [01:05<00:00,  1.37it/s]
+Reading Predictions : 100%|██████████| 10/10 [00:02<00:00,  3.67it/s]
+Predicting ... : 100%|██████████| 10/10 [00:22<00:00,  2.24s/it]
+==================== Results ====================
+FDDB-fold-1 Val AP: 0.8953066115834589
+FDDB-fold-2 Val AP: 0.8819580264029936
+FDDB-fold-3 Val AP: 0.8781107458462862
+FDDB-fold-4 Val AP: 0.9085731346308461
+FDDB-fold-5 Val AP: 0.9166445508275378
+FDDB-fold-6 Val AP: 0.9101178994188819
+FDDB-fold-7 Val AP: 0.8383443678423771
+FDDB-fold-8 Val AP: 0.8476311547659464
+FDDB-fold-9 Val AP: 0.8739624502111121
+FDDB-fold-10 Val AP: 0.8905468076424851
+FDDB Dataset Average AP: 0.8841195749171925
+=================================================
+mAP: 0.8841195749171925
+....
+
+
+
+
+== 案例3–NVIDIA Triton Inference Server
+
+. 為AI / ML推斷工作負載建立Kubernetes命名空間。
++
+....
+$ kubectl create namespace inference
+namespace/inference created
+....
+. 使用NetApp DataOps Toolkit來配置持續磁碟區、以作為NVIDIA Triton Inference Server的模型儲存庫。
++
+....
+$ netapp_dataops_k8s_cli.py create volume --namespace=inference --pvc-name=triton-model-repo --size=100Gi
+Creating PersistentVolumeClaim (PVC) 'triton-model-repo' in namespace 'inference'.
+PersistentVolumeClaim (PVC) 'triton-model-repo' created. Waiting for Kubernetes to bind volume to PVC.
+Volume successfully created and bound to PersistentVolumeClaim (PVC) 'triton-model-repo' in namespace 'inference'.
+....
+. 將您的模型儲存在中的新持續磁碟區上 https://github.com/triton-inference-server/server/blob/main/docs/model_repository.md["格式"^] NVIDIA Triton Inference伺服器也能辨識這點。
++
+有多種方法可將資料載入至PVc。簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網路介面上傳檔案、如「」中的步驟3至5所述<<Scenario 1 – On-demand inferencing in JupyterLab>>。」
+
+. 使用NetApp DataOps Toolkit部署新的NVIDIA Triton Inference Server執行個體。
++
+....
+$ netapp_dataops_k8s_cli.py create triton-server --namespace=inference --server-name=netapp-inference --model-repo-pvc-name=triton-model-repo
+Creating Service 'ntap-dsutil-triton-netapp-inference' in namespace 'inference'.
+Service successfully created.
+Creating Deployment 'ntap-dsutil-triton-netapp-inference' in namespace 'inference'.
+Deployment 'ntap-dsutil-triton-netapp-inference' created.
+Waiting for Deployment 'ntap-dsutil-triton-netapp-inference' to reach Ready state.
+Deployment successfully created.
+Server successfully created.
+Server endpoints:
+http: 192.168.0.152: 31208
+grpc: 192.168.0.152: 32736
+metrics: 192.168.0.152: 30009/metrics
+....
+. 使用Triton用戶端SDK執行推斷工作。下列Python程式碼摘錄使用Triton Python用戶端SDK、針對面偵測使用案例執行推斷工作。此範例會呼叫Triton API、並傳入影像以供參考。然後Triton Inference伺服器會收到要求、啟動模型、並傳回推斷輸出、做為API結果的一部分。
++
+....
+# get current frame
+frame = input_image
+# preprocess input
+preprocessed_input = preprocess_input(frame)
+preprocessed_input = torch.Tensor(preprocessed_input).to(device)
+# run forward pass
+clean_activation = clean_model_head(preprocessed_input)  # runs the first few layers
+######################################################################################
+#          pass clean image to Triton Inference Server API for inferencing           #
+######################################################################################
+triton_client = httpclient.InferenceServerClient(url="192.168.0.152:31208", verbose=False)
+model_name = "face_detection_base"
+inputs = []
+outputs = []
+inputs.append(httpclient.InferInput("INPUT__0", [1, 128, 32, 32], "FP32"))
+inputs[0].set_data_from_numpy(clean_activation.detach().cpu().numpy(), binary_data=False)
+outputs.append(httpclient.InferRequestedOutput("OUTPUT__0", binary_data=False))
+outputs.append(httpclient.InferRequestedOutput("OUTPUT__1", binary_data=False))
+results = triton_client.infer(
+    model_name,
+    inputs,
+    outputs=outputs,
+    #query_params=query_params,
+    headers=None,
+    request_compression_algorithm=None,
+    response_compression_algorithm=None)
+#print(results.get_response())
+statistics = triton_client.get_inference_statistics(model_name=model_name, headers=None)
+print(statistics)
+if len(statistics["model_stats"]) != 1:
+    print("FAILED: Inference Statistics")
+    sys.exit(1)
+
+loc_numpy = results.as_numpy("OUTPUT__0")
+pred_numpy = results.as_numpy("OUTPUT__1")
+######################################################################################
+# postprocess output
+clean_pred = (loc_numpy, pred_numpy)
+clean_outputs = postprocess_outputs(
+    clean_pred, [[input_image_width, input_image_height]], priors, THRESHOLD
+)
+# draw rectangles
+clean_frame = copy.deepcopy(frame)  # needs to be deep copy
+for (x1, y1, x2, y2, s) in clean_outputs[0]:
+    x1, y1 = int(x1), int(y1)
+    x2, y2 = int(x2), int(y2)
+    cv2.rectangle(clean_frame, (x1, y1), (x2, y2), (0, 0, 255), 4)
+....
+. 將Protopia混淆新增至您的推斷程式碼。您可以找到直接從Protopia新增Protopia混淆的使用案例特定指示、不過此程序不在本技術報告的範圍之內。以下範例顯示與前述步驟5相同的Python程式碼、但新增了Protopia混淆功能。
++
+請注意、Protopia混淆會套用至映像、然後再傳遞至Triton API。因此、不模糊的影像永遠不會離開本機機器。只有模糊的映像會透過網路傳送。此工作流程適用於在信任區域內收集資料、但需要在信任區域外傳遞資料以進行推斷的使用案例。如果沒有Protopia混淆、就無法在不敏感資料離開信任區域的情況下實作這類工作流程。
+
++
+....
+# get current frame
+frame = input_image
+# preprocess input
+preprocessed_input = preprocess_input(frame)
+preprocessed_input = torch.Tensor(preprocessed_input).to(device)
+# run forward pass
+not_noisy_activation = noisy_model_head(preprocessed_input)  # runs the first few layers
+##################################################################
+#          obfuscate image locally prior to inferencing          #
+#          SINGLE ADITIONAL LINE FOR PRIVATE INFERENCE           #
+##################################################################
+noisy_activation = noisy_model_noise(not_noisy_activation)
+##################################################################
+###########################################################################################
+#          pass obfuscated image to Triton Inference Server API for inferencing           #
+###########################################################################################
+triton_client = httpclient.InferenceServerClient(url="192.168.0.152:31208", verbose=False)
+model_name = "face_detection_noisy"
+inputs = []
+outputs = []
+inputs.append(httpclient.InferInput("INPUT__0", [1, 128, 32, 32], "FP32"))
+inputs[0].set_data_from_numpy(noisy_activation.detach().cpu().numpy(), binary_data=False)
+outputs.append(httpclient.InferRequestedOutput("OUTPUT__0", binary_data=False))
+outputs.append(httpclient.InferRequestedOutput("OUTPUT__1", binary_data=False))
+results = triton_client.infer(
+    model_name,
+    inputs,
+    outputs=outputs,
+    #query_params=query_params,
+    headers=None,
+    request_compression_algorithm=None,
+    response_compression_algorithm=None)
+#print(results.get_response())
+statistics = triton_client.get_inference_statistics(model_name=model_name, headers=None)
+print(statistics)
+if len(statistics["model_stats"]) != 1:
+    print("FAILED: Inference Statistics")
+    sys.exit(1)
+
+loc_numpy = results.as_numpy("OUTPUT__0")
+pred_numpy = results.as_numpy("OUTPUT__1")
+###########################################################################################
+
+# postprocess output
+noisy_pred = (loc_numpy, pred_numpy)
+noisy_outputs = postprocess_outputs(
+    noisy_pred, [[input_image_width, input_image_height]], priors, THRESHOLD * 0.5
+)
+# get reconstruction of the noisy activation
+noisy_reconstruction = decoder_function(noisy_activation)
+noisy_reconstruction = noisy_reconstruction.detach().cpu().numpy()[0]
+noisy_reconstruction = unpreprocess_output(
+    noisy_reconstruction, (input_image_width, input_image_height), True
+).astype(np.uint8)
+# draw rectangles
+for (x1, y1, x2, y2, s) in noisy_outputs[0]:
+    x1, y1 = int(x1), int(y1)
+    x2, y2 = int(x2), int(y2)
+    cv2.rectangle(noisy_reconstruction, (x1, y1), (x2, y2), (0, 0, 255), 4)
+....
+
+
+link:ai-protopia-inferencing-accuracy-comparison.html["下一步：推斷準確度比較。"]
