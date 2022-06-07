@@ -99,15 +99,13 @@ NOTE: SDDC私有雲和NetApp Cloud Volumes共置可提供最佳效能、並將�
 
 因此、使用NetApp Cloud Volumes做為與來賓連線的儲存設備、有助於擴充儲存設備並最佳化TCO、同時滿足效能與資料保護需求。
 
-[NOTE]
-====
-NetApp儲存設備即資料存放區目前可在所有大型超大規模雲端中以私有預覽形式提供。如需詳細資訊、請參閱下列連結。
+附註：NetApp儲存設備即資料存放區目前可做為AWS/VMC和Azure /AVS的公開預覽、以及GCP / GSVE的私有預覽。如需詳細資訊、請參閱下列連結。
 
-link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援AWS原生資料存放區"]
-link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["Azure的原生資料存放區Azure NetApp Files"]
+AWS新聞稿：即將ONTAP 推出FSX支援原生資料存放區！
+
+link:https://docs.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?branch=main&tabs=azure-portal/["Azure的原生資料存放區Azure NetApp Files"]
 link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的功能（CVS）、適用於GCP Cloud Volumes Service"]
 
-====
 
 
 === 值得記住的重點
@@ -147,15 +145,13 @@ NetApp雲端儲存設備具備下列優點：
 * 在寫入本文檔時、來賓儲存設備是唯一可用的選項。
 
 
-[NOTE]
-====
-NetApp儲存設備即資料存放區目前可在所有大型超大規模雲端中以私有預覽形式提供。如需詳細資訊、請參閱下列連結。
+附註：NetApp儲存設備即資料存放區目前可做為AWS/VMC和Azure /AVS的公開預覽、以及GCP / GSVE的私有預覽。如需詳細資訊、請參閱下列連結。
 
-link:https://blogs.vmware.com/cloud/2021/12/01/vmware-cloud-on-aws-going-big-reinvent2021/["FSX ONTAP 支援AWS原生資料存放區"]
-link:https://azure.microsoft.com/en-us/updates/azure-netapp-files-datastores-for-azure-vmware-solution-is-coming-soon/["Azure的原生資料存放區Azure NetApp Files"]
+AWS新聞稿：即將ONTAP 推出FSX支援原生資料存放區！
+
+link:https://docs.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?branch=main&tabs=azure-portal/["Azure的原生資料存放區Azure NetApp Files"]
 link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["以原生資料存放區形式提供的功能（CVS）、適用於GCP Cloud Volumes Service"]
 
-====
 
 NOTE: 請與NetApp解決方案架構設計師及各自的超大規模雲端架構設計師接洽、以規劃及調整儲存設備規模、以及所需的主機數量。NetApp建議您先找出儲存效能需求、再使用Cloud Volumes ONTAP VMware解決方案、以適當的處理量來完成儲存執行個體類型或適當的服務層級。
 
