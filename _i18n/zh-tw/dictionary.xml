@@ -4623,13 +4623,11 @@
   <block id="2e52c56d063752bbfeda9c8f9d2fee41" category="summary">本頁說明在Kubernetes叢集中安裝及設定NetApp Trident所需完成的工作。</block>
   <block id="7c4090c7fa7a91e8c7fed182401dbf6b" category="doc">NetApp Trident部署與組態</block>
   <block id="e539ec743b02403b5ba74b884d117a5a" category="paragraph">本節說明在Kubernetes叢集中安裝及設定NetApp Trident所需完成的工作。</block>
-  <block id="d6c3cdbd20fe8752d1f443bdb84038e3" category="list-text">您已經有一個正常運作的Kubernetes叢集、而且您正在執行Trident支援的Kubernetes版本。如需支援版本的清單、請參閱<block ref="e6b3671f5db59046617458d31ef4f50b" category="inline-link-rx"></block>。</block>
   <block id="14ede02439184c7c75e53410ffa40370" category="list-text">您已經擁有Trident支援的有效NetApp儲存設備、軟體定義執行個體或雲端儲存服務。</block>
   <block id="984b69562391cb8032fd50ded03a29a6" category="paragraph">若要在Kubernetes叢集中安裝及設定NetApp Trident、請從部署跨接主機執行下列工作：</block>
   <block id="07d8795f785e6495307106596d07402e" category="list-text">使用下列其中一種方法部署Trident：</block>
   <block id="040d3466a6f1c45ca2e523c9354dfdc7" category="inline-link">Trident部署指示</block>
   <block id="bb6989644edf59b8c5e0de0c25b6f8b6" category="list-text">如果您使用NVIDIA DeepOps來部署Kubernetes叢集、也可以使用NVIDIA DeepOps在Kubernetes叢集中部署Trident。若要部署Trident with DeepOps、請遵循<block ref="77e542aaaac8c5d2482c94ca2d79c997" category="inline-link-rx"></block> 在NVIDIA DeepOps GitHub網站上。</block>
-  <block id="b6463ef77c88b4c74dd6c4b1479d1bae" category="list-text">如果您沒有使用NVIDIA DeepOps來部署Kubernetes叢集、或是想要手動部署Trident、您可以遵循來部署Trident<block ref="73e6be38c8ff1e0c58865c34876a2e98" category="inline-link-rx"></block> 在Trident文件中。請務必至少建立一個Trident後端和一個Kubernetes StorageClass。如需有關後端和StorageClass的詳細資訊、請參閱<block ref="e6b3671f5db59046617458d31ef4f50b" category="inline-link-rx"></block>。</block>
   <block id="7cfdcb466d040b6c8f9c85e9981b9652" category="inline-link-macro">Kubernetes Storageclasses範例、可用於ONTAP 進行AI部署</block>
   <block id="180b707bbdd9c2fc8001a966c6c7d029" category="admonition">如果您要在ONTAP 一個AI Pod上部署NetApp AI Control Plane解決方案、請參閱 <block ref="5ce2b96729b1637e197bdd36eb4db4ee" category="inline-link-macro-rx"></block> 如需您可能想要建立和的不同Trident後端的一些範例 <block ref="d495c2f5a68f6923824470c0096419c8" category="inline-link-macro-rx"></block> 如需您可能想要建立的不同Kubernetes StorageClass範例。</block>
   <block id="4fe6ae61b2ccf0bd553bc2c0f15cf803" category="inline-link-macro">下一步：Trident後端範例、適用於ONTAP AI部署。</block>
@@ -11795,7 +11793,6 @@
   <block id="bd6708bcf0c060976324512475c1a212" category="paragraph"><block ref="bd6708bcf0c060976324512475c1a212" category="inline-link-macro-rx"></block></block>
   <block id="cac969404c87e9e141b320e34ee1ba4b" category="inline-link-macro">瀏覽適用於Google Cloud Platform（GCP）/ GCVE的NetApp解決方案</block>
   <block id="7f86100566a3de37a45dc2bd4ea422a0" category="paragraph"><block ref="7f86100566a3de37a45dc2bd4ea422a0" category="inline-link-macro-rx"></block></block>
-  <block id="c6cf4675ec6aec4e4edf9eac5122e022" category="paragraph">stdin&gt;中的未解析指令-包括：..//_iinclude/db_protection _log_replication.adication[]</block>
   <block id="95adefbc130d345041c4487820a9ab16" category="summary">NetApp企業資料庫解決方案是一套策略與技術功能、可在主要企業資料庫中展現NetApp儲存設備的功能。</block>
   <block id="e890f04973d00c3664a44f4cc586bb5d" category="doc">NetApp企業資料庫解決方案</block>
   <block id="809247403bb2b3e7178b69b038356678" category="inline-link-macro">vSphere資料存放區與傳輸協定功能：NFS</block>
@@ -12256,4 +12253,11 @@
   <block id="2c5c3872e94de8a36eac45213c5bf2e6" category="paragraph">企業客戶過去曾接受過內部部署的AI/ML模式訓練與部署。基於規模經濟與效率的考量、這些客戶正不斷擴充、將AI/ML功能移轉至公有雲、混合雲或多雲端雲端部署。但是、它們受到其他基礎架構所能接觸到的資料所約束。NetApp解決方案可解決所需的各種網路安全威脅<block ref="9da3a9a08c9461b229d33f221e8caa37" category="inline-link-rx"></block> 以及安全性評估、並與Protopia資料轉型結合使用、將影像處理AI/ML工作負載移轉至雲端的相關風險降至最低。</block>
   <block id="236e54165aafef697c2c82c667e05d36" category="doc">TR-4928：負責的AI與機密資料推斷-採用Protopia Image與資料轉型的NetApp AI</block>
   <block id="89c461295f17dbdb6e2da2dcb27d01b3" category="sidebar">原生資料存放區-公開預覽</block>
+  <block id="5b8a88d59edea26637f628caefd05974" category="list-text">您已經有一個正常運作的Kubernetes叢集、而且您正在執行Trident支援的Kubernetes版本。如需支援版本的清單、請參閱<block ref="77881c904b113f84b0f08c355b95174f" category="inline-link-rx"></block>。</block>
+  <block id="b81146e6af95bf6e22cf57459890216f" category="inline-link">後端</block>
+  <block id="f652904c3bfb48fb25a0a75f485f0ff6" category="inline-link">儲存類別</block>
+  <block id="05543563edfd7ed0348edd3b47280705" category="list-text">如果您沒有使用NVIDIA DeepOps來部署Kubernetes叢集、或是想要手動部署Trident、您可以遵循來部署Trident<block ref="e119dd171387190517d77417752a581c" category="inline-link-rx"></block> 在Trident文件中。請務必至少建立一個Trident Backend和至少一個Kubernetes StorageClass、以取得如何設定的詳細資訊<block ref="9e44c6ae604c64be7a70b0384fa1cccd" category="inline-link-rx"></block> 和<block ref="336146b6899186b663ba5a7b38e8c39b" category="inline-link-rx"></block> 請參閱NetApp文件中的連結小節。</block>
+  <block id="36522cc6d4eb67d30ef19d321901fa6e" category="cell">2022年6月16日</block>
+  <block id="e1ea84e227dd99913363ade155774bcf" category="cell">新增NVIDIA DGX SupermPOD with NetApp設計指南</block>
+  <block id="1edbb6849585c57ecbf402c0706ecf2d" category="sidebar">NVIDIA DGX超級POD with NetApp（設計指南）</block>
 </blocks>
