@@ -3,6 +3,51 @@ section: containers
 title: 容器
 url: "/containers/index.html"
 entries:
+- title: Anthos與NetApp合作
+  type: solutions
+  url: "/containers/anthos-with-netapp/a-w-n_solution_overview.html"
+  entries:
+  - title: Anthos總覽
+    url: "/containers/anthos-with-netapp/a-w-n_overview_anthos.html"
+    entries:
+    - title: VMware上的Anthos叢集
+      url: "/containers/anthos-with-netapp/a-w-n_anthos_VMW.html"
+    - title: 裸機上的Anthos
+      url: "/containers/anthos-with-netapp/a-w-n_anthos_BM.html"
+  - title: NetApp儲存系統總覽
+    url: "/containers/anthos-with-netapp/a-w-n_overview_netapp.html"
+    entries:
+    - title: NetApp ONTAP
+      url: "/containers/anthos-with-netapp/a-w-n_netapp_ontap.html"
+    - title: NetApp Element
+      url: "/containers/anthos-with-netapp/a-w-n_netapp_element.html"
+  - title: NetApp儲存整合概述
+    url: "/containers/anthos-with-netapp/a-w-n_overview_storint.html"
+    entries:
+    - title: NetApp Astra Trident總覽
+      url: "/containers/anthos-with-netapp/a-w-n_overview_trident.html"
+      entries:
+      - title: NetApp ONTAP 不適用於NFS
+        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_nfs.html"
+      - title: NetApp ONTAP 支援iSCSI
+        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_iscsi.html"
+      - title: 支援iSCSI NetApp Element
+        url: "/containers/anthos-with-netapp/a-w-n_trident_element_iscsi.html"
+  - title: Anthos的進階組態選項
+    entries:
+    - title: 探索負載平衡器選項
+      url: "/containers/anthos-with-netapp/a-w-n_load_balancers.html"
+      entries:
+      - title: F5 BIG-IP
+        url: "/containers/anthos-with-netapp/a-w-n_LB_F5BigIP.html"
+      - title: SEETAW
+        url: "/containers/anthos-with-netapp/a-w-n_LB_SeeSaw.html"
+  - title: 解決方案驗證與使用案例
+    url: "/containers/anthos-with-netapp/a-w-n_use_cases.html"
+  - title: 影片/示範
+    url: "/containers/anthos-with-netapp/a-w-n_videos_and_demos.html"
+  - title: 其他資訊
+    url: "/containers/anthos-with-netapp/a-w-n_additional_information.html"
 - title: 採用NetApp Astra的DevOps
   type: solutions
   url: "/containers/devops_with_netapp/dwn_solution_overview.html"
@@ -158,51 +203,47 @@ entries:
     url: "/containers/rh-os-n_videos_and_demos.html"
   - title: 其他資訊
     url: "/containers/rh-os-n_additional_information.html"
-- title: Anthos與NetApp合作
+- title: VMware Tanzu與NetApp合作
   type: solutions
-  url: "/containers/anthos-with-netapp/a-w-n_solution_overview.html"
+  url: "/containers/tanzu_with_netapp/vtwn_solution_overview.html"
   entries:
-  - title: Anthos總覽
-    url: "/containers/anthos-with-netapp/a-w-n_overview_anthos.html"
+  - title: VMware Tanzu概述
+    url: "/containers/tanzu_with_netapp/vtwn_overview_vmware_tanzu.html"
     entries:
-    - title: VMware上的Anthos叢集
-      url: "/containers/anthos-with-netapp/a-w-n_anthos_VMW.html"
-    - title: 裸機上的Anthos
-      url: "/containers/anthos-with-netapp/a-w-n_anthos_BM.html"
+    - title: VMware TKG（Tanzu Kubernetes Grid）總覽
+      url: "/containers/tanzu_with_netapp/vtwn_overview_tkg.html"
+    - title: VMware TKGS（Tanzu Kubernetes Grid Service）總覽
+      url: "/containers/tanzu_with_netapp/vtwn_overview_tkgs.html"
+    - title: VMware TKGI（Tanzu Kubernetes Grid整合版）總覽
+      url: "/containers/tanzu_with_netapp/vtwn_overview_tkgi.html"
   - title: NetApp儲存系統總覽
-    url: "/containers/anthos-with-netapp/a-w-n_overview_netapp.html"
+    url: "/containers/tanzu_with_netapp/vtwn_overview_netapp.html"
     entries:
     - title: NetApp ONTAP
-      url: "/containers/anthos-with-netapp/a-w-n_netapp_ontap.html"
-    - title: NetApp Element
-      url: "/containers/anthos-with-netapp/a-w-n_netapp_element.html"
+      url: "/containers/tanzu_with_netapp/vtwn_netapp_ontap.html"
   - title: NetApp儲存整合概述
-    url: "/containers/anthos-with-netapp/a-w-n_overview_storint.html"
+    url: "/containers/tanzu_with_netapp/vtwn_overview_storint.html"
     entries:
+    - title: NetApp Astra控制中心總覽
+      url: "/containers/tanzu_with_netapp/vtwn_overview_astra.html"
+      entries:
+      - title: 註冊您的Tanzu Kubernetes叢集
+        url: "/containers/tanzu_with_netapp/vtwn_astra_register.html"
+      - title: 選擇要保護的應用程式
+        url: "/containers/tanzu_with_netapp/vtwn_astra_applications.html"
+      - title: 保護您的應用程式
+        url: "/containers/tanzu_with_netapp/vtwn_astra_protect.html"
     - title: NetApp Astra Trident總覽
-      url: "/containers/anthos-with-netapp/a-w-n_overview_trident.html"
+      url: "/containers/tanzu_with_netapp/vtwn_overview_trident.html"
       entries:
       - title: NetApp ONTAP 不適用於NFS
-        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_nfs.html"
+        url: "/containers/tanzu_with_netapp/vtwn_trident_ontap_nfs.html"
       - title: NetApp ONTAP 支援iSCSI
-        url: "/containers/anthos-with-netapp/a-w-n_trident_ontap_iscsi.html"
-      - title: 支援iSCSI NetApp Element
-        url: "/containers/anthos-with-netapp/a-w-n_trident_element_iscsi.html"
-  - title: Anthos的進階組態選項
-    entries:
-    - title: 探索負載平衡器選項
-      url: "/containers/anthos-with-netapp/a-w-n_load_balancers.html"
-      entries:
-      - title: F5 BIG-IP
-        url: "/containers/anthos-with-netapp/a-w-n_LB_F5BigIP.html"
-      - title: SEETAW
-        url: "/containers/anthos-with-netapp/a-w-n_LB_SeeSaw.html"
-  - title: 解決方案驗證與使用案例
-    url: "/containers/anthos-with-netapp/a-w-n_use_cases.html"
+        url: "/containers/tanzu_with_netapp/vtwn_trident_ontap_iscsi.html"
   - title: 影片/示範
-    url: "/containers/anthos-with-netapp/a-w-n_videos_and_demos.html"
+    url: "/containers/tanzu_with_netapp/vtwn_videos_and_demos.html"
   - title: 其他資訊
-    url: "/containers/anthos-with-netapp/a-w-n_additional_information.html"
+    url: "/containers/tanzu_with_netapp/vtwn_additional_information.html"
 - title: 歸檔解決方案
   entries:
   - title: 裸機上的Anthos

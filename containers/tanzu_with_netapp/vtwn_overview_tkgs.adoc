@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+permalink: containers/tanzu_with_netapp/vtwn_overview_tkgs.html 
+keywords: VMware Tanzu, Tanzu, Tanzu Kubernetes Grid Service, vSphere with Tanzu, DevOps, Netapp, Astra Trident, Astra Control, Astra 
+summary: VMware Tanzu Kubernetes Grid Service（也稱為含有Tanzu的vSphere）可讓您在vSphere原生環境中建立及操作Tanzu Kubernetes叢集、也可讓您直接在ESXi主機上執行一些較小的工作負載。 
+---
+= VMware Tanzu Kubernetes Grid Service（TKGS）總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+VMware Tanzu Kubernetes Grid Service（也稱為含有Tanzu的vSphere）可讓您在vSphere原生環境中建立及操作Tanzu Kubernetes叢集、也可讓您直接在ESXi主機上執行一些較小的工作負載。它可讓您將vSphere轉換成平台、以便在Hypervisor層上原生執行容器化工作負載。啟用後、Tanzu Kubernetes Grid Service會在vSphere上部署監督者叢集、以便部署及操作工作負載所需的叢集。它原生與vSphere 7整合、並運用許多可靠的vSphere功能、例如vCenter SSO、內容庫、vSphere網路、vSphere儲存設備、vSphere HA和DRS、以及vSphere安全性、提供更順暢的Kubernetes體驗。
+
+vSphere with Tanzu為混合式應用程式環境提供單一平台、讓您可以在容器或VM中執行應用程式元件、為開發人員、DevOps工程師及vSphere管理員提供更佳的可見度及操作簡易性。VMware TKGS僅支援vSphere 7環境、是Tanzu Kubernetes營運產品組合中唯一能讓您直接在ESXi主機上執行Pod的產品。
+
+image::vtwn_image03.png[VMware Tanzu Kubernetes服務]
+
+如需有關Tanzu Kubernetes Grid Service的詳細資訊、請參閱文件 link:https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-152BE7D2-E227-4DAA-B527-557B564D9718.html["請按這裡"^]。
+
+在功能集、網路等方面、有許多架構考量。根據所選的架構、Tanzu Kubernetes Grid Service的先決條件和部署程序各不相同。若要在您的環境中部署及設定Tanzu Kubernetes Grid Service、請遵循指南 link:https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-74EC2571-4352-4E15-838E-5F56C8C68D15.html["請按這裡"^]。此外、若要登入透過TKGS部署的Tanzu Kubernetes叢集節點、請遵循本文所述的程序 https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-37DC1DF2-119B-4E9E-8CA6-C194F39DDEDA.html["連結"^]。
+
+NetApp建議將所有正式作業環境部署在多個主要部署環境中、以提供容錯能力、並可選擇工作節點的組態、以符合預期工作負載的需求。因此、對於高度密集的工作負載、建議使用的VM類別至少應有四個vCPU和12GB的RAM。
+
+當在命名空間中建立Tanzu Kubernetes叢集時、具有「擁有者」或「編輯」權限的使用者可以使用使用者帳戶、直接在任何命名空間中建立Pod。這是因爲具有「擁有者」或「編輯」權限的使用者會被指派叢集管理員角色。不過、在任何命名空間中建立部署、精靈集、狀態集或其他項目時、您必須將具有必要權限的角色指派給對應的服務帳戶。這是必要的、因為部署或精靈集會使用服務帳戶來部署Pod。
+
+請參閱叢集角色繫結的下列範例、將叢集系統管理員角色指派給叢集中的所有服務帳戶：
+
+[listing]
+----
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: all_sa_ca
+subjects:
+- kind: Group
+  name: system:serviceaccounts
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: psp:vmware-system-privileged
+  apiGroup: rbac.authorization.k8s.io
+----
+link:vtwn_overview_netapp.html["下一步：NetApp儲存系統總覽。"]

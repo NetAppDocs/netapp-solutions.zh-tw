@@ -1,0 +1,244 @@
+---
+sidebar: sidebar 
+permalink: containers/tanzu_with_netapp/vtwn_overview_astra.html 
+keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astra Trident, Helm, Operator, ONTAP, Tanzu, Kubernetes, VMware Tanzu 
+summary: NetApp Astra Control Center提供一套豐富的儲存設備與應用程式感知資料管理服務、適用於狀態穩定的Kubernetes工作負載、部署於內部環境、採用NetApp值得信賴的資料保護技術。 
+---
+= NetApp Astra Control總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+:k8s_distribution_name: VMware Tanzu
+:k8s_usercluster_name: user or workload Tanzu Kubernetes
+
+
+[role="normal"]
+NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資料管理服務、適用於部署在內部部署環境中且採用NetApp資料保護技術的狀態式Kubernetes工作負載。
+
+image:redhat_openshift_image44.png["錯誤：缺少圖形影像"]
+
+NetApp Astra Control Center可安裝在｛k8s_distribution_name｝叢集上、該叢集已部署Astra Trident Storage Orchestrator、並已設定儲存類別和儲存後端、以供NetApp ONTAP orsname儲存系統使用。
+
+如需Astra Trident的詳細資訊、請參閱 link:dwn_overview_trident.html["本文檔"^]。
+
+在雲端連線的環境中、Astra Control Center會使用Cloud Insights 效益技術來提供進階監控和遙測功能。若缺乏Cloud Insights 一個不穩定的連線、則可透過開放式指標端點、將有限的監控和遙測（價值七天的指標）匯出至Kubernetes原生監控工具（Prometheus和Grafana）。
+
+Astra Control Center已完全整合至NetApp AutoSupport 的整套功能和Active IQ 功能、可為使用者提供支援、協助疑難排解、以及顯示使用統計資料。
+
+除了Astra Control Center的付費版本、我們也提供90天的評估授權。評估版本可透過電子郵件和社群Slack通路支援。客戶可從產品內的支援儀表板存取這些資源、其他知識庫文章及文件。
+
+若要深入瞭解Astra產品組合、請造訪 link:https://cloud.netapp.com/astra["Astra網站"^]。
+
+
+
+== Astra控制中心自動化
+
+Astra Control Center具備完整功能的REST API、可進行程式化存取。使用者可以使用任何程式設計語言或公用程式來與Astra Control REST API端點互動。若要深入瞭解此API、請參閱文件 link:https://docs.netapp.com/us-en/astra-automation/index.html["請按這裡"^]。
+
+如果您正在尋找現成的軟體開發工具套件、以便與Astra Control REST API互動、NetApp會提供工具套件、其中包含Astra Control Python SDK、您可以下載 link:https://github.com/NetApp/netapp-astra-toolkits/["請按這裡"^]。
+
+如果程式設計不適合您的情況、而且您想要使用組態管理工具、您可以複製並執行NetApp發佈的Ansible教戰手冊 link:https://github.com/NetApp-Automation/na_astra_control_suite["請按這裡"^]。
+
+
+
+== Astra Control Center安裝先決條件
+
+Astra Control Center安裝需要下列先決條件：
+
+* 一個或多個Tanzu Kubernetes叢集、由管理叢集或TKGS管理。支援TKG工作負載叢集1.4以上和TKGI使用者叢集1.12.2+。
+* 每個Tanzu Kubernetes叢集上都必須已安裝並設定Astra Trident。
+* 一或多ONTAP 個執行ONTAP 不穩定9.5或更新版本的NetApp不穩定儲存系統。
++
+
+NOTE: 這是在站台上安裝每個Tanzu Kubernetes的最佳實務做法、可讓專屬的SVM用於持續儲存。多站台部署需要額外的儲存系統。
+
+* 每個Tanzu Kubernetes叢集上都必須設定Trident儲存後端、並以SVM作為後盾ONTAP 、以供支援整個叢集。
+* 在每個Tanzu Kubernetes叢集上設定的預設StorageClass、其中Astra Trident是儲存資源配置程式。
+* 如果您使用的是擷取類型「AccTraefik」、則必須在每個Tanzu Kubernetes叢集上安裝和設定負載平衡器、以進行負載平衡和曝光Astra Control Center。
+* 如果您使用的是「一般」擷取類型、則必須在每個Tanzu Kubernetes叢集上安裝並設定入口控制器、以曝光Astra Control Center。
+* 必須設定私有映像登錄來裝載NetApp Astra Control Center映像。
+* 您必須擁有叢集管理存取權、才能存取安裝Astra Control Center的Tanzu Kubernetes叢集。
+* 您必須擁有NetApp ONTAP 等群集的管理員存取權。
+* RHEL或Ubuntu管理工作站。
+
+
+
+
+== 安裝Astra Control Center
+
+本解決方案說明使用Ansible教戰手冊安裝Astra Control Center的自動化程序。如果您正在尋找安裝Astra Control Center的手動程序、請遵循詳細的安裝與操作指南 link:https://docs.netapp.com/us-en/astra-control-center/index.html["請按這裡"^]。
+
+. 若要使用部署Astra Control Center的Ansible教戰手冊、您必須安裝有Ansible的Ubuntu / RHEL機器。請遵循此步驟 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_ubuntu_debian_setup.html["程序"^] 適用於Ubuntu及此 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_rhel_centos_setup.html["程序"^] 適用於RHEL。
+. 複製裝載可執行內容的GitHub儲存庫。
++
+[source, cli]
+----
+git clone https://github.com/NetApp-Automation/na_astra_control_suite.git
+----
+. 登入NetApp支援網站、下載最新版本的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。
++
+
+NOTE: 若要開始使用Astra Control試用授權、請造訪 https://cloud.netapp.com/astra-register["Astra註冊網站"^]。
+
+. 建立或取得Kubeconfig檔案、並以系統管理存取權限存取要安裝Astra Control Center的使用者或工作負載Tanu Kubernetes叢集。
+. 將目錄變更為「na_Astra_control_suITE」。
++
+[source, cli]
+----
+cd na_astra_control_suite
+----
+. 編輯「vars/vars.yml」檔案、並在變數中填入必要資訊。
++
+[source, cli]
+----
+#Define whether or not to push the Astra Control Center images to your private registry [Allowed values: yes, no]
+push_images: yes
+
+#The directory hosting the Astra Control Center installer
+installer_directory: /home/admin/
+
+#Specify the ingress type. Allowed values - "AccTraefik" or "Generic"
+#"AccTraefik" if you want the installer to create a LoadBalancer type service to access ACC, requires MetalLB or similar.
+#"Generic" if you want to create or configure ingress controller yourself, installer just creates a ClusterIP service for traefik.
+ingress_type: "AccTraefik"
+
+#Name of the Astra Control Center installer (Do not include the extension, just the name)
+astra_tar_ball_name: astra-control-center-22.04.0
+
+#The complete path to the kubeconfig file of the kubernetes/openshift cluster Astra Control Center needs to be installed to.
+hosting_k8s_cluster_kubeconfig_path: /home/admin/cluster-kubeconfig.yml
+
+#Namespace in which Astra Control Center is to be installed
+astra_namespace: netapp-astra-cc
+
+#Astra Control Center Resources Scaler. Leave it blank if you want to accept the Default setting.
+astra_resources_scaler: Default
+
+#Storageclass to be used for Astra Control Center PVCs, it must be created before running the playbook [Leave it blank if you want the PVCs to use default storageclass]
+astra_trident_storageclass: basic
+
+#Reclaim Policy for Astra Control Center Persistent Volumes [Allowed values: Retain, Delete]
+storageclass_reclaim_policy: Retain
+
+#Private Registry Details
+astra_registry_name: "docker.io"
+
+#Whether the private registry requires credentials [Allowed values: yes, no]
+require_reg_creds: yes
+
+#If require_reg_creds is yes, then define the container image registry credentials
+#Usually, the registry namespace and usernames are same for individual users
+astra_registry_namespace: "registry-user"
+astra_registry_username: "registry-user"
+astra_registry_password: "password"
+
+#Kuberenets/OpenShift secret name for Astra Control Center
+#This name will be assigned to the K8s secret created by the playbook
+astra_registry_secret_name: "astra-registry-credentials"
+
+#Astra Control Center FQDN
+acc_fqdn_address: astra-control-center.cie.netapp.com
+
+#Name of the Astra Control Center instance
+acc_account_name: ACC Account Name
+
+#Administrator details for Astra Control Center
+admin_email_address: admin@example.com
+admin_first_name: Admin
+admin_last_name: Admin
+----
+. 執行教戰手冊以部署Astra Control Center。本方針要求特定組態具備root權限。
++
+如果執行教戰手冊的使用者是root或設定了無密碼Sudo、請執行下列命令來執行教戰手冊。
+
++
+[source, cli]
+----
+ansible-playbook install_acc_playbook.yml
+----
++
+如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行教戰手冊、然後輸入Sudo密碼。
+
++
+[source, cli]
+----
+ansible-playbook install_acc_playbook.yml -K
+----
+
+
+
+
+=== 安裝後步驟
+
+. 安裝可能需要幾分鐘的時間才能完成。確認「NetApp-Astra -cc」命名空間中的所有Pod和服務均已啟動並正在執行。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ kubectl get all -n netapp-astra-cc
+----
+. 檢查「acc oper-manager-manager」記錄、確保安裝完成。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ kubectl logs deploy/acc-operator-controller-manager -n netapp-acc-operator -c manager -f
+----
++
+
+NOTE: 下列訊息表示Astra Control Center安裝成功。
+
++
+[listing]
+----
+{"level":"info","ts":1624054318.029971,"logger":"controllers.AstraControlCenter","msg":"Successfully Reconciled AstraControlCenter in [seconds]s","AstraControlCenter":"netapp-astra-cc/astra","ae.Version":"[22.04.0]"}
+----
+. 登入Astra Control Center的使用者名稱是CRD檔案中所提供系統管理員的電子郵件地址、密碼是附加於Astra Control Center UUID的字串「ACC-」。執行下列命令：
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc get astracontrolcenters -n netapp-astra-cc
+NAME    UUID
+astra   345c55a5-bf2e-21f0-84b8-b6f2bce5e95f
+----
++
+
+NOTE: 在此範例中、密碼為「ACC-345c55a5-bf2e-21f0-843b8-b6f2bce5e95f」。
+
+. 如果擷取類型為AccTraefik、請取得trraefik服務負載平衡器IP。
++
+[listing]
+----
+[netapp-user@rhel7 ~]$ oc get svc -n netapp-astra-cc | egrep 'EXTERNAL|traefik'
+
+NAME                                       TYPE           CLUSTER-IP       EXTERNAL-IP     PORT(S)                                                                   AGE
+traefik                                    LoadBalancer   172.30.99.142    10.61.186.181   80:30343/TCP,443:30060/TCP                                                16m
+----
+. 在DNS伺服器中新增一個項目、將Astra Control Center CRD檔案中提供的FQDN指向raefik服務的「exter-IP」。
++
+image:redhat_openshift_image122.jpg["為Acc GUI新增DNS項目"]
+
+. 瀏覽Astra Control Center GUI的FQDN即可登入。
++
+image:redhat_openshift_image87.jpg["Astra Control Center登入"]
+
+. 第一次使用CRD提供的管理電子郵件地址登入Astra Control Center GUI時、您需要變更密碼。
++
+image:redhat_openshift_image88.jpg["Astra Control Center強制密碼變更"]
+
+. 如果您想要新增使用者至Astra Control Center、請瀏覽至「帳戶」>「使用者」、按一下「新增」、輸入使用者的詳細資料、然後按一下「新增」。
++
+image:redhat_openshift_image89.jpg["Astra Control Center可建立使用者"]
+
+. Astra Control Center需要取得授權、才能讓所有功能正常運作。若要新增授權、請瀏覽至「帳戶」>「授權」、按一下「新增授權」、然後上傳授權檔案。
++
+image:redhat_openshift_image90.jpg["Astra Control Center新增授權"]
+
++
+
+NOTE: 如果您在安裝或組態NetApp Astra Control Center時遇到問題、我們將提供已知問題的知識庫 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["請按這裡"^]。
+
+
+
+link:vtwn_astra_register.html["下一步：註冊您的Tanzu Kubernetes叢集。"]

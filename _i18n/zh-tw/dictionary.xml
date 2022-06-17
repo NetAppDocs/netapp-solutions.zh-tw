@@ -3377,7 +3377,6 @@
   <block id="2842c07cfacaf614e63dc1f2afef93b2" category="paragraph"><block ref="2842c07cfacaf614e63dc1f2afef93b2" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d47cd04a0ddb5c3e6a2d9b9bc5c6a120" category="inline-link-macro">下一步：部署應用程式</block>
   <block id="fafac2eb9a7c4fcf46778865a22a00d2" category="paragraph"><block ref="fafac2eb9a7c4fcf46778865a22a00d2" category="inline-link-macro-rx"></block></block>
-  <block id="7fd01fa95033c040ddfe882c5258bda9" category="paragraph">=：硬斷點：：nofooter：：圖示：字型：linkattros:：imagesdir：.//.../media/</block>
   <block id="337f05fad2de58e4a8b74cb25536b52d" category="doc">設定總覽</block>
   <block id="666f45aef7a28ef5ba6e4bfb2f71bcee" category="section-title">Iguazio安裝</block>
   <block id="b681b0e4b3576aa1cd854e2b66c16dcd" category="paragraph">Iguazio可安裝在內部部署或雲端供應商上。資源配置可做為服務、並由Iguazio或客戶進行管理。在這兩種情況下、Iguazio都提供部署應用程式（Provazio）來部署及管理叢集。</block>
@@ -6236,15 +6235,11 @@
   <block id="3b489b9fd690a8cdf710454d0ccb5288" category="list-text">如果您要將PVCS放置在非預設儲存類別上、請輸入儲存類別名稱。</block>
   <block id="6b9265a82fa5bd326052ec55e040a54a" category="list-text">定義客戶需求日處理偏好設定。</block>
   <block id="90aa5928482975bc6ff56f0eaf052451" category="open-title">自動[可執行]</block>
-  <block id="31dfd224530c16d63981c7742bfefc2b" category="list-text">若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照所述程序進行<block ref="3c36e2d6ece22f6d90a18a4cf2722cef" category="inline-link-rx"></block> 適用於Ubuntu及本產品<block ref="1988083261a6d1d93abe49ae6e6435ae" category="inline-link-rx"></block> 適用於RHEL。</block>
   <block id="b8571b33af3335fed61ab0d7985d007f" category="list-text">複製裝載可執行內容的GitHub儲存庫。</block>
   <block id="5ed95667cae604c0ddee2dbf04f423fe" category="list-text">登入NetApp支援網站、下載最新版本的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。</block>
   <block id="6238d4091e12ffa6643c0dc68d72ceab" category="list-text">建立或取得具有OpenShift叢集管理員存取權的Kbeconfig檔案、以安裝Astra Control Center。</block>
   <block id="b736c713f352ab43e7543fda4589e96f" category="list-text">將目錄變更為na_astra_control_suITE。</block>
   <block id="4f31682e7040024757006eed6ba0344a" category="list-text">編輯vars/vars.yml檔案、並在變數中填入必要資訊。</block>
-  <block id="084d6dacfbcd3e90106780f3cb2699fa" category="list-text">執行教戰手冊以部署Astra Control Center。本方針要求特定組態具備root權限。</block>
-  <block id="1b9af2e27b0d249822ccdef7fe087cfc" category="paragraph">因此、如果執行方針的使用者是root或設定了無密碼Sudo、請執行下列命令來執行方針。</block>
-  <block id="9081796e9cbb144a0c6cc05a62c75b37" category="paragraph">如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行教戰手冊、然後輸入Sudo密碼。</block>
   <block id="8d1e5f9175948d3e6f932794744cde16" category="section-title">安裝後步驟</block>
   <block id="e3cd33ca69b8e508c973939783f528db" category="list-text">安裝可能需要幾分鐘的時間才能完成。確認「NetApp-Astra -cc」命名空間中的所有Pod和服務均已啟動並正在執行。</block>
   <block id="9904a774f242f31a5ae37c8f75bda92b" category="list-text">檢查「acc oper-manager-manager」記錄、確保安裝完成。</block>
@@ -10014,7 +10009,6 @@
   <block id="c46717c86eab6ada72e202311e47bf46" category="paragraph">在雲端連線的環境中、Astra Control Center會使用Cloud Insights 效益技術來提供進階監控和遙測功能。若缺乏Cloud Insights 一個不穩定的連線、則可透過開放式指標端點、將有限的監控和遙測（價值七天的指標）匯出至Kubernetes原生監控工具（Prometheus和Grafana）。</block>
   <block id="b5348ca8ff6fec2e5b760e7176813e60" category="paragraph">除了Astra Control Center的付費版本、我們也提供90天的評估授權。評估版本可透過電子郵件和社群Slack通路支援。客戶可從產品內的支援儀表板存取這些資源、其他知識庫文章及文件。</block>
   <block id="8b05a70d35504af755eb73a78fd137f0" category="paragraph">若要深入瞭解Astra產品組合、請造訪 <block ref="230f9d60eb4e7cc8be41a0e702c37eff" category="inline-link-macro-rx"></block>。</block>
-  <block id="1f65ad1f14a5566fbf1c37af1bf0c380" category="paragraph">Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。</block>
   <block id="82c67e38528d52fd46de6b6ba7370337" category="paragraph">Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。</block>
   <block id="ed42e52f359216f47260ed1d21ef331c" category="paragraph">從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括自修復部署為Trident安裝一部分的Pod。</block>
   <block id="ef55276f0238c6b1a3f893bc026b5644" category="summary">NetApp Container解決方案是許多熱門的Kubernetes型容器協調程式、經過驗證的部署、並與NetApp儲存管理系統和軟體整合。</block>
@@ -12260,4 +12254,236 @@
   <block id="e1ea84e227dd99913363ade155774bcf" category="cell">新增NVIDIA DGX SupermPOD with NetApp設計指南</block>
   <block id="1edbb6849585c57ecbf402c0706ecf2d" category="sidebar">NVIDIA DGX超級POD with NetApp（設計指南）</block>
   <block id="e340bc103d02ce2b8e016eb60705029c" category="sidebar">SAP與SAP HANA</block>
+  <block id="f1fc5bef6accc6d1fab4ab73142df7f3" category="list-text">若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照程序進行<block ref="3c36e2d6ece22f6d90a18a4cf2722cef" category="inline-link-rx"></block> 適用於Ubuntu和程序<block ref="94346839427703f278bfb2bc5962a814" category="inline-link-rx"></block> 適用於RHEL。</block>
+  <block id="703fd9e283392bf196948a4c2ed72680" category="list-text">登入NetApp支援網站、下載最新版的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。</block>
+  <block id="42042ccfc3ffee97e94beca237148ed4" category="list-text">建立或取得具有OpenShift叢集管理員存取權的Kbeconfig檔案、以安裝Astra Control Center。</block>
+  <block id="aff7b433e7f33e585c67f69803192117" category="list-text">編輯「vars/vars.yml」檔案、並在變數中填入所需資訊。</block>
+  <block id="b4ca5df207a7b1e22a2f19cac43dd6ad" category="paragraph">如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行方針、然後輸入Sudo密碼。</block>
+  <block id="f04c9d184475a1c831571242df5998ca" category="paragraph">除了Astra Control Center的付費版本、我們也提供90天的評估授權。評估版本可透過電子郵件和社群Slack通路支援。客戶可從產品內的支援儀表板存取這些資源、其他知識庫文章及文件。</block>
+  <block id="9c38b2d834f16a22a033cc493828d911" category="paragraph">NetApp Cloud Volumes ONTAP 功能是雲端部署版本的NetApp ONTAP 功能、可部署在許多公有雲上、包括Amazon AWS、Microsoft Azure和Google Cloud。</block>
+  <block id="c48c25afacd7dddac49ab104ad056df0" category="paragraph">Astra Trident是一款開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。</block>
+  <block id="7654a00ca744e9bf01021439190e3119" category="doc">VMware Tanzu Kubernetes Grid整合版（TKGI）總覽</block>
+  <block id="644bd75ee9c13f7d8778e4638d9eb2b2" category="paragraph">VMware Tanzu Kubernetes Grid Integrated（TKGi）Edition（前身為VMware Enterprise PKS）是獨立的容器協調平台、以Kubernetes為基礎、具備生命週期管理、叢集健全狀況監控、進階網路、容器登錄等功能。TKGI會使用TKGI控制面板來配置及管理Kubernetes叢集、其中包含Bosh和Ops Manager。</block>
+  <block id="a84b33dfae5a2fdc1618084442bc3df0" category="paragraph">TKGI可在內部部署的vSphere或OpenStack環境上安裝及操作、或是在各自IaaS產品的任何主要公有雲上安裝及操作。此外、整合TKGI與NSX T和Harbour、可為企業工作負載提供更廣泛的使用案例。若要深入瞭解TKGI及其功能、請參閱文件 <block ref="0b1e387b87be5caa8371b58b8e02b1f8" category="inline-link-macro-rx"></block>。</block>
+  <block id="26f1f37ed65557967fe3a789aa75c364" category="paragraph">TKGI可根據不同的使用案例和設計、在多種平台上以各種組態安裝。請依照指南操作 <block ref="54093918574a441541c9219fc9d087f1" category="inline-link-macro-rx"></block> 以安裝及設定TKGI及其先決條件。TKGi使用Bosh VM做為Tanzu Kubernetes叢集的節點、這些叢集執行不可變的組態映像、而且在Bosh VM上進行的任何手動變更、在重新開機後不會持續進行。</block>
+  <block id="58959a34911d9e88e191f3453ddc81f0" category="paragraph">重要注意事項：</block>
+  <block id="d7fc6fcd5f3c3c3fca9edded9bf380e1" category="list-text">NetApp Trident需要具有權限的容器存取權。因此、在安裝TKGI期間、請務必選取步驟中的「啟用貴賓容器」核取方塊、以設定Tanzu Kubernetes叢集節點計畫。</block>
+  <block id="651650f759262b05cb38b56003e55784" category="image-alt">TKGI中的特殊權限容器</block>
+  <block id="956d281862a0ec3c4bb386cd28bf959c" category="list-text">NetApp建議將所有正式作業環境部署在多個主要部署環境中、以提供容錯能力、並可選擇工作節點的組態、以符合預期工作負載的需求。因此、針對高度密集的工作負載、所建議的TKGi叢集計畫至少包含三位主機和三位工作人員、其中至少有四個vCPU和12GB的RAM。</block>
+  <block id="74d32c3e98de18a4adf66bd3f05e6088" category="inline-link-macro">下一步：NetApp儲存系統總覽。</block>
+  <block id="86de08c652cda2ec18cd6f36a36cfcfa" category="paragraph"><block ref="86de08c652cda2ec18cd6f36a36cfcfa" category="inline-link-macro-rx"></block></block>
+  <block id="71417a3dd01aa388d35bf54aa4c401fa" category="summary">本頁提供影片連結、說明本文件所述的部分功能。</block>
+  <block id="952be0b8dee874c73cd76a4d6a526b27" category="doc">影片與示範：VMware Tanzu搭配NetApp</block>
+  <block id="811263b3dba6ff02a02f70eb9730ca2e" category="inline-link-macro">使用Astra Trident在VMware Tanzu中配置持續儲存設備</block>
+  <block id="6aa25c5e03abeab0ced9fac672bb2330" category="list-text"><block ref="6aa25c5e03abeab0ced9fac672bb2330" category="inline-link-macro-rx"></block></block>
+  <block id="03a87e35f2de41c34385d72c2c717acf" category="inline-link-macro">使用Astra Control Center複製VMware Tanzu中的應用程式</block>
+  <block id="591774815c932f725e0adbded50b634b" category="list-text"><block ref="591774815c932f725e0adbded50b634b" category="inline-link-macro-rx"></block></block>
+  <block id="bf6a387fea3d3444126eab19bcb4bbcd" category="inline-link-macro">下一步：其他資訊：VMware Tanzu with NetApp。</block>
+  <block id="df2a7ac55fe19fad5a5006603cfd8662" category="paragraph"><block ref="df2a7ac55fe19fad5a5006603cfd8662" category="inline-link-macro-rx"></block></block>
+  <block id="84053bd81ac19b225e107ad3b65ca58d" category="paragraph"><block ref="84053bd81ac19b225e107ad3b65ca58d" category="inline-link-macro-rx"></block></block>
+  <block id="de15ad9e760a3587b2effb60a58133b1" category="summary">Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。</block>
+  <block id="143c9ea21ac76ba425aa94411fbba07b" category="doc">Astra Trident總覽</block>
+  <block id="ebe5598ec22d01fe25c02071b488309b" category="section-title">使用Helm部署Trident運算子</block>
+  <block id="a082551b03c5e35829be23792317ac16" category="list-text">新增NetApp Astra Trident Helm儲存庫。</block>
+  <block id="836237f5ff429cb9283688cdfaa56c76" category="list-text">更新Helm儲存庫。</block>
+  <block id="875c7439b686e253522033c63d909efe" category="list-text">建立新的命名空間以安裝Trident。</block>
+  <block id="82b1cf842f022e618212caef5d3c942d" category="list-text">利用Docker Hub認證資料建立秘密、下載Astra Trident影像。</block>
+  <block id="e5073fdda88ef7d6b18ac4f938abbece" category="list-text">對於由TKGS（含Tanzu的vSphere）或TKG管理的使用者或工作負載叢集、請完成下列程序以安裝Astra Trident：</block>
+  <block id="d409e9c69dd2082fd0ed8a86d87258e8" category="list-text">確認登入的使用者具有在Trident命名空間中建立服務帳戶的權限、且Trident命名空間中的服務帳戶具有建立Pod的權限。</block>
+  <block id="397ae57f2a6cbd8444c419c896f19886" category="list-text">執行下列helm命令、在建立的命名空間中安裝Trident運算子。</block>
+  <block id="eef6352658410e2218bd7027ae8ff351" category="list-text">對於由TKGI部署所管理的使用者或工作負載叢集、請執行下列helm命令、在建立的命名空間中安裝Trident運算子。</block>
+  <block id="12d34565a0d56eff4f8d3f99b138e11a" category="list-text">確認Trident Pod已啟動且正在執行。</block>
+  <block id="f48fa73c7f509e20ce14901e4639f13d" category="paragraph">完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。</block>
+  <block id="c060cacb4d77409e1402a5dcab49bf8b" category="list-text"><block ref="c060cacb4d77409e1402a5dcab49bf8b" category="inline-link-macro-rx"></block></block>
+  <block id="2280e7f4e3cc9a8caee65d058e1db860" category="list-text"><block ref="2280e7f4e3cc9a8caee65d058e1db860" category="inline-link-macro-rx"></block></block>
+  <block id="fca47dd46473e4571bb1904fe2d5f3f5" category="inline-link-macro">下一步：影片與示範：VMware Tanzu搭配NetApp。</block>
+  <block id="61a5a682a4430d961b9bc43c2f902e94" category="paragraph"><block ref="61a5a682a4430d961b9bc43c2f902e94" category="inline-link-macro-rx"></block></block>
+  <block id="fa6f7af807ffa3ac6e2efb5c31463a4f" category="paragraph">若要透過ONTAP NFS啟用Trident與NetApp支援儲存系統的整合、您必須建立後端、以便與儲存系統進行通訊。我們在此解決方案中設定基本的後端、但如果您想要更多自訂選項、請參閱文件 <block ref="f72d871ae286e7b7cf7d9ea12426661a" category="inline-link-macro-rx"></block>。</block>
+  <block id="aaa6c6e969e6e978f9a8bce54e31b5f7" category="section-title">在SVM ONTAP 中建立SVM</block>
+  <block id="b1c04b7e96694453a1307ecc81208ae5" category="list-text">登入ONTAP 「支援系統管理程式」、瀏覽至「儲存設備」&gt;「儲存VM」、然後按一下「新增」。</block>
+  <block id="f53bd08113ff367a9bcd470b70a036d8" category="list-text">輸入SVM的名稱、啟用NFS傳輸協定、勾選「允許NFS用戶端存取」核取方塊、然後在匯出原則規則中新增工作節點所在的子網路、以允許將磁碟區掛載為工作負載叢集中的PV。</block>
+  <block id="0cdb2a8f015b7a7d81ab5c3d73de88a5" category="image-alt">SVM使用NFS建立</block>
+  <block id="e570ad3092406b5118fcd78a9374e048" category="admonition">如果您使用以NAT'ed部署搭配NSN-T的使用者叢集或工作負載叢集、則必須將Egress子網路（若為TKGS0或浮動IP子網路（若為TKGi）新增至匯出原則規則。</block>
+  <block id="8f254daa71e82320e11e55258b095b00" category="list-text">提供資料生命量的詳細資料及SVM管理帳戶的詳細資料、然後按一下「Save（儲存）」。</block>
+  <block id="02ffb816541fbf18a204c877564fb92e" category="image-alt">SVM資料生命量與SVM管理</block>
+  <block id="491df82049a4ac2d8b8b2fe6b773d65d" category="list-text">將集合體指派給SVM。瀏覽至「Storage（儲存設備）」&gt;「Storage VM（儲存設備VM）」、按一下新建立的SVM旁的省略符號、然後按一下「Edit（編輯）」。核取「將Volume建立限制為偏好的本機層級」核取方塊、然後將所需的集合體附加到其中。</block>
+  <block id="85c5adc69f6da0ebb2ebf365c4211508" category="image-alt">SVM Aggregate分配</block>
+  <block id="95fdf7e31ffa1073f8c42359589c334e" category="list-text">如果要在其中安裝Trident的使用者或工作負載叢集進行NAT部署、則儲存掛載要求可能會因為SNAT而從非標準連接埠送達。根據預設、ONTAP 從根連接埠發出磁碟區掛載要求時、僅能使用此功能。因此、請登入ONTAP 不符合標準的CLI並修改設定、以允許來自非標準連接埠的掛載要求。</block>
+  <block id="03c8ff4111bb9cfc032f786c9bd7c6e8" category="section-title">建立後端和StorageClass</block>
+  <block id="e15177ebae9bfb9adab94a9ccf5f2e96" category="list-text">對於ONTAP 提供NFS的NetApp支援系統、請在跳接主機上使用backendName、managementLIF、dataLIF、SVM、UserName、 密碼及其他詳細資料。</block>
+  <block id="c75cfbdcbbe9d48dc121fc816d4a2ccf" category="list-text">執行下列命令來建立Trident後端。</block>
+  <block id="ad2008cda12d454189828df19b2f9742" category="list-text">建立後端之後、您必須接著建立儲存類別。下列儲存類別定義範例強調顯示必要和基本欄位。參數「backendType」應反映新建立之Trident後端的儲存驅動程式。</block>
+  <block id="0286d73690ed0ef54af06bd9175945cd" category="list-text">執行kubecl命令來建立儲存類別。</block>
+  <block id="8d8b689e86dbd34b31294b3f829db499" category="list-text">建立儲存類別之後、您必須建立第一個持續磁碟區宣告（PVc）。以下提供範例PVc定義。請確定「儲存類別名稱」欄位符合剛建立的儲存類別名稱。根據所需的工作負載、您可以進一步自訂PVc定義。</block>
+  <block id="c764ff1d25a2f9241afec7161127f74d" category="list-text">發出kubectl命令來建立PVc。視所建立的備用磁碟區大小而定、建立作業可能需要一些時間、因此您可以在完成時觀看程序。</block>
+  <block id="5f87e8fbf603b28eb84592d8e64980c6" category="doc">其他資訊：VMware Tanzu搭配NetApp</block>
+  <block id="a6f4f5f0d313fa8894e4ad13a09339c0" category="list-text">VMware Tanzu文件</block>
+  <block id="57a35ee57ca4eb666386f668ebc74599" category="inline-link"><block ref="57a35ee57ca4eb666386f668ebc74599" category="inline-link-rx"></block></block>
+  <block id="35d5768f9d0ee829a3e2cae0cba15216" category="paragraph"><block ref="35d5768f9d0ee829a3e2cae0cba15216" category="inline-link-rx"></block></block>
+  <block id="2839dd9e9e31ca41ba6399c0a64d3333" category="list-text">VMware Tanzu Kubernetes Grid文件</block>
+  <block id="94ecd750f91f6d1908b92ec42eb37398" category="inline-link"><block ref="94ecd750f91f6d1908b92ec42eb37398" category="inline-link-rx"></block></block>
+  <block id="f0a59887fc9e8ee88512ff6312c13efa" category="paragraph"><block ref="f0a59887fc9e8ee88512ff6312c13efa" category="inline-link-rx"></block></block>
+  <block id="9cf21c31f745a435ac892addf1fd1a3f" category="list-text">VMware Tanzu Kubernetes Grid Service文件</block>
+  <block id="98978b88e05533d45b79613d9ee6f26d" category="inline-link"><block ref="98978b88e05533d45b79613d9ee6f26d" category="inline-link-rx"></block></block>
+  <block id="56c4cea9b33fd23cf082d00ca92d5a46" category="paragraph"><block ref="56c4cea9b33fd23cf082d00ca92d5a46" category="inline-link-rx"></block></block>
+  <block id="c23715ed7437fed1084a24cebb89e63c" category="list-text">VMware Tanzu Kubernetes Grid整合版文件</block>
+  <block id="fd2560680b89b39b1b988587bf383fb4" category="inline-link"><block ref="fd2560680b89b39b1b988587bf383fb4" category="inline-link-rx"></block></block>
+  <block id="f4b2873e621660e86074a62e5a6c5eac" category="paragraph"><block ref="f4b2873e621660e86074a62e5a6c5eac" category="inline-link-rx"></block></block>
+  <block id="3ff1ba174bc4d7824738ba1a0c0b4035" category="summary">NetApp Astra Control Center提供一套豐富的儲存設備與應用程式感知資料管理服務、適用於狀態穩定的Kubernetes工作負載、部署於內部環境、採用NetApp值得信賴的資料保護技術。</block>
+  <block id="678f429fd30f5d3718b72e260e17f5f0" category="paragraph">如果您正在尋找現成的軟體開發工具套件、以便與Astra Control REST API互動、NetApp會提供工具套件、其中包含Astra Control Python SDK、您可以下載 <block ref="ccffe56769527505ab07c82206690bfe" category="inline-link-macro-rx"></block>。</block>
+  <block id="6b24baf9bd0e230b887612f836d0fbd5" category="paragraph">如果程式設計不適合您的情況、而且您想要使用組態管理工具、您可以複製並執行NetApp發佈的Ansible教戰手冊 <block ref="8c91b346fb645d82eb54fe01a7c0cd36" category="inline-link-macro-rx"></block>。</block>
+  <block id="c90524de7ee251d8a5128ac3f59847c6" category="paragraph">Astra Control Center安裝需要下列先決條件：</block>
+  <block id="9f2559e9a5f31fdb3d5489aa3367ae35" category="list-text">一個或多個Tanzu Kubernetes叢集、由管理叢集或TKGS管理。支援TKG工作負載叢集1.4以上和TKGI使用者叢集1.12.2+。</block>
+  <block id="c94e1287a80d82c490967572d336083d" category="list-text">每個Tanzu Kubernetes叢集上都必須已安裝並設定Astra Trident。</block>
+  <block id="ba1c516a3e7a998469a5ac73695127ce" category="admonition">這是在站台上安裝每個Tanzu Kubernetes的最佳實務做法、可讓專屬的SVM用於持續儲存。多站台部署需要額外的儲存系統。</block>
+  <block id="c756010e6a027d7d6ae199c033f4b1db" category="list-text">每個Tanzu Kubernetes叢集上都必須設定Trident儲存後端、並以SVM作為後盾ONTAP 、以供支援整個叢集。</block>
+  <block id="dd7ed1e31baf27a40282a08242cf6efc" category="list-text">在每個Tanzu Kubernetes叢集上設定的預設StorageClass、其中Astra Trident是儲存資源配置程式。</block>
+  <block id="e8ed7f9c94a716f73364706e6db9c1c6" category="list-text">如果您使用的是擷取類型「AccTraefik」、則必須在每個Tanzu Kubernetes叢集上安裝和設定負載平衡器、以進行負載平衡和曝光Astra Control Center。</block>
+  <block id="6b769b6cd8bf0a312e04e05973e13018" category="list-text">如果您使用的是「一般」擷取類型、則必須在每個Tanzu Kubernetes叢集上安裝並設定入口控制器、以曝光Astra Control Center。</block>
+  <block id="0e6886020b4adf5871ebc7346b63c3a0" category="list-text">您必須擁有叢集管理存取權、才能存取安裝Astra Control Center的Tanzu Kubernetes叢集。</block>
+  <block id="8bd3433e327d75f3a3c33d9998840fce" category="list-text">RHEL或Ubuntu管理工作站。</block>
+  <block id="ed060d0439d2eda03baa2005199d9bc1" category="paragraph">本解決方案說明使用Ansible教戰手冊安裝Astra Control Center的自動化程序。如果您正在尋找安裝Astra Control Center的手動程序、請遵循詳細的安裝與操作指南 <block ref="30c5ae998902105fcf03dc0b9654af4c" category="inline-link-macro-rx"></block>。</block>
+  <block id="662609908ab8e0f372d83dea3511370b" category="inline-link">程序</block>
+  <block id="8575c02ec176b0f64904bcbd79e81cba" category="list-text">若要使用部署Astra Control Center的Ansible教戰手冊、您必須安裝有Ansible的Ubuntu / RHEL機器。請遵循此步驟<block ref="c1972c5d94c51919767b49f6cefbf6ba" category="inline-link-rx"></block> 適用於Ubuntu及此<block ref="c4dab530b5bf152ded398881b8308451" category="inline-link-rx"></block> 適用於RHEL。</block>
+  <block id="df57d245f4173d8ac23df756917bb6ae" category="list-text">建立或取得Kubeconfig檔案、並以系統管理存取權限存取要安裝Astra Control Center的使用者或工作負載Tanu Kubernetes叢集。</block>
+  <block id="b2d9440273952d4b05aed1b36c66494d" category="list-text">將目錄變更為「na_Astra_control_suITE」。</block>
+  <block id="7489123185b81a6e11b42218fabb4c3b" category="list-text">編輯「vars/vars.yml」檔案、並在變數中填入必要資訊。</block>
+  <block id="2b6b49be82749b9e141c2f0a23c8d11f" category="paragraph">如果執行教戰手冊的使用者是root或設定了無密碼Sudo、請執行下列命令來執行教戰手冊。</block>
+  <block id="111dd0947a16442f317af649a2aac536" category="list-text">如果擷取類型為AccTraefik、請取得trraefik服務負載平衡器IP。</block>
+  <block id="25ce05402248633e67c7cbc234573b60" category="list-text">Astra Control Center需要取得授權、才能讓所有功能正常運作。若要新增授權、請瀏覽至「帳戶」&gt;「授權」、按一下「新增授權」、然後上傳授權檔案。</block>
+  <block id="bf3293f2603ff733102e45d1152bc0a1" category="admonition">如果您在安裝或組態NetApp Astra Control Center時遇到問題、我們將提供已知問題的知識庫<block ref="695f48b1d8b7348c0e2828947d24161e" category="inline-link-rx"></block>。</block>
+  <block id="1e89038a8ae648db9dd4b203267abd3a" category="inline-link-macro">下一步：註冊您的Tanzu Kubernetes叢集。</block>
+  <block id="c7f57c40ce02379584ec7748d9444ee0" category="paragraph"><block ref="c7f57c40ce02379584ec7748d9444ee0" category="inline-link-macro-rx"></block></block>
+  <block id="318a4bce7f9fca07a60ed82408fbcd29" category="doc">VMware Tanzu Kubernetes Grid（TKG）總覽</block>
+  <block id="11e5f8209ef45e9884518caf7b5bc68d" category="paragraph">VMware Tanzu Kubernetes Grid也稱為TKG、可讓您跨混合雲或公有雲環境部署Tanzu Kubernetes叢集。TKG安裝為管理叢集、這是Kubernetes叢集本身、可部署及操作Tanzu Kubernetes叢集。這些Tanzu Kubernetes叢集是實際部署工作負載的工作負載Kubernetes叢集。</block>
+  <block id="9a67a32e17609515d2fc11383d1a7b59" category="paragraph">Tanzu Kubernetes Grid以幾個有前途的上游社群專案為基礎、提供由VMware開發、行銷及支援的Kubernetes平台。除了Kubernetes配送之外、Tanzu Kubernetes Grid還提供額外的附加元件、這些附加元件是必要的正式作業級服務、例如登錄、負載平衡、驗證等。具有管理叢集的VMware TKG廣泛用於vSphere 6.7環境、即使受到支援、也不建議部署vSphere 7環境、因為TKGS具備與vSphere 7的原生整合功能。</block>
+  <block id="4e6c29e9760f3e53993a64a5f6c63aaa" category="image-alt">VMware Tanzu Kubernetes Grid搭配管理叢集</block>
+  <block id="ec30336a82729146050b0931adab64f2" category="paragraph">如需有關Tanzu Kubernetes Grid的詳細資訊、請參閱文件 <block ref="f4dbc56b610d9f5cd603e1a13bb6dedf" category="inline-link-macro-rx"></block>。</block>
+  <block id="86fcbed2a7f5b8edced11b10bd1e4266" category="paragraph">根據Tanzu Kubernetes Grid是安裝於vSphere叢集內部部署環境或雲端環境、請依照安裝指南準備及部署Tanzu Kubernetes Grid <block ref="492c3fae38681e036fd18bedc1bf8ae5" category="inline-link-macro-rx"></block>。</block>
+  <block id="c1f07986544fbf96897f8099577b0e72" category="paragraph">安裝Tanzu Kubernetes Grid的管理叢集之後、請依照文件的說明、視需要部署使用者叢集或工作負載叢集 <block ref="7d3f6d9f879d392af501006eacd0d221" category="inline-link-macro-rx"></block>。VMware TKG管理叢集需要提供SSH金鑰、才能安裝及操作Tanzu Kubernetes叢集。此金鑰可用於使用「capv」使用者登入叢集節點。</block>
+  <block id="07f15dfb0f84a062c67184adcee67a8b" category="summary">本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。</block>
+  <block id="bec8bc9f783c7d01005b7e64d1ad1785" category="doc">NVA-1166：採用NetApp的VMware Tanzu</block>
+  <block id="c837e955d75d674feb57af7e68b3d74c" category="paragraph">本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。同時也說明與NetApp儲存系統和Astra Trident儲存協調程式的儲存整合、以管理持續儲存設備、以及Astra控制中心、以便使用該持續儲存設備備份及複製狀態化應用程式。最後、文件提供解決方案整合與驗證的影片示範。</block>
+  <block id="c0a14f456cfcfac669f2cf374f60561b" category="paragraph">採用NetApp的VMware Tanzu解決方案的架構設計、可為具有下列使用案例的客戶提供卓越價值：</block>
+  <block id="8cc1d80dbdd5d6d142f0173d8c8f2261" category="list-text">易於部署和管理VMware Tanzu Kubernetes Grid產品、這些產品部署在VMware vSphere上、並與NetApp儲存系統整合。</block>
+  <block id="8796988ff3c4f065733c3b887d886609" category="list-text">結合企業容器與虛擬化工作負載的強大功能、以及VMware Tanzu Kubernetes Grid產品。</block>
+  <block id="d7071bc518e2fa9a30b1debdd8e721f1" category="list-text">實際組態與使用案例、突顯VMware Tanzu與NetApp儲存設備及NetApp Astra產品套件搭配使用時的功能。</block>
+  <block id="3d4565b89cb9591acc32839ce0d48627" category="list-text">應用程式一致的保護或移轉部署在VMware Tanzu Kubernetes Grid叢集上的容器化工作負載、這些叢集的資料使用Astra Control Center存放在NetApp儲存系統上。</block>
+  <block id="29375f7cc2c5eece7fdd9c99f40eb3f8" category="list-text">能夠在混合雲模式中部署、並在內部部署資料中心和雲端上執行容器。</block>
+  <block id="ddea0381617b5a4b43a0a98a440c6658" category="paragraph">VMware Tanzu與NetApp共同肯定這些挑戰、並提供解決方案、協助客戶在混合雲環境中部署VMware Tanzu Kubernetes產品、以解決每個疑慮。</block>
+  <block id="c57f369df48137f738543c0e5012006c" category="paragraph">VMware Tanzu with NetApp解決方案包含下列主要元件：</block>
+  <block id="67d7b0b61202e57bcae8cda82f02e2b3" category="section-title">VMware Tanzu Kubernetes平台</block>
+  <block id="55ad4cb8f0feecb71e184ef92cff1f70" category="paragraph">VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已在實驗室中通過驗證。每個Tanzu版本都能與NetApp儲存產品組合成功整合、而且每個產品都能滿足特定的基礎架構需求。下列項目符號重點說明本文件所述的每個Tanzu版本的特色與產品。</block>
+  <block id="5849f8d5cb1d66cb095da163e533dea7" category="paragraph">VMware Tanzu Kubernetes Grid（TKG）</block>
+  <block id="45915535ce313f81567f3b3c41571fe9" category="list-text">部署在VMware vSphere環境中的標準上游Kubernetes環境。</block>
+  <block id="32fcd5c42dc47b5cc021d74a489dee4f" category="list-text">前身為Essential PKS（取自2019年2月的赫特（Hetio）收購案）。</block>
+  <block id="16196833d09cc8d52a1ef3790b4e15d3" category="list-text">TKG是以獨立的管理叢集執行個體來部署、以支援vSphere 6.7U3及更高版本。</block>
+  <block id="08f2ff1c0826ffc53a185010cce7dac7" category="list-text">TKG部署也可與AWS或Azure一起部署在雲端。</block>
+  <block id="15aa7eec2d32a1ba74b5cea8af5241ec" category="list-text">允許使用Windows或Linux工作節點（Ubuntu / Photon）。</block>
+  <block id="89a8813ef0f3f2c1a9b0f20dab87e2a2" category="list-text">NSX T、HA Proxy、Avi網路或負載平衡器可用於控制面板。</block>
+  <block id="2ad16c86af27df82ae725dfd15176212" category="list-text">TKG支援應用程式/資料平面的MetalLB。</block>
+  <block id="7bf259c507ef53db8da3607757164b2e" category="list-text">可以使用vSphere SI以及NetApp Astra Trident等第三方SI。</block>
+  <block id="c840af216b38aff44cc5ba246da60e17" category="paragraph">VMware Tanzu Kubernetes Grid Service（TKGS）</block>
+  <block id="27077307fac1683851c72a97ba11c62e" category="list-text">TKGS僅在vSphere 7.0U1及後續版本上隨監督者叢集和工作負載叢集一起部署。</block>
+  <block id="3ee27cde76894c76ad60736ecbca78da" category="list-text">TKGS支援應用程式/資料平面的MetalLB。</block>
+  <block id="443c9bd7eeb4bc3d39f67cc555b4aab2" category="list-text">支援搭配Tanzu的vSphere Pod、可讓Pod直接在環境中啟用的ESXi主機上執行。</block>
+  <block id="ee195ce9ae2ef58590118a13425fce2a" category="paragraph">VMware Tanzu Kubernetes Grid整合（TKGI）</block>
+  <block id="f4ef19f9ee886fa602632ef3f35019ad" category="list-text">先前稱為企業PKS（取自2019年2月的赫塔（Hetio）收購案）。</block>
+  <block id="28789df26df63aa440b3aded601e67a6" category="list-text">可以使用NSX T、HA Proxy或Avi。您也可以提供自己的負載平衡器。</block>
+  <block id="2b681f710a75cd56332534e50fe625ff" category="list-text">支援vSphere 6.7U3及AWS、Azure和GCP。</block>
+  <block id="f09eefe449cf027cce033ceb064c2fae" category="list-text">透過精靈進行設定、以便輕鬆部署。</block>
+  <block id="78c9a89b579a1005676bf4b1a4b3aad7" category="list-text">在由Bosh管理的可控不可變虛擬機器中執行Tanzu。</block>
+  <block id="46c96f35ab6c6f57dd96776e1f115737" category="list-text">可以使用vSphere SI以及NetApp Astra Trident等第三方SI（部分條件適用）。</block>
+  <block id="b63d5ee355078976e86c94b5c978788e" category="paragraph">NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感知資料管理服務、可處理有狀態的Kubernetes工作負載、部署於內部環境、並採用值得信賴的NetApp資料保護技術。</block>
+  <block id="e764fe6b8f8825a307a87cedbef45678" category="cell">22.04</block>
+  <block id="63355c54bd7e8ff73915da41610ec6f7" category="cell">22.04.0</block>
+  <block id="54acb57afb70110fb7f8e1de35e176b4" category="cell">1.3.1</block>
+  <block id="22053fd2d26d3a313aea03b09e9a776c" category="cell">VMware Tanzu Kubernetes Grid Service</block>
+  <block id="c99c6e88d4de8db879b1b5ec64d1f7ed" category="cell">0.0.15 [vSphere命名空間]</block>
+  <block id="8eb1302ead60c09b6d757b2b7ab84040" category="cell">1.22.6 [監控叢集Kubernetes ]</block>
+  <block id="caf617dd6edf29fd289caff7469ea66b" category="cell">整合VMware Tanzu Kubernetes Grid</block>
+  <block id="1d5bc9367c9565bbe31cc00aa1f870a4" category="cell">1.13.3</block>
+  <block id="5d9dd4ee62c5446f01e895cd118d98dd" category="cell">VMware NSX T資料中心</block>
+  <block id="7bc09c21b8fa1161768459982f0ec89e" category="cell">網路與安全性</block>
+  <block id="b1179856b0372cb8777975cb658548ac" category="cell">3.1.3</block>
+  <block id="cc540661734771d2e0272e8b4ef5c228" category="cell">VMware NSX進階負載平衡器</block>
+  <block id="50382c1137e78c7c038faabadb85d9fd" category="cell">負載平衡器</block>
+  <block id="d08680d7e9b745c4d4b81a2d6df7a012" category="cell">20.1.3</block>
+  <block id="743cb170909d5e6e5936fc4783a59de5" category="inline-link-macro">下一步：VMware Tanzu概述。</block>
+  <block id="4b362af24230ce2d990680198c520d44" category="paragraph"><block ref="4b362af24230ce2d990680198c520d44" category="inline-link-macro-rx"></block></block>
+  <block id="30a7219728f2665214ac7ae0458c27a8" category="list-text"><block ref="30a7219728f2665214ac7ae0458c27a8" category="inline-link-macro-rx"></block></block>
+  <block id="40ef898131b1ea0532620ff9cb12840c" category="summary">本頁提供影片示範連結、說明如何使用Astra Trident在VMware Tanzu中配置持續儲存設備。</block>
+  <block id="e0d2648924bbf778345db6153fddf464" category="doc">使用Astra Trident在VMware Tanzu中配置持續儲存設備</block>
+  <block id="db70f2aaf062f269f45b2fe61ad31160" category="admonition">本示範影片是以TKG 1.3.1版和Astra Control Center 21.12版的技術預覽形式錄製。請參閱支援對照表以取得正式支援版本。</block>
+  <block id="945f7593bacdce2a986b2ea8ab58220b" category="summary">本頁連結至影片示範、說明如何使用Astra Control Center複製VMware Tanzu中的應用程式。</block>
+  <block id="ff56b2be4aa6be0d45adf0bbeb76166d" category="doc">使用Astra Control Center複製VMware Tanzu中的應用程式</block>
+  <block id="15693c045ae1b118bd5c3f8e9cee5c08" category="summary">若要讓Astra Control Center管理您的工作負載、您必須先登錄您的Tanzu Kubernetes叢集。</block>
+  <block id="3a16c17a7d5ce69951add72b2e46c340" category="doc">向Astra Control Center註冊您的VMware Tanzu Kubernetes叢集</block>
+  <block id="a723b0aede16ae3d3bdd6761d359595b" category="section-title">註冊VMware Tanzu Kubernetes叢集</block>
+  <block id="779e6578abb36499d7c5399b33269c9c" category="list-text">第一步是將Tanzu Kubernetes叢集新增至Astra Control Center並加以管理。移至「叢集」、然後按一下「新增叢集」、上傳Tanzu Kubernetes叢集的Kubeconfig檔案、然後按一下「選取儲存設備」。</block>
+  <block id="d9687c204aa759a004b29f4f41e01908" category="list-text">新增叢集時、它會移至「Discovering」（探索）狀態、而Astra Control Center則會檢查叢集並安裝必要的代理程式。成功登錄後、叢集狀態會變更為「正常」。</block>
+  <block id="1e7084bafe0fe7d10e28e10eea2641aa" category="admonition">所有由Astra Control Center管理的Tanzu Kubernetes叢集、都應該能夠存取安裝時所用的映像登錄、因為安裝在受管理叢集上的代理程式會從該登錄擷取映像。</block>
+  <block id="f3eca6ba1067d4a61b1229f18ab1a463" category="list-text">將ONTAP 支援的物件叢集匯入為儲存資源、以由Astra Control Center作為後端管理。當Tanzu Kubernetes叢集新增至Astra並設定儲存機時、它會自動探索ONTAP 及檢查以儲存機為後盾的叢集、但不會將其匯入Astra Control Center進行管理。</block>
+  <block id="3c786ecd99f0ebd5edd64d81ad32375c" category="list-text">若要匯入ONTAP 物件叢集、請瀏覽至後端、按一下下拉式清單、然後選取ONTAP 要管理之物件叢集旁的「Manage（管理）」。輸入ONTAP 「物件叢集認證」、按一下「檢閱資訊」、然後按一下「匯入儲存設備後端」。</block>
+  <block id="af64f63e0642401224fc8f9c2ec7d1c5" category="list-text">新增後端之後、狀態會變更為「可用」。這些後端現在有關於Tanzu Kubernetes叢集中持續磁碟區的資訊、ONTAP 以及有關該系統上相對應磁碟區的資訊。</block>
+  <block id="688cdc8b62507f4c74f7452e7889821d" category="list-text">若要使用Astra Control Center跨Tanzu Kubernetes叢集進行備份與還原、您必須配置支援S3傳輸協定的物件儲存桶。目前支援的選項包括ONTAP 不支援的S3、StorageGRID 不支援的功能、AWS S3和Microsoft Azure Blob儲存設備。為了進行此安裝、我們將設定AWS S3儲存區。移至「Bucket」、按一下「Add Bucket」、然後選取「通用S3」。輸入S3儲存區的詳細資料和認證資料以進行存取、按一下「將此儲存區設為雲端的預設儲存區」核取方塊、然後按一下「新增」。</block>
+  <block id="f1b8312f03a9ec379a8e0fc00f20be33" category="paragraph"><block ref="f1b8312f03a9ec379a8e0fc00f20be33" category="inline-link-macro-rx"></block></block>
+  <block id="9c5a4b54facfb25c9699e51ca3728574" category="summary">在您註冊VMware Tanzu Kubernetes叢集之後、即可探索已部署的應用程式、並透過Astra Control Center加以管理。</block>
+  <block id="ada6daf9261af1429947be91dd72757b" category="paragraph">在您註冊Tanzu Kubernetes叢集之後、您可以探索已部署的應用程式、並透過Astra Control Center加以管理。</block>
+  <block id="48652ad0d003928f33825c84d5c8d950" category="list-text">在ONTAP Astra Control Center登錄Tanzu Kubernetes叢集和還原後端之後、控制中心會自動開始探索所有命名空間中使用以指定ONTAP 的還原後端設定之儲存機的應用程式。</block>
+  <block id="a013472d7ab7df6d0e423dbb7e238f7a" category="paragraph"><block ref="a013472d7ab7df6d0e423dbb7e238f7a" category="inline-link-macro-rx"></block></block>
+  <block id="96b5419ab713b49685af4d923930ce22" category="summary">若要透過ONTAP iSCSI將NetApp支援的儲存系統與VMware Tanzu Kubernetes叢集整合為持續磁碟區、第一步是登入每個節點、並設定iSCSI公用程式或套件來掛載iSCSI磁碟區、以準備節點。</block>
+  <block id="da883967924519350a1c423bd85906dd" category="paragraph">若要透過ONTAP iSCSI將NetApp支援的儲存系統與VMware Tanzu Kubernetes叢集整合為持續磁碟區、第一步是登入每個節點、並設定iSCSI公用程式或套件來掛載iSCSI磁碟區、以準備節點。若要這麼做、請遵循本文件中所述的程序 <block ref="fb2092145032d18c9376d95ca453f9a7" category="inline-link-macro-rx"></block>。</block>
+  <block id="50c35de69200a8b9e4be302372e74851" category="admonition">NetApp不建議將此程序用於以NAT方式部署VMware Tanzu Kubernetes叢集。</block>
+  <block id="bfc5022105ee1678e96b6f9991116647" category="admonition">TKGi使用Bosh VM做為執行不可變組態映像的Tanzu Kubernetes叢集節點、而在Bosh VM上手動變更iSCSI套件的任何變更、都不會在重新開機後維持不變。因此、NetApp建議使用NFS磁碟區來持續儲存Tanzu Kubernetes叢集、以供TKGi部署和營運之用。</block>
+  <block id="16e4431f428a4ec8abdfbee6ec2c2889" category="paragraph">準備好iSCSI磁碟區的叢集節點之後、您必須建立後端、以便與儲存系統進行通訊。我們在此解決方案中設定了基本的後端、但如果您想要更多自訂選項、請參閱文件 <block ref="f151238ff3a8d488c82b6303d676eaa3" category="inline-link-macro-rx"></block>。</block>
+  <block id="31cd969d7cf1970993d449ccccaeddfe" category="paragraph">若要在SVM中建立SVM ONTAP 、請完成下列步驟：</block>
+  <block id="70d94c82da2765251783d499556773b7" category="list-text">輸入SVM的名稱、啟用iSCSI傳輸協定、然後提供資料LIF的詳細資料。</block>
+  <block id="9305b9f7555d613129963713b0c214e6" category="image-alt">iSCSI SVM資料生命里數</block>
+  <block id="f9edece6d4cf48c209a5fe7da61f0ecb" category="list-text">輸入SVM管理帳戶的詳細資料、然後按一下「Save（儲存）」。</block>
+  <block id="2b44a7a64e9a3efc0b4e423d6339aaa7" category="image-alt">iSCSI SVM管理</block>
+  <block id="f61c0f70e825557a7be7fe0ac432bdf7" category="list-text">若要將Aggregate指派給SVM、請瀏覽至Storage &gt; Storage VM、按一下新建立的SVM旁的省略符號、然後按一下Edit（編輯）。核取「將Volume建立限制為偏好的本機層級」核取方塊、然後將所需的集合體附加到其中。</block>
+  <block id="74ede5d2e56e369e9eda54f4095292f5" category="list-text">建立後端之後、您必須接著建立儲存類別。下列儲存類別定義範例強調顯示必要和基本欄位。參數「backendType」應反映新建立之Trident後端的儲存驅動程式。另請注意名稱欄位值、此值必須在後續步驟中參考。</block>
+  <block id="cf2c5963ca8332d4f43e6c3a955da4da" category="admonition">在此檔案中定義了一個名為「FSType」的選用欄位。在iSCSI後端中、此值可設定為特定的Linux檔案系統類型（XFS、ext4等）、也可刪除以允許Tanzu Kubernetes叢集決定要使用哪個檔案系統。</block>
+  <block id="af4fcf3aff174981414dc5c9fce2f4ec" category="section-title">建立應用程式快照</block>
+  <block id="29335406e75e8b137ee91c9f44068bc6" category="paragraph">應用程式的快照會建立ONTAP 一份「功能不均的Snapshot」複本、以及一份應用程式中繼資料複本、以該Snapshot複本為基礎、將應用程式還原或複製到特定時間點。</block>
+  <block id="9bb92323cd91f66cadcdc492341cddd5" category="section-title">建立應用程式備份</block>
+  <block id="c4c29bc3f7db6d04fde98415386e1e7f" category="list-text">若要還原應用程式、請瀏覽至「應用程式」&gt;「受管理」索引標籤、然後按一下有問題的應用程式。按一下應用程式名稱旁的下拉式功能表、然後按一下「還原」。</block>
+  <block id="2c0d64177d5c89bc452e9f1eb0fd4f65" category="list-text">輸入新命名空間的詳細資料、選取您要複製到的叢集、然後選擇是否要從現有的快照、備份或應用程式的目前狀態中複製。檢閱詳細資料後、按一下「Next（下一步）」、然後按一下檢閱窗格上的「Clone（複製）」。</block>
+  <block id="ef0b684dddd1cea4885513d892f39cfa" category="paragraph"><block ref="ef0b684dddd1cea4885513d892f39cfa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3901d4e16e17c29d42ccb430b94cc402" category="paragraph"><block ref="3901d4e16e17c29d42ccb430b94cc402" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="62772f599e4130a9b43b483c82338681" category="summary">VMware Tanzu是一套產品組合、可讓企業將應用程式及其執行基礎架構現代化。VMware Tanzu的完整功能堆疊、將開發與IT營運團隊整合在單一平台上、在內部部署與混合雲環境中、一致地將應用程式與基礎架構的現代化整合在一起、持續為正式作業提供更好的軟體。</block>
+  <block id="969f4a20d38cf3096e1659b96da1b729" category="doc">VMware Tanzu總覽</block>
+  <block id="c395793804bd9dfa82ff727781faf3c5" category="image-alt">VMware Tanzu產品組合</block>
+  <block id="3614585a8ed284306a5eadc9e31585b8" category="paragraph">若要深入瞭解Tanzu產品組合中的不同產品及功能、請參閱文件 <block ref="e9fed892b98a6bbccfc15bfe67c5aa96" category="inline-link-macro-rx"></block>。</block>
+  <block id="3ff60e0bc78c13ace612734741c1e1da" category="paragraph">關於Tanzu的Kubernetes營運目錄、VMware針對Tanzu Kubernetes Grid提供多種實作方式、所有這些都能在各種平台上配置及管理Tanzu Kubernetes叢集的生命週期。Tanzu Kubernetes叢集是VMware所建置及支援的完整Kubernetes發佈版本。</block>
+  <block id="caaf1eb22b79381e3d4a2b2b9a7d1698" category="paragraph">NetApp已在實驗室測試並驗證下列VMware Tanzu產品組合產品的部署與互通性：</block>
+  <block id="0fe3792ebba34a6c12f05656d54ecb49" category="list-text"><block ref="0fe3792ebba34a6c12f05656d54ecb49" category="inline-link-macro-rx"></block></block>
+  <block id="eac001284f9380ccf17ee4490dbe13e1" category="list-text"><block ref="eac001284f9380ccf17ee4490dbe13e1" category="inline-link-macro-rx"></block></block>
+  <block id="d6a1da4b26eb2ae838f5db5e80c44aee" category="inline-link-macro">VMware Tanzu Kubernetes Grid整合（TKGI）</block>
+  <block id="57729a0bf5ad457403cd6505bdfeb143" category="list-text"><block ref="57729a0bf5ad457403cd6505bdfeb143" category="inline-link-macro-rx"></block></block>
+  <block id="aa7b3dace1453f21689852e3b066f673" category="summary">VMware Tanzu Kubernetes Grid Service（也稱為含有Tanzu的vSphere）可讓您在vSphere原生環境中建立及操作Tanzu Kubernetes叢集、也可讓您直接在ESXi主機上執行一些較小的工作負載。</block>
+  <block id="b71ad38bc3fd2c1a10efc2b09270e430" category="doc">VMware Tanzu Kubernetes Grid Service（TKGS）總覽</block>
+  <block id="9f0bacdd758242392df6d215d34d9b8e" category="paragraph">VMware Tanzu Kubernetes Grid Service（也稱為含有Tanzu的vSphere）可讓您在vSphere原生環境中建立及操作Tanzu Kubernetes叢集、也可讓您直接在ESXi主機上執行一些較小的工作負載。它可讓您將vSphere轉換成平台、以便在Hypervisor層上原生執行容器化工作負載。啟用後、Tanzu Kubernetes Grid Service會在vSphere上部署監督者叢集、以便部署及操作工作負載所需的叢集。它原生與vSphere 7整合、並運用許多可靠的vSphere功能、例如vCenter SSO、內容庫、vSphere網路、vSphere儲存設備、vSphere HA和DRS、以及vSphere安全性、提供更順暢的Kubernetes體驗。</block>
+  <block id="6b25ac3e69375bd4a52dbffeb5c9cb14" category="paragraph">vSphere with Tanzu為混合式應用程式環境提供單一平台、讓您可以在容器或VM中執行應用程式元件、為開發人員、DevOps工程師及vSphere管理員提供更佳的可見度及操作簡易性。VMware TKGS僅支援vSphere 7環境、是Tanzu Kubernetes營運產品組合中唯一能讓您直接在ESXi主機上執行Pod的產品。</block>
+  <block id="0e1d3327747a52bdd78d80247d5b6500" category="image-alt">VMware Tanzu Kubernetes服務</block>
+  <block id="6e1adc41159b779c5ef1a0c9c934a673" category="paragraph">如需有關Tanzu Kubernetes Grid Service的詳細資訊、請參閱文件 <block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block>。</block>
+  <block id="767b04965a47baa63782400d36a0c62e" category="paragraph">在功能集、網路等方面、有許多架構考量。根據所選的架構、Tanzu Kubernetes Grid Service的先決條件和部署程序各不相同。若要在您的環境中部署及設定Tanzu Kubernetes Grid Service、請遵循指南 <block ref="5e5ad4985bdb8ab17883db4008c7c4a2" category="inline-link-macro-rx"></block>。此外、若要登入透過TKGS部署的Tanzu Kubernetes叢集節點、請遵循本文所述的程序<block ref="7db41b551ba1165c4dfa4cf2d8a36e55" category="inline-link-rx"></block>。</block>
+  <block id="46d890e88b951c5a84a444aad08079ae" category="paragraph">NetApp建議將所有正式作業環境部署在多個主要部署環境中、以提供容錯能力、並可選擇工作節點的組態、以符合預期工作負載的需求。因此、對於高度密集的工作負載、建議使用的VM類別至少應有四個vCPU和12GB的RAM。</block>
+  <block id="e8a4d3a2e07c429150e133b7fedebd64" category="paragraph">當在命名空間中建立Tanzu Kubernetes叢集時、具有「擁有者」或「編輯」權限的使用者可以使用使用者帳戶、直接在任何命名空間中建立Pod。這是因爲具有「擁有者」或「編輯」權限的使用者會被指派叢集管理員角色。不過、在任何命名空間中建立部署、精靈集、狀態集或其他項目時、您必須將具有必要權限的角色指派給對應的服務帳戶。這是必要的、因為部署或精靈集會使用服務帳戶來部署Pod。</block>
+  <block id="dc4ab077311e2aad5b5af968844fc5fe" category="paragraph">請參閱叢集角色繫結的下列範例、將叢集系統管理員角色指派給叢集中的所有服務帳戶：</block>
+  <block id="5851271128193658704cec246f4fd21c" category="doc">NetApp儲存整合概述</block>
+  <block id="c21c42ee74a060038cdb9ea059b7702a" category="list-text"><block ref="c21c42ee74a060038cdb9ea059b7702a" category="inline-link-macro-rx"></block></block>
+  <block id="bbf3919625853b65280d28c2d26004fd" category="list-text"><block ref="bbf3919625853b65280d28c2d26004fd" category="inline-link-macro-rx"></block></block>
+  <block id="7c83f61ffb36cd4e6fa256ea9573bcff" category="inline-link-macro">下一步：NetApp Astra Control總覽。</block>
+  <block id="9fefc82351a3a2abfcae01d825253856" category="paragraph"><block ref="9fefc82351a3a2abfcae01d825253856" category="inline-link-macro-rx"></block></block>
+  <block id="22a3cd730895fa6285f7ee2b7838bc34" category="list-text">建立或取得具有管理存取權的Kkbeconfig檔案、以存取要安裝Astra Control Center的｛k8s_usercluster名稱｝叢集。</block>
+  <block id="c67346d734cf1873532bdc9f9a1421da" category="list-text">同時執行虛擬化與容器化工作負載的能力</block>
+  <block id="71d00a17a6d603b0b4ebb168354950db" category="list-text">能夠根據工作負載需求獨立擴充基礎架構</block>
+  <block id="1722f248c3b6574ad844b53f30ac236c" category="sidebar">VMware Tanzu與NetApp合作</block>
+  <block id="c9fc26b21b932419e6f167a5ef97a61a" category="sidebar">VMware Tanzu網站</block>
+  <block id="8a22a6c667b205ca4e784c0364ccc5ea" category="sidebar">VMware TKG（Tanzu Kubernetes Grid）總覽</block>
+  <block id="e5103defcbafcf380570238b4848f4a1" category="sidebar">VMware TKGS（Tanzu Kubernetes Grid Service）總覽</block>
+  <block id="a2ec151aed88d77a34df663b329daf31" category="sidebar">VMware TKGI（Tanzu Kubernetes Grid整合版）總覽</block>
+  <block id="e47703dd1fad3279269dda3b343b2272" category="sidebar">註冊您的Tanzu Kubernetes叢集</block>
 </blocks>

@@ -11,6 +11,7 @@ summary: NetApp Astra Control Center提供一套豐富的儲存設備與應用�
 :icons: font
 :linkattrs: 
 :imagesdir: ./../media/
+:k8s_usercluster_name: OpenShift
 
 
 NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資料管理服務、適用於部署在內部部署環境中且採用NetApp資料保護技術的狀態式Kubernetes工作負載。
@@ -276,14 +277,14 @@ image::redhat_openshift_image129.jpg[建立Acc執行個體]
 --
 .自動[可執行]
 --
-. 若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照所述程序進行 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_ubuntu_debian_setup.html["請按這裡"] 適用於Ubuntu及本產品 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_rhel_centos_setup.html["連結"] 適用於RHEL。
+. 若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照程序進行 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_ubuntu_debian_setup.html["請按這裡"] 適用於Ubuntu和程序 https://docs.netapp.com/us-en/netapp-solutions/automation/automation_rhel_centos_setup.html["請按這裡"] 適用於RHEL。
 . 複製裝載可執行內容的GitHub儲存庫。
 +
 [source, cli]
 ----
 git clone https://github.com/NetApp-Automation/na_astra_control_suite.git
 ----
-. 登入NetApp支援網站、下載最新版本的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。
+. 登入NetApp支援網站、下載最新版的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。
 +
 
 NOTE: 若要開始使用Astra Control試用授權、請造訪 https://cloud.netapp.com/astra-register["Astra註冊網站"^]。
@@ -295,7 +296,7 @@ NOTE: 若要開始使用Astra Control試用授權、請造訪 https://cloud.neta
 ----
 cd na_astra_control_suite
 ----
-. 編輯vars/vars.yml檔案、並在變數中填入必要資訊。
+. 編輯「vars/vars.yml」檔案、並在變數中填入所需資訊。
 +
 [source, cli]
 ----
@@ -305,11 +306,16 @@ push_images: yes
 #The directory hosting the Astra Control Center installer
 installer_directory: /home/admin/
 
+#Specify the ingress type. Allowed values - "AccTraefik" or "Generic"
+#"AccTraefik" if you want the installer to create a LoadBalancer type service to access ACC, requires MetalLB or similar.
+#"Generic" if you want to create or configure ingress controller yourself, installer just creates a ClusterIP service for traefik.
+ingress_type: "AccTraefik"
+
 #Name of the Astra Control Center installer (Do not include the extension, just the name)
-astra_tar_ball_name: astra-control-center-21.12.60
+astra_tar_ball_name: astra-control-center-22.04.0
 
 #The complete path to the kubeconfig file of the kubernetes/openshift cluster Astra Control Center needs to be installed to.
-hosting_ocp_kubeconfig_path: /home/admin/ocp-kubeconfig
+hosting_k8s_cluster_kubeconfig_path: /home/admin/cluster-kubeconfig.yml
 
 #Namespace in which Astra Control Center is to be installed
 astra_namespace: netapp-astra-cc
@@ -340,7 +346,7 @@ astra_registry_password: "password"
 astra_registry_secret_name: "astra-registry-credentials"
 
 #Astra Control Center FQDN
-acc_fqdn_address: astra-control-center-ui.cie.netapp.com
+acc_fqdn_address: astra-control-center.cie.netapp.com
 
 #Name of the Astra Control Center instance
 acc_account_name: ACC Account Name
@@ -352,20 +358,20 @@ admin_last_name: Admin
 ----
 . 執行教戰手冊以部署Astra Control Center。本方針要求特定組態具備root權限。
 +
-因此、如果執行方針的使用者是root或設定了無密碼Sudo、請執行下列命令來執行方針。
+如果執行方針的使用者是root或設定了無密碼Sudo、請執行下列命令來執行方針。
 
 +
 [source, cli]
 ----
-ansible-playbook playbook.yml
+ansible-playbook install_acc_playbook.yml
 ----
 +
-如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行教戰手冊、然後輸入Sudo密碼。
+如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行方針、然後輸入Sudo密碼。
 
 +
 [source, cli]
 ----
-ansible-playbook playbook.yml -K
+ansible-playbook install_acc_playbook.yml -K
 ----
 
 
