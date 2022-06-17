@@ -5079,7 +5079,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-06-08 17:19:45 +0000">06/08/2022</time>
+    <time datetime="2022-06-17 02:36:59 +0000">06/17/2022</time>
     
   
 
@@ -5668,7 +5668,74 @@
 <div class="title">記錄磁碟區的複寫</div>
 <div class="content">
 <div class="paragraph">
-<p>stdin&gt;中的未解析指令-包括：..//_iinclude/db_protection _log_replication.adication[]</p>
+<p>排程記錄複寫教戰手冊</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>設定並啟動工作範本。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>複製先前建立的工作範本。</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>瀏覽至資源→範本。</p>
+</li>
+<li>
+<p>找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本</p>
+</li>
+<li>
+<p>按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「記錄複寫教戰手冊」。</p>
+</li>
+<li>
+<p>保留相同的範本庫存、專案、認證資料。</p>
+</li>
+<li>
+<p>選取ora_replite_logs.yml作為要執行的方針。</p>
+</li>
+<li>
+<p>變數將維持不變、但CVO叢集IP必須設定在變數DST_叢 集IP中。</p>
+</li>
+<li>
+<p>按一下儲存。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>排程工作範本。</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>瀏覽至資源→範本。</p>
+</li>
+<li>
+<p>按一下記錄複寫教戰手冊範本、然後按一下頂端選項集的排程。</p>
+</li>
+<li>
+<p>按一下「新增」、「新增記錄複寫的名稱排程」、選擇一小時開始的開始日期/時間、選擇您的本機時區和「執行頻率」。執行頻率通常會更新SnapMirror複寫。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="/us-en/netapp-solutions/images/note.svg" alt="附註">
+</td>
+<td class="content">
+建議您設定每小時更新一次的記錄排程、以確保恢復到上次每小時更新。
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
