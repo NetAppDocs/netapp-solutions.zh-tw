@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: containers/anthos-with-netapp/a-w-n_anthos_BM.html 
 keywords: Anthos, bare metal, linux 
-summary:  
+summary: Anthos在裸機上的硬體無關功能、可讓您選擇專為個人化使用案例最佳化的運算平台、並提供許多其他優點。 
 ---
-= Anthos on裸機：Anthos with NetApp
+= 裸機上的Anthos
 :allow-uri-read: 
 
 
@@ -17,9 +17,9 @@ Anthos在裸機上的硬體無關功能、可讓您選擇專為個人化使用�
 範例包括：
 
 * *帶上您自己的伺服器。*您可以使用符合現有基礎架構的伺服器來降低資本支出和管理成本。
-* *帶上您專屬的Linux作業系統。*選擇想要在裸機環境中部署Anthos的Linux作業系統、即可確保Anthos環境能完全符合您現有的基礎架構和管理方案。
-* *效能提升、成本降低。*無需Hypervisor、裸機叢集的Anthos要求直接存取伺服器硬體資源、包括效能最佳化的硬體裝置（例如GPU）。
-* *提升網路效能並降低延遲。*由於裸機伺服器節點上的Anthos直接連線至您的網路、而無需虛擬化抽象層、因此可針對低延遲與效能進行最佳化。
+* *帶上您專屬的Linux作業系統。*選擇您想要部署Anthos裸機環境的Linux作業系統、即可確保Anthos環境能完全符合您現有的基礎架構和管理方案。
+* *提升效能並降低成本。*沒有Hypervisor的需求、Anthos裸機叢集要求直接存取伺服器硬體資源、包括效能最佳化的硬體裝置（例如GPU）。
+* *改善網路效能並降低延遲。*由於無虛擬化抽象層的情況下、會將連線至網路的無線裸機伺服器節點直接連線至網路、因此可針對低延遲和效能進行最佳化。
 
 
 
@@ -49,7 +49,7 @@ Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更�
 
 === 作業系統
 
-裸機節點上的Anthos可設定多種客戶選擇的Linux套裝作業系統、以協助符合其目前的資料中心基礎架構。
+Anthos裸機節點可設定多種客戶選擇的Linux套裝作業系統、以協助符合其目前的資料中心基礎架構。
 
 下表列出NetApp與合作夥伴用來驗證解決方案的Linux作業系統清單。
 
@@ -57,16 +57,16 @@ Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更�
 | 作業系統 | 版本 | Anthos版本 
 
 
-| CentOS | 8.4. | 1.10 
+| CentOS | 8.4. | 1.11. 
 
 
-| Red Hat Enterprise Linux | 8.4. | 1.10 
+| Red Hat Enterprise Linux | 8.4. | 1.11. 
 
 
-| Ubuntu | 18.04 LTS | 1.10 
+| Ubuntu | 18.04 LTS | 1.11. 
 
 
-| Ubuntu | 20.04 LTS | 1.10 
+| Ubuntu | 20.04 LTS | 1.11. 
 |===
 
 
@@ -83,7 +83,7 @@ Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更�
 | Cisco | Nexus | C9336C-FX2 
 
 
-| NetApp | AFF | A250 
+| NetApp | AFF | A250、A220 
 |===
 
 
@@ -98,17 +98,17 @@ Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更�
 | Cisco | NXOS | 9.3（5） 
 
 
-| NetApp | ONTAP | 9.9.1 
+| NetApp | ONTAP | 9.9.1、9.10.1 
 
 
-| NetApp | Astra Trident | 22.01 
+| NetApp | Astra Trident | 22.04 
 |===
 在由NetApp與我們的合作夥伴團隊在全球技術（WWT）執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎所打造、可讓我們測試每種伺服器類型、作業系統、網路裝置、 以及部署在解決方案中的儲存系統。
 
 image:a-w-n_anthos_baremetal_validation.png["錯誤：缺少圖形影像"]
 
 
-NOTE: 此多作業系統環境顯示與裸機解決方案上的Anthos支援OS版本之間的互通性。我們預期客戶將會在一或一組作業系統上進行標準化、以進行自己的部署。
+NOTE: 這種多作業系統環境可顯示與Anthos裸機解決方案支援的作業系統版本之間的互通性。我們預期客戶會在部署時、將一或一部分作業系統標準化。
 
 
 
@@ -116,9 +116,12 @@ NOTE: 此多作業系統環境顯示與裸機解決方案上的Anthos支援OS版
 
 在裸機上部署Anthos之前、應先建立下列基礎架構：
 
-* 至少有一部DNS伺服器提供完整的主機名稱解析、可從頻內管理網路和VM網路存取。
-* 至少有一部NTP伺服器可從頻內管理網路和VM網路存取。
-* （可選）用於帶內管理網路和VM網路的傳出網際網路連線。
+* 至少有一部DNS伺服器提供可從管理網路存取的完整主機名稱解析。
+* 至少有一部可從管理網路存取的NTP伺服器。
+* （選用）頻內管理網路的外傳網際網路連線功能。
 
 
-link:a-w-n_overview_netapp.html["下一步：NetApp儲存設備總覽：Anthos with NetApp。"]
+
+NOTE: 本文件的「影片與示範」一節提供有關裸機部署的Anthos示範影片。
+
+link:a-w-n_overview_netapp.html["下一步：NetApp儲存系統總覽。"]

@@ -221,7 +221,8 @@ imagePullSecrets:
 ----
 [netapp-user@rhel7 ~]$ podman login astra-registry.apps.ocp-vmw.cie.netapp.com -u kubeadmin -p $(oc whoami -t) --tls-verify=false
 ----
-+附註：如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖而非密碼。
+
+NOTE: 如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖而非密碼。
 
 --
 .Docker
@@ -230,7 +231,8 @@ imagePullSecrets:
 ----
 [netapp-user@rhel7 ~]$ docker login astra-registry.apps.ocp-vmw.cie.netapp.com -u kubeadmin -p $(oc whoami -t)
 ----
-+附註：如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖而非密碼。
+
+NOTE: 如果您使用「kubeadmin」使用者登入私有登錄、請使用權杖而非密碼。
 
 --
 ====
@@ -259,4 +261,4 @@ imagePullSecrets:
 
 
 
-link:rh-os-n_use_cases.html["下一步：解決方案驗證/使用案例：採用NetApp的Red Hat OpenShift。"]
+link:rh-os-n_use_cases.html["下一步：解決方案驗證/使用案例。"]

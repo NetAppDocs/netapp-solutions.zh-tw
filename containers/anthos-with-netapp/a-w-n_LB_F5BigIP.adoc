@@ -1,21 +1,21 @@
 ---
 sidebar: sidebar 
 permalink: containers/anthos-with-netapp/a-w-n_LB_F5BigIP.html 
-summary:  
+summary: F5 BIG-IP是應用程式交付控制器（ADC）、提供一系列進階、正式作業等級的流量管理與安全服務、例如L4-L7負載平衡、SSL/TLS卸載、DNS、防火牆等。這些服務可大幅提升應用程式的可用度、安全性和效能。 
 keywords: Anthos, GKE, Kubernetes, F5, BigIP, LoadBalancer 
 ---
-= 安裝F5 BIG-IP負載平衡器：Anthos with NetApp
+= 安裝F5 BIG-IP負載平衡器
 :allow-uri-read: 
 
 
 F5 BIG-IP是應用程式交付控制器（ADC）、提供一系列進階、正式作業等級的流量管理與安全服務、例如L4-L7負載平衡、SSL/TLS卸載、DNS、防火牆等。這些服務可大幅提升應用程式的可用度、安全性和效能。
 
-您可以以各種方式部署和使用F5 BIG-IP、包括在專屬硬體、雲端或內部部署的虛擬應用裝置上。請參閱此處的文件、依照需求探索及部署F5 BIG-IP。
+您可以以各種方式部署和使用F5 BIG-IP、包括在專屬硬體、雲端或內部部署的虛擬應用裝置上。請參閱此處的文件、以探索及部署F5 BIG-IP。
 
 F5 BIG-IP是Anthos on Prem首款隨附的負載平衡器解決方案、已用於NetApp解決方案的Anthos Ready合作夥伴早期驗證。
 
 
-NOTE: 可以在獨立或叢集模式中部署F5 BIG-IP。為了進行此驗證、在獨立模式下部署了F5 BIG-IP、但為了正式作業目的、最好使用一個BIG-IP叢集、以避免單點故障。
+NOTE: 可以在獨立模式或叢集模式中部署F5 BIG-IP。為了進行此驗證、以獨立模式部署了F5 BIG-IP。不過、出於正式作業目的、NetApp建議建立一個由BIG-IP執行個體組成的叢集、以避免單點故障。
 
 
 NOTE: 您可以在專屬硬體、雲端或內部部署的虛擬應用裝置上部署一個F5 BIG-IP系統、其版本超過12.x、以便與F5 CI整合。就本文件而言、以虛擬應用裝置（例如使用BIG-IP VE版本）的形式驗證的F5 BIG-IP系統。
@@ -52,29 +52,29 @@ NOTE: 若要下載應用裝置、使用者必須向F5註冊。他們為Big IP Vi
 
 . 在基礎架構資源集區上按一下滑鼠右鍵、然後選取「部署OVF範本」。精靈隨即啟動、可讓您選取您剛在步驟1中下載的OVA檔案。按一下「下一步」
 +
-image::deploy-big_ip_1.PNG[部署Big IP應用裝置]
+image:deploy-big_ip_1.PNG["部署Big IP應用裝置"]
 
 . 按一下「Next（下一步）」以繼續執行每個步驟、並接受每個顯示畫面的預設值、直到您進入儲存選擇畫面為止。選取先前建立的VM_Datastore、然後按「Next（下一步）」。
 . 精靈顯示的下一個畫面可讓您自訂要用於環境的虛擬網路。選取「VM_Network」作為「外部」欄位、然後選取「Management」（管理）欄位的「Management Network」（管理網路）。內部和HA用於F5 Big IP應用裝置的進階組態、且未設定。這些參數可以單獨保留、也可以設定為連線至非基礎架構的分散式連接埠群組。按一下「下一步」
 +
-image::deploy-big_ip_2.PNG[部署Big IP應用裝置]
+image:deploy-big_ip_2.PNG["部署Big IP應用裝置、第2部分"]
 
 . 檢閱應用裝置的摘要畫面、如果所有資訊都正確、請按一下「Finish（完成）」開始部署。
 . 部署虛擬應用裝置之後、請以滑鼠右鍵按一下該應用裝置並啟動。它應該會在管理網路上接收DHCP位址。此應用裝置是以Linux為基礎、並已部署VMware Tools、因此您可以檢視它在vSphere用戶端中收到的DHCP位址。
 +
-image::deploy-big_ip_3.PNG[部署Big IP應用裝置]
+image:deploy-big_ip_3.PNG["部署Big IP應用裝置、第3部分"]
 
 . 開啟網頁瀏覽器、然後從上一個步驟以IP位址連線至應用裝置。預設登入為admin/admin、第一次登入後、應用裝置會立即提示您變更管理密碼。然後返回一個畫面、您必須使用新的認證登入。
 +
-image::big-IP_config_1.PNG[Big IP組態]
+image:big-IP_config_1.PNG["Big IP組態"]
 
 . 第一個畫面會提示使用者完成設定公用程式。按一下「Next（下一步）」開始公用程式。
 +
-image::big-IP_config_2.PNG[Big IP組態]
+image:big-IP_config_2.PNG["Big IP組態、第2部分"]
 
 . 下一個畫面會提示啟動應用裝置的授權。按一下「啟動」以開始。在下一頁出現提示時、請貼上您在註冊下載時收到的30天試用授權金鑰、或貼上您購買應用裝置時所取得的永久授權金鑰。按一下「下一步」
 +
-image::big-IP_config_3.PNG[Big IP組態]
+image:big-IP_config_3.PNG["Big IP組態、第3部分"]
 
 +
 
@@ -83,7 +83,7 @@ NOTE: 若要讓裝置執行啟動、管理介面上定義的網路必須能夠�
 . 下一個畫面會顯示終端使用者授權合約（EULA）。如果授權中的條款可接受、請按一下「Accept（接受）」。
 . 下一個畫面會在驗證到目前為止所做的組態變更時、計算經過的時間。按一下「Continue（繼續）」以繼續初始組態。
 +
-image::big-IP_config_4.PNG[Big IP組態]
+image:big-IP_config_4.PNG["Big IP組態、第4部分"]
 
 . Configuration Change（組態變更）視窗隨即關閉、Setup Utility（設定公用程式）會顯示Resource Provisioning（資源配置）功能表。此視窗列出目前已授權的功能、以及虛擬應用裝置和每個執行中服務的目前資源配置。
 +
@@ -91,15 +91,15 @@ image::big-IP_config_5.png[Big IP組態]
 
 . 按一下左側的「Platform（平台）」功能表選項、即可進一步修改平台。修改內容包括設定以DHCP設定的管理IP位址、設定主機名稱和裝置安裝所在的時區、以及確保應用裝置不受SSH存取。
 +
-image::big-IP_config_6.PNG[Big IP組態]
+image:big-IP_config_6.PNG["Big IP組態、第6部分"]
 
 . 接著按一下「網路」功能表、即可設定標準網路功能。按一下「下一步」開始「標準網路組態」精靈。
 +
-image::big-IP_config_7.PNG[Big IP組態]
+image:big-IP_config_7.PNG["Big IP組態、第7部分"]
 
 . 精靈的第一頁會設定備援功能；保留預設值、然後按「Next（下一步）」。下一頁可讓您在負載平衡器上設定內部介面。介面1.1會對應至OVF部署精靈中標示為「Internal（內部）」的vmnic。
 +
-image::big-IP_config_8.png[Big IP組態]
+image:big-IP_config_8.png["Big IP組態、第8部分"]
 
 +
 
@@ -107,21 +107,21 @@ NOTE: 此頁面中的「自我IP位址」、「網路遮罩」和「浮動IP位�
 
 . 下一頁可讓您設定外部網路、以將服務對應至Kubernetes中部署的Pod。從VM_Network範圍、適當的子網路遮罩和相同範圍的浮動IP中選取靜態IP。介面1.2對應至OVF部署精靈中標示為「外部」的vmnic。
 +
-image::big-IP_config_9.png[Big IP組態]
+image:big-IP_config_9.png["Big IP組態、第9部分"]
 
 . 在下一頁、如果您要在環境中部署多個虛擬應用裝置、則可以設定內部HA網路。若要繼續、您必須填入「自行IP位址」和「子網路遮罩」欄位、而且必須選取介面1.3作為VLAN介面、此介面對應至OVF範本精靈所定義的HA網路。
 +
-image::big-IP_config_10.png[Big IP組態]
+image:big-IP_config_10.png["Big IP組態、第10部分"]
 
 . 下一頁可讓您設定NTP伺服器。然後按「Next（下一步）」繼續DNS設定。DNS伺服器和網域搜尋清單應已由DHCP伺服器填入。按一下「Next（下一步）」接受預設值並繼續。
 . 在精靈的其餘部分中、按一下「下一步」繼續執行進階對等設定、其組態超出本文件的範圍。然後按一下「Finish（完成）」結束精靈。
 . 為Anthos管理叢集和環境中部署的每個使用者叢集建立個別分割區。按一下左側功能表中的「System（系統）」、瀏覽至「Users（使用者）」、然後按一下「PartitionList（分割清單）
 +
-image::big-IP_config_11.PNG[Big IP組態]
+image:big-IP_config_11.PNG["Big IP組態、第11部分"]
 
-. 顯示的畫面僅顯示目前的通用分割區。按一下右側的「Create（建立）」以建立第一個額外的分割區、並將其命名為「GKE管理」。然後按一下「重複」、將分割區命名為「User-Cluster-1」、再按一下「重複」按鈕、將下一個分割區命名為「User-Cluster-2」。最後按一下「完成」以完成精靈。「磁碟分割清單」畫面會傳回所有目前列出的磁碟分割。
+. 顯示的畫面僅顯示目前的通用分割區。按一下右側的「Create（建立）」以建立第一個額外的分割區、並將其命名為「GKE管理」。然後按一下「重複」、並將分割區命名為「User-Cluster-1」。再按一下「重複」按鈕、將下一個分割區命名為「使用者叢集2」。最後按一下「完成」以完成精靈。「磁碟分割清單」畫面會傳回所有目前列出的磁碟分割。
 +
-image::big-IP_config_12.PNG[Big IP組態]
+image:big-IP_config_12.PNG["Big IP組態、第12部分"]
 
 
 
@@ -131,7 +131,7 @@ image::big-IP_config_12.PNG[Big IP組態]
 
 每個組態檔中分別有一節是針對管理叢集、以及您選擇部署以設定負載平衡器的每個使用者叢集、以便由Prem上的Anthos進行管理。
 
-以下是GKE管理叢集分割區組態的範例、需要取消註解及修改的值會以粗體顯示在下方：
+以下指令碼是GKE管理叢集分割區組態的範例。需要取消註釋和修改的值會以粗體顯示於下方：
 
 [listing, subs="+quotes,+verbatim"]
 ----
@@ -189,4 +189,4 @@ image::big-IP_config_12.PNG[Big IP組態]
     # (Optional) Run two LB VMs to achieve high availability (default: false)
     #   enableHA: false
 ----
-link:a-w-n_use_cases.html["下一步：解決方案驗證/使用案例：Anthos with NetApp。"]
+link:a-w-n_use_cases.html["下一步：解決方案驗證/使用案例。"]

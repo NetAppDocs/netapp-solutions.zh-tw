@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: databases/aws_ora_fsx_ec2_benchmark.html 
+summary: 本節將詳細說明交換器工作負載模擬OLTP工作負載的效能驗證和基準測試結果。 
+keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter 
+---
+= 效能驗證與基準測試結果
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:aws_ora_fsx_ec2_mgmt.html["先前版本：Oracle資料庫管理。"]
+
+此效能驗證的目標不是設定任何標記。相反地、如果您遵循本文件所述的部署程序和最佳實務做法、您可以預期在公有雲上部署Oracle資料庫時、也會有類似的效能指標。
+
+我們使用Swingtench銷售訂單項目（SOE）模組來模擬OLTP類型的工作負載、並將工作負載套用至部署至M5 EC2執行個體的Oracle資料庫、並在NFS傳輸協定上使用FSX儲存磁碟區。預設的Swingench SOE I/O設定檔接近80/20讀寫分割、接近真實世界的OLTP Oracle工作負載設定檔。
+
+增加用戶端上執行銷售訂單輸入、瀏覽、庫存查詢等作業的並行使用者數量、即可增加工作負載。測試的並行使用者數量為8、16、32、64和128位。伺服器端使用的演算法Swingtench非常繁重、無法推送合理的交易磁碟區、並測試Oracle伺服器限制。我們觀察到、在128位並行使用者中、EC2執行個體CPU使用率約達到80-90%的容量。
+
+以下各節提供設定與測試結果的詳細資料。
+
+
+
+== 測試環境設定
+
+
+
+=== 運算
+
+我們部署了EC2 M5執行個體、其中含有8vCPU、32G RAM和10Gps的網路頻寬。
+
+image:aws_ora_fsx_ec2_inst_10.PNG["錯誤：缺少圖形影像"]
+
+
+
+=== FSX儲存設備
+
+我們建立了三個資料庫磁碟區、並在EC2執行個體上以NFS掛載磁碟區、如下所示：
+
+* /u01 - Oracle二進位檔
+* /u02 - Oracle資料檔案、控制檔
+* /u03 - Oracle記錄檔、控制檔
+
+
+我們保留兩份關鍵控制檔的複本、以提供備援功能。
+
+image:aws_ora_fsx_ec2_stor_15.PNG["錯誤：缺少圖形影像"]
+
+FSX檔案系統的IOPS容量設定為80、000、I/O處理量則為2GiBps。
+
+
+
+=== Oracle組態
+
+我們安裝Oracle 19c版搭配RU修補程式19.8。已在伺服器上啟用DNFS。
+
+資料庫部署為具有三個PDF的容器化資料庫。我們使用一個pdb執行個體進行效能測試。下圖顯示NFS掛載點上的Oracle儲存設備規模。
+
+image:aws_ora_fsx_ec2_inst_11.PNG["錯誤：缺少圖形影像"]
+
+
+
+=== Swingtench組態
+
+我們在配備8vCPU和32G RAM的Windows主機上部署了Swingench 2.6（最新版本）。我們使用SOE PLSQL測試模組第2版作為基準測試。預設負載設定檔提供80/20讀寫比率、以模擬真實世界的OLTP交易工作負載。
+
+我們使用的架構規模係數為50、提供160G和30G的初始資料負載大小、以供臨時空間配置之用。在這個規模因素下、SOE架構提供1000個倉儲、以及5千萬個客戶來模擬線上訂單處理。
+
+下列螢幕擷取畫面示範了來自Swingench Windows UI的工作負載設定檔和一般交易執行數據。
+
+image:aws_ora_fsx_ec2_swin_01.PNG["錯誤：缺少圖形影像"]
+
+如圖所示、交易層級在整個測試執行期間維持在相同層級。
+
+
+
+== 測試結果分析
+
+我們擷取每次測試執行的Swingtench結果、並取得對應的Oracle AWR報告以進行效能分析。
+
+從終端使用者方面來看、我們檢視了交易量和使用者回應時間等關鍵指標。這兩項指標都顯示、只要同時登入系統的使用者人數、以及使用者輸入訂單後、完成交易和接收回應的速度、使用者就能從銷售訂單輸入系統執行多少筆交易。
+
+從Oracle伺服器端、我們剖析了Oracle AWR報告、以判斷可能會減緩使用者交易速度的等候事件排行。前10大Oracle等待事件指出、在執行Swingbench模擬交易測試期間、Oracle伺服器大多與「db檔案連續讀取」所花費的資料庫時間分別有50%到60%。「記錄檔同步」也是造成影響的因素、因為交易提交會導致Oracle記錄程序將記錄I/O從緩衝區快取清除到磁碟上的記錄檔、雖然這是資料庫時間百分比層級的較小因素。
+
+我們會根據交易執行期間的並行使用者數量、記錄使用者交易量、使用者回應時間和Oracle等待次數。結果如下所示：
+
+image:aws_ora_fsx_ec2_swin_02.PNG["錯誤：缺少圖形影像"]
+
+這些結果顯示、我們可以持續增加使用者交易磁碟區、同時增加並行使用者的數量、同時維持一致低I/O延遲和使用者回應時間、這對於Oracle應用程式來說是適當的效能。
+
+當我們同時達到128位使用者時、I/O延遲和使用者回應時間開始稍微增加。這是因為EC2執行個體即將達到完整的伺服器容量、如下圖所示：
+
+image:aws_ora_fsx_ec2_swin_03.PNG["錯誤：缺少圖形影像"]
+
+同樣地、下圖也顯示了當時完成使用者交易磁碟區的對應FSXIOPS和處理量。
+
+image:aws_ora_fsx_ec2_swin_04.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_swin_05.PNG["錯誤：缺少圖形影像"]
+
+當Oracle伺服器EC2執行個體成為限制因素時、我們並未達到以IOPS或處理量為單位的已配置FSX儲存容量。因此、您必須根據使用者應用程式層級的交易磁碟區、適當調整運算和儲存容量、如本節所示 link:aws_ora_fsx_ec2_factors.html["Oracle資料庫部署的考量因素。"]
+
+link:aws_ora_fsx_ec2_migration.html["下一步：資料庫移轉。"]

@@ -15,9 +15,7 @@ summary: 本參考文件提供Anthos with NetApp解決方案的部署驗證、�
 
 NetApp公司Alan Cowles和NIKhil Kulkarni
 
-本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。
-
-它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
+本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。它也詳細說明如何使用Astra Trident儲存協調程式來管理持續儲存設備、藉此與NetApp儲存系統進行儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
 
 
 
@@ -41,11 +39,11 @@ Anthos with NetApp解決方案的架構旨在為具有下列使用案例的客�
 * 不中斷營運與升級
 * API導向且可程式化的基礎架構、可跟上微服務敏捷度的腳步
 * 多租戶共享、效能保證
-* 能夠同時執行虛擬化與容器化的工作負載
+* 同時執行虛擬化與容器化工作負載的能力
 * 能夠根據工作負載需求獨立擴充基礎架構
 
 
-「Anthos with NetApp」解決方案能肯定這些挑戰、並提供解決方案、在客戶所選的資料中心環境中實作Anthos on Prem的全自動部署、協助解決每個疑慮。
+Anthos with NetApp解決方案瞭解這些挑戰、並提供解決方案、在客戶所選的資料中心環境中實作Anthos的全自動部署、以協助解決每個疑慮。
 
 
 
@@ -99,10 +97,10 @@ Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於�
 | NetApp Element | 儲存設備 | 12.3. 
 
 
-| NetApp Astra Trident | 儲存協調 | 22.01.0 
+| NetApp Astra Trident | 儲存協調 | 22.04.0 
 
 
-| VMware上的Anthos叢集 | 容器協調 | 1.10 
+| VMware上的Anthos叢集 | 容器協調 | 1.11. 
 
 
 | 裸機上的Anthos | Container協調 | 1.10 
@@ -110,4 +108,4 @@ Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於�
 
 | VMware vSphere | 資料中心虛擬化 | 6.7U3、7.0U3 
 |===
-link:a-w-n_overview_anthos.html["下一步：Anthos Overview：Anthos with NetApp。"]
+link:a-w-n_overview_anthos.html["下一步：Anthos總覽。"]

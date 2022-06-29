@@ -1,115 +1,80 @@
 ---
 sidebar: sidebar 
-permalink: containers/rh-os-n_LB_MetalLB.html 
+permalink: containers/anthos-with-netapp/a-w-n_LB_MetalLB.html 
 summary: 本頁詳細說明MetalLB負載平衡器的安裝與組態指示。 
-keywords: Red Hat OpenShift, Kubernetes, MetalLB, LoadBalancer, Astra, Astra Control Center 
+keywords: Anthos, Kubernetes, MetalLB, LoadBalancer, Astra, Astra Control Center 
 ---
-= 安裝MetalLB負載平衡器：Red Hat OpenShift with NetApp
+= 安裝MetalLB負載平衡器
 :allow-uri-read: 
 
 
-本頁列出MetalLB負載平衡器的安裝與組態指示。
-
-MetalLB是安裝在OpenShift叢集上的自我代管網路負載平衡器、可在未在雲端供應商上執行的叢集中、建立類型負載平衡器的OpenShift服務。MetalLB的兩項主要功能是位址分配和外部宣告、這些功能可搭配運作以支援負載平衡器服務。
-
-
-
-== MetalLB組態選項
-
-根據MetalLB如何宣告指派給OpenShift叢集外部負載平衡器服務的IP位址、它以兩種模式運作：
-
-* *第2層模式。*在此模式下、OpenShift叢集中的一個節點會取得服務的所有權、並回應該IP的ARP要求、以便在OpenShift叢集外部存取。因為只有節點會通告IP、所以它會有頻寬瓶頸和緩慢的容錯移轉限制。如需詳細資訊、請參閱文件 link:https://metallb.universe.tf/concepts/layer2/["請按這裡"]。
-* * BGP模式。*在此模式下、OpenShift叢集中的所有節點都會與路由器建立BGP對等工作階段、並通告路由以將流量轉送到服務IP。這項作業的先決條件是將MetalLB與該網路中的路由器整合。由於BGP中的雜湊機制、因此在變更服務的IP對節點對應時、會有一定的限制。如需詳細資訊、請參閱文件 link:https://metallb.universe.tf/concepts/bgp/["請按這裡"]。
-
-
-
-NOTE: 針對本文件、我們將在第2層模式中設定MetalLB。
+本頁列出MetalLB託管負載平衡器的安裝與組態指示。
 
 
 
 == 安裝MetalLB負載平衡器
 
-. 下載MetalLB資源。
-+
-[listing]
-----
-[netapp-user@rhel7 ~]$ wget https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
-[netapp-user@rhel7 ~]$ wget https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
-----
-. 編輯檔案「metallb.yaml」、並從「控制器部署」和「示範演講者」中移除「pec.template.spec.securityContext`」。
-+
-*要刪除的行數：*
+MetalLB負載平衡器與VMware上的Anthos叢集完全整合、並從1.11版開始、在管理與使用者叢集設定中執行自動化部署。您必須在各自的「叢集.yaml」組態檔中修改文字區塊、才能提供負載平衡器資訊。它是在您的Anthos叢集上自行代管、而不需要像其他支援的負載平衡器解決方案那樣部署外部資源。它也可讓您建立IP集區、以便在未在雲端供應商上執行的叢集中、建立類型負載平衡器的Kubernetes服務、自動指派位址。
 
-+
-[listing]
-----
-securityContext:
-  runAsNonRoot: true
-  runAsUser: 65534
-----
-. 建立「metallb-system」命名空間。
-+
-[listing]
-----
-[netapp-user@rhel7 ~]$ oc create -f namespace.yaml
-namespace/metallb-system created
-----
-. 建立MetalLB CR。
-+
-[listing]
-----
-[netapp-user@rhel7 ~]$ oc create -f metallb.yaml
-podsecuritypolicy.policy/controller created
-podsecuritypolicy.policy/speaker created
-serviceaccount/controller created
-serviceaccount/speaker created
-clusterrole.rbac.authorization.k8s.io/metallb-system:controller created
-clusterrole.rbac.authorization.k8s.io/metallb-system:speaker created
-role.rbac.authorization.k8s.io/config-watcher created
-role.rbac.authorization.k8s.io/pod-lister created
-role.rbac.authorization.k8s.io/controller created
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:controller created
-clusterrolebinding.rbac.authorization.k8s.io/metallb-system:speaker created
-rolebinding.rbac.authorization.k8s.io/config-watcher created
-rolebinding.rbac.authorization.k8s.io/pod-lister created
-rolebinding.rbac.authorization.k8s.io/controller created
-daemonset.apps/speaker created
-deployment.apps/controller created
-----
-. 在設定MetalLB揚聲器之前、請先授予揚聲器示範設定提高權限、以便執行所需的網路組態、使負載平衡器正常運作。
-+
-[listing]
-----
-[netapp-user@rhel7 ~]$ oc adm policy add-scc-to-user privileged -n metallb-system -z speaker
-clusterrole.rbac.authorization.k8s.io/system:openshift:scc:privileged added: "speaker"
-----
-. 在「metallb-system」命名空間中建立「ConfigMap」來設定MetalLB。
-+
-[listing]
-----
-[netapp-user@rhel7 ~]$ vim metallb-config.yaml
 
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  namespace: metallb-system
-  name: config
-data:
-  config: |
-    address-pools:
-    - name: default
-      protocol: layer2
+
+== 與Anthos整合
+
+啟用Anthos管理的MetalLB負載平衡器時、您必須修改「admin-cluster．yaml」檔案中「loadbalancer：」區段中的幾行。您唯一必須修改的值是設定「controlPlueVIP:」位址、然後將「種類：」設為MetalLB。請參閱下列程式碼片段以取得範例：
+
+[listing]
+----
+# (Required) Load balancer configuration
+loadBalancer:
+  # (Required) The VIPs to use for load balancing
+  vips:
+    # Used to connect to the Kubernetes API
+    controlPlaneVIP: "10.61.181.230"
+    # # (Optional) Used for admin cluster addons (needed for multi cluster features). Must
+    # # be the same across clusters
+    # addonsVIP: ""
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" "ManualLB" or "MetalLB".
+  # Uncomment the corresponding field below to provide the detailed spec
+  kind: MetalLB
+----
+在為Anthos使用者叢集啟用MetalLB負載平衡器時、每個「user-cluster．yaml」檔案中有兩個區域必須更新。首先、您必須以類似「admin-cluster．yaml」檔案的方式、修改「controlPlaeVIP：」、「ingressVIP：」和「in種類：」等「負載平衡器：」區段中的值。請參閱下列程式碼片段以取得範例：
+
+[listing]
+----
+loadBalancer:
+  # (Required) The VIPs to use for load balancing
+  vips:
+    # Used to connect to the Kubernetes API
+    controlPlaneVIP: "10.61.181.240"
+    # Shared by all services for ingress traffic
+    ingressVIP: "10.61.181.244"
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" "ManualLB" or "MetalLB".
+  # Uncomment the corresponding field below to provide the detailed spec
+  kind: MetalLB
+----
+
+NOTE: 擷取VIP IP位址必須存在於稍後在組態中指派給MetalLB負載平衡器的IP位址集區內。
+
+然後您需要瀏覽至「metalLB:」子區段、並在「-name:」變數中命名Pool來修改「addressPools：」區段。您也必須為「Addresses：」變數提供範圍、建立一個IP位址集區、以便MetalLB指派給類型負載平衡器的服務。
+
+[listing]
+----
+# # (Required when using "MetalLB" kind in user clusters) Specify the MetalLB config
+ metalLB:
+ #   # (Required) A list of non-overlapping IP pools used by load balancer typed services.
+ #   # Must include ingressVIP of the cluster.
+    addressPools:
+ #   # (Required) Name of the address pool
+    - name: "default"
+ #     # (Required) The addresses that are part of this pool. Each address must be either
+ #     # in the CIDR form (1.2.3.0/24) or range form (1.2.3.1-1.2.3.5).
       addresses:
-      - 10.63.17.10-10.63.17.200
-
-[netapp-user@rhel7 ~]$ oc create -f metallb-config.yaml
-configmap/config created
+      - "10.61.181.244-10.61.181.249"
 ----
-. 現在、當建立負載平衡器服務時、MetalLB會指派外部IP給服務、並回應ARP要求來通告IP位址。
-+
 
-NOTE: 如果您想要在BGP模式中設定MetalLB、請跳過上述步驟6、然後依照MetalLB文件中的程序進行 link:https://metallb.universe.tf/concepts/bgp/["請按這裡"]。
+NOTE: 位址集區可以像範例中所示的範圍來提供、將其限制為特定子網路中的多個位址、或者如果整個子網路都可用、則可將其作為CIDR表示法來提供。
+
+. 當建立負載平衡器類型的Kubernetes服務時、MetalLB會自動指派外部IP給服務、並回應ARP要求來通告IP位址。
 
 
-
-link:rh-os-n_use_cases.html["下一步：解決方案驗證/使用案例：採用NetApp的Red Hat OpenShift。"]
+link:awn_use_cases.html["下一步：解決方案驗證/使用案例。"]

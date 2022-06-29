@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: databases/aws_ora_fsx_ec2_migration.html 
+summary: 本節詳細說明將Oracle資料庫從內部部署移轉至AWS EC2執行個體和FSX儲存設備時、應考慮的因素。 
+keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter 
+---
+= 資料庫從內部部署移轉至公有雲
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:aws_ora_fsx_ec2_mgmt.html["上一篇：資料庫管理。"]
+
+資料庫移轉是一項艱鉅的工作、無論以何種方式進行。將Oracle資料庫從內部部署移轉至雲端也不例外。
+
+下列各節提供將Oracle資料庫移轉至AWS公有雲時、使用AWS EC2運算和FSX儲存平台時、必須考量的關鍵因素。
+
+
+
+== 內部部署可儲存資料ONTAP
+
+如果內部部署的Oracle資料庫位於ONTAP 某個不支援的儲存陣列上、那麼使用NetApp SnapCenter UI工具來設定資料庫移轉的複寫作業會更容易。
+
+. 建置符合內部部署執行個體的目標運算EC2執行個體。
+. 從FSX主控台配置大小相同的相符資料庫Volume。
+. 將FSX資料庫磁碟區掛載到EC2執行個體。
+. 在內部部署資料庫磁碟區之間、設定SnapMirror複寫至目標FSX資料庫磁碟區。初始同步可能需要一些時間來移動主要來源資料、但後續的任何遞增更新都會更快。
+. 切換時、請關閉主要應用程式以停止所有交易。執行記錄備份、SnapCenter 將剩餘的交易清空至目標。
+. 中斷鏡射磁碟區、在目標執行Oracle恢復、並啟動資料庫以供服務。
+. 將應用程式指向雲端中的Oracle資料庫。
+
+
+
+
+== 內部不提供儲存功能ONTAP
+
+如果內部部署的Oracle資料庫裝載於ONTAP 非Oracle以外的協力廠商儲存設備、則資料庫移轉將以還原Oracle資料庫備份複本為基礎。切換前、您必須先播放歸檔記錄檔以使其保持最新狀態。
+
+AWS S3可做為移轉儲存區域、用於資料庫移動和移轉。請參閱下列詳細步驟以瞭解此方法：
+
+. 提供與內部部署執行個體類似的新EC2執行個體。
+. 從FSX儲存設備配置等量的資料庫磁碟區、然後將磁碟區掛載至EC2執行個體。
+. 建立磁碟層級的Oracle備份複本。
+. 將備份複本移至AWS S3儲存設備。
+. 重新建立Oracle控制檔、並從S3儲存設備提取資料和歸檔記錄、以還原及恢復資料庫。
+. 將目標Oracle資料庫與內部部署來源資料庫同步。
+. 切換時、請關閉應用程式和來源Oracle資料庫。複製最後幾個歸檔記錄、並將其套用至目標Oracle資料庫、使其保持最新狀態。
+. 啟動目標資料庫以供使用者存取。
+. 將應用程式重新導向至目標資料庫以完成切換。
+
+
+
+
+== 使用Oracle多租戶CDB/pdb架構、將Oracle資料庫整合到AWS中
+
+. 在AWS公有雲中建立CDB。
+. 如果內部部署資料庫也部署在CDB/pdb多租戶環境中、請拔下要移轉的pdb。
+. 將中繼資料及加底線的Oracle資料檔案傳輸至目標CDB執行個體。
+. 驗證與Oracle驗證程序的相容性。
+. 如果相容性驗證通過、請將拔下的pdb插入目標CDB容器。
+. 如有需要、請更新資料字典。
+. 備份並開啟移轉的pdb以供存取。
+
+
+
+NOTE: 如果不拔下pdb和外掛程式、則需要在移轉規劃期間考量應用程式停機時間。
+
+同樣地、NetApp自動化團隊也提供移轉工具套件、協助Oracle資料庫從內部部署移轉至AWS雲端。如需最新的資料庫移轉工具、請參閱NetApp Public GitHub網站。

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: containers/anthos-with-netapp/a-w-n_overview_storint.html 
 keywords: Astra, Astra Control Center, Trident, Astra Trident, persistent storage 
-summary: NetApp提供多種產品、協助客戶協調及管理容器型環境（例如Anthos）中的持續資料。 
+summary: NetApp提供多種產品、協助客戶在Anthos等容器型環境中協調及管理持續資料。 
 ---
 = NetApp儲存整合概述
 :hardbreaks:
@@ -17,11 +17,11 @@ summary: NetApp提供多種產品、協助客戶協調及管理容器型環境�
 
 == Anthos Ready儲存合作夥伴方案。
 
-Google Cloud會定期透過Anthos Ready儲存合作夥伴方案、要求更新合作夥伴儲存整合與新版Anthos的驗證。您可以找到目前已驗證的儲存解決方案、SCSI驅動程式、可用功能及所支援的Anthos版本清單 https://cloud.google.com/anthos/docs/resources/partner-storage["請按這裡"^]。
+Google Cloud會定期透過Anthos Ready儲存合作夥伴方案、要求更新合作夥伴儲存整合與新版Anthos的驗證。您可以找到目前已驗證的儲存解決方案、csi驅動程式、可用功能及所支援的Anthos版本清單 https://cloud.google.com/anthos/docs/resources/partner-storage["請按這裡"^]。
 
-NetApp每ONTAP 季都會定期遵循要求、驗證我們符合Astra Trident SCSI標準的儲存協調程式、以及我們的包含Anthos版本的更新版的更新版及元件儲存系統。
+NetApp每季都會定期遵循法規要求、以驗證我們符合Astra Trident SCSI標準的儲存協調程式、ONTAP 以及我們的更新版本Anthos的更新版及元件儲存系統。
 
-下表包含NetApp與NetApp合作夥伴工程師已測試的Anthos版本、以驗證NetApp Astra Trident SCSI驅動程式及功能集、作為Anthos Ready儲存合作夥伴方案的一部分：
+下表包含NetApp與NetApp合作夥伴工程師所測試的Anthos版本、以驗證NetApp Astra Trident SCSI驅動程式與功能集、作為Anthos Ready儲存合作夥伴方案的一部分：
 
 |===
 
@@ -29,13 +29,13 @@ NetApp每ONTAP 季都會定期遵循要求、驗證我們符合Astra Trident SCS
 | 部署類型 | 版本 | 儲存系統 | Astra Trident版本 | 傳輸協定 | 功能 
 
 
-| VMware | 1.10 | ONTAP | 22.01 | NAS | 多寫入器、Volume Expansion、快照 
+| VMware | 1.11. | ONTAP | 22.04 | NAS | 多寫入器、Volume Expansion、快照 
 
 
-| VMware | 1.10 | ONTAP | 22.01 | SAN | 原始區塊、Volume擴充、快照 
+| VMware | 1.11. | ONTAP | 22.04 | SAN | 原始區塊、Volume擴充、快照 
 
 
-| VMware | 1.10 | 元素 | 22.01 | SAN | 原始區塊、Volume擴充、快照 
+| VMware | 1.11. | 元素 | 22.04 | SAN | 原始區塊、Volume擴充、快照 
 
 
 | 裸機 | 1.10 | ONTAP | 22.01 | NAS | 多寫入器、Volume Expansion、快照 
@@ -47,13 +47,13 @@ NetApp每ONTAP 季都會定期遵循要求、驗證我們符合Astra Trident SCS
 
 == NetApp儲存整合
 
-NetApp提供多種產品來協助您協調及管理容器型環境（例如Anthos）中的持續資料。
+NetApp提供多種產品、協助您協調及管理容器型環境（例如Anthos）中的持續資料。
 
-NetApp Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+NetApp Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 下列頁面提供NetApp產品的其他資訊、這些產品已通過NetApp解決方案的Anthos應用程式與持續儲存管理驗證：
 
 * link:a-w-n_overview_trident.html["NetApp Astra Trident"]
 
 
-link:a-w-n_overview_advanced.html["下一步：進階組態選項：Anthos with NetApp。"]
+link:a-w-n_overview_trident.html["下一步：NetApp Astra Trident總覽。"]

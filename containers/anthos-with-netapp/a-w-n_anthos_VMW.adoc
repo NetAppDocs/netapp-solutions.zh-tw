@@ -4,7 +4,7 @@ permalink: containers/anthos-with-netapp/a-w-n_anthos_VMW.html
 keywords: Anthos, VMware vSphere, ESXi, on_prem 
 summary: VMware vSphere是一套虛擬化平台、可集中管理ESXi Hypervisor上執行的大量虛擬化伺服器和網路。 
 ---
-= VMware上的Anthos叢集：Anthos with NetApp
+= VMware上的Anthos叢集
 :allow-uri-read: 
 
 
@@ -12,12 +12,12 @@ VMware上的Anthos叢集是Google Kubernetes Engine的延伸、部署於終端�
 
 在VMware上部署Anthos叢集包括下列元件：
 
-* * Anthos管理工作站*。*部署主機、可從其中執行gkectl和kutbectl命令、以部署及與Anthos部署互動。
+* * Anthos管理工作站。*部署主機、可執行「gkectl」和「kkbectl」命令來部署及與Anthos部署互動。
 * *管理叢集。*在VMware上設定Anthos叢集時部署的初始叢集。此叢集可管理所有從屬使用者叢集動作、包括部署、擴充及升級。
 * *使用者叢集。*每個使用者叢集都是以其本身的負載平衡器執行個體或分割區來部署、因此可做為個別使用者或群組的獨立Kubernetes叢集、協助達成完整的多租戶共享。
 
 
-下圖說明VMware部署中的Anthos叢集。
+下圖是對VMware上的Anthos叢集部署的說明。
 
 image:a-w-n_anthos_vm_architecture.png["錯誤：缺少圖形影像"]
 
@@ -28,7 +28,7 @@ image:a-w-n_anthos_vm_architecture.png["錯誤：缺少圖形影像"]
 VMware上的Anthos叢集具有下列優點：
 
 * *進階多租戶共享*每位終端使用者都能被指派自己的使用者叢集、並以自己開發環境所需的虛擬資源進行部署。
-* *成本節約效益。*終端使用者可將多個使用者叢集部署至相同的實體環境、利用自己的實體資源進行應用程式部署、而非在Google Cloud環境或大型裸機叢集上配置資源、藉此大幅節省成本。
+* *成本節約效益。*終端使用者可將多個使用者叢集部署至相同的實體環境、並將自己的實體資源用於應用程式部署、而非在Google Cloud環境或大型裸機叢集上配置資源、藉此大幅節省成本。
 * *開發然後發佈。*內部部署可在應用程式開發期間使用、以便在公開於雲端上使用之前、先在本機資料中心的隱私環境中測試應用程式。
 * *安全性需求。*安全性考量日益增加的客戶、或是無法儲存在公有雲中的敏感資料集、都能從自己資料中心的安全性執行應用程式、進而滿足組織需求。
 
@@ -78,16 +78,16 @@ Google Cloud會透過其Anthos Ready平台合作夥伴方案、定期要求更�
 
 VMware上的Anthos叢集可部署至客戶選擇的vSphere 6和7環境、以協助符合其目前的資料中心基礎架構。
 
-下表列出NetApp與合作夥伴用來驗證解決方案的Linux作業系統清單。
+下表列出NetApp與合作夥伴驗證解決方案所使用的vSphere版本。
 
 |===
 | 作業系統 | 版本 | Anthos版本 
 
 
-| VMware vSphere | 6.7U3 | 1.10 
+| VMware vSphere | 6.7U3 | 1.11. 
 
 
-| VMware vSphere | 7.0U3 | 1.10 
+| VMware vSphere | 7.0U3 | 1.11. 
 |===
 
 
@@ -131,7 +131,7 @@ VMware上的Anthos叢集可部署至客戶選擇的vSphere 6和7環境、以協�
 | NetApp | ONTAP | 9.9.1 
 
 
-| NetApp | Astra Trident | 22.01 
+| NetApp | Astra Trident | 22.04 
 |===
 在NetApp執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎所建置、讓我們能夠測試多個部署的使用者叢集、以及多個NetApp儲存系統和儲存後端。
 
@@ -159,7 +159,7 @@ image:a-w-n_anthos_vmware_validation.png["錯誤：缺少圖形影像"]
 
 === 將Anthos部署到至少三個節點的ESXi叢集
 
-雖然可以在三個節點以下的vSphere叢集上安裝Anthos以供示範或評估之用、但不建議用於正式作業工作負載。雖然兩個節點允許基本HA和容錯、但必須修改Anthos叢集組態、以停用預設的主機關聯性、而且Google Cloud不支援此部署方法。
+雖然可以在三個節點以下的vSphere叢集上安裝Anthos以供示範或評估之用、但不建議用於正式作業工作負載。雖然兩個節點允許基本HA和容錯功能、但必須修改Anthos叢集組態以停用預設的主機關聯性、而且Google Cloud不支援此部署方法。
 
 
 
@@ -173,4 +173,7 @@ image:a-w-n_anthos_vmware_validation.png["錯誤：缺少圖形影像"]
 
 https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 6.7說明文件：使用DRS關聯性規則"^]。https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 7.0文件：使用DRS關聯性規則"^]。
 
-link:a-w-n_overview_netapp.html["下一步：NetApp儲存設備總覽：Anthos with NetApp。"]
+
+NOTE: Anthos在每個個別的「叢集.yaml」檔案中都有一個組態選項、可根據您環境中的ESXi主機數量、自動建立可啟用或停用的節點關聯規則。
+
+link:a-w-n_anthos_BM.html["下一步：裸機上的安索斯。"]

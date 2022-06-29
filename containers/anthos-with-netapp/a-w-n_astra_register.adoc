@@ -4,7 +4,7 @@ permalink: containers/rh-os-n_astra_register.html
 summary: 若要讓Astra Control Center管理工作負載、您必須先登錄Red Hat OpenShift叢集。 
 keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astra Trident, Helm, Operator, ONTAP, OpenShift, Kubernetes, Red Hat OpenShift 
 ---
-= 使用Astra Control Center註冊Red Hat OpenShift叢集
+= 向Astra Control Center註冊Red Hat OpenShift叢集
 :allow-uri-read: 
 
 
@@ -14,7 +14,7 @@ keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astr
 
 == 登錄Red Hat OpenShift叢集
 
-. 第一步是將OpenShift叢集新增至Astra控制中心、並加以管理。移至「叢集」、然後按一下「新增叢集」、上傳OpenShift叢集的Kbeconfig檔案、然後按一下「選取儲存設備」。
+. 第一步是將OpenShift叢集新增至Astra控制中心、並加以管理。移至「叢集」、按一下「新增叢集」、上傳OpenShift叢集的「kubeconfig」檔案、然後按一下「選取儲存設備」。
 +
 image:redhat_openshift_image91.jpg["Astra Control Center會建立叢集"]
 
@@ -46,7 +46,7 @@ image:redhat_openshift_image95.jpg["Astra Control Center建立後端"]
 +
 image:redhat_openshift_image96.jpg["Astra Control Center後端可用"]
 
-. 若要使用Astra Control Center跨OpenShift叢集進行備份與還原、您必須配置支援S3傳輸協定的物件儲存桶。目前支援ONTAP 的選項包括不支援的S3、StorageGRID 不支援的功能、以及AWS S3。為了進行此安裝、我們將設定AWS S3儲存區。移至「Bucket」、按一下「Add Bucket」、然後選取「通用S3」。輸入S3儲存區及認證的詳細資料以進行存取、按一下「將此儲存區設為雲端的預設儲存區」核取方塊、然後按一下「新增」。
+. 若要使用Astra Control Center跨OpenShift叢集進行備份與還原、您必須配置支援S3傳輸協定的物件儲存桶。目前支援ONTAP 的選項包括不支援的S3、StorageGRID 不支援的功能、以及AWS S3。為了進行此安裝、我們將設定AWS S3儲存區。移至「Bucket」、按一下「Add Bucket」、然後選取「通用S3」。輸入S3儲存區的詳細資料及存取憑證、按一下「將此儲存區設為雲端的預設儲存區」核取方塊、然後按一下「新增」。
 +
 image:redhat_openshift_image97.jpg["Astra Control Center可建立鏟斗"]
 

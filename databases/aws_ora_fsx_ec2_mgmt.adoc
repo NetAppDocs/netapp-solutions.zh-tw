@@ -1,0 +1,278 @@
+---
+sidebar: sidebar 
+permalink: databases/aws_ora_fsx_ec2_mgmt.html 
+summary: 本節將詳細說明AWS RDS Custom for Oracle資料庫如何透過SnapCenter 支援AWS UI來管理、以作為AWS RDS主控台UI的補充說明。 
+keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter 
+---
+= EC2/FSX Oracle資料庫管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:aws_ora_fsx_ec2_procedures.html["先前：部署程序。"]
+
+除了AWS EC2和FSX管理主控台之外、我們SnapCenter 也部署Ansible控制節點和the SUI工具、以便在此Oracle環境中進行資料庫管理。
+
+Ansible控制節點可用來管理Oracle環境組態、並可透過平行更新來同步主要和待命執行個體、以進行核心或修補程式更新。容錯移轉、重新同步及容錯回復均可透過NetApp Automation Toolkit自動化、以Ansible來歸檔快速的應用程式恢復與可用度。有些可重複執行的資料庫管理工作可使用教戰手冊來減少人為錯誤。
+
+使用適用於Oracle資料庫的支援程式、即可執行資料庫Snapshot備份、時間點還原、資料庫複製等作業。SnapCenter SnapCenter如需Oracle外掛程式功能的詳細資訊、請參閱 link:https://docs.netapp.com/ocsc-43/index.jsp?topic=%2Fcom.netapp.doc.ocsc-con%2FGUID-CF6B23A3-2B2B-426F-826B-490706880EE8.html["適用於Oracle資料庫的插件總覽SnapCenter"^]。
+
+以下各節將詳細說明如何使用SnapCenter 這個功能來實現Oracle資料庫管理的關鍵功能：
+
+* 資料庫快照備份
+* 資料庫時間點還原
+* 建立資料庫複製
+
+
+資料庫複製會在個別EC2主機上建立主要資料庫的複本、以便在發生邏輯資料錯誤或毀損時進行資料還原、而複本也可用於應用程式測試、偵錯、修補程式驗證等作業。
+
+
+
+== 拍攝快照
+
+EC2/FSX Oracle資料庫會定期備份、時間間隔由使用者設定。使用者也可以隨時進行一次性快照備份。這適用於完整資料庫快照備份、以及僅歸檔記錄的快照備份。
+
+
+
+=== 擷取完整的資料庫快照
+
+完整的資料庫快照包含所有Oracle檔案、包括資料檔案、控制檔和歸檔記錄檔。
+
+. 登入SnapCenter 到這個功能表、然後按一下左側功能表中的「Resources（資源）」。從「檢視」下拉式清單中、變更為「資源群組」檢視。
++
+image:aws_rds_custom_deploy_snp_10.PNG["錯誤：缺少圖形影像"]
+
+. 按一下完整備份資源名稱、然後按一下「立即備份」圖示以啟動附加的備份。
++
+image:aws_rds_custom_deploy_snp_11.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「備份」、然後確認備份以開始完整的資料庫備份。
++
+image:aws_rds_custom_deploy_snp_12.PNG["錯誤：缺少圖形影像"]
+
++
+從資料庫的「資源」檢視中、開啟「資料庫管理備份複本」頁面、確認一次性備份已成功完成。完整資料庫備份會建立兩個快照：一個用於資料磁碟區、另一個用於記錄磁碟區。
+
++
+image:aws_rds_custom_deploy_snp_13.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+=== 擷取歸檔記錄快照
+
+歸檔記錄快照只會針對Oracle歸檔記錄磁碟區執行。
+
+. 登入SnapCenter 到「資源」UI、然後按一下左側功能表列中的「資源」索引標籤。從「檢視」下拉式清單中、變更為「資源群組」檢視。
++
+image:aws_rds_custom_deploy_snp_10.PNG["錯誤：缺少圖形影像"]
+
+. 按一下記錄備份資源名稱、然後按一下「立即備份」圖示、針對歸檔記錄啟動附加的備份。
++
+image:aws_rds_custom_deploy_snp_14.PNG["錯誤：缺少圖形影像"]
+
+. 按一下「備份」、然後確認備份以開始備份歸檔記錄。
++
+image:aws_rds_custom_deploy_snp_15.PNG["錯誤：缺少圖形影像"]
+
++
+從資料庫的資源檢視中、開啟「資料庫管理的備份複本」頁面、確認一次性歸檔記錄備份已成功完成。歸檔記錄備份會為記錄磁碟區建立一個快照。
+
++
+image:aws_rds_custom_deploy_snp_16.PNG["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 還原至某個時間點
+
+SnapCenter型還原至某個時間點、會在同一個EC2執行個體主機上執行。完成下列步驟以執行還原：
+
+. 從「資源」索引標籤>「資料庫」檢視中、按一下資料庫名稱以開啟資料庫備份。SnapCenter
++
+image:aws_rds_custom_deploy_snp_17.PNG["錯誤：缺少圖形影像"]
+
+. 選取資料庫備份複本、以及所需的還原時間點。同時記下時間點對應的SCN編號。時間點還原可以使用時間或SCN來執行。
++
+image:aws_rds_custom_deploy_snp_18.PNG["錯誤：缺少圖形影像"]
+
+. 反白顯示記錄磁碟區快照、然後按一下「Mount（掛載）」按鈕以掛載磁碟區。
++
+image:aws_rds_custom_deploy_snp_19.PNG["錯誤：缺少圖形影像"]
+
+. 選擇要掛載記錄磁碟區的主要EC2執行個體。
++
+image:aws_rds_custom_deploy_snp_20.PNG["錯誤：缺少圖形影像"]
+
+. 驗證掛載工作是否成功完成。此外、請檢查EC2執行個體主機、查看已掛載的記錄磁碟區以及掛載點路徑。
++
+image:aws_rds_custom_deploy_snp_21_1.PNG["錯誤：缺少圖形影像"]
+image:aws_rds_custom_deploy_snp_21_2.PNG["錯誤：缺少圖形影像"]
+
+. 將歸檔記錄從掛載的記錄磁碟區複製到目前的歸檔記錄目錄。
++
+[listing]
+----
+[ec2-user@ip-10-0-0-151 ~]$ cp /var/opt/snapcenter/sco/backup_mount/ip-10-0-0-151_03-25-2022_11.15.01.1503_1/ORCL/1/db/ORCL_A/arch/*.arc /ora_nfs_log/db/ORCL_A/arch/
+----
+. 返回SnapCenter 「還原資源」索引標籤>「資料庫備份」頁面、反白顯示資料快照複本、然後按一下「還原」按鈕以啟動資料庫還原工作流程。
++
+image:aws_rds_custom_deploy_snp_22.PNG["錯誤：缺少圖形影像"]
+
+. 核取「All Datafiles（所有資料檔案）」和「Change databases state if需求時變更資料庫狀態以進行還原與還原」、然後按「Next（下一步）」。
++
+image:aws_rds_custom_deploy_snp_23.PNG["錯誤：缺少圖形影像"]
+
+. 使用SCN或Time選擇所需的恢復範圍。掛載的歸檔記錄不像步驟6所示複製到目前的記錄目錄、而是可在「指定外部歸檔記錄檔位置」中列出掛載的歸檔記錄路徑以供還原。
++
+image:aws_rds_custom_deploy_snp_24_1.PNG["錯誤：缺少圖形影像"]
+
+. 如有必要、請指定可執行的預先記錄。
++
+image:aws_rds_custom_deploy_snp_25.PNG["錯誤：缺少圖形影像"]
+
+. 如有必要、請指定要執行的選用後指令碼。恢復後檢查開啟的資料庫。
++
+image:aws_rds_custom_deploy_snp_26.PNG["錯誤：缺少圖形影像"]
+
+. 如果需要工作通知、請提供一個SMTP伺服器和電子郵件地址。
++
+image:aws_rds_custom_deploy_snp_27.PNG["錯誤：缺少圖形影像"]
+
+. 還原工作摘要。按一下「完成」以啟動還原工作。
++
+image:aws_rds_custom_deploy_snp_28.PNG["錯誤：缺少圖形影像"]
+
+. 驗SnapCenter 證從還原。
++
+image:aws_rds_custom_deploy_snp_29_1.PNG["錯誤：缺少圖形影像"]
+
+. 從EC2執行個體主機驗證還原。
++
+image:aws_rds_custom_deploy_snp_29_2.PNG["錯誤：缺少圖形影像"]
+
+. 若要卸載還原記錄磁碟區、請反轉步驟4中的步驟。
+
+
+
+
+== 建立資料庫複本
+
+下節說明如何使用SnapCenter 「還原複製」工作流程、從主要資料庫建立資料庫複製到備用EC2執行個體。
+
+. 使用完整的備份資源群組、從SnapCenter 支援部取得主資料庫的完整快照備份。
++
+image:aws_rds_custom_deploy_replica_02.PNG["錯誤：缺少圖形影像"]
+
+. 從「資源」索引標籤>「資料庫」檢視中、開啟要從中建立複本之主要資料庫的「資料庫備份管理」頁面。SnapCenter
++
+image:aws_rds_custom_deploy_replica_04.PNG["錯誤：缺少圖形影像"]
+
+. 將步驟4中拍攝的記錄磁碟區快照掛載到備用EC2執行個體主機。
++
+image:aws_rds_custom_deploy_replica_13.PNG["錯誤：缺少圖形影像"]
+image:aws_rds_custom_deploy_replica_14.PNG["錯誤：缺少圖形影像"]
+
+. 反白顯示要複本複本複本的快照複本、然後按一下「Clone（複製）」按鈕以開始複製程序。
++
+image:aws_rds_custom_deploy_replica_05.PNG["錯誤：缺少圖形影像"]
+
+. 變更複本複本名稱、使其不同於主要資料庫名稱。按一下「下一步」
++
+image:aws_rds_custom_deploy_replica_06.PNG["錯誤：缺少圖形影像"]
+
+. 將實體複本主機變更為備用EC2主機、接受預設命名、然後按「Next（下一步）」。
++
+image:aws_rds_custom_deploy_replica_07.PNG["錯誤：缺少圖形影像"]
+
+. 變更Oracle主選項設定、使其符合針對目標Oracle伺服器主機所設定的設定、然後按「Next（下一步）」。
++
+image:aws_rds_custom_deploy_replica_08.PNG["錯誤：缺少圖形影像"]
+
+. 使用時間或SCN與掛載的歸檔記錄路徑來指定還原點。
++
+image:aws_rds_custom_deploy_replica_15.PNG["錯誤：缺少圖形影像"]
+
+. 如有需要、請傳送SMTP電子郵件 設定。
++
+image:aws_rds_custom_deploy_replica_11.PNG["錯誤：缺少圖形影像"]
+
+. 複製工作摘要、然後按一下「Finish（完成）」以啟動複製工作。
++
+image:aws_rds_custom_deploy_replica_12.PNG["錯誤：缺少圖形影像"]
+
+. 檢閱複本工作記錄、以驗證複本複本複本複本複本。
++
+image:aws_rds_custom_deploy_replica_17.PNG["錯誤：缺少圖形影像"]
+
++
+複製的資料庫SnapCenter 會立即登錄在
+
++
+image:aws_rds_custom_deploy_replica_18.PNG["錯誤：缺少圖形影像"]
+
+. 關閉Oracle歸檔記錄模式。以Oracle使用者身分登入EC2執行個體、然後執行下列命令：
++
+[source, cli]
+----
+sqlplus / as sysdba
+----
++
+[source, cli]
+----
+shutdown immediate;
+----
++
+[source, cli]
+----
+startup mount;
+----
++
+[source, cli]
+----
+alter database noarchivelog;
+----
++
+[source, cli]
+----
+alter database open;
+----
+
+
+
+NOTE: 而非主要Oracle備份複本、也可以使用相同的程序、從目標FSX叢 集上的複寫次要備份複本建立複本。
+
+
+
+== HA容錯移轉至待機並重新同步
+
+備用Oracle HA叢集可在主要站台發生故障時、提供高可用度、無論是在運算層或儲存層。此解決方案的一大優點是、使用者可以隨時或以任何頻率測試及驗證基礎架構。容錯移轉可由使用者模擬或由實際故障觸發。容錯移轉程序完全相同、而且可以自動化以快速恢復應用程式。
+
+請參閱下列容錯移轉程序清單：
+
+. 對於模擬的容錯移轉、請執行記錄快照備份、將最新的交易排清至待命站台、如一節所示 <<Taking an archive log snapshot>>。對於由實際故障觸發的容錯移轉、最後一個可恢復的資料會複寫到待命站台、最後一個成功的排程記錄磁碟區備份會被複寫到待命站台。
+. 中斷主叢集與待命FSX叢集之間的SnapMirror。
+. 在待命EC2執行個體主機上掛載複寫的待命資料庫磁碟區。
+. 如果複寫的Oracle二進位檔用於Oracle還原、請重新連結Oracle二進位檔。
+. 將備用Oracle資料庫恢復至上次可用的歸檔記錄。
+. 開啟備用Oracle資料庫以供應用程式和使用者存取。
+. 對於實際的主要站台故障、備用Oracle資料庫現在扮演新的主要站台角色、而資料庫磁碟區則可用來以反轉SnapMirror方法、將故障的主要站台重建為新的待命站台。
+. 對於模擬的主要站台測試或驗證失敗、請在測試完成後關閉備用Oracle資料庫。然後從待命EC2執行個體主機卸載待命資料庫磁碟區、並重新同步從主要站台複寫至待命站台。
+
+
+您可以使用NetApp Automation Toolkit執行這些程序、該工具套件可從NetApp GitHub公開網站下載。
+
+[source, cli]
+----
+git clone https://github.com/NetApp-Automation/na_ora_hadr_failover_resync.git
+----
+在嘗試設定和容錯移轉測試之前、請先仔細閱讀README說明。
+
+link:aws_ora_fsx_ec2_migration.html["下一步：資料庫移轉。"]
