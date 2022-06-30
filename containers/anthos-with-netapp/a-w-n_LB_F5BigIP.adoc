@@ -54,7 +54,7 @@ NOTE: 若要下載應用裝置、使用者必須向F5註冊。他們為Big IP Vi
 +
 image:deploy-big_ip_1.PNG["部署Big IP應用裝置"]
 
-. 按一下「Next（下一步）」以繼續執行每個步驟、並接受每個顯示畫面的預設值、直到您進入儲存選擇畫面為止。選取先前建立的VM_Datastore、然後按「Next（下一步）」。
+. 按一下「Next（下一步）」以繼續執行每個步驟、並接受每個顯示畫面的預設值、直到您進入儲存選擇畫面為止。選取要部署虛擬機器的VM_Datastore、然後按一下「Next（下一步）」。
 . 精靈顯示的下一個畫面可讓您自訂要用於環境的虛擬網路。選取「VM_Network」作為「外部」欄位、然後選取「Management」（管理）欄位的「Management Network」（管理網路）。內部和HA用於F5 Big IP應用裝置的進階組態、且未設定。這些參數可以單獨保留、也可以設定為連線至非基礎架構的分散式連接埠群組。按一下「下一步」
 +
 image:deploy-big_ip_2.PNG["部署Big IP應用裝置、第2部分"]
@@ -87,7 +87,7 @@ image:big-IP_config_4.PNG["Big IP組態、第4部分"]
 
 . Configuration Change（組態變更）視窗隨即關閉、Setup Utility（設定公用程式）會顯示Resource Provisioning（資源配置）功能表。此視窗列出目前已授權的功能、以及虛擬應用裝置和每個執行中服務的目前資源配置。
 +
-image::big-IP_config_5.png[Big IP組態]
+image::big-IP_config_5.PNG[Big IP組態]
 
 . 按一下左側的「Platform（平台）」功能表選項、即可進一步修改平台。修改內容包括設定以DHCP設定的管理IP位址、設定主機名稱和裝置安裝所在的時區、以及確保應用裝置不受SSH存取。
 +
@@ -111,7 +111,7 @@ image:big-IP_config_9.PNG["Big IP組態、第9部分"]
 
 . 在下一頁、如果您要在環境中部署多個虛擬應用裝置、則可以設定內部HA網路。若要繼續、您必須填入「自行IP位址」和「子網路遮罩」欄位、而且必須選取介面1.3作為VLAN介面、此介面對應至OVF範本精靈所定義的HA網路。
 +
-image:big-IP_config_10.png["Big IP組態、第10部分"]
+image:big-IP_config_10.PNG["Big IP組態、第10部分"]
 
 . 下一頁可讓您設定NTP伺服器。然後按「Next（下一步）」繼續DNS設定。DNS伺服器和網域搜尋清單應已由DHCP伺服器填入。按一下「Next（下一步）」接受預設值並繼續。
 . 在精靈的其餘部分中、按一下「下一步」繼續執行進階對等設定、其組態超出本文件的範圍。然後按一下「Finish（完成）」結束精靈。

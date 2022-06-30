@@ -10132,7 +10132,6 @@
   <block id="fff9995f30a825c5d3e5709e7b78117a" category="admonition">若要下載應用裝置、使用者必須向F5註冊。他們為Big IP Virtual Edition負載平衡器提供30天的示範授權。NetApp建議在設備的正式作業部署中使用10Gbps的永久授權。</block>
   <block id="1a104d04970b6b80d8cf31f554404f4d" category="list-text">在基礎架構資源集區上按一下滑鼠右鍵、然後選取「部署OVF範本」。精靈隨即啟動、可讓您選取您剛在步驟1中下載的OVA檔案。按一下「下一步」</block>
   <block id="fdf7304b13d736c791bc745a330e7309" category="image-alt">部署Big IP應用裝置</block>
-  <block id="b0c5dd13efd4858e2056c5d88267c2fa" category="list-text">按一下「Next（下一步）」以繼續執行每個步驟、並接受每個顯示畫面的預設值、直到您進入儲存選擇畫面為止。選取先前建立的VM_Datastore、然後按「Next（下一步）」。</block>
   <block id="fbd07b7802c1a124a9359b27b9f46968" category="list-text">精靈顯示的下一個畫面可讓您自訂要用於環境的虛擬網路。選取「VM_Network」作為「外部」欄位、然後選取「Management」（管理）欄位的「Management Network」（管理網路）。內部和HA用於F5 Big IP應用裝置的進階組態、且未設定。這些參數可以單獨保留、也可以設定為連線至非基礎架構的分散式連接埠群組。按一下「下一步」</block>
   <block id="93353313944577e80d34c3d9491db6ce" category="list-text">檢閱應用裝置的摘要畫面、如果所有資訊都正確、請按一下「Finish（完成）」開始部署。</block>
   <block id="68b984a73f20c874fb80feeaa4621109" category="list-text">部署虛擬應用裝置之後、請以滑鼠右鍵按一下該應用裝置並啟動。它應該會在管理網路上接收DHCP位址。此應用裝置是以Linux為基礎、並已部署VMware Tools、因此您可以檢視它在vSphere用戶端中收到的DHCP位址。</block>
@@ -12836,7 +12835,6 @@
   <block id="93e0638cb95146eb8773223a90aa6d86" category="list-text">下一頁可讓您設定外部網路、以將服務對應至Kubernetes中部署的Pod。從VM_Network範圍、適當的子網路遮罩和相同範圍的浮動IP中選取靜態IP。介面1.2對應至OVF部署精靈中標示為「外部」的vmnic。</block>
   <block id="803c8b846cb5b5c6c8d5a2b0b07f4dba" category="inline-image-macro">Big IP組態、第9部分</block>
   <block id="9cd42351da162e75b1a0178bdd0ded20" category="inline-image-macro">Big IP組態、第10部分</block>
-  <block id="ca2835359be5e4e2e79ed5b6fd777515" category="paragraph"><block ref="ca2835359be5e4e2e79ed5b6fd777515" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ad99125325ea694a08a4db92eabb18a1" category="inline-image-macro">Big IP組態、第11部分</block>
   <block id="d71ac8787685cb0f3b8f800520d684b1" category="paragraph"><block ref="d71ac8787685cb0f3b8f800520d684b1" category="inline-image-macro-rx" type="image"></block></block>
   <block id="99a0344c261b0475e6caf01bb585530f" category="list-text">顯示的畫面僅顯示目前的通用分割區。按一下右側的「Create（建立）」以建立第一個額外的分割區、並將其命名為「GKE管理」。然後按一下「重複」、並將分割區命名為「User-Cluster-1」。再按一下「重複」按鈕、將下一個分割區命名為「使用者叢集2」。最後按一下「完成」以完成精靈。「磁碟分割清單」畫面會傳回所有目前列出的磁碟分割。</block>
@@ -12971,7 +12969,6 @@
   <block id="54132be89475e52a0550d90f4b162e74" category="paragraph"><block ref="54132be89475e52a0550d90f4b162e74" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a7f329dfec2100f6b17e76aecd655cac" category="paragraph"><block ref="a7f329dfec2100f6b17e76aecd655cac" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ec1ad0944f93fe082ef02313cd33db47" category="paragraph"><block ref="ec1ad0944f93fe082ef02313cd33db47" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="a4bcee5bad76b31cc176f808d63ca8af" category="admonition">在此檔案中定義了一個名為「FSType」的選用欄位。在iSCSI後端中、此值可設定為特定的Linux檔案系統類型（XFS、ext4等）、也可刪除此值、讓OpenShift決定要使用哪個檔案系統。</block>
   <block id="28eb5fe5f641c3ffa32f2488fa166a36" category="paragraph">本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。它也詳細說明如何使用Astra Trident儲存協調程式來管理持續儲存設備、藉此與NetApp儲存系統進行儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。</block>
   <block id="0d3aabd1c9ad032e07b543d0aff99cb1" category="list-text">使用隨附的「bmctl」工具部署在裸機上、或使用VMware vSphere上的「gkectl」工具、即可輕鬆部署及管理Anthos環境。</block>
   <block id="ee1ef628edbfb6bb102163064fbd3d8e" category="paragraph">Anthos with NetApp解決方案瞭解這些挑戰、並提供解決方案、在客戶所選的資料中心環境中實作Anthos的全自動部署、以協助解決每個疑慮。</block>
@@ -13034,4 +13031,7 @@
   <block id="d0ee5cd6f53ec708670800837b7502b7" category="inline-link-macro">下一步：NetApp ONTAP 支援iSCSI。</block>
   <block id="884a92818052da7764b1c5b7589bd458" category="paragraph"><block ref="884a92818052da7764b1c5b7589bd458" category="inline-link-macro-rx"></block></block>
   <block id="eec34a14279b64231b91793978a204da" category="paragraph"><block ref="eec34a14279b64231b91793978a204da" category="inline-link-macro-rx"></block></block>
+  <block id="f6762efea56447c717fea204b2676851" category="list-text">按一下「Next（下一步）」以繼續執行每個步驟、並接受每個顯示畫面的預設值、直到您進入儲存選擇畫面為止。選取要部署虛擬機器的VM_Datastore、然後按一下「Next（下一步）」。</block>
+  <block id="9c071149626a964576dd6f6dfc3b6ac6" category="paragraph"><block ref="9c071149626a964576dd6f6dfc3b6ac6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="da0289d58f35e36d18325d6e8038b226" category="admonition">在此檔案中定義了一個名為「FSType」的選用欄位。在iSCSI後端中、此值可設定為特定的Linux檔案系統類型（XFS、ext4等）、也可刪除此值、讓工作節點OS決定要使用哪個檔案系統。</block>
 </blocks>
