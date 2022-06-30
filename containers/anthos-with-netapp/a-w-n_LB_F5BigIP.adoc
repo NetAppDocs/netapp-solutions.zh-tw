@@ -99,7 +99,7 @@ image:big-IP_config_7.PNG["Big IP組態、第7部分"]
 
 . 精靈的第一頁會設定備援功能；保留預設值、然後按「Next（下一步）」。下一頁可讓您在負載平衡器上設定內部介面。介面1.1會對應至OVF部署精靈中標示為「Internal（內部）」的vmnic。
 +
-image:big-IP_config_8.png["Big IP組態、第8部分"]
+image:big-IP_config_8.PNG["Big IP組態、第8部分"]
 
 +
 
@@ -107,7 +107,7 @@ NOTE: 此頁面中的「自我IP位址」、「網路遮罩」和「浮動IP位�
 
 . 下一頁可讓您設定外部網路、以將服務對應至Kubernetes中部署的Pod。從VM_Network範圍、適當的子網路遮罩和相同範圍的浮動IP中選取靜態IP。介面1.2對應至OVF部署精靈中標示為「外部」的vmnic。
 +
-image:big-IP_config_9.png["Big IP組態、第9部分"]
+image:big-IP_config_9.PNG["Big IP組態、第9部分"]
 
 . 在下一頁、如果您要在環境中部署多個虛擬應用裝置、則可以設定內部HA網路。若要繼續、您必須填入「自行IP位址」和「子網路遮罩」欄位、而且必須選取介面1.3作為VLAN介面、此介面對應至OVF範本精靈所定義的HA網路。
 +
@@ -189,4 +189,4 @@ image:big-IP_config_12.PNG["Big IP組態、第12部分"]
     # (Optional) Run two LB VMs to achieve high availability (default: false)
     #   enableHA: false
 ----
-link:a-w-n_use_cases.html["下一步：解決方案驗證/使用案例。"]
+link:a-w-n_LB_MetalLB.html["下一步：安裝MetalLB負載平衡器。"]

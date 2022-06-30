@@ -34,7 +34,7 @@ Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次
 若要使用Helm在已部署的使用者叢集上自動安裝Trident並佈建持續磁碟區、請完成下列步驟：
 
 
-NOTE: 依照預設、不會在GKE管理工作站上安裝Helm。您可以從下列網站下載搭配Ubuntu使用的二進位格式： https://helm.sh/docs/intro/install/["Helm安裝頁面"]
+NOTE: 依照預設、不會在GKE管理工作站上安裝Helm。可從下載、以二進位格式與Ubuntu搭配使用 https://helm.sh/docs/intro/install/["Helm安裝頁面"]。
 
 . 首先、將使用者叢集的「kubeconfig」檔案位置設定為環境變數、這樣您就不需要參考、因為Trident沒有傳遞此檔案的選項。
 +
@@ -290,9 +290,4 @@ trident-operator-66f48895cc-lzczk   1/1     Running   0          2m39s
 
 完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。
 
-* link:a-w-n_trident_ontap_nfs.html["NetApp ONTAP 不適用於NFS"]
-* link:a-w-n_trident_ontap_iscsi.html["NetApp ONTAP 支援iSCSI"]
-* link:a-w-n_trident_element_iscsi.html["支援iSCSI NetApp Element"]
-
-
-link:a-w-n_use_cases.html["下一步：進階組態選項。"]
+link:a-w-n_trident_ontap_nfs.html["下一步：NetApp ONTAP 不再是NFS。"]
