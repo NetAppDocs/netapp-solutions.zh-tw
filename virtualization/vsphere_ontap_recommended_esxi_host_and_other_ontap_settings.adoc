@@ -36,7 +36,7 @@ NetApp已開發出一套ESXi主機多重路徑和HBA逾時設定、可根據ONTA
 | net.TcpipHeapSize. | vSphere 6.0或更新版本、設定為32。所有其他NFS組態、設定為30。 
 
 
-| net.TcpipHeapMax | vSphere 6.0及更新版本的設定為1536。 
+| net.TcpipHeapMax | 大多數vSphere 6.x版本的設定為512MB。若為6.5U3、6.7U3及7.0或更新版本、則設為1024MB。 
 
 
 | NFS.MaxVolumes | vSphere 6.0或更新版本、設定為256。所有其他NFS組態、設定為64。 
