@@ -258,11 +258,13 @@
           <div id="react-search" 
           data-search-html="/zh-tw/netapp-solutions/search.html"
           data-type="widget" 
-          data-placeholder="搜尋文件" 
-          data-no-results-found="找不到符合 {query} 的相關結果。" 
-          data-did-you-mean="搜尋 {suggestion}。" 
-          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
-          data-results-found="找到 {hitCount} 筆結果"  
+          data-placeholder="搜尋文件"
+          data-no-results-found="找不到符合 {query} 的相關結果。"
+          data-did-you-mean="搜尋 {suggestion}。"
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？"
+          data-results-found="找到 {hitCount} 筆結果"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
           data-sk-es-pf-indexes=""
           data-flavor=""></div>
           <button class="n-property-bar__search-toggle-button" type="button">
@@ -5111,7 +5113,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-03 06:18:11 +0000">05/03/2022</time>
+    <time datetime="2022-07-15 19:05:48 +0000">07/15/2022</time>
     
   
 
@@ -5131,8 +5133,9 @@
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="為何客戶會從hdfs和mapr-fs移轉至nfs">為何客戶會從HDFS和MapR-FS移轉至NFS？</h3>
+<div class="sect1">
+<h2 id="為何客戶會從hdfs和mapr-fs移轉至nfs">為何客戶會從HDFS和MapR-FS移轉至NFS？</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>大部分的Hadoop發佈（例如Cloudera和Hortonworks）都使用HDFS、而MapR發佈則使用自己的檔案系統（稱為MapR-FS）來儲存資料。HDFS與MapR-FS資料可為資料科學家提供寶貴的見解、並可用於機器學習（ML）和深度學習（DL）。HDFS和MapR-FS中的資料不會共用、這表示其他應用程式無法使用該資料。客戶正在尋找共享資料、尤其是在銀行部門、客戶的敏感資料會被多個應用程式使用。最新版本的Hadoop（3.x或更新版本）支援NFS資料來源、無需其他協力廠商軟體即可存取。有了全新的NetApp XCP功能、資料可以直接從HDFS和MapR-FS移至NetApp NFS、以便存取多個應用程式</p>
 </div>
@@ -5189,6 +5192,7 @@
 </div>
 <div class="paragraph">
 <p><a href="bda-ai-business-benefits.html">"下一步：商業效益。"</a></p>
+</div>
 </div>
 </div>
 

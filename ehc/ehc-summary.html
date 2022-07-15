@@ -258,11 +258,13 @@
           <div id="react-search" 
           data-search-html="/zh-tw/netapp-solutions/search.html"
           data-type="widget" 
-          data-placeholder="搜尋文件" 
-          data-no-results-found="找不到符合 {query} 的相關結果。" 
-          data-did-you-mean="搜尋 {suggestion}。" 
-          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
-          data-results-found="找到 {hitCount} 筆結果"  
+          data-placeholder="搜尋文件"
+          data-no-results-found="找不到符合 {query} 的相關結果。"
+          data-did-you-mean="搜尋 {suggestion}。"
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？"
+          data-results-found="找到 {hitCount} 筆結果"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
           data-sk-es-pf-indexes=""
           data-flavor=""></div>
           <button class="n-property-bar__search-toggle-button" type="button">
@@ -5111,7 +5113,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-20 19:40:40 +0000">05/20/2022</time>
+    <time datetime="2022-07-15 19:05:48 +0000">07/15/2022</time>
     
   
 
@@ -5125,8 +5127,9 @@
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用案例1最佳化儲存設備">使用案例1：最佳化儲存設備</h3>
+<div class="sect1">
+<h2 id="使用案例1最佳化儲存設備">使用案例1：最佳化儲存設備</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>使用RVtoolsouting執行規模調整練習時、總是能清楚看出、馬力（vcpU/vMem）的規模與儲存設備平行。許多時候、組織發現自己的儲存空間需要磁碟機的大小、遠超馬力所需的大小。</p>
 </div>
@@ -5134,8 +5137,10 @@
 <p>透過整合NetApp Cloud Volumes、組織可以透過簡單的移轉方法實現vSphere型雲端解決方案、無需重新建立平台、無需變更IP、也無需變更架構。此外、此最佳化可讓您擴充儲存設備佔用空間、同時將vSphere中所需的主機數量維持在最低、但不會變更可用的儲存階層架構、安全性或檔案。這可讓您最佳化部署、並將整體TCO降低35%至45%。這項整合也可讓您在數秒內將儲存設備從溫儲存設備擴充至正式作業層級的效能。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用案例2雲端移轉">使用案例2：雲端移轉</h3>
+</div>
+<div class="sect1">
+<h2 id="使用案例2雲端移轉">使用案例2：雲端移轉</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>企業組織正面臨從內部部署資料中心移轉應用程式至公有雲的壓力、原因有多種：即將到期的租賃期限；從資本支出（資本支出）移轉至營運支出（營運支出）支出的財務指示；或只是由上而下的任務、將一切移至雲端。</p>
 </div>
@@ -5143,14 +5148,18 @@
 <p>當速度至關重要時、只有簡化的移轉方法才可行、因為為了適應雲端的特定IaaS平台而重新建立平台和重構應用程式的速度緩慢且昂貴、通常需要數月的時間。將NetApp Cloud Volumes與具頻寬效率的SnapMirror複寫結合、以利連接客體的儲存設備（包括結合應用程式一致的Snapshot複本和HCX的RDM）、實現雲端特定移轉（例如 Azure移轉）、或是用於複寫VM的協力廠商產品）、這項移轉作業比仰賴耗時的I/O篩選機制更容易。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用案例3資料中心擴充">使用案例3：資料中心擴充</h3>
+</div>
+<div class="sect1">
+<h2 id="使用案例3資料中心擴充">使用案例3：資料中心擴充</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>當資料中心因為季節性需求尖峰或是組織內部的穩定成長而達到容量限制時、移轉至雲端代管的VMware以及NetApp Cloud Volumes是一項簡單的解決方案。運用NetApp Cloud Volumes、可在可用度區域之間提供高可用度、並提供動態擴充功能、輕鬆建立、複寫及擴充儲存設備。運用NetApp Cloud Volumes可克服延伸叢集的需求、將主機叢集容量降至最低。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用案例4災難恢復至雲端">使用案例4：災難恢復至雲端</h3>
+</div>
+<div class="sect1">
+<h2 id="使用案例4災難恢復至雲端">使用案例4：災難恢復至雲端</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>在傳統的方法中、如果發生災難、複寫到雲端的VM將需要在還原之前、先轉換至雲端本身的Hypervisor平台、而非在危機期間處理的工作。</p>
 </div>
@@ -5158,10 +5167,13 @@
 <p>透過使用NetApp Cloud Volumes進行與來賓連線的儲存設備、並使用SnapCenter 內部部署的VMware和SnapMirror複寫、以及公有雲虛擬化解決方案、可以設計出更好的災難恢復方法、讓VM複本能夠在完全一致的VMware SDDC基礎架構上還原、並搭配雲端特定的恢復工具（例如 Azure Site Recovery）或同等的協力廠商工具、例如Veeam。這種方法也能讓您快速執行災難恢復訓練、並從勒索軟體中恢復。如此一來、您也可以隨需新增主機、以擴充至完整正式作業環境進行測試或災難期間。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用案例5應用程式現代化">使用案例5：應用程式現代化</h3>
+</div>
+<div class="sect1">
+<h2 id="使用案例5應用程式現代化">使用案例5：應用程式現代化</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>應用程式放入公有雲之後、組織就會想要利用數百種強大的雲端服務來進行現代化和擴充。使用NetApp Cloud Volumes之後、現代化是一項簡單的程序、因為應用程式資料並未鎖定在vSAN中、因此可在多種使用案例（包括Kubernetes）中進行資料移動。</p>
+</div>
 </div>
 </div>
 <div class="sect1">

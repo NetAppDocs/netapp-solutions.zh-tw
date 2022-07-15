@@ -258,11 +258,13 @@
           <div id="react-search" 
           data-search-html="/zh-tw/netapp-solutions/search.html"
           data-type="widget" 
-          data-placeholder="搜尋文件" 
-          data-no-results-found="找不到符合 {query} 的相關結果。" 
-          data-did-you-mean="搜尋 {suggestion}。" 
-          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？" 
-          data-results-found="找到 {hitCount} 筆結果"  
+          data-placeholder="搜尋文件"
+          data-no-results-found="找不到符合 {query} 的相關結果。"
+          data-did-you-mean="搜尋 {suggestion}。"
+          data-no-results-found-did-you-mean="找不到符合 {query} 的相關結果。您是否要找的是{suggestion}？"
+          data-results-found="找到 {hitCount} 筆結果"
+          data-error-message="We're sorry, an issue occurred when fetching your results. Please try again."
+          data-error-reset="Reset Search"
           data-sk-es-pf-indexes=""
           data-flavor=""></div>
           <button class="n-property-bar__search-toggle-button" type="button">
@@ -5111,7 +5113,7 @@
 <p class="page-details">
   
     
-    <time datetime="2022-05-03 06:18:11 +0000">05/03/2022</time>
+    <time datetime="2022-07-15 19:05:48 +0000">07/15/2022</time>
     
   
 
@@ -5137,8 +5139,9 @@
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="先決條件">先決條件</h3>
+<div class="sect1">
+<h2 id="先決條件">先決條件</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：</p>
 </div>
@@ -5153,20 +5156,26 @@
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="安裝helm">安裝Helm</h3>
+</div>
+<div class="sect1">
+<h2 id="安裝helm">安裝Helm</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>我們使用適用於Kubernetes的常用套件管理程式Helm來部署氣流。部署氣流之前、您必須先在部署跨接主機上安裝Helm。若要在部署跳接主機上安裝Helm、請遵循 <a href="https://helm.sh/docs/intro/install/" target="_blank" rel="noopener">"安裝說明"</a> 在官方Helm文件中。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="設定預設kubernetes-storageclass">設定預設Kubernetes StorageClass</h3>
+</div>
+<div class="sect1">
+<h2 id="設定預設kubernetes-storageclass">設定預設Kubernetes StorageClass</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>在部署氣流之前、您必須在Kubernetes叢集中指定預設StorageClass。氣流部署程序會嘗試使用預設StorageClass來配置新的持續磁碟區。如果沒有將StorageClass指定為預設StorageClass、則部署將會失敗。若要在叢集內指定預設StorageClass、請遵循一節中所述的指示 <a href="aicp_kubeflow_deployment_overview.html">"Kubeflow部署"</a>。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。</p>
 </div>
 </div>
-<div class="sect2">
-<h3 id="使用helm來部署氣流">使用Helm來部署氣流</h3>
+</div>
+<div class="sect1">
+<h2 id="使用helm來部署氣流">使用Helm來部署氣流</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>若要使用Helm在Kubernetes叢集中部署氣流、請從部署跨接主機執行下列工作：</p>
 </div>
@@ -5280,6 +5289,7 @@ $ echo http://$NODE_IP:$NODE_PORT/</pre>
 </div>
 <div class="paragraph">
 <p><a href="aicp_example_apache_airflow_workflows_overview.html">"下一步：Apache氣流工作流程範例。"</a></p>
+</div>
 </div>
 </div>
 
