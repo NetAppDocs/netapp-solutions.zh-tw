@@ -18,7 +18,7 @@ summary: 本頁說明在Kubernetes叢集中部署Kubeflow所需完成的工作�
 
 
 
-=== 先決條件
+== 先決條件
 
 在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
 
@@ -28,7 +28,7 @@ summary: 本頁說明在Kubernetes叢集中部署Kubeflow所需完成的工作�
 
 
 
-=== 設定預設Kubernetes StorageClass
+== 設定預設Kubernetes StorageClass
 
 在部署Kubeflow之前、您必須在Kubernetes叢集中指定預設StorageClass。Kubeflow部署程序會嘗試使用預設StorageClass來配置新的持續磁碟區。如果沒有將StorageClass指定為預設StorageClass、則部署將會失敗。若要在叢集內指定預設StorageClass、請從部署跨接主機執行下列工作。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。
 
@@ -56,7 +56,7 @@ ontap-ai-flexvols-retain (default)   csi.trident.netapp.io   54s
 ....
 
 
-=== 使用NVIDIA DeepOps部署Kubeflow
+== 使用NVIDIA DeepOps部署Kubeflow
 
 NetApp建議使用NVIDIA DeepOps提供的Kubeflow部署工具。若要使用DeepOps部署工具在Kubernetes叢集中部署Kubeflow、請從部署跳接主機執行下列工作。
 

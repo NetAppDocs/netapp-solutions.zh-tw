@@ -20,7 +20,7 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 
 
 
-=== 先決條件
+== 先決條件
 
 在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
 
@@ -30,19 +30,19 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 
 
 
-=== 安裝Helm
+== 安裝Helm
 
 我們使用適用於Kubernetes的常用套件管理程式Helm來部署氣流。部署氣流之前、您必須先在部署跨接主機上安裝Helm。若要在部署跳接主機上安裝Helm、請遵循 https://helm.sh/docs/intro/install/["安裝說明"^] 在官方Helm文件中。
 
 
 
-=== 設定預設Kubernetes StorageClass
+== 設定預設Kubernetes StorageClass
 
 在部署氣流之前、您必須在Kubernetes叢集中指定預設StorageClass。氣流部署程序會嘗試使用預設StorageClass來配置新的持續磁碟區。如果沒有將StorageClass指定為預設StorageClass、則部署將會失敗。若要在叢集內指定預設StorageClass、請遵循一節中所述的指示 link:aicp_kubeflow_deployment_overview.html["Kubeflow部署"]。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。
 
 
 
-=== 使用Helm來部署氣流
+== 使用Helm來部署氣流
 
 若要使用Helm在Kubernetes叢集中部署氣流、請從部署跨接主機執行下列工作：
 
