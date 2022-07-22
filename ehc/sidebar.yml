@@ -1,6 +1,6 @@
 ---
 section: ehc
-title: NetApp混合式多雲端與VMware
+title: NetApp混合式多雲端搭配VMware
 url: "/ehc/index.html"
 entries:
 - title: 適用於公有雲的VMware
@@ -25,6 +25,8 @@ entries:
     entries:
     - title: VMC的來賓連線儲存設備
       url: "/ehc/aws/aws-guest.html"
+    - title: AVS原生資料存放區
+      url: "/ehc/azure/azure-native-overview.html"
     - title: AVS的來賓連線儲存設備
       url: "/ehc/azure/azure-guest.html"
     - title: GCVE.訪客連線儲存設備
@@ -50,6 +52,15 @@ entries:
     url: "/ehc/aws/aws-regions.html"
 - title: 適用於Azure / AVS的NetApp
   url: "/ehc/azure/index.html"
+  entries:
+  - title: 保護工作負載
+    entries:
+    - title: 採用Jetstream的災難恢復（原生資料存放區）
+      url: "/ehc/azure/azure-native-dr-jetstream.html"
+    - title: 使用CVO和Jetstream（與來賓連線的儲存設備）進行災難恢復
+      url: "/ehc/azure/azure-guest-dr-jetstream.html"
+  - title: NFS資料存放區的區域支援
+    url: "/ehc/azure/azure-regions.html"
 - title: 適用於GCP / GCVE
   url: "/ehc/gcp/index.html"
   entries:

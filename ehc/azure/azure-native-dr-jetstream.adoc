@@ -1,0 +1,255 @@
+---
+sidebar: sidebar 
+permalink: ehc/azure/azure-native-dr-jetstream.html 
+keywords: NetApp Solutions, microsoft azure, avs, azure, anf, azure netapp files, ontap, disaster recovery, dr 
+summary:  
+---
+= 使用ANF和Jetstream進行災難恢復
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+[role="lead"]
+災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載免受站台停機和資料毀損事件（例如勒索軟體）的影響。使用VMware VAIO架構、內部部署的VMware工作負載可複寫至Azure Blob儲存設備並進行還原、使資料遺失率降至最低或接近零、RTO接近零。
+
+可以使用Jetstream DR無縫恢復從內部部署複製到AVS的工作負載、特別是Azure NetApp Files 到還原的工作負載。它能在災難恢復站台使用最少的資源、並以具成本效益的雲端儲存設備、實現具成本效益的災難恢復。透過Azure Blob Storage、在Anf資料存放區中自動恢復、根據網路對應、Jetstream DR會將獨立的VM或相關VM群組恢復至恢復站台基礎架構、並提供時間點還原功能以保護勒索軟體。
+
+本文件提供對Jetstream災難恢復作業原則及其主要元件的瞭解。
+
+.解決方案部署總覽
+====
+. 在內部部署資料中心安裝Jetstream DR軟體。
++
+.. 從Azure Marketplace（ZIP）下載Jetstream DR軟體套裝組合、並在指定的叢集中部署Jetstream DR MSA（OVA）。
+.. 使用I/O篩選套件設定叢集（安裝Jetstream VIB）。
+.. 在災難恢復AVS叢集所在的相同地區配置Azure Blob（Azure儲存帳戶）。
+.. 部署DRVA設備並指派複寫記錄磁碟區（來自現有資料存放區或共享iSCSI儲存設備的VMDK）。
+.. 建立受保護的網域（相關VM群組）、並指派DRVA和Azure Blob Storage/anf。
+.. 開始保護。
+
+
+. 在Azure VMware解決方案私有雲中安裝Jetstream DR軟體。
++
+.. 使用Run命令安裝及設定Jetstream DR。
+.. 使用「掃描網域」選項新增相同的Azure Blob容器並探索網域。
+.. 部署所需的DRVA設備。
+.. 使用可用的vSAN或ANF資料存放區建立複寫記錄磁碟區。
+.. 匯入受保護的網域、並將RockVA（恢復VA）設定為使用ANF資料存放區來放置VM。
+.. 選取適當的容錯移轉選項、並針對接近零的RTO網域或VM開始持續重新補充。
+
+
+. 在災難事件期間、觸發容錯移轉至Azure NetApp Files 指定AVS DR站台中的各個資料存放區。
+. 在受保護的站台恢復之後、呼叫容錯回復至受保護的站台。在啟動之前、請確定符合本說明所述的先決條件 https://docs.microsoft.com/en-us/azure/azure-vmware/deploy-disaster-recovery-using-jetstream["連結"^] 此外、您也可以執行所提供的「頻寬測試工具」（BWT）、評估Azure Blob儲存設備在與Jetstream DR軟體搭配使用時的潛在效能及其複寫頻寬。完成先決條件（包括連線）之後、請從設定並訂閱適用於AVS的Jetstream DR https://portal.azure.com/["Azure Marketplace"^]。軟體套裝軟體下載完成後、請繼續執行上述安裝程序。
+
+
+====
+規劃及啟動大量VM的保護（例如、超過100個）時、請使用位於Jetstream DR Automation Toolkit的容量規劃工具（CPt）。提供要保護的VM清單、以及其RTO和恢復群組偏好設定、然後執行CPt。
+
+執行下列功能：
+
+* 根據虛擬機器的RTO、將虛擬機器整合至保護網域。
+* 定義最理想的DRVA數量及其資源。
+* 預估必要的複寫頻寬。
+* 識別複寫記錄磁碟區的特性（容量、頻寬等）。
+* 估計所需的物件儲存容量等。
+
+
+
+NOTE: 指定的網域數量和內容取決於各種VM特性、例如平均IOPS、總容量、優先順序（定義容錯移轉順序）、RTO及其他特性。
+
+
+
+== 在內部部署資料中心安裝Jetstream DR
+
+Jetstream DR軟體包含三個主要元件：「Jetstream DR管理伺服器虛擬應用裝置（MSA）」、「DR虛擬應用裝置（DRVA）」和「主機元件（I/O篩選套件）」。MSA用於在運算叢集上安裝及設定主機元件、然後管理Jetstream DR軟體。下列清單提供安裝程序的詳細說明：
+
+====
+.詳細資料
+=====
+. 檢查先決條件。
+. 執行容量規劃工具以取得資源和組態建議（可選、但建議用於概念驗證試用）。
+. 將Jetstream DR MSA部署至指定叢集內的vSphere主機。
+. 在瀏覽器中使用其DNS名稱啟動MSA。
+. 向MSA登錄vCenter伺服器。若要執行安裝、請完成下列詳細步驟：
+. 部署了Jetstream DR MSA並註冊vCenter Server之後、請使用vSphere Web Client存取Jetstream DR外掛程式。您可以瀏覽至「資料中心」>「設定」>「Jetstream DR」來完成此作業。
++
+image:vmware-dr-image8.png["錯誤：缺少圖形影像"]
+
+. 在Jetstream DR介面中、選取適當的叢集。
++
+image:vmware-dr-image9.png["錯誤：缺少圖形影像"]
+
+. 使用I/O篩選套件設定叢集。
++
+image:vmware-dr-image10.png["錯誤：缺少圖形影像"]
+
+. 新增位於恢復站台的Azure Blob儲存設備。
+. 從「應用裝置」索引標籤部署DR虛擬應用裝置（DRVA）。
+
+
+
+NOTE: DRVA可由CPt自動建立、但對於POC試用、我們建議手動設定及執行DR週期（「start protection」（開始保護）>「Failover」（容錯移轉）>「Failover」（容錯回復））。
+
+Jetstream DRVA是一種虛擬應用裝置、有助於在資料複寫程序中發揮關鍵功能。受保護的叢集必須至少包含一個DRVA、而且每個主機通常會設定一個DRVA。每個DRVA都能管理多個受保護的網域。
+
+image:vmware-dr-image11.png["錯誤：缺少圖形影像"]
+
+在此範例中、我們為80部虛擬機器建立了四部DRVA。
+
+. 使用VMDK從可用的資料存放區或獨立的共享iSCSI儲存集區、為每個DRVA建立複寫記錄磁碟區。
+. 從「受保護的網域」索引標籤、使用Azure Blob儲存站台、DRVA執行個體和複寫記錄的相關資訊、建立所需數量的受保護網域。受保護的網域會定義叢集中的特定VM或VM組、這些VM會一起受到保護、並指派容錯移轉/容錯回復作業的優先順序。
++
+image:vmware-dr-image12.png["錯誤：缺少圖形影像"]
+
+. 選取您要保護的VM、並啟動受保護網域的VM保護。這會開始將資料複寫到指定的Blob Store。
+
+
+
+NOTE: 確認受保護網域中的所有VM都使用相同的保護模式。
+
+
+NOTE: 回寫（VMDK）模式可提供更高的效能。
+
+image:vmware-dr-image13.png["錯誤：缺少圖形影像"]
+
+驗證複寫記錄磁碟區是否放置在高效能儲存設備上。
+
+
+NOTE: 容錯移轉執行手冊可設定為群組VM（稱為「恢復群組」）、設定開機順序、以及修改CPU /記憶體設定和IP組態。
+
+=====
+====
+
+
+== 使用Run命令、在Azure VMware解決方案私有雲中安裝AVS的Jetstream DR
+
+恢復站台（AVS）的最佳實務做法是事先建立三節點的指示燈式叢集。如此可預先設定恢復站台基礎架構、包括下列項目：
+
+* 目的地網路區段、防火牆、DHCP和DNS等服務。
+* 安裝AVS的Jetstream DR
+* 將ANF磁碟區組態為資料存放區、而moreJetStream DR則支援接近零的RTO模式、適用於關鍵任務網域。對於這些網域、應該預先安裝目的地儲存設備。在此情況下、建議使用ANF儲存類型。
+
+
+
+NOTE: 應在AVS叢集上設定網路組態（包括區段建立）、以符合內部部署需求。
+
+視SLA和RTO需求而定、您可以使用持續容錯移轉或一般（標準）容錯移轉模式。對於接近零的RTO、應在恢復站台開始持續重新補充。
+
+====
+.詳細資料
+=====
+若要在Azure VMware解決方案私有雲上安裝適用於AVS的Jetstream DR、請完成下列步驟：
+
+. 從Azure入口網站移至Azure VMware解決方案、選取私有雲、然後選取執行命令>套件> JSDR.Configuration。
++
+
+NOTE: Azure VMware解決方案中的預設CloudAdmin使用者沒有足夠權限可安裝AVS的Jetstream DR。Azure VMware解決方案可針對Jetstream DR叫用Azure VMware Solution Run命令、以簡化及自動化方式安裝Jetstream DR。
+
++
+下列螢幕快照顯示使用DHCP型IP位址進行安裝。
+
++
+image:vmware-dr-image14.png["錯誤：缺少圖形影像"]
+
+. 在安裝AVS的Jetstream DR完成後、請重新整理瀏覽器。若要存取Jetstream DR UI、請前往SDDC資料中心>組態> Jetstream DR。
++
+image:vmware-dr-image15.png["錯誤：缺少圖形影像"]
+
+. 從Jetstream DR介面新增Azure Blob Storage帳戶、以保護內部部署叢集做為儲存站台、然後執行「掃描網域」選項。
++
+image:vmware-dr-image16.png["錯誤：缺少圖形影像"]
+
+. 匯入受保護的網域之後、請部署DRVA設備。在此範例中、會使用Jetstream DR UI從恢復站台手動啟動持續重新補充。
++
+
+NOTE: 您也可以使用已建立的CPT計畫來自動化這些步驟。
+
+. 使用可用的vSAN或ANF資料存放區建立複寫記錄磁碟區。
+. 匯入受保護的網域、並將恢復VA設定為使用ANF資料存放區來放置VM。
++
+image:vmware-dr-image17.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 請確定選取的區段已啟用DHCP、而且有足夠的IP可用。在網域還原期間、會暫時使用動態IP。每個恢復中的VM（包括持續重新補充）都需要個別的動態IP。恢復完成後、IP便會釋出、並可重複使用。
+
+. 選取適當的容錯移轉選項（持續容錯移轉或容錯移轉）。在此範例中、會選取持續還原（持續容錯移轉）。
++
+image:vmware-dr-image18.png["錯誤：缺少圖形影像"]
+
+
+
+=====
+====
+
+
+== 執行容錯移轉/容錯回復
+
+====
+.詳細資料
+=====
+. 在內部部署環境的受保護叢集發生災難（部分或完整故障）之後、觸發容錯移轉。
++
+
+NOTE: 您可以使用CPt執行容錯移轉計畫、將VM從Azure Blob Storage恢復到AVS叢集還原站台。
+
++
+
+NOTE: 在AVS中啟動受保護的VM後、容錯移轉（持續或標準還原）會自動恢復保護、而在Azure Blob Storage中、則會繼續將資料複寫到適當/原始的容器中。
+
++
+image:vmware-dr-image19.png["錯誤：缺少圖形影像"]
+
++
+image:vmware-dr-image20.png["錯誤：缺少圖形影像"]
+
++
+工作列會顯示容錯移轉活動的進度。
+
+. 當工作完成時、存取恢復的VM並維持正常營運。
++
+image:vmware-dr-image21.png["錯誤：缺少圖形影像"]
+
++
+在主站台啟動並再次執行之後、即可執行容錯回復。恢復VM保護、並檢查資料一致性。
+
+. 還原內部部署環境。視災難事件類型而定、可能需要還原及/或驗證受保護叢集的組態。如有必要、可能需要重新安裝Jetstream DR軟體。
++
+
+NOTE: 附註：Automation Toolkit提供的「恢復公用程式準備回復」指令碼、可用來協助清除任何過時VM、網域資訊等的原始受保護網站。
+
+. 存取還原的內部部署環境、前往Jetstream DR UI、然後選取適當的受保護網域。受保護的站台準備好進行容錯回復之後、請在UI中選取「容錯回復」選項。
++
+image:vmware-dr-image22.png["錯誤：缺少圖形影像"]
+
+
+
+
+NOTE: 此外、也可使用由CPT產生的容錯回復計畫、將VM及其資料從物件存放區傳回原始的VMware環境。
+
+
+NOTE: 指定在恢復站台暫停VM並在受保護站台重新啟動之後的最大延遲。這次包括在停止容錯移轉虛擬機器之後完成複寫、清理恢復站台的時間、以及在受保護站台重新建立虛擬機器的時間。NetApp建議的值為10分鐘。
+
+完成容錯回復程序、然後確認恢復VM保護和資料一致性。
+
+=====
+====
+
+
+== Ransomware恢復
+
+從勒索軟體中恢復可能是一項艱鉅的任務。具體而言、IT組織很難判斷安全的回報點、一旦確定、如何確保恢復的工作負載受到保護、避免再度發生攻擊（從休眠的惡意軟體或透過易受影響的應用程式）。
+
+====
+.詳細資料
+=====
+針對AVS的Jetstream DR搭配Azure NetApp Files 支援功能資料存放區、可讓組織從可用時間點恢復、以便在需要時將工作負載恢復至功能性隔離的網路、藉此解決這些問題。恢復功能可讓應用程式彼此運作和通訊、但不會讓它們暴露在北南流量中、因此安全團隊可以安全地執行鑑識和其他必要的補救措施。
+
+image:vmware-dr-image23.png["錯誤：缺少圖形影像"]
+
+=====
+====
