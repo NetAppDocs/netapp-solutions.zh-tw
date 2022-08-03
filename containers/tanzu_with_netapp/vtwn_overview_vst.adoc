@@ -13,7 +13,7 @@ summary:
 :imagesdir: ./../../media/
 
 
-搭配Tanzu的VMware vSphere（也稱為vSphere Pod）可讓您在裸機Kubernetes環境中、將VMware vSphere環境中的ESXi Hypervisor節點當作工作節點使用。
+搭配Tanzu的VMware vSphere（也稱為vSphere Pod）可讓您在VMware vSphere環境中使用ESXi Hypervisor節點作為裸機Kubernetes環境中的工作節點。
 
 image::vtwn_image30.png[VMware vSphere搭配Kubernetes]
 
@@ -23,14 +23,14 @@ image::vtwn_image30.png[VMware vSphere搭配Kubernetes]
 
 image::vtwn_image29.png[監督者叢集]
 
-啟用含有Tanzu的VMware vSphere時、每個ESXi主機都會安裝並設定Spherelet應用程式、讓每個節點都能在Kubernetes部署中擔任工作人員、並管理部署在每個節點上的Pod。
+啟用含有Tanzu的VMware vSphere時、每個ESXi主機都會安裝並設定Spherelet應用程式。如此一來、每個節點都能在Kubernetes部署中擔任工作人員、並管理部署在每個節點上的Pod。
 
 image::vtwn_image28.png[命名空間]
 
-目前搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這是讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則、並在為容器化應用程式建立持續磁碟區時使用這些原則。
+目前、搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這可讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則。這些原則可用來建立容器化應用程式的持續磁碟區。
 
 
-NOTE: 雖然NetApp Astra Trident SCSI驅動程式目前不支援直接連線至外部ONTAP 的功能和元件儲存陣列、 NetApp的這些儲存系統通常用於支援vSphere環境的主要儲存設備、而NetApp的進階資料管理與儲存效率工具也能以這種方式加以運用。
+NOTE: 雖然目前不支援NetApp Astra Trident SCSI驅動程式、因此無法直接連線至外部ONTAP 的VMware及Element儲存陣列、但這些NetApp儲存系統通常是用來支援vSphere環境的主要儲存設備、 此外、NetApp進階資料管理與儲存效率工具也能以這種方式使用。
 
 如果您想深入瞭解含有Tanzu的VMware vSphere、請參閱文件 link:https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-152BE7D2-E227-4DAA-B527-557B564D9718.html["請按這裡"^]。
 

@@ -12250,7 +12250,6 @@
   <block id="27077307fac1683851c72a97ba11c62e" category="list-text">TKGS僅在vSphere 7.0U1及後續版本上隨監督者叢集和工作負載叢集一起部署。</block>
   <block id="3ee27cde76894c76ad60736ecbca78da" category="list-text">TKGS支援應用程式/資料平面的MetalLB。</block>
   <block id="443c9bd7eeb4bc3d39f67cc555b4aab2" category="list-text">支援搭配Tanzu的vSphere Pod、可讓Pod直接在環境中啟用的ESXi主機上執行。</block>
-  <block id="ee195ce9ae2ef58590118a13425fce2a" category="paragraph">VMware Tanzu Kubernetes Grid整合（TKGI）</block>
   <block id="f4ef19f9ee886fa602632ef3f35019ad" category="list-text">先前稱為企業PKS（取自2019年2月的赫塔（Hetio）收購案）。</block>
   <block id="28789df26df63aa440b3aded601e67a6" category="list-text">可以使用NSX T、HA Proxy或Avi。您也可以提供自己的負載平衡器。</block>
   <block id="2b681f710a75cd56332534e50fe625ff" category="list-text">支援vSphere 6.7U3及AWS、Azure和GCP。</block>
@@ -13450,25 +13449,12 @@
   <block id="b8aef6e50d3ed85ad8f7568c45050629" category="sidebar">保護工作負載</block>
   <block id="c90d3565dac770d258e528bf1d0f0354" category="sidebar">採用Jetstream的災難恢復（原生資料存放區）</block>
   <block id="497820483e8c674ccb7cd2e35d2d61b3" category="sidebar">使用CVO和Jetstream（與來賓連線的儲存設備）進行災難恢復</block>
-  <block id="fdcb85733d1a2ba6bfb7a8ba947efd6d" category="paragraph">vSphere搭配Tanzu（vSphere Pod）</block>
-  <block id="c77e6b248ec0adc44384f6336fa4a966" category="list-text">vSphere原生Pod採用指定的虛擬硬體、可在以照片為基礎的精簡層執行、以實現完整的隔離。</block>
-  <block id="3dd0287f26179660762f136eacfabb73" category="list-text">需要NSxT-T、但這可額外支援諸如港映像登錄等功能。</block>
-  <block id="53f2b5f5c06efa27ad0bcad5156e7170" category="list-text">使用虛擬的監督者叢集（例如TKGS）、直接在ESXi節點上執行Pod、在vSphere 7.0U1中部署及管理。</block>
-  <block id="bda03c816727fd53e15712cdb73795b2" category="list-text">vSphere管理員完全整合vSphere、提供最高可見度與控制能力。</block>
-  <block id="131afa56e2eb221420188e64332a6a7e" category="list-text">隔離式CRX型Pod、提供最高層級的安全性。</block>
-  <block id="67a05356c1a5b95953959967caf83acc" category="list-text">僅支援vSphere SCSI持續儲存/不支援第三方儲存協調器。</block>
   <block id="a3e69dd4d9f892aab0dcbf0a5dd246e2" category="cell">1.4以上</block>
   <block id="f78d920d9d248820ddf7a3acdd9a34c0" category="doc">VMware vSphere with Tanzu總覽</block>
-  <block id="890263ac9ed806fc2ad4e8ded7b148ce" category="paragraph">搭配Tanzu的VMware vSphere（也稱為vSphere Pod）可讓您在裸機Kubernetes環境中、將VMware vSphere環境中的ESXi Hypervisor節點當作工作節點使用。</block>
   <block id="bac31e763c1b2955be0a10de0a4d8012" category="image-alt">VMware vSphere搭配Kubernetes</block>
   <block id="c2e55cf1007600b25e0708bfe26a41f3" category="paragraph">在工作負載管理下啟用含有Tanzu環境的VMware vSphere、就像原生TKGS叢集一樣。</block>
-  <block id="6ce239d17953480f1d42476092b07270" category="paragraph">建立虛擬化的監控叢集、為Kubernetes提供高可用度的控制面板、並為每個應用程式建立個人命名空間、以確保使用者的資源隔離。</block>
   <block id="9ff6aa8ffa487db2f0aebe3967972d77" category="image-alt">監督者叢集</block>
-  <block id="34c71a47cbfeda14847af84cef64b054" category="paragraph">啟用含有Tanzu的VMware vSphere時、每個ESXi主機都會安裝並設定Spherelet應用程式、讓每個節點都能在Kubernetes部署中擔任工作人員、並管理部署在每個節點上的Pod。</block>
   <block id="b3ba0fe968ce39dcfc6fe8cc0f1b02da" category="image-alt">命名空間</block>
-  <block id="2524066cdd842f3246c3cc93e6a6a375" category="paragraph">目前搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這是讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則、並在為容器化應用程式建立持續磁碟區時使用這些原則。</block>
-  <block id="c3b3ca8068590dc06adb9dc27ac27523" category="admonition">雖然NetApp Astra Trident SCSI驅動程式目前不支援直接連線至外部ONTAP 的功能和元件儲存陣列、 NetApp的這些儲存系統通常用於支援vSphere環境的主要儲存設備、而NetApp的進階資料管理與儲存效率工具也能以這種方式加以運用。</block>
-  <block id="22e7543595b40ad24276e99cd5b1c198" category="paragraph">如果您想深入瞭解含有Tanzu的VMware vSphere、請參閱文件 <block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block>。</block>
   <block id="516a32af5ad38dd3b9ca9c156da39add" category="inline-link-macro">VMware vSphere搭配Tanzu（vSphere Pod）</block>
   <block id="a6726486b20bc2510c7d0b189955e69c" category="list-text"><block ref="a6726486b20bc2510c7d0b189955e69c" category="inline-link-macro-rx"></block></block>
   <block id="9fa345c6a2f967ec80e8b940a9d2a1c3" category="summary">隨著客戶瞭解Splunk資料分析的強大功能與易用性、他們自然會想要索引不斷成長的資料量。隨著資料量的增加、服務所需的運算與儲存基礎架構也同樣如此。</block>
@@ -13783,4 +13769,21 @@
   <block id="f57d44dedead861d1eef7e912b9cbd86" category="list-text">隨需新增移除索引器和設定刪除叢集。</block>
   <block id="98613866f09e0e2416018bef4be916d3" category="list-text">儲存層不再與硬體綁定。</block>
   <block id="a2a5916477583887c69c752ae6366750" category="paragraph"><block ref="a2a5916477583887c69c752ae6366750" category="inline-link-macro-rx"></block></block>
+  <block id="f377bdd54f0f567b139a5913567466f1" category="paragraph">* VMware Tanzu Kubernetes Grid（TKG）*</block>
+  <block id="7a3368d887604b1812f8f796b668f0e7" category="paragraph">* VMware Tanzu Kubernetes Grid Service（TKGS）*</block>
+  <block id="8da30835717bc9e00a9ea2b89d75d943" category="paragraph">* VMware Tanzu Kubernetes Grid整合（TKGI*）</block>
+  <block id="22bd1c4adfe1c3f7d3dc00763a7a8d40" category="paragraph">* vSphere with Tanzu（vSphere Pod）*</block>
+  <block id="4f50bac068dbe84c04d257f75bb42142" category="list-text">vSphere原生Pod可在採用指定虛擬硬體的薄型、以光子為基礎的層面上執行、以實現完整的隔離。</block>
+  <block id="c8cefb07aba3cc260670993281c9bef5" category="list-text">需要NSxT-T、但這可提供額外的功能支援、例如港映像登錄。</block>
+  <block id="b603aa094817eb0510887a841cc71df8" category="list-text">在vSphere 7.0U1中部署及管理、然後使用虛擬的監控叢集（例如TKGS）。直接在ESXi節點上執行Pod。</block>
+  <block id="cf3b96589f75768a855cebe2679e5b8b" category="list-text">vSphere管理功能可完全整合vSphere、提供最高可見度與控制能力。</block>
+  <block id="3b050b735b1eb713cc1b3816851e3060" category="list-text">隔離式CRX型Pod、提供最高層級的安全性。</block>
+  <block id="e7004adb0d2f74954305a1023249e642" category="list-text">僅支援vSphere SCSI作為持續儲存設備。不支援任何協力廠商儲存協調程式。</block>
+  <block id="90534ff553f8895d609b7e0cec5e7977" category="paragraph">Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。</block>
+  <block id="25e19f6e213533d24e711ce5e6738fa9" category="paragraph">搭配Tanzu的VMware vSphere（也稱為vSphere Pod）可讓您在VMware vSphere環境中使用ESXi Hypervisor節點作為裸機Kubernetes環境中的工作節點。</block>
+  <block id="c2556907e1f90b93c9c43e198113de8b" category="paragraph">建立虛擬化的監控叢集、為Kubernetes提供高可用度的控制面板、並為每個應用程式建立個人命名空間、以確保使用者的資源隔離。</block>
+  <block id="9e2885b693a2045e931fda4aeb8bf28f" category="paragraph">啟用含有Tanzu的VMware vSphere時、每個ESXi主機都會安裝並設定Spherelet應用程式。如此一來、每個節點都能在Kubernetes部署中擔任工作人員、並管理部署在每個節點上的Pod。</block>
+  <block id="c44d7c5351501c027261c0480a658d6d" category="paragraph">目前、搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這可讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則。這些原則可用來建立容器化應用程式的持續磁碟區。</block>
+  <block id="fe41e8fdcbc9d8447c9077fbd167fe8d" category="admonition">雖然目前不支援NetApp Astra Trident SCSI驅動程式、因此無法直接連線至外部ONTAP 的VMware及Element儲存陣列、但這些NetApp儲存系統通常是用來支援vSphere環境的主要儲存設備、 此外、NetApp進階資料管理與儲存效率工具也能以這種方式使用。</block>
+  <block id="70aaffec040bcf9e5cf77c0ccabb8f11" category="paragraph">如果您想深入瞭解含有Tanzu的VMware vSphere、請參閱文件 <block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block>。</block>
 </blocks>

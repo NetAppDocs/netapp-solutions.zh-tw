@@ -59,7 +59,7 @@ VMware Tanzu with NetApp解決方案包含下列主要元件：
 
 VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已在實驗室中通過驗證。每個Tanzu版本都能與NetApp儲存產品組合成功整合、而且每個產品都能滿足特定的基礎架構需求。下列項目符號重點說明本文件所述的每個Tanzu版本的特色與產品。
 
-VMware Tanzu Kubernetes Grid（TKG）
+* VMware Tanzu Kubernetes Grid（TKG）*
 
 * 部署在VMware vSphere環境中的標準上游Kubernetes環境。
 * 前身為Essential PKS（取自2019年2月的赫特（Hetio）收購案）。
@@ -71,7 +71,7 @@ VMware Tanzu Kubernetes Grid（TKG）
 * 可以使用vSphere SI以及NetApp Astra Trident等第三方SI。
 
 
-VMware Tanzu Kubernetes Grid Service（TKGS）
+* VMware Tanzu Kubernetes Grid Service（TKGS）*
 
 * 部署在VMware vSphere環境中的標準上游Kubernetes環境。
 * 前身為Essential PKS（取自2019年2月的赫特（Hetio）收購案）。
@@ -83,7 +83,7 @@ VMware Tanzu Kubernetes Grid Service（TKGS）
 * 支援搭配Tanzu的vSphere Pod、可讓Pod直接在環境中啟用的ESXi主機上執行。
 
 
-VMware Tanzu Kubernetes Grid整合（TKGI）
+* VMware Tanzu Kubernetes Grid整合（TKGI*）
 
 * 先前稱為企業PKS（取自2019年2月的赫塔（Hetio）收購案）。
 * 可以使用NSX T、HA Proxy或Avi。您也可以提供自己的負載平衡器。
@@ -93,14 +93,14 @@ VMware Tanzu Kubernetes Grid整合（TKGI）
 * 可以使用vSphere SI以及NetApp Astra Trident等第三方SI（部分條件適用）。
 
 
-vSphere搭配Tanzu（vSphere Pod）
+* vSphere with Tanzu（vSphere Pod）*
 
-* vSphere原生Pod採用指定的虛擬硬體、可在以照片為基礎的精簡層執行、以實現完整的隔離。
-* 需要NSxT-T、但這可額外支援諸如港映像登錄等功能。
-* 使用虛擬的監督者叢集（例如TKGS）、直接在ESXi節點上執行Pod、在vSphere 7.0U1中部署及管理。
-* vSphere管理員完全整合vSphere、提供最高可見度與控制能力。
+* vSphere原生Pod可在採用指定虛擬硬體的薄型、以光子為基礎的層面上執行、以實現完整的隔離。
+* 需要NSxT-T、但這可提供額外的功能支援、例如港映像登錄。
+* 在vSphere 7.0U1中部署及管理、然後使用虛擬的監控叢集（例如TKGS）。直接在ESXi節點上執行Pod。
+* vSphere管理功能可完全整合vSphere、提供最高可見度與控制能力。
 * 隔離式CRX型Pod、提供最高層級的安全性。
-* 僅支援vSphere SCSI持續儲存/不支援第三方儲存協調器。
+* 僅支援vSphere SCSI作為持續儲存設備。不支援任何協力廠商儲存協調程式。
 
 
 
@@ -119,7 +119,7 @@ NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感�
 
 如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
 
-Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。
+Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。
 
 如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
