@@ -1,0 +1,50 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/stgr-splunkss-solution-overview.html 
+keywords: storagegrid, splunk enterprise, smartstore, object storage, machine data 
+summary: 本頁說明用於完成此解決方案的元件、包括NetApp StorageGRID 、Splunk Enterprise和Splunk SmartStore。 
+---
+= 解決方案總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:stgr-splunkss-intelligent-tiering-and-cost-savings.html["上一篇：智慧分層與成本節約效益。"]
+
+
+
+== NetApp StorageGRID
+
+NetApp StorageGRID 產品是高效能且具成本效益的物件儲存平台。它使用分散式節點型網格架構、提供智慧型原則導向的全球資料管理功能。它透過無所不在的全域物件命名空間、加上精密的資料管理功能、簡化PB非結構化資料和數十億個物件的管理。單一通話物件存取功能可延伸至各個站台、並簡化高可用度架構、同時確保無論站台或基礎架構停機、都能持續存取物件。
+
+多租戶功能可讓多個雲端和企業非結構化資料應用程式在同一個網格內安全地進行服務、進而提高ROI和StorageGRID 使用案例以供參考。您可以使用中繼資料導向的物件生命週期原則來建立多種服務層級、以最佳化跨多個地理區的耐用度、保護、效能和位置。使用者可以在不中斷營運的情況下、隨著需求改變、調整原則並重新調整資料架構。
+
+SmartStore採用StorageGRID 以物件命名空間形式呈現的功能、可將物件作為遠端儲存層、並讓客戶部署多個分散各地的站台、以提供強大的可用度與持久性。這可讓Splunk SmartStore充分發揮StorageGRID 效能、密集容量、並透過單一URL與物件互動、在多個實體站台上擴充至數百個節點。此單一URL也可讓儲存設備擴充、升級及修復作業不中斷營運、即使只在單一站台上也不例外。獨一無二的資料管理原則引擎、提供最佳化的效能與持久性、並符合資料位置需求。StorageGRID
+
+
+
+== Splunk Enterprise
+
+Splunk是收集與分析機器產生資料的領導廠商、透過其作業分析功能、協助IT簡化並現代化。此外、它也延伸至商業分析、安全性和IoT使用案例。儲存設備是成功部署Splunk軟體的關鍵要素。
+
+機器產生的資料是成長速度最快的大型資料類型。格式無法預測、而且來自許多不同的來源、通常是高速且大量的。這些工作負載特性通常稱為數位排氣。Splunk SmartStore有助於充分運用這些資料、並提供智慧型資料分層功能、將熱和暖資料最佳化放置在最具成本效益的儲存層。
+
+
+
+== Splunk SmartStore
+
+Splunk SmartStore是一種索引器功能、使用物件儲存（也稱為遠端儲存或遠端儲存層）、例如StorageGRID 使用S3傳輸協定儲存暖資料。
+
+隨著部署的資料量增加、對儲存設備的需求通常會超過對電腦資源的需求。SmartStore可讓您以具成本效益的方式管理索引器儲存設備和運算資源、方法是分別擴充運算和儲存設備。
+
+SmartStore採用S3傳輸協定和快取管理程式、引進遠端儲存層。這些功能可讓資料駐留在本地索引器或遠端儲存設備上。駐留在索引器上的快取管理程式可管理索引器與遠端儲存層之間的資料移動。資料會儲存在儲存區（熱區和溫區）、以及儲存區中繼資料。
+
+有了SmartStore、您可以將索引器的儲存設備佔用空間降至最低、並選擇I/O最佳化的運算資源、因為大部分資料都位於遠端儲存層。索引器會維護本機快取、代表傳回要求和預測結果所需的最小資料量。本機快取包含熱儲存區、參與作用中或最近搜尋的暖儲存區複本、以及儲存區中繼資料。
+
+Splunk SmartStore with StorageGRID VMware可讓客戶以高效能且具成本效益的遠端儲存設備、逐步擴充環境、同時為整體解決方案提供高度的彈性。這可讓客戶在任何指定時間、以任何特定數量新增任何元件（熱儲存和/或暖S3儲存設備）、無論他們需要更多索引器、變更資料保留、或是在不中斷營運的情況下增加擷取速度。
+
+link:stgr-splunkss-flexible-storagegrid-features-for-splunk-smartstore.html["下一步：StorageGRID Splunk SmartStore的靈活功能。"]

@@ -1,0 +1,191 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/stgr-splunkss-single-site-smartstore-performance.html 
+keywords: configuration, warm data, cold data, cache storage, indexer, eventgen, event generator, search head 
+summary: 本頁說明Splunk SmartStore在NetApp StorageGRID 支援控制器上的效能表現。Splunk SmartStore將暖資料移至遠端儲存設備、StorageGRID 這是效能驗證中的物件儲存設備。 
+---
+= 單一站台SmartStore效能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:stgr-splunkss-splunk-architecture.html["先前版本：Splunk架構。"]
+
+本節說明Splunk SmartStore在NetApp StorageGRID 支援控制器上的效能。Splunk SmartStore可將暖資料移至遠端儲存設備、在此案例中、StorageGRID 是效能驗證中的物件儲存設備。
+
+image:stgr-splunkss-image10.png["錯誤：缺少圖形影像"]
+
+我們使用EF600進行熱/快取儲存、StorageGRID 並使用E56060進行遠端儲存。我們使用下列架構來驗證效能。我們使用兩個搜尋頭、四個大型轉發器將資料轉送給索引器、七個Splunk事件產生器（事件生成器）來產生即時資料、以及18個索引器來儲存資料。
+
+image:stgr-splunkss-image11.png["錯誤：缺少圖形影像"]
+
+
+
+== 組態
+
+下表列出SmartStorage效能驗證所使用的硬體。
+
+|===
+| Splunk元件 | 工作 | 數量 | 核心 | 記憶體 | 作業系統 
+
+
+| 沉重的轉運商 | 負責擷取資料並將資料轉送給索引器 | 4. | 16個核心 | 32GB RAM | SLED 15 SP2 
+
+
+| 索引器 | 管理使用者資料 | 18 | 16個核心 | 32GB RAM | SLED 15 SP2 
+
+
+| 搜尋標頭 | 使用者前端會在索引器中搜尋資料 | 2. | 16個核心 | 32GB RAM | SLED 15 SP2 
+
+
+| 搜尋主管部署者 | 處理搜尋頭叢集的更新 | 1. | 16個核心 | 32GB RAM | SLED 15 SP2 
+
+
+| 叢集主機 | 管理Splunk安裝與索引器 | 1. | 16個核心 | 32GB RAM | SLED 15 SP2 
+
+
+| 監控主控台和授權主控台 | 集中監控整個Splunk部署、並管理Splunk授權 | 1. | 16個核心 | 32GB RAM | SLED 15 SP2 
+|===
+
+
+== SmartStore遠端儲存區效能驗證
+
+在這項效能驗證中、我們在所有索引器的本機儲存設備上設定SmartStore快取、以提供10天的資料。我們在Splunk叢集管理程式中啟用了「maxDataSize=auto'（750MB儲存區大小）」、並將變更推送到所有索引器。為了測量上傳效能、我們每天擷取10TB的時間達10天、並將所有熱儲存區同時移轉至溫熱區、並從SmartStore監控主控台儀表板擷取每個執行個體和整個部署的尖峰和平均處理量。
+
+此影像顯示一天內擷取的資料。
+
+image:stgr-splunkss-image12.png["錯誤：缺少圖形影像"]
+
+我們從叢集主機執行下列命令（索引名稱為「eventgen-test」）。然後、我們透過SmartStore監控主控台儀表板、擷取每個執行個體和整個部署的尖峰和平均上傳處理量。
+
+....
+for i in rtp-idx0001 rtp-idx0002 rtp-idx0003 rtp-idx0004 rtp-idx0005 rtp-idx0006 rtp-idx0007 rtp-idx0008 rtp-idx0009 rtp-idx0010 rtp-idx0011 rtp-idx0012 rtp-idx0013011 rtdx0014 rtp-idx0015 rtp-idx0016 rtp-idx0017 rtp-idx0018 ; do  ssh $i "hostname;  date; /opt/splunk/bin/splunk _internal call /data/indexes/eventgen-test/roll-hot-buckets -auth admin:12345678; sleep 1  "; done
+....
+
+NOTE: 叢集主機對所有索引器進行無密碼驗證（RTP-idx0001…RTP-idx0018）。
+
+為了測量下載效能、我們使用下列命令執行兩次強制移除的CLI、將所有資料從快取中移除。
+
+
+NOTE: 我們從叢集主機執行下列命令、並在10天前從StorageGRID 遠端商店從異地儲存區執行搜尋。接著我們會透過SmartStore監控主控台儀表板、擷取每個執行個體和整個部署範圍的尖峰和平均上傳處理量。
+
+....
+for i in rtp-idx0001 rtp-idx0002 rtp-idx0003 rtp-idx0004 rtp-idx0005 rtp-idx0006 rtp-idx0007 rtp-idx0008 rtp-idx0009 rtp-idx0010 rtp-idx0011 rtp-idx0012 rtp-idx0013 rtp-idx0014 rtp-idx0015 rtp-idx0016 rtp-idx0017 rtp-idx0018 ; do  ssh $i " hostname;  date; /opt/splunk/bin/splunk _internal call /services/admin/cacheman/_evict -post:mb 1000000000 -post:path /mnt/EF600 -method POST  -auth admin:12345678;   “; done
+....
+索引器組態是從SmartStore叢集主機推送而來。叢集主機具有下列索引器組態。
+
+....
+Rtp-cm01:~ # cat /opt/splunk/etc/master-apps/_cluster/local/indexes.conf
+[default]
+maxDataSize = auto
+#defaultDatabase = eventgen-basic
+defaultDatabase = eventgen-test
+hotlist_recency_secs = 864000
+repFactor = auto
+[volume:remote_store]
+storageType = remote
+path = s3://smartstore2
+remote.s3.access_key = U64TUHONBNC98GQGL60R
+remote.s3.secret_key = UBoXNE0jmECie05Z7iCYVzbSB6WJFckiYLcdm2yg
+remote.s3.endpoint = 3.sddc.netapp.com:10443
+remote.s3.signature_version = v2
+remote.s3.clientCert =
+[eventgen-basic]
+homePath = $SPLUNK_DB/eventgen-basic/db
+coldPath = $SPLUNK_DB/eventgen-basic/colddb
+thawedPath = $SPLUNK_DB/eventgen-basic/thawed
+[eventgen-migration]
+homePath = $SPLUNK_DB/eventgen-scale/db
+coldPath = $SPLUNK_DB/eventgen-scale/colddb
+thawedPath = $SPLUNK_DB/eventgen-scale/thaweddb
+[main]
+homePath = $SPLUNK_DB/$_index_name/db
+coldPath = $SPLUNK_DB/$_index_name/colddb
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+[history]
+homePath = $SPLUNK_DB/$_index_name/db
+coldPath = $SPLUNK_DB/$_index_name/colddb
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+[summary]
+homePath = $SPLUNK_DB/$_index_name/db
+coldPath = $SPLUNK_DB/$_index_name/colddb
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+[remote-test]
+homePath = $SPLUNK_DB/$_index_name/db
+coldPath = $SPLUNK_DB/$_index_name/colddb
+#for storagegrid config
+remotePath = volume:remote_store/$_index_name
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+[eventgen-test]
+homePath = $SPLUNK_DB/$_index_name/db
+maxDataSize=auto
+maxHotBuckets=1
+maxWarmDBCount=2
+coldPath = $SPLUNK_DB/$_index_name/colddb
+#for storagegrid config
+remotePath = volume:remote_store/$_index_name
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+[eventgen-evict-test]
+homePath = $SPLUNK_DB/$_index_name/db
+coldPath = $SPLUNK_DB/$_index_name/colddb
+#for storagegrid config
+remotePath = volume:remote_store/$_index_name
+thawedPath = $SPLUNK_DB/$_index_name/thaweddb
+maxDataSize = auto_high_volume
+maxWarmDBCount = 5000
+rtp-cm01:~ #
+....
+我們在搜尋標頭上執行下列搜尋查詢、以收集效能對照表。
+
+image:stgr-splunkss-image13.png["錯誤：缺少圖形影像"]
+
+我們從叢集主機收集效能資訊。尖峰效能為61.34GBps。
+
+image:stgr-splunkss-image14.png["錯誤：缺少圖形影像"]
+
+平均效能約29 GBps。
+
+image:stgr-splunkss-image15.png["錯誤：缺少圖形影像"]
+
+
+
+== 效能StorageGRID
+
+SmartStore的效能取決於從大量資料中搜尋特定的模式和字串。在此驗證中、會使用產生事件 https://github.com/splunk/eventgen["事件世代"^] 在特定的Splunk索引（eventgen-test）上、透過搜尋標頭進行搜尋、並要求StorageGRID 針對大部分的查詢進行到支援。下圖顯示查詢資料的點擊次數和遺漏次數。命中資料來自本機磁碟、而未命中資料來自StorageGRID 於功能性控制器。
+
+
+NOTE: 綠色顯示命中率資料、橘色顯示遺漏資料。
+
+image:stgr-splunkss-image16.png["錯誤：缺少圖形影像"]
+
+當查詢執行StorageGRID 以供搜尋時、S3擷取速度的時間會StorageGRID 顯示在下列影像中。
+
+image:stgr-splunkss-image17.png["錯誤：缺少圖形影像"]
+
+
+
+== 使用硬體StorageGRID
+
+這個執行個體有一個負載平衡器和三個功能不均的控制器。StorageGRID StorageGRID所有三個控制器的CPU使用率從75%到100%。
+
+image:stgr-splunkss-image18.png["錯誤：缺少圖形影像"]
+
+
+
+== 採用NetApp儲存控制器的SmartStore -對客戶的好處
+
+* *將運算與儲存設備分離。* Splunk SmartStore可分離運算與儲存設備、協助您獨立擴充。
+* *隨需資料。* SmartStore可將資料帶離隨需運算環境、並提供運算與儲存彈性及成本效益、以達到更長的資料保留時間。
+* *符合AWS S3 API標準。* SmartStore使用AWS S3 API與還原儲存設備通訊、這是AWS S3和S3 API相容的物件存放區、例如StorageGRID ：
+* *降低儲存需求與成本。* SmartStore可降低老舊資料的儲存需求（溫/冷）。由於NetApp儲存設備可提供資料保護、並可處理故障和高可用度、因此只需要一份資料複本。
+* *硬體故障。* SmartStore部署中的節點故障不會使資料無法存取、也會使索引程式從硬體故障或資料失衡中恢復的速度更快。
+* 應用程式與資料感知快取。
+* 隨需新增移除索引器和設定刪除叢集。
+* 儲存層不再與硬體綁定。
+
+
+link:stgr-splunkss-conclusion.html["下一步：結論。"]

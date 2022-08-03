@@ -1300,7 +1300,6 @@
   <block id="2ec930774314e7709987603c82825f4b" category="paragraph">透過新增更多儲存節點（例如VM、裸機或特定用途的應用裝置）來擴充效能StorageGRID <block ref="585d6d5337b82c3c73a6c04b53fcdd23" category="inline-link-macro-rx"></block>。在我們的測試中、我們使用SGF6024應用裝置、以最小尺寸的三節點網格、超越Apache Kafka的關鍵效能要求。隨著客戶使用額外的代理商來擴充其Kafka叢集、他們可以新增更多儲存節點來提升效能和容量。</block>
   <block id="3eee81ca69cbbee2bec24db63e4dea0d" category="section-title">負載平衡器和端點組態</block>
   <block id="5b42fd120a40ecd7cc8ac5cdedde8ceb" category="paragraph">本功能提供Grid Manager UI（使用者介面）和REST API端點、StorageGRID 以檢視、設定及管理StorageGRID 您的不實系統、以及稽核記錄來追蹤系統活動。為了提供高可用度的S3端點給ConFluent Kafka階層式儲存設備、我們實作StorageGRID 了一套以服務形式在管理節點和閘道節點上執行的負載平衡器。此外、負載平衡器也會管理本機流量、並與GSLB（全域伺服器負載平衡）對話、以協助災難恢復。</block>
-  <block id="ebe4bf9f44a65ad044fdede621409388" category="paragraph">為了進一步強化端點組態、StorageGRID 支援內建於管理節點的流量分類原則、讓您監控工作負載流量、並將各種服務品質（QoS）限制套用至工作負載。流量分類原則會套用至StorageGRID 閘道節點和管理節點的「動態負載平衡器」服務上的端點。這些原則可協助限制流量及監控。</block>
   <block id="dca5165744ce2dbf5825f022349ee941" category="section-title">流量分類StorageGRID</block>
   <block id="588db6e460515c5268204303c93a770b" category="paragraph">包含內建QoS功能。StorageGRID流量分類原則可協助監控來自用戶端應用程式的不同類型S3流量。然後您可以建立並套用原則、根據輸入/輸出頻寬、讀取/寫入並行要求數或讀取/寫入要求率來限制此流量。</block>
   <block id="bb2bd99338b18762ef6953ad2cbfafc7" category="section-title">Apache Kafka</block>
@@ -12261,7 +12260,6 @@
   <block id="b63d5ee355078976e86c94b5c978788e" category="paragraph">NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感知資料管理服務、可處理有狀態的Kubernetes工作負載、部署於內部環境、並採用值得信賴的NetApp資料保護技術。</block>
   <block id="e764fe6b8f8825a307a87cedbef45678" category="cell">22.04</block>
   <block id="63355c54bd7e8ff73915da41610ec6f7" category="cell">22.04.0</block>
-  <block id="54acb57afb70110fb7f8e1de35e176b4" category="cell">1.3.1</block>
   <block id="22053fd2d26d3a313aea03b09e9a776c" category="cell">VMware Tanzu Kubernetes Grid Service</block>
   <block id="c99c6e88d4de8db879b1b5ec64d1f7ed" category="cell">0.0.15 [vSphere命名空間]</block>
   <block id="8eb1302ead60c09b6d757b2b7ab84040" category="cell">1.22.6 [監控叢集Kubernetes ]</block>
@@ -13452,4 +13450,337 @@
   <block id="b8aef6e50d3ed85ad8f7568c45050629" category="sidebar">保護工作負載</block>
   <block id="c90d3565dac770d258e528bf1d0f0354" category="sidebar">採用Jetstream的災難恢復（原生資料存放區）</block>
   <block id="497820483e8c674ccb7cd2e35d2d61b3" category="sidebar">使用CVO和Jetstream（與來賓連線的儲存設備）進行災難恢復</block>
+  <block id="fdcb85733d1a2ba6bfb7a8ba947efd6d" category="paragraph">vSphere搭配Tanzu（vSphere Pod）</block>
+  <block id="c77e6b248ec0adc44384f6336fa4a966" category="list-text">vSphere原生Pod採用指定的虛擬硬體、可在以照片為基礎的精簡層執行、以實現完整的隔離。</block>
+  <block id="3dd0287f26179660762f136eacfabb73" category="list-text">需要NSxT-T、但這可額外支援諸如港映像登錄等功能。</block>
+  <block id="53f2b5f5c06efa27ad0bcad5156e7170" category="list-text">使用虛擬的監督者叢集（例如TKGS）、直接在ESXi節點上執行Pod、在vSphere 7.0U1中部署及管理。</block>
+  <block id="bda03c816727fd53e15712cdb73795b2" category="list-text">vSphere管理員完全整合vSphere、提供最高可見度與控制能力。</block>
+  <block id="131afa56e2eb221420188e64332a6a7e" category="list-text">隔離式CRX型Pod、提供最高層級的安全性。</block>
+  <block id="67a05356c1a5b95953959967caf83acc" category="list-text">僅支援vSphere SCSI持續儲存/不支援第三方儲存協調器。</block>
+  <block id="a3e69dd4d9f892aab0dcbf0a5dd246e2" category="cell">1.4以上</block>
+  <block id="f78d920d9d248820ddf7a3acdd9a34c0" category="doc">VMware vSphere with Tanzu總覽</block>
+  <block id="890263ac9ed806fc2ad4e8ded7b148ce" category="paragraph">搭配Tanzu的VMware vSphere（也稱為vSphere Pod）可讓您在裸機Kubernetes環境中、將VMware vSphere環境中的ESXi Hypervisor節點當作工作節點使用。</block>
+  <block id="bac31e763c1b2955be0a10de0a4d8012" category="image-alt">VMware vSphere搭配Kubernetes</block>
+  <block id="c2e55cf1007600b25e0708bfe26a41f3" category="paragraph">在工作負載管理下啟用含有Tanzu環境的VMware vSphere、就像原生TKGS叢集一樣。</block>
+  <block id="6ce239d17953480f1d42476092b07270" category="paragraph">建立虛擬化的監控叢集、為Kubernetes提供高可用度的控制面板、並為每個應用程式建立個人命名空間、以確保使用者的資源隔離。</block>
+  <block id="9ff6aa8ffa487db2f0aebe3967972d77" category="image-alt">監督者叢集</block>
+  <block id="34c71a47cbfeda14847af84cef64b054" category="paragraph">啟用含有Tanzu的VMware vSphere時、每個ESXi主機都會安裝並設定Spherelet應用程式、讓每個節點都能在Kubernetes部署中擔任工作人員、並管理部署在每個節點上的Pod。</block>
+  <block id="b3ba0fe968ce39dcfc6fe8cc0f1b02da" category="image-alt">命名空間</block>
+  <block id="2524066cdd842f3246c3cc93e6a6a375" category="paragraph">目前搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這是讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則、並在為容器化應用程式建立持續磁碟區時使用這些原則。</block>
+  <block id="c3b3ca8068590dc06adb9dc27ac27523" category="admonition">雖然NetApp Astra Trident SCSI驅動程式目前不支援直接連線至外部ONTAP 的功能和元件儲存陣列、 NetApp的這些儲存系統通常用於支援vSphere環境的主要儲存設備、而NetApp的進階資料管理與儲存效率工具也能以這種方式加以運用。</block>
+  <block id="22e7543595b40ad24276e99cd5b1c198" category="paragraph">如果您想深入瞭解含有Tanzu的VMware vSphere、請參閱文件 <block ref="0cdaad1423fdb034ad0ee788d57a7a82" category="inline-link-macro-rx"></block>。</block>
+  <block id="516a32af5ad38dd3b9ca9c156da39add" category="inline-link-macro">VMware vSphere搭配Tanzu（vSphere Pod）</block>
+  <block id="a6726486b20bc2510c7d0b189955e69c" category="list-text"><block ref="a6726486b20bc2510c7d0b189955e69c" category="inline-link-macro-rx"></block></block>
+  <block id="9fa345c6a2f967ec80e8b940a9d2a1c3" category="summary">隨著客戶瞭解Splunk資料分析的強大功能與易用性、他們自然會想要索引不斷成長的資料量。隨著資料量的增加、服務所需的運算與儲存基礎架構也同樣如此。</block>
+  <block id="f9a3e09b74e61e83c0352f2953dcdc87" category="doc">智慧分層與成本節約</block>
+  <block id="7bcf31269131a9e7ab4d163f239fc4e5" category="inline-link-macro">先前版本：本解決方案的優點。</block>
+  <block id="b27eab207fc06febce259cb1c08777a3" category="paragraph"><block ref="b27eab207fc06febce259cb1c08777a3" category="inline-link-macro-rx"></block></block>
+  <block id="e09913e41f1a0082ec190482abfeff57" category="paragraph">隨著客戶瞭解Splunk資料分析的強大功能與易用性、他們自然會想要索引不斷成長的資料量。隨著資料量的增加、服務所需的運算與儲存基礎架構也同樣如此。由於較舊的資料參考頻率較低、因此投入相同數量的運算資源並消耗昂貴的一線儲存設備的效率也越來越低。若要大規模營運、客戶可以將暖資料移至更具成本效益的層級、將運算和主要儲存設備釋出以供熱資料使用。</block>
+  <block id="f7300ec91634b8cd535c45fd11ee503f" category="paragraph">Splunk SmartStore搭配StorageGRID NetApp功能、可為組織提供可擴充、效能強大且具成本效益的解決方案。由於SmartStore具備資料感知功能、因此它會自動評估資料存取模式、以判斷哪些資料需要即時分析（熱資料）存取、哪些資料應該存放在成本較低的長期儲存設備（暖資料）中。SmartStore使用業界標準的AWS S3 API、以動態且智慧的方式將資料放入StorageGRID 由VMware提供的S3儲存設備。靈活的StorageGRID 橫向擴充架構可讓暖資料層在需要時以符合成本效益的方式成長。以節點為基礎StorageGRID 的架構可確保效能與成本需求獲得最佳滿足。</block>
+  <block id="d75fb5ef86bb0625c22c38dd2229c627" category="paragraph">下圖說明Splunk和StorageGRID 分層。</block>
+  <block id="821f09f0a5870b1dd3ee40e65f17b546" category="paragraph"><block ref="821f09f0a5870b1dd3ee40e65f17b546" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b6821c40fa59a17fa0f78dbb9e556be5" category="paragraph">Splunk SmartStore與NetApp StorageGRID ®的領先業界組合、透過完整堆疊解決方案、提供分離式架構的優點。</block>
+  <block id="32c614a5724d73faf7f06f754330bbac" category="paragraph"><block ref="32c614a5724d73faf7f06f754330bbac" category="inline-link-macro-rx"></block></block>
+  <block id="f362fde28c17f629ded4d965d576f423" category="summary">Splunk Enterprise是領先市場的SIEM解決方案、可帶動安全、IT及DevOps團隊的成果。Splunk的使用在客戶組織中大幅增加。因此、需要新增更多資料來源、同時保留更長時間的資料、因此需要強調Splunk基礎架構。</block>
+  <block id="3613797d0f4ca076e9cb8ba4c75e87e6" category="inline-link-macro">先前版本：單一站台SmartStore效能。</block>
+  <block id="5fdd4eaa62513aac277472bf713d1bee" category="paragraph"><block ref="5fdd4eaa62513aac277472bf713d1bee" category="inline-link-macro-rx"></block></block>
+  <block id="25c2a1fd1c8874a3e0526920fe7f440d" category="paragraph">Splunk SmartStore與NetApp StorageGRID 功能區的結合、旨在提供可擴充的架構、讓企業組織透過SmartStore與StorageGRID VMware物件儲存設備來提升擷取效能、並為多個地理區域的Splunk環境提供更高的擴充性。</block>
+  <block id="fbf1f1e6f0848252d39ef48e7e18146f" category="list-text">NetApp StorageGRID 產品文件資源</block>
+  <block id="68d4d5362a15088f2ac3fa494c971af5" category="inline-link"><block ref="68d4d5362a15088f2ac3fa494c971af5" category="inline-link-rx"></block></block>
+  <block id="580c43c30953ec671dd4a70120e1b513" category="paragraph"><block ref="580c43c30953ec671dd4a70120e1b513" category="inline-link-rx"></block></block>
+  <block id="2e85fc867cab94d246e0bf6043b361cd" category="paragraph"><block ref="2e85fc867cab94d246e0bf6043b361cd" category="inline-link-rx"></block></block>
+  <block id="e145cc414457b4a232fb0b63ce9f44ab" category="list-text">Splunk Enterprise文件</block>
+  <block id="f710d46c12a05abcfde056d779cb608c" category="inline-link"><block ref="f710d46c12a05abcfde056d779cb608c" category="inline-link-rx"></block></block>
+  <block id="2ab8bf37a62983163c96b3c2f9a275d4" category="paragraph"><block ref="2ab8bf37a62983163c96b3c2f9a275d4" category="inline-link-rx"></block></block>
+  <block id="14c366ebe94ed0bdf5d5eecad5a08411" category="list-text">Splunk Enterprise關於SmartStore</block>
+  <block id="98bda64923adc1da4a0e009dd52832a4" category="inline-link"><block ref="98bda64923adc1da4a0e009dd52832a4" category="inline-link-rx"></block></block>
+  <block id="86d261d18a8cb6ce8f95f58af41452e5" category="paragraph"><block ref="86d261d18a8cb6ce8f95f58af41452e5" category="inline-link-rx"></block></block>
+  <block id="b437e6537685614b8004334bad18e424" category="list-text">Splunk企業分散式部署手冊</block>
+  <block id="048c67f334d3e1bbcb765e563d076b7d" category="inline-link"><block ref="048c67f334d3e1bbcb765e563d076b7d" category="inline-link-rx"></block></block>
+  <block id="0a25fd44eb7af79f8d9bb0e91d7dfec3" category="paragraph"><block ref="0a25fd44eb7af79f8d9bb0e91d7dfec3" category="inline-link-rx"></block></block>
+  <block id="d043516086780b04d9c8b38186019be3" category="list-text">Splunk Enterprise管理Indexers和Indexers叢集</block>
+  <block id="87fbe590fc8f855078f14ba53325eb46" category="inline-link"><block ref="87fbe590fc8f855078f14ba53325eb46" category="inline-link-rx"></block></block>
+  <block id="d0438efbc1a0dbee965023150ccf9334" category="paragraph"><block ref="d0438efbc1a0dbee965023150ccf9334" category="inline-link-rx"></block></block>
+  <block id="e4c2e8edac362acab7123654b9e73432" category="cell">1.0</block>
+  <block id="d1cdbd3c8324f3afbc5b420ce471feff" category="cell">2022年7月</block>
+  <block id="881214767967db331c99550277ceb793" category="summary">本頁說明Splunk架構、包括關鍵定義、Splunk分散式部署、Splunk SmartStore、資料流、 硬體和軟體需求、單一和多站台需求等。</block>
+  <block id="1e6ade59f7284c0bca28eaeeeeed0a30" category="doc">Splunk架構</block>
+  <block id="aa91789a439fe45bd8d608e61ca9da8c" category="inline-link-macro">上一篇：StorageGRID Splunk SmartStore的彈性版功能。</block>
+  <block id="263af6ab01a543147e86a15ed7794682" category="paragraph"><block ref="263af6ab01a543147e86a15ed7794682" category="inline-link-macro-rx"></block></block>
+  <block id="a8449bda57f23b9282f766113987bdf2" category="section-title">關鍵定義</block>
+  <block id="56eee8e9cc278d0a414a6d5697a4675f" category="paragraph">下兩份表格列出分散式Splunk部署中使用的Splunk和NetApp元件。</block>
+  <block id="5078bea36734bcaa4a0c1e3a0e6e4606" category="paragraph">下表列出分散式Splunk Enterprise組態的Splunk硬體元件。</block>
+  <block id="5e536c35aec296fa99efa02703d1eb07" category="cell">Splunk元件</block>
+  <block id="84f200201a8fe699d8d701c940bade8e" category="cell">索引器</block>
+  <block id="a5aa1df4c3c47c407c84c66303cf0ece" category="cell">Splunk Enterprise資料儲存庫</block>
+  <block id="872c8a2437dfbfa5be0882eabc86bcd3" category="cell">通用轉寄站</block>
+  <block id="66d25b75f626d8f6c535a4b4d25c9906" category="cell">負責擷取資料並將資料轉送給索引器</block>
+  <block id="c91b59f2eae5ebf309d600609f87a36f" category="cell">搜尋標頭</block>
+  <block id="5873147385b9bd833ffd9a046374c97b" category="cell">使用者前端用於在索引器中搜尋資料</block>
+  <block id="a6230a0628a31d41191b4ef7800745ed" category="cell">叢集主機</block>
+  <block id="e4ae9d4eb2313305a17cde160f405a17" category="cell">管理索引器和搜尋頭的Splunk安裝</block>
+  <block id="805ac84d9852820feaf2e2b643a07efb" category="cell">監控主控台</block>
+  <block id="5cf5006c1d7fdc954614a4e4185a2c62" category="cell">整個部署中使用的集中化監控工具</block>
+  <block id="fdccec582408614d1e2f7428910b1c8f" category="cell">授權主機</block>
+  <block id="7c3b9b8892864eb6fa5cb2a32b85cc93" category="cell">授權主控者負責Splunk Enterprise授權</block>
+  <block id="06262b5ad14fe5851defa5b0b70c86c6" category="cell">部署伺服器</block>
+  <block id="ebe1fa5d8a359a6db13876ab1142fa50" category="cell">更新組態、並將應用程式散佈至處理元件</block>
+  <block id="4fabea287d13a082b71f046f9d8be91d" category="cell">儲存元件</block>
+  <block id="b1edd0b37872fd00feb3bb2738987b41" category="cell">用於管理熱層資料的All Flash儲存設備。也稱為本機儲存設備。</block>
+  <block id="518d90155e7eb8bf96c6b7852ba519a6" category="cell">S3物件儲存設備、用於管理暖層資料。SmartStore用於在熱層和熱層之間移動資料。也稱為遠端儲存設備。</block>
+  <block id="310a27e25811a8eca9b6e5edd921a267" category="paragraph">下表列出Splunk儲存架構中的元件。</block>
+  <block id="40f14800d20c9cecbec85dbb2cf35592" category="cell">負責的元件</block>
+  <block id="a5847d984bf6ac525e00b95b93be4e94" category="cell">SmartStore</block>
+  <block id="6b64d740ca8627e515d54827d95bc7cb" category="cell">讓索引器能夠將資料從本機儲存設備分層至物件儲存設備。</block>
+  <block id="2f9304fe9b427489507405bef9a0bb9f" category="cell">Splunk</block>
+  <block id="4194726ee334e1085d93e002837b73f0" category="cell">熱</block>
+  <block id="cc42c7d2fb33f9ccc06f2e23486a9b0e" category="cell">通用轉寄站放置新寫入資料的登陸點。儲存設備可寫入、資料可供搜尋。此資料層通常由SSD或快速HDD組成。</block>
+  <block id="f156996831cd546988bf05451ede7b02" category="cell">快取管理程式</block>
+  <block id="52520fc1f4cef574661d086d8efcb1f8" category="cell">管理索引資料的本機快取、在進行搜尋時從遠端儲存設備擷取暖資料、並從快取中產生最少使用的資料。</block>
+  <block id="18297117d3d251afceed9ecbe797c849" category="cell">溫暖</block>
+  <block id="810be2ef6ffed5e543f948bf5984d544" category="cell">資料會以邏輯方式捲動至儲存區、並從熱層重新命名為暖層。此層內的資料受到保護、像熱層一樣、也可以由大容量的SSD或HDD組成。使用通用資料保護解決方案、可同時支援遞增和完整備份。</block>
+  <block id="392d70ca39f31f10bd637936769788df" category="cell">StorageGRID</block>
+  <block id="7cf9c58117f9052c5d5a43b3add7f6a4" category="section-title">Splunk分散式部署</block>
+  <block id="11c2b5859cb0c1d37b40f8df716542e2" category="paragraph">為了支援資料來源於許多機器的大型環境、您需要處理大量資料。如果有許多使用者需要搜尋資料、您可以在多部機器上分散Splunk Enterprise執行個體、藉此擴充部署規模。這稱為分散式部署。</block>
+  <block id="113f0bd975880424e2c87874233b2afb" category="paragraph">在典型的分散式部署中、每個Splunk Enterprise執行個體都會執行一項專業任務、並駐留在三個處理層中、對應於主要處理功能。</block>
+  <block id="ac31b29e5bbd68654aeb200e66227fb8" category="paragraph">下表列出Splunk Enterprise處理層。</block>
+  <block id="9483f17a69bd0b52dbc44f9106718634" category="cell">層級</block>
+  <block id="7d38267cdf833b2983d3487954ebf88e" category="cell">資料輸入</block>
+  <block id="2d361d5fe6d74b7550e0aa35d94342ec" category="cell">轉寄站</block>
+  <block id="b2eebf5023a2a2ba3b35711069723656" category="cell">轉寄站會使用資料、然後將資料轉送到索引器群組。</block>
+  <block id="521d4edc7c22d5f63bc5912ff2afa61a" category="cell">索引</block>
+  <block id="65265b43bef75c5bacc53c21e38eb8fc" category="cell">索引器會索引通常從一組轉寄站接收的傳入資料。索引程式會將資料轉換成事件、並將事件儲存在索引中。索引程式也會搜尋索引資料、以回應來自搜尋標頭的搜尋要求。</block>
+  <block id="ff5b0dc94726e93d5db5cf7922183f2b" category="cell">搜尋管理</block>
+  <block id="d4c174b1ebc77694020097497547d218" category="cell">搜尋標頭可做為搜尋的中央資源。叢集中的搜尋頭可互換、並可從任何搜尋頭叢集成員存取相同的搜尋、儀表板、知識物件等。</block>
+  <block id="86f51d8f8fa8928e0f6ddba31139676e" category="paragraph">下表列出分散式Splunk Enterprise環境中使用的重要元件。</block>
+  <block id="dee8af298acfc4c4bcb9fda657125917" category="cell">責任</block>
+  <block id="3b656ff8459bec2d80d19d367bd71d19" category="cell">索引叢集主機</block>
+  <block id="407a3e34682f31b649e8cbd865fdf50c" category="cell">協調索引器叢集的活動與更新</block>
+  <block id="dad2f7ca532f008e8192d418406da758" category="cell">索引管理</block>
+  <block id="85ba71585b2b8c323c8eb899fa033227" category="cell">索引叢集</block>
+  <block id="f13c7b75bef35de7c42cc0569f76e366" category="cell">一組Splunk Enterprise索引器、設定為彼此複寫資料</block>
+  <block id="f8b32f50f478eb80dca360b13aa78e92" category="cell">搜尋主管部署者</block>
+  <block id="9f45bd6fe25c3f5597af0f46bfdb20db" category="cell">處理叢集主機的部署與更新</block>
+  <block id="bc2eef462c1a0c8b778b607c304ba877" category="cell">搜尋標頭管理</block>
+  <block id="58f4a17edb05ffec840bf2b176bf6eca" category="cell">搜尋標頭叢集</block>
+  <block id="70f36c7a653c3724df8921edce177b22" category="cell">一組搜尋頭、做為搜尋的中央資源</block>
+  <block id="2ddcaa7e88a6ad9c095422ca4e601d85" category="cell">負載平衡器</block>
+  <block id="fe613dab61d63209235cf49513b00d8a" category="cell">由叢集式元件使用、透過搜尋頭、索引器和S3目標來處理不斷增加的需求、以便在叢集式元件之間分散負載。</block>
+  <block id="184f98cf6a6dd19d0815179e63be4298" category="cell">叢集式元件的負載管理</block>
+  <block id="e32d50596edede1bfe3978d8b7b5c5ac" category="paragraph">請參閱Splunk Enterprise分散式部署的下列優點：</block>
+  <block id="9431943c093a5cc181eccd505ca50f4c" category="list-text">存取多元或分散的資料來源</block>
+  <block id="e825b2fa62f5af51541982cc503c8825" category="list-text">提供功能來滿足任何規模和複雜度企業的資料需求</block>
+  <block id="c63fa16ec4ed3d9b3803c2d1e1548fe6" category="list-text">透過資料複寫和多站台部署、實現高可用度並確保災難恢復</block>
+  <block id="fb289ff7f529e1f2477823c61e7d9c8f" category="section-title">Splunk SmartStore</block>
+  <block id="e2475a05ae25f0e8f31932cc309db3f1" category="paragraph">SmartStore是索引程式功能、可讓Amazon S3等遠端物件存放區儲存索引資料。隨著部署的資料量增加、儲存需求通常會超過運算資源的需求。SmartStore可讓您以具成本效益的方式管理索引器儲存設備和運算資源、方法是分別擴充這些資源。</block>
+  <block id="4b253fe4960ecb87fdd7a6c05a125003" category="paragraph">SmartStore引進遠端儲存層和快取管理程式。這些功能可讓資料駐留在本地索引器或遠端儲存層上。快取管理程式可管理索引器與遠端儲存層之間的資料移動、索引器上已設定此層。</block>
+  <block id="98941a2e255442c92447b445a4a6bc6e" category="paragraph">有了SmartStore、您可以將索引器的儲存設備佔用空間降至最低、並選擇I/O最佳化的運算資源。大部分資料都位於遠端儲存設備上。索引器會維護本機快取、其中包含最少的資料量：熱儲存區、參與作用中或最近搜尋的暖儲存區複本、以及儲存區中繼資料。</block>
+  <block id="2d153b33a50f3343c2aeb68789ee8e26" category="section-title">Splunk SmartStore資料流</block>
+  <block id="3306b50d7dd22a0698c2245e7cd06bee" category="paragraph">當從不同來源傳入的資料到達索引器時、會將資料索引並儲存在熱儲存區的本機上。索引程式也會將熱庫資料複寫到目標索引器。到目前為止、資料流與非SmartStore索引的資料流相同。</block>
+  <block id="ad1e15c21ba7587e1631977abe48ab09" category="paragraph">當熱桶開始變暖時、資料流會發生差異。來源索引器會將暖儲存區複製到遠端物件存放區（遠端儲存層）、同時將現有的複本保留在快取中、因為搜尋通常會在最近建立索引的資料之間執行。但是、目標索引器會刪除複本、因為遠端儲存區提供高可用度、而不會維護多個本機複本。儲存庫的主要複本現在位於遠端儲存區。</block>
+  <block id="3d39641a906c56e9e12b0f019f23bc1d" category="paragraph">下圖顯示Splunk SmartStore資料流。</block>
+  <block id="9fb3b10aa394792f93ac799606bd8ed5" category="paragraph"><block ref="9fb3b10aa394792f93ac799606bd8ed5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7fa16046e839496393e84b6a20e9604e" category="paragraph">索引器上的快取管理程式是SmartStore資料流的核心。它會視需要從遠端儲存區擷取儲存區的複本、以處理搜尋要求。它也會從快取中移出較舊或較少搜尋過的儲存區複本、因為隨著時間的推移、參與搜尋的可能性也會降低。</block>
+  <block id="715f39bb7952ceb84a6bd1bb44c1ac4d" category="paragraph">快取管理程式的工作是最佳化可用快取的使用、同時確保搜尋能夠立即存取所需的儲存區。</block>
+  <block id="4b2ba4c21a026c9139cf1484818f31c0" category="paragraph">下表列出實作解決方案所需的軟體元件。在解決方案的任何實作中使用的軟體元件、可能會因客戶需求而異。</block>
+  <block id="aa76f43f5e0552119cc8d5313c67296e" category="cell">產品系列</block>
+  <block id="df644ae155e79abf54175bd15d75f363" category="cell">產品名稱</block>
+  <block id="892b5a336dfe285f2d5c04ccd3d6c465" category="cell">產品版本</block>
+  <block id="1b3e6de2b0fe97c3177ea5a4ad142554" category="cell">物件儲存StorageGRID</block>
+  <block id="36552b079970ffb2dd1314115af76c4b" category="cell">11.6%</block>
+  <block id="66985170e641a7e20698bfec3c1d889f" category="cell">CentOS 7.x</block>
+  <block id="5dba46907e72d7502229329d2aafd8a2" category="cell">Splunk Enterprise</block>
+  <block id="9d8d169ace12276d008f0d0b88b61261" category="cell">採用SmartStore的Splunk Enterprise</block>
+  <block id="75809dde56e3fe2c2fb740f1b55807ac" category="cell">8.0.3</block>
+  <block id="3192356dc19e9b4ec43ba340bad657ee" category="section-title">單一和多站台需求</block>
+  <block id="98b8bd4f9670277f1f0e59a574019582" category="paragraph">在企業Splunk環境（中型和大型部署）中、資料來源於許多機器、且有許多使用者需要搜尋資料、您可以在單一和多個站台上散佈Splunk Enterprise執行個體、藉此擴充部署規模。</block>
+  <block id="22e1b76cf9acbfd35603b013eefcb079" category="paragraph">下表列出分散式Splunk Enterprise環境中使用的元件。</block>
+  <block id="1fbd0b2f11fe7779db6380b6d09478df" category="cell">一組Splunk Enterprise索引器、設定為彼此複寫資料</block>
+  <block id="4e21e57c1860bf98fe3d0af8068f827d" category="cell">負載平衡器</block>
+  <block id="03d7fbb295d0abb68bf4d3ce22d6d448" category="cell">叢集式元件的負載管理</block>
+  <block id="a0ebc1066e0250b1b42f1a66ae974836" category="paragraph">此圖說明單一站台分散式部署的範例。</block>
+  <block id="733ecc3327823660187d1d7d76df7079" category="paragraph"><block ref="733ecc3327823660187d1d7d76df7079" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cf99a89b389bc74dc1a403695b28d6cd" category="paragraph">此圖說明多站台分散式部署的範例。</block>
+  <block id="d10d5e57a05119c14c599013d15d6553" category="paragraph"><block ref="d10d5e57a05119c14c599013d15d6553" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="80d955d16c5178cc40e347dfe675a443" category="paragraph">下表列出實作解決方案所需的硬體元件數量下限。在解決方案的特定實作中使用的硬體元件可能會因客戶需求而異。</block>
+  <block id="40b955882ffd3093985177c3721cfed2" category="admonition">無論您是在StorageGRID 單一站台或多個站台上部署Splunk SmartStore和Solidsites、所有系統都是從StorageGRID 這個功能區管理的單一窗口中進行管理。如需詳細資訊、請參閱「使用Grid Manager進行簡單管理」一節。</block>
+  <block id="1605af3a62fa950fe8374a69086fdc94" category="paragraph">下表列出單一站台所使用的硬體。</block>
+  <block id="380dbc8d9d2c8a17f6ebb0b2c62d3e85" category="cell">磁碟</block>
+  <block id="b3e1f4c67ee07a73dcdaff1cf34f2640" category="cell">可用容量</block>
+  <block id="3b0649c72650c313a357338dcdfb64ec" category="cell">附註</block>
+  <block id="1c594a38f9aafa3a439c25bc55815b40" category="cell">SSG1000 StorageGRID</block>
+  <block id="b179d20c2d3e6e91708b69931e8fcf32" category="cell">管理節點和負載平衡器</block>
+  <block id="48f09b085e666c51e35dbe89367de826" category="cell">SSG6060 StorageGRID</block>
+  <block id="ab570142c34522356bdf33666f6532a3" category="cell">X48、8TB（NL-SAS HDD）</block>
+  <block id="1792805a48a4da5ef5a78aa014da1f84" category="cell">1PB</block>
+  <block id="ecefe4d01bf4079d1e2833e9a7de2db7" category="cell">遠端儲存設備</block>
+  <block id="9327a762e04913fc832ee2b182848716" category="paragraph">下表列出用於多站台組態（每站台）的硬體。</block>
+  <block id="41cac74c281e47bb6feb1ef8db664ce4" category="cell">管理節點和負載平衡器</block>
+  <block id="aadc7d80b20e9c743c2920297937f9fd" category="section-title">NetApp StorageGRID S1000負載平衡器：SG1000</block>
+  <block id="b3f51763a6ba0ae7fe6d83095cb24299" category="paragraph">物件儲存需要使用負載平衡器來呈現雲端儲存命名空間。支援業界領先廠商（例如F5和Citrix）的協力廠商負載平衡器、但許多客戶選擇企業級的均衡器、以實現簡易性、恢復能力和高效能。StorageGRID StorageGRID此等負載平衡器可作為VM、Container或特定用途的應用裝置使用。StorageGRID</block>
+  <block id="01f9bf7333b91ead20b7d1ac12ba4bca" category="paragraph">利用此功能、即可在S3資料路徑連線中使用高可用度（HA）群組、並實現智慧型負載平衡。StorageGRID沒有其他內部物件儲存系統能提供自訂的負載平衡器。</block>
+  <block id="2f1a2bc20d9d0cddf636827860bdeb21" category="paragraph">SG1000應用裝置提供下列功能：</block>
+  <block id="fee5222c1281869dd7c4e3e4b7225065" category="list-text">負載平衡器和（可選）管理員節點功能、適用於StorageGRID 一個系統</block>
+  <block id="7ea5a035cfe0609861da7628e7dedc64" category="list-text">旨在簡化節點部署與組態的《產品安裝程式（the StorageGRID</block>
+  <block id="224d05cfece712836874ae47446c6d1b" category="list-text">簡化S3端點和SSL的組態</block>
+  <block id="59bf11863992b10be7d53c81c21a0220" category="list-text">專用頻寬（相較於與其他應用程式共用協力廠商負載平衡器）</block>
+  <block id="1436fddc15afc971733cc42610be3718" category="list-text">高達4 x 100Gbps的Aggregate乙太網路頻寬</block>
+  <block id="4ff66456ad21f2aa88ad918b2a19287d" category="paragraph">下圖顯示SG1000閘道服務應用裝置。</block>
+  <block id="3e44556364ce6907a44a9fb5c09eab69" category="paragraph"><block ref="3e44556364ce6907a44a9fb5c09eab69" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c69ff1785c16ab7db216e04b62e5ef4f" category="section-title">SG6060</block>
+  <block id="40b11d9d6e72b8f3d6f6cd150ea6d5b3" category="paragraph">此產品包含運算控制器（SG6060）和儲存控制器機櫃（E系列E2860）、StorageGRID 其中包含兩個儲存控制器和60個磁碟機。本應用裝置提供下列功能：</block>
+  <block id="5d61368716b8937ccfa3ae30bdeb3add" category="list-text">在單一命名空間中最多可擴充至400PB。</block>
+  <block id="b08da7d555d413c82fa9476b78a3d1b4" category="list-text">最高4倍25Gbps Aggregate乙太網路頻寬。</block>
+  <block id="3b384482ee0276a75964f52aab736cac" category="list-text">包含StorageGRID 可簡化節點部署與組態的《不再使用產品安裝程式」。</block>
+  <block id="3d6b68fb6989ac04a76612b7d50b5046" category="list-text">每個SG6060應用裝置都可以有一或兩個額外的擴充櫃、總共可容納180個磁碟機。</block>
+  <block id="470503fbecc72cbe91b61c6e9b999cbe" category="list-text">兩個E系列E2800控制器（雙工組態）可提供儲存控制器容錯移轉支援。</block>
+  <block id="920a659800fa3289516e73f0b8d0cd70" category="list-text">五個抽屜式磁碟機櫃、可容納60個3.5吋磁碟機（兩個固態磁碟機、以及58個NL-SAS磁碟機）。</block>
+  <block id="d60b006794c926c67e95ce7f49fffbed" category="paragraph">下圖顯示SG6060應用裝置。</block>
+  <block id="8d3bb0a39a1d477f7f0b8789769c96c5" category="paragraph"><block ref="8d3bb0a39a1d477f7f0b8789769c96c5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ad24897680a673883f3a8e9467ea3271" category="section-title">Splunk設計</block>
+  <block id="c2d7b4acc3efe890969906f2a0be4bea" category="paragraph">下表列出單一站台的Splunk組態。</block>
+  <block id="95dd022b7af0f9fcfb9ed21236830169" category="cell">核心</block>
+  <block id="5132d0e71971db5ca9827d470220eae9" category="cell">16核心</block>
+  <block id="f4e3903ba78addf6fadac4a2d7285203" category="cell">32GB RAM</block>
+  <block id="3988099dd7392a8b60a290ca560ac95d" category="cell">CentOS 8.1</block>
+  <block id="aa7f73db0dcc93a83403f1afb650efdd" category="cell">管理使用者資料</block>
+  <block id="86e7f660faa5812369ca3195a6ab944a" category="cell">使用者前端會在索引器中搜尋資料</block>
+  <block id="e14f0b3b9201c717d9cae1db6969fb64" category="cell">處理搜尋頭叢集的更新</block>
+  <block id="0ac993c5a472613a0cd368ccfefd6009" category="cell">管理Splunk安裝與索引器</block>
+  <block id="a91966f90c29f7d9420d2fd902f4aac2" category="cell">監控主控台和授權主控台</block>
+  <block id="0cb149f6f77c10496cf7645357f9fd17" category="cell">集中監控整個Splunk部署、並管理Splunk授權</block>
+  <block id="9bc779a08fe3e6d54c4355c4ee8c4a95" category="paragraph">下表說明多站台組態的Splunk組態。</block>
+  <block id="9605b47d211de50422182b81685da619" category="paragraph">下表列出多站台組態（站台A）的Splunk組態。</block>
+  <block id="d9de1b6846e3235226dba66773043a15" category="cell">負責擷取資料並將資料轉送給索引器。</block>
+  <block id="76132c1712ff61ff02378720304f6529" category="cell">集中監控整個Splunk部署、並管理Splunk授權。</block>
+  <block id="2d3db4a7f27e8f892b40be60e8c003b4" category="paragraph">下表列出多站台組態（站台B）的Splunk組態。</block>
+  <block id="b9006101b0f69e04590f5276d5cab52a" category="inline-link-macro">下一步：單一站台SmartStore效能。</block>
+  <block id="f7c6952971373a408f0b926fb7202e6f" category="paragraph"><block ref="f7c6952971373a408f0b926fb7202e6f" category="inline-link-macro-rx"></block></block>
+  <block id="722462e25c63551f73985fc89f6a2139" category="summary">此解決方案可新增運算、熱儲存或S3資源、以因應單一和多站台部署中使用者數量或擷取速度不斷增加的需求。</block>
+  <block id="0dd05c4d24d98f033770c01356b3ce26" category="paragraph"><block ref="0dd05c4d24d98f033770c01356b3ce26" category="inline-link-macro-rx"></block></block>
+  <block id="bf89e1232480b95d07f648df24c3695b" category="list-text">*效能。* Splunk SmartStore與NetApp StorageGRID 支援組合、可利用物件儲存功能、快速移轉熱桶與溫桶之間的資料。藉由針對大型物件工作負載提供快速的效能、而使移轉程序更具效率。StorageGRID</block>
+  <block id="e0be1ad556d6601e63eb8f1b6208c55e" category="list-text">*多站台就緒。* StorageGRID 透過分散式架構、Splunk SmartStore可透過單一全域命名空間、將部署延伸至單一和多個站台、無論資料存放在何處、都能從任何站台存取資料。</block>
+  <block id="9efd709ebdaac869f02b49e17fe9e92b" category="list-text">*提升擴充性。*從運算資源獨立擴充儲存資源、以滿足Splunk環境中不斷演變的需求、進而提升TCO。</block>
+  <block id="52fb1ca9da3811c1cb86cd4347f98a64" category="list-text">*容量。* StorageGRID 藉由將單一命名空間擴充至560PB以上、藉由使用NetApp解決方案、在Splunk部署中滿足快速成長的磁碟區需求。</block>
+  <block id="ff501c8a6a8c7b1ee7a3c656b6f4055a" category="list-text">*資料可用度。*最佳化資料可用度、效能、地理分佈、保留、保護、 和儲存成本、搭配中繼資料導向的原則、可隨著資料商業價值的演進而動態調整。</block>
+  <block id="bf1b0e32d877d343f0b3bc9ba43cb688" category="inline-link">Splunk提供的準則</block>
+  <block id="29c3e2f956fc4b206ef3c7bbbb3730b0" category="paragraph">SmartStore快取是索引器的一項元件、可在本機（Hot）與遠端（Warm）儲存設備之間處理儲存區複本傳輸作業、藉此提升效能。此解決方案的Splunk規模是以為基礎<block ref="d615ab802f29a9ee4a18e420480d049f" category="inline-link-rx"></block>。此解決方案可新增運算、熱儲存或S3資源、以因應單一和多站台部署中使用者數量或擷取速度不斷增加的需求。</block>
+  <block id="a013f15cce9510e1b717f058d9322b0f" category="inline-link-macro">下一步：智慧分層和成本節約。</block>
+  <block id="1dd4851efea44091fc608ccfa49a8da6" category="paragraph"><block ref="1dd4851efea44091fc608ccfa49a8da6" category="inline-link-macro-rx"></block></block>
+  <block id="c7ebb883721f7d9264fd6ef2ae03fc71" category="summary">本技術報告概述NetApp為Splunk SmartStore解決方案所提供的效益、同時示範如何在您的環境中設計及調整Splunk SmartStore規模。如此一來、我們就能打造出簡單易用、可擴充且靈活彈性的解決方案、提供極具吸引力的TCO。</block>
+  <block id="766d1a96c4f198ecfe92484b980e9b31" category="doc">TR-4869：StorageGRID NetApp支援Splunk SmartStore</block>
+  <block id="2dafc6e921d43527cceb2ba642abf973" category="paragraph">Karthithkeyan Nagalingam、Bobby Oommen、Joseph Kandatilparambil</block>
+  <block id="648e525fafbee4c7b749ab8740beb0d3" category="paragraph">Splunk Enterprise是領先市場的安全資訊與事件管理（SIEM）解決方案、可帶動安全、IT及DevOps團隊的成果。資料量持續以指數速度成長、為企業創造龐大商機、充分運用這項龐大資源。Splunk Enterprise持續在各種使用案例中獲得採用率。隨著使用案例的成長、Splunk Enterprise擷取和處理的資料量也會隨之增加。Splunk Enterprise的傳統架構是分散式橫向擴充設計、提供絕佳的資料存取與可用度。然而、使用此架構的企業面臨著擴充所需的相關成本日益增加、以因應快速成長的資料量。</block>
+  <block id="6a7254f4c4c618a79510973c24f6b258" category="paragraph">Splunk SmartStore with NetApp StorageGRID NetApp解決了這項挑戰、提供全新的部署模式、讓運算與儲存設備能夠分離。此解決方案也能讓客戶在單一和多個站台之間進行擴充、進而釋放Splunk Enterprise環境無與倫比的擴充性和彈性、同時還能讓運算和儲存設備獨立擴充規模、並為具成本效益的雲端型S3物件儲存設備增添智慧分層功能、進而降低成本。</block>
+  <block id="f8ff71716eed4ad221efc3e0d60beaf6" category="paragraph">此解決方案可最佳化本機儲存設備中的資料量、同時維持搜尋效能、讓運算和儲存設備能夠隨需擴充。SmartStore會自動評估資料存取模式、以判斷哪些資料需要即時分析才能存取、哪些資料應存放在成本較低的S3物件儲存設備中。</block>
+  <block id="5c56ae45ba2fb5c42451dffdb2e64b55" category="paragraph">本技術報告概述NetApp為Splunk SmartStore解決方案所提供的效益、同時示範如何在您的環境中設計及調整Splunk SmartStore規模。如此一來、我們就能打造出簡單易用、可擴充且靈活彈性的解決方案、提供極具吸引力的TCO。支援可擴充且具成本效益的S3傳輸協定/API型物件儲存設備、也稱為遠端儲存設備、可讓組織以較低的成本擴充Splunk解決方案、同時提高恢復能力。StorageGRID</block>
+  <block id="9841b81741e6066deac80b48e24f10fd" category="admonition">Splunk SmartStore將物件儲存稱為遠端儲存區或遠端儲存層。</block>
+  <block id="4c1ead791cca9ec5a7b94356255ce5ef" category="section-title">關於NetApp StorageGRID 解決方案</block>
+  <block id="57f13ae6637bd7ac5af4d0b1c4342cf7" category="paragraph">NetApp StorageGRID 解決方案是軟體定義的物件儲存解決方案、適用於大型歸檔、媒體儲存庫和網路資料儲存區。NetApp運用StorageGRID NetApp豐富的經驗、提供領先業界的創新與資料管理解決方案、同時協助組織管理及發揮內部部署及公有、私有或混合雲部署的資訊價值。</block>
+  <block id="6281e52aec6aad8556d89bbf44d95436" category="paragraph">提供安全、持久的大規模儲存非結構化資料。StorageGRID以中繼資料為導向的整合式生命週期管理原則、可在資料生命週期中最佳化資料的存放位置。內容會放置在適當的位置、適當的時間、以及適當的儲存層、以降低成本。單一命名空間可讓您透過單一通話存取資料、無論StorageGRID 該資料位於何處、都能輕鬆存取。客戶可以在StorageGRID 資料中心和雲端基礎架構之間部署及管理多個支援範例。</block>
+  <block id="d0a72d49cbe69b32b6e889db2e1429c9" category="paragraph">這個系統由全球分散、備援的異質節點所組成、可與現有和新一代用戶端應用程式整合。StorageGRID</block>
+  <block id="5680b078511221b1538af544a52a477e" category="paragraph"><block ref="5680b078511221b1538af544a52a477e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4077a77339f68c64c1e50f20961e468f" category="paragraph">IDC MarketScape最近在最新報告《IDC MarketScape：全球物件型儲存設備2019年廠商評估》中、將NetApp評選為領導廠商。由於在要求最嚴苛的產業部署了將近20年的正式作業環境、StorageGRID 因此在非結構化資料方面、NetApp是公認的領導者。</block>
+  <block id="a2146cca70b8afc5500f690b84357813" category="paragraph">有了這個功能、您可以達成下列目標：StorageGRID</block>
+  <block id="0d29e2d2977160f50fc59018cd24d6ee" category="list-text">部署多StorageGRID 個支援實體執行個體、透過單一命名空間輕鬆擴充至數百PB的容量、從資料中心與雲端之間的任何位置存取資料。</block>
+  <block id="770d656b5273d26168b61ba6ede38cfd" category="list-text">提供靈活彈性、可在基礎架構之間進行部署和集中管理。</block>
+  <block id="5926e6b363cbfe237a46219c7f92fe02" category="list-text">利用分層銷毀編碼（EC）、提供15個nines的持久性、提供無與倫比的持久性。</block>
+  <block id="77a48d0beb74ba75ef47c32ed1115a01" category="list-text">透過Amazon S3 Glacier和Azure Blob的驗證整合功能、實現更多混合式多雲端功能。</block>
+  <block id="ffa0a5ca524779112b69eb9e53aacf31" category="list-text">不需使用專屬API或固定廠商、即可透過防竄改資料保留功能來履行法規義務並促進法規遵循。</block>
+  <block id="6e9d67cdb6f2e5564ae28e0389bcc679" category="inline-link">NetApp StorageGRID 產品首頁</block>
+  <block id="206008935f811359069d9b35cb5c874e" category="paragraph">如需StorageGRID 更多關於如何協助您解決最複雜的非結構化資料管理問題的資訊、請參閱<block ref="56ef38793a035acc851dabaa0c795287" category="inline-link-rx"></block>。</block>
+  <block id="04bfb82e5f80fda36ff56ad540caaa63" category="section-title">關於Splunk Enterprise</block>
+  <block id="a643f0cfa3f1b40b8f79f3609f0aa84f" category="paragraph">Splunk Enterprise是將資料轉化為行動的平台。Splunk Indexers會傳送及剖析由各種來源產生的資料、例如記錄檔、網站、裝置、感應器和應用程式、讓您從資料中獲得豐富的見解。它可以識別資料外洩、指出客戶與產品趨勢、尋找最佳化基礎架構的機會、或針對各種使用案例建立可據以行動的洞見。</block>
+  <block id="6118f726dd6c9b9e82e01638e958e5c8" category="section-title">關於Splunk SmartStore</block>
+  <block id="9ce6098334cce9db7edb3314ee645a2e" category="paragraph">Splunk SmartStore擴展了Splunk架構的優點、同時簡化了以符合成本效益的方式擴充的能力。運算與儲存資源的分離、可使索引節點針對I/O最佳化、並大幅減少儲存需求、因為索引節點只會將資料子集儲存為快取。只需要其中一項資源、您就不需要新增額外的運算或儲存設備、如此一來您就能大幅節省成本。您可以使用具成本效益且易於擴充的S3型物件儲存設備、進一步簡化環境、降低成本、並可讓您維護更大量的資料集。</block>
+  <block id="fde880b7e5def5ccc70e3e98ba15b442" category="paragraph">Splunk SmartStore為組織帶來重大價值、包括：</block>
+  <block id="16fc7d5921f88ca7b8070e1913a6fb74" category="list-text">將暖資料移至成本最佳化的S3物件儲存設備、藉此降低儲存成本</block>
+  <block id="9ce78e75b3ecebf85fe0d43f2cf80505" category="list-text">將儲存設備與運算分離、實現無縫擴充</block>
+  <block id="1dd6f3d1f3ac2a43dc2e69386b1b15ca" category="list-text">運用彈性的雲端原生儲存設備、簡化營運不中斷</block>
+  <block id="8db09dd9a1d2508a1e11189bfe47d246" category="inline-link-macro">下一步：此解決方案的優點。</block>
+  <block id="0032cf08702e09af53bf601b3f83e323" category="paragraph"><block ref="0032cf08702e09af53bf601b3f83e323" category="inline-link-macro-rx"></block></block>
+  <block id="95ae2f11a98975eca88411c818226d25" category="paragraph">為了進一步強化端點組態、StorageGRID 支援內建於管理節點的流量分類原則、讓您監控工作負載流量、並將各種服務品質（QoS）限制套用至工作負載。流量分類原則會套用至StorageGRID 閘道節點和管理節點的「動態負載平衡器」服務上的端點。這些原則可協助流量調整和監控。</block>
+  <block id="7d68f597b217695f6702ae71ae4eb455" category="summary">利用各式各樣的功能、使用者可以根據瞬息萬變的環境來運用及自訂這些功能。StorageGRID從部署到擴充Splunk SmartStore、您的環境都需要迅速採用變更、而且不中斷Splunk營運。靈活的資料管理原則（ILM）和流量分類器（QoS）StorageGRID 可讓您規劃及調整環境。</block>
+  <block id="0fc3cf31004e01f169ca3af4ef687576" category="doc">Splunk SmartStore靈活StorageGRID 的功能</block>
+  <block id="0a0da304981bebd25b6bd55cb6151bf0" category="paragraph"><block ref="0a0da304981bebd25b6bd55cb6151bf0" category="inline-link-macro-rx"></block></block>
+  <block id="5b552d68210e15d5ed4e4d186264b453" category="paragraph">Grid Manager是瀏覽器型圖形介面、可讓您在StorageGRID 單一窗口中設定、管理及監控整個分散於全球各地的地區、如下圖所示。</block>
+  <block id="9c4d5c64a1fc501b7fb5d68cb8048ddc" category="paragraph"><block ref="9c4d5c64a1fc501b7fb5d68cb8048ddc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="52d198c85ec187eb3bbff17442a01baa" category="paragraph">使用Grid Manager介面執行下列工作：</block>
+  <block id="356e4420bfe7b6226984261d66ec9e0b" category="section-title">適用於Splunk的NetApp StorageGRID 支援應用程式</block>
+  <block id="d4503ceebebf47c506c3003f760662a2" category="paragraph">適用於Splunk的NetApp StorageGRID 解決方案應用程式是Splunk Enterprise專屬的應用程式。此應用程式可搭配適用於StorageGRID Splunk的NetApp支援附加元件一起運作。它可讓您清楚掌握StorageGRID 有關資料的健全狀況、帳戶使用資訊、安全性稽核詳細資料、資源使用量及監控等資訊。</block>
+  <block id="c7b8ad57a7270e26eba0ed9da1fa0b6c" category="paragraph">下圖顯示StorageGRID 適用於Splunk的ImageApp。</block>
+  <block id="7c39625522ddbadc65ea87056e2d32c9" category="paragraph"><block ref="7c39625522ddbadc65ea87056e2d32c9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a7e07b036910adce42ba90efc47f818e" category="section-title">ILM原則</block>
+  <block id="fce13f2ee25ffdd1859d6a17a94b0e73" category="paragraph">根據特定的效能和資料保護需求、支援靈活的資料管理原則、包括保留多個物件複本、以及使用EC（銷毀編碼）配置（例如2+1和4+2（以及其他許多方案）來儲存物件。StorageGRID隨著工作負載和需求隨時間變化、ILM原則也必須隨時間而改變、這是很常見的做法。修改ILM原則是一項核心功能、讓StorageGRID 客戶能夠快速輕鬆地因應瞬息萬變的環境。</block>
+  <block id="3f7d13681fac5c1ca00c53ae2a27efaa" category="paragraph">透過新增更多節點來擴充效能、這些節點可以是VM、裸機或專為特定用途建置的應用裝置、例如SG5712、SG5760、SG6060或SGF6024。StorageGRID在我們的測試中、我們使用SG6060應用裝置、以最小的三節點網格、超越SmartStore的關鍵效能要求。隨著客戶使用額外的索引器來擴充Splunk基礎架構、他們可以新增更多儲存節點來提升效能和容量。</block>
+  <block id="8a0453356d4720c8c5a67e5e2a16b419" category="section-title">負載平衡器和端點組態</block>
+  <block id="08de46c3a8d44cfa799d969abfa407eb" category="paragraph">本功能提供Grid Manager UI（使用者介面）和REST API端點、StorageGRID 以檢視、設定及管理StorageGRID 您的不實系統、以及稽核記錄來追蹤系統活動。為了為Splunk SmartStore遠端儲存設備提供高可用度的S3端點、我們實作StorageGRID 了一套以服務形式在管理節點和閘道節點上執行的負載平衡器。此外、負載平衡器也會管理本機流量、並與GSLB（全域伺服器負載平衡）對話、以協助災難恢復。</block>
+  <block id="d2134190f6b031237d4b1523c86c29a2" category="paragraph">為了進一步強化端點組態、StorageGRID 支援內建於管理節點的流量分類原則、讓您監控工作負載流量、並將各種服務品質（QoS）限制套用至工作負載。流量分類原則會套用至StorageGRID 閘道節點和管理節點的「動態負載平衡器」服務上的端點。這些原則可協助限制流量及監控。</block>
+  <block id="923a187b8784c27278acc68df21738b8" category="inline-link-macro">下一步：Splunk架構。</block>
+  <block id="ec27327edf763f5474f1428dfcc067b1" category="paragraph"><block ref="ec27327edf763f5474f1428dfcc067b1" category="inline-link-macro-rx"></block></block>
+  <block id="b27064a5ca31ea524411e6ce281c8f0c" category="paragraph">NetApp為Splunk SmartStore提供簡單易用且可擴充的解決方案、不僅能發揮最大效能與恢復能力、還能提供令人信服的TCO。</block>
+  <block id="39e4c49e9af8047395aa4031e5c5f3a9" category="summary">本頁說明用於完成此解決方案的元件、包括NetApp StorageGRID 、Splunk Enterprise和Splunk SmartStore。</block>
+  <block id="0f641483b3a1a8cfcb4b0ad971a2d016" category="inline-link-macro">上一篇：智慧分層與成本節約效益。</block>
+  <block id="b1320bfc03a3d1edb16e0f717149a713" category="paragraph"><block ref="b1320bfc03a3d1edb16e0f717149a713" category="inline-link-macro-rx"></block></block>
+  <block id="5ab9d0d9b506bd4b5bf294baccd4ef0a" category="paragraph">NetApp StorageGRID 產品是高效能且具成本效益的物件儲存平台。它使用分散式節點型網格架構、提供智慧型原則導向的全球資料管理功能。它透過無所不在的全域物件命名空間、加上精密的資料管理功能、簡化PB非結構化資料和數十億個物件的管理。單一通話物件存取功能可延伸至各個站台、並簡化高可用度架構、同時確保無論站台或基礎架構停機、都能持續存取物件。</block>
+  <block id="d67c579ad5ceca0ec4f8fe6a86f203cf" category="paragraph">多租戶功能可讓多個雲端和企業非結構化資料應用程式在同一個網格內安全地進行服務、進而提高ROI和StorageGRID 使用案例以供參考。您可以使用中繼資料導向的物件生命週期原則來建立多種服務層級、以最佳化跨多個地理區的耐用度、保護、效能和位置。使用者可以在不中斷營運的情況下、隨著需求改變、調整原則並重新調整資料架構。</block>
+  <block id="0d2b0fb2b312d872db772396e149b541" category="paragraph">SmartStore採用StorageGRID 以物件命名空間形式呈現的功能、可將物件作為遠端儲存層、並讓客戶部署多個分散各地的站台、以提供強大的可用度與持久性。這可讓Splunk SmartStore充分發揮StorageGRID 效能、密集容量、並透過單一URL與物件互動、在多個實體站台上擴充至數百個節點。此單一URL也可讓儲存設備擴充、升級及修復作業不中斷營運、即使只在單一站台上也不例外。獨一無二的資料管理原則引擎、提供最佳化的效能與持久性、並符合資料位置需求。StorageGRID</block>
+  <block id="f9ed96cf2d028d3cfa9c658c6ec5ae72" category="paragraph">Splunk是收集與分析機器產生資料的領導廠商、透過其作業分析功能、協助IT簡化並現代化。此外、它也延伸至商業分析、安全性和IoT使用案例。儲存設備是成功部署Splunk軟體的關鍵要素。</block>
+  <block id="1812fb837f2c63812e909b4457b0fa17" category="paragraph">機器產生的資料是成長速度最快的大型資料類型。格式無法預測、而且來自許多不同的來源、通常是高速且大量的。這些工作負載特性通常稱為數位排氣。Splunk SmartStore有助於充分運用這些資料、並提供智慧型資料分層功能、將熱和暖資料最佳化放置在最具成本效益的儲存層。</block>
+  <block id="bd069a1be23f237559be08ae79727806" category="paragraph">Splunk SmartStore是一種索引器功能、使用物件儲存（也稱為遠端儲存或遠端儲存層）、例如StorageGRID 使用S3傳輸協定儲存暖資料。</block>
+  <block id="9e5e9e455aa469c6579c4cde82cf69fc" category="paragraph">隨著部署的資料量增加、對儲存設備的需求通常會超過對電腦資源的需求。SmartStore可讓您以具成本效益的方式管理索引器儲存設備和運算資源、方法是分別擴充運算和儲存設備。</block>
+  <block id="1ab3873a2fa155a27933ac3e2b4ae709" category="paragraph">SmartStore採用S3傳輸協定和快取管理程式、引進遠端儲存層。這些功能可讓資料駐留在本地索引器或遠端儲存設備上。駐留在索引器上的快取管理程式可管理索引器與遠端儲存層之間的資料移動。資料會儲存在儲存區（熱區和溫區）、以及儲存區中繼資料。</block>
+  <block id="85a6e51e1b2fd3e4be531f269e108f39" category="paragraph">有了SmartStore、您可以將索引器的儲存設備佔用空間降至最低、並選擇I/O最佳化的運算資源、因為大部分資料都位於遠端儲存層。索引器會維護本機快取、代表傳回要求和預測結果所需的最小資料量。本機快取包含熱儲存區、參與作用中或最近搜尋的暖儲存區複本、以及儲存區中繼資料。</block>
+  <block id="8cc78103debf2dcfe53620b96565dad4" category="paragraph">Splunk SmartStore with StorageGRID VMware可讓客戶以高效能且具成本效益的遠端儲存設備、逐步擴充環境、同時為整體解決方案提供高度的彈性。這可讓客戶在任何指定時間、以任何特定數量新增任何元件（熱儲存和/或暖S3儲存設備）、無論他們需要更多索引器、變更資料保留、或是在不中斷營運的情況下增加擷取速度。</block>
+  <block id="5cb48860c8dadcd442724a4122e031bd" category="inline-link-macro">下一步：StorageGRID Splunk SmartStore的靈活功能。</block>
+  <block id="9a206b91ebbd6c75f73fba261d1eed1c" category="paragraph"><block ref="9a206b91ebbd6c75f73fba261d1eed1c" category="inline-link-macro-rx"></block></block>
+  <block id="5273463fa2459ed38da1af200de6f150" category="summary">本頁說明Splunk SmartStore在NetApp StorageGRID 支援控制器上的效能表現。Splunk SmartStore將暖資料移至遠端儲存設備、StorageGRID 這是效能驗證中的物件儲存設備。</block>
+  <block id="b646ed758d0eaa12ba9fab12788f9ad4" category="doc">單一站台SmartStore效能</block>
+  <block id="47251bcda6f5d3ff81fc5968fa702aad" category="inline-link-macro">先前版本：Splunk架構。</block>
+  <block id="10da3263ceac590ab423073945a99eac" category="paragraph"><block ref="10da3263ceac590ab423073945a99eac" category="inline-link-macro-rx"></block></block>
+  <block id="b72db8dc34d5e01f398d66c9de42c11f" category="paragraph">本節說明Splunk SmartStore在NetApp StorageGRID 支援控制器上的效能。Splunk SmartStore可將暖資料移至遠端儲存設備、在此案例中、StorageGRID 是效能驗證中的物件儲存設備。</block>
+  <block id="1d01dcffdd1257afb01e4194d766d2f9" category="paragraph"><block ref="1d01dcffdd1257afb01e4194d766d2f9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="32b74ac1eb4eb0530a3f976e96e3120d" category="paragraph">我們使用EF600進行熱/快取儲存、StorageGRID 並使用E56060進行遠端儲存。我們使用下列架構來驗證效能。我們使用兩個搜尋頭、四個大型轉發器將資料轉送給索引器、七個Splunk事件產生器（事件生成器）來產生即時資料、以及18個索引器來儲存資料。</block>
+  <block id="a2fd19ff7e04cf04d5d99320b979cd00" category="paragraph"><block ref="a2fd19ff7e04cf04d5d99320b979cd00" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="45940e86de61b51821b0ec7959b3d551" category="paragraph">下表列出SmartStorage效能驗證所使用的硬體。</block>
+  <block id="2fda610cb12c654fe037d4130498d5ae" category="cell">沉重的轉運商</block>
+  <block id="6d53d218eec402993fef5394aef9acdf" category="cell">16個核心</block>
+  <block id="d3dd61dd737f0e824caf9d717bc1a59d" category="cell">SLED 15 SP2</block>
+  <block id="6f4922f45568161a8cdf4ad2299f6d23" category="cell">18</block>
+  <block id="21dd53b3176e5a03137d603514a60ece" category="cell">使用者前端會在索引器中搜尋資料</block>
+  <block id="c247e74124395bc7279d790ac384786e" category="section-title">SmartStore遠端儲存區效能驗證</block>
+  <block id="30cf0ca744869370aafb6cfecdd7b4c6" category="paragraph">在這項效能驗證中、我們在所有索引器的本機儲存設備上設定SmartStore快取、以提供10天的資料。我們在Splunk叢集管理程式中啟用了「maxDataSize=auto'（750MB儲存區大小）」、並將變更推送到所有索引器。為了測量上傳效能、我們每天擷取10TB的時間達10天、並將所有熱儲存區同時移轉至溫熱區、並從SmartStore監控主控台儀表板擷取每個執行個體和整個部署的尖峰和平均處理量。</block>
+  <block id="4fc95542b54fee8da424a2e0ab281aeb" category="paragraph">此影像顯示一天內擷取的資料。</block>
+  <block id="c1b0c9568cd6b9bf236fb9566021d8a4" category="paragraph"><block ref="c1b0c9568cd6b9bf236fb9566021d8a4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b72140907b2e824ba4a35a2f01bac4e6" category="paragraph">我們從叢集主機執行下列命令（索引名稱為「eventgen-test」）。然後、我們透過SmartStore監控主控台儀表板、擷取每個執行個體和整個部署的尖峰和平均上傳處理量。</block>
+  <block id="94a0389fcc3ce42eea7a3f351f5d39b5" category="admonition">叢集主機對所有索引器進行無密碼驗證（RTP-idx0001…RTP-idx0018）。</block>
+  <block id="d27688c7ebc58e3f620120997e317180" category="paragraph">為了測量下載效能、我們使用下列命令執行兩次強制移除的CLI、將所有資料從快取中移除。</block>
+  <block id="4faf8abcf7e17175784cdc9d58df1608" category="admonition">我們從叢集主機執行下列命令、並在10天前從StorageGRID 遠端商店從異地儲存區執行搜尋。接著我們會透過SmartStore監控主控台儀表板、擷取每個執行個體和整個部署範圍的尖峰和平均上傳處理量。</block>
+  <block id="995931f06acb79ea5ac83df17d692a1d" category="paragraph">索引器組態是從SmartStore叢集主機推送而來。叢集主機具有下列索引器組態。</block>
+  <block id="514109dd07ed0bb93081e9e36291b879" category="paragraph">我們在搜尋標頭上執行下列搜尋查詢、以收集效能對照表。</block>
+  <block id="39b8fe84a2982bcbeb6d733343e0678d" category="paragraph"><block ref="39b8fe84a2982bcbeb6d733343e0678d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="67e03c2395d7a876b5160fefc76f9bb9" category="paragraph">我們從叢集主機收集效能資訊。尖峰效能為61.34GBps。</block>
+  <block id="0feb590fe449a8a847517a38f1e0415f" category="paragraph"><block ref="0feb590fe449a8a847517a38f1e0415f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2850e7edd48f5666ab4f82242ddb37d2" category="paragraph">平均效能約29 GBps。</block>
+  <block id="2a1437158884c9696a6d4cac546972b1" category="paragraph"><block ref="2a1437158884c9696a6d4cac546972b1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="283456e93c96a11ef44a18693dd6c886" category="section-title">效能StorageGRID</block>
+  <block id="f5451e9a153b2f625ec0bc944af01be5" category="inline-link">事件世代</block>
+  <block id="764a1901ab00adf1e8e26712bf39c23a" category="paragraph">SmartStore的效能取決於從大量資料中搜尋特定的模式和字串。在此驗證中、會使用產生事件<block ref="6cec2d19baf7e588a52847e567dab457" category="inline-link-rx"></block> 在特定的Splunk索引（eventgen-test）上、透過搜尋標頭進行搜尋、並要求StorageGRID 針對大部分的查詢進行到支援。下圖顯示查詢資料的點擊次數和遺漏次數。命中資料來自本機磁碟、而未命中資料來自StorageGRID 於功能性控制器。</block>
+  <block id="3b8a6855a0eb4beaf2c787f34a2428d7" category="admonition">綠色顯示命中率資料、橘色顯示遺漏資料。</block>
+  <block id="0bf13ffd9c4e3655384eea9760fdd547" category="paragraph"><block ref="0bf13ffd9c4e3655384eea9760fdd547" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e6fa8244cc2900d6f36b3144c7e748ac" category="paragraph">當查詢執行StorageGRID 以供搜尋時、S3擷取速度的時間會StorageGRID 顯示在下列影像中。</block>
+  <block id="5e789be14498e5bac09395d944ced093" category="paragraph"><block ref="5e789be14498e5bac09395d944ced093" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5e3fd399eb98a5a8fae1dc144ff614f3" category="section-title">使用硬體StorageGRID</block>
+  <block id="8e8a6c088425467c00be94a9d15d015b" category="paragraph">這個執行個體有一個負載平衡器和三個功能不均的控制器。StorageGRID StorageGRID所有三個控制器的CPU使用率從75%到100%。</block>
+  <block id="5c78f5ad926b76e88a749362fb6e3412" category="paragraph"><block ref="5c78f5ad926b76e88a749362fb6e3412" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="140097f96ea2b213b6f37f9d71009a5e" category="section-title">採用NetApp儲存控制器的SmartStore -對客戶的好處</block>
+  <block id="7f18772207b4ab40d0e7574fc68b95b6" category="list-text">*將運算與儲存設備分離。* Splunk SmartStore可分離運算與儲存設備、協助您獨立擴充。</block>
+  <block id="4e1a3208fe0742415bc087d082943293" category="list-text">*隨需資料。* SmartStore可將資料帶離隨需運算環境、並提供運算與儲存彈性及成本效益、以達到更長的資料保留時間。</block>
+  <block id="f3295a31a8b7a9b5d76cb1a1e7f67f28" category="list-text">*符合AWS S3 API標準。* SmartStore使用AWS S3 API與還原儲存設備通訊、這是AWS S3和S3 API相容的物件存放區、例如StorageGRID ：</block>
+  <block id="4fda7aba03882818928ff7bc3a03f0e5" category="list-text">*降低儲存需求與成本。* SmartStore可降低老舊資料的儲存需求（溫/冷）。由於NetApp儲存設備可提供資料保護、並可處理故障和高可用度、因此只需要一份資料複本。</block>
+  <block id="c27703d92f7f2316dfa63670f02dd6b6" category="list-text">*硬體故障。* SmartStore部署中的節點故障不會使資料無法存取、也會使索引程式從硬體故障或資料失衡中恢復的速度更快。</block>
+  <block id="ed20f2e9df3c744293f044d87722ce0f" category="list-text">應用程式與資料感知快取。</block>
+  <block id="f57d44dedead861d1eef7e912b9cbd86" category="list-text">隨需新增移除索引器和設定刪除叢集。</block>
+  <block id="98613866f09e0e2416018bef4be916d3" category="list-text">儲存層不再與硬體綁定。</block>
+  <block id="a2a5916477583887c69c752ae6366750" category="paragraph"><block ref="a2a5916477583887c69c752ae6366750" category="inline-link-macro-rx"></block></block>
 </blocks>
