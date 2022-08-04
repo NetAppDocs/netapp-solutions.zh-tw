@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-cloud-backup-tools.html 
+keywords: deployment, backup tools, snapcenter server, Veeam server, 
+summary: 若要將我們的應用程式VM和資料庫Volume容錯移轉至執行於AWS的VMware Cloud Volume服務、必須安裝並設定SnapCenter 執行中的VMware Server和Veeam備份與複寫伺服器執行個體。容錯移轉完成後、也必須將這些工具設定為恢復正常的備份作業、直到規劃並執行內部部署資料中心的容錯回復為止。 
+---
+= 雲端備份工具
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-compute.html["上一篇：運算、"]
+
+若要將我們的應用程式VM和資料庫Volume容錯移轉至執行於AWS的VMware Cloud Volume服務、必須安裝並設定SnapCenter 執行中的VMware Server和Veeam備份與複寫伺服器執行個體。容錯移轉完成後、也必須將這些工具設定為恢復正常的備份作業、直到規劃並執行內部部署資料中心的容錯回復為止。
+
+
+
+== 部署備份工具
+
+VMware Cloud SDDC可安裝支援伺服器與Veeam備份與複寫伺服器、也可安裝在VPC中的EC2執行個體上、並可透過網路連線至VMware Cloud環境。SnapCenter
+
+
+
+=== 伺服器SnapCenter
+
+NetApp支援網站提供支援軟體、可安裝在網域或工作群組中的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 link:https://docs.netapp.com/us-en/snapcenter/install/install_workflow.html["NetApp文件中心"^]。
+
+您可在以下網址找到SnapCenter 此軟體： https://mysupport.netapp.com["此連結"^]。
+
+
+
+=== Veeam備份與複寫伺服器
+
+您可以在AWS或EC2執行個體上的VMware Cloud Windows伺服器上安裝Veeam備份與複寫伺服器。如需詳細的實作指南、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam說明中心技術文件"^]。
+
+
+
+== 備份工具與組態
+
+安裝SnapCenter 完成後、必須將VMware和Veeam備份與複寫設定為執行必要的工作、才能將資料還原至AWS上的VMware Cloud。
+
+
+
+=== 組態SnapCenter
+
+若要還原鏡射至FSXS庫ONTAP 的應用程式資料、您必須先執行內部部署SnapCenter 的整套功能還原資料庫。完成此程序後、將會重新建立與VM的通訊、現在可以使用FSX ONTAP 支援作為主要儲存設備、繼續進行應用程式備份。
+
+如需SnapCenter 在AWS中駐留的《不景伺服器》上完成的步驟清單、請參閱一節 link:aws-guest-dr-cloud-backup-config.html#deploy-secondary-windows-snapcenter-server["部署次要Windows SnapCenter 功能伺服器"]。
+
+
+
+=== Veeam備份與複寫組態
+
+若要還原已備份至Amazon S3儲存設備的虛擬機器、Veeam伺服器必須安裝在Windows伺服器上、並設定為與VMware Cloud、FSX ONTAP 、以及包含原始備份儲存庫的S3儲存庫進行通訊。此外、還必須在FSX ONTAP 更新上設定新的備份儲存庫、以便在VM還原後進行新的備份。
+
+如需完成應用程式VM容錯移轉所需的完整步驟清單、請參閱一節 link:aws-guest-dr-cloud-backup-config.html#deploy-secondary-veeam-backup-&-replication-server["部署次要Veeam備份與擴大機；複寫伺服器"]。
+
+link:aws-guest-dr-snapcenter-overview.html["下一步：總覽-災難恢復。"]

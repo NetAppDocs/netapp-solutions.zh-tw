@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-restore-oracle-data.html 
+keywords: Oracle application data, VMware Cloud Services, aws, mount NFS volumes, Oracle Server 
+summary: 下列程序提供如何在發生導致內部部署站台無法運作的災難時、在AWS的VMware Cloud Services中恢復Oracle應用程式資料的指示。 
+---
+= 還原Oracle應用程式資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-restore-sql-data.html["先前：還原SQL Server應用程式資料。"]
+
+下列程序提供如何在發生導致內部部署站台無法運作的災難時、在AWS的VMware Cloud Services中恢復Oracle應用程式資料的指示。
+
+完成下列先決條件、以繼續執行恢復步驟：
+
+. Oracle Linux伺服器VM已使用Veeam完整還原還原至VMware Cloud SDDC。
+. 已SnapCenter 建立次要的功能、SnapCenter 並已使用本節所述的步驟還原了資料庫和組態檔案 link:aws-guest-dr-snapcenter-db-backup.html#snapcenter-backup-and-restore-process-summary["支援備份與還原程序摘要。SnapCenter"]
+
+
+Oracle應用程式資料還原程序摘要如下：
+
+. 設定VM以準備還原程序。
+. 設定FSX以進行iSCSI存取。
+. 設定Linux VM進行NFS存取。
+. 附加SQL Server資料庫並使其上線。
+. 確認SnapCenter 支援不支援SnapCenter 的SQL Server外掛程式與不支援的SQL Server外掛程式之間的通訊。
+
+
+Oracle伺服器容錯移轉程序摘要如下：
+
+. 使用Veeam將Oracle VM還原至VMware Cloud。
+. 清理VM以準備還原程序：
++
+.. 視需要變更IP位址。
+.. 將系統新增至DNS、其FQDN與原始DNS完全相同。
+
+
+. 設定FSX進行NFS存取。
+. 在Oracle Linux Server上掛載NFS磁碟區。
+
+
+
+
+== 設定FSXfor Oracle還原–中斷SnapMirror關係
+
+若要讓Oracle伺服器能夠存取位於FSxN執行個體上的次要儲存磁碟區、您必須先中斷現有的SnapMirror關係。
+
+. 登入FSX CLI之後、請執行下列命令、檢視依正確名稱篩選的磁碟區。
++
+....
+FSx-Dest::> volume show -volume VolumeName*
+....
++
+image:dr-vmc-aws-image77.png["錯誤：缺少圖形影像"]
+
+. 執行下列命令以中斷現有的SnapMirror關係。
++
+....
+FSx-Dest::> snapmirror break -destination-path DestSVM:DestVolName
+....
++
+image:dr-vmc-aws-image78.png["錯誤：缺少圖形影像"]
+
+. 更新Amazon FSX Web用戶端中的交會路徑：
++
+image:dr-vmc-aws-image79.png["錯誤：缺少圖形影像"]
+
+. 新增交會路徑名稱、然後按一下「Update（更新）」。從Oracle伺服器掛載NFS Volume時、請指定此交會路徑。
++
+image:dr-vmc-aws-image80.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 在Oracle伺服器上掛載NFS磁碟區
+
+在Cloud Manager中、您可以使用正確的NFS LIF IP位址來取得掛載命令、以掛載包含Oracle資料庫檔案和記錄檔的NFS磁碟區。
+
+. 在Cloud Manager中、存取FSX叢集的Volume清單。
++
+image:dr-vmc-aws-image81.png["錯誤：缺少圖形影像"]
+
+. 從動作功能表中、選取Mount Command（掛載命令）以檢視及複製要在Oracle Linux伺服器上使用的掛載命令。
++
+image:dr-vmc-aws-image82.png["錯誤：缺少圖形影像"]
+
++
+image:dr-vmc-aws-image83.png["錯誤：缺少圖形影像"]
+
+. 將NFS檔案系統掛載至Oracle Linux Server。用於掛載NFS共用的目錄已存在於Oracle Linux主機上。
+. 在Oracle Linux伺服器上、使用mount命令掛載NFS磁碟區。
++
+....
+FSx-Dest::> mount -t oracle_server_ip:/junction-path
+....
++
+針對與Oracle資料庫相關的每個Volume重複此步驟。
+
++
+
+NOTE: 若要讓NFS掛載在重新開機時持續執行、請編輯「/etc/stabs」檔案以包含掛載命令。
+
+. 重新啟動Oracle伺服器。Oracle資料庫應正常啟動、並可供使用。
+
+
+link:aws-guest-dr-failback.html["下一步：容錯回復。"]

@@ -1,0 +1,299 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-requirements.html 
+keywords: adminstrative, ESXi hosts, VMware vCenter, nsx, MS SQL, oracle, Veeam, cloud, aws, Amazon FSx, vmc 
+summary: 本節詳細說明存取和設定內部部署資源、VMware Cloud和Amazon FSX ONTAP 的需求。 
+---
+= 需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-overview.html["上一篇：總覽- AWS來賓連線儲存災難恢復。"]
+
+本節詳細說明存取和設定內部部署資源、VMware Cloud和Amazon FSX ONTAP 的需求。
+
+
+
+== 技能與知識
+
+若要存取Cloud Volumes Service AWS的功能、必須具備下列技能和資訊：
+
+* 存取並瞭解VMware與ONTAP 內部部署環境。
+* 存取及瞭解VMware Cloud和AWS。
+* 存取AWS和Amazon FSX ONTAP 功能並瞭解其知識。
+* 瞭解您的SDDC和AWS資源。
+* 瞭解內部部署與雲端資源之間的網路連線能力。
+* 具備災難恢復情境的工作知識。
+* 瞭解部署在VMware上的應用程式。
+
+
+
+
+== 管理
+
+無論是在內部部署或雲端上與資源互動、使用者和管理員都必須有能力且有權根據自己的授權、在需要時、視需要配置這些資源。您在內部部署系統（包括ONTAP VMware和VMware）和雲端資源（包括VMware Cloud和AWS）上的角色和權限互動、對於成功部署混合雲而言、是非常重要的。
+
+下列管理工作必須就緒、才能在ONTAP AWS和FSX ONTAP 上建構VMware與VMware內部部署的DR解決方案、以及VMware Cloud。
+
+* 角色與帳戶可進行下列資源配置：
++
+** 支援儲存資源ONTAP
+** VMware VM、資料存放區等
+** AWS VPC和安全性群組
+
+
+* 內部部署VMware環境與ONTAP VMware
+* VMware Cloud環境
+* Amazon for FSX for ONTAP Sfor Sf供 檔案系統使用
+* 內部部署環境與AWS之間的連線能力
+* 為AWS VPC提供連線功能
+
+
+
+
+== 內部部署
+
+VMware虛擬環境包含ESXi主機、VMware vCenter Server、NSX網路及其他元件的授權、如下圖所示。所有的授權都是不同的、因此瞭解基礎元件如何使用可用的授權容量是很重要的。
+
+image:dr-vmc-aws-image2.png["錯誤：遺失圖形影像、100100"]
+
+
+
+=== ESXi主機
+
+VMware環境中的運算主機會與ESXi一起部署。在不同容量層級的vSphere授權下、虛擬機器可利用每個主機上的實體CPU、以及適用的授權功能。
+
+
+
+=== VMware vCenter
+
+管理ESXi主機和儲存設備是VMware管理員在vCenter Server上使用的眾多功能之一。從VMware vCenter 7.0開始、有三種VMware vCenter版本可供使用、視授權而定：
+
+* vCenter Server Essentials
+* vCenter Server基礎
+* vCenter Server Standard
+
+
+
+
+=== VMware NSX
+
+VMware NSX提供系統管理員所需的靈活度、以啟用進階功能。功能會根據授權的NSxT-T Edition版本而啟用：
+
+* 專業人員
+* 進階
+* Enterprise Plus
+* 遠端辦公室/分公司
+
+
+
+
+=== NetApp ONTAP
+
+NetApp ONTAP 功能授權是指系統管理員如何存取NetApp儲存設備內的各種功能。授權是一或多個軟體授權的記錄。安裝授權金鑰（也稱為授權代碼）可讓您在儲存系統上使用特定功能或服務。例如ONTAP 、支援所有主要的產業標準用戶端傳輸協定（NFS、SMB、FC、FCoE、iSCSI、 和NVMe / FC）。
+
+以套件形式發出的支援功能授權、每個套件都包含多項功能或單一功能。Data ONTAP套件需要授權金鑰、安裝金鑰可讓您存取套件中的所有功能。
+
+授權類型如下：
+
+* *節點鎖定授權。*安裝節點鎖定授權可讓節點享有授權功能。若要讓叢集使用授權功能、至少必須授權一個節點才能使用此功能。
+* *主/站台授權。*主或站台授權不受限於特定系統序號。當您安裝站台授權時、叢集中的所有節點都有權使用授權功能。
+* *展示/暫用授權。*展示或暫用授權會在特定時間後過期。此授權可讓您在不購買授權的情況下、嘗試特定軟體功能。
+* *容量授權（ONTAP Select 僅供參考及FabricPool 參考）* ONTAP Select 根據使用者想要管理的資料量、授予某個執行個體授權。從推出《示例》9.4開始ONTAP 、要求將容量授權用於第三方儲存層（例如AWS）FabricPool 。
+
+
+
+
+=== NetApp SnapCenter
+
+支援資料保護作業需要數個授權。SnapCenter安裝的不完整授權類型SnapCenter 取決於您的儲存環境和您想要使用的功能。《VMware應用程式、資料庫、檔案系統及虛擬SnapCenter 機器的功能保護標準版」。在SnapCenter 將儲存系統新增至效益管理系統之前、您必須先安裝一SnapCenter 或多個版本的功能認證。
+
+若要保護應用程式、資料庫、檔案系統和虛擬機器、FAS 您必須在您的VMware或AFF VMware儲存系統上安裝標準控制器型授權、或在ONTAP Select 您的VMware及Cloud Volumes ONTAP VMware平台上安裝標準容量型授權。
+
+請參閱SnapCenter 本解決方案的下列「還原備份先決條件」：
+
+* 在內部部署ONTAP 的支援系統上建立一個Volume和SMB共用區、以找出備份的資料庫和組態檔案。
+* 內部部署ONTAP 的SnapMirror系統與AWS帳戶中的FSX或CVO之間的SnapMirror關係。用於傳輸包含備份SnapCenter 之還原資料庫和組態檔案的快照。
+* 安裝在雲端帳戶的Windows Server、可安裝在EC2執行個體或VMware Cloud SDDC的VM上。
+* 安裝在Windows EC2執行個體或VMware Cloud VM上的SnapCenter
+
+
+
+
+=== MS SQL
+
+在本解決方案驗證中、我們使用MS SQL來示範災難恢復。
+
+如需MS SQL和NetApp ONTAP 功能的最佳實務做法詳細資訊、請參閱 https://www.netapp.com/media/8585-tr4590.pdf["此連結"^]。
+
+
+
+=== Oracle
+
+在本解決方案驗證中、我們使用Oracle來示範災難恢復。如需Oracle與NetApp ONTAP 的最佳實務做法詳細資訊、請參閱 https://www.netapp.com/media/8744-tr3633.pdf["此連結"^]。
+
+
+
+=== Veeam
+
+在本解決方案驗證中、我們使用Veeam來示範災難恢復。如需更多有關Veeam與NetApp ONTAP 的最佳實務做法資訊、請參閱 https://www.veeam.com/wp-netapp-configuration-best-practices-guide.html["此連結"^]。
+
+
+
+== 雲端
+
+
+
+=== AWS
+
+您必須能夠執行下列工作：
+
+* 部署及設定網域服務。
+* 在ONTAP 指定的VPC中、根據應用程式需求部署FSX。
+* 在AWS運算閘道上設定VMware Cloud、以允許來自FSX ONTAP 的流量。
+* 設定AWS安全性群組、以便在AWS子網路上的VMware Cloud與ONTAP 部署FSX支援服務的AWS VPC子網路之間進行通訊。
+
+
+
+
+=== VMware Cloud
+
+您必須能夠執行下列工作：
+
+* 在AWS SDDC上設定VMware Cloud。
+
+
+
+
+=== Cloud Manager帳戶驗證
+
+您必須能夠使用NetApp Cloud Manager來部署資源。若要驗證是否可以、請完成下列工作：
+
+* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-signing-up.html["註冊Cloud Central"^] 如果您還沒有。
+* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-logging-in.html["登入Cloud Manager"^]。
+* https://docs.netapp.com/us-en/cloud-manager-setup-admin/task-setting-up-netapp-accounts.html["設定工作區和使用者"^]。
+* https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["建立連接器"^]。
+
+
+
+
+=== Amazon FSX for NetApp ONTAP 產品
+
+擁有AWS帳戶之後、您必須能夠執行下列工作：
+
+* 建立IAM管理使用者、以便為NetApp ONTAP 支援檔案系統配置Amazon FSX。
+
+
+
+
+== 組態先決條件
+
+由於客戶擁有不同的拓撲、本節著重於從內部部署到雲端資源之間進行通訊所需的連接埠。
+
+
+
+=== 必要的連接埠和防火牆考量
+
+下表說明整個基礎架構必須啟用的連接埠。
+
+如需Veeam備份與複寫軟體所需連接埠的更完整清單、請參閱 https://helpcenter.veeam.com/docs/backup/vsphere/used_ports.html?zoom_highlight=port+requirements&ver=110["此連結"^]。
+
+如需SnapCenter 更完整的連接埠需求清單、請參閱 https://docs.netapp.com/ocsc-41/index.jsp?topic=%2Fcom.netapp.doc.ocsc-isg%2FGUID-6B5E4464-FE9A-4D2A-B526-E6F4298C9550.html["此連結"^]。
+
+下表列出Microsoft Windows Server的Veeam連接埠需求。
+
+|===
+| 寄件者 | 至 | 傳輸協定 | 連接埠 | 附註 
+
+
+| 備份伺服器 | Microsoft Windows伺服器 | TCP | 445 | 部署Veeam備份與複寫元件所需的連接埠。 
+
+
+| 備份Proxy |  | TCP | 6160 | Veeam Installer服務使用的預設連接埠。 
+
+
+| 備份儲存庫 |  | TCP | 2500至3500 | 作為資料傳輸通道及收集記錄檔的預設連接埠範圍。 
+
+
+| 掛載伺服器 |  | TCP | 6162 | Veeam Data Mover使用的預設連接埠。 
+|===
+
+NOTE: 針對工作使用的每個TCP連線、會指派此範圍的一個連接埠。
+
+下表列出Linux伺服器的Veeam連接埠需求。
+
+|===
+| 寄件者 | 至 | 傳輸協定 | 連接埠 | 附註 
+
+
+| 備份伺服器 | Linux伺服器 | TCP | 22 | 連接埠是從主控台到目標Linux主機的控制通道。 
+
+
+|  |  | TCP | 6162 | Veeam Data Mover使用的預設連接埠。 
+
+
+|  |  | TCP | 2500至3500 | 作為資料傳輸通道及收集記錄檔的預設連接埠範圍。 
+|===
+
+NOTE: 針對工作使用的每個TCP連線、會指派此範圍的一個連接埠。
+
+下表列出Veeam備份伺服器連接埠需求。
+
+|===
+| 寄件者 | 至 | 傳輸協定 | 連接埠 | 附註 
+
+
+| 備份伺服器 | vCenter Server | HTTPS、TCP | 443.. | 用於連線至vCenter Server的預設連接埠。連接埠是從主控台到目標Linux主機的控制通道。 
+
+
+|  | 裝載Veeam備份與複寫組態資料庫的Microsoft SQL Server | TCP | 1443 | 用於與部署Veeam備份與複寫組態資料庫的Microsoft SQL Server通訊的連接埠（如果您使用Microsoft SQL Server預設執行個體）。 
+
+
+|  | 所有備份伺服器的名稱解析DNS伺服器 | TCP | 3389 | 用於與DNS伺服器通訊的連接埠 
+|===
+
+NOTE: 如果您使用vCloud Director、請務必在基礎vCenter Server上開啟連接埠443。
+
+下表列出Veeam備份Proxy連接埠需求。
+
+|===
+| 寄件者 | 至 | 傳輸協定 | 連接埠 | 附註 
+
+
+| 備份伺服器 | 備份Proxy | TCP | 6210 | Veeam備份VSS整合服務使用的預設連接埠、可在SMB檔案共用備份期間擷取VSS快照。 
+
+
+| 備份Proxy | vCenter Server | TCP | 1443 | 預設的VMware Web服務連接埠、可在vCenter設定中自訂。 
+|===
+下表列出SnapCenter 了各個端口的要求。
+
+|===
+| 連接埠類型 | 傳輸協定 | 連接埠 | 附註 
+
+
+| 系統管理連接埠SnapCenter | HTTPS | 8146. | 此連接埠可用於SnapCenter 在不含故障的用戶端（SnapCenter 亦即「故障」使用者）與SnapCenter 「故障」伺服器之間進行通訊。也可用於從外掛程式主機到SnapCenter 該伺服器的通訊。 
+
+
+| WSSMCore通訊連接埠SnapCenter | HTTPS | 8043 | 此連接埠可用於SnapCenter 在Sfor the Sfor Server和SnapCenter 安裝了該插件的主機之間進行通訊。 
+
+
+| Windows外掛程式主機、安裝 | TCP | 135、445 | 這些連接埠用於SnapCenter 在安裝外掛程式的伺服器與主機之間進行通訊。連接埠可在安裝後關閉。此外、Windows規範服務會搜尋連接埠49152到6555、這些連接埠必須開啟。 
+
+
+| Linux外掛程式主機、安裝 | SSH | 22 | 這些連接埠用於SnapCenter 在安裝外掛程式的伺服器與主機之間進行通訊。這些連接埠是SnapCenter 由資訊技術所使用、可將外掛套件二進位檔複製到Linux外掛主機。 
+
+
+| 適用於Windows / Linux的程式套件SnapCenter | HTTPS | 8145 | 此連接埠可用於SMCore與SnapCenter 安裝了該插件的主機之間的通訊。 
+
+
+| VMware vSphere vCenter Server連接埠 | HTTPS | 443.. | 此連接埠用於SnapCenter VMware vSphere的VMware vSphere的VMware外掛程式與vCenter伺服器之間的通訊。 
+
+
+| VMware vSphere連接埠適用的外掛程式SnapCenter | HTTPS | 8144 | 此連接埠可用於從vCenter vSphere Web用戶端和SnapCenter 從VMware Server進行通訊。 
+|===
+link:aws-guest-dr-networking.html["下一步：網路。"]

@@ -1,0 +1,83 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-failover.html 
+keywords: Disaster, primary site, SnapCenter, database, restore process, 
+summary: 如果發生在一線內部部署資料中心的災難、我們的案例包括使用AWS上的VMware Cloud、將容錯移轉到位於Amazon Web Services基礎架構上的二線站台。我們假設虛擬機器和內部部署ONTAP 的VMware叢集已無法再存取。此外SnapCenter 、無法再存取VMware和Veeam虛擬機器、而且必須在我們的次要站台上重建。 
+---
+= 容錯移轉
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-snapcenter-db-backup.html["先前版本：SnapCenter 適用於災難恢復的資料庫備份。"]
+
+
+
+== 災難發生在主站台
+
+如果發生在一線內部部署資料中心的災難、我們的案例包括使用AWS上的VMware Cloud、將容錯移轉到位於Amazon Web Services基礎架構上的二線站台。我們假設虛擬機器和內部部署ONTAP 的VMware叢集已無法再存取。此外SnapCenter 、無法再存取VMware和Veeam虛擬機器、而且必須在我們的次要站台上重建。
+
+本節說明將基礎架構容錯移轉至雲端、並涵蓋下列主題：
+
+* 還原資料庫。SnapCenter建立新SnapCenter 的支援伺服器之後、請還原MySQL資料庫和組態檔案、並將資料庫切換為災難恢復模式、以便次要FSX儲存設備成為主要儲存設備。
+* 使用Veeam備份與複寫還原應用程式虛擬機器。連接內含VM備份的S3儲存設備、匯入備份、然後將其還原至AWS上的VMware Cloud。
+* 使用SnapCenter 支援功能還原SQL Server應用程式資料。
+* 使用SnapCenter 支援功能還原Oracle應用程式資料。
+
+
+
+
+== 資料庫還原程序SnapCenter
+
+支援災難恢復案例、可備份及還原MySQL資料庫和組態檔案。SnapCenter這可讓管理員在SnapCenter 內部部署資料中心維持對該資料庫的定期備份、並於稍後將該資料庫還原至次要SnapCenter 的還原資料庫。
+
+若要存取SnapCenter 遠端SnapCenter 還原伺服器上的還原備份檔案、請完成下列步驟：
+
+. 中斷來自FSX叢集的SnapMirror關係、這會使磁碟區變成讀取/寫入。
+. 建立CIFS伺服器（如有必要）、並建立CIFS共用區、指向複製Volume的交會路徑。
+. 使用xcopy將備份檔案複製到二線SnapCenter 版的本機目錄。
+. 安裝SnapCenter vsv4.6。
+. 請確保SnapCenter 該伺服器的FQDN與原始伺服器相同。若要成功還原資料庫、就必須執行此動作。
+
+
+若要開始還原程序、請完成下列步驟：
+
+. 瀏覽至次要SnapCenter 版伺服器的Swagger API網頁、並依照先前的指示取得授權權杖。
+. 瀏覽至Swagger頁面的Disaster Recovery（災難恢復）區段、選取「/4.6/disasterrecovery / server/recovery」（/4.6/disasterrecovery /伺服器/還原）、然後按一下「Try it out（試用）」。
++
+image:dr-vmc-aws-image48.png["錯誤：缺少圖形影像"]
+
+. 貼上您的授權權杖、然後在「SmDRResterRequest」區段中、貼上備份名稱和次要SnapCenter 伺服器上的本機目錄。
++
+image:dr-vmc-aws-image49.png["錯誤：缺少圖形影像"]
+
+. 選取「執行」按鈕以開始還原程序。
+. 從功能區塊瀏覽至「監控」區段、以檢視還原工作的進度。SnapCenter
++
+image:dr-vmc-aws-image50.png["錯誤：缺少圖形影像"]
+
++
+image:dr-vmc-aws-image51.png["錯誤：缺少圖形影像"]
+
+. 若要從二線儲存設備啟用SQL Server還原、您必須將SnapCenter 此還原資料庫切換為「災難恢復」模式。這是以個別作業的形式執行、並在Swagger API網頁上啟動。
++
+.. 瀏覽至「Disaster Recovery（災難恢復）」區段、然後按一下「/4.6/dissterrecovery / storage（/4.6/disstersterrecovery
+.. 貼入使用者授權權杖。
+.. 在SmSetDissterRecoverySettingsRequest區段中、將「EnablDisasterRecover」變更為「true」。
+.. 按一下「執行」以啟用SQL Server的災難恢復模式。
++
+image:dr-vmc-aws-image52.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 請參閱其他程序的相關意見。
+
+
+
+
+
+link:aws-guest-dr-restore-veeam-full.html["下一步：使用Veeam完整還原還原應用程式VM。"]

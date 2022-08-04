@@ -1,0 +1,26 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-solution-overview.html 
+keywords: tr4931, 4931, disaster recovery, vmc, vmware cloud, aws, amazon web services, guest connect 
+summary: 備受肯定的災難恢復（DR）環境與計畫、對於組織而言至關重要、因為如此一來、組織就能確保在重大停機事件中迅速還原業務關鍵應用程式。本解決方案著重於示範DR使用案例、重點在於內部部署的VMware與NetApp技術、以及使用AWS上的VMware Cloud。 
+---
+= TR-4931：在Amazon Web Services和Guest Connect上使用VMware Cloud進行災難恢復
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+Chris Reno、Josh Powell和Suresh Thopp付款
+
+備受肯定的災難恢復（DR）環境與計畫、對於組織而言至關重要、因為如此一來、組織就能確保在重大停機事件中迅速還原業務關鍵應用程式。本解決方案著重於示範DR使用案例、重點在於內部部署的VMware與NetApp技術、以及使用AWS上的VMware Cloud。
+
+NetApp與VMware的整合歷史悠久、已有數萬家客戶選擇NetApp做為其虛擬化環境的儲存合作夥伴、證明這一點。這項整合會繼續與雲端的來賓連線選項整合、以及最近與NFS資料存放區的整合。本解決方案著重於通常稱為來賓連線儲存設備的使用案例。
+
+在客體連線儲存設備中、客體VMDK會部署在VMware資源配置的資料存放區上、而應用程式資料則儲存在iSCSI或NFS上、並直接對應至VM。Oracle和MS SQL應用程式用於示範DR案例、如下圖所示。
+
+image:dr-vmc-aws-image1.png["錯誤：缺少圖形影像"]
+
+link:aws-guest-dr-technology.html["下一步：技術。"]

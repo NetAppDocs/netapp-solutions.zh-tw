@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-restore-veeam-full.html 
+keywords: backup repo, s3, object store, restore, application VM, VMware Cloud 
+summary: 本節說明如何建立備份儲存庫、從S3物件儲存設備匯入備份、以及使用Veeam完整還原至VMware Cloud還原應用程式VM。 
+---
+= 使用Veeam完整還原還原應用程式VM
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-failover.html["上一個：容錯移轉。"]
+
+
+
+== 建立備份儲存庫、並從S3匯入備份
+
+從次要Veeam伺服器、從S3儲存設備匯入備份、並將SQL Server和Oracle VM還原至VMware Cloud叢集。
+
+若要從內部部署橫向擴充備份儲存庫中的S3物件匯入備份、請完成下列步驟：
+
+. 移至「備份儲存庫」、然後按一下上方功能表中的「新增儲存庫」、以啟動「新增備份儲存庫」精靈。在精靈的第一頁、選取「物件儲存」作為備份儲存庫類型。
++
+image:dr-vmc-aws-image53.png["錯誤：缺少圖形影像"]
+
+. 選取「Amazon S3」作為「物件儲存類型」。
++
+image:dr-vmc-aws-image54.png["錯誤：缺少圖形影像"]
+
+. 從Amazon Cloud Storage Services清單中、選取Amazon S3。
++
+image:dr-vmc-aws-image55.png["錯誤：缺少圖形影像"]
+
+. 從下拉式清單中選取預先輸入的認證資料、或新增認證資料以存取雲端儲存資源。按一下「下一步」繼續。
++
+image:dr-vmc-aws-image56.png["錯誤：缺少圖形影像"]
+
+. 在「時段」頁面上、輸入資料中心、時段、資料夾及任何所需選項。按一下套用。
++
+image:dr-vmc-aws-image57.png["錯誤：缺少圖形影像"]
+
+. 最後、選取「完成」以完成程序並新增儲存庫。
+
+
+
+
+== 從S3物件儲存設備匯入備份
+
+若要從上一節新增的S3儲存庫匯入備份、請完成下列步驟。
+
+. 從S3備份儲存庫選取匯入備份、以啟動匯入備份精靈。
++
+image:dr-vmc-aws-image58.png["錯誤：缺少圖形影像"]
+
+. 建立匯入的資料庫記錄之後、請在摘要畫面中選取「Next（下一步）」、然後選取「Finish（完成）」、開始匯入程序。
++
+image:dr-vmc-aws-image59.png["錯誤：缺少圖形影像"]
+
+. 匯入完成後、您可以將VM還原至VMware Cloud叢集。
++
+image:dr-vmc-aws-image60.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 使用Veeam完整還原將應用程式VM還原至VMware Cloud
+
+若要將SQL和Oracle虛擬機器還原至AWS工作負載網域/叢集上的VMware Cloud、請完成下列步驟。
+
+. 在Veeam首頁中、選取包含匯入備份的物件儲存設備、選取要還原的VM、然後按一下滑鼠右鍵並選取「還原整個VM」。
++
+image:dr-vmc-aws-image61.png["錯誤：缺少圖形影像"]
+
+. 在完整VM還原精靈的第一頁、視需要修改要備份的VM、然後選取「Next（下一步）」。
++
+image:dr-vmc-aws-image62.png["錯誤：缺少圖形影像"]
+
+. 在「還原模式」頁面上、選取「還原至新位置」或「使用不同的設定」。
++
+image:dr-vmc-aws-image63.png["錯誤：缺少圖形影像"]
+
+. 在主機頁面上、選取要還原VM的目標ESXi主機或叢集。
++
+image:dr-vmc-aws-image64.png["錯誤：缺少圖形影像"]
+
+. 在「資料存放區」頁面上、選取組態檔和硬碟的目標資料存放區位置。
++
+image:dr-vmc-aws-image65.png["錯誤：缺少圖形影像"]
+
+. 在「網路」頁面上、將VM上的原始網路對應到新目標位置的網路。
++
+image:dr-vmc-aws-image66.png["錯誤：缺少圖形影像"]
+
++
+image:dr-vmc-aws-image67.png["錯誤：缺少圖形影像"]
+
+. 選取是否掃描還原的VM以尋找惡意軟體、檢閱摘要頁面、然後按一下「Finish（完成）」以開始還原。
+
+
+link:aws-guest-dr-restore-sql-data.html["下一步：還原SQL Server應用程式資料。"]

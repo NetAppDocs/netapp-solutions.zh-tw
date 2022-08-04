@@ -1,0 +1,138 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws/aws-guest-dr-restore-sql-data.html 
+keywords: Configure, FSx storage, SQL Server, restore, Windows VM, iSCSI access, file systems, SnapCenter, SQL Server Plug-in 
+summary: 本頁說明如何在發生導致內部部署站台無法運作的災難時、在AWS的VMware Cloud Services中恢復SQL Server。 
+---
+= 還原SQL Server應用程式資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+link:aws-guest-dr-restore-veeam-full.html["先前版本：使用Veeam完整還原還原應用程式VM。"]
+
+下列程序提供如何在發生導致內部部署站台無法運作的災難時、在AWS的VMware Cloud Services中還原SQL Server的指示。
+
+為了繼續執行恢復步驟、假設您已完成下列先決條件：
+
+. Windows Server VM已使用Veeam完整還原還原至VMware Cloud SDDC。
+. 我們SnapCenter 已建立次要的伺服器、SnapCenter 並已使用一節中所述的步驟完成還原資料庫和組態設定 link:aws-guest-dr-snapcenter-db-backup.html#snapcenter-backup-and-restore-process-summary["支援備份與還原程序摘要。SnapCenter"]
+
+
+SQL Server應用程式資料還原程序摘要如下：
+
+. 設定VM以準備還原程序。
+. 設定FSX以進行iSCSI存取。
+. 設定Windows VM以進行iSCSI存取。
+. 附加SQL Server資料庫並使其上線。
+. 確認SnapCenter 支援不支援SnapCenter 的SQL Server外掛程式與不支援的SQL Server外掛程式之間的通訊。
+
+
+
+
+== VM：SQL Server VM的還原後組態
+
+在VM還原完成後、您必須設定網路和其他項目、以便重新探索SnapCenter 位於支援中心內的主機VM。
+
+. 指派新的IP位址給管理、iSCSI或NFS。
+. 將主機加入Windows網域。
+. 將主機名稱新增至DNS或SnapCenter 到伺服器上的主機檔案。
+
+
+
+NOTE: 如果SnapCenter 使用與目前網域不同的網域認證來部署這個程式、您就必須變更SQL Server VM上適用於Windows Service外掛程式的登入帳戶。變更登入帳戶後、請重新啟動SnapCenter 適用於Windows的WESTSMCore、外掛程式和適用於SQL Server服務的外掛程式。
+
+
+NOTE: 若要自動重新探索SnapCenter 還原的虛擬機器、FQDN必須與原先新增至SnapCenter 內部部署的虛擬機器相同。
+
+
+
+== 設定FSX儲存設備以進行SQL Server還原
+
+若要完成SQL Server VM的災難恢復還原程序、您必須中斷現有的SnapMirror與FSX叢集之間的關係、並授予對該磁碟區的存取權。若要這麼做、請完成下列步驟。
+
+. 若要中斷SQL Server資料庫和記錄磁碟區的現有SnapMirror關係、請從FSXCLI執行下列命令：
++
+....
+FSx-Dest::> snapmirror break -destination-path DestSVM:DestVolName
+....
+. 建立包含SQL Server Windows VM iSCSI IQN的啟動器群組、以授予LUN存取權：
++
+....
+FSx-Dest::> igroup create -vserver DestSVM -igroup igroupName -protocol iSCSI -ostype windows -initiator IQN
+....
+. 最後、將LUN對應至您剛建立的啟動器群組：
++
+....
+FSx-Dest::> lun mapping create -vserver DestSVM -path LUNPath igroup igroupName
+....
+. 若要尋找路徑名稱、請執行「LUN show」命令。
+
+
+
+
+== 設定Windows VM以進行iSCSI存取、並探索檔案系統
+
+. 在SQL Server VM中、設定iSCSI網路介面卡、以便在已建立連線至FSX執行個體上iSCSI目標介面的VMware連接埠群組上進行通訊。
+. 開啟iSCSI啟動器內容公用程式、並清除「Discovery」（探索）、「Favorite Target」（最愛目標）和「Target」（目標）索引標籤上的舊連線設定。
+. 找到用於存取FSX執行個體/叢集上iSCSI邏輯介面的IP位址。這可在AWS主控台的Amazon FSX > ONTAP VMware Storage Virtual Machines下找到。
++
+image:dr-vmc-aws-image68.png["錯誤：缺少圖形影像"]
+
+. 在「Discovery（探索）」索引標籤中、按一下「Discover Portal（探索入口網站）」、然後輸入FSX iSCSI目標的IP位址。
++
+image:dr-vmc-aws-image69.png["錯誤：缺少圖形影像"]
+
++
+image:dr-vmc-aws-image70.png["錯誤：缺少圖形影像"]
+
+. 在「Target」（目標）索引標籤上、按一下「Connect」（連線）、選取「Enable Multi-Path（啟用多重路徑）」（若適用於您的組態）、然後按一下「OK（確定）」連線至
++
+image:dr-vmc-aws-image71.png["錯誤：缺少圖形影像"]
+
+. 開啟「電腦管理」公用程式、使磁碟上線。請確認它們保留的磁碟機代號與先前所保留的相同。
++
+image:dr-vmc-aws-image72.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 附加SQL Server資料庫
+
+. 從SQL Server VM開啟Microsoft SQL Server Management Studio、然後選取附加以開始連線至資料庫的程序。
++
+image:dr-vmc-aws-image73.png["錯誤：缺少圖形影像"]
+
+. 按一下「Add（新增）」、然後瀏覽至包含SQL Server主要資料庫檔案的資料夾、選取該檔案、然後按一下「OK（確定）」。
++
+image:dr-vmc-aws-image74.png["錯誤：缺少圖形影像"]
+
+. 如果交易記錄位於不同的磁碟機上、請選擇包含交易記錄的資料夾。
+. 完成後、按一下「確定」以附加資料庫。
++
+image:dr-vmc-aws-image75.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+== 確認SnapCenter 與SQL Server外掛程式的通訊
+
+利用還原為先前狀態的功能、它會自動重新探索SQL Server主機。SnapCenter若要使其正常運作、請記住下列先決條件：
+
+* 必須將此項目置於災難恢復模式。SnapCenter這可透過Swagger API或災難恢復下的「全域設定」來完成。
+* SQL Server的FQDN必須與內部部署資料中心執行的執行個體相同。
+* 原始SnapMirror關係必須中斷。
+* 包含資料庫的LUN必須掛載到SQL Server執行個體和附加的資料庫。
+
+
+若要確認SnapCenter 此功能為災難恢復模式、請從SnapCenter Websweb用戶端瀏覽至「設定」。前往「Global Settings（全域設定）」索引標籤、然後按一下「Disaster Recovery（災難恢復）請確定已啟用「啟用災難恢復」核取方塊。
+
+image:dr-vmc-aws-image76.png["錯誤：缺少圖形影像"]
+
+link:aws-guest-dr-restore-oracle-data.html["下一步：還原Oracle應用程式資料。"]
