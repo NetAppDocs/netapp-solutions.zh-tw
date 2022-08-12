@@ -18,83 +18,86 @@ NetApp已開發出一套ESXi主機多重路徑和HBA逾時設定、可根據ONTA
 |===
 
 
-| 主機設定 | NetApp建議的價值 
+| *主機設定* | * NetApp推薦價值* | *需要重新開機* 
 
 
-| * ESXi進階組態* |  
+3+| * ESXi進階組態* 
 
 
-| VMFS3.HardwareAcceleratedLocking | 保留為設定（VMware預設值為1）。 
+| VMFS3.HardwareAcceleratedLocking | 保留為設定（VMware預設值為1） | 否 
 
 
-| VMFS3.EnablBlockDelete | 保留為「Set（Set）」（VMware預設值為0、但VMFS6不需要此值）。如需詳細資訊、請參閱VMware知識庫文章 link:https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2007427["20074727"^]。 
+| VMFS3.EnablBlockDelete | 保留為「Set（Set）」（VMware預設值為0、但VMFS6不需要此值）。如需詳細資訊、請參閱 link:https://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2007427["VMware知識庫2007427"] | 否 
 
 
-| * NFS設定* |  
+3+| * NFS設定* 
 
 
-| net.TcpipHeapSize. | vSphere 6.0或更新版本、設定為32。所有其他NFS組態、設定為30。 
+| net.TcpipHeapSize. | vSphere 6.0或更新版本、設定為32。所有其他NFS組態、設定為30 | 是的 
 
 
-| net.TcpipHeapMax | 大多數vSphere 6.x版本的設定為512MB。若為6.5U3、6.7U3及7.0或更新版本、則設為1024MB。 
+| net.TcpipHeapMax | 大多數vSphere 6.x版本的設定為512MB。若為6.5U3、6.7U3及7.0或更新版本、則設為1024MB。 | 是的 
 
 
-| NFS.MaxVolumes | vSphere 6.0或更新版本、設定為256。所有其他NFS組態、設定為64。 
+| NFS.MaxVolumes | vSphere 6.0或更新版本、設定為256 All other NFS組態、設定為64。 | 否 
 
 
-| NFS41.MaxVolumes | vSphere 6.0或更新版本、設定為256。 
+| NFS41.MaxVolumes | vSphere 6.0或更新版本、設定為256。 | 否 
 
 
-| NFS.MaxQuesteDepth | vSphere 6.0或更新版本、設定為128。 
+| NFS.MaxQuesteepeth1^ | vSphere 6.0或更新版本、設定為128 | 否 
 
 
-| NFS.HeartbeatMaxFailures | 所有NFS組態皆設為10。 
+| NFS.HeartbeatMaxFailures | 所有NFS組態皆設為10 | 否 
 
 
-| NFS.Heartbeat頻率 | 所有NFS組態皆設為12。 
+| NFS.Heartbeat頻率 | 所有NFS組態皆設為12 | 否 
 
 
-| NFS.Heartbeattimeout | 所有NFS組態皆設為5。 
+| NFS.Heartbeattimeout | 所有NFS組態皆設為5。 | 否 
 
 
-| SUNPC。MaxConnPerIP | vSphere 7.0或更新版本、設定為128。 
+| SUNPC。MaxConnPerIP | vSphere 7.0或更新版本、設定為128。 | 否 
 
 
-| * FC/FCoE設定* |  
+3+| * FC/FCoE設定* 
 
 
-| 路徑選擇原則 | 使用具有ALUA的FC路徑時、設定為RR（循環配置資源）。所有其他組態皆設為「固定」。將此值設為RR有助於在所有主動/最佳化路徑之間提供負載平衡。固定值適用於舊版非ALUA組態、有助於防止Proxy I/O換句話說、它有助於在Data ONTAP 以7-Mode運作的環境中、讓I/O不再移至高可用度（HA）配對的其他節點。 
+| 路徑選擇原則 | 使用具有ALUA的FC路徑時、設定為RR（循環配置資源）。所有其他組態皆設為「固定」。將此值設為RR有助於在所有主動/最佳化路徑之間提供負載平衡。固定值適用於舊版非ALUA組態、有助於防止Proxy I/O換句話說、它有助於在Data ONTAP 以7-Mode運作的環境中、讓I/O不再移至高可用度（HA）配對的其他節點 | 否 
 
 
-| disk.QFullSampleSize. | 所有組態皆設為32。設定此值有助於避免I/O錯誤。 
+| disk.QFullSampleSize. | 所有組態皆設為32。設定此值有助於避免I/O錯誤。 | 否 
 
 
-| disk.QFullThreshold | 所有組態均設為8。設定此值有助於避免I/O錯誤。 
+| disk.QFullThreshold | 所有組態均設為8。設定此值有助於避免I/O錯誤。 | 否 
 
 
-| Emulex FC HBA逾時 | 使用預設值。 
+| Emulex FC HBA逾時 | 使用預設值。 | 否 
 
 
-| QLogic FC HBA逾時 | 使用預設值。 
+| QLogic FC HBA逾時 | 使用預設值。 | 否 
 
 
-| * iSCSI設定* |  
+3+| * iSCSI設定* 
 
 
-| 路徑選擇原則 | 所有iSCSI路徑均設為RR（循環配置資源）。將此值設為RR有助於在所有主動/最佳化路徑之間提供負載平衡。 
+| 路徑選擇原則 | 所有iSCSI路徑均設為RR（循環配置資源）。將此值設為RR有助於在所有主動/最佳化路徑之間提供負載平衡。 | 否 
 
 
-| disk.QFullSampleSize. | 所有組態皆設為32。設定此值有助於避免I/O錯誤。 
+| disk.QFullSampleSize. | 所有組態皆設為32。設定此值有助於避免I/O錯誤 | 否 
 
 
-| disk.QFullThreshold | 所有組態均設為8。設定此值有助於避免I/O錯誤。 
+| disk.QFullThreshold | 所有組態均設為8。設定此值有助於避免I/O錯誤。 | 否 
 |===
+
+NOTE: 1 -使用VMware vSphere ESXi 7.0.1和VMware vSphere ESXi 7.0.2時、NFS進階組態選項MaxQuesteDepth可能無法如預期運作。請參閱 link:https://kb.vmware.com/s/article/86331?lang=en_US["VMware KB 86331"] 以取得更多資訊。
+
 建立完等量磁碟區和LUN時、也會指定特定的預設設定：ONTAP ONTAP FlexVol
 
 |===
 
 
-| 系統的功能ONTAP | 預設設定 
+| *《*》工具* ONTAP | *預設設定* 
 
 
 | Snapshot保留（-%快照空間） | 0 

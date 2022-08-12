@@ -4,7 +4,7 @@ permalink: ehc/azure/azure-native-nfs-datastore-option.html
 keywords:  
 summary:  
 ---
-= Azure中的原生NFS資料存放區選項
+= Azure中的補充NFS資料存放區選項
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -30,7 +30,7 @@ ESXi版本3在內部部署部署中引進NFS資料存放區支援、大幅擴充
 * 在叢集主機之上建置vSAN的儲存容量限制很容易達到。整合Azure原生平台即服務（PaaS）產品、例如Azure NetApp Files 以資料存放區形式建置的 客戶可選擇獨立擴充儲存設備、並視需要只將運算節點新增至SDDC叢集。這項功能克服了上述挑戰。
 
 
-此外、您也可以部署多個資料存放區、將虛擬機器放入適當的資料存放區、並指派所需的服務層級來滿足工作負載效能需求、藉此模擬內部部署模式。Azure NetApp Files藉由多重傳輸協定支援的獨特功能、來賓儲存設備是SQL和Oracle等資料庫工作負載的額外選項、同時也使用原生NFS資料存放區功能來容納剩餘的VMDK。此外、原生快照功能可讓您執行快速備份和精細還原。
+此外、您也可以部署多個資料存放區、將虛擬機器放入適當的資料存放區、並指派所需的服務層級來滿足工作負載效能需求、藉此模擬內部部署模式。Azure NetApp Files藉由多重傳輸協定支援的獨特功能、來賓儲存設備是SQL和Oracle等資料庫工作負載的額外選項、同時也使用補充的NFS資料存放區功能來容納剩餘的VMDK。此外、原生快照功能可讓您執行快速備份和精細還原。
 
 
 NOTE: 請聯絡Azure與NetApp解決方案架構設計師、以規劃及調整儲存容量、並決定所需的主機數量。NetApp建議在完成資料存放區配置以進行測試、POC及正式作業部署之前、先找出儲存效能需求。
@@ -39,7 +39,7 @@ NOTE: 請聯絡Azure與NetApp解決方案架構設計師、以規劃及調整儲
 
 == 詳細架構
 
-從高層面來看、此架構說明如何在內部部署環境和Azure之間實現混合雲連線和應用程式可攜性。同時也說明Azure NetApp Files 如何將VMware當成原生NFS資料存放區使用、以及將其當成來賓虛擬機器的客體內儲存選項、以供Azure VMware解決方案所主控的虛擬機器使用。
+從高層面來看、此架構說明如何在內部部署環境和Azure之間實現混合雲連線和應用程式可攜性。同時也說明Azure NetApp Files 如何使用VMware作為補充NFS資料存放區、以及將其作為來賓虛擬機器的客體內儲存選項、以供Azure VMware解決方案代管。
 
 image:vmware-dr-image1.png["錯誤：缺少圖形影像"]
 
