@@ -4,7 +4,7 @@ permalink: ehc/aws/aws-regions.html
 keywords: NetApp Solutions, amazon, vmc, regions 
 summary:  
 ---
-= 區域可用度：適用於VMC的NFS資料存放區
+= 區域可用度–VMC的補充NFS資料存放區
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,10 +14,14 @@ summary:
 
 
 [role="lead"]
-深入瞭解AWS、VMC和FSX ONTAP 支援全球區域的相關資訊。
+AWS / VMC上的補充NFS資料存放區可用度由Amazon定義。首先、您需要判斷VMC和FSxN是否在指定的區域中可用。接下來、您需要判斷該區域是否支援FSxN補充NFS資料存放區。
+
+* 檢查VMC的可用度 link:https:docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-19FB6A08-B1DA-4A6F-88A3-50ED445CFFCF.html["請按這裡"]。
+* Amazon定價指南提供FSxN（FSx ONTAP ）的可用位置資訊。您可以找到這些資訊 link:https:aws.amazon.com/fsx/netapp-ontap/pricing/["請按這裡"]。
+* VMC的FSxN補充NFS資料存放區即將推出。
 
 
-NOTE: NFS資料存放區可在同時ONTAP 提供兩項服務（VMC和FSX支援）的區域中使用。
+在資訊仍在發佈期間、下表將目前對VMC、FSxN和FSxN的支援識別為補充NFS資料存放區。
 
 [role="tabbed-block"]
 ====
