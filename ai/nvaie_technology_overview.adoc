@@ -1,0 +1,93 @@
+---
+sidebar: sidebar 
+permalink: ai/nvaie_technology_overview.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVAIE, VMware 
+summary: NVIDIA AI Enterprise with NetApp and VMware -技術總覽 
+---
+= 技術總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:nvaie_introduction.html["上一篇：簡介。"]
+
+
+
+== NVIDIA AI Enterprise
+
+NVIDIA AI Enterprise是一套端點對端點、雲端原生的AI與資料分析軟體套件、經過NVIDIA最佳化、認證及支援、可在採用NVIDIA認證系統的VMware vSphere上執行。此軟體可在現代化的混合雲環境中、輕鬆快速地部署、管理及擴充AI工作負載。
+
+
+
+== NVIDIA GPU雲端（NGC）
+
+NVIDIA NGC主打GPU最佳化軟體目錄、讓AI從業者得以開發AI解決方案。此外、它還能存取各種AI服務、包括NVIDIA Base Command for Model訓練、NVIDIA車隊Command for Deploy and Monitor model、以及NGC Private登錄、以安全地存取及管理專屬AI軟體。此外、NVIDIA AI Enterprise客戶也可以透過NGC入口網站要求支援。
+
+
+
+== VMware vSphere
+
+VMware vSphere是VMware的虛擬化平台、可將資料中心轉換成彙總式運算基礎架構、其中包括CPU、儲存設備和網路資源。vSphere將這些基礎架構管理為統一化的作業環境、並提供系統管理員工具來管理參與該環境的資料中心。
+
+vSphere的兩個核心元件為ESXi和vCenter Server。ESXi是系統管理員建立及執行虛擬機器和虛擬應用裝置的虛擬化平台。vCenter Server是一項服務、可讓系統管理員管理網路和集區主機資源中連線的多個主機。
+
+
+
+== NetApp ONTAP
+
+NetApp最新一代的儲存管理軟體、即支援企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP
+
+
+
+=== 簡化資料管理
+
+資料管理對於企業IT營運和資料科學家而言至關重要、因此可將適當的資源用於AI應用程式和訓練AI/ML資料集。下列關於NetApp技術的其他資訊超出此驗證範圍、但可能會因您的部署而有所差異。
+
+包含下列功能的資料管理軟體、可簡化及簡化作業、並降低您的總營運成本：ONTAP
+
+* 即時資料精簡與擴充重複資料刪除技術。資料壓縮可減少儲存區塊內的空間浪費、重複資料刪除技術可大幅提升有效容量。這適用於本機儲存的資料、以及分層至雲端的資料。
+* 最低、最大及可調適的服務品質（AQO）。精細的服務品質（QoS）控制有助於維持高共享環境中關鍵應用程式的效能等級。
+* NetApp FabricPool自動將冷資料分層至公有和私有雲端儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp StorageGRID 等儲存解決方案。如需FabricPool 更多有關資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/17239-tr4598pdf.pdf["TR-4598：FabricPool 最佳實務做法"^]。
+
+
+
+
+=== 加速並保護資料
+
+提供優異的效能與資料保護、並以下列方式擴充這些功能：ONTAP
+
+* 效能與較低的延遲。以最低的延遲提供最高的處理量。ONTAP
+* 資料保護：支援所有平台的通用管理功能、可提供內建的資料保護功能。ONTAP
+* NetApp Volume Encryption（NVE）。支援內建和外部金鑰管理、提供原生Volume層級的加密功能。ONTAP
+* 多租戶和多因素驗證。支援以最高安全等級共享基礎架構資源。ONTAP
+
+
+
+
+=== 符合未來需求的基礎架構
+
+下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP
+
+* 無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
+* 雲端連線：NetApp是最具雲端連線能力的儲存管理軟體、可在所有公有雲中選擇軟體定義儲存（AI）和雲端原生執行個體（NetApp）ONTAP ONTAP Select Cloud Volumes Service 。
+* 與新興應用程式整合。利用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式提供企業級資料服務、例如自動駕駛車輛、智慧城市和產業4.0。ONTAP
+
+
+
+
+== NetApp DataOps工具套件
+
+NetApp DataOps Toolkit是一款以Python為基礎的工具、可簡化開發/訓練工作區和推斷伺服器的管理、這些工作區都以高效能橫向擴充的NetApp儲存設備為後盾。主要功能包括：
+
+* 快速配置以高效能橫向擴充NetApp儲存設備為後盾的新高容量JupyterLab工作區。
+* 快速配置以企業級NetApp儲存設備為後盾的全新NVIDIA Triton Inference Server執行個體。
+* 近乎即時地複製高容量JupyterLab工作區、以進行實驗或快速迭代。
+* 近乎即時地儲存高容量JupyterLab工作區的快照、以供備份和/或追蹤/基準化。
+* 近乎即時地配置、複製及快照高容量、高效能的資料磁碟區。
+
+
+link:nvaie_architecture.html["下一步：架構。"]

@@ -1,0 +1,95 @@
+---
+sidebar: sidebar 
+permalink: ai/nvaie_ngc_setup.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVAIE, VMware, NGC 
+summary: NVIDIA AI Enterprise搭配NetApp和VMware -使用NVIDIA NGC軟體-設定 
+---
+= 設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:nvaie_ngc.html["先前版本：使用NVIDIA NGC軟體。"]
+
+本節說明在NVIDIA AI Enterprise環境中使用NVIDIA NGC企業軟體所需執行的初始設定工作。
+
+
+
+== 先決條件
+
+在您執行本節所述步驟之前、我們假設您已依照中所述的指示部署NVIDIA AI Entrprise主機軟體 link:nvaie_initial_setup.html["初始設定"] 頁面。
+
+
+
+== 使用vGPU建立Ubuntu Guest虛擬機器
+
+首先、您必須使用vGPU建立Ubuntu 20.04客體VM。若要使用vGPU建立Ubuntu 20.04客體VM、請遵循中的指示大綱 link:https://docs.nvidia.com/ai-enterprise/deployment-guide/dg-first-vm.html["NVIDIA AI企業部署指南"]。
+
+
+
+== 下載並安裝NVIDIA Guest軟體
+
+接下來、您必須在先前步驟所建立的客體VM中安裝必要的NVIDIA客體軟體。若要在客體VM內下載及安裝所需的NVIDIA客體軟體、請遵循中5.1-5.4節所述的指示 link:https://docs.nvidia.com/ai-enterprise/latest/quick-start-guide/index.html["NVIDIA AI企業快速入門指南"]。
+
+
+NOTE: 執行第5.4節所述的驗證工作時、您可能需要使用不同的CUDA Container映像版本標記、因為CUDA Container映像自撰寫指南以來就已更新。在我們的驗證中、我們使用了「nvidia/CUDA：11.0.3-base-ubuntu20.04」。
+
+
+
+== 下載AI /分析架構容器
+
+接下來、您必須從NVIDIA NGC下載所需的AI或分析架構容器映像、以便在您的客體VM中使用。若要在客體VM內下載架構容器、請遵循中所述的指示 link:https://docs.nvidia.com/ai-enterprise/deployment-guide/dg-installai.html["NVIDIA AI企業部署指南"]。
+
+
+
+== 安裝及設定NetApp DataOps Toolkit
+
+接下來、您必須在客體VM內安裝適用於傳統環境的NetApp DataOps Toolkit。NetApp DataOps Toolkit可用於直接從ONTAP 客體VM內的終端機、管理您的一套系統上的橫向擴充資料磁碟區。若要在客體VM內安裝NetApp DataOps Toolkit、請執行下列工作。
+
+. 安裝Pip。
++
+....
+$ sudo apt update
+$ sudo apt install python3-pip
+$ python3 -m pip install netapp-dataops-traditional
+....
+. 登出客體VM終端機、然後重新登入。
+. 設定NetApp DataOps Toolkit。若要完成此步驟、ONTAP 您需要針對您的整套系統提供API存取詳細資料。您可能需要向儲存管理員取得這些資訊。
++
+....
+$ netapp_dataops_cli.py config
+
+Enter ONTAP management LIF hostname or IP address (Recommendation: Use SVM management interface): 172.22.10.10
+Enter SVM (Storage VM) name: NVAIE-client
+Enter SVM NFS data LIF hostname or IP address: 172.22.13.151
+Enter default volume type to use when creating new volumes (flexgroup/flexvol) [flexgroup]:
+Enter export policy to use by default when creating new volumes [default]:
+Enter snapshot policy to use by default when creating new volumes [none]:
+Enter unix filesystem user id (uid) to apply by default when creating new volumes (ex. '0' for root user) [0]:
+Enter unix filesystem group id (gid) to apply by default when creating new volumes (ex. '0' for root group) [0]:
+Enter unix filesystem permissions to apply by default when creating new volumes (ex. '0777' for full read/write permissions for all users and groups) [0777]:
+Enter aggregate to use by default when creating new FlexVol volumes: aff_a400_01_NVME_SSD_1
+Enter ONTAP API username (Recommendation: Use SVM account): admin
+Enter ONTAP API password (Recommendation: Use SVM account):
+Verify SSL certificate when calling ONTAP API (true/false): false
+Do you intend to use this toolkit to trigger Cloud Sync operations? (yes/no): no
+Do you intend to use this toolkit to push/pull from S3? (yes/no): no
+Created config file: '/home/user/.netapp_dataops/config.json'.
+....
+
+
+
+
+== 建立來賓VM範本
+
+最後、您必須根據客體VM建立VM範本。您可以使用此範本快速建立來賓VM、以使用NVIDIA NGC軟體。
+
+若要根據客體VM建立VM範本、請登入VMware vSphere、按一下客體VM名稱、選擇「Clone（複製）」、選擇「Clone to Template（複製到範本）...」、然後依照精靈進行。
+
+image:nvaie_image3.png["錯誤：缺少圖形影像"]
+
+link:nvaie_ngc_tensorflow.html["下一步：範例使用案例- TensorFlow訓練工作。"]

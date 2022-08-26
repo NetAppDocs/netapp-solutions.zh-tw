@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ai/nvaie_ngc_tensorflow.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVAIE, VMware, NGC 
+summary: NVIDIA AI Enterprise搭配NetApp和VMware -使用NVIDIA NGC軟體-範例使用案例- TensorFlow訓練工作 
+---
+= 範例使用案例- TensorFlow訓練工作
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:nvaie_ngc_setup.html["上一步：設定。"]
+
+本節說明在NVIDIA AI Enterprise環境中執行TensorFlow訓練工作所需執行的工作。
+
+
+
+== 先決條件
+
+在您執行本節所述步驟之前、我們假設您已依照中所述的指示建立客體VM範本 link:nvaie_ngc_setup.html["設定"] 頁面。
+
+
+
+== 從範本建立來賓VM
+
+首先、您必須從上一節建立的範本建立新的來賓VM。若要從範本建立新的來賓VM、請登入VMware vSphere、按一下範本名稱、選擇「New VM from this Template ...（從此範本新增VM ...）」、然後依照精靈進行。
+
+image:nvaie_image4.png["錯誤：缺少圖形影像"]
+
+
+
+== 建立及掛載資料Volume
+
+接下來、您必須建立新的資料量、以便儲存訓練資料集。您可以使用NetApp DataOps Toolkit快速建立新的資料Volume。以下命令範例顯示建立容量為2 TB的名為「imagenNet」的磁碟區。
+
+....
+$ netapp_dataops_cli.py create vol -n imagenet -s 2TB
+....
+您必須先在客體VM內掛載資料、才能在資料磁碟區中填入資料。您可以使用NetApp DataOps Toolkit快速掛載資料磁碟區。以下命令範例顯示在上一個步驟中建立的磁碟區遠移。
+
+....
+$ sudo -E netapp_dataops_cli.py mount vol -n imagenet -m ~/imagenet
+....
+
+
+== 填入資料Volume
+
+新磁碟區完成資源配置和掛載之後、即可從來源位置擷取訓練資料集、並放在新磁碟區上。這通常需要從S3或Hadoop資料湖提取資料、有時需要資料工程師提供協助。
+
+
+
+== 執行TensorFlow訓練工作
+
+現在、您已準備好執行TensorFlow訓練工作。若要執行TensorFlow訓練工作、請執行下列工作。
+
+. 拉出NVIDIA NGC企業級TensorFlow容器映像。
++
+....
+$ sudo docker pull nvcr.io/nvaie/tensorflow-2-1:22.05-tf1-nvaie-2.1-py3
+....
+. 啟動NVIDIA NGC企業級TensorFlow容器的執行個體。使用「-v」選項將資料磁碟區附加至容器。
++
+....
+$ sudo docker run --gpus all -v ~/imagenet:/imagenet -it --rm nvcr.io/nvaie/tensorflow-2-1:22.05-tf1-nvaie-2.1-py3
+....
+. 在容器內執行TensorFlow訓練方案。以下命令範例顯示執行容器映像所包含的ResNet-50訓練程式範例。
++
+....
+$ python ./nvidia-examples/cnn/resnet.py --layers 50 -b 64 -i 200 -u batch --precision fp16 --data_dir /imagenet/data
+....
+
+
+link:nvaie_additional_information.html["下一步：何處可找到其他資訊。"]
