@@ -25,18 +25,15 @@ Azure可透過原生Azure NetApp Files 的不穩定（anf）服務或Cloud Volum
 
 === 以客體連線儲存設備的形式提供Azure NetApp Files
 
-====
 .使用Azure NetApp Files Azure VMware解決方案（AVS）設定功能
-=====
+====
 您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資料共享。Azure NetApp Files由於Azure NetApp Files 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需五個簡單步驟即可設定各個資料區。Azure NetApp Files
 
 VMware解決方案的VMware解決方案必須位於同一個Azure地區。Azure NetApp Files
 
-=====
-====
 ====
 .建立及掛載Azure NetApp Files 功能
-=====
+====
 若要建立及掛載Azure NetApp Files 此功能、請完成下列步驟：
 
 . 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files _AZ供應商Register --namespace_–wait_命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。Microsoft.NetApp註冊完成後、請建立NetApp帳戶。
@@ -93,7 +90,6 @@ image:azure-anf-guest-9.png[""]
 
 
 
-=====
 ====
 
 
@@ -111,9 +107,8 @@ CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端�
 
 === 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 
-====
 .在Cloud Volumes ONTAP Azure中部署全新的功能
-=====
+====
 您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP由於Cloud Volumes ONTAP 支援iSCSI、SMB及NFS傳輸協定、所以也可在Linux用戶端和Windows用戶端上掛載這些磁碟區。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
 
 若要將磁碟區從內部部署環境複寫至雲端以進行災難恢復或移轉、請使用站台對站台VPN或ExpressRoute、建立與Azure的網路連線。將內部部署的資料複寫到Cloud Volumes ONTAP 內部部署的不適用範圍。若要在內部部署Cloud Volumes ONTAP 和不間斷系統之間複寫資料、請參閱 link:https://docs.netapp.com/us-en/occm/task_replicating_data.html#setting-up-data-replication-between-systems["設定系統之間的資料複寫"]。
@@ -167,11 +162,9 @@ image:azure-cvo-guest-11.png[""]
 
 
 
-=====
-====
 ====
 .SMB Volume的其他組態
-=====
+====
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 +
 image:azure-cvo-guest-20.png[""]
@@ -194,11 +187,9 @@ image:azure-cvo-guest-24.png[""]
 
 
 
-=====
-====
 ====
 .將LUN連接至主機
-=====
+====
 若要將LUN連線至主機、請完成下列步驟：
 
 . 在「畫版」頁面上、按兩下Cloud Volumes ONTAP 「功能不全」環境以建立及管理Volume。
@@ -247,5 +238,4 @@ image:azure-cvo-guest-33.png[""]
 
 image:azure-cvo-guest-34.png[""]
 
-=====
 ====

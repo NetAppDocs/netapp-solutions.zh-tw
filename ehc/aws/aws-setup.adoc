@@ -34,27 +34,22 @@ NOTE: 來賓儲存設備是唯一受支援的方法、可將Amazon FSX for NetAp
 
 設定程序可分為三個部分：
 
-=====
 .註冊AWS帳戶
-======
+=====
 註冊以取得 link:https://aws.amazon.com/["Amazon Web Services帳戶"]。
 
 假設尚未建立AWS帳戶、您就需要AWS帳戶才能開始使用。無論是新的或現有的、您都需要在帳戶中擁有管理權限、才能執行此程序中的許多步驟。請參閱 link:https://docs.aws.amazon.com/general/latest/gr/aws-security-credentials.html["連結"] 如需AWS認證資料的詳細資訊、
 
-======
-=====
 =====
 .註冊My VMware帳戶
-======
+=====
 註冊以取得 link:https://customerconnect.vmware.com/home["我的VMware"] 帳戶。
 
 若要存取VMware的雲端產品組合（包括AWS上的VMware Cloud）、您需要VMware客戶帳戶或My VMware帳戶。如果您尚未建立VMware帳戶、請建立該帳戶 link:https://customerconnect.vmware.com/account-registration["請按這裡"]。
 
-======
-=====
 =====
 .在VMware Cloud中配置SDDC
-======
+=====
 設定VMware帳戶並執行適當規模調整之後、部署軟體定義的資料中心是在AWS服務上使用VMware Cloud的下一步。若要建立SDDC、請挑選一個AWS區域來裝載它、為SDDC命名、然後指定您希望SDDC包含多少ESXi主機。如果您尚未擁有AWS帳戶、您仍可建立包含單一ESXi主機的入門組態SDDC。
 
 . 使用現有或新建立的VMware認證資料登入VMware Cloud Console。
@@ -102,7 +97,6 @@ image:aws-config-11.png[""]
 
 如需SDDC部署的逐步指南、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-EF198D55-03E3-44D1-AC48-6E2ABA31FF02.html["從VMC主控台部署SDDC"]。
 
-======
 =====
 ====
 .將VMware Cloud連接至FSX ONTAP VMware

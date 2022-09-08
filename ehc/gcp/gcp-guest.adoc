@@ -32,9 +32,8 @@ CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端�
 
 === 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 
-====
 .在Cloud Volumes ONTAP Google Cloud部署功能（自行部署）
-=====
+====
 可從GCVM私有雲端環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP這些磁碟區也可掛載於Linux用戶端、Windows用戶端和LUN、在透過iSCSI掛載時、可在Linux或Windows用戶端上作為區塊裝置存取、因為Cloud Volumes ONTAP 此功能支援iSCSI、SMB及NFS傳輸協定。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
 
 若要將磁碟區從內部部署環境複寫至雲端、以進行災難恢復或移轉、請使用站台對站台VPN或雲端互連、建立與Google Cloud的網路連線。將內部部署的資料複寫到Cloud Volumes ONTAP 內部部署的不適用範圍。若要在內部部署Cloud Volumes ONTAP 和不間斷系統之間複寫資料、請參閱 link:mailto:CloudOwner@gve.local#setting-up-data-replication-between-systems["設定系統之間的資料複寫"]。
@@ -86,11 +85,9 @@ image:gcve-cvo-guest-9.png[""]
 
 
 
-=====
-====
 ====
 .SMB Volume的其他組態
-=====
+====
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 +
 提示：按一下「Menu（功能表）」圖示（o）、選取「Advanced（進階）」以顯示更多選項、然後選取「CIFS setup（CIFS設定）」。
@@ -125,11 +122,9 @@ image:gcve-cvo-guest-15.png[""]
 
 
 
-=====
-====
 ====
 .將Cloud Volumes ONTAP 支援的LUN連接到主機
-=====
+====
 若要將Cloud Volumes ONTAP LUN連接至主機、請完成下列步驟：
 
 . 在「畫版」頁面上、按兩下Cloud Volumes ONTAP 「功能不全」環境以建立及管理Volume。
@@ -183,11 +178,9 @@ image:gcve-cvo-guest-20.png[""]
 image:gcve-cvo-guest-21.png[""]
 image:gcve-cvo-guest-22.png[""]
 
-=====
-====
 ====
 .在Cloud Volumes ONTAP Linux用戶端上掛載不只是NFS磁碟區
-=====
+====
 若要從Cloud Volumes ONTAP Google Cloud VMware Engine內的VM掛載支援（DIY）檔案系統、請依照下列步驟進行：
 
 請依照下列步驟配置Volume
@@ -219,7 +212,6 @@ image:gcve-cvo-guest-27.png[""]
 
 
 
-=====
 ====
 
 
@@ -233,20 +225,17 @@ Cloud Volumes Services（CVS）是一套完整的資料服務產品組合、可�
 
 === 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
 
-====
 .使用Cloud Volumes Service VMware Engine設定功能
-=====
+====
 可從VMware Engine環境中建立的VM掛載支援資源。Cloud Volumes Service由於Cloud Volumes Service 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需簡單的步驟即可設定各個資料區。Cloud Volumes Service
 
 Cloud Volume Service和Google Cloud VMware Engine私有雲必須位於相同的地區。
 
 若要Cloud Volumes Service 從Google Cloud Marketplace購買、啟用及設定NetApp for Google Cloud的NetApp解決方案、請依照下列詳細說明操作 link:https://cloud.google.com/vmware-engine/docs/quickstart-prerequisites["指南"]。
 
-=====
-====
 ====
 .建立CVS NFS磁碟區至GCVG私有雲
-=====
+====
 若要建立及掛載NFS磁碟區、請完成下列步驟：
 
 . 從Google雲端主控台的合作夥伴解決方案存取Cloud Volumes。
@@ -297,11 +286,9 @@ image:gcve-cvs-guest-10.png[""]
 
 
 
-=====
-====
 ====
 .將NFS匯出安裝到VMware Engine上執行的VM
-=====
+====
 在準備掛載NFS磁碟區之前、請確定私有連線的對等狀態列示為「Active」（作用中）。狀態為「作用中」時、請使用mount命令。
 
 若要掛載NFS Volume、請執行下列步驟：
@@ -340,11 +327,9 @@ image:gcve-cvs-guest-22.png[""]
 
 
 
-=====
-====
 ====
 .建立SMB共用並掛載到VMware Engine上執行的VM
-=====
+====
 對於SMB磁碟區、請確定在建立SMB磁碟區之前已設定Active Directory連線。
 
 image:gcve-cvs-guest-30.png[""]
@@ -413,5 +398,4 @@ image:gcve-cvs-guest-39.png[""]
 
 
 
-=====
 ====

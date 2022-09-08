@@ -32,19 +32,16 @@ FSX for ONTAP Sfor Sfor支援跨區域災難恢復、提供高度可用且持久
 
 === FSX ONTAP 支援以客為本的連線儲存設備
 
-====
 .使用ONTAP AWS上的VMware Cloud設定Amazon FSX for NetApp功能
-=====
+====
 Amazon FSx for NetApp ONTAP 的支援文件共享和LUN可從在VMware Cloud AWS上的VMware SDDC環境中建立的VM掛載。這些磁碟區也可以安裝在Linux用戶端上、並使用NFS或SMB傳輸協定對應到Windows用戶端、而LUN則可在透過iSCSI掛載時、以區塊裝置的形式在Linux或Windows用戶端上存取。可ONTAP 透過下列步驟快速設定適用於NetApp的Amazon FSX。
 
 
 NOTE: Amazon FSX for NetApp ONTAP 的VMware解決方案和AWS上的VMware Cloud必須位於相同的可用度區域、才能達到更好的效能、並避免在可用度區域之間傳輸資料。
 
-=====
-====
 ====
 .建立及掛載Amazon FSX for ONTAP Sf6 Volume
-=====
+====
 若要建立及掛載適用於NetApp ONTAP 的Amazon FSX for NetApp Sfor the File System、請完成下列步驟：
 
 . 開啟 link:https://console.aws.amazon.com/fsx/["Amazon FSX主控台"] 然後選擇Create file system（建立檔案系統）以啟動檔案系統建立精靈。
@@ -104,11 +101,9 @@ image:aws-fsx-guest-10.png[""]
 
 image:aws-fsx-guest-11.png[""]
 
-=====
-====
 ====
 .在ONTAP Linux用戶端上掛載FSX*
-=====
+====
 以掛載ONTAP 上一步建立的FSXSf問題Volume。在AWS SDDC上VMC內的Linux VM中、完成下列步驟：
 
 . 連線至指定的Linux執行個體。
@@ -129,11 +124,9 @@ image:aws-fsx-guest-21.png[""]
 
 
 video::vmc_linux_vm_nfs.mp4[]
-=====
-====
 ====
 .將FSX ONTAP 功能區附加到Microsoft Windows用戶端
-=====
+====
 若要管理及對應Amazon FSX檔案系統上的檔案共用、必須使用共用資料夾GUI。
 
 . 開啟「開始」功能表、然後使用「以系統管理員身分執行」執行fsmgmt．msc。這樣做會開啟「共用資料夾GUI」工具。
@@ -164,11 +157,9 @@ image:aws-fsx-guest-26.png[""]
 
 
 
-=====
-====
 ====
 .使用ONTAP iSCSI將FSX for NetApp的LUN連接至主機
-=====
+====
 video::vmc_windows_vm_iscsi.mp4[]
 FSX的iSCSI流量會透過上一節所提供的路由、通過VMware Transit Connect/AWS Transit Gateway傳輸。若要在Amazon FSX for NetApp ONTAP 支援中設定LUN、請遵循所找到的文件 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/supported-fsx-clients.html["請按這裡"]。
 
@@ -176,11 +167,9 @@ FSX的iSCSI流量會透過上一節所提供的路由、通過VMware Transit Con
 
 本文將說明如何將iSCSI LUN連接至Windows主機：
 
-=====
-====
 ====
 .在FSX中配置LUN以供NetApp ONTAP 使用：
-=====
+====
 . 使用ONTAP FSX的管理連接埠存取NetApp Sfor ONTAP the Sfor the Sfof the文件系統。
 . 依照規模調整輸出所示、以所需大小建立LUN。
 +
@@ -276,7 +265,6 @@ image:aws-fsx-guest-32.png[""]
 
 
 
-=====
 ====
 
 
@@ -294,9 +282,8 @@ CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端�
 
 === 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 
-====
 .在Cloud Volumes ONTAP AWS中部署新的執行個體（自行執行）
-=====
+====
 您可以從在AWS SDDC環境的VMware Cloud上建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP這些磁碟區也可掛載於原生AWS VM Linux Windows用戶端、而LUN Cloud Volumes ONTAP 則可在透過iSCSI掛載時、以區塊裝置的形式在Linux或Windows用戶端上存取、因為它支援iSCSI、SMB及NFS傳輸協定。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
 
 若要將磁碟區從內部部署環境複寫到雲端以進行災難恢復或移轉、請使用站台對站台VPN或DirectConnect、建立與AWS的網路連線。將內部部署的資料複寫到Cloud Volumes ONTAP 內部部署的不適用範圍。若要在內部部署Cloud Volumes ONTAP 和不間斷系統之間複寫資料、請參閱 link:https://docs.netapp.com/us-en/occm/task_replicating_data.html#setting-up-data-replication-between-systems["設定系統之間的資料複寫"]。
@@ -362,11 +349,9 @@ image:aws-cvo-guest-14.png[""]
 
 
 
-=====
-====
 ====
 .SMB Volume的其他組態
-=====
+====
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 +
 image:aws-cvo-guest-20.png[""]
@@ -387,11 +372,9 @@ image:aws-cvo-guest-24.png[""]
 
 
 
-=====
-====
 ====
 .將LUN連接至主機
-=====
+====
 若要將Cloud Volumes ONTAP LUN連接至主機、請完成下列步驟：
 
 . 在Cloud Manager的「Canvases」頁面上、按兩下Cloud Volumes ONTAP 「功能性環境」以建立及管理Volume。
@@ -438,11 +421,9 @@ image:aws-cvo-guest-34.png[""]
 
 在Linux用戶端上、確定iSCSI精靈正在執行。配置LUN之後、請參閱Linux套裝作業系統的iSCSI組態詳細指南。例如、可以找到Ubuntu iSCSI組態 link:https://ubuntu.com/server/docs/service-iscsi["請按這裡"]。若要驗證、請從Shell執行lsblk cmd。
 
-=====
-====
 ====
 .在Cloud Volumes ONTAP Linux用戶端上掛載不只是NFS磁碟區
-=====
+====
 若要從Cloud Volumes ONTAP AWS SDDC上VMC內的VM掛載支援功能（DIY）檔案系統、請完成下列步驟：
 
 . 連線至指定的Linux執行個體。
@@ -458,5 +439,4 @@ image:aws-cvo-guest-34.png[""]
 image:aws-cvo-guest-40.png[""]
 image:aws-cvo-guest-41.png[""]
 
-=====
 ====
