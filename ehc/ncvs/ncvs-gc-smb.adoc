@@ -317,10 +317,10 @@ image:ncvs-gc-image18.png["錯誤：缺少圖形影像"]
 | 為啟用Kerberos的AES-128和AES-256加密 | 這會控制AES加密是否用於Active Directory連線、並在建立/修改Active Directory連線時、使用「啟用Active Directory驗證的AES加密」選項加以控制。 | 錯 | 是的 
 
 
-| LM相容層級 | Active Directory連線所支援的驗證語言層級。請參閱「」一節<<SMB authentication dialects>>」以取得更多資訊。 | vLMvb-krb | 否 
+| LM相容層級 | Active Directory連線所支援的驗證語言層級。請參閱「」一節 authentication dialects」以取得更多資訊。 | vLMvb-krb | 否 
 
 
-| 傳入CIFS流量需要SMB加密 | 所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節）<<SMB share security features>>」）。 | 錯 | 否 
+| 傳入CIFS流量需要SMB加密 | 所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節） share security features」）。 | 錯 | 否 
 
 
 | 用戶端工作階段安全性 | 設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap#ldap-channel-binding["「LDAP通道繫結。」"]。 | 無 | 否 

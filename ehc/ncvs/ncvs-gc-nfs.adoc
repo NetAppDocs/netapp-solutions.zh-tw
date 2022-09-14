@@ -47,7 +47,7 @@ NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業N
 
 |===
 
-NOTE: 使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目錄時、可能會顯示為nobnobody。這是因為用戶端的ID網域對應組態。請參閱「」一節 <<NFSv4.1 and the nobody user/group>> 以取得此問題的詳細資訊及解決方法。
+NOTE: 使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目錄時、可能會顯示為nobnobody。這是因為用戶端的ID網域對應組態。請參閱「」一節  and the nobody user/group 以取得此問題的詳細資訊及解決方法。
 
 
 
@@ -55,7 +55,7 @@ NOTE: 使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目
 
 在Linux中、root帳戶可以存取Linux型檔案系統中的所有命令、檔案和資料夾。由於此帳戶的強大功能、安全性最佳實務做法通常會要求root使用者停用或限制某種方式。在NFS匯出中、root使用者對檔案和資料夾的控制能力、可Cloud Volumes Service 透過匯出原則和規則、以及稱為root squash的概念、在整個過程中加以控制。
 
-root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿名的數字使用者65534（請參閱「」一節）<<The anonymous user>>」）、目前僅適用於使用CVS效能的情況、方法是在建立匯出原則規則期間選取「Off」（關閉）進行root存取。如果root使用者被擠到匿名使用者、就無法再執行chown或 https://en.wikipedia.org/wiki/Setuid["setuid/setgid命令（sticky位元）"^] 在NFS掛載的檔案或資料夾上、root使用者建立的檔案或資料夾會將anon UID顯示為擁有者/群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制root使用者的檔案和資料夾權限存取、請考慮使用具有NTFS ACL的磁碟區、建立名為「root」的Windows使用者、並將所需權限套用至檔案或資料夾。
+root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿名的數字使用者65534（請參閱「」一節） anonymous user」）、目前僅適用於使用CVS效能的情況、方法是在建立匯出原則規則期間選取「Off」（關閉）進行root存取。如果root使用者被擠到匿名使用者、就無法再執行chown或 https://en.wikipedia.org/wiki/Setuid["setuid/setgid命令（sticky位元）"^] 在NFS掛載的檔案或資料夾上、root使用者建立的檔案或資料夾會將anon UID顯示為擁有者/群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制root使用者的檔案和資料夾權限存取、請考慮使用具有NTFS ACL的磁碟區、建立名為「root」的Windows使用者、並將所需權限套用至檔案或資料夾。
 
 
 
@@ -63,9 +63,9 @@ root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿
 
 匿名（anon）使用者ID會指定對應至用戶端要求的UNIX使用者ID或使用者名稱、而該用戶端要求沒有有效的NFS認證。使用root使用者時、這可能包括root使用者。Anon的Cloud Volumes Service 使用者是65534。
 
-此UID通常與Linux環境中的使用者名稱「nobnob」或「nfsnobn」相關聯。也使用65534作為本機UNIX使用者的pcuser'（請參閱「Cloud Volumes Service<<Default local UNIX users and groups>>」）、這也是Windows到UNIX名稱對應的預設後援使用者、但LDAP中找不到有效的相符UNIX使用者。
+此UID通常與Linux環境中的使用者名稱「nobnob」或「nfsnobn」相關聯。也使用65534作為本機UNIX使用者的pcuser'（請參閱「Cloud Volumes Service local UNIX users and groups」）、這也是Windows到UNIX名稱對應的預設後援使用者、但LDAP中找不到有效的相符UNIX使用者。
 
-由於Linux使用者名稱與Cloud Volumes Service 適用於UID 65534的使用者名稱不同、因此使用NFSv4.1時對應至65534的使用者名稱字串可能不相符。因此、您可能會在某些檔案和資料夾上看到「無人」的使用者身分。請參閱「」一節<<NFSv4.1 and the nobody user/group>>」以取得此問題的相關資訊及解決方法。
+由於Linux使用者名稱與Cloud Volumes Service 適用於UID 65534的使用者名稱不同、因此使用NFSv4.1時對應至65534的使用者名稱字串可能不相符。因此、您可能會在某些檔案和資料夾上看到「無人」的使用者身分。請參閱「」一節 and the nobody user/group」以取得此問題的相關資訊及解決方法。
 
 
 
@@ -79,7 +79,7 @@ NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型�
 * * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」來控制對EXPE/CVs-Performance的存取層級、提供下列選項：
 * *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
 * * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。
-* *根存取權（開啟/關閉）。*設定根分區（請參閱「<<The root user>>」的詳細資料）。
+* *根存取權（開啟/關閉）。*設定根分區（請參閱「 root user」的詳細資料）。
 * *傳輸協定類型。*這會將NFS掛載的存取限制為特定的傳輸協定版本。為Volume指定NFSv3和NFSv4.1時、請將兩者留白或同時勾選兩個方塊。
 * * Kerberos安全性層級（選取「啟用Kerberos」時）。*提供krb5、krb5i及/或krb5p選項、以進行唯讀或讀寫存取。
 
@@ -88,7 +88,7 @@ NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型�
 
 == 變更擁有權（chown）和變更群組（chgrp）
 
-NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾上執行chown / chgrp。其他使用者也會看到「不允許操作」錯誤、即使是他們自己擁有的檔案也一樣。如果您使用root quash（如一節中所述）<<The root user>>」）時、root會被擠到非root使用者、且不允許存取chown和chgrp。目前在不允許非root使用者使用chown和chgrp的因應措施Cloud Volumes Service 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。
+NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾上執行chown / chgrp。其他使用者也會看到「不允許操作」錯誤、即使是他們自己擁有的檔案也一樣。如果您使用root quash（如一節中所述） root user」）時、root會被擠到非root使用者、且不允許存取chown和chgrp。目前在不允許非root使用者使用chown和chgrp的因應措施Cloud Volumes Service 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。
 
 
 
@@ -155,7 +155,7 @@ NFSv3使用者和群組ID會以數字ID而非名稱的形式出現在線路上�
 * 實作Kerberos for NFS會強制使用者使用使用者名稱和密碼或Keytab檔案進行驗證、以取得Kerberos票證、以便存取掛載。Kerberos適用於CVS效能執行個體、僅適用於NFSv4.1。
 * 限制匯出原則規則中的主機清單、會限制NFSv3用戶端存取Cloud Volumes Service 該卷的權限。
 * 使用雙傳輸協定磁碟區並將NTFS ACL套用至磁碟區、會強制NFSv3用戶端將數字ID解析為有效的UNIX使用者名稱、以便正確驗證以存取裝載。這需要啟用LDAP並設定UNIX使用者和群組身分識別。
-* 浪費root使用者的力量可限制root使用者對NFS掛載所造成的損害、但並不會完全消除風險。如需詳細資訊、請參閱「」一節<<The root user>>。」
+* 浪費root使用者的力量可限制root使用者對NFS掛載所造成的損害、但並不會完全消除風險。如需詳細資訊、請參閱「」一節 root user。」
 
 
 最後、NFS安全性僅限於您所使用的傳輸協定版本。NFSv3的整體效能比NFSv4.1高、但提供的安全性層級卻不相同。
@@ -345,7 +345,7 @@ drwxrwxrwx 7 root   root         4096 Feb  3 12:06 ..
 -rw-r--r-- 1 apache apache-group    0 Feb  3 12:07 ldap-user-file
 -rw-r--r-- 1 root   root            0 Feb  3 12:06 root-user-file
 ....
-如需此問題及其解決方法的詳細資訊、請參閱「」一節<<NFSv4.1 and the nobody user/group>>。」
+如需此問題及其解決方法的詳細資訊、請參閱「」一節 and the nobody user/group。」
 
 
 
