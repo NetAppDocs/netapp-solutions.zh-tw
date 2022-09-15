@@ -23,7 +23,7 @@ NOTE: 在ONTAP AWS SDDC上部署FSx for VMware與VMware Cloud相同的可用區�
 
 NOTE: 您無法在ONTAP 連線的VPC上部署FSXfor Sfor。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。
 
-.步驟1：在ONTAP 指定的VPC中建立Amazon FSX for Sf0
+.步驟1：在ONTAP 新的指定VPC中建立Amazon FSX for Sf0
 ====
 若要建立及掛載Amazon FSX for NetApp ONTAP Sfor NetApp Sfor文件系統、請完成下列步驟：
 
@@ -39,6 +39,10 @@ image:fsx-nfs-image3.png["錯誤：缺少圖形影像"]
 +
 image:fsx-nfs-image4.png["錯誤：缺少圖形影像"]
 
++
+
+NOTE: 資料存放區大小會因客戶而異。雖然每個NFS資料存放區建議的虛擬機器數量是主觀的、但許多因素都決定了每個資料存放區可放置的最佳VM數量。雖然大多數系統管理員只考慮容量、但傳送到VMDK的並行I/O量是整體效能最重要的因素之一。使用內部部署的效能統計資料來調整資料存放區磁碟區的大小。
+
 . 在虛擬私有雲端（VPC）的*網路*區段中、選擇適當的VPC和偏好的子網路、以及路由表。在此情況下、會從下拉式功能表中選取「示範- FSxforONTAP-VPC」。
 +
 
@@ -46,7 +50,7 @@ NOTE: 請確定這是新的指定VPC、而非連接的VPC。
 
 +
 
-NOTE: 根據預設ONTAP 、FSX for Sf0使用「198.19.0/16」作為檔案系統的預設端點IP位址範圍。確保端點IP位址範圍不會與AWS基礎架構上的VMC發生衝突。如果您不確定、請使用無衝突的無重疊範圍。
+NOTE: 根據預設ONTAP 、FSX for Sf0使用198.19.0/16做為檔案系統的預設端點IP位址範圍。確保端點IP位址範圍不會與AWS SDDC、相關VPC子網路和內部部署基礎架構上的VMC衝突。如果您不確定、請使用無衝突的無重疊範圍。
 
 +
 image:fsx-nfs-image5.png["錯誤：缺少圖形影像"]
@@ -63,31 +67,31 @@ NOTE: 到GA時、支援四個NFS資料存放區。
 +
 image:fsx-nfs-image7.png["錯誤：缺少圖形影像"]
 
-. 在*預設Volume Configuration（Volume組態）*區段中、指定資料存放區所需的磁碟區名稱和大小、然後按一下* Next*（*下一步*）。這應該是NFSv3 Volume。若為*儲存效率*、請選擇*已啟用*以開啟ONTAP 「支援」儲存效率功能（壓縮、重複資料刪除及壓縮）。建立之後、請使用Shell修改Volume參數、如下所示：
+. 在*預設Volume Configuration（Volume組態）*區段中、指定資料存放區所需的磁碟區名稱和大小、然後按一下* Next*（*下一步*）。這應該是NFSv3 Volume。若為*儲存效率*、請選擇*已啟用*以開啟ONTAP 「支援」儲存效率功能（壓縮、重複資料刪除及壓縮）。建立之後、請使用Shell使用* Volume modify__*修改Volume參數、如下所示：
 +
 |===
 | 設定 | 組態 
 
 
-| Volume保證 | 無（精簡配置）；預設設定為無 
+| Volume保證（空間保證形式） | 無（精簡配置）–預設設定 
 
 
-| 分數保留 | 0% 
+| 分數保留（分數保留） | 0%–預設設定 
 
 
-| Snap_Reserve | 0% 
+| Snap_Reserve（百分比快照空間） | 0% 
 
 
-| 自動調整規模 | 開啟 
+| 自動調整大小（自動調整大小模式） | 大幅縮減 
 
 
-| 儲存效率 | 已啟用 
+| 儲存效率 | 已啟用–預設設定 
 
 
 | 自動刪除 | Volume / OLDEST_First 
 
 
-| Volume分層原則 | 僅適用於Snapshot 
+| Volume分層原則 | 僅Snapshot–預設設定 
 
 
 | 先試用 | 自動擴充 
@@ -96,10 +100,34 @@ image:fsx-nfs-image7.png["錯誤：缺少圖形影像"]
 | Snapshot原則 | 無 
 |===
 +
+使用下列SSH命令建立及修改磁碟區：
+
++
+*命令從Shell建立新的資料存放區磁碟區：*
+
++
+ volume create -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -aggregate aggr1 -size 1024GB -state online -tiering-policy snapshot-only -percent-snapshot-space 0 -autosize-mode grow -snapshot-policy none -junction-path /DemoDS002
++
+*附註：*透過Shell建立的磁碟區需要幾分鐘的時間才能顯示在AWS主控台。
+
++
+*修改Volume參數的命令（預設未設定）：*
+
++
+....
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -fractional-reserve 0
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -space-mgmt-try-first vol_grow
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -autosize-mode grow
+....
++
 image:fsx-nfs-image8.png["錯誤：缺少圖形影像"]
 
 +
 image:fsx-nfs-image9.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 在初始移轉案例中、預設的快照原則可能會造成資料存放區容量已滿問題。若要克服此問題、請修改快照原則以符合需求。
 
 . 檢閱「*建立檔案系統*」頁面上顯示的檔案系統組態。
 . 按一下「*建立檔案系統*」。
@@ -111,7 +139,7 @@ image:fsx-nfs-image11.png["錯誤：缺少圖形影像"]
 
 +
 
-NOTE: 重複上述步驟、根據容量和效能需求來建立更多檔案系統和資料存放區磁碟區。
+NOTE: 重複上述步驟、根據容量和效能需求、建立更多儲存虛擬機器或檔案系統、以及資料存放區磁碟區。
 
 
 
@@ -212,13 +240,10 @@ image:fsx-nfs-image23.png["錯誤：缺少圖形影像"]
 +
 image:fsx-nfs-image24.png["錯誤：缺少圖形影像"]
 
-. 確認相關VPC中的安全群組已更新為SDDC群組CIDR的正確傳入規則。
+. 下一步是驗證相關VPC中的安全性群組是否已更新為SDDC群組CIDR的正確傳入規則。
+. 使用SDDC基礎架構的CIDR區塊來更新傳入規則。
 +
 image:fsx-nfs-image25.png["錯誤：缺少圖形影像"]
-
-+
-
-NOTE: 使用SDDC基礎架構的CIDR區塊來更新傳入規則。
 
 +
 
