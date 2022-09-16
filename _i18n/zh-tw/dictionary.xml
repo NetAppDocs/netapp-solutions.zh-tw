@@ -7626,11 +7626,9 @@
   <block id="6120544c737d67dd31f47d101fe21a84" category="doc">在雲端供應商中設定虛擬化環境</block>
   <block id="f4f7adb7cbe18f2cdd82be75a52b0417" category="paragraph">如需如何在每個受支援的超大規模擴充系統中設定虛擬化環境的詳細資訊、請參閱此處。</block>
   <block id="162e9e1fd4657b8d9588a5ae8c8e6e66" category="paragraph">本節說明如何在AWS SDDC上設定及管理VMware Cloud、並搭配可用的選項來連接NetApp儲存設備。</block>
-  <block id="e6719013bc5803c0da0d4bf78fc8c4a0" category="admonition">客體內儲存設備是唯一受支援的方法、可將FSXVMware ONTAP 和Cloud Volumes ONTAP VMware連接至AWS VMC。</block>
   <block id="389544cc8199f2ddd936397695d0dbe9" category="inline-link-macro">部署及設定適用於AWS的VMware Cloud</block>
   <block id="b4f284d3b5bb40ee91901933b8f7ef5f" category="inline-link-macro">將VMware Cloud連接至FSX ONTAP VMware</block>
   <block id="491aa8f554f95207a4b7d47f89777e13" category="paragraph">本節說明如何設定及管理Azure VMware解決方案、以及如何搭配可用的選項來連接NetApp儲存設備。</block>
-  <block id="cc887bc72eb6e7422bfa13437f902e54" category="admonition">客體內儲存設備是唯一支援的將Azure NetApp Files VMware解決Cloud Volumes ONTAP 方案與VMware解決方案連接的方法。</block>
   <block id="3d24cd3e433bf1992e011c9f92c3fab6" category="inline-link-macro">註冊資源供應商並建立私有雲</block>
   <block id="a1123889b6465e93a2209c2a0ca667ef" category="inline-link-macro">連線至新的或現有的ExpressRoute虛擬網路閘道</block>
   <block id="ae1764c7cb70aed2d4548c424d7bf34a" category="inline-link-macro">驗證網路連線能力並存取私有雲端</block>
@@ -7718,7 +7716,6 @@
   <block id="caf9b805c37cab661d4e3a26b7f71109" category="list-text">跨區域提供有效率的遞增區塊傳輸型區域性災難恢復和整合式備份區塊層級、可提供更好的RPO和RTO。</block>
   <block id="658fb5ef00749e8af5a974f612adea9b" category="section-title">假設</block>
   <block id="a9e63f2a8549d717b777806268a0c0cb" category="list-text">SnapMirror技術或其他相關的資料移轉機制已啟用。從內部部署到任何超大規模雲端、都有許多連線選項可供選擇。使用適當的途徑、並與相關的網路團隊合作。</block>
-  <block id="c63dc0feeff939bc83ba1537a1e8ac9a" category="list-text">在寫入本文檔時、來賓儲存設備是唯一可用的選項。</block>
   <block id="478a13ed02b948c9cfd89a6197062012" category="admonition">請與NetApp解決方案架構設計師及各自的超大規模雲端架構設計師接洽、以規劃及調整儲存設備規模、以及所需的主機數量。NetApp建議您先找出儲存效能需求、再使用Cloud Volumes ONTAP VMware解決方案、以適當的處理量來完成儲存執行個體類型或適當的服務層級。</block>
   <block id="c748546b5854ecb146d9caa41d781bdb" category="section-title">詳細架構</block>
   <block id="1a8ac44404b1e5888d83801ac116ff66" category="inline-image-macro">企業混合雲架構</block>
@@ -7864,11 +7861,8 @@
   <block id="af16b968e0e3b3975cdcefb5cdd9858a" category="paragraph">若要從Cloud Volumes ONTAP AWS SDDC上VMC內的VM掛載支援功能（DIY）檔案系統、請完成下列步驟：</block>
   <block id="2b9f5ac2397a7a0e82ca568de7f62512" category="paragraph"><block ref="c1b4b180fa34b46779c12a4e278fa487" category="inline-image-macro-rx" type="image"></block>
 <block ref="cf487bf9f5a361811181e443893feb53" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="04999f88dfbb06dc4f6a71901a7e9b18" category="paragraph">&lt;Lead &gt;</block>
-  <block id="2a172299398c31c1e2cd726175d3a270" category="paragraph">&lt;content&gt;</block>
   <block id="07b0eade4402d209b5dbe587a8ad3f6f" category="doc">在AWS上部署及設定虛擬化環境</block>
   <block id="e647d88b9bd859d2c3e943c24b4fef00" category="paragraph">如同內部部署、在AWS上規劃VMware Cloud對於成功建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。</block>
-  <block id="35dcee3fd9faac08f48b3df2e8e0e63c" category="admonition">客體內儲存設備目前是唯一支援的方法、可將FSXVMware ONTAP 和Cloud Volumes ONTAP VMware連接至AWS VMC。</block>
   <block id="02b412692a538ee9dc2534f0f9c73dc1" category="paragraph"><block ref="560d5b2cd40977bd7b77b31d7088f657" category="inline-link-macro-rx"></block> 在AWS生態系統中為VMware工作負載提供雲端原生體驗。每個VMware軟體定義資料中心（SDDC）都會在Amazon Virtual Private Cloud（VPC）上執行、並提供完整的VMware堆疊（包括vCenter Server）、NSX-T軟體定義網路、vSAN軟體定義儲存設備、以及一或多個ESXi主機、為您的工作負載提供運算與儲存資源。</block>
   <block id="dc77b78f59a0c38a9a2e8927dc05e916" category="paragraph">本節說明如何在AWS上設定及管理VMware Cloud、並搭配Amazon FSX for NetApp ONTAP 時使用Cloud Volumes ONTAP 、以及/或在AWS上搭配來賓儲存設備使用VMware Cloud。</block>
   <block id="1687622e662f209ef64e3a88de409466" category="admonition">來賓儲存設備是唯一受支援的方法、可將Amazon FSX for NetApp ONTAP 的VMware功能與Cloud Volumes ONTAP VMware Cloud連線至AWS上的VMware Cloud。</block>
@@ -11944,7 +11938,6 @@
   <block id="78c8c0f60d4851b109cbd33284f812ca" category="cell">亞太地區（Mumbai）</block>
   <block id="82f98bf67698e189fc9d846325345bbd" category="cell">亞太地區（雅加達）</block>
   <block id="1b15cf1d695d130132edd42a701b41a1" category="cell">亞太地區（香港）</block>
-  <block id="69d00fef4f252c9c61d1eb67822e4739" category="paragraph">附註：NetApp儲存設備即資料存放區目前可做為AWS/VMC和Azure /AVS的公開預覽、以及GCP / GSVE的私有預覽。如需詳細資訊、請參閱下列連結。</block>
   <block id="3b041c1182ede15a52a683344c9512e0" category="section-title">AWS區域可用度</block>
   <block id="c5fde59b3560ee1ea5aeeebaf94bdf39" category="section-title">Azure區域可用度</block>
   <block id="7ddf4642a2bfdc9a45847e5d375a1ddb" category="inline-link-macro">詳細資料</block>
@@ -14426,7 +14419,6 @@
   <block id="58098d451cf2728b0542acd542f9000b" category="cell">*補充NFS Datastor*</block>
   <block id="51b0e38e5ec7edbe37b6672987ce5f2e" category="paragraph">深入瞭解NetApp為三（3）個主要超大規模擴充系統帶來的功能、包括NetApp作為來賓連線儲存設備或輔助NFS資料存放區、移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
   <block id="ccb4d111a650d51ca9a8feb2542610be" category="paragraph">NetApp儲存設備可在三大大型超大規模擴充系統中的每一種使用方式（例如猜測已連線或作為補充NFS資料存放區）、有多種方式可供使用。</block>
-  <block id="01afbab420d0d768779dcb574cd1ba34" category="doc">適用於AWS的NetApp補充NFS資料存放區選項</block>
   <block id="d22e98327d29984cdf19ebfeeb53bd99" category="paragraph">深入瞭解NetApp為AWS VMware Cloud（VMC）帶來的功能：從NetApp做為來賓連線儲存設備或補充NFS資料存放區、移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
   <block id="e3dea11e8144be98f637687e2a2cf316" category="paragraph">NetApp儲存設備可在AWS VMC中以多種方式使用、例如猜測連接的或補充的NFS資料存放區。</block>
   <block id="206616b83a19162051802c3823da0f7c" category="paragraph">NetApp也提供解決方案、可將儲存資源配置為客體內（來賓連線）儲存設備、或是做為每個超大規模擴充程式中的補充NFS資料存放區。所有解決方案均與VMware雲端工作負載分類一致。這些分類包括：</block>
@@ -14446,15 +14438,6 @@
   <block id="66433e0e715221ebed495642af8005b7" category="doc">適用於GCP的NetApp補充NFS資料存放區選項</block>
   <block id="ce2d3ab910808452912b4cae1adc8bd7" category="paragraph">深入瞭解NetApp為Google Cloud Platform（GCP）Google Cloud Virtualization Engine（GCVE）帶來的功能、這些功能可從NetApp作為連接來賓的儲存設備或補充NFS資料存放區、一起移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復。</block>
   <block id="275ed895f3f409270670131f7369b1ac" category="paragraph">NetApp儲存設備可在GCP GCVG內以多種方式使用、無論是作為猜測連接或作為補充NFS資料存放區。</block>
-  <block id="dc8880c1e35edd32ee0e3a62b82cc69f" category="paragraph">AWS新聞稿for FSXSFC ONTAP 將於近期推出、做為NFS補充資料存放區！</block>
-  <block id="344a1d4b76a1f2aebec92972d8809fb9" category="inline-link-macro">做為Azure的補充NFS資料存放區Azure NetApp Files</block>
-  <block id="e7bc10db9b0b44db3d43b19ef5f93f3e" category="inline-link-macro">以補充性NFS資料存放區的形式提供給GCP Cloud Volumes Service</block>
-  <block id="f90222afbf457daf7b0ccad3451907ef" category="paragraph"><block ref="258e319c15b416a52aa3c811d7635489" category="inline-link-macro-rx"></block>
-<block ref="dbea9878fd4f6cf74860bb456637c3e2" category="inline-link-macro-rx"></block></block>
-  <block id="50b333c4d09239bffeb68b079c85994d" category="inline-link-macro">做為Azure的補充NFS資料存放區Azure NetApp Files</block>
-  <block id="b645884517c84cef76c33fd1223a77b8" category="inline-link-macro">以補充的NFS資料存放區形式提供給GCP（CVS）Cloud Volumes Service</block>
-  <block id="ce0992cb9d73e6a183b2b79e1cf57442" category="paragraph"><block ref="a15e077225e1c63b1977f56a70fae69c" category="inline-link-macro-rx"></block>
-<block ref="f4a57bacfd4fb9ea09ece261926e87de" category="inline-link-macro-rx"></block></block>
   <block id="55b61b011b735ba396a8dbd7e3f95f20" category="cell">2022年5月8日</block>
   <block id="678582eb0cbbe0e063e618d230b63223" category="cell">*主機設定*</block>
   <block id="dfe49b73bd7e747701b49f9ed21ea2d6" category="cell">* NetApp推薦價值*</block>
@@ -14861,4 +14844,8 @@
   <block id="732f94f3061dc1751b3c7e3ea8566239" category="paragraph">本解決方案適用於：</block>
   <block id="dab739113e8cfebbcfcfaea1515c0bcf" category="list-text">、誰對&lt;goal &gt;感興趣、</block>
   <block id="7367185552beb127edfea2f14982e67f" category="list-text">、誰對&lt;goal &gt;感興趣。</block>
+  <block id="71b51633ceea83cdf1136196fce39901" category="admonition">客體內儲存設備是唯一支援的將Cloud Volumes ONTAP 功能連接到AWS VMC的方法。</block>
+  <block id="9761d5208d76a88ba5a08152c4431c2f" category="admonition">客體內儲存設備是唯一支援的連線Cloud Volumes ONTAP 至Azure VMware解決方案的方法。</block>
+  <block id="bb19e956b854f8e209f51237a29feb31" category="admonition">客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功能、可將VMware（CVO）連線至AWS VMC。</block>
+  <block id="36c48411397a73fcbe7ccac93862641b" category="admonition">在寫入本文檔時、來賓儲存設備是唯一可用的選項。隨著補充NFS資料存放區支援的推出、我們也會提供額外的文件 <block ref="2feee9d08b57f121d415095bba26ae78" category="inline-link-macro-rx"></block>。</block>
 </blocks>
