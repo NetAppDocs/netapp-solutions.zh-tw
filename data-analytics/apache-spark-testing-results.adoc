@@ -1,0 +1,356 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/apache-spark-testing-results.html 
+keywords: terasort, teravalidate, teragen, benchmarking, e-series, storagegrid, hadoop, financial sentiment analysis, distributed training, Horovod performance 
+summary: 我們使用TeraGen基準測試工具中的TeraSort和TeraValidate指令碼、以E5760、E5724和AFF-A800組態來測量Spark效能驗證。此外、我們也測試了三個主要使用案例：Spark NLP管道和TensorFlow分散式訓練、Horovod分散式訓練、以及使用Keras與DeepFM進行CTR預測的多工深度學習。 
+---
+= 測試結果
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:apache-spark-major-ai,-ml,-and-dl-use-cases-and-architectures.html["先前版本：主要AI、ML和DL使用案例與架構。"]
+
+我們使用TeraGen基準測試工具中的TeraSort和TeraValidate指令碼、以E5760、E5724和AFF-A800組態來測量Spark效能驗證。此外、我們也測試了三個主要使用案例：Spark NLP管道和TensorFlow分散式訓練、Horovod分散式訓練、以及使用Keras與DeepFM進行CTR預測的多工深度學習。
+
+對於E系列和StorageGRID E驗 證、我們使用Hadoop複寫係數2。為了驗證、我們只使用一個資料來源。AFF
+
+下表列出Spark效能驗證的硬體組態。
+
+|===
+| 類型 | Hadoop工作節點 | 磁碟機類型 | 每個節點的磁碟機數量 | 儲存控制器 
+
+
+| SG6060 | 4. | SAS | 12. | 單一高可用度（HA）配對 
+
+
+| E5760 | 4. | SAS | 60 | 單一HA配對 
+
+
+| E5724 | 4. | SAS | 24 | 單一HA配對 
+
+
+| AFF800 | 4. | SSD | 6. | 單一HA配對 
+|===
+下表列出軟體需求。
+
+|===
+| 軟體 | 版本 
+
+
+| RHEL | 7.9 
+
+
+| OpenJDK執行時間環境 | 1.8.0 
+
+
+| OpenJDK 64位元伺服器VM | 25、302 
+
+
+| Git | 2.24.1. 
+
+
+| gcc/g++ | 11.2.1 
+
+
+| 火花 | 3.2.1 
+
+
+| PySpark | 3.1.2 
+
+
+| SparkNLP | 3.4.2 
+
+
+| TensorFlow | 2.9.0 
+
+
+| Keras | 2.9.0 
+
+
+| 霍羅沃德 | 0.24.3 
+|===
+
+
+== 財務情資分析
+
+我們發表了 https://docs.netapp.com/us-en/netapp-solutions/ai/ai-sent-support-center-analytics.html["TR-4910：客戶與NetApp AI溝通時的意見分析"^]、其中使用建立端點對端點對話AI管道 https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"^]、不儲存及NVIDIA DGX系統。AFF此管線運用DataOps Toolkit執行批次音訊訊號處理、自動語音辨識（ASR）、傳輸學習和情緒分析、 https://developer.nvidia.com/riva["NVIDIA Riva SDK"^]和 https://developer.nvidia.com/tao["TAO架構"^]。我們將情緒分析使用案例擴大至金融服務業、建立SparkNLP工作流程、針對各種NLP工作（例如命名實體辨識）、載入三種Bert模式、並針對NASDAQ前10大公司的季度營收要求、獲得句子等級的感受。
+
+下列指令碼「ention_sization_SPARK」。PY'使用FinBERT模型來處理HDFS的錄音記錄、並產生正面、中立和負面的感覺、如下表所示：
+
+....
+-bash-4.2$ time ~/anaconda3/bin/spark-submit
+--packages com.johnsnowlabs.nlp:spark-nlp_2.12:3.4.3
+--master yarn
+--executor-memory 5g
+--executor-cores 1
+--num-executors 160
+--conf spark.driver.extraJavaOptions="-Xss10m -XX:MaxPermSize=1024M"
+--conf spark.executor.extraJavaOptions="-Xss10m -XX:MaxPermSize=512M"
+/sparkusecase/tr-4570-nlp/sentiment_analysis_spark.py hdfs:///data1/Transcripts/
+> ./sentiment_analysis_hdfs.log 2>&1
+real13m14.300s
+user557m11.319s
+sys4m47.676s
+....
+下表列出2016年至2020年、NASDAQ前10大企業的獲利能力與句子層級意見分析。
+
+|===
+| 情緒和百分比 | 所有10家公司 | AAPL | AMD | AMZN | CSCO | gOOgL | INTC | MSFT | NVDA 
+
+
+| 正面評價 | 747 | 1567 | 743 | 2990 | 682 | 826 | 824 | 904 | 417 
+
+
+| 中性數 | 6967 | 6856 | 7596 | 5086 | 6650 | 5914 | 6099 | 5715 | 6189. 
+
+
+| 負面數 | 1787 | 253 | 213 | 84. | 189. | 97 | 282.5. | 202.02 | 89 
+
+
+| 未分類的計數 | 196 | 0 | 0 | 76. | 0 | 0 | 0 | 1. | 0 
+
+
+| （總計數） | 73497. | 8676. | 8552 | 5536 | 7521 | 6837 | 7205. | 6822 | 6695 
+|===
+就百分比而言、CEO和CFO所說的大部分句子都是事實、因此具有中立的感覺。在進行獲利拜訪時、分析師會提出一些可能會傳達正面或負面情緒的問題。值得進一步從數量上調查、也就是在同一天或隔天的交易中、負面或正面的情緒對股票價格有何影響。
+
+下表列出NASDAQ前10大公司的句子層級意見分析、以百分比表示。
+
+|===
+| 情緒百分比 | 所有10家公司 | AAPL | AMD | AMZN | CSCO | gOOgL | INTC | MSFT | NVDA 
+
+
+| 正面  a| 
+10.13%
+| 18.06% | 8.69% | 5.24% | 9.07% | 12.08% | 11.44% | 13.25% | 6.23% 
+
+
+| 中立 | 87.17% | 79.02% | 88.82% | 91.87% | 88.42% | 86.50% | 84.65% | 83.77% | 92.44% 
+
+
+| 負面 | 2.43% | 2.92% | 2.49% | 1.52% | 2.51% | 1.42% | 3.91% | 2.96% | 1.33% 
+
+
+| 未分類 | 0.27% | 0% | 0% | 1.37% | 0% | 0% | 0% | 0.01% | 0% 
+|===
+在工作流程執行時間方面、我們發現HDFS的「本機」模式已大幅改善4.78倍、而NFS則進一步改善0.14%。
+
+....
+-bash-4.2$ time ~/anaconda3/bin/spark-submit
+--packages com.johnsnowlabs.nlp:spark-nlp_2.12:3.4.3
+--master yarn
+--executor-memory 5g
+--executor-cores 1
+--num-executors 160
+--conf spark.driver.extraJavaOptions="-Xss10m -XX:MaxPermSize=1024M"
+--conf spark.executor.extraJavaOptions="-Xss10m -XX:MaxPermSize=512M"
+/sparkusecase/tr-4570-nlp/sentiment_analysis_spark.py file:///sparkdemo/sparknlp/Transcripts/
+> ./sentiment_analysis_nfs.log 2>&1
+real13m13.149s
+user537m50.148s
+sys4m46.173s
+....
+如下圖所示、資料與模型平行處理可改善資料處理及分散式TensorFlow模型的推斷速度。NFS中的資料位置產生的執行時間稍微好一點、因為工作流程瓶頸是下載預先訓練的模型。如果我們增加記錄資料集的大小、NFS的優勢就更明顯。
+
+image:apache-spark-image11.png["Spark NLP情緒分析端點對端點工作流程執行時間。"]
+
+
+
+== 以Horovod效能進行分散式訓練
+
+下列命令使用單一「master」節點在Spark叢集中產生執行時間資訊和記錄檔、每個節點有160個執行器、各有一個核心。執行程式記憶體限制為5GB、以避免記憶體不足錯誤。請參閱一節 link:apache-spark-python-scripts-for-each-major-use-case.html["「每個主要使用案例的Python指令碼」"] 如需有關資料處理、模型訓練及模型準確度計算的詳細資訊、請參閱「keras」（keras）、「SPAR_horovod_rossmann_imer.py」（keras）。
+
+....
+(base) [root@n138 horovod]# time spark-submit
+--master local
+--executor-memory 5g
+--executor-cores 1
+--num-executors 160
+/sparkusecase/horovod/keras_spark_horovod_rossmann_estimator.py
+--epochs 10
+--data-dir file:///sparkusecase/horovod
+--local-submission-csv /tmp/submission_0.csv
+--local-checkpoint-file /tmp/checkpoint/
+> /tmp/keras_spark_horovod_rossmann_estimator_local. log 2>&1
+....
+十個訓練期間的執行時間如下：
+
+....
+real43m34.608s
+user12m22.057s
+sys2m30.127s
+....
+處理輸入資料、訓練DNN模型、計算準確度、以及產生TensorFlow檢查點和CSV檔案以供預測結果、所需時間超過43分鐘。我們將訓練時段的數量限制為10個、實際上通常設定為100個、以確保模型準確度令人滿意。訓練時間通常會隨著epochs的數量線性調整。
+
+接下來、我們使用叢集中可用的四個工作節點、並在「線」模式中執行相同指令碼、並在HDFS中使用資料：
+
+....
+(base) [root@n138 horovod]# time spark-submit
+--master yarn
+--executor-memory 5g
+--executor-cores 1 --num-executors 160 /sparkusecase/horovod/keras_spark_horovod_rossmann_estimator.py
+--epochs 10
+--data-dir hdfs:///user/hdfs/tr-4570/experiments/horovod
+--local-submission-csv /tmp/submission_1.csv
+--local-checkpoint-file /tmp/checkpoint/
+> /tmp/keras_spark_horovod_rossmann_estimator_yarn.log 2>&1
+....
+結果的執行時間改善如下：
+
+....
+real8m13.728s
+user7m48.421s
+sys1m26.063s
+....
+霍羅沃德在Spark的模式和資料平行化技術、讓我們看到5.29倍的執行時間加速比「線」與「本地」模式、並有十個訓練階段。下圖顯示了「HDFS」和「本地」的圖例。如果有可用的GPU、基礎TensorFlow DNN模型訓練可進一步加速。我們計畫在未來的技術報告中進行此測試並發佈結果。
+
+我們的下一項測試將執行時間與NFS中的輸入資料與HDFS進行比較。在Spark叢集中的五個節點（一位主節點、四位員工）上、安裝了位於Se A800上AFF 的NFS磁碟區。我們執行的命令與先前的測試類似、現在的「-data- dir」參數指向NFS掛載：
+
+....
+(base) [root@n138 horovod]# time spark-submit
+--master yarn
+--executor-memory 5g
+--executor-cores 1
+--num-executors 160
+/sparkusecase/horovod/keras_spark_horovod_rossmann_estimator.py
+--epochs 10
+--data-dir file:///sparkdemo/horovod
+--local-submission-csv /tmp/submission_2.csv
+--local-checkpoint-file /tmp/checkpoint/
+> /tmp/keras_spark_horovod_rossmann_estimator_nfs.log 2>&1
+....
+產生的NFS執行時間如下：
+
+....
+real 5m46.229s
+user 5m35.693s
+sys  1m5.615s
+....
+另有1.43倍的加速比、如下圖所示。因此、透過將NetApp All Flash儲存設備連線至叢集、客戶可享有Horovod Spark工作流程的快速資料傳輸與發佈優勢、相較於在單一節點上執行、可獲得7.55倍的加速比。
+
+image:apache-spark-image12.png["Horovod Spark Workflow執行時間。"]
+
+
+
+== 深度學習模式、提供CTR預測效能
+
+針對最大化CTR的推薦系統、您必須瞭解使用者行為背後的複雜功能互動、這些行為可以從低階到高階的數學計算得出。對於良好的深度學習模式而言、低階和高階功能互動同樣重要、而不需互相偏好。深度Factorization Machine（DeepFM）是一種面向機器的神經網路、結合了面向技術的機器、可在全新的神經網路架構中提供建議和深度學習功能。
+
+雖然傳統的面向化機器會將配對功能互動視為潛在功能之間的內部產品、理論上也能擷取高階資訊、但實際上、機器學習工作者通常只會因為高運算和儲存複雜度而使用二階功能互動。深入的神經網路變種、例如Google https://arxiv.org/abs/1606.07792["廣角安培；深層機型"^] 另一方面、將線性寬模型與深度模型結合、即可在混合式網路架構中學習精密的功能互動。
+
+這種廣域與深層模型有兩種輸入、一種是基礎廣泛模型、另一種是深度模型、其後一部分仍需要專家特徵工程、因此技術較不適用於其他網域。與廣角和深層模型不同的是、DeepFM可有效訓練原始功能、無需任何特徵工程、因為其廣泛的部分和深層部分共用相同的輸入和內嵌向量。
+
+我們首先使用本節中的「rrun _crite_criteo_wark.py」、將criteo「tr.txt」（11GB）檔案處理成一個CSV檔案、名稱為「ctr_tr.csv"、儲存在NFS掛載「/swarkdemo/tr-4570資料」中 link:apache-spark-python-scripts-for-each-major-use-case.html["「每個主要使用案例的Python指令碼。」"] 在此指令碼中、「Process輸入檔案」功能會執行數種字串方法來移除索引標籤、並將「、」插入為分隔符號、將「n」插入為新行。請注意、您只需處理一次原始的「train.txt」、就能將程式碼區塊顯示為註解。
+
+針對下列不同DL機型的測試、我們使用「ctr_train.csv"做為輸入檔。在後續的測試執行中、輸入CSV檔案會讀入Spark DataFrame、其中架構包含「label」欄位、整數密集功能「'I1'、'I2」、「I3」、…、「I13」]、 以及「'c1'、'c2'、'c3」、…、'c26']等功能。下列「駐點提交」命令採用輸入CSV、將DeepFM模型分成20%進行交叉驗證、並在十個訓練期後挑選最佳模型、以計算測試集的預測準確度：
+
+....
+(base) [root@n138 ~]# time spark-submit --master yarn --executor-memory 5g --executor-cores 1 --num-executors 160 /sparkusecase/DeepCTR/examples/run_classification_criteo_spark.py --data-dir file:///sparkdemo/tr-4570-data > /tmp/run_classification_criteo_spark_local.log 2>&1
+....
+請注意、由於資料檔案「ctr_tr.csv"超過11GB、因此您必須設定一個大於資料集大小的「shipt.driver.max.ResultSize'以避免錯誤。
+
+....
+ spark = SparkSession.builder \
+    .master("yarn") \
+    .appName("deep_ctr_classification") \
+    .config("spark.jars.packages", "io.github.ravwojdyla:spark-schema-utils_2.12:0.1.0") \
+    .config("spark.executor.cores", "1") \
+    .config('spark.executor.memory', '5gb') \
+    .config('spark.executor.memoryOverhead', '1500') \
+    .config('spark.driver.memoryOverhead', '1500') \
+    .config("spark.sql.shuffle.partitions", "480") \
+    .config("spark.sql.execution.arrow.enabled", "true") \
+    .config("spark.driver.maxResultSize", "50gb") \
+    .getOrCreate()
+....
+在上述的「parkSession．builder」組態中、我們也啟用了 https://arrow.apache.org/["Apache Arrow"^]、使用「d．toPandas（）」方法、將Spark DataFrame轉換成成Pandas DataFrame。
+
+....
+22/06/17 15:56:21 INFO scheduler.DAGScheduler: Job 2 finished: toPandas at /sparkusecase/DeepCTR/examples/run_classification_criteo_spark.py:96, took 627.126487 s
+Obtained Spark DF and transformed to Pandas DF using Arrow.
+....
+隨機分割之後、訓練資料集中有超過36M列、測試集中有9M樣本：
+
+....
+Training dataset size =  36672493
+Testing dataset size =  9168124
+....
+由於本技術報告著重於不使用任何GPU的CPU測試、因此您必須使用適當的編譯器旗標來建置TensorFlow。此步驟可避免啟動任何GPU加速程式庫、並充分利用TensorFlow的進階向量擴充（AVX）和AVX2指令。這些功能是專為線性代數運算所設計、例如向量化的新增功能、饋送轉送內的矩陣複用、或是後傳DNN訓練。使用256位元浮點（FP）登錄的AVX2可搭配使用融合式多層新增（FMA）指令、是整型程式碼和資料類型的理想選擇、可產生高達2倍的加速。對於FP程式碼和資料類型、AVX2比AVX快8%。
+
+....
+2022-06-18 07:19:20.101478: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+....
+若要從來源建置TensorFlow、NetApp建議使用 https://bazel.build/["巴茲爾"^]。在我們的環境中、我們在Shell提示字元中執行下列命令、以安裝「dNF」、「dNF-plugins」和「Bazel」。
+
+....
+yum install dnf
+dnf install 'dnf-command(copr)'
+dnf copr enable vbatts/bazel
+dnf install bazel5
+....
+您必須在建置過程中啟用海灣合作委員會5或更新版本、才能使用C++17功能、這是由RHEL搭配軟體集合庫（SCL）提供的功能。下列命令會在RHEL 7.9叢集上安裝「devtoolset」和「gcc11.2.1」：
+
+....
+subscription-manager repos --enable rhel-server-rhscl-7-rpms
+yum install devtoolset-11-toolchain
+yum install devtoolset-11-gcc-c++
+yum update
+scl enable devtoolset-11 bash
+. /opt/rh/devtoolset-11/enable
+....
+請注意、最後兩個命令會啟用「devtoolSet-11」、使用「/opt/r/devtoolSet-11/root/usr/in/gccs」（gcc11.2.1）。此外、請確定您的「git」版本大於1.8.3（RHEL 7.9隨附）。請參閱此 https://travis.media/how-to-upgrade-git-on-rhel7-and-centos7/["文章"^] 將「git」更新為2.24.1。
+
+我們假設您已複製最新的TensorFlow主要repo。然後使用「工作區」檔案建立「工作區」目錄、以使用AVX、AVX2和FMA從來源建置TensorFlow。執行「configure」檔案、並指定正確的Python二進位位置。 https://developer.nvidia.com/cuda-toolkit["CUDA"^] 因為我們沒有使用GPU、所以測試時停用。系統會根據您的設定產生「.bazelrc」檔案。此外、我們編輯檔案並設定「build -define = no_HDfs_support=fals'」以啟用HDFS支援。請參閱一節中的「.bazelrc」 link:apache-spark-python-scripts-for-each-major-use-case.html["「每個主要使用案例的Python指令碼」"] 以取得設定和旗標的完整清單。
+
+....
+./configure
+bazel build -c opt --copt=-mavx --copt=-mavx2 --copt=-mfma --copt=-mfpmath=both -k //tensorflow/tools/pip_package:build_pip_package
+....
+使用正確的旗標建置TensorFlow之後、請執行下列指令碼來處理Criteo顯示廣告資料集、訓練DeepFM模型、並從預測分數計算接收器作業特性曲線（ROC AUC）下的區域。
+
+....
+(base) [root@n138 examples]# ~/anaconda3/bin/spark-submit
+--master yarn
+--executor-memory 15g
+--executor-cores 1
+--num-executors 160
+/sparkusecase/DeepCTR/examples/run_classification_criteo_spark.py
+--data-dir file:///sparkdemo/tr-4570-data
+> . /run_classification_criteo_spark_nfs.log 2>&1
+....
+經過十次訓練、我們在測試資料集上獲得AUC分數：
+
+....
+Epoch 1/10
+125/125 - 7s - loss: 0.4976 - binary_crossentropy: 0.4974 - val_loss: 0.4629 - val_binary_crossentropy: 0.4624
+Epoch 2/10
+125/125 - 1s - loss: 0.3281 - binary_crossentropy: 0.3271 - val_loss: 0.5146 - val_binary_crossentropy: 0.5130
+Epoch 3/10
+125/125 - 1s - loss: 0.1948 - binary_crossentropy: 0.1928 - val_loss: 0.6166 - val_binary_crossentropy: 0.6144
+Epoch 4/10
+125/125 - 1s - loss: 0.1408 - binary_crossentropy: 0.1383 - val_loss: 0.7261 - val_binary_crossentropy: 0.7235
+Epoch 5/10
+125/125 - 1s - loss: 0.1129 - binary_crossentropy: 0.1102 - val_loss: 0.7961 - val_binary_crossentropy: 0.7934
+Epoch 6/10
+125/125 - 1s - loss: 0.0949 - binary_crossentropy: 0.0921 - val_loss: 0.9502 - val_binary_crossentropy: 0.9474
+Epoch 7/10
+125/125 - 1s - loss: 0.0778 - binary_crossentropy: 0.0750 - val_loss: 1.1329 - val_binary_crossentropy: 1.1301
+Epoch 8/10
+125/125 - 1s - loss: 0.0651 - binary_crossentropy: 0.0622 - val_loss: 1.3794 - val_binary_crossentropy: 1.3766
+Epoch 9/10
+125/125 - 1s - loss: 0.0555 - binary_crossentropy: 0.0527 - val_loss: 1.6115 - val_binary_crossentropy: 1.6087
+Epoch 10/10
+125/125 - 1s - loss: 0.0470 - binary_crossentropy: 0.0442 - val_loss: 1.6768 - val_binary_crossentropy: 1.6740
+test AUC 0.6337
+....
+我們以類似先前使用案例的方式、比較Spark工作流程執行時間與位於不同位置的資料。下圖顯示Spark工作流程執行時間的深度學習CTR預測比較。
+
+image:apache-spark-image13.png["Spark工作流程執行時間的深度學習CTR預測比較。"]
+
+link:apache-spark-hybrid-cloud-solution.html["下一步：混合雲解決方案。"]

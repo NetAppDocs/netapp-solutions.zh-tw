@@ -1,0 +1,37 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/apache-spark-solution-technology.html 
+keywords: standalone, apache mesos, hadoop yarn, resilient distributed dataset, rdd, dataframe, hadoop distributed file system, hdfs 
+summary: 本節說明Apache Spark的本質和元件、以及它們如何為本解決方案做出貢獻。 
+---
+= 解決方案技術
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:apache-spark-target-audience.html["上一篇：目標對象。"]
+
+Apache Spark是一種熱門的程式設計架構、可用來撰寫直接搭配Hadoop分散式檔案系統（HDFS）運作的Hadoop應用程式。Spark已準備就緒、支援串流資料處理、速度比MapReduce快。Spark可設定的記憶體內資料快取功能、可有效進行迭代、而Spark Shell則是互動式的、可用來學習及探索資料。有了Spark、您可以在Python、Scala或Java中建立應用程式。SPARK應用程式由一或多個工作組成、這些工作具有一或多項工作。
+
+每個Spark應用程式都有Spark驅動程式。在線對用戶端模式中、驅動程式會在用戶端本機上執行。在線叢集模式中、驅動程式會在應用程式主機的叢集內執行。在叢集模式中、即使用戶端中斷連線、應用程式仍會繼續執行。
+
+image:apache-spark-image3.png["錯誤：缺少圖形影像"]
+
+有三種叢集管理程式：
+
+* *獨立式。*此管理程式是Spark的一部分、可讓您輕鬆設定叢集。
+* * Apache Mesos.*這是一種通用叢集管理程式、可執行MapReduce及其他應用程式。
+* *《哈多奧》*這是Hadoop 3的資源經理。
+
+
+彈性分散式資料集（RDD）是Spark的主要元件。RDD會重新建立儲存在叢集記憶體中的資料遺失與遺失資料、並儲存來自檔案或以程式設計方式建立的初始資料。RDD是從檔案、記憶體中的資料或其他RDD所建立。Spark程式設計可執行兩項作業：轉型與行動。轉換會根據現有的RDD建立新的RDD。動作會傳回RDD的值。
+
+轉換與動作也適用於Spark資料集和DataFrames。資料集是分散式資料集合、提供RDD的優點（強式輸入、使用Lambda功能）、以及Spark SQL最佳化執行引擎的優點。資料集可從JVM物件建構、然後使用功能性轉換（地圖、扁平對應、篩選等）進行處理。DataFrame是一種資料集、組織成命名欄。它在概念上等同於關聯式資料庫中的資料表、或是R/Python中的資料框架。DataFrames可從各種來源建構、例如結構化資料檔案、Hive/HBase中的表格、內部部署或雲端中的外部資料庫、或現有的RDD。
+
+Spark應用程式包括一或多個Spark工作。在執行者中執行工作、執行者則在紗櫃中執行工作。每個執行程式都會在單一容器中執行、而且執行程式會在應用程式的整個生命週期內存在。執行程式會在應用程式啟動後修正、而且實際不會調整已分配的容器大小。執行程式可在記憶體內的資料上同時執行工作。
+
+link:apache-spark-netapp-spark-solutions-overview.html["下一步：NetApp Spark解決方案總覽。"]

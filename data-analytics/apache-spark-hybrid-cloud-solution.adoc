@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/apache-spark-hybrid-cloud-solution.html 
+keywords: hybrid cloud, operating model, netapp private storage, 
+summary: 現代化的企業資料中心是一種混合雲、可透過持續資料管理層面、以一致的營運模式、在內部部署和/或多個公有雲中、連接多個分散式基礎架構環境。若要充分發揮混合雲的效益、您必須能夠在內部部署和多雲端環境之間順暢地移動資料、而不需要進行任何資料轉換或應用程式重新構建。 
+---
+= 混合雲解決方案
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:apache-spark-testing-results.html["先前：測試結果。"]
+
+現代化的企業資料中心是一種混合雲、可透過持續資料管理層面、以一致的營運模式、在內部部署和/或多個公有雲中、連接多個分散式基礎架構環境。若要充分發揮混合雲的效益、您必須能夠在內部部署和多雲端環境之間順暢地移動資料、而不需要進行任何資料轉換或應用程式重新構建。
+
+客戶表示、他們開始混合雲的過程、可能是將二線儲存設備移至雲端以供使用、例如資料保護、或是將較不重要的業務工作負載（例如應用程式開發和DevOps）移至雲端。然後繼續處理更重要的工作負載。Web與內容代管、DevOps與應用程式開發、資料庫、分析及容器化應用程式是最受歡迎的混合雲工作負載之一。企業AI專案的複雜度、成本和風險、向來阻礙AI從實驗階段到正式作業階段的採用。
+
+有了NetApp混合雲解決方案、客戶就能透過單一控制面板、在分散式環境中進行資料與工作流程管理、同時根據使用量最佳化總體擁有成本、從整合式安全性、資料治理和法規遵循工具中獲益。下圖是雲端服務合作夥伴的範例解決方案、其任務是為客戶的Big資料分析資料提供多雲端連線。
+
+image:apache-spark-image14.png["雲端服務合作夥伴的解決方案範例。"]
+
+在此案例中、從不同來源收到的AWS IoT資料會儲存在NetApp私有儲存設備（NPS）的中央位置。NPS儲存設備連接到AWS和Azure中的Spark或Hadoop叢集、可讓在多個雲端上執行的巨量資料分析應用程式存取相同的資料。本使用案例的主要要求與挑戰包括：
+
+* 客戶想要使用多個雲端在相同的資料上執行分析工作。
+* 必須透過不同的感應器和集線器、從內部部署和雲端環境等不同來源接收資料。
+* 解決方案必須有效率且具成本效益。
+* 主要挑戰是建置具成本效益且高效率的解決方案、在不同的內部部署環境與雲端環境之間提供混合式分析服務。
+
+
+我們的資料保護與多重雲端連線解決方案解決了跨多個大型擴充程式使用雲端分析應用程式的難題。如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。
+
+由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。因此、因為內部部署和NPS儲存都執行ONTAP 了一套功能不全的軟體、 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-replication-concept.html["SnapMirror"^] 可將NPS資料鏡射至內部部署叢集、在內部部署和多個雲端之間提供混合雲分析。
+
+為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括 https://mysupport.netapp.com/documentation/docweb/index.html?productID=63942&language=en-US["XCP"^] 和 https://cloud.netapp.com/cloud-sync-service["Cloud Sync"^] 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。
+
+link:apache-spark-python-scripts-for-each-major-use-case.html["下一步：每個主要使用案例的Python指令碼。"]

@@ -14838,4 +14838,469 @@
   <block id="bb19e956b854f8e209f51237a29feb31" category="admonition">客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功能、可將VMware（CVO）連線至AWS VMC。</block>
   <block id="36c48411397a73fcbe7ccac93862641b" category="admonition">在寫入本文檔時、來賓儲存設備是唯一可用的選項。隨著補充NFS資料存放區支援的推出、我們也會提供額外的文件 <block ref="2feee9d08b57f121d415095bba26ae78" category="inline-link-macro-rx"></block>。</block>
   <block id="44db359cccfc9a14e67b800f405a2078" category="sidebar">設定自動化環境</block>
+  <block id="1c08b76510a159f0dcb62c62d5584a78" category="paragraph"><block ref="1c08b76510a159f0dcb62c62d5584a78" category="inline-link-macro-rx"></block></block>
+  <block id="b5062caa115b4047ecd2ef0d7177923b" category="paragraph">此TR使用下列參考資料：</block>
+  <block id="7a5b516d0c7b523466aabf4d65c5920e" category="list-text">Apache Spark架構與元件</block>
+  <block id="71792c2d1ea80e0e082f8dc3cbdabfdd" category="inline-link"><block ref="71792c2d1ea80e0e082f8dc3cbdabfdd" category="inline-link-rx"></block></block>
+  <block id="e37c2ea27f7286c4bd6a5fda415b8de8" category="paragraph"><block ref="e37c2ea27f7286c4bd6a5fda415b8de8" category="inline-link-rx"></block></block>
+  <block id="63e2d6091a94e7952a98f50aab0149ce" category="list-text">Apache Spark使用案例</block>
+  <block id="f2b9f91de80e495bcbc6169f57a4bd2d" category="inline-link"><block ref="f2b9f91de80e495bcbc6169f57a4bd2d" category="inline-link-rx"></block></block>
+  <block id="7bc4162d3088ec5f539bb8bccd911d30" category="paragraph"><block ref="7bc4162d3088ec5f539bb8bccd911d30" category="inline-link-rx"></block></block>
+  <block id="506326e78695dcca6de9cbc14a77c5b7" category="list-text">Apache挑戰</block>
+  <block id="6f8995e5d73fedcfa04d4c714e6f7a46" category="inline-link"><block ref="6f8995e5d73fedcfa04d4c714e6f7a46" category="inline-link-rx"></block></block>
+  <block id="a4047ab5c68e6bd8f8ad5dfc79e46847" category="paragraph"><block ref="a4047ab5c68e6bd8f8ad5dfc79e46847" category="inline-link-rx"></block></block>
+  <block id="635dbe8a61ae76776533cf731db5ca3d" category="list-text">Spark NLP</block>
+  <block id="164b938eda63c6ce2631a3fcf3f37e5f" category="inline-link"><block ref="164b938eda63c6ce2631a3fcf3f37e5f" category="inline-link-rx"></block></block>
+  <block id="4f2faa20c7d825b4d0501e1086305aac" category="paragraph"><block ref="4f2faa20c7d825b4d0501e1086305aac" category="inline-link-rx"></block></block>
+  <block id="94f39b7b282094c13473d8b26a45d1f1" category="inline-link"><block ref="94f39b7b282094c13473d8b26a45d1f1" category="inline-link-rx"></block></block>
+  <block id="aff4ff24147d7c4a2645c7781e081f7f" category="paragraph"><block ref="aff4ff24147d7c4a2645c7781e081f7f" category="inline-link-rx"></block></block>
+  <block id="b507f78e88e67a8302f19d731bc75b06" category="list-text">深入跨網的廣告點選預測</block>
+  <block id="8ebbe970a3e3c77f7c8e00655ce2e505" category="inline-link"><block ref="8ebbe970a3e3c77f7c8e00655ce2e505" category="inline-link-rx"></block></block>
+  <block id="ae454d032cd3c53237c03ee439566905" category="paragraph"><block ref="ae454d032cd3c53237c03ee439566905" category="inline-link-rx"></block></block>
+  <block id="4a695ebb62ee4f32f7dd893fa1e282f9" category="inline-link"><block ref="4a695ebb62ee4f32f7dd893fa1e282f9" category="inline-link-rx"></block></block>
+  <block id="c0ce2c750c3848619c847bc001ba66be" category="paragraph"><block ref="c0ce2c750c3848619c847bc001ba66be" category="inline-link-rx"></block></block>
+  <block id="becd6832ca6f3b6680d480b5802d1435" category="list-text">串流ETL</block>
+  <block id="b5924cfbbd0aa8b99cd3b6953ae625a3" category="inline-link"><block ref="b5924cfbbd0aa8b99cd3b6953ae625a3" category="inline-link-rx"></block></block>
+  <block id="8d325f57229e685a7ad47c71dd567604" category="paragraph"><block ref="8d325f57229e685a7ad47c71dd567604" category="inline-link-rx"></block></block>
+  <block id="31a31ad34b829349beab62dc154bb53c" category="list-text">適用於Hadoop的NetApp E系列解決方案</block>
+  <block id="7cc9f35180bb40054e46d3046347f4fd" category="inline-link"><block ref="7cc9f35180bb40054e46d3046347f4fd" category="inline-link-rx"></block></block>
+  <block id="ea07fc98557e1b8c5b675972fe1621da" category="paragraph"><block ref="ea07fc98557e1b8c5b675972fe1621da" category="inline-link-rx"></block></block>
+  <block id="6e1ead71812900db964474f24a84ff5e" category="list-text">客戶與NetApp AI溝通時的情緒分析</block>
+  <block id="270a8289ec3296709282f87be3043182" category="inline-link"><block ref="270a8289ec3296709282f87be3043182" category="inline-link-rx"></block></block>
+  <block id="5d6e0d6396516ff7be3c4a58b49ef3a7" category="paragraph"><block ref="5d6e0d6396516ff7be3c4a58b49ef3a7" category="inline-link-rx"></block></block>
+  <block id="a435d889d8c30f88d959b581e585cb98" category="inline-link"><block ref="a435d889d8c30f88d959b581e585cb98" category="inline-link-rx"></block></block>
+  <block id="2e0db0f40c94a679b5a5692c131d03f4" category="paragraph"><block ref="2e0db0f40c94a679b5a5692c131d03f4" category="inline-link-rx"></block></block>
+  <block id="794cb725c5631ad99b5b7c000307f0df" category="list-text">SnapMirror</block>
+  <block id="c932e562e101240deed6e4be0656dfd6" category="inline-link"><block ref="c932e562e101240deed6e4be0656dfd6" category="inline-link-rx"></block></block>
+  <block id="750daab11890513d7529766b651ae531" category="paragraph"><block ref="750daab11890513d7529766b651ae531" category="inline-link-rx"></block></block>
+  <block id="a7ac1d2e69b9bbb9a2accb2ec30a1d69" category="list-text">XCP</block>
+  <block id="e7d54d48522774aa8774f3733414d084" category="inline-link"><block ref="f575d0e12f7a285daadcaf60a35e305e" category="inline-link-rx"></block></block>
+  <block id="a0b810672fcf48d5064bdbf73f520d55" category="paragraph"><block ref="d41dfcb87efb2171f45941c801c9f5cc" category="inline-link-rx"></block></block>
+  <block id="90a11f9647f9e3f6cfead9fdd4f0789d" category="inline-link"><block ref="90a11f9647f9e3f6cfead9fdd4f0789d" category="inline-link-rx"></block></block>
+  <block id="b8cfbcc5c9748a8f12142a1b9aae0e67" category="paragraph"><block ref="b8cfbcc5c9748a8f12142a1b9aae0e67" category="inline-link-rx"></block></block>
+  <block id="ce9b5cd96205262213c417b501e9ed55" category="list-text">DataOps工具套件</block>
+  <block id="90f0f970ed32524c528ba2778079d485" category="summary">NetApp有三種儲存產品組合：FAS/AFF、E系列和Cloud Volumes ONTAP VMware。我們已驗證AFF 採用ONTAP NetApp技術的支援功能、以及採用NetApp技術的E系列、以利搭配Apache Spark的Hadoop解決方案。採用NetApp技術的資料架構整合了資料管理服務與應用程式（建置區塊）、可提供資料存取、控制、保護及安全性。</block>
+  <block id="12a9f57585cd6b3b985dd451bf552845" category="doc">NetApp Spark解決方案總覽</block>
+  <block id="255ce02d0613433bc0a7c76f4afde71e" category="inline-link-macro">先前版本：解決方案技術。</block>
+  <block id="dd12a34c3b567f24a9da980ebdd52821" category="paragraph"><block ref="dd12a34c3b567f24a9da980ebdd52821" category="inline-link-macro-rx"></block></block>
+  <block id="5e1c0d548834c9871fb6687dd0f1adab" category="paragraph">NetApp有三種儲存產品組合：FAS/AFF、E系列和Cloud Volumes ONTAP VMware。我們已驗證AFF 採用ONTAP NetApp技術的支援功能、以及採用NetApp技術的E系列、以利搭配Apache Spark的Hadoop解決方案。採用NetApp技術的資料架構整合了資料管理服務與應用程式（建置區塊）、可用於資料存取、控制、保護及安全性、如下圖所示。</block>
+  <block id="710b54a5dd637d8e21574c4fb3eea545" category="inline-image-macro">Data Fabric提供資料管理服務與應用程式。</block>
+  <block id="84996abc8bbc3c77ef59d8a39c852d30" category="paragraph"><block ref="84996abc8bbc3c77ef59d8a39c852d30" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="829a597c83ae2b02e991f062bb891ace" category="list-text">* NetApp NFS直接存取。*提供最新的Hadoop和Spark叢集、可直接存取NetApp NFS磁碟區、無需額外的軟體或驅動程式需求。</block>
+  <block id="d075304bce816c2722d405cac9bf4877" category="list-text">* NetApp SnapMirror技術。*可在內部部署ONTAP 與支援內部部署的NetApp或NPS執行個體之間提供資料保護功能。</block>
+  <block id="bd162abba0390e6a6e2e2581d449bf77" category="paragraph">下圖說明採用NetApp儲存設備的Spark解決方案。</block>
+  <block id="0ec1ecf37e474c5f4116ab4ae95e84d9" category="inline-image-macro">運用NetApp儲存設備激發解決方案的火花。</block>
+  <block id="0847e549ec9fd7e676ad66196c4210a2" category="paragraph"><block ref="0847e549ec9fd7e676ad66196c4210a2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bc4d71ccd96e1b29bc3437c1cb6a245e" category="paragraph">利用NetApp NFS直接存取傳輸協定、利用現有正式作業資料存取就地分析、以及AI、ML和DL工作流程。ONTAP可用於Hadoop節點的正式作業資料會匯出、以執行就地分析和AI、ML和DL工作。您可以透過NetApp NFS直接存取或不使用、存取Hadoop節點中的資料以進行處理。在Spark搭配獨立式或「線」叢集管理程式、您可以使用「」來設定NFS磁碟區<block ref="7667eac59549f5d64cbcc9214ea613f8" category="inline-link-rx"></block>。我們已驗證三個使用案例、並使用不同的資料集。這些驗證的詳細資料請參閱「測試結果」一節。 （XEF）</block>
+  <block id="955ae639ea2500f38215e8263610b119" category="paragraph">下圖說明NetApp Apache Spark/Hadoop儲存設備定位。</block>
+  <block id="78157b6c5aece6e0b7b7ea998dce3a8a" category="inline-image-macro">NetApp Apache Spark/Hadoop儲存定位。</block>
+  <block id="5af92584fa4ab2b78abca73f9bbdcf42" category="paragraph"><block ref="5af92584fa4ab2b78abca73f9bbdcf42" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3cf3adbf38f17f8e0c86c8531fc379b7" category="paragraph">我們找出E系列Spark解決方案的獨特功能、AFF/FAS ONTAP 電火花解決方案和StorageGRID VMware Spark解決方案、並執行詳細的驗證與測試。根據我們的觀察結果、NetApp建議採用E系列解決方案來進行全新的現場安裝和新的可擴充部署、以及AFF/FAS解決方案、以便使用現有NFS資料進行就地分析、AI、ML和DL工作負載、StorageGRID 並在需要物件儲存時、針對AI、ML和DL進行Sfor AI、以及現代化資料分析。</block>
+  <block id="675ed5324aa6eda280e015498c583161" category="inline-image-macro">推薦的適用於Spark的NetApp解決方案。</block>
+  <block id="d3deaa8bf3eb6619cb86d00d661a22e9" category="paragraph"><block ref="d3deaa8bf3eb6619cb86d00d661a22e9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="aa7b20f32446fa30f765cd0b1ca93739" category="paragraph">資料湖是以原生形式儲存大型資料集的儲存庫、可用於分析、AI、ML和DL工作。我們為E系列、AFF/FAS和StorageGRID VMware SG6060 Spark解決方案打造資料湖儲存庫。E系列系統可讓HDFS存取Hadoop Spark叢集、而現有的正式作業資料則是透過NFS直接存取傳輸協定存取Hadoop叢集。對於位於物件儲存設備中的資料集、NetApp StorageGRID 支援S3和S3a安全存取。</block>
+  <block id="22ad538f7c0e01603f9410a9bdc10d04" category="inline-link-macro">下一步：使用案例摘要。</block>
+  <block id="5de3601bc15319fca36066c272d6321d" category="paragraph"><block ref="5de3601bc15319fca36066c272d6321d" category="inline-link-macro-rx"></block></block>
+  <block id="fd79b6614eaf33c0131b98cf6d33aef4" category="summary">本頁將更詳細地說明AI、ML和DL的主要使用案例和架構。</block>
+  <block id="029e93fe56123e362c90a853d36c91c9" category="doc">主要AI、ML和DL使用案例和架構</block>
+  <block id="4204e74b027f3052d00f7e876556fd90" category="inline-link-macro">先前：使用案例摘要。</block>
+  <block id="8fc7ffb01920f82159e7c7fc73617df5" category="paragraph"><block ref="8fc7ffb01920f82159e7c7fc73617df5" category="inline-link-macro-rx"></block></block>
+  <block id="38fe3ee7a8452539638ebb43094bf303" category="paragraph">AI、ML和DL的主要使用案例和方法可分為下列各節：</block>
+  <block id="28ab286fd15a84ffcfa82ffe262b2d07" category="section-title">Spark NLP管道和TensorFlow分散式推斷</block>
+  <block id="b66d8859b0ca8adab0c5459ef44ed90c" category="paragraph">下列清單包含資料科學社群在不同開發層級採用的最受歡迎開放原始碼NLP程式庫：</block>
+  <block id="357d19386660ae0694f2fa195678b61a" category="inline-link">自然語言工具套件（NLTK）</block>
+  <block id="b7c0dd146600af70e881dce2c233cdb9" category="list-text"><block ref="202d1986e5208977bf54b6b767767c39" category="inline-link-rx"></block>。所有NLP技術的完整工具套件。自2000年代初期起便一直維持這項功能。</block>
+  <block id="76e3c26aea345cd63928dae30c7683b8" category="inline-link">文字Blob</block>
+  <block id="9733a294c2e8cbac3f50f2b1c6165ac9" category="list-text"><block ref="29dbbb204c6bb7c5433e577a001773ba" category="inline-link-rx"></block>。簡單易用的NLP工具Python API、建置於NLTK和Pattern之上。</block>
+  <block id="b8dc45aaa0db9ddabebf51171beed13a" category="inline-link">史丹佛核心NLP</block>
+  <block id="e566a3c30415cf2003b1ae965e897b0c" category="list-text"><block ref="3aea58940b1efe70ecaf2254ccc89f1e" category="inline-link-rx"></block>。由斯坦福NLP Group開發的Java NLP服務與套件。</block>
+  <block id="7013def92af3dd7db98d1285170b5c5a" category="inline-link">Gensim</block>
+  <block id="f669b3f1322541dcae0edc94f45435ac" category="list-text"><block ref="7b679f834cae0cff7425a8dc62e2ec2e" category="inline-link-rx"></block>。「人類主題建模」從捷克數位數學庫專案的Python指令碼集合開始。</block>
+  <block id="2840ef6b507856e3306a32ffe28a8886" category="inline-link">空間大</block>
+  <block id="418cc23cee80079d8aa2ccd37169bfc0" category="list-text"><block ref="bc5121a0541ff390725a7d480b19b87f" category="inline-link-rx"></block>。端點對端點工業NLP工作流程、搭配Python和Cython、並可加速變壓器的GPU。</block>
+  <block id="e0b205fce51b69be7136044a22a371ab" category="inline-link">Fasttext</block>
+  <block id="07ad1b642fbcf4cbc6f67e8f5b7ce593" category="list-text"><block ref="53fd0bea11d98e3b7893bc4fbf501c85" category="inline-link-rx"></block>。免費、輕量化的開放原始碼NLP程式庫、適用於Facebook AI Research（Fair）實驗室所建立的詞彙學習文案與句子分類。</block>
+  <block id="12680128425c827ef65d76f354329e97" category="inline-link">Spark ML</block>
+  <block id="27e7661d3fd9daf238bb981e30734c3c" category="paragraph">Spark NLP是單一的統一化解決方案、適用於所有NLP工作與需求、可針對實際的正式作業使用案例、提供可擴充、高效能及高準確度的NLP軟體。它運用移轉學習、並在研究領域和跨產業中實作最新的最先進演算法和模型。由於Spark對上述程式庫缺乏完整支援、因此Spark NLP建置於上方<block ref="3b3cfa486b6d50798f20e9b1ded08f31" category="inline-link-rx"></block> 善用Spark一般用途的記憶體內分散式資料處理引擎、做為企業級NLP程式庫、用於關鍵任務正式作業工作流程。其註釋工具運用規則型演算法、機器學習和TensorFlow來推動深度學習實作。這涵蓋常見的NLP工作、包括但不限於令牌化、模組化、產生、部分語音標記、具名實體辨識、 拼字檢查及情緒分析。</block>
+  <block id="5f29df192bff436cf72d454f30a968c1" category="paragraph">Transformers（Bert）的雙向編碼器表示法是NLP的一種以變壓器為基礎的機器學習技術。它推廣了預先訓練和微調的概念。Bert的變壓器架構源自機器翻譯、這種機器的長期相依性模型比經常性的神經網路（RNN）型語言模型更好。此外、它也引進了「遮罩語言模型（MLM）」工作、其中隨機遮罩了15%的所有權杖、模型會預測這些權杖、實現真正的雙向性。</block>
+  <block id="8f1fadc17d848b3be53c2009f5f9070a" category="inline-link">FinBit</block>
+  <block id="f12fa7d8a39cc8394ad5dfb1afe14bee" category="inline-link">Reuters TRC2</block>
+  <block id="3795ebdf5b8232c65a11ceced659b1d5" category="inline-link">金融市場銀行</block>
+  <block id="575e9b077146ddbbac786ed0a40a1a21" category="inline-link">金融新聞的情緒分析</block>
+  <block id="189f0cc22e5920c5fbe48e7f7a384fa4" category="inline-link">說明DL文件</block>
+  <block id="8171f59448f55698ad8ecd07ce1633b6" category="paragraph">由於該網域的專業語言和缺乏標記資料、因此財務情緒分析是一項挑戰。<block ref="9c44f0ce83f7021f3ece2b04fda553fb" category="inline-link-rx"></block>是一種以訓練前的Bert為基礎的語言模式、已在網域上進行調整<block ref="a21d1b93ad8a312fcc9c56c81567ecca" category="inline-link-rx"></block>、財務資料集、並以標記資料進行微調（<block ref="14fa31c8eadcc29b01046706cfe3add5" category="inline-link-rx"></block>）。研究人員以財務術語從新聞文章中擷取4、500個句子。接著有16位具有財務背景的專家和碩士學生將句子標示為正面、中立和負面。我們建立了端點對端點的Spark工作流程、以分析2016至2020年前十大NASDAQ公司的營收客服記錄、使用FinBitt和其他兩個預先訓練的管道（..<block ref="6d4ea12c876c5a993aa1b5d0f03f167f" category="inline-link-rx"></block>、<block ref="520f5e4ba9970dad735654cb1f0d1138" category="inline-link-rx"></block>）來自Spark NLP。</block>
+  <block id="026dcbbbfad27f6209a41e9dab2f3aed" category="paragraph">適用於Spark NLP的基礎深度學習引擎是TensorFlow、這是一套端點對端點開放原始碼平台、可用於機器學習、可輕鬆建構模型、隨處進行強大的ML正式作業、以及進行強大的研究實驗。因此、在Spark「線叢集」模式下執行管線時、我們基本上是在叢集上執行分散式TensorFlow、並在單一主節點和多個工作節點之間執行資料和模型平行化、以及網路附加儲存設備。</block>
+  <block id="159bdf3f5d37e56033c6c1736f86b085" category="section-title">Horovod分散式訓練</block>
+  <block id="ba6c44669e2888938a004611469c95dc" category="inline-link">TR-3969：NetApp Hadoop解決方案</block>
+  <block id="6f5ab42847eab5c573282c94e51100a9" category="paragraph">MapReduce相關效能的核心Hadoop驗證是透過TeraGen、TeraSort、TeraValidate和DFSIO（讀寫）來執行。TeraGen和TeraSort驗證結果會顯示在中<block ref="c56c49d0c7359320f900743306997a3c" category="inline-link-rx"></block> 適用於E系列、並在「Storage Tiering」（xref）一節AFF 中介紹</block>
+  <block id="2c41734dc7928bdea8c2eab845ad7074" category="inline-link">Hovorod on Spark</block>
+  <block id="7509c08cb8b336b99de5f0cd33f545fd" category="paragraph">根據客戶的要求、我們認為透過Spark進行的分散式訓練是各種使用案例中最重要的一項。在本文中、我們使用了<block ref="e46884ff7ae14dc4a4c2907aa0145199" category="inline-link-rx"></block> 使用NetApp All Flash FAS （AFF VMware）儲存控制器Azure NetApp Files 、VMware®及StorageGRID VMware®來驗證NetApp內部部署、雲端原生及混合雲解決方案的Spark效能。</block>
+  <block id="57b5eacba6da62ec21ea18f95421ef6b" category="paragraph">Horovod on Spark套件提供了一款便利的包裝函式、可讓您輕鬆在Spark叢集中執行分散式訓練工作負載、實現緊密的模型設計迴圈、讓訓練和推斷資料所在的Spark執行資料處理、模型訓練和模型評估。</block>
+  <block id="e556cc2b256f6dd2bbe1cdfdb528c858" category="inline-link">Kaggle Rossmann商店銷售</block>
+  <block id="f2280eb8ac361218b35f9fc97d4027b4" category="paragraph">在Spark上執行Horovod的API有兩種：高階Estimator API和較低層級的Run API。儘管兩者都使用相同的基礎機制、在Spark執行程式上啟動Horovod、但Estimator API會將資料處理、模型訓練迴圈、模型檢查點、指標收集和分散式訓練擷取出來。我們使用Horovod Spark Estimators、TensorFlow和Keras來進行端點對端點資料準備、並根據進行分散式訓練工作流程<block ref="d30b6f4a07a765f48b43dd15bf3bc8ea" category="inline-link-rx"></block> 競爭。</block>
+  <block id="fa3406903536d0cf09bf8e66ae33aebf" category="inline-link-macro">每個主要使用案例的Python指令碼。</block>
+  <block id="94f33f4ba60c5f66bf0c60c3e391a81b" category="paragraph">指令碼「keras」（keras）-「SPARK」（火花）-「horovod_rossmann_redimator.py」（組態）可在一節中找到 <block ref="9843d2ebe8b4d4385946214b6f8e40b8" category="inline-link-macro-rx"></block> 其中包含三個部分：</block>
+  <block id="1e0ac520c0a0627793f8b0ca3703e8e1" category="list-text">第一部分是針對Kaggle提供並由社群收集的一組CSV檔案、執行各種資料預先處理步驟。輸入資料會分成「驗證」子集和測試資料集的訓練集。</block>
+  <block id="80ee77d4db5b8f731e911e7c47803afa" category="list-text">第二部分定義Keras Deep Neural Network（DNN）模型、其中包含對數型sigmoid啟動功能和Adam最佳化程式、並使用Spark的Horovod來執行模型的分散式訓練。</block>
+  <block id="6c32e5a10a8b9f7e225e92b30c4eb494" category="list-text">第三部分會使用最佳模式、對測試資料集執行預測、將驗證集整體平均絕對錯誤減至最低。然後建立輸出CSV檔案。</block>
+  <block id="ca1ff924f88675800b52c7c1b223b4a2" category="inline-link-macro">「機器學習」</block>
+  <block id="a67083c66285446e108268f795b72b24" category="paragraph">請參閱一節 <block ref="65cdc2076a502903b78fb8128fc1a214" category="inline-link-macro-rx"></block> 以取得各種執行時間比較結果。</block>
+  <block id="840da3122eba37f84480a8dc769a8cc3" category="section-title">使用Keras進行CTR預測的多工深度學習</block>
+  <block id="4debf96216c552af520b74d3d0d2f2dc" category="paragraph">隨著ML平台與應用程式的最新進展、現在許多人都開始大規模學習。點閱率（CTR）定義為每百個線上廣告曝光點閱率（以百分比表示）的平均點閱率。在各種產業垂直市場和使用案例中、包括數位行銷、零售、電子商務和服務供應商、廣泛採用此技術作為主要指標。請參閱我們的<block ref="5e9febd4c244550b32d7bb781b595741" category="inline-link-rx"></block> 如需更多有關CTR應用程式和Kubernetes端點對端點雲端AI工作流程實作、分散式資料ETL、以及使用dask和CUDA ML進行模型訓練的詳細資訊。</block>
+  <block id="45c832c8d01426bfb65d74b7c547ad0c" category="inline-link">請按一下「記錄資料集」</block>
+  <block id="be1115ec919e48805da898209ea2c15a" category="paragraph">在本技術報告中、我們使用的是不同的<block ref="1a19f40e7660b78c77663f74c89e1e7b" category="inline-link-rx"></block> （請參閱TR-4904）針對使用Keras建置Deep and Cross Network（DCN）機型的Spark工作流程的多位員工分散式深度學習、比較其記錄遺失錯誤功能與基礎Spark ML物流回歸模式的效能。新一代的新一代管理系統可有效擷取限定度的有效功能互動、學習高度非線性互動、不需手動進行特徵工程或詳盡搜尋、而且運算成本低廉。</block>
+  <block id="71b755d753dcdba2aeca91b65c167330" category="paragraph">Web等級建議系統的資料大多是分離式且明確的、導致功能探索的空間大而稀少。這將大多數大型系統限制為線性模型、例如物流回歸。然而、找出經常預測的功能、同時探索未被發現或罕見的交叉功能、是做出良好預測的關鍵。線性模型簡單易用、可解釋且易於擴充、但其表現能力有限。</block>
+  <block id="793743a945a26aaa07de844420d013af" category="paragraph">另一方面、交叉功能在改善模型表現方面表現顯著。可惜的是、通常需要手動進行功能工程或詳盡搜尋、才能識別這些功能。一般而言、難以與看不到的功能互動。使用像是DCN這樣的跨神經網路、可透過自動明確套用功能交會、避免工作特定的功能工程。跨網路由多個層組成、其中最高程度的互動取決於層深度。每個層級都會根據現有層級產生較高順序的互動、並維持先前層級的互動。</block>
+  <block id="70725839e7d887ef6f8c815f325d4592" category="paragraph">深度神經網路（DNN）承諾能夠擷取功能之間非常複雜的互動。然而、相較於DCN、它需要的參數幾乎多出一個順序、無法明確形成交叉功能、也可能無法有效瞭解某些類型的功能互動。跨網路的記憶體效率極高、而且易於實作。共同訓練交叉和DNN元件、有效擷取預測性功能互動、並在Criteo CTR資料集上提供最先進的效能。</block>
+  <block id="9830e1f81f623b33106acc186b93374e" category="inline-link">ML</block>
+  <block id="fefc70efb4580c1020c62303f76330f7" category="inline-link">mlLib</block>
+  <block id="2c9e5f067c0c14c56aa757d792108648" category="inline-link">DeepCTR</block>
+  <block id="75e8e622ae2ef0cb646ef505a0b3f7be" category="paragraph">一種新的DCN模式從內嵌和堆疊層開始、接著是跨網路和平行的深度網路。接著是最後的組合層、將兩個網路的輸出結合在一起。您的輸入資料可以是具有稀少和密集功能的向量。在Spark、兩者兼具<block ref="e0c7aa0ef7a63ea331cba99be2697841" category="inline-link-rx"></block> 和<block ref="495fc8cfd173be827e5c6c8258a34e04" category="inline-link-rx"></block> 程式庫包含「parseVector」類型。因此、使用者必須區分兩者、並在呼叫各自的功能和方法時務必留意。在CTR預測等網路規模的建議系統中、輸入內容大多是明確的功能、例如「country=USA」（國家/地區=美國）。這類功能通常編碼為單一熱向量、例如「[0、1、0、…]」。單一熱編碼（OHT）搭配「parseVector」（parseVector）、在處理真實世界的資料集時非常實用、因為這些資料集的詞彙不斷變化且不斷成長。我們在中修改了範例<block ref="0be922124247f224cab64b030781eed7" category="inline-link-rx"></block> 為了處理大型詞彙、在我們的DCN嵌入與堆疊層中建立嵌入式向量。</block>
+  <block id="565d2d07d9c220babb78adab27c2243a" category="inline-link">Criteo展示廣告資料集</block>
+  <block id="d05de658e793ee731e5a3782c453caa6" category="paragraph">。<block ref="8cb83117ecfa6e6678785dbda34d1999" category="inline-link-rx"></block> 預測廣告點擊率。它有13個整數特徵和26個分類特徵、其中每個類別都有高基數。對於此資料集而言、由於輸入大小較大、記錄遺失的效能提升實際上相當可觀。對於大型使用者群而言、預測準確度略有改善、可能導致公司營收大幅增加。資料集包含7天內11GB的使用者記錄、相當於約4、100萬筆記錄。我們使用Spark的「datFrame.隨機 分割（）功能」來隨機分割訓練（80%）、交叉驗證（10%）及其餘10%的資料以供測試。</block>
+  <block id="e871e132ed2e9c6d6213da57972adec1" category="paragraph">在TensorFlow上實作的是Keras。使用新一代會議管理系統進行模型訓練程序的主要部分有四個：</block>
+  <block id="18aca2eb061782e34fcc772d780e4327" category="list-text">*資料處理與內嵌。*實際價值的功能會透過套用記錄轉換來標準化。對於分類功能、我們將功能內嵌在尺寸6×（類別基數）1/4的密集向量中。串連所有的內嵌文字會產生維度向量1026。</block>
+  <block id="190befa8188b0e07126d23d7488e79e7" category="list-text">*最佳化。*我們使用Adam最佳化工具套用迷你批次隨機最佳化。批次大小設定為512。批次正規化已套用至深度網路、且漸層剪輯規範設定為100。</block>
+  <block id="023b8b252258fa415118862dec994bbf" category="list-text">*正規化。*我們使用早期停機、因為L2正規化或資料脫落並未生效。</block>
+  <block id="5f7ce3c44b690052b88504fd4c0ff7bb" category="list-text">* Hyperparameters.*我們會根據在隱藏圖層數、隱藏圖層大小、初始學習率及跨圖層數上的網格搜尋結果來報告結果。隱藏的圖層數量介於2到5之間、隱藏的圖層大小介於32到1024之間。對於DCN、跨層的數量從1到6。初始學習率從0.0001調至0.001、增量為0.0001。所有實驗都會在訓練步驟150、000之前提早停止、之後就開始過度調整。</block>
+  <block id="a5203fd5d2ee4a156e177b2b5b5ecb45" category="inline-link">DeepFM</block>
+  <block id="ca099c15c1ba89f9956f37979064b6ea" category="inline-link">深層FM</block>
+  <block id="43d5f147547ecf24ebc038feb06a8312" category="inline-link">自動整型</block>
+  <block id="79249d5f44965bf593f3105190bac784" category="inline-link">新一代的</block>
+  <block id="ebca0d5eb18ce917a3f0d2d49746eb3d" category="paragraph">除了新增的新一代會議管理系統、我們也測試了其他熱門的深度學習模式、以利進行CTR預測、包括<block ref="256b68047e4850e72fc6a1a263d88e86" category="inline-link-rx"></block>、<block ref="dc65ad48383bc08407486976f4411f66" category="inline-link-rx"></block>、<block ref="a61c3ddacc920697ed1145d7ed359d25" category="inline-link-rx"></block>和<block ref="8b59d0e884bf752e43135b866516c089" category="inline-link-rx"></block>。</block>
+  <block id="408be753ce98edae615db82036085d63" category="section-title">用於驗證的架構</block>
+  <block id="2150013c97241fde077622292dd996b4" category="paragraph">在這項驗證中、我們使用四個工作節點和一個主節點、以及AFF-A800 HA配對。所有叢集成員都透過10GbE網路交換器連線。</block>
+  <block id="de404d7688ac5c78348bfea711a12792" category="paragraph">針對本NetApp Spark解決方案驗證、我們使用三種不同的儲存控制器：E5760、E5724和AFF-A800。E系列儲存控制器連接至五個資料節點、並具有12Gbps SAS連線。透過10GbE連線至AFF Hadoop工作節點、可提供匯出的NFS磁碟區。Hadoop叢集成員是透過E系列AFF 、E-系列、E-、StorageGRID 及《Hadoop解決方案」中的10GbE連線進行連線。</block>
+  <block id="f3952bdea9a512245a3b2e368bdd17a4" category="inline-image-macro">用於驗證的架構。</block>
+  <block id="2f2f17293788ab5e5b754a35afe8b3b5" category="paragraph"><block ref="2f2f17293788ab5e5b754a35afe8b3b5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d69bb7b5d4a03684a8454a168278a99a" category="inline-link-macro">下一步：測試結果。</block>
+  <block id="8e32abf231872a250f5352294ee7f66d" category="paragraph"><block ref="8e32abf231872a250f5352294ee7f66d" category="inline-link-macro-rx"></block></block>
+  <block id="ca052b24845534e817869836d49d519a" category="summary">本文著重於Apache Spark架構、客戶使用案例、以及與Big Data分析和人工智慧相關的NetApp儲存產品組合。此外、它也針對一般Hadoop系統、使用業界標準AI、機器學習和深度學習工具、提供各種測試結果、讓您選擇適當的Spark解決方案。</block>
+  <block id="58b2293adcda372fb415412d23f01a8e" category="doc">TR-4570：適用於Apache Spark的NetApp儲存解決方案：架構、使用案例及效能結果</block>
+  <block id="057e5f9ddc5d049ab86855dceffd6d14" category="paragraph">Rick Huang、Karthithkeyan Nagalingam、NetApp</block>
+  <block id="550fd771b94cb8eb3739d16af31243f3" category="paragraph">本文著重於Apache Spark架構、客戶使用案例、以及與Big Data分析和人工智慧（AI）相關的NetApp儲存產品組合。此外、它也會針對典型的Hadoop系統、使用業界標準AI、機器學習（ML）和深度學習（DL）工具、提供各種測試結果、讓您選擇適當的Spark解決方案。首先、您需要Spark架構、適當的元件、以及兩種部署模式（叢集與用戶端）。</block>
+  <block id="9e19cfda234e917201ce19469f25275b" category="paragraph">本文件也提供客戶處理組態問題的使用案例、並討論NetApp儲存產品組合的總覽、其中與Big Data分析和AI、ML及DL with Spark有關。最後、我們將從特定於Spark的使用案例和NetApp Spark解決方案產品組合中取得測試結果。</block>
+  <block id="ce663ffc6a85b2c97e60368b5a9c76e3" category="paragraph">本節著重於客戶在零售業、數位行銷、銀行、分離式製造、製程製造、 政府與專業服務。</block>
+  <block id="8a5bab0d8f4c0d1b73de5ada6b1c91e6" category="section-title">無法預測的效能</block>
+  <block id="9790dc49aa09b4759e4c6ebc65fb4c42" category="paragraph">傳統的Hadoop部署通常使用市售硬體。若要改善效能、您必須調整網路、作業系統、Hadoop叢集、Spark等生態系統元件和硬體。即使調校每個層級、也很難達到理想的效能等級、因為Hadoop是在非專為環境中的高效能所設計的市售硬體上執行。</block>
+  <block id="b496a0269649d7b570c2052646fd23b6" category="section-title">媒體和節點故障</block>
+  <block id="21af95409591262fb36555acb96262d8" category="paragraph">即使在正常情況下、市售硬體也容易故障。如果資料節點上的某個磁碟故障、Hadoop Master預設會將該節點視為不正常。然後、它會透過網路將特定資料從該節點複本複製到正常節點。此程序會減慢任何Hadoop工作的網路封包速度。然後叢集必須再次複製資料、並在不正常節點恢復正常狀態時移除過度複寫的資料。</block>
+  <block id="03d4836e0d1deb07679d400b8c88a880" category="section-title">Hadoop固定廠商</block>
+  <block id="bb33286c56b053ae85ab21a377bd4347" category="paragraph">Hadoop經銷商擁有自己的Hadoop發佈版本、並將客戶鎖定在這些發佈版本上。不過、許多客戶需要記憶體內分析支援、而這並不會將客戶綁定到特定的Hadoop發佈。他們需要自由變更發佈、同時仍能隨之提供分析資料。</block>
+  <block id="a940c960f38c44b75bf1da78215690c2" category="section-title">不支援一種以上的語言</block>
+  <block id="65a27ee7da3f8c68004d31f60ab65e55" category="paragraph">除了MapReduce Java程式之外、客戶通常還需要支援多種語言才能執行工作。SQL和指令碼等選項可讓您更靈活地取得答案、更多組織和擷取資料的選項、以及更快將資料移至分析架構的方法。</block>
+  <block id="f3e2f69098f73bd8bb3cf61330433955" category="section-title">難以使用</block>
+  <block id="e2bdfb6bb3e956b38b6aacde957996df" category="paragraph">有一段時間、人們抱怨Hadoop難以使用。雖然Hadoop在每個新版本中都變得更簡單、更強大、但這項評論仍持續不變。Hadoop需要您瞭解Java和MapReduce程式設計模式、這是資料庫管理員和具有傳統指令碼技術集的人員所面臨的挑戰。</block>
+  <block id="5f5f8f99cf4c6ebc0b81445be5328bf6" category="section-title">複雜的架構與工具</block>
+  <block id="74faacaf156cd022099bed5469595b3e" category="paragraph">企業AI團隊面臨多項挑戰。即使擁有專家級的資料科學知識、不同部署生態系統和應用程式的工具和架構也可能無法簡單地相互翻譯。資料科學平台應能與以Spark為基礎的對應巨量資料平台無縫整合、輕鬆移動資料、可重複使用的模型、隨裝即用的程式碼、以及支援最佳實務做法的工具、以便進行原型製作、驗證、版本管理、共用、重複使用、 並將模型快速部署至正式作業環境。</block>
+  <block id="067be0651f3de8fd60ec45827a4078ed" category="section-title">為何選擇NetApp？</block>
+  <block id="8ff43bcedde084850831da9cdcc5a43a" category="paragraph">NetApp可透過下列方式改善您的Spark體驗：</block>
+  <block id="dc5106ccf618944587be46565f5585cd" category="list-text">NetApp NFS直接存取（如下圖所示）可讓客戶在現有或新的NFSv3或NFSv4資料上執行巨量資料分析工作、而無需移動或複製資料。它可防止多個資料複本、並免除將資料與來源同步的需求。</block>
+  <block id="38bc62edaebd471500fa64a4758f7f04" category="list-text">儲存效率更高、伺服器複寫更少。例如、NetApp E系列Hadoop解決方案需要兩個而非三個複本的資料、FAS 而《支援重複資料》解決方案則需要資料來源、但不需要複寫或複製資料。NetApp儲存解決方案也能減少伺服器對伺服器的流量。</block>
+  <block id="2fc945668748ad0173e63b5db34773e7" category="list-text">在磁碟機和節點故障期間、執行更好的Hadoop工作和叢集行為。</block>
+  <block id="343500ea6d724fe727d127f6409b86c2" category="list-text">更優異的資料擷取效能。</block>
+  <block id="109f256618c8d9037bb2cd6cc28f5959" category="inline-image-macro">替代Apache Spark組態。</block>
+  <block id="ce1f5d61aacdba15be898e2d6408542f" category="paragraph"><block ref="ce1f5d61aacdba15be898e2d6408542f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="40771867b1bf0db74b9505757197a17a" category="paragraph">例如、在金融與醫療產業中、資料從一地搬移到另一地、必須符合法律義務、這並非易事。在此案例中、NetApp NFS直接存取會從原始位置分析財務與醫療資料。另一項主要優點是、使用NetApp NFS直接存取功能、使用原生Hadoop命令簡化Hadoop資料的保護、並透過NetApp豐富的資料管理產品組合來啟用資料保護工作流程。</block>
+  <block id="a9e81b3240a7c1ae64fc23e96c84f4ea" category="paragraph">NetApp NFS直接存取可為Hadoop / Spark叢集提供兩種部署選項：</block>
+  <block id="4e8fe573a9fe74b6429508c87337b99b" category="list-text">根據預設、Hadoop或Spark叢集會使用Hadoop分散式檔案系統（HDFS）進行資料儲存、並使用預設的檔案系統。NetApp NFS直接存取可將預設的HDFS取代為預設的NFS儲存系統、以便直接分析NFS資料。</block>
+  <block id="071998ed00d39b3ff27f5410b196f9cc" category="list-text">在另一個部署選項中、NetApp NFS直接存取可在單一Hadoop或Spark叢集中、將NFS設定為額外的儲存設備、以及HDFS。在這種情況下、客戶可以透過NFS匯出來共享資料、並從同一個叢集與HDFS資料一起存取。</block>
+  <block id="c1923befca33cfe6cc9ace80af8580b6" category="paragraph">使用NetApp NFS直接存取的主要效益包括：</block>
+  <block id="91221d408b0c171556751f29fb9d8071" category="list-text">從目前位置分析資料、避免將分析資料移至Hadoop基礎架構（例如HDFS）所需的時間與效能。</block>
+  <block id="1675635f440b61b7219bf7ed2bb2ed27" category="list-text">將複本數量從三個減少為一個。</block>
+  <block id="16f81b84f137a7a52da9ba8d798af622" category="list-text">讓使用者能夠分離運算與儲存設備、以獨立擴充。</block>
+  <block id="71946d3c421aea3a8238a481bebe1919" category="list-text">運用ONTAP 豐富的資料管理功能來提供企業資料保護功能。</block>
+  <block id="abebb9b977d736f599ab76c517961b24" category="list-text">Hortonworks資料平台認證。</block>
+  <block id="3c41c2d3511fa95c83687fae6fb57754" category="list-text">實現混合式資料分析部署。</block>
+  <block id="05550a44691e53e07f81616af5d58e20" category="list-text">運用動態多執行緒功能、縮短備份時間。</block>
+  <block id="009b0bd3acc58fbc1c3db15692583fa9" category="paragraph">請參閱<block ref="217abb9bc41aa22d30da41b7958b4152" category="inline-link-rx"></block> 將Hadoop資料、備份及災難恢復從雲端備份至內部部署、讓DevTest能夠處理現有的Hadoop資料、資料保護及多雲端連線、並加速分析工作負載。</block>
+  <block id="3100ca44a05fa97ed5f07875f442084e" category="paragraph">以下各節說明適用於Spark客戶的儲存功能。</block>
+  <block id="da2518ef48c60077e2b2c0be7fed7193" category="section-title">儲存分層</block>
+  <block id="d9a83ca3a623dce37a2f84027f1495ce" category="paragraph">透過Hadoop儲存分層、您可以根據儲存原則、以不同的儲存類型來儲存檔案。儲存類型包括「Hot」、「Cold」、「warm」、「all_ssd」、「one _ssd」、 和"lazy_sent"。</block>
+  <block id="6a3bcc36155e13e7b4cdcebeb2b3c96e" category="paragraph">我們在NetApp AFF 支援的儲存控制器和E系列儲存控制器上執行Hadoop儲存分層驗證、其中的SSD和SAS磁碟機具有不同的儲存原則。配備AFF-A800的Spark叢集有四個運算工作者節點、而採用E系列的叢集則有八個節點。</block>
+  <block id="36edc8f5974bdf6ad51a220254b99dfb" category="paragraph">下圖顯示適用於Hadoop SSD的NetApp解決方案效能。</block>
+  <block id="d09520ed9b4a17ada38e70314907675f" category="inline-image-macro">是時候整理1TB的資料了。</block>
+  <block id="55fdf8b2dd620bd73dcd37db50e0f0e5" category="paragraph"><block ref="55fdf8b2dd620bd73dcd37db50e0f0e5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c2f530d95c6332b106d86a53b41e4a36" category="inline-link">TR-3969適用於Hadoop的NetApp E系列解決方案</block>
+  <block id="8cdadd1c9614abebd1b476daba691f36" category="list-text">基礎NL-SAS組態使用八個運算節點和96個NL-SAS磁碟機。此組態可在4分鐘38秒內產生1TB的資料。請參閱<block ref="f08cd7da48b5d74d9eaab10199016f47" category="inline-link-rx"></block> 以取得叢集與儲存組態的詳細資料。</block>
+  <block id="f895fa75cdc40f4e672bba6f7a873e25" category="list-text">使用TeraGen時、SSD組態產生的資料速度比NL-SAS組態快上1TB 15.66倍。此外、SSD組態使用一半的運算節點、一半的磁碟機（總共24個SSD磁碟機）。根據工作完成時間、速度幾乎是NL-SAS組態的兩倍。</block>
+  <block id="459f180fc71a8f8bb773d3c879314e39" category="list-text">使用TeraSort時、SSD組態的資料排序速度比NL-SAS組態快1TB（1138.36）。此外、SSD組態使用一半的運算節點、一半的磁碟機（總共24個SSD磁碟機）。因此、每個磁碟機的速度約比NL-SAS組態快三倍。</block>
+  <block id="c13c2e056adb51078f3067ba570d2780" category="section-title">效能擴充：橫向擴充</block>
+  <block id="beb08cca1e99e0bdbf11c74ebb62d5ea" category="paragraph">當您需要AFF 更多運算能力來自於支援各種解決方案的Hadoop叢集時、可以使用適當數量的儲存控制器來新增資料節點。NetApp建議從每個儲存控制器陣列的四個資料節點開始、並根據工作負載特性、將每個儲存控制器的資料節點數目增加至八個。</block>
+  <block id="431bd1a68814e184bc49ff7231450049" category="paragraph">適用於就地分析的不只是指不需使用的資料。AFF FAS根據運算需求、您可以新增節點管理程式、而不中斷營運則可讓您在不需停機的情況下隨需新增儲存控制器。我們提供AFF 豐富的功能與功能、例如FAS NVMe媒體支援、保證效率、資料減量、QoS、預測分析、 雲端分層、複寫、雲端部署及安全性。為了協助客戶滿足其需求、NetApp提供檔案系統分析、配額及隨裝負載平衡等功能、無需額外的授權成本。NetApp在並行工作數量、延遲時間、作業簡化、以及每秒GB處理量方面的效能優於競爭對手。此外、NetApp Cloud Volumes ONTAP 的功能可在所有三家主要雲端供應商上執行。</block>
+  <block id="ccfed4ad520d8db8b13dc91438d30680" category="section-title">效能擴充-垂直擴充</block>
+  <block id="9341bdabe891be81d2be3440a4c413b5" category="paragraph">垂直擴充功能可讓您在AFF 需要額外儲存容量時、將磁碟機新增至效益管理系統、FAS 效益管理系統及E系列系統。利用功能、將儲存設備擴充至PB層級是兩大因素的組合：將不常用的資料分層、從區塊儲存設備物件儲存、以及堆疊不需額外運算的功能。Cloud Volumes ONTAP Cloud Volumes ONTAP</block>
+  <block id="1a4f71bef2c7cfcc6846e82e9e0e0331" category="section-title">多種傳輸協定</block>
+  <block id="11d6ae97757031ae53e1437c9c9b61bd" category="paragraph">NetApp系統支援大部分的Hadoop部署傳輸協定、包括SAS、iSCSI、FCP、InfiniBand、 和NFS。</block>
+  <block id="98ed4f29e9a08c43fe10dda6782e567e" category="section-title">營運與支援的解決方案</block>
+  <block id="dc15faa991f0a6740734b42c6e08c347" category="inline-link">MapR</block>
+  <block id="464e596f1568de8e5f19e16e09beaaa8" category="inline-link">Hortonworks</block>
+  <block id="f1fd1913c968a1c383c88631e335a7ca" category="inline-link">認證</block>
+  <block id="7454739e907f5595ae61d84b8547f574" category="inline-link">合作夥伴</block>
+  <block id="b1202a92f536818c64c3005cf78d8e35" category="paragraph">NetApp支援本文件中所述的Hadoop解決方案。這些解決方案也通過主要Hadoop經銷商的認證。如需相關資訊、請參閱<block ref="cc609e66e0173716d91f0397bfa09e1b" category="inline-link-rx"></block> 網站<block ref="030fa12946d3d4653223853ac09b7183" category="inline-link-rx"></block> 網站和Cloudera<block ref="110185abc20d52e7eb83135b84742416" category="inline-link-rx"></block> 和<block ref="a573734769be98dedf1aa2242c0eb40c" category="inline-link-rx"></block> 網站。</block>
+  <block id="7a2a776baec23a88727e6039089b8193" category="inline-link-macro">下一步：目標對象。</block>
+  <block id="e8020665ce34622c78e50d808e554235" category="paragraph"><block ref="e8020665ce34622c78e50d808e554235" category="inline-link-macro-rx"></block></block>
+  <block id="49c9a66d1f76b5f264fea5d54130b82a" category="summary">我們使用TeraGen基準測試工具中的TeraSort和TeraValidate指令碼、以E5760、E5724和AFF-A800組態來測量Spark效能驗證。此外、我們也測試了三個主要使用案例：Spark NLP管道和TensorFlow分散式訓練、Horovod分散式訓練、以及使用Keras與DeepFM進行CTR預測的多工深度學習。</block>
+  <block id="41be8de44faa8ba43210d7494ee095d2" category="doc">測試結果</block>
+  <block id="0daa7dd4f2822f3e63bdac1bd5870a75" category="inline-link-macro">先前版本：主要AI、ML和DL使用案例與架構。</block>
+  <block id="26d27784aaeb94a4670d31f46185d57d" category="paragraph"><block ref="26d27784aaeb94a4670d31f46185d57d" category="inline-link-macro-rx"></block></block>
+  <block id="60637296d8b6dcd84aaff3afc778241d" category="paragraph">我們使用TeraGen基準測試工具中的TeraSort和TeraValidate指令碼、以E5760、E5724和AFF-A800組態來測量Spark效能驗證。此外、我們也測試了三個主要使用案例：Spark NLP管道和TensorFlow分散式訓練、Horovod分散式訓練、以及使用Keras與DeepFM進行CTR預測的多工深度學習。</block>
+  <block id="653a9ba51c0af0c11aab6af3ecfdc8c6" category="paragraph">對於E系列和StorageGRID E驗 證、我們使用Hadoop複寫係數2。為了驗證、我們只使用一個資料來源。AFF</block>
+  <block id="6cdf0c4c6177a49f44f3688dd2a5b9ad" category="paragraph">下表列出Spark效能驗證的硬體組態。</block>
+  <block id="00e536f9715964bf964b4961d7287f95" category="cell">Hadoop工作節點</block>
+  <block id="ce1dc110e77caccbe12e51dce2d1c9b7" category="cell">磁碟機類型</block>
+  <block id="c8fafade5cff4119459018fc205beed1" category="cell">每個節點的磁碟機數量</block>
+  <block id="bb43878952414106e66a5d3e8902dd46" category="cell">儲存控制器</block>
+  <block id="2db46c628cfb3bd1545d3b5a14b4a9c5" category="cell">SAS</block>
+  <block id="d748fcab9e84c60a5a7b1e5ed2d052c8" category="cell">單一高可用度（HA）配對</block>
+  <block id="fb5e436e0878dfd2227011932c4eb93c" category="cell">E5760</block>
+  <block id="072b030ba126b2f4b2374f342be9ed44" category="cell">60</block>
+  <block id="6303aa59a000812ac121a6f5238d6c2c" category="cell">單一HA配對</block>
+  <block id="83ac07c2ad3d90f5c6608cfaa2eec573" category="cell">E5724</block>
+  <block id="26b9fff68b23131979be5c2d9a456454" category="cell">AFF800</block>
+  <block id="bddda15d92b567df6d8aa197c281ddc4" category="paragraph">下表列出軟體需求。</block>
+  <block id="8b6f93f33bce541c7f50f8aff637e2e1" category="cell">RHEL</block>
+  <block id="299e5505ce975112afaefec130cc83e0" category="cell">7.9</block>
+  <block id="bedb19167c4cde670f36a4985efbadd2" category="cell">OpenJDK執行時間環境</block>
+  <block id="4fda350b2148254bcd9e67bbdbecdc93" category="cell">1.8.0</block>
+  <block id="b185818332a596af6cda9cae4dc594f6" category="cell">OpenJDK 64位元伺服器VM</block>
+  <block id="681eea6b2a996d12035edc50dc4cb4c2" category="cell">25、302</block>
+  <block id="30a2ec41610037af662087fe85d19a4d" category="cell">2.24.1.</block>
+  <block id="87f16b82c65c9274a67305d08b5dfecb" category="cell">gcc/g++</block>
+  <block id="b87ed8b82b1cf2cb4e4ddaa75ec9e0e4" category="cell">11.2.1</block>
+  <block id="8cde774d6f7333752ed72cacddb05126" category="cell">火花</block>
+  <block id="f2f87b58be0d57ecf71ada8df361a2d9" category="cell">3.2.1</block>
+  <block id="17e918efeeeb8f100c695e284d5c0a08" category="cell">PySpark</block>
+  <block id="1f4e00506ff9fb5fe179f2ba1c60ff61" category="cell">3.1.2</block>
+  <block id="401534b4a193f467279a370076ccb955" category="cell">SparkNLP</block>
+  <block id="de8a4e99bb5f22ded6d686cfd948274b" category="cell">3.4.2</block>
+  <block id="074dd699710da0ec1eb45f13b31788e3" category="cell">TensorFlow</block>
+  <block id="7fee7bb66f4294c3e32783efa7d9bafc" category="cell">Keras</block>
+  <block id="35a0c5fdc22109515a67a96e5e7fb914" category="cell">0.24.3</block>
+  <block id="14bdb1335d2386afb42f726416a2a83b" category="section-title">財務情資分析</block>
+  <block id="559cf37b505e9001d46e6d6bd73e746c" category="inline-link">NVIDIA Riva SDK</block>
+  <block id="e65b49198d65919095402991b0cf5624" category="inline-link">TAO架構</block>
+  <block id="3f57666cb1b915db482629c0554b2d92" category="paragraph">我們發表了<block ref="36713788fc49ad5281ee4a8956df0b3b" category="inline-link-rx"></block>、其中使用建立端點對端點對話AI管道<block ref="5d9fb1d86d92052bc5dca8ba91d13ff2" category="inline-link-rx"></block>、不儲存及NVIDIA DGX系統。AFF此管線運用DataOps Toolkit執行批次音訊訊號處理、自動語音辨識（ASR）、傳輸學習和情緒分析、<block ref="8702bd0254f484bdfe9f1ec1c2a853b1" category="inline-link-rx"></block>和<block ref="bba656873bd8ccd45c0c4fc908390474" category="inline-link-rx"></block>。我們將情緒分析使用案例擴大至金融服務業、建立SparkNLP工作流程、針對各種NLP工作（例如命名實體辨識）、載入三種Bert模式、並針對NASDAQ前10大公司的季度營收要求、獲得句子等級的感受。</block>
+  <block id="ffeb7ccd27ad1e7d783757733dadec57" category="paragraph">下列指令碼「ention_sization_SPARK」。PY'使用FinBERT模型來處理HDFS的錄音記錄、並產生正面、中立和負面的感覺、如下表所示：</block>
+  <block id="077259b584adffb379f7f2638be91edc" category="paragraph">下表列出2016年至2020年、NASDAQ前10大企業的獲利能力與句子層級意見分析。</block>
+  <block id="30702e828192097c5634358e6047d0cf" category="cell">情緒和百分比</block>
+  <block id="7838fb6ed7918fca8c7797b3b68952d2" category="cell">所有10家公司</block>
+  <block id="8b10e4ae9eeb5684921a9ab27e4d87aa" category="cell">AAPL</block>
+  <block id="48af4341f745163f945fa838eeabb062" category="cell">AMD</block>
+  <block id="261fd26b0151a81370d097e4ed4c6505" category="cell">AMZN</block>
+  <block id="85fd1bb0e226da6a33e9b5dc1a4952f1" category="cell">CSCO</block>
+  <block id="e15ce71ff533c9125f11a46c09e2412b" category="cell">gOOgL</block>
+  <block id="fc39dab34bbe435680d30933db783ba0" category="cell">INTC</block>
+  <block id="b004b3ecde24c85e32c1923f10d3fb62" category="cell">MSFT</block>
+  <block id="7f5f6a07b14840f4d8a22caa3df2aed0" category="cell">NVDA</block>
+  <block id="4f65a47dc5d0d8a27379f2b1b4d9281b" category="cell">正面評價</block>
+  <block id="9e6adb1432c4a75a33d48693328e4159" category="cell">747</block>
+  <block id="18d10dc6e666eab6de9215ae5b3d54df" category="cell">1567</block>
+  <block id="5c572eca050594c7bc3c36e7e8ab9550" category="cell">743</block>
+  <block id="f90f2aca5c640289d0a29417bcb63a37" category="cell">2990</block>
+  <block id="08d98638c6fcd194a4b1e6992063e944" category="cell">682</block>
+  <block id="795c7a7a5ec6b460ec00c5841019b9e9" category="cell">826</block>
+  <block id="677e09724f0e2df9b6c000b75b5da10d" category="cell">824</block>
+  <block id="f47d0ad31c4c49061b9e505593e3db98" category="cell">904</block>
+  <block id="41ae36ecb9b3eee609d05b90c14222fb" category="cell">417</block>
+  <block id="be201b8b1b0b81005e46d49fd301124c" category="cell">中性數</block>
+  <block id="1ab0418ab8dc5325176cd1e26660234f" category="cell">6967</block>
+  <block id="34ad9bc83e3c72c62281cb2c744ac966" category="cell">6856</block>
+  <block id="1796a48fa1968edd5c5d10d42c7b1813" category="cell">7596</block>
+  <block id="71e63ef5b7249cfc60852f0e0f5bf4c8" category="cell">5086</block>
+  <block id="126c2da128e5b044dc53405c25b4d8de" category="cell">6650</block>
+  <block id="dd5bfdeb57f7c75d400de61e99d78e2e" category="cell">5914</block>
+  <block id="80c0e8c4457441901351e4abbcf8c75c" category="cell">6099</block>
+  <block id="6e4243f5511fd6ef0f03e9f386d54403" category="cell">5715</block>
+  <block id="67ba02d73c54f0b83c05507b7fb7267f" category="cell">6189.</block>
+  <block id="e65849536f4b2170d6b42c8309222fac" category="cell">負面數</block>
+  <block id="d860bd12ce9c026814bbdfc1c573f0f5" category="cell">1787</block>
+  <block id="c24cd76e1ce41366a4bbe8a49b02a028" category="cell">253</block>
+  <block id="979d472a84804b9f647bc185a877a8b5" category="cell">213</block>
+  <block id="68d30a9594728bc39aa24be94b319d21" category="cell">84.</block>
+  <block id="a2557a7b2e94197ff767970b67041697" category="cell">189.</block>
+  <block id="e2ef524fbf3d9fe611d5a8e90fefdc9c" category="cell">97</block>
+  <block id="6a9aeddfc689c1d0e3b9ccc3ab651bc5" category="cell">282.5.</block>
+  <block id="7647966b7343c29048673252e490f736" category="cell">89</block>
+  <block id="691ec36991472d115c60f32cd84bfc5b" category="cell">未分類的計數</block>
+  <block id="084b6fbb10729ed4da8c3d3f5a3ae7c9" category="cell">196</block>
+  <block id="fbd7939d674997cdb4692d34de8633c4" category="cell">76.</block>
+  <block id="2706e1e04688749582425d394866306e" category="cell">（總計數）</block>
+  <block id="b72e37e992d9e460ce2a491a974d13b5" category="cell">73497.</block>
+  <block id="9f6f2381bc56ef668e94f6d1fb4f6309" category="cell">8676.</block>
+  <block id="a563b6d5abbf137175059d6bb14672cc" category="cell">8552</block>
+  <block id="1134ac57b5b1d38b7d70c1b6feaa28cf" category="cell">5536</block>
+  <block id="e1e1f667ce4596e5644be6fab627c226" category="cell">7521</block>
+  <block id="176bf6219855a6eb1f3a30903e34b6fb" category="cell">6837</block>
+  <block id="75da5036f659fe64b53f3d9b39412967" category="cell">7205.</block>
+  <block id="e6be4c22a5963ab00dfe8f3b695b5332" category="cell">6822</block>
+  <block id="2ea1202aed1e0ce30d41be4919b0cc99" category="cell">6695</block>
+  <block id="14d1ed13bbef7783a73cfb9346480ce2" category="paragraph">就百分比而言、CEO和CFO所說的大部分句子都是事實、因此具有中立的感覺。在進行獲利拜訪時、分析師會提出一些可能會傳達正面或負面情緒的問題。值得進一步從數量上調查、也就是在同一天或隔天的交易中、負面或正面的情緒對股票價格有何影響。</block>
+  <block id="3957e5ecad1215aa086504cf2c9ba9cc" category="paragraph">下表列出NASDAQ前10大公司的句子層級意見分析、以百分比表示。</block>
+  <block id="e8a6f3527192d64ba338192ce83f6283" category="cell">情緒百分比</block>
+  <block id="3289297424e01eda5b788c083bbf3147" category="cell">正面</block>
+  <block id="3e263985564016f5774bfb75e31efb0d" category="paragraph">10.13%</block>
+  <block id="d983b23f5dc08dfb28a31a898b6fbb6a" category="cell">18.06%</block>
+  <block id="ed5f9ec0b398f0f53408828898412855" category="cell">8.69%</block>
+  <block id="4d8e8cc0a97724584c1cd94c9485d555" category="cell">5.24%</block>
+  <block id="d43cdfa633a84f9ca5043f4eb9363a38" category="cell">9.07%</block>
+  <block id="a134c476ebd0c219b3cc879185d436ce" category="cell">12.08%</block>
+  <block id="27cd80a0bdc79a724fdc31fa8841e19b" category="cell">11.44%</block>
+  <block id="e954976d9376dfe5860acd553772a6df" category="cell">13.25%</block>
+  <block id="d30929e6786318e19a22c88447dcc97c" category="cell">6.23%</block>
+  <block id="e9bb5320b3890b6747c91b5a71ae5a01" category="cell">中立</block>
+  <block id="6c3d5ec0fc8197d1a8f8366e142e37aa" category="cell">87.17%</block>
+  <block id="578429551436bef848f19eccdd93fb73" category="cell">79.02%</block>
+  <block id="bd443bde0360eb444a5906bea9d081b0" category="cell">88.82%</block>
+  <block id="97840fcb1a1f07bef3a12ef2d7975f09" category="cell">91.87%</block>
+  <block id="32edca53c1f1f00d865543b435d4ce3a" category="cell">88.42%</block>
+  <block id="407967ec786c26ce4ee7608c076fa6d7" category="cell">86.50%</block>
+  <block id="9784395b081e78ec535161a5ba0ffd1e" category="cell">84.65%</block>
+  <block id="5d4b03024bcea7385ffc5808dd9c3b74" category="cell">83.77%</block>
+  <block id="b73c3663139621b36cfdafbeab44fae9" category="cell">92.44%</block>
+  <block id="ffb9356ff2b7da85c75c92fa7ea03b8b" category="cell">負面</block>
+  <block id="672484e7c4fb5894b2ec75fd7e277fe4" category="cell">2.43%</block>
+  <block id="c1fbc8ff600d3f571e0c440833db1a10" category="cell">2.92%</block>
+  <block id="161a790eac04cd27fc3e4ffd23ba452d" category="cell">2.49%</block>
+  <block id="5fd44dd7fb1198b1903141531424bb54" category="cell">1.52%</block>
+  <block id="6916237a9f5c4ed45ddfff6fe37f45e7" category="cell">2.51%</block>
+  <block id="43045dfce9b4c190cfa4dad2e4bf9457" category="cell">1.42%</block>
+  <block id="248199b9ac50bd355476016ad093ac09" category="cell">3.91%</block>
+  <block id="1cdf97682ca1bcd645e8dbcebb105529" category="cell">2.96%</block>
+  <block id="8098f29a2cea86e839d8ca03f50d52ce" category="cell">1.33%</block>
+  <block id="0d015d96f63a8c12d96b8399482b593f" category="cell">未分類</block>
+  <block id="1291f0b93a9f9d5a7e7391a09b5ec0cc" category="cell">0.27%</block>
+  <block id="6a040d1ee7200a1dc349a598a163cc38" category="cell">1.37%</block>
+  <block id="d9fd62085e1ade721df051f8bc4c320d" category="cell">0.01%</block>
+  <block id="28bf86a8e29245437d4ad59ea6e80962" category="paragraph">在工作流程執行時間方面、我們發現HDFS的「本機」模式已大幅改善4.78倍、而NFS則進一步改善0.14%。</block>
+  <block id="87509d62c8804cdab48bea9e54013be4" category="paragraph">如下圖所示、資料與模型平行處理可改善資料處理及分散式TensorFlow模型的推斷速度。NFS中的資料位置產生的執行時間稍微好一點、因為工作流程瓶頸是下載預先訓練的模型。如果我們增加記錄資料集的大小、NFS的優勢就更明顯。</block>
+  <block id="493d0790c882abcf160f461d269c7ec5" category="inline-image-macro">Spark NLP情緒分析端點對端點工作流程執行時間。</block>
+  <block id="bb9cd55aa92ceddf07506d9a2aaaa151" category="paragraph"><block ref="bb9cd55aa92ceddf07506d9a2aaaa151" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3484d035679c83a95496eb633ffde0d3" category="section-title">以Horovod效能進行分散式訓練</block>
+  <block id="319e0ff7f30f4729140562f5e123c5cb" category="inline-link-macro">「每個主要使用案例的Python指令碼」</block>
+  <block id="e37af8307fb97140dbcc0c8e2293d58f" category="paragraph">下列命令使用單一「master」節點在Spark叢集中產生執行時間資訊和記錄檔、每個節點有160個執行器、各有一個核心。執行程式記憶體限制為5GB、以避免記憶體不足錯誤。請參閱一節 <block ref="033a864c436cdbcbe38983e75952a07f" category="inline-link-macro-rx"></block> 如需有關資料處理、模型訓練及模型準確度計算的詳細資訊、請參閱「keras」（keras）、「SPAR_horovod_rossmann_imer.py」（keras）。</block>
+  <block id="6281f693bbc375a45312622b626d3bcd" category="paragraph">十個訓練期間的執行時間如下：</block>
+  <block id="842bc4f8403cd2df9f22939e3df59aee" category="paragraph">處理輸入資料、訓練DNN模型、計算準確度、以及產生TensorFlow檢查點和CSV檔案以供預測結果、所需時間超過43分鐘。我們將訓練時段的數量限制為10個、實際上通常設定為100個、以確保模型準確度令人滿意。訓練時間通常會隨著epochs的數量線性調整。</block>
+  <block id="1e580bbdb11118035631867d15ad9f25" category="paragraph">接下來、我們使用叢集中可用的四個工作節點、並在「線」模式中執行相同指令碼、並在HDFS中使用資料：</block>
+  <block id="3661bcf870f3d2b11b0489ed7f0585a7" category="paragraph">結果的執行時間改善如下：</block>
+  <block id="206c83ab2ec1ea280656b18c0e2dc4dd" category="paragraph">霍羅沃德在Spark的模式和資料平行化技術、讓我們看到5.29倍的執行時間加速比「線」與「本地」模式、並有十個訓練階段。下圖顯示了「HDFS」和「本地」的圖例。如果有可用的GPU、基礎TensorFlow DNN模型訓練可進一步加速。我們計畫在未來的技術報告中進行此測試並發佈結果。</block>
+  <block id="216851565edc166c4409515484cac08b" category="paragraph">我們的下一項測試將執行時間與NFS中的輸入資料與HDFS進行比較。在Spark叢集中的五個節點（一位主節點、四位員工）上、安裝了位於Se A800上AFF 的NFS磁碟區。我們執行的命令與先前的測試類似、現在的「-data- dir」參數指向NFS掛載：</block>
+  <block id="3ba4d622f15813cc383c433722b46d27" category="paragraph">產生的NFS執行時間如下：</block>
+  <block id="7e1d2a49ae0a0e06a39a62e2c7c74877" category="paragraph">另有1.43倍的加速比、如下圖所示。因此、透過將NetApp All Flash儲存設備連線至叢集、客戶可享有Horovod Spark工作流程的快速資料傳輸與發佈優勢、相較於在單一節點上執行、可獲得7.55倍的加速比。</block>
+  <block id="88caa92ecc3ebb345f81205aa696e3ac" category="inline-image-macro">Horovod Spark Workflow執行時間。</block>
+  <block id="56085b16b09d835f05c89b29473a0e73" category="paragraph"><block ref="56085b16b09d835f05c89b29473a0e73" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b32c8309a0c0ca3edc35cb1597b9182c" category="section-title">深度學習模式、提供CTR預測效能</block>
+  <block id="6ff877f80b732c197c0a432029ad1920" category="paragraph">針對最大化CTR的推薦系統、您必須瞭解使用者行為背後的複雜功能互動、這些行為可以從低階到高階的數學計算得出。對於良好的深度學習模式而言、低階和高階功能互動同樣重要、而不需互相偏好。深度Factorization Machine（DeepFM）是一種面向機器的神經網路、結合了面向技術的機器、可在全新的神經網路架構中提供建議和深度學習功能。</block>
+  <block id="a22645195470eca2abbe24e7d40cde8e" category="inline-link">廣角安培；深層機型</block>
+  <block id="4028a7777950de6e915d72e379bde75d" category="paragraph">雖然傳統的面向化機器會將配對功能互動視為潛在功能之間的內部產品、理論上也能擷取高階資訊、但實際上、機器學習工作者通常只會因為高運算和儲存複雜度而使用二階功能互動。深入的神經網路變種、例如Google<block ref="6c51a2ff49c9929908a73e863a1421f0" category="inline-link-rx"></block> 另一方面、將線性寬模型與深度模型結合、即可在混合式網路架構中學習精密的功能互動。</block>
+  <block id="a22f6dcc8bc499f7332ab04cdb36fcf9" category="paragraph">這種廣域與深層模型有兩種輸入、一種是基礎廣泛模型、另一種是深度模型、其後一部分仍需要專家特徵工程、因此技術較不適用於其他網域。與廣角和深層模型不同的是、DeepFM可有效訓練原始功能、無需任何特徵工程、因為其廣泛的部分和深層部分共用相同的輸入和內嵌向量。</block>
+  <block id="03eaefcaa3f1aca8b4ffa8b95a4798b9" category="inline-link-macro">「每個主要使用案例的Python指令碼。」</block>
+  <block id="105a0d9d76e001ecdab02b77ca3a98ae" category="paragraph">我們首先使用本節中的「rrun _crite_criteo_wark.py」、將criteo「tr.txt」（11GB）檔案處理成一個CSV檔案、名稱為「ctr_tr.csv"、儲存在NFS掛載「/swarkdemo/tr-4570資料」中 <block ref="43e008bfee5963b21d09b0af490bfdd7" category="inline-link-macro-rx"></block> 在此指令碼中、「Process輸入檔案」功能會執行數種字串方法來移除索引標籤、並將「、」插入為分隔符號、將「n」插入為新行。請注意、您只需處理一次原始的「train.txt」、就能將程式碼區塊顯示為註解。</block>
+  <block id="c960954a8d119eab5ff32a80d7fcc8e8" category="paragraph">針對下列不同DL機型的測試、我們使用「ctr_train.csv"做為輸入檔。在後續的測試執行中、輸入CSV檔案會讀入Spark DataFrame、其中架構包含「label」欄位、整數密集功能「'I1'、'I2」、「I3」、…、「I13」]、 以及「'c1'、'c2'、'c3」、…、'c26']等功能。下列「駐點提交」命令採用輸入CSV、將DeepFM模型分成20%進行交叉驗證、並在十個訓練期後挑選最佳模型、以計算測試集的預測準確度：</block>
+  <block id="52703dd8fd8c710b0aed616d19ddc0fb" category="paragraph">請注意、由於資料檔案「ctr_tr.csv"超過11GB、因此您必須設定一個大於資料集大小的「shipt.driver.max.ResultSize'以避免錯誤。</block>
+  <block id="650f108a9978f10b1e3b0a8cbdcd6ac1" category="inline-link">Apache Arrow</block>
+  <block id="caa01fc7f9a1a61f1bc803760af8e97f" category="paragraph">在上述的「parkSession．builder」組態中、我們也啟用了<block ref="d19d750623d06d371730c4055a0fbbbf" category="inline-link-rx"></block>、使用「d．toPandas（）」方法、將Spark DataFrame轉換成成Pandas DataFrame。</block>
+  <block id="e20380d4fed48eae6cd24a0df1477ba7" category="paragraph">隨機分割之後、訓練資料集中有超過36M列、測試集中有9M樣本：</block>
+  <block id="e6219a2eedbe95f3aa16ed53c4733845" category="paragraph">由於本技術報告著重於不使用任何GPU的CPU測試、因此您必須使用適當的編譯器旗標來建置TensorFlow。此步驟可避免啟動任何GPU加速程式庫、並充分利用TensorFlow的進階向量擴充（AVX）和AVX2指令。這些功能是專為線性代數運算所設計、例如向量化的新增功能、饋送轉送內的矩陣複用、或是後傳DNN訓練。使用256位元浮點（FP）登錄的AVX2可搭配使用融合式多層新增（FMA）指令、是整型程式碼和資料類型的理想選擇、可產生高達2倍的加速。對於FP程式碼和資料類型、AVX2比AVX快8%。</block>
+  <block id="6c396013ff0ebff6a2a96cdc20a4ba4c" category="inline-link">巴茲爾</block>
+  <block id="97139e366bae36e316c93ce5b5e7e10b" category="paragraph">若要從來源建置TensorFlow、NetApp建議使用<block ref="0bf1f7ee55f693a3c117cb75493ba615" category="inline-link-rx"></block>。在我們的環境中、我們在Shell提示字元中執行下列命令、以安裝「dNF」、「dNF-plugins」和「Bazel」。</block>
+  <block id="29fe549665f940a68b9303eae3e3a61e" category="paragraph">您必須在建置過程中啟用海灣合作委員會5或更新版本、才能使用C++17功能、這是由RHEL搭配軟體集合庫（SCL）提供的功能。下列命令會在RHEL 7.9叢集上安裝「devtoolset」和「gcc11.2.1」：</block>
+  <block id="92a2b5cb9c6906035c2864fa225e1940" category="inline-link">文章</block>
+  <block id="d4b82f54dfee1e5c527d0d5f8cb0d7aa" category="paragraph">請注意、最後兩個命令會啟用「devtoolSet-11」、使用「/opt/r/devtoolSet-11/root/usr/in/gccs」（gcc11.2.1）。此外、請確定您的「git」版本大於1.8.3（RHEL 7.9隨附）。請參閱此<block ref="7d93914bddb4046675adee0145ba45bd" category="inline-link-rx"></block> 將「git」更新為2.24.1。</block>
+  <block id="dc06a2e6ab4959266b8e70b6a4ecc45c" category="inline-link-macro">「每個主要使用案例的Python指令碼」</block>
+  <block id="c55692ca5ecd175c73f55ba5b9319688" category="paragraph">我們假設您已複製最新的TensorFlow主要repo。然後使用「工作區」檔案建立「工作區」目錄、以使用AVX、AVX2和FMA從來源建置TensorFlow。執行「configure」檔案、並指定正確的Python二進位位置。<block ref="be1c72ed18fb5f637a2d34d959decb73" category="inline-link-rx"></block> 因為我們沒有使用GPU、所以測試時停用。系統會根據您的設定產生「.bazelrc」檔案。此外、我們編輯檔案並設定「build -define = no_HDfs_support=fals'」以啟用HDFS支援。請參閱一節中的「.bazelrc」 <block ref="2aec9284f17908b1690444cda81e493c" category="inline-link-macro-rx"></block> 以取得設定和旗標的完整清單。</block>
+  <block id="8329b0f29ec7368fd026b86d981f9dc7" category="paragraph">使用正確的旗標建置TensorFlow之後、請執行下列指令碼來處理Criteo顯示廣告資料集、訓練DeepFM模型、並從預測分數計算接收器作業特性曲線（ROC AUC）下的區域。</block>
+  <block id="d5a94c8db568912353007fdff822667e" category="paragraph">經過十次訓練、我們在測試資料集上獲得AUC分數：</block>
+  <block id="e3c9ed451390735cd8c4f8e5eb0e31f5" category="paragraph">我們以類似先前使用案例的方式、比較Spark工作流程執行時間與位於不同位置的資料。下圖顯示Spark工作流程執行時間的深度學習CTR預測比較。</block>
+  <block id="3737826be0460f743becdc4c64050946" category="inline-image-macro">Spark工作流程執行時間的深度學習CTR預測比較。</block>
+  <block id="d27b678d975cf1fb0769c3e664f4f2dd" category="paragraph"><block ref="d27b678d975cf1fb0769c3e664f4f2dd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f7eb641fcfa1ced825edab271ee870e9" category="inline-link-macro">下一步：混合雲解決方案。</block>
+  <block id="3f5dc233ecdfc868e2a067d1eb7d8811" category="paragraph"><block ref="3f5dc233ecdfc868e2a067d1eb7d8811" category="inline-link-macro-rx"></block></block>
+  <block id="bd8f37587e7778e9d19d350dd4bd6d3a" category="summary">本節說明哪些人可能對本解決方案的內容感興趣。</block>
+  <block id="c1416f7786ac2faa1173c4336b6eb03e" category="paragraph"><block ref="c1416f7786ac2faa1173c4336b6eb03e" category="inline-link-macro-rx"></block></block>
+  <block id="49997701037fef2c24b57a2e7186d0ab" category="paragraph">分析與資料科學的世界涉及IT與企業的多個領域：</block>
+  <block id="529ac4605b034914d0e8b489a81e45e0" category="list-text">DevOps工程師需要工具、將新的AI和ML應用程式整合至其CI和CD管道。</block>
+  <block id="090e55ccd8633a454f9d471ca3ed004d" category="list-text">雲端管理員和架構設計師必須能夠設定和管理混合雲資源。</block>
+  <block id="3cb782c6019ddcbb4e7f6bf8ae154d40" category="list-text">企業使用者想要存取分析、AI、ML和DL應用程式。</block>
+  <block id="3dfd24951a51ec1661b0294f59bea86e" category="paragraph">在本技術報告中、我們將說明NetApp AFF 的功能、E系列、StorageGRID 支援、NFS直接存取、Apache Spark、 Horovod和Keras協助這些職務為企業帶來價值。</block>
+  <block id="1f3c9b64432ff113f81d3897c98ed74b" category="inline-link-macro">下一步：解決方案技術。</block>
+  <block id="fdd31e37014fd5b0f491f1d30b29c4c3" category="paragraph"><block ref="fdd31e37014fd5b0f491f1d30b29c4c3" category="inline-link-macro-rx"></block></block>
+  <block id="727c63651b565bca2eb7d8a48e0fefd9" category="summary">本節概述本文件、內容與適用於Apache Spark的NetApp儲存解決方案有關。</block>
+  <block id="265d8449fb55764666dffa0a87f0c3fc" category="inline-link-macro">先前版本：每個主要使用案例的Python指令碼。</block>
+  <block id="7fc4ed21f18b26424c49779d455d4f51" category="paragraph"><block ref="7fc4ed21f18b26424c49779d455d4f51" category="inline-link-macro-rx"></block></block>
+  <block id="900200cfc3f2577215c327d16f34840a" category="paragraph">在本文件中、我們將討論Apache Spark架構、客戶使用案例、以及NetApp儲存產品組合、這些內容涉及巨量資料、現代化分析、以及AI、ML和DL。在我們根據產業標準基準測試工具和客戶需求進行的效能驗證測試中、NetApp Spark解決方案展現出優於原生Hadoop系統的效能表現。本報告所述的客戶使用案例與效能結果組合、可協助您選擇適合部署的Spark解決方案。</block>
+  <block id="7772bd81086ccf1a440798ec74c6c795" category="paragraph"><block ref="7772bd81086ccf1a440798ec74c6c795" category="inline-link-macro-rx"></block></block>
+  <block id="dce4db89f623baec1071c07c6784f4b1" category="summary">現代化的企業資料中心是一種混合雲、可透過持續資料管理層面、以一致的營運模式、在內部部署和/或多個公有雲中、連接多個分散式基礎架構環境。若要充分發揮混合雲的效益、您必須能夠在內部部署和多雲端環境之間順暢地移動資料、而不需要進行任何資料轉換或應用程式重新構建。</block>
+  <block id="e27d277adca53504bfe79d8a5e7c2084" category="doc">混合雲解決方案</block>
+  <block id="bbbb8f5ce180b59d7cf72bfd9ff78bf6" category="inline-link-macro">先前：測試結果。</block>
+  <block id="e8be57661ebf09e93d86ee83e74adbc3" category="paragraph"><block ref="e8be57661ebf09e93d86ee83e74adbc3" category="inline-link-macro-rx"></block></block>
+  <block id="9cf7905c60934870d86a546076b272e4" category="paragraph">客戶表示、他們開始混合雲的過程、可能是將二線儲存設備移至雲端以供使用、例如資料保護、或是將較不重要的業務工作負載（例如應用程式開發和DevOps）移至雲端。然後繼續處理更重要的工作負載。Web與內容代管、DevOps與應用程式開發、資料庫、分析及容器化應用程式是最受歡迎的混合雲工作負載之一。企業AI專案的複雜度、成本和風險、向來阻礙AI從實驗階段到正式作業階段的採用。</block>
+  <block id="38ddba87301d0e027f020fd24b8a5ade" category="paragraph">有了NetApp混合雲解決方案、客戶就能透過單一控制面板、在分散式環境中進行資料與工作流程管理、同時根據使用量最佳化總體擁有成本、從整合式安全性、資料治理和法規遵循工具中獲益。下圖是雲端服務合作夥伴的範例解決方案、其任務是為客戶的Big資料分析資料提供多雲端連線。</block>
+  <block id="10ebc90118ac5ab60f289bf34b75d978" category="inline-image-macro">雲端服務合作夥伴的解決方案範例。</block>
+  <block id="ad71e01672e98de491e72d22ba403059" category="paragraph"><block ref="ad71e01672e98de491e72d22ba403059" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="207f35bf95973770d860aeee0abe32a2" category="paragraph">在此案例中、從不同來源收到的AWS IoT資料會儲存在NetApp私有儲存設備（NPS）的中央位置。NPS儲存設備連接到AWS和Azure中的Spark或Hadoop叢集、可讓在多個雲端上執行的巨量資料分析應用程式存取相同的資料。本使用案例的主要要求與挑戰包括：</block>
+  <block id="bf871745f8e53cd8c13aca4c2ae67522" category="list-text">必須透過不同的感應器和集線器、從內部部署和雲端環境等不同來源接收資料。</block>
+  <block id="cb1726ae6d68d40c3bc9861c2b26a1a0" category="list-text">解決方案必須有效率且具成本效益。</block>
+  <block id="6dc7db5e9c1da14f7d61e2a7f4428219" category="list-text">主要挑戰是建置具成本效益且高效率的解決方案、在不同的內部部署環境與雲端環境之間提供混合式分析服務。</block>
+  <block id="cc4772ffa75dd53e0fb87df4b15528cd" category="paragraph">我們的資料保護與多重雲端連線解決方案解決了跨多個大型擴充程式使用雲端分析應用程式的難題。如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。</block>
+  <block id="88971c24837a2734fa58ba8805336328" category="paragraph">由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。因此、因為內部部署和NPS儲存都執行ONTAP 了一套功能不全的軟體、<block ref="fcca72a796080b3a5e2b7b1394bd00ad" category="inline-link-rx"></block> 可將NPS資料鏡射至內部部署叢集、在內部部署和多個雲端之間提供混合雲分析。</block>
+  <block id="6e53d162faf0b7bc51e81ca980f05f86" category="paragraph">為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括<block ref="0adb843c17d646acd72646e9688dde2b" category="inline-link-rx"></block> 和<block ref="4c1cade27212922d2ee7525beab5b4a9" category="inline-link-rx"></block> 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。</block>
+  <block id="1e73bec6e2f584224cb16d4550039696" category="inline-link-macro">下一步：每個主要使用案例的Python指令碼。</block>
+  <block id="cf6b62d678290b47b2c7abc2f11eb6d5" category="paragraph"><block ref="cf6b62d678290b47b2c7abc2f11eb6d5" category="inline-link-macro-rx"></block></block>
+  <block id="edeeafbd44ff39ea2ff14f5de4488b69" category="summary">本頁說明可使用此解決方案的不同領域。</block>
+  <block id="bf9bdab57c82171f2cc9bcebdc37b2c2" category="doc">使用案例摘要</block>
+  <block id="2a4bf885433f99fb55281d25340cf2b5" category="inline-link-macro">上一篇：NetApp Spark解決方案總覽。</block>
+  <block id="105ad1f4294f02452bad1ed7ad67aa5d" category="paragraph"><block ref="105ad1f4294f02452bad1ed7ad67aa5d" category="inline-link-macro-rx"></block></block>
+  <block id="badfbf9255d6b555592b41ab34e4efc6" category="section-title">串流資料</block>
+  <block id="4cc7dbb8e0e56a0e190e0ad588a8ba78" category="paragraph">Apache Spark可以處理串流資料、這些資料可用於串流擷取、轉換及負載（ETL）程序、資料豐富、觸發事件偵測、以及複雜的工作階段分析：</block>
+  <block id="35658693f34a1c5dc8b752f79caeb198" category="list-text">*串流ETL.*資料會在推入資料存放區之前持續清除及彙總。Netflix使用Kafka和Spark串流來建置即時線上影片推薦和資料監控解決方案、每天都能從不同的資料來源處理數十億個事件。然而、用於批次處理的傳統ETL會以不同的方式處理。此資料會先讀取、然後轉換成資料庫格式、再寫入資料庫。</block>
+  <block id="1e8d9d663f583499f32f92ca2486e7df" category="list-text">*資料豐富。* Spark串流利用靜態資料豐富即時資料、實現更即時的資料分析。例如、線上廣告商可以根據客戶行為資訊、提供個人化的目標式廣告。</block>
+  <block id="e3c0d503686e9ab8960903bc80d3f700" category="list-text">*觸發事件偵測。* Spark串流可讓您偵測並快速回應可能指出潛在嚴重問題的異常行為。例如、金融機構使用觸發程序來偵測及停止詐欺交易、而醫院則使用觸發程序來偵測病患生命徵兆中偵測到的危險健康變化。</block>
+  <block id="af8f12b6a4cff696802c46442e36e264" category="list-text">*複雜的工作階段分析。* Spark串流會在登入網站或應用程式之後收集使用者活動等事件、然後加以分組和分析。例如、Netflix使用此功能來提供即時電影建議。</block>
+  <block id="61fb23ef88a4d1404b2410cf94238fb5" category="paragraph">如需更多串流資料組態、Conflent Kafka驗證及效能測試、請參閱<block ref="10063fdbf72f58440f18bb49eb2309fe" category="inline-link-rx"></block>。</block>
+  <block id="2a80513f40f0c2a9c11009fa83049bd9" category="section-title">機器學習</block>
+  <block id="c2e9a1abebd45c1d446eb49fb690afd7" category="paragraph">Spark整合式架構可協助您使用機器學習庫（MLLib）、在資料集上執行重複查詢。MLLib適用於叢集、分類及維度減量等常見的巨量資料功能、例如預測性情報、行銷目的的客戶區隔、以及情緒分析。MLLib用於網路安全性、可即時檢查資料封包、以利發現惡意活動。它可協助安全供應商瞭解新的威脅、並在即時保護客戶的同時、領先駭客。</block>
+  <block id="03d3e10f072ae25d491b55767b4fc37e" category="section-title">深度學習</block>
+  <block id="b45690b6bb62bd55da7e1911ed880ec6" category="paragraph">TensorFlow是業界廣受歡迎的深度學習架構。TensorFlow支援CPU或GPU叢集上的分散式訓練。這項分散式訓練可讓使用者在大量資料上執行、並有許多深度層級。</block>
+  <block id="9981faa66d13ca7ba415a6c70dc52893" category="paragraph">直到最近才剛開始、如果我們想將TensorFlow與Apache Spark搭配使用、我們需要在PySpark執行TensorFlow所需的所有ETL、然後將資料寫入中繼儲存設備。然後將該資料載入TensorFlow叢集、以進行實際的訓練程序。此工作流程需要使用者維護兩個不同的叢集、一個用於ETL、另一個用於TensorFlow的分散式訓練。執行及維護多個叢集通常很繁瑣且耗時。</block>
+  <block id="082ad29f115c5cd4ab167c596b90688c" category="paragraph">早期Spark版本中的DataFrames和RDD不太適合深度學習、因為隨機存取有限。在Spark 3.0中搭配專案的打造、新增了對深度學習架構的原生支援。此方法允許在Spark叢集上進行非MapReduce型排程。</block>
+  <block id="44cd5d1ec9ffc51f82d838faf685ef6e" category="section-title">互動分析</block>
+  <block id="11bb4412e7e82514a739cb60053e30df" category="paragraph">Apache Spark的速度足以執行探索性查詢、無需使用除了Spark以外的開發語言進行取樣、包括SQL、R和Python。Spark使用視覺化工具來處理複雜的資料、並以互動方式視覺化。利用結構化串流來執行即時資料的互動查詢、透過網路分析功能、您可以針對網站訪客目前的工作階段執行互動式查詢。</block>
+  <block id="d89f01bf7c0ceacaf30849bab08e0939" category="section-title">推薦系統</block>
+  <block id="38c79706797b854a06f30876828ee766" category="paragraph">多年來、建議系統已為我們的生活帶來巨大改變、因為企業和消費者已因應線上購物、線上娛樂和許多其他產業的劇烈變化。事實上、這些系統是AI在正式作業中最明顯的成功案例之一。在許多實際使用案例中、建議系統會與對話式AI或聊天機器人結合、與NLP後端互動、以取得相關資訊並產生實用的推斷。</block>
+  <block id="6346d11f3fda24eb2d12fa4ac478fe3b" category="paragraph">如今、許多零售商正在採用較新的商業模式、例如在線上購買和在店內取貨、現場取貨、自助結帳、掃描與外出等等。這些模式在COVID-19大流行病期間變得非常顯著、因為它讓購物變得更安全、也更方便消費者使用。AI對於這些不斷成長的數位趨勢至關重要、這些趨勢受到消費者行為的影響、反之亦然。為了滿足消費者不斷成長的需求、提升客戶體驗、提升營運效率、並增加營收、NetApp協助企業客戶和企業使用機器學習和深度學習演算法、以更快更準確的建議系統。</block>
+  <block id="b32f1d719ba1fea2cad3538a4795c552" category="paragraph">提供建議的熱門技術有幾種、包括協同作業篩選、內容型系統、深度學習推薦模式（DLRM）和混合式技術。客戶先前使用PySpark來實作協同篩選、以建立建議系統。Spark MLLib採用替代最小平方數（ALS）來進行協同篩選、這是在DLRM興起之前、企業中非常受歡迎的演算法。</block>
+  <block id="9389b39b238fbd5ad61de2fea371853d" category="section-title">自然語言處理</block>
+  <block id="18bfab6309a4addeb7e1dae07d2a4b89" category="inline-link">Gartner</block>
+  <block id="47fa981bf7641c90f0ce83a88c21234e" category="paragraph">人工智慧是人工智慧的分支機構、可透過自然語言處理（NLP）實現、協助電腦與人類溝通。NLP在每個產業垂直市場和許多使用案例中都十分普及、從智慧型助理和聊天機器人、到Google搜尋和預測性文字。根據A<block ref="be3a50ddc5683c6936ee69409b86e212" category="inline-link-rx"></block> 預測到2022年、70%的人會每天與對話式AI平台互動。若要在人與機器之間進行高品質的對話、回應必須是快速、智慧且自然的。</block>
+  <block id="9cac4209da8ee0481a45fa299b66e587" category="paragraph">客戶需要大量資料來處理及訓練NLP和自動語音辨識（ASR）模式。他們也需要在邊緣、核心和雲端之間移動資料、而且需要在毫秒內執行推斷、才能與人類建立自然的通訊。NetApp AI與Apache Spark是運算、儲存、資料處理、模型訓練、微調、 和部署。</block>
+  <block id="33984e410ab674dcea1f21af4c5db4ec" category="paragraph">情緒分析是NLP內部的研究領域、從文字中擷取正面、負面或中立的情緒。情緒分析有多種使用案例、從判斷支援中心員工在與來電者對話時的表現、到提供適當的自動聊天機器人回應。此外、它也可用來根據公司代表與每季營收拜訪對象之間的互動、預測公司的股票價格。此外、情緒分析可用來判斷客戶對於品牌所提供產品、服務或支援的看法。</block>
+  <block id="511405f2428e9a6a71530b7f2cdcbc21" category="inline-link">John Snow Labs</block>
+  <block id="351594930581e8fa82cf694de7562fd2" category="inline-link">財務新聞意欲</block>
+  <block id="322f98ff217f4c12ea8f1b3ea41f4024" category="paragraph">我們使用<block ref="0f17ea1334fb20ed83c3ab03268616d7" category="inline-link-rx"></block> 程式庫來源<block ref="22825786ea861b373c2a5fdda9f62d81" category="inline-link-rx"></block> 從Transformers（Bert）機型載入預先訓練的管線和雙向編碼器呈現、包括<block ref="25bfdf207733b5ead40d4d36ea328e85" category="inline-link-rx"></block> 和<block ref="9c44f0ce83f7021f3ece2b04fda553fb" category="inline-link-rx"></block>、大規模地執行令牌化、命名實體辨識、模型訓練、擬合和情緒分析。Spark NLP是市面上唯一提供Bert、偉業、Elecra、XLNet、DisbilBit4等先進變壓器的開放原始碼NLP程式庫。 羅伯塔、DEBerta、XLM-羅伯塔、龍原、Elmo、 通用句子編碼器、Google T5、MarianMT和GPT2。此程式庫不僅可在Python和R中運作、也可在VM生態系統（Java、Scala和Kotlin）中大規模運作、只要將Apache Spark原生擴充即可。</block>
+  <block id="e4f0ac4ff07b9b5031299d0b3702fedb" category="inline-link-macro">下一步：主要AI、ML和DL使用案例與架構。</block>
+  <block id="84fcdcaf39dee89e28f1b44c28ad46ef" category="paragraph"><block ref="84fcdcaf39dee89e28f1b44c28ad46ef" category="inline-link-macro-rx"></block></block>
+  <block id="7e838102a13e780977b21c90f648a5d0" category="summary">本節說明Apache Spark的本質和元件、以及它們如何為本解決方案做出貢獻。</block>
+  <block id="b47e85e30f997f214c7850de9dd795da" category="inline-link-macro">上一篇：目標對象。</block>
+  <block id="9e972d78946023378ffbea0f999c2d03" category="paragraph"><block ref="9e972d78946023378ffbea0f999c2d03" category="inline-link-macro-rx"></block></block>
+  <block id="f4387c90411f7b92618497bc53b16256" category="paragraph">Apache Spark是一種熱門的程式設計架構、可用來撰寫直接搭配Hadoop分散式檔案系統（HDFS）運作的Hadoop應用程式。Spark已準備就緒、支援串流資料處理、速度比MapReduce快。Spark可設定的記憶體內資料快取功能、可有效進行迭代、而Spark Shell則是互動式的、可用來學習及探索資料。有了Spark、您可以在Python、Scala或Java中建立應用程式。SPARK應用程式由一或多個工作組成、這些工作具有一或多項工作。</block>
+  <block id="6a696023a577a0d26763ef9c382b4b1f" category="paragraph">每個Spark應用程式都有Spark驅動程式。在線對用戶端模式中、驅動程式會在用戶端本機上執行。在線叢集模式中、驅動程式會在應用程式主機的叢集內執行。在叢集模式中、即使用戶端中斷連線、應用程式仍會繼續執行。</block>
+  <block id="fed4e6478ab0d82b2e98b4f5bd62f0e2" category="paragraph"><block ref="fed4e6478ab0d82b2e98b4f5bd62f0e2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6feb0bd2b4db4693572a9fc2e517e888" category="paragraph">有三種叢集管理程式：</block>
+  <block id="4c79d7007667a60b712836e2f93d6bfc" category="list-text">*獨立式。*此管理程式是Spark的一部分、可讓您輕鬆設定叢集。</block>
+  <block id="c0a5bce529ff277ee2735538a7b43913" category="list-text">* Apache Mesos.*這是一種通用叢集管理程式、可執行MapReduce及其他應用程式。</block>
+  <block id="24683e4dfc33dc5b20a0d9a75c0ff150" category="list-text">*《哈多奧》*這是Hadoop 3的資源經理。</block>
+  <block id="569531fd384ec251943946598eb00dcb" category="paragraph">彈性分散式資料集（RDD）是Spark的主要元件。RDD會重新建立儲存在叢集記憶體中的資料遺失與遺失資料、並儲存來自檔案或以程式設計方式建立的初始資料。RDD是從檔案、記憶體中的資料或其他RDD所建立。Spark程式設計可執行兩項作業：轉型與行動。轉換會根據現有的RDD建立新的RDD。動作會傳回RDD的值。</block>
+  <block id="06b482c7bd2522ec4a62ccc70b71c37e" category="paragraph">轉換與動作也適用於Spark資料集和DataFrames。資料集是分散式資料集合、提供RDD的優點（強式輸入、使用Lambda功能）、以及Spark SQL最佳化執行引擎的優點。資料集可從JVM物件建構、然後使用功能性轉換（地圖、扁平對應、篩選等）進行處理。DataFrame是一種資料集、組織成命名欄。它在概念上等同於關聯式資料庫中的資料表、或是R/Python中的資料框架。DataFrames可從各種來源建構、例如結構化資料檔案、Hive/HBase中的表格、內部部署或雲端中的外部資料庫、或現有的RDD。</block>
+  <block id="89d836212e4c5086ebcd9e5fbd6a4b37" category="paragraph">Spark應用程式包括一或多個Spark工作。在執行者中執行工作、執行者則在紗櫃中執行工作。每個執行程式都會在單一容器中執行、而且執行程式會在應用程式的整個生命週期內存在。執行程式會在應用程式啟動後修正、而且實際不會調整已分配的容器大小。執行程式可在記憶體內的資料上同時執行工作。</block>
+  <block id="93b777568c6fc956b8dcbf6cb778cf8e" category="inline-link-macro">下一步：NetApp Spark解決方案總覽。</block>
+  <block id="2e9d493fc7f04097c722ddfd7bf4cba7" category="paragraph"><block ref="2e9d493fc7f04097c722ddfd7bf4cba7" category="inline-link-macro-rx"></block></block>
+  <block id="43fc68a998702bc80e46c46de6c28621" category="doc">每個主要使用案例的Python指令碼</block>
+  <block id="6af3c467ec5223400f1d1e91f69cb12b" category="inline-link-macro">先前版本：混合雲解決方案。</block>
+  <block id="45d040833437bf9dd9f64d4dfa4981c4" category="paragraph"><block ref="45d040833437bf9dd9f64d4dfa4981c4" category="inline-link-macro-rx"></block></block>
+  <block id="cfb5f1c014066f18d7979fa1d35a934d" category="paragraph">下列三個Python指令碼分別對應三個測試的主要使用案例。第一是"entitment_section_sparknlp.py"。</block>
+  <block id="d3abf6f12cafa2cc1b795b31cd547c75" category="paragraph">第二個指令碼是「keras」（keras）、「SPARK」（horovod_rossmann_imer.py）。</block>
+  <block id="6e9120b39f924b2eed528e3bcdd009ac" category="paragraph">第三個指令碼是「rrun _crite_criteo_site.py」。</block>
+  <block id="be0ba1bf6a99c201834567c4d58fc40e" category="paragraph"><block ref="be0ba1bf6a99c201834567c4d58fc40e" category="inline-link-macro-rx"></block></block>
+  <block id="2ce0710320aace7b17c3af20eaac2918" category="sidebar">使用案例摘要</block>
 </blocks>
