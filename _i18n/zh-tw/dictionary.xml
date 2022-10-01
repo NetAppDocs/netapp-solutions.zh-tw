@@ -14469,8 +14469,6 @@
   <block id="0970f21d33cd70a68d82d99f1d6abd42" category="list-text">請檢查GCVE/和CVS的可用度 <block ref="007e08d33d89c24a1316c16966bb4055" category="inline-link-macro-rx"></block>。</block>
   <block id="52d36923e6e7f21dede2a88e87bd5528" category="list-text">檢查CVS補充NFS資料存放區的可用度 <block ref="007e08d33d89c24a1316c16966bb4055" category="inline-link-macro-rx"></block>。</block>
   <block id="46c2094fdbb2fbdc301a330fb7419074" category="paragraph">AWS / VMC上的補充NFS資料存放區可用度由Amazon定義。首先、您需要判斷VMC和FSxN是否在指定的區域中可用。接下來、您需要判斷該區域是否支援FSxN補充NFS資料存放區。</block>
-  <block id="de54e36625e385487e1439a76f1cd888" category="list-text">檢查VMC的可用度 <block ref="faf92213cf4b20619002c82be58d43a0" category="inline-link-macro-rx"></block>。</block>
-  <block id="a4733e713406133b92f58f977aef720b" category="list-text">Amazon定價指南提供FSxN（FSx ONTAP ）的可用位置資訊。您可以找到這些資訊 <block ref="d3f36798b026a566c0fbacff08326428" category="inline-link-macro-rx"></block>。</block>
   <block id="c10e413ea65850b7369ee5ae6f60b460" category="list-text">VMC的FSxN補充NFS資料存放區即將推出。</block>
   <block id="a1838a4ac0f386c517d82fae26f2372e" category="paragraph">在資訊仍在發佈期間、下表將目前對VMC、FSxN和FSxN的支援識別為補充NFS資料存放區。</block>
   <block id="97be15a34c6b82b6177132129dd0b293" category="doc">區域可用度–VMC的補充NFS資料存放區</block>
@@ -15317,4 +15315,321 @@
   <block id="329ecbed66c88e6c0c049d051ad6aa9a" category="paragraph">NetApp公司David Arette和Sung-HAN LIN</block>
   <block id="d940dfad6ae514d8235749f5f5bf92ed" category="paragraph">NVA-1151-Design說明NetApp認證的機器學習架構、以及使用NetApp AFF ®XA800儲存系統、NVIDIA DGX A100系統和NVIDIA Mellanox網路交換器的人工智慧工作負載。其中也包含已實作架構的基準測試結果。</block>
   <block id="20821bbf55dddb9fb677efca1bfcf4d1" category="paragraph"><block ref="20821bbf55dddb9fb677efca1bfcf4d1" category="inline-link-rx"></block></block>
+  <block id="16550c71fdf2102ec8face86a5d82746" category="cell">2022年9月30日</block>
+  <block id="8485ff07404cda7656a72c1d11b2e278" category="cell">新增使用VMware HCX將工作負載移轉至FSxN資料存放區的解決方案</block>
+  <block id="bee0d36d9b0ec64a15bf59019a6ec2e2" category="cell">09/29/ 2022</block>
+  <block id="b6942044de91f49e700f684f12314907" category="cell">新增使用VMware HCX將工作負載移轉至ANF資料存放區的解決方案</block>
+  <block id="fa3811ba5828de9b5ce35701ec38d154" category="list-text">檢查VMC的可用度 <block ref="bd516ef46cad23535fac2e4d7f54defe" category="inline-link-macro-rx"></block>。</block>
+  <block id="0ecaf171a89c41ea509c3f45896220b8" category="list-text">Amazon定價指南提供FSxN（FSx ONTAP ）的可用位置資訊。您可以找到這些資訊 <block ref="2d4b4b449ef448fbb3000f58e542f4ee" category="inline-link-macro-rx"></block>。</block>
+  <block id="4573434025dab87886cfb0b766c70cb1" category="paragraph">最後更新日期：2022年9月28日。</block>
+  <block id="d8cefe0428d28368238dbbeabef9c83f" category="open-title">混合式多雲端（HMC）</block>
+  <block id="493f775d3c83d2c658056477b1d58f74" category="paragraph">[Underlines]#*適用於AWS/VMC*#的影片</block>
+  <block id="638eb9310db06d086fac0c3c069669af" category="video-title">VMware Cloud on AWS補充資料存放區搭配Amazon FSX for NetApp ONTAP</block>
+  <block id="6f605e77e59dfe45ae918965ba0bd336" category="video-title">採用Amazon FSX for NetApp ONTAP 的VMware Cloud on AWS TCO節約效益</block>
+  <block id="d7d56735bb43053ca43b2d9698b2623c" category="video-title">適用於VMC的VMware HCX部署與組態設定</block>
+  <block id="c6434a9743fb403cd78cd2d3a42d9683" category="video-title">VMware HCX針對VMC和FSxN的VMotion示範</block>
+  <block id="e906083dc0b31806eab68df2c340504f" category="video-title">VMware HCX for VMC和FSxN的冷移轉示範</block>
+  <block id="62184265581f788d642b26b13c273b93" category="paragraph">[Underlines]#* Azure / AVS*#影片</block>
+  <block id="62766d3266d403114a010bc02e7b4004" category="video-title">Azure VMware解決方案補充資料存放區總覽Azure NetApp Files （含）</block>
+  <block id="4864ff1c07b9b500fd46c4a1c5918fd8" category="video-title">Azure VMware解決方案DR Cloud Volumes ONTAP 搭配VMware功能、包括功能不完整、SnapCenter 功能完整</block>
+  <block id="8eb2fa7c0d2a676485a155077b770fdd" category="video-title">VMware HCX針對AVS和ANF進行冷移轉示範</block>
+  <block id="664115ac899ebaf481e2b75540d5c56c" category="video-title">VMware HCX針對AVS和ANF的VMotion示範</block>
+  <block id="914c1d4cdf840b7b030978f1b07915d8" category="video-title">VMware HCX針對AVS和ANF的大量移轉示範</block>
+  <block id="1709b8b454125c7d55fd44e302c8aee3" category="example-title">VMware Cloud on AWS移轉至FSxN、VMware HCX</block>
+  <block id="9de15a07d3a8b75e451c50d7fa64fae9" category="example-title">Azure上的Azure VMware Services Azure NetApp Files with VMware（ANF）</block>
+  <block id="875970986c8d6a0d19f47ed744bf33e1" category="example-title">Azure VMware解決方案移轉至Anf、VMware HCX</block>
+  <block id="04a1b40e30ee3bddef53c85ca68c8b36" category="inline-link-macro">使用VMware HCX將工作負載移轉至Azure NetApp Files VMware資料存放區</block>
+  <block id="edf47ba9dc6467e3104102f10bafe323" category="list-text"><block ref="edf47ba9dc6467e3104102f10bafe323" category="inline-link-macro-rx"></block></block>
+  <block id="668f202e4850de68f941501493126dea" category="doc">TR-4940：Azure NetApp Files 使用VMware HCX -快速入門指南、將工作負載移轉至VMware Infrastructure資料存放區</block>
+  <block id="ddfd90f2a10c16cbd6548844b07532c2" category="paragraph">作者：NetApp解決方案工程</block>
+  <block id="e5baae71bfede792aee5ab0c09fbcd23" category="section-title">總覽：使用VMware HCX、Azure NetApp Files 不含資料存放區和Azure VMware解決方案來移轉虛擬機器</block>
+  <block id="45c532c5535fe16cf9a5868bbd9a3fcd" category="paragraph">Azure VMware解決方案與Azure NetApp Files VMware資料存放區最常見的使用案例之一、就是移轉VMware工作負載。VMware HCX是首選的選項、提供各種移轉機制、可將內部部署的虛擬機器（VM）及其資料移至Azure NetApp Files 各個資料存放區。</block>
+  <block id="a2ee24315378af7416f8fef29e0f0efa" category="paragraph">VMware HCX主要是一個移轉平台、其設計旨在簡化應用程式移轉、工作負載重新平衡、甚至是雲端之間的營運不中斷。它是Azure VMware解決方案私有雲的一部分、提供許多移轉工作負載的方法、可用於災難恢復（DR）作業。</block>
+  <block id="227830ba037f63bb97cffeeb98e3a13e" category="paragraph">本文件提供有關配置Azure NetApp Files VMware資料存放區的逐步指引、接下來是下載、部署及設定VMware HCX、包括內部部署及Azure VMware解決方案端的所有主要元件、包括互連、網路擴充及WAN最佳化、以啟用各種VM移轉機制。</block>
+  <block id="a7441e9f968c9ea792320876fd73622a" category="admonition">VMware HCX可與任何資料存放區類型搭配使用、因為移轉作業是在VM層級進行。因此、本文件適用於目前打算以Azure NetApp Files Azure VMware解決方案部署VMware解決方案以實現具成本效益的VMware雲端部署的NetApp客戶和非NetApp客戶。</block>
+  <block id="0ba40ecb813b20bd8c3277c4afcbd451" category="example-title">高階步驟</block>
+  <block id="9a40c0b2781fd2a3a99aa2a6c0c4616e" category="paragraph">此清單提供在Azure雲端端安裝及設定HCX Cloud Manager、以及在內部部署安裝HCX Connector所需的高階步驟：</block>
+  <block id="d7bfcf4345887ee24f2c3083038c6327" category="list-text">透過Azure入口網站安裝HCX。</block>
+  <block id="ea0d203a776b5c56ae3ed2c61269d2a9" category="list-text">在內部部署的VMware vCenter Server中下載並部署HCX Connector Open Virtualization Appliance（OVA）安裝程式。</block>
+  <block id="2be88e0d3f6d4e20f4bf2bcca7895d7b" category="list-text">使用授權金鑰啟動HCX。</block>
+  <block id="6a0721ebaaff6c0b1564863ac23c2509" category="list-text">將內部部署的VMware HCX Connector與Azure VMware解決方案HCX Cloud Manager配對。</block>
+  <block id="612a4c795715d17bfff4e0ba3a8f66d1" category="list-text">設定網路設定檔、運算設定檔和服務網格。</block>
+  <block id="81feabec43f9f1bcb7230fd62f89fb76" category="list-text">（選用）執行網路擴充、以避免在移轉期間重新取得IP。</block>
+  <block id="dbed86346a8d7cb3692ba413f7e14f56" category="list-text">驗證應用裝置狀態、並確保可以進行移轉。</block>
+  <block id="2f2c97fb0d914a7fc7bcb2c8fad16868" category="list-text">移轉VM工作負載。</block>
+  <block id="f2f281974ab353b606093268f9d5335e" category="paragraph">開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱<block ref="88354f8e41d1a2e6cea84b3d932b3286" category="inline-link-rx"></block>。在具備連線能力等先決條件之後、請從Azure VMware解決方案入口網站產生授權金鑰、以設定並啟動HCX。下載OVA安裝程式之後、請繼續執行下列安裝程序。</block>
+  <block id="f52b030029e78590ca66fbf452dfcb14" category="admonition">HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援票證取得、而且不需額外付費即可獲得支援。</block>
+  <block id="67863abb3ec8a28f54adf852298b392b" category="inline-link">NetApp連結</block>
+  <block id="d2a5cfbad293008f62b5d4e58457a6d1" category="inline-link">Microsoft連結</block>
+  <block id="1ed491d88e9198d83430469156bf2665" category="list-text">使用現有的Azure VMware解決方案軟體定義資料中心（SDDC）、或使用此功能建立私有雲端<block ref="db330bdc7708ed0196dccd83d189a8ae" category="inline-link-rx"></block> 或是這種情況<block ref="5633c6477a16a80a8050560dab9783c9" category="inline-link-rx"></block>。</block>
+  <block id="e265f4db94070f55784ef698e7f4f29b" category="inline-link">設定站台對站台VPN或Express路由全域連線連線</block>
+  <block id="bb764f1df90a85d77eec079e03bd9764" category="list-text">若要從內部部署的VMware vSphere資料中心移轉VM及相關資料、需要從資料中心連線至SDDC環境。移轉工作負載之前、<block ref="31180ecf5c9f25ba891b891b395a9305" category="inline-link-rx"></block> 在內部部署環境與各自私有雲端之間。</block>
+  <block id="d08fd3825f77e870dd8e93463aea245d" category="list-text">從內部部署VMware vCenter Server環境到Azure VMware解決方案私有雲的網路路徑、必須支援使用VMotion移轉VM。</block>
+  <block id="f3b5e5598d4c0c196bd2fd79b000637f" category="inline-link">防火牆規則和連接埠</block>
+  <block id="e1be03b35dc8e9fb114970b06dcd6c18" category="list-text">請確定所需的<block ref="69c9d7a74dad51c1c47ea8141c218514" category="inline-link-rx"></block> 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。</block>
+  <block id="444617dcfe0d17ad386105e865d21113" category="list-text">應在Azure VMware解決方案中以資料存放區的形式掛載不適用的NFS Volume。Azure NetApp Files請依照本節詳細說明的步驟進行<block ref="1b959b45bbb3571141089802677ad765" category="inline-link-rx"></block> 將Azure NetApp Files 不完整的資料存放區附加至Azure VMware解決方案主機。</block>
+  <block id="2f660e9fff52e5ac1b7818a029d3b447" category="example-title">高層架構</block>
+  <block id="69b7dff83090c9a5eb5c6939b05acd80" category="paragraph">為了進行測試、用於此驗證的內部部署實驗室環境是透過站台對站台VPN連線至Azure Virtual WAN集線器、以便內部部署連線至Azure VMware解決方案。</block>
+  <block id="0048e42e38e4c6f587f210afe26fcb4a" category="inline-image-macro">此映像描述此解決方案所使用的高層架構。</block>
+  <block id="39fc1d64ec4b3a4ff5306e55bdaf2c0f" category="paragraph"><block ref="39fc1d64ec4b3a4ff5306e55bdaf2c0f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d84f7e9d42c2c0ee4f87ddeaa2e09bb2" category="paragraph">請依照一系列步驟完成本解決方案的部署：</block>
+  <block id="4c8f77e6ab4a9e453faf4063978f94d5" category="example-title">步驟1：使用附加元件選項透過Azure Portal安裝HCX</block>
+  <block id="f4ca86f94d0e12644ce102e7c48d6030" category="paragraph">若要執行安裝、請完成下列步驟：</block>
+  <block id="7d4c34e9f83446ef58ad083cd2c29580" category="list-text">登入Azure Portal並存取Azure VMware Solution私有雲。</block>
+  <block id="16671eada5939f5c2129db7e8f9522a0" category="list-text">選取適當的私有雲並存取附加元件。您可以瀏覽至*管理&gt;附加元件*來完成此作業。</block>
+  <block id="de23e32bd14f5f77d4178bb7d56c2eb0" category="list-text">在「HCX工作負載行動性」區段中、按一下「*入門*」。</block>
+  <block id="239ba3d7293041d0d4dcb4c5b538ea74" category="inline-image-macro">HCX工作負載行動力區段的快照。</block>
+  <block id="91a36107da2b4f5cbc4963027f871289" category="paragraph"><block ref="91a36107da2b4f5cbc4963027f871289" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="de66be71be828600d682c9f0bdb03a18" category="list-text">選取「*我同意條款與條件*」選項、然後按一下「*啟用與部署*」。</block>
+  <block id="e26184583d86572b90efcca3db66731e" category="admonition">預設部署為HCX Advanced。開啟支援要求以啟用Enterprise Edition。</block>
+  <block id="adafe418547291754cadbfc0d2c5c1dc" category="admonition">部署約需25至30分鐘。</block>
+  <block id="e39769185df95d6577314b0c683cf848" category="inline-image-macro">完成HCX工作負載行動性部分的快照。</block>
+  <block id="6df468c8490be1137779d8811f53bddb" category="paragraph"><block ref="6df468c8490be1137779d8811f53bddb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ae33ed8b7695cc113850f5a13bab6e56" category="example-title">步驟2：在內部部署vCenter Server中部署安裝程式OVA</block>
+  <block id="e957ef97a04368fda5e2652e51c19d1d" category="paragraph">若要讓內部部署連接器連線至Azure VMware解決方案中的HCX Manager、請確定內部部署環境中已開啟適當的防火牆連接埠。</block>
+  <block id="0c216cee9411e03f1127e6ffc2bf025d" category="paragraph">若要在內部部署vCenter Server中下載並安裝HCX Connector、請完成下列步驟：</block>
+  <block id="c28009ba42c1703c33046d99285a0a10" category="list-text">從Azure入口網站、前往Azure VMware解決方案、選取私有雲、然後選取*管理&gt;附加元件&gt;使用HCX移轉*、然後複製HCX Cloud Manager入口網站、即可下載OVA檔案。</block>
+  <block id="3a858d6f55c84c77db797aafa874a8a5" category="admonition">使用預設的CloudAdmin使用者認證資料來存取HCX入口網站。</block>
+  <block id="7efdfa090ad75b0c0f02e115ab8e56bd" category="inline-image-macro">Azure入口網站的快照、可下載HCX OVA檔案。</block>
+  <block id="ab9fbdf98484d630980bec96dac55284" category="paragraph"><block ref="ab9fbdf98484d630980bec96dac55284" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="69d5565b77c91d5d6d289858e4d7ea91" category="list-text">使用jumphost、以mailto：cloudadmin@vple.1[cloudadmin@vplore.erl]存取HCX入口網站之後、請瀏覽至*管理&gt;系統更新*、然後按一下*要求下載連結*。</block>
+  <block id="f6b26e036b373b18f11dc0da33ef5268" category="admonition">下載或複製OVA連結、然後貼到瀏覽器中、開始下載VMware HCX Connector OVA檔案、以便部署在內部部署vCenter Server上。</block>
+  <block id="894d2481892f65fcae6dfc0ac7b9ec0d" category="inline-image-macro">錯誤：OVA下載連結的快照。</block>
+  <block id="2a8ced383f2ab7fb9d4a69fc8d344b0e" category="paragraph"><block ref="2a8ced383f2ab7fb9d4a69fc8d344b0e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="12e1c817f24a0aa94d2ae26ea6535479" category="list-text">下載OVA之後、請使用*部署OVF範本*選項、將其部署至內部部署的VMware vSphere環境。</block>
+  <block id="fc1a0933af5c68cc43dbb90b50c1b0d3" category="inline-image-macro">錯誤：選取正確OVA範本的快照。</block>
+  <block id="d36fa73d8072d1ab34f185f12d5fede5" category="paragraph"><block ref="d36fa73d8072d1ab34f185f12d5fede5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8ba87ef75729cfcffc74d93e0a0852a1" category="list-text">輸入OVA部署的所有必要資訊、按一下*「下一步」*、然後按一下「*完成*」以部署VMware HCX連接器OVA。</block>
+  <block id="ed1aadd2fcd5906dd58f9a89179a638e" category="admonition">手動啟動虛擬應用裝置。</block>
+  <block id="dca749083ce6c763573225ed6a46a64e" category="inline-link">VMware HCX使用者指南</block>
+  <block id="e10fbd147d2ee50fbbb460ad2f18fa14" category="paragraph">如需逐步指示、請參閱<block ref="856d054195f2a40a0c4a2869d5895904" category="inline-link-rx"></block>。</block>
+  <block id="6897bb7015f874baf69560eef515010c" category="example-title">步驟3：使用授權金鑰啟動HCX Connector</block>
+  <block id="4aa14207b82768ed77473306cc7a65c2" category="paragraph">在內部部署VMware HCX Connector OVA並啟動應用裝置之後、請完成下列步驟以啟動HCX Connector。從Azure VMware解決方案入口網站產生授權金鑰、並在VMware HCX Manager中啟動。</block>
+  <block id="3535419e37127ca2de6abd9538414466" category="list-text">從Azure入口網站、前往Azure VMware解決方案、選取私有雲、然後選取*管理&gt;附加元件&gt;使用HCX*移轉。</block>
+  <block id="436402d536d27aaa2091a54751a60036" category="list-text">在「*使用HCX金鑰與內部部署連線*」下、按一下「*新增*」、然後複製啟動金鑰。</block>
+  <block id="0b053e667d8c9baa8cbb4a5402fe69e1" category="inline-image-macro">新增HCX金鑰的快照。</block>
+  <block id="5d9de146e997662a8510bd175e5c593a" category="paragraph"><block ref="5d9de146e997662a8510bd175e5c593a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="03fc385dd3b54c80a78341c5aa2189a3" category="admonition">每個部署的內部部署HCX Connector都需要個別的金鑰。</block>
+  <block id="e8edfbded2eb5193c58170d5f9073d7d" category="inline-link"><block ref="e8edfbded2eb5193c58170d5f9073d7d" category="inline-link-rx"></block></block>
+  <block id="b6d4af6a25f46f3687120681e525d833" category="list-text">登入內部部署的VMware HCX Manager、網址為<block ref="f9ac10929d1e2f12c4fea5c57d73b3eb" category="inline-link-rx"></block> 使用系統管理員認證。</block>
+  <block id="b2719f92794cef282f9cd7684baca4c4" category="admonition">使用在OVA部署期間定義的密碼。</block>
+  <block id="a864855f2120d5c8d4793a4866b6a7bb" category="list-text">在授權中、輸入從步驟3複製的金鑰、然後按一下「*啟動*」。</block>
+  <block id="e5c8d88f2fa7af9f1a719e04c4b17740" category="admonition">內部部署的HCX Connector應可存取網際網路。</block>
+  <block id="ee746d79ab481579a8c0202a94e8d378" category="list-text">在*資料中心位置*下、提供最接近內部部署VMware HCX Manager的安裝位置。按一下 * 繼續 * 。</block>
+  <block id="c72431b355c96ffdfb7baece307881f0" category="list-text">在*系統名稱*下、更新名稱、然後按一下*繼續*。</block>
+  <block id="030627b8e0e3f6ba69c6a9e524d8e9c0" category="list-text">按一下*是、繼續*。</block>
+  <block id="05399e57e0b2a25ce8cef32f3628b2e3" category="list-text">在「*連線您的VCenter*」下、提供vCenter Server的完整網域名稱（FQDN）或IP位址、以及適當的認證資料、然後按一下「*繼續*」。</block>
+  <block id="96b1cf77a862dc0408a3e2e9678b2165" category="admonition">使用FQDN以避免稍後發生連線問題。</block>
+  <block id="390f6c76fee2d7fb6d09bcedc3622467" category="list-text">在「*設定SSO/PSC *」下、提供平台服務控制器的FQDN或IP位址、然後按一下「*繼續*」。</block>
+  <block id="b070c615098fb975bc2bc3a9f6c67b3e" category="admonition">輸入VMware vCenter Server FQDN或IP位址。</block>
+  <block id="f4bb2b9a4de7e44c942457943977fd34" category="list-text">驗證輸入的資訊是否正確、然後按一下*重新啟動*。</block>
+  <block id="a565e4f9db7c03385f61c3bdb0f4b806" category="list-text">服務重新啟動後、vCenter Server會在顯示的頁面上顯示為綠色。vCenter Server和SSO都必須具有適當的組態參數、此參數應與上一頁相同。</block>
+  <block id="457446477fbd3326ba80d1248eaca490" category="admonition">此程序大約需要10到20分鐘、而外掛程式則要新增至vCenter Server。</block>
+  <block id="1181827ced4ce13f7bd91097d9b10dac" category="inline-image-macro">顯示完成程序的快照。</block>
+  <block id="534d4f43f7a513cf2f2152686da775ae" category="paragraph"><block ref="534d4f43f7a513cf2f2152686da775ae" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e0b94fcafcd5f76f4f84be761263d657" category="example-title">步驟4：將內部部署的VMware HCX Connector與Azure VMware解決方案HCX Cloud Manager配對</block>
+  <block id="ae37843769e741d076e2422772db5395" category="paragraph">在內部部署和Azure VMware解決方案中安裝HCX Connector之後、請新增配對、以設定內部部署的VMware HCX Connector for Azure VMware Solution私有雲。若要設定站台配對、請完成下列步驟：</block>
+  <block id="28b0363954066139335c413f28022037" category="list-text">若要在內部部署的vCenter環境與Azure VMware Solution SDDC之間建立站台配對、請登入內部部署的vCenter Server、然後存取新的HCX vSphere Web Client外掛程式。</block>
+  <block id="f4f57342a1f5bfd667f7d19048c4aa85" category="inline-image-macro">HCX vSphere Web Client外掛程式的快照。</block>
+  <block id="1ecb33e8c47a03470ff03bb6c09a1d87" category="paragraph"><block ref="1ecb33e8c47a03470ff03bb6c09a1d87" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="302ca8cbe91eb456c9defb6fe514b81e" category="list-text">按一下「基礎架構」下的「*新增站台配對*」。</block>
+  <block id="cd6182a85ca09ca99bda2787165407d9" category="admonition">輸入Azure VMware Solution HCX Cloud Manager URL或IP位址、以及CloudAdmin角色存取私有雲端的認證資料。</block>
+  <block id="407d1d705e5bdedf2e1c5e9257c0c1ef" category="inline-image-macro">CloudAdmin角色的快照URL或IP位址和認證。</block>
+  <block id="6e861dfeca468a35e2aa6f6a42b2ad5f" category="paragraph"><block ref="6e861dfeca468a35e2aa6f6a42b2ad5f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9bccd838ddedeb361e65189136ac5c0f" category="list-text">按一下「*連線*」。</block>
+  <block id="7630a70e4d4511de5ac0f8ce18edd594" category="admonition">VMware HCX Connector必須能夠透過連接埠443路由傳送至HCX Cloud Manager IP。</block>
+  <block id="ddea1cbf444f5d4e69d68b23eb0b4b59" category="list-text">建立配對之後、即可在HCX儀表板上取得新設定的站台配對。</block>
+  <block id="8cdce778f46399f121d65006767f466a" category="inline-image-macro">HCX儀表板上已完成程序的快照。</block>
+  <block id="a71387f99ef8fc06b56323de8e6a67e6" category="paragraph"><block ref="a71387f99ef8fc06b56323de8e6a67e6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="38bca9c1088c36da27f6910232836b09" category="example-title">步驟5：設定網路設定檔、運算設定檔和服務網格</block>
+  <block id="a030f25f2e21cc0db80d6a88646adb63" category="paragraph">VMware HCX互連服務應用裝置可透過網際網路提供複寫及vMotion型移轉功能、並可透過私有連線連至目標站台。互連可提供加密、流量工程及VM行動性。若要建立互連服務應用裝置、請完成下列步驟：</block>
+  <block id="efb9332572aac00947298fc1ed65c0da" category="list-text">在「基礎架構」下、選取「*互連&gt;多站台服務網狀架構&gt;運算設定檔」&gt;「建立運算設定檔*」。</block>
+  <block id="96e78a381f203820b7fb0d823994f764" category="admonition">運算設定檔定義部署參數、包括部署的應用裝置、以及HCX服務可存取的VMware資料中心部分。</block>
+  <block id="df03fa88f502c44f3476981d50c25ae4" category="inline-image-macro">vSphere用戶端互連頁面的快照。</block>
+  <block id="0f7d2c9383c1f40641b39e9f65126dcf" category="paragraph"><block ref="0f7d2c9383c1f40641b39e9f65126dcf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ba9d884b8a48f110e052a2644f36c6bb" category="list-text">建立運算設定檔之後、選取*多站台服務網格&gt;網路設定檔&gt;建立網路設定檔*、即可建立網路設定檔。</block>
+  <block id="7e461f559c367396eca97f75c2262003" category="paragraph">網路設定檔會定義一系列的IP位址和網路、以供HCX用於其虛擬應用裝置。</block>
+  <block id="12618dff60108a0e440afb082e782c71" category="admonition">此步驟需要兩個以上的IP位址。這些IP位址會從管理網路指派給互連設備。</block>
+  <block id="9f137734809298c4fa85b07a7ddb6c5f" category="inline-image-macro">將IP位址新增至vSphere用戶端互連頁面的快照。</block>
+  <block id="c1fdcb13f1a622ccbe4f21a52d31bcb1" category="paragraph"><block ref="c1fdcb13f1a622ccbe4f21a52d31bcb1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9f78591a00b39059d077f422f8695286" category="list-text">目前、運算和網路設定檔已成功建立。</block>
+  <block id="5e8122825414e5afe12c228e3afb9f77" category="list-text">選取「*互連*」選項中的「*服務網格*」索引標籤、然後選取內部部署和Azure SDDC站台、即可建立服務網格。</block>
+  <block id="efe6cc3fe15f7c67781cd956f1aa3b8e" category="list-text">Service Mesh會指定本機和遠端運算和網路設定檔配對。</block>
+  <block id="292b454f1874f04a4b6f9258b5f933e4" category="admonition">在此程序中、會在來源和目標站台上部署並自動設定HCX應用裝置、以建立安全的傳輸架構。</block>
+  <block id="0433a192b31baf05b1deba1471c492ff" category="inline-image-macro">vSphere用戶端互連頁面上的服務網格索引標籤快照。</block>
+  <block id="55551523a891564fc7b09d6dec2fe75f" category="paragraph"><block ref="55551523a891564fc7b09d6dec2fe75f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9df03f8fa3fc5e40e9100c8ebbd3a2ad" category="list-text">這是組態的最後一步。完成部署需要將近30分鐘的時間。設定好服務網格後、環境就能準備好、成功建立IPsec通道來移轉工作負載VM。</block>
+  <block id="532b4e992bd2794e777d1c1320e94f98" category="inline-image-macro">vSphere用戶端互連頁面上完成程序的快照。</block>
+  <block id="9158466ef9c7277d9287f86080b2c362" category="paragraph"><block ref="9158466ef9c7277d9287f86080b2c362" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e0e8a1058909962c26cdead8b3fab020" category="example-title">步驟6：移轉工作負載</block>
+  <block id="80ea378666ca268305d30933ca376035" category="paragraph">使用各種VMware HCX移轉技術、可在內部部署與Azure SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。</block>
+  <block id="94638809b72d557d4335dfce65f69e35" category="inline-link">VMware HCX移轉類型</block>
+  <block id="aa52e427086548446f11ad8e43c6e998" category="paragraph">若要深入瞭解各種HCX移轉機制、請參閱<block ref="17989ba7d4a97ba4d6ebb072be2dc216" category="inline-link-rx"></block>。</block>
+  <block id="998d1ed8e82c8145e094c99bf11f8408" category="paragraph">*大量移轉*</block>
+  <block id="15a3af99dcf6c8651b8f168e13625c61" category="paragraph">本節詳細說明大量移轉機制。在大量移轉期間、HCX的大量移轉功能會使用vSphere Replication移轉磁碟檔案、同時在目的地vSphere HCX執行個體上重新建立VM。</block>
+  <block id="181b4946601ef2026e3d3ca16145a722" category="paragraph">若要啟動大量VM移轉、請完成下列步驟：</block>
+  <block id="76b01c506c1450a5b0ff6dccaeb0e9b7" category="list-text">存取*服務&gt;移轉*下的*移轉*索引標籤。</block>
+  <block id="bdfca72da9e5f7e7bfcd81aa9844aa45" category="inline-image-macro">vSphere用戶端移轉區段的快照。</block>
+  <block id="005bf2b00a4806639f3ea37ea4509f6b" category="paragraph"><block ref="005bf2b00a4806639f3ea37ea4509f6b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cc18384d5bbc3aa89ffea93d51abc451" category="list-text">在*遠端站台連線*下、選取遠端站台連線、然後選取來源和目的地。在此範例中、目的地是Azure VMware解決方案SDDC HCX端點。</block>
+  <block id="251b1066293b131079328f5d09e33aca" category="list-text">按一下*選取要移轉的VM *。這會提供所有內部部署VM的清單。根據MATCH：Value運算式選取VM、然後按一下* Add*。</block>
+  <block id="70dc92c7c0c3752e5757560b72fa8f04" category="list-text">在*傳輸與放置*區段中、更新必要欄位（*叢集*、*儲存*、*目的地*和*網路*）、包括移轉設定檔、然後按一下*驗證*。</block>
+  <block id="009e0b54f8062ebadb85388889541f12" category="inline-image-macro">vSphere用戶端「傳輸與放置」區段的快照。</block>
+  <block id="e5cde894c26fccdfef420936d570829b" category="paragraph"><block ref="e5cde894c26fccdfef420936d570829b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7599f8a3668b692ca7501152d4682c07" category="list-text">驗證檢查完成後、按一下「*執行*」以啟動移轉。</block>
+  <block id="79af22f136dbfe3d3bf950a72f2c5f5b" category="inline-image-macro">移轉初始化的快照。</block>
+  <block id="c40f6796f391e80926e1a459f389859b" category="paragraph"><block ref="c40f6796f391e80926e1a459f389859b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c1969ef22141ce348651d2b0f4eb5dd8" category="admonition">在此移轉期間、Azure NetApp Files 會在目標vCenter內的指定支援資料存放區上建立一個預留位置磁碟、以便將來源VM磁碟的資料複寫到預留位置磁碟。觸發HGR以與目標進行完整同步、並在基準完成後、根據恢復點目標（RPO）週期執行遞增同步。完成完整/遞增同步後、除非設定特定排程、否則系統會自動觸發切換。</block>
+  <block id="c0b39ee3609ffbaf676e9119dd912e9b" category="list-text">移轉完成後、請存取目的地SDDC vCenter以驗證相同項目。</block>
+  <block id="5d882ffc756bfb07c0785abe30634c3c" category="paragraph"><block ref="5d882ffc756bfb07c0785abe30634c3c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0d785f8302edf28ffd50ba9bd9a1e3e5" category="paragraph">如需各種移轉選項的其他詳細資訊、以及如何使用HCX將工作負載從內部部署移轉至Azure VMware解決方案、請參閱<block ref="15dbc17e63bae3f57dd4aa8612bacb9d" category="inline-link-rx"></block>。</block>
+  <block id="73e6478a04a38e6c1af3fd112abd351f" category="paragraph">若要深入瞭解此程序、歡迎觀看詳細的逐步解說影片：</block>
+  <block id="128dd96b5323b02401db618a27f67394" category="paragraph">以下是HCX vMotion選項的快照。</block>
+  <block id="d77e1c6edbcf98bc28017153ba737ae7" category="paragraph"><block ref="d77e1c6edbcf98bc28017153ba737ae7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="efb5f7e867e5fc98adcdcb1d219cdd4a" category="admonition">請確定有足夠的頻寬可供處理移轉作業。</block>
+  <block id="6147587d84b933dcb429334a5e2594f9" category="admonition">目標ANF資料存放區應有足夠空間來處理移轉作業。</block>
+  <block id="d7372a0d2d0e1ec31f9e1d607d52e246" category="paragraph">無論您的目標是全雲端或混合雲、或是內部部署中任何類型/廠商儲存設備上的資料、Azure NetApp Files 無論是部署或移轉應用程式工作負載、都能提供絕佳的選項、同時將資料需求無縫移轉至應用程式層、進而降低TCO。無論使用案例為何、請選擇Azure VMware解決方案搭配Azure NetApp Files VMware解決方案、以快速實現雲端效益、一致的基礎架構、以及跨內部部署和多個雲端的作業、工作負載的雙向可攜性、以及企業級容量和效能。使用VMware vSphere複寫、VMware VMotion、甚至是網路檔案複本（NFC）來連接儲存設備及移轉VM的程序與程序、都是相當熟悉的程序。</block>
+  <block id="7a7f4f94771d5c3f94a76599dcacb0cf" category="list-text">您現在可以在Azure NetApp Files Azure VMware解決方案SDDC上使用效能不實的資料存放區。</block>
+  <block id="44b43fa706a816b30490196d187959c4" category="list-text">您可以輕鬆地將資料從內部部署移轉至Azure NetApp Files 不受資料保護的資料存放區。</block>
+  <block id="bc6808bfb84f0a05f9640103114929fa" category="list-text">您可以輕鬆擴充及縮減Azure NetApp Files 整個VMware資料存放區、以滿足移轉活動期間的容量和效能需求。</block>
+  <block id="61af664797ae795435faba35dd141335" category="inline-link"><block ref="61af664797ae795435faba35dd141335" category="inline-link-rx"></block></block>
+  <block id="ab19b6733f7a9500ff9d392433071ef2" category="paragraph"><block ref="ab19b6733f7a9500ff9d392433071ef2" category="inline-link-rx"></block></block>
+  <block id="7c5ba33b986ba469d277c4ca9f906e55" category="inline-link-macro">使用VMware HCX將工作負載移轉至FSxN資料存放區</block>
+  <block id="c037991d132128e15cdbfefe3ac8e997" category="list-text"><block ref="c037991d132128e15cdbfefe3ac8e997" category="inline-link-macro-rx"></block></block>
+  <block id="205406ae98b10b31699eb910e29a7241" category="doc">TR 4942：ONTAP 使用VMware HCX將工作負載移轉至FSx Sfz（FSxN）資料存放區</block>
+  <block id="086d898e7d4a481c2147d4eb71dff1f6" category="section-title">總覽：使用VMware HCX、FSx ONTAP 補充資料存放區和VMware Cloud移轉虛擬機器</block>
+  <block id="82778188ea3c0ca7871389afec5bfd03" category="paragraph">Amazon Web Services（AWS）上的VMware Cloud（VMC）的常見使用案例、其補充NFS資料存放區位於Amazon FSX for NetApp ONTAP 的NetApp功能區上、就是移轉VMware工作負載。VMware HCX是首選選選項、提供多種移轉方法、可將內部部署虛擬機器（VM）及其資料（在任何VMware支援的資料存放區上執行）移至VMC資料存放區、其中包括FSXfor ONTAP VMware上的補充NFS資料存放區。</block>
+  <block id="2fbfc2601ddccd56b7728df6f0a658e1" category="paragraph">VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作負載移轉、工作負載重新平衡及營運不中斷。它是AWS上VMware Cloud的一部分、提供許多移轉工作負載的方法、可用於災難恢復（DR）作業。</block>
+  <block id="aabc04eb6cd0b22670013ea8212b7a4f" category="paragraph">本文件提供部署及設定VMware HCX的逐步指引、包括內部部署及雲端資料中心端的所有主要元件、可實現各種VM移轉機制。</block>
+  <block id="d493b7ce0e1cf6434fdce9bd4fa1c847" category="inline-link">HCX部署簡介</block>
+  <block id="274e6762dc6bf155637729306a74154b" category="inline-link">在AWS SDDC目的地環境上安裝檢查清單B - HCX搭配VMware Cloud</block>
+  <block id="1db2f90540d47d2fe14bfc6cad01537a" category="paragraph">如需詳細資訊、請參閱<block ref="871067259283ae637dd3ddcf90a49e5d" category="inline-link-rx"></block> 和<block ref="b5449e907f27219538721e57c42a92c0" category="inline-link-rx"></block>。</block>
+  <block id="18ad70c16d20c99de2753c4da7fb1291" category="paragraph">此清單提供安裝及設定VMware HCX的高階步驟：</block>
+  <block id="b9b7e6b65417eaac8eeb13d3f809942d" category="list-text">透過VMware Cloud Services Console啟動VMC軟體定義資料中心（SDDC）的HCX。</block>
+  <block id="76f775a9fe0b12df87ae0ad6b34efdd9" category="list-text">在內部部署的vCenter Server中下載並部署HCX Connector OVA安裝程式。</block>
+  <block id="f970657dc986e56f66a60a02b1210c43" category="list-text">使用授權金鑰啟動HCX。</block>
+  <block id="2d7e8f746bd165e0f342b659b51cff2c" category="list-text">將內部部署的VMware HCX Connector與VMC HCX Cloud Manager配對。</block>
+  <block id="a9f9ba84cb2c76d9b8033c6f9ad14642" category="list-text">（選用）執行「Network Extension（網路延伸）」以延伸網路並避免重新IP。</block>
+  <block id="f5633594a47ccbe1e89229d43cbce0ec" category="inline-link">準備安裝HCX</block>
+  <block id="ecdf05ad108113e6a7e36c14f4d8e596" category="paragraph">開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱<block ref="c59343d9a8c2798bf6815397e3f08bd3" category="inline-link-rx"></block>。在具備連線能力等先決條件之後、從VMC的VMware HCX主控台產生授權金鑰、即可設定及啟動HCX。啟用HCX之後、就會部署vCenter外掛程式、並可透過vCenter主控台進行管理來存取。</block>
+  <block id="f0983a6fa9c97fbc87ff3ad43495e008" category="paragraph">在繼續執行HCX啟動與部署之前、必須先完成下列安裝步驟：</block>
+  <block id="dba413fdbeffb35a4459e9d3f45be3bd" category="inline-link">VMware連結</block>
+  <block id="b390c6b07bec05579868558e66fda8e2" category="list-text">請使用現有的VMC SDDC、或在這之後建立新的SDDC<block ref="11000cc7aedbe4805fa20a67d23d81ac" category="inline-link-rx"></block> 或是這種情況<block ref="5f912d133d878a69c5af374752da199e" category="inline-link-rx"></block>。</block>
+  <block id="67cff13cad47354f1f51ce3ef47c6ddc" category="list-text">從內部部署vCenter環境到VMC SDDC的網路路徑、必須使用vMotion來支援VM移轉。</block>
+  <block id="c9f9609ee5731fe3777e57937464dc54" category="list-text">請確定所需的<block ref="69c9d7a74dad51c1c47ea8141c218514" category="inline-link-rx"></block> 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。</block>
+  <block id="aa8db0799849f7e0b11c7c3594394423" category="list-text">FSx for ONTAP SforiNFS Volume應安裝為VMC SDDC的補充資料存放區。若要將NFS資料存放區附加至適當的叢集、請遵循本文所述的步驟<block ref="2d161daeb93489b09b5e8bcd39dbc4b1" category="inline-link-rx"></block> 或是這種情況<block ref="6eb21d78e613b27f69be6d996a6367b3" category="inline-link-rx"></block>。</block>
+  <block id="915747189317f7496ecb2bcdc22e83b5" category="paragraph">為了進行測試、此驗證所使用的內部部署實驗室環境是透過站台對站台VPN連線至AWS VPC、因此可透過外部傳輸閘道、在內部部署連線至AWS和VMware Cloud SDDC。HCx移轉與網路延伸流量會透過網際網路在內部部署與VMware雲端目的地SDDC之間傳輸。此架構可修改為使用Direct Connect私有虛擬介面。</block>
+  <block id="20c789c477f416c40ed37a0a96f352d5" category="paragraph">下圖說明高層架構。</block>
+  <block id="9f4db1da9d84fe1111fd9ae7c377f786" category="paragraph"><block ref="9f4db1da9d84fe1111fd9ae7c377f786" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5189f076565998395f00538902b201d3" category="example-title">步驟1：使用附加元件選項透過VMC SDDC啟動HCX</block>
+  <block id="84d84827fbe9c4b33c9c3b806b314d3f" category="inline-link">vmc.vmware.com</block>
+  <block id="db44791d0479a0d2c9f5549eac8850ad" category="list-text">登入VMC主控台：<block ref="98f8f917cb7f10ee415fb6ce242d9349" category="inline-link-rx"></block> 並存取庫存。</block>
+  <block id="049aac4163d4ee979d2ebd21434216a2" category="list-text">若要選取適當的SDDC並存取附加元件、請按一下「View Details on SDDC（在SDDC上檢視詳細資料）」、然後選取「Add Ons（新增附加元件）」索引標籤。</block>
+  <block id="933c74bf858432dc81f521597cffbfbb" category="list-text">按一下「啟用VMware HCX」。</block>
+  <block id="7335132a517aad5765c48773404c2687" category="admonition">完成此步驟最多需要25分鐘。</block>
+  <block id="be7b0f3d5e22843c4a2107342b36330b" category="paragraph"><block ref="be7b0f3d5e22843c4a2107342b36330b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fcf3d539a908f48f7d82acf7470675f7" category="list-text">部署完成後、確認vCenter Console中有可用的HCX Manager及其相關外掛程式、以驗證部署。</block>
+  <block id="8c0cff0c106bc3f5a4dd79c01c3de7a9" category="list-text">建立適當的管理閘道防火牆、以開啟存取HCX Cloud Manager所需的連接埠。HCX Cloud Manager現在已可開始執行HCX作業。</block>
+  <block id="6eac4c95d8f88bfb601f7b87770513ab" category="paragraph">若要讓內部部署連接器與VMC中的HCX Manager通訊、請確定內部部署環境中已開啟適當的防火牆連接埠。</block>
+  <block id="185b9319145cb225cdb1256b494e0595" category="list-text">從VMC主控台瀏覽至HCX儀表板、移至「Administration」（管理）、然後選取「Systems Update」（系統更新）索引標籤。按一下「Request a Download Link for the HCX Connector OVA image（申請HCX Connector OVA映像的下載連結</block>
+  <block id="039b399de18508b9f1029358886fea99" category="list-text">下載HCX Connector之後、在內部部署的vCenter Server中部署OVA。以滑鼠右鍵按一下vSphere叢集、然後選取部署OVF範本選項。</block>
+  <block id="bd18e96a29eec74967666d876a146937" category="paragraph"><block ref="bd18e96a29eec74967666d876a146937" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e8df6b0257b180b48db7d56e06e4da54" category="list-text">在「部署OVF範本」精靈中輸入必要資訊、按一下「下一步」、然後按一下「完成」以部署VMware HCX Connector OVA。</block>
+  <block id="8925cbdefd949dca662858e368d4ccfb" category="list-text">手動開啟虛擬應用裝置電源。如需逐步指示、請前往<block ref="856d054195f2a40a0c4a2869d5895904" category="inline-link-rx"></block>。</block>
+  <block id="fab9859fcf95f41f7bb654e91e6876b4" category="paragraph">在內部部署VMware HCX Connector OVA並啟動應用裝置之後、請完成下列步驟以啟動HCX Connector。從VMC的VMware HCX主控台產生授權金鑰、並在VMware HCX Connector安裝期間輸入授權。</block>
+  <block id="fddda62632eb91015346909c9da3cf70" category="list-text">從VMware Cloud Console移至「Inventory（資源清冊）」、選取SDDC、然後按一下「View Details（檢視詳細資料）」。在「Add Ons（新增選項）」索引標籤的VMware HCX動態磚中、按一下「Open HCX（開啟HCX）」。</block>
+  <block id="51e51578490c90a69c673d41361b0070" category="list-text">在「啟用金鑰」索引標籤中、按一下「建立啟動金鑰」。選取「System Type（系統類型）」作為HCX Connector、然後按一下「Confirm（確認）」以產生金鑰。複製啟動金鑰。</block>
+  <block id="e30847f53a6e375f1da81f871c44e963" category="paragraph"><block ref="e30847f53a6e375f1da81f871c44e963" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c410deb9d7b04917aff523f97f944894" category="admonition">部署在內部部署的每個HCX Connector都需要個別的金鑰。</block>
+  <block id="1111fa8f5187058abdce3daca03b7e32" category="inline-link"><block ref="1111fa8f5187058abdce3daca03b7e32" category="inline-link-rx"></block></block>
+  <block id="d9432955aa7705a1f97c9e94c730fdc9" category="list-text">登入內部部署的VMware HCX Connector、網址為<block ref="ece20a9f7dc6720cdeb30c7e7733cd22" category="inline-link-rx"></block> 使用系統管理員認證。</block>
+  <block id="f5f8371708aa6ae3ddb84d1f4d9b5d17" category="list-text">在「授權」區段中、輸入從步驟2複製的啟動金鑰、然後按一下「啟動」。</block>
+  <block id="404a7c7a7d73b870628663e76e974d09" category="admonition">內部部署的HCX Connector必須能存取網際網路、才能成功完成啟動。</block>
+  <block id="564ed09bba79e1d4262e37fc94987fbe" category="list-text">在「資料中心位置」下、提供在內部部署環境中安裝VMware HCX Manager所需的位置。按一下「繼續」。</block>
+  <block id="61ce05ace76ff1424841e5e551873a97" category="list-text">在「System Name（系統名稱）」下、更新名稱、然後按「Continue（繼續）」。</block>
+  <block id="4bc852451f43c4b3df306f35e67e4178" category="list-text">選取「Yes（是）」、然後繼續。</block>
+  <block id="7eefbebbdefe472b13ce5d0bce410737" category="list-text">在「Connect your vCenter（連線vCenter）」下、提供vCenter Server的IP位址或完整網域名稱（FQDN）和認證、然後按一下「Continue（繼續）」。</block>
+  <block id="47a7ea3464363cf9baa528c91d3aa4dc" category="admonition">使用FQDN以避免稍後發生通訊問題。</block>
+  <block id="eb7e70dd1954a71454c2e6a0cb9ed5f8" category="list-text">在「Configure SSO/PSC（設定SSO/PSC）」下、提供Platform Services Controller的FQDN或IP位址、然後按一下「Continue（繼續）」。</block>
+  <block id="1f2f2ed2ec24b1f1ab37799a6f27fa40" category="admonition">輸入vCenter Server的IP位址或FQDN。</block>
+  <block id="24b993e60859697b0875bc838cfe12aa" category="list-text">確認輸入的資訊正確無誤、然後按一下「重新啟動」。</block>
+  <block id="b0fca3e3f2889bbec562577014fafd9a" category="list-text">完成後、vCenter Server會顯示為綠色。vCenter Server和SSO都必須具有正確的組態參數、此參數應與上一頁相同。</block>
+  <block id="8463d9f0fc95490bc0c65d3ba9063dea" category="admonition">此程序大約需要10–20分鐘、而外掛程式則要新增至vCenter Server。</block>
+  <block id="a56ac8f65b53b91dba588aafc428f8b2" category="paragraph"><block ref="a56ac8f65b53b91dba588aafc428f8b2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="65d6e263d26134bb05aeec17adc73a06" category="example-title">步驟4：將內部部署的VMware HCX Connector與VMC HCX Cloud Manager配對</block>
+  <block id="f68b6001164eba9a9e765e551c59a3c1" category="list-text">若要在內部部署vCenter Server和VMC SDDC之間建立站台配對、請登入內部部署vCenter Server、然後存取HCX vSphere Web Client外掛程式。</block>
+  <block id="10f9af0781b3c0a9d621bac0b8719365" category="paragraph"><block ref="10f9af0781b3c0a9d621bac0b8719365" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1af79e59a8d820cc101f77efa75cb01d" category="list-text">按一下「基礎架構」下的「新增站台配對」。若要驗證遠端站台、請輸入VMC HCX Cloud Manager URL或IP位址、以及CloudAdmin角色的認證資料。</block>
+  <block id="1b49b2932a225dd49cc6f5298ad6cc8f" category="paragraph"><block ref="1b49b2932a225dd49cc6f5298ad6cc8f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2a7c72a1b7e925abd687d2c7a4ac5a2f" category="admonition">HCx資訊可從SDDC設定頁面擷取。</block>
+  <block id="1272226ee970b8e49c49d25af6f4b6b8" category="paragraph"><block ref="1272226ee970b8e49c49d25af6f4b6b8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="838d70471e28171464ffd4fed8d9df3a" category="paragraph"><block ref="838d70471e28171464ffd4fed8d9df3a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dbcfb2058c277401b0872487463fe313" category="list-text">若要啟動站台配對、請按一下「Connect（連線）」。</block>
+  <block id="2147cde45e80d7c6a5db679f7180eab4" category="admonition">VMware HCX Connector必須能夠透過連接埠443與HCX Cloud Manager IP通訊。</block>
+  <block id="618a4f677a45dc2b53f7c464b5598c28" category="paragraph">VMware HCX互連（HCX-IX）應用裝置可透過網際網路提供安全通道功能、並可透過私有連線至目標站台、以啟用複寫和VMotion型功能。互連提供加密、流量工程和SD-WAN。若要建立HCI IX-IX互連設備、請完成下列步驟：</block>
+  <block id="f32fcca3303979d42a8f0be055fc36dd" category="list-text">在「基礎架構」下、選取「互連」&gt;「多站台服務網狀架構」&gt;「運算設定檔」&gt;「建立運算設定檔」。</block>
+  <block id="46c0e6a1b2dbd6331bcea8e4726de843" category="admonition">運算設定檔包含部署互連虛擬應用裝置所需的運算、儲存和網路部署參數。他們也會指定HCX服務可以存取VMware資料中心的哪個部分。</block>
+  <block id="46a447d35c4917802c9d612dd8ede3b5" category="inline-link">建立運算設定檔</block>
+  <block id="9fc475734bed02e370e17ea150a74fd3" category="paragraph">如需詳細指示、請參閱<block ref="3e2a71be9bcd47a34446e38d1b8f4987" category="inline-link-rx"></block>。</block>
+  <block id="648388c6923f0b4fc45138b46fb56158" category="paragraph"><block ref="648388c6923f0b4fc45138b46fb56158" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ad3c8534d57516f63a1f263c7e4a4c7a" category="list-text">建立運算設定檔之後、選取「Multi-Site Service Mesh」（多站台服務網格）&gt;「Network Profiles」（網路設定檔）&gt;「Create Network Profile」（建立網路設定檔）、即可建立網路設定檔。</block>
+  <block id="52d18a4f9043fce9a1e9d57e92fc77a4" category="list-text">網路設定檔會定義一系列IP位址和網路、以供HCX用於其虛擬應用裝置。</block>
+  <block id="2565e95c468130be3fbdbb45da6cadeb" category="admonition">這需要兩個以上的IP位址。這些IP位址將從管理網路指派給虛擬應用裝置。</block>
+  <block id="f62f78e1c7b4b764032cbdad0c61a6d0" category="paragraph"><block ref="f62f78e1c7b4b764032cbdad0c61a6d0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d9fad750cff1511b959d686e3a0829f0" category="inline-link">建立網路設定檔</block>
+  <block id="51cbf458571723275b781ce4b3fec323" category="paragraph">如需詳細指示、請參閱<block ref="fb1b37f7979e3209d40171b59e47f33b" category="inline-link-rx"></block>。</block>
+  <block id="784e6023ad40986353535651f974e468" category="admonition">如果您透過網際網路連線至SD-WAN、則必須在「網路與安全性」區段下保留公用IP。</block>
+  <block id="c1b5864550e5f67407a0efd2cbe55b67" category="list-text">若要建立服務網格、請選取Interconnect選項中的Service Mesh（服務網格）索引標籤、然後選取內部部署和VMC SDDC站台。</block>
+  <block id="295ecbce57290e03752d2e06d4575fff" category="paragraph">服務網格會建立本機和遠端運算和網路設定檔配對。</block>
+  <block id="1e21db3cc04207cfb46fd912cdfef571" category="paragraph"><block ref="1e21db3cc04207cfb46fd912cdfef571" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dba94996b6f6f31ef7ea483dc8f0046c" category="admonition">此程序的一部分涉及部署HCX應用裝置、這些裝置將會自動設定在來源和目標站台上、以建立安全的傳輸架構。</block>
+  <block id="b7e93bb3e8f576437ca086d1702a7994" category="list-text">選取來源和遠端運算設定檔、然後按一下「Continue（繼續）」。</block>
+  <block id="ef7ca07b9da6362e4aa341061333a66c" category="paragraph"><block ref="ef7ca07b9da6362e4aa341061333a66c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e42fcfe670e1a9e7a259fb3c9d3dad87" category="list-text">選取要啟動的服務、然後按一下「Continue（繼續）」。</block>
+  <block id="ff89555f65d5e42967fac9abcecb74c8" category="paragraph"><block ref="ff89555f65d5e42967fac9abcecb74c8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f8438ec331921e82a31eaa97deb5f8c0" category="admonition">複寫輔助VMotion移轉、SRM整合及OS輔助移轉需要HCX Enterprise授權。</block>
+  <block id="9a44378d7dd14730acf075e18d7d8c29" category="list-text">建立服務網格的名稱、然後按一下「完成」開始建立程序。完成部署約需30分鐘。設定好服務網格後、就會建立移轉工作負載VM所需的虛擬基礎架構和網路。</block>
+  <block id="725a12cf06f45e850e7588b816663c20" category="paragraph"><block ref="725a12cf06f45e850e7588b816663c20" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d0de3992884fcc0e48531f19cce447e7" category="example-title">步驟6：移轉工作負載</block>
+  <block id="af65fc6bdee93e32363bfe5c2cf8ee3a" category="paragraph">HCx可在兩個或多個不同的環境（例如內部部署環境和VMC SDDC）之間提供雙向移轉服務。應用程式工作負載可使用各種移轉技術、例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（可搭配HCX Enterprise版本使用）、以及HCX OS輔助移轉（可搭配HCX Enterprise版本使用）、移轉至或移轉至HCX啟動的站台。</block>
+  <block id="0afeac0ffbe358cc58864e34fc54c9b2" category="paragraph">若要深入瞭解可用的HCX移轉技術、請參閱<block ref="17989ba7d4a97ba4d6ebb072be2dc216" category="inline-link-rx"></block></block>
+  <block id="97957dd6d4c5d792035241d68a97795e" category="paragraph">HCX-IX應用裝置使用行動代理程式服務來執行VMotion、Cold和Replication輔助VMotion（RAV）移轉。</block>
+  <block id="2234ed56b9cbb2a083fd5fe49a89bce1" category="admonition">HCX-IX應用裝置會將行動代理程式服務新增為vCenter Server中的主機物件。此物件上顯示的處理器、記憶體、儲存設備和網路資源、並不代表裝載IX應用裝置的實體Hypervisor實際使用量。</block>
+  <block id="c3735752087d3a11c85329680057de55" category="paragraph"><block ref="c3735752087d3a11c85329680057de55" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5c14d0d24d8dccac2ac3ca3ddacf8ba8" category="example-title">VMware HCX vMotion</block>
+  <block id="8f2dbd716f60bbee8012a3f0e361fc65" category="paragraph">本節說明HCX VMotion機制。此移轉技術使用VMware VMotion傳輸協定將VM移轉至VMC SDDC。VMotion移轉選項可用於一次移轉單一VM的VM狀態。此移轉方法不會中斷服務。</block>
+  <block id="0c1394a246edcdcb98e3c5fe3cedabbb" category="admonition">網路擴充功能應已就緒（適用於連接VM的連接埠群組）、以便在不需要變更IP位址的情況下移轉VM。</block>
+  <block id="896f227a656a8b0f4a64aa3e12b2506e" category="list-text">從內部部署vSphere用戶端移至「Inventory」、在要移轉的VM上按一下滑鼠右鍵、然後選取「HCX Actions」（HCX動作）&gt;「移轉至HCX目標站台」。</block>
+  <block id="d683c9596c42727fea13c654874f39be" category="paragraph"><block ref="d683c9596c42727fea13c654874f39be" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d4479366aca979ecb9be874cab7bc543" category="list-text">在移轉虛擬機器精靈中、選取遠端站台連線（目標VMC SDDC）。</block>
+  <block id="09ca4fea7b9ff384e38622ce7cc20a9c" category="paragraph"><block ref="09ca4fea7b9ff384e38622ce7cc20a9c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="67358e55b470861e1e14c63c30156dd4" category="list-text">新增群組名稱、並在「Transfer and Placement（傳輸和放置）」下更新必填欄位（叢集、儲存設備和目的地網路）、然後按一下「Validate（驗證）」。</block>
+  <block id="1ce9ff194ee5bdbf4df7b739baf9b3d2" category="paragraph"><block ref="1ce9ff194ee5bdbf4df7b739baf9b3d2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7a961199f9300128fcaa431e9245ac13" category="list-text">驗證檢查完成後、按一下「Go（執行）」以啟動移轉。</block>
+  <block id="f3d5cf5ffd51c9062748a6a292f749f7" category="inline-link">瞭解VMware HCX VMotion和冷移轉</block>
+  <block id="136739244c82e4bdcdb6a1b1c3712d3b" category="admonition">VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及其MAC位址。如需有關HCX VMotion需求與限制的詳細資訊、請參閱<block ref="011541f11351d17074bdfa0823ec743b" category="inline-link-rx"></block>。</block>
+  <block id="f2ca81fdc3e7326c354dc180a98c7ef2" category="list-text">您可以從HCX &gt;移轉儀表板監控VMotion的進度和完成。</block>
+  <block id="b41362505f00e258d5e04636a0edaf7c" category="paragraph"><block ref="b41362505f00e258d5e04636a0edaf7c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1e4900648931ee918be9251a268e792c" category="example-title">VMware複寫輔助vMotion</block>
+  <block id="3bb995dd361711179fda278eb498a385" category="paragraph">您可能從VMware文件中看到、VMware HCX Replication輔助VMotion（RAV）結合了大量移轉與VMotion的優點。大量移轉使用vSphere Replication平行移轉多個VM、而VM會在切換期間重新開機。HCx vMotion可在不中斷的情況下進行移轉、但會在複寫群組中一次連續執行一部VM。Rav會平行複寫VM、並保持同步、直到切換期間為止。在切換過程中、它一次移轉一個VM、而不會停機。</block>
+  <block id="93e2f4753a86232a37f8bd57209f626d" category="paragraph">下列快照顯示移轉設定檔為「複寫輔助vMotion」。</block>
+  <block id="7c12abc7edfaeb45279b8ee126759269" category="paragraph"><block ref="7c12abc7edfaeb45279b8ee126759269" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a740a2796b321475f6bd003fafa67e5b" category="paragraph">與少數VM的vMotion相比、複寫的持續時間可能會更長。使用RAV時、只能同步差異並納入記憶體內容。以下是移轉狀態的快照、顯示移轉的開始時間與每個VM的結束時間如何相同。</block>
+  <block id="27e8bd561ebb9d9ee4d23860c10a3883" category="paragraph"><block ref="27e8bd561ebb9d9ee4d23860c10a3883" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e61c2a41cf1924a0a1e3d5217e16a084" category="paragraph">如需HCX移轉選項的其他資訊、以及如何使用HCX將工作負載從內部部署移轉至AWS上的VMware Cloud、請參閱<block ref="15dbc17e63bae3f57dd4aa8612bacb9d" category="inline-link-rx"></block>。</block>
+  <block id="f261622b527cc27756d5ba83c22662f8" category="admonition">VMware HCX VMotion需要100Mbps或更高的處理量能力。</block>
+  <block id="60bd242580d7de82c0a2e6eee14d2f50" category="admonition">目標VMC FSX for ONTAP VMware資料存放區必須有足夠的空間來容納移轉作業。</block>
+  <block id="17e30673228b69814c7132c287c12ecb" category="paragraph">無論您是針對全雲端或混合雲、或是內部部署中任何類型/廠商儲存設備上的資料、Amazon FSx for NetApp ONTAP 支援HCX都能提供絕佳的選項來部署和移轉工作負載、同時將資料需求無縫接軌至應用程式層、進而降低TCO。無論使用案例為何、請選擇VMC搭配使用FSXfor ONTAP VMware資料存放區、以快速實現雲端效益、一致的基礎架構、以及跨內部部署和多個雲端的作業、工作負載的雙向可攜性、以及企業級容量和效能。使用VMware vSphere複寫、VMware vMotion或甚至是NFC-複本來連接儲存設備及移轉VM的程序與程序、都是相當熟悉的程序。</block>
+  <block id="273435500e4b837aea488094a233f579" category="list-text">現在您可以將Amazon FSx ONTAP 支援資料存放區與VMC SDDC搭配使用。</block>
+  <block id="cbbc4fc2bc12f5fd25f84b44f93fd5f3" category="list-text">您可以輕鬆地將資料從任何內部部署資料中心移轉至使用FSXfor ONTAP VMware資料存放區執行的VMC</block>
+  <block id="9004e09f6485129980daf3188affad35" category="list-text">您可以輕鬆擴充和縮減FSX- ONTAP 支援資料存放區、以滿足移轉活動期間的容量和效能需求。</block>
+  <block id="34e948a9d10cb991d2da187e3e54caef" category="list-text">VMware Cloud文件</block>
+  <block id="56f2ce0be9d32c6c0e3c983d011be4d7" category="inline-link"><block ref="56f2ce0be9d32c6c0e3c983d011be4d7" category="inline-link-rx"></block></block>
+  <block id="1427dee608f6801474787ea58df57a2c" category="paragraph"><block ref="1427dee608f6801474787ea58df57a2c" category="inline-link-rx"></block></block>
+  <block id="cc788b7e72b2a734dd0985bd1e0e9fe3" category="list-text">Amazon FSX for NetApp ONTAP 的支援文件</block>
+  <block id="9c7174d13497f84bdd0b3e21af13794d" category="inline-link"><block ref="9c7174d13497f84bdd0b3e21af13794d" category="inline-link-rx"></block></block>
+  <block id="05c89cf5b898c5c58986dac08f22a2a1" category="paragraph"><block ref="05c89cf5b898c5c58986dac08f22a2a1" category="inline-link-rx"></block></block>
+  <block id="33efddb311b6c85bba97e5349040815f" category="sidebar">工作負載移轉解決方案</block>
+  <block id="e946411f5b47d53428345ae0e0e5f5fd" category="sidebar">移轉工作負載</block>
+  <block id="22945ba986f07dffbdafb6711d87ec03" category="sidebar">使用VMware HCX將工作負載移轉至Azure NetApp Files VMware資料存放區</block>
 </blocks>
