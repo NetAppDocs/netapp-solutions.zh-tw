@@ -1,0 +1,62 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-sc-solution.html 
+keywords: solution architecture, confluent platform, linux, Fujitsu primergy, intel xenon 
+summary: 本節涵蓋在採用NetApp ONTAP 的ConFluent Platform部署中、用於階層式儲存設備的效能驗證所使用的硬體與軟體。下表涵蓋解決方案架構和基礎元件。 
+---
+= 解決方案
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-sc-overview.html["上一步：總覽。"]
+
+Confluent和NetApp AFF 的Arestora900儲存控制器採用ONTAP 了以資訊串流為設計基礎的分散式系統。兩者皆可橫向擴充、容錯、並可在負載下提供優異效能。透過資料減量技術、將資料佔用空間降至最低、以降低儲存成本的方式、在分散式資料串流和串流處理上相輔相成。藉由AFF 使用VMware的支援、您可以在不影響運算和資料儲存資源的情況下、將資料儲存控制器的效能發揮到極致。如此可簡化系統管理、並可獨立擴充資源。
+
+image:kafka-sc-image3.png["說明解決方案總覽的影像。"]
+
+
+
+== 解決方案架構詳細資料
+
+本節涵蓋在採用NetApp ONTAP 的ConFluent Platform部署中、用於階層式儲存設備的效能驗證所使用的硬體與軟體。下表涵蓋解決方案架構和基礎元件。
+
+|===
+| 平台元件 | 環境組態 
+
+
+| ConFluent Platform 6.2版  a| 
+* 3個zookeepers
+* 8個代理伺服器
+* 5部工具伺服器
+* 1 x Grafana
+* 1個控制中心
+
+
+
+
+| 所有節點上的作業系統 | Linux（Ubuntu 18.04） 
+
+
+| 適用於ONTAP 暖桶的NetApp解決方案  a| 
+* 1 AFF 組供應高可用度（HA）的支援
+* 4 x 24 x 800 SSD
+* S3傳輸協定
+* 100GbE
+
+
+
+
+| 15部Fujitsu PRIMERGY RX2540伺服器  a| 
+* 2個CPU；總共16個實體核心
+* Intel Xeon
+* 256GB實體記憶體
+* 100GbE雙埠
+
+
+|===
+link:kafka-sc-technology-overview.html["下一步：技術總覽。"]

@@ -1,0 +1,158 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-sc-technology-overview.html 
+keywords: ONTAP, storage controller, primary use cases, Native s3 applications, fabricpool endpoints, System Manager, event streaming, enterprise 
+summary: 本頁說明本解決方案所使用的技術。 
+---
+= 技術總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-sc-solution.html["上一篇：解決方案。"]
+
+本節說明本解決方案所使用的技術。
+
+
+
+== NetApp ONTAP 產品儲存控制器
+
+NetApp ONTAP 產品是高效能的企業級儲存作業系統。
+
+NetApp ONTAP 支援Amazon Simple Storage Service（S3）API。支援Amazon Web Services（AWS）S3 API動作的子集、並可在雲端供應商（AWS、Azure和GCP）和內部部署的ONTAP型系統中、將資料呈現為物件。ONTAP
+
+NetApp StorageGRID 軟件是NetApp物件儲存解決方案的旗艦產品。支援功能：提供邊緣上的擷取和預先處理點、擴充以NetApp為基礎的資料架構來處理物件資料、並增加NetApp產品組合的價值、藉此輔助功能。ONTAP StorageGRID
+
+S3儲存區的存取權是透過授權使用者和用戶端應用程式提供。下圖顯示存取S3儲存區的應用程式。
+
+image:kafka-sc-image4.png["此圖顯示存取S3儲存區的應用程式。"]
+
+
+
+== 主要使用案例
+
+支援S3 API的主要目的是提供ONTAP 物件存取功能。支援檔案（NFS和SMB）、區塊（FC和iSCSI）和物件（S3）的統一化解決方案。ONTAP
+
+
+
+== 原生S3應用程式
+
+越來越多的應用程式能夠運用ONTAP 支援功能、使用S3進行物件存取。雖然非常適合高容量歸檔工作負載、但對於原生S3應用程式的高效能需求卻迅速成長、包括：
+
+* 分析
+* 人工智慧
+* 邊緣對核心擷取
+* 機器學習
+
+
+客戶現在可以使用熟悉的管理工具ONTAP （例如、《不穩定系統管理程式ONTAP 》）、快速配置高效能物件儲存設備、以利在VMware進行開發與營運、並ONTAP 充分發揮不穩定的儲存效率與安全性。
+
+
+
+== 無縫端點FabricPool
+
+從功能上說起ONTAP 、FabricPool 從功能上說起、支援將資料分層至ONTAP 功能區、以利ONTAP到ONTAP的分層。對於想要重新規劃FAS 現有的物件儲存端點的物件儲存基礎架構用途的客戶來說、這是絕佳的選擇。
+
+支援以兩種方式分層至物件：FabricPool ONTAP
+
+* *本機叢集分層。*非使用中資料會使用叢集生命體階層化至位於本機叢集上的儲存區。
+* *遠端叢集分層。*非使用中資料會以類似傳統FabricPool 的速度階層、使用FabricPool 位於遠端叢集上的IC LIF、以及ONTAP 使用位於物件儲存區上的資料LIF、分層至遠端叢集上的儲存區。
+
+
+如果您想要在現有叢集上使用S3功能、而不需要額外的硬體和管理、那麼支援該功能就很合適。ONTAP對於超過300TB的部署、NetApp StorageGRID 產品技術仍是NetApp物件儲存解決方案的旗艦產品。使用不含功能的不需要取得使用許可證、也不需要使用功能的不含功能的功能。FabricPool ONTAP StorageGRID
+
+
+
+=== NetApp ONTAP 解決方案：適用於Conflent階層式儲存設備
+
+每個資料中心都需要維持關鍵業務應用程式的執行、以及重要的資料可用且安全無虞。全新的NetApp AFF Wis-A900系統採用ONTAP 了一套功能強大的功能、採用了一套高恢復能力的設計。我們全新的閃電般快速NVMe儲存系統可避免關鍵任務作業中斷、將效能調校降至最低、並保護資料免受勒索軟體攻擊。
+
+從初始部署到擴充Conflent叢集、您的環境都需要迅速因應不中斷業務關鍵應用程式的變更。利用企業資料管理、服務品質（QoS）和效能、您可以規劃並因應環境需求。ONTAP
+
+結合使用NetApp ONTAP 的功能性和Conflent階層式儲存設備、可將ONTAP 效能提升為橫向擴充儲存目標、並可獨立擴充ConFluent的運算與儲存資源、進而簡化Apache Kafka叢集的管理。
+
+支援豐富擴充儲存功能的支援基礎上、打造出一套功能完善的SS3伺服器。ONTAP ONTAP擴充ONTAP 您的叢集功能可透過擴充S3儲存區、將新增的節點延伸至ONTAP 該叢集、以無縫方式執行。
+
+
+
+=== 利用NetApp System Manager輕鬆管理ONTAP
+
+支援瀏覽器的圖形介面、可讓您在單一窗口中、設定、管理及監控分散於全球各地的整個地區之靜態儲存控制器。ONTAP ONTAP
+
+image:kafka-sc-image5.png["此圖顯示ONTAP 了「系統管理程式」工作區。"]
+
+您可以使用ONTAP System Manager和ONTAP SURE CLI來設定及管理SS3。當您使用System Manager啟用S3並建立貯體時、ONTAP 支援以最佳實務方式進行簡化組態。如果您從CLI設定S3伺服器和儲存區、仍可視需要使用System Manager來管理、反之亦然。
+
+當您使用System Manager建立S3儲存區時ONTAP 、即可設定系統可用的最高預設效能服務層級。例如AFF 、在一個不完善的系統上、預設設定為「極致」。效能服務層級是預先定義的調適性QoS原則群組。您可以指定自訂QoS原則群組或無原則群組、而非其中一個預設服務層級。
+
+預先定義的調適性QoS原則群組包括下列項目：
+
+* *極致*適用於需要最低延遲和最高效能的應用程式。
+* *效能*。*適用於效能需求與延遲不佳的應用程式。
+* *值。*用於處理量與容量比延遲更重要的應用程式。
+* *自訂*指定自訂QoS原則或無QoS原則。
+
+
+如果您選擇*用於分層*、則不會選擇效能服務層級、系統會嘗試選擇低成本媒體、並針對階層式資料提供最佳效能。
+
+嘗試將此儲存庫配置到具有最適當磁碟的本機層、以符合所選的服務層級。ONTAP不過、如果您需要指定要包含在儲存區中的磁碟、請考慮從CLI設定S3物件儲存、方法是指定本機層（Aggregate）。如果您從CLI設定S3伺服器、仍可視需要使用System Manager來管理。
+
+如果您想要指定要用於儲存區的集合體、只能使用CLI來執行此作業。
+
+
+
+== Confluent
+
+Confluent Platform是一款全方位資料串流平台、可讓您輕鬆存取、儲存及管理資料、做為持續的即時串流。Conflent是由Apache Kafka原創原創者所打造、以企業級功能擴展Kafka的優勢、同時免除Kafka管理或監控的負擔。如今、超過80%的財星雜誌100大企業都採用資料串流技術、而且大部分企業都使用Conflent。
+
+
+
+=== 為何選擇Conflent？
+
+藉由將歷史與即時資料整合至單一的集中式事實來源、Conflent可讓您輕鬆建置全新類別的現代化事件導向應用程式、取得通用資料管線、並以完整的擴充性、效能與可靠性、釋放強大的新使用案例。
+
+
+
+=== 什麼是ConnFluent的用途？
+
+Conflent Platform可讓您專注於從資料中獲取商業價值、而非擔心基礎機制、例如資料如何在不同的系統之間傳輸或整合。具體而言、Conflent Platform可簡化資料來源與Kafka之間的連線、建置串流應用程式、以及保護、監控及管理Kafka基礎架構。現在、Conflent Platform適用於各種產業的使用案例、從金融服務、全通路零售和自主汽車、到詐欺偵測、微服務和物聯網等。
+
+下圖顯示ConnFluent Platform的元件。
+
+image:kafka-sc-image6.png["此圖顯示ConFluent Platform的元件。"]
+
+
+
+=== Conflent事件串流技術總覽
+
+在Conflent Platform的核心是 https://kafka.apache.org/["卡夫卡"^]是最受歡迎的開放原始碼分散式串流平台。卡夫卡的主要功能包括：
+
+* 發佈及訂閱記錄串流。
+* 以容錯的方式儲存記錄串流。
+* 處理記錄串流。
+
+
+隨裝即用的Conflent Platform也包括架構登錄、REST Proxy、總共100多個預先建置的Kafka連接器和ksqlDB。
+
+
+
+=== Conflent平台企業功能總覽
+
+* * Confluent Control Cent.*一種以UI為基礎的系統、用於管理及監控Kafka。它可讓您輕鬆管理Kafka Connect、以及建立、編輯及管理與其他系統的連線。
+* * Kubernetes的Conflent。* Kubernetes的Connent是Kubernetes營運者。Kubernetes營運者提供特定平台應用程式的獨特功能和需求、藉此擴充Kubernetes的協調功能。對於Conflent Platform、這包括大幅簡化Kubernetes上的Kafka部署程序、以及自動化典型的基礎架構生命週期工作。
+* * Kafka Connect Connectors。* Connectors使用Kafka Connect API將Kafka連線至其他系統、例如資料庫、金鑰價值儲存區、搜尋索引和檔案系統。Conflent Hub提供可下載的連接器、適用於最受歡迎的資料來源和接收器、包括這些連接器的完整測試和支援版本、以及Conflent Platform。如需詳細資料、請參閱 https://docs.confluent.io/home/connect/userguide.html["請按這裡"^]。
+* *自我平衡叢集。*提供自動負載平衡、故障偵測及自我修復功能。它也可視需要支援新增或取消委任代理人、無需手動調整。
+* * Confluent叢集連結。*直接將叢集連線在一起、並透過連結橋接器將主題從一個叢集鏡射到另一個叢集。叢集連結可簡化多資料中心、多叢集及混合雲部署的設定。
+* * Confluent自動資料平衡器。*監控叢集的代理程式數量、分割區大小、分割區數目、以及叢集內的領導者數量。它可讓您將資料移轉至整個叢集、以建立平均工作負載、同時節流重新平衡流量、將對正式作業工作負載的影響降至最低、同時重新平衡。
+* * Confluent replicator。*讓您在多個資料中心中維護多個Kafka叢集變得比以往更輕鬆。
+* *分層儲存。*提供使用您最喜愛的雲端供應商儲存大量Kafka資料的選項、藉此降低營運負擔和成本。透過階層式儲存設備、您只能在需要更多運算資源時、將資料保存在具成本效益的物件儲存設備上、並擴充代理商。
+* * Connent Jms用戶端。* Conflent Platform包含適用於Kafka的與Jms相容的用戶端。此Kafka用戶端實作了JMS 1.1標準API、使用Kafka Brokers做為後端。如果您使用的是使用Jms的舊應用程式、而且想要以Kafka取代現有的Jms訊息代理程式、這項功能就很實用。
+* * Conflent MQtT Proxy。*提供一種從MQtT裝置和閘道直接發佈資料至Kafka的方法、而不需要中間的MQtT代理程式。
+* * Confluent安全外掛程式。* Confluent安全外掛程式可用來新增各種Confluent Platform工具和產品的安全功能。目前有一個外掛程式可供Conflent REST Proxy使用、可協助驗證傳入要求、並將驗證的主體傳播至向Kafka的要求。這可讓Conflent REST Proxy用戶端利用Kafka代理程式的多租戶安全功能。
+
+
+link:kafka-sc-confluent-performance-validation.html["下一步：流暢效能驗證。"]

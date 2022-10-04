@@ -1,0 +1,101 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-sc-confluent-performance-validation.html 
+keywords: setup, verification results, Object store, correctness test, Tiering functionality, Tier fetch benchmark, Produce-consume, workload generator, Retention 
+summary: 本頁說明在本解決方案的參數範圍內、對ConFluent的效能驗證。 
+---
+= 一致效能驗證
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-sc-technology-overview.html["上一篇：技術總覽。"]
+
+我們已使用Conflent Platform驗證NetApp ONTAP 的階層式儲存設備。NetApp與Conflent團隊共同進行這項驗證、並執行所需的測試案例。
+
+
+
+== 簡易設定
+
+在設定方面、我們使用三個zookeepers、五個代理商、以及五個測試伺服器、搭配256GB RAM和16個CPU。對於NetApp儲存設備、我們使用ONTAP 了一套AFF 用作Are4A900 HA配對的功能。儲存設備與代理商均透過100GbE連線進行連線。
+
+下圖顯示用於階層式儲存驗證的組態網路拓撲。
+
+image:kafka-sc-image7.png["此圖顯示用於階層式儲存驗證的組態網路拓撲。"]
+
+這些工具伺服器可做為應用程式用戶端、用來傳送或接收來自ConFluent節點的事件。
+
+
+
+== 一致的階層式儲存組態
+
+我們使用下列測試參數：
+
+....
+confluent.tier.fetcher.num.threads=80
+confluent.tier.archiver.num.threads=80
+confluent.tier.enable=true
+confluent.tier.feature=true
+confluent.tier.backend=S3
+confluent.tier.s3.bucket=kafkabucket1-1
+confluent.tier.s3.region=us-east-1
+confluent.tier.s3.cred.file.path=/data/kafka/.ssh/credentials
+confluent.tier.s3.aws.endpoint.override=http://wle-mendocino-07-08/
+confluent.tier.s3.force.path.style.access=true
+bootstrap.server=192.168.150.172:9092,192.168.150.120:9092,192.168.150.164:9092,192.168.150.198:9092,192.168.150.109:9092,192.168.150.165:9092,192.168.150.119:9092,192.168.150.133:9092debug=truejmx.port=7203
+num.partitions=80num.records=200000000#object PUT size - 512MB and fetch 100MB - netappsegment.bytes=536870912max.partition.fetch.bytes=1048576000#GET size is max.partition.fetch.bytes/num.partitionslength.key.value=2048trogdor.agent.nodes=node0,node1,node2,node3,node4trogdor.coordinator.hostname.port=192.168.150.155:8889num.producers=20num.head.consumers=20
+num.tail.consumers=1test.binary.task.max.heap.size=32Gtest.binary.task.timeout.sec=3600producer.timeout.sec=3600consumer.timeout.sec=3600
+....
+為了驗ONTAP 證、我們使用了搭配HTTP傳輸協定的功能、但HTTPS也能正常運作。存取金鑰和秘密金鑰會儲存在「confine.Tier .s3.cred.file.path」參數中提供的檔案名稱中。
+
+
+
+== NetApp儲存控制器ONTAP –功能
+
+我們在ONTAP 不驗證的情況下、設定了單一HA配對組態。
+
+image:kafka-sc-image8.png["此圖說明環境如何設定為單一HA配對進行驗證。"]
+
+
+
+== 驗證結果
+
+我們完成下列五個驗證測試案例。前兩項是功能測試、其餘三項是效能測試。
+
+
+
+=== 物件存放區正確性測試
+
+此測試會在使用API呼叫的階層式儲存區所使用的物件存放區上執行基本作業、例如Get、PUT和DELETE。
+
+
+
+=== 分層功能正確性測試
+
+此測試會檢查物件儲存設備的端點對端點功能。它會建立主題、產生新建立主題的事件串流、等待代理程式將區段歸檔至物件儲存設備、使用事件串流、並驗證所使用的串流是否符合所產生的串流。我們已執行這項測試、且不需要進行物件存放區故障注入。我們在ONTAP 其中一個節點停止服務管理程式服務、並驗證端點對端點功能是否可與物件儲存搭配運作、藉此模擬節點故障。
+
+
+
+=== 階層擷取基準測試
+
+此測試可驗證階層式物件儲存設備的讀取效能、並在基準測試產生的區段負載過重時、檢查範圍擷取讀取要求。在這個基準測試中、Connent開發了自訂用戶端、以滿足層級擷取要求。
+
+
+
+=== 產生耗用的工作負載產生器
+
+此測試會透過區段歸檔、間接在物件存放區上產生寫入工作負載。讀取工作負載（區段讀取）是在使用者群組擷取區段時、從物件儲存區產生的。此工作負載是由TOCC指令碼產生。此測試會檢查平行執行緒中物件儲存設備的讀取和寫入效能。我們在進行分層功能正確性測試時、測試了是否有物件存放區故障注入。
+
+
+
+=== 保留工作負載產生器
+
+這項測試檢查了在繁重的主題保留工作負載下、物件儲存設備的刪除效能。保留工作負載是使用TOCC指令碼產生、該指令碼會產生許多訊息、並與測試主題平行。測試主題是以積極的大小型和時間型保留設定來設定、導致事件串流持續從物件存放區中清除。然後將區段歸檔。這導致代理程式在物件儲存區中進行許多刪除、並收集物件儲存區刪除作業的效能。
+
+如需驗證詳細資料、請參閱 https://docs.confluent.io/platform/current/kafka/tiered-storage.html["Confluent"^] 網站。
+
+link:kafka-sc-performance-tests-with-produce-consume-workload-generator.html["下一步：使用產生耗用的工作負載產生器進行效能測試。"]

@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-sc-performance-tests-with-produce-consume-workload-generator.html 
+keywords: data graphs, kafka throughput, s3 tiering traffic, aff a900, resource utilization 
+summary: '我們使用單AFF 一的NetApp儲存控制器、在生產消費型工作負載期間、使用五或八個代理節點執行階層式儲存測試。根據我們的測試、完成時間和效能結果會隨著代理節點數量而調整、直到AFF 資源使用率達到100 %為止。此功能需要至少一對HA配對才能完成。ONTAP' 
+---
+= 使用生產消耗型工作負載產生器進行效能測試
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-sc-confluent-performance-validation.html["先前版本：ConFluent Performance驗證。"]
+
+我們使用單AFF 一的NetApp儲存控制器、在生產消費型工作負載期間、使用五或八個代理節點執行階層式儲存測試。根據我們的測試、完成時間和效能結果會隨著代理節點數量而調整、直到AFF 資源使用率達到100 %為止。此功能需要至少一對HA配對才能完成。ONTAP
+
+S3擷取作業的效能會根據ConFluent Broker節點的數量線性提升。在單一部署中、支援最多12個HA配對。ONTAP
+
+下圖顯示結合了S3分層流量與五或八個代理節點。我們將AFF 單一HA配對效能發揮到極致。
+
+image:kafka-sc-image9.png["此資料圖表顯示結合了S3分層流量與五或八個代理節點。"]
+
+下圖顯示卡夫卡的處理量約為31.74 GBps。
+
+image:kafka-sc-image10.png["此資料圖表顯示卡夫卡的處理量約為31.74 GBps。"]
+
+我們也在ONTAP 《perfstat》報告中看到類似的處理量。
+
+....
+object_store_server:wle-mendocino-07-08:get_data:34080805907b/ s
+object_store_server:wle-mendocino-07-08:put_data:484236974b/ s
+....
+link:kafka-sc-performance-best-practice-guidelines.html["下一步：效能最佳實務準則。"]

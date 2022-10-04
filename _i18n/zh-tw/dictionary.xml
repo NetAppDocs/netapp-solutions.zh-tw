@@ -15630,4 +15630,156 @@
   <block id="f1afd91555fd6fb162a6343cf91fdc05" category="list-text"><block ref="f1afd91555fd6fb162a6343cf91fdc05" category="inline-link-macro-rx"></block></block>
   <block id="70fc473134508f4cbdb235049ab72bc6" category="inline-link-macro">NetApp與Red Hat OpenShift影片</block>
   <block id="f86f2e66a68f28ad563c787ff0145ba4" category="list-text"><block ref="f86f2e66a68f28ad563c787ff0145ba4" category="inline-link-macro-rx"></block></block>
+  <block id="c9fee86e220b694a9ca26cb5d3943276" category="summary">本文件概述ONTAP 使用階層式儲存基準測試套件、在NetApp VMware上實現流暢平台的效能標竿。</block>
+  <block id="5514e652e396365ccb56f1b2b5371569" category="doc">TR-4941：運用NetApp ONTAP 的不二儲存控制器、實現流暢的操作</block>
+  <block id="1e0e02def11263577d232ee8ce69c727" category="paragraph">Karthikeyan Nagalingam、Joe Scott、NetApp Rankesh Kumar、Conflent</block>
+  <block id="f79dab50e0f9664c4b4d604319a8cbbe" category="paragraph">為了讓Conflent Platform更具擴充性和彈性、IT必須能夠迅速擴充及平衡工作負載。階層式儲存可減少此營運負擔、讓儲存大量資料的工作更容易管理。基本構想是將資料儲存設備與資料處理區分開、如此一來、每個儲存區的擴充都變得更加容易。</block>
+  <block id="44f523cee834fac14fc6966d940c5e92" category="paragraph">NetApp ONTAP 支援業界領先的創新技術、資料管理軟體可在資料存放的任何地方提供Conflent的諸多優勢。</block>
+  <block id="ff221b4a7c17defefb1a32cf9136086d" category="inline-link-macro">下一步：解決方案。</block>
+  <block id="700a1e72f5247529520dfae6b0d991e3" category="paragraph"><block ref="700a1e72f5247529520dfae6b0d991e3" category="inline-link-macro-rx"></block></block>
+  <block id="b7d338a537a3a1d0186080c4c4ba47eb" category="summary">本頁說明本解決方案所使用的技術。</block>
+  <block id="1ac2a5604ed02bc66c4d6241b534d13b" category="inline-link-macro">上一篇：解決方案。</block>
+  <block id="9ec2e79862a05fa25e8c20aa973e0d4b" category="paragraph"><block ref="9ec2e79862a05fa25e8c20aa973e0d4b" category="inline-link-macro-rx"></block></block>
+  <block id="7f1512274139985d5f21a72e13808522" category="section-title">NetApp ONTAP 產品儲存控制器</block>
+  <block id="b691cb82ce5ecb3d94f82b73ef3c2219" category="paragraph">NetApp ONTAP 產品是高效能的企業級儲存作業系統。</block>
+  <block id="f8b80927eb906c831742041c4c139be1" category="paragraph">NetApp ONTAP 支援Amazon Simple Storage Service（S3）API。支援Amazon Web Services（AWS）S3 API動作的子集、並可在雲端供應商（AWS、Azure和GCP）和內部部署的ONTAP型系統中、將資料呈現為物件。ONTAP</block>
+  <block id="9496ba5a97ab04d734dc449f86646ffe" category="paragraph">NetApp StorageGRID 軟件是NetApp物件儲存解決方案的旗艦產品。支援功能：提供邊緣上的擷取和預先處理點、擴充以NetApp為基礎的資料架構來處理物件資料、並增加NetApp產品組合的價值、藉此輔助功能。ONTAP StorageGRID</block>
+  <block id="d6e8f345bdd21d285f35171c2da8cd3a" category="paragraph">S3儲存區的存取權是透過授權使用者和用戶端應用程式提供。下圖顯示存取S3儲存區的應用程式。</block>
+  <block id="a38dfb3b286ff4854c6f5d67ebc15e13" category="inline-image-macro">此圖顯示存取S3儲存區的應用程式。</block>
+  <block id="6090835a60a6e1de5e0c995ca8c5e5f8" category="paragraph"><block ref="6090835a60a6e1de5e0c995ca8c5e5f8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d5088428c842a8d5e45f2e6597af4138" category="section-title">主要使用案例</block>
+  <block id="5c2f4a513e63ae351e5dc0b7412a43c2" category="paragraph">支援S3 API的主要目的是提供ONTAP 物件存取功能。支援檔案（NFS和SMB）、區塊（FC和iSCSI）和物件（S3）的統一化解決方案。ONTAP</block>
+  <block id="1af2e65957e458000d1181bb9eba2517" category="section-title">原生S3應用程式</block>
+  <block id="c0889d6b193afe7d0069e3d99bc5f310" category="paragraph">越來越多的應用程式能夠運用ONTAP 支援功能、使用S3進行物件存取。雖然非常適合高容量歸檔工作負載、但對於原生S3應用程式的高效能需求卻迅速成長、包括：</block>
+  <block id="a768caa988605a2846599cf7e2d0c26a" category="list-text">分析</block>
+  <block id="9d0996a44c6d51cf223e833dceecb286" category="list-text">人工智慧</block>
+  <block id="1669cbc398e4228e7e05d6b2e030cbe7" category="list-text">邊緣對核心擷取</block>
+  <block id="bd1a4166acf45c62946d7592a64ad52d" category="paragraph">客戶現在可以使用熟悉的管理工具ONTAP （例如、《不穩定系統管理程式ONTAP 》）、快速配置高效能物件儲存設備、以利在VMware進行開發與營運、並ONTAP 充分發揮不穩定的儲存效率與安全性。</block>
+  <block id="50472ac5cace1b7798b3f92db5c3049e" category="section-title">無縫端點FabricPool</block>
+  <block id="5050f2389b47df5462550d8e11451e9d" category="paragraph">從功能上說起ONTAP 、FabricPool 從功能上說起、支援將資料分層至ONTAP 功能區、以利ONTAP到ONTAP的分層。對於想要重新規劃FAS 現有的物件儲存端點的物件儲存基礎架構用途的客戶來說、這是絕佳的選擇。</block>
+  <block id="10beb552e5ed01d5c890a260a1d6af16" category="paragraph">支援以兩種方式分層至物件：FabricPool ONTAP</block>
+  <block id="1e53159984d41f5ea848cdf412430a06" category="list-text">*本機叢集分層。*非使用中資料會使用叢集生命體階層化至位於本機叢集上的儲存區。</block>
+  <block id="08be0ca0511f2294cbbaf9d92327996b" category="list-text">*遠端叢集分層。*非使用中資料會以類似傳統FabricPool 的速度階層、使用FabricPool 位於遠端叢集上的IC LIF、以及ONTAP 使用位於物件儲存區上的資料LIF、分層至遠端叢集上的儲存區。</block>
+  <block id="bda29d8d2c5de29e5ec15858a0f72c79" category="paragraph">如果您想要在現有叢集上使用S3功能、而不需要額外的硬體和管理、那麼支援該功能就很合適。ONTAP對於超過300TB的部署、NetApp StorageGRID 產品技術仍是NetApp物件儲存解決方案的旗艦產品。使用不含功能的不需要取得使用許可證、也不需要使用功能的不含功能的功能。FabricPool ONTAP StorageGRID</block>
+  <block id="5a7adb78ef640711a870d82123f00775" category="section-title">NetApp ONTAP 解決方案：適用於Conflent階層式儲存設備</block>
+  <block id="9a5bc88300f877a695de175398887e0e" category="paragraph">每個資料中心都需要維持關鍵業務應用程式的執行、以及重要的資料可用且安全無虞。全新的NetApp AFF Wis-A900系統採用ONTAP 了一套功能強大的功能、採用了一套高恢復能力的設計。我們全新的閃電般快速NVMe儲存系統可避免關鍵任務作業中斷、將效能調校降至最低、並保護資料免受勒索軟體攻擊。</block>
+  <block id="42dfa85904e1fd1b7fb41d4278c38047" category="paragraph">從初始部署到擴充Conflent叢集、您的環境都需要迅速因應不中斷業務關鍵應用程式的變更。利用企業資料管理、服務品質（QoS）和效能、您可以規劃並因應環境需求。ONTAP</block>
+  <block id="36509bd95b243830a012c72c8a2d5844" category="paragraph">結合使用NetApp ONTAP 的功能性和Conflent階層式儲存設備、可將ONTAP 效能提升為橫向擴充儲存目標、並可獨立擴充ConFluent的運算與儲存資源、進而簡化Apache Kafka叢集的管理。</block>
+  <block id="e09818a7d7d98185cdb0309cf3aca8f5" category="paragraph">支援豐富擴充儲存功能的支援基礎上、打造出一套功能完善的SS3伺服器。ONTAP ONTAP擴充ONTAP 您的叢集功能可透過擴充S3儲存區、將新增的節點延伸至ONTAP 該叢集、以無縫方式執行。</block>
+  <block id="1ccfe00aee80492f09968d6b208801d5" category="section-title">利用NetApp System Manager輕鬆管理ONTAP</block>
+  <block id="4fdad8328864e9de2db5338bb25291fc" category="paragraph">支援瀏覽器的圖形介面、可讓您在單一窗口中、設定、管理及監控分散於全球各地的整個地區之靜態儲存控制器。ONTAP ONTAP</block>
+  <block id="c99eb67a4e6cbe9ba119a72c95161fab" category="inline-image-macro">此圖顯示ONTAP 了「系統管理程式」工作區。</block>
+  <block id="45e8e67e3e5407c5dc518dd00eb8249b" category="paragraph"><block ref="45e8e67e3e5407c5dc518dd00eb8249b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="783157c9c38b4e88d7eefffe21cd97d3" category="paragraph">您可以使用ONTAP System Manager和ONTAP SURE CLI來設定及管理SS3。當您使用System Manager啟用S3並建立貯體時、ONTAP 支援以最佳實務方式進行簡化組態。如果您從CLI設定S3伺服器和儲存區、仍可視需要使用System Manager來管理、反之亦然。</block>
+  <block id="d1623a9fec2de2642847391236e62e9b" category="paragraph">當您使用System Manager建立S3儲存區時ONTAP 、即可設定系統可用的最高預設效能服務層級。例如AFF 、在一個不完善的系統上、預設設定為「極致」。效能服務層級是預先定義的調適性QoS原則群組。您可以指定自訂QoS原則群組或無原則群組、而非其中一個預設服務層級。</block>
+  <block id="bbcb9e2700fba39c3b7b7fd438155100" category="paragraph">預先定義的調適性QoS原則群組包括下列項目：</block>
+  <block id="f1ec0b0c482a42bad395f01e7f2b6c1d" category="list-text">*極致*適用於需要最低延遲和最高效能的應用程式。</block>
+  <block id="06e90efc82fff7e3090ba9ff1a3bd2a3" category="list-text">*效能*。*適用於效能需求與延遲不佳的應用程式。</block>
+  <block id="7aa0f5702784b1be0a3c5ed9e6f3df8e" category="list-text">*值。*用於處理量與容量比延遲更重要的應用程式。</block>
+  <block id="113d20f8cc4d864cdfea1b0f611cbb0a" category="list-text">*自訂*指定自訂QoS原則或無QoS原則。</block>
+  <block id="42cc32e2c7857ba980019c70438e92ed" category="paragraph">如果您選擇*用於分層*、則不會選擇效能服務層級、系統會嘗試選擇低成本媒體、並針對階層式資料提供最佳效能。</block>
+  <block id="5cc287af927b81043d030fc6a1ece879" category="paragraph">嘗試將此儲存庫配置到具有最適當磁碟的本機層、以符合所選的服務層級。ONTAP不過、如果您需要指定要包含在儲存區中的磁碟、請考慮從CLI設定S3物件儲存、方法是指定本機層（Aggregate）。如果您從CLI設定S3伺服器、仍可視需要使用System Manager來管理。</block>
+  <block id="74869eb3dfe4756dab5491da2a3de2ad" category="paragraph">如果您想要指定要用於儲存區的集合體、只能使用CLI來執行此作業。</block>
+  <block id="0c0e3a803cf68a8772ebf58a68b20124" category="paragraph">Confluent Platform是一款全方位資料串流平台、可讓您輕鬆存取、儲存及管理資料、做為持續的即時串流。Conflent是由Apache Kafka原創原創者所打造、以企業級功能擴展Kafka的優勢、同時免除Kafka管理或監控的負擔。如今、超過80%的財星雜誌100大企業都採用資料串流技術、而且大部分企業都使用Conflent。</block>
+  <block id="d3c11d67f567698de4c90210b84c554d" category="paragraph">Conflent Platform可讓您專注於從資料中獲取商業價值、而非擔心基礎機制、例如資料如何在不同的系統之間傳輸或整合。具體而言、Conflent Platform可簡化資料來源與Kafka之間的連線、建置串流應用程式、以及保護、監控及管理Kafka基礎架構。現在、Conflent Platform適用於各種產業的使用案例、從金融服務、全通路零售和自主汽車、到詐欺偵測、微服務和物聯網等。</block>
+  <block id="870b2318ccfd123ac0f7e9ef1396d49d" category="paragraph">下圖顯示ConnFluent Platform的元件。</block>
+  <block id="9d880468cb22c04bd894fc612814dbab" category="inline-image-macro">此圖顯示ConFluent Platform的元件。</block>
+  <block id="f64c3e5205853c0df35b5f05dcb208a1" category="paragraph"><block ref="f64c3e5205853c0df35b5f05dcb208a1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="05fafb4336e843d4634bd9ac122177c8" category="section-title">Conflent事件串流技術總覽</block>
+  <block id="51be25b0145a0beca811de24a62b5cb4" category="inline-link">卡夫卡</block>
+  <block id="0139d991fe55319f2e19e039da969fcf" category="paragraph">在Conflent Platform的核心是<block ref="66a1a9ec54e6ef0a1c109ad94b972ac9" category="inline-link-rx"></block>是最受歡迎的開放原始碼分散式串流平台。卡夫卡的主要功能包括：</block>
+  <block id="82ff0b3d0476bb8ca2283ff06c017658" category="section-title">Conflent平台企業功能總覽</block>
+  <block id="ed2c640e88db15d474de830703c8783b" category="list-text">* Confluent Control Cent.*一種以UI為基礎的系統、用於管理及監控Kafka。它可讓您輕鬆管理Kafka Connect、以及建立、編輯及管理與其他系統的連線。</block>
+  <block id="d63f46631d40c1c76b1a1a46445584aa" category="list-text">* Kafka Connect Connectors。* Connectors使用Kafka Connect API將Kafka連線至其他系統、例如資料庫、金鑰價值儲存區、搜尋索引和檔案系統。Conflent Hub提供可下載的連接器、適用於最受歡迎的資料來源和接收器、包括這些連接器的完整測試和支援版本、以及Conflent Platform。如需詳細資料、請參閱<block ref="2f0cdf69523bef6b3b17324f38f83353" category="inline-link-rx"></block>。</block>
+  <block id="9103a2961d6b4c593517d3d641763e5c" category="list-text">*自我平衡叢集。*提供自動負載平衡、故障偵測及自我修復功能。它也可視需要支援新增或取消委任代理人、無需手動調整。</block>
+  <block id="c1712fa040f6accce664a82ba6d58b94" category="list-text">* Confluent自動資料平衡器。*監控叢集的代理程式數量、分割區大小、分割區數目、以及叢集內的領導者數量。它可讓您將資料移轉至整個叢集、以建立平均工作負載、同時節流重新平衡流量、將對正式作業工作負載的影響降至最低、同時重新平衡。</block>
+  <block id="0265b0b07689b6439fc600eec3164763" category="inline-link-macro">下一步：流暢效能驗證。</block>
+  <block id="7d58203770f3360011c58049bd5dc048" category="paragraph"><block ref="7d58203770f3360011c58049bd5dc048" category="inline-link-macro-rx"></block></block>
+  <block id="dbb940c31f0b7d7563745993661f70d4" category="summary">我們使用單AFF 一的NetApp儲存控制器、在生產消費型工作負載期間、使用五或八個代理節點執行階層式儲存測試。根據我們的測試、完成時間和效能結果會隨著代理節點數量而調整、直到AFF 資源使用率達到100 %為止。此功能需要至少一對HA配對才能完成。ONTAP</block>
+  <block id="91e1cb9730965860cb465802520e6a45" category="doc">使用生產消耗型工作負載產生器進行效能測試</block>
+  <block id="3daa014912cbb3dddcdeae426aea8652" category="inline-link-macro">先前版本：ConFluent Performance驗證。</block>
+  <block id="262b5107278b398d0de9b7ef6b52e5d0" category="paragraph"><block ref="262b5107278b398d0de9b7ef6b52e5d0" category="inline-link-macro-rx"></block></block>
+  <block id="b15c40872cdd0b1e0a152907f2194e69" category="paragraph">S3擷取作業的效能會根據ConFluent Broker節點的數量線性提升。在單一部署中、支援最多12個HA配對。ONTAP</block>
+  <block id="ec043d5e2714e1035038cbeb1aa3cba8" category="paragraph">下圖顯示結合了S3分層流量與五或八個代理節點。我們將AFF 單一HA配對效能發揮到極致。</block>
+  <block id="ffff2891cfdd07445c4e1e5261739c68" category="inline-image-macro">此資料圖表顯示結合了S3分層流量與五或八個代理節點。</block>
+  <block id="388c51cbcac77b72c2e68dc334f9cf73" category="paragraph"><block ref="388c51cbcac77b72c2e68dc334f9cf73" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1efe906cedfd00618bda4d39b41a52fd" category="paragraph">下圖顯示卡夫卡的處理量約為31.74 GBps。</block>
+  <block id="e7aff80741661a5eb60f57649077f9c5" category="inline-image-macro">此資料圖表顯示卡夫卡的處理量約為31.74 GBps。</block>
+  <block id="1dc39288e0903ff9947d26bba4d46cef" category="paragraph"><block ref="1dc39288e0903ff9947d26bba4d46cef" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bc6821411dfc3b7f483da21b37082dfc" category="paragraph">我們也在ONTAP 《perfstat》報告中看到類似的處理量。</block>
+  <block id="12521f8f565efeb65b076c8966841804" category="inline-link-macro">下一步：效能最佳實務準則。</block>
+  <block id="4d8306a1e68c76874ac5d8c93a819977" category="paragraph"><block ref="4d8306a1e68c76874ac5d8c93a819977" category="inline-link-macro-rx"></block></block>
+  <block id="4ea8220421596c898f8150bfebdf4ccb" category="summary">這項驗證測試使用NetApp ONTAP 知識儲存控制器、在Conflent上達到31.74 GBps的分層處理量。</block>
+  <block id="f86bb9f7d3cb6d2f8473494c8bd135ec" category="inline-link-macro">先前：效能最佳實務準則。</block>
+  <block id="65b905a56baa366aa274945ca5b7cad4" category="paragraph"><block ref="65b905a56baa366aa274945ca5b7cad4" category="inline-link-macro-rx"></block></block>
+  <block id="93a10982e8e304323ad8af9a9387d775" category="paragraph">這項驗證測試在運用NetApp ONTAP 知識儲存控制器的Conflent上達到31.74 GBps的分層處理量。</block>
+  <block id="0f2f674cce6910ae97ee7ecc7bd9de18" category="list-text">什麼是Conflent？</block>
+  <block id="e6deab0ab2821160c056af4c7766624c" category="inline-link"><block ref="e6deab0ab2821160c056af4c7766624c" category="inline-link-rx"></block></block>
+  <block id="ce3026317a00b57c81627bd64a1b3311" category="paragraph"><block ref="ce3026317a00b57c81627bd64a1b3311" category="inline-link-rx"></block></block>
+  <block id="58a229be829dc9196abdaff6a4a26864" category="list-text">S3的ONTAP 最佳實務做法</block>
+  <block id="f47b79954bb4ad3165d7f99db02fe933" category="inline-link"><block ref="f47b79954bb4ad3165d7f99db02fe933" category="inline-link-rx"></block></block>
+  <block id="e98b34b649783312d3b317c7441a20a5" category="paragraph"><block ref="e98b34b649783312d3b317c7441a20a5" category="inline-link-rx"></block></block>
+  <block id="3075344c29b864c90ae1411c1db26e87" category="list-text">S3物件儲存管理</block>
+  <block id="cdc54c0262b6c0a6146ee416a9ca2113" category="inline-link"><block ref="cdc54c0262b6c0a6146ee416a9ca2113" category="inline-link-rx"></block></block>
+  <block id="8a93310a8dd4b405a8711f82adeb3c23" category="paragraph"><block ref="8a93310a8dd4b405a8711f82adeb3c23" category="inline-link-rx"></block></block>
+  <block id="1b70ac0a972fddf1e1a33e6ed9df49c7" category="cell">2022年9月</block>
+  <block id="331c0d2ba7a09b3ae7f6fac4652625da" category="summary">本頁說明改善本解決方案效能的最佳實務做法。</block>
+  <block id="69cefd131c612b28f058caddd20f5cac" category="doc">效能最佳實務準則</block>
+  <block id="25075404ed18180817b5ff523b98b3ea" category="inline-link-macro">先前版本：使用產生耗用的工作負載產生器進行效能測試。</block>
+  <block id="78f6cc0a5eeea34ea4a6b6d750751008" category="paragraph"><block ref="78f6cc0a5eeea34ea4a6b6d750751008" category="inline-link-macro-rx"></block></block>
+  <block id="21414169b395738292b2ac2fd8ca50a9" category="list-text">若可行、請使用「Get size &gt;=1MB（取得大小&gt;=1MB）」ONTAP 。</block>
+  <block id="ce2e9b8aaceb2d2993c90188d874af95" category="list-text">在代理節點上的「erver.properties`」中增加「num.network.threads`」和「nm.io.thread」、可讓您將增加的分層活動推送到S3層。這些結果是「num.network.threads`」和「nm.io.thread」設為32。</block>
+  <block id="1a48e01d01924d18e32943982eb6d924" category="list-text">S3儲存區應鎖定每個成員集合體的八個成員。</block>
+  <block id="b5a9dc3c7ec54467d103e00eaa0efb21" category="list-text">推動S3流量的乙太網路連結在儲存設備和用戶端上應使用9k的MTU。</block>
+  <block id="9a2dcec18734a6b09898eef44edd5f9a" category="paragraph"><block ref="9a2dcec18734a6b09898eef44edd5f9a" category="inline-link-macro-rx"></block></block>
+  <block id="614eb548d72efbb3690b5c131745db1b" category="summary">本頁說明在本解決方案的參數範圍內、對ConFluent的效能驗證。</block>
+  <block id="28052d386826afbb88768d0629570b19" category="doc">一致效能驗證</block>
+  <block id="e0c5d30e7d8ab807973bb9e8800f9f30" category="paragraph"><block ref="e0c5d30e7d8ab807973bb9e8800f9f30" category="inline-link-macro-rx"></block></block>
+  <block id="3ec7b1ca1aaf25c9bbca707f1ca8e466" category="paragraph">我們已使用Conflent Platform驗證NetApp ONTAP 的階層式儲存設備。NetApp與Conflent團隊共同進行這項驗證、並執行所需的測試案例。</block>
+  <block id="1f567e45477749710cbc14cf6b10afc4" category="section-title">簡易設定</block>
+  <block id="99b45ae42dbbf816c910ba27197525dc" category="paragraph">在設定方面、我們使用三個zookeepers、五個代理商、以及五個測試伺服器、搭配256GB RAM和16個CPU。對於NetApp儲存設備、我們使用ONTAP 了一套AFF 用作Are4A900 HA配對的功能。儲存設備與代理商均透過100GbE連線進行連線。</block>
+  <block id="77727c2ca2ac5beb0de2853929b43367" category="paragraph">下圖顯示用於階層式儲存驗證的組態網路拓撲。</block>
+  <block id="57e8d3257fec5774d2e8d38588771a69" category="inline-image-macro">此圖顯示用於階層式儲存驗證的組態網路拓撲。</block>
+  <block id="e1265b0a6795e57b3d1df5094ecde2bb" category="paragraph"><block ref="e1265b0a6795e57b3d1df5094ecde2bb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1d9b75f4efe285b9777255f14c81323b" category="paragraph">這些工具伺服器可做為應用程式用戶端、用來傳送或接收來自ConFluent節點的事件。</block>
+  <block id="1068af448bd05a968329fd2341036bfb" category="paragraph">我們使用下列測試參數：</block>
+  <block id="3bfb3f2755d25ed45d39dad8b3ed3008" category="paragraph">為了驗ONTAP 證、我們使用了搭配HTTP傳輸協定的功能、但HTTPS也能正常運作。存取金鑰和秘密金鑰會儲存在「confine.Tier .s3.cred.file.path」參數中提供的檔案名稱中。</block>
+  <block id="86d7ae5e1e87e4958b4fafcbca603956" category="section-title">NetApp儲存控制器ONTAP –功能</block>
+  <block id="b915ce35d395a0d68a794b87705f95fa" category="paragraph">我們在ONTAP 不驗證的情況下、設定了單一HA配對組態。</block>
+  <block id="b9d2b35b3cfffa153fd4ed3401cb9dd9" category="inline-image-macro">此圖說明環境如何設定為單一HA配對進行驗證。</block>
+  <block id="0ccd17060e15591b9c8588dc7d974ecd" category="paragraph"><block ref="0ccd17060e15591b9c8588dc7d974ecd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7069b530e46a91698a16159b7d083019" category="section-title">驗證結果</block>
+  <block id="3af1efc909fae49a716fe2d22ba24290" category="paragraph">我們完成下列五個驗證測試案例。前兩項是功能測試、其餘三項是效能測試。</block>
+  <block id="09da8339466c8b6111e4f310f1b78cb5" category="paragraph">此測試會在使用API呼叫的階層式儲存區所使用的物件存放區上執行基本作業、例如Get、PUT和DELETE。</block>
+  <block id="622ce818e2b8228cee071a827a43e1b2" category="paragraph">此測試會檢查物件儲存設備的端點對端點功能。它會建立主題、產生新建立主題的事件串流、等待代理程式將區段歸檔至物件儲存設備、使用事件串流、並驗證所使用的串流是否符合所產生的串流。我們已執行這項測試、且不需要進行物件存放區故障注入。我們在ONTAP 其中一個節點停止服務管理程式服務、並驗證端點對端點功能是否可與物件儲存搭配運作、藉此模擬節點故障。</block>
+  <block id="2712a580ff4c3586c7ba3534b78aad18" category="section-title">產生耗用的工作負載產生器</block>
+  <block id="0c22172129c2d0d58a5685fa1094fca0" category="paragraph">此測試會透過區段歸檔、間接在物件存放區上產生寫入工作負載。讀取工作負載（區段讀取）是在使用者群組擷取區段時、從物件儲存區產生的。此工作負載是由TOCC指令碼產生。此測試會檢查平行執行緒中物件儲存設備的讀取和寫入效能。我們在進行分層功能正確性測試時、測試了是否有物件存放區故障注入。</block>
+  <block id="2a7273e52c0214e6f0b27bf1e870960e" category="section-title">保留工作負載產生器</block>
+  <block id="48771387cb6a84889bc1db951598f78c" category="paragraph">這項測試檢查了在繁重的主題保留工作負載下、物件儲存設備的刪除效能。保留工作負載是使用TOCC指令碼產生、該指令碼會產生許多訊息、並與測試主題平行。測試主題是以積極的大小型和時間型保留設定來設定、導致事件串流持續從物件存放區中清除。然後將區段歸檔。這導致代理程式在物件儲存區中進行許多刪除、並收集物件儲存區刪除作業的效能。</block>
+  <block id="047fb529cf71ef63efe04d4185302684" category="paragraph">如需驗證詳細資料、請參閱<block ref="86830f666762f920df1dddf1c71e6509" category="inline-link-rx"></block> 網站。</block>
+  <block id="0e20876ceb73ae36999db9f6c412bdc5" category="inline-link-macro">下一步：使用產生耗用的工作負載產生器進行效能測試。</block>
+  <block id="ab82cfabb720bf1d31365b6ce33825f9" category="paragraph"><block ref="ab82cfabb720bf1d31365b6ce33825f9" category="inline-link-macro-rx"></block></block>
+  <block id="b0c400a1c1ac5de2cbdc877645b349a0" category="summary">本節涵蓋在採用NetApp ONTAP 的ConFluent Platform部署中、用於階層式儲存設備的效能驗證所使用的硬體與軟體。下表涵蓋解決方案架構和基礎元件。</block>
+  <block id="8bfa311863541e343a5f46427c473c16" category="paragraph"><block ref="8bfa311863541e343a5f46427c473c16" category="inline-link-macro-rx"></block></block>
+  <block id="5197b1c9433e86b5ed33786625f77786" category="paragraph">Confluent和NetApp AFF 的Arestora900儲存控制器採用ONTAP 了以資訊串流為設計基礎的分散式系統。兩者皆可橫向擴充、容錯、並可在負載下提供優異效能。透過資料減量技術、將資料佔用空間降至最低、以降低儲存成本的方式、在分散式資料串流和串流處理上相輔相成。藉由AFF 使用VMware的支援、您可以在不影響運算和資料儲存資源的情況下、將資料儲存控制器的效能發揮到極致。如此可簡化系統管理、並可獨立擴充資源。</block>
+  <block id="8ebef54f33ae0fdc7c4dcb83539b6eac" category="inline-image-macro">說明解決方案總覽的影像。</block>
+  <block id="52dff9f6353660d69eddc1e9fdee4a83" category="paragraph"><block ref="52dff9f6353660d69eddc1e9fdee4a83" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7a785978a6b38bb45ae8786c30a1781e" category="cell">平台元件</block>
+  <block id="c704d8c873b1a8d5d0243075656aa1f5" category="cell">環境組態</block>
+  <block id="f75094292f4afb812bc29237348d9948" category="cell">ConFluent Platform 6.2版</block>
+  <block id="5cc4fd015c7740c575d319eefacbce83" category="list-text">3個zookeepers</block>
+  <block id="8f6a506566bd03a47cafb69561bafe0f" category="list-text">8個代理伺服器</block>
+  <block id="aa76981d988c82fc8b387682968887e6" category="list-text">5部工具伺服器</block>
+  <block id="b56d58a9a181bae1fa65f36407ea002c" category="list-text">1 x Grafana</block>
+  <block id="4af3adf9207f6f8d2d6d9edda08f0638" category="list-text">1個控制中心</block>
+  <block id="29c331c65dbb1c85faa29881b295fbfc" category="cell">所有節點上的作業系統</block>
+  <block id="de4d788671df5cf79fda01236d8fc9a6" category="cell">適用於ONTAP 暖桶的NetApp解決方案</block>
+  <block id="37e0c77638b1388d83b997c8dffdb6d3" category="list-text">1 AFF 組供應高可用度（HA）的支援</block>
+  <block id="2e1c9b5ce764f890af0aebf38f1a500a" category="list-text">100GbE</block>
+  <block id="983e16c42b860c2511053f17d60918c8" category="list-text">2個CPU；總共16個實體核心</block>
+  <block id="ce4750dd79017960eed95bd3b2677eb4" category="list-text">Intel Xeon</block>
+  <block id="01dcc4e221fc9ff7472c5102b082eaf4" category="list-text">256GB實體記憶體</block>
+  <block id="433304c312dd41f05955324749c0a47f" category="list-text">100GbE雙埠</block>
+  <block id="39bc57d27d632df4261bc60caf39a90c" category="paragraph"><block ref="39bc57d27d632df4261bc60caf39a90c" category="inline-link-macro-rx"></block></block>
+  <block id="b98ea9630b58bea0f022799ecefe4062" category="sidebar">Conflent Kafka搭配NetApp ONTAP 等儲存控制器</block>
 </blocks>
