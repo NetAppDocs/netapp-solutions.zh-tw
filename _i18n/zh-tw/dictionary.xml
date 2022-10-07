@@ -8619,7 +8619,6 @@
   <block id="d490382851fbc5bd6720046bf9bc0c03" category="paragraph">當從資料存放區刪除VM時、可回收空間以供其他用途使用。使用NFS資料存放區時、刪除VM時會立即回收空間（當然、此方法只有在精簡配置磁碟區時才適用、也就是將磁碟區保證設為「無」）。不過、在VM客體作業系統中刪除檔案時、不會使用NFS資料存放區自動回收空間。對於LUN型VMFS資料存放區、ESXi和來賓作業系統可將VAAI取消對應原始資源至儲存區（同樣地、使用精簡配置時）、以回收空間。視版本而定、此支援可能為手動或自動。</block>
   <block id="6a2bff0a8d10ca0fc6c782e7978f696a" category="inline-link">2037513</block>
   <block id="8927aab76c49d1deb0b407fd261d5aa6" category="inline-link">儲存空間回收</block>
-  <block id="0c5a70f66ff77925d7dd7192191ec8f2" category="paragraph">在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB<block ref="1d61bd4e8925f7d5aac61e083b728439" category="inline-link-rx"></block> 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱<block ref="a9ae15a1c91a14939aefb313015202e6" category="inline-link-rx"></block> 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。</block>
   <block id="99a66df20e19a8e18fae37a7f714750a" category="section-title">虛擬機器與資料存放區複製</block>
   <block id="d355cf5d1a16095124a54902f7cf49db" category="paragraph">複製儲存物件可讓您快速建立複本以供進一步使用、例如配置額外的VM、備份/還原作業等。在vSphere中、您可以複製VM、虛擬磁碟、vVol或資料存放區。複製之後、通常可透過自動化程序、進一步自訂物件。vSphere同時支援完整複本複本複本複本、以及連結的複本、可在其中分別追蹤原始物件的變更。</block>
   <block id="78f8f8d69825dfe8e6085151fa565f28" category="paragraph">連結的複本非常適合用來節省空間、但會增加vSphere處理VM的I/O量、進而影響該VM的效能、甚至可能影響整個主機的效能。這就是NetApp客戶經常使用儲存系統型複本、以獲得兩全其美：有效使用儲存設備及提升效能。</block>
@@ -15783,4 +15782,6 @@
   <block id="b98ea9630b58bea0f022799ecefe4062" category="sidebar">Conflent Kafka搭配NetApp ONTAP 等儲存控制器</block>
   <block id="875353af43abce06e81496931b9482ef" category="paragraph"><block ref="875353af43abce06e81496931b9482ef" category="inline-link-macro-rx"></block></block>
   <block id="93d153de96abb104b1cf0b56dddc7dfc" category="sidebar">使用VMware HCX將工作負載移轉至ANF資料存放區</block>
+  <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link">這</block>
+  <block id="953fa9bc59561d97ed62ce854465ba35" category="paragraph">在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB<block ref="1d61bd4e8925f7d5aac61e083b728439" category="inline-link-rx"></block> 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱<block ref="a9ae15a1c91a14939aefb313015202e6" category="inline-link-rx"></block> 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱<block ref="fca823934ad533ca13947daa01d8e441" category="inline-link-rx"></block> 知識庫文章以取得更多詳細資料。</block>
 </blocks>

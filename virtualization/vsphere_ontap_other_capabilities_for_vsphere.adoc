@@ -37,7 +37,7 @@ image:vsphere_ontap_image4.png["錯誤：缺少圖形影像"]
 
 當從資料存放區刪除VM時、可回收空間以供其他用途使用。使用NFS資料存放區時、刪除VM時會立即回收空間（當然、此方法只有在精簡配置磁碟區時才適用、也就是將磁碟區保證設為「無」）。不過、在VM客體作業系統中刪除檔案時、不會使用NFS資料存放區自動回收空間。對於LUN型VMFS資料存放區、ESXi和來賓作業系統可將VAAI取消對應原始資源至儲存區（同樣地、使用精簡配置時）、以回收空間。視版本而定、此支援可能為手動或自動。
 
-在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB https://kb.vmware.com/s/article/2057513["2037513"^] 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱 https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.storage.doc/GUID-B40D1420-26FD-4318-8A72-FA29C9A395C2.html["儲存空間回收"^] 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。
+在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB https://kb.vmware.com/s/article/2057513["2037513"^] 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱 https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.storage.doc/GUID-B40D1420-26FD-4318-8A72-FA29C9A395C2.html["儲存空間回收"^] 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/VSC_and_VASA_Provider/Devices_backing_volume_do_not_support_UNMAP["這"^] 知識庫文章以取得更多詳細資料。
 
 
 
