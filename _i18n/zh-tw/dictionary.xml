@@ -10662,7 +10662,6 @@
   <block id="0b5200ff3b38841dd95a404d7e6ff385" category="cell">Netgroup依主機搜尋範圍</block>
   <block id="4ce621e884478e7fc52e17ed91eed525" category="cell">netgroup by主機DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援Cloud Volumes Service 以主機為單位的netgroup。</block>
   <block id="19a0fc26f19842a9f7bc78040d0c381c" category="cell">用戶端工作階段安全性</block>
-  <block id="f418eef9b6631e20135e14fc69c0bb8a" category="cell">定義LDAP使用的工作階段安全性層級（簽署、認證或無）。LDAP簽署受Cloud Volumes Service 支援、但目前不支援密封。</block>
   <block id="16ed23b379774b2be1797f8efa0fe9a5" category="cell">LDAP參照追蹤</block>
   <block id="a408a02f7b8e36f4913d8dc2debb2b95" category="cell">使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。目前不支援此功能Cloud Volumes Service 。</block>
   <block id="5f362229a019eb903f4b21e28b15a1f5" category="cell">群組成員資格篩選器</block>
@@ -15784,4 +15783,5 @@
   <block id="9e925e9341b490bfd3b4c4ca3b0c1ef2" category="inline-link">這</block>
   <block id="953fa9bc59561d97ed62ce854465ba35" category="paragraph">在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB<block ref="1d61bd4e8925f7d5aac61e083b728439" category="inline-link-rx"></block> 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱<block ref="a9ae15a1c91a14939aefb313015202e6" category="inline-link-rx"></block> 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱<block ref="fca823934ad533ca13947daa01d8e441" category="inline-link-rx"></block> 知識庫文章以取得更多詳細資料。</block>
   <block id="a436da0007911ed6531e093688e82535" category="paragraph">使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 <block ref="639817e82862065dd236f0597e0b07ea" category="inline-link-macro-rx"></block> 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 <block ref="c2e2f225386e22bd13a8b4b174f478da" category="inline-link-macro-rx"></block> 和 <block ref="86c1c13023c15e9d9a6317a0b69e7ce3" category="inline-link-macro-rx"></block>。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。</block>
+  <block id="b95b607ac94c4a8cb830243ecb537f59" category="cell">定義LDAP使用的工作階段安全性層級（簽署、認證或無）。如果Active Directory要求、則CVS效能可支援LDAP簽署。CVS軟體不支援LDAP簽署。目前不支援這兩種服務類型的密封。</block>
 </blocks>

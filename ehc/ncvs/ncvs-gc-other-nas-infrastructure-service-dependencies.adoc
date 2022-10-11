@@ -219,7 +219,7 @@ link:ncvs-gc-considerations--creating-active-directory-connections.htm["先前�
 | Netgroup依主機搜尋範圍 | netgroup by主機DN搜尋的搜尋範圍。值可以包括base、onel海拔 或子樹狀結構。不支援Cloud Volumes Service 以主機為單位的netgroup。 | 子樹狀結構 | 否 
 
 
-| 用戶端工作階段安全性 | 定義LDAP使用的工作階段安全性層級（簽署、認證或無）。LDAP簽署受Cloud Volumes Service 支援、但目前不支援密封。 | 無 | 否 
+| 用戶端工作階段安全性 | 定義LDAP使用的工作階段安全性層級（簽署、認證或無）。如果Active Directory要求、則CVS效能可支援LDAP簽署。CVS軟體不支援LDAP簽署。目前不支援這兩種服務類型的密封。 | 無 | 否 
 
 
 | LDAP參照追蹤 | 使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。目前不支援此功能Cloud Volumes Service 。 | 錯 | 否 
