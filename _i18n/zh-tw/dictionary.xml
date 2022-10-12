@@ -15347,7 +15347,6 @@
   <block id="e1be03b35dc8e9fb114970b06dcd6c18" category="list-text">請確定所需的<block ref="69c9d7a74dad51c1c47ea8141c218514" category="inline-link-rx"></block> 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。</block>
   <block id="444617dcfe0d17ad386105e865d21113" category="list-text">應在Azure VMware解決方案中以資料存放區的形式掛載不適用的NFS Volume。Azure NetApp Files請依照本節詳細說明的步驟進行<block ref="1b959b45bbb3571141089802677ad765" category="inline-link-rx"></block> 將Azure NetApp Files 不完整的資料存放區附加至Azure VMware解決方案主機。</block>
   <block id="2f660e9fff52e5ac1b7818a029d3b447" category="example-title">高層架構</block>
-  <block id="69b7dff83090c9a5eb5c6939b05acd80" category="paragraph">為了進行測試、用於此驗證的內部部署實驗室環境是透過站台對站台VPN連線至Azure Virtual WAN集線器、以便內部部署連線至Azure VMware解決方案。</block>
   <block id="0048e42e38e4c6f587f210afe26fcb4a" category="inline-image-macro">此映像描述此解決方案所使用的高層架構。</block>
   <block id="39fc1d64ec4b3a4ff5306e55bdaf2c0f" category="paragraph"><block ref="39fc1d64ec4b3a4ff5306e55bdaf2c0f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d84f7e9d42c2c0ee4f87ddeaa2e09bb2" category="paragraph">請依照一系列步驟完成本解決方案的部署：</block>
@@ -15474,7 +15473,6 @@
   <block id="ab19b6733f7a9500ff9d392433071ef2" category="paragraph"><block ref="ab19b6733f7a9500ff9d392433071ef2" category="inline-link-rx"></block></block>
   <block id="7c5ba33b986ba469d277c4ca9f906e55" category="inline-link-macro">使用VMware HCX將工作負載移轉至FSxN資料存放區</block>
   <block id="c037991d132128e15cdbfefe3ac8e997" category="list-text"><block ref="c037991d132128e15cdbfefe3ac8e997" category="inline-link-macro-rx"></block></block>
-  <block id="205406ae98b10b31699eb910e29a7241" category="doc">TR 4942：ONTAP 使用VMware HCX將工作負載移轉至FSx Sfz（FSxN）資料存放區</block>
   <block id="086d898e7d4a481c2147d4eb71dff1f6" category="section-title">總覽：使用VMware HCX、FSx ONTAP 補充資料存放區和VMware Cloud移轉虛擬機器</block>
   <block id="82778188ea3c0ca7871389afec5bfd03" category="paragraph">Amazon Web Services（AWS）上的VMware Cloud（VMC）的常見使用案例、其補充NFS資料存放區位於Amazon FSX for NetApp ONTAP 的NetApp功能區上、就是移轉VMware工作負載。VMware HCX是首選選選項、提供多種移轉方法、可將內部部署虛擬機器（VM）及其資料（在任何VMware支援的資料存放區上執行）移至VMC資料存放區、其中包括FSXfor ONTAP VMware上的補充NFS資料存放區。</block>
   <block id="2fbfc2601ddccd56b7728df6f0a658e1" category="paragraph">VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作負載移轉、工作負載重新平衡及營運不中斷。它是AWS上VMware Cloud的一部分、提供許多移轉工作負載的方法、可用於災難恢復（DR）作業。</block>
@@ -15609,7 +15607,6 @@
   <block id="05c89cf5b898c5c58986dac08f22a2a1" category="paragraph"><block ref="05c89cf5b898c5c58986dac08f22a2a1" category="inline-link-rx"></block></block>
   <block id="33efddb311b6c85bba97e5349040815f" category="sidebar">工作負載移轉解決方案</block>
   <block id="e946411f5b47d53428345ae0e0e5f5fd" category="sidebar">移轉工作負載</block>
-  <block id="22945ba986f07dffbdafb6711d87ec03" category="sidebar">使用VMware HCX將工作負載移轉至Azure NetApp Files VMware資料存放區</block>
   <block id="747616909dea0c52e547cd52a7d5a12c" category="example-title">人工智慧（AI）和現代化資料分析</block>
   <block id="b0d7b47f43a6efe75ff49bfd5e21f6fd" category="list-text"><block ref="b0d7b47f43a6efe75ff49bfd5e21f6fd" category="inline-link-macro-rx"></block></block>
   <block id="90e97692c42b1eb0ec22c639049d78a1" category="list-text"><block ref="90e97692c42b1eb0ec22c639049d78a1" category="inline-link-macro-rx"></block></block>
@@ -15784,4 +15781,7 @@
   <block id="953fa9bc59561d97ed62ce854465ba35" category="paragraph">在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB<block ref="1d61bd4e8925f7d5aac61e083b728439" category="inline-link-rx"></block> 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱<block ref="a9ae15a1c91a14939aefb313015202e6" category="inline-link-rx"></block> 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱<block ref="fca823934ad533ca13947daa01d8e441" category="inline-link-rx"></block> 知識庫文章以取得更多詳細資料。</block>
   <block id="a436da0007911ed6531e093688e82535" category="paragraph">使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 <block ref="639817e82862065dd236f0597e0b07ea" category="inline-link-macro-rx"></block> 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 <block ref="c2e2f225386e22bd13a8b4b174f478da" category="inline-link-macro-rx"></block> 和 <block ref="86c1c13023c15e9d9a6317a0b69e7ce3" category="inline-link-macro-rx"></block>。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。</block>
   <block id="b95b607ac94c4a8cb830243ecb537f59" category="cell">定義LDAP使用的工作階段安全性層級（簽署、認證或無）。如果Active Directory要求、則CVS效能可支援LDAP簽署。CVS軟體不支援LDAP簽署。目前不支援這兩種服務類型的密封。</block>
+  <block id="ce32836b59e052d959dee4d2358e5a21" category="paragraph">為了進行測試、此驗證所使用的內部部署實驗室環境是透過站台對站台VPN連線、因此可內部部署連線至Azure VMware解決方案。</block>
+  <block id="0bcfdba2f090838df9da44d825fedc49" category="doc">TR 4942：ONTAP 使用VMware HCX將工作負載移轉至FSx支援資料存放區</block>
+  <block id="dd5244d49dea74bb9effd68426155ca2" category="sidebar">使用VMware HCX將工作負載移轉至FSXfor ONTAP VMware資料存放區</block>
 </blocks>
