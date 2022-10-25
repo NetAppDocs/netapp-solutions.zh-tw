@@ -2506,7 +2506,6 @@
   <block id="1b6a5f8b328d3175066895d7ff5ea576" category="inline-link-macro">NetApp解決方案自動化社群支援閒散通道</block>
   <block id="12f178498803c606c23e7166dcefb0cb" category="paragraph">如果您需要工具組的協助、請加入 <block ref="f1bb21e2ce6888d898ae31a2098245a1" category="inline-link-macro-rx"></block> 並尋找解決方案自動化通路、以張貼您的問題或詢問。</block>
   <block id="ea490901c403ce2b2a89f80227d0fb90" category="paragraph">排程二進位和資料庫複寫教戰守則</block>
-  <block id="931ea399c80122517d9eeb617f1594a0" category="list-text">設定並啟動工作範本。</block>
   <block id="2c777d857235f251004d6d8d70c9751d" category="list-text">複製先前建立的工作範本。</block>
   <block id="1eb977b1f69b531db931e9c62c1a0de9" category="list-text">找到ONTAP/CVO設定範本、然後在最右鍵按一下複製範本</block>
   <block id="3c96e57d33780bedfb652def025f39de" category="list-text">按一下複製範本上的「Edit Template（編輯範本）」、然後將名稱變更為「Binary and Database Replication教戰手冊」。</block>
@@ -3155,8 +3154,6 @@
   <block id="cea575677c47839fde1e59dbfc9ad5bb" category="open-title">內部部署</block>
   <block id="f7fc367b5de87581ac78fc80805439af" category="open-title">CVO</block>
   <block id="791ef966f9be349751448b9066bdd8fa" category="list-text">輸入 <block ref="1881636a0f344e587cc2202e2db4c5ac" category="inline-link-rx"></block> 做為來源控制URL。</block>
-  <block id="07ecfe1ec895f624e5c5d082fb961d1c" category="section-title">3.設定全域變數</block>
-  <block id="dad1349ef99312028aeda3703d53efdb" category="section-title">4、自動化教戰守則</block>
   <block id="285a3bb8fb6f692046facadb3c0984cf" category="paragraph">有四本獨立的教戰手冊需要執行。</block>
   <block id="37472723bc7712fedddee6d02e29228d" category="list-text">教戰手冊、用於設定環境、內部部署或CVO。</block>
   <block id="5138c89250c5086accf2d1a5961c9b17" category="list-text">教戰手冊、可依照排程複寫Oracle二進位檔和資料庫</block>
@@ -3166,7 +3163,6 @@
   <block id="16f928d0ebd67060f6b3b2abf0481928" category="open-title">二進位磁碟區和資料庫磁碟區的複寫</block>
   <block id="b723f9a72bec39ac17d89e51ff0ba336" category="open-title">記錄磁碟區的複寫</block>
   <block id="f76dbca531ab83300165aacf97e1b7ff" category="open-title">還原及還原資料庫</block>
-  <block id="8cc6746c11a65da30c7d875819acecfe" category="section-title">5.恢復Oracle資料庫</block>
   <block id="b8a177e5fd059f33473cad4d1d073d38" category="list-text">內部部署正式作業的Oracle資料庫資料Volume可透過NetApp SnapMirror複寫、保護至ONTAP 二線資料中心的備援式叢集或ONTAP 公有雲的Cloud Volume。在完整設定的災難恢復環境中、二線資料中心或公有雲中的還原運算執行個體都是待命狀態、可在發生災難時恢復正式作業資料庫。待命運算執行個體會在OS核心修補程式上執行半連結更新、或在鎖定步驟中進行升級、以保持與內部部署執行個體的同步。</block>
   <block id="57d8ad774cb4fef3d53ee8836bfee761" category="list-text">在本解決方案中、Oracle二進位磁碟區會複寫到目標執行個體、並掛載到目標執行個體、以啟動Oracle軟體堆疊。這種恢復Oracle的方法比在發生災難的最後一刻重新安裝Oracle更具優勢。它保證Oracle安裝與目前的內部正式作業軟體安裝和修補程式層級等完全同步。不過、視軟體授權與Oracle的結構化方式而定、這可能會也可能不會對恢復站台上的複寫Oracle二進位磁碟區產生額外的軟體授權影響。建議使用者先洽詢其軟體授權人員、以評估可能的Oracle授權需求、再決定採用相同方法。</block>
   <block id="74eaa493ffed695592003e0844d93c46" category="list-text">目的地的備用Oracle主機是以Oracle必要組態設定。</block>
@@ -7853,7 +7849,6 @@
   <block id="e647d88b9bd859d2c3e943c24b4fef00" category="paragraph">如同內部部署、在AWS上規劃VMware Cloud對於成功建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。</block>
   <block id="02b412692a538ee9dc2534f0f9c73dc1" category="paragraph"><block ref="560d5b2cd40977bd7b77b31d7088f657" category="inline-link-macro-rx"></block> 在AWS生態系統中為VMware工作負載提供雲端原生體驗。每個VMware軟體定義資料中心（SDDC）都會在Amazon Virtual Private Cloud（VPC）上執行、並提供完整的VMware堆疊（包括vCenter Server）、NSX-T軟體定義網路、vSAN軟體定義儲存設備、以及一或多個ESXi主機、為您的工作負載提供運算與儲存資源。</block>
   <block id="dc77b78f59a0c38a9a2e8927dc05e916" category="paragraph">本節說明如何在AWS上設定及管理VMware Cloud、並搭配Amazon FSX for NetApp ONTAP 時使用Cloud Volumes ONTAP 、以及/或在AWS上搭配來賓儲存設備使用VMware Cloud。</block>
-  <block id="1687622e662f209ef64e3a88de409466" category="admonition">來賓儲存設備是唯一受支援的方法、可將Amazon FSX for NetApp ONTAP 的VMware功能與Cloud Volumes ONTAP VMware Cloud連線至AWS上的VMware Cloud。</block>
   <block id="3712f34e1b7039d6d9bfb255ecc54445" category="paragraph">設定程序可分為三個部分：</block>
   <block id="f54d8dbbc1cb20fd37a59a4563644ef8" category="inline-link-macro">Amazon Web Services帳戶</block>
   <block id="4ca1486cd3276884e41ad4b36080c10b" category="list-text">註冊以取得 <block ref="ab3390028f6599a1b73b747febbf672d" category="inline-link-macro-rx"></block>。</block>
@@ -14475,8 +14470,6 @@
   <block id="727eadb1fcad984cfa778a04f2181408" category="paragraph">若要設定GCVE/ SDDC、請參閱<block ref="06e1fa19855b73b0e800850663f265a2" category="inline-link-rx"></block>。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。</block>
   <block id="fb75a211e033fa96e7f692258221c1da" category="paragraph">正確設定好VMware和GCVETM之後Cloud Volumes ONTAP 、請開始設定Veeam、使用Veeam複寫功能、並利用SnapMirror將應用程式Volume複本複製到Cloud Volumes ONTAP VMware、將內部部署工作負載的恢復作業自動化至GCVETM（使用應用程式VMDK的VM和使用客體內建儲存設備的VM）。</block>
   <block id="87e3cc18e14b0d78c8c46e3ed343fca7" category="example-title">安裝Veeam元件</block>
-  <block id="d3e88eae8ca9184db5c410eb9e65e305" category="inline-link">如需安裝程序、請參閱Veeam文件</block>
-  <block id="72cbd2d687e8a182563fd621f7f40933" category="paragraph">根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。<block ref="eef747fc43e330e288cf8f23e85fb9af" category="inline-link-rx"></block></block>
   <block id="60fec867397af265e1e757d06135859e" category="example-title">使用Veeam設定VM複寫</block>
   <block id="d81c3dfdfda7fb8581660b5d218c6a3a" category="inline-link">設定vSphere VM複寫工作</block>
   <block id="6a67b79523a52a3a2b4e485485456565" category="paragraph">內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。<block ref="9af60ccd7c779b77ba6ce43ae96a95f6" category="inline-link-rx"></block> 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。</block>
@@ -15789,13 +15782,11 @@
   <block id="c252a357a127635943f82514442e62b3" category="section-title">標題層級</block>
   <block id="8000c50cdc8b68dd9ea0d326040cbd63" category="paragraph">[藍色底線]*來源AsciDoc：*</block>
   <block id="3c2f44ba0863f4f0fcb5023aa4ee6ca2" category="paragraph">[藍色底線]*產生HTML：*</block>
-  <block id="cc0b18a3e7ca3718f584272598e4a21c" category="section-title">標題層級0（文件標題）</block>
   <block id="efea650a2edf10e173ba726fa4e90c5f" category="section-title">標題層級1（章節標題）</block>
   <block id="2b70e22920b3d78a96efdd65b4b37c1f" category="section-title">標題層級2（章節標題）</block>
   <block id="3742ded2a390654e38f763a70bd4e35a" category="section-title">標題層級3（章節標題）</block>
   <block id="4d1ebef97112908dabe0c9c786eaa7ba" category="section-title">標題層級4（章節標題）</block>
   <block id="44e6fd3a1839882d90b6020944c4aeb1" category="section-title">標題層級5（章節標題）</block>
-  <block id="6b96822e050681394160e60c027fb0d0" category="admonition">每個文件只應有一個文件標題（層級0）、區段標題不可跳過（區段次標題必須是區段下的下一個標題層級）。</block>
   <block id="691d1860ec58dd973e803e209697d065" category="section-title">清單</block>
   <block id="d3263947659da25e39643e07688fb919" category="paragraph">無序清單：</block>
   <block id="6e991c331de28266251c487c42df1f10" category="list-text">這是無序清單</block>
@@ -15988,4 +15979,20 @@
   <block id="8e1e8679efe4694874eb9820dff26af8" category="paragraph">本白皮書說明NetApp現代化資料分析解決方案策略。其中包括業務成果、客戶挑戰、技術趨勢、競爭老舊架構、現代化工作流程、使用案例、產業、雲端、技術合作夥伴、資料移動者、NetApp Active IQ 功能區、NetApp DataOps Toolkit、Hadoop to Spark、採用NetApp Astra Control的軟體定義儲存設備、容器、企業資料管理、歸檔及分層、以達成AI與分析的目標、以及NetApp與客戶如何共同將資料架構現代化。</block>
   <block id="ef159076e3a244c9e0bc48cdde7742a7" category="inline-link-macro"><block ref="ef159076e3a244c9e0bc48cdde7742a7" category="inline-link-rx"></block></block>
   <block id="bff0b3c76158c2ffdc1105de3c094296" category="paragraph"><block ref="bff0b3c76158c2ffdc1105de3c094296" category="inline-link-macro-rx"></block></block>
+  <block id="4eb5c705ea54813c084d88a3d5a668f0" category="admonition">每個文件只應有一個文件標題（層級0）、區段標題不可跳過（區段次標題必須是區段下的下一個標題層級）。因此、輸出中不會顯示範例、以避免處理期間發生建置錯誤。</block>
+  <block id="9b6f25534617a536120885c9ce2bf30b" category="inline-link">如需安裝程序、請參閱Veeam文件</block>
+  <block id="934282d2b6cc731f63bcc3cdfbba32a1" category="paragraph">根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。<block ref="3798d8f6f1f14581181abe3a5ef34dc1" category="inline-link-rx"></block></block>
+  <block id="51c7ff4d9c3185f2df469eed762010d5" category="inline-link-macro">VMware Cloud技術區</block>
+  <block id="baab3b6c6024ccda908423e27d1a7d5b" category="admonition">此解決方案也可從VMware取得。請造訪 <block ref="e4f8fde8ba3579a04642cf870e6e362f" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="dc32da64b7845bbbf4827a1513cd8daa" category="inline-link-macro">使用ONTAP VMware HCX在AWS SDDC上設定適用於NetApp的FSx混合雲、以及適用於VMware Cloud的VMware Cloud</block>
+  <block id="e51f186f2c7dd10d7f4c1196ab269d7c" category="list-text"><block ref="e51f186f2c7dd10d7f4c1196ab269d7c" category="inline-link-macro-rx"></block></block>
+  <block id="3cf6cddd26350e6a84e8bef869102647" category="cell">10/25/2022</block>
+  <block id="80d05b7bca341d02b41c7f6cb32ad23b" category="cell">新增連結至VMware文件、以將FSX ONTAP 功能當作NFS資料存放區</block>
+  <block id="2937ec3775c4b0354bf359a5892c53f7" category="cell">新增使用ONTAP VMware HCX在AWS SDDC上使用FSx功能設定混合雲和VMC的部落格參考資料</block>
+  <block id="0676783b7d49061bfb23deb83b2d2f82" category="paragraph">*設定並啟動工作範本。*</block>
+  <block id="544348a8f04b16faced725115db5b6f3" category="section-title">為您的環境建立庫存、群組、主機和認證</block>
+  <block id="be86ca474df5e14056bc0f20d2cdb767" category="section-title">建立專案</block>
+  <block id="d02a79fb6f05358e16f9d9cf02288ac3" category="section-title">設定全域變數</block>
+  <block id="3506caa5fe966a4676faac2993bc1431" category="section-title">自動化教戰守則</block>
+  <block id="ba985cf3c812e3ba064fedc7353bbb77" category="section-title">恢復Oracle資料庫</block>
 </blocks>
