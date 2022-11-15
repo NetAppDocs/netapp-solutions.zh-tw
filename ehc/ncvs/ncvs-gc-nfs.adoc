@@ -76,11 +76,7 @@ NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型�
 對於CVS軟體、下列選項可用於匯出原則組態：
 
 * *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
-* * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。
-
-
-CVS效能提供下列選項：
-
+* * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」來控制對EXPE/CVs-Performance的存取層級、提供下列選項：
 * *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
 * * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。
 * *根存取權（開啟/關閉）。*設定根分區（請參閱「 root user」的詳細資料）。
@@ -142,7 +138,7 @@ NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾�
 |===
 最後、根據RPC封包限制、NFS群組成員資格（NFSv3和NFSv4.x）的AUTH_SYS預設上限為16。NFS Kerberos最多可提供32個群組、NFSv4 ACL則可透過精細的使用者和群組ACL（每個ACE最多可容納1024個項目）來移除限制。
 
-此外Cloud Volumes Service 、支援範圍更廣泛、最多可將支援的群組數量擴充至32個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此項目的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes["建立及管理NFS磁碟區"^] 在Google文件中。
+此外Cloud Volumes Service 、支援範圍更廣泛、最多可將支援的群組數量擴充至32個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此項目的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes?hl=en_US["建立及管理NFS磁碟區"^] 在Google文件中。
 
 
 
