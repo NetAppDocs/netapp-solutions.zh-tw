@@ -124,7 +124,7 @@ Volume successfully created and bound to PersistentVolumeClaim (PVC) 'inference-
 ....
 . 在新的持續磁碟區中填入您要執行推斷的資料。
 +
-有多種方法可將資料載入至PVc。如果您的資料目前儲存在S3相容的物件儲存平台、例如NetApp StorageGRID 功能區或Amazon S3、您就可以使用 https://github.com/NetApp/netapp-dataops-toolkit/blob/main/netapp_dataops_k8s/docs/data_movement.md["NetApp DataOps Toolkit S3 Data Mover功能"^]。另一種簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網頁介面上傳檔案、如「」一節中步驟3至5所述 1 – On-demand inferencing in JupyterLab。」
+有多種方法可將資料載入至PVc。如果您的資料目前儲存在S3相容的物件儲存平台、例如NetApp StorageGRID 功能區或Amazon S3、您就可以使用 https://github.com/NetApp/netapp-dataops-toolkit/blob/main/netapp_dataops_k8s/docs/data_movement.md["NetApp DataOps Toolkit S3 Data Mover功能"^]。另一種簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網頁介面上傳檔案、如「」一節中步驟3至5所述<<案例1–JupyterLab的隨需推斷>>。」
 
 . 為批次推斷工作建立Kubernetes工作。下列範例顯示影像偵測使用案例的批次推斷工作。此工作會在一組映像中的每個映像上執行推斷、並將推斷準確度指標寫入stdout。
 +
@@ -272,7 +272,7 @@ Volume successfully created and bound to PersistentVolumeClaim (PVC) 'triton-mod
 ....
 . 將您的模型儲存在中的新持續磁碟區上 https://github.com/triton-inference-server/server/blob/main/docs/model_repository.md["格式"^] NVIDIA Triton Inference伺服器也能辨識這點。
 +
-有多種方法可將資料載入至PVc。簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網路介面上傳檔案、如「」中的步驟3至5所述 1 – On-demand inferencing in JupyterLab。」
+有多種方法可將資料載入至PVc。簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網路介面上傳檔案、如「」中的步驟3至5所述<<案例1–JupyterLab的隨需推斷>>。」
 
 . 使用NetApp DataOps Toolkit部署新的NVIDIA Triton Inference Server執行個體。
 +

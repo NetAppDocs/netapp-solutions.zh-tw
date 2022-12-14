@@ -58,15 +58,18 @@ terraform {
 == 執行特定模組
 
 .AWS
+[%collapsible]
 ====
 [role="tabbed-block"]
 =====
 .CVO單一節點部署
 --
+.Terraform組態檔案、可在AWS上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上部署/設定單一節點NetApp CVO（英文）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -131,6 +134,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
@@ -203,10 +207,12 @@ NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
 --
 .CVO HA部署
 --
+.Terraform組態檔案、可在AWS上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上以高可用度配對部署/設定NetApp CVO（BIOS）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -271,6 +277,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
@@ -370,10 +377,12 @@ HA配對中NetApp CVO執行個體的Terraform變數。
 --
 .FSX部署
 --
+.Terraform組態檔案、可在ONTAP AWS上部署NetApp SfSX
 本節包含各種Terraform組態檔案、可在ONTAP AWS（Amazon Web Services）上部署/設定NetApp SfSX。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -438,6 +447,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.食譜：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數。
@@ -526,15 +536,18 @@ NetApp ONTAP 的Terraform變數。
 =====
 ====
 .Azure
+[%collapsible]
 ====
 [role="tabbed-block"]
 =====
 .ANF
 --
+.Terraform組態檔案、可在Azure上部署Anf Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定anf（簡稱「還原」）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -592,6 +605,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 ----
   terraform destroy
 ----
+.收件者：
 單一節點執行個體
 
 單一NetApp ANF Volume的Terraform變數。
@@ -646,10 +660,12 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 --
 .ANF資料保護
 --
+.Terraform組態檔案、可在Azure上部署具有資料保護功能的ANF Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定含資料保護功能的ANF（還原）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -707,6 +723,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 ----
   terraform destroy
 ----
+.收件者：
 「ANF資料保護」
 
 啟用資料保護的單一anf Volume的Terraform變數。
@@ -797,10 +814,12 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 --
 .ANF雙協定
 --
+.Terraform組態檔案、可在Azure上部署含雙傳輸協定的ANF Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上啟用雙傳輸協定的情況下部署/設定ANF（還原）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -858,6 +877,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 ----
   terraform destroy
 ----
+.收件者：
 單一節點執行個體
 
 已啟用雙傳輸協定的單一anf Volume的Terraform變數。
@@ -924,10 +944,12 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 --
 .ANF Volume（快照）
 --
+.Terraform組態檔案、可在Azure上部署Snapshot的Anf Volume
 本節包含各種Terraform組態檔案、可從Azure NetApp Files Azure上的Snapshot部署/設定anf（簡稱「EF」）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -986,6 +1008,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 ----
   terraform destroy
 ----
+.收件者：
 單一節點執行個體
 
 使用Snapshot的單一anf Volume的Terraform變數。
@@ -1040,10 +1063,12 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 --
 .CVO單一節點部署
 --
+.Terraform組態檔案、可在Azure上部署單一節點CVO
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定單一節點CVO（英文）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -1097,6 +1122,7 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudma
 ----
   terraform destroy
 ----
+.收件者：
 單一節點執行個體
 
 單節點Cloud Volumes ONTAP 的Terraform變數（CVO）。
@@ -1202,10 +1228,12 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudma
 --
 .CVO HA部署
 --
+.Terraform組態檔案、可在Azure上部署CVO HA
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定CVO（簡稱「還原」）HA（高可用度）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -1259,6 +1287,7 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudma
 ----
   terraform destroy
 ----
+.收件者：
 "HA配對執行個體"
 
 HA配對Cloud Volumes ONTAP 的Terraform變數（CVO）。
@@ -1365,15 +1394,18 @@ HA配對Cloud Volumes ONTAP 的Terraform變數（CVO）。
 =====
 ====
 .GCP
+[%collapsible]
 ====
 [role="tabbed-block"]
 =====
 .CVO單一節點部署
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上部署/設定單一節點NetApp CVO（英文）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -1426,6 +1458,7 @@ NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
@@ -1495,10 +1528,12 @@ GCP上單一NetApp CVO執行個體的Terraform變數。
 --
 .CVO HA部署
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上以高可用度配對部署/設定NetApp CVO（候選）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -1551,6 +1586,7 @@ NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
@@ -1668,10 +1704,12 @@ GCP上HA配對中NetApp CVO執行個體的Terraform變數。
 --
 .CVS Volume
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVS Volume
 本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -1720,6 +1758,7 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/lat
 ----
     terraform destroy
 ----
+.收件者：
 "CVS Volume（CVS Volume）"
 
 NetApp GCP CVS Volume的Terraform變數。

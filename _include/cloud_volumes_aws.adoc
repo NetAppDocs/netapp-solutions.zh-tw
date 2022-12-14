@@ -6,10 +6,12 @@
 ====
 .CVO單一節點部署
 --
+.Terraform組態檔案、可在AWS上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上部署/設定單一節點NetApp CVO（英文）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -74,6 +76,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
@@ -146,10 +149,12 @@ NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
 --
 .CVO HA部署
 --
+.Terraform組態檔案、可在AWS上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上以高可用度配對部署/設定NetApp CVO（BIOS）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -214,6 +219,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
@@ -313,10 +319,12 @@ HA配對中NetApp CVO執行個體的Terraform變數。
 --
 .FSX部署
 --
+.Terraform組態檔案、可在ONTAP AWS上部署NetApp SfSX
 本節包含各種Terraform組態檔案、可在ONTAP AWS（Amazon Web Services）上部署/設定NetApp SfSX。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -381,6 +389,7 @@ NOTE: 您可以將變數「AWs_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.食譜：
 《Connector》（連接器）
 
 NetApp AWS連接器執行個體的Terraform變數。

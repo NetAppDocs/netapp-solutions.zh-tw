@@ -6,10 +6,12 @@
 ====
 .CVO單一節點部署
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上部署/設定單一節點NetApp CVO（英文）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -62,6 +64,7 @@ NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
@@ -131,10 +134,12 @@ GCP上單一NetApp CVO執行個體的Terraform變數。
 --
 .CVO HA部署
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上以高可用度配對部署/設定NetApp CVO（候選）。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -187,6 +192,7 @@ NOTE: 您可以將變數「GCP_connector部署布爾」值設為true/false、以
 ----
     terraform destroy
 ----
+.收件者：
 《Connector》（連接器）
 
 NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
@@ -304,10 +310,12 @@ GCP上HA配對中NetApp CVO執行個體的Terraform變數。
 --
 .CVS Volume
 --
+.Terraform組態檔案、可在GCP上部署NetApp CVS Volume
 本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
 
+.程序
 若要執行範本：
 
 . 複製儲存庫。
@@ -356,6 +364,7 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/lat
 ----
     terraform destroy
 ----
+.收件者：
 "CVS Volume（CVS Volume）"
 
 NetApp GCP CVS Volume的Terraform變數。

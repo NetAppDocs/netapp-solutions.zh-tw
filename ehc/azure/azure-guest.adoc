@@ -26,6 +26,7 @@ Azure可透過原生Azure NetApp Files 的不穩定（anf）服務或Cloud Volum
 === 以客體連線儲存設備的形式提供Azure NetApp Files
 
 .使用Azure NetApp Files Azure VMware解決方案（AVS）設定功能
+[%collapsible]
 ====
 您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資料共享。Azure NetApp Files由於Azure NetApp Files 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需五個簡單步驟即可設定各個資料區。Azure NetApp Files
 
@@ -33,6 +34,7 @@ VMware解決方案的VMware解決方案必須位於同一個Azure地區。Azure 
 
 ====
 .建立及掛載Azure NetApp Files 功能
+[%collapsible]
 ====
 若要建立及掛載Azure NetApp Files 此功能、請完成下列步驟：
 
@@ -108,6 +110,7 @@ CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端�
 === 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 
 .在Cloud Volumes ONTAP Azure中部署全新的功能
+[%collapsible]
 ====
 您可以從Azure VMware解決方案SDDC環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP由於Cloud Volumes ONTAP 支援iSCSI、SMB及NFS傳輸協定、所以也可在Linux用戶端和Windows用戶端上掛載這些磁碟區。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
 
@@ -164,6 +167,7 @@ image:azure-cvo-guest-11.png[""]
 
 ====
 .SMB Volume的其他組態
+[%collapsible]
 ====
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 +
@@ -189,6 +193,7 @@ image:azure-cvo-guest-24.png[""]
 
 ====
 .將LUN連接至主機
+[%collapsible]
 ====
 若要將LUN連線至主機、請完成下列步驟：
 

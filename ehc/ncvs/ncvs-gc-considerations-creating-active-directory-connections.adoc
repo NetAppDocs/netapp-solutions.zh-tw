@@ -108,11 +108,11 @@ image:ncvs-gc-image19.png["錯誤：缺少圖形影像"]
 * CIFS/SMB和NFS Kerberos會建立個別的機器帳戶物件。
 * 啟用LDAP的NFS會在Active Directory中建立機器帳戶、以進行Kerberos LDAP繫結。
 * 具有LDAP的雙傳輸協定磁碟區會共用CIFS/SMB機器帳戶、以供LDAP和SMB使用。
-* CIFS/SMB機器帳戶的機器帳戶命名慣例為：名稱-1234（隨機四位數ID、加上連字號、加上<10個字元名稱）。您可以使用Active Directory連線上的[NetBios名稱]設定來定義名稱（請參閱「」一節） Directory connection details」）。
+* CIFS/SMB機器帳戶的機器帳戶命名慣例為：名稱-1234（隨機四位數ID、加上連字號、加上<10個字元名稱）。您可以使用Active Directory連線上的[NetBios名稱]設定來定義名稱（請參閱「」一節）<<Active Directory連線詳細資料>>」）。
 * NFS Kerberos使用NFS-name-1234作為 命名慣例（最多15個字元）。如果使用超過15個字元、則名稱為nfs -截短名稱-1234.
 * 僅NFS的CVS效能執行個體若啟用LDAP、則會建立SMB機器帳戶、以與CIFS/SMB執行個體相同的命名慣例來繫結至LDAP伺服器。
 * 建立SMB機器帳戶時、預設的隱藏管理共用區（請參閱一節 link:ncvs-gc-smb.html#default-hidden-shares["「預設隱藏共用」"]）也會建立（c$、admin$、ipc$）、但這些共用區並未指派ACL、因此無法存取。
-* 依預設、機器帳戶物件會放置在CN=電腦中、但您可以在必要時指定不同的OU。請參閱「」一節 needed to create SMB machine accounts」、以瞭解新增/移除Cloud Volumes Service 機器帳戶物件所需的存取權限。
+* 依預設、機器帳戶物件會放置在CN=電腦中、但您可以在必要時指定不同的OU。請參閱「」一節<<建立SMB機器帳戶所需的權限>>」、以瞭解新增/移除Cloud Volumes Service 機器帳戶物件所需的存取權限。
 
 
 當將SMB機器帳戶新增至Active Directory時Cloud Volumes Service 、會填入下列欄位：

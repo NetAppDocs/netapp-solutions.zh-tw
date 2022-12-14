@@ -92,6 +92,7 @@ NOTE: 此功能目前正處於公開預覽中。
 若要附加Azure NetApp File Volume做為Azure VMware Solution私有雲的VMware資料存放區、請確定符合下列先決條件。
 
 .先決條件
+[%collapsible]
 ====
 . 使用AZ登入、並驗證訂閱已登錄至Microsoft .AVS命名空間中的CloudSanExperience功能。
 
@@ -148,6 +149,7 @@ az extension add --name vmware
 ....
 ====
 .建立及掛載Azure NetApp Files 功能
+[%collapsible]
 ====
 . 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files 「AZ供應商登錄」、命名空間Microsoft.NetApp–wait命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。註冊後、請建立NetApp帳戶。請參閱此 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["連結"^] 以取得詳細步驟。
 
@@ -179,6 +181,7 @@ image:vmware-dr-image4.png["錯誤：缺少圖形影像"]
 
 ====
 .將Azure NetApp Files 資料儲存區新增至私有雲
+[%collapsible]
 ====
 若要將Azure NetApp Files 某個資料存放區新增至私有雲、請完成下列步驟：
 
@@ -303,11 +306,13 @@ Volume重新塑形和動態服務層級變更對SDDC而言完全透明。在VMwa
 == 工作負載
 
 .移轉
+[%collapsible]
 ====
 移轉是最常見的使用案例之一。使用VMware HCX或VMotion來移動內部部署的VM。或者、您也可以使用Rivermeadow將VM移轉至Azure NetApp Files 各個資料存放區。
 
 ====
 .資料保護
+[%collapsible]
 ====
 備份虛擬機器並快速恢復這些虛擬機器、是ANF資料存放區的最大優勢之一。使用Snapshot複本來快速複製VM或資料存放區、而不影響效能、然後將它們傳送至Azure儲存設備以提供長期資料保護、或使用跨區域複寫來進行災難恢復。這種方法只儲存變更的資訊、可將儲存空間和網路頻寬減至最低。
 
@@ -317,6 +322,7 @@ Volume重新塑形和動態服務層級變更對SDDC而言完全透明。在VMwa
 NOTE: 使用ANF資料存放區時、「Restore to New Volume」（還原至新磁碟區）選項可用於複製整個資料存放區磁碟區、還原的磁碟區可作為另一個資料存放區掛載至AVS SDDC內的主機。資料存放區掛載完成後、即可登錄、重新設定及自訂其中的VM、如同個別複製VM一樣。
 
 .適用於虛擬機器的雲端備份
+[%collapsible]
 =====
 適用於虛擬機器的Cloud Backup可在vCenter上提供vSphere Web用戶端GUI、透過Azure NetApp Files 備份原則保護Azure VMware解決方案虛擬機器和VMware資料存放區。這些原則可定義排程、保留及其他功能。Cloud Backup for Virtual Machine功能可以使用Run命令進行部署。
 
@@ -336,6 +342,7 @@ image:vmware-dr-image7.png["錯誤：缺少圖形影像"]
 
 =====
 .利用Azure NetApp Files VMware解決方案進行災難恢復、提供VMware vCenter災難恢復
+[%collapsible]
 =====
 災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載免受站台停機和資料毀損事件（例如勒索軟體）的影響。使用VMware VAIO架構、內部部署的VMware工作負載可複寫至Azure Blob儲存設備並進行還原、使資料遺失率降至最低或接近零、RTO接近零。可以使用Jetstream DR無縫恢復從內部部署複製到AVS的工作負載、特別是Azure NetApp Files 到還原的工作負載。它能在災難恢復站台使用最少的資源、並以具成本效益的雲端儲存設備、實現具成本效益的災難恢復。透過Azure Blob Storage、在Anf資料存放區中自動恢復、根據網路對應、Jetstream DR會將獨立的VM或相關VM群組恢復至恢復站台基礎架構、並提供時間點還原功能以保護勒索軟體。
 
