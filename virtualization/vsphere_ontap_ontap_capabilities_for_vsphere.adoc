@@ -17,7 +17,7 @@ summary: 支援所有用於虛擬化的主要儲存傳輸協定、例如適用�
 
 == 通訊協定
 
-支援所有用於虛擬化的主要儲存傳輸協定、例如適用於SAN環境的iSCSI、Fibre Channel（FC）、Fibre Channel over Ethernet（FCoE）或Non-volatile Memory Express over Fibre Channel（NVMe / FC）、以及用於來賓連線的NFS（v3和v4.1）、以及SMB或S3。ONTAP客戶可以自由挑選最適合其環境的產品、並視需要在單一系統上結合各種通訊協定（例如、使用幾個iSCSI LUN或來賓共用區來增加NFS資料存放區的一般使用量）。
+支援所有用於虛擬化的主要儲存傳輸協定、例如適用於SAN環境的iSCSI、Fibre Channel（FC）、Fibre Channel over Ethernet（FCoE）或Non-volatile Memory Express over Fibre Channel（NVMe / FC）、以及用於來賓連線的NFS（v3和v4.1）和SMB或S3 ONTAP 。客戶可以自由挑選最適合其環境的產品、並視需要在單一系統上結合各種通訊協定。例如、您可以利用幾個iSCSI LUN或來賓共用區來擴大NFS資料存放區的一般使用。
 
 
 
@@ -27,14 +27,16 @@ summary: 支援所有用於虛擬化的主要儲存傳輸協定、例如適用�
 
 以下是ONTAP 關於基礎功能的進一步詳細資料：
 
-* * NetApp Snapshot複本* ONTAP 。*當您建立或使用Snapshot複本時、此功能可即時提供VM或資料存放區的Snapshot複本、但效能不佳。它們可用於在修補之前為VM建立還原點、或是用於簡單的資料保護。請注意、這些快照與VMware（一致性）快照不同。製作ONTAP 「VMware vSphere SnapCenter 」的「VMware vSphere」的「VMware外掛程式」可用來備份VM和資料存放區、是最簡單的方法。
+* * NetApp Snapshot複本* ONTAP 。*當您建立或使用Snapshot複本時、此功能可即時提供VM或資料存放區的Snapshot複本、但效能不受影響。它們可用於在修補之前為VM建立還原點、或是用於簡單的資料保護。請注意、這些快照與VMware（一致性）快照不同。製作ONTAP 「VMware vSphere SnapCenter 」的「VMware vSphere」的「VMware外掛程式」可用來備份VM和資料存放區、是最簡單的方法。
 * *儲存效率* ONTAP 。*支援即時與背景重複資料刪除與壓縮、零區塊重複資料刪除、以及資料壓縮。
 * * Volume與LUN搬移。*可在不中斷營運的情況下移動支援ONTAP vSphere資料存放區與vVols的磁碟區與LUN、以平衡效能與容量、或支援不中斷營運的維護與升級。
 * * QoS * QoS可讓您管理個別LUN、磁碟區或檔案的效能。此功能可用於限制不明或虛擬機器、或是確保重要的虛擬機器獲得足夠的效能資源。
-* * NetApp Volume Encryption、NetApp Aggregate Encryption。* NetApp加密選項提供簡單的軟體式加密、可保護閒置的資料。
+* * NetApp Volume Encryption與NetApp Aggregate Encryption。* NetApp加密選項提供簡單的軟體式加密、可保護閒置的資料。
 * *此功能可在區塊層級自動將較低的資料分層至個別的物件存放區、以釋出昂貴的Flash儲存空間。FabricPool
-* * REST、Ansible。*使用 https://devnet.netapp.com/restapi["REST API ONTAP"^] 自動化儲存與資料管理、以及 https://netapp.io/configuration-management-and-automation/["Ansible模組"^] 針對ONTAP 您的VMware系統進行組態管理。請注意、某些ONTAP 功能不適合vSphere工作負載。例如FlexGroup 、在支援VMware 9.8之前的版本不ONTAP 具備完整的複製支援、也未通過vSphere測試（請參閱FlexGroup 「VMware」一節、以瞭解搭配vSphere使用的最新資訊）。由於vSphere是專為大部分讀取工作負載所設計、因此不適合使用此產品。FlexCache當快取從來源中斷連線時、寫入作業可能會有問題、導致兩側都發生NFS資料存放區錯誤。
+* * REST與Ansible。*使用 https://devnet.netapp.com/restapi["REST API ONTAP"^] 自動化儲存與資料管理、以及 https://netapp.io/configuration-management-and-automation/["Ansible模組"^] 用於ONTAP 設定支援您的支援系統。
 
+
+請注意、某些ONTAP 功能不太適合vSphere工作負載。例如FlexGroup 、不支援完整複製功能的不ONTAP 支援使用VMware vSphere前的支援功能、也未通過測試（請參閱FlexGroup 「VMware」一節以瞭解搭配vSphere使用的最新資訊）。由於vSphere是專為讀取型大多數工作負載所設計、因此不適合使用此技術FlexCache 。當快取從來源中斷連線時、寫入作業可能會有問題、導致兩側都發生NFS資料存放區錯誤。
 
 
 
@@ -68,26 +70,19 @@ NetApp提供數種獨立式軟體工具、可搭配ONTAP 使用以管理您的�
 
 === VMware vSphere適用的工具ONTAP
 
-VMware vSphere的VMware vSphere工具是一套搭配vSphere使用VMware vCenter儲存設備的工具。ONTAP ONTAPvCenter外掛程式先前稱為虛擬儲存主控台（VSC）、可簡化儲存管理與效率功能、增強可用度、並降低儲存成本與營運成本、無論您使用SAN或NAS。它採用最佳實務做法來配置資料存放區、並針對NFS和區塊儲存環境最佳化ESXi主機設定。為獲得所有這些效益、NetApp建議您在ONTAP 使用vSphere搭配執行ONTAP VMware軟體的系統時、將這些VMware不完整的工具當作最佳實務做法。它同時包含vCenter的伺服器應用裝置和使用者介面擴充功能。
+VMware vSphere的VMware vSphere工具是一套搭配vSphere使用VMware vCenter儲存設備的工具。ONTAP ONTAPvCenter外掛程式先前稱為虛擬儲存主控台（VSC）、可簡化儲存管理與效率功能、增強可用度、並降低儲存成本與營運成本、無論您使用SAN或NAS。它採用最佳實務做法來配置資料存放區、並針對NFS和區塊儲存環境最佳化ESXi主機設定。為獲得所有這些效益、NetApp建議您在ONTAP 使用vSphere搭配執行ONTAP VMware軟體的系統時、將這些VMware不完整的工具當作最佳實務做法。其中包括伺服器應用裝置、vCenter的使用者介面擴充、VASA Provider及儲存複寫介面卡。幾乎所有的功能都可以透過簡單的REST API來自動化、而大多數的現代化自動化工具都能耗用這些API ONTAP 。
+
+* * vCenter UI延伸功能* ONTAP 此功能可簡化營運團隊和vCenter管理員的工作。*此功能可在vCenter UI中、直接使用易於使用的內容相關功能表來管理主機和儲存設備、資訊入口小程式和原生警示功能、以利簡化工作流程。
+* *適用於ONTAP VMware的VASA Provider for Sfor Sfor the。*適用於ONTAP VMware的VASA Provider支援VMware vStorage API for Storage Aware（VASA）架構。它是ONTAP VMware vSphere的VMware vSphere配套工具、可做為單一虛擬應用裝置、方便部署。VASA Provider將vCenter Server與ONTAP VMware連線、以協助資源配置及監控VM儲存設備。它可支援VMware虛擬磁碟區（vVols）、管理儲存功能設定檔和個別VM vVols效能、以及監控容量和設定檔法規遵循的警示。
+* *儲存複寫介面卡。* SRA與VMware Site Recovery Manager（SRM）搭配使用、可在正式作業與災難恢復站台之間管理資料複寫、並在不中斷營運的情況下測試DR複本。它有助於自動化探索、還原及重新保護等工作。其中包括適用於Windows SRM伺服器和SRM應用裝置的SRA伺服器應用裝置和SRA介面卡。
+
+
+下圖說明ONTAP vSphere的各項功能。
+
+image:vsphere_ontap_image1.png["錯誤：缺少圖形影像"]
 
 
 
 === 適用於VMware VAAI的NFS外掛程式
 
-適用於VMware的NetApp NFS外掛程式是ESXi主機的外掛程式、可讓ESXi主機使用VAAI功能、並將NFS資料存放區放在ONTAP VMware上。它支援複本卸載、適用於實體複本作業、適用於大型虛擬磁碟檔案的空間保留、以及Snapshot複本卸載。將複本作業卸載到儲存設備並不一定更快完成、但它確實卸載主機資源、例如CPU週期、緩衝區和佇列。您可以使用ONTAP VMware vSphere的VMware vCenter工具、在ESXi主機上安裝外掛程式。
-
-
-
-=== Vasa Provider for ONTAP Nation
-
-VASA Provider for ONTAP VMware vStorage API for Storage感知（VASA）架構。它是ONTAP VMware vSphere的VMware vSphere配套工具、可做為單一虛擬應用裝置、方便部署。VASA Provider將vCenter Server與ONTAP VMware連線、以協助資源配置及監控VM儲存設備。它可支援VMware虛擬磁碟區（vVols）、管理儲存功能設定檔和個別VM vVols效能、以及監控容量和設定檔法規遵循的警示。
-
-
-
-=== 儲存複寫介面卡
-
-SRA與VMware Site Recovery Manager（SRM）搭配使用、可在正式作業與災難恢復站台之間管理資料複寫、並在不中斷營運的情況下測試DR複本。它有助於自動化探索、還原及重新保護等工作。其中包括適用於Windows SRM伺服器和SRM應用裝置的SRA伺服器應用裝置和SRA介面卡。SRA是ONTAP VMware vSphere的VMware vSphere基礎工具之一。
-
-下圖說明ONTAP vSphere的各項功能。
-
-image:vsphere_ontap_image1.png["錯誤：缺少圖形影像"]
+適用於VMware VAAI的NetApp NFS外掛程式是ESXi主機的外掛程式、可讓ESXi主機在ONTAP 支援VMware的NFS資料存放區時、使用VAAI功能。它支援複本卸載、適用於實體複本作業、適用於大型虛擬磁碟檔案的空間保留、以及Snapshot複本卸載。將複本作業卸載到儲存設備並不一定能更快完成、但它確實能降低網路頻寬需求、並卸載CPU週期、緩衝區和佇列等主機資源。您可以使用ONTAP VMware vSphere的支援功能、在ESXi主機上安裝外掛程式、或是在支援的情況下安裝vSphere Lifecycle Manager（vLCM）。
