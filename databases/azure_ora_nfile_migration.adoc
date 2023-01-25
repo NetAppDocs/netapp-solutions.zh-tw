@@ -1,0 +1,190 @@
+---
+sidebar: sidebar 
+permalink: databases/azure_ora_nfile_migration.html 
+summary: 本節詳細說明如何將Oracle資料庫從內部部署移轉至Azure NetApp Files 原地、反之亦然。 
+keywords: database, Oracle, Azure, ANF, Azure NetApp Files, migration 
+---
+= 資料庫從內部部署移轉至Azure雲端
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:azure_ora_nfile_protection.html["上一篇：資料庫保護。"]
+
+由於Oracle決定逐步淘汰單一執行個體資料庫、許多組織已將單一執行個體Oracle資料庫轉換成多租戶容器資料庫。如此一來、便可輕鬆將一部分名為pdb的容器資料庫重新配置至雲端、並提供最大可用度選項、將移轉期間的停機時間降至最低。
+
+不過、如果您仍有Oracle資料庫的單一執行個體、則可以先將其轉換成多租戶容器資料庫、然後再嘗試重新配置pdb。
+
+下列各節提供在任一種情況下、將內部部署Oracle資料庫移轉至Azure雲端的詳細資料。
+
+
+
+== 將單一非CDB執行個體轉換為多租戶CDB中的pdb
+
+如果您仍有單一執行個體的Oracle資料庫、無論您是否要將其移轉至雲端、都必須將其轉換成多租戶容器資料庫、因為Oracle不久將停止支援單一執行個體資料庫。
+
+下列程序會將單一執行個體資料庫插入容器資料庫、做為可插拔的資料庫或pdb。
+
+. 在獨立的單一執行個體資料庫所在的同一主機上建置Shell Container資料庫 `ORACLE_HOME`。
+. 關閉單一執行個體資料庫、然後以唯讀模式重新啟動。
+. 執行 `DBMS_PDB.DESCRIBE` 產生資料庫中繼資料的程序。
++
+[source, cli]
+----
+BEGIN
+  DBMS_PDB.DESCRIBE(
+    pdb_descr_file => '/home/oracle/ncdb.xml');
+END;
+/
+----
+. 關閉單一執行個體資料庫。
+. 啟動Container資料庫。
+. 執行 `DBMS_PDB.CHECK_PLUG_COMPATIBILITY` 用於判斷非CDB是否與CDB相容的功能。
++
+[source, cli]
+----
+SET SERVEROUTPUT ON
+DECLARE
+  compatible CONSTANT VARCHAR2(3) :=
+    CASE DBMS_PDB.CHECK_PLUG_COMPATIBILITY(
+           pdb_descr_file => '/disk1/oracle/ncdb.xml',
+           pdb_name       => 'NCDB')
+    WHEN TRUE THEN 'YES'
+    ELSE 'NO'
+END;
+BEGIN
+  DBMS_OUTPUT.PUT_LINE(compatible);
+END;
+/
+----
++
+如果輸出為「是」、則非CDB相容、您可以繼續下一步。
+
++
+如果輸出為否、則非CDB不相容、您可以檢查 `PDB_PLUG_IN_VIOLATIONS` 請參閱、瞭解為何不相容。您必須先修正所有違規、才能繼續。例如、任何版本或修補程式不相符的問題都應該透過執行升級或opatch公用程式來解決。修正違規之後、請執行 `DBMS_PDB.CHECK_PLUG_COMPATIBILITY` 再次確認非CDB與CDB相容。
+
+. 插入非CDB的單一執行個體。
++
+[source, cli]
+----
+CREATE PLUGGABLE DATABASE ncdb USING '/home/oracle/ncdb.xml'
+  COPY
+  FILE_NAME_CONVERT = ('/disk1/oracle/dbs/', '/disk2/oracle/ncdb/')
+;
+----
++
+
+NOTE: 如果主機上沒有足夠的空間、則為 `NOCOPY` 選項可用於建立pdb。在這種情況下、單一執行個體非CDB在作為pdb外掛之後無法使用、因為原始資料檔案已用於pdb。請務必在轉換之前建立備份、以便在發生任何問題時、有一些問題需要重新處理。
+
+. 如果來源單一執行個體非CDB與目標CDB之間的版本不同、請從轉換後的pdb升級開始。對於相同版本的轉換、可以跳過此步驟。
++
+[source, cli]
+----
+sqlplus / as sysdba;
+----
++
+[source, cli]
+----
+alter session set container=ncdb;
+----
++
+[source, cli]
+----
+alter pluggable database open upgrade;
+exit;
+----
++
+[source, cli]
+----
+dbupgrade -c ncdb -l /home/oracle
+----
++
+檢閱中的升級記錄檔 `/home/oracle` 目錄。
+
+. 開啟可插拔的資料庫、檢查是否有pdb外掛程式違規、然後重新編譯無效的物件。
++
+[source, cli]
+----
+alter pluggable database ncdb open;
+----
++
+[source, cli]
+----
+alter session set container=ncdb;
+select message from pdb_plug_in_violations where type like '%ERR%' and status <> 'RESOLVED';
+----
++
+[source, cli]
+----
+$ORACLE_HOME/perl/bin/perl $ORACLE_HOME/rdbms/admin/catcon.pl -n 1 -c 'ncdb' -e -b utlrp -d $ORACLE_HOME/rdbms/admin utlrp.sql
+----
+. 執行 `noncdb_to_pdb.sql` 以更新資料字典。
++
+[source, cli]
+----
+sqlplus / as sysdba
+----
++
+[source, cli]
+----
+alter session set container=ncdb;
+@$ORACLE_HOME/rdbms/admin/noncdb_to_pdb.sql;
+----
++
+關閉並重新啟動Container DB。ncdb會從受限模式中移除。
+
+
+
+
+
+== 將內部部署的Oracle資料庫移轉至Azure（重新配置pdb）
+
+使用最大可用度選項重新配置Oracle pdb時、會使用pdb熱複製技術、以便在將pdb複製到目標時、提供來源pdb的可用度。切換時、工作階段和連線會自動重新導向至目標pdb。如此一來、停機時間就會盡量縮短、而不受重新部署的pdb大小影響。NetApp提供可執行的工具套件、可將移轉程序自動化。
+
+. 在Azure VM上的Azure公有雲中建立相同版本和修補層級的CDB。
+. 從Ansible控制器複製自動化工具套件的複本。
++
+[source, cli]
+----
+git clone https://github.com/NetApp-Automation/na_ora_aws_migration.git
+----
+. 請閱讀README檔案中的指示。
+. 設定來源與目標Oracle伺服器的Ansible主機變數檔案、以及DB伺服器主機的組態檔以進行名稱解析。
+. 在Ansible控制器上安裝Ansible控制器先決條件。
++
+[source, cli]
+----
+ansible-playbook -i hosts requirements.yml
+ansible-galaxy collection install -r collections/requirements.yml --force
+----
+. 針對內部部署伺服器執行任何移轉前工作。
++
+[source, cli]
+----
+ansible-playbook -i hosts ora_pdb_relocate.yml -u admin -k -K -t ora_pdb_relo_onprem
+----
++
+
+NOTE: 管理使用者是內部部署Oracle伺服器主機上具有Sudo權限的管理使用者。系統管理員使用者會以密碼驗證。
+
+. 執行Oracle pdb從內部部署重新配置至目標Azure Oracle主機。
++
+[source, cli]
+----
+ansible-playbook -i hosts ora_pdb_relocate.yml -u azureuser --private-key db1.pem -t ora_pdb_relo_primary
+----
+
+
+
+NOTE: Ansible控制器可位於內部部署或Azure雲端。控制器需要連線至內部部署的Oracle伺服器主機和Azure Oracle VM主機。Oracle資料庫連接埠（例如1521）會在內部部署的Oracle伺服器主機與Azure Oracle VM主機之間開啟。
+
+
+
+== 其他Oracle資料庫移轉選項
+
+如需其他移轉選項、請參閱Microsoft文件： link:https://learn.microsoft.com/en-us/azure/architecture/example-scenario/oracle-migrate/oracle-migration-overview["Oracle資料庫移轉決策程序"^]。

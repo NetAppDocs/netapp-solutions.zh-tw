@@ -1,0 +1,243 @@
+---
+sidebar: sidebar 
+permalink: databases/azure_ora_nfile_protection.html 
+summary: 本節說明如何使用azacsnap工具保護Oracle資料庫、以及將Snapshot備份、還原和快照分層整理至Azure Blob。 
+keywords: Oracle, Azure, database, backup, restore 
+---
+= 保護Azure雲端中的Oracle資料庫
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:azure_ora_nfile_procedures.html["先前：部署程序。"]
+
+
+
+== 使用AzAcSnap工具備份Oracle資料庫與Snapshot
+
+Azure應用程式一致的Snapshot工具（AzAcSnap）是一種命令列工具、可處理在擷取儲存快照之前將資料庫置於應用程式一致狀態所需的所有協調作業、藉此保護協力廠商資料庫的資料。
+
+如果是Oracle、您可以將資料庫置於備份模式、以擷取快照、然後將資料庫從備份模式中移出。
+
+
+
+=== 備份資料與記錄磁碟區
+
+您可以使用執行Snapshot命令的簡單Shell指令碼、在資料庫伺服器主機上設定備份。然後、指令碼可以排程從crontab執行。
+
+一般而言、備份頻率取決於所需的RTO和RPO。頻繁建立快照會佔用更多儲存空間。備份頻率與空間使用率之間存在一定的平衡。
+
+資料磁碟區通常比記錄磁碟區耗用更多儲存空間。因此、您可以每隔幾小時在資料磁碟區上拍攝快照、並每隔15到30分鐘在記錄磁碟區上建立更頻繁的快照。
+
+請參閱下列備份指令碼與排程範例。
+
+對於資料Volume快照：
+
+[source, cli]
+----
+ # /bin/sh
+cd /home/azacsnap/bin
+. ~/.bash_profile
+azacsnap -c backup --volume data --prefix acao-ora01-data --retention 36
+azacsnap -c backup --volume other --prefix acao-ora01-log --retention 250
+----
+對於記錄Volume快照：
+
+[source, cli]
+----
+ # /bin/sh
+cd /home/azacsnap/bin
+. ~/.bash_profile
+azacsnap -c backup --volume other --prefix acao-ora01-log --retention 250
+----
+crontab排程：15、30、45 ****/home/azacsnap/snap_log.sh 0 */ 2 **/home/azacsnap/snap_data.sh
+
+
+NOTE: 設定備份時 `azacsnap.json` 組態檔、將所有資料磁碟區（包括二進位磁碟區）新增至 `dataVolume` 及所有記錄磁碟區 `otherVolume`。快照的最大保留量為250個複本。
+
+
+
+=== 驗證快照
+
+前往Azure入口網站> Azure NetApp Files / Volume、檢查快照是否已成功建立。
+
+image:db_ora_azure_anf_snap_01.PNG["此螢幕擷取畫面顯示快照清單中的兩個檔案。"]
+image:db_ora_azure_anf_snap_02.PNG["此螢幕快照顯示快照清單中的八個檔案。"]
+
+
+
+== Oracle從本機備份還原與還原
+
+Snapshot備份的主要優點之一是它與來源資料庫磁碟區共存、而且主要資料庫磁碟區幾乎可以立即復原。
+
+
+
+=== 在主伺服器上還原及還原Oracle
+
+下列範例示範如何從同一Oracle主機上的Azure儀表板和CLI還原及還原Oracle資料庫。
+
+. 在資料庫中建立要還原的測試表格。[oracle@acao-ora01 ~]$ sqlplus / as sysdba
++
+SQL* Plus：19.0.00.0版- 9月12日星期一正式作業19：02：35 2022版本19.8.0.0.0
+
++
+Copyright（c）1982,2019、Oracle。版權所有。
+
++
+連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
+
++
+SQL>建立資料表testsnapshot（id integerate、Event varchar（100）、dt時間戳記）；
+
++
+表格已建立。
+
++
+SQL>插入testsnapshot值（1、「插入資料標記以驗證Snapshot還原」、Sysdate）；
+
++
+已建立1列。
+
++
+SQL>提交；
+
++
+提交完成。
+
++
+SQL>從testsnapshot中選擇*；
+
++
+ ID
++
+[listing]
+----
+EVENT
+--------------------------------------------------------------------------------
+DT
+---------------------------------------------------------------------------
+         1
+insert a data marker to validate snapshot restore
+12-SEP-22 07.07.35.000000 PM
+----
+. 在備份快照之後、將表格丟棄。
++
+[oracle@acao-ora01 ~]$ sqlplus / as sysdba
+
++
+SQL* Plus：19.0．0．0版- 9月13日星期二正式上線14：20：22 2022版本19.8．0．0
+
++
+Copyright（c）1982,2019、Oracle。版權所有。
+
++
+連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
+
++
+SQL>刪除表testsnapshot；
+
++
+資料表已捨棄。
+
++
+SQL>從testsnapshot中選取*；從testsnapshot *錯誤中選取*在第1行：ora-00942：表格或檢視不存在
+
++
+SQL>立即關機；資料庫已關閉。資料庫已卸載。Oracle執行個體關機。SQL>結束與Oracle Database 19c Enterprise Edition 19.0.00.0.0-Production Version 19.8.0.0.0的連線中斷
+
+. 從「支援資料」儀表板、將記錄磁碟區還原至上次可用的快照Azure NetApp Files 。選擇*恢復磁碟區*。
++
+image:db_ora_azure_anf_restore_01.PNG["此螢幕快照顯示Anf儀表板中磁碟區的快照還原方法。"]
+
+. 確認「恢復Volume」（恢復Volume）、然後按一下「*恢復*」以完成磁碟區還原至最新的可用備份。
++
+image:db_ora_azure_anf_restore_02.PNG["「確定要這麼做？」快照還原頁面。"]
+
+. 對資料磁碟區重複相同的步驟、並確定備份包含要恢復的資料表。
++
+image:db_ora_azure_anf_restore_03.PNG["此螢幕快照顯示Anf儀表板中資料磁碟區的快照還原方法。"]
+
+. 再次確認磁碟區還原、然後按一下「還原」。
++
+image:db_ora_azure_anf_restore_04.PNG["「確定要這麼做？」資料磁碟區快照還原頁面。"]
+
+. 如果您有多個控制檔複本、請重新同步控制檔、並以可用的最新複本取代舊控制檔。
++
+[oracle@acao-ora01 ~]$ mv /u02/oradata/ORATST/control01.CTL /u02/oradata/ORATST/control01.culbk [oracle@acao-ora01 ~]$ cp /u03/orareco/ORATST/control02.CTL /u02/orarata/ORST.ora01.
+
+. 登入Oracle伺服器VM、然後使用sqlplus執行資料庫恢復。
++
+[oracle@acao-ora01 ~]$ sqlplus / as sysdba
+
++
+SQL* Plus：19.0．0．0版- 9月13日星期二上線：15：10：17 2022版本19.8．0．0
+
++
+Copyright（c）1982,2019、Oracle。版權所有。
+
++
+連線至閒置執行個體。
+
++
+SQL>啟動掛載；Oracle執行個體已啟動。
+
++
+系統整體區域總計6442448984位元組固定大小8910936位元組可變大小1090519040位元組資料庫緩衝區5336154688位元組重做緩衝區7864320位元組已掛載資料庫。SQL>使用備份控制檔還原資料庫直到取消；ORA-00279：變更執行緒1 ORA-00289所需的3188523於2022年9月13日產生10：00：09：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_43_22rnjq280變更序列#8500243_
+
++
+指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
+
++
+ora-00279：變更在09/13/2022產生的318862 10：01：20需要執行緒1 ORA-00289：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_44_29f2lgb5_.arcORA-00862022rog_rearth_002020248/00rarc/不需要更新#orrq/20248/0020248/0020248/00rarc檔案1：#orrq_rarcarc/不需要更新#rq_0020248/0020248/0020248/0020248/00rarc檔案1
+
++
+指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
+
++
+ora-00279:變更3193117產生於09/13/2022 12:00:08需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_45_29h6qqqqyw_.arcorORA-002022202212不再需要更新#002022_or_car_002022_car_002022_002022_c檔案#OR_002022_cu2022_c檔案'_002022_c /不需要更新#or_0020148/0020148/002022_002022_c檔案#or_c /更新#or_c檔案#1_0020278/0020148/002022_c
+
++
+指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
+
++
+ora-00279:變更3193440產生於09/13/2022 12:01：20需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_46_%u_.arc ORA-00280：變更3193440以執行緒1 #velo_2010/20278/0040的順序執行緒1、不需要更新#orq/2010/20278/002010/2010/0020278_orarc/不需要ORq_orq_orarc/檔案1
+
++
+指定記錄：｛<RET> fest=recested |檔案名稱| Auto | cancel｝取消媒體恢復已取消。SQL>變更資料庫開啟重新設置記錄；
+
++
+資料庫已變更。
+
++
+SQL>從testsnapshot中選擇*；
+
++
+ ID
++
+[listing]
+----
+EVENT
+--------------------------------------------------------------------------------
+DT
+---------------------------------------------------------------------------
+         1
+insert a data marker to validate snapshot restore
+12-SEP-22 07.07.35.000000 PM
+
+
+SQL> select systimestamp from dual;
+
+ SYSTIMESTAMP
+---------------------------------------------------------------------------
+13-SEP-22 03.28.52.646977 PM +00:00
+----
+
+
+此畫面顯示已使用本機快照備份還原掉落的表格。
+
+link:azure_ora_nfile_migration.html["下一步：資料庫移轉。"]

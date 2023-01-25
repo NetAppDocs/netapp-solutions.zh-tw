@@ -22,14 +22,14 @@ link:aws_ora_fsx_ec2_deploy_intro.html["上一篇：簡介。"]
 
 另一方面、FSXVolume上的Oracle資料庫儲存設備則是透過AWS FSX主控台或CLI進行部署。Oracle二進位、資料或記錄磁碟區隨後會出現在EC2執行個體Linux主機上、並加以掛載。根據所採用的基礎儲存傳輸協定、每個資料或記錄磁碟區都可以配置多個LUN。
 
-image:aws_ora_fsx_ec2_arch.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_arch.PNG["此映像描述了一個架構圖表範例、包括主要HA叢集（待命HA叢集）、管理節點、以及相關的連線節點。"]
 
 FSXX儲存叢集的設計具有雙重備援、因此主儲存叢集和待命儲存叢集都部署在兩個不同的可用性區域中。資料庫磁碟區會以使用者可設定的時間間隔、從主要FSX叢集複寫到備用FSX叢集、以供所有Oracle二進位、資料和記錄磁碟區使用。
 
-這種高可用度的Oracle環境是以Ansible控制器節點和SnapCenter 一套支援功能的伺服器與UI工具來管理。Oracle安裝、組態及複寫均使用以教戰手冊為基礎的工具套件進行自動化。Oracle EC2執行個體核心作業系統或Oracle修補程式的任何更新、都可以平行執行、以保持主要和待命同步。事實上、初始自動化設定可輕鬆擴充、以便在需要時執行一些重複的每日Oracle工作。
+這種高可用度的Oracle環境是以Ansible控制器節點和SnapCenter 一套支援功能的伺服器與UI工具來管理。Oracle安裝、組態及複寫均使用可執行的教戰手冊工具套件來自動化。Oracle EC2執行個體核心作業系統或Oracle修補程式的任何更新、都可以平行執行、以保持主要和待命同步。事實上、初始自動化設定可輕鬆擴充、以便在需要時執行一些重複的每日Oracle工作。
 
 提供Oracle資料庫時間點還原工作流程、或視需要在主要或待命區域進行資料庫複製。SnapCenter透過SnapCenter SUI、您可以設定Oracle資料庫備份與複寫至待命的FSX儲存設備、以便根據RTO或RPO目標、達到高可用度或災難恢復。
 
 此解決方案提供的替代程序、可提供與Oracle RAC和Data Guard部署類似的功能。
 
-link:aws_ora_fsx_ec2_factors.html["下一步：部署程序。"]
+link:aws_ora_fsx_ec2_factors.html["下一步：要考量的因素。"]

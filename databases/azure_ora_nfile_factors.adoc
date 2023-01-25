@@ -1,0 +1,134 @@
+---
+sidebar: sidebar 
+permalink: databases/azure_ora_nfile_factors.html 
+summary: 本節將詳細說明在Azure虛擬機器和Azure NetApp Files 物件儲存設備上部署Oracle資料庫時應考量的因素。 
+keywords: database, Oracle, Azure, Azure NetApp Files 
+---
+= Oracle資料庫部署的考量因素
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:table-stripes: odd
+:imagesdir: ./../media/
+
+
+link:azure_ora_nfile_architecture.html["先前版本：解決方案架構。"]
+
+公有雲提供多種運算與儲存選擇、使用正確類型的運算執行個體與儲存引擎、是開始資料庫部署的好地方。您也應該選擇針對Oracle資料庫最佳化的運算和儲存組態。
+
+下列各節說明在Azure公有雲上部署Oracle資料庫時、搭配Azure NetApp Files 使用支援還原的Azure虛擬機器執行個體時、必須考量的關鍵事項。
+
+
+
+== VM類型與規模
+
+選取適當的VM類型和大小、對於公有雲中的關聯式資料庫達到最佳效能非常重要。Azure虛擬機器提供多種運算執行個體、可用來裝載Oracle資料庫工作負載。請參閱Microsoft文件 link:https://docs.microsoft.com/en-us/azure/virtual-machines/sizes["Azure中的虛擬機器大小"^] 適用於不同類型的Azure虛擬機器及其規模。一般而言、NetApp建議使用通用Azure虛擬機器來部署中小型Oracle資料庫。部署大型Oracle資料庫時、最適合使用記憶體最佳化的Azure VM。有了更多可用的RAM、就能設定更大的Oracle SGA或智慧型快閃快取來減少實體I/O、進而提升資料庫效能。
+
+執行時、可做為連接至Azure虛擬機器的NFS掛載、提供更高的處理量、並以本機儲存設備克服儲存最佳化的VM處理量限制Azure NetApp Files 。因此Azure NetApp Files 、在Oracle上執行Oracle可降低授權Oracle CPU核心數與授權成本。請參閱 link:https://www.netapp.com/media/17105-tr4780.pdf["TR-4780：Microsoft Azure上的Oracle資料庫"^]第7節- Oracle授權如何運作？
+
+其他考量因素包括：
+
+* 根據工作負載特性、選擇正確的vCPU和RAM組合。隨著VM上的RAM大小增加、vCPU核心數量也會增加。Oracle授權費用會根據vCPU核心數量收取、因此在某個時間點應該會有平衡。
+* 新增交換空間至VM。預設的Azure VM部署不會建立交換空間、這對資料庫來說並不理想。
+
+
+
+
+== 效能Azure NetApp Files
+
+從客戶必須在其所屬的功能區儲存帳戶中配置的容量資源池中配置支援的資料Azure NetApp Files Azure NetApp Files 。每個容量集區的指派方式如下：
+
+* 定義整體效能能力的服務層級。
+* 該容量集區的初始資源配置儲存容量或分層。服務品質（QoS）層級、定義每個已配置空間的整體最大處理量。
+
+
+服務層級和最初配置的儲存容量、決定特定Oracle資料庫Volume的效能等級。
+
+
+
+=== 1 Azure NetApp Files 、服務等級
+
+支援三種服務層級：Ultra、Premium和Standard Azure NetApp Files 。
+
+* *超儲存設備。*此層級可為每1 TiB指派的磁碟區配額提供高達128台Bps的處理量。
+* *優質儲存設備。*此層級可為每1 TiB指派的磁碟區配額提供高達64MiBps的處理量。
+* *標準儲存設備。*此層可為每1 TiB指派的磁碟區配額提供高達16MiBps的處理量。
+
+
+
+
+=== 2、容量池和服務品質
+
+每個所需的服務層級都有已配置容量的相關成本、並包含服務品質（QoS）層級、可定義已配置空間的整體最大處理量。
+
+例如、10TiB資源配置的單一容量資源池具備優質服務層級、可為此容量資源池中的所有磁碟區提供整體可用的處理量達10x 64MBps、因此640 MBps可搭配40、000（16K）IOPs或80、000（8K）IOPs。
+
+最小容量集區大小為4TiB。您可以根據工作負載需求的變化、以1TiB為增量來變更容量資源池的大小、以管理儲存需求和成本。
+
+
+
+=== 3.計算資料庫磁碟區的服務層級
+
+Oracle資料庫Volume的處理量限制是由下列因素組合所決定：磁碟區所屬容量集區的服務層級、以及指派給磁碟區的配額。
+
+下圖顯示如何計算Oracle資料庫Volume的處理量限制。
+
+image:db_ora_azure_anf_factors_01.PNG["此影像說明套用至三個容量層級的方程式、以判斷總處理量。"]
+
+在範例1中、從容量集區中指派2 TiB配額的優質儲存層、會將處理量限制指派為128 MiBps（2TiB * 64MiBps）。無論容量集區大小或實際磁碟區使用量為何、都適用此案例。
+
+在範例2中、從具有Premium儲存層的容量集區指派100GiB配額的磁碟區、其處理量上限為6.25億次（0.09765625TiB * 64MiBps）。無論容量集區大小或實際磁碟區使用量為何、都適用此案例。
+
+請注意、最小Volume大小為100GiB。
+
+
+
+== 儲存配置與設定
+
+NetApp建議採用下列儲存配置：
+
+* 對於小型資料庫、所有Oracle檔案都使用單一Volume配置。
++
+image:db_ora_azure_anf_factors_02.PNG["此映像描述三個資料庫（DB1、DB2和DB3）、每個資料庫都包含資料檔案、重作記錄、歸檔記錄和控制檔案、全都位於單一容量集區內。"]
+
+* 對於大型資料庫、建議的Volume配置是多個Volume：一個用於Oracle資料、一個用於複製控制檔、另一個用於Oracle作用中記錄、歸檔記錄和控制檔。NetApp強烈建議為Oracle二進位檔配置磁碟區、而非本機磁碟、以便將資料庫重新定位至新的主機、並快速還原。
++
+image:db_ora_azure_anf_factors_03.PNG["此映像描述兩個資料庫、每個資料庫各有兩個磁碟區。第一個Volume包含資料檔案、而每個資料庫的第二個Volume則包含重作記錄、歸檔記錄和控制檔。全部位於單一容量集區內。"]
+
+
+
+
+
+== NFS組態
+
+Linux是最常見的作業系統、具備原生NFS功能。Oracle提供直接NFS（DNFS）用戶端、原生整合至Oracle。Oracle DNFS會跳過作業系統快取、並啟用平行處理功能來改善資料庫效能。Oracle已支援NFSv3超過20年、而NFSv3則支援Oracle 12.1.0.2及更新版本。
+
+透過使用DNFS（自Oracle 11g起提供）、在Azure虛擬機器上執行的Oracle資料庫、可比原生NFS用戶端大幅提升I/O。使用NetApp自動化工具套件自動部署Oracle、可在NFSv3上自動設定DNFS。
+
+下圖示範Azure NetApp Files Oracle DNFS的有關功能的Sob基準測試。
+
+image:db_ora_azure_anf_factors_04.PNG["此圖表可大幅證明DNFS可改善KNFS的DB連續檔案延遲（毫秒）。"]
+
+其他考量因素：
+
+* TCP插槽表相當於主機匯流排介面卡（HBA）佇列深度的NFS。這些表格可控制任何時間都可以處理的NFS作業數量。預設值通常為16、這對於最佳效能而言太低。相反的問題發生在較新的Linux核心上、這會自動將TCP插槽表格限制增加到要求使NFS伺服器飽和的層級。
++
+為獲得最佳效能並避免效能問題、請將控制TCP插槽表的核心參數調整為128。
+
++
+[source, cli]
+----
+sysctl -a | grep tcp.*.slot_table
+----
+* 下表針對單一Linux NFSv3執行個體提供建議的NFS掛載選項。
++
+image:aws_ora_fsx_ec2_nfs_01.PNG["下表顯示下列檔案類型、控制檔、資料檔案、重作記錄、Oracle_Home、和Oracle_base。"]
+
+
+
+
+NOTE: 使用DNFS之前、請先確認已安裝Oracle Doc 1495104.1中所述的修補程式。從Oracle 12c開始、DNFS支援NFSv3、NFSv4和NFSv4.1。NetApp支援原則涵蓋所有用戶端的v3和v4、但在撰寫本文時、不支援NFSv4.1搭配Oracle DNFS使用。
+
+link:azure_ora_nfile_procedures.html["下一步：部署程序。"]

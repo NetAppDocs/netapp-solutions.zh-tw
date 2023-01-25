@@ -12112,20 +12112,13 @@
   <block id="b25a4c32c9b6cc39890fa799e15301dc" category="paragraph">當Oracle伺服器EC2執行個體成為限制因素時、我們並未達到以IOPS或處理量為單位的已配置FSX儲存容量。因此、您必須根據使用者應用程式層級的交易磁碟區、適當調整運算和儲存容量、如本節所示 <block ref="fa519ff010063f0b425f11c556e4445d" category="inline-link-macro-rx"></block></block>
   <block id="fefc87f11b675de356ca673f3a346ac7" category="inline-link-macro">下一步：資料庫移轉。</block>
   <block id="8996ba3a1cc79692db90ae4be7ef8dd3" category="paragraph"><block ref="8996ba3a1cc79692db90ae4be7ef8dd3" category="inline-link-macro-rx"></block></block>
-  <block id="20da1f90c59ba57d043ded8994bb7619" category="summary">本節說明使用自訂Oracle RDS和FSX ONTAP 等儲存設備的RDS Oracle自訂部署解決方案架構。</block>
   <block id="c739a7ae4891c6665d1f2f715d2efa3f" category="paragraph"><block ref="c739a7ae4891c6665d1f2f715d2efa3f" category="inline-link-macro-rx"></block></block>
   <block id="ca449b8ca808c6d325abf6b1a047318c" category="paragraph">下列架構圖表說明使用FSX儲存服務、在AWS EC2執行個體上部署高可用度的Oracle資料庫。類似的部署方案、但在不同地區的待機模式下、可以設定災難恢復。</block>
-  <block id="a0cdfa3b119f53b827ebc38a9519b32d" category="paragraph">在環境中、Oracle運算執行個體是透過AWS EC2執行個體主控台進行部署。主控台提供多種EC2執行個體類型。NetApp建議部署資料庫導向的EC2執行個體類型、例如採用RedHat Enterprise Linux 8的m5 AMI映像、以及高達10Gps的網路頻寬。</block>
   <block id="228488653f80c4dfe7bd79d5f9634ea4" category="paragraph">另一方面、FSXVolume上的Oracle資料庫儲存設備則是透過AWS FSX主控台或CLI進行部署。Oracle二進位、資料或記錄磁碟區隨後會出現在EC2執行個體Linux主機上、並加以掛載。根據所採用的基礎儲存傳輸協定、每個資料或記錄磁碟區都可以配置多個LUN。</block>
-  <block id="736415956026dd8a803e8e2f7c5f0f42" category="paragraph"><block ref="736415956026dd8a803e8e2f7c5f0f42" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="0537fe1ac97a9f2e83612f0789e84585" category="paragraph">FSXX儲存叢集的設計具有雙重備援、因此主儲存叢集和待命儲存叢集都部署在兩個不同的可用性區域中。資料庫磁碟區會以使用者可設定的時間間隔、從主要FSX叢集複寫到備用FSX叢集、以供所有Oracle二進位、資料和記錄磁碟區使用。</block>
-  <block id="7a9829ab1a28b0d6ca9ddaee5874655a" category="paragraph">這種高可用度的Oracle環境是以Ansible控制器節點和SnapCenter 一套支援功能的伺服器與UI工具來管理。Oracle安裝、組態及複寫均使用以教戰手冊為基礎的工具套件進行自動化。Oracle EC2執行個體核心作業系統或Oracle修補程式的任何更新、都可以平行執行、以保持主要和待命同步。事實上、初始自動化設定可輕鬆擴充、以便在需要時執行一些重複的每日Oracle工作。</block>
   <block id="be571c48040d6c3bf764ba40188888d2" category="paragraph">提供Oracle資料庫時間點還原工作流程、或視需要在主要或待命區域進行資料庫複製。SnapCenter透過SnapCenter SUI、您可以設定Oracle資料庫備份與複寫至待命的FSX儲存設備、以便根據RTO或RPO目標、達到高可用度或災難恢復。</block>
   <block id="be22c0b35f58a932be14c9e55b163ac4" category="paragraph">此解決方案提供的替代程序、可提供與Oracle RAC和Data Guard部署類似的功能。</block>
   <block id="72db8e2a11aee3fd6b5ea401c9adcbd6" category="inline-link-macro">下一步：部署程序。</block>
-  <block id="6487ec60d16ab8bf4ce0aa7ebaf86b4f" category="paragraph"><block ref="6487ec60d16ab8bf4ce0aa7ebaf86b4f" category="inline-link-macro-rx"></block></block>
   <block id="f3b25b37995dab3a1b6c753dd74ca21e" category="summary">本節將詳細說明AWS RDS Custom for Oracle資料庫如何透過SnapCenter 支援AWS UI來管理、以作為AWS RDS主控台UI的補充說明。</block>
-  <block id="021f869e266a6eaa7e446e54dfc71149" category="doc">EC2/FSX Oracle資料庫管理</block>
   <block id="39ebdf3133bce223758100b117a98e70" category="inline-link-macro">先前：部署程序。</block>
   <block id="cac2d984db56d4f9cd9b1f85b3cf0c5c" category="paragraph"><block ref="cac2d984db56d4f9cd9b1f85b3cf0c5c" category="inline-link-macro-rx"></block></block>
   <block id="cf8b301cbf8aa698c578ff1f8e64ccc2" category="paragraph">除了AWS EC2和FSX管理主控台之外、我們SnapCenter 也部署Ansible控制節點和the SUI工具、以便在此Oracle環境中進行資料庫管理。</block>
@@ -12234,7 +12227,6 @@
   <block id="c3fd0f78855e219b0fd44077ce74e7b5" category="paragraph">您可以使用NetApp Automation Toolkit執行這些程序、該工具套件可從NetApp GitHub公開網站下載。</block>
   <block id="ba4d6e5d6eeea04cdc5a4f243b1e5dd8" category="paragraph">在嘗試設定和容錯移轉測試之前、請先仔細閱讀README說明。</block>
   <block id="7d34df46082e5771e092eb8736597ee0" category="summary">本節說明部署Oracle RDS自訂資料庫搭配FSX儲存設備的程序。</block>
-  <block id="b8a2bfa78779af1958bed97119657167" category="doc">AWS EC2/FSX上的逐步Oracle部署程序</block>
   <block id="072a1cb4963593f78b428b4c9a0dcc4f" category="inline-link-macro">先前版本：解決方案架構。</block>
   <block id="ef081c8f35bca2da08c6dbdd6f48a6cd" category="paragraph"><block ref="ef081c8f35bca2da08c6dbdd6f48a6cd" category="inline-link-macro-rx"></block></block>
   <block id="f70ec60e40ece5900605229a28081b13" category="section-title">透過EC2主控台部署Oracle的EC2 Linux執行個體</block>
@@ -12390,7 +12382,6 @@
   <block id="b2d9cc2beb2b12bdad529e6d42551092" category="inline-link-macro">下一步：資料庫管理。</block>
   <block id="454fb11269c81c93532752028abffbcd" category="paragraph"><block ref="454fb11269c81c93532752028abffbcd" category="inline-link-macro-rx"></block></block>
   <block id="8a1d7e9120e3db2795bd53b504018b4e" category="summary">本白皮書概述並驗證AWS自訂的Oracle RDS資料庫HA和DR解決方案、並在多重可用度區域部署中運用AWS FSX儲存服務。</block>
-  <block id="9ae9d82ee587bffe09c5b3c745d93c1c" category="doc">WP-7357：EC2/FSX最佳實務做法簡介上的Oracle資料庫部署</block>
   <block id="b4c8c277e19db14e178b1060214b896e" category="paragraph">NetApp公司的Alleno Cao、Niyazz Mohamed, Jeffrey Steiner</block>
   <block id="6848412b0f30d614f7e0bcd903cac052" category="paragraph">許多任務關鍵型企業Oracle資料庫仍在內部部署、許多企業正尋求將這些Oracle資料庫移轉至公有雲。這些Oracle資料庫通常以應用程式為中心、因此需要使用者專屬的組態、這是許多資料庫即服務公有雲產品無法提供的功能。因此、目前的資料庫環境需要以公有雲為基礎的Oracle資料庫解決方案、此解決方案是以高效能、可擴充的運算與儲存服務所打造、能夠滿足獨特的需求。AWS EC2運算執行個體和AWS FSX儲存服務可能是這個難題的一部分、您可以利用這些難題來建置任務關鍵型Oracle資料庫工作負載、並將其移轉至公有雲。</block>
   <block id="37b7c86d51875922e0a9f122a670aa62" category="paragraph">Amazon Elastic Compute Cloud（Amazon EC2）是一項網路服務、可在雲端中提供安全、可調整大小的運算容量。其設計旨在讓企業更輕鬆地進行網路規模的雲端運算。簡單的Amazon EC2網路服務介面可讓您以最少的摩擦取得及設定容量。它可讓您完全掌控運算資源、並讓您在Amazon備受肯定的運算環境中執行。</block>
@@ -12678,7 +12669,6 @@
   <block id="18d4f7e36efb77494db296ea83bc4753" category="paragraph">如需更多有關透過NetApp部署裸機叢集的Anthos資訊、請參訪 <block ref="eb911f2bc48f3132c014132a2870169f" category="inline-link-macro-rx"></block>。</block>
   <block id="d6c97ba6a05169248582981cf5627522" category="inline-link-macro">下一步：VMware上的Anthos叢集。</block>
   <block id="9954fadf8d7c9568ecdb434ffa0a15c1" category="paragraph"><block ref="9954fadf8d7c9568ecdb434ffa0a15c1" category="inline-link-macro-rx"></block></block>
-  <block id="d42437507a421bfdd38119d600ab0014" category="sidebar">AWS EC2/FSX最佳實務做法上的Oracle資料庫部署</block>
   <block id="5ac7b083aa99c6ec0d7a272c37dc611d" category="sidebar">部署程序</block>
   <block id="71ab9d8f34c9ab92ef83627b823e9825" category="sidebar">資料庫管理</block>
   <block id="c3b88d5ff29715f5f8dd3c907b3f1bc3" category="sidebar">資料庫移轉</block>
@@ -16194,4 +16184,325 @@
   <block id="1abaee3673de53b378351ee9dc679daa" category="list-text">VMware與NetApp目前不支援通用的多重路徑網路方法。對於NFSv4.1、NetApp支援pNFS、而VMware則支援工作階段主幹連線。NFSv3不支援多個實體路徑通往磁碟區。針對使用VMware vSphere的VMware 9.8、我們建議的最佳實務做法是讓VMware vSphere的VMware vSphere使用VMware vSphere的VMware Tools進行單一掛載、因為間接存取的影響通常很小（微秒）FlexGroup ONTAP ONTAP 。您可以使用循環DNS、將ESXi主機分散到FlexGroup 不同節點上的各個LIF上、但這需要FlexGroup 建立及掛載不ONTAP 含VMware vSphere的任何VMware vSphere用的VMware vCenter工具的功能。因此效能管理功能將無法使用。</block>
   <block id="4ad396cb9b6773b012067ead8cf08611" category="doc">NetApp災難恢復協調程式（DRO）總覽</block>
   <block id="88ac8db9784908706c34feb6caee9044" category="paragraph"><block ref="88ac8db9784908706c34feb6caee9044" category="inline-link-macro-rx"></block></block>
+  <block id="03b125f503e8b797be1fe5a21a10d220" category="summary">本節說明如何使用azacsnap工具保護Oracle資料庫、以及將Snapshot備份、還原和快照分層整理至Azure Blob。</block>
+  <block id="b47faaf85acf415e557bd0b669342659" category="doc">保護Azure雲端中的Oracle資料庫</block>
+  <block id="cec4dbc9c066ab7b22ef743151be75eb" category="paragraph"><block ref="cec4dbc9c066ab7b22ef743151be75eb" category="inline-link-macro-rx"></block></block>
+  <block id="06a2961d48a854a133ddfe05c7912732" category="section-title">使用AzAcSnap工具備份Oracle資料庫與Snapshot</block>
+  <block id="30462dbcf926561966ea824afd44e355" category="paragraph">Azure應用程式一致的Snapshot工具（AzAcSnap）是一種命令列工具、可處理在擷取儲存快照之前將資料庫置於應用程式一致狀態所需的所有協調作業、藉此保護協力廠商資料庫的資料。</block>
+  <block id="07612935f16f2665ef52f490f9b1f43b" category="paragraph">如果是Oracle、您可以將資料庫置於備份模式、以擷取快照、然後將資料庫從備份模式中移出。</block>
+  <block id="070d0b63c9af5e43d43102c1869d4262" category="section-title">備份資料與記錄磁碟區</block>
+  <block id="7dd57abd8929da4f18cc94d1940161a1" category="paragraph">您可以使用執行Snapshot命令的簡單Shell指令碼、在資料庫伺服器主機上設定備份。然後、指令碼可以排程從crontab執行。</block>
+  <block id="087916fda35dba838b68193ed8bc3aeb" category="paragraph">一般而言、備份頻率取決於所需的RTO和RPO。頻繁建立快照會佔用更多儲存空間。備份頻率與空間使用率之間存在一定的平衡。</block>
+  <block id="e2ece357797b760af1c814632edcf99d" category="paragraph">資料磁碟區通常比記錄磁碟區耗用更多儲存空間。因此、您可以每隔幾小時在資料磁碟區上拍攝快照、並每隔15到30分鐘在記錄磁碟區上建立更頻繁的快照。</block>
+  <block id="2a2c2eb0d2bde8c24cc55a11862ca857" category="paragraph">請參閱下列備份指令碼與排程範例。</block>
+  <block id="e048ccd48425229cea678849ba68a190" category="paragraph">對於資料Volume快照：</block>
+  <block id="f0d6345b8e5345f55c21610283eaeedd" category="paragraph">對於記錄Volume快照：</block>
+  <block id="68b7e37ef318c0e56eabf3e1aded4216" category="paragraph">crontab排程：15、30、45 ****/home/azacsnap/snap_log.sh 0 */ 2 **/home/azacsnap/snap_data.sh</block>
+  <block id="adf4ba1e0f3190afb18557f038ae1ecf" category="admonition">設定備份時<block ref="8ed8c6bfea85d72bc4a36772490109c7" prefix=" " category="inline-code"></block> 組態檔、將所有資料磁碟區（包括二進位磁碟區）新增至<block ref="0fb9dff864caebba259b119756a2ce17" prefix=" " category="inline-code"></block> 及所有記錄磁碟區<block ref="5e5fb0a2540d102aeebc3dac60712494" prefix=" " category="inline-code"></block>。快照的最大保留量為250個複本。</block>
+  <block id="a93091ed018686dcf478589ba04fd6f6" category="section-title">驗證快照</block>
+  <block id="8a46f2968d5dc184634cff75cd1b8b8e" category="paragraph">前往Azure入口網站&gt; Azure NetApp Files / Volume、檢查快照是否已成功建立。</block>
+  <block id="3542e11f657b779fcef8cc387987e9f2" category="inline-image-macro">此螢幕擷取畫面顯示快照清單中的兩個檔案。</block>
+  <block id="c2dd243538b072e19882bdcd6ac2c6c9" category="inline-image-macro">此螢幕快照顯示快照清單中的八個檔案。</block>
+  <block id="af143d815dcd69aae3ff8d8bdde9fd58" category="paragraph"><block ref="bf87ea8d7de67f1fdc628b6bb4b400e5" category="inline-image-macro-rx" type="image"></block>
+<block ref="1d682e6513772285b95199f0646e28da" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7479b02641600cb6142d8594c1360d11" category="section-title">Oracle從本機備份還原與還原</block>
+  <block id="76265d8fce7f282b6ff5a8581df8879c" category="paragraph">Snapshot備份的主要優點之一是它與來源資料庫磁碟區共存、而且主要資料庫磁碟區幾乎可以立即復原。</block>
+  <block id="878609e3e12819fffdd7247406f655be" category="section-title">在主伺服器上還原及還原Oracle</block>
+  <block id="8733b7b64c8d2c32caa423c7eb2955fc" category="paragraph">下列範例示範如何從同一Oracle主機上的Azure儀表板和CLI還原及還原Oracle資料庫。</block>
+  <block id="aa30a622663e0f34541394e008fe82cd" category="list-text">在資料庫中建立要還原的測試表格。[oracle@acao-ora01 ~]$ sqlplus / as sysdba</block>
+  <block id="ea16560565f3889db4dabf938628b462" category="paragraph">SQL* Plus：19.0.00.0版- 9月12日星期一正式作業19：02：35 2022版本19.8.0.0.0</block>
+  <block id="0409b2fce118cc126a532dea158d2943" category="paragraph">SQL&gt;建立資料表testsnapshot（id integerate、Event varchar（100）、dt時間戳記）；</block>
+  <block id="bec6da77877c0793c1d3eb6c6896e98e" category="paragraph">表格已建立。</block>
+  <block id="a5b83945adfd5370663cb2d9c4f31d09" category="paragraph">SQL&gt;插入testsnapshot值（1、「插入資料標記以驗證Snapshot還原」、Sysdate）；</block>
+  <block id="6ba18fa8fa7d170dfd8fc80f0f3d39f7" category="paragraph">已建立1列。</block>
+  <block id="d1d2dcb121f8bf8fd39724ea075c6409" category="paragraph">SQL&gt;提交；</block>
+  <block id="a92090dde5e820fde0a68705ee3f2bd0" category="paragraph">提交完成。</block>
+  <block id="fd9736dfc88a182f9cb6e5f6a2b97487" category="paragraph">SQL&gt;從testsnapshot中選擇*；</block>
+  <block id="2817b9cf9fc0cd0d8bf9fb03acbfc93f" category="list-text">在備份快照之後、將表格丟棄。</block>
+  <block id="07b56c53a9fec8c477afb0cb5f2394af" category="paragraph">[oracle@acao-ora01 ~]$ sqlplus / as sysdba</block>
+  <block id="dcd4d50ecf59b4752c161f0ddc44df44" category="paragraph">SQL* Plus：19.0．0．0版- 9月13日星期二正式上線14：20：22 2022版本19.8．0．0</block>
+  <block id="bee0f13528c2f6f5b67053dc1e942328" category="paragraph">SQL&gt;刪除表testsnapshot；</block>
+  <block id="cd85f26775e453b2177d5fcc6265b31d" category="paragraph">資料表已捨棄。</block>
+  <block id="07e18ec921a195478cdbab47d8d68d89" category="paragraph">SQL&gt;從testsnapshot中選取*；從testsnapshot *錯誤中選取*在第1行：ora-00942：表格或檢視不存在</block>
+  <block id="f06f4fbf6e3e0e45b0d4b241ceaf19c9" category="paragraph">SQL&gt;立即關機；資料庫已關閉。資料庫已卸載。Oracle執行個體關機。SQL&gt;結束與Oracle Database 19c Enterprise Edition 19.0.00.0.0-Production Version 19.8.0.0.0的連線中斷</block>
+  <block id="09d4fe137595af1cc975247ba704462d" category="list-text">從「支援資料」儀表板、將記錄磁碟區還原至上次可用的快照Azure NetApp Files 。選擇*恢復磁碟區*。</block>
+  <block id="33ba8417b2640d4172513bbf9cbc3e55" category="inline-image-macro">此螢幕快照顯示Anf儀表板中磁碟區的快照還原方法。</block>
+  <block id="546b967f1ce32832a90c77282f0cdf2b" category="paragraph"><block ref="546b967f1ce32832a90c77282f0cdf2b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4b728fe18b10b9b611a1d3ab6acc0df9" category="list-text">確認「恢復Volume」（恢復Volume）、然後按一下「*恢復*」以完成磁碟區還原至最新的可用備份。</block>
+  <block id="5c7deeb27ad1e0e4c1d6d52b2a2a1bfc" category="inline-image-macro">「確定要這麼做？」快照還原頁面。</block>
+  <block id="ef80226ab5a9d2865852e606297da2cf" category="paragraph"><block ref="ef80226ab5a9d2865852e606297da2cf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="18b9906dd2c95b12fdb987b7c2aa9917" category="list-text">對資料磁碟區重複相同的步驟、並確定備份包含要恢復的資料表。</block>
+  <block id="a38e609b2fd5c2dee1b4ccb1cbbac7d4" category="inline-image-macro">此螢幕快照顯示Anf儀表板中資料磁碟區的快照還原方法。</block>
+  <block id="f0d819988fad0119995986a2bdfd9ad6" category="paragraph"><block ref="f0d819988fad0119995986a2bdfd9ad6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fc824d4f774a64498f954eb2ebbc093b" category="list-text">再次確認磁碟區還原、然後按一下「還原」。</block>
+  <block id="5e2296a09eabbd34b62da3492091ff33" category="inline-image-macro">「確定要這麼做？」資料磁碟區快照還原頁面。</block>
+  <block id="af5f9a99ee2d86856d0e2477e417dc4c" category="paragraph"><block ref="af5f9a99ee2d86856d0e2477e417dc4c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="170b40e31285910539e0d464f2bf33a6" category="list-text">如果您有多個控制檔複本、請重新同步控制檔、並以可用的最新複本取代舊控制檔。</block>
+  <block id="952cd3804f479f3c31f123d064ccbdf5" category="paragraph">[oracle@acao-ora01 ~]$ mv /u02/oradata/ORATST/control01.CTL /u02/oradata/ORATST/control01.culbk [oracle@acao-ora01 ~]$ cp /u03/orareco/ORATST/control02.CTL /u02/orarata/ORST.ora01.</block>
+  <block id="bd99bc18393147b05e3f350eb6a61f47" category="list-text">登入Oracle伺服器VM、然後使用sqlplus執行資料庫恢復。</block>
+  <block id="125ab5cbfb90c4a6d038bcca4da6fdc4" category="paragraph">SQL* Plus：19.0．0．0版- 9月13日星期二上線：15：10：17 2022版本19.8．0．0</block>
+  <block id="010621501012cd31b6666d17dad683d2" category="paragraph">連線至閒置執行個體。</block>
+  <block id="6bd3f70e5ab38ca26f8cabd390e15fc0" category="paragraph">SQL&gt;啟動掛載；Oracle執行個體已啟動。</block>
+  <block id="424459a4363a5afdd1e45d31fcd11efe" category="paragraph">系統整體區域總計6442448984位元組固定大小8910936位元組可變大小1090519040位元組資料庫緩衝區5336154688位元組重做緩衝區7864320位元組已掛載資料庫。SQL&gt;使用備份控制檔還原資料庫直到取消；ORA-00279：變更執行緒1 ORA-00289所需的3188523於2022年9月13日產生10：00：09：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_43_22rnjq280變更序列#8500243_</block>
+  <block id="db9afd3f7adaff3fe1135208fa6b6a09" category="paragraph">指定記錄：｛&lt;RET&gt; fest=ested |檔案名稱| Auto | cancel｝</block>
+  <block id="abc467423916c8ee7c16f566b4ab4ca8" category="paragraph">ora-00279：變更在09/13/2022產生的318862 10：01：20需要執行緒1 ORA-00289：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_44_29f2lgb5_.arcORA-00862022rog_rearth_002020248/00rarc/不需要更新#orrq/20248/0020248/0020248/00rarc檔案1：#orrq_rarcarc/不需要更新#rq_0020248/0020248/0020248/0020248/00rarc檔案1</block>
+  <block id="479d2dfa77fdcde3bfd41fcdebbca1ff" category="paragraph">ora-00279:變更3193117產生於09/13/2022 12:00:08需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_45_29h6qqqqyw_.arcorORA-002022202212不再需要更新#002022_or_car_002022_car_002022_002022_c檔案#OR_002022_cu2022_c檔案'_002022_c /不需要更新#or_0020148/0020148/002022_002022_c檔案#or_c /更新#or_c檔案#1_0020278/0020148/002022_c</block>
+  <block id="c76ff2f7e10a42adf7faec8f9e6faeab" category="paragraph">ora-00279:變更3193440產生於09/13/2022 12:01：20需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_46_%u_.arc ORA-00280：變更3193440以執行緒1 #velo_2010/20278/0040的順序執行緒1、不需要更新#orq/2010/20278/002010/2010/0020278_orarc/不需要ORq_orq_orarc/檔案1</block>
+  <block id="0e98028493ec8c4a1d181c0d71c3ec7b" category="paragraph">指定記錄：｛&lt;RET&gt; fest=recested |檔案名稱| Auto | cancel｝取消媒體恢復已取消。SQL&gt;變更資料庫開啟重新設置記錄；</block>
+  <block id="f6c9ea366c01da7d664a8c7c3813e0bd" category="paragraph">資料庫已變更。</block>
+  <block id="8ad5254ade1fed8d3ccc482196b4c36c" category="paragraph">此畫面顯示已使用本機快照備份還原掉落的表格。</block>
+  <block id="34d73a671fa85d8d86ba1eff63b238d8" category="paragraph"><block ref="34d73a671fa85d8d86ba1eff63b238d8" category="inline-link-macro-rx"></block></block>
+  <block id="0c55b956af322a2409f5dd75af116fee" category="doc">WP-7357：EC2上的Oracle資料庫部署與FSX最佳實務做法簡介</block>
+  <block id="b985336298cf9391b91c898572090625" category="summary">本節說明Oracle資料庫部署與資料保護解決方案架構、搭配Azure虛擬機器與Azure NetApp Files 整套功能。</block>
+  <block id="fc6024ee9167308c3126789695e7353f" category="paragraph"><block ref="fc6024ee9167308c3126789695e7353f" category="inline-link-macro-rx"></block></block>
+  <block id="91e17bfb5f535513b5320d68f6afe1fc" category="paragraph">下列架構圖表說明Azure VM執行個體和Azure NetApp Files 整套功能的高可用度Oracle資料庫部署。</block>
+  <block id="520c5c426000f1dbbd8ac385d5547603" category="paragraph">在環境中、Oracle運算執行個體是透過Azure服務VM主控台進行部署。主控台提供多種Azure執行個體類型。NetApp建議部署資料庫導向的Azure VM執行個體、以滿足您的預期工作負載。</block>
+  <block id="9e20ded809aa2fa1bd072f48ceacfdd8" category="paragraph">另一方面、Oracle資料庫儲存設備則是透過Azure NetApp Files Azure主控台提供的支援功能進行部署。Oracle二進位、資料或記錄磁碟區隨後會出現在Azure VM執行個體Linux主機上、並加以掛載。</block>
+  <block id="6b5cae77dbc9c4b759bf654b117eb10b" category="inline-image-macro">此映像描述主要站台、待命站台與此每個站台vNet對等關係。這形成四個獨立的虛擬網路。</block>
+  <block id="2246b51fdf61c77213e0ce37d743cd03" category="paragraph"><block ref="2246b51fdf61c77213e0ce37d743cd03" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="03aa17a1290e1122adecd07d53463cde" category="paragraph">在許多方面、Azure NetApp Files 在Azure雲端中實作的功能與內部部署ONTAP 的支援資料儲存架構非常類似、其中內建許多備援功能、例如RAID和雙控制器。若要進行災難恢復、可在不同地區設定待命站台、並使用應用程式層級的複寫（例如Oracle Data Guard）、將資料庫與主要站台同步。</block>
+  <block id="6f1714a5ced243b141295d01d4038364" category="paragraph">在Oracle資料庫部署與資料保護的測試驗證中、Oracle資料庫會部署在單一Azure VM上、如下圖所示：</block>
+  <block id="fef3344ae2f384e724a169b6e9d90be7" category="inline-image-macro">此映像描述使用vNet對等處理的單一Azure VM組織、以建立兩個獨立的虛擬網路。</block>
+  <block id="f3699a22a9267b8e767816c81f821522" category="paragraph"><block ref="f3699a22a9267b8e767816c81f821522" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="69cf5342936c24c9fac1c6529c4f825f" category="paragraph">Azure Oracle環境可使用NetApp提供的資料庫部署、備份、還原及資料庫移轉工具套件、以Ansible控制器節點進行自動化管理。Oracle Azure VM執行個體作業系統核心或Oracle修補的任何更新、都可同時執行、以保持主要和待命同步。事實上、初始工具套件可輕鬆擴充、以便在需要時執行每日Oracle工作。如果您需要設定CLI Ansible控制器的協助、請參閱 <block ref="03bbd03f7d2552fa2076b42f86a04360" category="inline-link-macro-rx"></block> 開始使用。</block>
+  <block id="149b87e0b981bcf1e3d652831c207e04" category="inline-link-macro">下一步：要考量的因素。</block>
+  <block id="0a9d288b4b8679857f2d7e7f0d5a63f6" category="paragraph"><block ref="0a9d288b4b8679857f2d7e7f0d5a63f6" category="inline-link-macro-rx"></block></block>
+  <block id="41f2543265fcbcf566ce925409c1bfbb" category="summary">本節詳細說明如何將Oracle資料庫從內部部署移轉至Azure NetApp Files 原地、反之亦然。</block>
+  <block id="3b99478aefcc6039ddcb29f19ce3f1ee" category="doc">資料庫從內部部署移轉至Azure雲端</block>
+  <block id="964310198f864c746c945ff1c6fffe3f" category="inline-link-macro">上一篇：資料庫保護。</block>
+  <block id="413dcfd081f137889743981159ac9abe" category="paragraph"><block ref="413dcfd081f137889743981159ac9abe" category="inline-link-macro-rx"></block></block>
+  <block id="3c2b924258f32094eb64883db57a778a" category="paragraph">由於Oracle決定逐步淘汰單一執行個體資料庫、許多組織已將單一執行個體Oracle資料庫轉換成多租戶容器資料庫。如此一來、便可輕鬆將一部分名為pdb的容器資料庫重新配置至雲端、並提供最大可用度選項、將移轉期間的停機時間降至最低。</block>
+  <block id="a221bb2d4b0b28bb7e9aa40527e36333" category="paragraph">不過、如果您仍有Oracle資料庫的單一執行個體、則可以先將其轉換成多租戶容器資料庫、然後再嘗試重新配置pdb。</block>
+  <block id="3312d9383c6e42558bb6c7ffa86498b5" category="paragraph">下列各節提供在任一種情況下、將內部部署Oracle資料庫移轉至Azure雲端的詳細資料。</block>
+  <block id="d7acbe14b605ece64e94636c2ac85151" category="section-title">將單一非CDB執行個體轉換為多租戶CDB中的pdb</block>
+  <block id="b65ba7cc82289837e3a44b6025b8a104" category="paragraph">如果您仍有單一執行個體的Oracle資料庫、無論您是否要將其移轉至雲端、都必須將其轉換成多租戶容器資料庫、因為Oracle不久將停止支援單一執行個體資料庫。</block>
+  <block id="60a4157f0722b484d4ce9ec02662db31" category="paragraph">下列程序會將單一執行個體資料庫插入容器資料庫、做為可插拔的資料庫或pdb。</block>
+  <block id="aefccbe3e9382cbdd83d84fee06a408d" category="list-text">在獨立的單一執行個體資料庫所在的同一主機上建置Shell Container資料庫<block ref="e1f651debac4f720c13ae930ff3ca14a" prefix=" " category="inline-code"></block>。</block>
+  <block id="182e093a477c76844c12680be3deb7a4" category="list-text">關閉單一執行個體資料庫、然後以唯讀模式重新啟動。</block>
+  <block id="48270a516aeb2dd47c2b7f5d897c3182" category="list-text">執行<block ref="707fc638546e97f4dca068fcf2fbe277" prefix=" " category="inline-code"></block> 產生資料庫中繼資料的程序。</block>
+  <block id="61c2d2d903cc3e2bc374cc66b3a1572d" category="list-text">關閉單一執行個體資料庫。</block>
+  <block id="d0e90ac40083de7010746f1c7afa8680" category="list-text">啟動Container資料庫。</block>
+  <block id="c9b14b140c5af8df85a71e71e823fcd9" category="list-text">執行<block ref="6f6e7bfe46efb74f46338dcd4b8d7530" prefix=" " category="inline-code"></block> 用於判斷非CDB是否與CDB相容的功能。</block>
+  <block id="b4579eff709cfd4a9e9d9b3c7823a470" category="paragraph">如果輸出為「是」、則非CDB相容、您可以繼續下一步。</block>
+  <block id="b788542aadbeda07cae67fad51f01ecf" category="paragraph">如果輸出為否、則非CDB不相容、您可以檢查<block ref="40bcd9431704d488bfba8de25bdd0469" prefix=" " category="inline-code"></block> 請參閱、瞭解為何不相容。您必須先修正所有違規、才能繼續。例如、任何版本或修補程式不相符的問題都應該透過執行升級或opatch公用程式來解決。修正違規之後、請執行<block ref="6f6e7bfe46efb74f46338dcd4b8d7530" prefix=" " category="inline-code"></block> 再次確認非CDB與CDB相容。</block>
+  <block id="3dc81f6d88ee2f38ca30676e4b371634" category="list-text">插入非CDB的單一執行個體。</block>
+  <block id="10a9ce9a6e151e6ff04bee976e0cb1de" category="admonition">如果主機上沒有足夠的空間、則為<block ref="4777c7eb130280b37f5b4b3abde7c586" prefix=" " category="inline-code"></block> 選項可用於建立pdb。在這種情況下、單一執行個體非CDB在作為pdb外掛之後無法使用、因為原始資料檔案已用於pdb。請務必在轉換之前建立備份、以便在發生任何問題時、有一些問題需要重新處理。</block>
+  <block id="03d9f2c68151dce9edd03b346e5b110c" category="list-text">如果來源單一執行個體非CDB與目標CDB之間的版本不同、請從轉換後的pdb升級開始。對於相同版本的轉換、可以跳過此步驟。</block>
+  <block id="81954d0087f2bc7590c39792b2d3ff79" category="paragraph">檢閱中的升級記錄檔<block ref="8940bd010306ed7bc730469a2815003c" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="65f9a981d9b9caaa37a227c9d787c280" category="list-text">開啟可插拔的資料庫、檢查是否有pdb外掛程式違規、然後重新編譯無效的物件。</block>
+  <block id="f4d5586e12195159e664b1f0a78cccd3" category="list-text">執行<block ref="30636d635a272a80dff68679e08f1c7a" prefix=" " category="inline-code"></block> 以更新資料字典。</block>
+  <block id="182d7c995640cc8ef16b728a670fbe58" category="paragraph">關閉並重新啟動Container DB。ncdb會從受限模式中移除。</block>
+  <block id="d6af386b8be94481db3de6778b3fc24a" category="section-title">將內部部署的Oracle資料庫移轉至Azure（重新配置pdb）</block>
+  <block id="da5d44e97cbc406251573e1664b5e1f0" category="paragraph">使用最大可用度選項重新配置Oracle pdb時、會使用pdb熱複製技術、以便在將pdb複製到目標時、提供來源pdb的可用度。切換時、工作階段和連線會自動重新導向至目標pdb。如此一來、停機時間就會盡量縮短、而不受重新部署的pdb大小影響。NetApp提供可執行的工具套件、可將移轉程序自動化。</block>
+  <block id="a8efacce1c06e5f64504448dec25740a" category="list-text">在Azure VM上的Azure公有雲中建立相同版本和修補層級的CDB。</block>
+  <block id="0f09a4e81820f79a89d0b433bb0de6ca" category="list-text">從Ansible控制器複製自動化工具套件的複本。</block>
+  <block id="33abd0ac6a3fb7ef8c104725e8360e85" category="list-text">請閱讀README檔案中的指示。</block>
+  <block id="59082266ab8171963eb8785041055ee1" category="list-text">設定來源與目標Oracle伺服器的Ansible主機變數檔案、以及DB伺服器主機的組態檔以進行名稱解析。</block>
+  <block id="166811e58fa2fd17b3ab3305ca4b1948" category="list-text">在Ansible控制器上安裝Ansible控制器先決條件。</block>
+  <block id="e40dd1f176a77cef20eb421dee4fea9f" category="list-text">針對內部部署伺服器執行任何移轉前工作。</block>
+  <block id="aba7f3209eb8c49aca729c7368fb42fe" category="admonition">管理使用者是內部部署Oracle伺服器主機上具有Sudo權限的管理使用者。系統管理員使用者會以密碼驗證。</block>
+  <block id="a1da14dd2e192d36a7fe7bae327c2b23" category="list-text">執行Oracle pdb從內部部署重新配置至目標Azure Oracle主機。</block>
+  <block id="39f1871870cabd138bd313c450662e67" category="admonition">Ansible控制器可位於內部部署或Azure雲端。控制器需要連線至內部部署的Oracle伺服器主機和Azure Oracle VM主機。Oracle資料庫連接埠（例如1521）會在內部部署的Oracle伺服器主機與Azure Oracle VM主機之間開啟。</block>
+  <block id="63a48a0f7ee4b39ef32c11b92acc2baa" category="section-title">其他Oracle資料庫移轉選項</block>
+  <block id="7619081ba13aebf0c83d5660f9bf01bb" category="inline-link-macro">Oracle資料庫移轉決策程序</block>
+  <block id="0257ad9cf0c221fcf0c611f835c027ca" category="paragraph">如需其他移轉選項、請參閱Microsoft文件： <block ref="421a85ebca6e289a6eff559e7e35faf8" category="inline-link-macro-rx"></block>。</block>
+  <block id="a73e5c65844b18c49122a8a79ef3fa65" category="doc">Azure VM和Azure NetApp Files 整套Oracle部署程序</block>
+  <block id="f8de11946f5850d6f1597a7cf5fc2234" category="inline-link-macro">先前：需要考量的因素。</block>
+  <block id="e9704920b930163220a6e7564d7d680e" category="paragraph"><block ref="e9704920b930163220a6e7564d7d680e" category="inline-link-macro-rx"></block></block>
+  <block id="cf2fb9f52eae11aaa1b6818cc22ade30" category="section-title">透過Azure入口網站主控台部署Azure VM搭配Anf for Oracle</block>
+  <block id="5e89dc82cb54763baa7cece42e7c3189" category="paragraph">如果您是Azure新手、首先需要設定Azure帳戶環境。這包括註冊貴組織以使用Azure Active Directory。下一節是這些步驟的摘要。如需詳細資料、請參閱連結的Azure專屬文件。</block>
+  <block id="c743c9c56cd6cc2acf874405ef178af3" category="section-title">建立及使用Azure資源</block>
+  <block id="cc59653114a0ca329e90c87f8de8f2da" category="paragraph">設定Azure環境並建立帳戶並與訂閱建立關聯之後、您就可以使用帳戶登入Azure入口網站、以建立執行Oracle所需的資源。</block>
+  <block id="4848dfd418cc69fdc8a92da472ac41b8" category="section-title">1.建立虛擬網路或vnet</block>
+  <block id="dd587303db328c6fc30f15fbf133eade" category="paragraph">Azure Virtual Network（vnet）是Azure中私有網路的基礎建置區塊。Vnet可讓Azure虛擬機器（VM）等多種Azure資源、安全地彼此通訊、網際網路及內部部署網路。在佈建Azure VM之前、必須先設定Vnet（部署VM的位置）。</block>
+  <block id="2b9029fce84bbf7056c94e4b86015679" category="inline-link-macro">使用Azure入口網站建立虛擬網路</block>
+  <block id="698a842fc17e080abbf6b6796628879b" category="paragraph">請參閱 <block ref="f497c9708f9505977884a23053323735" category="inline-link-macro-rx"></block> 以建立vnet。</block>
+  <block id="66d98f4e89afee6dc557332b0e9ebe43" category="section-title">2.建立NetApp儲存帳戶和容量資源池</block>
+  <block id="fecd60b0aedf111caefb4cf98b8d7be5" category="paragraph">在此部署案例中、Azure VM OS是使用一般Azure儲存設備進行配置、但會配置Anf Volume以透過NFS執行Oracle資料庫。首先、您需要建立NetApp儲存帳戶和容量集區來裝載儲存磁碟區。</block>
+  <block id="76dc01e3f39d83b88a3d3ad36c338654" category="inline-link-macro">設定Azure NetApp Files 功能以建立NFS Volume</block>
+  <block id="8a57d5f988c678cd141c2f704e110472" category="paragraph">請參閱 <block ref="2337ae471c0cc5402cdba65ad3b4dc78" category="inline-link-macro-rx"></block> 設定ANF容量資源池。</block>
+  <block id="ed39ba49be7769bdf483ae876d88cdff" category="section-title">3.為Oracle配置Azure VM</block>
+  <block id="acb4908e71af4ce0945c90f9039d0fc2" category="paragraph">根據您的工作負載、判斷您需要哪種Azure VM、以及要為Oracle部署的VM vCPU和RAM大小。然後從Azure主控台按一下VM圖示、啟動VM部署工作流程。</block>
+  <block id="20d1e12ba2a72916f3917e44ff29b40a" category="list-text">在Azure VM頁面上、按一下* Create*、然後選擇* Azure虛擬機器*。</block>
+  <block id="94f088d23454b3c408a17cfff3cb8989" category="inline-image-macro">此螢幕快照顯示可用Azure VM的清單。</block>
+  <block id="e28fc410c2020dcbd93af60f3d700d99" category="paragraph"><block ref="e28fc410c2020dcbd93af60f3d700d99" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="78ba4b8df4acae5536f056217b16c353" category="list-text">選擇部署的訂閱ID、然後選擇資源群組、區域、主機名稱、VM映像、大小、和驗證方法。移至「磁碟」頁面。</block>
+  <block id="cbbcba216ab68f94c8fab62d9c907a00" category="inline-image-macro">此螢幕快照顯示「建立虛擬機器」頁面的輸入。</block>
+  <block id="825d4c0973e48f04ab75cc30df85bbdc" category="inline-image-macro">此螢幕快照顯示「建立虛擬機器」頁面的其他輸入。</block>
+  <block id="84982a7e7b9cc89bde9621d68800978e" category="paragraph"><block ref="a493253d19b28a6711494154a3160350" category="inline-image-macro-rx" type="image"></block>
+<block ref="81b338659efc8df55ae98546f396c5b0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2c435f9a03a03e7cff44b06c9efafa31" category="list-text">選擇*優質SSD *作為OS本機備援、並保留資料磁碟空白、因為資料磁碟是從ANF儲存設備掛載。前往「Networking（網路）」頁面。</block>
+  <block id="04faa74bfe9ea34a9831d24d039dc159" category="inline-image-macro">此快照顯示「Create a Virtual Machine Disk」（建立虛擬機器磁碟）頁面的輸入。</block>
+  <block id="2e21daafaa3607d62dda1a3411975b12" category="paragraph"><block ref="2e21daafaa3607d62dda1a3411975b12" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f9c5742f2bffff7dd4a50e578bfb093b" category="list-text">選擇vnet和子網路。分配用於外部VM存取的公有IP。然後前往「管理」頁面。</block>
+  <block id="0c0077e9a9d4700a64e70d30e9d110df" category="inline-image-macro">此螢幕快照顯示「建立虛擬機器」頁面的進一步輸入。</block>
+  <block id="4aea6dbf72aa0b36bd98ced95acebcbd" category="paragraph"><block ref="4aea6dbf72aa0b36bd98ced95acebcbd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6d5e4bb7568c6e8fb6a1f49aea08e975" category="list-text">保留管理的所有預設值、並移至「進階」頁面。</block>
+  <block id="45291c6293e8de1084c3b8de71bfe120" category="inline-image-macro">此快照顯示「建立虛擬機器管理」頁面的輸入。</block>
+  <block id="b031dac11379aafec2eb9832f71648ba" category="paragraph"><block ref="b031dac11379aafec2eb9832f71648ba" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="22b5d3beb0289dfe21618d5664538321" category="list-text">保留「進階」頁面的所有預設值、除非您在部署後需要使用自訂指令碼自訂VM。然後前往「標記」頁面。</block>
+  <block id="1a911a2f1237ad150a29236bcfe044a0" category="inline-image-macro">此快照顯示「建立虛擬機器進階」頁面的輸入。</block>
+  <block id="00d8612fb98dc237476c6ecd9e0f52c9" category="paragraph"><block ref="00d8612fb98dc237476c6ecd9e0f52c9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="46dfe2059392afeb84a872afb7cd09d5" category="list-text">視需要為VM新增標記。接著前往「檢閱+建立」頁面。</block>
+  <block id="85e3843de649be49b63e3b04c6887bcd" category="inline-image-macro">此快照顯示「建立虛擬機器標記」頁面的輸入。</block>
+  <block id="ddeecdecd575fb71cf4e83d7f09717bc" category="paragraph"><block ref="ddeecdecd575fb71cf4e83d7f09717bc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="57a6346e9ebfe8164361d5e2facffb62" category="list-text">部署工作流程會在組態上執行驗證、如果驗證通過、請按一下「*建立*」以建立VM。</block>
+  <block id="dec1fd75845506029d8751bb7979c797" category="inline-image-macro">「此螢幕快照顯示「建立虛擬機器檢閱與建立」頁面的輸入內容。」</block>
+  <block id="786b4cd98c208b72f71277850831c1aa" category="paragraph"><block ref="786b4cd98c208b72f71277850831c1aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c18c3fe2e695bda0cb8b3e7ecccbdc4e" category="section-title">4.為Oracle配置ANF資料庫磁碟區</block>
+  <block id="f162c2b2b89920293c1f24ac435c520e" category="paragraph">您必須分別為Oracle二進位、資料和記錄磁碟區的ANF容量集區建立三個NFS磁碟區。</block>
+  <block id="09d8c19d5844128b31e1fa195808b215" category="list-text">在Azure主控台的Azure服務清單下、按Azure NetApp Files 一下「功能」以開啟Volume建立工作流程。如果您有多個ANF儲存帳戶、請按一下您要配置磁碟區的帳戶。</block>
+  <block id="733cf6b848c8e38a49b4b604225141a5" category="inline-image-macro">此螢幕快照會顯示Azure服務頁面、並反白顯示ANF。</block>
+  <block id="cc553796f259bc80d8c801687c0c1cd0" category="paragraph"><block ref="cc553796f259bc80d8c801687c0c1cd0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a8972cd5a80e6e385a27023ce45537a9" category="list-text">在您的NetApp儲存帳戶下、按一下* Volumes *、然後按* Add Volume*建立新的Oracle Volume。</block>
+  <block id="c8ce9170654447aba6747494e61bf3a2" category="inline-image-macro">此螢幕快照顯示NetApp儲存帳戶的登陸畫面。</block>
+  <block id="b0d2d575f2aee1703b6e2896d43b72f9" category="inline-image-macro">此螢幕快照顯示NetApp儲存帳戶可用的磁碟區。</block>
+  <block id="3371cc932d04403ab2cd0788634d63e5" category="paragraph"><block ref="7266705f76a6cb3a106c34a6e8dc5540" category="inline-image-macro-rx" type="image"></block>
+<block ref="f59831fbf7eaa0d216e8685698d0c55b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cbeaec71dc2b8275a14b23283d51cc04" category="list-text">最佳做法是先識別Oracle磁碟區、並以VM主機名稱做為前置詞、接著識別主機上的掛載點、例如u01表示Oracle二進位檔、u02表示Oracle資料、u03表示Oracle記錄檔。為磁碟區選擇與VM相同的vnet。按一下*下一步：傳輸協定&gt;*。</block>
+  <block id="ce4ff1bdb6d954e6967a7c241ff89518" category="inline-image-macro">Volume Creation（Volume建立）畫面。</block>
+  <block id="bacf4983022360caacd6f75352136f59" category="paragraph"><block ref="bacf4983022360caacd6f75352136f59" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b50bdcda066df8ed373847c60bc2f546" category="list-text">選擇NFS傳輸協定、將Oracle主機IP位址新增至允許的用戶端、然後移除允許所有IP位址0.00.0.0/0的預設原則。然後單擊*下一步：標記&gt;*。</block>
+  <block id="f8bc211f91c2b350b268959a57418393" category="inline-image-macro">Volume Creation（Volume建立）畫面上的Protocol輸入。</block>
+  <block id="8ac138d8c4a217ce018b45be622db1ed" category="paragraph"><block ref="8ac138d8c4a217ce018b45be622db1ed" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fffcdc9cd5233d4718046c8f6d19c80b" category="list-text">視需要新增Volume標記。然後按一下*檢閱+建立&gt;*。</block>
+  <block id="05864b350d713935d13966f3c8fcbcd7" category="inline-image-macro">標記在Volume Creation（Volume建立）畫面上輸入的內容。</block>
+  <block id="9bead8568a27fcf83faf41e77f52b246" category="paragraph"><block ref="9bead8568a27fcf83faf41e77f52b246" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6e574c0c875926f1fe654026995f3543" category="list-text">如果驗證通過、請按一下*「Create」（建立）*以建立磁碟區。</block>
+  <block id="4a585922412f050ac4a7fbcc34a2655b" category="inline-image-macro">檢閱並建立Volume建立畫面的階段。</block>
+  <block id="e9c713f1ad3a3f0b14801d722fb77f16" category="paragraph"><block ref="e9c713f1ad3a3f0b14801d722fb77f16" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2d2dbc217706d8bb1248bc209e0ab9da" category="section-title">在Azure VM上安裝及設定Oracle</block>
+  <block id="7beaf3d9487c79b7245a1d9ae42d46aa" category="paragraph">NetApp解決方案團隊已建立許多以Ansible為基礎的自動化工具套件、協助您順利在Azure中部署Oracle。請遵循下列步驟、在Azure VM上部署Oracle。</block>
+  <block id="0c782f45b1de4e6d016eafeeb60d286f" category="section-title">設定Ansible控制器</block>
+  <block id="58a105c56c05508f7233082bc282a654" category="paragraph">如果您尚未設定Ansible控制器、請參閱 <block ref="03bbd03f7d2552fa2076b42f86a04360" category="inline-link-macro-rx"></block>，詳細說明如何設定Ansible控制器。</block>
+  <block id="ce9ef6052d2c6ac4b97c01049ee4ec2b" category="section-title">取得Oracle部署自動化工具套件</block>
+  <block id="52eae91ee8ea917bc73df6d9f1792469" category="paragraph">在主目錄中的使用者ID下複製Oracle部署工具套件複本、以供登入Ansible控制器。</block>
+  <block id="19cd6e3dfb797a7325548b346dc358f1" category="section-title">使用您的組態執行工具組</block>
+  <block id="aa98393908153ea46a2cef869e7dd100" category="paragraph">請參閱 <block ref="e7ab084e08308da08da1b2dd8151530b" category="inline-link-macro-rx"></block> 使用CLI執行方針。從Azure主控台建立資料庫Volume時、您可以忽略ONTAP 全域VARS檔案中的變數組態的部分、而非從CLI建立資料庫Volume。</block>
+  <block id="24e16cc700e2ced028e529370af380e1" category="admonition">此工具套件預設部署Oracle 19c搭配RU 19.8。只要稍微變更預設組態、就能輕鬆調整為其他任何修補程式層級。此外、預設的基礎資料庫作用中記錄檔也會部署到資料Volume中。如果您需要在記錄磁碟區上使用中的記錄檔、則應在初始部署之後重新放置。如有需要、請聯絡NetApp解決方案團隊尋求協助。</block>
+  <block id="dd52a71d2066e527d28efdbd46784e07" category="section-title">設定AzAcSnap備份工具、為Oracle提供應用程式一致的快照</block>
+  <block id="211e60df4f320c617afaa9a96f62758f" category="paragraph">Azure應用程式一致的Snapshot工具（AzAcSnap）是一種命令列工具、可處理所有必要的協調作業、將第三方資料庫置於應用程式一致的狀態之後、再進行儲存快照、藉此保護資料。然後將這些資料庫傳回作業狀態。NetApp建議在資料庫伺服器主機上安裝此工具。請參閱下列安裝與組態程序。</block>
+  <block id="40390144ce134a2e38bfef9f590f867b" category="section-title">安裝AzAcSnap工具</block>
+  <block id="c2d834909e264a2f3bf3d3facd27740b" category="inline-link-macro">AzArcSnap安裝程式</block>
+  <block id="aed9be57adbc2906c27b7f325e1322aa" category="list-text">取得最新版本的 <block ref="696590d44d21e9b71649cae0895a0bca" category="inline-link-macro-rx"></block>。</block>
+  <block id="243004130aa732bde904924170fa2e5c" category="list-text">將下載的自我安裝程式複製到目標系統。</block>
+  <block id="1aa45c54511185e4e2043ee91e8969bc" category="list-text">使用預設安裝選項、以root使用者身分執行自我安裝程式。如有必要、請使用執行檔案<block ref="48c01707d676030dd223de543c6beb09" prefix=" " category="inline-code"></block> 命令。</block>
+  <block id="483944250a0e1f955ad6fec7c6578bde" category="section-title">設定Oracle連線功能</block>
+  <block id="b6f7df8a3ada5b45cee3400740b83c9a" category="paragraph">Snapshot工具可與Oracle資料庫通訊、需要具備適當權限的資料庫使用者來啟用或停用備份模式。</block>
+  <block id="6cd11918e51f60b6ce021e9d56c9e74a" category="section-title">1.設定AzAcSnap資料庫使用者</block>
+  <block id="84fe6666ea577b7ede5c61912d97705e" category="paragraph">下列範例顯示Oracle資料庫使用者的設定、以及使用sqlplus與Oracle資料庫通訊。範例命令會在Oracle資料庫中設定使用者（AZACSNAP）、並視需要變更IP位址、使用者名稱和密碼。</block>
+  <block id="342df2b2fb63c81cdd53e5e7bc5d00b9" category="list-text">從Oracle資料庫安裝啟動sqlplus以登入資料庫。</block>
+  <block id="ab0840eee4ba613870ae404c907c1948" category="list-text">建立使用者。</block>
+  <block id="e90b9dc19df07f784e3fc408169077df" category="list-text">授予使用者權限。此範例設定AZACSNAP使用者的權限、讓資料庫進入備份模式。</block>
+  <block id="f508d634fc1aa5df7fed84e6b58afce9" category="list-text">將預設使用者的密碼過期時間變更為無限。</block>
+  <block id="bc5fff092e99ce3d1966b94061cb5953" category="list-text">驗證資料庫的azacsnap連線能力。</block>
+  <block id="8e0d0fb1cb3a50066ecd397700dfd22e" category="section-title">2.設定Linux使用者的azacsnap、以便使用Oracle wallet存取資料庫</block>
+  <block id="7140a904f4b795616fdc3c3efbdcd066" category="paragraph">AzAcSnap預設安裝會建立azacsnap OS使用者。它的Bash Shell環境必須設定為使用儲存在Oracle電子錢包中的密碼來存取Oracle資料庫。</block>
+  <block id="c54cf7bb99b0e669ce6dc05ec8272470" category="list-text">以root使用者身分執行<block ref="760381f8107a856bc583301b7b272917" prefix=" " category="inline-code"></block> 用於識別主機上的Oracle_Home和Oracle_SID變數的命令。</block>
+  <block id="2a4941dc3f20c8f34a09b066691e66a5" category="list-text">將Oracle_Home、Oracle_SID、TNs_Admin和路徑變數新增至azacsnap使用者Bash設定檔。視需要變更變數。</block>
+  <block id="e3c85fad3d30c470aac355430e98dc21" category="list-text">身為Linux使用者azacsnap、請建立錢包。系統會提示您輸入電子錢包密碼。</block>
+  <block id="83617bd12022f2dd9ba94816c7e56670" category="list-text">將連線字串認證新增至Oracle Wallet。在以下命令範例中、AZACSNAP是AzAcSnap要使用的ConnectString、azacsnap是Oracle資料庫使用者、而AzPasswd1是Oracle使用者的資料庫密碼。系統會再次提示您輸入電子錢包密碼。</block>
+  <block id="02f08719de6240015b4e67725107792a" category="list-text">建立<block ref="9de875b13677cf9b036a438bf9aedf5c" prefix=" " category="inline-code"></block> 檔案：在以下命令範例中、主機應設定為Oracle資料庫的IP位址、而伺服器SID應設定為Oracle資料庫SID。</block>
+  <block id="0eec77cc5ed96c42afb08c83ea3f1e3b" category="list-text">建立<block ref="0501c2d94325e267bf15055591fb8157" prefix=" " category="inline-code"></block> 檔案：</block>
+  <block id="cafefcc0e796f3e73bc39de23dfc6b68" category="list-text">使用電子錢包測試Oracle存取。</block>
+  <block id="8bf6bfb76bcf25b5e1bb9c1d4ede3d34" category="paragraph">命令的預期輸出為：[azacsnap@acao-ora01 ~]$ sqlplus /@AZACSNAP做為SysBACKUP</block>
+  <block id="9fac4799a7cb503012dac3d131cf3c15" category="paragraph">SQL* Plus：19.0．0．0．0版- 9月8日星期四正式上線18：02：07 2022版本19.8．0．0</block>
+  <block id="54eb020b97d7e8a9f56d67e93754e270" category="section-title">設定ANF連線功能</block>
+  <block id="8c9356aaf30e863db064ba22b7d4b204" category="paragraph">本節說明如何啟用Azure NetApp Files 與NetApp（與VM）的通訊。</block>
+  <block id="d78964ac0334c0f69ef24aada9864028" category="list-text">在Azure Cloud Shell工作階段中、請確定您已登入訂閱、且您想要在預設情況下與服務主體建立關聯。</block>
+  <block id="8611ff0fcccf2f05ff0dbde909379c14" category="list-text">如果訂閱不正確、請使用下列命令：</block>
+  <block id="2d66e076b40e24c73ffa7a1704d985db" category="list-text">使用Azure CLI建立服務主體、如下列範例所示：</block>
+  <block id="707cc085819c641d15b9ea2b3b13cb53" category="paragraph">預期輸出：</block>
+  <block id="e8e3af5b539b9415092afd10fc182ff7" category="paragraph">｛"clientId"："00aa000a-aaaa-0000-00a0-00aa000aaa0a"、"clientSecret："00aa000a-aaaa-0000-00a0-00aa000aaa0a"、"subscriptionId"："00aaaaaaaaaaaa000a-aaaa-0000-00a0-00000a0-00000aaaaa0a0、a0a0、"a0a、"a0、"a0-00a00a00a0、"a0、"a0、"a0、"a0、"a、a00a、"、"、"、"00a、"、"00a、" <block ref="abe1a2134e98a87862a225c33f62cde4" category="inline-link-rx"></block>、"resourceManagerEndpointUrl"： <block ref="5bbe1c35abcaa8749119f86fe8d12120" category="inline-link-rx"></block>、「activedirectoryGraphResourcesId」： <block ref="91645ab7f47cce4ce23956a6c4c7df7c" category="inline-link-rx"></block>、"sqlManagementEndpointUrl"： <block ref="2ce5923f710fffcd9fdcfffa2d0db664" category="inline-link-rx"></block>、「galleryEndpointUrl」： <block ref="92fb62298a12469265ac683928098931" category="inline-link-rx"></block>、「管理EndpointUrl」： <block ref="9a3197a885535f07c09e058a5f76aa0c" category="inline-link-rx"></block>}</block>
+  <block id="c51a1e8c830ed4f63c489347dbcce1a7" category="list-text">將輸出內容剪貼到名為的檔案中<block ref="b50999884a39c5efe8da46cd87acfeb2" prefix=" " category="inline-code"></block> 儲存在Linux使用者azacsnap使用者bin目錄中、並以適當的系統權限保護檔案。</block>
+  <block id="211f39ae9cd979a9f01bb800eca0b832" category="admonition">請確定Json檔案的格式完全符合上述說明、尤其是在以雙引號（"）括住的URL中。</block>
+  <block id="c1f6adfa882cba0dbd256d4909ac588c" category="section-title">完成AzAcSnap工具的設定</block>
+  <block id="e0e7b63ff02eb3221940162934949dd0" category="paragraph">請依照下列步驟設定及測試快照工具。測試成功之後、您可以執行第一個資料庫一致的儲存快照。</block>
+  <block id="fe615094ac9bb468d26149280e3769d7" category="list-text">變更快照使用者帳戶。</block>
+  <block id="4ef9af49185e683998d060aa71c30e2b" category="list-text">變更命令的位置。</block>
+  <block id="412d274adbc3fc7cb51ab315d7a77f82" category="list-text">設定儲存備份詳細資料檔案。這會建立一個<block ref="8ed8c6bfea85d72bc4a36772490109c7" prefix=" " category="inline-code"></block> 組態檔。</block>
+  <block id="d4c18f094b4959d27f52ee2a9709a6b9" category="paragraph">三個Oracle Volume的預期輸出：</block>
+  <block id="849abd2456a4bd2ccddb94a12dfcc37d" category="paragraph">[azacsnap@acao-ora01 bin]$ azacsnap -c configure --configuration new Building new config file Add comment to config file（空白項目以結束新增註釋）：Oracle Snapshot bkup Add Comment to config file（空白項目以結束新增註釋）：輸入要新增的資料庫類型、'HANA '、'Oracle'或'exit'（不適用於Oracle）</block>
+  <block id="fa7ad5b9d050b7a5baa27ffcd8863c42" category="paragraph">==新增Oracle資料庫詳細資料== Oracle資料庫SID（例如CDB1）：ORATST資料庫伺服器位址（主機名稱或IP位址）：172.30.137.142 Oracle連線字串（例如/@AZACSNAP）：//@AZACSNAP</block>
+  <block id="44b11046a63da89febd351b4213758cf" category="paragraph">= Azure NetApp Files =不支援資料的資料== Azure NetApp Files 您使用的是資料庫的支援嗎？（是/否）[n]：是-資料磁碟區在快照之前、會讓應用程式處於一致狀態-在Azure NetApp Files 資料庫組態的「Data Volume」（資料磁碟區）區段中新增資源？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u01服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案）<block ref="88c14b7c14e63dd3e0345f1f112a2bd3" category="inline-link-rx"></block> Oracle.json是否在Azure NetApp Files 資料庫組態的「Data Volume」區段中新增資源以供參考？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u02服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案）<block ref="88c14b7c14e63dd3e0345f1f112a2bd3" category="inline-link-rx"></block> Oracle.json是否在Azure NetApp Files 資料庫組態的「Data Volume」區段中新增資源以供參考？（是/否）[n]：n -其他Volume在不準備任何應用程式快照的情況下立即建立快照-在Azure NetApp Files 資料庫組態的其他Volume區段中新增資源？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u03服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案）<block ref="88c14b7c14e63dd3e0345f1f112a2bd3" category="inline-link-rx"></block> Oracle.json是否在Azure NetApp Files 資料庫組態的其他Volume區段中新增資源？（是/否）[n]：n</block>
+  <block id="e16c4d13d5c9c936ac3ca975a729784f" category="paragraph">== Azure託管磁碟詳細資料==您是否使用Azure託管磁碟做為資料庫？（是/否）[n]：n</block>
+  <block id="e5e08e0b27271cd7952c3cd754436294" category="paragraph">= Azure大型執行個體（裸機）儲存詳細資料=您是否使用Azure大型執行個體（裸機）作為資料庫？（是/否）[n]：n</block>
+  <block id="cec7485a9812da8e268c6d53917d0776" category="paragraph">輸入要新增的資料庫類型：「Hana」、「Oracle」或「exit」（不含資料庫）：結束</block>
+  <block id="c63145a4ad8c93cb8bdff88f44cf483b" category="paragraph">編輯組態完成、將輸出寫入「azacsnap。json」。</block>
+  <block id="72b0a1cda785576a979ca4ee2e3c8c62" category="list-text">身為azacsnap Linux使用者、請執行azacsnap測試命令進行Oracle備份。</block>
+  <block id="ce9bfcddebc567805a4fdb6bcdf15515" category="paragraph">[azacsnap@acao-ora01 bin]$ azacsnap -c測試--test Oracle --configfile azacsnap.json begin：測試「Oracle」開始的程序：Oracle DB測試通過：成功連線至Oracle DB 1908000000版結束：測試「Oracle」的程序完成[azacsnap@acao-ora01]$ bin$</block>
+  <block id="7be23e8f29bfc799fd8fbcdc55fe0e77" category="list-text">執行第一個Snapshot備份。</block>
+  <block id="42481f217667e9b11be3ea64c971056a" category="inline-link-macro">下一步：資料庫保護。</block>
+  <block id="d39c73ea41fa36408b518637e929e754" category="paragraph"><block ref="d39c73ea41fa36408b518637e929e754" category="inline-link-macro-rx"></block></block>
+  <block id="87561d435f6cd79a59659b543d2991ca" category="summary">本節說明使用自訂Oracle RDS和FSX ONTAP 等儲存設備的RDS Oracle自訂部署解決方案架構。</block>
+  <block id="312f941d9e8f224f54ae372016e8f35a" category="paragraph">在環境中、Oracle運算執行個體是透過AWS EC2執行個體主控台進行部署。主控台提供多種EC2執行個體類型。NetApp建議部署資料庫導向的EC2執行個體類型、例如採用RedHat Enterprise Linux 8的m5 AMI映像、以及高達10Gps的網路頻寬。</block>
+  <block id="830579b4d0c33e9e4fa1f11c61cb73a7" category="inline-image-macro">此映像描述了一個架構圖表範例、包括主要HA叢集（待命HA叢集）、管理節點、以及相關的連線節點。</block>
+  <block id="73793421735093db194ae82163f894b3" category="paragraph"><block ref="73793421735093db194ae82163f894b3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e3d0f7ae75ed6e0e3b522ecc7cac710b" category="paragraph">FSXX儲存叢集的設計具有雙重備援、因此主儲存叢集和待命儲存叢集都部署在兩個不同的可用性區域中。資料庫磁碟區會以使用者可設定的時間間隔、從主要FSX叢集複寫到備用FSX叢集、以供所有Oracle二進位、資料和記錄磁碟區使用。</block>
+  <block id="0008c12bed67fcf1f82ece8ff10b5c81" category="paragraph">這種高可用度的Oracle環境是以Ansible控制器節點和SnapCenter 一套支援功能的伺服器與UI工具來管理。Oracle安裝、組態及複寫均使用可執行的教戰手冊工具套件來自動化。Oracle EC2執行個體核心作業系統或Oracle修補程式的任何更新、都可以平行執行、以保持主要和待命同步。事實上、初始自動化設定可輕鬆擴充、以便在需要時執行一些重複的每日Oracle工作。</block>
+  <block id="1332f9ef53fc751a6087660a11f07ba6" category="paragraph"><block ref="1332f9ef53fc751a6087660a11f07ba6" category="inline-link-macro-rx"></block></block>
+  <block id="1572d96530c843cddbe2d0a8b47abf8a" category="summary">本最佳實務做法指南詳細說明如何在Azure NetApp檔案儲存設備和Azure VM上部署及保護Oracle資料庫。</block>
+  <block id="2e0520fcae6cb49914d2308fbaf4e1a8" category="doc">TR-4954：Oracle資料庫部署Azure NetApp Files 與保護功能</block>
+  <block id="7e6f7643afec42d9c47efa933debef3e" category="paragraph">NetApp公司的Alleno Cao、Niyazz Mohamed</block>
+  <block id="b2bd5134cf9b573edd93cbfe6ee4559d" category="paragraph">許多任務關鍵型Oracle企業資料庫仍在內部部署、許多企業正尋求將這些Oracle資料庫移轉至公有雲。這些Oracle資料庫通常以應用程式為中心、因此需要使用者專屬的組態、這是許多資料庫即服務公有雲產品無法提供的功能。因此、目前的資料庫環境需要以公有雲為基礎的Oracle資料庫解決方案、此解決方案是以高效能、可擴充的運算與儲存服務所打造、能夠滿足獨特的需求。Azure虛擬機器運算執行個體和Azure NetApp Files 整套儲存服務可能是您在建置任務關鍵型Oracle資料庫工作負載並將其移轉至公有雲時所無法運用的難題。</block>
+  <block id="a58dc8965e4de69beb97a33a5a1935ea" category="paragraph">Azure虛擬機器是Azure提供的多種隨需擴充運算資源類型之一。一般而言、當您需要比其他選項更多的運算環境控制能力時、可以選擇虛擬機器。Azure虛擬機器提供一種快速簡易的方法、可建立執行Oracle資料庫所需的特定組態電腦、無論是運算或記憶體密集型工作負載。Azure虛擬網路中的虛擬機器可輕鬆連線至貴組織的網路、例如透過安全的VPN通道。</block>
+  <block id="466d154dd31c873c4a2fd7113dc6b818" category="paragraph">支援完整管理的Microsoft服務、可讓資料庫工作負載更快更安全地移至雲端Azure NetApp Files 。它的設計旨在滿足在雲端執行Oracle資料庫等高效能工作負載的核心需求、並提供效能層級、以反映實際的IOPS需求範圍、低延遲、高可用度、高耐用度、大規模管理性、以及快速且有效率的備份、還原和複製。這些功能之所以能夠實現、是因為Azure NetApp Files 執行ONTAP 於Azure資料中心環境中的實體All Flash NetApp系統為基礎。整個Azure DC和入口網站已完全整合了整個支援、客戶可以使用與任何其他Azure物件相同的舒適圖形介面和API來建立及管理共用檔案Azure NetApp Files 。有了Azure NetApp檔案、您就能在不增加風險、成本或時間的情況下、充分發揮Azure的完整功能、並信任Azure專屬的唯一企業檔案服務。</block>
+  <block id="30106aaa3e986f62cbb327f935569bca" category="inline-link-macro">Microsoft Azure上的Oracle資料庫</block>
+  <block id="bdb41d103336edebf957f48add0f3554" category="inline-link-macro">NetApp自動化</block>
+  <block id="c2add34b573ef3798dd7c5b8972c008a" category="paragraph">本文件詳細說明如何使用Azure虛擬機器和Azure NetApp Files 提供效能與持久性的VMware儲存服務來部署、設定及保護Oracle資料庫、其效能與持久性與內部部署系統類似。如需最佳實務做法指南、請參閱TR-4780 <block ref="43d70d3cb7600babfb5820086b5480b6" category="inline-link-macro-rx"></block>。更重要的是、NetApp也提供自動化工具套件、可將部署、組態、資料保護、移轉及管理Azure公有雲中Oracle資料庫工作負載所需的大部分工作自動化。自動化工具套件可從NetApp Public GitHub網站下載： <block ref="1b9adaed0e4ba13a6d8f6edc7ab8f2d8" category="inline-link-macro-rx"></block>。</block>
+  <block id="3d7dbc3eeea5e87b5d14c9f00c66dd47" category="paragraph"><block ref="3d7dbc3eeea5e87b5d14c9f00c66dd47" category="inline-link-macro-rx"></block></block>
+  <block id="cffc2899d8dda4926e6563cef4e76608" category="summary">本節將詳細說明在Azure虛擬機器和Azure NetApp Files 物件儲存設備上部署Oracle資料庫時應考量的因素。</block>
+  <block id="3cc4738ed2ec2e682ab2002688fa632b" category="paragraph"><block ref="3cc4738ed2ec2e682ab2002688fa632b" category="inline-link-macro-rx"></block></block>
+  <block id="1a6a6241c0105da34f664d1e12534598" category="paragraph">下列各節說明在Azure公有雲上部署Oracle資料庫時、搭配Azure NetApp Files 使用支援還原的Azure虛擬機器執行個體時、必須考量的關鍵事項。</block>
+  <block id="c2b3b1e82aa97a133f0f6bbc12843085" category="section-title">VM類型與規模</block>
+  <block id="4ca9712a9cd82ea80c8e225977fae1bb" category="inline-link-macro">Azure中的虛擬機器大小</block>
+  <block id="7c4a17715675ccfa7ce507eea6098318" category="paragraph">選取適當的VM類型和大小、對於公有雲中的關聯式資料庫達到最佳效能非常重要。Azure虛擬機器提供多種運算執行個體、可用來裝載Oracle資料庫工作負載。請參閱Microsoft文件 <block ref="d854faa84ea41d8819c42ca3741a3561" category="inline-link-macro-rx"></block> 適用於不同類型的Azure虛擬機器及其規模。一般而言、NetApp建議使用通用Azure虛擬機器來部署中小型Oracle資料庫。部署大型Oracle資料庫時、最適合使用記憶體最佳化的Azure VM。有了更多可用的RAM、就能設定更大的Oracle SGA或智慧型快閃快取來減少實體I/O、進而提升資料庫效能。</block>
+  <block id="84942a15b69259aab0ff7c2620afcaf6" category="inline-link-macro">TR-4780：Microsoft Azure上的Oracle資料庫</block>
+  <block id="760a7b6c1bd4f6ebab6918d42feb4825" category="paragraph">執行時、可做為連接至Azure虛擬機器的NFS掛載、提供更高的處理量、並以本機儲存設備克服儲存最佳化的VM處理量限制Azure NetApp Files 。因此Azure NetApp Files 、在Oracle上執行Oracle可降低授權Oracle CPU核心數與授權成本。請參閱 <block ref="b46cbe9b7b18b9ff8101a014c206465f" category="inline-link-macro-rx"></block>第7節- Oracle授權如何運作？</block>
+  <block id="71b93ac808ac25bb511ebcbb028e32e8" category="paragraph">其他考量因素包括：</block>
+  <block id="592bc946b588ad0e83c05f528895bcc8" category="list-text">根據工作負載特性、選擇正確的vCPU和RAM組合。隨著VM上的RAM大小增加、vCPU核心數量也會增加。Oracle授權費用會根據vCPU核心數量收取、因此在某個時間點應該會有平衡。</block>
+  <block id="fb9844eb7ee0ff341d6f7066f78918ff" category="list-text">新增交換空間至VM。預設的Azure VM部署不會建立交換空間、這對資料庫來說並不理想。</block>
+  <block id="81afc696937e3786d5701212de79c536" category="section-title">效能Azure NetApp Files</block>
+  <block id="c7bc5faed38f5284386f25a6fc3a5752" category="paragraph">從客戶必須在其所屬的功能區儲存帳戶中配置的容量資源池中配置支援的資料Azure NetApp Files Azure NetApp Files 。每個容量集區的指派方式如下：</block>
+  <block id="3af20f4cec87eac026d0990a8a3f4169" category="list-text">定義整體效能能力的服務層級。</block>
+  <block id="dd1fb66595c069d1b267fb8ca87e46eb" category="list-text">該容量集區的初始資源配置儲存容量或分層。服務品質（QoS）層級、定義每個已配置空間的整體最大處理量。</block>
+  <block id="9dc50220b7e70511b5aeebb862346fad" category="paragraph">服務層級和最初配置的儲存容量、決定特定Oracle資料庫Volume的效能等級。</block>
+  <block id="59b8b6b998c3c0fcd2f1b107a68c290a" category="section-title">1 Azure NetApp Files 、服務等級</block>
+  <block id="f02ad1a8080bf1b50f8a15cb346ed483" category="paragraph">支援三種服務層級：Ultra、Premium和Standard Azure NetApp Files 。</block>
+  <block id="3eec40f71dc46b07f32031c9703968ec" category="list-text">*超儲存設備。*此層級可為每1 TiB指派的磁碟區配額提供高達128台Bps的處理量。</block>
+  <block id="1b0fa75a1e8b815e03fb38f8a90d2a73" category="list-text">*優質儲存設備。*此層級可為每1 TiB指派的磁碟區配額提供高達64MiBps的處理量。</block>
+  <block id="00792f6ec40d3e2833834d90802a7aa5" category="list-text">*標準儲存設備。*此層可為每1 TiB指派的磁碟區配額提供高達16MiBps的處理量。</block>
+  <block id="7a720602d11a97fd37964c9979e2f1a5" category="section-title">2、容量池和服務品質</block>
+  <block id="36ac84521252c58a4238292bf0c21d92" category="paragraph">每個所需的服務層級都有已配置容量的相關成本、並包含服務品質（QoS）層級、可定義已配置空間的整體最大處理量。</block>
+  <block id="7a93db9cf06fd65415faf241927e2087" category="paragraph">例如、10TiB資源配置的單一容量資源池具備優質服務層級、可為此容量資源池中的所有磁碟區提供整體可用的處理量達10x 64MBps、因此640 MBps可搭配40、000（16K）IOPs或80、000（8K）IOPs。</block>
+  <block id="18dc8b2cbfb938a0ba32c141664fba0e" category="paragraph">最小容量集區大小為4TiB。您可以根據工作負載需求的變化、以1TiB為增量來變更容量資源池的大小、以管理儲存需求和成本。</block>
+  <block id="8a26494cf7b0c3c3ca7cd38e89c068eb" category="section-title">3.計算資料庫磁碟區的服務層級</block>
+  <block id="9ce59559a0b99338ee0bad0c153c961a" category="paragraph">Oracle資料庫Volume的處理量限制是由下列因素組合所決定：磁碟區所屬容量集區的服務層級、以及指派給磁碟區的配額。</block>
+  <block id="b87e1c6e437216fc2d3719c3dad93cb8" category="paragraph">下圖顯示如何計算Oracle資料庫Volume的處理量限制。</block>
+  <block id="1624b6f83446cd1719c94bae28cbbeb7" category="inline-image-macro">此影像說明套用至三個容量層級的方程式、以判斷總處理量。</block>
+  <block id="4d06f88a6f007c9821ac2ea5741860c5" category="paragraph"><block ref="4d06f88a6f007c9821ac2ea5741860c5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7ce3321601c29c87cb29ae9817843b8d" category="paragraph">在範例1中、從容量集區中指派2 TiB配額的優質儲存層、會將處理量限制指派為128 MiBps（2TiB * 64MiBps）。無論容量集區大小或實際磁碟區使用量為何、都適用此案例。</block>
+  <block id="69da5d3e48cc26414a9177d843bd55d9" category="paragraph">在範例2中、從具有Premium儲存層的容量集區指派100GiB配額的磁碟區、其處理量上限為6.25億次（0.09765625TiB * 64MiBps）。無論容量集區大小或實際磁碟區使用量為何、都適用此案例。</block>
+  <block id="def2c2ae4fa72ee296eada07b44a0cc9" category="paragraph">請注意、最小Volume大小為100GiB。</block>
+  <block id="78ad659ec79d8ee9e7432271167d18d3" category="list-text">對於小型資料庫、所有Oracle檔案都使用單一Volume配置。</block>
+  <block id="51672f1f7a65c28f28e5e113376309bd" category="inline-image-macro">此映像描述三個資料庫（DB1、DB2和DB3）、每個資料庫都包含資料檔案、重作記錄、歸檔記錄和控制檔案、全都位於單一容量集區內。</block>
+  <block id="6dab61143f0fe37930fbd783e5c57c81" category="paragraph"><block ref="6dab61143f0fe37930fbd783e5c57c81" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="816445ad7ba016a8c0be293c985f068b" category="list-text">對於大型資料庫、建議的Volume配置是多個Volume：一個用於Oracle資料、一個用於複製控制檔、另一個用於Oracle作用中記錄、歸檔記錄和控制檔。NetApp強烈建議為Oracle二進位檔配置磁碟區、而非本機磁碟、以便將資料庫重新定位至新的主機、並快速還原。</block>
+  <block id="955db4ecf8716abf17a3ea3f8e113671" category="inline-image-macro">此映像描述兩個資料庫、每個資料庫各有兩個磁碟區。第一個Volume包含資料檔案、而每個資料庫的第二個Volume則包含重作記錄、歸檔記錄和控制檔。全部位於單一容量集區內。</block>
+  <block id="7432b939dcc290776a34b2e9610a2775" category="paragraph"><block ref="7432b939dcc290776a34b2e9610a2775" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="efeaafaa286e164985a0c325f0727cf1" category="paragraph">Linux是最常見的作業系統、具備原生NFS功能。Oracle提供直接NFS（DNFS）用戶端、原生整合至Oracle。Oracle DNFS會跳過作業系統快取、並啟用平行處理功能來改善資料庫效能。Oracle已支援NFSv3超過20年、而NFSv3則支援Oracle 12.1.0.2及更新版本。</block>
+  <block id="be5ef2ba2540e077db09ca784b1ac18f" category="paragraph">透過使用DNFS（自Oracle 11g起提供）、在Azure虛擬機器上執行的Oracle資料庫、可比原生NFS用戶端大幅提升I/O。使用NetApp自動化工具套件自動部署Oracle、可在NFSv3上自動設定DNFS。</block>
+  <block id="632bf0b812e05925eff22d7d0a7677c2" category="paragraph">下圖示範Azure NetApp Files Oracle DNFS的有關功能的Sob基準測試。</block>
+  <block id="08826656fd88155bdfaebbb292320e33" category="inline-image-macro">此圖表可大幅證明DNFS可改善KNFS的DB連續檔案延遲（毫秒）。</block>
+  <block id="258bafba486e8ac35578ed4c5fff8ab1" category="paragraph"><block ref="258bafba486e8ac35578ed4c5fff8ab1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="24019b0d54b5da3a46b400c6a6dfee77" category="paragraph">為獲得最佳效能並避免效能問題、請將控制TCP插槽表的核心參數調整為128。</block>
+  <block id="754e164c2de7ed1f02667d5f74297a0e" category="list-text">下表針對單一Linux NFSv3執行個體提供建議的NFS掛載選項。</block>
+  <block id="fa7abb28d1b83f9ee23d95aff1d3123b" category="inline-image-macro">下表顯示下列檔案類型、控制檔、資料檔案、重作記錄、Oracle_Home、和Oracle_base。</block>
+  <block id="082aad17dee7d03a3d502a422c1a8c53" category="paragraph"><block ref="082aad17dee7d03a3d502a422c1a8c53" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b71b592b003a6232eebe484a1736be7a" category="paragraph"><block ref="b71b592b003a6232eebe484a1736be7a" category="inline-link-macro-rx"></block></block>
+  <block id="d0dfaca5f0573d672a0f4dc66997c002" category="doc">EC2和FSX Oracle資料庫管理</block>
+  <block id="4020b36b638694a9834cb01b53b25ffe" category="doc">AWS EC2和FSX上的逐步Oracle部署程序</block>
+  <block id="d842058c0e8814799a596324a98e5323" category="sidebar">AWS EC2和FSX最佳實務做法上的Oracle資料庫部署</block>
+  <block id="879f2366c198b1fc05740657cacebcc1" category="sidebar">Oracle資料庫部署Azure NetApp Files 與保護功能</block>
+  <block id="fc305603a3cb90ea71cabdf327aaf437" category="sidebar">資料庫保護</block>
 </blocks>
