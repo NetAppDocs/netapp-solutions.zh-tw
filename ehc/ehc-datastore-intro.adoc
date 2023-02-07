@@ -36,13 +36,10 @@ Azure以下列組態支援NetApp儲存設備：
 
 * 以客體連線儲存設備的形式提供Azure NetApp Files
 * 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
-* 作爲NFS補充資料存放區的支援資料（ANF）Azure NetApp Files
+* 作爲NFS補充資料存放區的能力（ANF Azure NetApp Files ）
 
 
 檢視詳細資訊 link:azure/azure-guest.html["AVS的來賓連線儲存選項"]。檢視詳細資訊 link:azure/azure-native-nfs-datastore-option.html["AVS的補充NFS資料存放區選項"]。
-
-
-NOTE: 1 - ANF作為AVS的補充NFS資料存放區目前位於Public Preview中。深入瞭解 https://docs.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?branch=main&tabs=azure-portal["請按這裡"]。
 
 --
 .GCP / GCV
@@ -51,15 +48,12 @@ Google Cloud支援下列組態的NetApp儲存設備：
 
 * 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 * 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
-* 將CVS當成NFS補充資料存放區Cloud Volumes Service
+* 作爲NFS補充資料存放區的CVS Cloud Volumes Service
 
 
 檢視詳細資訊 link:gcp/gcp-guest.html["GCVE的來賓連線儲存選項"]。
 
-深入瞭解 link:https://www.netapp.com/google-cloud/google-cloud-vmware-engine-registration/["作爲NFS補充資料存放區的CVS（CVS）Cloud Volumes Service"^]。
-
-
-NOTE: 1 -目前處於私有預覽中
+深入瞭解 link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["NetApp Cloud Volumes Service 支援Google Cloud VMware Engine的資料儲存區"^]
 
 --
 ====
