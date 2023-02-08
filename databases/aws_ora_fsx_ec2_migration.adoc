@@ -24,16 +24,20 @@ link:aws_ora_fsx_ec2_mgmt.html["上一篇：資料庫管理。"]
 
 == 內部部署可儲存資料ONTAP
 
-如果內部部署的Oracle資料庫位於ONTAP 某個不支援的儲存陣列上、那麼使用NetApp SnapCenter UI工具來設定資料庫移轉的複寫作業會更容易。
+如果內部部署的Oracle資料庫位於ONTAP 某個不支援的儲存陣列上、那麼使用內建於AWS FSX ONTAP S庫 的NetApp SnapMirror技術、就能更輕鬆地設定資料庫移轉的複寫作業。您可以使用NetApp BlueXP主控台來協調移轉程序。
 
 . 建置符合內部部署執行個體的目標運算EC2執行個體。
 . 從FSX主控台配置大小相同的相符資料庫Volume。
 . 將FSX資料庫磁碟區掛載到EC2執行個體。
 . 在內部部署資料庫磁碟區之間、設定SnapMirror複寫至目標FSX資料庫磁碟區。初始同步可能需要一些時間來移動主要來源資料、但後續的任何遞增更新都會更快。
-. 切換時、請關閉主要應用程式以停止所有交易。執行記錄備份、SnapCenter 將剩餘的交易清空至目標。
+. 切換時、請關閉主要應用程式以停止所有交易。在Oracle sqlplus CLI介面中、執行Oracle線上記錄交換器、並允許SnapMirror同步將上次歸檔的記錄推送至目標磁碟區。
 . 中斷鏡射磁碟區、在目標執行Oracle恢復、並啟動資料庫以供服務。
 . 將應用程式指向雲端中的Oracle資料庫。
 
+
+下列影片示範如何使用NetApp BlueXP主控台和SnapMirror複寫、將Oracle資料庫從內部部署移轉至AWS FSx/EC2。
+
+link:https://docs.netapp.com/us-en/netapp-solutions/media/oracle-aws-fsx-part2b-migration-snapmirror_callout.mp4["Oracle資料庫透過SnapMirror和BlueXP從內部部署移轉至FSx/EC2"^]
 
 
 
@@ -56,18 +60,26 @@ AWS S3可做為移轉儲存區域、用於資料庫移動和移轉。請參閱�
 
 
 
-== 使用Oracle多租戶CDB/pdb架構、將Oracle資料庫整合到AWS中
+== 使用最大可用度的pdb重新配置、將內部部署的Oracle資料庫移轉至AWS FSx/EC2
 
-. 在AWS公有雲中建立CDB。
-. 如果內部部署資料庫也部署在CDB/pdb多租戶環境中、請拔下要移轉的pdb。
-. 將中繼資料及加底線的Oracle資料檔案傳輸至目標CDB執行個體。
-. 驗證與Oracle驗證程序的相容性。
-. 如果相容性驗證通過、請將拔下的pdb插入目標CDB容器。
-. 如有需要、請更新資料字典。
-. 備份並開啟移轉的pdb以供存取。
+這種移轉方法最適合已部署於PDB/CDB多租戶模式的Oracle資料庫、ONTAP 而且無法在內部部署使用此功能。pdb重新配置方法使用Oracle pdb熱複製技術、在來源CDB和目標CDB之間移動PDB、同時將服務中斷降至最低。
 
+首先、請在AWS FSx/EC2中建立CDB、並提供足夠的儲存空間來裝載要從內部部署移轉的PDF。多個內部部署的PDF可一次移轉一個。
+
+. 如果內部部署資料庫是部署在單一執行個體中、而非部署在多租戶PDB/CDB模式中、請依照中的指示進行 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["將單一非CDB執行個體轉換為多租戶CDB中的pdb"^] 將單一執行個體轉換為多租戶PDB/CDB。然後依照下一個步驟、將轉換後的pdb移轉至AWS FSx/EC2中的CDB。
+. 如果已在多租戶PDB/CDB模式中部署內部部署資料庫、請依照中的指示進行 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_migration.html#migrate-on-premises-oracle-databases-to-azure-with-pdb-relocation["透過重新配置pdb、將內部部署的Oracle資料庫移轉至雲端"^] 以執行移轉。
 
 
-NOTE: 如果不拔下pdb和外掛程式、則需要在移轉規劃期間考量應用程式停機時間。
+下列影片示範如何使用最大可用度的pdb重新配置、將Oracle資料庫（pdb）移轉至FSx/EC2。
 
-同樣地、NetApp自動化團隊也提供移轉工具套件、協助Oracle資料庫從內部部署移轉至AWS雲端。如需最新的資料庫移轉工具、請參閱NetApp Public GitHub網站。
+link:https://www.netapp.tv/insight/details/29998?playlist_id=0&mcid=85384745435828386870393606008847491796["將內部部署的Oracle pdb移轉至具備最大可用度的AWS CDB"^]
+
+
+NOTE: 雖然步驟1和步驟2中的指示已在Azure公有雲的背景中說明、但這些程序適用於AWS雲端、不會有任何變更。
+
+NetApp解決方案自動化團隊提供移轉工具套件、可協助Oracle資料庫從內部部署移轉至AWS雲端。使用下列命令下載適用於重新配置pdb的Oracle資料庫移轉工具套件。
+
+[source, cli]
+----
+git clone https://github.com/NetApp-Automation/na_ora_aws_migration.git
+----
