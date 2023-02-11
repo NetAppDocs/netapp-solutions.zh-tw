@@ -77,7 +77,7 @@ NOTE: SnapMirror關係是先決條件、必須事先建立。
 
 === 作業系統需求
 
-* Ubuntu焦點20.04（LTS）
+* Ubuntu 20.04（LTS）、至少2 GB和4個vCPU
 * 下列套件必須安裝在指定的代理VM上：
 +
 ** Docker
@@ -100,7 +100,7 @@ NOTE: 。 `deploy.sh` 指令碼會執行所有必要的先決條件。
 +
 [listing]
 ----
-git clone <link here>
+https://github.com/NetApp-Automation/DRO.git
 ----
 +
 
@@ -110,7 +110,7 @@ NOTE: 代理程式可安裝在內部部署或AWS VPC內。
 +
 [listing]
 ----
-tar xvf draas_package.tar
+tar xvf DRO-prereq.tar
 ----
 . 瀏覽至目錄並執行部署指令碼、如下所示：
 +
@@ -118,14 +118,26 @@ tar xvf draas_package.tar
 ----
 sudo sh deploy.sh
 ----
-. 使用下列認證資料存取UI：*
+. 使用下列項目存取UI：
++
+[listing]
+----
+https://<host-ip-address>
+----
++
+使用下列預設認證：
 
-
++
 [listing]
 ----
 Username: admin
 Password: admin
 ----
+
+
+
+NOTE: 您可以使用「變更密碼」選項來變更密碼。
+
 image::dro-vmc-image3.png[災難恢復Orchestrator登入畫面。]
 
 
