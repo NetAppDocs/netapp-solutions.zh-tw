@@ -16687,4 +16687,178 @@
   <block id="67bb2ef7cf3c5ff59f35f28e513bfda3" category="sidebar">AWS FSx/EC2中的PostgreSQL高可用度部署與災難恢復</block>
   <block id="1ae3eccde141a365ede8f18b188ae588" category="sidebar">自動化的PostgreSQL HA部署與DR（在AWS FSx/EC2中）</block>
   <block id="6fabfc29f0b3a196c8407c190bb67293" category="sidebar">資料庫適用SnapCenter</block>
+  <block id="1f599c1b266e901a2c8d38e266e23c6f" category="summary">本節說明詳細的測試程序結果。</block>
+  <block id="c87fa6e515cf0976291b387e5a8ab6f6" category="doc">測試程序與詳細結果</block>
+  <block id="5a05f12c2c7f8b9ff569496691352e05" category="paragraph"><block ref="5a05f12c2c7f8b9ff569496691352e05" category="inline-link-macro-rx"></block></block>
+  <block id="b70dd619781891706b7d2f44c418a2b5" category="section-title">利用ResNet進行影像辨識訓練ONTAP 、以利執行</block>
+  <block id="bf523bb892b07c71c90bd7ea34a091a9" category="paragraph">我們以一部和兩部SR670 V2伺服器執行ResNet50基準測試。本測試使用MXNet 22.04-py3 NGC容器來執行訓練。</block>
+  <block id="a08c4eedb9047aae68f44b82037739b0" category="paragraph">我們在此驗證中使用下列測試程序：</block>
+  <block id="df1a5f60f20e6aa3336812f58095e04f" category="list-text">在執行指令碼之前、我們先清除主機快取、以確保資料尚未快取：</block>
+  <block id="ab93a65fabd2eaae21f5a6e097320730" category="list-text">我們在伺服器儲存設備（本機SSD儲存設備）和NetApp AFF RSIFStorage系統中執行ImageNet資料集的基準測試指令碼。</block>
+  <block id="9f98453c4a6eede45b87d72527b49e7e" category="list-text">我們使用驗證了網路和本機儲存效能<block ref="1aabac6d068eef6a7bad3fdf50a05cc8" prefix=" " category="inline-code"></block> 命令。</block>
+  <block id="47b048d9dcf1d84d76bddb033b842b3b" category="list-text">針對單節點執行、我們使用下列命令：</block>
+  <block id="014e128029d9142b6957ca4f1b291090" category="list-text">對於分散式執行、我們使用了參數伺服器的平行化模式。我們在每個節點使用兩個參數伺服器、並將epochs的數目設定為與單一節點執行相同。我們之所以這麼做、是因為分散式訓練通常需要更長的時間、因為程序之間的同步不完善。不同次數的epochs可能會扭曲單一節點與分散式個案之間的比較。</block>
+  <block id="8f74be345dbaeac65cc3a488503b2a1f" category="section-title">資料讀取速度：本機與網路儲存設備</block>
+  <block id="16d8fe364e1a7846c093983bec75e764" category="paragraph">讀取速度是使用測試的<block ref="1aabac6d068eef6a7bad3fdf50a05cc8" prefix=" " category="inline-code"></block> 對ImageNet資料集的其中一個檔案執行命令。具體而言、我們針對本機和網路資料執行了下列命令：</block>
+  <block id="c685a224eb9a88c5b7bd2be45fe5a128" category="paragraph">這兩種價值都很相似、這表示網路儲存設備能夠以類似本機儲存設備的速度來提供資料。</block>
+  <block id="aa613e8f689a1a64605aef401595bfd2" category="section-title">共享使用案例：多個獨立的同步工作</block>
+  <block id="7e4312d3e922a98bfc1dc4a84c80f12c" category="paragraph">本測試模擬此解決方案的預期使用案例：多工作業、多使用者AI訓練。每個節點在使用共享網路儲存設備時、都會執行自己的訓練。結果顯示在下圖中、這表示解決方案案例在所有工作執行速度與個別工作基本相同的情況下、都能提供優異的效能。總處理量會隨著節點數量線性調整。</block>
+  <block id="2b9215e7cc3c2422637b6f95b0d47d97" category="inline-image-macro">此圖顯示每秒的Aggregate映像數。</block>
+  <block id="5224aacbc4b8472eb40ead3ee8856b90" category="paragraph"><block ref="5224aacbc4b8472eb40ead3ee8856b90" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="45f5fcaaad259a917b031b3169cd5ad4" category="inline-image-macro">這個圖示會以幾分鐘為單位顯示執行時間。</block>
+  <block id="8255e8c790967568129f1f898048f1c5" category="paragraph"><block ref="8255e8c790967568129f1f898048f1c5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="289b386724c768cabf5ad786a3842335" category="paragraph">這些圖表以分鐘為單位顯示執行時間、並針對每部伺服器在100 GbE用戶端網路上使用八個GPU的運算節點、以每秒彙總映像數、同時結合並行訓練模式和單一訓練模式。訓練模式的平均執行時間為35分鐘9秒。個別執行時間為34分32秒、36分21秒、34分37秒、35分25秒、34分31秒。訓練模式的平均每秒影像數為2、573、每秒個別影像數為2、764、23、438、2、556、2、564和2、547。</block>
+  <block id="ce47a442fe1dc7c09bf9a3ec5ed71236" category="paragraph">根據我們的驗證結果、採用NetApp資料執行時間的獨立訓練模式為34分鐘54秒、影像數為22、231秒一個獨立的訓練模式、搭配本機資料（DAS）執行時間為34分21秒、影像數為22、102個/秒在這些執行期間、NVIDIA公司的GPU平均使用率為96%。請注意、此平均值包括測試階段、在此期間未使用GPU、而以mpstat測量的CPU使用率為40%。這表示每種情況下的資料傳輸率都已足夠。</block>
+  <block id="f63534f8e2150e0624ee2af349f77999" category="inline-link-macro">下一步：架構調整。</block>
+  <block id="92a7087794ac4c23f482ff2db8cf1742" category="paragraph"><block ref="92a7087794ac4c23f482ff2db8cf1742" category="inline-link-macro-rx"></block></block>
+  <block id="686ebb62ce1be84dcfae0007fb84562d" category="summary">驗證所用的設定可調整以符合其他使用案例。</block>
+  <block id="bf46169695d75ff844d955af09f33e75" category="doc">架構調整</block>
+  <block id="747bf7dbe4329cb636a09e1a7e4b297b" category="inline-link-macro">上一步：測試程序與詳細結果。</block>
+  <block id="61862ef71b0230e76d56381617d456b0" category="paragraph"><block ref="61862ef71b0230e76d56381617d456b0" category="inline-link-macro-rx"></block></block>
+  <block id="1cf27bd587c6c632877c322cf42c0d97" category="paragraph">此驗證所使用的設定可調整以符合其他使用案例。</block>
+  <block id="a752efb5fb2512dc99b2045f032779f7" category="section-title">CPU調整</block>
+  <block id="122acc941b98ef5a11208d23ed0a8090" category="paragraph">我們使用Skylake Intel Xeon Platinum 8360Y處理器進行驗證、這是Lenovo建議的。我們預期同等級的Cascade Lake CPU（Intel Xeon Gold 6330處理器）會提供類似的效能、因為這項工作負載不受CPU限制。</block>
+  <block id="3cc37c167d58a1828b00c13cc6018ae8" category="section-title">儲存容量增加</block>
+  <block id="f40ff1aaa4f2e4ccd4189adfb3584e29" category="paragraph">根據您的儲存容量需求、您可以隨需增加共用儲存設備（NFS Volume）、前提是您需要額外的磁碟櫃和控制器機型。您可以從CLI或儲存控制器的NetApp Web介面、以管理員使用者的身分執行此動作。</block>
+  <block id="326221403d8b3298094c46f2012726ea" category="paragraph"><block ref="326221403d8b3298094c46f2012726ea" category="inline-link-macro-rx"></block></block>
+  <block id="f737e7cc3d8aa89c5b49c4fe701e9e40" category="summary">在此驗證中、我們執行MLPerf v2.0指定的影像辨識訓練。具體而言、我們已訓練ResNet v2.0模式與ImageNet資料集。主要指標是達到所需準確度的時間。我們也報告每秒以影像為單位的訓練頻寬、以更好地判斷橫向擴充效率。</block>
+  <block id="813c7764ec170fb5498e50560d32a97f" category="paragraph"><block ref="813c7764ec170fb5498e50560d32a97f" category="inline-link-macro-rx"></block></block>
+  <block id="0f25983094bc4cf5cea830260da8ee75" category="paragraph">在此驗證中、我們執行MLPerf v2.0指定的影像辨識訓練。具體而言、我們訓練ResNet v2.0模型與ImageNet資料集、直到達到76.1%的準確度為止。主要指標是達到所需準確度的時間。我們也報告每秒以影像為單位的訓練頻寬、以更好地判斷橫向擴充效率。</block>
+  <block id="ac3e6a4fbe8e02d639c2defeebeac17f" category="paragraph">主要測試案例評估了同時執行的多個獨立訓練程序（每個節點一個）。這會模擬主要使用案例、這是多位資料科學家所使用的共享系統。第二個測試案例評估橫向擴充效率。</block>
+  <block id="e34017da9a1a8d672a4859eb7c75947a" category="paragraph"><block ref="e34017da9a1a8d672a4859eb7c75947a" category="inline-link-macro-rx"></block></block>
+  <block id="1d126a9d86b70dcdbc0585754993a848" category="summary">本解決方案著重於入門級與中階叢集架構、使用NetApp儲存設備與專為人工智慧工作負載最佳化的Lenovo伺服器。這是專為中小企業團隊所設計、大多數運算工作都是單節點（單一或多GPU）、或分散在數個運算節點上。這並不是重大限制、因為大部分的日常AI訓練工作都是單一節點。</block>
+  <block id="119a956725a313a60a3ef97db900f9fa" category="doc">TR-4810：採用AFF Lenovo ThinkSystem SR670 V2的NetApp SRAS400適用於AI和ML機型訓練</block>
+  <block id="4bdd810ac842a2485ea52dbd42c4d5f8" category="paragraph">Sathish Thyagarajan、David Arette、NetApp Mircea Troaca、Larovo</block>
+  <block id="252875fbe73a0c4ecbd42a23cc730022" category="paragraph">此解決方案採用NetApp儲存設備和專為人工智慧（AI）工作負載最佳化的Lenovo伺服器、提供中階叢集架構。適用於大多數運算工作是單一節點（單一或多GPU）、或分散於數個運算節點的中小型企業。此解決方案符合許多企業的大多數日常AI訓練工作。</block>
+  <block id="2fd79dc2b0743358191fe41cd806d103" category="paragraph">本文件涵蓋由八GPU Lenovo SR670V2伺服器、中階NetApp AFF E64A400儲存系統和100GbE互連交換器所組成之運算與儲存組態的測試與驗證。為了測量效能、我們將ResNet50與ImageNet資料集搭配使用、批次大小為408、半精準度、CUDA和CUDNN。此架構為中小企業組織提供高效率且具成本效益的解決方案、從需要NetApp ONTAP 以雲端連線的資料儲存設備提供企業級功能的AI方案開始著手。</block>
+  <block id="a186cc4a556d59a6e7b787796afd96a6" category="list-text">資料科學家、資料工程師、資料管理員及AI系統開發人員</block>
+  <block id="9f16d751276619605acf16a23befe48e" category="list-text">設計解決方案以開發AI模式的企業架構設計師</block>
+  <block id="e8982c30a351cd862612b0062923a81e" category="list-text">資料科學家和資料工程師、正在尋求有效方法來達成深度學習（DL）和機器學習（ML）開發目標</block>
+  <block id="ca84e34dfe1115f7b462050a20377876" category="list-text">想要縮短AI計畫上市時間的企業領導者和OT/IT決策者</block>
+  <block id="a2dac0ecb0b60ec2625d20a5003869fb" category="paragraph">這套解決方案搭配Lenovo ThinkSystem伺服器和NetApp ONTAP 支援AFF 各種功能的NetApp支援、是專為處理大型資料集的AI訓練而設計、運用GPU的處理能力、搭配傳統CPU。這項驗證可藉由橫向擴充架構來展現高效能與最佳資料管理、此架構使用一、二或四部Lenovo SR670 V2伺服器、搭配單AFF 一NetApp RW2-A400儲存系統。下圖提供架構概觀。</block>
+  <block id="9eaa73568302c6f5b850762b65b3f334" category="inline-image-macro">此影像說明以太網交換器被管理伺服器所圍繞、四個SR670 V2s、每個GPU有八個、以及一個NetApp ONTAP Rs1儲存系統。</block>
+  <block id="d0d5bc4c21e600127e347c093cc29e80" category="paragraph"><block ref="d0d5bc4c21e600127e347c093cc29e80" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9336931f4103d973313cb8539e5c2613" category="list-text">同時執行多項訓練工作時、效能效率極高且具成本效益</block>
+  <block id="81c3992924ee5cdc4cb02692dcae98b4" category="list-text">可擴充的效能、取決於不同數量的Lenovo伺服器和不同機型的NetApp儲存控制器</block>
+  <block id="bdcea52fecbcd9741f95a6bc0dbbde0f" category="list-text">強大的資料保護功能、可滿足低恢復點目標（RPO）和恢復時間目標（RTO）、而且不會遺失資料</block>
+  <block id="98393526d67c065feb588e5665301706" category="list-text">利用快照與複製技術最佳化資料管理、簡化開發工作流程</block>
+  <block id="c8da2691d0a05080662301b92e048a74" category="paragraph"><block ref="c8da2691d0a05080662301b92e048a74" category="inline-link-macro-rx"></block></block>
+  <block id="2d316c5d9e0cd748d1890ee69f57dc6c" category="summary">本節摘要說明本解決方案的測試結果。</block>
+  <block id="6385fabeefcfa0be0a013cdd61625e31" category="paragraph"><block ref="6385fabeefcfa0be0a013cdd61625e31" category="inline-link-macro-rx"></block></block>
+  <block id="80b6b969d6707ba1b92d65466e8325f0" category="paragraph">下表摘要說明針對此解決方案執行的所有測試結果。</block>
+  <block id="f5bc14ae022ba581c26f3bdb35badef1" category="cell">測試說明</block>
+  <block id="34d8129946f1108a296f033dc66db266" category="cell">結果摘要</block>
+  <block id="ab0d993807168c3a70cdd2952d4edfc0" category="cell">影像辨識訓練：多個並行工作</block>
+  <block id="290ba1c81812edd0651d8e18c5895054" category="cell">高效率效能：即使叢集已完全使用、所有工作仍會以全快執行。NetApp儲存系統提供與本機SSD儲存設備相媲美的訓練效能、同時可在伺服器之間輕鬆共享資料。</block>
+  <block id="d58827ca3ccfccb5c83b1dc9c7e12289" category="cell">影像辨識訓練：橫向擴充</block>
+  <block id="afb4fda11ecde317daa521e054df2bd4" category="cell">高效能、最多可容納四個節點。此時橫向擴充效率較低、但仍可行。使用較高速的運算網路可提升擴充性。NetApp儲存系統提供與本機SSD儲存設備相媲美的訓練效能、同時可在伺服器之間輕鬆共享資料。</block>
+  <block id="09011e7c7cce04b0b96cec58ace75585" category="paragraph"><block ref="09011e7c7cce04b0b96cec58ace75585" category="inline-link-macro-rx"></block></block>
+  <block id="bd7c9d63c88eb380170362e93db6ba46" category="summary">本節說明已測試的組態、網路基礎架構、SR670 V2伺服器、以及儲存資源配置詳細資料。</block>
+  <block id="86473a82da3bbf22df039db481fe256f" category="paragraph"><block ref="86473a82da3bbf22df039db481fe256f" category="inline-link-macro-rx"></block></block>
+  <block id="a1052c50691421535c201fa50690a1ca" category="paragraph">本節說明已測試的組態、網路基礎架構、SR670 V2伺服器、以及NetApp儲存資源配置詳細資料。</block>
+  <block id="7c8d74d4c719b2f2e30a143bb98717ad" category="paragraph">我們使用下表所列的解決方案元件進行此驗證。</block>
+  <block id="35c99b744e4464f42b9b61595c1a1e79" category="list-text">兩部SR670 V2伺服器各配備八個NVIDIA A100 80GB GPU卡</block>
+  <block id="222a9edda77d8676279c651c1b06d653" category="list-text">每部伺服器包含2個Intel Xeon Platinum 8360Y CPU（28個實體核心）和1TB RAM</block>
+  <block id="e18f1a9d73bf89b2b1245e5af1a99cf4" category="cell">Linux（使用CUDA 11.8的Ubuntu–20.04）</block>
+  <block id="2113187ee3a9451b60e960fdea11bbac" category="cell">NetApp AFF 產品儲存系統（HA配對）</block>
+  <block id="73b4d2da39f967445be9b79a6016c84c" category="list-text">NetApp ONTAP 產品版9.10.1軟體</block>
+  <block id="4028b206981977bc3aea334fd55f4cb9" category="list-text">每個控制器1個介面群組（ifgrp）、其中4個邏輯IP位址用於掛載點</block>
+  <block id="82693066c3bae0719e01ba8060494172" category="paragraph">在此驗證中、我們使用ResNet v2.0搭配MLPerf v2.0指定的ImageNet基礎。此資料集儲存在採用AFF NFS傳輸協定的NetApp支援儲存系統中。SR670是AFF 透過100GbE交換器連線至NetApp RE64A400儲存系統。</block>
+  <block id="e4869dda2a4e140bc138f43895626550" category="paragraph">ImageNet是常用的影像資料集。它包含將近130萬個影像、總大小為144GB。平均映像大小為108 KB。</block>
+  <block id="3961f6874ee29dab2f4982bc3e0a1be5" category="paragraph">下圖說明已測試組態的網路拓撲。</block>
+  <block id="d015822ec6fd4a7fc9867768f5a27898" category="inline-image-macro">此圖說明運算層、Lenovo ThinkSystem SR670 V2、網路層、Lenovo乙太網路交換器、以及儲存層、即NetApp AFF RW4A400儲存控制器。包括所有網路連線。</block>
+  <block id="1ee331a29f95ebce1684e5e998f3e70c" category="paragraph"><block ref="1ee331a29f95ebce1684e5e998f3e70c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="18866bc1d6ba54b48522f7a219e02740" category="paragraph">下表列出儲存組態。</block>
+  <block id="f64bc191156dac76ffce8622c16cb21d" category="cell">Aggregate大小</block>
+  <block id="6bb41960470a19d97556b9240ac0b3ff" category="cell">Volume大小</block>
+  <block id="abd2beb6abe5072ffab5f1aad1a8c27f" category="cell">作業系統掛載點</block>
+  <block id="a38b6dcf7d1d2c2957803ba9a28b472e" category="cell">/A400-100g</block>
+  <block id="43f5cd38d362fc55ace2f313e6b5cf09" category="cell">9.9TB</block>
+  <block id="09808554056bf39d02319e3dbc2d6667" category="cell">19TB</block>
+  <block id="a27053e11ec415312f3dc32f4e351b67" category="admonition">/A400-100g資料夾包含用於ResNet驗證的資料集。</block>
+  <block id="1ea4953a2e32bbad1a47dd39cbfe929a" category="inline-link-macro">下一步：測試程序和詳細結果。</block>
+  <block id="b20175407b354f0dfc3a4d6a98917f6f" category="paragraph"><block ref="b20175407b354f0dfc3a4d6a98917f6f" category="inline-link-macro-rx"></block></block>
+  <block id="15977ebfd8c3685ca2d8911f74efcc2d" category="summary">這套NetApp與Lenovo解決方案是靈活的橫向擴充架構、非常適合入門級企業AI。NetApp儲存設備提供與本機SSD儲存設備相同或更好的效能、並為資料科學家、資料工程師及IT決策者提供下列效益。</block>
+  <block id="632d8fd87d5999301cfd5bd0c0f29b5f" category="inline-link-macro">先前：架構調整。</block>
+  <block id="b145bbef70e5528880cc5abbbe8575cd" category="paragraph"><block ref="b145bbef70e5528880cc5abbbe8575cd" category="inline-link-macro-rx"></block></block>
+  <block id="aa91666790d55bdaa993592c884df440" category="paragraph">此處驗證的NetApp與Lenovo解決方案是靈活的橫向擴充架構、非常適合入門級企業AI。NetApp儲存設備提供與本機SSD儲存設備相同或更好的效能、並為資料科學家、資料工程師及IT決策者提供下列效益：</block>
+  <block id="6127562591a3f60f8ac270d3967754dd" category="list-text">獨立擴充的運算與儲存設備、可將成本降至最低、並提升資源使用率。</block>
+  <block id="74902bcc2ed17395305301b925afee3f" category="list-text">利用整合式快照與複製功能、簡化開發與部署工作流程、提供即時且節省空間的使用者工作區、整合式版本控制及自動化部署。</block>
+  <block id="42e2aaa2f651d8ad800a51f65a258f1e" category="list-text">企業級的資料保護功能、可實現災難恢復與營運不中斷。</block>
+  <block id="2ea563f362255807faae7242f06c9881" category="list-text">NetApp技術行銷工程師Karthithkeyan Nagalingam</block>
+  <block id="cccf21ceeae034a9e54b62eb00d9b6b3" category="list-text">聯想AI實驗室系統管理員、JARrett Upton</block>
+  <block id="fdc944d7a0de8d8e3dfff03c6a0e03c6" category="list-text">NetApp All Flash Array產品頁面</block>
+  <block id="d875955d78b62e4aff0847425410f79a" category="inline-link"><block ref="d875955d78b62e4aff0847425410f79a" category="inline-link-rx"></block></block>
+  <block id="45f6f9585c85146b389a4f896653a5f9" category="paragraph"><block ref="45f6f9585c85146b389a4f896653a5f9" category="inline-link-rx"></block></block>
+  <block id="ec5282877903d9d2aceb3db45b21da54" category="list-text">NetApp AFF 產品介紹A400頁面</block>
+  <block id="1f84bc4168c48270f2cc931b900d9eb4" category="inline-link"><block ref="1f84bc4168c48270f2cc931b900d9eb4" category="inline-link-rx"></block></block>
+  <block id="04438df627d0343d17b2f6f307b489ed" category="paragraph"><block ref="04438df627d0343d17b2f6f307b489ed" category="inline-link-rx"></block></block>
+  <block id="9d92155996555576a58d20e697fc2bd6" category="list-text">NetApp ONTAP 資料管理軟體產品頁面</block>
+  <block id="dae4be95628a9cc8cb5ecb4b90cd738e" category="inline-link"><block ref="dae4be95628a9cc8cb5ecb4b90cd738e" category="inline-link-rx"></block></block>
+  <block id="2f08744b4a39af375744e1fc4a15b53a" category="paragraph"><block ref="2f08744b4a39af375744e1fc4a15b53a" category="inline-link-rx"></block></block>
+  <block id="45913847e0b47b72b60766711f7a8c21" category="inline-link"><block ref="45913847e0b47b72b60766711f7a8c21" category="inline-link-rx"></block></block>
+  <block id="229469a202dbd3052c7b165bd55eda87" category="paragraph"><block ref="229469a202dbd3052c7b165bd55eda87" category="inline-link-rx"></block></block>
+  <block id="dedba6b3261804ab1e5c2b75051c62ac" category="list-text">NVIDIA SMI（nvidia-smi）</block>
+  <block id="f5800a0bf7fbf711d11868c2913c218f" category="inline-link"><block ref="f5800a0bf7fbf711d11868c2913c218f" category="inline-link-rx"></block></block>
+  <block id="41299b529a1014318d5e7776b9f92ad1" category="paragraph"><block ref="41299b529a1014318d5e7776b9f92ad1" category="inline-link-rx"></block></block>
+  <block id="cf2dfa7ef96d78d1f3ec76316e1481d0" category="cell">2020年2月</block>
+  <block id="54858f2e7ecb57a17b7c0be2dedfcd7b" category="cell">初始版本。使用AFF TensorFlow驗證SR670和SeseA220。</block>
+  <block id="abb14d21829ba186172f6e1d0b64b55b" category="cell">2023年1月</block>
+  <block id="c04468d92a14823a475df983d69e5f9f" category="cell">更新版本：驗證SR 670 V2和AFF 採用MXNet的S4A400。</block>
+  <block id="e59b92fc604ecde201ab865ddefca7c2" category="summary">本節將更詳細地介紹本解決方案的主要元件。</block>
+  <block id="56cdae354d8e4efeaa936d576b919c49" category="paragraph"><block ref="56cdae354d8e4efeaa936d576b919c49" category="inline-link-macro-rx"></block></block>
+  <block id="995049066ee0a46858d3a35e74f687fc" category="paragraph">NetApp AFF 支援NetApp的儲存系統、可讓企業以領先業界的效能、優異的靈活度、雲端整合及同級最佳的資料管理功能、滿足企業的儲存需求。專為Flash而設計AFF 的支援功能、可協助加速、管理及保護業務關鍵資料。</block>
+  <block id="bd06e3e9a11cc16a8f389477f9ed6a95" category="paragraph">NetApp AFF 產品介紹A400是一款以FAS2650硬體和SSD Flash媒體為基礎的中階NVMe Flash儲存系統。</block>
+  <block id="9cdcb25bd8b8e9dd029f0c58f1c1ce14" category="inline-image-macro">此圖描述NetApp AFF 處理器A400儲存控制器的正面。</block>
+  <block id="55f69aa150e5e2d9b4339594dbb70471" category="paragraph"><block ref="55f69aa150e5e2d9b4339594dbb70471" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6a4c41eb7420fce0589579f0f045df87" category="inline-image-macro">此圖描述NetApp AFF 處理器A400儲存控制器的背面。</block>
+  <block id="e83035ebe127e618e86974c913d42589" category="paragraph"><block ref="e83035ebe127e618e86974c913d42589" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5062a65c6ae4cbe0c015396c4011a811" category="paragraph">NetApp AFF NetApp VA400中階儲存系統功能包括：</block>
+  <block id="722f61060a76e673835749dd7040109c" category="list-text">最大有效容量：702.7PB</block>
+  <block id="9b150a217729988c3dd54fdaf7b0f9b3" category="list-text">最大橫向擴充：2-24個節點（12個HA配對）</block>
+  <block id="ae3b033d221455bb2825ac51bee7200e" category="list-text">25GbE與16GB FC主機支援</block>
+  <block id="e16f4e2b178ce47880c3556c501efea4" category="list-text">透過整合式乙太網路（RoCE）連接至NVMe擴充儲存櫃的100GbE RDMA</block>
+  <block id="2f5979909b8c4a0d58f13de4881feaf1" category="list-text">如果未連接NVMe磁碟櫃、則可使用100GbE RoCE連接埠來連接主機網路</block>
+  <block id="dff1410020c1b676f56ee973acea57d3" category="list-text">完整12Gbps SAS連線擴充儲存櫃</block>
+  <block id="565637725a05c879995851c50d41275c" category="list-text">提供兩種組態：</block>
+  <block id="8e707b713d26c4b020eda98a37207373" category="list-text">乙太網路：4個25GB乙太網路（SFP28）連接埠</block>
+  <block id="1d3c6ad9f15fc70a1cf63e449e90436a" category="list-text">光纖通道：4個16GB FC（SFP+）連接埠</block>
+  <block id="6a2a811bcec501901ab6f8f94694d1b2" category="list-text">100% 8KB隨機讀取@.4 ms 400k IOPS</block>
+  <block id="d3309961dfabc3043c3ea1878752450b" category="paragraph">適用於AFF 入門級AI / ML部署的NetApp E4A250功能包括：</block>
+  <block id="68448ae40d26fce5bb74cd3bf75999c4" category="list-text">最大有效容量：35PB</block>
+  <block id="83fa45e9cc2def5751527547e3c57b61" category="list-text">最大橫向擴充：2-24個節點（12個HA配對）</block>
+  <block id="1283cfcd2651148a611c2c4b105458c3" category="list-text">建置於最新ONTAP 版NetApp產品更新ONTAP 版本《NetApp》（NetApp）的基礎之上</block>
+  <block id="f31903137775862e1157677f447b0f52" category="list-text">兩個25GB乙太網路連接埠、用於HA和叢集互連</block>
+  <block id="f6c48fdc99c510156e0364e03a6fbd9e" category="paragraph">NetApp也提供AFF 其他儲存系統、例如：功能更強大的功能和AFF 擴充性、適用於大規模的AI/ML部署。</block>
+  <block id="b2c0ed3ea756cb47f24ee9aef32e0f01" category="paragraph">NetApp最新一代的儲存管理軟體、即支援企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。資料也可以自由移動到任何需要的地方：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速並保護關鍵資料、以及跨混合雲架構的符合未來需求的基礎架構ONTAP 。</block>
+  <block id="ddf38f965aeb6f6b5785254e6f143a09" category="list-text">*此功能可自動將冷資料分層至公有雲和私有雲儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp等物件儲存設備StorageGRID ONTAP FabricPool 。</block>
+  <block id="2a228ac6322b6d496b4cb0cf22cfbfe4" category="list-text">*效能與較低的延遲。ONTAP *</block>
+  <block id="cf4d3359e3cce4324a54d8e1864d2647" category="paragraph">支援需求嚴苛且瞬息萬變的企業需求ONTAP ：</block>
+  <block id="99f4fd3a9ea4a861a7095bfe26937f28" category="list-text">*無縫擴充與不中斷營運。* ONTAP 支援在不中斷營運的情況下、為現有控制器和橫向擴充叢集增加容量。客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。</block>
+  <block id="ba1e7aff40da44f3c5b86ba78a62e7d0" category="list-text">*整合新興應用程式。* ONTAP 藉由支援現有企業應用程式的相同基礎架構、*支援OpenStack、Hadoop和MongoDB等新一代平台和應用程式、*提供企業級資料服務。</block>
+  <block id="0fdd508a09442b5caa00e47bc0563112" category="section-title">NetApp FlexGroup 產品資料</block>
+  <block id="641653fdc449e0b1e30f3ee9d04182ab" category="paragraph">訓練資料集通常是數十億個檔案的集合體。檔案可以包含文字、音訊、視訊及其他形式的非結構化資料、這些資料必須儲存和處理才能並行讀取。儲存系統必須儲存許多小檔案、而且必須平行讀取這些檔案、才能執行連續和隨機I/O</block>
+  <block id="e6ad1152aea2aa4f79a47e3b80410fce" category="paragraph">一個包含多個成員磁碟區的單一命名空間（下圖）、這些磁碟區是由多個成員磁碟區所組成、這些磁碟區會被管理、並對儲存系統管理員執行類似NetApp的功能FlexVol FlexGroup 。將某個資料區中的檔案FlexGroup 分配給個別成員磁碟區、而不會跨磁碟區或節點進行等量分佈。這些功能可實現下列功能：</block>
+  <block id="381a99cae8c29b3b8fd64a207b811935" category="list-text">高達20 PB的容量、以及可預測的低延遲、適用於高中繼資料工作負載</block>
+  <block id="b0e05251a53a0118d23cd469db4b1903" category="list-text">同一個命名空間中最多4000億個檔案</block>
+  <block id="4eb6665794643a2afabf63f90ddbe4da" category="list-text">橫跨CPU、節點、集合體及組成FlexVol 的等量磁碟區、在NAS工作負載中進行平行化作業</block>
+  <block id="19adba666d12642fc956c8a4c4607a66" category="inline-image-macro">「此影像描述HA配對的儲存控制器、其中包含FlexGroup 許多Volume、其中的主檔案位於一個畫面中。</block>
+  <block id="67243c21916276b166b8cad21f937c57" category="paragraph"><block ref="3998ac0cd0b54d5528002049c9fb6e1f" category="inline-image-macro-rx" type="image"></block>"</block>
+  <block id="f52dbcd9b43086f1d2957e6eb89f4113" category="section-title">Lenovo ThinkSystem產品組合</block>
+  <block id="c5ac419e5467e7539d60c18be3da4b99" category="paragraph">部署Lenovo ThinkSystem伺服器的主要優勢包括：</block>
+  <block id="c19629173ec04d03fae09e96ce30b98c" category="list-text">可隨企業成長而擴充的模組化設計</block>
+  <block id="9ac34c98220e3dd285a7cd6c8679caeb" category="paragraph">在AI領域、Lenovo正採取實用的方法、協助企業瞭解ML和AI在工作負載方面的優勢、並將其納入其中。Lenovo客戶可在Lenovo AI創新中心中探索及評估Lenovo AI產品、充分瞭解其特定使用案例的價值。為了縮短實現價值所需的時間、這種以客戶為中心的方法可讓客戶針對已準備好使用並針對AI最佳化的解決方案開發平台、提供概念驗證。</block>
+  <block id="7cbc0e3d7cff391aa0e61b487dc29df1" category="section-title">Lenovo SR670 V2</block>
+  <block id="5889950b76dcc45f10977523225c92a8" category="paragraph">Lenovo ThinkSystem SR670 V2機架伺服器提供最佳效能、可加速AI和高效能運算（HPC）。SR670 V2支援多達八個GPU、適用於ML、DL和推斷的運算密集工作負載需求。</block>
+  <block id="327669874a587f6f9336f608f83d451d" category="inline-image-macro">此影像描述三種SR670組態。第一個顯示四個SXM GPU、其中有八個2.5吋HS磁碟機和2個PCIe I/O插槽。第二個顯示四個雙寬GPU插槽或八個單寬GPU插槽、以及兩個PCIe I/O插槽、其中有八個2.5吋或四個3.5吋HS磁碟機。第三個顯示八個雙寬GPU插槽、其中包含六個EDSFF HS磁碟機和兩個PCIe I/O插槽。</block>
+  <block id="f3ebf0cd9319acd4d10b09be0d9220c2" category="paragraph"><block ref="f3ebf0cd9319acd4d10b09be0d9220c2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="85b1e2eb4bc61f3bdaea9a9f040eb3a0" category="paragraph">ThinkSystem SR670 V2搭載最新的可擴充Intel Xeon CPU、支援高階GPU（包括NVIDIA A100 80GB PCIe 8x GPU）、可為AI和HPC工作負載提供最佳化且加速的效能。</block>
+  <block id="d7ed5fdb2102567c3c051078e7c72e11" category="paragraph">由於有更多工作負載使用加速器的效能、因此對GPU密度的需求增加。零售、金融服務、能源和醫療等產業正使用GPU來擷取更多洞見、並運用ML、DL和推斷技術來推動創新。</block>
+  <block id="89a846b0823ae167964c8a02382225cf" category="paragraph">ThinkSystem SR670 V2是最佳化的企業級解決方案、可在正式作業環境中部署加速的HPC和AI工作負載、不僅能最大化系統效能、還能為採用新一代平台的超級運算叢集維持資料中心密度。</block>
+  <block id="9378d87a3787bb6ab3fe4605dd558aaf" category="paragraph">其他功能包括：</block>
+  <block id="fe62ffc0b0188329f10e2bfc0c560ece" category="list-text">支援GPU直接RDMA I/O、高速網路介面卡可直接連線至GPU、以最大化I/O效能。</block>
+  <block id="03e5fd8f257caa94eae847639e18b1a9" category="list-text">支援GPU直接儲存、其中NVMe磁碟機直接連接到GPU、以最大化儲存效能。</block>
+  <block id="ad7857a40388167e99516cfe367478d5" category="paragraph">MLPerf是領先業界的基準測試套件、可用來評估AI效能。在這項驗證中、我們將其影像分類基準測試與最受歡迎的AI架構之一MXNet搭配使用。MXNet_bet測試 訓練腳本用於推動AI訓練。此指令碼包含數種常用傳統模式的實作、其設計可盡可能快速。它可以在單一機器上執行、或在多個主機的分散式模式下執行。</block>
+  <block id="a29118c3c40b6309f6b6354a52631e91" category="paragraph"><block ref="a29118c3c40b6309f6b6354a52631e91" category="inline-link-macro-rx"></block></block>
+  <block id="f0cbafc85a7a8d2836dd3a3d51266f61" category="sidebar">採用AFF Lenovo ThinkSystem SR670 V2的NetApp R4A400適用於AI和ML機型訓練</block>
 </blocks>

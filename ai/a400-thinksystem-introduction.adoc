@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: ai/a400-thinksystem-introduction.html 
+keywords: tr4810, 4810, introduction, cluster architecture, lenovo, ai 
+summary: 本解決方案著重於入門級與中階叢集架構、使用NetApp儲存設備與專為人工智慧工作負載最佳化的Lenovo伺服器。這是專為中小企業團隊所設計、大多數運算工作都是單節點（單一或多GPU）、或分散在數個運算節點上。這並不是重大限制、因為大部分的日常AI訓練工作都是單一節點。 
+---
+= TR-4810：採用AFF Lenovo ThinkSystem SR670 V2的NetApp SRAS400適用於AI和ML機型訓練
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Sathish Thyagarajan、David Arette、NetApp Mircea Troaca、Larovo
+
+[role="lead"]
+此解決方案採用NetApp儲存設備和專為人工智慧（AI）工作負載最佳化的Lenovo伺服器、提供中階叢集架構。適用於大多數運算工作是單一節點（單一或多GPU）、或分散於數個運算節點的中小型企業。此解決方案符合許多企業的大多數日常AI訓練工作。
+
+本文件涵蓋由八GPU Lenovo SR670V2伺服器、中階NetApp AFF E64A400儲存系統和100GbE互連交換器所組成之運算與儲存組態的測試與驗證。為了測量效能、我們將ResNet50與ImageNet資料集搭配使用、批次大小為408、半精準度、CUDA和CUDNN。此架構為中小企業組織提供高效率且具成本效益的解決方案、從需要NetApp ONTAP 以雲端連線的資料儲存設備提供企業級功能的AI方案開始著手。
+
+
+
+== 目標對象
+
+本文適用於下列對象：
+
+* 資料科學家、資料工程師、資料管理員及AI系統開發人員
+* 設計解決方案以開發AI模式的企業架構設計師
+* 資料科學家和資料工程師、正在尋求有效方法來達成深度學習（DL）和機器學習（ML）開發目標
+* 想要縮短AI計畫上市時間的企業領導者和OT/IT決策者
+
+
+
+
+== 解決方案架構
+
+這套解決方案搭配Lenovo ThinkSystem伺服器和NetApp ONTAP 支援AFF 各種功能的NetApp支援、是專為處理大型資料集的AI訓練而設計、運用GPU的處理能力、搭配傳統CPU。這項驗證可藉由橫向擴充架構來展現高效能與最佳資料管理、此架構使用一、二或四部Lenovo SR670 V2伺服器、搭配單AFF 一NetApp RW2-A400儲存系統。下圖提供架構概觀。
+
+image:a400-thinksystem-image2.png["此影像說明以太網交換器被管理伺服器所圍繞、四個SR670 V2s、每個GPU有八個、以及一個NetApp ONTAP Rs1儲存系統。"]
+
+此NetApp與Lenovo解決方案提供下列主要效益：
+
+* 同時執行多項訓練工作時、效能效率極高且具成本效益
+* 可擴充的效能、取決於不同數量的Lenovo伺服器和不同機型的NetApp儲存控制器
+* 強大的資料保護功能、可滿足低恢復點目標（RPO）和恢復時間目標（RTO）、而且不會遺失資料
+* 利用快照與複製技術最佳化資料管理、簡化開發工作流程
+
+
+link:a400-thinksystem-technology-overview.html["下一步：技術總覽。"]

@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: ai/a400-thinksystem-architecture-adjustments.html 
+keywords: adjustments 
+summary: 驗證所用的設定可調整以符合其他使用案例。 
+---
+= 架構調整
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:a400-thinksystem-test-procedure-and-detailed-results.html["上一步：測試程序與詳細結果。"]
+
+[role="lead"]
+此驗證所使用的設定可調整以符合其他使用案例。
+
+
+
+== CPU調整
+
+我們使用Skylake Intel Xeon Platinum 8360Y處理器進行驗證、這是Lenovo建議的。我們預期同等級的Cascade Lake CPU（Intel Xeon Gold 6330處理器）會提供類似的效能、因為這項工作負載不受CPU限制。
+
+
+
+== 儲存容量增加
+
+根據您的儲存容量需求、您可以隨需增加共用儲存設備（NFS Volume）、前提是您需要額外的磁碟櫃和控制器機型。您可以從CLI或儲存控制器的NetApp Web介面、以管理員使用者的身分執行此動作。
+
+link:a400-thinksystem-conclusion.html["下一步：結論。"]
