@@ -16590,4 +16590,101 @@
   <block id="049e44fe327f7679318c6cf222207da7" category="list-text">使用下列項目存取UI：</block>
   <block id="b7bd19f19df4ca5ef3102741951e7a1b" category="paragraph">使用下列預設認證：</block>
   <block id="d644796f5eb5712add7807df8829ee58" category="admonition">您可以使用「變更密碼」選項來變更密碼。</block>
+  <block id="653a98af1c9a004c51b4e7358f06db9a" category="summary">本解決方案提供PostgreSQL資料庫部署與HA/DR設定、容錯移轉、重新同步的總覽與詳細資料、這些資料均以內建於FSX ONTAP 更新儲存產品中的NetApp SnapMirror技術為基礎、並以AWS中的NetApp Ansible自動化工具套件為基礎。</block>
+  <block id="e5f44d648a9d8c4db4e2b580d3370fbf" category="doc">TR-4956：AWS FSx/EC2中的自動化PostgreSQL高可用度部署與災難恢復</block>
+  <block id="03784a7c5600d29113972955e602a944" category="inline-link-macro">資料庫引擎</block>
+  <block id="1d8f1bdc206db1d9edd9fa46f02aa08c" category="paragraph">PostgreSQL是廣泛使用的開放原始碼資料庫、在前十大熱門資料庫引擎中名列第四 <block ref="6e2d0e5987102894082cbdb135303e4d" category="inline-link-macro-rx"></block>。一方面、PostgreSQL的受歡迎程度來自於其無授權的開放原始碼模式、同時仍擁有複雜的功能。另一方面、由於是開放原始碼、因此在高可用度和災難恢復（HA/DR）領域、尤其是公有雲、缺乏正式作業級資料庫部署的詳細指引。一般而言、設定典型的PostgreSQL HA/DR系統時、可能會很困難、例如熱待機和暖待機、串流複寫等。透過推廣待命站台、然後切換回主要站台來測試HA/DR環境、可能會對正式作業造成破壞。當在串流熱待機上部署讀取工作負載時、主要工作負載的效能問題已有詳細記錄。</block>
+  <block id="a685f8093823e999c5eaf32bef74906d" category="paragraph">在本文件中、我們將示範如何運用應用程式層級的PostgreSQL串流HA/DR解決方案、並針對ONTAP 資料庫檔案和EC2運算執行個體（例如PostgreSQL DB伺服器）建置以AWS FSX更新儲存設備為基礎的PostgreSQL HA/DR解決方案。相較於HA/DR的傳統PostgreSQL應用程式層級串流複寫、此解決方案可建立更簡單且可媲美的系統、並提供同等的結果。</block>
+  <block id="e2543d0568626be8ab6adad9d9a78652" category="paragraph">此解決方案採用備受肯定且成熟的NetApp SnapMirror儲存層級複寫技術、適用於ONTAP PostgreSQL HA/DR的AWS原生FSX支援雲端儲存設備。NetApp解決方案團隊提供自動化工具套件、實作起來非常簡單。它提供類似的功能、同時透過應用程式層級的串流式HA/DR解決方案、免除主站台的複雜度和效能拖曳。此解決方案可輕鬆部署及測試、而不會影響作用中的主要站台。</block>
+  <block id="f67bd3c0833b1d6bf90bb26a55f0a9ce" category="list-text">公有AWS雲端中PostgreSQL的正式作業級HA/DR部署</block>
+  <block id="420a5f3809172bb0dc9d501758fe94d2" category="list-text">測試及驗證公有AWS雲端中的PostgreSQL工作負載</block>
+  <block id="c9d6a5076f52c5abce5f2003446ab211" category="list-text">測試及驗證以NetApp SnapMirror複寫技術為基礎的PostgreSQL HA/DR策略</block>
+  <block id="82aa3e78c2089a2941fb745bb8c72f01" category="paragraph">本解決方案適用於下列人員：</block>
+  <block id="4a7bde15fa2753ce507cef621fd789b2" category="list-text">DBA有興趣在公有AWS雲端上部署具有HA/DR的PostgreSQL。</block>
+  <block id="c5e04df584e0992a5dbdae10d89ded97" category="list-text">資料庫解決方案架構設計師、有興趣在公有AWS雲端測試PostgreSQL工作負載。</block>
+  <block id="ba083ee91407315383bac538162833ff" category="list-text">有興趣部署及管理部署至AWS FSX儲存設備的PostgreSQL執行個體的儲存管理員。</block>
+  <block id="73ad058c671f3e1e105d92585f5ece7a" category="list-text">有興趣在AWS FSx/EC2中建立PostgreSQL環境的應用程式擁有者。</block>
+  <block id="d17a638ff086388dc5bfbe98528ccfab" category="section-title">解決方案測試與驗證環境</block>
+  <block id="863fb5b3a3b3b63b57a387bab70de0a9" category="paragraph">此解決方案的測試與驗證作業是在AWS FSX和EC2環境中執行、而該環境可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
+  <block id="bfa420253f0a67626a51ce1fa045944c" category="image-alt">此映像提供PostgreSQL混合雲解決方案組織的詳細資訊、包括內部部署端和AWS站台。</block>
+  <block id="34d0b9b49aa480630e91a3619ba7ffb2" category="section-title">硬體與軟體元件</block>
+  <block id="a09dc18a1bff4fa8388afca4627d0911" category="cell">FSX ONTAP 支援儲存</block>
+  <block id="011fedf4050817b8826f95a53d9555b2" category="cell">目前版本</block>
+  <block id="0b70cdec9293f5625e5aaae9cdd38526" category="cell">兩個FSXHA配對位於與主要和待命HA叢集相同的VPC和可用度區域中</block>
+  <block id="6a79356b19d3b59e92b358357c5b9053" category="cell">EC2運算執行個體</block>
+  <block id="cc4def82629f09f253176dba801a85f0" category="cell">T2.xlarge / 4vcpU/16G</block>
+  <block id="e3d6d4b94f9415561957f8c22f5fea2e" category="cell">兩個EC2 T2 xLarge做為主要和待命運算執行個體</block>
+  <block id="3008feb4272787858d4d27f7e8acb08b" category="cell">Ansible控制器</block>
+  <block id="26b9568eac10de69d574b84626735921" category="cell">內部部署CentOS VM/4vCPU / 8G</block>
+  <block id="7f151fffe66dad0021b1918085977654" category="cell">可在內部部署或雲端裝載Ansible自動化控制器的VM</block>
+  <block id="8b56d55f3caeb71ab2513c28fb1a52fc" category="cell">RedHat Linux</block>
+  <block id="52359c9653f33c68cd1b454f7d05a27b" category="cell">RHEL-8.6.0_HVM-20220504-x86_64：2-Hourly2-GP2</block>
+  <block id="fe6120dacb84838d71b1f43da1a3a514" category="cell">已部署RedHat訂閱以進行測試</block>
+  <block id="8003cafa06ec27e11cb235ec9544ef74" category="cell">CentOS Linux</block>
+  <block id="04cd32c57cf3229ae9374fc80cd50d96" category="cell">CentOS Linux版本8.2.2004（核心）</block>
+  <block id="63b6df5ba9d257bb0f6fbda5541d9171" category="cell">裝載部署在內部部署實驗室中的Ansible控制器</block>
+  <block id="399bd1ee587245ecac6f39beaa99886f" category="cell">PostgreSQL</block>
+  <block id="a3c20b719830dc5fda947c7b6f3e42be" category="cell">版本14.5%</block>
+  <block id="f8c3d3a84c62eb07a1009aacdc46a50f" category="cell">自動化會從PostgreSQL、oum repo擷取最新的PostgreSQL版本</block>
+  <block id="202351f581b52c61061d29151c81d061" category="cell">版本2.10.3.1</block>
+  <block id="d222003898249e4a560d569acb0b5563" category="cell">隨需求手冊一起安裝所需集合與程式庫的必要條件</block>
+  <block id="cd1aedf83959dd52fc058b9120f500e3" category="section-title">部署考量的關鍵因素</block>
+  <block id="b062352f67359ac6729601c60a9a57a2" category="list-text">* PostgreSQL資料庫備份、還原及還原。* PostgreSQL資料庫支援多種備份方法、例如使用pg_dump的邏輯備份、使用pg_basebecovery或較低層級的OS備份命令的實體線上備份、以及儲存層級一致的快照。本解決方案使用NetApp一致性群組快照來執行PostgreSQL資料庫資料、以及在待命站台進行Wal Volume備份、還原及還原。NetApp一致性群組磁碟區快照會在寫入儲存設備時、依序排列I/O、並保護資料庫資料檔案的完整性。</block>
+  <block id="a28c157802547f294e145f164007d752" category="list-text">* EC2運算執行個體。*在這些測試與驗證中、我們使用AWS EC2 T2.xllarge執行個體類型來執行PostgreSQL資料庫運算執行個體。NetApp建議在部署中使用M5類型的EC2執行個體做為PostgreSQL的運算執行個體、因為它已針對資料庫工作負載進行最佳化。待命運算執行個體應一律部署在部署於FSXHA叢集的被動（待命）檔案系統所在的區域內。</block>
+  <block id="d7aed04148f8b6ba1b91a7ed84d3fd10" category="list-text">* FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。如果主要與待命之間需要特定距離、則可在不同地區設定災難恢復備用HA配對、以確保營運不中斷。FSXHA叢集會以HA配對進行配置、並在一對主動-被動檔案系統中進行鏡射同步、以提供儲存層級的備援。</block>
+  <block id="c6f1f46bc7e80b73e6d77a7f862e0625" category="list-text">* PostgreSQL資料和記錄放置。*典型的PostgreSQL部署會共用相同的根目錄或磁碟區、以供資料和記錄檔使用。在我們的測試與驗證中、我們將PostgreSQL資料分開、並登入兩個獨立的磁碟區以獲得效能。在資料目錄中使用軟式連結、指向裝載PostgreSQL Wal記錄和歸檔Wal記錄的記錄目錄或磁碟區。</block>
+  <block id="6e6dddb70c24cf218d0163faa3fb6a8f" category="list-text">* PostgreSQL服務啟動延遲定時器。*此解決方案使用NFS掛載的磁碟區來儲存PostgreSQL資料庫檔案和Wal記錄檔。在資料庫主機重新開機期間、PostgreSQL服務可能會在未掛載磁碟區的情況下嘗試啟動。這會導致資料庫服務啟動失敗。PostgreSQL資料庫需要10到15秒的定時器延遲、才能正確啟動。</block>
+  <block id="ee79ca09fee704e63d972baa3c1319a2" category="list-text">*業務持續性的RPO / RTO。*從一線複寫到備用磁碟的FSX資料複寫是以非同步為基礎、這表示RPO取決於Snapshot備份和SnapMirror複寫的頻率。Snapshot複製和SnapMirror複寫的頻率越高、RPO就越低。因此、在發生災難時、可能的資料遺失與遞增儲存成本之間、有一定的平衡。我們已決定、Snapshot複本與SnapMirror複寫可在RPO的最短5分鐘內實作、而PostgreSQL一般可在災難恢復待命站台的RTO時間內於一分鐘內恢復。</block>
+  <block id="cbeb123cc0c2c950a65a0c39f8412dc4" category="list-text">*資料庫備份。*在從預先遺漏的資料中心實作PostgreSQL資料庫或移轉至AWS FSX儲存設備之後、資料會在FSX HA配對中進行自動同步鏡射、以提供保護。在發生災難時、可利用複寫的待命站台來進一步保護資料。為了長期備份保留或資料保護、NetApp建議使用內建的PostgreSQL pg_basebedate公用程式來執行完整的資料庫備份、以便移轉至S3 blob儲存設備。</block>
+  <block id="d2598d7d09e212cad1231cd233c5f7dc" category="paragraph">您可以依照下列詳細指示、使用NetApp Ansible型自動化工具套件自動完成此解決方案的部署。</block>
+  <block id="7cfbd2a753781ece3080a48b0a56dad2" category="inline-link-macro">na_PostgreSQL、AWS、deploy、hadr</block>
+  <block id="fce91619a13ef0fd71e3ffe1da6b5724" category="list-text">請閱讀自動化工具套件readme.md中的指示 <block ref="139722adb31b9bbcb8f923b221d78595" category="inline-link-macro-rx"></block>。</block>
+  <block id="9a1c6815d4b1e7dc53acf5a926ab662e" category="list-text">觀看下列影片。</block>
+  <block id="c73ece4b7be6bb88143afe096ded59aa" category="list-text">設定必要的參數檔案 <block ref="85cf4e6d42a71e693fd780c8b29accdd" prefix="(" category="inline-code"></block>、<block ref="0c83664bfb17d8d2c0bbc3551297e488" prefix=" " category="inline-code"></block>、<block ref="cb8e25d5e6251a20afadf4c5f4b626bb" prefix=" " category="inline-code"></block>）在相關章節的範本中輸入使用者專屬的參數。然後使用複製按鈕將檔案複製到Ansible控制器主機。</block>
+  <block id="00aaa5ff8fbd0841ab311f7d9b1e4e78" category="section-title">自動化部署的先決條件</block>
+  <block id="fd10b9eacfe4eed8040bda8cae9ea050" category="paragraph">部署需要下列先決條件。</block>
+  <block id="e7491272f69c8efda69a595782f44d45" category="list-text">已設定AWS帳戶、並已在AWS帳戶中建立必要的VPC和網路區段。</block>
+  <block id="f71558e9ad22e37a70099d8b5d8ac06c" category="inline-link-macro">Linux執行個體使用指南</block>
+  <block id="eb03aa8f939650517c1c56a6d0b9ad2f" category="list-text">在AWS EC2主控台、您必須部署兩個EC2 Linux執行個體、一個作為主要PostgreSQL資料庫伺服器、另一個作為待命DR站台。若要在主要和待命災難恢復站台提供運算備援、請將兩個額外的EC2 Linux執行個體部署為備用的PostgreSQL資料庫伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 <block ref="32934851360be4fd00506586c2cbc221" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="933d3e5f984811b21da2922f3deb56c4" category="list-text">從AWS EC2主控台、部署兩ONTAP 個FSX-還原HA叢集、以裝載PostgreSQL資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 <block ref="d73b8b529985c5c89147bd81cb29dbfb" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
+  <block id="7053a216e34d0f83be18a65f22ce62ce" category="list-text">建置CentOS Linux VM來裝載Ansible控制器。Ansible控制器可位於內部部署或AWS雲端。如果位於內部部署、則必須具備SSH連線、才能連線至VPC、EC2 Linux執行個體和FSX儲存叢集。</block>
+  <block id="d1186b859105640e1dc347ae7b714afa" category="list-text">請依照資源中「在RHEL/CentOS上設定Ansible Control Node以進行CLI部署」一節所述、設定Ansible控制器 <block ref="a9149ecc8f33f363a4eae3089d5c6cb7" category="inline-link-macro-rx"></block>。</block>
+  <block id="007fa0067fff9abdcd3e5b9ce9f20c06" category="list-text">從NetApp GitHub公開網站複製自動化工具套件複本。</block>
+  <block id="0ca21e6da2c89e765706d9a77f412898" category="list-text">從工具組根目錄執行必要的教戰手冊、以安裝Ansible控制器所需的集合和程式庫。</block>
+  <block id="df40cb16c4a24c991c143fbddeedd0bc" category="list-text">擷取DB主機變數檔案所需的EC2 FSX執行個體參數<block ref="ea858a411f1af6150f14b84176148712" prefix=" " category="inline-code"></block> 及整體變數檔案<block ref="cb8e25d5e6251a20afadf4c5f4b626bb" prefix=" " category="inline-code"></block> 組態：</block>
+  <block id="57c7844b0a299340cf9b625ce4a0745a" category="section-title">設定hosts檔案</block>
+  <block id="ed578fbfbec5634c4fa508cde5bc4e85" category="paragraph">將主要的FSX ONTAP 支援叢集管理IP和EC2執行個體主機名稱輸入主機檔案。</block>
+  <block id="6ef214427ca7b42201d0b0508f56df98" category="section-title">在host_vars資料夾中設定host_name.yml檔案</block>
+  <block id="6967d323b85203ba993572c1cd814dc1" category="paragraph">在藍色加底線的欄位中輸入系統的適當參數、然後將項目複製並貼到中<block ref="caa6779553864dba00727ae27752b182" prefix=" " category="inline-code"></block> 檔案<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block> 資料夾。</block>
+  <block id="77ac1da2cd356e327eb4bfc4c5a21bcc" category="section-title">在vars資料夾中設定全域FSx_vars.yml檔案</block>
+  <block id="7876ddba2c3af67cbee2b37f64072428" category="paragraph">將系統的適當參數輸入藍色加底線的欄位、然後複製並貼上項目至<block ref="cb8e25d5e6251a20afadf4c5f4b626bb" prefix=" " category="inline-code"></block> 位於Ansible控制器主機的檔案。</block>
+  <block id="d56625a35762821798a2f3dd55ead05d" category="section-title">PostgreSQL部署與HA/DR設定</block>
+  <block id="943a124028d8f011631df765453640dc" category="paragraph">下列工作會部署PostgreSQL DB伺服器服務、並在主要EC2 DB伺服器主機的主要站台初始化資料庫。然後在待命站台設定備用主EC2 DB伺服器主機。最後、資料庫Volume複寫是從主站台FSX叢集設定為待命站台FSX叢集、以進行災難恢復。</block>
+  <block id="08f6dd070ef1adfcbe3d7f3c70b08905" category="list-text">在主要FSX叢集上建立DB Volume、並在主要EC2執行個體主機上設定PostgreSQL。</block>
+  <block id="bf22091495c9a041dcbdba3a97795095" category="list-text">設定備用DR EC2執行個體主機。</block>
+  <block id="f2dd18dfc82378171d01bdd3f956bc6f" category="list-text">設定FSX- ONTAP 叢集對等和資料庫Volume複寫。</block>
+  <block id="d681aef28cf1f863d0683a6896f12995" category="list-text">將先前的步驟整合至單一步驟的PostgreSQL部署和HA/DR設定。</block>
+  <block id="fe217a2e30a79cebc71db6d5cb676a71" category="list-text">若要在主要站台或待命站台設定待命的PostgreSQL資料庫主機、請註釋主機檔案[Dr_PostgreSQL ]區段中的所有其他伺服器、然後使用各自的目標主機（例如主站台的psql_01ps或待命EC2運算執行個體）執行PostgreSQL。請確定主機參數檔案是如此<block ref="7c0f59fa275836ef9c4f28bec839acca" prefix=" " category="inline-code"></block> 設定於<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="d3ecdce9695eacdb90ec80fa276865d4" category="section-title">PostgreSQL資料庫快照備份與複寫至待命站台</block>
+  <block id="3b320790a7f864b473e3baa86de785fe" category="paragraph">可在Ansible控制器上以使用者定義的時間間隔、控制PostgreSQL資料庫快照備份及複寫至待命站台。我們已驗證、此時間間隔可低至5分鐘。因此、如果主要站台發生故障、則在下一次排程的快照備份之前發生故障、可能會導致5分鐘的資料遺失。</block>
+  <block id="421057a9fa982de2a1c1f79f5f03d750" category="section-title">容錯移轉至待命站台以進行災難恢復</block>
+  <block id="6ddcc779c247e4adb5b5a56a34edd75d" category="paragraph">若要將PostgreSQL HA/DR系統測試為DR練習、請執行下列教戰手冊、在待命站台的主要待命EC2 DB執行個體上執行容錯移轉和PostgreSQL資料庫恢復。在實際的DR案例中、實際容錯移轉至DR站台時執行相同的執行。</block>
+  <block id="724a617bc1dcc9b26fedb732f63a569d" category="section-title">容錯移轉測試後重新同步複寫的DB Volume</block>
+  <block id="6a08e960bd12a4fcddfd08082fbece4b" category="paragraph">在容錯移轉測試之後執行重新同步、重新建立資料庫磁碟區SnapMirror複寫。</block>
+  <block id="145966bc8e38b26c384abaf4e450f6a7" category="section-title">由於EC2運算執行個體故障、從主要EC2 DB伺服器容錯移轉至待命EC2 DB伺服器</block>
+  <block id="bab50aeeeaabfc4e129f95b2d8d125e5" category="paragraph">NetApp建議使用已建立完善的作業系統叢集軟體來執行手動容錯移轉、因為這可能需要授權。</block>
+  <block id="73bc97f640d8c1cae3fa624183216b41" category="inline-link-macro"><block ref="73bc97f640d8c1cae3fa624183216b41" category="inline-link-rx"></block></block>
+  <block id="40285fa8e3dc4d66bfadb679f67dfde6" category="paragraph"><block ref="40285fa8e3dc4d66bfadb679f67dfde6" category="inline-link-macro-rx"></block></block>
+  <block id="68253b5715937494905ba0cb9db91d2e" category="inline-link-macro"><block ref="be48c1546d351a5e48dcf4f28738754b" category="inline-link-rx"></block></block>
+  <block id="6dcfba5adaa9302bd59dd5a601b947a2" category="paragraph"><block ref="95bfcff1050e9160bb2bd645993e8c18" category="inline-link-macro-rx"></block></block>
+  <block id="6d183e6080727fa3b49f82e41b18c061" category="inline-link-macro"><block ref="6d183e6080727fa3b49f82e41b18c061" category="inline-link-rx"></block></block>
+  <block id="8fb430b477f47c3062d0f4afb8a9195b" category="paragraph"><block ref="8fb430b477f47c3062d0f4afb8a9195b" category="inline-link-macro-rx"></block></block>
+  <block id="031004dd1775e5fd9d35b534e33217ea" category="paragraph">[Underlines]#*開放原始碼資料庫的影片*#</block>
+  <block id="5b70a7f45ddd32cacfe28af238662d3d" category="video-title">PostgreSQL自動化部署、HA/DR複寫設定、容錯移轉、重新同步</block>
+  <block id="61c8e892dd7e1908020eb0a312fd4bbb" category="cell">02/15/2023</block>
+  <block id="2ee6a0567aa163f6ace02183cb041cbd" category="cell">在AWS FSx/EC2中新增PostgreSQL高可用度部署和災難恢復</block>
+  <block id="a54420e6e0f519f841f4280cf2545365" category="sidebar">開放原始碼資料庫</block>
+  <block id="67bb2ef7cf3c5ff59f35f28e513bfda3" category="sidebar">AWS FSx/EC2中的PostgreSQL高可用度部署與災難恢復</block>
+  <block id="1ae3eccde141a365ede8f18b188ae588" category="sidebar">自動化的PostgreSQL HA部署與DR（在AWS FSx/EC2中）</block>
+  <block id="6fabfc29f0b3a196c8407c190bb67293" category="sidebar">資料庫適用SnapCenter</block>
 </blocks>
