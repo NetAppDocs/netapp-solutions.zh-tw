@@ -21,7 +21,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 PostgreSQL是廣泛使用的開放原始碼資料庫、在前十大熱門資料庫引擎中名列第四 link:https://db-engines.com/en/ranking["資料庫引擎"^]。一方面、PostgreSQL的受歡迎程度來自於其無授權的開放原始碼模式、同時仍擁有複雜的功能。另一方面、由於是開放原始碼、因此在高可用度和災難恢復（HA/DR）領域、尤其是公有雲、缺乏正式作業級資料庫部署的詳細指引。一般而言、設定典型的PostgreSQL HA/DR系統時、可能會很困難、例如熱待機和暖待機、串流複寫等。透過推廣待命站台、然後切換回主要站台來測試HA/DR環境、可能會對正式作業造成破壞。當在串流熱待機上部署讀取工作負載時、主要工作負載的效能問題已有詳細記錄。
 
-在本文件中、我們將示範如何運用應用程式層級的PostgreSQL串流HA/DR解決方案、並針對ONTAP 資料庫檔案和EC2運算執行個體（例如PostgreSQL DB伺服器）建置以AWS FSX更新儲存設備為基礎的PostgreSQL HA/DR解決方案。相較於HA/DR的傳統PostgreSQL應用程式層級串流複寫、此解決方案可建立更簡單且可媲美的系統、並提供同等的結果。
+在本文件中、我們將示範如何運用應用程式層級的PostgreSQL串流HA/DR解決方案、並使用ONTAP 儲存層級複寫、建置以AWS FSX更新儲存設備和EC2運算執行個體為基礎的PostgreSQL HA/DR解決方案。相較於HA/DR的傳統PostgreSQL應用程式層級串流複寫、此解決方案可建立更簡單且可媲美的系統、並提供同等的結果。
 
 此解決方案採用備受肯定且成熟的NetApp SnapMirror儲存層級複寫技術、適用於ONTAP PostgreSQL HA/DR的AWS原生FSX支援雲端儲存設備。NetApp解決方案團隊提供自動化工具套件、實作起來非常簡單。它提供類似的功能、同時透過應用程式層級的串流式HA/DR解決方案、免除主站台的複雜度和效能拖曳。此解決方案可輕鬆部署及測試、而不會影響作用中的主要站台。
 
@@ -265,7 +265,7 @@ ansible-playbook -i hosts postgresql_standby_resync.yml -u ec2-user --private-ke
 
 === 由於EC2運算執行個體故障、從主要EC2 DB伺服器容錯移轉至待命EC2 DB伺服器
 
-NetApp建議使用已建立完善的作業系統叢集軟體來執行手動容錯移轉、因為這可能需要授權。
+NetApp建議執行手動容錯移轉、或是使用可能需要授權的完善作業系統叢集軟體。
 
 
 
@@ -283,6 +283,6 @@ link:https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_
 
 * NetApp解決方案自動化
 +
-link:https://review.docs.netapp.com/us-en/netapp-solutions_ajc_psql_aws/automation/automation_introduction.html["https://review.docs.netapp.com/us-en/netapp-solutions_ajc_psql_aws/automation/automation_introduction.html"^]
+link:https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html["https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html"^]
 
 
