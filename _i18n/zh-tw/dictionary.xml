@@ -12969,7 +12969,6 @@
   <block id="feb87b8a766262f1649eb73f664b5237" category="paragraph">因此、總的來說、使用案例可分為兩種類別：</block>
   <block id="113270f68f35ffcbf2a57597bd22e665" category="list-text">使用ANF資料存放區擴充儲存容量</block>
   <block id="a46f3b69652b37f2becc5ad8def389fe" category="list-text">使用ANF資料存放區做為災難恢復目標、在軟體定義的資料中心（SDDC）之間、從內部部署或Azure區域內進行成本最佳化的恢復工作流程。本指南深入探討如何使用Azure NetApp Files NetApp為資料存放區提供最佳化的儲存（目前為公開預覽） 搭配Azure VMware解決方案中同級最佳的資料保護與DR功能、可讓您從vSAN儲存設備卸載儲存容量。</block>
-  <block id="301964836d84fb491fca23f51f902cd0" category="admonition">目前正在公開預覽此功能。Azure NetApp Files如需詳細資訊、請聯絡您所在地區的NetApp或Microsoft解決方案架構設計師。</block>
   <block id="9d5486edf9a5ddec98d7f7509d50101c" category="section-title">Azure中的VMware Cloud選項</block>
   <block id="809dd7fcec8077467eab0222ea68e259" category="paragraph">Azure VMware解決方案（AVS）是一種混合雲服務、可在Microsoft Azure公有雲中提供功能完整的VMware SDDC。AVS是第一方的解決方案、由Microsoft完全管理及支援、並由VMware驗證、使用Azure基礎架構。因此、客戶可獲得VMware ESXi用於運算虛擬化、vSAN用於超融合式儲存設備、NSX用於網路和安全性、同時還能充分利用Microsoft Azure的全球知名度、領先同級的資料中心設施、以及接近豐富的原生Azure服務與解決方案生態系統。Azure VMware解決方案SDDC與Azure NetApp Files VMware解決方案的結合、可提供最佳效能、並將網路延遲降至最低。</block>
   <block id="8718654ef588a85b2a2e46a7727fa16d" category="paragraph">無論使用何種雲端、部署VMware SDDC時、初始叢集都包含下列元件：</block>
@@ -13017,7 +13016,6 @@
   <block id="b2666a13d31389019b43a9085ffd2fe8" category="section-title">使用Azure NetApp Files Azure VMware解決方案設定功能</block>
   <block id="dbfbac0b1aee2557c747f90a52c200ed" category="paragraph">利用全新的融合功能、您可以透過Azure VMware解決方案資源供應商API/CLI建立NFS資料存放區、搭配使用VMware Volume、並將資料存放區掛載至私有雲端中您所選的叢集。Azure NetApp Files Azure NetApp Files除了裝載VM和應用程式VMDK之外、Azure NetApp檔案磁碟區也可從Azure VMware Solution SDDC環境中建立的VM掛載。這些磁碟區可掛載到Linux用戶端、並對應到Windows用戶端、因為Azure NetApp Files 支援伺服器訊息區（SMB）和網路檔案系統（NFS）傳輸協定。</block>
   <block id="3fcf61e60f3486b366489a2db86e92c0" category="admonition">為了獲得最佳效能、請將Azure NetApp Files VMware部署在私有雲端所在的相同可用度區域。與Express Route fastpath共置可提供最佳效能、並將網路延遲降至最低。</block>
-  <block id="2a499560ec410b1e1caeb95f6021ac1e" category="admonition">此功能目前正處於公開預覽中。</block>
   <block id="7042805ebe69bccc6ab09f9518f94556" category="paragraph">若要附加Azure NetApp File Volume做為Azure VMware Solution私有雲的VMware資料存放區、請確定符合下列先決條件。</block>
   <block id="49588f95c73f4a9df95958ba5e856d0c" category="list-text">使用AZ登入、並驗證訂閱已登錄至Microsoft .AVS命名空間中的CloudSanExperience功能。</block>
   <block id="c0e46e4183896be214bad3fd077b5834" category="list-text">如果尚未註冊、請加以註冊。</block>
@@ -13033,11 +13031,9 @@
   <block id="187927c7525fb36ec9428b4d84fe0aff" category="list-text">建立NetApp帳戶之後、請設定容量資源池、並設定所需的服務層級和大小。如需詳細資訊、請參閱<block ref="0a52e91c67ac030fc237a7b13d0404c6" category="inline-link-rx"></block>。</block>
   <block id="c7d6fd5f235d0c8a960facf04a79e4a7" category="paragraph"><block ref="c7d6fd5f235d0c8a960facf04a79e4a7" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c573a9eace62b9790820458dd59448b0" category="list-text">NFSv3支援Azure NetApp Files 以供支援的資料存放區使用。</block>
-  <block id="62dfd4c1cc43e59ef3c56bb615d3b182" category="list-text">使用Premium或Ultra層以獲得最佳效能。</block>
   <block id="0d55d5c3a7459f59fd437a2311322791" category="list-text">設定Azure NetApp Files 委派的子網路以供使用、並在建立磁碟區時指定此子網路。如需建立委派子網路的詳細步驟、請參閱<block ref="e84891bed408b1977d062f4ccc1816aa" category="inline-link-rx"></block>。</block>
   <block id="36fc58c2c3fa32ac586d5628570e9499" category="list-text">使用容量集區刀鋒下的Volume刀鋒、為資料存放區新增NFS磁碟區。</block>
   <block id="2832d137c1714a9759f87412fb05253e" category="paragraph"><block ref="2832d137c1714a9759f87412fb05253e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="47e7f43ca3ba65dbd1b1edbe26db8cc4" category="paragraph">如需瞭Azure NetApp Files 解根據大小或配額的功能、請參閱<block ref="bcd13cd67f856c9e615d78327e957b9c" category="inline-link-rx"></block>。</block>
   <block id="372d7a6604390fe9757888aff0a92970" category="example-title">將Azure NetApp Files 資料儲存區新增至私有雲</block>
   <block id="0f9e7cabe2f81455810e96baca91c6a7" category="paragraph">若要將Azure NetApp Files 某個資料存放區新增至私有雲、請完成下列步驟：</block>
   <block id="b1248573ef968f7d6fc7eaa453fa4d45" category="list-text">登錄必要功能之後、請執行適當的命令、將NFS資料存放區附加至Azure VMware Solution私有雲叢集。</block>
@@ -13048,8 +13044,6 @@
   <block id="078f601da77f62e8c7e097d5744f9b1b" category="section-title">規模與效能最佳化</block>
   <block id="2954ff66e26b577154cf218d077ff1a9" category="paragraph">支援三種服務層級：標準（每TB 16Mbps）、高級（每TB 64MBps）和超高（每TB 12MBps）Azure NetApp Files 。配置適當的磁碟區大小、對於資料庫工作負載的最佳效能而言非常重要。利用VMware、磁碟區效能和處理量限制取決於下列因素：Azure NetApp Files</block>
   <block id="a5d62ae512b963e1f05e839467577f19" category="paragraph"><block ref="a5d62ae512b963e1f05e839467577f19" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="9ce18fddaa7dc898334afc4ab63a163b" category="list-text">將Premium或Ultra層用於資料存放區磁碟區、以獲得最佳效能。</block>
-  <block id="f681df268b9e05fa5155bbf1f38d672f" category="list-text">如需客體VM的檔案共用需求、請使用Standard或Premium層級Volume。</block>
   <block id="1261ba8eeb83d9d138ff9e9a37214a7e" category="section-title">效能考量</block>
   <block id="f4479400cc63a0bc54ea3a609d8d89aa" category="paragraph">請務必瞭解、有了NFS版本3、ESXi主機與單一儲存目標之間只有一條作用中的連線管道。這表示雖然可能有替代連線可供容錯移轉、但單一資料存放區和基礎儲存設備的頻寬僅限於單一連線所能提供的頻寬。</block>
   <block id="f4c57c87dfa0d5843279b51c6e10d0a6" category="paragraph">若要利用Azure NetApp Files 更多可用頻寬來搭配使用、ESXi主機必須有多個儲存目標連線。若要解決此問題、您可以使用ESXi主機與儲存設備之間的個別連線、針對每個資料存放區設定多個資料存放區。</block>
@@ -13057,19 +13051,10 @@
   <block id="c01a936a44f773bc3d0a636cb655c28c" category="list-text">Azure VMware解決方案預設允許八個NFS資料存放區。這可透過支援要求來增加。</block>
   <block id="cd58e3b202d882202a16834028640630" category="list-text">運用ER fastpath搭配Ultra SKU、以獲得更高的頻寬和更低的延遲。更多資訊</block>
   <block id="6ef5173b6cc36d0f4efabbafeeee7443" category="list-text">藉助Azure NetApp Files 於《基本》網路功能、Azure VMware解決方案的連線能力受到ExpressRoute電路和ExpressRoute閘道頻寬的限制。</block>
-  <block id="0a8e9b67042320d1a2f3f6155fc3e096" category="list-text">支援使用「Standard（標準）」網路功能（目前在公開預覽中）的支援功能的支援ExpressRoute FastPath。Azure NetApp Files啟用時、FastPath Azure NetApp Files 會將網路流量直接傳送至支援速度較快的支援區、繞過提供較高頻寬和較低延遲的閘道。</block>
-  <block id="1b75d86136a5cde892b315650fd5ea43" category="section-title">效能最佳化</block>
-  <block id="213debd5ccd87a89487239a8460a0f0e" category="paragraph">雖然每個NFS資料存放區建議的虛擬機器數量是主觀的、但許多因素都決定了每個資料存放區可放置的最佳VM數量。雖然大多數系統管理員只考慮容量、但傳送到VMDK的並行I/O量是整體效能最重要的因素之一。ESXi主機有許多機制可確保競爭資料存放區資源的虛擬機器之間的公平性。不過、控制效能最簡單的方法是管理每個資料存放區上放置多少虛擬機器。如果並行虛擬機器I/O模式傳送太多流量至資料存放區、則會填滿磁碟佇列、並產生較高的延遲。</block>
-  <block id="f9fd5bbf2764cc5b16e9eeeb8b57ee91" category="section-title">Volume與資料存放區規模調整</block>
-  <block id="01ab7b17836cfa3916b003d7febafe43" category="paragraph">在Azure NetApp Files 以資料存放區為目的建立磁碟區時、最佳實務做法是建立不超過所需容量的磁碟區。雖然最大Volume大小可達100 TB、但NetApp建議從小型資料存放區容量開始、並視需要增加容量。設定適當規模的資料存放區可防止意外將過多的虛擬機器放置在資料存放區上、並降低資源爭用的可能性。由於如果虛擬機器需要額外的容量、資料存放區和VMDK的大小可以輕鬆增加、因此不需要建立大於所需容量的資料存放區。為了獲得最佳效能、最佳做法是增加資料存放區的數量、而非增加其大小。</block>
   <block id="fad725216d945a6443f15949ae73b316" category="cell">值得記住的重點</block>
-  <block id="28c7e0cc515aa1271633669cf0e579ad" category="list-text">ANF NFS資料存放區的大小適中、介於4TB到8TB之間。</block>
-  <block id="90f9dde25089c324af635a76b75a7509" category="list-text">將15至20部VM放在單一資料存放區上。視VM需求而定、此數量可增加至35-40個VM。</block>
-  <block id="3236c97f9f8c9cb7fcbc35b9ff162ab3" category="list-text">為獲得最佳效能與管理能力、請考慮使用來賓擁有的檔案系統、例如由來賓管理的NFS/SMB檔案系統、以執行高I/O應用程式、例如資料庫。</block>
   <block id="0d3f5dc8a647758ee9ad71d0af34e75e" category="section-title">增加資料存放區的大小</block>
   <block id="9ae97248366686f76c6f9f6ac9b8d073" category="paragraph">Volume重新塑形和動態服務層級變更對SDDC而言完全透明。在VMware中、這些功能可提供持續的效能、容量和成本最佳化。Azure NetApp Files從Azure Portal或使用CLI調整磁碟區大小、以增加NFS資料存放區的大小。完成後、請存取vCenter、移至「Datastore」（資料存放區）索引標籤、在適當的資料存放區上按一下滑鼠右鍵、然後選取「Refresh Capacity Information」（重新整理容量資訊）。此方法可用於增加資料存放區容量、並以動態方式提高資料存放區效能、而不需停機。此程序對應用程式也完全透明。</block>
   <block id="264b475cf0374b319edf3b094fe25874" category="list-text">Volume重新調整和動態服務層級功能可讓您針對穩定狀態的工作負載調整規模、以最佳化成本、進而避免過度資源配置。</block>
-  <block id="c38ea7c6c5e1aef9a1df0cebd81737d9" category="list-text">在公開預覽期間、VAAI未啟用。</block>
   <block id="35084d885dea7b061e6894c1cf3036d9" category="section-title">工作負載</block>
   <block id="f7458ac9343d5418ff038f156d9b29fc" category="paragraph">移轉是最常見的使用案例之一。使用VMware HCX或VMotion來移動內部部署的VM。或者、您也可以使用Rivermeadow將VM移轉至Azure NetApp Files 各個資料存放區。</block>
   <block id="36e402ac6b1a4b9a31bd376a7f89c68e" category="paragraph">備份虛擬機器並快速恢復這些虛擬機器、是ANF資料存放區的最大優勢之一。使用Snapshot複本來快速複製VM或資料存放區、而不影響效能、然後將它們傳送至Azure儲存設備以提供長期資料保護、或使用跨區域複寫來進行災難恢復。這種方法只儲存變更的資訊、可將儲存空間和網路頻寬減至最低。</block>
@@ -14374,7 +14359,6 @@
   <block id="477aa009d1d8f0ca50a38092473e92c8" category="paragraph">本文件將引導您完成在ONTAP AWS上配置和附加FSXfor VMware做為VMware Cloud的NFS資料存放區所需的步驟。</block>
   <block id="dfc876546f6dc1183356f103bca8c9bf" category="section-title">連線選項</block>
   <block id="96ebe87ba2bf6e2436936fad5261faee" category="paragraph">本節說明高層連線架構、以及實作解決方案以擴充SDDC叢集儲存設備所需的步驟、而不需要新增其他主機。</block>
-  <block id="373604cc33724c808b5ea035d2c5d911" category="paragraph">Amazon FSX for NetApp ONTAP Sfing是一項全託管服務、以熱門的NetApp ONTAP Sfor NetApp文件系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。Amazon FSX for NetApp ONTAP Sfor NetApp（Multi-AZ）使用浮動IP位址、在可用區域層級故障時、可為NAS流量啟用容錯移轉功能。此IP位址位於VPC CIDR位址空間之外、因此無法透過ENI路由傳送至SDDC。因此、應使用VMware Transit Connect連線至NAS介面的浮動IP位址。</block>
   <block id="f86935ff4bae98bba5454898ea941c13" category="paragraph"><block ref="f86935ff4bae98bba5454898ea941c13" category="inline-image-macro-rx" type="image"></block></block>
   <block id="b5dfb62423539055e813d9c1ad0de5ec" category="paragraph">高階部署步驟如下：</block>
   <block id="a7e048390e1de16427d130135387bbfa" category="list-text">在ONTAP 新指定的VPC中建立Amazon FSX以供支援。</block>
@@ -16855,4 +16839,18 @@
   <block id="0a6f7f4424be62bd8f9208328496eeaf" category="inline-link-macro"><block ref="0a6f7f4424be62bd8f9208328496eeaf" category="inline-link-rx"></block></block>
   <block id="b898d8d538a4529dfdb2b8bf025323c2" category="paragraph"><block ref="b898d8d538a4529dfdb2b8bf025323c2" category="inline-link-macro-rx"></block></block>
   <block id="db297dc3a6b72858a5039fa6507a2b34" category="paragraph">Sathish Thyagarajan、David Arette、NetApp Mircea Troaca、聯想</block>
+  <block id="c12ff13215c1f6de4c6dad4b8a475398" category="paragraph">[Underlines]#* SQL Server資料庫的影片*</block>
+  <block id="b4aaa3fbc0d85cfa527c7cb7f59187fd" category="video-title">在AWS EC2上使用Amazon FSX for NetApp ONTAP ®部署SQL Server</block>
+  <block id="785e5e204bcb101e73976a8c3ad22887" category="paragraph">若要深入瞭解此程序、請觀看下列影片：</block>
+  <block id="c91dcf7c665570f3603fa32cb3a8c644" category="list-text">視需要使用Premium或Standard層來處理容量限制工作負載、並使用Ultra層來處理效能限制工作負載、同時補充預設的vSAN儲存設備。</block>
+  <block id="60ce6ba5fcd445684c9982883f234b8c" category="paragraph">如需瞭Azure NetApp Files 解根據大小或配額的功能、請參閱 <block ref="62d66f64400ed6e4ba5e012bbe140a31" category="inline-link-macro-rx"></block>。</block>
+  <block id="a01ca5d7b443422e0bc655c4d457707f" category="inline-link-macro">Microsoft的連結</block>
+  <block id="37028a2422f1f35ed56a07f1003896d1" category="admonition">您可以使用Azure Portal將此資料量附加至私有雲端Azure NetApp Files 。請遵循此步驟 <block ref="c627cf01abf17d7b29d4322a9f16e21d" category="inline-link-macro-rx"></block> 逐步使用Azure入口網站來掛載Azure NetApp Files 支援的資料存放區。</block>
+  <block id="7dfe1e95238cceec93165ab8ff605d28" category="paragraph">請參閱此 <block ref="06f6144b70bdd3c5a376672271533656" category="inline-link-macro-rx"></block> 以取得可在規模調整練習中使用的詳細效能基準測試。</block>
+  <block id="b1404b6b3614fe54358fb1bdb8bd294a" category="list-text">使用資料存放區磁碟區的Premium或Standard層、以獲得最佳容量和效能。如果需要效能、則可使用超層。</block>
+  <block id="1048ee221e43763386324d16721681fc" category="list-text">如需來賓掛載需求、請使用Premium或Ultra層級、並針對來賓VM的檔案共用需求、使用Standard或Premium層級磁碟區。</block>
+  <block id="e421004f0e3e2303f272ef4b0fa6c089" category="list-text">支援使用「標準」網路功能的支援功能的支援功能、例如ExpressRoute FastPath Azure NetApp Files 。啟用時、FastPath Azure NetApp Files 會將網路流量直接傳送至支援速度較快的支援區、繞過提供較高頻寬和較低延遲的閘道。</block>
+  <block id="80a4a92a47a4b87bb9d0fcf9ded1dda8" category="list-text">VAAI未啟用。</block>
+  <block id="94e2529c9624e06356bacdc7dc76dab9" category="admonition">如需使用ANF資料存放區的其他資訊、請聯絡您所在地區的NetApp或Microsoft解決方案架構設計師。</block>
+  <block id="a8a748d1990bd3dbc648c22396cec9c4" category="admonition">AWS上的VMware Cloud可同時支援針對ONTAP VMware的多AZ和單一AZ部署FSX。</block>
 </blocks>

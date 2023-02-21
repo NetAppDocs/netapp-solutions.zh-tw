@@ -34,9 +34,10 @@ NOTE: 此解決方案也可從VMware取得。請造訪 link:https://vmc.techzone
 
 == 連線選項
 
-本節說明高層連線架構、以及實作解決方案以擴充SDDC叢集儲存設備所需的步驟、而不需要新增其他主機。
 
-Amazon FSX for NetApp ONTAP Sfing是一項全託管服務、以熱門的NetApp ONTAP Sfor NetApp文件系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。Amazon FSX for NetApp ONTAP Sfor NetApp（Multi-AZ）使用浮動IP位址、在可用區域層級故障時、可為NAS流量啟用容錯移轉功能。此IP位址位於VPC CIDR位址空間之外、因此無法透過ENI路由傳送至SDDC。因此、應使用VMware Transit Connect連線至NAS介面的浮動IP位址。
+NOTE: AWS上的VMware Cloud可同時支援針對ONTAP VMware的多AZ和單一AZ部署FSX。
+
+本節說明高層連線架構、以及實作解決方案以擴充SDDC叢集儲存設備所需的步驟、而不需要新增其他主機。
 
 image:fsx-nfs-image1.png["錯誤：缺少圖形影像"]
 
