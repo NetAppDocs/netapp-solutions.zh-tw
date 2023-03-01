@@ -15739,7 +15739,6 @@
   <block id="3e5fc395bc0727ee4a5d50bf7852e11e" category="admonition">NetApp建議針對SQL伺服器工作負載使用獨立的檔案系統。如果檔案系統用於多個應用程式、請監控檔案系統和檔案系統內磁碟區的空間使用量、以確保磁碟區不會爭用可用空間。</block>
   <block id="9bc03cfd47c7deb1375b7e700fba9c1a" category="admonition">自動刪除選項不會刪除用於建立FlexClone磁碟區的Snapshot複本。</block>
   <block id="20292bb9591bce95b16e6ee1415023d3" category="admonition">對於任務關鍵型應用程式（例如SQL Server）、即使是最短的停機時間、也無法容忍、必須謹慎考量及管理過度使用儲存設備。在這種情況下、最好是監控儲存使用趨勢、以判斷可接受的過度使用量（如果有）。</block>
-  <block id="d846da4dd06c448920cac63b79adc614" category="list-text">若要獲得最佳儲存效能、請將檔案系統容量配置為資料庫總使用量的1.5倍。</block>
   <block id="e2ec94309dce197f199c6e60cd3070eb" category="list-text">使用精簡配置時、必須進行適當的監控、並附上有效的行動計畫、以避免應用程式停機。</block>
   <block id="d7fbab8fe0fe681c9e815507bcdf85c8" category="list-text">請務必設定Cloudwatch和其他監控工具警示、以便在儲存設備已滿時、聯絡人員有足夠時間做出反應。</block>
   <block id="626a89ea253e84625436538e7249e94d" category="section-title">設定SQL Server的儲存設備、並部署SnapCenter 用於備份、還原及複製作業的功能</block>
@@ -16952,4 +16951,5 @@
   <block id="dccf3c5043aaab19b4c6eed2cd51be7e" category="paragraph"><block ref="dccf3c5043aaab19b4c6eed2cd51be7e" category="inline-link-rx"></block></block>
   <block id="16844b6a71b4ccf3790079518b5286c4" category="sidebar">使用VMware HCX將工作負載移轉至NetApp Cloud Volume Service NFS資料存放區</block>
   <block id="204c2f72244c7b6bb96fa507fcbfdde0" category="sidebar">使用VMware HCX將工作負載移轉至Cloud Volume Service NFS資料存放區</block>
+  <block id="fbaad71632f1f86a6aec0eb25bf981d7" category="list-text">若要獲得最佳儲存效能、請將檔案系統容量配置為資料庫總使用量的1.35倍。</block>
 </blocks>
