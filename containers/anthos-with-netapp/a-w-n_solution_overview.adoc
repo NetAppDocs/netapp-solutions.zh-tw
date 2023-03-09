@@ -13,7 +13,7 @@ summary: 本參考文件提供Anthos with NetApp解決方案的部署驗證、�
 :imagesdir: ./../../media/
 
 
-NetApp公司Alan Cowles和NIKhil Kulkarni
+NetApp的Banu Sundhar和Suresh Thoppan
 
 本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。它也詳細說明如何使用Astra Trident儲存協調程式來管理持續儲存設備、藉此與NetApp儲存系統進行儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
 
@@ -57,13 +57,13 @@ Anthos with NetApp解決方案包含下列主要元件：
 
 Anthos on Prem是完全受支援的企業Kubernetes平台、可部署在VMware vSphere Hypervisor或您選擇的裸機基礎架構上。
 
-如需更多關於Anthos的資訊、請參閱Anthos網站 https://https://cloud.google.com/anthos/["請按這裡"^]。
+如需更多關於Anthos的資訊、請參閱Anthos網站 https://cloud.google.com/anthos["請按這裡"^]。
 
 
 
 === NetApp儲存系統
 
-NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp產品組合、Cloud Volumes ONTAP 包括NetApp的功能、功能、Cloud Volumes Service 功能、Azure NetApp Files 功能、以及適用於NetApp ONTAP 的FSxN儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
 
 如需詳細資訊、請參閱NetApp網站 https://www.netapp.com["請按這裡"]。
 
@@ -85,27 +85,6 @@ Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於�
 
 == 已驗證版本的目前支援對照表
 
-|===
+請參閱 https://cloud.google.com/anthos/docs/resources/partner-storage#netapp["請按這裡"] 以取得已驗證版本的支援對照表。
 
-
-| 技術 | 目的 | 軟體版本 
-
-
-| NetApp ONTAP | 儲存設備 | 9.8、9.9.1 
-
-
-| NetApp Element | 儲存設備 | 12.3. 
-
-
-| NetApp Astra Trident | 儲存協調 | 22.04.0 
-
-
-| VMware上的Anthos叢集 | 容器協調 | 1.11. 
-
-
-| 裸機上的Anthos | Container協調 | 1.10 
-
-
-| VMware vSphere | 資料中心虛擬化 | 6.7U3、7.0U3 
-|===
 link:a-w-n_overview_anthos.html["下一步：Anthos總覽。"]

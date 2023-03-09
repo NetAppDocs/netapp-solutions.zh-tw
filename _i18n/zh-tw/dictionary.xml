@@ -9896,7 +9896,6 @@
   <block id="89ef90a5be38c2b656627392eee1a2a9" category="paragraph">Anthos with NetApp是經過驗證、最佳實務的混合雲架構、可可靠可靠地部署內部部署的Google Kubernetes Engine（GKE）環境。這份NetApp驗證架構參考文件可做為部署至裸機和虛擬環境之NetApp解決方案的Anthos設計指南和部署驗證。本文件中所述的架構已通過NetApp和Google Cloud的主題專家驗證、可在企業資料中心環境中提供執行Anthos的優勢。</block>
   <block id="72efb373513d77a08aa5dd7e375a418f" category="section-title">安索斯</block>
   <block id="5b1a0b45a2d6518143a0c9b299e736b4" category="paragraph">Anthos是混合雲Kubernetes資料中心解決方案、可讓組織建構及管理現代化的混合雲基礎架構、同時採用敏捷的工作流程、專注於應用程式開發。Anthos on VMware是以開放原始碼技術為基礎的解決方案、可在VMware vSphere基礎架構的內部環境中執行、並可在Google Cloud中與Anthos GKE連線及互通。採用容器、服務網格及其他轉型技術、可讓組織在本機和雲端型環境中、體驗一致的應用程式開發週期和正式作業就緒工作負載。下圖說明Anthos解決方案、以及內部部署資料中心的部署如何與雲端的基礎架構互連。</block>
-  <block id="42fc2dc2813b6a8c6bbca7ebe6d3f51e" category="paragraph">如需更多關於Anthos的資訊、請參閱Anthos網站<block ref="bcfc39c80df16a8beb60f78ea034be9d" category="inline-link-rx"></block>。</block>
   <block id="ed4b514e0a9558c7acbec81ecc5fe0e1" category="list-text">*適用於Kubernetes應用程式的Google Cloud Marketplace。*這是精選的容器應用程式目錄、可供輕鬆部署。</block>
   <block id="b2f70465e1ea6dcdc0843dc8ed3b7f55" category="list-text">*移轉至Anthos *自動將實體服務和VM從內部部署移轉至雲端。</block>
   <block id="52bc26b321a0b4cd1f91f7961a0783c8" category="list-text">* Google提供的Stackdrivan.*管理服務、用於記錄及監控雲端執行個體。</block>
@@ -9918,7 +9917,6 @@
   <block id="da44b5941c7cfd27a6f5686a3168f332" category="list-text">第一次使用CRD提供的管理電子郵件地址登入Astra Control Center GUI時、您應該變更密碼。</block>
   <block id="d46a5e1e10f8a4a33306d0696cef14f5" category="summary">本參考文件提供Anthos with NetApp解決方案的部署驗證、部署於多個資料中心環境、並已通過NetApp與我們的工程合作夥伴的驗證。</block>
   <block id="9d171bf7d3d65afb2e7e56d43b4b9ed5" category="doc">NVA-1165：Anthos與NetApp合作</block>
-  <block id="e961a4cbc5c7e2be5e3f72a578aeb4da" category="paragraph">NetApp公司Alan Cowles和NIKhil Kulkarni</block>
   <block id="9b3053daf2ec8e22b4a577982f08f107" category="paragraph">Anthos with NetApp解決方案的架構旨在為具有下列使用案例的客戶提供卓越價值：</block>
   <block id="cbc828fed325d3834b2bf3b1f2b5e639" category="inline-link">Kubevirt</block>
   <block id="341508ebeee3f32bbf4f6fee6cb456a0" category="list-text">結合企業容器和虛擬化工作負載的強大威力、以及部署在vSphere上或裸機上的Anthos<block ref="3149dc0a8051bd1d167afbb1fe9775d9" category="inline-link-rx"></block>。</block>
@@ -9929,7 +9927,6 @@
   <block id="b73ed4ba665437210c3da7d43d6618bf" category="paragraph">Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。</block>
   <block id="87f76f310cf20e85a098d49fa77367e5" category="cell">VMware上的Anthos叢集</block>
   <block id="bdca6efb043178ef172612dd1e173dde" category="cell">1.10</block>
-  <block id="eb5d694ff9583283fe6d0190a39d5f7a" category="cell">6.7U3、7.0U3</block>
   <block id="5b9abd64aa4865a31820ebec932e54f2" category="section-title">Anthos Ready儲存合作夥伴方案。</block>
   <block id="02046ad0e82ff27f6e1774aa588fd853" category="cell">部署類型</block>
   <block id="1552eec8291d257c4b855dcfa425d802" category="cell">儲存系統</block>
@@ -9941,7 +9938,6 @@
   <block id="e5db66c80967b6fa50a1eede0ce50e2f" category="cell">多寫入器、Volume Expansion、快照</block>
   <block id="62a0282d39568be094470486eaf70c4f" category="cell">SAN</block>
   <block id="4c606f506efd3b3bef3499e3342b5933" category="cell">原始區塊、Volume擴充、快照</block>
-  <block id="231afe47f3f37d3808096b36c28b4ded" category="cell">元素</block>
   <block id="a2da3c930443e5d1421caec9ee18a376" category="cell">裸機</block>
   <block id="ddffa1813009160db4406c9ef143dd1e" category="section-title">NetApp儲存整合</block>
   <block id="de3b8bd79707b5ac064727a07d81d808" category="paragraph">Anthos在裸機上的硬體無關功能、可讓您選擇專為個人化使用案例最佳化的運算平台、並提供許多其他優點。</block>
@@ -9968,7 +9964,6 @@
   <block id="b763f3ad097c7d9beb9849be170a627a" category="cell">硬體名稱</block>
   <block id="8c692721fdfc559bf4689567aa48fb47" category="cell">Nexus</block>
   <block id="5cb4ead83aaa15a241ef0e8c36f0678c" category="cell">C9336C-FX2</block>
-  <block id="2f72e4f4112efeb63b9fb0ed1eefd1c9" category="cell">A250</block>
   <block id="8bb152d8bbc90b878b63c05b6b953334" category="section-title">其他軟體</block>
   <block id="effae9170216f08fb6cb3265a4cae9cc" category="paragraph">下表列出在驗證環境中部署的其他軟體版本。</block>
   <block id="91c8cbe28b4928f6ea19ea8d1894623a" category="cell">軟體名稱</block>
@@ -9979,7 +9974,6 @@
   <block id="c7a2b443f8714e7071c1d55a3bd2715f" category="section-title">基礎架構支援資源</block>
   <block id="f8f0e385abfb7fc517b1b9b4e9e8d19e" category="paragraph">在裸機上部署Anthos之前、應先建立下列基礎架構：</block>
   <block id="957478b81604fc0a340d863f3b89a2da" category="summary">NetApp擁有數個符合Trident Storage Orchestrator資格的儲存平台、可為部署在Anthos上的應用程式配置儲存設備。</block>
-  <block id="f623f7fc1ffb9cfc3afddcf52e2fec23" category="paragraph">NetApp擁有數個符合Astra Trident Storage Orchestrator資格的儲存平台、可為部署在Anthos上的應用程式配置儲存設備。</block>
   <block id="0c5e049b7be7649501696f84472d6820" category="paragraph"><block ref="0c5e049b7be7649501696f84472d6820" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0e2719bf8f96a980f38256b7a4060368" category="list-text">若要使用Ansible教戰手冊來部署Astra Control Center、您必須安裝有Ansible的Ubuntu / RHEL機器。請依照所述程序進行<block ref="3c36e2d6ece22f6d90a18a4cf2722cef" category="inline-link-rx"></block> 適用於Ubuntu和<block ref="94346839427703f278bfb2bc5962a814" category="inline-link-rx"></block> 適用於RHEL。</block>
   <block id="bf98d9390f43e942cd74d874e3bf6d68" category="list-text">將目錄變更為「na_astra_control_suITE」。</block>
@@ -9988,9 +9982,7 @@
   <block id="6b682acdf6e246de63c54d6f90044faa" category="paragraph">如果使用者已設定以密碼為基礎的Sudo存取、請執行下列命令來執行教戰手冊、然後輸入Sudo密碼。</block>
   <block id="bbdfa4f0841eb6d317a11ae76992b8b8" category="summary">本節專為想要使用NetApp部署自訂其「特質」的使用者、探討負載平衡器選項。</block>
   <block id="b935e49429349d1edf159cd09a0b8ff5" category="paragraph">下列頁面提供有關Anthos with NetApp解決方案中已驗證之負載平衡器選項的其他資訊：</block>
-  <block id="fbc20d9fb2c2f042edf73e3b39b3278a" category="paragraph"><block ref="fbc20d9fb2c2f042edf73e3b39b3278a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="f1bcd982a417f561201a3262b52a84d7" category="list-text">* NetApp SnapLock 功能*可將不可重複寫入的資料寫入無法在指定期間覆寫或清除的特殊磁碟區、以有效管理不可重複寫入的資料。</block>
-  <block id="99634a0c579c45d299cfbb8b818c51bb" category="paragraph"><block ref="99634a0c579c45d299cfbb8b818c51bb" category="inline-image-macro-rx" type="image"></block></block>
   <block id="678cbe37bb872d145128736b4650ef68" category="paragraph">NetApp提供強大的All Flash AFF （VMware）和橫向擴充混合FAS 式（VMware）儲存平台、專為低延遲效能、整合式資料保護及多重傳輸協定支援而量身打造。</block>
   <block id="a150469d40f75f1df1e87a9558f50769" category="paragraph">這兩種系統均採用ONTAP NetApp的NetApp支援資料管理軟體、此軟體是業界最先進的資料管理軟體、可提供高可用度、雲端整合、簡化的儲存管理、為您的資料架構提供企業級的速度、效率和安全性。</block>
   <block id="a9b90f3200d3b94ea47e85db3a435816" category="paragraph">如需更多關於NetApp AFF 的資訊、FAS 請按一下<block ref="629508ef5a91b5835f70894f34eed424" category="inline-link-rx"></block>。</block>
@@ -10032,8 +10024,6 @@
   <block id="fdd1d4ba64f526087e6e49e35a884fbd" category="summary">本節專供實際使用者在將此解決方案部署至正式作業環境時可能需要執行的自訂作業、例如部署自訂負載平衡器執行個體。</block>
   <block id="90f687894749dad073416489141eb43f" category="list-text">NetApp Astra Trident文件</block>
   <block id="7cfc9495aac39bbaa5defc76b7f4e8db" category="list-text">VMware上的Anthos叢集文件</block>
-  <block id="f5266df5a7db89637cf0d7391221b756" category="inline-link"><block ref="f5266df5a7db89637cf0d7391221b756" category="inline-link-rx"></block></block>
-  <block id="1bdc624c553dda22bc7a529bda2dd06b" category="paragraph"><block ref="1bdc624c553dda22bc7a529bda2dd06b" category="inline-link-rx"></block></block>
   <block id="9ee8ef3c59727b8b17070caf87743214" category="list-text">Anthos on裸機文件</block>
   <block id="bc10096da41c680de98ecf3f1def7d17" category="inline-link"><block ref="bc10096da41c680de98ecf3f1def7d17" category="inline-link-rx"></block></block>
   <block id="d642746f7d7a37b7cb340d9a62d751a5" category="paragraph"><block ref="d642746f7d7a37b7cb340d9a62d751a5" category="inline-link-rx"></block></block>
@@ -10041,30 +10031,17 @@
   <block id="7f640668ae5a8fc28f807fe0d6b9128b" category="paragraph">如此一來、如果節點故障之後又發生磁碟區重新分佈、則登出後登入並重新導向至新位置後、主機連線能力將不會受到影響。利用iSCSI登入重新導向功能、NetApp Element 一套自我修復的橫向擴充架構、能夠不中斷升級與作業。</block>
   <block id="206188ac4e8ec83453b82a36311f1a25" category="paragraph">VMware上的Anthos叢集是Google Kubernetes Engine的延伸、部署於終端使用者的私有資料中心。組織可以在內部部署Kubernetes叢集的Google Cloud容器中部署相同的應用程式。VMware上的Anthos叢集可部署至資料中心內現有的VMware vSphere環境中、以節省資金支出、並能更快速地進行部署和擴充作業。</block>
   <block id="b107e7085d2931bbe4118d8c5eed9643" category="paragraph">在VMware上部署Anthos叢集包括下列元件：</block>
-  <block id="d17685a3ddd89e969b430984ce944772" category="paragraph"><block ref="d17685a3ddd89e969b430984ce944772" category="inline-image-macro-rx" type="image"></block></block>
   <block id="348ed6380fe1c4753877d1f13d95d39a" category="paragraph">VMware上的Anthos叢集具有下列優點：</block>
   <block id="cf97925041bebbd35543bc4fc24fa499" category="list-text">*進階多租戶共享*每位終端使用者都能被指派自己的使用者叢集、並以自己開發環境所需的虛擬資源進行部署。</block>
   <block id="a6c34625dcf8367e84732b5219f81cb7" category="list-text">*開發然後發佈。*內部部署可在應用程式開發期間使用、以便在公開於雲端上使用之前、先在本機資料中心的隱私環境中測試應用程式。</block>
   <block id="4418ae814387892bd88d45091a182234" category="list-text">* vSphere High Availability。*為了避免主機故障時發生中斷、VMware vSphere允許將主機叢集化並設定為高可用度。由於主機故障而中斷的VM會在叢集中的其他主機上、於近期重新開機、以還原服務。</block>
-  <block id="44da02789c784d2615f858b0e9007c1d" category="inline-link">NetApp FlexPod</block>
-  <block id="08edd2123939d5309dced149763a50ee" category="inline-link">NetApp HCI</block>
-  <block id="58d64ca3570be3edd23e4165a8c0d9ee" category="paragraph">下表包含NetApp與NetApp合作夥伴工程師已測試過的伺服器平台、用於驗證VMware部署上的Anthos叢集。這些解決方案包括<block ref="5ea2f6a45afb6a8f064f7631dd737389" category="inline-link-rx"></block> 搭配Cisco UCS伺服器和<block ref="3ff4d1b07fc6ed14e7fcf7636d0ad5aa" category="inline-link-rx"></block> 混合雲基礎架構平台。</block>
-  <block id="bcb24d33d2a22de9b0c3e9f38becc496" category="cell">HCI</block>
-  <block id="9f80c25863c6e1e85d8d5492b437cb64" category="cell">C410</block>
   <block id="696c660ff8d9323e55146a6dbd4e4088" category="section-title">作業系統</block>
   <block id="69da39b403ff0537d2282cb291d4397c" category="paragraph">VMware上的Anthos叢集可部署至客戶選擇的vSphere 6和7環境、以協助符合其目前的資料中心基礎架構。</block>
   <block id="23d300c91b3d48f94c1e7f5953ad3e5e" category="cell">7.0U3</block>
   <block id="89f7e5d7117ac9eb1ece116273f5f012" category="paragraph">為了完成以NetApp為完整驗證解決方案的Anthos部署、NetApp與合作夥伴工程師已測試網路與儲存設備的其他資料中心元件。</block>
   <block id="fe02a8fc8838381700e175498b8e1db0" category="cell">Mellanox</block>
-  <block id="92666505ce75444ee14be2ebc2f10a60" category="cell">SN</block>
-  <block id="d7a84628c025d30f7b2c52c958767e76" category="cell">2010年</block>
-  <block id="bf07aaec06ff922b8a11ef624141bfdb" category="cell">S410</block>
   <block id="dd4a9a41d8672c9659041812469e1df2" category="paragraph">下表列出在驗證環境中部署的軟體版本。</block>
   <block id="da0d53141f6343167596fe8598964773" category="cell">軟體名稱</block>
-  <block id="3c537b8d673e06e2107129b600143391" category="cell">4.1（3e）</block>
-  <block id="f932bed2d12442d21507b51d22b88dd7" category="cell">1.8</block>
-  <block id="c1770c414b5c19c253a48e36fa2da50f" category="paragraph">在NetApp執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎所建置、讓我們能夠測試多個部署的使用者叢集、以及多個NetApp儲存系統和儲存後端。</block>
-  <block id="c1c59b2c25178eb5f3956ae189dc384b" category="paragraph"><block ref="c1c59b2c25178eb5f3956ae189dc384b" category="inline-image-macro-rx" type="image"></block></block>
   <block id="13d18f8604b3585f7ab88b87766a8d38" category="paragraph">在部署Anthos之前、應先建立下列基礎架構：</block>
   <block id="92b7a761f185f74bf3bf9d2229c67a28" category="list-text">當叢集需要動態擴充時、可隨需提供網路位址租用的DHCP伺服器。</block>
   <block id="8256d4d5c73a64213343972bedd38f45" category="section-title">將Anthos部署到至少三個節點的ESXi叢集</block>
@@ -12583,7 +12560,6 @@
   <block id="f498970d77b95b37672534275d7e8b40" category="paragraph"><block ref="f498970d77b95b37672534275d7e8b40" category="inline-link-macro-rx"></block></block>
   <block id="21e8ffc6f822b183559b39b43061c1d2" category="summary">NetApp提供多種產品、協助客戶在Anthos等容器型環境中協調及管理持續資料。</block>
   <block id="7a8b9d74335d44fbaaf7f5d5aebf0cfd" category="paragraph">Google Cloud會定期透過Anthos Ready儲存合作夥伴方案、要求更新合作夥伴儲存整合與新版Anthos的驗證。您可以找到目前已驗證的儲存解決方案、csi驅動程式、可用功能及所支援的Anthos版本清單<block ref="0ccc93736ba595a77f031ff105798de0" category="inline-link-rx"></block>。</block>
-  <block id="ea3b8c601657928fee815e0d16908cf1" category="paragraph">NetApp每季都會定期遵循法規要求、以驗證我們符合Astra Trident SCSI標準的儲存協調程式、ONTAP 以及我們的更新版本Anthos的更新版及元件儲存系統。</block>
   <block id="d9c9cc94777c7797db966b663b32ce4d" category="paragraph">下表包含NetApp與NetApp合作夥伴工程師所測試的Anthos版本、以驗證NetApp Astra Trident SCSI驅動程式與功能集、作為Anthos Ready儲存合作夥伴方案的一部分：</block>
   <block id="84aafd4e962655f32c5bdea750278fba" category="paragraph">NetApp提供多種產品、協助您協調及管理容器型環境（例如Anthos）中的持續資料。</block>
   <block id="55713395841bbe573d35c776279d08cc" category="paragraph">NetApp Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。如需詳細資訊、請造訪Astra Trident網站<block ref="845024b96ab150d9f628b33995c60669" category="inline-link-rx"></block>。</block>
@@ -12602,16 +12578,8 @@
   <block id="3f3ed1875910e0d28d2c97b78338cc3d" category="paragraph"><block ref="3f3ed1875910e0d28d2c97b78338cc3d" category="inline-link-macro-rx"></block></block>
   <block id="941b2b9e397e77b597402b51e7ef131d" category="paragraph"><block ref="941b2b9e397e77b597402b51e7ef131d" category="inline-link-macro-rx"></block></block>
   <block id="2f0792348007b672e999da06f311bd6f" category="summary">Astra Trident是完全受支援的開放原始碼儲存協調工具、適用於Container和Kubernetes配送、包括Anthos。</block>
-  <block id="c91efa18f13fad38864e99107352d0c5" category="paragraph">Astra Trident是完全受支援的開放原始碼儲存協調工具、適用於Container和Kubernetes配送、包括Anthos。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。</block>
   <block id="e16f8b7c3b79f3d80b3d5b5862b4481a" category="paragraph">系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型和QoS層級、以確保達到特定等級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。</block>
-  <block id="239c66c0132fd8324d609e4f1ce89f79" category="paragraph">最新版的Astra Trident（22.04）於2022年4月發佈。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品<block ref="34562000b9988739736848a0014e5230" category="inline-link-rx"></block>。</block>
   <block id="1efa4d2f8950cdd5154a6c130953c9f2" category="paragraph">22.04版提供Helm圖表、方便Trident操作員的安裝。</block>
-  <block id="27bed77b9cf648bc4592d40c2806fb43" category="paragraph">若要使用Helm在已部署的使用者叢集上自動安裝Trident並佈建持續磁碟區、請完成下列步驟：</block>
-  <block id="c9c8f06cd5f25063dedfc6eea2b08fa7" category="inline-link">Helm安裝頁面</block>
-  <block id="43eba64dcd06763432addbcf8db2d367" category="list-text">新增Trident Helm儲存庫：</block>
-  <block id="6a05a869c72ac896a6f7473fba5c9b1e" category="paragraph">若要在已部署的使用者叢集上手動安裝Trident並佈建持續磁碟區、請完成下列步驟：</block>
-  <block id="79273cfc4ab66c2763755b11b14fedb9" category="list-text">將安裝歸檔檔案下載至管理工作站、並擷取內容。目前的Trident版本為22.04、可下載<block ref="c7e04c62da3fb5014b467863172d941c" category="inline-link-rx"></block>。</block>
-  <block id="f0d8974fd014601f60573d339d525772" category="list-text">將使用者叢集的「kubeconfig」檔案位置設定為環境變數、這樣您就不需要參考它、因為Trident沒有傳遞此檔案的選項。</block>
   <block id="1b8283857d1e7c1a4e80a12b3ba66ad9" category="paragraph"><block ref="1b8283857d1e7c1a4e80a12b3ba66ad9" category="inline-image-macro-rx" type="image"></block></block>
   <block id="2540200d51d81caebf749b3eb92aa66f" category="paragraph"><block ref="2540200d51d81caebf749b3eb92aa66f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="695cc7df9129054b4e4bd425d0094832" category="paragraph"><block ref="695cc7df9129054b4e4bd425d0094832" category="inline-image-macro-rx" type="image"></block></block>
@@ -12647,7 +12615,6 @@
   <block id="fc31dc82d7754f65126c60eab5625947" category="inline-link-macro">使用Google Cloud Console安裝應用程式</block>
   <block id="627662d598c35dc9438ec1747d7766dc" category="paragraph"><block ref="627662d598c35dc9438ec1747d7766dc" category="inline-link-macro-rx"></block></block>
   <block id="ee1514b17e642c9cd1384a20cec220e3" category="summary">本頁連結的影片展示本文件所述的部分功能。</block>
-  <block id="63e2e4c63022a2ca3a58778bd242195b" category="paragraph">下列影片示範本文件所述的部分功能：</block>
   <block id="1adda60fb6ef5adf0c35c53442bdd87d" category="inline-link-macro">影片：在裸機上部署Anthos</block>
   <block id="81082fb0b2db5311a27c6cd75db69481" category="paragraph"><block ref="81082fb0b2db5311a27c6cd75db69481" category="inline-link-macro-rx"></block></block>
   <block id="18d4f7e36efb77494db296ea83bc4753" category="paragraph">如需更多有關透過NetApp部署裸機叢集的Anthos資訊、請參訪 <block ref="eb911f2bc48f3132c014132a2870169f" category="inline-link-macro-rx"></block>。</block>
@@ -12668,14 +12635,6 @@
   <block id="6f838db94915ec121c6b32b1df99a983" category="inline-link-macro">下一步：安裝F5 BIG-IP負載平衡器。</block>
   <block id="ecdb02c5420667abdb9a61d02af359c2" category="paragraph"><block ref="ecdb02c5420667abdb9a61d02af359c2" category="inline-link-macro-rx"></block></block>
   <block id="ea3f2894c4df21a157c45dcbcf989bda" category="paragraph">下列頁面提供NetApp產品的其他資訊、這些產品已通過NetApp解決方案的Anthos應用程式與持續儲存管理的驗證。</block>
-  <block id="c49053fbce1331670d3c2e81d9625fec" category="admonition">依照預設、不會在GKE管理工作站上安裝Helm。可從下載、以二進位格式與Ubuntu搭配使用<block ref="3d578643c15f985f07ca6d975ab0e791" category="inline-link-rx"></block>。</block>
-  <block id="deae9c61cc109057bffb21d54fd54cdc" category="paragraph">完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。</block>
-  <block id="6ed9d9e6160cedf6c16c9fa74e9d08aa" category="inline-link-macro">下一步：NetApp ONTAP 不再是NFS。</block>
-  <block id="86beb69e1e89df92a89baa0d004b08b8" category="paragraph"><block ref="86beb69e1e89df92a89baa0d004b08b8" category="inline-link-macro-rx"></block></block>
-  <block id="06a9f54df07db88477918bd7c3f597de" category="inline-link-macro">下一步：NetApp Element 支援iSCSI。</block>
-  <block id="dd8532ad7059feaef43031ffa5970de1" category="paragraph"><block ref="dd8532ad7059feaef43031ffa5970de1" category="inline-link-macro-rx"></block></block>
-  <block id="0a180196354cfbb6ec70b20db067fa6b" category="inline-link-macro">下一步：NetApp Element 功能</block>
-  <block id="73978739caea0775c3c807ecfc27f0c0" category="paragraph"><block ref="73978739caea0775c3c807ecfc27f0c0" category="inline-link-macro-rx"></block></block>
   <block id="5aad41fe64600c5795950512637ebae3" category="inline-link-macro">下一步：探索負載平衡器選項。</block>
   <block id="0b44acd6b2e7596e640212aa28de05c5" category="paragraph"><block ref="0b44acd6b2e7596e640212aa28de05c5" category="inline-link-macro-rx"></block></block>
   <block id="d0ee5cd6f53ec708670800837b7502b7" category="inline-link-macro">下一步：NetApp ONTAP 支援iSCSI。</block>
@@ -16952,4 +16911,54 @@
   <block id="16844b6a71b4ccf3790079518b5286c4" category="sidebar">使用VMware HCX將工作負載移轉至NetApp Cloud Volume Service NFS資料存放區</block>
   <block id="204c2f72244c7b6bb96fa507fcbfdde0" category="sidebar">使用VMware HCX將工作負載移轉至Cloud Volume Service NFS資料存放區</block>
   <block id="fbaad71632f1f86a6aec0eb25bf981d7" category="list-text">若要獲得最佳儲存效能、請將檔案系統容量配置為資料庫總使用量的1.35倍。</block>
+  <block id="697ac904ffe5f281c2b20466e99a46ec" category="paragraph"><block ref="697ac904ffe5f281c2b20466e99a46ec" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9ea2cbade31de8af1dca89093e681575" category="paragraph">下列影片示範本文件所述的部分功能：</block>
+  <block id="f1633856fe511230f9c635e7a1c53316" category="inline-link-macro">影片：在Anthos 1.14叢集上部署Trident</block>
+  <block id="cf1f8100313c03361151f9caa6715bac" category="paragraph"><block ref="cf1f8100313c03361151f9caa6715bac" category="inline-link-macro-rx"></block></block>
+  <block id="1780877562a197bb240c255e7ebc64a6" category="paragraph"><block ref="1780877562a197bb240c255e7ebc64a6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9f281f23fa0eaa9fab3de640f4c4ed29" category="cell">1.14</block>
+  <block id="b2311a2cf7a04db2bfe860c3fa17635c" category="cell">硬體元件</block>
+  <block id="7b42b4827c459034b51ee8ce9f497ca3" category="cell">交換器（資料網路）</block>
+  <block id="d5cbf018e46e897c3774dc4576d35dbe" category="cell">交換器（管理網路）</block>
+  <block id="4c6ba3c2ecfdab7b2b5151a4715c51c0" category="cell">儲存系統AFF</block>
+  <block id="eba1f3287bdc33dfa25c084b5e15a4c5" category="cell">9.12.1%</block>
+  <block id="8dfda84fc7f59655e20a770603bf9231" category="cell">23.01</block>
+  <block id="a6eee2bc9df13513ff08680b88b5140c" category="paragraph">在NetApp執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎打造、讓我們能夠使用各種NetApp ONTAP 解決方案的後端儲存設備來測試多個案例。</block>
+  <block id="ba18949144254244b0c22a4dda957809" category="paragraph"><block ref="ba18949144254244b0c22a4dda957809" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3001330ca359a25f2bb0fb3a80b81f98" category="inline-link"><block ref="3001330ca359a25f2bb0fb3a80b81f98" category="inline-link-rx"></block></block>
+  <block id="ce31d50048cf83e159c11cdf9571f300" category="paragraph"><block ref="ce31d50048cf83e159c11cdf9571f300" category="inline-link-rx"></block></block>
+  <block id="e961adb60321df286b916effec21c9d5" category="paragraph">NetApp擁有數個符合Astra Trident Storage Orchestrator資格的儲存平台、可為部署為容器的應用程式配置儲存設備。</block>
+  <block id="82dc86caf99045e3dfd059ffe973d587" category="list-text">NetApp Cloud Volumes Service 產品（GCP）與Azure NetApp Files 功能區可在雲端提供檔案型儲存設備。</block>
+  <block id="e0219edd422866b0cdb0aaa5f2b9352e" category="list-text">Amazon FSX for NetApp ONTAP Sfuse是AWS上的全託管服務、可為檔案型使用案例提供儲存設備。</block>
+  <block id="8490bfef5919608f9d8461a6bb270666" category="paragraph">NetApp每季都會定期遵循法規要求、以驗證我們符合Astra Trident SCSI標準的儲存協調程式、ONTAP 以及我們的不含Anthos版本的不含更新功能的儲存系統。</block>
+  <block id="594e1ec3daa27e540baa061f731f028f" category="cell">零點9.12.1. ONTAP</block>
+  <block id="7f7813d8ff1a7fae9bca0ef452fb1346" category="cell">多寫入器、Volume Expansion、Snapshot、PVCDataSource</block>
+  <block id="8c56d327dfefc3dfd3c4c4fbe25a8bd1" category="cell">原始區塊、Volume擴充、快照、PVCDataSource</block>
+  <block id="9fe6d7d50b2c6958117a19834e038c82" category="cell">1.13.</block>
+  <block id="775d4bb28d257a6aa23992563a82c458" category="cell">22.10.</block>
+  <block id="74eb178224c5fa701fbcd96998feaafe" category="cell">部分9.9.1 ONTAP</block>
+  <block id="e0076fd5294e757abc41b2328ed8c57d" category="cell">元件12.3.</block>
+  <block id="7f35d44665a62879611c82424828f0fd" category="inline-link-macro">下一步：Anthos的進階組態選項。</block>
+  <block id="bff5cad56bec414a2d44f250d8a8ad3d" category="paragraph"><block ref="bff5cad56bec414a2d44f250d8a8ad3d" category="inline-link-macro-rx"></block></block>
+  <block id="001a38f118eab6df015a51079735d9c9" category="paragraph">如需更多關於Anthos的資訊、請參閱Anthos網站<block ref="984918f1ee4e70aa6181e0564d0768e7" category="inline-link-rx"></block>。</block>
+  <block id="dbadbc59fa29afd33e371d5285fde4cf" category="paragraph">NetApp的Banu Sundhar和Suresh Thoppan</block>
+  <block id="94806f6a6daed15d3a6ea4f0146cf8ee" category="paragraph">NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp產品組合、Cloud Volumes ONTAP 包括NetApp的功能、功能、Cloud Volumes Service 功能、Azure NetApp Files 功能、以及適用於NetApp ONTAP 的FSxN儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。</block>
+  <block id="57f64c5c85667657a2c67b472c545e5a" category="paragraph">請參閱<block ref="0c665fc00d0d39d9ca9d157ca926b271" category="inline-link-rx"></block> 以取得已驗證版本的支援對照表。</block>
+  <block id="8986a7e5e5d0b79b5251a648f9f67ef6" category="paragraph">Astra Trident是完全受支援的開放原始碼儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP ）、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。</block>
+  <block id="5be08e29583206baf8c89778e711c743" category="paragraph"><block ref="5be08e29583206baf8c89778e711c743" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e79464fd5ecc0abac7a7f768780ea0f4" category="paragraph">您可以找到最新版Astra Trident的文件<block ref="845024b96ab150d9f628b33995c60669" category="inline-link-rx"></block>。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品<block ref="34562000b9988739736848a0014e5230" category="inline-link-rx"></block>。</block>
+  <block id="dee50dd9c6fd0b4d11789e8a074455c0" category="paragraph">如需Astra Trident安裝詳細資料、請參閱<block ref="df28848dc0c60e349970187bfd75a0df" category="inline-link-rx"></block>。</block>
+  <block id="6cfca408e9e3b476e6440302dbe3a550" category="section-title">建立儲存系統後端</block>
+  <block id="6d82ca16bfbce249e1f9ea541bff13ff" category="inline-link-macro">建立後端。</block>
+  <block id="1e449644660ede384d0f8370105c8852" category="paragraph">完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。<block ref="0510ad325b52db9e306380d77ace3c72" category="inline-link-macro-rx"></block></block>
+  <block id="14f4c7abe09c4481722f1fa6563f2604" category="section-title">建立儲存類別</block>
+  <block id="69dd4ff02a34defa6f31ed5f8bb209f6" category="paragraph">建立後端後端之後、您必須建立Kubernetes使用者要指定何時需要磁碟區的儲存類別。Kubernetes使用者透過持續磁碟區宣告（PVCS）來配置磁碟區、這些永久磁碟區宣告會依名稱來指定儲存類別。請按下列連結建立儲存類別。<block ref="034759ff187a64d8fb38f587d14777c0" category="inline-link-macro-rx"></block></block>
+  <block id="50cbd0d28725f746b370915ee052232c" category="section-title">動態資源配置磁碟區</block>
+  <block id="72407fd74e9ce26b706ed85bc90bd124" category="inline-link-macro">建立一個PVC</block>
+  <block id="35a0b000c0ba5920cef3268fee2323b4" category="paragraph">您必須使用儲存類別建立Kubernetes持續磁碟區宣告（PVc）物件、以動態資源配置磁碟區。請依照下列連結建立一個PVc物件。<block ref="0af94896212bb2843496226f6871904c" category="inline-link-macro-rx"></block></block>
+  <block id="279865aaa331ec925a99c3272eb45478" category="section-title">使用Volume</block>
+  <block id="fed9c63a200801110024280f08877e16" category="inline-link-macro">將磁碟區掛載到Pod中</block>
+  <block id="d822bbb4d6960be49b781e594679db64" category="paragraph">上述步驟中所配置的磁碟區可由應用程式在pod中掛載磁碟區來使用。以下連結顯示一個範例。<block ref="48fadb04c46cf19aa1b5e274dd9b5da9" category="inline-link-macro-rx"></block></block>
+  <block id="7a11d367cfedc152ce1db261fb8f21fd" category="inline-link-macro">下一步：Anthos的進階組態選項。</block>
+  <block id="fca5cd0af87c3fa0c3d74ee21a3d346f" category="paragraph"><block ref="fca5cd0af87c3fa0c3d74ee21a3d346f" category="inline-link-macro-rx"></block></block>
 </blocks>
