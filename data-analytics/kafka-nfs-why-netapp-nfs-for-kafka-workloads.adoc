@@ -1,0 +1,311 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-nfs-why-netapp-nfs-for-kafka-workloads.html 
+keywords: cpu utilization, broker recovery, architecture, testing methodology, observation, das, nfs 
+summary: 既然有解決方法可解決使用Kafka進行NFS儲存時的不實重命名問題、您就能建立健全的部署、讓NetApp ONTAP 的支援資源能夠滿足您的Kafka工作負載。這不僅能大幅降低營運成本、還能為您的Kafka叢集帶來下列效益。 
+---
+= 為何選擇適用於Kafka工作負載的NetApp NFS？
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-nfs-functional-validation-silly-rename-fix.html["上一篇：功能驗證：錯誤的重新命名修正。"]
+
+[role="lead"]
+既然有解決方法可解決使用Kafka進行NFS儲存時的不實重命名問題、您就能建立健全的部署、讓NetApp ONTAP 的支援資源能夠滿足您的Kafka工作負載。這不僅能大幅降低營運成本、還能為您的Kafka叢集帶來下列效益：
+
+* *降低Kafka代理商的CPU使用率。*使用分離式NetApp ONTAP 解決方案、將磁碟I/O作業與代理商分開、進而減少其CPU佔用空間。
+* *更快的代理程式還原時間。*由於在ONTAP Kafka代理節點之間共享分離式NetApp支援、因此新的運算執行個體可在短時間內取代不良的代理程式、而無需重建資料。
+* *儲存效率。*由於應用程式的儲存層現在是透過NetApp ONTAP 資源中心進行配置、因此客戶可以利用ONTAP 隨附於此功能的所有儲存效率優勢、例如即時資料壓縮、重複資料刪除和資料壓縮。
+
+
+這些效益已在測試案例中經過測試和驗證、我們將在本節中詳細討論。
+
+
+
+== 降低Kafka代理程式的CPU使用率
+
+我們發現、當我們在兩個sperate Kafka叢集上執行類似工作負載時、整體CPU使用率比DAS低、這些叢集在技術規格上完全相同、但儲存技術卻不同。不僅是卡夫卡叢集使用ONTAP 率較低的整體CPU使用率、而且CPU使用率的增加、顯示出比DAS型卡夫卡叢集更為溫和的漸層。
+
+
+
+=== 架構設定
+
+下表顯示用於示範降低CPU使用率的環境組態。
+
+|===
+| 平台元件 | 環境組態 
+
+
+| Kafka 3.2.3基準測試工具：OpenMessaging  a| 
+* 3個zookeepers–T2.small
+* 3個代理伺服器–i3en.2xLarge
+* 1 x Grafana–c5n.2xLarge
+* 4個製造商/消費者- c5n.2xLarge
+
+
+
+
+| 所有節點上的作業系統 | RHEL 8.7或更新版本 
+
+
+| NetApp Cloud Volumes ONTAP 執行個體 | 單節點執行個體–M5.2xLarg 
+|===
+
+
+=== 基準測試工具
+
+本測試案例中使用的基準測試工具為 https://openmessaging.cloud/["OpenMessaging"^] 架構。OpenMessaging不受廠商限制、不受語言限制；它提供金融、電子商務、物聯網和巨量資料等產業準則、有助於跨異質系統和平台開發訊息和串流應用程式。下圖說明OpenMessaging用戶端與Kafka叢集之間的互動。
+
+image:kafka-nfs-image8.png["此影像說明OpenMessaging用戶端與Kafka叢集之間的互動。"]
+
+* *運算*我們使用三節點的Kafka叢集、其中三節點的zookeeper集合體執行於專屬的伺服器上。每個代理商都有兩個NFSv4.1掛載點、透過專屬的LIF連接至NetApp CVO執行個體上的單一Volume。
+* *監控*我們使用兩個節點來搭配Prometheus-Grafana。為了產生工作負載、我們有一個獨立的三節點叢集、可產生和使用此Kafka叢集。
+* * Storage。*我們使用單節點NetApp Cloud Volumes ONTAP 支援執行個體、並在執行個體上安裝六個250GB GP2 AWS-EBS磁碟區。然後、這些磁碟區會透過專用的LIF、以六個NFSv4.1磁碟區的形式呈現給Kafka叢集。
+* *組態。*此測試案例中的兩個可設定元素為Kafka Brokers和OpenMessaging工作負載。
++
+** * Broker config.*為Kafka經紀人選擇了下列規格。我們在所有測量項目中都使用3個複寫係數、如下所示。
+
+
+
+
+image:kafka-nfs-image9.png["此影像描述卡夫卡代理商所選擇的規格。"]
+
+* * OpenMessaging基準測試（OMB）工作負載組態。*提供下列規格。我們指定目標生產商比率、重點如下。
+
+
+image:kafka-nfs-image10.png["此影像描述OpenMessaging基準測試工作負載組態所選的規格。"]
+
+
+
+=== 測試方法
+
+. 建立了兩個類似的叢集、每個叢集都有自己的基準測試叢集。
++
+** *叢集1.* NFS型Kafka叢集。
+** *叢集2.* DAS型Kafka叢集。
+
+
+. 使用OpenMessaging命令、會在每個叢集上觸發類似的工作負載。
++
+....
+sudo bin/benchmark --drivers driver-kafka/kafka-group-all.yaml workloads/1-topic-100-partitions-1kb.yaml
+....
+. 產生率組態在四次迭代中增加、而CPU使用率則記錄在Grafana。產品出價設定為下列層級：
++
+** 10、000
+** 40、000
+** 80、000
+** 10、000
+
+
+
+
+
+
+=== 觀察
+
+搭配Kafka使用NetApp NFS儲存設備有兩大主要效益：
+
+* *您可以減少將近三分之一的CPU使用率。*相較於DAS SSD、NFS在類似工作負載下的整體CPU使用率較低；較低的產品使用率可節省5%、較高的產品使用率則可節省32%。
+* *以較高的產生率、CPU使用率會減少三倍*。*如預期、隨著生產率增加、CPU使用率會增加、因此CPU使用率會增加。不過、使用DAS的Kafka代理商的CPU使用率從較低的產品使用率的31 %增加到較高的產品使用率的70 %、增加39%。不過、有了NFS儲存後端、CPU使用率從26%增加到38%、增加12%。
+
+
+image:kafka-nfs-image11.png["此圖表描述DAS型叢集的行為。"]
+
+image:kafka-nfs-image12.png["此圖表說明NFS型叢集的行為。"]
+
+此外、在100、000則訊息中、DAS顯示的CPU使用率比NFS叢集高。
+
+image:kafka-nfs-image13.png["此圖顯示以DAS為基礎的叢集在100、000個訊息中的行為。"]
+
+image:kafka-nfs-image14.png["此圖表描述NFS型叢集在100、000個訊息時的行為。"]
+
+
+
+== 更快速的代理程式還原
+
+我們發現、Kafka代理商使用共享NetApp NFS儲存設備時、恢復速度更快。當Kafka叢集中的代理程式當機時、此代理程式可由具有相同代理程式ID的健全代理程式取代。在執行此測試案例時、我們發現在以DAS為基礎的Kafka叢集上、叢集會在新增的健全代理程式上重新建置資料、這相當耗時。在NetApp NFS型Kafka叢集的情況下、更換的代理程式會繼續從先前的記錄目錄讀取資料、並以更快的速度恢復。
+
+
+
+=== 架構設定
+
+下表顯示使用NAS的Kafka叢集環境組態。
+
+|===
+| 平台元件 | 環境組態 
+
+
+| Kafka 3.2.3  a| 
+* 3個zookeepers–T2.small
+* 3個代理伺服器–i3en.2xLarge
+* 1 x Grafana–c5n.2xLarge
+* 4個製造商/消費者- c5n.2xLarge
+* 1個備份Kafka節點–i3en.2xLarge
+
+
+
+
+| 所有節點上的作業系統 | RHEL8.7或更新版本 
+
+
+| NetApp Cloud Volumes ONTAP 執行個體 | 單節點執行個體–M5.2xLarge 
+|===
+下圖說明NAS型Kafka叢集的架構。
+
+image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
+
+* *運算。*三節點Kafka叢集、在專用伺服器上執行三節點zookeeper集合體。每個代理程式都有兩個NFS掛載點、可透過專屬LIF連接至NetApp CVO執行個體上的單一磁碟區。
+* *監控* Prometheus-Grafana組合的兩個節點。為了產生工作負載、我們使用獨立的三節點叢集、可產生並使用此Kafka叢集。
+* * Storage。*單節點NetApp Cloud Volumes ONTAP 效能實例、執行個體上安裝六個250GB GP2 AWS-EBS磁碟區。然後、這些磁碟區會透過專屬的LIF、以六個NFS磁碟區的形式呈現給Kafka叢集。
+* * Broker組態。*此測試案例中的其中一個可設定元素是Kafka Broker。卡夫卡經紀公司選擇了下列規格。。 `replica.lag.time.mx.ms` 設定為高值、因為這會決定從ISR清單中取出特定節點的速度。當您在不良和健全的節點之間切換時，您不希望將該代理ID排除在ISR清單之外。
+
+
+image:kafka-nfs-image15.png["此影像顯示卡夫卡代理商所選擇的規格。"]
+
+
+
+=== 測試方法
+
+. 建立了兩個類似的叢集：
++
+** 以EC2為基礎的匯合叢集。
+** NetApp NFS型的匯合叢集。
+
+
+. 建立一個待命的Kafka節點時、其組態與原始Kafka叢集的節點相同。
+. 在每個叢集上、都建立了範例主題、並在每個代理程式上填入約110 GB的資料。
++
+** *基於EC2的叢集。*會對應一個Kafka Broker資料目錄 `/mnt/data-2` （下圖為叢集1的Broler-1 [left終端機]）。
+** * NetApp NFS型叢集。*在NFS點上掛載Kafka Broker資料目錄 `/mnt/data` （下圖為叢集2的Broler-1 [右對講機]）。
++
+image:kafka-nfs-image16.png["此影像顯示兩個終端機畫面。"]
+
+
+
+. 在每個叢集中、Brocher-1都會終止、以觸發失敗的Broker恢復程序。
+. 代理終止後、會將代理IP位址指派為次要IP給待命代理程式。這是必要的、因為Kafka叢集中的代理程式是由下列項目識別：
++
+** * IP位址。*指派方式是將故障的代理IP重新指派給待命代理程式。
+** * Broker ID。*這是在待命代理程式中設定的 `server.properties`。
+
+
+. 指派IP後、便會在待命代理程式上啟動Kafka服務。
+. 一段時間之後、伺服器記錄會被拉出、以檢查在叢集中的替換節點上建置資料所需的時間。
+
+
+
+
+=== 觀察
+
+Kafka代理商的恢復速度快了將近九倍。相較於使用Kafka叢集中的DAS SSD、使用NetApp NFS共享儲存設備時、恢復故障代理節點所花的時間大幅加快。對於1TB的主題資料、DAS型叢集的恢復時間為48分鐘、而NetApp NFS型Kafka叢集的恢復時間則不到5分鐘。
+
+我們觀察到、以EC2為基礎的叢集花了10分鐘在新的代理節點上重建110GB的資料、而以NFS為基礎的叢集則在3分鐘內完成恢復。我們也在「In（記錄）」中發現、EC2的分割區使用者偏移值為0、而在NFS叢集上、使用者偏移值則是從先前的代理程式中取得。
+
+....
+[2022-10-31 09:39:17,747] INFO [LogLoader partition=test-topic-51R3EWs-0000-55, dir=/mnt/kafka-data/broker2] Reloading from producer snapshot and rebuilding producer state from offset 583999 (kafka.log.UnifiedLog$)
+[2022-10-31 08:55:55,170] INFO [LogLoader partition=test-topic-qbVsEZg-0000-8, dir=/mnt/data-1] Loading producer state till offset 0 with message format version 2 (kafka.log.UnifiedLog$)
+....
+
+
+==== DAS型叢集
+
+. 備份節點於08：55：53、730開始。
++
+image:kafka-nfs-image17.png["此影像顯示DAS型叢集的記錄輸出。"]
+
+. 資料重建程序於09：05：24、860結束。處理110 GB的資料大約需要10分鐘。
++
+image:kafka-nfs-image18.png["此影像顯示DAS型叢集的記錄輸出。"]
+
+
+
+
+
+==== NFS型叢集
+
+. 備份節點於09：39：17、213開始。下方會強調顯示開始記錄項目。
++
+image:kafka-nfs-image19.png["此影像顯示NFS型叢集的記錄輸出。"]
+
+. 資料重建程序於09：42：29、115結束。處理110 GB的資料大約需要3分鐘。
++
+image:kafka-nfs-image20.png["此影像顯示NFS型叢集的記錄輸出。"]
+
++
+針對包含約1TB資料的代理商重複測試、DAS約需48分鐘、NFS約需3分鐘。結果如下圖所示。
+
++
+image:kafka-nfs-image21.png["此圖表顯示代理程式還原所需的時間、視代理程式載入DAS型叢集或NFS型叢集的資料量而定。"]
+
+
+
+
+
+== 儲存效率
+
+由於Kafka叢集的儲存層是透過NetApp ONTAP 供應、因此我們獲得ONTAP 了所有的NetApp儲存效率功能。測試結果是在安裝Cloud Volumes ONTAP 了NFS儲存設備的Kafka叢集上產生大量資料。我們可以看到ONTAP 、由於採用了一些功能、空間大幅縮減。
+
+
+
+=== 架構設定
+
+下表顯示使用NAS的Kafka叢集環境組態。
+
+|===
+| 平台元件 | 環境組態 
+
+
+| Kafka 3.2.3  a| 
+* 3個zookeepers–T2.small
+* 3個代理伺服器–i3en.2xLarge
+* 1 x Grafana–c5n.2xLarge
+* 4個製造商/消費者- c5n.2xLarge *
+
+
+
+
+| 所有節點上的作業系統 | RHEL8.7或更新版本 
+
+
+| NetApp Cloud Volumes ONTAP 執行個體 | 單節點執行個體–M5.2xLarge 
+|===
+下圖說明NAS型Kafka叢集的架構。
+
+image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
+
+* *運算*我們使用三節點的Kafka叢集、其中三節點的zookeeper集合體執行於專屬的伺服器上。每個代理商都有兩個NFS掛載點、可透過專屬LIF連接至NetApp CVO執行個體上的單一磁碟區。
+* *監控*我們使用兩個節點來搭配Prometheus-Grafana。為了產生工作負載、我們使用了一個獨立的三節點叢集、可以產生和使用這個Kafka叢集。
+* * Storage。*我們使用單節點NetApp Cloud Volumes ONTAP 支援執行個體、並在執行個體上安裝六個250GB GP2 AWS-EBS磁碟區。然後、這些磁碟區會透過專用的LIF、以六個NFS磁碟區的形式呈現給Kafka叢集。
+* *組態。*此測試案例中的可設定元素是Kafka仲介。
+
+
+在生產商端點關閉壓縮功能、讓生產商產生高處理量。儲存效率則由運算層來處理。
+
+
+
+=== 測試方法
+
+. 卡夫卡叢集已配置上述規格。
+. 在叢集上、使用OpenMessaging基準測試工具產生約350 GB的資料。
+. 工作負載完成後、會使用ONTAP NetApp System Manager和CLI收集儲存效率統計資料。
+
+
+
+
+=== 觀察
+
+對於使用OMB工具產生的資料、我們發現空間節約約33%、儲存效率比為1.70:1。如下圖所示、所產生資料所使用的邏輯空間為420.3GB、用於保存資料的實體空間為281.7GB。
+
+image:kafka-nfs-image22.png["此映像描述VMDisk的空間節約效益。"]
+
+image:kafka-nfs-image23.png["快照"]
+
+image:kafka-nfs-image24.png["快照"]
+
+link:kafka-nfs-performance-overview-and-validation-in-aws.html["下一步：AWS的效能總覽與驗證。"]

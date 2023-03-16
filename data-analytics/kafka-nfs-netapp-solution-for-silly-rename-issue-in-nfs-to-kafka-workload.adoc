@@ -1,0 +1,31 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-nfs-netapp-solution-for-silly-rename-issue-in-nfs-to-kafka-workload.html 
+keywords: solution, posix, xfs, ext4, rebalancing 
+summary: 本節說明NFS伺服器和NFS用戶端解決此問題所需的一些不合理重新命名問題、以及變更。 
+---
+= NetApp解決方案可解決NFS對Kafka工作負載的不合理重新命名問題
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-nfs-introduction.html["上一篇：簡介。"]
+
+[role="lead"]
+Kafka的建置假設基礎檔案系統符合POSIX標準：例如XFS或ext4。在應用程式仍在使用檔案時、Kafka資源重新平衡功能會移除檔案。符合POSIX標準的檔案系統可讓您繼續解除連結。不過、只有在所有檔案參考資料都消失之後、它才會移除檔案。如果基礎檔案系統是網路附加的、NFS用戶端會攔截取消連結的呼叫、並管理工作流程。由於在要取消連結的檔案上有擱置的開啟、NFS用戶端會將重新命名要求傳送至NFS伺服器、並在上次關閉未連結檔案時、對重新命名的檔案執行移除作業。這種行為通常稱為NFS ruted rame、由NFS用戶端協調。
+
+任何使用NFSv3伺服器儲存設備的Kafka代理商、都會因為這種行為而發生問題。不過、NFSv4.x傳輸協定具備多項功能、可讓伺服器負責開啟且未連結的檔案、藉此解決此問題。支援此選用功能的NFS伺服器、會在檔案開啟時將擁有權功能傳達給NFS用戶端。NFS用戶端會在開啟擱置中時停止取消連結管理、並允許伺服器管理流程。雖然NFSv4規格提供實作準則、但直到現在為止、並沒有任何已知的NFS伺服器實作支援此選用功能。
+
+NFS伺服器和NFS用戶端需要進行下列變更、才能解決這個「愚蠢」的重新命名問題：
+
+* * NFS用戶端（Linux）的變更。*檔案開啟時、NFS伺服器會以旗標回應、表示能夠處理已開啟檔案的解除連結。NFS用戶端變更可讓NFS伺服器在旗標出現時處理取消連結。NetApp已針對這些變更更新開放原始碼Linux NFS用戶端。更新後的NFS用戶端現在一般可在RHEL8.7和RHEL9.1中使用。
+* * NFS伺服器的變更。* NFS伺服器會持續追蹤開啟狀況。現在、伺服器會管理現有開放式檔案上的取消連結、以符合POSIX語義。關閉最後一個開啟的檔案時、NFS伺服器會啟動檔案的實際移除、進而避免執行不必要的重新命名程序。此功能已在最新版的《S59.12》中實作ONTAP ONTAP 。
+
+
+上述NFS用戶端和伺服器的變更、讓Kafka能夠安全地享有網路附加NFS儲存設備的所有優點。
+
+link:kafka-nfs-functional-validation-silly-rename-fix.html["下一步：功能驗證-錯誤的重新命名修正。"]

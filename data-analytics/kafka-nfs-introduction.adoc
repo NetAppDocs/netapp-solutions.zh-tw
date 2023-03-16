@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-nfs-introduction.html 
+keywords: tr4947, 4947, introduction, kafka, nfs 
+summary: 本文件說明下列主題：「虛擬重命名問題」和「解決方案驗證」、降低CPU使用率以縮短I/O等待時間、加快Kafka代理商的恢復時間、以及雲端和內部部署的效能。 
+---
+= TR-4947：Apache Kafka工作負載搭配NetApp NFS儲存設備-功能驗證與效能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+Shantanu Chakole, Karthikeyan Nagalingam,以及NetApp公司Joe Scott
+
+[role="lead"]
+Kafka是一種分散式發佈訂閱訊息系統、具有強大的佇列、可接受大量的訊息資料。有了Kafka、應用程式就能以非常快速的方式將資料寫入和讀取至主題。由於其容錯能力與擴充性、因此Kafka經常被用在大資料空間、作為快速擷取和移動許多資料串流的可靠方法。使用案例包括串流處理、網站活動追蹤、指標收集與監控、記錄彙總、即時分析等。
+
+雖然正常的Kafka NFS作業運作良好 https://sbg.technology/2018/07/10/kafka-nfs/["不太好重命名"^] 在NFS上執行的Kafka叢集調整大小或重新分割時、問題會使應用程式當機。這是一個重大問題、因為Kafka叢集必須調整大小或重新分割、才能進行負載平衡或維護。您可以找到其他詳細資料 https://www.netapp.com/blog/ontap-ready-for-streaming-applications/["請按這裡"^]。
+
+本文件說明下列主題：
+
+* 這是個不太好重命名的問題、也是解決方案驗證的關鍵
+* 降低CPU使用率以縮短I/O等待時間
+* 更快的Kafka代理程式恢復時間
+* 雲端和內部部署的效能
+
+
+
+
+== 為什麼要將NFS儲存設備用於Kafka工作負載？
+
+正式作業應用程式中的Kafka工作負載可在應用程式之間串流大量資料。此資料會保留並儲存在Kafka叢集中的Kafka Broker節點中。Kafka也以可用度和平行度而聞名、將主題分成分割區、然後在整個叢集內複寫這些分割區、即可達成此目標。這最終意味著流經Kafka叢集的大量資料通常會增加大小。NFS可在代理程式數量改變時、快速又輕鬆地重新平衡資料。在大型環境中、當代理商數量的變動非常耗時時、會在DAS之間重新平衡資料、而在大多數的Kafka環境中、代理商數量也會經常變動。
+
+其他效益包括：
+
+* *成熟度* NFS是一種成熟的傳輸協定、這表示實作、保護及使用它的大部分層面都已獲得充分的瞭解。
+* *開放式* NFS是一種開放式傳輸協定、其持續開發作業記錄於網際網路規格中、以免費開放式網路傳輸協定的形式提供。
+* *具成本效益的.* NFS是一款低成本的網路檔案共用解決方案、因為它使用現有的網路基礎架構、所以很容易設定。
+* *集中管理。* NFS的集中管理可減少個別使用者系統上新增軟體和磁碟空間的需求。
+* *分散式* NFS可作為分散式檔案系統、減少對卸除式媒體儲存設備的需求。
+
+
+
+
+== 為何選擇NetApp來處理Kafka工作負載？
+
+NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業NAS環境。除了NetApp的可信度之外、它還提供下列優點：
+
+* 可靠性與效率
+* 擴充性與效能
+* 高可用度（HA合作夥伴在NetApp ONTAP 供應叢集中）
+* 資料保護
++
+** *災難恢復（NetApp SnapMirror）。*您的站台當機、或您想要從不同的站台開始、然後從您離開的地方繼續進行。
+** 儲存系統的管理能力（使用NetApp OnCommand 功能進行管理）。
+** *負載平衡。*叢集可讓您從位於不同節點上的資料LIF存取不同的磁碟區。
+** *不中斷營運。* lifs或Volume移動對NFS用戶端而言是透明的。
+
+
+
+
+link:kafka-nfs-netapp-solution-for-silly-rename-issue-in-nfs-to-kafka-workload.html["下一步：NetApp解決方案可解決NFS對Kafka工作負載的不合理重新命名問題。"]

@@ -1,0 +1,193 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/kafka-nfs-performance-overview-and-validation-with-aff-on-premises.html 
+keywords: storage configuration, client tuning, kafka broker tuning, workload ganerator, steady state, performance, extreme performance 
+summary: 內部部署時、我們使用NetApp AFF 的VMware RC20a儲存控制器ONTAP 搭配VMware版的VMware版9.12.1RC1來驗證Kafka叢集的效能與擴充性。我們使用的測試平台與ONTAP 先前採用的階層式儲存最佳實務做法相同、只要搭配使用即可AFF 。 
+---
+= 透過AFF 內部部署的VMware解決方案實現效能總覽與驗證
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:kafka-nfs-performance-overview-and-validation-in-aws.html["上一篇：AWS的效能總覽與驗證。"]
+
+[role="lead"]
+內部部署時、我們使用NetApp AFF VMware不支援ONTAP VMware的儲存控制器搭配VMware不支援套件（更新版本）來驗證Kafka叢集的效能與擴充性。我們使用的測試平台與ONTAP 先前採用的階層式儲存最佳實務做法相同、只要搭配使用即可AFF 。
+
+我們使用Conflent Kafka 6.2.0來評估AFF 《The》。叢集具備八個代理節點和三個zookeeper節點。為了進行效能測試、我們使用了五個OMB工作節點。
+
+image:kafka-nfs-image32.png["錯誤：缺少圖形影像"]
+
+
+
+== 儲存組態
+
+我們使用NetApp FlexGroups執行個體為記錄目錄提供單一命名空間、簡化還原與組態。我們使用NFSv4.1和pNFS提供直接路徑存取記錄區段資料。
+
+
+
+== 用戶端調校
+
+每個用戶端都使用FlexGroup 下列命令來掛載這個執行個體。
+
+....
+mount -t nfs -o vers=4.1,nconnect=16 172.30.0.121:/kafka_vol01 /data/kafka_vol01
+....
+此外、我們也增加了 `max_session_slots`` 預設值 `64` 至 `180`。這與ONTAP 不符合的預設工作階段插槽限制。
+
+
+
+== Kafka代理商調校
+
+為了將測試中系統的處理量最大化、我們大幅增加了特定關鍵執行緒集區的預設參數。我們建議針對大多數組態、遵循Conflent Kafka最佳實務做法。此調校可將出色的I/O與儲存設備的並行性最大化。這些參數可調整以符合代理商的運算資源和儲存屬性。
+
+....
+num.io.threads=96
+num.network.threads=96
+background.threads=20
+num.replica.alter.log.dirs.threads=40
+num.replica.fetchers=20
+queued.max.requests=2000
+....
+
+
+== 工作負載產生器測試方法
+
+我們使用與雲端測試相同的OMB組態來測試處理量驅動程式和主題組態。
+
+. 使用可在一個叢集上配置的可執行個體AFF FlexGroup 。
++
+....
+---
+- name: Set up kafka broker processes
+  hosts: localhost
+  vars:
+    ntap_hostname: ‘hostname’
+    ntap_username: 'user'
+    ntap_password: 'password'
+    size: 10
+    size_unit: tb
+    vserver: vs1
+    state: present
+    https: true
+    export_policy: default
+    volumes:
+      - name: kafka_fg_vol01
+        aggr: ["aggr1_a", "aggr2_a", “aggr1_b”, “aggr2_b”]
+        path: /kafka_fg_vol01
+  tasks:
+    - name: Edit volumes
+      netapp.ontap.na_ontap_volume:
+        state: "{{ state }}"
+        name: "{{ item.name }}"
+        aggr_list: "{{ item.aggr }}"
+        aggr_list_multiplier: 8
+        size: "{{ size }}"
+        size_unit: "{{ size_unit }}"
+        vserver: "{{ vserver }}"
+        snapshot_policy: none
+        export_policy: default
+        junction_path: "{{ item.path }}"
+        qos_policy_group: none
+        wait_for_completion: True
+        hostname: "{{ ntap_hostname }}"
+        username: "{{ ntap_username }}"
+        password: "{{ ntap_password }}"
+        https: "{{ https }}"
+        validate_certs: false
+      connection: local
+      with_items: "{{ volumes }}"
+....
+. 已在ONTAP SVM上啟用pNFS。
++
+....
+vserver modify -vserver vs1 -v4.1-pnfs enabled -tcp-max-xfer-size 262144
+....
+. 此工作負載是透過處理量驅動程式觸發、其工作負載組態與Cloud Volumes ONTAP 執行動作時相同。請參閱「」一節<<穩定狀態效能>>」。工作負載使用3個複寫係數、表示NFS中保留了三個記錄區段複本。
++
+....
+sudo bin/benchmark --drivers driver-kafka/kafka-throughput.yaml workloads/1-topic-100-partitions-1kb.yaml
+....
+. 最後、我們使用待處理項目來完成測量、以衡量消費者是否有能力掌握最新訊息。OMB會在測量開始時暫停使用者、藉此建構待處理項目。這會產生三個不同的階段：建立待處理項目（僅限生產商流量）、減少待處理項目（使用者負擔沉重的階段、消費者會在某個主題中趕上錯過的事件）、以及穩定狀態。請參閱「」一節<<Extreme performance,探索儲存限制>>」以取得更多資訊。
+
+
+
+
+=== 穩定狀態效能
+
+我們使用AFF OpenMessaging基準測試評估了《支援不支援的資料」、以提供類似Cloud Volumes ONTAP 於AWS中的《支援的資料、支援的資料、以及AWS中的DAS。所有效能值均代表生產商與消費者層級的Kafka叢集處理量。
+
+Conflent Kafka與AFF 《The》（《The》）的穩定狀態效能、使生產商與消費者的平均處理量均超過3.4GBps。這是卡夫卡叢集內超過340萬封訊息。透過將BrokerTopicMetrics的持續處理量以每秒位元組為單位視覺化、我們可以看到AFF 由VMware支援的卓越穩定狀態效能和流量。
+
+image:kafka-nfs-image33.png["此圖表顯示代理網路處理量。"]
+
+這與每個主題所傳送訊息的檢視非常一致。下圖提供每個主題的詳細資料。在測試的組態中、我們在四個主題中、每個主題都看到將近900k個訊息。
+
+image:kafka-nfs-image34.png["此圖表顯示代理網路處理量。"]
+
+
+
+== 極致效能、探索儲存限制
+
+針對這個解決方案、我們也使用待處理項目功能測試OMB AFF 。待處理項目功能會暫停訂閱消費者、而卡夫卡叢集中會建立大量的事件。在此階段中、只會發生產生者流量、產生提交至記錄的事件。這最能模擬批次處理或離線分析工作流程；在這些工作流程中、會啟動使用者訂閱、而且必須讀取已從代理快取中移出的歷史資料。
+
+為了瞭解此組態中對使用者處理量的儲存限制、我們測量了純產生者階段、以瞭解A900可能會吸收多少寫入流量。請參閱下一節「<<規模調整指南>>」以瞭解如何運用這些資料。
+
+在這項測量的純生產商部分期間、我們看到高尖峰處理量、使A900效能的極限推升（當其他代理商資源不飽和、無法為生產商和消費者流量提供服務時）。
+
+image:kafka-nfs-image35.png["錯誤：缺少圖形影像"]
+
+
+NOTE: 我們將此測量的訊息大小增加至16k、以限制每個訊息的開銷、並將NFS掛載點的儲存處理量最大化。
+
+....
+messageSize: 16384
+consumerBacklogSizeGB: 4096
+....
+Conflent Kafka叢集達到4.03GBps的尖峰生產量。
+
+....
+18:12:23.833 [main] INFO WorkloadGenerator - Pub rate 257759.2 msg/s / 4027.5 MB/s | Pub err     0.0 err/s …
+....
+在OMB填入事件待處理項目之後、使用者流量便會重新啟動。在測量待處理項目耗盡時、我們觀察到所有主題的尖峰使用者處理量都超過20Gbps。儲存OMB記錄資料的NFS磁碟區總處理量接近30Gbps。
+
+
+
+== 規模調整指南
+
+Amazon Web Services提供 https://aws.amazon.com/blogs/big-data/best-practices-for-right-sizing-your-apache-kafka-clusters-to-optimize-performance-and-cost/["規模調整指南"^] 適用於Kafka叢集規模調整與擴充。
+
+此規模提供了一種實用的公式、可用來判斷Kafka叢集的儲存處理量需求：
+
+對於複寫係數為r的tcluster叢集所產生的彙總處理量、Broker儲存設備所接收的處理量如下：
+
+....
+t[storage] = t[cluster]/#brokers + t[cluster]/#brokers * (r-1)
+          = t[cluster]/#brokers * r
+....
+這點可以進一步簡化：
+
+....
+max(t[cluster]) <= max(t[storage]) * #brokers/r
+....
+使用此公式可讓您針對ONTAP Kafka的熱階層需求、選擇適當的支援平台。
+
+下表說明A900的預期生產商處理量、以及不同的複寫因素：
+
+|===
+| 複寫因素 | 生產商處理量（GPP） 
+
+
+| 3（測量） | 3.4. 
+
+
+| 2. | 5.1 
+
+
+| 1. | 10.2 
+|===
+link:kafka-nfs-conclusion.html["下一步：結論。"]
