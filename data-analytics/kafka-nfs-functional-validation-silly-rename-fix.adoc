@@ -63,6 +63,12 @@ image:kafka-nfs-image1.png["此映像顯示AWS拓撲、其中包含三個子網�
 
 == 測試方法
 
+. 更新 `-is-preserve-unlink-enabled true` 至Kafka磁碟區、如下所示：
++
+....
+aws-shantanclastrecall-aws::*> volume create -vserver kafka_svm -volume kafka_fg_vol01 -aggregate kafka_aggr -size 3500GB -state online -policy kafka_policy -security-style unix -unix-permissions 0777 -junction-path /kafka_fg_vol01 -type RW -is-preserve-unlink-enabled true
+[Job 32] Job succeeded: Successful
+....
 . 建立了兩個類似的Kafka叢集、其差異如下：
 +
 ** *叢集1.*執行正式作業功能ONTAP 的後端NFS v4.1伺服器9.12.1版是由NetApp CVO執行個體代管。已在代理商上安裝RHEL 8.7/RHEL 9.1。
