@@ -1,0 +1,236 @@
+---
+sidebar: sidebar 
+permalink: automation/fsxn_monitoring_resizing_automation.html 
+keywords: AWS, FSX, FSxN, automation, FSxN monitoring, FSxN automation, FSxN resizing, FSx for NetApp ONTAP monitoring, FSx for ONTAP monitoring 
+summary: 本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。 
+---
+= FSX- ONTAP 使用AWS Lambda功能進行資料監控和自動調整大小
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+作者：Dhruv Tyagi、Niyazz Mohamed
+
+
+
+== 總覽：透過ONTAP AWS Lambda功能監控及自動調整FSX的大小、以利執行功能
+
+FSX for ONTAP Sfor Ef2是AWS上提供的第一款企業級雲端儲存服務、以熱門的NetApp ONTAP Sing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。
+
+FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、可使用AWS Lamdba功能（根據臨界值自動調整總儲存容量、Volume大小或LUN大小）。本文件提供逐步指南、可建立自動設定、定期監控FSX以ONTAP 供使用、在超過使用者指定的臨界值時通知及調整大小、並通知管理員調整大小活動。
+
+.功能
+[%collapsible]
+====
+本解決方案提供下列功能：
+
+* 監控能力：
++
+** 使用FSX ONTAP 的整體儲存容量來實現功能性的提升
+** 每個磁碟區的使用量（精簡配置/完整配置）
+** 每個LUN的使用量（精簡配置/完整配置）
+
+
+* 當超出使用者定義的臨界值時、能夠調整上述任何項目的大小
+* 警示機制、透過電子郵件接收使用量警告及調整通知大小
+* 能夠刪除早於使用者定義臨界值的快照
+* 能夠取得與FlexClone磁碟區和快照相關的清單
+* 能夠定期執行檢查
+
+
+====
+.先決條件
+[%collapsible]
+====
+開始之前、請先確定符合下列先決條件：
+
+* 部署FSX ONTAP for Sfor Sf
+* Lambda功能需要連接NAT閘道的私有子網路、才能進行網際網路連線
+* 私有子網路也應能連線至FSXfor ONTAP Sfor Ef
+* 已針對FSx ONTAP for Sf0設定「fsxadmin」密碼
+
+
+====
+.高層架構
+[%collapsible]
+====
+* AWS Lambda功能會呼叫FSX以ONTAP 供擷取及更新儲存容量、Volume和LUN的大小。
+* 將「fsxadmin」密碼儲存為AWS SSM參數儲存區中的安全字串、以增加安全層。
+* AWS SES（簡易電子郵件服務）用於在發生調整大小事件時通知終端使用者。
+
+
+image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案所使用的高層架構。"]
+
+====
+
+
+== 解決方案部署
+
+請依照一系列步驟完成本解決方案的部署：
+
+.步驟1：複製GitHub儲存庫
+[%collapsible]
+====
+在本機系統上複製GitHub儲存庫：
+
+[listing]
+----
+git clone https://github.com/NetApp-Automation/fsxn-monitoring-auto-resizing.git
+----
+====
+.步驟2：為fsxadmin密碼建立SSM參數
+[%collapsible]
+====
+瀏覽至AWS主控台>*參數儲存區*、然後按一下*建立參數*。
+
+[listing]
+----
+Name: <Any name/path for storing fsxadmin password>
+Tier: Standard
+Type: SecureString
+KMS key source: My current account
+  KMS Key ID: <Use the default one selected>
+Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
+----
+按一下「*建立參數*」。
+
+image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
+
+====
+.步驟3：設定電子郵件服務
+[%collapsible]
+====
+瀏覽至AWS主控台>*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。
+
+[listing]
+----
+Identity type: Email address
+Email address: <Enter an email address to be used for sending resizing notifications>
+----
+按一下「*建立身分識別*」
+
+image:fsxn-monitoring-resizing-ses.png["此影像說明AWS主控台的SES身分識別建立視窗。"]
+
+====
+.步驟4：建立並設定AWS Lambda功能
+[%collapsible]
+====
+. 瀏覽至AWS主控台>* AWS Lambd達*、然後按一下* Create Function *（建立功能*）、該區域與FSX for ONTAP Sf2相同
+. 使用預設的*從頭開始作者*並更新下列欄位：
++
+[listing]
+----
+Function name: <Any name of your choice>
+Runtime: Python 3.9
+Architecture: x86_64
+Permissions: Select "Create a new role with basic Lambda permissions"
+Advanced Settings:
+  Enable VPC: Checked
+    VPC: <Choose either the same VPC as FSx for ONTAP or a VPC that can access both FSx for ONTAP and the internet via a private subnet>
+    Subnets: <Choose 2 private subnets which have NAT gateway attached pointing to public subnets with internet gateway and subnets that have internet access>
+    Security Group: <Choose a Security Group>
+----
++
+按一下「*建立功能*」。
+
++
+image:fsxn-monitoring-resizing-lambda-creation-1.png["此影像描述AWS主控台的Lambda建立視窗。"]
+
++
+image:fsxn-monitoring-resizing-lambda-creation-2.png["此影像描述AWS主控台的Lambda建立視窗。"]
+
+. 向下捲動至新建立的Lambda功能的*圖層*區段、然後按一下*新增圖層*。
++
+image:fsxn-monitoring-resizing-add-layer-button.png["此影像說明AWS Lambda功能主控台的「新增階層」按鈕。"]
+
+. 按一下「* Layer SOURGE*」下的「*建立新的圖層*」
+. 建立2個層：1個用於申請、1個用於帕拉米克、並上傳* requests.Zip *和*帕拉米克.Zip *檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。
++
+image:fsxn-monitoring-resizing-create-layer-paramiko.png["此影像說明AWS主控台的Create New Layer（建立新的層）視窗。"]
+
+. 瀏覽回AWS Lambda * Add Layer *>* Custom Layers*、然後逐一新增參數和要求層。
++
+image:fsxn-monitoring-resizing-add-layer-window.png["此影像描述AWS Lambda功能主控台的新增層視窗。"]
+
++
+image:fsxn-monitoring-resizing-layers-added.png["此影像說明AWS Lambda功能主控台上新增的圖層。"]
+
+. 瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將「逾時」變更為* 5分鐘*、然後按一下「儲存」。
+. 瀏覽至Lambda功能的*權限*索引標籤、然後按一下指派的角色。在角色的權限索引標籤中、按一下*新增權限*>*建立內嵌原則*。
++
+.. 按一下Json索引標籤、然後從GitHub repo貼上檔案policy.json的內容。
+.. 將每次出現的$｛AWS：：AccountId｝替換為您的帳戶ID、然後按一下* Review Policy*
+.. 提供原則的名稱、然後按一下「*建立原則*」
+
+
+. 將* fsxn_monitoring_fizing_lambda.py*的內容從git repo複製到AWS Lambda功能程式碼來源區段的* lambda_fite.py*。
+. 建立與lambda_function.py相同層級的新檔案、並將其命名為* vars.py*、然後將vars.py的內容從git repo複製到lambda函數vars.py檔案。更新vars.py中的變數值。請參考下方的變數定義、然後按一下「*部署*」：
++
+|===
+
+
+| *名稱* | *類型* | *說明* 
+
+
+| * fsxMgmtIp* | 字串 | （必填）從ONTAP AWS上的FSX for Ef0主控台輸入「管理端點- IP位址」。 
+
+
+| * fsxId* | 字串 | （必填）從AWS上的FSX for ONTAP EWSF主控台輸入「檔案系統ID」。 
+
+
+| *使用者名稱* | 字串 | （必填）從ONTAP AWS上的FSX for EWSF輸入FSX for Sfor the ONTAP Sfor the ONTAP Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the 
+
+
+| *重新調整大小臨界值* | 整數 | （必填）輸入0-100之間的臨界值百分比。此臨界值將用於測量儲存容量、磁碟區和LUN使用量、當超過此臨界值的任何增加使用量百分比時、將會發生調整大小活動。 
+
+
+| *寄件者電子郵件* | 字串 | （必填）輸入在SES上登錄的電子郵件ID、以便Lambda功能用來傳送與監控和調整大小相關的通知警示。 
+
+
+| *收件人電子郵件* | 字串 | （必填）輸入您要接收警示通知的電子郵件ID。 
+
+
+| * FSx_password_Sm_參 數字* | 字串 | （必填）輸入AWS參數儲存區中用於儲存「fsxadmin」密碼的路徑名稱。 
+
+
+| *警告通知* | 布爾 | （必填）將此變元設為「真」、以便在儲存容量/磁碟區/ LUN使用量超過75%但低於臨界值時收到通知。 
+
+
+| *啟用快照刪除* | 布爾 | （必填）將此變數設為「真」、以針對早於「snapshot_age_threshold_in_days」中指定值的快照、啟用磁碟區層級的快照刪除。 
+
+
+| * snapshot _age_threshold_in_days * | 整數 | （必填）輸入您要保留的Volume層級快照天數。任何早於所提供值的快照都會刪除、並透過電子郵件通知相同的快照。 
+|===
++
+image:fsxn-monitoring-resizing-lambda-code.png["此影像描述AWS Lambda功能主控台上的Lambda程式碼。"]
+
+. 按一下* Test*、建立空白的測試事件、然後執行測試、檢查指令碼是否正常執行。
+. 測試成功後、請瀏覽至*組態*>*觸發程序*>*新增觸發程序*。
++
+[listing]
+----
+Select a Source: EventBridge
+Rule: Create a new rule
+Rule name: <Enter any name>
+Rule type: Schedule expression
+Schedule expression: <Use "rate(1 day)" if you want the function to run daily or add your own cron expression>
+----
++
+按一下「新增」。
+
++
+image:fsxn-monitoring-resizing-eventbridge.png["此影像描述AWS Lambda功能主控台的事件橋接建立視窗。"]
+
+
+
+====
+
+
+== 結論
+
+透過所提供的解決方案、您可以輕鬆設定監控解決方案、定期監控FSXfor ONTAP ExStorage、根據使用者指定的臨界值調整其大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。

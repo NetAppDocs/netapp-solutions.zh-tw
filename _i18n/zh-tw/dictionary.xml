@@ -17325,4 +17325,95 @@
   <block id="a5428e6b4b42638886ab5870a883efb9" category="sidebar">NetApp解決方案、可解決NFS中的Kafka工作負載重命名問題</block>
   <block id="0d7c7eeec9388fceaff3d06e03b45fe9" category="sidebar">效能總覽與驗證AFF 、包括內部部署</block>
   <block id="c31fea06105fe5260bb879284c6181e0" category="list-text">更新<block ref="9733772c7c0780d4ef7a6a8d6a9dbd7d" prefix=" " category="inline-code"></block> 至Kafka磁碟區、如下所示：</block>
+  <block id="8be4a12c21ef3f52e24811e4ffe0d444" category="summary">本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。</block>
+  <block id="cd2c2a58f3cb485687fd1f77834654e5" category="doc">FSX- ONTAP 使用AWS Lambda功能進行資料監控和自動調整大小</block>
+  <block id="1ebfeec31c440a4fac484932940c73b1" category="paragraph">作者：Dhruv Tyagi、Niyazz Mohamed</block>
+  <block id="77b2a3f373c1bcab9cefd635e81303eb" category="section-title">總覽：透過ONTAP AWS Lambda功能監控及自動調整FSX的大小、以利執行功能</block>
+  <block id="88f21a3befc798942cec953cec96af16" category="paragraph">FSX for ONTAP Sfor Ef2是AWS上提供的第一款企業級雲端儲存服務、以熱門的NetApp ONTAP Sing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。</block>
+  <block id="d533eef302a4867b401818c0958d07d5" category="paragraph">FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、可使用AWS Lamdba功能（根據臨界值自動調整總儲存容量、Volume大小或LUN大小）。本文件提供逐步指南、可建立自動設定、定期監控FSX以ONTAP 供使用、在超過使用者指定的臨界值時通知及調整大小、並通知管理員調整大小活動。</block>
+  <block id="8799f4655655a26ca808c044ad467a88" category="paragraph">本解決方案提供下列功能：</block>
+  <block id="c342d53b891fb460586d3a137ff99a6e" category="list-text">監控能力：</block>
+  <block id="138be07c6f8ee03d211e5f345546b7af" category="list-text">使用FSX ONTAP 的整體儲存容量來實現功能性的提升</block>
+  <block id="e0f2ee8f41ba7bcb505bbabfcab0c31d" category="list-text">每個磁碟區的使用量（精簡配置/完整配置）</block>
+  <block id="34b7d0bb9429625764e4da258f94ae19" category="list-text">每個LUN的使用量（精簡配置/完整配置）</block>
+  <block id="685d6918f18b4d0d12cf6582187aff57" category="list-text">當超出使用者定義的臨界值時、能夠調整上述任何項目的大小</block>
+  <block id="378c1fc07823bfb610dec17052eacf6d" category="list-text">警示機制、透過電子郵件接收使用量警告及調整通知大小</block>
+  <block id="f4f72a76c2acbf4ea687920f5e120816" category="list-text">能夠刪除早於使用者定義臨界值的快照</block>
+  <block id="91602eeac7d8a4cc46329128033d33d3" category="list-text">能夠取得與FlexClone磁碟區和快照相關的清單</block>
+  <block id="a8a8309e8496f6fa8767a3b768fd917a" category="list-text">能夠定期執行檢查</block>
+  <block id="dd0679a0ea834bda0a34b306e7a09346" category="paragraph">開始之前、請先確定符合下列先決條件：</block>
+  <block id="561d599e4e659439d1b142dbe29b15c7" category="list-text">部署FSX ONTAP for Sfor Sf</block>
+  <block id="b0855635fd601c0aa86b37aad2b039ac" category="list-text">Lambda功能需要連接NAT閘道的私有子網路、才能進行網際網路連線</block>
+  <block id="86cdbeab26faaadbe0e57ddc9fdc1c89" category="list-text">私有子網路也應能連線至FSXfor ONTAP Sfor Ef</block>
+  <block id="7f42d2e23aac4d85dca59633ff2cf58d" category="list-text">已針對FSx ONTAP for Sf0設定「fsxadmin」密碼</block>
+  <block id="eb99e653d349f732eb98619784a340ac" category="list-text">AWS Lambda功能會呼叫FSX以ONTAP 供擷取及更新儲存容量、Volume和LUN的大小。</block>
+  <block id="f350c91a602035a3521ac328a432c7ed" category="list-text">將「fsxadmin」密碼儲存為AWS SSM參數儲存區中的安全字串、以增加安全層。</block>
+  <block id="3eac8a068c2043f39b9aec5a2b7ee6af" category="list-text">AWS SES（簡易電子郵件服務）用於在發生調整大小事件時通知終端使用者。</block>
+  <block id="432a24ba141fb90355a80ec4c6d3825e" category="paragraph"><block ref="432a24ba141fb90355a80ec4c6d3825e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="974bba02716a5e7c8414499dd06bbb62" category="example-title">步驟1：複製GitHub儲存庫</block>
+  <block id="3233c0d0dc9395d6085fb8167fdd8393" category="paragraph">在本機系統上複製GitHub儲存庫：</block>
+  <block id="9f4febbd8959b367ebeccd3c9b980bed" category="example-title">步驟2：為fsxadmin密碼建立SSM參數</block>
+  <block id="06df343d3a431a2f511aa7fef58e4a23" category="paragraph">瀏覽至AWS主控台&gt;*參數儲存區*、然後按一下*建立參數*。</block>
+  <block id="faec730272cd4b39d377b89835a6a82c" category="paragraph">按一下「*建立參數*」。</block>
+  <block id="1cefa861aa6d9ba408841133e7325545" category="inline-image-macro">此影像說明AWS主控台上的「建立SSM參數」視窗。</block>
+  <block id="a19e362ed1a0d7ca174a7abf2c59853a" category="paragraph"><block ref="a19e362ed1a0d7ca174a7abf2c59853a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="34ed02bd2b8200c71e9f3ac3a57c6339" category="example-title">步驟3：設定電子郵件服務</block>
+  <block id="bcd5fa3fbab9dadf361d9eba36b8382c" category="paragraph">瀏覽至AWS主控台&gt;*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。</block>
+  <block id="60461626b891b858b74da97b0ee89b6e" category="paragraph">按一下「*建立身分識別*」</block>
+  <block id="af9b6260888bf7e72d2766823e7a2bb6" category="inline-image-macro">此影像說明AWS主控台的SES身分識別建立視窗。</block>
+  <block id="59f38a9e267a3ea7e5d173c163613f58" category="paragraph"><block ref="59f38a9e267a3ea7e5d173c163613f58" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d4150206805713c5170f55a3e2f8c424" category="example-title">步驟4：建立並設定AWS Lambda功能</block>
+  <block id="f7eef2aeccb65815a4f57ad9796278b3" category="list-text">瀏覽至AWS主控台&gt;* AWS Lambd達*、然後按一下* Create Function *（建立功能*）、該區域與FSX for ONTAP Sf2相同</block>
+  <block id="eb625a560eb6c02ecd5a6a9f47d5d768" category="list-text">使用預設的*從頭開始作者*並更新下列欄位：</block>
+  <block id="8af4ad16f59e1ac333921353c65b1492" category="paragraph">按一下「*建立功能*」。</block>
+  <block id="957437001751593737e6afeb8cd3163b" category="inline-image-macro">此影像描述AWS主控台的Lambda建立視窗。</block>
+  <block id="e6242cbb73c003c124d84270c0afe97a" category="paragraph"><block ref="e6242cbb73c003c124d84270c0afe97a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="417809fda70cc9785afc8e3ceec62dff" category="paragraph"><block ref="417809fda70cc9785afc8e3ceec62dff" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1659ba661865f087a67032f3c9be9fc2" category="list-text">向下捲動至新建立的Lambda功能的*圖層*區段、然後按一下*新增圖層*。</block>
+  <block id="38752522b6aecd6cdf7355a1cdaa38ad" category="inline-image-macro">此影像說明AWS Lambda功能主控台的「新增階層」按鈕。</block>
+  <block id="cc07bde473345c3ce0ae0c8fc7097fdc" category="paragraph"><block ref="cc07bde473345c3ce0ae0c8fc7097fdc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cc8034a8cc3761841b945895d5bb5e74" category="list-text">按一下「* Layer SOURGE*」下的「*建立新的圖層*」</block>
+  <block id="2be5f6c30358de16d6c4b531db0541b0" category="list-text">建立2個層：1個用於申請、1個用於帕拉米克、並上傳* requests.Zip *和*帕拉米克.Zip *檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。</block>
+  <block id="44dec222c0e2e40e9770472e89813d69" category="inline-image-macro">此影像說明AWS主控台的Create New Layer（建立新的層）視窗。</block>
+  <block id="1a144f1799018bb0e4a3aff87c3ae15f" category="paragraph"><block ref="1a144f1799018bb0e4a3aff87c3ae15f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2b67d38577d56792dd4197d29c7c25fd" category="list-text">瀏覽回AWS Lambda * Add Layer *&gt;* Custom Layers*、然後逐一新增參數和要求層。</block>
+  <block id="018f803496bf51d7eca913d543f61cdc" category="inline-image-macro">此影像描述AWS Lambda功能主控台的新增層視窗。</block>
+  <block id="74aec608a6fed03dea60e0a7998ac4c6" category="paragraph"><block ref="74aec608a6fed03dea60e0a7998ac4c6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6dcc7aaf4ab69d9f33228c8aca077bf7" category="inline-image-macro">此影像說明AWS Lambda功能主控台上新增的圖層。</block>
+  <block id="87fcbd11f44be8b210a0adbfafc5f083" category="paragraph"><block ref="87fcbd11f44be8b210a0adbfafc5f083" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cdb5e7241bb52c5f33fc903e816595a6" category="list-text">瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將「逾時」變更為* 5分鐘*、然後按一下「儲存」。</block>
+  <block id="92997aae940f33750d6c43a65315fc0d" category="list-text">瀏覽至Lambda功能的*權限*索引標籤、然後按一下指派的角色。在角色的權限索引標籤中、按一下*新增權限*&gt;*建立內嵌原則*。</block>
+  <block id="e80446ca49af46cfdbc8af6661176f5b" category="list-text">按一下Json索引標籤、然後從GitHub repo貼上檔案policy.json的內容。</block>
+  <block id="85aff31d07a1ff90ecd6d3dc6401eed0" category="list-text">將每次出現的$｛AWS：：AccountId｝替換為您的帳戶ID、然後按一下* Review Policy*</block>
+  <block id="de61df97ff6dba72d275469c25e01fe2" category="list-text">提供原則的名稱、然後按一下「*建立原則*」</block>
+  <block id="d36a4ee86f07b3ab1dac130b43608573" category="list-text">將* fsxn_monitoring_fizing_lambda.py*的內容從git repo複製到AWS Lambda功能程式碼來源區段的* lambda_fite.py*。</block>
+  <block id="aa2c2b9170ac97be5915c92e4d3d9624" category="list-text">建立與lambda_function.py相同層級的新檔案、並將其命名為* vars.py*、然後將vars.py的內容從git repo複製到lambda函數vars.py檔案。更新vars.py中的變數值。請參考下方的變數定義、然後按一下「*部署*」：</block>
+  <block id="1b1b65a5b121a97f06bd0f40bfe04db2" category="cell">* fsxMgmtIp*</block>
+  <block id="48aa922c7ed8d2e7d073ec505c5a679a" category="cell">（必填）從ONTAP AWS上的FSX for Ef0主控台輸入「管理端點- IP位址」。</block>
+  <block id="b458b0d72a95d6bd9cfcb7a5c23dcb1b" category="cell">* fsxId*</block>
+  <block id="da337ce29255b2b81cd9e3a3204bbcfe" category="cell">（必填）從AWS上的FSX for ONTAP EWSF主控台輸入「檔案系統ID」。</block>
+  <block id="68318b373e71a3da8e3dd4430fda3f2b" category="cell">*使用者名稱*</block>
+  <block id="c0f05dbdc8c950570df5006e05838a13" category="cell">（必填）從ONTAP AWS上的FSX for EWSF輸入FSX for Sfor the ONTAP Sfor the ONTAP Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the</block>
+  <block id="66139124af54a9bd769c36d775836d70" category="cell">*重新調整大小臨界值*</block>
+  <block id="8c09ed6e498d70309d841ab06df44a38" category="cell">（必填）輸入0-100之間的臨界值百分比。此臨界值將用於測量儲存容量、磁碟區和LUN使用量、當超過此臨界值的任何增加使用量百分比時、將會發生調整大小活動。</block>
+  <block id="497a76ab2a24f6810806482af6d4b406" category="cell">*寄件者電子郵件*</block>
+  <block id="e003b9f112112808c978c5154fda4ca5" category="cell">（必填）輸入在SES上登錄的電子郵件ID、以便Lambda功能用來傳送與監控和調整大小相關的通知警示。</block>
+  <block id="fb154fba377735ccf71f62d4f67db056" category="cell">*收件人電子郵件*</block>
+  <block id="84d1d8bc0deec1274356da96f7409f5a" category="cell">（必填）輸入您要接收警示通知的電子郵件ID。</block>
+  <block id="e405587a28590f4765b9cca9a439aee0" category="cell">* FSx_password_Sm_參 數字*</block>
+  <block id="fd6fdc9b8903fcc41d72463456f66547" category="cell">（必填）輸入AWS參數儲存區中用於儲存「fsxadmin」密碼的路徑名稱。</block>
+  <block id="a2b399451f43de7415c9c8d2f2430019" category="cell">*警告通知*</block>
+  <block id="8075a3b4477383f02ada5dc1dd51ddf8" category="cell">（必填）將此變元設為「真」、以便在儲存容量/磁碟區/ LUN使用量超過75%但低於臨界值時收到通知。</block>
+  <block id="4a011a0efb5e78112e4ed7930b4d4ac6" category="cell">*啟用快照刪除*</block>
+  <block id="f2a43adf70fef2a5bca3a335b60d96ec" category="cell">（必填）將此變數設為「真」、以針對早於「snapshot_age_threshold_in_days」中指定值的快照、啟用磁碟區層級的快照刪除。</block>
+  <block id="d7cef1097d40a983ff6c131976641be8" category="cell">* snapshot _age_threshold_in_days *</block>
+  <block id="be6cbc09482802bc252464f7f9dc5176" category="cell">（必填）輸入您要保留的Volume層級快照天數。任何早於所提供值的快照都會刪除、並透過電子郵件通知相同的快照。</block>
+  <block id="8983bb09e5de73133d38fd252364a173" category="inline-image-macro">此影像描述AWS Lambda功能主控台上的Lambda程式碼。</block>
+  <block id="8355eb726273f03ca5f55fd35b0a710a" category="paragraph"><block ref="8355eb726273f03ca5f55fd35b0a710a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b474ff33c546908035499b53002f61bb" category="list-text">按一下* Test*、建立空白的測試事件、然後執行測試、檢查指令碼是否正常執行。</block>
+  <block id="44903daf5480dcfa1bb48a9ba24e0617" category="list-text">測試成功後、請瀏覽至*組態*&gt;*觸發程序*&gt;*新增觸發程序*。</block>
+  <block id="6bb73947635f7fd1d1f74c0544fa89a6" category="paragraph">按一下「新增」。</block>
+  <block id="e12ebba9179a3c37608a804ce282348d" category="inline-image-macro">此影像描述AWS Lambda功能主控台的事件橋接建立視窗。</block>
+  <block id="4e8d49756f1c9d97f6044f5c9c1c5d02" category="paragraph"><block ref="4e8d49756f1c9d97f6044f5c9c1c5d02" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d140dcb54f7073751446004207785331" category="paragraph">透過所提供的解決方案、您可以輕鬆設定監控解決方案、定期監控FSXfor ONTAP ExStorage、根據使用者指定的臨界值調整其大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。</block>
 </blocks>
