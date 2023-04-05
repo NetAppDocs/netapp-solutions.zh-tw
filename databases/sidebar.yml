@@ -4,7 +4,38 @@ title: 企業資料庫
 url: "/databases/index.html"
 entries:
 - title: Oracle資料庫
+  type: solutions
   entries:
+  - title: Oracle 資料庫部署與保護：使用 iSCSI/ASM
+    url: "/databases/aws_ora_fsx_ec2_iscsi_asm.html"
+  - title: AWS EC2和FSX最佳實務做法上的Oracle資料庫部署
+    entries:
+    - title: 使用案例
+      url: "/databases/aws_ora_fsx_ec2_deploy_intro.html"
+    - title: 解決方案架構
+      url: "/databases/aws_ora_fsx_ec2_architecture.html"
+    - title: 需要考量的因素
+      url: "/databases/aws_ora_fsx_ec2_factors.html"
+    - title: 部署程序
+      url: "/databases/aws_ora_fsx_ec2_procedures.html"
+    - title: 資料庫管理
+      url: "/databases/aws_ora_fsx_ec2_mgmt.html"
+    - title: 資料庫移轉
+      url: "/databases/aws_ora_fsx_ec2_migration.html"
+  - title: Oracle資料庫部署Azure NetApp Files 與保護功能
+    entries:
+    - title: 使用案例
+      url: "/databases/azure_ora_nfile_usecase.html"
+    - title: 解決方案架構
+      url: "/databases/azure_ora_nfile_architecture.html"
+    - title: 需要考量的因素
+      url: "/databases/azure_ora_nfile_factors.html"
+    - title: 部署程序
+      url: "/databases/azure_ora_nfile_procedures.html"
+    - title: 資料庫保護
+      url: "/databases/azure_ora_nfile_protection.html"
+    - title: 資料庫移轉
+      url: "/databases/azure_ora_nfile_migration.html"
   - title: Oracle 19c RAC資料庫位於FlexPod 包含Cisco UCS和NetApp AFF 透過FC的NetApp UCA800的不支援資料中心
     url: "/databases/nva-1155-link.html"
   - title: SAP搭配Oracle on UNIX和NFS搭配NetApp叢集Data ONTAP 式功能
@@ -33,36 +64,6 @@ entries:
         url: "/databases/db_protection_awx_automation.html"
   - title: NetApp EF系列上的Oracle資料庫
     url: "/databases/tr-4794-link.html"
-  - title: AWS EC2和FSX最佳實務做法上的Oracle資料庫部署
-    type: solutions
-    entries:
-    - title: 使用案例
-      url: "/databases/aws_ora_fsx_ec2_deploy_intro.html"
-    - title: 解決方案架構
-      url: "/databases/aws_ora_fsx_ec2_architecture.html"
-    - title: 需要考量的因素
-      url: "/databases/aws_ora_fsx_ec2_factors.html"
-    - title: 部署程序
-      url: "/databases/aws_ora_fsx_ec2_procedures.html"
-    - title: 資料庫管理
-      url: "/databases/aws_ora_fsx_ec2_mgmt.html"
-    - title: 資料庫移轉
-      url: "/databases/aws_ora_fsx_ec2_migration.html"
-  - title: Oracle資料庫部署Azure NetApp Files 與保護功能
-    type: solutions
-    entries:
-    - title: 使用案例
-      url: "/databases/azure_ora_nfile_usecase.html"
-    - title: 解決方案架構
-      url: "/databases/azure_ora_nfile_architecture.html"
-    - title: 需要考量的因素
-      url: "/databases/azure_ora_nfile_factors.html"
-    - title: 部署程序
-      url: "/databases/azure_ora_nfile_procedures.html"
-    - title: 資料庫保護
-      url: "/databases/azure_ora_nfile_protection.html"
-    - title: 資料庫移轉
-      url: "/databases/azure_ora_nfile_migration.html"
 - title: Microsoft SQL Server
   type: solutions
   entries:
@@ -93,8 +94,9 @@ entries:
 - title: 資料庫適用SnapCenter
   type: solutions
   entries:
+  - title: 適用於 Oracle 的 SnapCenter 服務
+    url: "/databases/snapctr_svcs_ora.html"
   - title: 混合雲資料庫解決方案SnapCenter 搭配
-    type: solutions
     entries:
     - title: 簡介
       url: "/databases/hybrid_dbops_snapcenter_usecases.html"

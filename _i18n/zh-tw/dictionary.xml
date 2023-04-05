@@ -16614,7 +16614,6 @@
   <block id="61c8e892dd7e1908020eb0a312fd4bbb" category="cell">02/15/2023</block>
   <block id="2ee6a0567aa163f6ace02183cb041cbd" category="cell">在AWS FSx/EC2中新增PostgreSQL高可用度部署和災難恢復</block>
   <block id="a54420e6e0f519f841f4280cf2545365" category="sidebar">開放原始碼資料庫</block>
-  <block id="67bb2ef7cf3c5ff59f35f28e513bfda3" category="sidebar">AWS FSx/EC2中的PostgreSQL高可用度部署與災難恢復</block>
   <block id="1ae3eccde141a365ede8f18b188ae588" category="sidebar">自動化的PostgreSQL HA部署與DR（在AWS FSx/EC2中）</block>
   <block id="6fabfc29f0b3a196c8407c190bb67293" category="sidebar">資料庫適用SnapCenter</block>
   <block id="1f599c1b266e901a2c8d38e266e23c6f" category="summary">本節說明詳細的測試程序結果。</block>
@@ -17423,4 +17422,310 @@
   <block id="fb4d860c1938626a4cb9b8f66c6eb6f2" category="cell">2023年3月</block>
   <block id="0ab328bbf8073ef01a9d54504bf7b317" category="paragraph">NetApp 儲存設備可在三個主要的大型超大型超大型超大型擴充器中、以多種方式使用、無論是以來賓連線或作為補充 NFS 資料存放區。</block>
   <block id="f53db24f3a12ed8109f77a0f93c877af" category="paragraph">本節說明各雲端供應商如何在各自的公有雲產品中支援 VMware 軟體定義資料中心（ SDDC ）和 / 或 VMware Cloud Foundation （ VCF ）堆疊。</block>
+  <block id="4557eca5dd55b5b5ecc0b0ef61f1dd21" category="cell">03/31/2023</block>
+  <block id="71cc1ac63221b4b22fee5b3615ed204b" category="cell">新增 Oracle 資料庫部署與保護功能、適用於 AWS FS3/EC2 搭配 iSCSI/ASM</block>
+  <block id="5df30196a94efca9537353cd93678f3a" category="cell">新增了 Oracle 資料庫備份、還原及複製功能（含 SnapCenter 服務）</block>
+  <block id="86d943d0743178f4b51317bf89a99ff7" category="summary">本解決方案提供 AWS FSX ONTAP 儲存設備和 EC2 運算執行個體的 Oracle 資料庫部署與保護概觀與詳細資料、這些執行個體採用 iSCSI 傳輸協定、而 Oracle 資料庫則是以 asm 做為 Volume Manager 、在獨立重新啟動時進行設定。</block>
+  <block id="4f3c9d31ccf189b3cb7f494f26684484" category="doc">TR-4965 ：使用 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護</block>
+  <block id="418241bdca49e4aec92c0ff810e8e099" category="paragraph">ASM （自動儲存管理）是一款熱門的 Oracle 儲存 Volume Manager 、適用於許多 Oracle 安裝。這也是 Oracle 推薦的儲存管理解決方案。它是傳統 Volume 管理程式和檔案系統的替代方案。自 Oracle 11g 版起、 ASM 便已與網格基礎架構一起封裝、而非資料庫。因此、若要在沒有 RAC 的情況下使用 Oracle ASM 進行儲存管理、您必須在獨立伺服器中安裝 Oracle 網格基礎架構、也稱為 Oracle 重新啟動。這樣做當然會增加複雜度、使 Oracle 資料庫部署更簡單。不過、顧名思義、當 Oracle 部署在重新啟動模式時、任何故障的 Oracle 服務都會在主機重新開機後重新啟動、而無需使用者介入、這會提供一定程度的高可用度或 HA 功能。</block>
+  <block id="47a7a6100cb8ee47f5b0126bacce0e8f" category="paragraph">在本文件中、我們將示範如何在 Amazon FSX 中部署具有 iSCSI 傳輸協定的 Oracle 資料庫、以及在具有 EC2 運算執行個體的 ONTAP 儲存環境中部署 Oracle ASM 。我們也示範如何透過 NetApp BlueXP 主控台使用 NetApp SnapCenter 服務來備份、還原及複製您的 Oracle 資料庫、以供開發 / 測試、或是在 AWS 公有雲中執行儲存效率資料庫作業的其他使用案例。</block>
+  <block id="2dda300300a9a8c69d259bcce9dff4f3" category="list-text">在 Amazon FSX 中部署 Oracle 資料庫、適用於 ONTAP 儲存設備、以及使用 iSCSI/ASM 的 EC2 運算執行個體</block>
+  <block id="a47b73991317ed980de57441ff2ec0b0" category="list-text">使用 iSCSI/ASM 測試及驗證公有 AWS 雲端中的 Oracle 工作負載</block>
+  <block id="7776a288eb4d92068f227343e40955be" category="list-text">測試及驗證 AWS 中部署的 Oracle 資料庫重新啟動功能</block>
+  <block id="c7940228c5d339083ac147fb2a5041de" category="list-text">DBA 希望使用 iSCSI/ASM 在 AWS 公有雲中部署 Oracle 。</block>
+  <block id="53a21d50adb7cce93e4304c816d40c51" category="list-text">想要在 AWS 公有雲中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
+  <block id="b316baf0d21d8e459e4220a2cf5102a5" category="list-text">想要部署及管理部署至 AWS FSX 儲存設備的 Oracle 資料庫的儲存管理員。</block>
+  <block id="6b41622d6a121d89a6342fe9ff47665c" category="list-text">想要在 AWS FS3/EC2 中備份 Oracle 資料庫的應用程式擁有者。</block>
+  <block id="60eafe38e4de145948f4622ffcf3fecf" category="image-alt">此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。</block>
+  <block id="f90fb2d1bd04ce25f4b6a79bead231a3" category="cell">AWS 提供的目前版本</block>
+  <block id="ceafc9f8393b625e8cce03cbeba6e867" category="cell">同一個 VPC 和可用區域中的一個 FSX HA 叢集</block>
+  <block id="0fcdacbce30d770260160f025dfa97ef" category="cell">兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器</block>
+  <block id="357401b243915afd7226703258f54f69" category="cell">Oracle Grid 基礎架構</block>
+  <block id="8cbabca4a2c1b4268e8c216b1710182d" category="cell">版本 19.18</block>
+  <block id="4cd47afc935feac95110477afb324f6f" category="cell">已套用 RU 修補程式 p34762026_190000_Linux-x86-64.zip</block>
+  <block id="a7c40910ade029baa6baa8b8e613db65" category="cell">已套用 RU 修補程式 p34765931_190000_Linux-x86-64.zip</block>
+  <block id="a8b401bad03767cc28230a30d6556c5b" category="cell">Oracle OPatch</block>
+  <block id="cc61533b1a42263eaadfd935441bb4b5" category="cell">12.2.0.1.36 版</block>
+  <block id="8091f15fd8b9f1a609b3a98e8bcdda81" category="cell">最新修補程式 p6880880_190000_Linux-x86-64.zip</block>
+  <block id="fed6fa1f1b675c268f8b78258e2545a7" category="cell">支援服務SnapCenter</block>
+  <block id="313d712dbc391a0b9d6dca3efe0d2608" category="cell">v2.3.1.2324</block>
+  <block id="b1a9b82f5c1b9e62aff87e622f684e76" category="list-text">* EC2 運算執行個體。 * 在這些測試與驗證中、我們使用 AWS EC2 T2.xlge 執行個體類型來執行 Oracle 資料庫運算執行個體。NetApp 建議在正式作業部署中使用 M5 類型 EC2 執行個體作為 Oracle 的運算執行個體、因為它已針對資料庫工作負載進行最佳化。您必須根據實際工作負載需求、適當調整 EC2 執行個體的 vCPU 數量和 RAM 數量。</block>
+  <block id="11a64b78983fb952ba99933c98fc56df" category="list-text">* FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。FSXHA叢集會以HA配對進行配置、並在一對主動-被動檔案系統中進行鏡射同步、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。</block>
+  <block id="660a107d1d4a80542a6c11d9a1ed2db4" category="list-text">* FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。</block>
+  <block id="0907de49479565aae7dd2f8a84ef2915" category="list-text">* Oracle 資料和記錄配置。 * 在我們的測試和驗證中、我們分別部署了兩個 ASM 磁碟群組來處理資料和記錄。在 +data asm 磁碟群組中、我們在資料磁碟區中配置了四個 LUN 。在 +logs asm 磁碟群組中、我們在一個記錄磁碟區中配置了兩個 LUN 。一般而言、在 Amazon FSX for ONTAP Volume 中配置多個 LUN 可提供更好的效能。</block>
+  <block id="511a515ed4428c1ca16462485a26f4fc" category="list-text">* iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫預覽 I/O 處理量需求、以便選擇適當的 EC2 運算執行個體、同時滿足應用程式和 iSCSI 流量處理量需求。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。</block>
+  <block id="db1de135a2e3ba870a8f80ce78d2d05e" category="list-text">* 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 由於 FSX 已鏡射 FSX 叢集層級上的儲存設備、因此您應該使用「外部備援」、這表示該選項不允許 Oracle ASM 鏡射磁碟群組的內容。</block>
+  <block id="e35fd1c687443b2da6a609bba53616b4" category="list-text">* 資料庫備份。 * NetApp 提供 SnapCenter 軟體服務的 SaaS 版本、可在雲端中進行資料庫備份、還原及複製、並可透過 NetApp BlueXP 主控台 UI 取得。NetApp 建議實作這樣的服務、以快速（一分鐘內）進行快照備份、快速（幾分鐘）資料庫還原和資料庫複製。</block>
+  <block id="77e4d80ae2f4257081e17476b146608a" category="section-title">解決方案部署</block>
+  <block id="2398118900b3388f97d9931571f1bbda" category="paragraph">下節提供逐步部署程序。</block>
+  <block id="782bd8949cb40c80fd3f3126eccab35a" category="section-title">部署的先決條件</block>
+  <block id="2cb106b524fea2beb3ee19372f04427b" category="list-text">從 AWS EC2 主控台、您必須部署兩個 EC2 Linux 執行個體、一個做為主要 Oracle DB 伺服器、另一個可選的複製目標 DB 伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 <block ref="b75ecbbec453f67f58d497ccd97a8075" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="11f86864c5928690c88625e77eb1a480" category="list-text">從 AWS EC2 主控台、部署 Amazon FSX for ONTAP Storage HA 叢集來主控 Oracle 資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 <block ref="17d8b312d287f0afd6f44b3f25c4f20b" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
+  <block id="dd303169f721e79331b3683ddafddcc1" category="list-text">您可以使用下列 Terraform 自動化工具組來執行步驟 2 和 3 、此工具組會建立名為的 EC2 執行個體<block ref="460dc55b5ffb0266f2c889b06ee73344" prefix=" " category="inline-code"></block> 以及名為的 FSX 檔案系統<block ref="8cbb7b3050d3c3aa08a529f429bc4555" prefix=" " category="inline-code"></block>。請仔細檢閱指示內容、並在執行前變更變數以符合您的環境。</block>
+  <block id="62ee860e3d0c08c6573d2e328543e8de" category="section-title">EC2 執行個體核心組態</block>
+  <block id="39fb43106d288435c8737acd0c5b18ba" category="paragraph">在已配置先決條件的情況下、以 root 使用者身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。</block>
+  <block id="5a8cdca62a149c76be848350ba5cbfd0" category="list-text">建立暫存目錄<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 資料夾並設定<block ref="f1c1592588411002af340cbaedd6fc33" prefix=" " category="inline-code"></block> 權限。</block>
+  <block id="e252f38e51fe6c121fdf68268f7365b7" category="list-text">下載 Oracle 二進位安裝檔案及其他必要的 rpm 檔案、並將這些檔案登錄至<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="2463a0e4e0f5e0cae480165d25c3d218" category="paragraph">請參閱下列要在中說明的安裝檔案清單<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 在 EC2 執行個體上。</block>
+  <block id="7b25ef659963c88fe23b78fc4712aabf" category="list-text">安裝 Oracle 19c 預先安裝 RPM 、以滿足大多數核心組態需求。</block>
+  <block id="1527576f8dc9eea4d63eb05b809aaa52" category="list-text">下載並安裝遺失的<block ref="d2e5af6ee2b267de9dac1b472a03adf3" prefix=" " category="inline-code"></block> 在 Linux 8 中。</block>
+  <block id="b2371ec5566671ad5a4ad4a5ea6cba11" category="list-text">從 NetApp 下載並安裝 NetApp 主機公用程式。</block>
+  <block id="b6e7702627b94eaa3030b577d6d705bc" category="list-text">安裝<block ref="c8dff58175a7ddfedf00d77953ef42dd" prefix=" " category="inline-code"></block>， EC2 執行個體中無法使用。</block>
+  <block id="9a16a877dc258dab15fccea468433118" category="list-text">安裝開放式 JDK 1.8 版。</block>
+  <block id="1684a037c41a5a896a961b99be3d79c7" category="list-text">安裝 iSCSI 啟動器公用程式。</block>
+  <block id="c9d53c5d17f956afae2225c70107de12" category="list-text">安裝<block ref="4c17da57a03262c55ed7eaf9b11476b4" prefix=" " category="inline-code"></block>。</block>
+  <block id="390748df672cba58066187eedd5aae0e" category="list-text">安裝<block ref="a3938eeca32dce6ca3908d2eae163c75" prefix=" " category="inline-code"></block>。</block>
+  <block id="8d5128c24aba40267289419650d61baf" category="list-text">停用目前系統中的透明 hugepages 。</block>
+  <block id="0410d25eb8075ef0d6eb88ced58d20d0" category="paragraph">在中新增下列行<block ref="08561da4afe8299be4016c92bfe83435" prefix=" " category="inline-code"></block> 以停用<block ref="d78ade61a64b6a278ed6278e7cfd91f3" prefix=" " category="inline-code"></block> 重新開機後：</block>
+  <block id="ac762383bc7427decd2147abbadaccaa" category="list-text">變更以停用 SELinux<block ref="cb42f4736bc8f64983eeffc1e0b4f44a" prefix=" " category="inline-code"></block> 至<block ref="52647e37ec523adfcaa3fec9bcef128e" prefix=" " category="inline-code"></block>。您必須重新啟動主機、才能使變更生效。</block>
+  <block id="2d1601e142ebdb74931ee9a254b65262" category="list-text">新增下列行至<block ref="8b5eec1c5f63341b700263cc37cbae02" prefix=" " category="inline-code"></block> 可設置文件描述符限制和堆棧大小（不帶引號）<block ref="fcc3d7489d15ef49dbbf735234234cf7" prefix=" " category="inline-code"></block>。</block>
+  <block id="410eaf64cdfb52cb0921ea732490d0db" category="list-text">依照下列指示、將交換空間新增至 EC2 執行個體： <block ref="53c9867a131506eab4afe1a1678bb974" category="inline-link-macro-rx"></block> 要新增的確切空間量取決於 RAM 大小、最高可達 16G 。</block>
+  <block id="c9f7be60d92cf42de8f14f5ab8547971" category="list-text">變更<block ref="b7e6d8bff01730e41b7d91437e6a25d0" prefix=" " category="inline-code"></block> 在中<block ref="c30b27a1b058924e30212c72bb553665" prefix=" " category="inline-code"></block> 組態檔案的時間為 120 到 5 秒。</block>
+  <block id="bca8f765f0293b09679dd10ece969e68" category="list-text">在 EC2 執行個體上啟用和啟動 iSCSI 服務。</block>
+  <block id="3cb574654986fcf318668b4bf3313724" category="list-text">擷取用於資料庫 LUN 對應的 iSCSI 啟動器位址。</block>
+  <block id="d5dbcd1ace089fec7f75fa03e884cb93" category="list-text">新增 ASM 群組、以用於 asm sysasm 群組</block>
+  <block id="f7b4c2e912a168f005ed7cc2b4799c08" category="list-text">修改 Oracle 使用者、將 ASM 新增為次要群組（ Oracle 使用者應已在 Oracle 預先安裝 RPM 安裝之後建立）。</block>
+  <block id="8d3a75a7cdef66372dcf58e6278bba70" category="list-text">重新啟動 EC2 執行個體。</block>
+  <block id="64014fc61a9016f43a5537d6da141cc1" category="section-title">將資料庫磁碟區和 LUN 配置並對應至 EC2 執行個體主機</block>
+  <block id="44d3f8c485fe8f9d96289b7bb283f99c" category="paragraph">從 FSX 主控台配置三個磁碟區、以裝載 Oracle 資料庫二進位、資料和記錄檔。</block>
+  <block id="c848cfd9c04d86e7b9919e11add79f6c" category="list-text">以 fsxadmin 使用者身分透過 SSH 登入 FSX 叢集。</block>
+  <block id="eff24d82c422927b06fd0cacd430b653" category="list-text">執行下列命令、為 Oracle 二進位檔案建立磁碟區。</block>
+  <block id="569cffa50e6428a06bffa2e19d12e0e3" category="list-text">執行以下命令以建立 Oracle 資料的磁碟區。</block>
+  <block id="9985026df910c788cb47555f7d72a68e" category="list-text">執行以下命令以建立 Oracle 記錄的磁碟區。</block>
+  <block id="cc70e928fff63a76ca8cf30a05d95a80" category="list-text">在資料庫二進位磁碟區內建立二進位 LUN 。</block>
+  <block id="dc4301dd6be2058cb9d1a1e3408388eb" category="list-text">在資料庫資料磁碟區內建立資料 LUN 。</block>
+  <block id="49cf66e4521ade9e7ffc2aae313ee978" category="list-text">在資料庫記錄磁碟區中建立記錄 LUN 。</block>
+  <block id="3e408df5c51ac33acd5978f1f48cab19" category="list-text">使用從上述 EC2 核心組態的步驟 14 擷取的啟動器、為 EC2 執行個體建立 igroup 。</block>
+  <block id="ceed9a3dd22f247b70bb6774943f9284" category="list-text">將 LUN 對應到上述建立的 igroup 。依序遞增磁碟區內每個額外 LUN 的 LUN ID 。</block>
+  <block id="18519dc23f47343cf516e789bf2e818b" category="list-text">驗證 LUN 對應。</block>
+  <block id="3208f25d37711dd9ffc43d93ada2a3cc" category="paragraph">預計將會歸還：</block>
+  <block id="35c1914e41e83f92dd8779f5708f3224" category="section-title">資料庫儲存組態</block>
+  <block id="47d78479fc855bd2f99f02fb94118789" category="paragraph">現在、匯入並設定適用於 Oracle 網格基礎架構的 FSX 儲存設備、以及在 EC2 執行個體主機上安裝資料庫。</block>
+  <block id="d4d6ba977b18ebe6448e464802298bbf" category="list-text">以 EC2 使用者身分透過 SSH 登入 EC2 執行個體。然後變更為 SSH 金鑰和 EC2 執行個體 IP 位址。</block>
+  <block id="a7939166c08e8ac6da1530309825a401" category="list-text">使用任一 SVM iSCSI IP 位址探索 FSX iSCSI 端點。然後變更為您的環境專屬入口網站位址。</block>
+  <block id="1bc103d13645d8a07f4a05f2eee064f8" category="list-text">登入每個目標以建立 iSCSI 工作階段。</block>
+  <block id="fc5113f60b8b0390133d7abda7290515" category="paragraph">命令的預期輸出為：</block>
+  <block id="c541a8df6ddefee9ae370e31bf1109cc" category="list-text">檢視並驗證使用中 iSCSI 工作階段清單。</block>
+  <block id="efe44c0a293be7b9e3d17291e1bd0fce" category="paragraph">傳回 iSCSI 工作階段。</block>
+  <block id="e4a8008161f8d488131b8bf10831bf6c" category="list-text">驗證 LUN 是否已匯入主機。</block>
+  <block id="f467f5c5010c383146b412ebc7d2a967" category="paragraph">這會傳回來自 FSX 的 Oracle LUN 清單。</block>
+  <block id="08b7a2f63e8caee3c8d0f32a3d9dd5ea" category="list-text">設定<block ref="9ac80d53ede05256c28cf9e043eb423c" prefix=" " category="inline-code"></block> 具有下列預設項目和黑名單項目的檔案。</block>
+  <block id="794a654f60052714db9eba2a7ff4b608" category="list-text">啟動多重路徑服務。</block>
+  <block id="65b4cea56e6d27de22dc85622fe6a7fb" category="paragraph">現在、多重路徑裝置會出現在中<block ref="9c9f766701f811ef6f170c7a3453c53f" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="d282577e5b16ee7f17ce7cd0f718be4c" category="list-text">以 fsxadmin 使用者的身分透過 SSH 登入 FSX 叢集、以 6c574xxx 開頭的每個 LUN 的序列十六進位數字擷取、十六進位數字以 3600a0980 開頭、即 AWS 廠商 ID 。</block>
+  <block id="2720e08c2a6367757e2dc57afee1620c" category="paragraph">並依下列方式退貨：</block>
+  <block id="ecf2aff9ad02b9026ff22f4fc6a68e73" category="list-text">更新<block ref="bacd7d75ae434c4a777b1baef0e31f36" prefix=" " category="inline-code"></block> 用於爲多路徑設備添加用戶友好名稱的文件。</block>
+  <block id="75104fff60881baaf37dcb441594f8a1" category="paragraph">包含下列項目：</block>
+  <block id="e73e686392436f1038dd926c4a775f24" category="list-text">重新啟動多重路徑服務、以驗證所在的裝置<block ref="9c9f766701f811ef6f170c7a3453c53f" prefix=" " category="inline-code"></block> 已變更為 LUN 名稱與序列十六進位 ID 。</block>
+  <block id="5f9e8fcf665ea0cca4e1c6eea45645e4" category="paragraph">檢查<block ref="9c9f766701f811ef6f170c7a3453c53f" prefix=" " category="inline-code"></block> 若要返回、請執行下列步驟：</block>
+  <block id="6f6e08574875efd99672521b7c49bd5f" category="list-text">使用單一主分割區來分割二進位 LUN 。</block>
+  <block id="d90e8b8ea181e08e8bf690f2c3143681" category="list-text">使用 XFS 檔案系統格式化分割的二進位 LUN 。</block>
+  <block id="999ccfc779bcbed2a3561bff37f884d1" category="list-text">將二進位 LUN 掛載至<block ref="a8946fa5f211c5345e3610710e471cb4" prefix=" " category="inline-code"></block>。</block>
+  <block id="22e45c04a42f3d5d2b9ca76b19445949" category="list-text">變更<block ref="a8946fa5f211c5345e3610710e471cb4" prefix=" " category="inline-code"></block> 將點所有權掛載至 Oracle 使用者、並與主要群組相關。</block>
+  <block id="a7d5cd359d07f4d25f07c14cac7c892f" category="list-text">尋找二進位 LUN 的 UUI 。</block>
+  <block id="419b15da0e06224d0919aaf7cf7c0394" category="list-text">將裝載點新增至<block ref="816a3ef77b62ade41c3f936c958aa555" prefix=" " category="inline-code"></block>。</block>
+  <block id="4f86d8e0be25b09fa4c4f087139fcd0d" category="paragraph">新增下列行。</block>
+  <block id="b79f3809b435063f1d43819c9baaf816" category="admonition">請務必僅使用 UUID 和 nofail 選項來掛載二進位檔案、以避免在 EC2 執行個體重新開機期間可能發生根鎖定問題。</block>
+  <block id="ad7b51bb9b820412dddd78b34ccf36ea" category="list-text">以 root 使用者身分新增適用於 Oracle 裝置的 udev 規則。</block>
+  <block id="8e7c7ff83f0da1eceabb8c7fbb255de4" category="paragraph">包括下列項目：</block>
+  <block id="d347f5dbb8625ab56eb3b8ad0f1ed6ca" category="list-text">以 root 使用者身分重新載入 udev 規則。</block>
+  <block id="967abd537fdc45fbfc59ee4d5fbd70d2" category="list-text">以 root 使用者身分觸發 udev 規則。</block>
+  <block id="aeead6d2d9990fef69ffefd2efd88b90" category="list-text">以 root 使用者身分重新載入 multipathd 。</block>
+  <block id="3cadabe14e57cb049891c97e754906d7" category="section-title">Oracle 網格基礎架構安裝</block>
+  <block id="2ba967266d1ac37f6ee2c138c7a219f1" category="list-text">以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體、並取消註解以啟用密碼驗證<block ref="cd94e87e5216cd088acdc4de0e9c30f1" prefix=" " category="inline-code"></block> 然後留言<block ref="f18918133cfc22e041baab71b051c41f" prefix=" " category="inline-code"></block>。</block>
+  <block id="f919e378a236907726426311e1222ca5" category="list-text">重新啟動 sshd 服務。</block>
+  <block id="886890ea240491bd5c7fbf2ad26038e0" category="list-text">重設 Oracle 使用者密碼。</block>
+  <block id="312dbdb4917346c5535b58edeb72d5d8" category="list-text">以 Oracle 重新啟動軟體擁有者使用者（ Oracle ）的身分登入。建立 Oracle 目錄、如下所示：</block>
+  <block id="2fce107e9da63a27050a1b7738518797" category="list-text">變更目錄權限設定。</block>
+  <block id="de76f7d30e13c7b0fac443a1b582500b" category="list-text">建立網格主目錄並加以變更。</block>
+  <block id="ca3eab9cf7a8f03f19d82f95a9ccebc0" category="list-text">解壓縮網格安裝檔案。</block>
+  <block id="4cb0c768cefd4361adc66dd3dfac2ad8" category="list-text">從網格首頁刪除<block ref="29b6fb214b3224ca10c7261aa01e44b5" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="572656c141066b10c23d5205e70be53b" category="list-text">從網格首頁複製<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block> 到 GRIN_HOME 、然後將其解壓縮。</block>
+  <block id="5d940bd40ee32694345bce5774d5c678" category="list-text">從網格首頁修改<block ref="ef8657f0a0a00af93ba7f1c8885339ca" prefix=" " category="inline-code"></block>、取消註解並取代<block ref="bb7738211dd8eb3dbadf4cc63ae8eb8a" prefix=" " category="inline-code"></block> 與<block ref="b2affc1a941fe7e5e65933911250249c" prefix=" " category="inline-code"></block>。</block>
+  <block id="e4dae708382daa7f76913b9e5b686a1c" category="list-text">準備<block ref="77d9f4d56c58834c8dacf6d0cb94e085" prefix=" " category="inline-code"></block> 用於無訊息安裝的檔案、並將 rsp 檔案放入<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：</block>
+  <block id="72eab9d7fc33889fd5bf6a85943c4e4a" category="list-text">以 root 使用者身分登入 EC2 執行個體並設定<block ref="e1f651debac4f720c13ae930ff3ca14a" prefix=" " category="inline-code"></block> 和<block ref="456a3c82b7208b5c2a000597b1330564" prefix=" " category="inline-code"></block>。</block>
+  <block id="d134d418859128801ec294cd10bcbd8e" category="list-text">配置磁碟裝置以搭配 Oracle ASM 篩選器驅動程式使用。</block>
+  <block id="8826276fbf00e07d49f72479d3b0da2b" category="list-text">將裝置擁有權變更為<block ref="ab3d4d3deefe8df93125b9c71378718c" prefix=" " category="inline-code"></block>。</block>
+  <block id="3e6c5f0c8e9c1310879c66839bb0f8d5" category="list-text">安裝<block ref="a27b4e2b8f4a0b0419894dfeac36419e" prefix=" " category="inline-code"></block>。</block>
+  <block id="cfdbf231484c64b98bc4f3569cd7b324" category="list-text">未設定<block ref="c0c2c8394b04a929ffc60091aa1f72ca" prefix=" " category="inline-code"></block>。</block>
+  <block id="9817d9ff96af960709b8094b73294545" category="list-text">以 Oracle 使用者身分登入 EC2 執行個體、並在中擷取修補程式<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 資料夾。</block>
+  <block id="971a0a45b8dae69114b7ad2a60cb7f96" category="list-text">以 Oracle 使用者身分啟動<block ref="30c950549715985c6b7c7cd6990d0f4b" prefix=" " category="inline-code"></block> 適用於網格基礎架構安裝。</block>
+  <block id="5de6732dda1e7bccbd8e8b367ad248dd" category="paragraph">忽略有關網格基礎架構錯誤群組的警告。我們使用單一 Oracle 使用者來管理 Oracle 重新啟動、因此這是正常情況。</block>
+  <block id="306b4d4b77c54aeb5cbfcd36749043f5" category="list-text">以 root 使用者身分執行下列指令碼：</block>
+  <block id="7dff0a250c79eafa071ee2d5713b7123" category="list-text">身為 Oracle 使用者、請執行下列命令以完成組態：</block>
+  <block id="ecbea27c1b60fd5cd72a96184d8d2bef" category="list-text">如果您收到訊息「 [INS-43080] Sas the configuration Assistants failed 、 was canceled or bipped 」（ [INS-43080] 部分組態助理失敗、已取消或略過）、請以 Oracle 使用者身分執行下列命令、檢查是否已建立資料磁碟群組資源。</block>
+  <block id="02521e82deae97953ff19793ad44493b" category="list-text">如果未建立資料磁碟群組、請以 root 使用者身分重新載入多路徑。</block>
+  <block id="e8c5b866f6d35a070a878d3abb75cf8d" category="list-text">身為 Oracle 使用者、如果資料磁碟群組並非在網格安裝期間建立、請建立該群組。</block>
+  <block id="3f2a67de0c5824d878c62c0bc347e09b" category="list-text">身為 Oracle 使用者、請建立記錄磁碟群組。</block>
+  <block id="f71fbb7ff86224d636aac5f9bb42f27d" category="list-text">身為 Oracle 使用者、請在安裝組態後驗證網格服務。</block>
+  <block id="f9ba171dd47a8cef31bac8aa17eeb44d" category="list-text">Valiate ASM 篩選器驅動程式狀態。</block>
+  <block id="b7e3e332087b6a041c83ce22cce9043c" category="section-title">Oracle 資料庫安裝</block>
+  <block id="9250c441cd32cef9ac89c4aaea3311e2" category="list-text">以 Oracle 使用者身分登入、然後取消設定<block ref="88ee3ad336791517a935931e1e50382a" prefix=" " category="inline-code"></block> 和<block ref="1548c2f12948ef1485a923f5891a3489" prefix=" " category="inline-code"></block> 如果已設定。</block>
+  <block id="9c1b98a904b357f470c8d87cf837d8cf" category="list-text">建立 Oracle DB 主目錄並變更為該目錄。</block>
+  <block id="74d5f0f080c7e7c4f0011e6b16a1072f" category="list-text">解壓縮 Oracle DB 安裝檔案。</block>
+  <block id="1fdd02c9779c06712368af7ed65c00dd" category="list-text">從 DB 首頁刪除<block ref="29b6fb214b3224ca10c7261aa01e44b5" prefix=" " category="inline-code"></block> 目錄。</block>
+  <block id="948ac6ddaa5b19c62366a04abf60547d" category="list-text">從 DB 主目錄複製<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block> 至<block ref="22f5bd75d60d3065afc99a50bc98d9ae" prefix=" " category="inline-code"></block>然後將其解壓縮。</block>
+  <block id="d86c0eec890e4216540c2b834f6339f5" category="list-text">從 DB 主目錄修改<block ref="ef8657f0a0a00af93ba7f1c8885339ca" prefix=" " category="inline-code"></block>、以及取消註解及取代<block ref="bb7738211dd8eb3dbadf4cc63ae8eb8a" prefix=" " category="inline-code"></block> 與<block ref="b2affc1a941fe7e5e65933911250249c" prefix=" " category="inline-code"></block>。</block>
+  <block id="95233719931805924ded9cd671e036df" category="list-text">從<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄中、解壓縮 DB 19.18 RU 修補程式。</block>
+  <block id="0181cf4258f052eaf2d48f78cd4fed7b" category="list-text">在中準備 DB 無訊息安裝 rsp 檔案<block ref="2d9ffa0a3db25b02bcd0091245449764" prefix=" " category="inline-code"></block> 具有下列值的目錄：</block>
+  <block id="0838265859443cbbcdfc0834fb13e402" category="list-text">執行無訊息軟體專用資料庫安裝。</block>
+  <block id="4c3b15e92dacacd38d6f1d3174ad1e9f" category="list-text">執行<block ref="08030ad08b2b991d61b424afd8828758" prefix=" " category="inline-code"></block> 僅軟體安裝後的指令碼。</block>
+  <block id="67bee4155203a684288d87caec62ca7e" category="list-text">建立<block ref="c170c347c737b82ad62c48db1f7bff3c" prefix=" " category="inline-code"></block> 包含下列項目的檔案：</block>
+  <block id="6ffd5c1d97bca346a601eadabda25b0d" category="list-text">使用 dbca 建立 lach DB 。</block>
+  <block id="0bdb291c3f45b8d3e9cd39da181febb1" category="list-text">建立資料庫後、驗證 Oracle 重新啟動 HA 服務。</block>
+  <block id="05472424b7ce7bd118009f6cde3a0614" category="list-text">設定 Oracle 使用者<block ref="9e0037ad71166970bde5f910189cc94a" prefix=" " category="inline-code"></block>。</block>
+  <block id="cadaa91ab9001028d3a153b4325f10a5" category="list-text">新增下列項目：</block>
+  <block id="ab5f5bab123b3441fc9c838b46ff1150" category="list-text">驗證建立的 CDB/PDB 。</block>
+  <block id="561a4d93b7f68977bd06286fa019a254" category="list-text">將 DB 恢復位置設定為 +logs 磁碟群組。</block>
+  <block id="a0b58d032d36bf0801e5ca3a2aa515d9" category="list-text">使用 sqlplus 登入資料庫、並啟用歸檔記錄模式。</block>
+  <block id="0a31d377857a1d2e24f8e85950a44aac" category="paragraph">這將完成 Oracle 19c 版本 19.18 重新啟動在 Amazon FSX for ONTAP 和 EC2 運算執行個體上的部署。如有需要、 NetApp 建議將 Oracle 控制檔和線上記錄檔重新定位至 +logs 磁碟群組。</block>
+  <block id="4d3617697efd9a8201cb07f5e610e306" category="section-title">自動化部署選項</block>
+  <block id="3809b24192da05cb9bdf6fc7f86ce5d6" category="paragraph">NetApp 將與 Ansible 一起發佈全自動解決方案部署工具套件、以協助實作此解決方案。請回來查看工具組的可用性。發行後、將會在此張貼連結。</block>
+  <block id="6cf7e59477fa5c8722c79a0910c40cd8" category="section-title">使用 SnapCenter 服務備份、還原及複製 Oracle 資料庫</block>
+  <block id="a0c9cf73752e72933d08cadbcdf8c05a" category="inline-link-macro">適用於 Oracle 的 SnapCenter 服務</block>
+  <block id="916b48729c536f6a12c2122673bc394a" category="paragraph">請參閱 <block ref="3e99507ec3d2036a04c899dadd6c66e9" category="inline-link-macro-rx"></block> 如需使用 NetApp BlueXP 主控台備份、還原及複製 Oracle 資料庫的詳細資訊、</block>
+  <block id="aa5a3d07c03024007dadc921fdbe67cb" category="paragraph">若要深入瞭解本文件所述資訊、請參閱下列文件及 / 或網站：</block>
+  <block id="5424ed1a1b4c4815e1d1676f23aa1da4" category="list-text">安裝 Oracle Grid Infrastructure for a Standalone Server with a New Database Installation</block>
+  <block id="a7410994d191ba6c350f0f764df86934" category="inline-link-macro"><block ref="a7410994d191ba6c350f0f764df86934" category="inline-link-rx"></block></block>
+  <block id="094328bca120efd3d6fba90d69b806f8" category="paragraph"><block ref="094328bca120efd3d6fba90d69b806f8" category="inline-link-macro-rx"></block></block>
+  <block id="8ae84196c6f373ef488c40b0b95e030d" category="list-text">使用回應檔案安裝及設定 Oracle 資料庫</block>
+  <block id="ee622e67d0075e37fff43bbf337e98b2" category="inline-link-macro"><block ref="ee622e67d0075e37fff43bbf337e98b2" category="inline-link-rx"></block></block>
+  <block id="2d94d091f5afb89e4f1aab002cef14a3" category="paragraph"><block ref="2d94d091f5afb89e4f1aab002cef14a3" category="inline-link-macro-rx"></block></block>
+  <block id="6845898fa7e9ec1fa3b8934d8e91b0c1" category="summary">本解決方案提供使用 BlueXP 主控台的 NetApp SnapCenter SaaS 進行 Oracle 資料庫備份、還原、複製的概觀與詳細資料。</block>
+  <block id="9caa022ffa5eb0757a1a86c936148e7f" category="doc">TR-4964 ：使用 SnapCenter 服務備份、還原及複製 Oracle 資料庫</block>
+  <block id="8ae5c33b293249b4befae60cdc1d6364" category="paragraph">SnapCenter 服務是傳統 SnapCenter 資料庫管理 UI 工具的 SaaS 版本、可透過 NetApp BlueXP 雲端管理主控台取得。它是 NetApp 雲端備份資料保護方案不可或缺的一部分、適用於在 NetApp 雲端儲存設備上執行的 Oracle 和 HANA 等資料庫。這項 SaaS 型服務可簡化傳統的 SnapCenter 獨立式伺服器部署作業、通常需要在 Windows 網域環境中運作的 Windows 伺服器。</block>
+  <block id="05530a14144f96daea2a6f96bb61b38b" category="paragraph">在本文件中、我們示範如何設定 SnapCenter 服務、以備份、還原及複製部署至 Amazon FSX 的 Oracle 資料庫、以供 ONTAP 儲存設備和 EC2 運算執行個體使用。SnapCenter 服務雖然設定和使用容易得多、但仍提供舊版 SnapCenter UI 工具所提供的重要功能。</block>
+  <block id="d47397f53e6c7682397a8f8688daddcc" category="list-text">資料庫備份、搭配 Amazon FSX for ONTAP 所代管的 Oracle 資料庫快照</block>
+  <block id="403ca933973134cbaf8f9354830b4d9c" category="list-text">發生故障時的 Oracle 資料庫恢復</block>
+  <block id="6f2d8b46ec98e47be22d4747b82a02d2" category="list-text">針對開發 / 測試環境或其他使用案例、快速且具儲存效率的主要資料庫複製</block>
+  <block id="de98fb1438e12380191eaa97d6c6b90d" category="paragraph">本解決方案適用於下列對象：</block>
+  <block id="bdc080d1f53262a817a1472a559d75dd" category="list-text">DBA 負責管理在 Amazon FSX 上執行的 Oracle 資料庫、以供 ONTAP 儲存設備使用</block>
+  <block id="d6e066caa1ab2a9ead96779ac0a95670" category="list-text">對測試公有 AWS 雲端中的 Oracle 資料庫備份、還原和複製感興趣的解決方案架構設計師</block>
+  <block id="3e05bb0c3eae0733dd3f5b6eda0da89e" category="list-text">支援及管理 Amazon FSX for ONTAP 儲存設備的儲存管理員</block>
+  <block id="e55870c74749ffe7a1d8b4c1a9cb5b60" category="list-text">擁有應用程式的應用程式擁有者、這些應用程式部署至 Amazon FSX 以進行 ONTAP 儲存</block>
+  <block id="a9bed64bc676f536e10a189728888614" category="image-alt">此映像提供 BlueXP 主控台中的 Cloud Backup for Application 詳細圖片、包括其管理的 UI 、連接器和資源。</block>
+  <block id="ccd967b78d046cba29272c0823500e3f" category="paragraph">此映像提供 BlueXP 主控台內的 Cloud Backup for Application 詳細圖片、包括 UI 、連接器及其管理的資源。</block>
+  <block id="6f4cd1b0523380b825fa78ec70975a14" category="cell">兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器</block>
+  <block id="86fae68c14c723bf36942c2c83e8a847" category="list-text">* Connector 部署在與資料庫和 FSX 相同的 VPC 中。 * 盡可能將連接器部署在相同的 AWS VPC 中、以便連線至 FSX 儲存設備和 EC2 運算執行個體。</block>
+  <block id="f4c5cbc76886ee4d3b06a979e007f04c" category="list-text">* 為 SnapCenter Connector 建立的 AWS IAM 原則。 * 詳細的 SnapCenter 服務文件中提供 JSON 格式的原則。當您使用 BlueXP 主控台啟動 Connector 部署時、系統會提示您設定先決條件。原則應指派給擁有連接器的 AWS 使用者帳戶。</block>
+  <block id="9a4e5feb06bb2dae4e8b115b6528fb7d" category="list-text">* AWS 帳戶存取金鑰和在 AWS 帳戶中建立的 SSH 金鑰配對。 * SSH 金鑰配對會指派給 EC2 使用者、用於登入連接器主機、然後將資料庫外掛程式部署到 EC2 DB 伺服器主機。存取金鑰會授予資源配置所需連接器的權限。</block>
+  <block id="e59f5f07f322e64b80fa8264dd4389e7" category="list-text">* 新增至 BlueXP 主控台設定的認證。 * 若要將 Amazon FSX for ONTAP 新增至 BlueXP 工作環境、您可以在 BlueXP 主控台設定中設定認證、以授予從 BlueXP 主控台存取 Amazon FSX for ONTAP 的權限。</block>
+  <block id="7d3fac201e712c335b848cf4411e68e0" category="list-text">* 部署至 EC2 資料庫執行個體主機的 SnapCenter 外掛程式。 * SnapCenter 服務會撥打由 EC2 資料庫執行個體主機上的 SnapCenter 外掛程式執行的 API 呼叫。您必須在設定服務之前部署。</block>
+  <block id="16d04337973f389d2f7da86eac115afd" category="paragraph">我們提供廣泛的 NetApp 文件、範圍更廣、可協助您保護雲端原生應用程式資料。本文件旨在提供逐步程序、以 BlueXP 主控台涵蓋 SnapCenter 服務部署、以保護部署至 Amazon FSX for ONTAP 和 EC2 運算執行個體的 Oracle 資料庫。本文件會填入更多一般指示中可能遺漏的特定詳細資料。</block>
+  <block id="20c4c0cc24d7fc086bd9c72220d4827f" category="paragraph">若要開始使用、請完成下列步驟：</block>
+  <block id="eb5668f5c3459c84cc715cf197e7c91a" category="inline-link-macro">保護雲端原生應用程式資料</block>
+  <block id="fba4ab9f47a6aa18ae1b02fb3d8f6db1" category="list-text">請閱讀一般說明 <block ref="ac041fb7031b2bcbcb203adcabf84a4f" category="inline-link-macro-rx"></block> 以及與 Oracle 和 Amazon FSX for ONTAP 相關的章節。</block>
+  <block id="f2f7f5c9af8a75d22b9aca95d23faad9" category="list-text">觀看下列影片逐步解說。</block>
+  <block id="80478dbd4349cfca50f458d912a95795" category="section-title">SnapCenter 服務部署的必要條件</block>
+  <block id="ee260886ab2b6b27905543032620ac6f" category="list-text">EC2 執行個體上的主要 Oracle 資料庫伺服器、已完全部署並執行 Oracle 資料庫。</block>
+  <block id="d7ab5019b6e4c888e46cb145fb2d5fc4" category="list-text">在 AWS 中部署的 Amazon FSX for ONTAP 叢集、託管上述資料庫。</block>
+  <block id="0191527f1e188e7a6d18289a5ac9c936" category="list-text">EC2 執行個體上的選用資料庫伺服器、可用於測試將 Oracle 資料庫複製到替代主機的情形、以支援開發 / 測試工作負載、或是任何需要完整資料集正式作業 Oracle 資料庫的使用案例。</block>
+  <block id="ab12a73272bb7f9d19f02c65ce057f61" category="inline-link-macro">搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護</block>
+  <block id="58580b46e10b35944b7405415499a369" category="list-text">如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 <block ref="84dfb8b43ed6d356540ab11fdb4b0e89" category="inline-link-macro-rx"></block>。</block>
+  <block id="b8b1139d652a0eeb20f8d04852ac0ff4" category="section-title">開始準備 BlueXP</block>
+  <block id="1273c8a63109161e6fd1f18d6998523f" category="inline-link-macro">NetApp BlueXP</block>
+  <block id="87d337785ad5798c5ccb41300628991a" category="list-text">使用連結 <block ref="f796c57cbc184209dde3e35268bc382f" category="inline-link-macro-rx"></block> 註冊 BlueXP 主控台存取。</block>
+  <block id="398c495b453cb83c96b3fd0cda544bd5" category="list-text">若要設定 BlueXP 來管理 AWS 雲端資源、例如 Amazon FSX for ONTAP 、您應該已經設定 AWS 帳戶。接著您可以登入 AWS 帳戶、建立 IAM 原則、將 SnapCenter 服務存取權授予 AWS 帳戶、以用於連接器部署。</block>
+  <block id="ead8f2b206d64f3dc022b5aff7ebf5ef" category="inline-image-macro">GUI 中顯示此步驟的螢幕擷取畫面。</block>
+  <block id="f6d580bf790e26134ef61bf9d6fe18fe" category="paragraph"><block ref="f6d580bf790e26134ef61bf9d6fe18fe" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="72c085381ac33d4812eff61d168042a4" category="paragraph">原則應設定為 JSON 字串、在啟動連接器資源配置時可使用、系統會提示您已建立 IAM 原則、並將其授予用於連接器部署的 AWS 帳戶。</block>
+  <block id="a54002868f2640fbd1fc4f9adc7d9df8" category="list-text">您也需要 AWS VPC 、 AWS 帳戶的金鑰和機密、用於 EC2 存取的 SSH 金鑰、安全群組等、才能準備好配置連接器。</block>
+  <block id="43e23d889dea00cd09a68857a66540a2" category="section-title">部署 SnapCenter 服務的連接器</block>
+  <block id="6e557be0e45c40d783bbd8866f9a399d" category="list-text">登入 BlueXP 主控台。若是共用帳戶、最佳做法是按一下 * 帳戶 * &gt; * 管理帳戶 * &gt; * 工作區 * 來新增工作區、以建立個別工作區。</block>
+  <block id="ff983eb1cf4195dbceed01ba6d95f4bd" category="paragraph"><block ref="ff983eb1cf4195dbceed01ba6d95f4bd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c47cec29fcf0d8e782f2c91ad12914b4" category="list-text">按一下 * 新增 Connector* 以啟動 Connector 資源配置工作流程。</block>
+  <block id="06daec2780fc4a5c0089241439b6abc4" category="paragraph"><block ref="06daec2780fc4a5c0089241439b6abc4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6bb78288dc7f5beb506e79a3af8041de" category="list-text">選擇您的雲端供應商（在此案例中為 * Amazon Web Services* ）。</block>
+  <block id="8087e08b633357d4802bcc914799e1e0" category="paragraph"><block ref="8087e08b633357d4802bcc914799e1e0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="06a5177c61e31798acfdd25d766ef121" category="list-text">如果您已在 AWS 帳戶中設定 * 權限 * 、 * 驗證 * 和 * 網路 * 步驟、請略過這些步驟。否則、您必須先設定這些項目、才能繼續。您也可以從這裡擷取上一節所提及的 AWS 原則權限。<block ref="2204dd011c923b13eaa19e758c798231" category="inline-xref-macro-rx"></block>。」</block>
+  <block id="79463376ddcde3119f1d61ab3e8ace01" category="paragraph"><block ref="79463376ddcde3119f1d61ab3e8ace01" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d3aa90e294a5c6f1393c075c038193c2" category="list-text">輸入 AWS 帳戶驗證存取金鑰和秘密金鑰。</block>
+  <block id="6a45e1d81bff2e550eac67a6a5fa7cbf" category="paragraph"><block ref="6a45e1d81bff2e550eac67a6a5fa7cbf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="712e596a90ac38ed31c6d4d55347a559" category="list-text">命名連接器執行個體、然後在 * 詳細資料 * 下選取 * 建立角色 * 。</block>
+  <block id="98c5e6a562ea83f6e395b91667156df3" category="paragraph"><block ref="98c5e6a562ea83f6e395b91667156df3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a195a46dbd792968c9fcafd533a33b51" category="list-text">使用適當的 VPC 、子網路和 SSH 金鑰配對來設定網路、以供 EC2 存取。</block>
+  <block id="fde599fe1b1ccfb7275d4e17f0b4fc17" category="paragraph"><block ref="fde599fe1b1ccfb7275d4e17f0b4fc17" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1509007123cad8688bdef6b265c409ce" category="list-text">設定連接器的安全性群組。</block>
+  <block id="e3d2711238be85fe0acd7b353cb0571c" category="paragraph"><block ref="e3d2711238be85fe0acd7b353cb0571c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f067570884442aa68da666583a8530cc" category="list-text">檢閱摘要頁面、然後按一下 * 新增 * 以開始建立連接器。完成部署通常需要 10 分鐘。完成後、連接器執行個體會顯示在 AWS EC2 儀表板中。</block>
+  <block id="165138d0d406e2c17d45e777fc26ebc5" category="paragraph"><block ref="165138d0d406e2c17d45e777fc26ebc5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="96e8e4df8b3ca0b4eec3a79081f69a5f" category="inline-link-macro">使用指令碼部署外掛程式、並使用手動選項從UI新增主機</block>
+  <block id="bb7fc4f6e011b0abf2d72151ba43d448" category="list-text">部署連接器之後、請以 EC2 使用者的身分、使用 SSH 金鑰登入連接器 EC2 主機、以安裝 SnapCenter 外掛程式、並遵循下列指示： <block ref="4d36f47e6f1b893c6ddd7262bda1c9b4" category="inline-link-macro-rx"></block>。</block>
+  <block id="bb46d1e3b94fe670b59ad65582cc45d9" category="section-title">SnapCenter 服務設定</block>
+  <block id="c874496d8de4031470108dc34d998d2c" category="paragraph">部署連接器後、現在可以使用下列程序來設定 SnapCenter 服務：</block>
+  <block id="3ecf7d7cbb172543fe0f740496cfb9b0" category="list-text">從 * 我的工作環境 * 按一下 * 新增工作環境 * 、探索在 AWS 中部署的 FSX 。</block>
+  <block id="537b713708147506a182f9e62348c997" category="paragraph"><block ref="537b713708147506a182f9e62348c997" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4daeb16c1a9b1a0d173181068ef06541" category="list-text">選擇 * Amazon Web Services* 作為位置。</block>
+  <block id="25949fd8842fc6d4e2a3d0e74bbc18d9" category="paragraph"><block ref="25949fd8842fc6d4e2a3d0e74bbc18d9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="beb3aca877ee917cc965b653f4f954c2" category="list-text">按一下 * Amazon FSX for ONTAP * 旁的 * 探索現有 * 。</block>
+  <block id="669e7983bcf1791e42789eb5557823c1" category="paragraph"><block ref="669e7983bcf1791e42789eb5557823c1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="818214abd1c968ef46c7d7ffea09d9cf" category="list-text">選取提供 BlueXP 所需權限的認證、以管理 ONTAP 的 FSX 。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。</block>
+  <block id="2dd86f2e91e85ccea46f244108988758" category="paragraph"><block ref="2dd86f2e91e85ccea46f244108988758" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1c90af5467bb4ade93f516a477fab6ce" category="list-text">選擇部署 Amazon FSX for ONTAP 的 AWS 區域、選取裝載 Oracle 資料庫的 FSX 叢集、然後按一下「新增」。</block>
+  <block id="39accbdb3a3b52363e35c6bd0a5768d8" category="paragraph"><block ref="39accbdb3a3b52363e35c6bd0a5768d8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c6a9497923f20e49ad508a714878556d" category="list-text">探索到的 Amazon FSX for ONTAP 執行個體現在會出現在工作環境中。</block>
+  <block id="b996189c5d6c6476140b17331222eaf4" category="paragraph"><block ref="b996189c5d6c6476140b17331222eaf4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5abed4635dac308091151770538f31f6" category="list-text">您可以使用 fsxadmin 帳戶認證登入 FSX 叢集。</block>
+  <block id="a0297da6f92a68d1492ecdf77c4949fb" category="paragraph"><block ref="a0297da6f92a68d1492ecdf77c4949fb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="72788f45d9fca0c46cf26a1728176b48" category="list-text">登入 Amazon FSX for ONTAP 之後、請檢閱您的資料庫儲存資訊（例如資料庫磁碟區）。</block>
+  <block id="8a51384a3ecf5b098e9facdac7fd4742" category="paragraph"><block ref="8a51384a3ecf5b098e9facdac7fd4742" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="04353f9112bb1b7ff1621abd8ff0ef5b" category="list-text">從主控台的左側側欄中、將滑鼠移到保護圖示上、然後按一下 * 保護 * &gt; * 應用程式 * 、即可開啟應用程式啟動頁面。按一下「*探索應用程式*」。</block>
+  <block id="c174305d25dc1c3ea7e6fd64534c302d" category="paragraph"><block ref="c174305d25dc1c3ea7e6fd64534c302d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="598fd5b506ddf6b5a73368a488fa16c0" category="list-text">選取 * 雲端原生 * 作為應用程式來源類型。</block>
+  <block id="4645a6f0abb4aa3edf2172708fd672e0" category="paragraph"><block ref="4645a6f0abb4aa3edf2172708fd672e0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bfcedcc06ce70b69b0c25371a7b68359" category="list-text">選擇 * Oracle* 作為應用程式類型。</block>
+  <block id="d90ff0259aa21df9ff992d15f1efcbd2" category="paragraph"><block ref="d90ff0259aa21df9ff992d15f1efcbd2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6cbdf0cef43778a4cfb3432da64609c7" category="list-text">提供 Oracle EC2 執行個體主機詳細資料以新增主機。核取此方塊以確認主機上的 Oracle 外掛程式已安裝、因為您在配置連接器之後部署外掛程式。</block>
+  <block id="932a85fd3682f29ed640be5455be6e1d" category="paragraph"><block ref="932a85fd3682f29ed640be5455be6e1d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="99674e4e12f2b87ea13d459f88886121" category="list-text">探索 Oracle EC2 主機並將其新增至 * 應用程式 * 、主機上的任何資料庫也會一併探索並顯示在頁面上。資料庫 * 保護狀態 * 顯示為 * 未受保護 * 。</block>
+  <block id="a91f39c3d22fe697afbaa8e861c6f1e1" category="paragraph"><block ref="a91f39c3d22fe697afbaa8e861c6f1e1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9958dec2bab238d2e917ab477e6687a5" category="paragraph">這將完成 Oracle SnapCenter 服務的初始設定。本文件接下來三節將說明 Oracle 資料庫備份、還原及複製作業。</block>
+  <block id="7f7c0dda9cb78e17432e91abc3c9a290" category="section-title">Oracle 資料庫備份</block>
+  <block id="d243d925299e4128a453e9d54b57e25d" category="list-text">按一下資料庫 * 保護狀態 * 旁的三個點、然後按一下 * 原則 * 、即可檢視可套用以保護 Oracle 資料庫的預設預先載入資料庫保護原則。</block>
+  <block id="f5ec19f9ff10edc4aa6fc1c116c6b23e" category="paragraph"><block ref="f5ec19f9ff10edc4aa6fc1c116c6b23e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5b95d24dbc11f9b34c6cf18b07dcf3f7" category="list-text">您也可以使用自訂的備份頻率和備份資料保留時間來建立自己的原則。</block>
+  <block id="dd06e85eab955d6e3843bf0f5c71961c" category="paragraph"><block ref="dd06e85eab955d6e3843bf0f5c71961c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="44fa14fc437558bfdfce0d0ac643d1e2" category="list-text">當您對原則組態感到滿意時、即可指派您選擇的原則來保護資料庫。</block>
+  <block id="2bf8224a90f863c821d826f3501d5c0a" category="paragraph"><block ref="2bf8224a90f863c821d826f3501d5c0a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4861abebdaa3d58ada4e621adac79010" category="list-text">選擇要指派給資料庫的原則。</block>
+  <block id="c6f05663d6855c56941461ecc27d6b12" category="paragraph"><block ref="c6f05663d6855c56941461ecc27d6b12" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="da1635fa4036afa9fa39c868740e8560" category="list-text">套用原則之後、資料庫保護狀態會變更為 * 受保護 * 、並加上綠色核取記號。</block>
+  <block id="0d63626c21bc3f6eaeff860db7839e8e" category="paragraph"><block ref="0d63626c21bc3f6eaeff860db7839e8e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7474327f9583bb0f2aa4aa276aa11e53" category="list-text">資料庫備份會以預先定義的排程執行。您也可以執行一次性隨選備份、如下所示。</block>
+  <block id="3adad6846dd8bf1ff91c627d2f4bea27" category="paragraph"><block ref="3adad6846dd8bf1ff91c627d2f4bea27" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f7ba3fa48656ab6088ca8f9f4c64578f" category="list-text">按一下功能表清單中的 * 檢視詳細資料 * 即可檢視資料庫備份詳細資料。其中包括備份名稱、備份類型、 SCN 和備份日期。備份集涵蓋資料磁碟區和記錄磁碟區的快照。記錄 Volume 快照會在資料庫 Volume 快照之後立即執行。如果您要在長清單中尋找特定備份、可以套用篩選器。</block>
+  <block id="c76057368e5767af8f13e84e53b3194f" category="paragraph"><block ref="c76057368e5767af8f13e84e53b3194f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8fd0ba63e6574c7326fb2e810b4537e0" category="section-title">Oracle 資料庫還原與還原</block>
+  <block id="d747acf93ee8abac3afd574a32b975fe" category="list-text">若要進行資料庫還原、請依 SCN 或備份時間選擇正確的備份。按一下資料庫資料備份中的三個點，然後按一下 * 還原 * 來啟動資料庫還原與還原。</block>
+  <block id="7331f40ac7ceea61fa15e6868eba99e7" category="paragraph"><block ref="7331f40ac7ceea61fa15e6868eba99e7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4ced09bd050d5fa98df8a41ef04173e0" category="list-text">選擇您的還原設定。如果您確定備份後實體資料庫結構中沒有任何變更（例如新增資料檔案或磁碟群組）、您可以使用 * 強制就地還原 * 選項、這通常會更快。否則、請勿勾選此方塊。</block>
+  <block id="2684b5e65a8e3b537bd594678549bc4e" category="paragraph"><block ref="2684b5e65a8e3b537bd594678549bc4e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d58c0a59c722f81b5e2d0f77ffc4e126" category="list-text">檢閱並開始資料庫還原與還原。</block>
+  <block id="9ab34ce0349fd7db7573bad83c07a487" category="paragraph"><block ref="9ab34ce0349fd7db7573bad83c07a487" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e370cf26e04645138a40a3379e743fb7" category="list-text">從 * 工作監控 * 標籤、您可以在還原工作執行時檢視其狀態及任何詳細資料。</block>
+  <block id="e9214106e8bbcaae5a214e937af349e6" category="paragraph"><block ref="e9214106e8bbcaae5a214e937af349e6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bd84eda02c29b3672e3476ed8c8be12d" category="paragraph"><block ref="bd84eda02c29b3672e3476ed8c8be12d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9dc2f50af584776a2ecc51a0ebcdded2" category="section-title">Oracle 資料庫複製</block>
+  <block id="35526fc92bd49edc3a11a0affafeae3b" category="paragraph">若要複製資料庫、請從相同的資料庫備份詳細資料頁面啟動複製工作流程。</block>
+  <block id="71f8cd32cfa279d796f673879629f671" category="list-text">選取正確的資料庫備份複本、按一下三個點以檢視功能表、然後選擇 * Clone * 選項。</block>
+  <block id="b858b9fa0a1f0db13263cc0c2cc5cf3d" category="paragraph"><block ref="b858b9fa0a1f0db13263cc0c2cc5cf3d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d552bd00a2d8ed3e1872a0f795180b9f" category="list-text">如果不需要變更任何複製的資料庫參數、請選取 * 基本 * 選項。</block>
+  <block id="867de7ff195f530db4a1e5643a75c689" category="paragraph"><block ref="867de7ff195f530db4a1e5643a75c689" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="90b931da49f7db8ce97de89c2b7ea8d5" category="list-text">或者、您也可以選取 * 規格檔 * 、讓您選擇下載目前的初始化檔案、進行變更、然後將其上傳回工作。</block>
+  <block id="f89a131e2cb4beb2f5dc697ac61b460f" category="paragraph"><block ref="f89a131e2cb4beb2f5dc697ac61b460f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="58b9252d48a9fcf8c03ec68f357e943a" category="list-text">檢閱並啟動工作。</block>
+  <block id="77281e34749b6599332dd1416b12f533" category="paragraph"><block ref="77281e34749b6599332dd1416b12f533" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3d388d0f32172ebe7aea2c3eeae0dfc4" category="list-text">從 * 工作監控 * 標籤監控複製工作狀態。</block>
+  <block id="827b60b27e967d900114ade1f31eed53" category="paragraph"><block ref="827b60b27e967d900114ade1f31eed53" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4e0fb0a8b932b4f05d487ea8a5748901" category="list-text">驗證 EC2 執行個體主機上的複製資料庫。</block>
+  <block id="d139cf7562ab53c3922d5a0a6804786c" category="paragraph"><block ref="d139cf7562ab53c3922d5a0a6804786c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6cfa4396db779261100202ab3f0ffdcd" category="paragraph"><block ref="6cfa4396db779261100202ab3f0ffdcd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f12aeeed0f164c86af69a57fddb01689" category="list-text">設定及管理BlueXP</block>
+  <block id="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-macro"><block ref="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-rx"></block></block>
+  <block id="54d1b98b8cdfd12e2afc7f08278645ba" category="paragraph"><block ref="54d1b98b8cdfd12e2afc7f08278645ba" category="inline-link-macro-rx"></block></block>
+  <block id="846099e77083903f32f72c0e2156c3c5" category="list-text">雲端備份文件</block>
+  <block id="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-macro"><block ref="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-rx"></block></block>
+  <block id="21af149e524c5f7a8eb5e23197309e60" category="paragraph"><block ref="21af149e524c5f7a8eb5e23197309e60" category="inline-link-macro-rx"></block></block>
+  <block id="7e7efb7e7b278c5ce5253a775d1c8313" category="sidebar">AWS FS3/EC2 中的自動化 PostgreSQL 高可用度部署和災難恢復</block>
+  <block id="d36111f9de8e485ef98facff50b6fd6e" category="sidebar">Oracle 資料庫部署與保護：使用 iSCSI/ASM</block>
 </blocks>
