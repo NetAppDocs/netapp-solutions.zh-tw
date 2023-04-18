@@ -17744,4 +17744,113 @@
   <block id="ff1d278a485c443dc5d8fc9f10f1a702" category="doc">NetApp HCI for virtual desktop Infrastructure with VMware Horizon 7 - 利用 3D 圖形為進階使用者提供強大功能</block>
   <block id="e3162938e0d7b1bbc74111cc5b5871c5" category="paragraph">TR-4792 提供在採用 NVIDIA 圖形處理單元（ GPU ）和虛擬化軟體的 VMware Horizon 環境中、使用 NetApp H615C 運算節點來處理 3D 圖形工作負載的指引。它也提供 H615C 的 SPECviewperf 13 初步測試結果。</block>
   <block id="1de37c09602b46db5de57a946efe2768" category="paragraph"><block ref="1de37c09602b46db5de57a946efe2768" category="inline-link-macro-rx"></block></block>
+  <block id="6e74710636e2da95cda4899adcdf891e" category="summary">資料可在 NFS 中取得、並可從 AWS SageMaker 從 S3 存取。</block>
+  <block id="8394db253ec71ed9d59b9429983b8eb4" category="doc">資料科學家和其他應用程式的資料雙重性</block>
+  <block id="352ca87bc1d3676d3b2548644189d052" category="paragraph"><block ref="352ca87bc1d3676d3b2548644189d052" category="inline-link-macro-rx"></block></block>
+  <block id="f4900d1d4a0a26325c4c9514e57c2c75" category="paragraph">您需要 NetApp BlueXP 、 NetApp Cloud Volumes ONTAP 和 AWS SageMaker 筆記型電腦來處理資料雙重用途使用案例。</block>
+  <block id="6e6b6052efed2574e2dc05cbdc5d66d5" category="paragraph">下表列出實作使用案例所需的軟體元件。</block>
+  <block id="9b9477e579c3b44dd623d5a6e1ea8d78" category="cell">藍圖</block>
+  <block id="dda9f6d67571441afa5cfb6b54b70873" category="cell">AWS SageMaker 筆記型電腦</block>
+  <block id="cc5f7f3bee6dcb16913051d6fc267977" category="paragraph">部署資料雙重性解決方案涉及下列工作：</block>
+  <block id="6bb1f60bf0d00924a1bba54557e1feae" category="list-text">BlueXP Connector</block>
+  <block id="cf25fa6cf104cc1a67119acb6d4d364d" category="list-text">用於機器學習的資料</block>
+  <block id="5a1439989b12745b5a4ed4b944539247" category="list-text">AWS SageMaker</block>
+  <block id="59b20c2117a395af59d54a6533498e99" category="list-text">通過 Jupyter 筆記型電腦驗證的機器學習</block>
+  <block id="46e0bb4f28dbf5013a68a8a69a3cf9f5" category="section-title">BlueXP 連接器</block>
+  <block id="de3e31c5aaf9bdeca7bc072f649ddc2e" category="paragraph">在此驗證中、我們使用 AWS 。也適用於 Azure 和 Google Cloud 。若要在 AWS 中建立 BlueXP Connector 、請完成下列步驟：</block>
+  <block id="4d7b48a5181bdd203b2ff52910c67d94" category="list-text">我們使用的認證是以 BlueXP 中的 mcarl-Marketer-訂閱 為基礎。</block>
+  <block id="c0caffb5ab49caead75d39f6416ba841" category="list-text">選擇適合您環境的區域（例如、 us-east-1 [N.）、然後選擇驗證方法（例如、承擔角色或 AWS 金鑰）。在此驗證中、我們使用 AWS 金鑰。</block>
+  <block id="86b72593a2ce2f4e46e7669ced916111" category="list-text">提供連接器的名稱並建立角色。</block>
+  <block id="71ffd00d3592df40d0db94a71ceab12d" category="list-text">根據您是否需要公有 IP 、提供 VPC 、子網路或金鑰組等網路詳細資料。</block>
+  <block id="b5b37cef840fa0a17af0ef55c09a0e1f" category="list-text">提供安全性群組的詳細資料、例如從來源類型存取 HTTP 、 HTTPS 或 SSH 、例如 Anywhere 和 IP 範圍資訊。</block>
+  <block id="45b20434e20aeebd5991cd84f2cf11c9" category="list-text">檢閱並建立 BlueXP Connector 。</block>
+  <block id="92043f8a1dc0b0180854c25bcf5ff79d" category="list-text">確認 BlueXP EC2 執行個體狀態在 AWS 主控台中執行、然後從 * 網路 * 索引標籤檢查 IP 位址。</block>
+  <block id="7044ee6a43ee2152ca6d008fcb8228c3" category="list-text">從 BlueXP 入口網站登入 Connector 使用者介面、或使用 IP 位址從瀏覽器存取。</block>
+  <block id="064d933c0c02c4fe7ef1a07ad3a537d7" category="paragraph">若要在 BlueXP 中建立 Cloud Volumes ONTAP 執行個體、請完成下列步驟：</block>
+  <block id="da6e487de6af8700c3cf58ffb20a876c" category="list-text">建立新的工作環境、選取雲端供應商、然後選取 Cloud Volumes ONTAP 執行個體類型（例如單一 CVO 、 HA 或 Amazon FSxN for ONTAP ）。</block>
+  <block id="dcb89e397dde3dedb1a32224f0c15b78" category="list-text">提供 Cloud Volumes ONTAP 叢集名稱和認證等詳細資料。在此驗證中、我們建立了一個名為的 Cloud Volumes ONTAP 執行個體<block ref="c7e44ecb645a5c83f843ae05090c5940" prefix=" " category="inline-code"></block>。</block>
+  <block id="9cf479af21359b2928a1b672d60577f2" category="list-text">選取 Cloud Volumes ONTAP 所需的服務。在此驗證中、我們選擇僅監控、因此我們停用了 * 資料感知與法規遵循 * 和 * 備份至雲端服務 * 。</block>
+  <block id="cb95ef3838d59d553c71f50b1cadee27" category="list-text">在 * 位置與連線 * 區段中、選取 AWS 區域、 VPC 、子網路、安全性群組、 SSH 驗證方法、 以及密碼或金鑰配對。</block>
+  <block id="fdd5d37c21ee01084537317345b3d78b" category="list-text">選擇充電方式。我們使用 * Professional* 進行此驗證。</block>
+  <block id="00efec60d606ea6ad0bafe93bc77df92" category="list-text">您可以選擇預先設定的套件、例如 * POC 和小型工作負載 * 、 * 資料庫和應用程式資料生產工作負載 * 、 * 具成本效益的 DR* 或 * 最高效能的正式作業工作負載 * 。在此驗證中、我們選擇 * POC 和小型工作負載 * 。</block>
+  <block id="f22934293c2f2a761ea26fa4ae1828e1" category="list-text">建立具有特定大小、允許的通訊協定和匯出選項的 Volume 。在此驗證中、我們建立了一個名為的 Volume<block ref="2b0d59c7031769e80c8e5118b6ec7694" prefix=" " category="inline-code"></block>。</block>
+  <block id="f2706214c4a60177d14fb8495cbc6924" category="list-text">選擇設定檔磁碟類型和分層原則。在此驗證中、我們停用了 * 儲存效率 * 和 * 通用 SSD ：動態效能 * 。</block>
+  <block id="40d3f73a73f67ce67b286aef7a5d3ecb" category="list-text">最後、檢閱並建立 Cloud Volumes ONTAP 執行個體。然後等待 15 到 20 分鐘、讓 BlueXP 建立 Cloud Volumes ONTAP 工作環境。</block>
+  <block id="a8b538b74c3f662c2248af9c6d4742db" category="list-text">設定下列參數以啟用二元傳輸協定。ONTAP 9 支援二元傳輸協定（ NFS/S3 ）。12.1 及更新版本。</block>
+  <block id="15b53c14b58ee146309847451d1eb90a" category="list-text">在此驗證中、我們建立了一個稱為的 SVM<block ref="c7e44ecb645a5c83f843ae05090c5940" prefix=" " category="inline-code"></block> 和Volume<block ref="2b0d59c7031769e80c8e5118b6ec7694" prefix=" " category="inline-code"></block>。</block>
+  <block id="3514969b2381af83551c246e34b74403" category="list-text">驗證 SVM 是否支援 NFS 和 S3 的傳輸協定。如果沒有、請修改 SVM 以支援它們。</block>
+  <block id="e41c06ffff0f8c9cadbc7f8bb37f8ae5" category="list-text">必要時建立並安裝 CA 憑證。</block>
+  <block id="0395f8062a8a7f4af05113bae8133737" category="list-text">建立服務資料原則。</block>
+  <block id="6e16e110899749a795fe713253d850e7" category="list-text">檢查 Aggregate 詳細資料。</block>
+  <block id="5d3f8e127103f0d5cf3de305db892b4d" category="list-text">建立使用者和群組。</block>
+  <block id="efa22127bde2d3ab2e4f5b9a42d14814" category="list-text">在 NFS 磁碟區上建立貯體。</block>
+  <block id="c3fd6f44bf88d3f0eae4742edb58eafc" category="paragraph">若要從 AWS SageMaker 建立 AWS 筆記型電腦、請完成下列步驟：</block>
+  <block id="31378aab1ee6190e0b7fe33c501a5625" category="list-text">請確定正在建立 Notebook 執行個體的使用者擁有 amzonSageMakerFullAccess IAM 原則、或是現有群組的一部分、該群組擁有 amzonSageMakerFullAccess 權限。在此驗證中、使用者是現有群組的一部分。</block>
+  <block id="13c1455885d16af64f1bb96c4e48680a" category="list-text">提供下列資訊：</block>
+  <block id="bb8101aed18120fa18dedaa994ffeea0" category="list-text">筆記本執行個體名稱。</block>
+  <block id="6239d232142a089e53e7a13fa721237a" category="list-text">執行個體類型。</block>
+  <block id="37056dac7373f7e1b74382036d25b69e" category="list-text">平台識別碼。</block>
+  <block id="38e2059c32c628cf89e90a6844a93800" category="list-text">選取具有 amaronSageMakerFullAccess 權限的 IAM 角色。</block>
+  <block id="55d7da5ede713135b1c2ebd7a615c3b4" category="list-text">root 存取權–啟用。</block>
+  <block id="8f0e92e4434abc32ff62a914ae9f2ba6" category="list-text">加密金鑰 - 選取「無自訂加密」。</block>
+  <block id="8b77028d248afd826900d895636b4e98" category="list-text">保留其餘的預設選項。</block>
+  <block id="78456ee20793f732edfa9105bbb4e490" category="list-text">在此驗證中、 SageMaker 執行個體詳細資料如下：</block>
+  <block id="e90e797343ea3f751b0c32e808edaff8" category="inline-image-macro">描述步驟的螢幕擷取畫面。</block>
+  <block id="07d5be91bebaccd4767fcceff99f3dde" category="paragraph"><block ref="07d5be91bebaccd4767fcceff99f3dde" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="69e41ee119a70fc66edf204cbcf365b1" category="paragraph"><block ref="69e41ee119a70fc66edf204cbcf365b1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4789a9ab6472480889e111503d068623" category="list-text">啟動 AWS 筆記型電腦。</block>
+  <block id="faf1aea43a6d3bd1af488b8baa828561" category="paragraph"><block ref="faf1aea43a6d3bd1af488b8baa828561" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cbfbebd805ee7945ad38bc26f8fa9f1b" category="list-text">開啟 Jupyter 實驗室。</block>
+  <block id="bcca330921c0ce477877bc982c12a6fb" category="paragraph"><block ref="bcca330921c0ce477877bc982c12a6fb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ab3269ab0de58f5611205f6ace06f3af" category="list-text">登入終端機並掛載 Cloud Volumes ONTAP Volume 。</block>
+  <block id="cc0649b0871fde24c4a46e09186a36e0" category="list-text">使用 AWS CLI 命令檢查在 Cloud Volumes ONTAP 磁碟區上建立的貯體。</block>
+  <block id="4f31ff9815d3a8a959e7c557213068d6" category="paragraph">在這項驗證中、我們使用來自 DBexpedia 的資料集、這是一項來自群眾的社群努力、從各種 Wikimedia 專案所建立的資訊中擷取結構化內容。</block>
+  <block id="06d6ccf33b49ed20a34cdc26b6820253" category="list-text">從 DBexpedia GitHub 位置下載資料並將其解壓縮。請使用上一節所使用的相同終端機。</block>
+  <block id="7f50b7f719282741fdf7ce5b8ca1f3dd" category="list-text">將資料複製到 Cloud Volumes ONTAP 位置、然後使用 AWS CLI 從 S3 儲存區檢查資料。</block>
+  <block id="0ecfbac978ab3f5979ec31eb5574d93e" category="list-text">執行基本驗證、確保 S3 儲存區的讀取 / 寫入功能正常運作。</block>
+  <block id="877169a066e14f0512d5f119945ef14d" category="section-title">驗證 Jupyter 筆記型電腦的機器學習</block>
+  <block id="6f73420916237ed836932ccf967d82ba" category="paragraph">下列驗證功能可透過以下 SageMaker BlazingText 範例、透過文字分類提供機器學習建置、訓練及部署模型：</block>
+  <block id="3cf03767e04159d1ec88e7fb0827b487" category="list-text">安裝 boto3 和 SageMaker 套件。</block>
+  <block id="b1282d58a4dcde0a2015d98ad33afd4c" category="paragraph">輸出：</block>
+  <block id="39017441ac701ebaef8de7116e7f71a0" category="list-text">在下列步驟中、資料 <block ref="0a726fdd06082d233cd4eade40f12612" prefix="(" category="inline-code"></block>）從 S3 儲存區下載<block ref="90d9a986b9b5e7c07c50a03ccc06a244" prefix=" " category="inline-code"></block> 至用於機器學習的 Jupyter Notebook 執行個體。</block>
+  <block id="a270350e3527fea9a36815fa5fe04ba0" category="list-text">下列程式碼會建立從整數索引到類別標籤的對應、以便在推斷期間擷取實際類別名稱。</block>
+  <block id="d17fa3d0aed3f8aaa5e78b447054126d" category="paragraph">輸出會列出中的檔案和資料夾<block ref="90d9a986b9b5e7c07c50a03ccc06a244" prefix=" " category="inline-code"></block> 做為 AWS SageMaker 機器學習驗證資料的貯體。</block>
+  <block id="0cfbf64679378e3e5367734fd2bd69aa" category="list-text">開始資料預先處理階段、將訓練資料預先處理成空間分隔、可由 BlazingText 演算法和 nltk 程式庫使用的權證化文字格式、以使 DBPedia 資料集的輸入句子變成權證。下載 nltk tokenizer 和其他程式庫。。<block ref="6d49a792c1080aa5b33d27ec694621b6" prefix=" " category="inline-code"></block> 平行套用至每個資料執行個體使用 Python 多重處理模組。</block>
+  <block id="d68566815a7248bae03e105c2db8853a" category="list-text">將格式化和訓練資料集上傳至 S3 、讓 SageMaker 可以使用該資料集來執行訓練工作。然後使用 Python SDK 將兩個檔案上傳至貯體和前置碼位置。</block>
+  <block id="bc41af112e1f02120a4a6e16f34767ef" category="list-text">在 S3 上設定輸出位置、將模型成品載入其中、使成品能成為演算法訓練工作的輸出。建立<block ref="6e3281884db83f9ee468a6e798b6bdfb" prefix=" " category="inline-code"></block> 物件以啟動訓練工作。</block>
+  <block id="41215e143c2b3810b37c4e4f47819077" category="list-text">定義 SageMaker<block ref="a0b1f5f7b93af313b6e2452f52c8f3f6" prefix=" " category="inline-code"></block> 使用資源組態和超參數、在 c4.4xlarge 執行個體上使用受監督模式、在 DBPedia 資料集上訓練文字分類。</block>
+  <block id="6c773c4d6e4a7dda7e00352894786bdb" category="list-text">準備資料通道與演算法之間的交握。若要這麼做、請建立<block ref="0e021845d2c0e4ad94a91ce444c13681" prefix=" " category="inline-code"></block> 來自資料通道的物件、並將其保留在字典中、以供演算法使用。</block>
+  <block id="3b29bef19a742b8ab66cddf620871d31" category="list-text">工作完成後、會出現「工作完成」訊息。您可以在設定為的 S3 儲存貯體中找到經過訓練的機型<block ref="212ad7a4c11069727ffd02f333d7d8b1" prefix=" " category="inline-code"></block> 在評估者中。</block>
+  <block id="6cb5683d87e53b375bd915572f960759" category="list-text">訓練完成後、請將經過訓練的模型部署為 Amazon SageMaker 即時代管端點、以做出預測。</block>
+  <block id="4254a612097ca58653de7c0c39da8df2" category="list-text">根據預設，模型會傳回一個機率最高的預測值。以擷取頂端<block ref="8ce4b16b22b58894aa86c421e8759df3" prefix=" " category="inline-code"></block> 預測、設定<block ref="8ce4b16b22b58894aa86c421e8759df3" prefix=" " category="inline-code"></block> 在組態檔案中。</block>
+  <block id="67be4f1bb90039baec0d8f73ff82a47e" category="list-text">在關閉筆記本之前刪除端點。</block>
+  <block id="891844576f11e816faf55d68309946b4" category="paragraph"><block ref="891844576f11e816faf55d68309946b4" category="inline-link-macro-rx"></block></block>
+  <block id="7caace9abf76a798c629a9134d1bb259" category="summary">NFS 和 S3 的雙傳輸協定存取可能的使用案例、是在機器學習和資料科學領域。例如、資料科學家團隊可能正在使用 AWS SageMaker 進行機器學習專案、這需要存取 NFS 格式儲存的資料。不過、資料也可能需要透過 S3 儲存區來存取和共享、以便與其他團隊成員協同作業、或與其他使用 S3 的應用程式整合。</block>
+  <block id="c065dcd23d9d1ec5adae07e55bed5122" category="paragraph"><block ref="c065dcd23d9d1ec5adae07e55bed5122" category="inline-link-macro-rx"></block></block>
+  <block id="ee8cf3bf54dea46135e299d79fa1c179" category="paragraph">本解決方案採用下列技術：</block>
+  <block id="a03ea23912d3b35c875ff398aa4888af" category="list-text">* AWS SageMaker Notebook 。 * 為開發人員和資料科學家提供機器學習能力、以有效建立、訓練和部署高品質的 ML 模型。</block>
+  <block id="bbe2552dc6295d353c02fd85c243f334" category="list-text">* NetApp BlueXP. * 可在內部部署、 AWS 、 Azure 和 Google Cloud 上探索、部署及操作儲存設備。它可提供資料保護、防範資料遺失、網路威脅和非計畫性中斷、並最佳化資料儲存和基礎架構。</block>
+  <block id="aa6fa71ab9848c5875470d36bbc2138a" category="list-text">* NetApp Cloud Volumes ONTAP 。 * 在 AWS 、 Azure 和 Google Cloud 上提供企業級儲存磁碟區的 NFS 、 SMB/CIFS 、 iSCSI 和 S3 傳輸協定、讓使用者能夠更靈活地存取和管理雲端中的資料。</block>
+  <block id="eea496572a01ca3e5ced1dfe99a5809c" category="paragraph">NetApp Cloud Volumes ONTAP 是從 BlueXP 建立來儲存 ML 資料。</block>
+  <block id="923baf107dc23ca10f968a4fdecd4f4f" category="paragraph">下圖顯示解決方案的技術元件。</block>
+  <block id="8afbfe3aeb9c594404d5c244cf8f6024" category="inline-image-macro">此圖顯示解決方案的技術元件。</block>
+  <block id="eaf4eb821a18e60305e45cf9cce407dd" category="paragraph"><block ref="eaf4eb821a18e60305e45cf9cce407dd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="55c5281d80934f950192f768715495f0" category="paragraph">藉由使用 NetApp Cloud Volumes ONTAP 、團隊可以將資料儲存在單一位置、並可透過 NFS 和 S3 傳輸協定進行存取。資料科學家可直接從 AWS SageMaker 存取 NFS 格式的資料、而其他團隊成員或應用程式則可透過 S3 儲存區存取相同的資料。</block>
+  <block id="f8ba1b513231e9ca54a5c3b94733c28d" category="paragraph">這種方法可讓您輕鬆且有效率地存取和共用資料、而無需在不同的儲存解決方案之間進行額外的軟體或資料移轉。它也能讓團隊成員之間的工作流程和協同作業更有效率、進而更快、更有效地開發機器學習模式。</block>
+  <block id="90c0fb73ec9f52bf43a1ec0b34196d95" category="inline-link-macro">下一步：資料科學家和其他應用程式的資料雙重性。</block>
+  <block id="b425d409342f0d671a0dd6742f8bf09f" category="paragraph"><block ref="b425d409342f0d671a0dd6742f8bf09f" category="inline-link-macro-rx"></block></block>
+  <block id="16147684eb6910d9d73a43bb83091da4" category="summary">資料科學家和工程師通常需要存取 NFS 格式中儲存的資料、但直接從 AWS SageMaker 中的 S3 傳輸協定存取這些資料可能很困難、因為 AWS 只支援 S3 儲存區存取。不過、 NetApp ONTAP 可為 NFS 和 S3 啟用雙傳輸協定存取、提供解決方案。有了這個解決方案、資料科學家和工程師就能透過 NetApp Cloud Volumes ONTAP 的 S3 儲存區、從 AWS SageMaker 筆記型電腦存取 NFS 資料。這種方法可讓您輕鬆從 NFS 和 S3 存取和共用相同的資料、而不需要額外的軟體。</block>
+  <block id="e8ce8afdd7d335aed5b93d4a41ae0115" category="doc">TR-4967 ：使用 NetApp 檔案物件雙重性和 AWS SageMaker 進行雲端資料管理</block>
+  <block id="6b9283149a6cf88268f83de626fe265f" category="paragraph"><block ref="6b9283149a6cf88268f83de626fe265f" category="inline-link-macro-rx"></block></block>
+  <block id="af7ba099603ccd4070a5102166f2c998" category="summary">根據這項驗證、資料科學家和工程師可透過 NetApp Cloud Volumes ONTAP 的 S3 儲存區、從 AWS SageMaker Jupyter 筆記型電腦存取 NFS 資料。這種方法可讓您輕鬆從 NFS 和 S3 存取和共用相同的資料、而不需要額外的軟體。</block>
+  <block id="4fb1e7ca4e76c4bb7a3052dc8d47879b" category="inline-link-macro">上一篇文章：資料科學家和其他應用程式的資料雙重性。</block>
+  <block id="51218734514eb89f2125e2ee2c444e31" category="paragraph"><block ref="51218734514eb89f2125e2ee2c444e31" category="inline-link-macro-rx"></block></block>
+  <block id="8053f00cf5e08f449b7cafe189c73a39" category="list-text">使用 SageMaker BlazingText 進行文字分類</block>
+  <block id="7fba377195a6600e8ac2b2d5a433e7d3" category="inline-link"><block ref="7fba377195a6600e8ac2b2d5a433e7d3" category="inline-link-rx"></block></block>
+  <block id="d8908a1e1cf55570441dd5a42baadacc" category="paragraph"><block ref="d8908a1e1cf55570441dd5a42baadacc" category="inline-link-rx"></block></block>
+  <block id="d6667429b7c60bcbf5e5d593e91d6cae" category="list-text">支援S3物件儲存的版本ONTAP</block>
+  <block id="91ef54d96688b56bf968f57803df6675" category="inline-link"><block ref="91ef54d96688b56bf968f57803df6675" category="inline-link-rx"></block></block>
+  <block id="53a581d907d105a589be9419e91b16fa" category="paragraph"><block ref="53a581d907d105a589be9419e91b16fa" category="inline-link-rx"></block></block>
+  <block id="904837c9cf9bc52a96ce17d051fddec9" category="cell">2023 年 4 月</block>
+  <block id="1d2114df6a9f8f5d7e8f597e9c70a6c1" category="sidebar">使用 NetApp 檔案物件雙重性和 AWS SageMaker 進行雲端資料管理</block>
 </blocks>
