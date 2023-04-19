@@ -22,7 +22,7 @@ summary: 本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關
 
 FSX for ONTAP Sfor Ef2是AWS上提供的第一款企業級雲端儲存服務、以熱門的NetApp ONTAP Sing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。
 
-FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、可使用AWS Lamdba功能（根據臨界值自動調整總儲存容量、Volume大小或LUN大小）。本文件提供逐步指南、可建立自動設定、定期監控FSX以ONTAP 供使用、在超過使用者指定的臨界值時通知及調整大小、並通知管理員調整大小活動。
+FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。本文件提供逐步指南、可建立自動設定、定期監控FSX以ONTAP 供使用、在超過使用者指定的臨界值時通知及調整大小、並通知管理員調整大小活動。
 
 .功能
 [%collapsible]
@@ -40,7 +40,9 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 * 警示機制、透過電子郵件接收使用量警告及調整通知大小
 * 能夠刪除早於使用者定義臨界值的快照
 * 能夠取得與FlexClone磁碟區和快照相關的清單
-* 能夠定期執行檢查
+* 能夠定期監控檢查
+* 能夠在存取或不存取網際網路的情況下使用解決方案
+* 能夠手動部署或使用 AWS CloudForgation Template
 
 
 ====
@@ -50,8 +52,7 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 開始之前、請先確定符合下列先決條件：
 
 * 部署FSX ONTAP for Sfor Sf
-* Lambda功能需要連接NAT閘道的私有子網路、才能進行網際網路連線
-* 私有子網路也應能連線至FSXfor ONTAP Sfor Ef
+* 可連線至 ONTAP 的 FSX 的私有子網路
 * 已針對FSx ONTAP for Sf0設定「fsxadmin」密碼
 
 
@@ -62,6 +63,7 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 * AWS Lambda功能會呼叫FSX以ONTAP 供擷取及更新儲存容量、Volume和LUN的大小。
 * 將「fsxadmin」密碼儲存為AWS SSM參數儲存區中的安全字串、以增加安全層。
 * AWS SES（簡易電子郵件服務）用於在發生調整大小事件時通知終端使用者。
+* 如果在沒有網際網路存取的 VPC 中部署解決方案、則會設定適用於 AWS SSM 、 FSX 和 SES 的 VPC 端點、以允許 Lambda 透過 AWS 內部網路存取這些服務。
 
 
 image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案所使用的高層架構。"]
@@ -71,21 +73,132 @@ image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案�
 
 == 解決方案部署
 
-請依照一系列步驟完成本解決方案的部署：
+
+
+=== 自動化部署
+
+[%collapsible]
+====
+請依照下列步驟完成本解決方案的自動化部署：
 
 .步驟1：複製GitHub儲存庫
 [%collapsible]
-====
+=====
 在本機系統上複製GitHub儲存庫：
 
 [listing]
 ----
 git clone https://github.com/NetApp-Automation/fsxn-monitoring-auto-resizing.git
 ----
+=====
+.步驟 2 ：設定 AWS S3 貯體
+[%collapsible]
+=====
+. 瀏覽至 AWS 主控台 > * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。
+. 進入貯體後、按一下 * 上傳 * > * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Paramiko.zip* 和 * requests.zip* 。
++
+image:fsxn-monitoring-resizing-s3-upload-zip-files.png["此影像描述上傳 zip 檔案的 S3 視窗"]
+
+
+
+=====
+.步驟 3 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
+[%collapsible]
+=====
+如果您想要部署不含網際網路存取的解決方案、請遵循此步驟（注意：由於 VPC 端點正在設定、因此會增加相關成本）。
+
+. 瀏覽至 AWS Console （ AWS 主控台） > * AWS Simple Email Service （ SES ） * > SMTP Settings （ SMTP 設定）、然後按一下 * Create SMTP 全權證書 * （建立 SMTP 認證）
+. 輸入 IAM 使用者名稱或保留預設值、然後按一下「建立」。儲存使用者名稱和密碼以供進一步使用。
++
+
+NOTE: 如果 SES SMTP 設定已就緒、請跳過此步驟。
+
++
+image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗"]
+
+
+
+=====
+.步驟 4 ： AWS CloudForgation 部署
+[%collapsible]
+=====
+. 瀏覽至 AWS 主控台 > * CloudForgiate* > Create stack > with New Resources （標準）。
++
+[listing]
+----
+Prepare template: Template is ready
+Specify template: Upload a template file
+Choose file: Browse to the cloned GitHub repo and select fsxn-monitoring-solution.yaml
+----
++
+image:fsxn-monitoring-resizing-create-cft-1.png["此影像描述 AWS CloudFor何處 建立堆疊視窗"]
+
++
+按一下「下一步」
+
+. 輸入堆疊詳細資料。按一下「下一步」、勾選「我確認 AWS CloudFormation 可能會建立 IAM 資源」核取方塊、然後按一下「提交」。
++
+
+NOTE: 如果「 VPC 是否可存取網際網路？」 設為 False 、則需要「 AWS SES 的 SMTP 使用者名稱」和「 AWS SES 的 SMTP 密碼」。否則、它們可能會留為空白。
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-1.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-2.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-3.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
+
++
+image:fsxn-monitoring-resizing-cft-stack-details-4.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
+
+. 一旦 CloudForgation 部署開始、「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求他們授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。
+. 一旦完成 CloudForgation 堆疊部署、如果有任何警告 / 通知、系統會傳送電子郵件給收件者電子郵件 ID 、其中會附上通知詳細資料。
++
+image:fsxn-monitoring-resizing-email-1.png["此影像描述通知可用時收到的電子郵件通知"]
+
++
+image:fsxn-monitoring-resizing-email-2.png["此影像描述通知可用時收到的電子郵件通知"]
+
+
+
+=====
 ====
-.步驟2：為fsxadmin密碼建立SSM參數
+
+
+=== 手動部署
+
 [%collapsible]
 ====
+請依照下列步驟完成本解決方案的手動部署：
+
+.步驟1：複製GitHub儲存庫
+[%collapsible]
+=====
+在本機系統上複製GitHub儲存庫：
+
+[listing]
+----
+git clone https://github.com/NetApp-Automation/fsxn-monitoring-auto-resizing.git
+----
+=====
+.步驟 2 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
+[%collapsible]
+=====
+如果您想要部署不含網際網路存取的解決方案、請遵循此步驟（注意：由於 VPC 端點正在設定、因此會增加相關成本）。
+
+. 瀏覽至 AWS Console （ AWS 主控台） > * AWS Simple Email Service （ SES ） * > SMTP Settings （ SMTP 設定）、然後按一下 * Create SMTP 全權證書 * （建立 SMTP 認證）
+. 輸入 IAM 使用者名稱或保留預設值、然後按一下「建立」。儲存使用者名稱和密碼以供進一步使用。
++
+image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗"]
+
+
+
+=====
+.步驟 3 ：為 fsxadmin 密碼建立 SSM 參數
+[%collapsible]
+=====
 瀏覽至AWS主控台>*參數儲存區*、然後按一下*建立參數*。
 
 [listing]
@@ -101,10 +214,12 @@ Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
 
 image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
 
-====
-.步驟3：設定電子郵件服務
+如果部署的解決方案沒有網際網路存取、請執行相同的步驟來儲存 SMTP 使用者名稱和 SMTP 密碼。否則、請跳過新增這 2 個參數。
+
+=====
+.步驟 4 ：設定電子郵件服務
 [%collapsible]
-====
+=====
 瀏覽至AWS主控台>*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。
 
 [listing]
@@ -114,12 +229,45 @@ Email address: <Enter an email address to be used for sending resizing notificat
 ----
 按一下「*建立身分識別*」
 
+「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求擁有者授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。
+
 image:fsxn-monitoring-resizing-ses.png["此影像說明AWS主控台的SES身分識別建立視窗。"]
 
-====
-.步驟4：建立並設定AWS Lambda功能
+=====
+.步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）
 [%collapsible]
-====
+=====
+
+NOTE: 只有在部署時沒有網際網路存取時才需要。由於 VPC 端點、因此會產生額外的相關成本。
+
+. 瀏覽至 AWS 主控台 > * VPC* > * 端點 * 、然後按一下 * 建立端點 * 、並輸入下列詳細資料：
++
+[listing]
+----
+Name: <Any name for the vpc endpoint>
+Service category: AWS Services
+Services: com.amazonaws.<region>.fsx
+vpc: <select the vpc where lambda will be deployed>
+subnets: <select the subnets where lambda will be deployed>
+Security groups: <select the security group>
+Policy: <Either choose Full access or set your own custom policy>
+----
++
+按一下「建立端點」。
+
++
+image:fsxn-monitoring-resizing-vpc-endpoint-create-1.png["此影像說明 VPC 端點建立視窗"]
+
++
+image:fsxn-monitoring-resizing-vpc-endpoint-create-2.png["此影像說明 VPC 端點建立視窗"]
+
+. 依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務 <region> 將分別對應於 *com.amazonaws.smtp* 和 <region> 。 SSM* 。
+
+
+=====
+.步驟 6 ：建立及設定 AWS Lambda 功能
+[%collapsible]
+=====
 . 瀏覽至AWS主控台>* AWS Lambd達*、然後按一下* Create Function *（建立功能*）、該區域與FSX for ONTAP Sf2相同
 . 使用預設的*從頭開始作者*並更新下列欄位：
 +
@@ -198,13 +346,25 @@ image:fsxn-monitoring-resizing-layers-added.png["此影像說明AWS Lambda功能
 | * FSx_password_Sm_參 數字* | 字串 | （必填）輸入AWS參數儲存區中用於儲存「fsxadmin」密碼的路徑名稱。 
 
 
-| *警告通知* | 布爾 | （必填）將此變元設為「真」、以便在儲存容量/磁碟區/ LUN使用量超過75%但低於臨界值時收到通知。 
+| *警告通知* | 布爾 | （必填）將此變數設為 True 、可在儲存容量 / Volume / LUN 使用量超過 75% 但低於臨界值時接收通知。 
 
 
 | *啟用快照刪除* | 布爾 | （必填）將此變數設為「真」、以針對早於「snapshot_age_threshold_in_days」中指定值的快照、啟用磁碟區層級的快照刪除。 
 
 
 | * snapshot _age_threshold_in_days * | 整數 | （必填）輸入您要保留的Volume層級快照天數。任何早於所提供值的快照都會刪除、並透過電子郵件通知相同的快照。 
+
+
+| * 網際網路存取 * | 布爾 | （必要）如果從部署 Lambda 的子網路上可以存取網際網路、請將此變數設為 True 。否則請將其設為 False 。 
+
+
+| *SMTP_region* | 字串 | （選用）如果「 Internet_access 」變數設為 False 、請輸入部署 Lambda 的區域。例如： us-east-1 （此格式） 
+
+
+| *SMTP_USERNAME_SSM_PARAMEL* | 字串 | （選用）如果「 INTERNET _ACCESS 」變數設為 False 、請輸入 AWS 參數儲存區中用於儲存 SMTP 使用者名稱的路徑名稱。 
+
+
+| *smtp_password_SSM_parameter_* | 字串 | （選用）如果「 INTERNET _ACCESS 」變數設為 False 、請輸入 AWS 參數儲存區中用於儲存 SMTP 密碼的路徑名稱。 
 |===
 +
 image:fsxn-monitoring-resizing-lambda-code.png["此影像描述AWS Lambda功能主控台上的Lambda程式碼。"]
@@ -228,6 +388,7 @@ image:fsxn-monitoring-resizing-eventbridge.png["此影像描述AWS Lambda功能�
 
 
 
+=====
 ====
 
 
