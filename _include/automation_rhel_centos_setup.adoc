@@ -34,36 +34,13 @@ subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
 ----
 
 
-. 建立.sh檔案
+. 將下列內容貼到終端機中
 +
 [source, cli]
 ----
-vi setup.sh
-----
-. 將下列內容貼到檔案中
-+
-[source, cli]
-----
-#!/bin/bash
-echo "Installing Python ------>"
-sudo yum -y install python3 >/dev/null
-echo "Installing Python Pip ------>"
-sudo yum -y install python3-pip >/dev/null
-echo "Installing Ansible ------>"
-python3 -W ignore -m pip --disable-pip-version-check install ansible >/dev/null
-echo "Installing git ------>"
-sudo yum -y install git >/dev/null
-----
-. 將檔案設定為可執行檔
-+
-[source, cli]
-----
-chmod +x setup.sh
-----
-. 執行指令碼（以root使用者身份）
-+
-[source, cli]
-----
-./setup.sh
+sudo yum -y install python3 >> install.log
+sudo yum -y install python3-pip >> install.log
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> install.log
+sudo yum -y install git >> install.log
 ----
 

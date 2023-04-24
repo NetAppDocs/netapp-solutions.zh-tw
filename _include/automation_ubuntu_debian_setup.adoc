@@ -18,36 +18,13 @@
 
 如果您有新安裝的Ubuntu / Debian機器、但未安裝上述要求、請依照下列步驟將該機器設定為Ansible控制節點：
 
-. 建立.sh檔案
+. 將下列內容貼到對講機中
 +
 [source, cli]
 ----
-vi setup.sh
-----
-. 將下列內容貼到檔案中
-+
-[source, cli]
-----
-#!/bin/bash
-echo "Installing Python ------>"
-sudo apt-get -y install python3 >/dev/null
-echo "Installing Python Pip ------>"
-sudo apt-get -y install python3-pip >/dev/null
-echo "Installing Ansible ------>"
-python3 -W ignore -m pip --disable-pip-version-check install ansible >/dev/null
-echo "Installing git ------>"
-sudo apt-get -y install git >/dev/null
-----
-. 將檔案設定為可執行檔
-+
-[source, cli]
-----
-chmod +x setup.sh
-----
-. 執行指令碼（以root使用者身份）
-+
-[source, cli]
-----
-./setup.sh
+sudo apt-get -y install python3 >> outputlog.txt
+sudo apt-get -y install python3-pip >> outputlog.txt
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> outputlog.txt
+sudo apt-get -y install git >> outputlog.txt
 ----
 
