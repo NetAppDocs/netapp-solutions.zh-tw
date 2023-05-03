@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vmware-vsphere8-intro.html 
+keywords: vSphere, vSphere 8, vSphere 8u1, ONTAP 9.12, interoperability, VMware compatibility 
+summary:  
+---
+= VMware vSphere 8 的新功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+作者： Chris Reno 、 NetApp 解決方案工程部
+
+NetApp 與 VMware 技術的整合、已有 20 年的歷史、並有數千個工程時數。隨著 vSphere 8 和 ONTAP 9.12 的問世、這兩家公司都提供能滿足最嚴苛客戶工作負載需求的產品。當這些產品結合在解決方案中時、無論是內部部署或公有雲、都能解決真正的客戶挑戰。當這些產品結合在解決方案中時、無論是內部部署或公有雲、都能解決真正的客戶挑戰。
+
+為了協助您判斷產品、通訊協定、作業系統等的支援能力、請參閱下列資源：
+
+* 。 https://mysupport.netapp.com/matrix/#welcome["NetApp 互通性對照表工具"] （僅限部分）IMT 。IMT 定義可用於建置 FC/FCoE 、 iSCSI 、 NFS 和 CIFS 組態的合格元件和版本、以及與其他外掛程式和軟體產品的整合。
+* 。 https://www.vmware.com/resources/compatibility/search.php?deviceCategory=san&details=1&partner=64&isSVA=0&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc["VMware相容性指南"]。VMware 相容性指南列出 VMware Infrastructure 與軟體產品的系統、 I/O 、儲存設備 /SAN 、備份相容性等。
+* https://www.netapp.com/support-and-training/documentation/ontap-tools-for-vmware-vsphere-documentation/"["適用於ONTAP VMware的NetApp產品開發工具"]。適用於 VMware vSphere 的 ONTAP 工具是單一 vCenter Server 外掛程式、包含虛擬儲存主控台（ VSC ）、 VASA Provider 和儲存複寫介面卡（ SRA ）擴充功能。OTV 9.12 完全支援 VMware vSphere 8 、每天為客戶提供真正的價值。
+
+
+
+
+== NetApp ONTAP 和 VMware 支援的版本
+
+
+NOTE: 請在下表中選取連結時、讓頁面建立起來。
+
+|===
+
+
+| * VMware vSphere 版本 * | * SAN* | * NFS* | * 電視 * | * SnapCenter * 
+
+
+| * vSphere 8* | https://imt.netapp.com/matrix/imt.jsp?components=105985;&solution=1&isHWU&src=IMT["連結"] | https://imt.netapp.com/matrix/imt.jsp?components=105985;&solution=976&isHWU&src=IMT["連結"] | https://imt.netapp.com/matrix/imt.jsp?components=105986;&solution=1777&isHWU&src=IMT["連結"] | https://imt.netapp.com/matrix/imt.jsp?components=105985;&solution=1517&isHWU&src=IMT["連結"] 
+
+
+| * vSphere 8u1* | https://imt.netapp.com/matrix/imt.jsp?components=110521;&solution=1&isHWU&src=IMT["連結"] | https://imt.netapp.com/matrix/imt.jsp?components=110521;&solution=976&isHWU&src=IMT["連結"] | - | - 
+|===
+|===
+
+
+| * VMware vSphere 版本 * | * 儲存系統 / 傳輸協定 * | *OTV - SRA* | * OTV – VASA Provider* | * 適用於 VMware vSphere 的 SnapCenter 外掛程式 * 
+
+
+| * vSphere 8* | https://www.vmware.com/resources/compatibility/search.php?deviceCategory=san&details=1&partner=64&releases=589&FirmwareVersion=ONTAP%209.0,ONTAP%209.1,ONTAP%209.10.1,ONTAP%209.11.1,ONTAP%209.12.1,ONTAP%209.2,ONTAP%209.3,ONTAP%209.4,ONTAP%209.5,ONTAP%209.6,ONTAP%209.7,ONTAP%209.8,ONTAP%209.9,ONTAP%209.9.1%20P3,ONTAP%209.%6012.1&isSVA=0&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc["連結"] | https://www.vmware.com/resources/compatibility/search.php?deviceCategory=sra&details=1&partner=64&sraName=587&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc["連結"] | https://www.vmware.com/resources/compatibility/detail.php?deviceCategory=wcp&productid=55380&vcl=true["連結"] | https://www.vmware.com/resources/compatibility/search.php?deviceCategory=vvols&details=1&partner=64&releases=589&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc["連結"] 
+
+
+| * vSphere 8u1* | https://www.vmware.com/resources/compatibility/search.php?deviceCategory=san&details=1&partner=64&releases=652&FirmwareVersion=ONTAP%209.0,ONTAP%209.1,ONTAP%209.10.1,ONTAP%209.11.1,ONTAP%209.12.1,ONTAP%209.2,ONTAP%209.3,ONTAP%209.4,ONTAP%209.5,ONTAP%209.6,ONTAP%209.7,ONTAP%209.8,ONTAP%209.9,ONTAP%209.9.1%20P3,ONTAP%209.%6012.1&isSVA=0&page=1&display_interval=10&sortColumn=Partner&sortOrder=Asc["連結"] | - | - | https://www.vmware.com/resources/compatibility/detail.php?deviceCategory=wcp&productid=55380&vcl=true["連結"] 
+|===
