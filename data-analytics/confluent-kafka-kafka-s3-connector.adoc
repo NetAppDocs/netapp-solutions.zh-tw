@@ -15,6 +15,7 @@ summary: 在此設定中、我們會示範如何使用Kafka S3接收器連接器
 
 link:confluent-kafka-performance-tests-with-scalability.html["先前版本：效能測試搭配擴充性。"]
 
+[role="lead"]
 Amazon S3 Sink Connector會以Avro、Json或位元組格式、將Apache Kafka主題的資料匯出至S3物件。Amazon S3 Sink連接器會定期輪詢Kafka的資料、然後再將資料上傳至S3。分區工具用於將每個Kafka分區的資料分割成區塊。每一區塊的資料都會以S3物件表示。金鑰名稱會編碼主題、Kafka分割區、以及此資料區塊的起始偏移。
 
 在此設定中、我們會示範如何使用Kafka S3接收器連接器、直接從Kafka讀取和寫入物件儲存區中的主題。在這項測試中、我們使用獨立的ConFluent叢集、但此設定適用於分散式叢集。

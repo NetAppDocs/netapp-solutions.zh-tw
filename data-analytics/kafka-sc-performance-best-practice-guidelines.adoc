@@ -15,6 +15,7 @@ summary: 本頁說明改善本解決方案效能的最佳實務做法。
 
 link:kafka-sc-performance-tests-with-produce-consume-workload-generator.html["先前版本：使用產生耗用的工作負載產生器進行效能測試。"]
 
+[role="lead"]
 * 若可行、請使用「Get size >=1MB（取得大小>=1MB）」ONTAP 。
 * 在代理節點上的「erver.properties`」中增加「num.network.threads`」和「nm.io.thread」、可讓您將增加的分層活動推送到S3層。這些結果是「num.network.threads`」和「nm.io.thread」設為32。
 * S3儲存區應鎖定每個成員集合體的八個成員。

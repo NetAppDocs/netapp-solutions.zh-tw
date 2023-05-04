@@ -16,6 +16,7 @@ keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter
 
 link:aws_ora_fsx_ec2_procedures.html["先前：部署程序。"]
 
+[role="lead"]
 除了AWS EC2和FSX管理主控台之外、我們SnapCenter 也部署Ansible控制節點和the SUI工具、以便在此Oracle環境中進行資料庫管理。
 
 Ansible控制節點可用來管理Oracle環境組態、並可透過平行更新來同步主要和待命執行個體、以進行核心或修補程式更新。容錯移轉、重新同步及容錯回復均可透過NetApp Automation Toolkit自動化、以Ansible來歸檔快速的應用程式恢復與可用度。有些可重複執行的資料庫管理工作可使用教戰手冊來減少人為錯誤。

@@ -15,6 +15,7 @@ summary: 本節包含使用NetApp XCP移轉資料的最佳實務做法、準則�
 
 link:xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html["先前版本：將CIFS資料從來源儲存設備的ACL移轉至ONTAP"]
 
+[role="lead"]
 * 使用IMT 支援的XCP用戶端作業系統。支援的客戶端符合NetApp資格。IMT
 * 在Linux作業系統中以root使用者身分執行XCP、以執行移轉。您可以以Sudo使用者的身分執行XCP命令、但XCP不支援此命令。
 * 每個用戶端只能執行一個XCP執行個體。從技術上來說、您可以從不同位置在同一部主機上執行多個XCP執行階段、但這並不受支援。事實上、執行許多執行個體可能會導致故障。

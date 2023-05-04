@@ -16,6 +16,7 @@ keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter
 
 link:aws_ora_fsx_ec2_mgmt.html["先前版本：Oracle資料庫管理。"]
 
+[role="lead"]
 此效能驗證的目標不是設定任何標記。相反地、如果您遵循本文件所述的部署程序和最佳實務做法、您可以預期在公有雲上部署Oracle資料庫時、也會有類似的效能指標。
 
 我們使用Swingtench銷售訂單項目（SOE）模組來模擬OLTP類型的工作負載、並將工作負載套用至部署至M5 EC2執行個體的Oracle資料庫、並在NFS傳輸協定上使用FSX儲存磁碟區。預設的Swingench SOE I/O設定檔接近80/20讀寫分割、接近真實世界的OLTP Oracle工作負載設定檔。

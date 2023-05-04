@@ -15,6 +15,7 @@ summary: 本節說明Apache Spark的本質和元件、以及它們如何為本�
 
 link:apache-spark-target-audience.html["上一篇：目標對象。"]
 
+[role="lead"]
 Apache Spark是一種熱門的程式設計架構、可用來撰寫直接搭配Hadoop分散式檔案系統（HDFS）運作的Hadoop應用程式。Spark已準備就緒、支援串流資料處理、速度比MapReduce快。Spark可設定的記憶體內資料快取功能、可有效進行迭代、而Spark Shell則是互動式的、可用來學習及探索資料。有了Spark、您可以在Python、Scala或Java中建立應用程式。SPARK應用程式由一或多個工作組成、這些工作具有一或多項工作。
 
 每個Spark應用程式都有Spark驅動程式。在線對用戶端模式中、驅動程式會在用戶端本機上執行。在線叢集模式中、驅動程式會在應用程式主機的叢集內執行。在叢集模式中、即使用戶端中斷連線、應用程式仍會繼續執行。

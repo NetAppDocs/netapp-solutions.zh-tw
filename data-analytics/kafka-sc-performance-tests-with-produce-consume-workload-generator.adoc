@@ -15,6 +15,7 @@ summary: '我們使用單AFF 一的NetApp儲存控制器、在生產消費型工
 
 link:kafka-sc-confluent-performance-validation.html["先前版本：ConFluent Performance驗證。"]
 
+[role="lead"]
 我們使用單AFF 一的NetApp儲存控制器、在生產消費型工作負載期間、使用五或八個代理節點執行階層式儲存測試。根據我們的測試、完成時間和效能結果會隨著代理節點數量而調整、直到AFF 資源使用率達到100 %為止。此功能需要至少一對HA配對才能完成。ONTAP
 
 S3擷取作業的效能會根據ConFluent Broker節點的數量線性提升。在單一部署中、支援最多12個HA配對。ONTAP

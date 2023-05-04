@@ -15,6 +15,7 @@ summary: 本節將說明從本認證中學到的經驗教訓。
 
 link:confluent-kafka-confluent-kafka-rebalance.html["先前版本：Conflent自我重新平衡叢集。"]
 
+[role="lead"]
 * 根據我們的驗證結果、S3物件儲存設備最適合Connent來保存資料。
 * 我們可以使用高處理量SAN（特別是FC）來保留代理程式的熱資料或本機磁碟、因為在Conflent階層式儲存組態中、 代理資料目錄中的資料大小取決於資料移至物件儲存設備時的區段大小和保留時間。
 * 當sege.bytes較高時、物件存放區可提供較佳的效能；我們測試了512MB。

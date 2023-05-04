@@ -15,6 +15,7 @@ summary: 對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和M
 
 link:bda-ai-gpfs-to-netapp-ontap-nfs.html["上一篇：GPFS對NetApp ONTAP 的SfNFS。"]
 
+[role="lead"]
 對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和MapR叢集資料移轉至ONTAP 不含NFS的情形。資料存放在MapR-FS和HDFS中。NetApp XCP推出一項新功能、可直接將資料從HDFS和MapR-FS等分散式檔案系統移轉至ONTAP 支援NFS。XCP使用非同步執行緒和HDFS C API呼叫來通訊和傳輸MapR-FS和HDFS的資料。下圖顯示資料從資料湖（HDFS）和MapR-FS移轉到ONTAP SNFS的資料。有了這項新功能、您不需要將來源匯出為NFS共用區。
 
 image:bda-ai-image6.png["錯誤：缺少圖形影像"]

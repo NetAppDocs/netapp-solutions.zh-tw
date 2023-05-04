@@ -15,6 +15,7 @@ summary: 支援將您的實例連接至外部Active Directory伺服器、以便�
 
 link:ncvs-gc-dual-protocol-multiprotocol.html["先前版本：雙傳輸協定/多傳輸協定。"]
 
+[role="lead"]
 支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。
 
 此設定提供多種選項、需要考量安全性。外部Active Directory伺服器可以是內部部署執行個體或原生雲端。如果您使用的是內部部署的Active Directory伺服器，請勿將網域暴露給外部網路（例如使用DMZ或外部IP位址）。而是使用安全的私有通道或VPN、單向樹系信任或內部部署網路專用的網路連線 https://cloud.google.com/vpc/docs/private-google-access["私有 Google 存取"^]。如需詳細資訊、請參閱Google Cloud文件 https://cloud.google.com/managed-microsoft-ad/docs/best-practices["在Google Cloud中使用Active Directory的最佳實務做法"^]。
