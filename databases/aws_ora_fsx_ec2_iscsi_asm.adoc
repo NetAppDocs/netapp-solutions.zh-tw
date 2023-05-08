@@ -124,6 +124,9 @@ git clone https://github.com/NetApp-Automation/na_aws_fsx_ec2_deploy.git
 ....
 
 
+
+NOTE: 請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以便有足夠的空間來存放 Oracle 安裝檔案。
+
 ====
 
 
@@ -131,7 +134,7 @@ git clone https://github.com/NetApp-Automation/na_aws_fsx_ec2_deploy.git
 
 [%collapsible]
 ====
-在已配置先決條件的情況下、以 root 使用者身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。
+在已配置先決條件的情況下、以 EC2 使用者和 Sudo to root 使用者的身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。
 
 . 建立暫存目錄 `/tmp/archive` 資料夾並設定 `777` 權限。
 +
@@ -266,9 +269,13 @@ usermod -a -G asm oracle
 
 [%collapsible]
 ====
-從 FSX 主控台配置三個磁碟區、以裝載 Oracle 資料庫二進位、資料和記錄檔。
+透過 ssh 以 fsxadmin 使用者身分登入 FSX 叢集、並使用 FSX 叢集管理 IP 來裝載 Oracle 資料庫二進位、資料和記錄檔、從命令列配置三個磁碟區。
 
 . 以 fsxadmin 使用者身分透過 SSH 登入 FSX 叢集。
++
+....
+ssh fsxadmin@172.30.15.53
+....
 . 執行下列命令、為 Oracle 二進位檔案建立磁碟區。
 +
 ....
@@ -356,7 +363,7 @@ svm_ora    /vol/ora_01_logs/ora_01_logs_02           ora_01        6  iscsi
 ====
 現在、匯入並設定適用於 Oracle 網格基礎架構的 FSX 儲存設備、以及在 EC2 執行個體主機上安裝資料庫。
 
-. 以 EC2 使用者身分透過 SSH 登入 EC2 執行個體。然後變更為 SSH 金鑰和 EC2 執行個體 IP 位址。
+. 使用 SSH 金鑰和 EC2 執行個體 IP 位址、以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體。
 +
 ....
 ssh -i ora_01.pem ec2-user@172.30.15.58
@@ -565,7 +572,7 @@ sudo mount -t xfs /dev/mapper/ora_01_biny_01p1 /u01
 . 變更 `/u01` 將點所有權掛載至 Oracle 使用者、並與主要群組相關。
 +
 ....
-chown oracle:oinstall /u01
+sudo chown oracle:oinstall /u01
 ....
 . 尋找二進位 LUN 的 UUI 。
 +
@@ -598,8 +605,7 @@ vi /etc/udev/rules.d/99-oracle-asmdevices.rules
 
 +
 ....
-ENV{DM_NAME}=="ora_01_data_*", GROUP:="oinstall", OWNER:="oracle", MODE:="660"
-ENV{DM_NAME}=="ora_01_logs_*", GROUP:="oinstall", OWNER:="oracle", MODE:="660"
+ENV{DM_NAME}=="ora*", GROUP:="oinstall", OWNER:="oracle", MODE:="660"
 ....
 . 以 root 使用者身分重新載入 udev 規則。
 +
@@ -616,6 +622,7 @@ udevadm trigger
 ....
 systemctl restart multipathd
 ....
+. 重新啟動 EC2 執行個體主機。
 
 
 ====
@@ -692,7 +699,7 @@ oracle.install.asm.diskGroup.name=DATA
 oracle.install.asm.diskGroup.redundancy=EXTERNAL
 oracle.install.asm.diskGroup.AUSize=4
 oracle.install.asm.diskGroup.disks=/dev/mapper/ora_01_data*
-oracle.install.asm.diskGroup.diskDiscoveryString=/dev/mapper/*
+oracle.install.asm.diskGroup.diskDiscoveryString=/dev/mapper/ora_01_data_01,/dev/mapper/ora_01_data_02,/dev/mapper/ora_01_data_03,/dev/mapper/ora_01_data_04
 oracle.install.asm.monitorPassword="SetPWD"
 oracle.install.asm.configureAFD=true
 ....
@@ -718,16 +725,6 @@ cd /u01/app/oracle/product/19.0.0/grid/bin
 
  ./asmcmd afd_label LOGS02 /dev/mapper/ora_01_logs_02 --init
 ....
-. 將裝置擁有權變更為 `oracle:oinstall`。
-+
-....
-chown oracle:oinstall /dev/mapper/ora_01_data_01
-chown oracle:oinstall /dev/mapper/ora_01_data_02
-chown oracle:oinstall /dev/mapper/ora_01_data_03
-chown oracle:oinstall /dev/mapper/ora_01_data_04
-chown oracle:oinstall /dev/mapper/ora_01_logs_01
-chown oracle:oinstall /dev/mapper/ora_01_logs_02
-....
 . 安裝 `cvuqdisk-1.0.10-1.rpm`。
 +
 ....
@@ -743,7 +740,7 @@ unset ORACLE_BASE
 ....
 unzip p34762026_190000_Linux-x86-64.zip
 ....
-. 以 Oracle 使用者身分啟動 `gridSetup.sh` 適用於網格基礎架構安裝。
+. 從網格主頁 /u01/app/oracle/product/19.0/grrid 和 Oracle 使用者的身分啟動 `gridSetup.sh` 適用於網格基礎架構安裝。
 +
 ....
  ./gridSetup.sh -applyRU /tmp/archive/34762026/ -silent -responseFile /tmp/archive/gridsetup.rsp
@@ -758,30 +755,20 @@ unzip p34762026_190000_Linux-x86-64.zip
 
 /u01/app/oracle/product/19.0.0/grid/root.sh
 ....
+. 以 root 使用者身分重新載入多路徑。
++
+....
+systemctl restart multipathd
+....
 . 身為 Oracle 使用者、請執行下列命令以完成組態：
 +
 ....
 /u01/app/oracle/product/19.0.0/grid/gridSetup.sh -executeConfigTools -responseFile /tmp/archive/gridsetup.rsp -silent
 ....
-. 如果您收到訊息「 [INS-43080] Sas the configuration Assistants failed 、 was canceled or bipped 」（ [INS-43080] 部分組態助理失敗、已取消或略過）、請以 Oracle 使用者身分執行下列命令、檢查是否已建立資料磁碟群組資源。
-+
-....
-bin/crsctl stat res -t
-....
-. 如果未建立資料磁碟群組、請以 root 使用者身分重新載入多路徑。
-+
-....
-systemctl restart multipathd
-....
-. 身為 Oracle 使用者、如果資料磁碟群組並非在網格安裝期間建立、請建立該群組。
-+
-....
-bin/asmca -silent -sysAsmPassword 'yourPWD' -asmsnmpPassword 'yourPWD' -createDiskGroup -diskString '/dev/mapper/*' -diskGroupName DATA -disklist '/dev/mapper/ora_01_data_01,/dev/mapper/ora_01_data_02,/dev/mapper/ora_01_data_03,/dev/mapper/ora_01_data_04' -redundancy EXTERNAL
-....
 . 身為 Oracle 使用者、請建立記錄磁碟群組。
 +
 ....
-bin/asmca -silent -sysAsmPassword 'yourPWD' -asmsnmpPassword 'yourPWD' -createDiskGroup -diskString '/dev/mapper/*' -diskGroupName LOGS -disklist '/dev/mapper/ora_01_logs_01,/dev/mapper/ora_01_logs_02' -redundancy EXTERNAL
+bin/asmca -silent -sysAsmPassword 'yourPWD' -asmsnmpPassword 'yourPWD' -createDiskGroup -diskGroupName LOGS -disk 'AFD:LOGS*' -redundancy EXTERNAL -au_size 4
 ....
 . 身為 Oracle 使用者、請在安裝組態後驗證網格服務。
 +
@@ -879,17 +866,17 @@ oracle.install.db.OSKMDBA_GROUP=dba
 oracle.install.db.OSRACDBA_GROUP=dba
 oracle.install.db.rootconfig.executeRootScript=false
 ....
-. 執行無訊息軟體專用資料庫安裝。
+. 從 db1 主目錄 /u01/app/oracle/product/19.0/db1 執行無訊息軟體專屬資料庫安裝。
 +
 ....
  ./runInstaller -applyRU /tmp/archive/34765931/ -silent -ignorePrereqFailure -responseFile /tmp/archive/dbinstall.rsp
 ....
-. 執行 `root.sh` 僅軟體安裝後的指令碼。
+. 以root使用者身分執行 `root.sh` 僅軟體安裝後的指令碼。
 +
 ....
 /u01/app/oracle/product/19.0.0/db1/root.sh
 ....
-. 建立 `dbca.rsp` 包含下列項目的檔案：
+. 身為 Oracle 使用者、請建立 `dbca.rsp` 包含下列項目的檔案：
 +
 ....
 gdbName=db1.demo.netapp.com
@@ -912,7 +899,7 @@ databaseType=MULTIPURPOSE
 automaticMemoryManagement=false
 totalMemory=8192
 ....
-. 使用 dbca 建立 lach DB 。
+. 身為 Oracle 使用者、請使用 dbca 來建立資料庫。
 +
 ....
 bin/dbca -silent -createDatabase -responseFile /tmp/archive/dbca.rsp
@@ -948,7 +935,7 @@ Global Database Name:db1.demo.netapp.com
 System Identifier(SID):db1
 Look at the log file "/u01/app/oracle/cfgtoollogs/dbca/db1/db1.log" for further details.
 ....
-. 建立資料庫後、驗證 Oracle 重新啟動 HA 服務。
+. 以 Oracle 使用者身分、在建立資料庫後驗證 Oracle 重新啟動 HA 服務。
 +
 ....
 [oracle@ip-172-30-15-58 db1]$ ../grid/bin/crsctl stat res -t

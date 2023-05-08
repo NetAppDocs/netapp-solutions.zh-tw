@@ -17448,7 +17448,6 @@
   <block id="11f86864c5928690c88625e77eb1a480" category="list-text">從 AWS EC2 主控台、部署 Amazon FSX for ONTAP Storage HA 叢集來主控 Oracle 資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 <block ref="17d8b312d287f0afd6f44b3f25c4f20b" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
   <block id="dd303169f721e79331b3683ddafddcc1" category="list-text">您可以使用下列 Terraform 自動化工具組來執行步驟 2 和 3 、此工具組會建立名為的 EC2 執行個體<block ref="460dc55b5ffb0266f2c889b06ee73344" prefix=" " category="inline-code"></block> 以及名為的 FSX 檔案系統<block ref="8cbb7b3050d3c3aa08a529f429bc4555" prefix=" " category="inline-code"></block>。請仔細檢閱指示內容、並在執行前變更變數以符合您的環境。</block>
   <block id="62ee860e3d0c08c6573d2e328543e8de" category="section-title">EC2 執行個體核心組態</block>
-  <block id="39fb43106d288435c8737acd0c5b18ba" category="paragraph">在已配置先決條件的情況下、以 root 使用者身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。</block>
   <block id="5a8cdca62a149c76be848350ba5cbfd0" category="list-text">建立暫存目錄<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 資料夾並設定<block ref="f1c1592588411002af340cbaedd6fc33" prefix=" " category="inline-code"></block> 權限。</block>
   <block id="e252f38e51fe6c121fdf68268f7365b7" category="list-text">下載 Oracle 二進位安裝檔案及其他必要的 rpm 檔案、並將這些檔案登錄至<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄。</block>
   <block id="2463a0e4e0f5e0cae480165d25c3d218" category="paragraph">請參閱下列要在中說明的安裝檔案清單<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 在 EC2 執行個體上。</block>
@@ -17472,7 +17471,6 @@
   <block id="f7b4c2e912a168f005ed7cc2b4799c08" category="list-text">修改 Oracle 使用者、將 ASM 新增為次要群組（ Oracle 使用者應已在 Oracle 預先安裝 RPM 安裝之後建立）。</block>
   <block id="8d3a75a7cdef66372dcf58e6278bba70" category="list-text">重新啟動 EC2 執行個體。</block>
   <block id="64014fc61a9016f43a5537d6da141cc1" category="section-title">將資料庫磁碟區和 LUN 配置並對應至 EC2 執行個體主機</block>
-  <block id="44d3f8c485fe8f9d96289b7bb283f99c" category="paragraph">從 FSX 主控台配置三個磁碟區、以裝載 Oracle 資料庫二進位、資料和記錄檔。</block>
   <block id="c848cfd9c04d86e7b9919e11add79f6c" category="list-text">以 fsxadmin 使用者身分透過 SSH 登入 FSX 叢集。</block>
   <block id="eff24d82c422927b06fd0cacd430b653" category="list-text">執行下列命令、為 Oracle 二進位檔案建立磁碟區。</block>
   <block id="569cffa50e6428a06bffa2e19d12e0e3" category="list-text">執行以下命令以建立 Oracle 資料的磁碟區。</block>
@@ -17486,7 +17484,6 @@
   <block id="3208f25d37711dd9ffc43d93ada2a3cc" category="paragraph">預計將會歸還：</block>
   <block id="35c1914e41e83f92dd8779f5708f3224" category="section-title">資料庫儲存組態</block>
   <block id="47d78479fc855bd2f99f02fb94118789" category="paragraph">現在、匯入並設定適用於 Oracle 網格基礎架構的 FSX 儲存設備、以及在 EC2 執行個體主機上安裝資料庫。</block>
-  <block id="d4d6ba977b18ebe6448e464802298bbf" category="list-text">以 EC2 使用者身分透過 SSH 登入 EC2 執行個體。然後變更為 SSH 金鑰和 EC2 執行個體 IP 位址。</block>
   <block id="a7939166c08e8ac6da1530309825a401" category="list-text">使用任一 SVM iSCSI IP 位址探索 FSX iSCSI 端點。然後變更為您的環境專屬入口網站位址。</block>
   <block id="1bc103d13645d8a07f4a05f2eee064f8" category="list-text">登入每個目標以建立 iSCSI 工作階段。</block>
   <block id="fc5113f60b8b0390133d7abda7290515" category="paragraph">命令的預期輸出為：</block>
@@ -17530,17 +17527,11 @@
   <block id="e4dae708382daa7f76913b9e5b686a1c" category="list-text">準備<block ref="77d9f4d56c58834c8dacf6d0cb94e085" prefix=" " category="inline-code"></block> 用於無訊息安裝的檔案、並將 rsp 檔案放入<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：</block>
   <block id="72eab9d7fc33889fd5bf6a85943c4e4a" category="list-text">以 root 使用者身分登入 EC2 執行個體並設定<block ref="e1f651debac4f720c13ae930ff3ca14a" prefix=" " category="inline-code"></block> 和<block ref="456a3c82b7208b5c2a000597b1330564" prefix=" " category="inline-code"></block>。</block>
   <block id="d134d418859128801ec294cd10bcbd8e" category="list-text">配置磁碟裝置以搭配 Oracle ASM 篩選器驅動程式使用。</block>
-  <block id="8826276fbf00e07d49f72479d3b0da2b" category="list-text">將裝置擁有權變更為<block ref="ab3d4d3deefe8df93125b9c71378718c" prefix=" " category="inline-code"></block>。</block>
   <block id="3e6c5f0c8e9c1310879c66839bb0f8d5" category="list-text">安裝<block ref="a27b4e2b8f4a0b0419894dfeac36419e" prefix=" " category="inline-code"></block>。</block>
   <block id="cfdbf231484c64b98bc4f3569cd7b324" category="list-text">未設定<block ref="c0c2c8394b04a929ffc60091aa1f72ca" prefix=" " category="inline-code"></block>。</block>
   <block id="9817d9ff96af960709b8094b73294545" category="list-text">以 Oracle 使用者身分登入 EC2 執行個體、並在中擷取修補程式<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 資料夾。</block>
-  <block id="971a0a45b8dae69114b7ad2a60cb7f96" category="list-text">以 Oracle 使用者身分啟動<block ref="30c950549715985c6b7c7cd6990d0f4b" prefix=" " category="inline-code"></block> 適用於網格基礎架構安裝。</block>
   <block id="5de6732dda1e7bccbd8e8b367ad248dd" category="paragraph">忽略有關網格基礎架構錯誤群組的警告。我們使用單一 Oracle 使用者來管理 Oracle 重新啟動、因此這是正常情況。</block>
-  <block id="306b4d4b77c54aeb5cbfcd36749043f5" category="list-text">以 root 使用者身分執行下列指令碼：</block>
   <block id="7dff0a250c79eafa071ee2d5713b7123" category="list-text">身為 Oracle 使用者、請執行下列命令以完成組態：</block>
-  <block id="ecbea27c1b60fd5cd72a96184d8d2bef" category="list-text">如果您收到訊息「 [INS-43080] Sas the configuration Assistants failed 、 was canceled or bipped 」（ [INS-43080] 部分組態助理失敗、已取消或略過）、請以 Oracle 使用者身分執行下列命令、檢查是否已建立資料磁碟群組資源。</block>
-  <block id="02521e82deae97953ff19793ad44493b" category="list-text">如果未建立資料磁碟群組、請以 root 使用者身分重新載入多路徑。</block>
-  <block id="e8c5b866f6d35a070a878d3abb75cf8d" category="list-text">身為 Oracle 使用者、如果資料磁碟群組並非在網格安裝期間建立、請建立該群組。</block>
   <block id="3f2a67de0c5824d878c62c0bc347e09b" category="list-text">身為 Oracle 使用者、請建立記錄磁碟群組。</block>
   <block id="f71fbb7ff86224d636aac5f9bb42f27d" category="list-text">身為 Oracle 使用者、請在安裝組態後驗證網格服務。</block>
   <block id="f9ba171dd47a8cef31bac8aa17eeb44d" category="list-text">Valiate ASM 篩選器驅動程式狀態。</block>
@@ -17553,11 +17544,6 @@
   <block id="d86c0eec890e4216540c2b834f6339f5" category="list-text">從 DB 主目錄修改<block ref="ef8657f0a0a00af93ba7f1c8885339ca" prefix=" " category="inline-code"></block>、以及取消註解及取代<block ref="bb7738211dd8eb3dbadf4cc63ae8eb8a" prefix=" " category="inline-code"></block> 與<block ref="b2affc1a941fe7e5e65933911250249c" prefix=" " category="inline-code"></block>。</block>
   <block id="95233719931805924ded9cd671e036df" category="list-text">從<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄中、解壓縮 DB 19.18 RU 修補程式。</block>
   <block id="0181cf4258f052eaf2d48f78cd4fed7b" category="list-text">在中準備 DB 無訊息安裝 rsp 檔案<block ref="2d9ffa0a3db25b02bcd0091245449764" prefix=" " category="inline-code"></block> 具有下列值的目錄：</block>
-  <block id="0838265859443cbbcdfc0834fb13e402" category="list-text">執行無訊息軟體專用資料庫安裝。</block>
-  <block id="4c3b15e92dacacd38d6f1d3174ad1e9f" category="list-text">執行<block ref="08030ad08b2b991d61b424afd8828758" prefix=" " category="inline-code"></block> 僅軟體安裝後的指令碼。</block>
-  <block id="67bee4155203a684288d87caec62ca7e" category="list-text">建立<block ref="c170c347c737b82ad62c48db1f7bff3c" prefix=" " category="inline-code"></block> 包含下列項目的檔案：</block>
-  <block id="6ffd5c1d97bca346a601eadabda25b0d" category="list-text">使用 dbca 建立 lach DB 。</block>
-  <block id="0bdb291c3f45b8d3e9cd39da181febb1" category="list-text">建立資料庫後、驗證 Oracle 重新啟動 HA 服務。</block>
   <block id="05472424b7ce7bd118009f6cde3a0614" category="list-text">設定 Oracle 使用者<block ref="9e0037ad71166970bde5f910189cc94a" prefix=" " category="inline-code"></block>。</block>
   <block id="cadaa91ab9001028d3a153b4325f10a5" category="list-text">新增下列項目：</block>
   <block id="ab5f5bab123b3441fc9c838b46ff1150" category="list-text">驗證建立的 CDB/PDB 。</block>
@@ -18388,4 +18374,17 @@
   <block id="3a20c678f6addcc9b8fec17f91c8cfa4" category="cell">05/05/2023</block>
   <block id="957df08ed5fbb9ca926ca88b2c974f4f" category="cell">全新 TR-4951 ： AWS FSX for ONTAP 上的 Microsoft SQL Server 備份與還原</block>
   <block id="d5ae477fb23aecff7256445ae91344bc" category="sidebar">AWS FSX for ONTAP 上的 Microsoft SQL Server 備份與還原</block>
+  <block id="0f7a8130eb652cd33a4fa9cdefc41cc6" category="admonition">請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以便有足夠的空間來存放 Oracle 安裝檔案。</block>
+  <block id="f352a88dccea452ec98375dda0311257" category="paragraph">在已配置先決條件的情況下、以 EC2 使用者和 Sudo to root 使用者的身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。</block>
+  <block id="35e176617d52dd956b8015d8ca19c32d" category="paragraph">透過 ssh 以 fsxadmin 使用者身分登入 FSX 叢集、並使用 FSX 叢集管理 IP 來裝載 Oracle 資料庫二進位、資料和記錄檔、從命令列配置三個磁碟區。</block>
+  <block id="aa218771b85a8ecc41cc249ba90ea5f8" category="list-text">使用 SSH 金鑰和 EC2 執行個體 IP 位址、以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體。</block>
+  <block id="71d434c6aec8c195bc1cd610cf2aadf7" category="list-text">重新啟動 EC2 執行個體主機。</block>
+  <block id="5fa683f35265bf7469d9de8c3afc1f42" category="list-text">從網格主頁 /u01/app/oracle/product/19.0/grrid 和 Oracle 使用者的身分啟動<block ref="30c950549715985c6b7c7cd6990d0f4b" prefix=" " category="inline-code"></block> 適用於網格基礎架構安裝。</block>
+  <block id="26f36488ec442bab2ba0cda087d435eb" category="list-text">以 root 使用者身分執行下列指令碼：</block>
+  <block id="ada113db66e2b1b6ed982918830cd12e" category="list-text">以 root 使用者身分重新載入多路徑。</block>
+  <block id="bdae34f2df30f19488bd87890188b905" category="list-text">從 db1 主目錄 /u01/app/oracle/product/19.0/db1 執行無訊息軟體專屬資料庫安裝。</block>
+  <block id="f9db0d5335309d4958e09e8149d7de4d" category="list-text">以root使用者身分執行<block ref="08030ad08b2b991d61b424afd8828758" prefix=" " category="inline-code"></block> 僅軟體安裝後的指令碼。</block>
+  <block id="2bba715ff3b85da75ce86da55f5d9173" category="list-text">身為 Oracle 使用者、請建立<block ref="c170c347c737b82ad62c48db1f7bff3c" prefix=" " category="inline-code"></block> 包含下列項目的檔案：</block>
+  <block id="c96739fe831515243fc940e9ee867ea3" category="list-text">身為 Oracle 使用者、請使用 dbca 來建立資料庫。</block>
+  <block id="2a00dbe4c39e81805212ab123d0995df" category="list-text">以 Oracle 使用者身分、在建立資料庫後驗證 Oracle 重新啟動 HA 服務。</block>
 </blocks>
