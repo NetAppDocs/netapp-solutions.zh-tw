@@ -14,30 +14,14 @@ keywords: database, Oracle, Azure NetApp files, Azure
 :imagesdir: ./../media/
 
 
+NetApp公司的Alleno Cao、Niyazz Mohamed
+
 [role="lead"]
-作者： Allen Cao 、 Niyaz Mohamed 、 NetApp
-
-
-
-== 總覽
-
 許多任務關鍵型Oracle企業資料庫仍在內部部署、許多企業正尋求將這些Oracle資料庫移轉至公有雲。這些Oracle資料庫通常以應用程式為中心、因此需要使用者專屬的組態、這是許多資料庫即服務公有雲產品無法提供的功能。因此、目前的資料庫環境需要以公有雲為基礎的Oracle資料庫解決方案、此解決方案是以高效能、可擴充的運算與儲存服務所打造、能夠滿足獨特的需求。Azure虛擬機器運算執行個體和Azure NetApp Files 整套儲存服務可能是您在建置任務關鍵型Oracle資料庫工作負載並將其移轉至公有雲時所無法運用的難題。
-
-
-
-== Azure 虛擬機器
 
 Azure虛擬機器是Azure提供的多種隨需擴充運算資源類型之一。一般而言、當您需要比其他選項更多的運算環境控制能力時、可以選擇虛擬機器。Azure虛擬機器提供一種快速簡易的方法、可建立執行Oracle資料庫所需的特定組態電腦、無論是運算或記憶體密集型工作負載。Azure虛擬網路中的虛擬機器可輕鬆連線至貴組織的網路、例如透過安全的VPN通道。
 
-
-
-== 產品統計（ ANF ） Azure NetApp Files
-
 支援完整管理的Microsoft服務、可讓資料庫工作負載更快更安全地移至雲端Azure NetApp Files 。它的設計旨在滿足在雲端執行Oracle資料庫等高效能工作負載的核心需求、並提供效能層級、以反映實際的IOPS需求範圍、低延遲、高可用度、高耐用度、大規模管理性、以及快速且有效率的備份、還原和複製。這些功能之所以能夠實現、是因為Azure NetApp Files 執行ONTAP 於Azure資料中心環境中的實體All Flash NetApp系統為基礎。整個Azure DC和入口網站已完全整合了整個支援、客戶可以使用與任何其他Azure物件相同的舒適圖形介面和API來建立及管理共用檔案Azure NetApp Files 。有了Azure NetApp檔案、您就能在不增加風險、成本或時間的情況下、充分發揮Azure的完整功能、並信任Azure專屬的唯一企業檔案服務。
-
-
-
-== 結論
 
 本文件詳細說明如何使用Azure虛擬機器和Azure NetApp Files 提供效能與持久性的VMware儲存服務來部署、設定及保護Oracle資料庫、其效能與持久性與內部部署系統類似。如需最佳實務做法指南、請參閱TR-4780 link:https://www.netapp.com/media/17105-tr4780.pdf["Microsoft Azure上的Oracle資料庫"^]。更重要的是、NetApp也提供自動化工具套件、可將部署、組態、資料保護、移轉及管理Azure公有雲中Oracle資料庫工作負載所需的大部分工作自動化。自動化工具套件可從NetApp Public GitHub網站下載： link:https://github.com/NetApp-Automation/["NetApp自動化"^]。
 
