@@ -64,7 +64,7 @@ cnvrg-app-69fbb9df98-6xrgf              1/1     Running     0          2m cnvrg-
 
 == ResNet50和Chest X射線資料集的電腦願景模型訓練
 
-Cnvrg-IO AI OS部署在Kubernetes設定上ONTAP 、採用NVIDIA DGX系統的NetApp AI架構上。為了進行驗證、我們使用NIH Chest X光資料集、其中包含已取消識別的胸前X光影像。影像採用的是PNG格式。資料由NIH臨床中心提供、可透過取得 https://nihcc.app.box.com/v/ChestXray-NIHCC["NIH下載網站"^]。我們使用250 GB的資料樣本、在15個類別中使用627、615個影像。
+Cnvrg-IO AI OS部署在Kubernetes設定上ONTAP 、採用NVIDIA DGX系統的NetApp AI架構上。為了進行驗證、我們使用NIH Chest X光資料集、其中包含已取消識別的胸前X光影像。影像採用的是PNG格式。資料由NIH臨床中心提供、可透過取得 https://["NIH下載網站"^]。我們使用250 GB的資料樣本、在15個類別中使用627、615個影像。
 
 此資料集已上傳至cnvrg平台、並從NetApp AFF S16A800儲存系統快取至NFS匯出。
 
@@ -84,7 +84,7 @@ image:hcaios_image7.png["錯誤：缺少圖形影像"]
 
 若要上傳資料、請完成下列步驟：
 
-. 下載 https://app.cnvrg.io/docs/cli/install.html["Cnvrg CLI"^]。
+. 下載 https://["Cnvrg CLI"^]。
 . 瀏覽至X光目錄。
 . 使用「cnvrg data init」命令、在平台中初始化資料集。
 . 使用「cnvrg data sync」命令、將目錄的所有內容上傳至中央資料湖。資料上傳至中央物件存放區StorageGRID （例如、S3或其他）之後、您就可以使用GUI瀏覽。下圖顯示已載入的胸前X光纖維化影像PNG檔案。此外、cnvrg會將資料版本轉換成資料版本、以便您建置的任何模型都能複製到資料版本。

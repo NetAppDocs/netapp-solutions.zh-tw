@@ -22,7 +22,7 @@ summary: 本頁說明在Kubernetes叢集中部署Kubeflow所需完成的工作�
 
 在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
 
-. 您已經有一個正常運作的Kubernetes叢集、而且您正在執行Kubernetes支援的Kubernetes版本。如需支援版本的清單、請參閱 https://www.kubeflow.org/docs/started/getting-started/["官方Kubeflow文件"^]。
+. 您已經有一個正常運作的Kubernetes叢集、而且您正在執行Kubernetes支援的Kubernetes版本。如需支援版本的清單、請參閱 https://["官方Kubeflow文件"^]。
 . 您已在Kubernetes叢集中安裝及設定NetApp Trident、如所述 link:aicp_netapp_trident_deployment_and_configuration_overview.html["Trident部署與組態"]。
 
 
@@ -61,9 +61,9 @@ ontap-ai-flexvols-retain (default)   csi.trident.netapp.io   54s
 NetApp建議使用NVIDIA DeepOps提供的Kubeflow部署工具。若要使用DeepOps部署工具在Kubernetes叢集中部署Kubeflow、請從部署跳接主機執行下列工作。
 
 
-NOTE: 或者、您也可以依照手動部署Kubeflow https://www.kubeflow.org/docs/started/getting-started/["安裝說明"^] 在正式的Kubeflow文件中
+NOTE: 或者、您也可以依照手動部署Kubeflow https://["安裝說明"^] 在正式的Kubeflow文件中
 
-. 遵循、在叢集中部署Kubeflow https://github.com/NVIDIA/deepops/blob/master/docs/k8s-cluster/kubeflow.md["Kubeflow部署指示"^] 在NVIDIA DeepOps GitHub網站上。
+. 遵循、在叢集中部署Kubeflow https://["Kubeflow部署指示"^] 在NVIDIA DeepOps GitHub網站上。
 . 記下DeepOps Kubeflow部署工具所輸出的Kubeflow儀表板URL。
 +
 ....
@@ -231,7 +231,7 @@ mysql-pv-claim   Bound    pvc-b2429afd-d028-11e9-9b9d-00505681a82d   20Gi       
 ....
 . 在網頁瀏覽器中、瀏覽至您在步驟2中記下的URL、即可存取Kubeflow中央儀表板。
 +
-預設使用者名稱為「admin@kubeflow.org」、預設密碼為「12341234」。若要建立其他使用者、請遵循中的指示 https://www.kubeflow.org/docs/components/multi-tenancy/["官方Kubeflow文件"^]。
+預設使用者名稱為「admin@kubeflow.org」、預設密碼為「12341234」。若要建立其他使用者、請遵循中的指示 https://["官方Kubeflow文件"^]。
 
 
 

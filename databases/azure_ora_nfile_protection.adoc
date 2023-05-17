@@ -16,6 +16,9 @@ keywords: Oracle, Azure, database, backup, restore
 
 link:azure_ora_nfile_procedures.html["先前：部署程序。"]
 
+[role="lead"]
+作者： NetApp 解決方案工程部門的 Allen Cao
+
 
 
 == 使用AzAcSnap工具備份Oracle資料庫與Snapshot
@@ -55,8 +58,13 @@ cd /home/azacsnap/bin
 . ~/.bash_profile
 azacsnap -c backup --volume other --prefix acao-ora01-log --retention 250
 ----
-crontab排程：15、30、45 ****/home/azacsnap/snap_log.sh 0 */ 2 **/home/azacsnap/snap_data.sh
+crontab 排程：
 
+[listing]
+----
+15,30,45 * * * * /home/azacsnap/snap_log.sh
+0 */2 * * * /home/azacsnap/snap_data.sh
+----
 
 NOTE: 設定備份時 `azacsnap.json` 組態檔、將所有資料磁碟區（包括二進位磁碟區）新增至 `dataVolume` 及所有記錄磁碟區 `otherVolume`。快照的最大保留量為250個複本。
 
@@ -81,42 +89,40 @@ Snapshot備份的主要優點之一是它與來源資料庫磁碟區共存、而
 
 下列範例示範如何從同一Oracle主機上的Azure儀表板和CLI還原及還原Oracle資料庫。
 
-. 在資料庫中建立要還原的測試表格。[oracle@acao-ora01 ~]$ sqlplus / as sysdba
-+
-SQL* Plus：19.0.00.0版- 9月12日星期一正式作業19：02：35 2022版本19.8.0.0.0
-
-+
-Copyright（c）1982,2019、Oracle。版權所有。
-
-+
-連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
-
-+
-SQL>建立資料表testsnapshot（id integerate、Event varchar（100）、dt時間戳記）；
-
-+
-表格已建立。
-
-+
-SQL>插入testsnapshot值（1、「插入資料標記以驗證Snapshot還原」、Sysdate）；
-
-+
-已建立1列。
-
-+
-SQL>提交；
-
-+
-提交完成。
-
-+
-SQL>從testsnapshot中選擇*；
-
-+
- ID
+. 在資料庫中建立要還原的測試表格。
 +
 [listing]
 ----
+[oracle@acao-ora01 ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Mon Sep 12 19:02:35 2022
+Version 19.8.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.8.0.0.0
+
+SQL> create table testsnapshot(
+     id integer,
+     event varchar(100),
+     dt timestamp);
+
+Table created.
+
+SQL> insert into testsnapshot values(1,'insert a data marker to validate snapshot restore',sysdate);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> select * from testsnapshot;
+
+ ID
+----------
 EVENT
 --------------------------------------------------------------------------------
 DT
@@ -127,29 +133,38 @@ insert a data marker to validate snapshot restore
 ----
 . 在備份快照之後、將表格丟棄。
 +
+[listing]
+----
 [oracle@acao-ora01 ~]$ sqlplus / as sysdba
 
-+
-SQL* Plus：19.0．0．0版- 9月13日星期二正式上線14：20：22 2022版本19.8．0．0
+SQL*Plus: Release 19.0.0.0.0 - Production on Tue Sep 13 14:20:22 2022
+Version 19.8.0.0.0
 
-+
-Copyright（c）1982,2019、Oracle。版權所有。
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-+
-連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
 
-+
-SQL>刪除表testsnapshot；
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.8.0.0.0
 
-+
-資料表已捨棄。
+SQL> drop table testsnapshot;
 
-+
-SQL>從testsnapshot中選取*；從testsnapshot *錯誤中選取*在第1行：ora-00942：表格或檢視不存在
+Table dropped.
 
-+
-SQL>立即關機；資料庫已關閉。資料庫已卸載。Oracle執行個體關機。SQL>結束與Oracle Database 19c Enterprise Edition 19.0.00.0.0-Production Version 19.8.0.0.0的連線中斷
+SQL> select * from testsnapshot;
+select * from testsnapshot
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
 
+SQL> shutdown immediate;
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> exit
+Disconnected from Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.8.0.0.0
+----
 . 從「支援資料」儀表板、將記錄磁碟區還原至上次可用的快照Azure NetApp Files 。選擇*恢復磁碟區*。
 +
 image:db_ora_azure_anf_restore_01.PNG["此螢幕快照顯示Anf儀表板中磁碟區的快照還原方法。"]
@@ -168,59 +183,80 @@ image:db_ora_azure_anf_restore_04.PNG["「確定要這麼做？」資料磁碟�
 
 . 如果您有多個控制檔複本、請重新同步控制檔、並以可用的最新複本取代舊控制檔。
 +
-[oracle@acao-ora01 ~]$ mv /u02/oradata/ORATST/control01.CTL /u02/oradata/ORATST/control01.culbk [oracle@acao-ora01 ~]$ cp /u03/orareco/ORATST/control02.CTL /u02/orarata/ORST.ora01.
-
+[listing]
+----
+[oracle@acao-ora01 ~]$ mv /u02/oradata/ORATST/control01.ctl /u02/oradata/ORATST/control01.ctl.bk
+[oracle@acao-ora01 ~]$ cp /u03/orareco/ORATST/control02.ctl /u02/oradata/ORATST/control01.ctl
+----
 . 登入Oracle伺服器VM、然後使用sqlplus執行資料庫恢復。
-+
-[oracle@acao-ora01 ~]$ sqlplus / as sysdba
-
-+
-SQL* Plus：19.0．0．0版- 9月13日星期二上線：15：10：17 2022版本19.8．0．0
-
-+
-Copyright（c）1982,2019、Oracle。版權所有。
-
-+
-連線至閒置執行個體。
-
-+
-SQL>啟動掛載；Oracle執行個體已啟動。
-
-+
-系統整體區域總計6442448984位元組固定大小8910936位元組可變大小1090519040位元組資料庫緩衝區5336154688位元組重做緩衝區7864320位元組已掛載資料庫。SQL>使用備份控制檔還原資料庫直到取消；ORA-00279：變更執行緒1 ORA-00289所需的3188523於2022年9月13日產生10：00：09：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_43_22rnjq280變更序列#8500243_
-
-+
-指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
-
-+
-ora-00279：變更在09/13/2022產生的318862 10：01：20需要執行緒1 ORA-00289：建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_44_29f2lgb5_.arcORA-00862022rog_rearth_002020248/00rarc/不需要更新#orrq/20248/0020248/0020248/00rarc檔案1：#orrq_rarcarc/不需要更新#rq_0020248/0020248/0020248/0020248/00rarc檔案1
-
-+
-指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
-
-+
-ora-00279:變更3193117產生於09/13/2022 12:00:08需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_45_29h6qqqqyw_.arcorORA-002022202212不再需要更新#002022_or_car_002022_car_002022_002022_c檔案#OR_002022_cu2022_c檔案'_002022_c /不需要更新#or_0020148/0020148/002022_002022_c檔案#or_c /更新#or_c檔案#1_0020278/0020148/002022_c
-
-+
-指定記錄：｛<RET> fest=ested |檔案名稱| Auto | cancel｝
-
-+
-ora-00279:變更3193440產生於09/13/2022 12:01：20需要執行緒1 ORA-00289:建議：/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_46_%u_.arc ORA-00280：變更3193440以執行緒1 #velo_2010/20278/0040的順序執行緒1、不需要更新#orq/2010/20278/002010/2010/0020278_orarc/不需要ORq_orq_orarc/檔案1
-
-+
-指定記錄：｛<RET> fest=recested |檔案名稱| Auto | cancel｝取消媒體恢復已取消。SQL>變更資料庫開啟重新設置記錄；
-
-+
-資料庫已變更。
-
-+
-SQL>從testsnapshot中選擇*；
-
-+
- ID
 +
 [listing]
 ----
+[oracle@acao-ora01 ~]$ sqlplus / as sysdba
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Tue Sep 13 15:10:17 2022
+Version 19.8.0.0.0
+
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
+
+Connected to an idle instance.
+
+SQL> startup mount;
+ORACLE instance started.
+
+Total System Global Area 6442448984 bytes
+Fixed Size                  8910936 bytes
+Variable Size            1090519040 bytes
+Database Buffers         5335154688 bytes
+Redo Buffers                7864320 bytes
+Database mounted.
+SQL> recover database using backup controlfile until cancel;
+ORA-00279: change 3188523 generated at 09/13/2022 10:00:09 needed for thread 1
+ORA-00289: suggestion :
+/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_43__22rnjq9q_.arc
+ORA-00280: change 3188523 for thread 1 is in sequence #43
+
+Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
+
+ORA-00279: change 3188862 generated at 09/13/2022 10:01:20 needed for thread 1
+ORA-00289: suggestion :
+/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_44__29f2lgb5_.arc
+ORA-00280: change 3188862 for thread 1 is in sequence #44
+ORA-00278: log file
+'/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_43__22rnjq9q_.arc' no longer
+needed for this recovery
+
+Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
+
+ORA-00279: change 3193117 generated at 09/13/2022 12:00:08 needed for thread 1
+ORA-00289: suggestion :
+/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_45__29h6qqyw_.arc
+ORA-00280: change 3193117 for thread 1 is in sequence #45
+ORA-00278: log file
+'/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_44__29f2lgb5_.arc' no longer
+needed for this recovery
+
+Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
+
+ORA-00279: change 3193440 generated at 09/13/2022 12:01:20 needed for thread 1
+ORA-00289: suggestion :
+/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_46_%u_.arc
+ORA-00280: change 3193440 for thread 1 is in sequence #46
+ORA-00278: log file
+'/u03/orareco/ORATST/archivelog/2022_09_13/o1_mf_1_45__29h6qqyw_.arc' no longer
+needed for this recovery
+
+Specify log: {<RET>=suggested | filename | AUTO | CANCEL}
+cancel
+Media recovery cancelled.
+SQL> alter database open resetlogs;
+
+Database altered.
+
+SQL> select * from testsnapshot;
+
+  ID
+----------
 EVENT
 --------------------------------------------------------------------------------
 DT
@@ -228,7 +264,6 @@ DT
          1
 insert a data marker to validate snapshot restore
 12-SEP-22 07.07.35.000000 PM
-
 
 SQL> select systimestamp from dual;
 

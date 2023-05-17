@@ -59,7 +59,7 @@ link:ncvs-gc-considerations--creating-active-directory-connections.htm["先前�
 
 == 用於LDAP和Kerberos的網路連接埠
 
-使用LDAP和Kerberos時、您應該判斷這些服務所使用的網路連接埠。您可以在中找到Cloud Volumes Service 一份完整的清單、其中列出了供列舉使用的連接埠 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["安全考量的相關文件Cloud Volumes Service"^]。
+使用LDAP和Kerberos時、您應該判斷這些服務所使用的網路連接埠。您可以在中找到Cloud Volumes Service 一份完整的清單、其中列出了供列舉使用的連接埠 https://["安全考量的相關文件Cloud Volumes Service"^]。
 
 
 
@@ -67,9 +67,9 @@ link:ncvs-gc-considerations--creating-active-directory-connections.htm["先前�
 
 充當LDAP用戶端、並使用標準LDAP搜尋查詢來查詢UNIX身分識別的使用者和群組。Cloud Volumes Service如果您想要使用Cloud Volumes Service 超出由供應之標準預設使用者的使用者和群組、則必須使用LDAP。如果您打算搭配使用者主體使用NFS Kerberos（例如user1@domain.com）、也必須使用LDAP。目前僅支援使用Microsoft Active Directory的LDAP。
 
-若要將Active Directory當作UNIX LDAP伺服器使用、您必須在要用於UNIX身分識別的使用者和群組上填入必要的UNIX屬性。使用預設的LDAP架構範本來查詢屬性Cloud Volumes Service https://tools.ietf.org/id/draft-howard-rfc2307bis-01.txt["RFC-2307-bis"^]。因此、下表顯示使用者和群組所需的最低Active Directory屬性、以及每個屬性的用途。
+若要將Active Directory當作UNIX LDAP伺服器使用、您必須在要用於UNIX身分識別的使用者和群組上填入必要的UNIX屬性。使用預設的LDAP架構範本來查詢屬性Cloud Volumes Service https://["RFC-2307-bis"^]。因此、下表顯示使用者和群組所需的最低Active Directory屬性、以及每個屬性的用途。
 
-如需在Active Directory中設定LDAP屬性的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["管理雙傳輸協定存取。"^]
+如需在Active Directory中設定LDAP屬性的詳細資訊、請參閱 https://["管理雙傳輸協定存取。"^]
 
 |===
 | 屬性 | 它的作用 
@@ -305,7 +305,7 @@ TEXT
 
 === LDAP通道繫結
 
-由於Windows Active Directory網域控制器存在弱點、 https://msrc.microsoft.com/update-guide/vulnerability/ADV190023["Microsoft安全性摘要報告ADV190023"^] 變更DC允許LDAP繫結的方式。
+由於Windows Active Directory網域控制器存在弱點、 https://["Microsoft安全性摘要報告ADV190023"^] 變更DC允許LDAP繫結的方式。
 
 對功能的影響Cloud Volumes Service 與對任何LDAP用戶端的影響相同。目前不支援通道連結。Cloud Volumes Service由於根據預設、透過協商來支援LDAP簽署、因此LDAP通道繫結不應成為問題。Cloud Volumes Service如果您在啟用通道繫結的情況下、無法連結至LDAP、請遵循ADV190023的修正步驟、讓LDAP從Cloud Volumes Service 支援區連結成功。
 
@@ -313,13 +313,13 @@ TEXT
 
 == DNS
 
-Active Directory和Kerberos都依賴DNS來解析主機名稱與IP / IP之間的主機名稱。DNS需要開啟連接埠53。不修改DNS記錄、也不支援使用Cloud Volumes Service https://support.google.com/domains/answer/6147083?hl=en["動態DNS"^] 在網路介面上。
+Active Directory和Kerberos都依賴DNS來解析主機名稱與IP / IP之間的主機名稱。DNS需要開啟連接埠53。不修改DNS記錄、也不支援使用Cloud Volumes Service https://["動態DNS"^] 在網路介面上。
 
-您可以設定Active Directory DNS、限制哪些伺服器可以更新DNS記錄。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/learn/modules/secure-windows-server-domain-name-system/["安全的Windows DNS"^]。
+您可以設定Active Directory DNS、限制哪些伺服器可以更新DNS記錄。如需詳細資訊、請參閱 https://["安全的Windows DNS"^]。
 
 請注意、Google專案中的資源預設為使用Google Cloud DNS、而Google Cloud DNS並未與Active Directory DNS連線。使用Cloud DNS的用戶端無法解析Cloud Volumes Service 由解決所傳回的UNC路徑。加入Active Directory網域的Windows用戶端已設定為使用Active Directory DNS、並可解析此類的UNC路徑。
 
-若要將用戶端加入Active Directory、您必須將其DNS組態設定為使用Active Directory DNS。您也可以設定Cloud DNS、將要求轉送至Active Directory DNS。請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/faqs-netapp["為什麼我的用戶端無法解析SMB NetBios名稱？"^]以取得更多資訊。
+若要將用戶端加入Active Directory、您必須將其DNS組態設定為使用Active Directory DNS。您也可以設定Cloud DNS、將要求轉送至Active Directory DNS。請參閱 https://["為什麼我的用戶端無法解析SMB NetBios名稱？"^]以取得更多資訊。
 
 
 NOTE: 目前不支援DNSSEC、DNS查詢則以純文字執行。Cloud Volumes Service

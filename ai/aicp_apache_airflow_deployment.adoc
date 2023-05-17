@@ -33,7 +33,7 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 
 == 安裝Helm
 
-我們使用適用於Kubernetes的常用套件管理程式Helm來部署氣流。部署氣流之前、您必須先在部署跨接主機上安裝Helm。若要在部署跳接主機上安裝Helm、請遵循 https://helm.sh/docs/intro/install/["安裝說明"^] 在官方Helm文件中。
+我們使用適用於Kubernetes的常用套件管理程式Helm來部署氣流。部署氣流之前、您必須先在部署跨接主機上安裝Helm。若要在部署跳接主機上安裝Helm、請遵循 https://["安裝說明"^] 在官方Helm文件中。
 
 
 
@@ -47,7 +47,7 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 
 若要使用Helm在Kubernetes叢集中部署氣流、請從部署跨接主機執行下列工作：
 
-. 請遵循、使用Helm來部署氣流 https://artifacthub.io/packages/helm/airflow-helm/airflow["部署指示"^] 以取得雜訊中心的官方氣流圖表。以下命令範例顯示如何使用Helm部署氣流。視您的環境和所需組態而定、視需要修改、新增及/或移除「custom-vales.yaml」檔案中的值。
+. 請遵循、使用Helm來部署氣流 https://["部署指示"^] 以取得雜訊中心的官方氣流圖表。以下命令範例顯示如何使用Helm部署氣流。視您的環境和所需組態而定、視需要修改、新增及/或移除「custom-vales.yaml」檔案中的值。
 +
 ....
 $ cat << EOF > custom-values.yaml

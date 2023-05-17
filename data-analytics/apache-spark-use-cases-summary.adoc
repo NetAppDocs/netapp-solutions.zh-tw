@@ -27,7 +27,7 @@ Apache Spark可以處理串流資料、這些資料可用於串流擷取、轉�
 * *複雜的工作階段分析。* Spark串流會在登入網站或應用程式之後收集使用者活動等事件、然後加以分組和分析。例如、Netflix使用此功能來提供即時電影建議。
 
 
-如需更多串流資料組態、Conflent Kafka驗證及效能測試、請參閱 https://docs.netapp.com/us-en/netapp-solutions/data-analytics/confluent-kafka-introduction.html["TR-4912：NetApp的Conflent Kafka階層式儲存設備最佳實務準則"^]。
+如需更多串流資料組態、Conflent Kafka驗證及效能測試、請參閱 https://["TR-4912：NetApp的Conflent Kafka階層式儲存設備最佳實務準則"^]。
 
 
 
@@ -65,12 +65,12 @@ Apache Spark的速度足以執行探索性查詢、無需使用除了Spark以外
 
 == 自然語言處理
 
-人工智慧是人工智慧的分支機構、可透過自然語言處理（NLP）實現、協助電腦與人類溝通。NLP在每個產業垂直市場和許多使用案例中都十分普及、從智慧型助理和聊天機器人、到Google搜尋和預測性文字。根據A https://www.forbes.com/sites/forbestechcouncil/2021/05/07/nice-chatbot-ing-with-you/?sh=7011eff571f4["Gartner"^] 預測到2022年、70%的人會每天與對話式AI平台互動。若要在人與機器之間進行高品質的對話、回應必須是快速、智慧且自然的。
+人工智慧是人工智慧的分支機構、可透過自然語言處理（NLP）實現、協助電腦與人類溝通。NLP在每個產業垂直市場和許多使用案例中都十分普及、從智慧型助理和聊天機器人、到Google搜尋和預測性文字。根據A https://["Gartner"^] 預測到2022年、70%的人會每天與對話式AI平台互動。若要在人與機器之間進行高品質的對話、回應必須是快速、智慧且自然的。
 
 客戶需要大量資料來處理及訓練NLP和自動語音辨識（ASR）模式。他們也需要在邊緣、核心和雲端之間移動資料、而且需要在毫秒內執行推斷、才能與人類建立自然的通訊。NetApp AI與Apache Spark是運算、儲存、資料處理、模型訓練、微調、 和部署。
 
 情緒分析是NLP內部的研究領域、從文字中擷取正面、負面或中立的情緒。情緒分析有多種使用案例、從判斷支援中心員工在與來電者對話時的表現、到提供適當的自動聊天機器人回應。此外、它也可用來根據公司代表與每季營收拜訪對象之間的互動、預測公司的股票價格。此外、情緒分析可用來判斷客戶對於品牌所提供產品、服務或支援的看法。
 
-我們使用 https://www.johnsnowlabs.com/spark-nlp/["Spark NLP"^] 程式庫來源 https://www.johnsnowlabs.com/["John Snow Labs"^] 從Transformers（Bert）機型載入預先訓練的管線和雙向編碼器呈現、包括 https://nlp.johnsnowlabs.com/2021/11/11/classifierdl_bertwiki_finance_sentiment_pipeline_en.html["財務新聞意欲"^] 和 https://nlp.johnsnowlabs.com/2021/11/03/bert_sequence_classifier_finbert_en.html["FinBit"^]、大規模地執行令牌化、命名實體辨識、模型訓練、擬合和情緒分析。Spark NLP是市面上唯一提供Bert、偉業、Elecra、XLNet、DisbilBit4等先進變壓器的開放原始碼NLP程式庫。 羅伯塔、DEBerta、XLM-羅伯塔、龍原、Elmo、 通用句子編碼器、Google T5、MarianMT和GPT2。此程式庫不僅可在Python和R中運作、也可在VM生態系統（Java、Scala和Kotlin）中大規模運作、只要將Apache Spark原生擴充即可。
+我們使用 https://["Spark NLP"^] 程式庫來源 https://["John Snow Labs"^] 從Transformers（Bert）機型載入預先訓練的管線和雙向編碼器呈現、包括 https://["財務新聞意欲"^] 和 https://["FinBit"^]、大規模地執行令牌化、命名實體辨識、模型訓練、擬合和情緒分析。Spark NLP是市面上唯一提供Bert、偉業、Elecra、XLNet、DisbilBit4等先進變壓器的開放原始碼NLP程式庫。 羅伯塔、DEBerta、XLM-羅伯塔、龍原、Elmo、 通用句子編碼器、Google T5、MarianMT和GPT2。此程式庫不僅可在Python和R中運作、也可在VM生態系統（Java、Scala和Kotlin）中大規模運作、只要將Apache Spark原生擴充即可。
 
 link:apache-spark-major-ai,-ml,-and-dl-use-cases-and-architectures.html["下一步：主要AI、ML和DL使用案例與架構。"]

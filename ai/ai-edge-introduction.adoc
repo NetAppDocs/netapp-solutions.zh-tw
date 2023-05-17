@@ -93,7 +93,7 @@ image:ai-edge-image3.png["錯誤：缺少圖形影像"]
 
 本文件驗證所建議架構的設計與效能。不過、我們尚未測試某些軟體層級的元件、例如容器、工作負載、或模型管理、以及與內部部署的雲端或資料中心的資料同步、因為它們是針對部署案例而設計。這裡有多種選擇。
 
-在容器管理層級、Kubernetes Container管理是一個不錯的選擇、無論是完整上游版本（Canonical）或是適合企業部署的修改版本（Red Hat）、都能獲得良好支援。。 link:https://docs.netapp.com/us-en/netapp-solutions/ai/aicp_introduction.html["NetApp AI Control Plane"^] 使用NetApp Trident和新增的 https://github.com/NetApp/netapp-dataops-toolkit/releases/tag/v2.0.0["NetApp DataOps工具套件"^] 提供內建的可追蹤性、資料管理功能、介面和工具、讓資料科學家和資料工程師能夠與NetApp儲存設備整合。Kubernetes的ML工具套件Kubefflow提供額外的AI功能、並支援TensorFlow服務或NVIDIA Triton Inference伺服器等多種平台上的模型版本設定和KFServing。另一個選項是NVIDIA EGX平台、可提供工作負載管理功能、並可存取支援GPU的AI推斷容器目錄。不過、這些選項可能需要投入大量心力和專業知識才能投入生產、而且可能需要協力廠商獨立軟體廠商（ISV）或顧問的協助。
+在容器管理層級、Kubernetes Container管理是一個不錯的選擇、無論是完整上游版本（Canonical）或是適合企業部署的修改版本（Red Hat）、都能獲得良好支援。。 link:https://docs.netapp.com/us-en/netapp-solutions/ai/aicp_introduction.html["NetApp AI Control Plane"^] 使用NetApp Trident和新增的 https://["NetApp DataOps工具套件"^] 提供內建的可追蹤性、資料管理功能、介面和工具、讓資料科學家和資料工程師能夠與NetApp儲存設備整合。Kubernetes的ML工具套件Kubefflow提供額外的AI功能、並支援TensorFlow服務或NVIDIA Triton Inference伺服器等多種平台上的模型版本設定和KFServing。另一個選項是NVIDIA EGX平台、可提供工作負載管理功能、並可存取支援GPU的AI推斷容器目錄。不過、這些選項可能需要投入大量心力和專業知識才能投入生產、而且可能需要協力廠商獨立軟體廠商（ISV）或顧問的協助。
 
 
 

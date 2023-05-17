@@ -9,7 +9,7 @@
 .Terraform組態檔案、可在AWS上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上部署/設定單一節點NetApp CVO（英文）。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：
@@ -114,7 +114,7 @@ NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
 | * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
 
 
-| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 
 
 | * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
@@ -152,7 +152,7 @@ NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
 .Terraform組態檔案、可在AWS上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP AWS（Amazon Web Services）上以高可用度配對部署/設定NetApp CVO（BIOS）。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：
@@ -257,7 +257,7 @@ NetApp AWS連接器執行個體的Terraform變數、適用於CVO部署。
 | * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
 
 
-| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 
 
 | * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
@@ -322,7 +322,7 @@ HA配對中NetApp CVO執行個體的Terraform變數。
 .Terraform組態檔案、可在ONTAP AWS上部署NetApp SfSX
 本節包含各種Terraform組態檔案、可在ONTAP AWS（Amazon Web Services）上部署/設定NetApp SfSX。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：
@@ -427,7 +427,7 @@ NetApp AWS連接器執行個體的Terraform變數。
 | * AWS連接器_iam_instance_profile名稱* | 字串 | （必填）Connector執行個體設定檔的名稱。 
 
 
-| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * AWS連接器帳戶ID * | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 
 
 | * AWS連接器_public_ip_bool * | 布爾 | （選用）表示是否要將公用IP位址與執行個體建立關聯。如果未提供、則會根據子網路的組態來進行關聯。 
@@ -454,7 +454,7 @@ NetApp ONTAP 的Terraform變數。
 | * FSx_secondary子網路識別碼* | 字串 | （必填）要建立工作環境的次子網路ID。 
 
 
-| * FSx_account_id* | 字串 | （必填）將與FSX執行 個體相關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * FSx_account_id* | 字串 | （必填）將與FSX執行 個體相關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 
 
 | * FSx_Workby_id* | 字串 | （必填）工作環境的Cloud Manager工作區ID。 

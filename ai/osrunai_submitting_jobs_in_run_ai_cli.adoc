@@ -55,14 +55,14 @@ $ runai logs hyper1
 ....
 在此範例中、您應該會看到正在執行的DL工作階段記錄、包括目前的訓練時期、ETA、Loss Function Value、Accuracy、以及每個步驟所經過的時間。
 
-您可以在的Run:AI UI上檢視叢集狀態 https://app.run.ai/["https://app.run.ai/"^]。在「儀表板」>「總覽」下、您可以監控GPU使用率。
+您可以在的Run:AI UI上檢視叢集狀態 https://["https://app.run.ai/"^]。在「儀表板」>「總覽」下、您可以監控GPU使用率。
 
 若要停止此工作負載、請執行下列命令：
 
 ....
 $ runai delte hyper1
 ....
-此命令可停止訓練工作負載。您可以再次執行「Runai list」（Runai清單）來驗證此動作。如需詳細資訊、請參閱 https://docs.run.ai/Researcher/Walkthroughs/Walkthrough-Launch-Unattended-Training-Workloads-/["啟動無人管理的訓練工作負載"^]。
+此命令可停止訓練工作負載。您可以再次執行「Runai list」（Runai清單）來驗證此動作。如需詳細資訊、請參閱 https://["啟動無人管理的訓練工作負載"^]。
 
 
 
@@ -92,15 +92,15 @@ $ runai bash build1
 ....
 這可直接在電腦中提供Shell。然後、資料科學家可以在容器內開發或微調模型。
 
-您可以在的Run:AI UI上檢視叢集狀態 https://app.run.ai["https://app.run.ai"^]。如需詳細資訊、請參閱 https://docs.run.ai/Researcher/Walkthroughs/Walkthrough-Start-and-Use-Interactive-Build-Workloads-/["啟動及使用互動式建置工作負載"^]。
+您可以在的Run:AI UI上檢視叢集狀態 https://["https://app.run.ai"^]。如需詳細資訊、請參閱 https://["啟動及使用互動式建置工作負載"^]。
 
 
 
 == 互動式工作負載與連接的連接埠
 
-作為互動式建置工作負載的延伸、您可以在使用Run:AI CLI啟動容器時、向容器使用者顯示內部連接埠。這對於雲端環境、使用Jupyter筆記型電腦或連線至其他微服務都很有用。 https://kubernetes.io/docs/concepts/services-networking/ingress/["入侵"^] 允許從Kubernetes叢集外部存取Kubernetes服務。您可以建立規則集合來定義哪些傳入連線可到達哪些服務、藉此設定存取。
+作為互動式建置工作負載的延伸、您可以在使用Run:AI CLI啟動容器時、向容器使用者顯示內部連接埠。這對於雲端環境、使用Jupyter筆記型電腦或連線至其他微服務都很有用。 https://["入侵"^] 允許從Kubernetes叢集外部存取Kubernetes服務。您可以建立規則集合來定義哪些傳入連線可到達哪些服務、藉此設定存取。
 
-為了更妥善管理叢集中的外部服務存取、建議叢集管理員安裝 https://kubernetes.io/docs/concepts/services-networking/ingress/["入侵"^] 並設定負載平衡器。
+為了更妥善管理叢集中的外部服務存取、建議叢集管理員安裝 https://["入侵"^] 並設定負載平衡器。
 
 若要使用Ingress做為服務類型、請執行下列命令、在提交工作負載時設定方法類型和連接埠：
 
@@ -109,8 +109,8 @@ $ runai submit test-ingress -i jupyter/base-notebook -g 1 \
   --interactive --service-type=ingress --port 8888 \
   --args="--NotebookApp.base_url=test-ingress" --command=start-notebook.sh
 ....
-容器成功啟動後、執行「Runai list」（執行清單）以查看用來存取Jupyter Notebook的「服務URL（S）」。URL由入口端點、工作名稱和連接埠組成。例如、請參閱 https://10.255.174.13/test-ingress-8888[]。
+容器成功啟動後、執行「Runai list」（執行清單）以查看用來存取Jupyter Notebook的「服務URL（S）」。URL由入口端點、工作名稱和連接埠組成。例如、請參閱 https://[]。
 
-如需詳細資料、請參閱 https://docs.run.ai/Researcher/Walkthroughs/Walkthrough-Launch-an-Interactive-Build-Workload-with-Connected-Ports/["使用連接的連接埠啟動互動式建置工作負載"^]。
+如需詳細資料、請參閱 https://["使用連接的連接埠啟動互動式建置工作負載"^]。
 
 link:osrunai_achieving_high_cluster_utilization.html["下一步：實現高叢集使用率"]

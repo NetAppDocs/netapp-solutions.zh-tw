@@ -39,11 +39,11 @@ Kubectl -n default-tenant apply -f <your yaml file>
 
 == 將NetApp Volume附加至Jupyter筆記型電腦
 
-Iguazio提供多種託管服務、可為資料科學家提供完整的端點對端堆疊、以供開發及部署AI / ML應用程式。如需這些元件的詳細資訊、請參閱 https://www.iguazio.com/docs/intro/latest-release/ecosystem/app-services/["Iguazio應用程式服務與工具總覽"^]。
+Iguazio提供多種託管服務、可為資料科學家提供完整的端點對端堆疊、以供開發及部署AI / ML應用程式。如需這些元件的詳細資訊、請參閱 https://["Iguazio應用程式服務與工具總覽"^]。
 
 其中一項託管服務是Jupyter Notebook。每個開發人員都能自行部署筆記型電腦容器、並提供開發所需的資源。若要讓他們存取NetApp Cloud Volume、您可以將Volume指派給他們的容器、並在下列映像中顯示持續Volume Claims的資源配置、執行中的使用者及環境變數設定。
 
-如需內部部署組態、請參閱 https://www.netapp.com/us/media/tr-4798.pdf["TR-4798"^] 在Trident設定中啟用NetApp ONTAP 的支援資料管理功能、例如為資料或模型製作Snapshot複本以進行版本控制。在Trident後端組態檔中新增下列行、以顯示Snapshot目錄：
+如需內部部署組態、請參閱 https://["TR-4798"^] 在Trident設定中啟用NetApp ONTAP 的支援資料管理功能、例如為資料或模型製作Snapshot複本以進行版本控制。在Trident後端組態檔中新增下列行、以顯示Snapshot目錄：
 
 ....
 {
@@ -53,7 +53,7 @@ Iguazio提供多種託管服務、可為資料科學家提供完整的端點對�
     }
 }
 ....
-您必須以Json格式建立Trident後端組態檔、然後執行下列命令 https://netapp-trident.readthedocs.io/en/stable-v18.07/kubernetes/operations/tasks/backends.html["Trident命令"^] 若要參考：
+您必須以Json格式建立Trident後端組態檔、然後執行下列命令 https://["Trident命令"^] 若要參考：
 
 ....
 tridentctl create backend -f <backend-file>

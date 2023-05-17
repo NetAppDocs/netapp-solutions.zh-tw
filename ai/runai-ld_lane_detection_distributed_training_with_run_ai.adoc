@@ -32,7 +32,7 @@ NetApp Snapshot已整合於訓練程式碼中、可擷取每個實驗的資料�
 
 == 設定與安裝
 
-如需設定及安裝AKS叢集、請前往 https://docs.microsoft.com/azure/aks/kubernetes-walkthrough-portal["建立一個高效能叢集"^]。接著、請遵循下列一系列步驟：
+如需設定及安裝AKS叢集、請前往 https://["建立一個高效能叢集"^]。接著、請遵循下列一系列步驟：
 
 . 選取節點類型（無論是系統（CPU）或工作（GPU）節點）時、請選取下列項目：
 +
@@ -47,8 +47,8 @@ NOTE: 部署需要5–10分鐘。
 
 
 
-. 部署完成後、按一下「Connect to Cluster（連線至叢集）」。若要連線至新建立的高層叢集、請從本機環境（筆記型電腦/電腦）安裝Kubernetes命令列工具。請造訪 https://kubernetes.io/docs/tasks/tools/install-kubectl/["安裝工具"^] 以根據您的作業系統進行安裝。
-. https://docs.microsoft.com/cli/azure/install-azure-cli["在您的本機環境中安裝Azure CLI"^]。
+. 部署完成後、按一下「Connect to Cluster（連線至叢集）」。若要連線至新建立的高層叢集、請從本機環境（筆記型電腦/電腦）安裝Kubernetes命令列工具。請造訪 https://["安裝工具"^] 以根據您的作業系統進行安裝。
+. https://["在您的本機環境中安裝Azure CLI"^]。
 . 若要從終端機存取高層叢集、請先輸入「AZ登入」、然後輸入認證資料。
 . 執行下列兩個命令：
 +
@@ -103,13 +103,13 @@ image:runai-ld_image7.png["錯誤：缺少圖形影像"]
 
 == 系統設定Azure NetApp Files
 
-若要完成Azure NetApp Files 設定、您必須先依照中所述進行設定 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-quickstart-set-up-account-create-volumes["快速入門：設定Azure NetApp Files 功能以建立NFS磁碟區"^]。
+若要完成Azure NetApp Files 設定、您必須先依照中所述進行設定 https://["快速入門：設定Azure NetApp Files 功能以建立NFS磁碟區"^]。
 
 不過、您可以略過建立Azure NetApp Files NFS Volume以供使用的步驟、因為您將透過Trident建立Volume。在繼續之前、請確定您已：
 
-. https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-register["已註冊Azure NetApp Files 為NetApp資源供應商（透過Azure Cloud Shell）"^]。
-. https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["在Azure NetApp Files 不執行任何作業的情況下建立帳戶"^]。
-. https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["設定容量資源池"^] （視您的需求而定、最低4TiB標準或Premium）。
+. https://["已註冊Azure NetApp Files 為NetApp資源供應商（透過Azure Cloud Shell）"^]。
+. https://["在Azure NetApp Files 不執行任何作業的情況下建立帳戶"^]。
+. https://["設定容量資源池"^] （視您的需求而定、最低4TiB標準或Premium）。
 
 
 
@@ -141,7 +141,7 @@ NOTE: 保留所有非星號區段的預設值
 . 按一下「新增」或「確定」、將對等新增至虛擬網路。
 
 
-如需詳細資訊、請造訪 https://docs.microsoft.com/azure/virtual-network/tutorial-connect-virtual-networks-portal["建立、變更或刪除虛擬網路對等關係"^]。
+如需詳細資訊、請造訪 https://["建立、變更或刪除虛擬網路對等關係"^]。
 
 
 
@@ -157,7 +157,7 @@ NetApp Trident可建立及附加持續容量、以儲存訓練資料集和訓練
 
 若要安裝Trident軟體、請完成下列步驟：
 
-. https://helm.sh/docs/intro/install/["第一次安裝Helm"^]。
+. https://["第一次安裝Helm"^]。
 . 下載並解壓縮Trident 21.01.1安裝程式。
 +
 ....
@@ -207,7 +207,7 @@ kubectl -n trident get pods
 ....
 cd ~
 ....
-. 複製 https://github.com/dedmari/lane-detection-SCNN-horovod.git["專案儲存庫"^] 「lane detection-SCNN-Horovod」。
+. 複製 https://["專案儲存庫"^] 「lane detection-SCNN-Horovod」。
 . 移至「trident組態」目錄。
 +
 ....
@@ -321,7 +321,7 @@ kubectl create -f https://raw.githubusercontent.com/kubernetes-csi/external-snap
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
 kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/release-3.0/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
 ....
-. 設定K8s「volumesnapshotClass」：在建立Volume Snapshot之前、請先 https://netapp-trident.readthedocs.io/en/stable-v20.01/kubernetes/concepts/objects.html["Volume Snapshot類別"^] 必須設定。建立適用於Azure NetApp Files 功能不全的Volume Snapshot類別、並使用NetApp Snapshot技術來達到ML版本管理。建立「volumesnapshotClass NetApp-csi快照類別」、並將其設為預設的「volumesnapshotClass」、例如：
+. 設定K8s「volumesnapshotClass」：在建立Volume Snapshot之前、請先 https://["Volume Snapshot類別"^] 必須設定。建立適用於Azure NetApp Files 功能不全的Volume Snapshot類別、並使用NetApp Snapshot技術來達到ML版本管理。建立「volumesnapshotClass NetApp-csi快照類別」、並將其設為預設的「volumesnapshotClass」、例如：
 +
 ....
 kubectl create -f netapp-volume-snapshot-class.yaml
@@ -351,12 +351,12 @@ image:runai-ld_image10.png["錯誤：缺少圖形影像"]
 
 若要安裝RUN：AI、請完成下列步驟：
 
-. https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI叢集於AKS上"^]。
+. https://["安裝RUN：AI叢集於AKS上"^]。
 . 前往app.runai.ai、按一下「Create New Project（建立新專案）」、然後將其命名為「lane detection（線道偵測）它將在K8s叢集上建立命名空間、開頭為「Runai」、後面接著專案名稱。在這種情況下、建立的命名空間將會是Runae-lane偵測。
 +
 image:runai-ld_image11.png["錯誤：缺少圖形影像"]
 
-. https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI CLI"^]。
+. https://["安裝RUN：AI CLI"^]。
 . 在終端機上、使用下列命令將lane偵測設為預設執行：AI project：
 +
 ....
@@ -740,7 +740,7 @@ image:runai-ld_image38.png["錯誤：缺少圖形影像"]
 
 == 服務層級Azure NetApp Files
 
-您可以將磁碟區移至另一個使用的容量集區、以變更現有磁碟區的服務層級 https://docs.microsoft.com/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級"^] 您想要的磁碟區。此磁碟區現有的服務層級變更不需要移轉資料。這也不會影響對磁碟區的存取。
+您可以將磁碟區移至另一個使用的容量集區、以變更現有磁碟區的服務層級 https://["服務層級"^] 您想要的磁碟區。此磁碟區現有的服務層級變更不需要移轉資料。這也不會影響對磁碟區的存取。
 
 
 
@@ -762,9 +762,9 @@ image:runai-ld_image40.png["錯誤：缺少圖形影像"]
 
 === 自動化服務層級變更
 
-動態服務層級變更目前仍在「公開預覽」中、但預設不會啟用。若要在Azure訂閱上啟用此功能、請依照文件中提供的步驟執行 file:///C:\Users\crich\Downloads\•%09https:\docs.microsoft.com\azure\azure-netapp-files\dynamic-change-volume-service-level["動態變更磁碟區的服務層級"^]。」
+動態服務層級變更目前仍在「公開預覽」中、但預設不會啟用。若要在Azure訂閱上啟用此功能、請依照文件中提供的步驟執行 file://["動態變更磁碟區的服務層級"^]。」
 
-* 您也可以針對Azure使用下列命令：CLI。如需變更Azure NetApp Files 資源池大小的詳細資訊、請造訪 https://docs.microsoft.com/cli/azure/netappfiles/volume?view=azure-cli-latest-az_netappfiles_volume_pool_change["AZ netappFiles Volume：管理Azure NetApp Files fz（anf）Volume資源"^]。
+* 您也可以針對Azure使用下列命令：CLI。如需變更Azure NetApp Files 資源池大小的詳細資訊、請造訪 https://["AZ netappFiles Volume：管理Azure NetApp Files fz（anf）Volume資源"^]。
 +
 ....
 az netappfiles volume pool-change -g mygroup
@@ -773,7 +773,7 @@ az netappfiles volume pool-change -g mygroup
 --name myvolname
 --new-pool-resource-id mynewresourceid
 ....
-* 此處顯示的「set-aznetappfilesvolumepool」指令程式可變更Azure NetApp Files 一個現象區的集區。如需變更Volume Pool大小和Azure PowerShell的詳細資訊、請參閱 https://docs.microsoft.com/powershell/module/az.netappfiles/set-aznetappfilesvolumepool?view=azps-5.8.0["變更Azure NetApp Files 適用於某個需求量的資源池"^]。
+* 此處顯示的「set-aznetappfilesvolumepool」指令程式可變更Azure NetApp Files 一個現象區的集區。如需變更Volume Pool大小和Azure PowerShell的詳細資訊、請參閱 https://["變更Azure NetApp Files 適用於某個需求量的資源池"^]。
 +
 ....
 Set-AzNetAppFilesVolumePool

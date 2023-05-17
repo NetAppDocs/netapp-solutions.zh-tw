@@ -50,7 +50,7 @@ n_trees = 10
 rf_model = RandomForestClassifier(max_depth=max_depth, n_estimators=n_trees)
 rf_model.fit(df_sliced, Y)
 ....
-若要使用受過訓練的隨機樹系模型來執行預測、請執行本筆記型電腦的下一段。我們從第15天開始採用最後一百萬列作為測試集、以避免任何重複資料。儲存格也會計算預測的準確度、定義為模型準確預測使用者是否點選廣告的發生百分比。若要檢閱此筆記型電腦中任何不熟悉的元件、請參閱 https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html["正式的sci套 件學習文件"^]。
+若要使用受過訓練的隨機樹系模型來執行預測、請執行本筆記型電腦的下一段。我們從第15天開始採用最後一百萬列作為測試集、以避免任何重複資料。儲存格也會計算預測的準確度、定義為模型準確預測使用者是否點選廣告的發生百分比。若要檢閱此筆記型電腦中任何不熟悉的元件、請參閱 https://["正式的sci套 件學習文件"^]。
 
 ....
 # testing data, last 1M rows in day15

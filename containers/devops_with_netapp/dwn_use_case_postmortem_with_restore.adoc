@@ -57,7 +57,7 @@ image::dwn_image10.jpg[驗證後工作流程]
 image::dwn_image12.jpg[失敗的應用程式]
 
 . 登入Jenkins並按一下「New item（新項目）」、然後按一下「Pipeline（管道）」、建立管道。
-. 從Jenkinsfile複製管路 https://github.com/NetApp/netapp-astra-toolkits/blob/main/ci_cd_examples/jenkins_pipelines/clone_for_postmortem_and_restore/Jenkinsfile["請按這裡"^]。
+. 從Jenkinsfile複製管路 https://["請按這裡"^]。
 . 將管線貼到Jenkins Pipeline區段、然後按一下「Save（儲存）」。
 . 在Jenkins管線的參數中填入相關的詳細資料、例如目前正式作業的Magento應用程式版本、Astra Control Center FQDN、API權杖、正式作業與偵錯環境的執行個體ID和應用程式名稱或命名空間、以及來源與目的地叢集名稱。就本使用案例而言、正式作業環境是稱為「magent-prod」的命名空間、而偵錯環境則是在Red Hat OpenShift叢集上設定的命名空間、稱為「magento除錯」。
 +

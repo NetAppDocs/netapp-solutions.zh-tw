@@ -78,8 +78,8 @@ NOTE: 若要還原21個資料庫、大約需要9小時。此方法是針對此�
 將資料從內部部署SQL Server移轉至Azure NetApp Files 支援的其他移轉選項包括：
 
 * 將資料和記錄檔分離、複製到Azure Blob儲存設備、然後將其附加到Azure VM中的SQL Server、並從URL掛載Anf檔案共用區。
-* 如果您使用的是「全年無休」群組內部部署、請使用 https://docs.microsoft.com/en-us/previous-versions/azure/virtual-machines/windows/sqlclassic/virtual-machines-windows-classic-sql-onprem-availability["新增Azure複本精靈"^] 在Azure中建立複本、然後執行容錯移轉。
-* 使用SQL Server https://docs.microsoft.com/en-us/sql/relational-databases/replication/transactional/transactional-replication["交易複寫"^] 若要將Azure SQL Server執行個體設定為訂閱者、請停用複寫功能、然後將使用者指向Azure資料庫執行個體。
+* 如果您使用的是「全年無休」群組內部部署、請使用 https://["新增Azure複本精靈"^] 在Azure中建立複本、然後執行容錯移轉。
+* 使用SQL Server https://["交易複寫"^] 若要將Azure SQL Server執行個體設定為訂閱者、請停用複寫功能、然後將使用者指向Azure資料庫執行個體。
 * 使用Windows匯入/匯出服務來運送硬碟。
 
 
@@ -89,7 +89,7 @@ NOTE: 若要還原21個資料庫、大約需要9小時。此方法是針對此�
 
 備份與還原是任何SQL Server部署的重要層面。我們必須擁有適當的安全網、以便與高可用度解決方案（例如AOAG）一起快速從各種資料故障和遺失案例中恢復。SQL Server資料庫靜止工具、Azure備份（串流）或任何協力廠商備份工具（例如CommVault）、均可用於執行資料庫的應用程式一致備份、
 
-利用Snapshot快照技術、您可以輕鬆建立使用者資料庫的時間點（pit）複本、而不會影響效能或網路使用率。Azure NetApp Files這項技術也可讓您將Snapshot複本還原至新的Volume、或將受影響的Volume快速還原至使用還原Volume功能建立Snapshot複本時所處的狀態。不像Azure備份所提供的串流備份、此功能可讓您快速且有效率地執行多個每日備份。Azure NetApp Files在指定的一天內可以有多個Snapshot複本、因此RPO和RTO時間可大幅縮短。若要新增應用程式一致性、以便在Snapshot複本開始之前、將資料完整且正確地排清到磁碟、請使用SQL Server資料庫靜止工具 (https://mysupport.netapp.com/site/tools/tool-eula/scsqlapi["SCSQLAPI工具"^]；存取此連結需要NetApp SSO登入認證）。此工具可在PowerShell內執行、這會使SQL Server資料庫靜止不動、進而取得應用程式一致的儲存Snapshot複本來進行備份。
+利用Snapshot快照技術、您可以輕鬆建立使用者資料庫的時間點（pit）複本、而不會影響效能或網路使用率。Azure NetApp Files這項技術也可讓您將Snapshot複本還原至新的Volume、或將受影響的Volume快速還原至使用還原Volume功能建立Snapshot複本時所處的狀態。不像Azure備份所提供的串流備份、此功能可讓您快速且有效率地執行多個每日備份。Azure NetApp Files在指定的一天內可以有多個Snapshot複本、因此RPO和RTO時間可大幅縮短。若要新增應用程式一致性、以便在Snapshot複本開始之前、將資料完整且正確地排清到磁碟、請使用SQL Server資料庫靜止工具 (https://["SCSQLAPI工具"^]；存取此連結需要NetApp SSO登入認證）。此工具可在PowerShell內執行、這會使SQL Server資料庫靜止不動、進而取得應用程式一致的儲存Snapshot複本來進行備份。
 
 *附註：*
 
@@ -98,7 +98,7 @@ NOTE: 若要還原21個資料庫、大約需要9小時。此方法是針對此�
 * 將每個資料庫的檔案放在個別Azure NetApp Files 的卷中、以隔離檔案。
 
 
-由於SCSQL API的巨大限制、 https://docs.microsoft.com/en-us/azure/backup/backup-azure-sql-database["Azure備份"^] 用於資料保護、以符合SLA要求。它針對在Azure Virtual Machines和Azure NetApp Files VMware中執行的SQL Server、提供串流式備份。Azure備份可讓您以15分鐘的RPO進行記錄備份、並將資料備份和資料堆恢復時間縮短至一秒。
+由於SCSQL API的巨大限制、 https://["Azure備份"^] 用於資料保護、以符合SLA要求。它針對在Azure Virtual Machines和Azure NetApp Files VMware中執行的SQL Server、提供串流式備份。Azure備份可讓您以15分鐘的RPO進行記錄備份、並將資料備份和資料堆恢復時間縮短至一秒。
 
 
 
@@ -144,7 +144,7 @@ image:sql-srv-anf_image8.png["錯誤：缺少圖形影像"]
 
 === 長期Snapshot複本歸檔
 
-許多組織必須執行長期保留資料庫檔案中的快照資料、作為強制性法規遵循要求。雖然此HLD並未使用此程序、但只要使用簡單的批次指令碼、就能輕鬆完成 https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-v10["AzCopy"^] 可將Snapshot目錄複製到Azure Blob容器。批次指令碼可透過排程工作、根據特定排程觸發。程序很簡單、包括下列步驟：
+許多組織必須執行長期保留資料庫檔案中的快照資料、作為強制性法規遵循要求。雖然此HLD並未使用此程序、但只要使用簡單的批次指令碼、就能輕鬆完成 https://["AzCopy"^] 可將Snapshot目錄複製到Azure Blob容器。批次指令碼可透過排程工作、根據特定排程觸發。程序很簡單、包括下列步驟：
 
 . 下載AzCopy V10執行檔。沒有什麼可安裝的、因為它是一個「exe」檔案。
 . 在具有適當權限的容器層級使用SAS權杖來授權AzCopy。
@@ -154,7 +154,7 @@ image:sql-srv-anf_image8.png["錯誤：缺少圖形影像"]
 * 附註： *
 
 * 在批次檔中、請務必轉義SAS權杖中出現的%字元。您可以在SAS權杖字串的現有%字元旁新增額外%字元來完成此作業。
-* 。 https://docs.microsoft.com/en-us/azure/storage/common/storage-require-secure-transfer["需要安全傳輸"^] 儲存帳戶的設定會決定是否使用傳輸層安全性（TLS）來保護儲存帳戶的連線安全。此設定預設為啟用。下列批次指令碼範例會將資料從Snapshot複本目錄以遞歸方式複製到指定的Blob容器：
+* 。 https://["需要安全傳輸"^] 儲存帳戶的設定會決定是否使用傳輸層安全性（TLS）來保護儲存帳戶的連線安全。此設定預設為啟用。下列批次指令碼範例會將資料從Snapshot複本目錄以遞歸方式複製到指定的Blob容器：
 
 
 ....

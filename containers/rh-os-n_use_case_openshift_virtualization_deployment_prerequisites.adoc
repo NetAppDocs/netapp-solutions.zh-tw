@@ -24,9 +24,9 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 * 安裝了tridentctl和occ工具並新增至$path的管理工作站
 
 
-由於OpenShift虛擬化是由安裝在OpenShift叢集上的操作員所管理、因此會對記憶體、CPU和儲存設備產生額外的負荷、因此在規劃叢集的硬體需求時、必須將這些負荷列入考量。請參閱文件 https://docs.openshift.com/container-platform/4.7/virt/install/preparing-cluster-for-virt.html#virt-cluster-resource-requirements_preparing-cluster-for-virt["請按這裡"] 以取得更多詳細資料。
+由於OpenShift虛擬化是由安裝在OpenShift叢集上的操作員所管理、因此會對記憶體、CPU和儲存設備產生額外的負荷、因此在規劃叢集的硬體需求時、必須將這些負荷列入考量。請參閱文件 https://["請按這裡"] 以取得更多詳細資料。
 
-或者、您也可以設定節點放置規則、以指定OpenShift叢集節點的子集來裝載OpenShift虛擬化操作員、控制器和VM。若要設定OpenShift虛擬化的節點放置規則、請遵循文件 https://docs.openshift.com/container-platform/4.7/virt/install/virt-specifying-nodes-for-virtualization-components.html["請按這裡"]。
+或者、您也可以設定節點放置規則、以指定OpenShift叢集節點的子集來裝載OpenShift虛擬化操作員、控制器和VM。若要設定OpenShift虛擬化的節點放置規則、請遵循文件 https://["請按這裡"]。
 
 對於支援OpenShift虛擬化的儲存設備、NetApp建議使用專屬StorageClass、從特定Trident後端要求儲存設備、然後再由專屬SVM提供支援。這可維持多租戶層級、以處理OpenShift叢集上VM型工作負載所需的資料。
 

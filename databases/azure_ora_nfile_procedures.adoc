@@ -242,10 +242,7 @@ echo "export PATH=\$PATH:\$ORACLE_HOME/bin" >> /home/azacsnap/.bash_profile
 [source, cli]
 ----
 sudo su - azacsnap
-----
-+
-[source, cli]
-----
+
 mkstore -wrl $TNS_ADMIN/.oracle_wallet/ -create
 ----
 . 將連線字串認證新增至Oracle Wallet。在以下命令範例中、AZACSNAP是AzAcSnap要使用的ConnectString、azacsnap是Oracle資料庫使用者、而AzPasswd1是Oracle使用者的資料庫密碼。系統會再次提示您輸入電子錢包密碼。
@@ -279,20 +276,24 @@ WALLET_LOCATION=(
 sqlplus /@AZACSNAP as SYSBACKUP
 ----
 +
-命令的預期輸出為：[azacsnap@acao-ora01 ~]$ sqlplus /@AZACSNAP做為SysBACKUP
+命令的預期輸出：
 
 +
-SQL* Plus：19.0．0．0．0版- 9月8日星期四正式上線18：02：07 2022版本19.8．0．0
+[listing]
+----
+[azacsnap@acao-ora01 ~]$ sqlplus /@AZACSNAP as SYSBACKUP
 
-+
-Copyright（c）1982,2019、Oracle。版權所有。
+SQL*Plus: Release 19.0.0.0.0 - Production on Thu Sep 8 18:02:07 2022
+Version 19.8.0.0.0
 
-+
-連線至：Oracle Database 19c Enterprise Edition 19.0.00.0版-正式作業版本19.8.0.0.0
+Copyright (c) 1982, 2019, Oracle.  All rights reserved.
 
-+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.8.0.0.0
+
 SQL>
-
+----
 
 
 
@@ -323,8 +324,21 @@ az ad sp create-for-rbac --name "AzAcSnap" --role Contributor --scopes /subscrip
 預期輸出：
 
 +
-｛"clientId"："00aa000a-aaaa-0000-00a0-00aa000aaa0a"、"clientSecret："00aa000a-aaaa-0000-00a0-00aa000aaa0a"、"subscriptionId"："00aaaaaaaaaaaa000a-aaaa-0000-00a0-00000a0-00000aaaaa0a0、a0a0、"a0a、"a0、"a0-00a00a00a0、"a0、"a0、"a0、"a0、"a、a00a、"、"、"、"00a、"、"00a、" "https://login.microsoftonline.com"[]、"resourceManagerEndpointUrl"： "https://management.azure.com/"[]、「activedirectoryGraphResourcesId」： "https://graph.windows.net/"[]、"sqlManagementEndpointUrl"： "https://management.core.windows.net:8443/"[]、「galleryEndpointUrl」： "https://gallery.azure.com/"[]、「管理EndpointUrl」： "https://management.core.windows.net/"[]}
-
+[listing]
+----
+{
+  "clientId": "00aa000a-aaaa-0000-00a0-00aa000aaa0a",
+  "clientSecret": "00aa000a-aaaa-0000-00a0-00aa000aaa0a",
+  "subscriptionId": "00aa000a-aaaa-0000-00a0-00aa000aaa0a",
+  "tenantId": "00aa000a-aaaa-0000-00a0-00aa000aaa0a",
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}
+----
 . 將輸出內容剪貼到名為的檔案中 `oracle.json` 儲存在Linux使用者azacsnap使用者bin目錄中、並以適當的系統權限保護檔案。
 
 
@@ -359,26 +373,45 @@ azacsnap -c configure –-configuration new
 三個Oracle Volume的預期輸出：
 
 +
-[azacsnap@acao-ora01 bin]$ azacsnap -c configure --configuration new Building new config file Add comment to config file（空白項目以結束新增註釋）：Oracle Snapshot bkup Add Comment to config file（空白項目以結束新增註釋）：輸入要新增的資料庫類型、'HANA '、'Oracle'或'exit'（不適用於Oracle）
+[listing]
+----
+[azacsnap@acao-ora01 bin]$ azacsnap -c configure --configuration new
+Building new config file
+Add comment to config file (blank entry to exit adding comments): Oracle snapshot bkup
+Add comment to config file (blank entry to exit adding comments):
+Enter the database type to add, 'hana', 'oracle', or 'exit' (for no database): oracle
 
-+
-==新增Oracle資料庫詳細資料== Oracle資料庫SID（例如CDB1）：ORATST資料庫伺服器位址（主機名稱或IP位址）：172.30.137.142 Oracle連線字串（例如/@AZACSNAP）：//@AZACSNAP
+=== Add Oracle Database details ===
+Oracle Database SID (e.g. CDB1): ORATST
+Database Server's Address (hostname or IP address): 172.30.137.142
+Oracle connect string (e.g. /@AZACSNAP): /@AZACSNAP
 
-+
-= Azure NetApp Files =不支援資料的資料== Azure NetApp Files 您使用的是資料庫的支援嗎？（是/否）[n]：是-資料磁碟區在快照之前、會讓應用程式處於一致狀態-在Azure NetApp Files 資料庫組態的「Data Volume」（資料磁碟區）區段中新增資源？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u01服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案） https://...):[] Oracle.json是否在Azure NetApp Files 資料庫組態的「Data Volume」區段中新增資源以供參考？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u02服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案） https://...):[] Oracle.json是否在Azure NetApp Files 資料庫組態的「Data Volume」區段中新增資源以供參考？（是/否）[n]：n -其他Volume在不準備任何應用程式快照的情況下立即建立快照-在Azure NetApp Files 資料庫組態的其他Volume區段中新增資源？（是/否）[n]：Y完整Azure NetApp Files 的RefSing儲存Volume資源ID（例如/uncations/.../resourcegroads/.../providers / Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...):/uncations/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/ANFAVSRG/providers / Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u03服務主要驗證檔案名稱或Azure Key Vault ID或jauth檔案） https://...):[] Oracle.json是否在Azure NetApp Files 資料庫組態的其他Volume區段中新增資源？（是/否）[n]：n
+=== Azure NetApp Files Storage details ===
+Are you using Azure NetApp Files for the database? (y/n) [n]: y
+--- DATA Volumes have the Application put into a consistent state before they are snapshot ---
+Add Azure NetApp Files resource to DATA Volume section of Database configuration? (y/n) [n]: y
+Full Azure NetApp Files Storage Volume Resource ID (e.g. /subscriptions/.../resourceGroups/.../providers/Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...): /subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/ANFAVSRG/providers/Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u01
+Service Principal Authentication filename or Azure Key Vault Resource ID (e.g. auth-file.json or https://...): oracle.json
+Add Azure NetApp Files resource to DATA Volume section of Database configuration? (y/n) [n]: y
+Full Azure NetApp Files Storage Volume Resource ID (e.g. /subscriptions/.../resourceGroups/.../providers/Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...): /subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/ANFAVSRG/providers/Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u02
+Service Principal Authentication filename or Azure Key Vault Resource ID (e.g. auth-file.json or https://...): oracle.json
+Add Azure NetApp Files resource to DATA Volume section of Database configuration? (y/n) [n]: n
+--- OTHER Volumes are snapshot immediately without preparing any application for snapshot ---
+Add Azure NetApp Files resource to OTHER Volume section of Database configuration? (y/n) [n]: y
+Full Azure NetApp Files Storage Volume Resource ID (e.g. /subscriptions/.../resourceGroups/.../providers/Microsoft.NetApp/netAppAccounts/.../capacityPools/Premium/volumes/...): /subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/ANFAVSRG/providers/Microsoft.NetApp/netAppAccounts/ANFAVSAcct/capacityPools/CapPool/volumes/acao-ora01-u03
+Service Principal Authentication filename or Azure Key Vault Resource ID (e.g. auth-file.json or https://...): oracle.json
+Add Azure NetApp Files resource to OTHER Volume section of Database configuration? (y/n) [n]: n
 
-+
-== Azure託管磁碟詳細資料==您是否使用Azure託管磁碟做為資料庫？（是/否）[n]：n
+=== Azure Managed Disk details ===
+Are you using Azure Managed Disks for the database? (y/n) [n]: n
 
-+
-= Azure大型執行個體（裸機）儲存詳細資料=您是否使用Azure大型執行個體（裸機）作為資料庫？（是/否）[n]：n
+=== Azure Large Instance (Bare Metal) Storage details ===
+Are you using Azure Large Instance (Bare Metal) for the database? (y/n) [n]: n
 
-+
-輸入要新增的資料庫類型：「Hana」、「Oracle」或「exit」（不含資料庫）：結束
+Enter the database type to add, 'hana', 'oracle', or 'exit' (for no database): exit
 
-+
-編輯組態完成、將輸出寫入「azacsnap。json」。
-
+Editing configuration complete, writing output to 'azacsnap.json'.
+----
 . 身為azacsnap Linux使用者、請執行azacsnap測試命令進行Oracle備份。
 +
 [source, cli]
@@ -390,8 +423,15 @@ azacsnap -c test --test oracle --configfile azacsnap.json
 預期輸出：
 
 +
-[azacsnap@acao-ora01 bin]$ azacsnap -c測試--test Oracle --configfile azacsnap.json begin：測試「Oracle」開始的程序：Oracle DB測試通過：成功連線至Oracle DB 1908000000版結束：測試「Oracle」的程序完成[azacsnap@acao-ora01]$ bin$
-
+[listing]
+----
+[azacsnap@acao-ora01 bin]$ azacsnap -c test --test oracle --configfile azacsnap.json
+BEGIN : Test process started for 'oracle'
+BEGIN : Oracle DB tests
+PASSED: Successful connectivity to Oracle DB version 1908000000
+END   : Test process complete for 'oracle'
+[azacsnap@acao-ora01 bin]$
+----
 . 執行第一個Snapshot備份。
 +
 [source, cli]

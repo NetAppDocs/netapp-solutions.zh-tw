@@ -22,7 +22,7 @@ summary:
 
 許多想要將應用程式從內部部署移轉至雲端的公司、發現內部部署儲存系統和雲端儲存服務所提供的功能差異、使這項工作受到阻礙。這種落差使移轉企業應用程式（例如Microsoft SQL Server）的問題更大。尤其是執行企業應用程式所需的服務落差、例如健全的快照、儲存效率功能、高可用度、可靠性及一致的效能、迫使客戶必須在設計上取捨或捨入應用程式移轉。使用適用於NetApp ONTAP 的FSX,客戶不再需要妥協。FSX for NetApp ONTAP 功能是由AWS銷售、支援、計費及完全管理的原生（第一方）AWS服務。NetApp ONTAP 利用NetApp的功能提供相同的企業級儲存與資料管理功能、在AWS中、NetApp已提供30年的內部部署管理服務。
 
-有了EC2執行個體上的SQL Server、資料庫管理員就能存取及自訂其資料庫環境和基礎作業系統。EC2執行個體上的SQL Server搭配使用 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["AWS FSX ONTAP 功能"^] 若要儲存資料庫檔案、請使用區塊層級複寫來實現高效能、資料管理、以及簡單易用的移轉路徑。因此、您可以在AWS VPC上執行複雜的資料庫、只需簡單的移轉方法、減少點擊次數、而且不需進行架構轉換。
+有了EC2執行個體上的SQL Server、資料庫管理員就能存取及自訂其資料庫環境和基礎作業系統。EC2執行個體上的SQL Server搭配使用 https://["AWS FSX ONTAP 功能"^] 若要儲存資料庫檔案、請使用區塊層級複寫來實現高效能、資料管理、以及簡單易用的移轉路徑。因此、您可以在AWS VPC上執行複雜的資料庫、只需簡單的移轉方法、減少點擊次數、而且不需進行架構轉換。
 
 
 
@@ -104,7 +104,7 @@ summary:
 |===
 使用此組態時、磁碟區的總大小可能大於檔案系統中可用的實際儲存容量。如果LUN或Snapshot複本所需的空間大於磁碟區中的可用空間、則磁碟區會自動擴充、佔用包含檔案系統的更多空間。自動擴充功能可讓FSXSf不ONTAP 只自動將磁碟區大小增加至您預先決定的最大大小。包含的檔案系統必須有可用空間、才能支援磁碟區的自動成長。因此、啟用自動擴充功能後、您應該監控內含檔案系統中的可用空間、並視需要更新檔案系統。
 
-此外、請設定 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_does_the_LUN_option_space_alloc_do%3F["空間分配"^] LUN上的選項設為啟用、以便在ONTAP 磁碟區空間不足、且磁碟區中的LUN無法接受寫入時、FSX功能會通知EC2主機。此外、當ONTAP EC2主機上的SQL Server刪除資料時、此選項可讓FSX for Sf2自動回收空間。空間配置選項預設為停用。
+此外、請設定 https://["空間分配"^] LUN上的選項設為啟用、以便在ONTAP 磁碟區空間不足、且磁碟區中的LUN無法接受寫入時、FSX功能會通知EC2主機。此外、當ONTAP EC2主機上的SQL Server刪除資料時、此選項可讓FSX for Sf2自動回收空間。空間配置選項預設為停用。
 
 
 NOTE: 如果在無保證的磁碟區中建立空間保留LUN、則LUN的運作方式與非空間保留LUN相同。這是因為無保證的磁碟區沒有空間可分配給LUN；磁碟區本身只能在寫入時分配空間、因為其無保證。
@@ -143,7 +143,7 @@ NOTE: 對於任務關鍵型應用程式（例如SQL Server）、即使是最短�
 ====
 若要為SQL Server建立磁碟區和LUN、請完成下列步驟：
 
-. 開啟Amazon FSX主控台、網址為 https://console.aws.amazon.com/fsx/[]
+. 開啟Amazon FSX主控台、網址為 https://[]
 . 使用ONTAP 「建立方法」下的「標準建立」選項、為NetApp的SfxX檔案系統建立Amazon FSX。這可讓您定義FSxadmin和vsadmin認證資料。
 +
 image:sql-awsec2-image1.png["錯誤：缺少圖形影像"]
@@ -156,7 +156,7 @@ image:sql-awsec2-image2.png["錯誤：缺少圖形影像"]
 +
 image:sql-awsec2-image3.png["錯誤：缺少圖形影像"]
 
-. 依照中所列的步驟建立Volume https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-volumes.html["在FSX上建立適用於NetApp ONTAP 的Volume"^]。
+. 依照中所列的步驟建立Volume https://["在FSX上建立適用於NetApp ONTAP 的Volume"^]。
 +
 |===
 
@@ -212,7 +212,7 @@ lun create -path /vol/vol_awssqlprod01_data/lun_awssqlprod01_data -size 700GB -o
 +
 image:sql-awsec2-image5.png["錯誤：缺少圖形影像"]
 
-. 若要使I/O與作業系統分割配置一致、請使用windows_2008做為建議的LUN類型。請參閱 https://docs.netapp.com/us-en/ontap/san-admin/io-misalignments-properly-aligned-luns-concept.html["請按這裡"^] 以取得更多資訊。
+. 若要使I/O與作業系統分割配置一致、請使用windows_2008做為建議的LUN類型。請參閱 https://["請按這裡"^] 以取得更多資訊。
 . 使用下列SSH命令將igroup對應至您剛建立的LUN。
 +
 ....
@@ -345,9 +345,9 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 
 
 |===
-如需詳細資訊、請參閱空間和規模需求 (https://docs.netapp.com/us-en/snapcenter/install/reference_space_and_sizing_requirements.html)[]
+如需詳細資訊、請參閱空間和規模需求 
 
-如需版本相容性、請參閱 https://mysupport.netapp.com/matrix/["NetApp 互通性對照表工具"^]。
+如需版本相容性、請參閱 https://["NetApp 互通性對照表工具"^]。
 
 ====
 .資料庫儲存配置
@@ -386,7 +386,7 @@ NOTE: 當您建立新資料庫時、Microsoft建議您為資料和記錄指定�
 .安裝與設定SnapCenter 以利執行
 [%collapsible]
 ====
-請依照 https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["安裝SnapCenter 此伺服器"^] 和 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_add_hosts_and_install_snapcenter_plug_ins_package_for_windows.html["安裝SnapCenter 適用於Microsoft SQL Server的功能性外掛程式"^] 以安裝及設定SnapCenter 。
+請依照 https://["安裝SnapCenter 此伺服器"^] 和 https://["安裝SnapCenter 適用於Microsoft SQL Server的功能性外掛程式"^] 以安裝及設定SnapCenter 。
 
 安裝SnapCenter 完畢後、請完成下列步驟以進行設定。
 
@@ -590,10 +590,10 @@ video::SQLonFSxN.mp4[width=400]
 ====
 下列.yaml檔案可與AWS主控台的雲端形成範本搭配使用。
 
-* https://github.com/NetApp-Automation/fsxn-iscsisetup-cft["https://github.com/NetApp-Automation/fsxn-iscsisetup-cft"^]
+* https://["https://github.com/NetApp-Automation/fsxn-iscsisetup-cft"^]
 
 
-若要使用SnapCenter PowerShell自動建立iSCSI LUN及NetApp更新安裝、請從複製repo https://github.com/NetApp-Automation/fsxn-iscsisetup-ps["此GitHub連結"^]。
+若要使用SnapCenter PowerShell自動建立iSCSI LUN及NetApp更新安裝、請從複製repo https://["此GitHub連結"^]。
 
 ====
 .附錄B：用於配置磁碟區和LUN的PowerShell指令碼
@@ -719,30 +719,30 @@ Remove-Item -Path $MyInvocation.MyCommand.Source
 
 * Amazon FSX for NetApp ONTAP 產品
 +
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html"^]
+https://["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html"^]
 
 * FSX for NetApp ONTAP 功能入門
 +
-https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started.html["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started.html"^]
+https://["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started.html"^]
 
 * 概述整個過程SnapCenter
 +
-https://www.youtube.com/watch?v=lVEBF4kV6Ag&t=0s["https://www.youtube.com/watch?v=lVEBF4kV6Ag&t=0s"^]
+https://["https://www.youtube.com/watch?v=lVEBF4kV6Ag&t=0s"^]
 
 * 瀏覽SnapCenter 功能表瀏覽功能窗格選項
 +
-https://www.youtube.com/watch?v=_lDKt-koySQ["https://www.youtube.com/watch?v=_lDKt-koySQ"^]
+https://["https://www.youtube.com/watch?v=_lDKt-koySQ"^]
 
 * 安裝SnapCenter 適用於SQL Server外掛程式的BIOS 4.0
 +
-https://www.youtube.com/watch?v=MopbUFSdHKE["https://www.youtube.com/watch?v=MopbUFSdHKE"^]
+https://["https://www.youtube.com/watch?v=MopbUFSdHKE"^]
 
 * 如何使用SnapCenter SQL Server外掛程式的支援功能來備份及還原資料庫
 +
-https://www.youtube.com/watch?v=K343qPD5_Ys["https://www.youtube.com/watch?v=K343qPD5_Ys"^]
+https://["https://www.youtube.com/watch?v=K343qPD5_Ys"^]
 
 * 如何使用SnapCenter SQL Server外掛程式的功能來複製資料庫
 +
-https://www.youtube.com/watch?v=ogEc4DkGv1E["https://www.youtube.com/watch?v=ogEc4DkGv1E"^]
+https://["https://www.youtube.com/watch?v=ogEc4DkGv1E"^]
 
 

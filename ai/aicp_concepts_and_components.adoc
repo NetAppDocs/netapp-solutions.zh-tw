@@ -32,7 +32,7 @@ AI是一項電腦科學訓練、訓練電腦模擬人類思維的認知功能。
 
 容器是獨立的使用者空間執行個體、可在共享主機作業系統核心上執行。容器的採用率正在迅速增加。Container提供許多與虛擬機器（VM）相同的應用程式沙箱效益。不過、由於虛擬機器所仰賴的Hypervisor和客體作業系統層已經被淘汰、因此容器的重量遠較輕。下圖說明虛擬機器與容器的視覺化。
 
-容器也能直接透過應用程式、有效封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、也一樣、因為所有相依性都封裝在容器本身。如需詳細資訊、請參閱 https://www.docker.com["Docker網站"^]。
+容器也能直接透過應用程式、有效封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、也一樣、因為所有相依性都封裝在容器本身。如需詳細資訊、請參閱 https://["Docker網站"^]。
 
 image:aicp_image2.png["錯誤：缺少圖形影像"]
 
@@ -40,25 +40,25 @@ image:aicp_image2.png["錯誤：缺少圖形影像"]
 
 == Kubernetes
 
-Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes可將容器化應用程式的部署、管理及擴充功能自動化。近年來、Kubernetes已成為主要的容器協調平台。雖然支援其他容器封裝格式和執行時間、但Kubernetes通常是Docker容器的協調系統。如需詳細資訊、請參閱 https://kubernetes.io["Kubernetes網站"^]。
+Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes可將容器化應用程式的部署、管理及擴充功能自動化。近年來、Kubernetes已成為主要的容器協調平台。雖然支援其他容器封裝格式和執行時間、但Kubernetes通常是Docker容器的協調系統。如需詳細資訊、請參閱 https://["Kubernetes網站"^]。
 
 
 
 == NetApp Trident
 
-Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Trident網站"^]。
+Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://["Trident網站"^]。
 
 
 
 == NVIDIA DeepOps
 
-DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://github.com/NVIDIA/deepops["DeepOps網站"^]。
+DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://["DeepOps網站"^]。
 
 
 
 == Kubeflow
 
-Kubeflow是Kubernetes的開放原始碼AI和ML工具套件、最初由Google開發。Kubeflow專案讓Kubernetes上的AI和ML工作流程部署變得簡單、可攜且可擴充。Kubeflow將Kubernetes複雜的資料擷取出來、讓資料科學家能夠專注於他們最瞭解的資料科學。如需視覺化功能、請參閱下圖。由於企業IT部門越來越標準化Kubernetes、Kubeflow的發展也越來越顯著。如需詳細資訊、請參閱 http://www.kubeflow.org/["Kubeflow網站"^]。
+Kubeflow是Kubernetes的開放原始碼AI和ML工具套件、最初由Google開發。Kubeflow專案讓Kubernetes上的AI和ML工作流程部署變得簡單、可攜且可擴充。Kubeflow將Kubernetes複雜的資料擷取出來、讓資料科學家能夠專注於他們最瞭解的資料科學。如需視覺化功能、請參閱下圖。由於企業IT部門越來越標準化Kubernetes、Kubeflow的發展也越來越顯著。如需詳細資訊、請參閱 http://["Kubeflow網站"^]。
 
 image:aicp_image3.png["錯誤：缺少圖形影像"]
 
@@ -66,13 +66,13 @@ image:aicp_image3.png["錯誤：缺少圖形影像"]
 
 === Kubeflow Pipines
 
-Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署可攜式且可擴充的AI和ML工作流程的平台和標準。如需詳細資訊、請參閱 https://www.kubeflow.org/docs/components/pipelines/pipelines/["官方Kubeflow文件"^]。
+Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署可攜式且可擴充的AI和ML工作流程的平台和標準。如需詳細資訊、請參閱 https://["官方Kubeflow文件"^]。
 
 
 
 === Jupyter筆記型電腦伺服器
 
-Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱 http://www.jupyter.org/["Jupyter網站"^]。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/jupyter/["官方Kubeflow文件"^]。
+Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱 http://["Jupyter網站"^]。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://["官方Kubeflow文件"^]。
 
 
 

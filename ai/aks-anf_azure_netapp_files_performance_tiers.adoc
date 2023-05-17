@@ -41,13 +41,13 @@ image:aks-anf_image11.png["錯誤：缺少圖形影像"]
 
 下列選項可用於自動化效能層級變更：
 
-* 動態服務層級變更目前仍在「公開預覽」中、預設不會啟用。若要在Azure訂閱上啟用此功能、請參閱本說明文件、瞭解如何使用 https://docs.microsoft.com/azure/azure-netapp-files/dynamic-change-volume-service-level["動態變更磁碟區的服務層級"^]。
-* 中提供Azure CLI Volume Pool變更命令 https://docs.microsoft.com/en-us/cli/azure/netappfiles/volume?view=azure-cli-latest&viewFallbackFrom=azure-cli-latest%20-%20az_netappfiles_volume_pool_change["Volume Pool變更文件"^] 以及下列範例：
+* 動態服務層級變更目前仍在「公開預覽」中、預設不會啟用。若要在Azure訂閱上啟用此功能、請參閱本說明文件、瞭解如何使用 https://["動態變更磁碟區的服務層級"^]。
+* 中提供Azure CLI Volume Pool變更命令 https://["Volume Pool變更文件"^] 以及下列範例：
 +
 ....
 az netappfiles volume pool-change -g mygroup --account-name myaccname --pool-name mypoolname --name myvolname --new-pool-resource-id mynewresourceid
 ....
-* PowerShell https://docs.microsoft.com/powershell/module/az.netappfiles/set-aznetappfilesvolumepool?view=azps-5.8.0["Set-AzNetAppFilesVolume Pool Cmdlet"^] 變更Azure NetApp Files 一個聲音區的資源池、如下例所示：
+* PowerShell https://["Set-AzNetAppFilesVolume Pool Cmdlet"^] 變更Azure NetApp Files 一個聲音區的資源池、如下例所示：
 +
 ....
 Set-AzNetAppFilesVolumePool

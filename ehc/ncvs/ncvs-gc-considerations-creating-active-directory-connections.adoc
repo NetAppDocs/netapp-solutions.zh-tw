@@ -18,7 +18,7 @@ link:ncvs-gc-dual-protocol-multiprotocol.html["先前版本：雙傳輸協定/�
 [role="lead"]
 支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。
 
-此設定提供多種選項、需要考量安全性。外部Active Directory伺服器可以是內部部署執行個體或原生雲端。如果您使用的是內部部署的Active Directory伺服器，請勿將網域暴露給外部網路（例如使用DMZ或外部IP位址）。而是使用安全的私有通道或VPN、單向樹系信任或內部部署網路專用的網路連線 https://cloud.google.com/vpc/docs/private-google-access["私有 Google 存取"^]。如需詳細資訊、請參閱Google Cloud文件 https://cloud.google.com/managed-microsoft-ad/docs/best-practices["在Google Cloud中使用Active Directory的最佳實務做法"^]。
+此設定提供多種選項、需要考量安全性。外部Active Directory伺服器可以是內部部署執行個體或原生雲端。如果您使用的是內部部署的Active Directory伺服器，請勿將網域暴露給外部網路（例如使用DMZ或外部IP位址）。而是使用安全的私有通道或VPN、單向樹系信任或內部部署網路專用的網路連線 https://["私有 Google 存取"^]。如需詳細資訊、請參閱Google Cloud文件 https://["在Google Cloud中使用Active Directory的最佳實務做法"^]。
 
 
 NOTE: CVS軟體要求Active Directory伺服器位於同一個地區。如果嘗試在CVs-SW中連線至其他地區、嘗試就會失敗。使用CVs-SW時、請務必建立包含Active Directory DC的Active Directory網站、然後在Cloud Volumes Service 其中指定站台、以避免跨區域DC連線嘗試。
@@ -35,7 +35,7 @@ NOTE: CVS軟體要求Active Directory伺服器位於同一個地區。如果嘗�
 
 === 建立SMB機器帳戶所需的權限
 
-若要新增Cloud Volumes Service 物件至Active Directory、則該帳戶具有網域的管理權限或擁有 https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects["委派權限以建立及修改機器帳戶物件"^] 需要指定的OU。您可以透過Active Directory中的委派控制精靈來執行此作業、方法是建立自訂工作、讓使用者以提供下列存取權限來存取電腦物件的建立/刪除：
+若要新增Cloud Volumes Service 物件至Active Directory、則該帳戶具有網域的管理權限或擁有 https://["委派權限以建立及修改機器帳戶物件"^] 需要指定的OU。您可以透過Active Directory中的委派控制精靈來執行此作業、方法是建立自訂工作、讓使用者以提供下列存取權限來存取電腦物件的建立/刪除：
 
 * 讀取/寫入
 * 建立/刪除所有子物件
@@ -52,11 +52,11 @@ NOTE: 傳遞至Active Directory網域的使用者名稱和密碼會在機器帳�
 
 == Active Directory連線詳細資料
 
-。 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["Active Directory連線詳細資料"^] 提供欄位給系統管理員、以提供機器帳戶放置的特定Active Directory架構資訊、例如：
+。 https://["Active Directory連線詳細資料"^] 提供欄位給系統管理員、以提供機器帳戶放置的特定Active Directory架構資訊、例如：
 
 * * Active Directory連線類型。*用於指定區域中的Active Directory連線是用於Cloud Volumes Service 供應各種類型的SView或CVS效能服務的磁碟區。如果現有連線的設定不正確、使用或編輯時可能無法正常運作。
 * *網域。* Active Directory網域名稱。
-* *站台。*將Active Directory伺服器限制為特定站台、以確保安全性和效能 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-active-directory-connections["考量"^]。當多個Active Directory伺服器橫跨多個區域時、這是必要的、因為Cloud Volumes Service 目前不支援將Active Directory驗證要求允許在Cloud Volumes Service 不同於此執行個體的區域內執行Active Directory伺服器。（例如、Active Directory網域控制器所在的區域僅支援CVs-Performance、但您想要在CVs-SW執行個體中使用SMB共用區）。
+* *站台。*將Active Directory伺服器限制為特定站台、以確保安全性和效能 https://["考量"^]。當多個Active Directory伺服器橫跨多個區域時、這是必要的、因為Cloud Volumes Service 目前不支援將Active Directory驗證要求允許在Cloud Volumes Service 不同於此執行個體的區域內執行Active Directory伺服器。（例如、Active Directory網域控制器所在的區域僅支援CVs-Performance、但您想要在CVs-SW執行個體中使用SMB共用區）。
 * * DNS伺服器。* DNS伺服器、用於名稱查詢。
 * * NetBios名稱（選用）。*如果需要、則為伺服器的NetBios名稱。這是使用Active Directory連線建立新機器帳戶時所使用的功能。例如、如果將NetBios名稱設為CVs-East、則機器帳戶名稱將為CVs-East-{12334}。請參閱一節 link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["如何在Active Directory中顯示此功能Cloud Volumes Service"] 以取得更多資訊。
 * *組織單位（OU）。*建立電腦帳戶的特定OU。如果您要將機器帳戶的控制權委派給使用者至特定OU、這很有用。
@@ -88,7 +88,7 @@ NOTE: 非Windows KDC目前不支援Cloud Volumes Service 搭配使用。
 
 == 備份使用者
 
-此選項可讓您指定對Cloud Volumes Service 該Windows Volume具有備份權限的Windows使用者。某些應用程式必須具備備份權限（SeBackup權限）、才能在NAS磁碟區中正確備份及還原資料。此使用者擁有大量的磁碟區資料存取權限、因此您應該考慮 https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/audit-audit-the-use-of-backup-and-restore-privilege["啟用該使用者存取的稽核"^]。啟用後、稽核事件會顯示在「事件檢視器」>「Windows記錄」>「安全性」中。
+此選項可讓您指定對Cloud Volumes Service 該Windows Volume具有備份權限的Windows使用者。某些應用程式必須具備備份權限（SeBackup權限）、才能在NAS磁碟區中正確備份及還原資料。此使用者擁有大量的磁碟區資料存取權限、因此您應該考慮 https://["啟用該使用者存取的稽核"^]。啟用後、稽核事件會顯示在「事件檢視器」>「Windows記錄」>「安全性」中。
 
 image:ncvs-gc-image19.png["錯誤：缺少圖形影像"]
 
@@ -96,9 +96,9 @@ image:ncvs-gc-image19.png["錯誤：缺少圖形影像"]
 
 == 安全性權限使用者
 
-此選項可讓您指定Windows使用者、這些使用者具有Cloud Volumes Service 對此功能進行安全性修改的權限。某些應用程式需要安全性權限（SeSecurityPrivilege） (https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["例如SQL Server"^]）在安裝期間正確設定權限。管理安全性記錄時需要此權限。雖然此權限不如SeBackup權限強大、但NetApp建議您使用 https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-audit-privilege-use["稽核使用者存取權限"^] 如果需要、請使用此權限層級。
+此選項可讓您指定Windows使用者、這些使用者具有Cloud Volumes Service 對此功能進行安全性修改的權限。某些應用程式需要安全性權限（SeSecurityPrivilege） (https://["例如SQL Server"^]）在安裝期間正確設定權限。管理安全性記錄時需要此權限。雖然此權限不如SeBackup權限強大、但NetApp建議您使用 https://["稽核使用者存取權限"^] 如果需要、請使用此權限層級。
 
-如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4672["指派給新登入的特殊權限"^]。
+如需詳細資訊、請參閱 https://["指派給新登入的特殊權限"^]。
 
 
 
@@ -151,6 +151,6 @@ image:ncvs-gc-image19.png["錯誤：缺少圖形影像"]
 |===
 若要啟用SMB機器帳戶的AES加密、請在建立Active Directory連線時按一下「啟用AD驗證的AES加密」。
 
-若要啟用NFS Kerberos的AES加密、 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes["請參閱Cloud Volumes Service 《》文件"^]。
+若要啟用NFS Kerberos的AES加密、 https://["請參閱Cloud Volumes Service 《》文件"^]。
 
 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html["下一步：其他NAS基礎架構服務相依性（Kdc、LDAP、DNS）。"]

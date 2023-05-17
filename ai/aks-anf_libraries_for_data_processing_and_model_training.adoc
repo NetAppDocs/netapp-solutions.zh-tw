@@ -22,13 +22,13 @@ link:aks-anf_azure_netapp_files_performance_tiers.html["上一篇：Azure NetApp
 | 程式庫/架構 | 說明 
 
 
-| dask cuML | 若要讓ML在GPU上運作、請使用 https://github.com/rapidsai/cuml/tree/main/python/cuml/dask["CUML程式庫"^] 提供使用dask存取水流立方ML套件的功能。藉由以GPU為基礎的高效能實作、讓您在處理CPU的基礎上、能夠以高達100倍的速度加速、藉由使用NetApp的功能來實作熱門的ML演算法、包括叢集、維度減量及回歸方法。 
+| dask cuML | 若要讓ML在GPU上運作、請使用 https://["CUML程式庫"^] 提供使用dask存取水流立方ML套件的功能。藉由以GPU為基礎的高效能實作、讓您在處理CPU的基礎上、能夠以高達100倍的速度加速、藉由使用NetApp的功能來實作熱門的ML演算法、包括叢集、維度減量及回歸方法。 
 
 
-| dask coudf | CUDF包含多種其他功能、可支援GPU加速擷取、轉換、負載（ETL）、例如資料子設定、轉換、單一熱編碼等。水流團隊維持 https://github.com/rapidsai/cudf/tree/main/python/dask_cudf["dAsk擁抱程式庫"^] 這包括使用dask和cuDF的輔助程式方法。 
+| dask coudf | CUDF包含多種其他功能、可支援GPU加速擷取、轉換、負載（ETL）、例如資料子設定、轉換、單一熱編碼等。水流團隊維持 https://["dAsk擁抱程式庫"^] 這包括使用dask和cuDF的輔助程式方法。 
 
 
-| 科學套件學習 | SciPKit學習提供數十種內建的機器學習演算法和模型、稱為評估工具。每個 https://scikit-learn.org/stable/glossary.html#term-estimators["預估工具"^] 可搭配使用的部分資料 https://scikit-learn.org/stable/glossary.html#term-fit["適合"^] 方法。 
+| 科學套件學習 | SciPKit學習提供數十種內建的機器學習演算法和模型、稱為評估工具。每個 https://["預估工具"^] 可搭配使用的部分資料 https://["適合"^] 方法。 
 |===
 我們使用兩部筆記型電腦來建構ML管線進行比較、其中一部是傳統的「大大管」學習方法、另一部則是以「急水流」和「dask」進行分散式訓練。每一部筆記型電腦均可個別測試、以瞭解其在時間與擴充方面的效能表現。我們會個別介紹每一部筆記型電腦、以展示使用「水流」和「dask」進行分散式訓練的優點。
 

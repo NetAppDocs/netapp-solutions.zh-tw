@@ -41,13 +41,13 @@ NOTE: 為了更容易追蹤、我們根據AWS部署建立了這份文件。不�
 === 2、在Cloud Volumes ONTAP AWS中部署Cloud Manager與功能不全的步驟
 
 
-NOTE: 部署Cloud Manager和Cloud Volumes ONTAP NetApp有許多方法；這種方法最簡單、但需要最大權限。如果此方法不適用於您的AWS環境、請參閱 https://docs.netapp.com/us-en/occm/task_creating_connectors_aws.html["NetApp雲端文件"^]。
+NOTE: 部署Cloud Manager和Cloud Volumes ONTAP NetApp有許多方法；這種方法最簡單、但需要最大權限。如果此方法不適用於您的AWS環境、請參閱 https://["NetApp雲端文件"^]。
 
 
 
 ==== 部署Cloud Manager連接器
 
-. 瀏覽至 https://cloud.netapp.com/cloud-manager["NetApp Cloud Central"^] 並登入或註冊。
+. 瀏覽至 https://["NetApp Cloud Central"^] 並登入或註冊。
 +
 image:cloud_central_login_page.PNG["錯誤：缺少圖形影像"]
 
@@ -67,11 +67,11 @@ image:cloud_central_add_conn_1.PNG["錯誤：缺少圖形影像"]
 +
 image:cloud_central_add_conn_3.PNG["錯誤：缺少圖形影像"]
 
-. 輸入您的秘密金鑰和存取金鑰。請確定您的使用者擁有上所述的正確權限 https://mysupport.netapp.com/site/info/cloud-manager-policies["NetApp原則頁面"^]。
+. 輸入您的秘密金鑰和存取金鑰。請確定您的使用者擁有上所述的正確權限 https://["NetApp原則頁面"^]。
 +
 image:cloud_central_add_conn_4.PNG["錯誤：缺少圖形影像"]
 
-. 為連接器命名、並使用預先定義的角色、如所述 https://mysupport.netapp.com/site/info/cloud-manager-policies["NetApp原則頁面"^] 或請Cloud Manager為您建立角色。
+. 為連接器命名、並使用預先定義的角色、如所述 https://["NetApp原則頁面"^] 或請Cloud Manager為您建立角色。
 +
 image:cloud_central_add_conn_5.PNG["錯誤：缺少圖形影像"]
 
@@ -153,7 +153,7 @@ image:cloud_central_add_we_10.PNG["錯誤：缺少圖形影像"]
 
 
 
-. 選擇您要部署的其他服務。若要深入瞭解這些服務、請造訪 https://cloud.netapp.com["NetApp Cloud首頁"^]。
+. 選擇您要部署的其他服務。若要深入瞭解這些服務、請造訪 https://["NetApp Cloud首頁"^]。
 +
 image:cloud_central_add_we_11.PNG["錯誤：缺少圖形影像"]
 
@@ -174,7 +174,7 @@ image:cloud_central_add_we_14.PNG["錯誤：缺少圖形影像"]
 
 TIP: 中介者需要與AWS API通訊。只要在部署了中介EC2執行個體之後、API就能連線、就不需要公有IP位址。
 
-. 浮動IP位址可用來存取Cloud Volumes ONTAP 各種使用的IP位址、包括叢集管理和資料服務IP。這些位址必須是網路中無法路由傳送的位址、而且必須新增至AWS環境中的路由表。在容錯移轉期間、必須啟用一致的HA配對IP位址。如需浮動IP位址的詳細資訊、請參閱 https://docs.netapp.com/us-en/occm/reference_networking_aws.html#requirements-for-ha-pairs-in-multiple-azs["NetApp雲端文件"^]。
+. 浮動IP位址可用來存取Cloud Volumes ONTAP 各種使用的IP位址、包括叢集管理和資料服務IP。這些位址必須是網路中無法路由傳送的位址、而且必須新增至AWS環境中的路由表。在容錯移轉期間、必須啟用一致的HA配對IP位址。如需浮動IP位址的詳細資訊、請參閱 https://["NetApp雲端文件"^]。
 +
 image:cloud_central_add_we_15.PNG["錯誤：缺少圖形影像"]
 
@@ -226,7 +226,7 @@ image:cloud_central_add_we_25.PNG["錯誤：缺少圖形影像"]
 
 現在ONTAP 您已部署來源的一套來源系統和目的地ONTAP 的一套系統、您可以將包含資料庫資料的磁碟區複寫到雲端。
 
-如需ONTAP SnapMirror相容的版本資訊指南、請參閱 https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.pow-dap%2FGUID-0810D764-4CEA-4683-8280-032433B1886B.html["SnapMirror相容性對照表"^]。
+如需ONTAP SnapMirror相容的版本資訊指南、請參閱 https://["SnapMirror相容性對照表"^]。
 
 . 按一下來源ONTAP 支援系統（內部部署）、然後將其拖放到目的地、選取「Replication（複製）」>「Enable（啟用）」、或選取「Replication（複製）」>「Menu（功能表）」>「Replicate（複製）」。
 +
@@ -294,14 +294,14 @@ image:cloud_central_replication_13.png["錯誤：缺少圖形影像"]
 
 === 3：為資料庫工作負載部署EC2運算執行個體
 
-AWS已針對各種工作負載預先設定EC2運算執行個體。執行個體類型的選擇決定了CPU核心數量、記憶體容量、儲存類型和容量、以及網路效能。在使用案例中、除了OS分割區之外、用於執行資料庫工作負載的主儲存區是從CVO或FSX ONTAP 還原儲存引擎配置。因此、要考量的主要因素是CPU核心、記憶體和網路效能等級的選擇。典型的AWS EC2執行個體類型可在這裡找到： https://us-east-2.console.aws.amazon.com/ec2/v2/home?region=us-east-2#InstanceTypes:["EC2執行個體類型"]。
+AWS已針對各種工作負載預先設定EC2運算執行個體。執行個體類型的選擇決定了CPU核心數量、記憶體容量、儲存類型和容量、以及網路效能。在使用案例中、除了OS分割區之外、用於執行資料庫工作負載的主儲存區是從CVO或FSX ONTAP 還原儲存引擎配置。因此、要考量的主要因素是CPU核心、記憶體和網路效能等級的選擇。典型的AWS EC2執行個體類型可在這裡找到： https://["EC2執行個體類型"]。
 
 
 
 ==== 調整運算執行個體規模
 
 . 根據所需的工作負載、選取適當的執行個體類型。需要考量的因素包括要支援的商業交易數量、並行使用者數量、資料集規模調整等。
-. EC2執行個體部署可透過EC2儀表板啟動。確切的部署程序不在本解決方案的範圍之內。請參閱 https://aws.amazon.com/pm/ec2/?trk=ps_a134p000004f2ZGAAY&trkCampaign=acq_paid_search_brand&sc_channel=PS&sc_campaign=acquisition_US&sc_publisher=Google&sc_category=Cloud%20Computing&sc_country=US&sc_geo=NAMER&sc_outcome=acq&sc_detail=%2Bec2%20%2Bcloud&sc_content=EC2%20Cloud%20Compute_bmm&sc_matchtype=b&sc_segment=536455698896&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Cloud%20Computing|EC2|US|EN|Text&s_kwcid=AL!4422!3!536455698896!b!!g!!%2Bec2%20%2Bcloud&ef_id=EAIaIQobChMIua378M-p8wIVToFQBh0wfQhsEAMYASAAEgKTzvD_BwE:G:s&s_kwcid=AL!4422!3!536455698896!b!!g!!%2Bec2%20%2Bcloud["Amazon EC2"] 以取得詳細資料。
+. EC2執行個體部署可透過EC2儀表板啟動。確切的部署程序不在本解決方案的範圍之內。請參閱 https://["Amazon EC2"] 以取得詳細資料。
 
 
 
@@ -313,7 +313,7 @@ AWS已針對各種工作負載預先設定EC2運算執行個體。執行個體�
 . 將Oracle待命執行個體新增至DNS伺服器、以便SnapCenter 在支援範圍內解析名稱。
 . 新增Linux管理使用者ID作為SnapCenter 不含密碼的Sudo權限的Sudo OS認證。在EC2執行個體上啟用具有SSH密碼驗證的ID。（依預設、EC2執行個體的SSH密碼驗證和無密碼Sudo會關閉。）
 . 設定Oracle安裝、使其符合內部部署的Oracle安裝、例如OS修補程式、Oracle版本和修補程式等。
-. NetApp Ansible DB自動化角色可用於設定EC2執行個體、以用於資料庫開發/測試和災難恢復使用案例。自動化程式碼可從NetApp Public GitHub網站下載： https://github.com/NetApp-Automation/na_oracle19c_deploy["Oracle 19c自動化部署"^]。目標是在EC2執行個體上安裝及設定資料庫軟體堆疊、以符合內部部署作業系統和資料庫組態。
+. NetApp Ansible DB自動化角色可用於設定EC2執行個體、以用於資料庫開發/測試和災難恢復使用案例。自動化程式碼可從NetApp Public GitHub網站下載： https://["Oracle 19c自動化部署"^]。目標是在EC2執行個體上安裝及設定資料庫軟體堆疊、以符合內部部署作業系統和資料庫組態。
 
 
 
@@ -326,7 +326,7 @@ AWS已針對各種工作負載預先設定EC2運算執行個體。執行個體�
 . 停用Windows防火牆、將主機加入Windows SnapCenter 支援網域、然後將執行個體新增至DNS伺服器以進行名稱解析。
 . 配置SnapCenter 一個可儲存SQL Server記錄檔的流通記錄磁碟區。
 . 在Windows主機上設定iSCSI、以掛載磁碟區並格式化磁碟機。
-. 同樣地、許多先前的工作都可以透過適用於SQL Server的NetApp自動化解決方案來自動化。如需最新發表的角色與解決方案、請參閱NetApp自動化公有GitHub網站： https://github.com/NetApp-Automation["NetApp自動化"^]。
+. 同樣地、許多先前的工作都可以透過適用於SQL Server的NetApp自動化解決方案來自動化。如需最新發表的角色與解決方案、請參閱NetApp自動化公有GitHub網站： https://["NetApp自動化"^]。
 
 
 link:hybrid_dbops_snapcenter_devtest.html["下一步：開發/測試爆增至雲端的工作流程。"]

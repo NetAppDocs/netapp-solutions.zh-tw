@@ -46,7 +46,7 @@ summary: 利用NetApp技術、儲存虛擬機器（SVM）的概念可在安全�
 * 預設的vsadmin SVM帳戶沒有執行ONTAP 各項功能工作所需的存取層級。因此、您需要建立新的SVM帳戶。
 * 如果您使用ONTAP 的是NetApp的支援功能表、NetApp建議您使用ONTAP VMware System Manager的使用者功能表、以及ONTAP 您的支援功能應用裝置上的Json檔案來建立最不具權限的RBAC使用者帳戶、網址為：https://<IP address>:9083/VSC/config/。使用您的系統管理員密碼下載Json檔案。這可用於SVM或叢集範圍內的帳戶。
 +
-如果您使用ONTAP 的是32個以上版本的版本、則應使用中提供的RBAC使用者建立工具（RUC） https://mysupport.netapp.com/site/tools/tool-eula/rbac["NetApp支援網站工具箱"^]。
+如果您使用ONTAP 的是32個以上版本的版本、則應使用中提供的RBAC使用者建立工具（RUC） https://["NetApp支援網站工具箱"^]。
 
 * 由於vCenter UI外掛程式、VASA Provider和SRA伺服器都是完全整合的服務、因此您必須以在vCenter UI中新增儲存設備以供ONTAP 支援VMware工具的相同方式、將儲存設備新增至SRM的SRA介面卡。否則、SRA伺服器可能無法辨識透過SRA介面卡從SRM傳送的要求。
 * 使用SVM範圍認證時、不會執行NFS路徑檢查。這是因為實體位置從SVM邏輯上抽象化。不過這並不是令人擔心的問題、因為使用ONTAP 間接路徑時、現代的功能不再受到明顯的效能下降影響。

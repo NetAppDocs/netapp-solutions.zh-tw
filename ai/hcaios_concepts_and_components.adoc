@@ -28,9 +28,9 @@ summary:
 
 容器是獨立的使用者空間執行個體、可在共享主機作業系統核心上執行。容器的採用率迅速增加。Container提供許多與虛擬機器（VM）相同的應用程式沙箱效益。不過、由於虛擬機器所仰賴的Hypervisor和客體作業系統層已經被淘汰、因此容器的重量遠較輕。
 
-容器也能直接透過應用程式、有效地封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、這也是如此、因為所有相依性都會封裝在容器本身中。如需詳細資訊、請參閱 https://www.docker.com/["Docker網站"^]。
+容器也能直接透過應用程式、有效地封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、這也是如此、因為所有相依性都會封裝在容器本身中。如需詳細資訊、請參閱 https://["Docker網站"^]。
 
-廣受歡迎的Container Orchestrator Kubernetes可讓資料科學家啟動靈活、以容器為基礎的工作和管線。此外、基礎架構團隊也能在單一託管與雲端原生環境中、管理及監控ML工作負載。如需詳細資訊、請參閱 https://kubernetes.io/["Kubernetes網站"^]。
+廣受歡迎的Container Orchestrator Kubernetes可讓資料科學家啟動靈活、以容器為基礎的工作和管線。此外、基礎架構團隊也能在單一託管與雲端原生環境中、管理及監控ML工作負載。如需詳細資訊、請參閱 https://["Kubernetes網站"^]。
 
 
 
@@ -74,13 +74,13 @@ Cnvrg-IO核心是資料科學社群的免費平台、可協助資料科學家更
 
 == NVIDIA DeepOps
 
-DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://github.com/NVIDIA/deepops["DeepOps網站"^]。
+DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://["DeepOps網站"^]。
 
 
 
 == NetApp Trident
 
-Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身就是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://netapp-trident.readthedocs.io/en/stable-v18.07/kubernetes/["Trident網站"^]。
+Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身就是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://["Trident網站"^]。
 
 
 

@@ -24,19 +24,19 @@ AI、ML和DL的主要使用案例和方法可分為下列各節：
 
 下列清單包含資料科學社群在不同開發層級採用的最受歡迎開放原始碼NLP程式庫：
 
-* https://www.nltk.org/["自然語言工具套件（NLTK）"^]。所有NLP技術的完整工具套件。自2000年代初期起便一直維持這項功能。
-* https://textblob.readthedocs.io/en/dev/["文字Blob"^]。簡單易用的NLP工具Python API、建置於NLTK和Pattern之上。
-* https://stanfordnlp.github.io/CoreNLP/["史丹佛核心NLP"^]。由斯坦福NLP Group開發的Java NLP服務與套件。
-* https://radimrehurek.com/gensim/["Gensim"^]。「人類主題建模」從捷克數位數學庫專案的Python指令碼集合開始。
-* https://spacy.io/["空間大"^]。端點對端點工業NLP工作流程、搭配Python和Cython、並可加速變壓器的GPU。
-* https://fasttext.cc/["Fasttext"^]。免費、輕量化的開放原始碼NLP程式庫、適用於Facebook AI Research（Fair）實驗室所建立的詞彙學習文案與句子分類。
+* https://["自然語言工具套件（NLTK）"^]。所有NLP技術的完整工具套件。自2000年代初期起便一直維持這項功能。
+* https://["文字Blob"^]。簡單易用的NLP工具Python API、建置於NLTK和Pattern之上。
+* https://["史丹佛核心NLP"^]。由斯坦福NLP Group開發的Java NLP服務與套件。
+* https://["Gensim"^]。「人類主題建模」從捷克數位數學庫專案的Python指令碼集合開始。
+* https://["空間大"^]。端點對端點工業NLP工作流程、搭配Python和Cython、並可加速變壓器的GPU。
+* https://["Fasttext"^]。免費、輕量化的開放原始碼NLP程式庫、適用於Facebook AI Research（Fair）實驗室所建立的詞彙學習文案與句子分類。
 
 
-Spark NLP是單一的統一化解決方案、適用於所有NLP工作與需求、可針對實際的正式作業使用案例、提供可擴充、高效能及高準確度的NLP軟體。它運用移轉學習、並在研究領域和跨產業中實作最新的最先進演算法和模型。由於Spark對上述程式庫缺乏完整支援、因此Spark NLP建置於上方 https://spark.apache.org/docs/latest/ml-guide.html["Spark ML"^] 善用Spark一般用途的記憶體內分散式資料處理引擎、做為企業級NLP程式庫、用於關鍵任務正式作業工作流程。其註釋工具運用規則型演算法、機器學習和TensorFlow來推動深度學習實作。這涵蓋常見的NLP工作、包括但不限於令牌化、模組化、產生、部分語音標記、具名實體辨識、 拼字檢查及情緒分析。
+Spark NLP是單一的統一化解決方案、適用於所有NLP工作與需求、可針對實際的正式作業使用案例、提供可擴充、高效能及高準確度的NLP軟體。它運用移轉學習、並在研究領域和跨產業中實作最新的最先進演算法和模型。由於Spark對上述程式庫缺乏完整支援、因此Spark NLP建置於上方 https://["Spark ML"^] 善用Spark一般用途的記憶體內分散式資料處理引擎、做為企業級NLP程式庫、用於關鍵任務正式作業工作流程。其註釋工具運用規則型演算法、機器學習和TensorFlow來推動深度學習實作。這涵蓋常見的NLP工作、包括但不限於令牌化、模組化、產生、部分語音標記、具名實體辨識、 拼字檢查及情緒分析。
 
 Transformers（Bert）的雙向編碼器表示法是NLP的一種以變壓器為基礎的機器學習技術。它推廣了預先訓練和微調的概念。Bert的變壓器架構源自機器翻譯、這種機器的長期相依性模型比經常性的神經網路（RNN）型語言模型更好。此外、它也引進了「遮罩語言模型（MLM）」工作、其中隨機遮罩了15%的所有權杖、模型會預測這些權杖、實現真正的雙向性。
 
-由於該網域的專業語言和缺乏標記資料、因此財務情緒分析是一項挑戰。 https://nlp.johnsnowlabs.com/2021/11/03/bert_sequence_classifier_finbert_en.html["FinBit"^]是一種以訓練前的Bert為基礎的語言模式、已在網域上進行調整 https://trec.nist.gov/data/reuters/reuters.html["Reuters TRC2"^]、財務資料集、並以標記資料進行微調（ https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10["金融市場銀行"^]）。研究人員以財務術語從新聞文章中擷取4、500個句子。接著有16位具有財務背景的專家和碩士學生將句子標示為正面、中立和負面。我們建立了端點對端點的Spark工作流程、以分析2016至2020年前十大NASDAQ公司的營收客服記錄、使用FinBitt和其他兩個預先訓練的管道（.. https://nlp.johnsnowlabs.com/2021/11/11/classifierdl_bertwiki_finance_sentiment_pipeline_en.html["金融新聞的情緒分析"^]、 https://nlp.johnsnowlabs.com/2020/03/19/explain_document_dl.html["說明DL文件"^]）來自Spark NLP。
+由於該網域的專業語言和缺乏標記資料、因此財務情緒分析是一項挑戰。 https://["FinBit"^]是一種以訓練前的Bert為基礎的語言模式、已在網域上進行調整 https://["Reuters TRC2"^]、財務資料集、並以標記資料進行微調（ https://["金融市場銀行"^]）。研究人員以財務術語從新聞文章中擷取4、500個句子。接著有16位具有財務背景的專家和碩士學生將句子標示為正面、中立和負面。我們建立了端點對端點的Spark工作流程、以分析2016至2020年前十大NASDAQ公司的營收客服記錄、使用FinBitt和其他兩個預先訓練的管道（.. https://["金融新聞的情緒分析"^]、 https://["說明DL文件"^]）來自Spark NLP。
 
 適用於Spark NLP的基礎深度學習引擎是TensorFlow、這是一套端點對端點開放原始碼平台、可用於機器學習、可輕鬆建構模型、隨處進行強大的ML正式作業、以及進行強大的研究實驗。因此、在Spark「線叢集」模式下執行管線時、我們基本上是在叢集上執行分散式TensorFlow、並在單一主節點和多個工作節點之間執行資料和模型平行化、以及網路附加儲存設備。
 
@@ -44,13 +44,13 @@ Transformers（Bert）的雙向編碼器表示法是NLP的一種以變壓器為�
 
 == Horovod分散式訓練
 
-MapReduce相關效能的核心Hadoop驗證是透過TeraGen、TeraSort、TeraValidate和DFSIO（讀寫）來執行。TeraGen和TeraSort驗證結果會顯示在中 http://www.netapp.com/us/media/tr-3969.pdf["TR-3969：NetApp Hadoop解決方案"^] 適用於E系列、並在「Storage Tiering」（xref）一節AFF 中介紹
+MapReduce相關效能的核心Hadoop驗證是透過TeraGen、TeraSort、TeraValidate和DFSIO（讀寫）來執行。TeraGen和TeraSort驗證結果會顯示在中 http://["TR-3969：NetApp Hadoop解決方案"^] 適用於E系列、並在「Storage Tiering」（xref）一節AFF 中介紹
 
-根據客戶的要求、我們認為透過Spark進行的分散式訓練是各種使用案例中最重要的一項。在本文中、我們使用了 https://horovod.readthedocs.io/en/stable/spark_include.html["Hovorod on Spark"^] 使用NetApp All Flash FAS （AFF VMware）儲存控制器Azure NetApp Files 、VMware®及StorageGRID VMware®來驗證NetApp內部部署、雲端原生及混合雲解決方案的Spark效能。
+根據客戶的要求、我們認為透過Spark進行的分散式訓練是各種使用案例中最重要的一項。在本文中、我們使用了 https://["Hovorod on Spark"^] 使用NetApp All Flash FAS （AFF VMware）儲存控制器Azure NetApp Files 、VMware®及StorageGRID VMware®來驗證NetApp內部部署、雲端原生及混合雲解決方案的Spark效能。
 
 Horovod on Spark套件提供了一款便利的包裝函式、可讓您輕鬆在Spark叢集中執行分散式訓練工作負載、實現緊密的模型設計迴圈、讓訓練和推斷資料所在的Spark執行資料處理、模型訓練和模型評估。
 
-在Spark上執行Horovod的API有兩種：高階Estimator API和較低層級的Run API。儘管兩者都使用相同的基礎機制、在Spark執行程式上啟動Horovod、但Estimator API會將資料處理、模型訓練迴圈、模型檢查點、指標收集和分散式訓練擷取出來。我們使用Horovod Spark Estimators、TensorFlow和Keras來進行端點對端點資料準備、並根據進行分散式訓練工作流程 https://www.kaggle.com/c/rossmann-store-sales["Kaggle Rossmann商店銷售"^] 競爭。
+在Spark上執行Horovod的API有兩種：高階Estimator API和較低層級的Run API。儘管兩者都使用相同的基礎機制、在Spark執行程式上啟動Horovod、但Estimator API會將資料處理、模型訓練迴圈、模型檢查點、指標收集和分散式訓練擷取出來。我們使用Horovod Spark Estimators、TensorFlow和Keras來進行端點對端點資料準備、並根據進行分散式訓練工作流程 https://["Kaggle Rossmann商店銷售"^] 競爭。
 
 指令碼「keras」（keras）-「SPARK」（火花）-「horovod_rossmann_redimator.py」（組態）可在一節中找到 link:apache-spark-python-scripts-for-each-major-use-case.html["每個主要使用案例的Python指令碼。"] 其中包含三個部分：
 
@@ -65,9 +65,9 @@ Horovod on Spark套件提供了一款便利的包裝函式、可讓您輕鬆在S
 
 == 使用Keras進行CTR預測的多工深度學習
 
-隨著ML平台與應用程式的最新進展、現在許多人都開始大規模學習。點閱率（CTR）定義為每百個線上廣告曝光點閱率（以百分比表示）的平均點閱率。在各種產業垂直市場和使用案例中、包括數位行銷、零售、電子商務和服務供應商、廣泛採用此技術作為主要指標。請參閱我們的 https://docs.netapp.com/us-en/netapp-solutions/ai/aks-anf_introduction.html["TR-4904：Azure中的分散式訓練-點擊率預測"^] 如需更多有關CTR應用程式和Kubernetes端點對端點雲端AI工作流程實作、分散式資料ETL、以及使用dask和CUDA ML進行模型訓練的詳細資訊。
+隨著ML平台與應用程式的最新進展、現在許多人都開始大規模學習。點閱率（CTR）定義為每百個線上廣告曝光點閱率（以百分比表示）的平均點閱率。在各種產業垂直市場和使用案例中、包括數位行銷、零售、電子商務和服務供應商、廣泛採用此技術作為主要指標。請參閱我們的 https://["TR-4904：Azure中的分散式訓練-點擊率預測"^] 如需更多有關CTR應用程式和Kubernetes端點對端點雲端AI工作流程實作、分散式資料ETL、以及使用dask和CUDA ML進行模型訓練的詳細資訊。
 
-在本技術報告中、我們使用的是不同的 https://labs.criteo.com/2013/12/download-terabyte-click-logs-2/["請按一下「記錄資料集」"^] （請參閱TR-4904）針對使用Keras建置Deep and Cross Network（DCN）機型的Spark工作流程的多位員工分散式深度學習、比較其記錄遺失錯誤功能與基礎Spark ML物流回歸模式的效能。新一代的新一代管理系統可有效擷取限定度的有效功能互動、學習高度非線性互動、不需手動進行特徵工程或詳盡搜尋、而且運算成本低廉。
+在本技術報告中、我們使用的是不同的 https://["請按一下「記錄資料集」"^] （請參閱TR-4904）針對使用Keras建置Deep and Cross Network（DCN）機型的Spark工作流程的多位員工分散式深度學習、比較其記錄遺失錯誤功能與基礎Spark ML物流回歸模式的效能。新一代的新一代管理系統可有效擷取限定度的有效功能互動、學習高度非線性互動、不需手動進行特徵工程或詳盡搜尋、而且運算成本低廉。
 
 Web等級建議系統的資料大多是分離式且明確的、導致功能探索的空間大而稀少。這將大多數大型系統限制為線性模型、例如物流回歸。然而、找出經常預測的功能、同時探索未被發現或罕見的交叉功能、是做出良好預測的關鍵。線性模型簡單易用、可解釋且易於擴充、但其表現能力有限。
 
@@ -75,9 +75,9 @@ Web等級建議系統的資料大多是分離式且明確的、導致功能探�
 
 深度神經網路（DNN）承諾能夠擷取功能之間非常複雜的互動。然而、相較於DCN、它需要的參數幾乎多出一個順序、無法明確形成交叉功能、也可能無法有效瞭解某些類型的功能互動。跨網路的記憶體效率極高、而且易於實作。共同訓練交叉和DNN元件、有效擷取預測性功能互動、並在Criteo CTR資料集上提供最先進的效能。
 
-一種新的DCN模式從內嵌和堆疊層開始、接著是跨網路和平行的深度網路。接著是最後的組合層、將兩個網路的輸出結合在一起。您的輸入資料可以是具有稀少和密集功能的向量。在Spark、兩者兼具 https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.ml.linalg.SparseVector.html["ML"^] 和 https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.mllib.linalg.SparseVector.html["mlLib"^] 程式庫包含「parseVector」類型。因此、使用者必須區分兩者、並在呼叫各自的功能和方法時務必留意。在CTR預測等網路規模的建議系統中、輸入內容大多是明確的功能、例如「country=USA」（國家/地區=美國）。這類功能通常編碼為單一熱向量、例如「[0、1、0、…]」。單一熱編碼（OHT）搭配「parseVector」（parseVector）、在處理真實世界的資料集時非常實用、因為這些資料集的詞彙不斷變化且不斷成長。我們在中修改了範例 https://github.com/shenweichen/DeepCTR["DeepCTR"^] 為了處理大型詞彙、在我們的DCN嵌入與堆疊層中建立嵌入式向量。
+一種新的DCN模式從內嵌和堆疊層開始、接著是跨網路和平行的深度網路。接著是最後的組合層、將兩個網路的輸出結合在一起。您的輸入資料可以是具有稀少和密集功能的向量。在Spark、兩者兼具 https://["ML"^] 和 https://["mlLib"^] 程式庫包含「parseVector」類型。因此、使用者必須區分兩者、並在呼叫各自的功能和方法時務必留意。在CTR預測等網路規模的建議系統中、輸入內容大多是明確的功能、例如「country=USA」（國家/地區=美國）。這類功能通常編碼為單一熱向量、例如「[0、1、0、…]」。單一熱編碼（OHT）搭配「parseVector」（parseVector）、在處理真實世界的資料集時非常實用、因為這些資料集的詞彙不斷變化且不斷成長。我們在中修改了範例 https://["DeepCTR"^] 為了處理大型詞彙、在我們的DCN嵌入與堆疊層中建立嵌入式向量。
 
-。 https://www.kaggle.com/competitions/criteo-display-ad-challenge/data["Criteo展示廣告資料集"^] 預測廣告點擊率。它有13個整數特徵和26個分類特徵、其中每個類別都有高基數。對於此資料集而言、由於輸入大小較大、記錄遺失的效能提升實際上相當可觀。對於大型使用者群而言、預測準確度略有改善、可能導致公司營收大幅增加。資料集包含7天內11GB的使用者記錄、相當於約4、100萬筆記錄。我們使用Spark的「datFrame.隨機 分割（）功能」來隨機分割訓練（80%）、交叉驗證（10%）及其餘10%的資料以供測試。
+。 https://["Criteo展示廣告資料集"^] 預測廣告點擊率。它有13個整數特徵和26個分類特徵、其中每個類別都有高基數。對於此資料集而言、由於輸入大小較大、記錄遺失的效能提升實際上相當可觀。對於大型使用者群而言、預測準確度略有改善、可能導致公司營收大幅增加。資料集包含7天內11GB的使用者記錄、相當於約4、100萬筆記錄。我們使用Spark的「datFrame.隨機 分割（）功能」來隨機分割訓練（80%）、交叉驗證（10%）及其餘10%的資料以供測試。
 
 在TensorFlow上實作的是Keras。使用新一代會議管理系統進行模型訓練程序的主要部分有四個：
 
@@ -87,7 +87,7 @@ Web等級建議系統的資料大多是分離式且明確的、導致功能探�
 * * Hyperparameters.*我們會根據在隱藏圖層數、隱藏圖層大小、初始學習率及跨圖層數上的網格搜尋結果來報告結果。隱藏的圖層數量介於2到5之間、隱藏的圖層大小介於32到1024之間。對於DCN、跨層的數量從1到6。初始學習率從0.0001調至0.001、增量為0.0001。所有實驗都會在訓練步驟150、000之前提早停止、之後就開始過度調整。
 
 
-除了新增的新一代會議管理系統、我們也測試了其他熱門的深度學習模式、以利進行CTR預測、包括 https://www.ijcai.org/proceedings/2017/0239.pdf["DeepFM"^]、 https://arxiv.org/pdf/1803.05170.pdf["深層FM"^]、 https://arxiv.org/abs/1810.11921["自動整型"^]和 https://arxiv.org/abs/2008.13535["新一代的"^]。
+除了新增的新一代會議管理系統、我們也測試了其他熱門的深度學習模式、以利進行CTR預測、包括 https://["DeepFM"^]、 https://["深層FM"^]、 https://["自動整型"^]和 https://["新一代的"^]。
 
 
 

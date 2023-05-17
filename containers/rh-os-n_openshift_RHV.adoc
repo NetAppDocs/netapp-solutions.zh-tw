@@ -15,7 +15,7 @@ summary: RHV是企業虛擬資料中心平台、可在Red Hat Enterprise Linux�
 
 Red Hat虛擬化（RHV）是企業虛擬資料中心平台、可在Red Hat Enterprise Linux（RHEL）上執行、並使用KVM Hypervisor。
 
-如需更多有關RHV的資訊、請參閱 https://www.redhat.com/en/technologies/virtualization/enterprise-virtualization["Red Hat虛擬化網站"^]。
+如需更多有關RHV的資訊、請參閱 https://["Red Hat虛擬化網站"^]。
 
 RHV提供下列功能：
 
@@ -93,7 +93,7 @@ RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以�
 
 為參數定義的條件可以是強制或軟強制。強制強制性可確保關聯群組中的虛擬機器永遠嚴格遵循正面或負面關聯性、而不受任何外部條件影響。軟強制功能可確保關聯群組中的VM設定較高的喜好設定、以便在可行的情況下遵循正面或負面關聯性。在本文所述的兩或三個Hypervisor組態中、建議使用軟性關聯性。在較大型的叢集中、硬關聯性可以正確分散OpenShift節點。
 
-若要設定關聯群組、請參閱 https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/virtual_machine_management_guide/sect-affinity_groups["Red Hat 6.11.關聯群組文件"^]。
+若要設定關聯群組、請參閱 https://["Red Hat 6.11.關聯群組文件"^]。
 
 
 
@@ -101,6 +101,6 @@ RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以�
 
 IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、在叢集部署過程中、可能需要變更某些預設值。
 
-在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈工作。而是會建立組態檔、以便稍後部署叢集。如果您想要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.4/installing/installing_rhv/installing-rhv-customizations.html["Red Hat OpenShift使用自訂功能在RHV上安裝叢集"^]。
+在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈工作。而是會建立組態檔、以便稍後部署叢集。如果您想要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://["Red Hat OpenShift使用自訂功能在RHV上安裝叢集"^]。
 
 link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

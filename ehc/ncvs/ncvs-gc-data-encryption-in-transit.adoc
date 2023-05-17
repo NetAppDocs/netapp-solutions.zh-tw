@@ -22,11 +22,11 @@ link:ncvs-gc-data-plane-architecture.html["先前版本：資料平面架構。"
 
 == Google Cloud網路
 
-Google Cloud會加密網路層級的流量、如所述 https://cloud.google.com/security/encryption-in-transit["傳輸中加密"^] 在Google文件中。如「Cloud Volumes Services Architecture」一節所述、Cloud Volumes Service NetApp控制的PSAPa生產商專案將提供此功能。
+Google Cloud會加密網路層級的流量、如所述 https://["傳輸中加密"^] 在Google文件中。如「Cloud Volumes Services Architecture」一節所述、Cloud Volumes Service NetApp控制的PSAPa生產商專案將提供此功能。
 
 在CVs-SW的情況下、生產商租戶會執行Google VM來提供服務。Google Cloud Volumes Service 會自動加密使用者VM和不支援的VM之間的流量。
 
-雖然CVS效能的資料路徑在網路層上並未完全加密、但NetApp與Google仍使用這種組合 https://1.ieee802.org/security/802-1ae/["IEEE 802.1AE加密（MAC安全）"^]、 https://datatracker.ietf.org/doc/html/rfc2003["封裝"^] （資料加密）和實體受限的網路、以保護Cloud Volumes Service 資料在整個過程中在整個過程中在靜止CVS效能服務類型和Google Cloud之間傳輸。
+雖然CVS效能的資料路徑在網路層上並未完全加密、但NetApp與Google仍使用這種組合 https://["IEEE 802.1AE加密（MAC安全）"^]、 https://["封裝"^] （資料加密）和實體受限的網路、以保護Cloud Volumes Service 資料在整個過程中在整個過程中在靜止CVS效能服務類型和Google Cloud之間傳輸。
 
 
 
@@ -38,7 +38,7 @@ NFS和SMB NAS傳輸協定可在傳輸協定層提供選用的傳輸加密。
 
 === SMB加密
 
-https://docs.microsoft.com/en-us/windows-server/storage/file-server/smb-security["SMB加密"^] 提供SMB資料的端點對端點加密、並保護資料免於在不受信任的網路上遭人竊取。您可以啟用用戶端/伺服器資料連線（僅適用於支援SMB3.x的用戶端）和伺服器/網域控制器驗證的加密。
+https://["SMB加密"^] 提供SMB資料的端點對端點加密、並保護資料免於在不受信任的網路上遭人竊取。您可以啟用用戶端/伺服器資料連線（僅適用於支援SMB3.x的用戶端）和伺服器/網域控制器驗證的加密。
 
 啟用SMB加密時、不支援加密的用戶端將無法存取共用區。
 
@@ -48,13 +48,13 @@ https://docs.microsoft.com/en-us/windows-server/storage/file-server/smb-security
 
 === NFSv4.1 Kerberos
 
-對於NFSv4.1、CVS效能提供如所述的Kerberos驗證 https://datatracker.ietf.org/doc/html/rfc7530["RFC7530"^]。您可以針對每個磁碟區啟用Kerberos。
+對於NFSv4.1、CVS效能提供如所述的Kerberos驗證 https://["RFC7530"^]。您可以針對每個磁碟區啟用Kerberos。
 
 Kerberos目前最強大的加密類型是AES-256-CTS-HMA-SHA1。NetApp Cloud Volumes Service 支援AES-256-CTS-HMA-SHA1、AES-123-CTS-HMA-SHA1、DES3和DES for NFS。它也支援CIFS/SMB流量的ARCFOUR-HMAC（RC4）、但不支援NFS。
 
 Kerberos為NFS裝載提供三種不同的安全性層級、可讓您選擇Kerberos安全性的強度。
 
-根據RedHat https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/storage_administration_guide/s1-nfs-client-config-options["通用掛載選項"^] 文件：
+根據RedHat https://["通用掛載選項"^] 文件：
 
 ....
 sec=krb5 uses Kerberos V5 instead of local UNIX UIDs and GIDs to authenticate users.

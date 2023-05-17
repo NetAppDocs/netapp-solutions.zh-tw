@@ -9,7 +9,7 @@
 .Terraform組態檔案、可在GCP上部署NetApp CVO（單一節點執行個體）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上部署/設定單一節點NetApp CVO（英文）。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：
@@ -96,7 +96,7 @@ NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
 | * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
 
 
-| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 |===
 單一節點執行個體
 
@@ -123,7 +123,7 @@ GCP上單一NetApp CVO執行個體的Terraform變數。
 | * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
 
 
-| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://[]。 
 
 
 | * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
@@ -137,7 +137,7 @@ GCP上單一NetApp CVO執行個體的Terraform變數。
 .Terraform組態檔案、可在GCP上部署NetApp CVO（HA配對）
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP GCP（Google Cloud Platform）上以高可用度配對部署/設定NetApp CVO（候選）。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：
@@ -224,7 +224,7 @@ NetApp GCP連接器執行個體的Terraform變數、適用於CVO部署。
 | * GCP_connector服務帳戶路徑* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立Connector。 
 
 
-| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
+| * GCP_connector帳戶ID* | 字串 | （可選）Connector將關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
 |===
 "HA配對"
 
@@ -293,7 +293,7 @@ GCP上HA配對中NetApp CVO執行個體的Terraform變數。
 | * GCP_CVO_SVM_password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
 
 
-| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
+| * GCP_CVO_Workby_id* | 字串 | （選用）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://[]。 
 
 
 | * GCP_CVO授權類型* | 字串 | （選用）要使用的授權類型。對於單一節點：['容量-付費'、'GCP-cot-explore-paygo '、'GCP-cot-Standard-paygo '、'GCP-cot-paygo、'GCP-cot-payol'、]、 HA：['ha-cape-payga'、'gcp-ha-cot-explore-payga'、'gcp-ha-cot-Standard-payga'、'gcp-ha-cot-payga'、'gcp-ha-cot-payol']。單一節點的預設值為「cape-paygo」、HA的預設值為「ha-cape-paygo」。 
@@ -313,7 +313,7 @@ GCP上HA配對中NetApp CVO執行個體的Terraform變數。
 .Terraform組態檔案、可在GCP上部署NetApp CVS Volume
 本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
 
-Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
+Terraform文件： https://[]
 
 .程序
 若要執行範本：

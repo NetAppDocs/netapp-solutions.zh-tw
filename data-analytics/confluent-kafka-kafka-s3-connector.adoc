@@ -296,7 +296,7 @@ root@stlrx2540m1-108:~# aws s3 --endpoint-url http://kafkasgd.rtpppe.netapp.com:
 download: s3://kafkasgdbucket1-2/topics/s3_testtopic/partition=0/s3_testtopic+0+0000000000.avro to ./tes.avro
 root@stlrx2540m1-108:~#
 ....
-. 若要列印記錄、請使用avro-tools-1.11.0.1.jar（可在 http://mirror.metrocast.net/apache/avro/stable/java/["Apache歸檔"^]）。
+. 若要列印記錄、請使用avro-tools-1.11.0.1.jar（可在 http://["Apache歸檔"^]）。
 +
 ....
 root@stlrx2540m1-108:~# java -jar /usr/src/avro-tools-1.11.0.1.jar tojson tes.avro

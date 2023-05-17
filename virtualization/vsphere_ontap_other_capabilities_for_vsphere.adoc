@@ -19,7 +19,7 @@ summary: 利用此功能、您可以建立可套用至多個工作的備份原�
 
 備份虛擬機器並快速恢復這些虛擬機器、是ONTAP vSphere的絕佳優勢之一、SnapCenter 而使用VMware vSphere的VMware vCenter外掛程式、可輕鬆管理vCenter內部的這項功能。使用Snapshot複本快速複製VM或資料存放區、而不影響效能、然後使用SnapMirror將其傳送至次要系統、以提供長期的異地資料保護。這種方法只儲存變更的資訊、可將儲存空間和網路頻寬減至最低。
 
-利用此功能、您可以建立可套用至多個工作的備份原則。SnapCenter這些原則可定義排程、保留、複寫及其他功能。它們持續允許選用VM一致的快照、充分發揮Hypervisor在執行VMware快照之前靜止I/O的能力。不過、由於VMware快照的效能影響、除非您需要靜止客體檔案系統、否則一般不建議使用這些快照。而是使用ONTAP VMware Snapshot複本進行一般保護、並使用SnapCenter 諸如VMware外掛程式等應用程式工具來保護SQL Server或Oracle等交易資料。這些Snapshot複本與VMware（一致性）快照不同、適合長期保護。VMware快照僅供參考 http://pubs.vmware.com/vsphere-65/index.jsp?topic=%2Fcom.vmware.vsphere.vm_admin.doc%2FGUID-53F65726-A23B-4CF0-A7D5-48E584B88613.html["建議"^] 因效能和其他影響而短期使用。
+利用此功能、您可以建立可套用至多個工作的備份原則。SnapCenter這些原則可定義排程、保留、複寫及其他功能。它們持續允許選用VM一致的快照、充分發揮Hypervisor在執行VMware快照之前靜止I/O的能力。不過、由於VMware快照的效能影響、除非您需要靜止客體檔案系統、否則一般不建議使用這些快照。而是使用ONTAP VMware Snapshot複本進行一般保護、並使用SnapCenter 諸如VMware外掛程式等應用程式工具來保護SQL Server或Oracle等交易資料。這些Snapshot複本與VMware（一致性）快照不同、適合長期保護。VMware快照僅供參考 http://["建議"^] 因效能和其他影響而短期使用。
 
 這些外掛程式提供延伸功能、可在實體和虛擬環境中保護資料庫。有了vSphere、您可以使用它們來保護SQL Server或Oracle資料庫、其中資料儲存在RDM LUN、iSCSI LUN直接連線至來賓作業系統、或VMDK或NFS資料存放區上的VMDK檔案。外掛程式可指定不同類型的資料庫備份、支援線上或離線備份、以及保護資料庫檔案和記錄檔。除了備份與還原之外、外掛程式也支援複製資料庫以供開發或測試之用。
 
@@ -29,7 +29,7 @@ image:vsphere_ontap_image4.png["錯誤：缺少圖形影像"]
 
 如需增強的災難恢復功能、請考慮搭配ONTAP VMware Site Recovery Manager使用NetApp SRA for VMware。除了支援將資料存放區複寫至DR站台之外、它也能透過複製複寫的資料存放區、在DR環境中進行不中斷營運的測試。SRA內建自動化功能、可在故障解決後、輕鬆從災難中恢復並重新保護正式作業。
 
-最後、若要獲得最高層級的資料保護、請考慮使用NetApp MetroCluster VMware vSphere Metro Storage Cluster（VMSC）組態。VMSC是VMware認證的解決方案、結合了同步複寫與陣列式叢集、提供高可用度叢集的相同優勢、但分散在不同站台、以防止站台災難發生。NetApp MetroCluster 解決方案提供具成本效益的組態、可讓您以透明的方式從任何單一儲存元件故障中恢復同步複寫、並在發生站台災難時提供單一命令恢復功能。VMSC的詳細說明請參閱 http://www.netapp.com/us/media/tr-4128.pdf["TR-4128"^]。
+最後、若要獲得最高層級的資料保護、請考慮使用NetApp MetroCluster VMware vSphere Metro Storage Cluster（VMSC）組態。VMSC是VMware認證的解決方案、結合了同步複寫與陣列式叢集、提供高可用度叢集的相同優勢、但分散在不同站台、以防止站台災難發生。NetApp MetroCluster 解決方案提供具成本效益的組態、可讓您以透明的方式從任何單一儲存元件故障中恢復同步複寫、並在發生站台災難時提供單一命令恢復功能。VMSC的詳細說明請參閱 http://["TR-4128"^]。
 
 
 
@@ -37,7 +37,7 @@ image:vsphere_ontap_image4.png["錯誤：缺少圖形影像"]
 
 當從資料存放區刪除VM時、可回收空間以供其他用途使用。使用NFS資料存放區時、刪除VM時會立即回收空間（當然、此方法只有在精簡配置磁碟區時才適用、也就是將磁碟區保證設為「無」）。不過、在VM客體作業系統中刪除檔案時、不會使用NFS資料存放區自動回收空間。對於LUN型VMFS資料存放區、ESXi和來賓作業系統可將VAAI取消對應原始資源至儲存區（同樣地、使用精簡配置時）、以回收空間。視版本而定、此支援可能為手動或自動。
 
-在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB https://kb.vmware.com/s/article/2057513["2037513"^] 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱 https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.storage.doc/GUID-B40D1420-26FD-4318-8A72-FA29C9A395C2.html["儲存空間回收"^] 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/VSC_and_VASA_Provider/Devices_backing_volume_do_not_support_UNMAP["這"^] 知識庫文章以取得更多詳細資料。
+在vSphere 5.5及更新版本中、「vmkfsools–y」命令會由「esxcli storage VMFS unmap」命令取代、該命令會指定可用區塊的數量（請參閱VMware KB https://["2037513"^] 以取得更多資訊）。在vSphere 6.5及更新版本中、使用VMFS 6時、空間應自動非同步回收（請參閱 https://["儲存空間回收"^] 在vSphere文件中）、但也可視需要手動執行。此自動取消對應功能受到ONTAP VMware ONTAP vSphere的支援、而VMware vSphere的VMware VMware工具則將其設為低優先順序。請記住、在配置LUN以作為VMFS資料存放區使用時、您必須手動啟用LUN上的空間分配選項。使用ONTAP VMware vSphere的支援工具時、LUN會自動設定為支援空間回收、不需要進一步的動作。請參閱 https://["這"^] 知識庫文章以取得更多詳細資料。
 
 
 
@@ -83,7 +83,7 @@ image:vsphere_ontap_image6.jpeg["錯誤：缺少圖形影像"]
 * 精簡配置也適用於VM、NetApp通常會建議採用精簡配置的VMDK、而非完整配置。使用精簡配置時、請務必使用ONTAP VMware vSphere、ONTAP VMware vCenter或其他可用工具的VMware vCenter工具來監控可用空間、以避免空間不足的問題。
 * 請注意、搭配ONTAP 使用精簡配置搭配使用時、效能不會受到任何影響；資料會寫入可用空間、以便將寫入效能和讀取效能最大化。儘管如此、有些產品（例如Microsoft容錯移轉叢集或其他低延遲應用程式）可能需要保證或固定的資源配置、因此遵循這些要求以避免支援問題是明智的做法。
 * 為達到最大的重複資料刪除節約效益、請考慮在硬碟型系統上排程背景重複資料刪除、或AFF 是在各種系統上自動執行背景重複資料刪除。不過、排程的程序會在執行時使用系統資源、因此理想情況下、應在較少的使用時間（例如週末）排程、或是更頻繁地執行、以減少要處理的變更資料量。在不影響前景活動的情況下、自動在幕後重複資料刪除AFF 技術的影響會大幅降低。背景壓縮（適用於硬碟型系統）也會耗用資源、因此只能考量效能需求有限的次要工作負載。
-* NetApp AFF 產品特色系統主要使用內嵌儲存效率功能。使用NetApp工具（例如7-Mode Transition Tool、SnapMirror或Volume Move）將資料移至這些工具時、執行壓縮和壓縮掃描程式以最大化效率節約效益、是非常實用的做法。檢閱此NetApp支援 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_to_maximize_storage_efficiency_post_AFF_ONTAP_9.x_migration["知識庫文章"^] 以取得更多詳細資料。
+* NetApp AFF 產品特色系統主要使用內嵌儲存效率功能。使用NetApp工具（例如7-Mode Transition Tool、SnapMirror或Volume Move）將資料移至這些工具時、執行壓縮和壓縮掃描程式以最大化效率節約效益、是非常實用的做法。檢閱此NetApp支援 https://["知識庫文章"^] 以取得更多詳細資料。
 * Snapshot複本可能會鎖定可透過壓縮或重複資料刪除來減少的區塊。使用排程的背景效率或一次性掃描程式時、請確定在執行下一個Snapshot複本之前、它們都已執行完成。檢閱Snapshot複本和保留資料、確保您只保留所需的Snapshot複本、尤其是在執行背景或掃描儀工作之前。
 
 
@@ -241,12 +241,12 @@ image:vsphere_ontap_image7.png["錯誤：缺少圖形影像"]
 
 VASA提供查詢儲存設備的技術、並將一組儲存功能傳回vCenter。VASA廠商供應商會提供儲存系統API與架構之間的轉譯、以及vCenter所瞭解的VMware API。NetApp的VASA Provider ONTAP for VMware是ONTAP VMware vSphere應用裝置VM的支援工具之一、vCenter外掛程式提供介面、可用來配置及管理VVol資料存放區、以及定義儲存功能設定檔（SCP）的功能。
 
-支援VMFS和NFS vVol資料存放區。ONTAP將vVols與SAN資料存放區搭配使用、可帶來NFS的部分效益、例如VM層級的精細度。以下是一些最佳實務做法、您可以在中找到更多資訊 http://www.netapp.com/us/media/tr-4400.pdf["TR-4400"^]：
+支援VMFS和NFS vVol資料存放區。ONTAP將vVols與SAN資料存放區搭配使用、可帶來NFS的部分效益、例如VM層級的精細度。以下是一些最佳實務做法、您可以在中找到更多資訊 http://["TR-4400"^]：
 
 * VVol資料存放區可由FlexVol 多個叢集節點上的多個支援功能區所組成。最簡單的方法是單一資料存放區、即使磁碟區具有不同的功能也一樣。SPBM可確保VM使用相容的Volume。然而、這些磁碟區必須全部屬於ONTAP 單一的一套功能、並使用單一傳輸協定來存取。每個節點的每個傳輸協定只需一個LIF就足夠了。避免在ONTAP 單一VVol資料存放區中使用多個版本的支援、因為儲存功能可能因版本而異。
 * 使用ONTAP VMware vSphere外掛程式的VMware vCenter工具來建立及管理VVol資料存放區。除了管理資料存放區及其設定檔之外、它還會自動建立傳輸協定端點、以便在需要時存取vVols。如果使用LUN、請注意LUN PE是使用LUN ID 300以上的LUN來對應。確認ESXi主機進階系統設定「磁碟、最大LUN」允許的LUN ID號碼高於300（預設值為1、024）。若要執行此步驟、請在vCenter中選取ESXi主機、然後選取「Configure（設定）」索引標籤、並在「Advanced System Settings（進階系統設定）」清單中找到「磁碟。MaxLUN」。
 * 請勿安裝或移轉VASA Provider、vCenter Server（應用裝置或Windows）或ONTAP VMware vSphere的各種支援工具到vVols資料存放區、因為這些工具彼此相依、因此在停電或其他資料中心中斷時、您無法管理這些工具。
-* 定期備份VASA Provider VM。至少要建立包含VASA Provider之傳統資料存放區的每小時Snapshot複本。如需保護及恢復VASA Provider的詳細資訊、請參閱此 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/Virtual_Storage_Console_for_VMware_vSphere/Virtual_volumes%3A_Protecting_and_Recovering_the_NetApp_VASA_Provider["知識庫文章"^]。
+* 定期備份VASA Provider VM。至少要建立包含VASA Provider之傳統資料存放區的每小時Snapshot複本。如需保護及恢復VASA Provider的詳細資訊、請參閱此 https://["知識庫文章"^]。
 
 
 下圖顯示vVols元件。
@@ -262,7 +262,7 @@ image:vsphere_ontap_image8.png["錯誤：缺少圖形影像"]
 * * Cloud Volumes.* NetApp Cloud Volumes Service 的AWS或GCP及Azure NetApp Files 適用於ANF的支援功能、可在領先業界的公有雲環境中提供高效能、多重傳輸協定的託管儲存服務。VMware Cloud VM來賓可以直接使用。
 * *《NetApp》資料管理軟體可在您選擇的雲端上、為您的資料提供控制、保護、靈活度及效率。Cloud Volumes ONTAP Cloud Volumes ONTAPNetApp是以NetApp解決方案儲存軟體為建置基礎的雲端原生資料管理軟體。Cloud Volumes ONTAP ONTAP搭配Cloud Manager一起使用、即可部署Cloud Volumes ONTAP 及管理包含ONTAP 內部部署的各種系統的不二執行個體。利用進階NAS和iSCSI SAN功能、以及統一化資料管理、包括Snapshot複本和SnapMirror複寫。
 * * Cloud Services。*使用Cloud Backup Service NetApp或SnapMirror Cloud、利用公有雲儲存設備保護內部部署系統的資料。可協助您在NAS、物件儲存區和物件儲存區之間移轉及保持資料同步。Cloud Sync Cloud Volumes Service
-* * FabricPool 《*》FabricPool *《*》*《*》提供快速且簡單的ONTAP 資料分層功能。Snapshot複本中的冷區塊可移轉至公有雲或私有StorageGRID 的物件存放區、ONTAP 並在再次存取該資料時自動重新叫用。或是將物件層用作SnapVault 已由效益管理的資料的第三層保護。您可以使用這種方法 https://www.linkedin.com/pulse/rethink-vmware-backup-again-keith-aasen/["儲存更多VM的Snapshot複本"^] 在一線ONTAP 和/或二線的不二元儲存系統上。
+* * FabricPool 《*》FabricPool *《*》*《*》提供快速且簡單的ONTAP 資料分層功能。Snapshot複本中的冷區塊可移轉至公有雲或私有StorageGRID 的物件存放區、ONTAP 並在再次存取該資料時自動重新叫用。或是將物件層用作SnapVault 已由效益管理的資料的第三層保護。您可以使用這種方法 https://["儲存更多VM的Snapshot複本"^] 在一線ONTAP 和/或二線的不二元儲存系統上。
 * *《*》。*使用NetApp軟體定義的儲存設備、將您的私有雲端延伸至遠端設施和辦公室、您可以使用《》來支援區塊和檔案服務、以及您在企業資料中心擁有的相同vSphere資料管理功能。ONTAP Select ONTAP Select
 
 

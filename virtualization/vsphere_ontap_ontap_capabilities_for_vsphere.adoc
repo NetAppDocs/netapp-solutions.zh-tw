@@ -33,7 +33,7 @@ summary: 支援所有用於虛擬化的主要儲存傳輸協定、例如適用�
 * * QoS * QoS可讓您管理個別LUN、磁碟區或檔案的效能。此功能可用於限制不明或虛擬機器、或是確保重要的虛擬機器獲得足夠的效能資源。
 * * NetApp Volume Encryption與NetApp Aggregate Encryption。* NetApp加密選項提供簡單的軟體式加密、可保護閒置的資料。
 * *此功能可在區塊層級自動將較低的資料分層至個別的物件存放區、以釋出昂貴的Flash儲存空間。FabricPool
-* * REST與Ansible。*使用 https://devnet.netapp.com/restapi["REST API ONTAP"^] 自動化儲存與資料管理、以及 https://netapp.io/configuration-management-and-automation/["Ansible模組"^] 用於ONTAP 設定支援您的支援系統。
+* * REST與Ansible。*使用 https://["REST API ONTAP"^] 自動化儲存與資料管理、以及 https://["Ansible模組"^] 用於ONTAP 設定支援您的支援系統。
 
 
 請注意、某些ONTAP 功能不太適合vSphere工作負載。例如FlexGroup 、不支援完整複製功能的不ONTAP 支援使用VMware vSphere前的支援功能、也未通過測試（請參閱FlexGroup 「VMware」一節以瞭解搭配vSphere使用的最新資訊）。由於vSphere是專為讀取型大多數工作負載所設計、因此不適合使用此技術FlexCache 。當快取從來源中斷連線時、寫入作業可能會有問題、導致兩側都發生NFS資料存放區錯誤。

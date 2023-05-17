@@ -136,7 +136,7 @@ image:confluent-kafka-image6.png["錯誤：缺少圖形影像"]
 
 === Connent的事件串流技術總覽
 
-在Conflent Platform的核心是 https://kafka.apache.org/["Apache Kafka"^]是最受歡迎的開放原始碼分散式串流平台。卡夫卡的主要功能如下：
+在Conflent Platform的核心是 https://["Apache Kafka"^]是最受歡迎的開放原始碼分散式串流平台。卡夫卡的主要功能如下：
 
 * 發佈及訂閱記錄串流。
 * 以容錯的方式儲存記錄串流。
@@ -151,7 +151,7 @@ image:confluent-kafka-image6.png["錯誤：缺少圖形影像"]
 
 * * Confluent Control Cent.*一種GUI型系統、用於管理及監控Kafka。它可讓您輕鬆管理Kafka Connect、以及建立、編輯及管理與其他系統的連線。
 * * Kubernetes的Conflent。* Kubernetes的Connent是Kubernetes營運者。Kubernetes營運者提供特定平台應用程式的獨特功能和需求、藉此擴充Kubernetes的協調功能。對於Conflent Platform、這包括大幅簡化Kubernetes上的Kafka部署程序、以及自動化典型的基礎架構生命週期工作。
-* *連接至Kafka的Confluent連接器*連接器使用Kafka Connect API將Kafka連接至其他系統、例如資料庫、金鑰值儲存區、搜尋索引和檔案系統。Conflent Hub提供可下載的連接器、適用於最受歡迎的資料來源和接收器、包括這些連接器的完整測試和支援版本、以及Conflent Platform。如需詳細資料、請參閱 https://docs.confluent.io/home/connect/userguide.html["請按這裡"^]。
+* *連接至Kafka的Confluent連接器*連接器使用Kafka Connect API將Kafka連接至其他系統、例如資料庫、金鑰值儲存區、搜尋索引和檔案系統。Conflent Hub提供可下載的連接器、適用於最受歡迎的資料來源和接收器、包括這些連接器的完整測試和支援版本、以及Conflent Platform。如需詳細資料、請參閱 https://["請按這裡"^]。
 * *自我平衡叢集。*提供自動負載平衡、故障偵測及自我修復功能。它支援視需要新增或汰換代理商、無需手動調校。
 * * Confluent叢集連結。*直接將叢集連線在一起、並透過連結橋接器將主題從一個叢集鏡射到另一個叢集。叢集連結可簡化多資料中心、多叢集及混合雲部署的設定。
 * * Confluent自動資料平衡器。*監控叢集的代理程式數量、分割區大小、分割區數目、以及叢集內的領導者數量。它可讓您將資料移轉至整個叢集、以建立平均工作負載、同時節流重新平衡流量、將對正式作業工作負載的影響降至最低、同時重新平衡。

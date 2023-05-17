@@ -156,7 +156,7 @@ image:stgr-splunkss-image15.png["錯誤：缺少圖形影像"]
 
 == 效能StorageGRID
 
-SmartStore的效能取決於從大量資料中搜尋特定的模式和字串。在此驗證中、會使用產生事件 https://github.com/splunk/eventgen["事件世代"^] 在特定的Splunk索引（eventgen-test）上、透過搜尋標頭進行搜尋、並要求StorageGRID 針對大部分的查詢進行到支援。下圖顯示查詢資料的點擊次數和遺漏次數。命中資料來自本機磁碟、而未命中資料來自StorageGRID 於功能性控制器。
+SmartStore的效能取決於從大量資料中搜尋特定的模式和字串。在此驗證中、會使用產生事件 https://["事件世代"^] 在特定的Splunk索引（eventgen-test）上、透過搜尋標頭進行搜尋、並要求StorageGRID 針對大部分的查詢進行到支援。下圖顯示查詢資料的點擊次數和遺漏次數。命中資料來自本機磁碟、而未命中資料來自StorageGRID 於功能性控制器。
 
 
 NOTE: 綠色顯示命中率資料、橘色顯示遺漏資料。

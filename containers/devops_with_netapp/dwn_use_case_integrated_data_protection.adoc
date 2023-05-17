@@ -25,7 +25,7 @@ DevOps工作流程最常見的用途之一是持續整合與持續部署（CI/CD
 
 image::dwn_image1.jpg[採用NetApp Astra使用案例1架構的DevOps]
 
-用於驗證此使用案例的應用程式為 https://magento.com/["Magento"^]這是一種電子商務解決方案、具備網路型前端、搜尋與分析功能的Elasticsearch執行個體、以及追蹤所有購物庫存與交易詳細資料的MariaDB資料庫。此容器化應用程式安裝於Red Hat OpenShift叢集。應用程式中的每個Pod都使用持續磁碟區來儲存資料。NetApp Astra Trident會自動建立持續性磁碟區、這是Container Storage Interface相容的Kubernetes儲存協調程式、可在NetApp儲存系統上配置儲存設備。此外、為了利用Astra Control Center的應用程式保護功能、相關應用程式是由Astra Control管理、Astra Control隨後用於觸發應用程式備份、以儲存應用程式狀態及持續磁碟區中的資料。我們使用 https://github.com/NetApp/netapp-astra-toolkits["NetApp Astra Control Python SDK"^] 將觸發應用程式備份的程序自動化、然後將其導入CI/CD傳輸途徑。此管道是使用稱為的熱門CI/CD工具來建立和執行 [https://www.jenkins.io/["Jenkins"^]]將建置、保護及部署應用程式的流程自動化。
+用於驗證此使用案例的應用程式為 https://["Magento"^]這是一種電子商務解決方案、具備網路型前端、搜尋與分析功能的Elasticsearch執行個體、以及追蹤所有購物庫存與交易詳細資料的MariaDB資料庫。此容器化應用程式安裝於Red Hat OpenShift叢集。應用程式中的每個Pod都使用持續磁碟區來儲存資料。NetApp Astra Trident會自動建立持續性磁碟區、這是Container Storage Interface相容的Kubernetes儲存協調程式、可在NetApp儲存系統上配置儲存設備。此外、為了利用Astra Control Center的應用程式保護功能、相關應用程式是由Astra Control管理、Astra Control隨後用於觸發應用程式備份、以儲存應用程式狀態及持續磁碟區中的資料。我們使用 https://["NetApp Astra Control Python SDK"^] 將觸發應用程式備份的程序自動化、然後將其導入CI/CD傳輸途徑。此管道是使用稱為的熱門CI/CD工具來建立和執行 [https://["Jenkins"^]]將建置、保護及部署應用程式的流程自動化。
 
 讓我們來執行先決條件和程序、以便在CI/CD管道中引進保護措施。
 
@@ -103,7 +103,7 @@ image::dwn_image8.jpg[建立認證資料]
 
 . 對其他兩個認證重複相同的程序。
 . 返回儀表板、按一下「New item（新項目）」建立管道、然後按一下「Pipeline（管道）」。
-. 從Jenkinsfile複製管路 https://github.com/NetApp/netapp-astra-toolkits/blob/main/ci_cd_examples/jenkins_pipelines/protecting_apps_in_ci_cd_pipelines/Jenkinsfile["請按這裡"^]。
+. 從Jenkinsfile複製管路 https://["請按這裡"^]。
 . 將管線貼到Jenkins Pipeline區段、然後按一下「Save（儲存）」。
 . 在Jenkins管線的參數中填入相關詳細資料、包括船舵圖表版本、要升級至的Magento應用程式版本、Astra工具組版本、Astra Control Center FQDN、API權杖及其執行個體ID。指定正式作業和暫存環境的Docker登錄、命名空間和Magento IP、並指定所建立認證的認證ID。
 +
