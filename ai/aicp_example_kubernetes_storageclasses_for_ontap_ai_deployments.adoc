@@ -14,11 +14,11 @@ summary: 您必須先建立一或多個Kubernetes StorageClass、才能使用Tri
 
 
 [role="lead"]
-您必須先建立一或多個Kubernetes StorageClass、才能使用Trident在Kubernetes叢集中動態配置儲存資源。以下範例代表在ONTAP 將NetApp AI Control Plane解決方案部署到AI Pod上時、您可能會想要建立的不同類型StorageClass。如需StorageClass的詳細資訊、請參閱 https://["Trident文件"^]。
+您必須先建立一或多個Kubernetes StorageClass、才能使用Trident在Kubernetes叢集中動態配置儲存資源。以下範例代表在ONTAP 將NetApp AI Control Plane解決方案部署到AI Pod上時、您可能會想要建立的不同類型StorageClass。如需StorageClass的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。
 
-. NetApp建議為您在本節中建立的每個啟用FlexGroup的Trident後端、建立個別的StorageClass link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.這些精細的StorageClass可讓您新增對應於特定LIF（建立Trident後端時所指定的LIF）的NFS掛載、做為StorageClass規格檔案中指定的特定後端。以下命令範例顯示建立兩個StorageClass的方式、這兩個類別對應於本節中建立的兩個範例後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.如需StorageClass的詳細資訊、請參閱 https://["Trident文件"^]。
+. NetApp建議為您在本節中建立的每個啟用FlexGroup的Trident後端、建立個別的StorageClass link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.這些精細的StorageClass可讓您新增對應於特定LIF（建立Trident後端時所指定的LIF）的NFS掛載、做為StorageClass規格檔案中指定的特定後端。以下命令範例顯示建立兩個StorageClass的方式、這兩個類別對應於本節中建立的兩個範例後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"]步驟1.如需StorageClass的詳細資訊、請參閱 https://netapp-trident.readthedocs.io/["Trident文件"^]。
 +
-因此當刪除對應的PersistentVolume Claim（PVc）時、不會刪除持續磁碟區、以下範例使用「回收原則」值「保留」。如需「回收政策」欄位的詳細資訊、請洽相關官員 https://["Kubernetes文件"^]。
+因此當刪除對應的PersistentVolume Claim（PVc）時、不會刪除持續磁碟區、以下範例使用「回收原則」值「保留」。如需「回收政策」欄位的詳細資訊、請洽相關官員 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes文件"^]。
 
 +
 ....

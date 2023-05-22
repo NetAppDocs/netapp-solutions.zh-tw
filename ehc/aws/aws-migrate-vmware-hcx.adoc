@@ -26,7 +26,7 @@ VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作�
 
 本文件提供部署及設定VMware HCX的逐步指引、包括內部部署及雲端資料中心端的所有主要元件、可實現各種VM移轉機制。
 
-如需詳細資訊、請參閱 https://["HCX部署簡介"^] 和 https://["在AWS SDDC目的地環境上安裝檢查清單B - HCX搭配VMware Cloud"^]。
+如需詳細資訊、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-getting-started/GUID-DE0AD0AE-A6A6-4769-96ED-4D200F739A68.html["HCX部署簡介"^] 和 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-getting-started/GUID-70F9C40C-804C-4FC8-9FBD-77F9B2FA77CA.html["在AWS SDDC目的地環境上安裝檢查清單B - HCX搭配VMware Cloud"^]。
 
 .高階步驟
 [%collapsible]
@@ -47,14 +47,14 @@ VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作�
 .先決條件
 [%collapsible]
 ====
-開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://["準備安裝HCX"^]。在具備連線能力等先決條件之後、從VMC的VMware HCX主控台產生授權金鑰、即可設定及啟動HCX。啟用HCX之後、就會部署vCenter外掛程式、並可透過vCenter主控台進行管理來存取。
+開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-A631101E-8564-4173-8442-1D294B731CEB.html["準備安裝HCX"^]。在具備連線能力等先決條件之後、從VMC的VMware HCX主控台產生授權金鑰、即可設定及啟動HCX。啟用HCX之後、就會部署vCenter外掛程式、並可透過vCenter主控台進行管理來存取。
 
 在繼續執行HCX啟動與部署之前、必須先完成下列安裝步驟：
 
-. 請使用現有的VMC SDDC、或在這之後建立新的SDDC https://["NetApp連結"^] 或是這種情況 https://["VMware連結"^]。
+. 請使用現有的VMC SDDC、或在這之後建立新的SDDC https://docs.netapp.com/us-en/netapp-solutions/ehc/aws/aws-setup.html["NetApp連結"^] 或是這種情況 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-EF198D55-03E3-44D1-AC48-6E2ABA31FF02.html["VMware連結"^]。
 . 從內部部署vCenter環境到VMC SDDC的網路路徑、必須使用vMotion來支援VM移轉。
-. 請確定所需的 https://["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。
-. FSx for ONTAP SforiNFS Volume應安裝為VMC SDDC的補充資料存放區。若要將NFS資料存放區附加至適當的叢集、請遵循本文所述的步驟 https://["NetApp連結"^] 或是這種情況 https://["VMware連結"^]。
+. 請確定所需的 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-A631101E-8564-4173-8442-1D294B731CEB.html["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。
+. FSx for ONTAP SforiNFS Volume應安裝為VMC SDDC的補充資料存放區。若要將NFS資料存放區附加至適當的叢集、請遵循本文所述的步驟 https://docs.netapp.com/us-en/netapp-solutions/ehc/aws/aws-native-overview.html["NetApp連結"^] 或是這種情況 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-D55294A3-7C40-4AD8-80AA-B33A25769CCA.html["VMware連結"^]。
 
 
 ====
@@ -79,7 +79,7 @@ image:fsx-hcx-image1.png["錯誤：缺少圖形影像"]
 ====
 若要執行安裝、請完成下列步驟：
 
-. 登入VMC主控台： https://["vmc.vmware.com"^] 並存取庫存。
+. 登入VMC主控台： https://vmc.vmware.com/home["vmc.vmware.com"^] 並存取庫存。
 . 若要選取適當的SDDC並存取附加元件、請按一下「View Details on SDDC（在SDDC上檢視詳細資料）」、然後選取「Add Ons（新增附加元件）」索引標籤。
 . 按一下「啟用VMware HCX」。
 +
@@ -105,7 +105,7 @@ image:fsx-hcx-image2.png["錯誤：缺少圖形影像"]
 image:fsx-hcx-image5.png["錯誤：缺少圖形影像"]
 
 . 在「部署OVF範本」精靈中輸入必要資訊、按一下「下一步」、然後按一下「完成」以部署VMware HCX Connector OVA。
-. 手動開啟虛擬應用裝置電源。如需逐步指示、請前往 https://["VMware HCX使用者指南"^]。
+. 手動開啟虛擬應用裝置電源。如需逐步指示、請前往 https://docs.vmware.com/en/VMware-HCX/services/user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["VMware HCX使用者指南"^]。
 
 
 ====
@@ -123,7 +123,7 @@ image:fsx-hcx-image7.png["錯誤：缺少圖形影像"]
 
 NOTE: 部署在內部部署的每個HCX Connector都需要個別的金鑰。
 
-. 登入內部部署的VMware HCX Connector、網址為 https://["https://hcxconnectorIP:9443"^] 使用系統管理員認證。
+. 登入內部部署的VMware HCX Connector、網址為 https://hcxconnectorIP:9443["https://hcxconnectorIP:9443"^] 使用系統管理員認證。
 +
 
 NOTE: 使用在OVA部署期間定義的密碼。
@@ -198,7 +198,7 @@ VMware HCX互連（HCX-IX）應用裝置可透過網際網路提供安全通道�
 NOTE: 運算設定檔包含部署互連虛擬應用裝置所需的運算、儲存和網路部署參數。他們也會指定HCX服務可以存取VMware資料中心的哪個部分。
 
 +
-如需詳細指示、請參閱 https://["建立運算設定檔"^]。
+如需詳細指示、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BBAC979E-8899-45AD-9E01-98A132CE146E.html["建立運算設定檔"^]。
 
 +
 image:fsx-hcx-image13.png["錯誤：缺少圖形影像"]
@@ -213,7 +213,7 @@ NOTE: 這需要兩個以上的IP位址。這些IP位址將從管理網路指派�
 image:fsx-hcx-image14.png["錯誤：缺少圖形影像"]
 
 +
-如需詳細指示、請參閱 https://["建立網路設定檔"^]。
+如需詳細指示、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-184FCA54-D0CB-4931-B0E8-A81CD6120C52.html["建立網路設定檔"^]。
 
 +
 
@@ -254,7 +254,7 @@ image:fsx-hcx-image18.png["錯誤：缺少圖形影像"]
 ====
 HCx可在兩個或多個不同的環境（例如內部部署環境和VMC SDDC）之間提供雙向移轉服務。應用程式工作負載可使用各種移轉技術、例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（可搭配HCX Enterprise版本使用）、以及HCX OS輔助移轉（可搭配HCX Enterprise版本使用）、移轉至或移轉至HCX啟動的站台。
 
-若要深入瞭解可用的HCX移轉技術、請參閱 https://["VMware HCX移轉類型"^]
+若要深入瞭解可用的HCX移轉技術、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["VMware HCX移轉類型"^]
 
 HCX-IX應用裝置使用行動代理程式服務來執行VMotion、Cold和Replication輔助VMotion（RAV）移轉。
 
@@ -286,7 +286,7 @@ image:fsx-hcx-image22.png["錯誤：缺少圖形影像"]
 . 驗證檢查完成後、按一下「Go（執行）」以啟動移轉。
 +
 
-NOTE: VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及其MAC位址。如需有關HCX VMotion需求與限制的詳細資訊、請參閱 https://["瞭解VMware HCX VMotion和冷移轉"^]。
+NOTE: VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及其MAC位址。如需有關HCX VMotion需求與限制的詳細資訊、請參閱 https://docs.vmware.com/en/VMware-HCX/4.1/hcx-user-guide/GUID-517866F6-AF06-4EFC-8FAE-DA067418D584.html["瞭解VMware HCX VMotion和冷移轉"^]。
 
 . 您可以從HCX >移轉儀表板監控VMotion的進度和完成。
 +
@@ -309,7 +309,7 @@ image:fsx-hcx-image24.png["錯誤：缺少圖形影像"]
 image:fsx-hcx-image25.png["錯誤：缺少圖形影像"]
 
 =====
-如需HCX移轉選項的其他資訊、以及如何使用HCX將工作負載從內部部署移轉至AWS上的VMware Cloud、請參閱 https://["VMware HCX使用者指南"^]。
+如需HCX移轉選項的其他資訊、以及如何使用HCX將工作負載從內部部署移轉至AWS上的VMware Cloud、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-14D48C15-3D75-485B-850F-C5FCB96B5637.html["VMware HCX使用者指南"^]。
 
 
 NOTE: VMware HCX VMotion需要100Mbps或更高的處理量能力。
@@ -343,14 +343,14 @@ NOTE: 目標VMC FSX for ONTAP VMware資料存放區必須有足夠的空間來�
 
 * VMware Cloud文件
 +
-https://["https://docs.vmware.com/en/VMware-Cloud-on-AWS/"^]
+https://docs.vmware.com/en/VMware-Cloud-on-AWS/["https://docs.vmware.com/en/VMware-Cloud-on-AWS/"^]
 
 * Amazon FSX for NetApp ONTAP 的支援文件
 +
-https://["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide"^]
+https://docs.aws.amazon.com/fsx/latest/ONTAPGuide["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide"^]
 
 +
 VMware HCX使用者指南
 
-* https://["https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html"^]
+* https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html"^]
 

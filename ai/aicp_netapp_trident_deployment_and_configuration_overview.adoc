@@ -22,7 +22,7 @@ summary: 本頁說明在Kubernetes叢集中安裝及設定NetApp Trident所需�
 
 在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
 
-. 您已經有一個正常運作的Kubernetes叢集、而且您正在執行Trident支援的Kubernetes版本。如需支援版本的清單、請參閱 https://["Trident文件"^]。
+. 您已經有一個正常運作的Kubernetes叢集、而且您正在執行Trident支援的Kubernetes版本。如需支援版本的清單、請參閱 https://docs.netapp.com/us-en/trident/["Trident文件"^]。
 . 您已經擁有Trident支援的有效NetApp儲存設備、軟體定義執行個體或雲端儲存服務。
 
 
@@ -34,8 +34,8 @@ summary: 本頁說明在Kubernetes叢集中安裝及設定NetApp Trident所需�
 
 . 使用下列其中一種方法部署Trident：
 +
-** 如果您使用NVIDIA DeepOps來部署Kubernetes叢集、也可以使用NVIDIA DeepOps在Kubernetes叢集中部署Trident。若要部署Trident with DeepOps、請遵循 https://["Trident部署指示"] 在NVIDIA DeepOps GitHub網站上。
-** 如果您沒有使用NVIDIA DeepOps來部署Kubernetes叢集、或是想要手動部署Trident、您可以遵循來部署Trident https://["部署指示"^] 在Trident文件中。請務必至少建立一個Trident Backend和至少一個Kubernetes StorageClass、以取得如何設定的詳細資訊 https://["後端"^] 和 https://["儲存類別"^] 請參閱NetApp文件中的連結小節。
+** 如果您使用NVIDIA DeepOps來部署Kubernetes叢集、也可以使用NVIDIA DeepOps在Kubernetes叢集中部署Trident。若要部署Trident with DeepOps、請遵循 https://github.com/NVIDIA/deepops/tree/master/docs/k8s-cluster#netapp-trident["Trident部署指示"] 在NVIDIA DeepOps GitHub網站上。
+** 如果您沒有使用NVIDIA DeepOps來部署Kubernetes叢集、或是想要手動部署Trident、您可以遵循來部署Trident https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["部署指示"^] 在Trident文件中。請務必至少建立一個Trident Backend和至少一個Kubernetes StorageClass、以取得如何設定的詳細資訊 https://docs.netapp.com/us-en/trident/trident-use/backends.html["後端"^] 和 https://docs.netapp.com/us-en/trident/trident-use/manage-stor-class.html["儲存類別"^] 請參閱NetApp文件中的連結小節。
 +
 
 NOTE: 如果您要在ONTAP 一個AI Pod上部署NetApp AI Control Plane解決方案、請參閱 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["Trident後端範例、適用於ONTAP AI部署"] 如需您可能想要建立和的不同Trident後端的一些範例 link:aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html["Kubernetes Storageclasses範例、可用於ONTAP 進行AI部署"] 如需您可能想要建立的不同Kubernetes StorageClass範例。

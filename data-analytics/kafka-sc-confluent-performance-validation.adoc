@@ -113,6 +113,6 @@ image:kafka-sc-image8.png["此圖說明環境如何設定為單一HA配對進行
 
 這項測試檢查了在繁重的主題保留工作負載下、物件儲存設備的刪除效能。保留工作負載是使用TOCC指令碼產生、該指令碼會產生許多訊息、並與測試主題平行。測試主題是以積極的大小型和時間型保留設定來設定、導致事件串流持續從物件存放區中清除。然後將區段歸檔。這導致代理程式在物件儲存區中進行許多刪除、並收集物件儲存區刪除作業的效能。
 
-如需驗證詳細資料、請參閱 https://["Confluent"^] 網站。
+如需驗證詳細資料、請參閱 https://docs.confluent.io/platform/current/kafka/tiered-storage.html["Confluent"^] 網站。
 
 link:kafka-sc-performance-tests-with-produce-consume-workload-generator.html["下一步：使用產生耗用的工作負載產生器進行效能測試。"]

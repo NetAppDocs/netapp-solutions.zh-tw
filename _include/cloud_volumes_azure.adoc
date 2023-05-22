@@ -9,7 +9,7 @@
 .Terraform組態檔案、可在Azure上部署Anf Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定anf（簡稱「還原」）Volume。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
 .程序
 若要執行範本：
@@ -127,7 +127,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 .Terraform組態檔案、可在Azure上部署具有資料保護功能的ANF Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上部署/設定含資料保護功能的ANF（還原）Volume。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
 .程序
 若要執行範本：
@@ -281,7 +281,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 .Terraform組態檔案、可在Azure上部署含雙傳輸協定的ANF Volume
 本節包含各種Terraform組態檔案、可在Azure NetApp Files Azure上啟用雙傳輸協定的情況下部署/設定ANF（還原）Volume。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
 .程序
 若要執行範本：
@@ -411,7 +411,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 .Terraform組態檔案、可在Azure上部署Snapshot的Anf Volume
 本節包含各種Terraform組態檔案、可從Azure NetApp Files Azure上的Snapshot部署/設定anf（簡稱「EF」）Volume。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs[]
 
 .程序
 若要執行範本：
@@ -530,7 +530,7 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 .Terraform組態檔案、可在Azure上部署單一節點CVO
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定單一節點CVO（英文）。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
 .程序
 若要執行範本：
@@ -627,7 +627,7 @@ Terraform文件： https://[]
 | * AZ連接器_關聯_公用IP位址* | 字串 | （必填）指出是否要將公用IP位址與虛擬機器建立關聯。 
 
 
-| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
+| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
 
 
 | * AZ連接器管理密碼* | 字串 | （必填）Connector的密碼。 
@@ -660,7 +660,7 @@ Terraform文件： https://[]
 | * AZ_CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
 
 
-| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://[]。 
+| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
 
 
 | * AZ_CVO_capize_Tier * | 字串 | （必填）是否為第一個資料Aggregate啟用資料分層：['Blob、'none]。預設值為「BLOB」。 
@@ -695,7 +695,7 @@ Terraform文件： https://[]
 .Terraform組態檔案、可在Azure上部署CVO HA
 本節包含各種Terraform組態檔案、可在Cloud Volumes ONTAP Azure上部署/設定CVO（簡稱「還原」）HA（高可用度）。
 
-Terraform文件： https://[]
+Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-cloudmanager/latest/docs[]
 
 .程序
 若要執行範本：
@@ -792,7 +792,7 @@ HA配對Cloud Volumes ONTAP 的Terraform變數（CVO）。
 | * AZ連接器_關聯_公用IP位址* | 字串 | （必填）指出是否要將公用IP位址與虛擬機器建立關聯。 
 
 
-| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://[]。 
+| * AZ_connector帳戶ID * | 字串 | （必填）Connector將與之關聯的NetApp帳戶ID。如果未提供、Cloud Manager會使用第一個帳戶。如果沒有帳戶存在、Cloud Manager會建立新帳戶。您可以在Cloud Manager的帳戶索引標籤中找到帳戶ID、網址為 https://cloudmanager.netapp.com[]。 
 
 
 | * AZ連接器管理密碼* | 字串 | （必填）Connector的密碼。 
@@ -825,7 +825,7 @@ HA配對Cloud Volumes ONTAP 的Terraform變數（CVO）。
 | * AZ_CVO_SVM_Password* | 字串 | （必填）Cloud Volumes ONTAP 用於執行功能的管理員密碼。 
 
 
-| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://[]。 
+| * AZ_CVO_Workby_id* | 字串 | （必填）您要部署Cloud Volumes ONTAP 的Cloud Manager工作區ID。如果未提供、Cloud Manager會使用第一個工作區。您可以在的「工作區」索引標籤中找到ID https://cloudmanager.netapp.com[]。 
 
 
 | * AZ_CVO_capize_Tier * | 字串 | （必填）是否為第一個資料Aggregate啟用資料分層：['Blob、'none]。預設值為「BLOB」。 

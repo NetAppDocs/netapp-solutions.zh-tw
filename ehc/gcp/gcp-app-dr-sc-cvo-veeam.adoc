@@ -72,11 +72,11 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 .在Google Cloud上設定CVO、並將磁碟區複寫至CVO
 [%collapsible]
 ====
-第一步是在Cloud Volumes ONTAP Google Cloud上設定 (https://["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
+第一步是在Cloud Volumes ONTAP Google Cloud上設定 (https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp/gcp-guest.html["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
 
 image:dr-cvo-gcve-image2.png["錯誤：缺少圖形影像"]
 
-如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱 https://["利用SnapCenter 功能進行複寫設定"]
+如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/aws/aws-guest-dr-overview.html#config-snapmirror["利用SnapCenter 功能進行複寫設定"]
 
 video::dr-cvo-gcve-video2.mp4[Review of SQL VM protection with SnapCenter]
 ====
@@ -87,7 +87,7 @@ video::dr-cvo-gcve-video2.mp4[Review of SQL VM protection with SnapCenter]
 
 可將支援範例部署至任何VPC、而GCVR應具有與該VPC的私有連線、以便讓VM連線至iSCSI LUN。Cloud Volumes ONTAP
 
-若要設定GCVE/ SDDC、請參閱 https://["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
+若要設定GCVE/ SDDC、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp/gcp-setup.html["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
 
 正確設定好VMware和GCVETM之後Cloud Volumes ONTAP 、請開始設定Veeam、使用Veeam複寫功能、並利用SnapMirror將應用程式Volume複本複製到Cloud Volumes ONTAP VMware、將內部部署工作負載的恢復作業自動化至GCVETM（使用應用程式VMDK的VM和使用客體內建儲存設備的VM）。
 
@@ -95,13 +95,13 @@ video::dr-cvo-gcve-video2.mp4[Review of SQL VM protection with SnapCenter]
 .安裝Veeam元件
 [%collapsible]
 ====
-根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。https://["如需安裝程序、請參閱Veeam文件"]
+根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。https://helpcenter.veeam.com/docs/backup/qsg_vsphere/deployment_scenarios.html["如需安裝程序、請參閱Veeam文件"]
 
 ====
 .使用Veeam設定VM複寫
 [%collapsible]
 ====
-內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。 https://["設定vSphere VM複寫工作"] 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。
+內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。 https://helpcenter.veeam.com/docs/backup/qsg_vsphere/replication_job.html["設定vSphere VM複寫工作"] 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。
 
 video::dr-cvo-gcve-video1.mp4[Veeam Replication Job of SQL VM]
 ====

@@ -106,7 +106,7 @@ image:mlrun_image15.png["錯誤：缺少圖形影像"]
 
 本節說明我們如何使用Nuclio無伺服器功能來產生網路裝置資料。使用案例可從部署管線的Iguazio用戶端進行調整、並使用Iguazio服務來監控和預測網路裝置故障。
 
-我們模擬來自網路裝置的資料。執行Jupyter筆記型電腦「data- gener.ipynb」可建立無伺服器功能、每10分鐘執行一次、並產生含有新資料的Parquet檔案。若要部署此功能、請執行此筆記型電腦中的所有儲存格。請參閱 https://["Nuclio網站"^] 檢閱此筆記型電腦中任何不熟悉的元件。
+我們模擬來自網路裝置的資料。執行Jupyter筆記型電腦「data- gener.ipynb」可建立無伺服器功能、每10分鐘執行一次、並產生含有新資料的Parquet檔案。若要部署此功能、請執行此筆記型電腦中的所有儲存格。請參閱 https://nuclio.io/["Nuclio網站"^] 檢閱此筆記型電腦中任何不熟悉的元件。
 
 產生函數時會忽略具有下列註解的儲存格。筆記型電腦中的每個儲存格都會被視為功能的一部分。匯入Nuclio模組以啟用「%nuclio fic」。
 
@@ -353,6 +353,6 @@ image:mlrun_image20.png["錯誤：缺少圖形影像"]
 
 image:mlrun_image21.png["錯誤：缺少圖形影像"]
 
-關於MLRun的資訊比本文件所涵蓋的資訊更多。所有成品（包括步驟和功能的定義）都可儲存至API資料庫、版本控制、個別或完整的專案來叫用。專案也可儲存並推送至Git供日後使用。我們鼓勵您在上深入瞭解 https://["MLRun GitHub網站"^]。
+關於MLRun的資訊比本文件所涵蓋的資訊更多。所有成品（包括步驟和功能的定義）都可儲存至API資料庫、版本控制、個別或完整的專案來叫用。專案也可儲存並推送至Git供日後使用。我們鼓勵您在上深入瞭解 https://github.com/mlrun/mlrun["MLRun GitHub網站"^]。
 
 link:mlrun_deploy_grafana_dashboard.html["下一步：部署Grafana儀表板"]

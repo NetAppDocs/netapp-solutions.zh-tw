@@ -32,7 +32,7 @@ NetApp DataOps Toolkit是Python程式庫、可讓開發人員、資料科學家�
 
 下圖顯示解決方案架構。有三大環境類別：雲端、核心和邊緣。每個類別都可以分散在不同的地理位置。例如、雲端包含的物件儲存區位於不同區域的儲存區、音訊檔案則位於不同區域、而核心則可能包含透過高速網路或NetApp Cloud Sync 還原連結的資料中心。邊緣節點表示個人人力代理商的日常工作平台、其中提供互動式儀表板工具和麥克風、可視覺化感受、並從與客戶的對話中收集音訊資料。
 
-在GPU加速的資料中心中、企業可以使用NVIDIA https://["Riva"^] 構建對話式AI應用程式的架構 https://["TAO工具套件"^] 運用轉介L型學習技術、連接模型的微調和再訓練。這些運算應用程式和工作流程均由提供支援 https://["NetApp DataOps工具套件"^]、實現ONTAP 最佳的資料管理功能。此工具組可讓企業資料團隊透過快照和複本、快速建立模型原型、並建立相關的結構化和非結構化資料、以利追蹤、版本管理和A/B測試、進而提供安全性、治理、 以及法規遵循。請參閱一節 link:ai-sent-design-considerations.html#storage-design["儲存設計"] 以取得更多詳細資料。
+在GPU加速的資料中心中、企業可以使用NVIDIA https://docs.nvidia.com/deeplearning/riva/user-guide/docs/index.html["Riva"^] 構建對話式AI應用程式的架構 https://developer.nvidia.com/tao["TAO工具套件"^] 運用轉介L型學習技術、連接模型的微調和再訓練。這些運算應用程式和工作流程均由提供支援 https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"^]、實現ONTAP 最佳的資料管理功能。此工具組可讓企業資料團隊透過快照和複本、快速建立模型原型、並建立相關的結構化和非結構化資料、以利追蹤、版本管理和A/B測試、進而提供安全性、治理、 以及法規遵循。請參閱一節 link:ai-sent-design-considerations.html#storage-design["儲存設計"] 以取得更多詳細資料。
 
 本解決方案說明音訊檔案處理、NLP模式訓練、傳輸學習及資料管理詳細步驟。最終端點對端點的傳輸途徑會產生即時顯示在人力支援代理程式儀表板上的意見摘要。
 
@@ -109,7 +109,7 @@ NetApp最新一代的儲存管理軟體- NetApp 9.9、可讓企業將基礎架�
 
 ==== NetApp Cloud Sync
 
-https://["Cloud Sync"^] 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：
+https://docs.netapp.com/us-en/occm/concept_cloud_sync.html["Cloud Sync"^] 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：
 
 * NetApp StorageGRID
 * NetApp ONTAP 產品S3
@@ -128,7 +128,7 @@ https://["Cloud Sync"^] 是一項NetApp服務、可讓您在內部部署NFS或SM
 
 ==== NetApp StorageGRID
 
-由軟體定義的物件儲存套件可無縫支援各種公有、私有及混合式多雲端環境的使用案例。StorageGRIDNetApp StorageGRID 支援領先業界的創新技術、可儲存、保護及保留非結構化資料、以供多種用途使用、包括長期的自動化生命週期管理。如需詳細資訊、請參閱 https://["NetApp StorageGRID"^] 網站。
+由軟體定義的物件儲存套件可無縫支援各種公有、私有及混合式多雲端環境的使用案例。StorageGRIDNetApp StorageGRID 支援領先業界的創新技術、可儲存、保護及保留非結構化資料、以供多種用途使用、包括長期的自動化生命週期管理。如需詳細資訊、請參閱 https://www.netapp.com/data-storage/storagegrid/documentation/["NetApp StorageGRID"^] 網站。
 
 
 
@@ -243,6 +243,6 @@ image:ai-sent-image6.png["錯誤：缺少圖形影像"]
 
 image:ai-sent-image8.png["錯誤：缺少圖形影像"]
 
-TAO工具套件中的語音對文字和情緒分析也使用類似的管道。主要差異在於使用標籤來微調模型。TAO工具套件管道從資料檔案的處理開始。然後是預先訓練的模型（來自 https://["NVIDIA NGC目錄"^]）使用支援中心資料進行微調。系統會根據其對應的效能指標來評估微調模型、如果它們的效能比預先訓練的模型更高、則會部署到Riva伺服器。
+TAO工具套件中的語音對文字和情緒分析也使用類似的管道。主要差異在於使用標籤來微調模型。TAO工具套件管道從資料檔案的處理開始。然後是預先訓練的模型（來自 https://ngc.nvidia.com/catalog["NVIDIA NGC目錄"^]）使用支援中心資料進行微調。系統會根據其對應的效能指標來評估微調模型、如果它們的效能比預先訓練的模型更高、則會部署到Riva伺服器。
 
 link:ai-sent-design-considerations.html["下一步：設計考量。"]

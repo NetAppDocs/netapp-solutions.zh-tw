@@ -71,7 +71,7 @@ NOTE: 這是在站台上安裝每個Tanzu Kubernetes的最佳實務做法、可�
 
 本解決方案說明使用Ansible教戰手冊安裝Astra Control Center的自動化程序。如果您正在尋找安裝Astra Control Center的手動程序、請遵循詳細的安裝與操作指南 link:https://docs.netapp.com/us-en/astra-control-center/index.html["請按這裡"^]。
 
-. 若要使用部署Astra Control Center的Ansible教戰手冊、您必須安裝有Ansible的Ubuntu / RHEL機器。請依照程序進行 https://["請按這裡"] 適用於 Ubuntu 和 RHEL 。
+. 若要使用部署Astra Control Center的Ansible教戰手冊、您必須安裝有Ansible的Ubuntu / RHEL機器。請依照程序進行 https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["請按這裡"] 適用於 Ubuntu 和 RHEL 。
 . 複製裝載可執行內容的GitHub儲存庫。
 +
 [source, cli]
@@ -81,7 +81,7 @@ git clone https://github.com/NetApp-Automation/na_astra_control_suite.git
 . 登入NetApp支援網站、下載最新版本的NetApp Astra Control Center。若要這麼做、必須附上NetApp帳戶的授權。下載後、將其傳輸至工作站。
 +
 
-NOTE: 若要開始使用Astra Control試用授權、請造訪 https://["Astra註冊網站"^]。
+NOTE: 若要開始使用Astra Control試用授權、請造訪 https://cloud.netapp.com/astra-register["Astra註冊網站"^]。
 
 . 建立或取得Kubeconfig檔案、並以系統管理存取權限存取要安裝Astra Control Center的使用者或工作負載Tanu Kubernetes叢集。
 . 將目錄變更為「na_Astra_control_suITE」。
@@ -237,7 +237,7 @@ image:redhat_openshift_image90.jpg["Astra Control Center新增授權"]
 
 +
 
-NOTE: 如果您在安裝或組態NetApp Astra Control Center時遇到問題、我們將提供已知問題的知識庫 https://["請按這裡"^]。
+NOTE: 如果您在安裝或組態NetApp Astra Control Center時遇到問題、我們將提供已知問題的知識庫 https://kb.netapp.com/Advice_and_Troubleshooting/Cloud_Services/Astra["請按這裡"^]。
 
 
 

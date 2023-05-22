@@ -22,7 +22,7 @@ image:osrunai_image2.png["錯誤：缺少圖形影像"]
 
 == 本解決方案所使用的硬體
 
-此解決方案已通過ONTAP 驗證、採用了一套支援整個AI參考架構、其中兩個DGX-1節點和一個AFF 支援完善的資料中心A800儲存系統。請參閱 https://["NVA-1121."^] 如需此驗證所使用基礎架構的詳細資訊、請參閱。
+此解決方案已通過ONTAP 驗證、採用了一套支援整個AI參考架構、其中兩個DGX-1節點和一個AFF 支援完善的資料中心A800儲存系統。請參閱 https://www.netapp.com/us/media/nva-1121-design.pdf["NVA-1121."^] 如需此驗證所使用基礎架構的詳細資訊、請參閱。
 
 下表列出實作已測試解決方案所需的硬體元件。
 
@@ -42,7 +42,7 @@ image:osrunai_image2.png["錯誤：缺少圖形影像"]
 
 == 軟體需求
 
-此解決方案已通過基本Kubernetes部署驗證、並已安裝Run:AI操作員。Kubernetes是使用部署的 https://["NVIDIA DeepOps"^] 部署引擎、可部署正式作業就緒環境所需的所有元件。DeepOps會自動部署 https://["NetApp Trident"^] 為了持續與k8s環境整合儲存設備、我們建立了預設的儲存類別、讓容器能夠利用AFF 來自於該系統的儲存設備。如需ONTAP 有關Trident with Kubernetes on AI的詳細資訊、請參閱 https://["TR-4798"^]。
+此解決方案已通過基本Kubernetes部署驗證、並已安裝Run:AI操作員。Kubernetes是使用部署的 https://github.com/NVIDIA/deepops["NVIDIA DeepOps"^] 部署引擎、可部署正式作業就緒環境所需的所有元件。DeepOps會自動部署 https://netapp.io/persistent-storage-provisioner-for-kubernetes/["NetApp Trident"^] 為了持續與k8s環境整合儲存設備、我們建立了預設的儲存類別、讓容器能夠利用AFF 來自於該系統的儲存設備。如需ONTAP 有關Trident with Kubernetes on AI的詳細資訊、請參閱 https://www.netapp.com/us/media/tr-4798.pdf["TR-4798"^]。
 
 下表列出實作已測試解決方案所需的軟體元件。
 
@@ -73,6 +73,6 @@ image:osrunai_image2.png["錯誤：缺少圖形影像"]
 
 | Docker Container平台 | 18.06.1-CE [e68fc7a] 
 |===
-有關Run:AI的其他軟體需求、請參閱 https://["執行：AI GPU叢集先決條件"^]。
+有關Run:AI的其他軟體需求、請參閱 https://docs.run.ai/Administrator/Cluster-Setup/Run-AI-GPU-Cluster-Prerequisites/["執行：AI GPU叢集先決條件"^]。
 
 link:osrunai_optimal_cluster_and_gpu_utilization_with_run_ai_overview.html["下一步：以Run AI實現最佳叢集與GPU使用率"]

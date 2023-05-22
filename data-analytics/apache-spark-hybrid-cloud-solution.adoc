@@ -34,8 +34,8 @@ image:apache-spark-image14.png["雲端服務合作夥伴的解決方案範例。
 
 我們的資料保護與多重雲端連線解決方案解決了跨多個大型擴充程式使用雲端分析應用程式的難題。如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。
 
-由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。因此、因為內部部署和NPS儲存都執行ONTAP 了一套功能不全的軟體、 https://["SnapMirror"^] 可將NPS資料鏡射至內部部署叢集、在內部部署和多個雲端之間提供混合雲分析。
+由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。因此、因為內部部署和NPS儲存都執行ONTAP 了一套功能不全的軟體、 https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-replication-concept.html["SnapMirror"^] 可將NPS資料鏡射至內部部署叢集、在內部部署和多個雲端之間提供混合雲分析。
 
-為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括 https://["XCP"^] 和 https://["Cloud Sync"^] 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。
+為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括 https://mysupport.netapp.com/documentation/docweb/index.html?productID=63942&language=en-US["XCP"^] 和 https://cloud.netapp.com/cloud-sync-service["Cloud Sync"^] 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。
 
 link:apache-spark-python-scripts-for-each-major-use-case.html["下一步：每個主要使用案例的Python指令碼。"]

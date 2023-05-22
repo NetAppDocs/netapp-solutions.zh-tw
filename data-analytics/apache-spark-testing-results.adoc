@@ -79,7 +79,7 @@ link:apache-spark-major-ai,-ml,-and-dl-use-cases-and-architectures.html["先前�
 
 == 財務情資分析
 
-我們發表了 https://["TR-4910：客戶與NetApp AI溝通時的意見分析"^]、其中使用建立端點對端點對話AI管道 https://["NetApp DataOps工具套件"^]、不儲存及NVIDIA DGX系統。AFF此管線運用DataOps Toolkit執行批次音訊訊號處理、自動語音辨識（ASR）、傳輸學習和情緒分析、 https://["NVIDIA Riva SDK"^]和 https://["TAO架構"^]。我們將情緒分析使用案例擴大至金融服務業、建立SparkNLP工作流程、針對各種NLP工作（例如命名實體辨識）、載入三種Bert模式、並針對NASDAQ前10大公司的季度營收要求、獲得句子等級的感受。
+我們發表了 https://docs.netapp.com/us-en/netapp-solutions/ai/ai-sent-support-center-analytics.html["TR-4910：客戶與NetApp AI溝通時的意見分析"^]、其中使用建立端點對端點對話AI管道 https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"^]、不儲存及NVIDIA DGX系統。AFF此管線運用DataOps Toolkit執行批次音訊訊號處理、自動語音辨識（ASR）、傳輸學習和情緒分析、 https://developer.nvidia.com/riva["NVIDIA Riva SDK"^]和 https://developer.nvidia.com/tao["TAO架構"^]。我們將情緒分析使用案例擴大至金融服務業、建立SparkNLP工作流程、針對各種NLP工作（例如命名實體辨識）、載入三種Bert模式、並針對NASDAQ前10大公司的季度營收要求、獲得句子等級的感受。
 
 下列指令碼「ention_sization_SPARK」。PY'使用FinBERT模型來處理HDFS的錄音記錄、並產生正面、中立和負面的感覺、如下表所示：
 
@@ -242,7 +242,7 @@ image:apache-spark-image12.png["Horovod Spark Workflow執行時間。"]
 
 針對最大化CTR的推薦系統、您必須瞭解使用者行為背後的複雜功能互動、這些行為可以從低階到高階的數學計算得出。對於良好的深度學習模式而言、低階和高階功能互動同樣重要、而不需互相偏好。深度Factorization Machine（DeepFM）是一種面向機器的神經網路、結合了面向技術的機器、可在全新的神經網路架構中提供建議和深度學習功能。
 
-雖然傳統的面向化機器會將配對功能互動視為潛在功能之間的內部產品、理論上也能擷取高階資訊、但實際上、機器學習工作者通常只會因為高運算和儲存複雜度而使用二階功能互動。深入的神經網路變種、例如Google https://["廣角安培；深層機型"^] 另一方面、將線性寬模型與深度模型結合、即可在混合式網路架構中學習精密的功能互動。
+雖然傳統的面向化機器會將配對功能互動視為潛在功能之間的內部產品、理論上也能擷取高階資訊、但實際上、機器學習工作者通常只會因為高運算和儲存複雜度而使用二階功能互動。深入的神經網路變種、例如Google https://arxiv.org/abs/1606.07792["廣角安培；深層機型"^] 另一方面、將線性寬模型與深度模型結合、即可在混合式網路架構中學習精密的功能互動。
 
 這種廣域與深層模型有兩種輸入、一種是基礎廣泛模型、另一種是深度模型、其後一部分仍需要專家特徵工程、因此技術較不適用於其他網域。與廣角和深層模型不同的是、DeepFM可有效訓練原始功能、無需任何特徵工程、因為其廣泛的部分和深層部分共用相同的輸入和內嵌向量。
 
@@ -269,7 +269,7 @@ image:apache-spark-image12.png["Horovod Spark Workflow執行時間。"]
     .config("spark.driver.maxResultSize", "50gb") \
     .getOrCreate()
 ....
-在上述的「parkSession．builder」組態中、我們也啟用了 https://["Apache Arrow"^]、使用「d．toPandas（）」方法、將Spark DataFrame轉換成成Pandas DataFrame。
+在上述的「parkSession．builder」組態中、我們也啟用了 https://arrow.apache.org/["Apache Arrow"^]、使用「d．toPandas（）」方法、將Spark DataFrame轉換成成Pandas DataFrame。
 
 ....
 22/06/17 15:56:21 INFO scheduler.DAGScheduler: Job 2 finished: toPandas at /sparkusecase/DeepCTR/examples/run_classification_criteo_spark.py:96, took 627.126487 s
@@ -287,7 +287,7 @@ Testing dataset size =  9168124
 2022-06-18 07:19:20.101478: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 FMA
 To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
 ....
-若要從來源建置TensorFlow、NetApp建議使用 https://["巴茲爾"^]。在我們的環境中、我們在Shell提示字元中執行下列命令、以安裝「dNF」、「dNF-plugins」和「Bazel」。
+若要從來源建置TensorFlow、NetApp建議使用 https://bazel.build/["巴茲爾"^]。在我們的環境中、我們在Shell提示字元中執行下列命令、以安裝「dNF」、「dNF-plugins」和「Bazel」。
 
 ....
 yum install dnf
@@ -305,9 +305,9 @@ yum update
 scl enable devtoolset-11 bash
 . /opt/rh/devtoolset-11/enable
 ....
-請注意、最後兩個命令會啟用「devtoolSet-11」、使用「/opt/r/devtoolSet-11/root/usr/in/gccs」（gcc11.2.1）。此外、請確定您的「git」版本大於1.8.3（RHEL 7.9隨附）。請參閱此 https://["文章"^] 將「git」更新為2.24.1。
+請注意、最後兩個命令會啟用「devtoolSet-11」、使用「/opt/r/devtoolSet-11/root/usr/in/gccs」（gcc11.2.1）。此外、請確定您的「git」版本大於1.8.3（RHEL 7.9隨附）。請參閱此 https://travis.media/how-to-upgrade-git-on-rhel7-and-centos7/["文章"^] 將「git」更新為2.24.1。
 
-我們假設您已複製最新的TensorFlow主要repo。然後使用「工作區」檔案建立「工作區」目錄、以使用AVX、AVX2和FMA從來源建置TensorFlow。執行「configure」檔案、並指定正確的Python二進位位置。 https://["CUDA"^] 因為我們沒有使用GPU、所以測試時停用。系統會根據您的設定產生「.bazelrc」檔案。此外、我們編輯檔案並設定「build -define = no_HDfs_support=fals'」以啟用HDFS支援。請參閱一節中的「.bazelrc」 link:apache-spark-python-scripts-for-each-major-use-case.html["「每個主要使用案例的Python指令碼」"] 以取得設定和旗標的完整清單。
+我們假設您已複製最新的TensorFlow主要repo。然後使用「工作區」檔案建立「工作區」目錄、以使用AVX、AVX2和FMA從來源建置TensorFlow。執行「configure」檔案、並指定正確的Python二進位位置。 https://developer.nvidia.com/cuda-toolkit["CUDA"^] 因為我們沒有使用GPU、所以測試時停用。系統會根據您的設定產生「.bazelrc」檔案。此外、我們編輯檔案並設定「build -define = no_HDfs_support=fals'」以啟用HDFS支援。請參閱一節中的「.bazelrc」 link:apache-spark-python-scripts-for-each-major-use-case.html["「每個主要使用案例的Python指令碼」"] 以取得設定和旗標的完整清單。
 
 ....
 ./configure

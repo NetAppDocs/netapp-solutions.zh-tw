@@ -14,9 +14,9 @@ summary: 以類似其他Google Cloud原生服務的方式、例如CloudSQL、Goo
 
 
 [role="lead"]
-以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和Filestore Cloud Volumes Service 、即用功能 https://["Google PSA"^] 以提供服務。在PSAA中、服務是建置於服務製造商專案內、此專案使用的 https://["VPC網路對等關係"^] 連線至服務使用者。服務製造商由NetApp提供及營運、服務消費者是客戶專案中的VPC、負責託管想要存取Cloud Volumes Service VMware檔案共享的客戶。
+以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和Filestore Cloud Volumes Service 、即用功能 https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["Google PSA"^] 以提供服務。在PSAA中、服務是建置於服務製造商專案內、此專案使用的 https://cloud.google.com/vpc/docs/vpc-peering?hl=en_US["VPC網路對等關係"^] 連線至服務使用者。服務製造商由NetApp提供及營運、服務消費者是客戶專案中的VPC、負責託管想要存取Cloud Volumes Service VMware檔案共享的客戶。
 
-下圖、請參閱 https://["架構區段"^] 在本文件中Cloud Volumes Service 、顯示了高階檢視。
+下圖、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture?hl=en_US["架構區段"^] 在本文件中Cloud Volumes Service 、顯示了高階檢視。
 
 image:ncvs-gc-image1.png["錯誤：缺少圖形影像"]
 
@@ -46,7 +46,7 @@ image:ncvs-gc-image1.png["錯誤：缺少圖形影像"]
 
 VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些服務已連接至網際網路、可在全球各地存取。這些服務可透過使用者身分識別提供存取控制、但無法限制來自哪些網路位置要求。VPC服務控制功能引進限制存取已定義網路的功能、藉此彌補這項落差。
 
-此資料平面並未連線至外部網際網路、而是連線至具有明確定義網路邊界（周邊）的私有VPC。Cloud Volumes Service在該網路中、每個磁碟區都使用特定於傳輸協定的存取控制。任何外部網路連線都是由Google Cloud專案管理員明確建立。然而、控制面板並未提供與資料面板相同的保護、任何人只要擁有有效的認證資料（ https://["JWT權杖"^]）。
+此資料平面並未連線至外部網際網路、而是連線至具有明確定義網路邊界（周邊）的私有VPC。Cloud Volumes Service在該網路中、每個磁碟區都使用特定於傳輸協定的存取控制。任何外部網路連線都是由Google Cloud專案管理員明確建立。然而、控制面板並未提供與資料面板相同的保護、任何人只要擁有有效的認證資料（ https://datatracker.ietf.org/doc/html/rfc7519["JWT權杖"^]）。
 
 簡而言之Cloud Volumes Service 、不需要支援VPC服務控制、也不明確使用VPC服務控制、即可透過資料中心提供網路存取控制功能。
 
@@ -73,7 +73,7 @@ image:ncvs-gc-image4.png["錯誤：缺少圖形影像"]
 
 === VM網路介面
 
-攻擊者可能會嘗試將新的網路介面卡（NIC）新增至中的VM https://["混雜模式"^] （連接埠鏡射）或在現有NIC上啟用雜亂模式、以利窺探所有流量。在Google Cloud中、新增NIC需要完全關閉虛擬機器、才能建立警示、因此攻擊者無法察覺。
+攻擊者可能會嘗試將新的網路介面卡（NIC）新增至中的VM https://en.wikipedia.org/wiki/Promiscuous_mode["混雜模式"^] （連接埠鏡射）或在現有NIC上啟用雜亂模式、以利窺探所有流量。在Google Cloud中、新增NIC需要完全關閉虛擬機器、才能建立警示、因此攻擊者無法察覺。
 
 此外、NIC完全無法設定為雜亂模式、而且會在Google Cloud中觸發警示。
 

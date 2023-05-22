@@ -22,13 +22,13 @@ link:ncvs-gc-cloud-volumes-service-architecture.html["先前版本：Cloud Volum
 
 == 身分識別與存取管理
 
-身分識別與存取管理 (https://["IAM"^]）是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。Google IAM提供完整的權限授權與移除稽核追蹤。目前Cloud Volumes Service 無法提供控制面板稽核。
+身分識別與存取管理 (https://cloud.google.com/iam/docs/overview["IAM"^]）是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。Google IAM提供完整的權限授權與移除稽核追蹤。目前Cloud Volumes Service 無法提供控制面板稽核。
 
 
 
 === 授權/權限總覽
 
-IAM提供Cloud Volumes Service 內建的精細權限來執行功能。您可以找到 https://["請在此填寫詳細權限清單"^]。
+IAM提供Cloud Volumes Service 內建的精細權限來執行功能。您可以找到 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["請在此填寫詳細權限清單"^]。
 
 IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「netappcloudVolumes.viewer」。這些角色可指派給特定使用者或服務帳戶。
 
@@ -45,19 +45,19 @@ IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「ne
 
 === 服務帳戶
 
-透過Cloud Volumes Service 指令碼或進行功能不均的API呼叫 https://["Terraform"^]、您必須建立角色為「角色/netappcloudVolumes.admin」的服務帳戶。您可以使用此服務帳戶、以Cloud Volumes Service 兩種不同的方式產生驗證申請表API要求所需的JWT權杖：
+透過Cloud Volumes Service 指令碼或進行功能不均的API呼叫 https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs["Terraform"^]、您必須建立角色為「角色/netappcloudVolumes.admin」的服務帳戶。您可以使用此服務帳戶、以Cloud Volumes Service 兩種不同的方式產生驗證申請表API要求所需的JWT權杖：
 
 * 產生Json金鑰、並使用Google API從其衍生JWT權杖。這是最簡單的方法、但需要手動管理機密（Json金鑰）。
-* 使用 https://["服務帳戶模擬"^] 使用角色/iam.serviceAccountTokenCreator`。程式碼（指令碼、Terraform等）會與一起執行 https://["應用程式預設認證"^] 並模擬服務帳戶以取得其權限。這種方法反映了Google的最佳安全實務做法。
+* 使用 https://cloud.google.com/iam/docs/impersonating-service-accounts["服務帳戶模擬"^] 使用角色/iam.serviceAccountTokenCreator`。程式碼（指令碼、Terraform等）會與一起執行 https://google.aip.dev/auth/4110["應用程式預設認證"^] 並模擬服務帳戶以取得其權限。這種方法反映了Google的最佳安全實務做法。
 
 
-請參閱 https://["建立您的服務帳戶和私密金鑰"^] 如需詳細資訊、請參閱Google雲端文件。
+請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["建立您的服務帳戶和私密金鑰"^] 如需詳細資訊、請參閱Google雲端文件。
 
 
 
 == 部分API Cloud Volumes Service
 
-利用HTTPS（TLSv1.2）作為基礎網路傳輸、藉此使用REST型API。Cloud Volumes Service您可以找到最新的API定義 https://["請按這裡"^] 以及如何使用API的相關資訊、請參閱 https://["Google雲端文件中的Cloud Volumes API"^]。
+利用HTTPS（TLSv1.2）作為基礎網路傳輸、藉此使用REST型API。Cloud Volumes Service您可以找到最新的API定義 https://cloudvolumesgcp-api.netapp.com/swagger.json["請按這裡"^] 以及如何使用API的相關資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Google雲端文件中的Cloud Volumes API"^]。
 
 API端點由NetApp使用標準HTTPS（TLSv1.2）功能來操作及保護。
 
@@ -65,7 +65,7 @@ API端點由NetApp使用標準HTTPS（TLSv1.2）功能來操作及保護。
 
 === JWT權杖
 
-API驗證是以JWT承載權杖執行 (https://["RFC-7519"^]）。必須使用Google Cloud IAM驗證來取得有效的JWT權杖。這必須透過提供服務帳戶Json金鑰、從IAM擷取權杖來完成。
+API驗證是以JWT承載權杖執行 (https://datatracker.ietf.org/doc/html/rfc7519["RFC-7519"^]）。必須使用Google Cloud IAM驗證來取得有效的JWT權杖。這必須透過提供服務帳戶Json金鑰、從IAM擷取權杖來完成。
 
 
 

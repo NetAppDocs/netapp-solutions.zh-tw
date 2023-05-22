@@ -71,7 +71,7 @@ NOTE: 將內部部署資料中心連線至Azure的選項有多種、因此我們
 .在Azure上設定CVO、並將磁碟區複寫至CVO
 [%collapsible]
 ====
-第一步是在Cloud Volumes ONTAP Azure上設定功能 (https://["連結"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
+第一步是在Cloud Volumes ONTAP Azure上設定功能 (https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-guest.html["連結"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
 
 image:dr-cvo-avs-image2.png["錯誤：缺少圖形影像"]
 
@@ -85,7 +85,7 @@ image:dr-cvo-avs-image2.png["錯誤：缺少圖形影像"]
 
 最常見的部署選項是讓SDDC以一律開啟的操作前導指示燈模式執行。此選項可提供三部隨時可用的主機的小型佔用空間、並提供執行中的基準來執行模擬活動和法規遵循檢查、藉此加速恢復作業、避免在正式作業站台和災難恢復站台之間發生作業移位的風險。當需要處理實際的DR事件時、可以將指示燈叢集快速擴充至所需的層級。
 
-若要設定AVS SDDC（無論是隨需或是以指示燈模式）、請參閱 https://["在Azure上部署及設定虛擬化環境"^]。先決條件是確認位於AVS主機上的客體VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心使用資料。
+若要設定AVS SDDC（無論是隨需或是以指示燈模式）、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html["在Azure上部署及設定虛擬化環境"^]。先決條件是確認位於AVS主機上的客體VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心使用資料。
 
 正確設定好VMware及AVS之後Cloud Volumes ONTAP 、請開始設定Jetstream、使用VAIO機制、並利用SnapMirror將應用程式磁碟區複本複製到Cloud Volumes ONTAP 物件上、將內部部署工作負載自動還原至AVS（使用應用程式VMDK的VM及使用客體內建儲存設備的VM）。
 

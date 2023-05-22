@@ -48,16 +48,16 @@ NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作�
 .先決條件
 [%collapsible]
 ====
-開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://["連結"^]。在具備連線能力等先決條件之後、請從Azure VMware解決方案入口網站產生授權金鑰、以設定並啟動HCX。下載OVA安裝程式之後、請繼續執行下列安裝程序。
+開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-vmware/configure-vmware-hcx["連結"^]。在具備連線能力等先決條件之後、請從Azure VMware解決方案入口網站產生授權金鑰、以設定並啟動HCX。下載OVA安裝程式之後、請繼續執行下列安裝程序。
 
 
 NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援票證取得、而且不需額外付費即可獲得支援。
 
-* 使用現有的Azure VMware解決方案軟體定義資料中心（SDDC）、或使用此功能建立私有雲端 https://["NetApp連結"^] 或是這種情況 https://["Microsoft連結"^]。
-* 若要從內部部署的VMware vSphere資料中心移轉VM及相關資料、需要從資料中心連線至SDDC環境。移轉工作負載之前、 https://["設定站台對站台VPN或Express路由全域連線連線"^] 在內部部署環境與各自私有雲端之間。
+* 使用現有的Azure VMware解決方案軟體定義資料中心（SDDC）、或使用此功能建立私有雲端 https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html["NetApp連結"^] 或是這種情況 https://docs.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["Microsoft連結"^]。
+* 若要從內部部署的VMware vSphere資料中心移轉VM及相關資料、需要從資料中心連線至SDDC環境。移轉工作負載之前、 https://docs.microsoft.com/en-us/azure/azure-vmware/tutorial-expressroute-global-reach-private-cloud["設定站台對站台VPN或Express路由全域連線連線"^] 在內部部署環境與各自私有雲端之間。
 * 從內部部署VMware vCenter Server環境到Azure VMware解決方案私有雲的網路路徑、必須支援使用VMotion移轉VM。
-* 請確定所需的 https://["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。
-* 應在Azure VMware解決方案中以資料存放區的形式掛載不適用的NFS Volume。Azure NetApp Files請依照本節詳細說明的步驟進行 https://["連結"^] 將Azure NetApp Files 不完整的資料存放區附加至Azure VMware解決方案主機。
+* 請確定所需的 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-A631101E-8564-4173-8442-1D294B731CEB.html["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。
+* 應在Azure VMware解決方案中以資料存放區的形式掛載不適用的NFS Volume。Azure NetApp Files請依照本節詳細說明的步驟進行 https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["連結"^] 將Azure NetApp Files 不完整的資料存放區附加至Azure VMware解決方案主機。
 
 
 ====
@@ -132,7 +132,7 @@ NOTE: 手動啟動虛擬應用裝置。
 
 
 
-如需逐步指示、請參閱 https://["VMware HCX使用者指南"^]。
+如需逐步指示、請參閱 https://docs.vmware.com/en/VMware-HCX/services/user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["VMware HCX使用者指南"^]。
 
 ====
 .步驟3：使用授權金鑰啟動HCX Connector
@@ -149,7 +149,7 @@ image:anfd-hcx-image7.png["新增HCX金鑰的快照。"]
 
 NOTE: 每個部署的內部部署HCX Connector都需要個別的金鑰。
 
-. 登入內部部署的VMware HCX Manager、網址為 https://["https://hcxmanagerIP:9443"^] 使用系統管理員認證。
+. 登入內部部署的VMware HCX Manager、網址為 https://hcxmanagerIP:9443["https://hcxmanagerIP:9443"^] 使用系統管理員認證。
 +
 
 NOTE: 使用在OVA部署期間定義的密碼。
@@ -259,7 +259,7 @@ image:anfd-hcx-image15.png["vSphere用戶端互連頁面上完成程序的快照
 ====
 使用各種VMware HCX移轉技術、可在內部部署與Azure SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。
 
-若要深入瞭解各種HCX移轉機制、請參閱 https://["VMware HCX移轉類型"^]。
+若要深入瞭解各種HCX移轉機制、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["VMware HCX移轉類型"^]。
 
 *大量移轉*
 
@@ -291,7 +291,7 @@ image:anfd-hcx-image19.png["錯誤：缺少圖形影像"]
 
 
 
-如需各種移轉選項的其他詳細資訊、以及如何使用HCX將工作負載從內部部署移轉至Azure VMware解決方案、請參閱 https://["VMware HCX使用者指南"^]。
+如需各種移轉選項的其他詳細資訊、以及如何使用HCX將工作負載從內部部署移轉至Azure VMware解決方案、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-14D48C15-3D75-485B-850F-C5FCB96B5637.html["VMware HCX使用者指南"^]。
 
 若要深入瞭解此程序、歡迎觀看詳細的逐步解說影片：
 
@@ -335,14 +335,14 @@ NOTE: 目標ANF資料存放區應有足夠空間來處理移轉作業。
 
 * Azure VMware解決方案文件
 +
-https://["https://docs.microsoft.com/en-us/azure/azure-vmware/"^]
+https://docs.microsoft.com/en-us/azure/azure-vmware/["https://docs.microsoft.com/en-us/azure/azure-vmware/"^]
 
 * 本文檔 Azure NetApp Files
 +
-https://["https://docs.microsoft.com/en-us/azure/azure-netapp-files/"^]
+https://docs.microsoft.com/en-us/azure/azure-netapp-files/["https://docs.microsoft.com/en-us/azure/azure-netapp-files/"^]
 
 * VMware HCX使用者指南
 +
-https://["https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html"^]
+https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html"^]
 
 

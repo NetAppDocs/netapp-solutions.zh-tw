@@ -18,7 +18,7 @@ ESXi版本3在內部部署部署中引進NFS資料存放區支援、大幅擴充
 
 在NFS上執行vSphere是內部部署虛擬化的廣泛採用選項、因為它提供強大的效能與穩定性。如果您在內部部署資料中心擁有大量的網路附加儲存設備（NAS）、則應考慮在Azure中部署Azure VMware解決方案SDDC與Azure NetApp檔案資料存放區、以克服容量與效能方面的挑戰。
 
-以領先業界的高可用度NetApp解決方案資料管理軟體為基礎。Azure NetApp Files ONTAPMicrosoft Azure服務分為三類：基礎、主流及專業。支援的硬體已部署在許多地區、屬於專業類別。Azure NetApp Files利用內建的高可用度（HA）Azure NetApp Files 功能、讓您的資料不受大多數停機的影響、並提供領先業界的SLA https://["99.99%"^] 正常運作時間：
+以領先業界的高可用度NetApp解決方案資料管理軟體為基礎。Azure NetApp Files ONTAPMicrosoft Azure服務分為三類：基礎、主流及專業。支援的硬體已部署在許多地區、屬於專業類別。Azure NetApp Files利用內建的高可用度（HA）Azure NetApp Files 功能、讓您的資料不受大多數停機的影響、並提供領先業界的SLA https://azure.microsoft.com/support/legal/sla/netapp/v1_1/["99.99%"^] 正常運作時間：
 
 在推出「資料儲存區」功能之前Azure NetApp Files 、客戶若想要裝載效能與儲存密集工作負載、則必須同時擴充運算與儲存設備、才能進行橫向擴充作業。
 
@@ -148,12 +148,12 @@ az extension add --name vmware
 .建立及掛載Azure NetApp Files 功能
 [%collapsible]
 ====
-. 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files 「AZ供應商登錄」、命名空間Microsoft.NetApp–wait命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。註冊後、請建立NetApp帳戶。請參閱此 https://["連結"^] 以取得詳細步驟。
+. 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files 「AZ供應商登錄」、命名空間Microsoft.NetApp–wait命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。註冊後、請建立NetApp帳戶。請參閱此 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["連結"^] 以取得詳細步驟。
 
 
 image:vmware-dr-image2.png["錯誤：缺少圖形影像"]
 
-. 建立NetApp帳戶之後、請設定容量資源池、並設定所需的服務層級和大小。如需詳細資訊、請參閱 https://["連結"^]。
+. 建立NetApp帳戶之後、請設定容量資源池、並設定所需的服務層級和大小。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["連結"^]。
 
 
 image:vmware-dr-image3.png["錯誤：缺少圖形影像"]
@@ -168,7 +168,7 @@ image:vmware-dr-image3.png["錯誤：缺少圖形影像"]
 
 
 |===
-. 設定Azure NetApp Files 委派的子網路以供使用、並在建立磁碟區時指定此子網路。如需建立委派子網路的詳細步驟、請參閱 https://["連結"^]。
+. 設定Azure NetApp Files 委派的子網路以供使用、並在建立磁碟區時指定此子網路。如需建立委派子網路的詳細步驟、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["連結"^]。
 . 使用容量集區刀鋒下的Volume刀鋒、為資料存放區新增NFS磁碟區。
 
 
@@ -228,7 +228,7 @@ image:vmware-dr-image5.png["錯誤：缺少圖形影像"]
 
 image:vmware-dr-image6.png["錯誤：缺少圖形影像"]
 
-如需詳細資訊、請參閱 https://["服務層級Azure NetApp Files"^]。
+如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^]。
 
 請參閱此 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/performance-benchmarks-azure-vmware-solution["Microsoft的連結"] 以取得可在規模調整練習中使用的詳細效能基準測試。
 

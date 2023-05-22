@@ -136,6 +136,6 @@ NOTE: 1 -使用VMware vSphere ESXi 7.0.1和VMware vSphere ESXi 7.0.2時、NFS進
 
 雖然目前未使用ONTAP 可用的VMware工具進行設定、但NetApp建議您考慮下列組態選項：
 
-* 在高效能環境中或使用單一LUN資料存放區測試效能時、請考慮將循環配置資源（VMW_PSP_RR）路徑選擇原則（PSP）的負載平衡設定、從預設的IOPS設定1000變更為1。請參閱VMware KB https://["2069356"^] 以取得更多資訊。
-* 在vSphere 6.7 Update 1中、VMware為Round Robin PSP引進新的延遲負載平衡機制。新選項會在選取I/O最佳路徑時、考量I/O頻寬和路徑延遲在具有非等效路徑連線的環境中使用IT、例如某個路徑上的網路躍點比另一個路徑多、或是使用NetApp All SAN Array系統時、您可能會受益匪淺。請參閱 https://["路徑選取外掛程式和原則"^] 以取得更多資訊。
+* 在高效能環境中或使用單一LUN資料存放區測試效能時、請考慮將循環配置資源（VMW_PSP_RR）路徑選擇原則（PSP）的負載平衡設定、從預設的IOPS設定1000變更為1。請參閱VMware KB https://kb.vmware.com/s/article/2069356["2069356"^] 以取得更多資訊。
+* 在vSphere 6.7 Update 1中、VMware為Round Robin PSP引進新的延遲負載平衡機制。新選項會在選取I/O最佳路徑時、考量I/O頻寬和路徑延遲在具有非等效路徑連線的環境中使用IT、例如某個路徑上的網路躍點比另一個路徑多、或是使用NetApp All SAN Array系統時、您可能會受益匪淺。請參閱 https://docs.vmware.com/en/VMware-vSphere/7.0/com.vmware.vsphere.storage.doc/GUID-B7AD0CA0-CBE2-4DB4-A22C-AD323226A257.html?hWord=N4IghgNiBcIA4Gc4AIJgC4FMB2BjAniAL5A["路徑選取外掛程式和原則"^] 以取得更多資訊。
 

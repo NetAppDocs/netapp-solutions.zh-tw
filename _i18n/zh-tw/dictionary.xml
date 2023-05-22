@@ -4917,7 +4917,6 @@
   <block id="e569c07c88fe6f8af1f63410c200abd1" category="section-title">Kubeflow Pipines</block>
   <block id="384873a621d99250018cd7ce1768f8af" category="paragraph">Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署可攜式且可擴充的AI和ML工作流程的平台和標準。如需詳細資訊、請參閱<block ref="6de5a235a0c43df48d05588e1b69b959" category="inline-link-rx"></block>。</block>
   <block id="a0b0430a41f582a12dac8f4d63ab450d" category="inline-link">Jupyter網站</block>
-  <block id="3cecf3b7bbdb1a67a537c65bfd6fd529" category="paragraph">Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱<block ref="412a2c3f2a7af96a2a4f6a512ee2088e" category="inline-link-rx"></block>。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱<block ref="c5d2218884acd101e6deb4d8c7d39370" category="inline-link-rx"></block>。</block>
   <block id="385904ba8ac27bcacafadf2113386df4" category="section-title">Apache Airflow</block>
   <block id="c01fb6f699235f8c5d36bdda9e155c77" category="paragraph">Apache Airflow是開放原始碼的工作流程管理平台、可針對複雜的企業工作流程、進行程式化的撰寫、排程及監控。它通常用於自動化ETL和資料管線工作流程、但不限於這些類型的工作流程。氣流專案是由Airbnb發起、但後來在業界廣受歡迎、現在由Apache Software Foundation贊助。氣流是以Python撰寫、氣流工作流程是透過Python指令碼建立、氣流是以「組態為程式碼」的原則設計。 許多企業氣流使用者現在都在Kubernetes上執行氣流。</block>
   <block id="8fb4a72500791f0bea82c5c9b4c33772" category="section-title">定向Acyclic圖表（DAG）</block>
@@ -5899,7 +5898,6 @@
   <block id="b1a88588a48ee9492506277f8561b392" category="paragraph"><block ref="b1a88588a48ee9492506277f8561b392" category="inline-link-rx"></block></block>
   <block id="f9732caa47051768fc11729f5535891b" category="list-text">Lenovo ThinkSystem DM5100F統一化Flash儲存陣列</block>
   <block id="a031d2e6ff4219cf38830b0db9d366b1" category="inline-link"><block ref="a031d2e6ff4219cf38830b0db9d366b1" category="inline-link-rx"></block></block>
-  <block id="f8287e56c1a5982e49b792d1116aa372" category="paragraph"><block ref="f8287e56c1a5982e49b792d1116aa372" category="inline-link-rx"></block></block>
   <block id="5e79a20254a28ffdb604f6cba5216c75" category="cell">2021年3月</block>
   <block id="71b3f2dc39aa770e58cd3fad98b76c37" category="cell">已更新EF和MLPerf推斷v1.1</block>
   <block id="e40030fd64108859627c7a126638f0e6" category="list-text">NetApp AI控制面板：</block>
@@ -11640,7 +11638,6 @@
   <block id="76d6540fbdbbcd913fb6272a50d0e3f2" category="section-title">案例3–NVIDIA Triton Inference Server</block>
   <block id="c470d7124546c64e8539c39ced806428" category="list-text">使用NetApp DataOps Toolkit來配置持續磁碟區、以作為NVIDIA Triton Inference Server的模型儲存庫。</block>
   <block id="1ddcb92ade31c8fbd370001f9b29a7d9" category="inline-link">格式</block>
-  <block id="97be18cb741b4fd763ebe22e034705fa" category="list-text">將您的模型儲存在中的新持續磁碟區上<block ref="bfcdc35d352d3deff6efdd3b8b2ac7ac" category="inline-link-rx"></block> NVIDIA Triton Inference伺服器也能辨識這點。</block>
   <block id="6c21d87641bab7a6c49bc29065185e4f" category="paragraph">有多種方法可將資料載入至PVc。簡單的方法是建立JupyterLab工作區、然後透過JupyterLab網路介面上傳檔案、如「」中的步驟3至5所述<block ref="db54c391b2f7c3a38c2e40a69aa744e3" category="inline-xref-macro-rx"></block>。」</block>
   <block id="fc35606f82a544f9c79f09561d7a234d" category="list-text">使用NetApp DataOps Toolkit部署新的NVIDIA Triton Inference Server執行個體。</block>
   <block id="27a920b35a8f949700a98b22803c70fc" category="list-text">使用Triton用戶端SDK執行推斷工作。下列Python程式碼摘錄使用Triton Python用戶端SDK、針對面偵測使用案例執行推斷工作。此範例會呼叫Triton API、並傳入影像以供參考。然後Triton Inference伺服器會收到要求、啟動模型、並傳回推斷輸出、做為API結果的一部分。</block>
@@ -12366,7 +12363,6 @@
   <block id="bc4bb24d5e702fb79be623b84e7cf47e" category="inline-link-macro">Amazon FSX提供NetApp ONTAP 的效能</block>
   <block id="b59267e60b3253fa9c2edeed17c1340f" category="paragraph">檢閱 <block ref="a572b0e55a3a15b7b3460602e8714ba1" category="inline-link-macro-rx"></block> 調整處理量和IOPS規模時的文件。</block>
   <block id="10edbbba4e4c39fc161aeac9fbb88aef" category="section-title">NFS組態</block>
-  <block id="b6e1b7fd7aad364a8ad758d8ae8ba50d" category="paragraph">Linux是最常見的作業系統、具備原生NFS功能。Oracle提供直接NFS（DNFS）用戶端、原生整合至Oracle。Oracle已支援NFSv3超過20年、而NFSv3則支援Oracle 12.1.0.2及更新版本。使用NetApp自動化工具套件自動部署Oracle、可在NFSv3上自動設定DNFS。</block>
   <block id="2b7570eaa12a3e472e9d0cbac6631d57" category="paragraph">其他考量因素：</block>
   <block id="6841f6ce9d9a2af93222223df564ca34" category="list-text">TCP插槽表相當於主機匯流排介面卡（HBA）佇列深度的NFS。這些表格可控制任何時間都可以處理的NFS作業數量。預設值通常為16、這對於最佳效能而言太低。相反的問題發生在較新的Linux核心上、這會自動將TCP插槽表格限制增加到要求使NFS伺服器飽和的層級。</block>
   <block id="5a749fcdd97cee211c5fea00babe8691" category="paragraph">為獲得最佳效能並避免效能問題、請將控制TCP插槽表的核心參數調整為128。</block>
@@ -14217,13 +14213,11 @@
   <block id="512338e48541699ec73dae999f67080a" category="paragraph">在您執行本節所述步驟之前、我們假設您已依照中所述的指示部署NVIDIA AI Entrprise主機軟體 <block ref="a8e4d2617194ed990c0124f2cc8aee91" category="inline-link-macro-rx"></block> 頁面。</block>
   <block id="c23799b3650257af14b8af5acb107354" category="section-title">使用vGPU建立Ubuntu Guest虛擬機器</block>
   <block id="0271f6ade1f60c92c6548f0e5c440e4e" category="inline-link-macro">NVIDIA AI企業部署指南</block>
-  <block id="1d7d5c692ef1d70e3217e93bb16af99e" category="paragraph">首先、您必須使用vGPU建立Ubuntu 20.04客體VM。若要使用vGPU建立Ubuntu 20.04客體VM、請遵循中的指示大綱 <block ref="f5168fb76d8813fb2707289c4637d2ea" category="inline-link-macro-rx"></block>。</block>
   <block id="70c95294a49e1475adbde86d8eae754e" category="section-title">下載並安裝NVIDIA Guest軟體</block>
   <block id="6148d2809a69d7225df7c6dcc1b5f94f" category="inline-link-macro">NVIDIA AI企業快速入門指南</block>
   <block id="8f3d19df984dedd40b9998136343e036" category="paragraph">接下來、您必須在先前步驟所建立的客體VM中安裝必要的NVIDIA客體軟體。若要在客體VM內下載及安裝所需的NVIDIA客體軟體、請遵循中5.1-5.4節所述的指示 <block ref="d00914f6db2027b3a594dc7a64e68b3c" category="inline-link-macro-rx"></block>。</block>
   <block id="15186686bd7e9c36683658388b6865b0" category="admonition">執行第5.4節所述的驗證工作時、您可能需要使用不同的CUDA Container映像版本標記、因為CUDA Container映像自撰寫指南以來就已更新。在我們的驗證中、我們使用了「nvidia/CUDA：11.0.3-base-ubuntu20.04」。</block>
   <block id="f43e7f8a79b8984748fff81eeb0f8c5f" category="section-title">下載AI /分析架構容器</block>
-  <block id="12a93794571377dc80b4be8c2f22349c" category="paragraph">接下來、您必須從NVIDIA NGC下載所需的AI或分析架構容器映像、以便在您的客體VM中使用。若要在客體VM內下載架構容器、請遵循中所述的指示 <block ref="26bd3715eff2817a0154bee58d883e27" category="inline-link-macro-rx"></block>。</block>
   <block id="5a8b2b886d790892b5beca474e789276" category="section-title">安裝及設定NetApp DataOps Toolkit</block>
   <block id="a225239f36328db667324928281cd834" category="paragraph">接下來、您必須在客體VM內安裝適用於傳統環境的NetApp DataOps Toolkit。NetApp DataOps Toolkit可用於直接從ONTAP 客體VM內的終端機、管理您的一套系統上的橫向擴充資料磁碟區。若要在客體VM內安裝NetApp DataOps Toolkit、請執行下列工作。</block>
   <block id="e0288a23fbe1bfdb5f5b06d39e315992" category="list-text">安裝Pip。</block>
@@ -18489,5 +18483,387 @@
   <block id="8c649830ad367719c501f8fc9ba4d387" category="inline-link-macro">請按一下此處以取得詳細指示</block>
   <block id="d2068521e0b773365643b7537a1caa7f" category="list-text">可設定Linux主機、以便用作可控制主機<block ref="27248a019dbeee842c240071693b6fb8" category="inline-link-macro-rx"></block></block>
   <block id="8ac2da66fa1da7b6cb74292caea13c74" category="sidebar">使用 Azure NetApp Files 和 AVS 進行災難恢復（ DRO ）</block>
-  <block id="e803c7623578d344ea73942638292dd7" category="paragraph">如需SnapCenter 在AWS中駐留的《不景伺服器》上完成的步驟清單、請參閱一節 <block ref="ca85f0dca2a53221dac110ce9ee032e6" category="inline-link-macro-rx"></block>。</block>
+  <block id="e44925cb6b49254bb6fed8c411e15c4f" category="cell">2023 年 5 月 19 日</block>
+  <block id="410e1955e9ff91e466b7ac5b2e07ea2a" category="cell">新增 TR ：在 AWS FS3/EC2 上使用 NFS/ASM 獨立重新啟動中的 Oracle 19c</block>
+  <block id="889806f0e07f1d0dd0672d1a1cd2cddf" category="cell">2023 年 5 月 16 日</block>
+  <block id="cc03678283413ffdf1b4ab27cc12e6d9" category="cell">混合式多雲端搭配 Red Hat OpenShift</block>
+  <block id="b04739a706412f23675293cb0bce6e3d" category="cell">在側邊列新增標題和新內容</block>
+  <block id="0963e46246e2115e2405b677b6116fd3" category="cell">新增內容</block>
+  <block id="eb4f0aac15f7c10d0cae14b084022516" category="cell">05/10/2023</block>
+  <block id="7e9f968a139a25a62b6f7f581469c718" category="doc">其他文件</block>
+  <block id="8b35ba920859760c3b7ab07c1f52df88" category="inline-link-macro">OpenShift Container 平台產品文件</block>
+  <block id="010bce66eda52af8597098e33d12e767" category="inline-link-macro">安裝 OpenShift Container 平台叢集</block>
+  <block id="9e4f27bab2ba4dcc223eabe15d060c22" category="inline-link-macro">進階叢集管理產品文件</block>
+  <block id="1a28b2dbd24896f9ae4e7ea905e79d07" category="inline-link-macro">使用 ACM 建立叢集</block>
+  <block id="88c39d9e07dd53d7dfe71bcc634dd892" category="inline-link-macro">在 OpenShift 上部署 Red Hat Quay</block>
+  <block id="9c634046a90a62883b122e76b9afcef2" category="inline-link-macro">Astra控制中心</block>
+  <block id="8c9552895e8b32d168c001c8cb0d41ac" category="inline-link-macro">NetApp Verda</block>
+  <block id="d2154db2b88b25388e0f4a7a9080bfc9" category="inline-link-macro">AWS 上的 Red Hat OpenShift 服務</block>
+  <block id="7c8fb58ea0c05ae5b636414d192fab49" category="paragraph">以下是一些其他文件以供參考： 1. <block ref="299437d2dfff10029aa68548910ed14a" category="inline-link-macro-rx"></block>2. <block ref="7113f7690b69458a12c8968b2e7b5c94" category="inline-link-macro-rx"></block>3. <block ref="bf8803e28a55e6b11cf02bdf9ab03853" category="inline-link-macro-rx"></block>4. <block ref="0de84e35816fe2bf24a2d62358c71ec0" category="inline-link-macro-rx"></block>5. <block ref="c17964cf4aee883c1f79b2b18d5cf8c5" category="inline-link-macro-rx"></block>6. <block ref="c4a315706dd2011b5383e54e9b2917d4" category="inline-link-macro-rx"></block>7. <block ref="e1b08234af7069664eedc35420a1cc41" category="inline-link-macro-rx"></block>8. <block ref="97e9aa45cc61b723d7185c3008313d78" category="inline-link-macro-rx"></block>9. <block ref="ac3186bd76a04d061f68b4574a7220d5" category="inline-link-macro-rx"></block>10. <block ref="2f4df966d6adc25fd002d42aba0522c1" category="inline-link-macro-rx"></block>11. <block ref="c2f5b2c54b56c4b456371849b6825da6" category="inline-link-macro-rx"></block> - Verda （開放原始碼）擁有許多參考執行掛勾、適用於熱門雲端原生資料密集應用程式 12 。 <block ref="b0fea8555edb70fb5a01c464b6a09cbb" category="inline-link-macro-rx"></block>13. <block ref="ca0553647614febb5dfa86b86874cf2f" category="inline-link-macro-rx"></block>14. <block ref="c869624abab2a4d09eb6e20d1fe18e5e" category="inline-link-macro-rx"></block></block>
+  <block id="fb01274428608cf188d499747738ea90" category="doc">適用於 Red Hat OpenShift Container 工作負載的 NetApp 混合式多雲端解決方案</block>
+  <block id="8de8322672190a0154e15dd15a2de38b" category="paragraph">NetApp 發現客戶使用 Kubernetes 建置的容器和協調作業平台、將舊有企業應用程式現代化、並建置新的應用程式。Red Hat OpenShift Container Platform 是我們許多客戶採用的範例之一。</block>
+  <block id="91971d724db8a4834abc9e257cf521ab" category="paragraph">隨著越來越多客戶開始在企業內採用容器、 NetApp 的定位非常完美、可協助滿足其有狀態應用程式的持續儲存需求、以及資料保護、資料安全性和資料移轉等傳統資料管理需求。不過、這些需求是使用不同的策略、工具和方法來滿足的。</block>
+  <block id="46b942b569445b51bc9a3813940e581b" category="paragraph">以 NetApp ONTAP * 為基礎的儲存選項如下所列、可為容器和 Kubernetes 部署提供安全性、資料保護、可靠性和靈活度。</block>
+  <block id="d8b17b6efcac44f3002f0754abe68b9a" category="list-text">內部部署的自我管理儲存設備：</block>
+  <block id="fc86d68de50b558bf0e36b38845f3b9e" category="list-text">NetApp Fabric 附加儲存設備（ FAS ）、 NetApp All Flash FAS Array （ AFF ）、 NetApp All SAN Array （ ASA ）和 ONTAP Select</block>
+  <block id="427332fc886acd822d0fc6c0ee1a74f8" category="list-text">內部部署的供應商託管儲存設備：</block>
+  <block id="bce509449eda5b3850faf5d2f827807a" category="list-text">NetApp Keystone 提供儲存即服務（ STaaS ）</block>
+  <block id="3e828a47721931842418753fbd6ce4a9" category="list-text">雲端中的自我管理儲存設備：</block>
+  <block id="9e41a33f3c647aba754b638fb834ccb6" category="list-text">NetApp Cloud Volumes ONTAP （ CVO ）可在超大型磁碟機中提供自我管理的儲存設備</block>
+  <block id="23c3c663b762f1321d6375c1b3ce61f8" category="list-text">雲端中由供應商管理的儲存設備：</block>
+  <block id="51420fda4b100ff1cec3007a9f85615d" category="list-text">Cloud Volumes Service for Google Cloud （ CVS ）、 Azure NetApp Files （ anf ）、 Amazon FSX for NetApp ONTAP 可在超大型擴充器中提供完全託管的儲存設備</block>
+  <block id="7737d05ae0cdd6b2fbe4cd4e6c7b3873" category="paragraph"><block ref="7737d05ae0cdd6b2fbe4cd4e6c7b3873" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a3fffb84816afb046037dcf3d52d23a4" category="paragraph">** NetApp BlueXP** 可讓您從單一控制平面 / 介面管理所有儲存設備和資料資產。</block>
+  <block id="a28e6578744ceeb545878235d414e497" category="paragraph">您可以使用 BlueXP 來建立和管理雲端儲存設備（例如 Cloud Volumes ONTAP 和 Azure NetApp Files ）、移動、保護和分析資料、以及控制許多內部部署和邊緣儲存設備。</block>
+  <block id="ccc05eb250d1954656f9e96b38186f1f" category="paragraph">** NetApp Astra Trident * 是符合 CSI 標準的 Storage Orchestrator 、可快速輕鬆地使用由上述各種 NetApp 儲存選項作為後盾的持續儲存設備。這是由 NetApp 維護和支援的開放原始碼軟體。</block>
+  <block id="4f1e9419dd2093869735a950da6bb17d" category="paragraph"><block ref="4f1e9419dd2093869735a950da6bb17d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e5c4a3945e0cdaa7b705b00128180df4" category="paragraph">業務關鍵容器工作負載不只需要持續的磁碟區、他們的資料管理需求也需要保護及移轉應用程式 Kubernetes 物件。</block>
+  <block id="e57b3f1bdaee7a2b21647555142e9653" category="admonition">應用程式資料除了包含使用者資料外、還包括 Kubernetes 物件：以下是一些範例： - Kubernetes 物件、例如 Pod 規格、 PVC 、部署、服務 - 自訂組態物件、例如組態對應和機密 - 持續性資料、例如 Snapshot 複本、備份、複本 - 自訂資源、例如 CRS 和 CRD</block>
+  <block id="4b675e54aa1095b2b20f8c4019de37b0" category="inline-link-macro">Astra文件</block>
+  <block id="dadb28b9e22a0754b9d16e0e88a88c13" category="paragraph">** NetApp Astra Control** 可作為完全託管和自我管理的軟體使用、可協調功能以提供健全的應用程式資料管理。請參閱 <block ref="40f1af172b66f2d17da6144d50df0f84" category="inline-link-macro-rx"></block> 如需 Astra 系列產品的詳細資訊、請參閱。</block>
+  <block id="f15a63879d079401ef5fb8794ae8190d" category="paragraph">本參考文件提供移轉與保護容器型應用程式的驗證、這些應用程式部署在 RedHat OpenShift Container 平台上、並使用 NetApp Astra Control Center 。此外、此解決方案還提供部署和使用 Red Hat Advanced Cluster Management （ ACM ）來管理容器平台的高階詳細資料。本文件也重點介紹使用 Astra Trident CSI 資源配置程式、將 NetApp 儲存設備與 Red Hat OpenShift 容器平台整合的詳細資料。Astra Control Center 部署在集線器叢集上、用於管理容器應用程式及其持續儲存生命週期。最後、它為 AWS （ ROSA ）中受管理 Red Hat OpenShift 叢集上的容器工作負載提供複寫和容錯移轉及容錯移轉解決方案、使用 Amazon FSx for NetApp ONTAP （ FSxN ）作為持續儲存設備。</block>
+  <block id="bd61a264427ea5719a7598c9842bbdfc" category="summary">NetApp 混合式多雲端解決方案搭配 Red Hat OpenShift Container 平台、是一套策略與技術功能、可證明在內部部署和公有雲中、可設定狀態的容器工作負載、輕鬆協調資料保護與移轉功能。</block>
+  <block id="05a4585adb3c11a4d6ec744287d9c477" category="doc">NetApp 混合式多雲端搭配 Red Hat OpenShift Container 工作負載</block>
+  <block id="a52f1a39d266680457efce511e919b88" category="doc">解決方案驗證中使用的各種元件版本</block>
+  <block id="5516d7182615c828448d9b348501eb1e" category="paragraph">此解決方案使用 OpenShift Container 平台、 OpenShift 進階叢集管理程式、 NetApp ONTAP 和 NetApp Astra 控制中心來測試及驗證移轉與集中式資料保護。</block>
+  <block id="43f2468407fd92c3a33738017e3d08fb" category="paragraph">解決方案的各種案例均已使用下表所示的版本進行驗證：</block>
+  <block id="b4244340f0935c1a99a9f6b1a5c587ed" category="cell">*元件*</block>
+  <block id="45cc01ab5f209e8760027e9c30097025" category="cell">*版本*</block>
+  <block id="26ec1d0c63ce9794e6d0c6b5a70689a1" category="cell">* VMware *</block>
+  <block id="9b458d345f0a59c6e2e7426349b2c81a" category="cell">vSphere Client 8.0.0.10200 版 VMware ESXi 、 8.0.0 、 20842819</block>
+  <block id="02693cb8abf2b367ad7f12a7028387d0" category="cell">* 集線器叢集 *</block>
+  <block id="d47e05659d8c9961d0025578f9bedf81" category="cell">OpenShift 4.11.34</block>
+  <block id="6f63ca7a8d1582f6c5aecf3d98e15fea" category="cell">* 來源與目的地叢集 *</block>
+  <block id="e777190715e6ef3eedd09080d17156dc" category="cell">OpenShift 4.12.9 內部部署和 AWS</block>
+  <block id="2740a3f02c7241398a3bd90d72be7a23" category="cell">* NetApp Astra Trident *</block>
+  <block id="52bed1949aec792e351725583d586e38" category="cell">Trident Server 和 Client 23.04.0</block>
+  <block id="9dbea4b6bf9a3c7db93960270b06cf21" category="cell">* NetApp Astra 控制中心 *</block>
+  <block id="2bc5b4067c51b6d01052f2895cd2802f" category="cell">Acc 22.11.0-82</block>
+  <block id="ac0df33e7e9d7127f5798ad2f7ea1e57" category="cell">* NetApp ONTAP *</block>
+  <block id="dc590521b479337b3c16fdc9b86fa862" category="cell">* AWS FSX for NetApp ONTAP *</block>
+  <block id="725b1ab4e3e24634a0c63fe0aacf72c9" category="cell">單一 AZ</block>
+  <block id="602738666fc517b0fa1a28acbaa8753f" category="doc">適用於 Red Hat OpenShift Container 工作負載的 NetApp 混合式多雲端解決方案的價值主張</block>
+  <block id="4995f10735f80116c1a9e76d0483dea0" category="paragraph">大多數客戶不只是在沒有任何現有基礎架構的情況下、就開始建置 Kubernetes 型環境。或許他們是一家傳統的 IT 商店、在虛擬機器上執行大部分的企業應用程式（例如大型 VMware 環境）。然後他們開始建置小型的容器型環境、以滿足其現代化應用程式開發團隊的需求。這些計畫通常從小規模開始、隨著團隊學習這些新技術和技能、開始變得更普及、並開始認識採用這些技術和技能的許多好處。客戶的好消息是 NetApp 可以滿足這兩種環境的需求。這套適用於混合式多雲端與 Red Hat OpenShift 的解決方案、可讓 NetApp 客戶採用現代化的雲端技術與服務、而無需徹底檢修整個基礎架構與組織。無論客戶的應用程式和資料是在內部部署、雲端、在虛擬機器上執行、或是在容器上執行、 NetApp 都能提供一致的資料管理、保護、安全性和可攜性。有了這些新解決方案、 NetApp 在內部部署資料中心環境中所提供的價值數十年來、將可在整個企業資料領域中提供、而無需投入大量資金來重新調整、取得新技能或建立新團隊。無論客戶的雲端旅程處於何種階段、 NetApp 都能協助客戶解決這些業務挑戰。</block>
+  <block id="d22e1212d6861bd9f5154f99bd42f075" category="paragraph">NetApp 混合式多雲端搭配 Red Hat Openshift ：</block>
+  <block id="f4a12877ded47f570208ae2fd2860bd6" category="list-text">為客戶提供經過驗證的設計和實務做法、以示範客戶在使用 Red Hat OpenShift 搭配 NetApp 型儲存解決方案時、如何管理、保護、保護及移轉資料和應用程式的最佳方法。</block>
+  <block id="67eaac350e7deee0d9da0da55965c85d" category="list-text">針對在 VMware 環境、裸機基礎架構或兩者的組合中、搭配 NetApp 儲存設備執行 Red Hat OpenShift 的客戶、提供最佳實務做法。</block>
+  <block id="069709db14b900262db621bbd5187e74" category="list-text">針對內部部署和雲端環境、以及兩者都使用的混合式環境、示範策略和選項。</block>
+  <block id="6f83ad56268110343d9aef0022b7f493" category="doc">適用於 Red Hat OpenShift Container 工作負載的 NetApp 混合式多雲端支援解決方案</block>
+  <block id="e0484d0d50bc76897c6ed88afa8d69bf" category="paragraph">本解決方案使用 OpenShift Container 平台（ OCP ）、 OpenShift Advanced Cluster Manager （ ACM ）、 NetApp ONTAP 、 NetApp BlueXP 和 NetApp Astra Control Center （ ACC ）來測試及驗證移轉與集中式資料保護。</block>
+  <block id="0196288da3234f0b3a984fb859dbbe2e" category="paragraph">對於此解決方案、 NetApp 會測試並驗證下列情境。根據下列特性、將解決方案分成多種情境：</block>
+  <block id="97a114682aee9996b96ccab927de04d7" category="list-text">內部部署</block>
+  <block id="a1234b3161b4fbfdfb96dd576b65bbea" category="list-text">雲端</block>
+  <block id="fc5b68fff5369eab614cea8a097a9da3" category="list-text">自我管理的 OpenShift 叢集和自我管理的 NetApp 儲存設備</block>
+  <block id="6192817a2c883017154233f79143b526" category="list-text">由供應商管理的 OpenShift 叢集和由供應商管理的 NetApp 儲存設備</block>
+  <block id="346cce4487319e1b8f55333f07a7bfe6" category="paragraph">我們將在未來建立更多解決方案和使用案例。 **</block>
+  <block id="642056fd59cfcf2e5c6ac845b30f8a89" category="section-title">案例 1 ：使用主動定速控制系統在內部環境中保護資料及移轉</block>
+  <block id="e750828e5900c9e9e0080da69c59deee" category="paragraph">** 內部部署：自我管理的 OpenShift 叢集與自我管理的 NetApp 儲存設備 **</block>
+  <block id="c0eaf6c42fe00cd346ed6b6e3840a87b" category="list-text">使用 Acc 建立 Snapshot 複本、備份與還原、以保護資料。</block>
+  <block id="5bbe9f387a62f7e6da1a3479bae84aaf" category="list-text">使用 Acc 執行容器應用程式的 SnapMirror 複寫。</block>
+  <block id="d42e8fbcf79f7de1303918aafa7d9fa7" category="section-title">案例1</block>
+  <block id="f0489d547da7e6c7860d78bc0e76b3fc" category="paragraph"><block ref="f0489d547da7e6c7860d78bc0e76b3fc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ba74a99f1a17bbc4323f970e92f65267" category="section-title">案例 2 ：使用 Acc 保護資料、並從內部環境移轉至 AWS 環境：</block>
+  <block id="011c4a5ba5680b65be39323642e0c6e5" category="paragraph">** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 ** AWS Cloud ：自我管理的 OpenShift 叢集與自我管理的儲存設備 **</block>
+  <block id="6c440a8e8c4732064f0a2fe22d438916" category="list-text">使用主動定速控制系統執行備份與還原、以保護資料。</block>
+  <block id="3d2b891e87f58587dcf56e520915afef" category="section-title">案例2</block>
+  <block id="cb4581e6ea0741c82604502d38c43995" category="paragraph"><block ref="cb4581e6ea0741c82604502d38c43995" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="73d95ebf5e02ecba9346225b7c750d96" category="section-title">案例 3 ：資料保護、從內部環境移轉至 AWS 環境：</block>
+  <block id="02626a2e6e765a5df4816a825234dc2e" category="paragraph">** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 ** AWS Cloud ：由供應商管理的 OpenShift 叢集（ ROSA ）和由供應商管理的儲存設備（ FSxN ） **</block>
+  <block id="5c1c8d2602eef78d62342564281ce1e2" category="list-text">使用 BlueXP 執行持續磁碟區（ FSxN ）的複寫。</block>
+  <block id="87536fdb761ec9bd49af92d0cf39f302" category="list-text">使用 OpenShift GitOps 重新建立應用程式中繼資料。</block>
+  <block id="c2447154da8ea0e9f40104cfe84c986a" category="section-title">案例 3</block>
+  <block id="d50912075fbd317709a0c7722c0c765e" category="paragraph"><block ref="d50912075fbd317709a0c7722c0c765e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1522c369fc33aa74294fbd0cd08a1b03" category="paragraph">如需在 MetroCluster 組態中使用 ONTAP 的考量、請參閱 <block ref="5b6304ea4373a975ac8b2f8302d3d44b" category="inline-link-macro-rx"></block>。</block>
+  <block id="16ef23462b663a9c6034549a75db04f2" category="doc">支援與 Red Hat Open Shift Container 的 NetApp 儲存整合</block>
+  <block id="46d3c033f73d0ee2be1fd01fd7b3bc9b" category="paragraph">無論 Red Hat Open Shift 容器是在 VMware 上執行、或是在超大規模環境中執行、 NetApp Astra Trident 都可作為其支援的各種類型後端 NetApp 儲存設備的 CSI 資源配置程式。</block>
+  <block id="b9f60c4d5e949aec928443832fd0f567" category="paragraph">下圖說明各種後端 NetApp 儲存設備、可與使用 NetApp Astra Trident 的 OpenShift 叢集整合。</block>
+  <block id="d115671a64afa53f0714cdf802de2a28" category="paragraph"><block ref="d115671a64afa53f0714cdf802de2a28" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c57009523536c8cf1126736d023db8fd" category="paragraph">ONTAP 儲存虛擬機器（ SVM ）提供安全的多租戶共享。單一 OpenShift 叢集可連線至單一 SVM 或多個 SVM 、甚至連至多個 ONTAP 叢集。儲存類別會根據參數或標籤來篩選後端儲存設備。儲存管理員會使用 Trident 後端組態來定義連接至儲存系統的參數。成功建立連線時、它會建立 Trident 後端、並填入儲存類別可篩選的資訊。</block>
+  <block id="f7a2c532baf0284a5077caf9cad8791a" category="paragraph">以下顯示 storagecasser 與後端之間的關係。</block>
+  <block id="efe36ae733078bbe9a7d4971388b61df" category="inline-image-macro">儲存類別至 ONTAP 關係</block>
+  <block id="0442e65b325d60f7fc9c602b320dd58c" category="paragraph"><block ref="0442e65b325d60f7fc9c602b320dd58c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="90b82350db9212bd4d0c57a640d19232" category="paragraph">應用程式擁有者使用儲存類別要求持續磁碟區。儲存類別會篩選後端儲存設備。Pod 與後端儲存設備之間的關係如下所示。</block>
+  <block id="a0f5fccacb6f4513b350db2e44d0a52f" category="inline-image-macro">Pod 與 ONTAP Volume 的關係</block>
+  <block id="d9c6f609f7c707469f70a6b148f408a7" category="paragraph"><block ref="d9c6f609f7c707469f70a6b148f408a7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0e8c8ed944bd179a7ed5014748fb31de" category="section-title">Container Storage Interface （ CSI ）選項</block>
+  <block id="b79382adbee98b6603cb4ac95885af9e" category="paragraph">在 vSphere 環境中、客戶可以選擇 VMware CSI 驅動程式和 / 或 Astra Trident CSI 來與 ONTAP 整合。使用 VMware CSI 時、持續磁碟區會作為本機 SCSI 磁碟使用、而使用 Trident 時、則會與網路一起使用。由於 VMware CSI 不支援搭配 ONTAP 的 rwx 存取模式、因此如果需要 rwx 模式、應用程式需要使用 Trident CSI 。在 FC 型部署中、 VMware CSI 是首選、 SnapMirror Business Continuity （ SMBC ）可提供區域層級的高可用度。</block>
+  <block id="d2cba3ef557d6500cd0420d9bb36a4c7" category="section-title">VMware CSI 支援</block>
+  <block id="216cd0f470eb203964b09af554b2f66c" category="list-text">核心區塊型資料存放區（ FC 、 FCoE 、 iSCSI 、 NVMeoF ）</block>
+  <block id="dc64cd64093452f4efadcc36b20344a3" category="list-text">核心檔案型資料存放區（ NFS v3 、 v4 ）</block>
+  <block id="1d89948bfc7a49c7c24ea6c174ba238a" category="list-text">VVOL 資料存放區（區塊和檔案）</block>
+  <block id="f4d669ddd2fadaee50bf3d976dc303fc" category="section-title">Trident 提供下列驅動程式來支援 ONTAP</block>
+  <block id="d34166b81b6a41af7f7e68ab1a706647" category="list-text">ONTAP-SAN （專用磁碟區）</block>
+  <block id="51f8b538584089b7767162debcf8e4b8" category="list-text">ONTAP SAN 經濟型（共享 Volume ）</block>
+  <block id="0a8ce2b6a8e563cf981d283355ab4fec" category="list-text">ONTAP-NAS （專用磁碟區）</block>
+  <block id="d3fb6fce8725812eb61f50ddb9a7d2d2" category="list-text">ONTAP NAS 經濟型（共享 Volume ）</block>
+  <block id="715a2804377bea12c12d2dfc86a3dcfc" category="list-text">ONTAP-NAS-Flexgroup （專用大型 Volume ）</block>
+  <block id="3d8c841d5d9cfab6bcaea8932fb26d33" category="paragraph">對於 VMware CSI 和 Astra Trident CSI 、 ONTAP 支援 nconnect 、工作階段主幹、 Kerberos 等、適用於 NFS 和多重路徑、 chap 驗證等區塊傳輸協定。</block>
+  <block id="86c5dadebaa1ddb48e303ff25ad2a146" category="inline-link-macro">AWS 效能準則</block>
+  <block id="7a6f37e13b28950f3e673e6ba257a242" category="paragraph">在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需詳細資訊、請參閱 <block ref="e4c9b635745c064746324939979ac3ba" category="inline-link-macro-rx"></block>。為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。</block>
+  <block id="8e9cfb71a7e863c2f209d5480941fd78" category="inline-image-macro">複寫多個 AZ 和單一 AZ</block>
+  <block id="d945e872f3d86016e69cb70542c0cc6a" category="paragraph"><block ref="d945e872f3d86016e69cb70542c0cc6a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="935ca08bdd64725cdd1088c0fb91776b" category="inline-link-macro">管理 FSX ONTAP 儲存虛擬機器</block>
+  <block id="0aa0b6b72c2288a10c437f6fd4b333b9" category="paragraph">如需 FSX ONTAP 支援的 SVM 數量、請參閱 <block ref="0a6e802412081ec42f8b1e7e94aea7a2" category="inline-link-macro-rx"></block></block>
+  <block id="8ac66023d6d64852e30505c1e8d60986" category="doc">在 AWS 上使用託管 Red Hat OpenShift Container 平台工作負載的 NetApp 解決方案</block>
+  <block id="242d6ccbbd71ec647ddb86909c24827d" category="paragraph">客戶可能是「天生於雲端」、或是準備好將某些特定工作負載或所有工作負載從資料中心移至雲端時、處於現代化過程的某個階段。他們可以選擇在雲端使用由供應商管理的 OpenShift 容器和由供應商管理的 NetApp 儲存設備來執行工作負載。他們應該規劃並部署雲端中的託管 Red Hat OpenShift Container 叢集（ ROSA ）、以便為其容器工作負載打造成功的正式作業環境。當他們位於 AWS 雲端時、也可以針對 NetApp ONTAP 部署 FSX 以滿足儲存需求。</block>
+  <block id="51affed0f08c3d6d7d172db839089ac6" category="paragraph">適用於 NetApp ONTAP 的 FSX 可為 AWS 中的容器部署提供資料保護、可靠性和靈活度。Astra Trident 是動態儲存資源配置程式、可為客戶的有狀態應用程式使用持續的 FSxN 儲存設備。</block>
+  <block id="16b422dedaa305f1e883d55d28f2d211" category="paragraph">由於 ROSA 可在 HA 模式中部署、控制平面節點分散於多個可用性區域、因此也可透過 Multi-AZ 選項來配置 FSX ONTAP 、以提供高可用度並防範 AZ 故障。</block>
+  <block id="aac86419bd7742807d0b65436a4fdcf2" category="admonition">從檔案系統的慣用可用性區域（ AZ ）存取 Amazon FSX 檔案系統時、不會收取資料傳輸費用。如需定價的詳細資訊、請參閱 <block ref="2d4b4b449ef448fbb3000f58e542f4ee" category="inline-link-macro-rx"></block>。</block>
+  <block id="804119dcd90c16f9cbe72822ed4932e7" category="section-title">適用於 OpenShift Container 工作負載的資料保護與移轉解決方案</block>
+  <block id="9b2f9698f9a33314b6eb0d86eb8929c9" category="doc">在 AWS 上部署及設定 Managed Red Hat OpenShift Container 平台</block>
+  <block id="5887e8ade129892a39138d21f25b97a8" category="paragraph">本節說明在 AWS （ ROSA ）上設定託管 Red Hat OpenShift 叢集的高階工作流程。它顯示 Astra Trident 使用託管 FSx for NetApp ONTAP （ FSxN ）作為儲存後端、以提供持續的磁碟區。詳細說明如何使用 BlueXP 在 AWS 上部署 FSxN 。此外、我們也提供有關使用 BlueXP 和 OpenShift GitOps （ Argo CD ）在 ROSA 叢集上為有狀態的應用程式執行資料保護和移轉活動的詳細資訊。</block>
+  <block id="f8c6204c5d3f0767c18bf3dfb691b015" category="paragraph">下圖說明在 AWS 上部署的 ROSA 叢集、並使用 FSxN 作為後端儲存設備。</block>
+  <block id="538b589a3f0d2786d874e26e9b3b3bee" category="inline-link-macro">資源區段</block>
+  <block id="7429532c11d9b70502be86adcd09ecfc" category="admonition">此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Astra Trident 與 FSxN 整合。在 AWS 中部署 ROSA 叢集和 FSxN 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 <block ref="ec30323d5c1ba24d6aabb0b3df901fd1" category="inline-link-macro-rx"></block>。</block>
+  <block id="776e644936fa311303e288b8df968fc8" category="example-title">安裝 ROSA 叢集</block>
+  <block id="b3e83e12e2309b03bb799e34f55ac838" category="list-text">建立兩台 VPC 、並設定 VPC 之間的 VPC 對等連線。</block>
+  <block id="8d550961a2333f8c7184c49f43b11441" category="list-text">請參閱 <block ref="703596d786038115126420be8929a2a3" category="inline-link-macro-rx"></block> 以取得安裝 ROSA 叢集的指示。</block>
+  <block id="6248f27e630f632c6a0b111e3a22f0c7" category="example-title">安裝 FSxN</block>
+  <block id="f378af26f16afdc1dc513c07113ad747" category="list-text">在 BlueXP 的 VPC 上安裝 FSxN 。請參閱 <block ref="34abba7bef53102fd63639b9b9679762" category="inline-link-macro-rx"></block> 用於建立 BlueXP 帳戶和開始使用。請參閱 <block ref="2295d3162905f9dd45d3ca6c8a209ad1" category="inline-link-macro-rx"></block> 用於安裝 FSxN 。請參閱 <block ref="34abba7bef53102fd63639b9b9679762" category="inline-link-macro-rx"></block> 在 AWS 中建立連接器以管理 FSxN 。</block>
+  <block id="f346bc83ad170b8604a8f8d59eb15587" category="list-text">使用 AWS 部署 FSxN 。請參閱 <block ref="96729d098c0f6096edb6c44f431ce934" category="inline-link-macro-rx"></block> 使用 AWS 主控台進行部署。</block>
+  <block id="f8f96d37b9a3120cb1bb4a037d8195bd" category="example-title">在 ROSA 叢集上安裝 Trident （使用 Helm 圖表）</block>
+  <block id="7564d67237d9db6138e99e2acdb8a0cf" category="list-text">使用 Helm 圖表在 ROSA 叢集上安裝 Trident 。Helm 圖表的 URL ：<block ref="dc0bfce78007eb90bab021eec0605ecf" category="inline-link-rx"></block></block>
+  <block id="a10ce22fc12f465ff0633196d47e7221" category="list-text">示範影片：將 FSxN 與 Astra Trident 整合至 ROSA 叢集</block>
+  <block id="d9d7e23123aa2f2b6b36f2538c7079da" category="admonition">OpenShift GitOps 可用於在所有託管叢集使用 ApplicationSet 登錄 ArgoCD 時、將 Astra Trident CSI 部署至這些叢集。</block>
+  <block id="d77de958b0e511ac432517a88ccba762" category="paragraph"><block ref="d77de958b0e511ac432517a88ccba762" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0b98c9ae66bee7ebb9143fb1f97c635a" category="example-title">使用 Trident 建立後端和儲存類別（適用於 FSxN ）</block>
+  <block id="3dda1221f6e371517cb4fad0b6f46878" category="list-text">請參閱 <block ref="9086b317542fa4fec3c7a94ae13e221d" category="inline-link-macro-rx"></block> 如需建立後端和儲存類別的詳細資訊、</block>
+  <block id="a13d721aed664ec4974349a0a4cd1184" category="list-text">從 OpenShift Console 將為 FsxN 建立的儲存類別設為 Trident CSI 作為預設值。請參閱以下螢幕擷取畫面：</block>
+  <block id="ca6d43e36ba3ff60ddddd0b3dc9b39d0" category="paragraph"><block ref="ca6d43e36ba3ff60ddddd0b3dc9b39d0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bb2978b82e7eef8973a778154ed9d1d8" category="example-title">使用 OpenShift GitOps （ Argo CD ）部署應用程式</block>
+  <block id="28832d59ac5a06d16e97fd07fb21b521" category="list-text">在叢集上安裝 OpenShift GitOps 運算子。請參閱指示 <block ref="946032aa50bddc23d84d8e7c39ffd30b" category="inline-link-macro-rx"></block>。</block>
+  <block id="356be904a2ad4050250d6fe2a3227030" category="list-text">為叢集設定新的 Argo CD 執行個體。請參閱指示 <block ref="119b4b110537aa2ea9e3e33df43cde60" category="inline-link-macro-rx"></block>。</block>
+  <block id="abe8993411729ddd001265652209bf86" category="paragraph">開啟 Argo CD 的主控台、然後部署應用程式。例如、您可以使用 Argo CD 搭配 Helm 圖表來部署 Jenkins 應用程式。建立應用程式時、會提供下列詳細資料：專案：預設叢集：<block ref="9f21a485a51630661e0fefa38fbbf6ca" category="inline-link-rx"></block>命名空間： Jenkins The URL for the Helm Chart:<block ref="0e94db883459a2938e67dc90b6e8375d" category="inline-link-rx"></block></block>
+  <block id="c6900348e4c35229bfdef15cd046933d" category="paragraph">船舵參數： global.storageClass ： fsxn-NAS</block>
+  <block id="7dd560122213e64b542e95018ff44ab1" category="paragraph">本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）上管理 Red Hat OpenShift 的資料保護選項。</block>
+  <block id="cd25a3e993cfcb7dc008e56db66965e0" category="section-title">適用於 AWS 上 Red Hat OpenShift 服務的 FSX NetApp ONTAP （ ROSA ）</block>
+  <block id="a7d7ab71d74f0c10d8bcfe243ebe5243" category="paragraph">下列影片顯示在某個區域執行的 ROSA 應用程式備份、並還原至另一個區域。</block>
+  <block id="5866b98c049a53ea6dc7f50f9349f434" category="doc">資料移轉</block>
+  <block id="7314163a6d61f383fe22eabc7f7478f4" category="paragraph">本頁顯示使用適用於 NetApp ONTAP 的 FSX 進行持續儲存的託管 Red Hat OpenShift 叢集上的容器工作負載資料移轉選項。</block>
+  <block id="82352e8a86338ccc54d2fbc2c403810e" category="paragraph">AWS 上的 Red Hat OpenShift 服務以及適用於 NetApp ONTAP 的 FSx （ FSxN ）是 AWS 服務產品組合的一部分。FSxN 適用於單一 AZ 或多 AZ 選項。Multi-Az 選項可提供資料保護、避免可用性區域故障。FSxN 可與 Astra Trident 整合、為 ROSA 叢集上的應用程式提供持續儲存。</block>
+  <block id="36aedde0793f8012855859992c3f80c7" category="section-title">使用 Helm 圖表將 FSxN 與 Trident 整合</block>
+  <block id="529a6fab29dd793a36ea8d9e3d36c756" category="paragraph">容器應用程式的移轉包括：</block>
+  <block id="dc01e4c3cbb8b6d977325df7eebba531" category="list-text">持續磁碟區：這可以使用 BlueXP 來完成。另一個選項是使用 Astra Control Center 來處理從內部部署移轉至雲端環境的容器應用程式。自動化可用於相同用途。</block>
+  <block id="04a50198afad51829cb74fca31795282" category="list-text">應用程式中繼資料：這可以使用 OpenShift GitOps （ Argo CD ）來完成。</block>
+  <block id="39078498a020eaae2ab6f60a30c1cd6d" category="section-title">使用 FSxN 進行持續儲存、在 ROSA 叢集上容錯移轉及容錯回復應用程式</block>
+  <block id="bc7b3bff8f442739862cfc5d624d340d" category="paragraph">以下影片示範使用 BlueXP 和 Argo CD 的應用程式容錯移轉和容錯回復案例。</block>
+  <block id="0733a4864ff0a27098003f35528fda51" category="doc">採用混合雲的 Red Hat OpenShift Container 平台工作負載的 NetApp 解決方案</block>
+  <block id="7f224be1115f0425cbeb3e707e64be2a" category="paragraph">當客戶準備好將某些特定工作負載或所有工作負載從資料中心移至雲端時、他們可能正處於現代化過程的某個階段。他們可能會基於各種原因、選擇在雲端使用自我管理的 OpenShift 容器和自我管理的 NetApp 儲存設備。他們應該規劃並部署雲端中的 Red Hat OpenShift Container 平台（ OCP ）、以打造成功的正式作業環境、從資料中心移轉其容器工作負載。他們的 OCP 叢集可以部署在 VMware 或裸機上的資料中心、以及雲端環境中的 AWS 、 Azure 或 Google Cloud 上。</block>
+  <block id="dcf5b4626b26141690124b4d983c76d9" category="paragraph">NetApp Cloud Volumes ONTAP 儲存設備可為 AWS 、 Azure 和 Google Cloud 中的容器部署提供資料保護、可靠性和靈活度。Astra Trident 是動態儲存資源配置程式、可為客戶的有狀態應用程式使用持續的 Cloud Volumes ONTAP 儲存設備。Astra Control Center 可用來協調有狀態應用程式的許多資料管理需求、例如資料保護、移轉和業務持續運作。</block>
+  <block id="ea1e0c0a154a2c9c52d9f60007ce5d91" category="section-title">使用 Astra Control Center 在混合雲中為 OpenShift Container 工作負載提供資料保護與移轉解決方案</block>
+  <block id="ef11f1b3f77b7a623cf6c1f337f19810" category="doc">在 AWS 上部署和設定 Red Hat OpenShift Container 平台</block>
+  <block id="ab7b4d146c15537b9acf20d97bff117a" category="paragraph">本節說明如何在 AWS 中設定和管理 OpenShift 叢集、以及在叢集上部署有狀態應用程式的高階工作流程。它顯示在 Astra Trident 協助下使用 NetApp Cloud Volumes ONTAP 儲存設備來提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。</block>
+  <block id="e98f4c710f7c9113ed0fca838ffa71f4" category="admonition">在 AWS 上部署 Red Hat OpenShift Container 平台叢集有多種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 <block ref="ec30323d5c1ba24d6aabb0b3df901fd1" category="inline-link-macro-rx"></block>。</block>
+  <block id="15e2aee2febe456536514c300a17d5c9" category="paragraph">下圖說明在 AWS 上部署並使用 VPN 連線至資料中心的叢集。</block>
+  <block id="a4763dc99c168c3d5c2cdff5c671fe06" category="example-title">從進階叢集管理在 AWS 上安裝 OCP 叢集。</block>
+  <block id="23ef950cd8b1e5468c8e76f96c176bf8" category="list-text">使用站台對站台 VPN 連線（使用 pfSense ）建立 VPC 以連線至內部部署網路。</block>
+  <block id="5240532c2919e7351934292a18054058" category="list-text">內部網路具備網際網路連線能力。</block>
+  <block id="2f9a622f50ad91f20ea33eb464dffed5" category="list-text">在 3 個不同的 AZs 中建立 3 個子網路。</block>
+  <block id="3bc0575c716ca54e3e3f3c18896d2073" category="list-text">為 VPC 建立路由 53 私有代管區域和 DNS 解析程式。</block>
+  <block id="78e681da9aa719a4fa341bfefe7241dc" category="paragraph">從進階叢集管理（ ACM ）精靈在 AWS 上建立 OpenShift 叢集。請參閱指示 <block ref="a8dc968cbec7f22006c56d08b612b183" category="inline-link-macro-rx"></block>。</block>
+  <block id="308c1e3e719191b8ced2d38fd974ca8e" category="admonition">您也可以從 OpenShift 混合雲主控台在 AWS 中建立叢集。請參閱 <block ref="2273fb526f12aab77cc8d6457769ac6c" category="inline-link-macro-rx"></block> 以取得相關指示。</block>
+  <block id="fdb3ae874409cbcef80a6d9bfeb5f048" category="admonition">使用 ACM 建立叢集時、您可以在表單檢視中填入詳細資料後、編輯 yaml 檔案、以自訂安裝。建立叢集之後、您可以 ssh 登入叢集的節點進行疑難排解或其他手動設定。請使用您在安裝期間提供的 ssh 金鑰和使用者名稱核心來登入。</block>
+  <block id="09896a8f2d501b8991dc697c7cbfa3db" category="example-title">使用 BlueXP 在 AWS 中部署 Cloud Volumes ONTAP 。</block>
+  <block id="aac68d095e2a2a598854689d3a9118c3" category="list-text">在內部部署的 VMware 環境中安裝連接器。請參閱指示 <block ref="09bba0e8799e65970cd5db9fc029a18c" category="inline-link-macro-rx"></block>。</block>
+  <block id="75cbb3865e297e8d229f20aefa0bc024" category="list-text">使用連接器在 AWS 中部署 CVO 執行個體。請參閱指示 <block ref="789a1549fecc83ae6bfb4929c9c8d23c" category="inline-link-macro-rx"></block>。</block>
+  <block id="2b71954d9c6d4c94a1ae68bbecd1cce4" category="admonition">連接器也可以安裝在雲端環境中。請參閱 <block ref="0631eaff036ce3419223357fb2a90da7" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="31206dca8344fc90e6fae444b4ed25ac" category="example-title">在 OCP 叢集中安裝 Astra Trident</block>
+  <block id="201de1e883240abf227c15e36805365c" category="list-text">使用 Helm 部署 Trident 操作員。請參閱指示 <block ref="2b02799a23e3b4104fc737b9e328001b" category="inline-link-macro-rx"></block></block>
+  <block id="26081a5f3033e3f0db9e432902c6f047" category="list-text">建立後端和儲存類別。請參閱指示 <block ref="9086b317542fa4fec3c7a94ae13e221d" category="inline-link-macro-rx"></block>。</block>
+  <block id="872bd3e42a2bdb9c97d84fb9206f5b75" category="example-title">將 AWS 上的 OCP 叢集新增至 Astra Control Center 。</block>
+  <block id="a2212fb9750ffed08e422fed3ae5804c" category="paragraph">將 AWS 中的 OCP 叢集新增至 Astra Control Center 。</block>
+  <block id="bb476886963857408a744eea2885622d" category="paragraph-title">在多區域架構中使用 Trident 的 CSI 拓撲功能</block>
+  <block id="7ed73bdf4c4e2c0d457afe6f9f4031b0" category="paragraph">如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。請參閱 <block ref="d4105e96f5d39fa667250cc3420bb2fe" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
+  <block id="638d185133876c481f9c7c55d167ce46" category="admonition">Kubernetes 支援兩種磁碟區繫結模式： - 當 **_Volume BindingMode_ 設為 _Immediate_** （預設）時、 Astra Trident 會在沒有任何拓撲感知的情況下建立磁碟區。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。- 當 **_Volume BindingMode_ 設定為 _WaitForFirstConsumer （客戶） ** 時、永久 Volume 的建立與繫結將延遲、直到排程並建立使用 PVC 的 Pod 為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。Astra Trident 儲存後端可根據可用性區域（可識別拓撲的後端）、選擇性地配置磁碟區。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。（可識別拓撲的 StorageClass ）請參閱 <block ref="d4105e96f5d39fa667250cc3420bb2fe" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
+  <block id="cdfa8f082e2d7715023a35b2735fceea" category="doc">使用 Astra Control Center 保護資料</block>
+  <block id="67ceaf3250ac3044e5b1ac1d959d53dd" category="paragraph">本頁顯示在 VMware vSphere 上使用 Astra Control Center （ ACC ）執行的 Red Hat OpenShift Container 應用程式資料保護選項。</block>
+  <block id="77e741d4de2fa0a2ebeda0f3879c7e2c" category="paragraph">當使用者使用 Red Hat OpenShift 將應用程式現代化的過程中、應制定資料保護策略、以保護他們不受意外刪除或任何其他人為錯誤的影響。為了保護資料不受萬用者的影響、通常也需要採取保護策略來達到法規或法規遵循的目的。</block>
+  <block id="2b4ffa904eb16d68fecf846cc9767cb0" category="paragraph">資料保護的需求各不相同、從還原到時間點複本、到自動容錯移轉到不同的故障網域、而無需人為介入。許多客戶選擇 ONTAP 做為其 Kubernetes 應用程式的首選儲存平台、因為其豐富的功能包括多租戶、多重傳輸協定、高效能與容量、多站台位置的複寫與快取、安全性與靈活度。</block>
+  <block id="5cef3ebd5669ef6dbcf6372fe453664b" category="paragraph">客戶可能會將雲端環境設定為資料中心擴充、以便充分運用雲端的優勢、並在未來的某個時間、妥善移動工作負載。對於這類客戶而言、將 OpenShift 應用程式及其資料備份到雲端環境是不可避免的選擇。然後、他們可以將應用程式及相關資料還原至雲端或資料中心的 OpenShift 叢集。</block>
+  <block id="07a40de4830379d3ca7cc7f192a93312" category="section-title">使用 Acc 進行備份與還原</block>
+  <block id="dff765515118d2dd275007616171d14f" category="paragraph">應用程式擁有者可以檢閱及更新 Acc 探索到的應用程式。主動定速控制系統可以使用 CSI 來製作 Snapshot 複本、並使用時間點 Snapshot 複本來執行備份。備份目的地可以是雲端環境中的物件存放區。您可以針對排程備份和要保留的備份版本數量、設定保護原則。最小 RPO 為一小時。</block>
+  <block id="3df2258e47bca7a3ee653a9c77641629" category="section-title">使用 Acc 從備份還原應用程式</block>
+  <block id="7c19c7318d54689f3bdb297f7e23fe89" category="inline-image-macro">Astra Control Center Restore 選項</block>
+  <block id="304b64e420b615d88c3bdee212c8bd06" category="paragraph"><block ref="304b64e420b615d88c3bdee212c8bd06" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="27ec99b325314a79ea3e5d3ca1942278" category="section-title">應用程式特定的執行攔截器</block>
+  <block id="dc4b99b300d94b30cac207327eca6b3e" category="paragraph">雖然儲存陣列層級的資料保護功能可供使用、但通常需要額外的步驟才能使備份和還原應用程式一致。應用程式專屬的其他步驟可能是：建立 Snapshot 複本之前或之後。- 建立備份之前或之後。從 Snapshot 複本或備份還原之後。Astra Control 可以執行這些應用程式專屬步驟、這些步驟編碼為稱為執行攔截程式的自訂指令碼。</block>
+  <block id="6fc65b336c93cbda7e7e6a16b1cbb001" category="inline-link-macro">開放原始碼專案 Verda</block>
+  <block id="0108cbf1d785343393582518165b2acc" category="paragraph">NetApp 的 <block ref="e8ef64368a60db519469fe3915b513cd" category="inline-link-macro-rx"></block> 提供常用雲端原生應用程式的執行掛鉤、讓保護應用程式變得簡單、強大且易於協調。如果您有足夠的資訊可用於儲存庫中未包含的應用程式、請隨時為該專案做出貢獻。</block>
+  <block id="58d3e072cfa16653345a754a5a6d1448" category="section-title">Redis 應用程式快照前的執行掛鉤範例。</block>
+  <block id="b85d4f3b9ce88f321496fccb2f71f0af" category="image-alt">Astra Control Center 執行掛鉤</block>
+  <block id="d41736970e54ce96afd763ad67dc252f" category="section-title">使用 Acc 進行複寫</block>
+  <block id="511daa26775075560fb655c151291f95" category="paragraph">為了提供區域保護、或是採用低 RPO 和 RTO 解決方案、應用程式可以複寫到另一個在不同站台上執行的 Kubernetes 執行個體、最好是在其他區域。主動定速控制系統採用 ONTAP 非同步 SnapMirror 、 RPO 最短可達 5 分鐘。請參閱 <block ref="c38cfe7448528c0b52ee969f596aee97" category="inline-link-macro-rx"></block> SnapMirror 安裝說明。</block>
+  <block id="009a4d257485880614dc216576d57125" category="section-title">SnapMirror 搭配 Acc</block>
+  <block id="9a1444b1c133e42ccb1d97ee2025cdac" category="image-alt">Astra Control Center 複寫</block>
+  <block id="e9ff139910647d633d54b0fb5f970c3b" category="admonition">SAN 經濟型和 NAS 經濟型儲存驅動程式不支援複寫功能。請參閱 <block ref="96b7ca19fdc8212e6e1a7f647be86fd3" category="inline-link-macro-rx"></block> 以取得更多詳細資料。</block>
+  <block id="5bed57ec15ba93e341876bf95c852684" category="section-title">示範影片：</block>
+  <block id="096b02f12256f3c6a5dbd2bf4dae6b48" category="inline-link-macro">Astra Control Center 的災難恢復示範影片</block>
+  <block id="21d6e2c6b83f85bd50777e293ae89572" category="paragraph"><block ref="21d6e2c6b83f85bd50777e293ae89572" category="inline-link-macro-rx"></block></block>
+  <block id="19c3bde99c8bff6dc76fef4a1ef18a79" category="paragraph">我們提供 Astra Control Center 資料保護功能的詳細資訊 <block ref="5701e901fa686ac904f6ef8d7c56219a" category="inline-link-macro-rx"></block></block>
+  <block id="fa6385abcbadab3651d099cbb8ffd292" category="doc">使用 Astra Control Center 進行資料移轉</block>
+  <block id="74262b249ea38631222f476198103a48" category="paragraph">此頁面顯示 Red Hat OpenShift 叢集搭配 Astra Control Center （ ACC ）的容器工作負載資料移轉選項。特別是、客戶可以使用 ACC 將部分選定的工作負載或所有工作負載從內部部署資料中心移至雲端、將應用程式複製到雲端、以供測試之用、或是從資料中心移至雲端</block>
+  <block id="2a529d0b05bbacac50f8502fe2e670bc" category="paragraph">若要將應用程式從一個環境移轉至另一個環境、您可以使用下列 Acc 功能之一：</block>
+  <block id="d046134dbee59ceee559caaee740734e" category="list-text">** 複寫 **</block>
+  <block id="7502d56aa1646347152e86a4fc41e691" category="list-text">** 備份與還原 **</block>
+  <block id="92e06daec8f56328236212e3cc1589f2" category="list-text">** 複製 **</block>
+  <block id="434bfe3fa874ac271fe4a58864eed525" category="inline-link-macro">資料保護區段</block>
+  <block id="2fbabbb6a6a4b39c94d7ff214be366fb" category="paragraph">請參閱 <block ref="3db733da05bd3e3967dc04592cc322a8" category="inline-link-macro-rx"></block> 適用於 ** 複寫與備份與還原 ** 選項。請參閱 <block ref="b17026f8b157d793dc85ba49db8a185d" category="inline-link-macro-rx"></block> 如需關於 ** 複製的其他詳細資料 ** 。</block>
+  <block id="ff34f2d1d3b4a8e19535d52fa3161174" category="admonition">Astra Replication 功能僅支援 Trident Container Storage Interface （ CSI ）。不過、 NAS 經濟型和 SAN 經濟型驅動程式不支援複寫。</block>
+  <block id="decf4ba07de4c0c590f687d6f4ae20c0" category="section-title">使用 Acc 執行資料複寫</block>
+  <block id="e4deb8e6d2d122cb9d8c89b367b4142c" category="paragraph"><block ref="e4deb8e6d2d122cb9d8c89b367b4142c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c097e1da19d035d4f07228f6b8e13793" category="doc">NetApp 解決方案搭配 VMware 上的 Red Hat OpenShift Container 平台工作負載</block>
+  <block id="7ce666810e087fc109e0f94f94ad56a7" category="paragraph">如果客戶需要在其私有資料中心的基礎架構上執行現代化的容器化應用程式、他們可以這麼做。他們應該規劃並部署 Red Hat OpenShift Container 平台（ OCP ）、以打造成功部署容器工作負載的正式作業環境。他們的 OCP 叢集可以部署在 VMware 或裸機上。</block>
+  <block id="04f13ada6e0062bf07f4a6bc4cfd0473" category="paragraph">NetApp ONTAP 儲存設備可為容器部署提供資料保護、可靠性和靈活度。Astra Trident 是動態儲存資源配置程式、可為客戶的有狀態應用程式使用持續的 ONTAP 儲存設備。Astra Control Center 可用來協調有狀態應用程式的許多資料管理需求、例如資料保護、移轉和業務持續運作。</block>
+  <block id="908657a98fea35209f3c29956a9b2bed" category="paragraph">有了 VMware vSphere 、 NetApp ONTAP 工具就能提供 vCenter 外掛程式、可用於佈建資料存放區。套用標籤並搭配 OpenShift 使用、以儲存節點組態和資料。NVMe 型儲存設備提供較低的延遲和高效能。</block>
+  <block id="5f24f5e6df026620962ac23d496e7362" category="paragraph">此解決方案提供使用 Astra Control Center 的資料保護和容器工作負載移轉的詳細資料。對於此解決方案、容器工作負載會部署在內部部署環境中 vSphere 上的 Red Hat OpenShift 叢集上。附註：未來我們將為裸機上 OpenShift 叢集上的容器工作負載提供解決方案。</block>
+  <block id="3037e288b8ba9d6259fa6ad9d3398b8f" category="section-title">使用 Astra Control Center 為 OpenShift Container 工作負載提供資料保護與移轉解決方案</block>
+  <block id="cb217a1a44f4d5fc78bf80f3442587fb" category="doc">在 VMware 上部署和設定 Red Hat OpenShift Container 平台</block>
+  <block id="ddd0b62f849b8e4ce53f6b702e4ec4a1" category="paragraph">本節說明如何設定和管理 OpenShift 叢集、以及如何管理其上的有狀態應用程式的高階工作流程。它顯示在 Astra Trident 協助下使用 NetApp ONTAP 儲存陣列來提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。</block>
+  <block id="fdee92074ebfb0479bebaa75f729f428" category="admonition">部署 Red Hat OpenShift Container 平台叢集有多種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 <block ref="ec30323d5c1ba24d6aabb0b3df901fd1" category="inline-link-macro-rx"></block>。</block>
+  <block id="7157150173a2ad98f77ee0aaf3fd209c" category="paragraph">下圖說明在資料中心部署在 VMware 上的叢集。</block>
+  <block id="ebee9d089ff5b775b007cf6049a2a17e" category="example-title">部署及設定 CentOS VM</block>
+  <block id="cff8c3267077ed69174aa3527d1dc36e" category="list-text">它部署在 VMware vSphere 環境中。</block>
+  <block id="cb1b5e668fc45052f3f24868ad7e60bc" category="list-text">此 VM 用於部署某些元件、例如 NetApp Astra Trident 和 NetApp Astra Control Center 、以供解決方案使用。</block>
+  <block id="bc6be57de293aecbdd76179b49cf3d18" category="list-text">在安裝期間、已在此 VM 上設定 root 使用者。</block>
+  <block id="32049ccafae47776aabbbc616d0f03c3" category="example-title">在 VMware vSphere （ Hub 叢集）上部署及設定 OpenShift Container Platform 叢集</block>
+  <block id="8f723b78972cfa193e65ef9f3a2344c8" category="inline-link-macro">輔助部署</block>
+  <block id="4032722c8375f3d8648bf18cdf7871cd" category="paragraph">請參閱的說明 <block ref="c391027f88ae10e0813918c42a205aa9" category="inline-link-macro-rx"></block> 部署 OCP 叢集的方法。</block>
+  <block id="6f236f58666ae998668d5afce2ac9348" category="admonition">請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供給安裝程式。如果需要、這些金鑰將用於登入主節點和工作節點。- 從輔助安裝程式下載安裝程式。此程式用於開機您在 VMware vSphere 環境中為主節點和工作節點所建立的 VM 。虛擬機器應具備最低的 CPU 、記憶體和硬碟需求。（請參閱上的 VM create 命令 <block ref="1caa15c4f6b987248682d9b97caf205a" category="inline-link-macro-rx"></block> 主節點和提供此資訊的工作節點頁面）：應在所有 VM 上啟用磁碟 UUID 。- 至少為主節點建立 3 個節點、為工作者建立 3 個節點。- 安裝程式發現這些項目後、請開啟 VMware vSphere 整合切換按鈕。</block>
+  <block id="5ee7e5d095a85988457e6852e94af6e8" category="example-title">在 Hub 叢集上安裝進階叢集管理</block>
+  <block id="643c48205940ae10b1f2c5f6f8aa5f64" category="paragraph">這是使用 Hub 叢集上的進階叢集管理操作員來安裝。請參閱說明 <block ref="4bb39576c102d9630dc961b3998ecbd9" category="inline-link-macro-rx"></block>。</block>
+  <block id="e32925fd5960e69787470b8e8050f9e4" category="example-title">在 Hub 叢集上安裝內部 Red Hat Quay 登錄。</block>
+  <block id="d35063583c4a1472426b44ab39cf1289" category="list-text">必須有內部登錄才能推送 Astra 映像。使用 Hub 叢集中的「操作員」來安裝 Quay 內部登錄。</block>
+  <block id="e9376ceddbd8c3199dd0f9b58f969db1" category="list-text">請參閱說明 <block ref="106db11ac4ec29af57ae501212b90c65" category="inline-link-macro-rx"></block></block>
+  <block id="c0090a527266898baf1b6d9a9978eeb3" category="example-title">安裝兩個額外的 OCP 叢集（來源和目的地）</block>
+  <block id="a4fcf9c2586b5e93f63d9c1290438839" category="list-text">您可以使用 Hub 叢集上的 ACM 來部署其他叢集。</block>
+  <block id="24ed1bd1ba2dc78d194e4186a2a7b0a1" category="list-text">請參閱說明 <block ref="61a11e403c83c9c41ff797a7a780dbff" category="inline-link-macro-rx"></block>。</block>
+  <block id="4cb2dca6265c22cd883513131d603c5f" category="example-title">設定 NetApp ONTAP 儲存設備</block>
+  <block id="31114fdb67ca9ac1afd2af9e1a830e4e" category="list-text">在 VMware 環境中安裝可連線至 OCP VM 的 ONTAP 叢集。</block>
+  <block id="15a89333d6100097518836f27ebc981d" category="list-text">建立 SVM 。</block>
+  <block id="5c9914884527913b8fccd217cc6c8b11" category="list-text">設定 NAS 資料 LIF 以存取 SVM 中的儲存設備。</block>
+  <block id="7becc4cb9c4df5e8d5cb90ed1d181394" category="example-title">在 OCP 叢集上安裝 NetApp Trident</block>
+  <block id="f086eaa0b9f8b360a31c94f637c0d0b4" category="list-text">在所有三個叢集上安裝 NetApp Trident ：集線器、來源和目的地叢集</block>
+  <block id="388489f610963550b7669f0a1294b958" category="list-text">請參閱說明 <block ref="36ef4218bf5578859a7215d49db6401a" category="inline-link-macro-rx"></block>。</block>
+  <block id="c80ffbf15474d7b48c471b4be5c7eea6" category="list-text">爲 ONTAP － NAS 創建一個存儲後端。</block>
+  <block id="29dfff8b62823a687037af3caba8bde0" category="list-text">為 ONTAP-NAS 建立儲存類別。</block>
+  <block id="6fa9ba2800ce8267575f3934fc7a7c46" category="list-text">請參閱指示 <block ref="9086b317542fa4fec3c7a94ae13e221d" category="inline-link-macro-rx"></block>。</block>
+  <block id="bae25119b826b9ac3f0139d60666c5a2" category="example-title">安裝 NetApp Astra Control Center</block>
+  <block id="dcc7f9c17c22a8d859c7d80bbab266fd" category="list-text">NetApp Astra Control Center 是使用 Hub 叢集上的 Astra 運算子來安裝。</block>
+  <block id="d38e5dd6bd81bc5e1d30960b2bcd4937" category="list-text">請參閱說明 <block ref="badde8c82c638a4d205deac0f9dfbab6" category="inline-link-macro-rx"></block>。</block>
+  <block id="8c41383f8ea827ed90aaea3cad2a266e" category="paragraph">值得記住的重點： * 從支援網站下載 NetApp Astra Control Center 映像。* 將映像推送至內部登錄。* 請參閱此處的說明。</block>
+  <block id="f1695603df9eff6b0631c2c5a3e023e5" category="example-title">在來源叢集上部署應用程式</block>
+  <block id="fc9da6996070c267e36ead9d0ec7feb9" category="paragraph">使用 OpenShift GitOps 部署應用程式。（例如Postgres 、 Ghost ）</block>
+  <block id="9528b255237a8d325a14e2000be97573" category="example-title">將來源叢集和目的地叢集新增至 Astra Control Center 。</block>
+  <block id="09361c7ad370c2e7e53d015ad4fab4b0" category="inline-link-macro">開始管理 Astra Control Center 的應用程式區段</block>
+  <block id="78fa07ec3b9ba9f22e548694264fe880" category="paragraph">將叢集新增至 Astra Control 管理之後、您可以在叢集上安裝應用程式（ Astra Control 之外）、然後前往 Astra Control 中的「應用程式」頁面來定義應用程式及其資源。請參閱 <block ref="c613c6401833c4841b0ab26745eb0b8c" category="inline-link-macro-rx"></block>。</block>
+  <block id="378b41ea55cc0a1ff844e4ab0f04524d" category="paragraph">下一步是使用 Astra Control Center 從來源叢集到目的地叢集進行資料保護和資料移轉。</block>
+  <block id="9645795f561430b8c7c8af462727e1c7" category="doc">使用 Astra 保護資料</block>
+  <block id="dfea6c0fea6ed37acf9e75b6a4549abb" category="paragraph">ONTAP 中的資料保護可以使用臨機操作或原則控制的方式來達成 - ** 快照 ** - ** 備份與還原 **</block>
+  <block id="32645e18d7f4247905ad6890e438a838" category="paragraph">Snapshot 複本和備份都能保護下列資料類型： - ** 代表應用程式狀態的應用程式中繼資料 ** - ** 任何與應用程式相關的持續資料磁碟區 ** - ** 屬於應用程式的任何資源成品 **</block>
+  <block id="60e419ba4534554b327dcc9d08a88051" category="section-title">使用 Acc 快照</block>
+  <block id="b0be27a64b0f61f58d3aec742f01fbad" category="paragraph">使用 Snapshot with Acc 可擷取資料的時間點複本。保護原則定義要保留的 Snapshot 複本數量。最低排程選項為每小時一次。您可以隨時以比排程 Snapshot 複本更短的時間間隔來進行手動隨選 Snapshot 複本。Snapshot 複本會儲存在與應用程式相同的已佈建磁碟區上。</block>
+  <block id="f70c55e82154bf66a6f83cb62a68c5d4" category="section-title">使用 Acc 設定 Snapshot</block>
+  <block id="05a7ec3be5c459fbf39f36ddf3c800c8" category="image-alt">Astra Control Center Snapshot 檢視</block>
+  <block id="251a2148a5d4efac4cff711b46a52b21" category="paragraph">備份是以 Snapshot 為基礎。主動定速控制系統可以使用 CSI 來製作 Snapshot 複本、並使用時間點 Snapshot 複本來執行備份。備份會儲存在外部物件存放區（任何相容的 S3 、包括位於不同位置的 ONTAP S3 ）。您可以針對排程備份和要保留的備份版本數量、設定保護原則。最小 RPO 為一小時。</block>
+  <block id="eec7737a80f326b19b44d829e47c31f7" category="paragraph">主動定速控制系統會從儲存備份的 S3 儲存區還原應用程式。</block>
+  <block id="92dab9911cf33fb36633339932ea1aa4" category="paragraph">此外、執行攔截器可設定為與託管應用程式的資料保護作業一起執行。雖然儲存陣列層級的資料保護功能可供使用、但通常需要額外的步驟才能使備份與還原作業一致。應用程式專屬的其他步驟可能是：建立 Snapshot 複本之前或之後。- 建立備份之前或之後。從 Snapshot 複本或備份還原之後。</block>
+  <block id="ebbdb911301d0ec7cb4da5dc83c333d4" category="paragraph">Astra Control 可以執行這些應用程式專屬步驟、這些步驟編碼為稱為執行攔截程式的自訂指令碼。</block>
+  <block id="0370124d48bfc5af2def19c48f433283" category="inline-link">NetApp Verda GitHub專案</block>
+  <block id="039a30c0463c68f7f8e1c222726b8bdd" category="paragraph"><block ref="9ad3989601b59e755170866a5329554c" category="inline-link-rx"></block> 提供常用雲端原生應用程式的執行掛鉤、讓保護應用程式變得簡單、強大且易於協調。如果您有足夠的資訊可用於儲存庫中未包含的應用程式、請隨時為該專案做出貢獻。</block>
+  <block id="3d03d2aa94bb04967bc567d16b813d26" category="paragraph">為了提供區域保護、或是採用低 RPO 和 RTO 解決方案、應用程式可以複寫到另一個在不同站台上執行的 Kubernetes 執行個體、最好是在其他區域。主動定速控制系統採用 ONTAP 非同步 SnapMirror 、 RPO 最短可達 5 分鐘。複寫是透過複寫到 ONTAP 、然後容錯移轉會在目的地叢集中建立 Kubernetes 資源。</block>
+  <block id="74713319c86022082cfafb127b906d08" category="admonition">請注意、複寫與備份移至 S3 並從 S3 執行還原的備份與還原不同。請參閱連結： https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html#replication-to-a-remote-cluster[here] 以取得兩種資料保護類型之間差異的其他詳細資料。</block>
+  <block id="12e6f760044e842eeeed770fe1f045e0" category="paragraph">請參閱 <block ref="c38cfe7448528c0b52ee969f596aee97" category="inline-link-macro-rx"></block> SnapMirror 安裝說明。</block>
+  <block id="3e27528a048bdb90c1e5af896157ebcf" category="section-title">使用 MetroCluster 實現營運不中斷</block>
+  <block id="75173a4bfbc4b9d0487876943898d53a" category="paragraph">我們的 ONTAP 硬體平台大多具備高可用度功能、可防止裝置故障、避免執行災難恢復。但為了防範火災或任何其他災難、並以零 RPO 和低 RTO 持續經營業務、通常會使用 MetroCluster 解決方案。</block>
+  <block id="841630d0dba0d69babf2a06681abb90a" category="paragraph">目前擁有 ONTAP 系統的客戶可在提供區域層級災難恢復的距離限制內新增支援的 ONTAP 系統、以延伸至 MetroCluster 。Astra Trident 、 CSI （ Container 儲存介面）支援 NetApp ONTAP 、包括 MetroCluster 組態、以及其他選項、例如 Cloud Volumes ONTAP 、 Azure NetApp Files 、 AWS FSX for NetApp ONTAP 等 Astra Trident 提供五種 ONTAP 儲存驅動程式選項、所有選項都支援 MetroCluster 組態。請參閱 <block ref="4ff141ef41caefdf95879d6959762462" category="inline-link-macro-rx"></block> 如需 Astra Trident 支援的 ONTAP 儲存驅動程式的詳細資訊、請參閱。</block>
+  <block id="fdf1e99fd6fe9f1b22f62f0c5ff36829" category="paragraph">MetroCluster 解決方案需要第 2 層網路擴充功能、或從兩個故障網域存取相同的網路位址。一旦 MetroCluster 組態就緒、應用程式擁有者就能清楚瞭解解決方案、因為 MetroCluster SVM 中的所有磁碟區都受到保護、並享有 SyncMirror （零 RPO ）的優勢。</block>
+  <block id="56142cf6bea785ab85e06c15d7593392" category="inline-image-macro">使用 MetroCluster 的營運不中斷解決方案</block>
+  <block id="e7a2e49de12de237d96c8edc922e5ad9" category="paragraph"><block ref="e7a2e49de12de237d96c8edc922e5ad9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e4fcddfe6dfd1a15c842a3b7017dffec" category="admonition">對於 Trident 後端組態（ TBC ）、使用 MetroCluster 組態時、請勿指定 dataLIF 和 SVM 。指定用於管理 LIF 的 SVM 管理 IP 、並使用 vsadmin 角色認證。</block>
+  <block id="0299f9898fbd6ab90ab2fb9535d62b7e" category="paragraph">此頁面顯示 Red Hat OpenShift 叢集搭配 Astra Control Center （ ACC ）的容器工作負載資料移轉選項。</block>
+  <block id="225f5856aa99c18e009bcb24f919f963" category="paragraph">Kubernetes 應用程式通常需要從一個環境移至另一個環境。若要移轉應用程式及其持續資料、可以使用 NetApp ACC 。</block>
+  <block id="b94dad5a79b4605eb1c357e1088d3d57" category="section-title">不同 Kubernetes 環境之間的資料移轉</block>
+  <block id="86c59e7ba36ae51135e600ddf9fb2bad" category="paragraph">ACC 支援各種 Kubernetes 口味、包括 Google Anthos 、 Red Hat OpenShift 、 Tanzu Kubernetes Grid 、 Rancher Kubernetes Engine 、上游 Kubernetes 、 等 如需其他詳細資料、請參閱 <block ref="0ceb66317efc123a6d617c493c18fdeb" category="inline-link-macro-rx"></block>。</block>
+  <block id="a54acb3fa05f851f3ce9e93ed8a6fcee" category="paragraph">若要將應用程式從一個叢集移轉至另一個叢集、您可以使用下列 Acc 功能之一：</block>
+  <block id="6ce65fc39d3572cc5ced699e841dc354" category="paragraph">Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱<block ref="412a2c3f2a7af96a2a4f6a512ee2088e" category="inline-link-rx"></block>。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱<block ref="273f9b54e4f57ca19b4597f14d191196" category="inline-link-rx"></block>。</block>
+  <block id="a4113bc79b3920d11274d7bf9cfafe10" category="paragraph"><block ref="a4113bc79b3920d11274d7bf9cfafe10" category="inline-link-rx"></block></block>
+  <block id="4be8ecb3320915437222a84e9761bcec" category="paragraph">首先、您必須使用vGPU建立Ubuntu 20.04客體VM。若要使用vGPU建立Ubuntu 20.04客體VM、請遵循中的指示大綱 <block ref="2009ba36309e23fc0bb68cec4d4a3e0d" category="inline-link-macro-rx"></block>。</block>
+  <block id="939ac3b79a18fc027a13bea0aeebcd3c" category="paragraph">接下來、您必須從NVIDIA NGC下載所需的AI或分析架構容器映像、以便在您的客體VM中使用。若要在客體VM內下載架構容器、請遵循中所述的指示 <block ref="7ea494a5b1819fa63a0ad0f42cf94b43" category="inline-link-macro-rx"></block>。</block>
+  <block id="898dfcda591317ac60dd8d6af3aff189" category="list-text">將您的模型儲存在中的新持續磁碟區上<block ref="2001a6caf72de652d98c6c64bc75a4e8" category="inline-link-rx"></block> NVIDIA Triton Inference伺服器也能辨識這點。</block>
+  <block id="80d1c0ba73b8e2e8e0f305b42a776a1f" category="summary">本解決方案提供 AWS FSX ONTAP 儲存設備和 EC2 運算執行個體的 Oracle 資料庫部署與保護概觀與詳細資料、這些執行個體採用 NFS 傳輸協定、而 Oracle 資料庫則是以 asm 做為 Volume Manager 在獨立重新啟動時設定。</block>
+  <block id="9fc2a175c9b071ebd541332693145030" category="doc">TR-XXXX ：使用 NFS/ASM 在 AWS FS3/EC2 上獨立重新啟動 Oracle 19c</block>
+  <block id="9c0bba5590ee70c0f934655cb253d4dd" category="paragraph">Oracle ASM 通常部署在 FC 、 iSCSI 儲存傳輸協定和 LUN 中、做為原始儲存設備。不過、 Oracle 也支援在 NFS 傳輸協定和 NFS 檔案系統上設定 ASM 。在本文件中、我們將示範如何在 Amazon FSX for ONTAP 儲存環境中部署具有 NFS 傳輸協定的 Oracle 19c 資料庫、以及使用 EC2 運算執行個體的 Oracle ASM 。我們也示範如何透過 NetApp BlueXP 主控台使用 NetApp SnapCenter 服務來備份、還原及複製您的 Oracle 資料庫、以供開發 / 測試、或是在 AWS 公有雲中執行儲存效率資料庫作業的其他使用案例。</block>
+  <block id="d8c9422483ecfd8d391fbc179e1ff90f" category="list-text">在 Amazon FSX 中部署 Oracle 資料庫、適用於 ONTAP 儲存設備、以及使用 NFS/ASM 的 EC2 運算執行個體</block>
+  <block id="86e62b62bb73c1d45af1018c5f546fa2" category="list-text">使用 NFS/ASM 在公有 AWS 雲端中測試和驗證 Oracle 工作負載</block>
+  <block id="b1868e5a46a34f2e4894103a18fa6e75" category="list-text">DBA 希望使用 NFS/ASM 在 AWS 公有雲中部署 Oracle 。</block>
+  <block id="6e5a8ef13e1f2826df29bb4025ed6544" category="list-text">* Oracle 資料和記錄配置。 * 在我們的測試和驗證中、我們分別部署了兩個 ASM 磁碟群組來處理資料和記錄。在 +data asm 磁碟群組中、我們在 Data NFS 檔案系統掛載點中配置了四個磁碟。在 +logs asm 磁碟群組中、我們在記錄檔 NFS 檔案系統掛載點中配置了兩個磁碟。對於大型資料庫部署、可建置 ASM 磁碟群組、以跨越多個 FSX 檔案系統、使用 ASM NFS 磁碟、透過固定在 FSX 檔案系統上的多個 NFS 裝載點散佈。這項特殊的設定是為了滿足超過 4Gbps 處理量和 160000 原始 SSD IOPS 需求的資料庫處理量而設計。</block>
+  <block id="e2d21e7b1ae9a8e7d20087f0084bf01a" category="list-text">* DNFS 組態。 * DNFS 內建於 Oracle 核心、已知在 Oracle 部署至 NFS 儲存設備時、可大幅提升 Oracle 資料庫效能。DNFS 封裝為 Oracle 二進位檔案、但預設不會開啟。在 NFS 上進行任何 Oracle 資料庫部署時、都應開啟此功能。對於大型資料庫的多個 FSX 檔案系統部署、應正確設定 DNFS 多重路徑。</block>
+  <block id="bc229d9916fc3cb8de0f67f3e5d86528" category="list-text">* 您應該為每個建立的 Oracle ASM 磁碟群組使用 Oracle ASM 備援層級。 * 因為 FSX 已鏡射 FSX 叢集層級上的儲存設備<block ref="7ea763007de155a1d5ac7192d220c274" prefix=" " category="inline-code"></block> 使用「外部備援」、表示此選項不允許 Oracle ASM 鏡射磁碟群組的內容。這一點特別重要、因為 NFS for Oracle 資料庫資料儲存需要硬 NFS 裝載選項、這對於鏡射 Oracle 層級的 ASM 內容來說是不理想的。</block>
+  <block id="d953285f2eeac9b2766ac055d81bf48a" category="list-text">安裝 NFS-utils 。</block>
+  <block id="04c0abfa4d590dbcf8140c900090b7d4" category="section-title">配置及匯出要掛載至 EC2 執行個體主機的 NFS 磁碟區</block>
+  <block id="a245b068ccb33c4feb57be67c4c4929e" category="list-text">驗證建立的資料庫磁碟區。</block>
+  <block id="f6a4694211343b15651db8fdd5f16222" category="list-text">建立 /u01 目錄以掛載 Oracle 二進位檔案系統</block>
+  <block id="aabf104e3877a3141576892889ebcfd2" category="list-text">將二進位磁碟區裝載至<block ref="a8946fa5f211c5345e3610710e471cb4" prefix=" " category="inline-code"></block>，已變更為您的 FSX NFS LIF IP 位址。如果您透過 NetApp 自動化工具套件部署 FSX 叢集、 FSX 虛擬儲存伺服器 NFS LIF IP 位址將會列在資源配置執行結束時的輸出中。否則、可從 AWS FSX 主控台 UI 擷取。</block>
+  <block id="6dc5f678e8b8446afe039edff2864ef0" category="list-text">變更<block ref="a8946fa5f211c5345e3610710e471cb4" prefix=" " category="inline-code"></block> 將點所有權掛載至 Oracle 使用者及其相關的主要群組。</block>
+  <block id="6e5bf17d6cb7ff829494e09654c5fdc2" category="list-text">建立 /oradata 目錄以掛載 Oracle 資料檔案系統</block>
+  <block id="41096b5d68af7d413deac705db2e3bab" category="list-text">將資料磁碟區裝載至<block ref="f006bf17b06c884c47190c4225d3215a" prefix=" " category="inline-code"></block>，已變更為您的 FSX NFS LIF IP 位址</block>
+  <block id="90231d3bb492c7fb529e3500cdcef778" category="list-text">變更<block ref="f006bf17b06c884c47190c4225d3215a" prefix=" " category="inline-code"></block> 將點所有權掛載至 Oracle 使用者及其相關的主要群組。</block>
+  <block id="fbe05a889a0659f00644b0c25e984066" category="list-text">建立 /or記錄 目錄以掛載 Oracle 記錄檔系統</block>
+  <block id="0e94479bef4fdce94a31a913e4a90ea4" category="list-text">將記錄磁碟區裝載至<block ref="894db1fc1592356880976f1b92c3e6a2" prefix=" " category="inline-code"></block>，已變更為您的 FSX NFS LIF IP 位址</block>
+  <block id="cd48bd706e8c70912f675dc9f17a75be" category="list-text">變更<block ref="894db1fc1592356880976f1b92c3e6a2" prefix=" " category="inline-code"></block> 將點所有權掛載至 Oracle 使用者及其相關的主要群組。</block>
+  <block id="06b5412c6ada2efb7e05e7a7454e34df" category="list-text">Sudo to Oracle 使用者、請建立 asm 資料夾來儲存 asm 磁碟檔案</block>
+  <block id="f6ebe7eea328062998e8b597d1de48e4" category="list-text">身為 Oracle 使用者、請建立 asm 資料磁碟檔案、並變更數量、使其與磁碟大小與區塊大小相符。</block>
+  <block id="3abcbe76f32bdac63b7e132c5d06ccb4" category="list-text">身為 root 使用者、將資料磁碟檔案權限變更為 640</block>
+  <block id="9b424f5bec397927a45cc70947221c7d" category="list-text">身為 Oracle 使用者、建立 asm 記錄磁碟檔案、變更為以區塊大小與磁碟大小相符。</block>
+  <block id="dbd66f2c49aae90d1e55e84df32a83da" category="list-text">以 root 使用者身分、將記錄磁碟檔案權限變更為 640</block>
+  <block id="196c642f2925757377d21779d79ba748" category="list-text">以 root 使用者身分登入 EC2 執行個體。</block>
+  <block id="a6774a54a715f893108bd2d2bc05062e" category="admonition">根據 EC2 執行個體主機中的可用記憶體來設定總記憶體。Oracle 分配 75% 的<block ref="834709f36a11a38a80fe0dc57054ec20" prefix=" " category="inline-code"></block> 至 DB 執行個體 SGA 或緩衝區快取。</block>
+  <block id="c8c683d0737e702e38c962f83ab25c3f" category="list-text">身為 Oracle 使用者、請變更為 Oracle 資料庫主目錄 /u01/app/oracle/product/19.0/db1 和啟用 DNFS</block>
+  <block id="f60c53adcb933554319040836143101b" category="list-text">在 oracle_home 中設定 oranfstab 檔案</block>
+  <block id="e3821eca2ea743978a8041832aa25596" category="list-text">以 Oracle 使用者身分、從 sqlplus 登入資料庫、並將 DB 恢復大小和位置設為 +logs 磁碟群組。</block>
+  <block id="78f987fb432bce81eba18cab51620826" category="list-text">啟用歸檔記錄模式並重新啟動 Oracle DB 執行個體</block>
+  <block id="2311b19efeffe5f795b74cc4dddf6246" category="list-text">執行個體重新開機後、驗證 DB 記錄模式和 DNFS</block>
+  <block id="db852220e8f70b72373f5e4a21bd9a45" category="list-text">驗證 Oracle ASM</block>
+  <block id="8705d70129ca2e423b28fad13ebb5bf5" category="paragraph">作者： Allen Cao 、 Niyaz Mohamed 、 NetApp</block>
+  <block id="ca1f43ed95dcff37918897f15b054794" category="section-title">Azure 虛擬機器</block>
+  <block id="5fe36f3a6d3cc4a34d1f045b7cd14ac3" category="paragraph">命令的預期輸出：</block>
+  <block id="4865c175ece72354a657ed5ee2b256eb" category="paragraph">Linux是最常見的作業系統、具備原生NFS功能。Oracle提供直接NFS（DNFS）用戶端、原生整合至Oracle。Oracle 已支援 NFSv3 超過 20 年。NFSv3 支援 DNFS 、適用於所有 Oracle 版本。所有遵循 NFSv4 標準的作業系統都支援 NFSv4 。NFSv3 4 的 DNFS 支援需要 Oracle 12.1.0.2 或更高版本。NFSv4.1 需要特定的作業系統支援。請參閱 NetApp 互通性對照表工具（ IMT ）以取得支援的作業系統。NFS4.1 的 DNFS 支援需要 Oracle 版本 19.3.0.0 或更新版本。</block>
+  <block id="a3f8d7c738bb455d9c0506663213b244" category="paragraph">使用NetApp自動化工具套件自動部署Oracle、可在NFSv3上自動設定DNFS。</block>
+  <block id="5088352a7b028bc873f55b1b666d7cd8" category="admonition">使用DNFS之前、請先確認已安裝Oracle Doc 1495104.1中所述的修補程式。NFSv3 和 NFSv4 的 NetApp 支援對照表不包含特定作業系統。支援所有遵守 RFC 的作業系統。搜尋線上 IMT 以取得 NFSv3 或 NFSv4 支援時、請勿選取特定的作業系統、因為不會顯示任何相符項目。一般原則隱含支援所有作業系統。</block>
+  <block id="c0340939954e1026bd670680d03fe329" category="paragraph">crontab 排程：</block>
+  <block id="e0ffc65e6881a5936afffc4b840e9cd5" category="list-text">在資料庫中建立要還原的測試表格。</block>
+  <block id="8b211d4c76db32ffc96c88ef826c76ac" category="example-title">混合式 MultiCloud 搭配 Red Hat OpenShift</block>
+  <block id="7726892a5c5734a343a1539f3b3f6b28" category="video-title">ROSA DR 使用 Astra Control Service</block>
+  <block id="585d77f28be6ed7195a002752abf2272" category="video-title">將 FSxN 與 Astra Trident 整合</block>
+  <block id="bcb10d9a12c5b72d4b9a3e3af5c448bd" category="video-title">透過 FSxN 在 ROSA 上容錯移轉和容錯回復應用程式</block>
+  <block id="a1b302ac6b7c1aec08c902797c133e13" category="paragraph-title">DR 使用 Astra Control Center</block>
+  <block id="7c75a912761dd20f4e8a9aceb430dc5f" category="paragraph"><block ref="7c75a912761dd20f4e8a9aceb430dc5f" category="inline-link-macro-rx"></block></block>
+  <block id="52463fc86a53e3e78c2a77069889838f" category="paragraph">如需SnapCenter 在AWS中駐留的《不景伺服器》上完成的步驟清單、請參閱一節 <block ref="1d252dd870179a0ef2258cd4837b106d" category="inline-link-macro-rx"></block>。</block>
+  <block id="365ee461cb4c118a8bc7c388fee3410a" category="sidebar">價值主張</block>
+  <block id="46d480fc201dd71bbb912a8bd377a13c" category="sidebar">已驗證的解決方案</block>
+  <block id="10a64a41f3a83289d75b9eb6ee0c0961" category="sidebar">已驗證的版本</block>
+  <block id="29656b7894a4e22578d8ffdacb29e484" category="sidebar">內部部署工作負載</block>
+  <block id="fdf2b7bbfae8a8d27a7457a3a248684e" category="sidebar">內部部署解決方案</block>
+  <block id="7c444e839aacd68c963d533d2f1a2ef1" category="sidebar">設定環境</block>
+  <block id="9572c488eb363be83451418a6ff48c7f" category="sidebar">使用主動定速控制系統保護資料</block>
+  <block id="5936437437dba0b49462bb1b4e9dcf6b" category="sidebar">使用主動定速控制系統進行資料移轉</block>
+  <block id="c115e2b85b46823abe897a674f212329" category="sidebar">混合雲工作負載（自我管理元件）</block>
+  <block id="1ab1e2e36ef5b181341692ea36b79b5d" category="sidebar">混合雲解決方案搭配自我管理元件</block>
+  <block id="b99e808ac7f025e225519c5d70ae9489" category="sidebar">混合雲工作負載（由供應商管理的元件）</block>
+  <block id="de8191a0431e18dd95f1a5c6258b7076" category="sidebar">混合雲解決方案搭配供應商管理的元件</block>
+  <block id="b43e25cad1f62f3428d20945ecbc7879" category="sidebar">使用 ACS 保護資料</block>
+  <block id="4776eb5da1441e8a2d19f5026a1a536d" category="sidebar">使用 BlueXP 進行資料移轉</block>
+  <block id="885f346093197ca6295f5ac1ded93d82" category="sidebar">在 AWS FS3/EC2 上使用 NFS/ASM 獨立重新啟動 Oracle 19c</block>
+  <block id="d8db237e75bdba6ccaea8d2944877403" category="sidebar">NetApp 混合式多雲端搭配 Red Hat</block>
+  <block id="bcea83da6f4b543efcfb552bffdd3b9c" category="sidebar">NetApp 混合式多雲端搭配 Red Hat OpenShift</block>
+  <block id="0fca8d17afc46bb08bd2d70a26cdf886" category="sidebar">內部部署</block>
+  <block id="2a39f365b05b58e7a535b6b047620174" category="sidebar">在 VMware 上設定 Red Hat OpenShift Container 工作負載</block>
+  <block id="609cb9f7998ec5bb4269ca1df422d4aa" category="sidebar">保護 VMware 上的 Container 工作負載</block>
+  <block id="ec18322cbcfcc1ee3cdbe8a12013b96e" category="sidebar">在 VMware 上移轉 Container 工作負載</block>
+  <block id="b6d78ec151619bb9a9331436f7debd97" category="sidebar">混合雲搭配自我管理元件</block>
+  <block id="2a9707187bf8d0351412172cebd38919" category="sidebar">在 AWS 上設定 Red Hat OpenShift Container 工作負載</block>
+  <block id="46d9362234fd1fb8fdbf3aff5d62f108" category="sidebar">保護 AWS 上的 Container 工作負載</block>
+  <block id="bd0cd83be209951ff7339cce298b2e3d" category="sidebar">將 Container 工作負載移轉至 AWS</block>
+  <block id="effcc9c0e3cea8d66e69bb552e757275" category="sidebar">混合雲與供應商管理的元件</block>
+  <block id="b432f68713f4ab09d27d581993480c2d" category="sidebar">在 AWS 上移轉 Container 工作負載</block>
 </blocks>

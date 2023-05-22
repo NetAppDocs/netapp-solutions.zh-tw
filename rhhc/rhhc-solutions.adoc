@@ -1,0 +1,80 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-solutions.html 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Astra Control Center, Advanced Cluster Management, ACM, Hub Cluster 
+summary:  
+---
+= 適用於 Red Hat OpenShift Container 工作負載的 NetApp 混合式多雲端支援解決方案
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本解決方案使用 OpenShift Container 平台（ OCP ）、 OpenShift Advanced Cluster Manager （ ACM ）、 NetApp ONTAP 、 NetApp BlueXP 和 NetApp Astra Control Center （ ACC ）來測試及驗證移轉與集中式資料保護。
+
+對於此解決方案、 NetApp 會測試並驗證下列情境。根據下列特性、將解決方案分成多種情境：
+
+* 內部部署
+* 雲端
++
+** 自我管理的 OpenShift 叢集和自我管理的 NetApp 儲存設備
+** 由供應商管理的 OpenShift 叢集和由供應商管理的 NetApp 儲存設備
+
+
+
+
+我們將在未來建立更多解決方案和使用案例。 **
+
+
+
+== 案例 1 ：使用主動定速控制系統在內部環境中保護資料及移轉
+
+** 內部部署：自我管理的 OpenShift 叢集與自我管理的 NetApp 儲存設備 **
+
+* 使用 Acc 建立 Snapshot 複本、備份與還原、以保護資料。
+* 使用 Acc 執行容器應用程式的 SnapMirror 複寫。
+
+
+
+
+=== 案例1
+
+image:rhhc-on-premises.png[""]
+
+
+
+== 案例 2 ：使用 Acc 保護資料、並從內部環境移轉至 AWS 環境：
+
+** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 ** AWS Cloud ：自我管理的 OpenShift 叢集與自我管理的儲存設備 **
+
+* 使用主動定速控制系統執行備份與還原、以保護資料。
+* 使用 Acc 執行容器應用程式的 SnapMirror 複寫。
+
+
+
+
+=== 案例2
+
+image:rhhc-self-managed-aws.png[""]
+
+
+
+== 案例 3 ：資料保護、從內部環境移轉至 AWS 環境：
+
+** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 ** AWS Cloud ：由供應商管理的 OpenShift 叢集（ ROSA ）和由供應商管理的儲存設備（ FSxN ） **
+
+* 使用 BlueXP 執行持續磁碟區（ FSxN ）的複寫。
+* 使用 OpenShift GitOps 重新建立應用程式中繼資料。
+
+
+
+
+=== 案例 3
+
+image:rhhc-rosa-with-fsxn.png[""]
+
+如需在 MetroCluster 組態中使用 ONTAP 的考量、請參閱 link:https://docs.netapp.com/us-en/ontap-metrocluster/install-stretch/concept_considerations_when_using_ontap_in_a_mcc_configuration.html["請按這裡"]。

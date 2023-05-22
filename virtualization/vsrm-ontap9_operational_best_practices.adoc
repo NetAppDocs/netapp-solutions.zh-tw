@@ -32,7 +32,7 @@ summary: 如有可能、請務必使用ONTAP 「資訊工具」來配置資料�
 ....
 snap autodelete modify –volume -commitment try
 ....
-對於包含SAN資料存放區的磁碟區、Volume自動調整大小應設為「擴充」、而NFS資料存放區則設為「擴充」。請參閱 https://["供應說明文件中心 ONTAP"^] 以取得特定語法。
+對於包含SAN資料存放區的磁碟區、Volume自動調整大小應設為「擴充」、而NFS資料存放區則設為「擴充」。請參閱 https://docs.netapp.com/ontap-9/index.jsp?topic=%2Fcom.netapp.doc.dot-cm-cmpr-910%2Fvolume__autosize.html["供應說明文件中心 ONTAP"^] 以取得特定語法。
 
 
 
@@ -122,11 +122,11 @@ NetApp也建議偶爾確認來賓應用程式功能、尤其是在重新設定VM
 
 您可能必須面對的一個問題是站台之間的網路差異。某些環境可能會在主要站台和DR站台上使用相同的網路IP位址。這項功能稱為「延伸虛擬LAN（VLAN）」或「延伸網路設定」。其他環境可能需要在主要站台使用不同的網路IP位址（例如不同的VLAN）、相對於DR站台。
 
-VMware提供多種方法來解決此問題。例如VMware NSS-T Data Center等網路虛擬化技術、會從作業環境的第2層到第7層、將整個網路堆疊抽象化、以提供更多可攜的解決方案。您可以閱讀更多有關SRM NSX-T選項的資訊 https://["請按這裡"^]。
+VMware提供多種方法來解決此問題。例如VMware NSS-T Data Center等網路虛擬化技術、會從作業環境的第2層到第7層、將整個網路堆疊抽象化、以提供更多可攜的解決方案。您可以閱讀更多有關SRM NSX-T選項的資訊 https://docs.vmware.com/en/Site-Recovery-Manager/8.4/com.vmware.srm.admin.doc/GUID-89402F1B-1AFB-42CD-B7D5-9535AF32435D.html["請按這裡"^]。
 
 SRM也可讓您在VM恢復時變更其網路組態。此重新設定包括IP位址、閘道位址和DNS伺服器設定等設定。不同的網路設定會在個別虛擬機器恢復時套用、可在還原計畫中的虛擬機器內容設定中指定。
 
-若要設定SRM將不同的網路設定套用到多個VM、而不需要編輯恢復計畫中每個VM的內容、VMware提供一種稱為DR-IP-customizer的工具。如需如何使用此公用程式的相關資訊、請參閱VMware的文件 https://["請按這裡"^]。
+若要設定SRM將不同的網路設定套用到多個VM、而不需要編輯恢復計畫中每個VM的內容、VMware提供一種稱為DR-IP-customizer的工具。如需如何使用此公用程式的相關資訊、請參閱VMware的文件 https://docs.vmware.com/en/Site-Recovery-Manager/8.4/com.vmware.srm.admin.doc/GUID-2B7E2B25-2B82-4BC4-876B-2FE0A3D71B84.html["請按這裡"^]。
 
 
 

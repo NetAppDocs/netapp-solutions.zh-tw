@@ -57,10 +57,10 @@ link:xcp-bp-file-analytics.html["上一篇：檔案分析。"]
 
 == 部署步驟- NAS
 
-若要部署NetApp XCP以進行資料傳輸、請先在目的地位置安裝並啟動XCP軟體。您可以檢閱中的詳細資料 https://["NetApp XCP使用者指南"^]。若要這麼做、請完成下列步驟：
+若要部署NetApp XCP以進行資料傳輸、請先在目的地位置安裝並啟動XCP軟體。您可以檢閱中的詳細資料 https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=63064["NetApp XCP使用者指南"^]。若要這麼做、請完成下列步驟：
 
 . 符合一節中詳述的先決條件 link:xcp-bp-netapp-xcp-overview.html#prerequisites-for-xcp["「XCP的先決條件」。"]
-. 從下載XCP軟體 https://["NetApp XCP（下載）頁面"^]。
+. 從下載XCP軟體 https://mysupport.netapp.com/site/products/all/details/netapp-xcp/downloads-tab["NetApp XCP（下載）頁面"^]。
 . 將下載的XCP tar檔案複製到XCP伺服器。
 +
 ....
@@ -71,7 +71,7 @@ link:xcp-bp-file-analytics.html["上一篇：檔案分析。"]
 ....
 [root@mastr-53 src]# tar -zxvf NETAPP_XCP_1.6.1.tgz
 ....
-. 請從下載授權 https://["https://xcp.netapp.com/license/xcp.xwic"^] 並複製到XCP伺服器。
+. 請從下載授權 https://xcp.netapp.com/license/xcp.xwic%20["https://xcp.netapp.com/license/xcp.xwic"^] 並複製到XCP伺服器。
 . 啟動授權。
 +
 ....
@@ -224,12 +224,12 @@ STATUS      : PASSED
 ....
 
 
-XCP文件針對「shcan」、「copy」、「Sync」和「驗證」作業提供多種選項（例如）。如需詳細資訊、請參閱 https://["NetApp XCP使用者指南"^]。
+XCP文件針對「shcan」、「copy」、「Sync」和「驗證」作業提供多種選項（例如）。如需詳細資訊、請參閱 https://mysupport.netapp.com/documentation/productlibrary/index.html?productID=63064["NetApp XCP使用者指南"^]。
 
 
 NOTE: Windows客戶應該使用存取控制清單（ACL）來複製資料。NetApp建議使用命令「XCP copy -ACL -fallbackuser\<使用者名稱>-fallbackGroup\<使用者名稱或群組名稱><來源><目的地>」。為了發揮最大效能、考慮到來源磁碟區具有含ACL的SMB資料、以及NFS和SMB可存取的資料、目標必須是NTFS磁碟區。使用XCP（NFS版本）、從Linux伺服器複製資料、然後從Windows伺服器執行XCP（SMB版本）同步、使用「-ACL」和「-nocdata」選項、將ACL從來源資料複製到目標SMB資料。
 
-如需詳細步驟、請參閱 https://["設定「管理稽核與安全性記錄」原則"^]。
+如需詳細步驟、請參閱 https://helpcenter.netwrix.com/NA/Configure_IT_Infrastructure/Accounts/DCA_Manage_Auditing_Security_Log.html["設定「管理稽核與安全性記錄」原則"^]。
 
 
 

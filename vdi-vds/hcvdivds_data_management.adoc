@@ -9,7 +9,7 @@ summary: 在部署過程中、您可以選擇檔案服務方法來裝載使用�
 
 
 [role="lead"]
-在部署過程中、您可以選擇檔案服務方法來裝載使用者設定檔、共用資料及主磁碟機資料夾。可用的選項包括「檔案伺服器」、「Azure檔案」或Azure NetApp Files 「無法」。不過、部署之後、您可以使用Command Center工具修改此選項、以指向任何SMB共用區。 link:hcvdivds_why_ontap.html["使用NetApp ONTAP 功能主機託管有多種優點"]。若要瞭解如何變更SMB共用區、請參閱 https://["變更資料層"^]。
+在部署過程中、您可以選擇檔案服務方法來裝載使用者設定檔、共用資料及主磁碟機資料夾。可用的選項包括「檔案伺服器」、「Azure檔案」或Azure NetApp Files 「無法」。不過、部署之後、您可以使用Command Center工具修改此選項、以指向任何SMB共用區。 link:hcvdivds_why_ontap.html["使用NetApp ONTAP 功能主機託管有多種優點"]。若要瞭解如何變更SMB共用區、請參閱 https://docs.netapp.com/us-en/virtual-desktop-service/Architectural.change_data_layer.html["變更資料層"^]。
 
 
 
@@ -26,7 +26,7 @@ image:hcvdivds_image13.png["錯誤：缺少圖形影像"]
 * 具有足夠磁碟容量的邊緣、可快取資料
 
 
-若要下載軟體並計算Edge的磁碟快取容量、請參閱 https://["GFC文件"^]。
+若要下載軟體並計算Edge的磁碟快取容量、請參閱 https://docs.netapp.com/us-en/occm/download_gfc_resources.html#download-required-resources["GFC文件"^]。
 
 為了進行驗證、我們在Azure的同一部VM上部署核心與管理資源、並在NetApp HCI 支援上部署邊緣資源。請注意、核心是需要大量資料存取的核心、而邊緣則是核心的子集。安裝軟體之後、您必須先啟動啟動授權、才能使用。若要這麼做、請完成下列步驟：
 
@@ -34,7 +34,7 @@ image:hcvdivds_image13.png["錯誤：缺少圖形影像"]
 +
 image:hcvdivds_image27.png["錯誤：缺少圖形影像"]
 
-. 提供要用於全域檔案快取的服務帳戶。如需此帳戶的必要權限、請參閱 https://["GFC文件"^]。
+. 提供要用於全域檔案快取的服務帳戶。如需此帳戶的必要權限、請參閱 https://docs.netapp.com/us-en/occm/download_gfc_resources.html#download-required-resources["GFC文件"^]。
 +
 image:hcvdivds_image28.png["錯誤：缺少圖形影像"]
 
@@ -74,7 +74,7 @@ image:hcvdivds_image35.png["錯誤：缺少圖形影像"]
 
 image:hcvdivds_image36.png["錯誤：缺少圖形影像"]
 
-如需詳細資訊、請參閱 https://["Talon與Azure NetApp Files 《部署》影片"^]。
+如需詳細資訊、請參閱 https://www.youtube.com/watch?v=91LKb1qsLIM["Talon與Azure NetApp Files 《部署》影片"^]。
 
 
 
@@ -84,8 +84,8 @@ NetApp VDS可為Salesforce和Microsoft Office 365提供資料保護、包括Exch
 
 image:hcvdivds_image14.png["錯誤：缺少圖形影像"]
 
-如需Microsoft Office 365資料保護的示範、請參閱 https://["這段影片"^]。
+如需Microsoft Office 365資料保護的示範、請參閱 https://www.youtube.com/watch?v=MRPBSu8RaC0&ab_channel=NetApp["這段影片"^]。
 
-如需Salesforce資料保護的示範、請參閱 https://["這段影片"^]。
+如需Salesforce資料保護的示範、請參閱 https://www.youtube.com/watch?v=1j1l3Qwo9nw&ab_channel=NetApp["這段影片"^]。
 
 link:hcvdivds_operation_management.html["下一步：營運管理"]

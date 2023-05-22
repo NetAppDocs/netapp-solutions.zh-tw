@@ -1,0 +1,924 @@
+---
+sidebar: sidebar 
+permalink: databases/aws_ora_fsx_ec2_nfs_asm.html 
+keywords: Oracle, AWS, FSx ONTAP, Database, Oracle ASM, Oracle Restart, Oracle 19c, NFS, dNFS 
+summary: 本解決方案提供 AWS FSX ONTAP 儲存設備和 EC2 運算執行個體的 Oracle 資料庫部署與保護概觀與詳細資料、這些執行個體採用 NFS 傳輸協定、而 Oracle 資料庫則是以 asm 做為 Volume Manager 在獨立重新啟動時設定。 
+---
+= TR-XXXX ：使用 NFS/ASM 在 AWS FS3/EC2 上獨立重新啟動 Oracle 19c
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp公司的Alleno Cao、Niyazz Mohamed
+
+
+
+== 目的
+
+ASM （自動儲存管理）是一款熱門的 Oracle 儲存 Volume Manager 、適用於許多 Oracle 安裝。這也是 Oracle 推薦的儲存管理解決方案。它是傳統 Volume 管理程式和檔案系統的替代方案。自 Oracle 11g 版起、 ASM 便已與網格基礎架構一起封裝、而非資料庫。因此、若要在沒有 RAC 的情況下使用 Oracle ASM 進行儲存管理、您必須在獨立伺服器中安裝 Oracle 網格基礎架構、也稱為 Oracle 重新啟動。這樣做當然會增加複雜度、使 Oracle 資料庫部署更簡單。不過、顧名思義、當 Oracle 部署在重新啟動模式時、任何故障的 Oracle 服務都會在主機重新開機後重新啟動、而無需使用者介入、這會提供一定程度的高可用度或 HA 功能。
+
+Oracle ASM 通常部署在 FC 、 iSCSI 儲存傳輸協定和 LUN 中、做為原始儲存設備。不過、 Oracle 也支援在 NFS 傳輸協定和 NFS 檔案系統上設定 ASM 。在本文件中、我們將示範如何在 Amazon FSX for ONTAP 儲存環境中部署具有 NFS 傳輸協定的 Oracle 19c 資料庫、以及使用 EC2 運算執行個體的 Oracle ASM 。我們也示範如何透過 NetApp BlueXP 主控台使用 NetApp SnapCenter 服務來備份、還原及複製您的 Oracle 資料庫、以供開發 / 測試、或是在 AWS 公有雲中執行儲存效率資料庫作業的其他使用案例。
+
+本解決方案可解決下列使用案例：
+
+* 在 Amazon FSX 中部署 Oracle 資料庫、適用於 ONTAP 儲存設備、以及使用 NFS/ASM 的 EC2 運算執行個體
+* 使用 NFS/ASM 在公有 AWS 雲端中測試和驗證 Oracle 工作負載
+* 測試及驗證 AWS 中部署的 Oracle 資料庫重新啟動功能
+
+
+
+
+== 目標對象
+
+本解決方案適用於下列人員：
+
+* DBA 希望使用 NFS/ASM 在 AWS 公有雲中部署 Oracle 。
+* 想要在 AWS 公有雲中測試 Oracle 工作負載的資料庫解決方案架構設計師。
+* 想要部署及管理部署至 AWS FSX 儲存設備的 Oracle 資料庫的儲存管理員。
+* 想要在 AWS FS3/EC2 中備份 Oracle 資料庫的應用程式擁有者。
+
+
+
+
+== 解決方案測試與驗證環境
+
+此解決方案的測試與驗證作業是在AWS FSX和EC2環境中執行、而該環境可能與最終部署環境不符。如需詳細資訊、請參閱一節 <<Key Factors for Deployment Consideration>>。
+
+
+
+=== 架構
+
+image::aws_ora_fsx_ec2_nfs_asm_architecture.png[此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。]
+
+
+
+=== 硬體與軟體元件
+
+|===
+
+
+3+| *硬體* 
+
+
+| FSX ONTAP 支援儲存 | AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 
+
+
+| EC2運算執行個體 | T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器 
+
+
+3+| *軟體* 
+
+
+| RedHat Linux | RHEL-8.6.0_HVM-20220504-x86_64：2-Hourly2-GP2 | 已部署RedHat訂閱以進行測試 
+
+
+| Oracle Grid 基礎架構 | 版本 19.18 | 已套用 RU 修補程式 p34762026_190000_Linux-x86-64.zip 
+
+
+| Oracle資料庫 | 版本 19.18 | 已套用 RU 修補程式 p34765931_190000_Linux-x86-64.zip 
+
+
+| Oracle OPatch | 12.2.0.1.36 版 | 最新修補程式 p6880880_190000_Linux-x86-64.zip 
+
+
+| 支援服務SnapCenter | 版本 | v2.3.1.2324 
+|===
+
+
+=== 部署考量的關鍵因素
+
+* * EC2 運算執行個體。 * 在這些測試與驗證中、我們使用 AWS EC2 T2.xlge 執行個體類型來執行 Oracle 資料庫運算執行個體。NetApp 建議在正式作業部署中使用 M5 類型 EC2 執行個體作為 Oracle 的運算執行個體、因為它已針對資料庫工作負載進行最佳化。您必須根據實際工作負載需求、適當調整 EC2 執行個體的 vCPU 數量和 RAM 數量。
+* * FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。FSXHA叢集會以HA配對進行配置、並在一對主動-被動檔案系統中進行鏡射同步、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。
+* * FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。
+* * Oracle 資料和記錄配置。 * 在我們的測試和驗證中、我們分別部署了兩個 ASM 磁碟群組來處理資料和記錄。在 +data asm 磁碟群組中、我們在 Data NFS 檔案系統掛載點中配置了四個磁碟。在 +logs asm 磁碟群組中、我們在記錄檔 NFS 檔案系統掛載點中配置了兩個磁碟。對於大型資料庫部署、可建置 ASM 磁碟群組、以跨越多個 FSX 檔案系統、使用 ASM NFS 磁碟、透過固定在 FSX 檔案系統上的多個 NFS 裝載點散佈。這項特殊的設定是為了滿足超過 4Gbps 處理量和 160000 原始 SSD IOPS 需求的資料庫處理量而設計。
+* * DNFS 組態。 * DNFS 內建於 Oracle 核心、已知在 Oracle 部署至 NFS 儲存設備時、可大幅提升 Oracle 資料庫效能。DNFS 封裝為 Oracle 二進位檔案、但預設不會開啟。在 NFS 上進行任何 Oracle 資料庫部署時、都應開啟此功能。對於大型資料庫的多個 FSX 檔案系統部署、應正確設定 DNFS 多重路徑。
+* * 您應該為每個建立的 Oracle ASM 磁碟群組使用 Oracle ASM 備援層級。 * 因為 FSX 已鏡射 FSX 叢集層級上的儲存設備 `ONLY` 使用「外部備援」、表示此選項不允許 Oracle ASM 鏡射磁碟群組的內容。這一點特別重要、因為 NFS for Oracle 資料庫資料儲存需要硬 NFS 裝載選項、這對於鏡射 Oracle 層級的 ASM 內容來說是不理想的。
+* * 資料庫備份。 * NetApp 提供 SnapCenter 軟體服務的 SaaS 版本、可在雲端中進行資料庫備份、還原及複製、並可透過 NetApp BlueXP 主控台 UI 取得。NetApp 建議實作這樣的服務、以快速（一分鐘內）進行快照備份、快速（幾分鐘）資料庫還原和資料庫複製。
+
+
+
+
+== 解決方案部署
+
+下節提供逐步部署程序。
+
+
+
+=== 部署的先決條件
+
+[%collapsible]
+====
+部署需要下列先決條件。
+
+. 已設定AWS帳戶、並已在AWS帳戶中建立必要的VPC和網路區段。
+. 從 AWS EC2 主控台、您必須部署兩個 EC2 Linux 執行個體、一個做為主要 Oracle DB 伺服器、另一個可選的複製目標 DB 伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html["Linux執行個體使用指南"^] 以取得更多資訊。
+. 從 AWS EC2 主控台、部署 Amazon FSX for ONTAP Storage HA 叢集來主控 Oracle 資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["為SfSX. ONTAP 檔案系統建立FSX"^] 以取得逐步指示。
+. 您可以使用下列 Terraform 自動化工具組來執行步驟 2 和 3 、此工具組會建立名為的 EC2 執行個體 `ora_01` 以及名為的 FSX 檔案系統 `fsx_01`。請仔細檢閱指示內容、並在執行前變更變數以符合您的環境。
++
+....
+git clone https://github.com/NetApp-Automation/na_aws_fsx_ec2_deploy.git
+....
+
+
+
+NOTE: 請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以便有足夠的空間來存放 Oracle 安裝檔案。
+
+====
+
+
+=== EC2 執行個體核心組態
+
+[%collapsible]
+====
+在已配置先決條件的情況下、以 EC2 使用者和 Sudo to root 使用者的身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。
+
+. 建立暫存目錄 `/tmp/archive` 資料夾並設定 `777` 權限。
++
+....
+mkdir /tmp/archive
+
+chmod 777 /tmp/archive
+....
+. 下載 Oracle 二進位安裝檔案及其他必要的 rpm 檔案、並將這些檔案登錄至 `/tmp/archive` 目錄。
++
+請參閱下列要在中說明的安裝檔案清單 `/tmp/archive` 在 EC2 執行個體上。
+
++
+....
+[ec2-user@ip-172-30-15-58 ~]$ ls -l /tmp/archive
+total 10537316
+-rw-rw-r--. 1 ec2-user ec2-user      19112 Mar 21 15:57 compat-libcap1-1.10-7.el7.x86_64.rpm
+-rw-rw-r--  1 ec2-user ec2-user 3059705302 Mar 21 22:01 LINUX.X64_193000_db_home.zip
+-rw-rw-r--  1 ec2-user ec2-user 2889184573 Mar 21 21:09 LINUX.X64_193000_grid_home.zip
+-rw-rw-r--. 1 ec2-user ec2-user     589145 Mar 21 15:56 netapp_linux_unified_host_utilities-7-1.x86_64.rpm
+-rw-rw-r--. 1 ec2-user ec2-user      31828 Mar 21 15:55 oracle-database-preinstall-19c-1.0-2.el8.x86_64.rpm
+-rw-rw-r--  1 ec2-user ec2-user 2872741741 Mar 21 22:31 p34762026_190000_Linux-x86-64.zip
+-rw-rw-r--  1 ec2-user ec2-user 1843577895 Mar 21 22:32 p34765931_190000_Linux-x86-64.zip
+-rw-rw-r--  1 ec2-user ec2-user  124347218 Mar 21 22:33 p6880880_190000_Linux-x86-64.zip
+-rw-r--r--  1 ec2-user ec2-user     257136 Mar 22 16:25 policycoreutils-python-utils-2.9-9.el8.noarch.rpm
+....
+. 安裝 Oracle 19c 預先安裝 RPM 、以滿足大多數核心組態需求。
++
+....
+yum install /tmp/archive/oracle-database-preinstall-19c-1.0-2.el8.x86_64.rpm
+....
+. 下載並安裝遺失的 `compat-libcap1` 在 Linux 8 中。
++
+....
+yum install /tmp/archive/compat-libcap1-1.10-7.el7.x86_64.rpm
+....
+. 從 NetApp 下載並安裝 NetApp 主機公用程式。
++
+....
+yum install /tmp/archive/netapp_linux_unified_host_utilities-7-1.x86_64.rpm
+....
+. 安裝 `policycoreutils-python-utils`， EC2 執行個體中無法使用。
++
+....
+yum install /tmp/archive/policycoreutils-python-utils-2.9-9.el8.noarch.rpm
+....
+. 安裝開放式 JDK 1.8 版。
++
+....
+yum install java-1.8.0-openjdk.x86_64
+....
+. 安裝 NFS-utils 。
++
+....
+yum install nfs-utils
+....
+. 停用目前系統中的透明 hugepages 。
++
+....
+echo never > /sys/kernel/mm/transparent_hugepage/enabled
+echo never > /sys/kernel/mm/transparent_hugepage/defrag
+....
++
+在中新增下列行 `/etc/rc.local` 以停用 `transparent_hugepage` 重新開機後：
+
++
+....
+  # Disable transparent hugepages
+          if test -f /sys/kernel/mm/transparent_hugepage/enabled; then
+            echo never > /sys/kernel/mm/transparent_hugepage/enabled
+          fi
+          if test -f /sys/kernel/mm/transparent_hugepage/defrag; then
+            echo never > /sys/kernel/mm/transparent_hugepage/defrag
+          fi
+....
+. 變更以停用 SELinux `SELINUX=enforcing` 至 `SELINUX=disabled`。您必須重新啟動主機、才能使變更生效。
++
+....
+vi /etc/sysconfig/selinux
+....
+. 新增下列行至 `limit.conf` 可設置文件描述符限制和堆棧大小（不帶引號） `" "`。
++
+....
+vi /etc/security/limits.conf
+  "*               hard    nofile          65536"
+  "*               soft    stack           10240"
+....
+. 依照下列指示、將交換空間新增至 EC2 執行個體： link:https://aws.amazon.com/premiumsupport/knowledge-center/ec2-memory-swap-file/["如何使用交換檔、在Amazon EC2執行個體中將記憶體配置為交換空間？"^] 要新增的確切空間量取決於 RAM 大小、最高可達 16G 。
+. 新增 ASM 群組、以用於 asm sysasm 群組
++
+....
+groupadd asm
+....
+. 修改 Oracle 使用者、將 ASM 新增為次要群組（ Oracle 使用者應已在 Oracle 預先安裝 RPM 安裝之後建立）。
++
+....
+usermod -a -G asm oracle
+....
+. 重新啟動 EC2 執行個體。
+
+
+====
+
+
+=== 配置及匯出要掛載至 EC2 執行個體主機的 NFS 磁碟區
+
+[%collapsible]
+====
+透過 ssh 以 fsxadmin 使用者身分登入 FSX 叢集、並使用 FSX 叢集管理 IP 來裝載 Oracle 資料庫二進位、資料和記錄檔、從命令列配置三個磁碟區。
+
+. 以 fsxadmin 使用者身分透過 SSH 登入 FSX 叢集。
++
+....
+ssh fsxadmin@172.30.15.53
+....
+. 執行下列命令、為 Oracle 二進位檔案建立磁碟區。
++
+....
+vol create -volume ora_01_biny -aggregate aggr1 -size 50G -state online  -type RW -junction-path /ora_01_biny -snapshot-policy none -tiering-policy snapshot-only
+....
+. 執行以下命令以建立 Oracle 資料的磁碟區。
++
+....
+vol create -volume ora_01_data -aggregate aggr1 -size 100G -state online  -type RW -junction-path /ora_01_data -snapshot-policy none -tiering-policy snapshot-only
+....
+. 執行以下命令以建立 Oracle 記錄的磁碟區。
++
+....
+vol create -volume ora_01_logs -aggregate aggr1 -size 100G -state online  -type RW -junction-path /ora_01_logs -snapshot-policy none -tiering-policy snapshot-only
+....
+. 驗證建立的資料庫磁碟區。
++
+....
+vol show
+....
++
+預計將會歸還：
+
++
+....
+FsxId02ad7bf3476b741df::> vol show
+  (vol show)
+FsxId06c3c8b2a7bd56458::> vol show
+Vserver   Volume       Aggregate    State      Type       Size  Available Used%
+--------- ------------ ------------ ---------- ---- ---------- ---------- -----
+svm_ora   ora_01_biny  aggr1        online     RW         50GB    47.50GB    0%
+svm_ora   ora_01_data  aggr1        online     RW        100GB    95.00GB    0%
+svm_ora   ora_01_logs  aggr1        online     RW        100GB    95.00GB    0%
+svm_ora   svm_ora_root aggr1        online     RW          1GB    972.1MB    0%
+4 entries were displayed.
+....
+
+
+====
+
+
+=== 資料庫儲存組態
+
+[%collapsible]
+====
+現在、匯入並設定適用於 Oracle 網格基礎架構的 FSX 儲存設備、以及在 EC2 執行個體主機上安裝資料庫。
+
+. 使用 SSH 金鑰和 EC2 執行個體 IP 位址、以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體。
++
+....
+ssh -i ora_01.pem ec2-user@172.30.15.58
+....
+. 建立 /u01 目錄以掛載 Oracle 二進位檔案系統
++
+....
+sudo mkdir /u01
+....
+. 將二進位磁碟區裝載至 `/u01`，已變更為您的 FSX NFS LIF IP 位址。如果您透過 NetApp 自動化工具套件部署 FSX 叢集、 FSX 虛擬儲存伺服器 NFS LIF IP 位址將會列在資源配置執行結束時的輸出中。否則、可從 AWS FSX 主控台 UI 擷取。
++
+....
+sudo mount -t nfs 172.30.15.19:/ora_01_biny /u01 -o rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536
+....
+. 變更 `/u01` 將點所有權掛載至 Oracle 使用者及其相關的主要群組。
++
+....
+sudo chown oracle:oinstall /u01
+....
+. 建立 /oradata 目錄以掛載 Oracle 資料檔案系統
++
+....
+sudo mkdir /oradata
+....
+. 將資料磁碟區裝載至 `/oradata`，已變更為您的 FSX NFS LIF IP 位址
++
+....
+sudo mount -t nfs 172.30.15.19:/ora_01_data /oradata -o rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536
+....
+. 變更 `/oradata` 將點所有權掛載至 Oracle 使用者及其相關的主要群組。
++
+....
+sudo chown oracle:oinstall /oradata
+....
+. 建立 /or記錄 目錄以掛載 Oracle 記錄檔系統
++
+....
+sudo mkdir /oralogs
+....
+. 將記錄磁碟區裝載至 `/oralogs`，已變更為您的 FSX NFS LIF IP 位址
++
+....
+sudo mount -t nfs 172.30.15.19:/ora_01_logs /oralogs -o rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536
+....
+. 變更 `/oralogs` 將點所有權掛載至 Oracle 使用者及其相關的主要群組。
++
+....
+sudo chown oracle:oinstall /oralogs
+....
+. 將裝載點新增至 `/etc/fstab`。
++
+....
+sudo vi /etc/fstab
+....
++
+新增下列行。
+
++
+....
+172.30.15.19:/ora_01_biny       /u01            nfs     rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536   0       0
+172.30.15.19:/ora_01_data       /oradata        nfs     rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536   0       0
+172.30.15.19:/ora_01_logs       /oralogs        nfs     rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=65536,wsize=65536   0       0
+
+....
+. Sudo to Oracle 使用者、請建立 asm 資料夾來儲存 asm 磁碟檔案
++
+....
+sudo su
+su - oracle
+mkdir /oradata/asm
+mkdir /oralogs/asm
+....
+. 身為 Oracle 使用者、請建立 asm 資料磁碟檔案、並變更數量、使其與磁碟大小與區塊大小相符。
++
+....
+dd if=/dev/zero of=/oradata/asm/nfs_data_disk01 bs=1M count=20480 oflag=direct
+dd if=/dev/zero of=/oradata/asm/nfs_data_disk02 bs=1M count=20480 oflag=direct
+dd if=/dev/zero of=/oradata/asm/nfs_data_disk03 bs=1M count=20480 oflag=direct
+dd if=/dev/zero of=/oradata/asm/nfs_data_disk04 bs=1M count=20480 oflag=direct
+....
+. 身為 root 使用者、將資料磁碟檔案權限變更為 640
++
+....
+chmod 640 /oradata/asm/*
+....
+. 身為 Oracle 使用者、建立 asm 記錄磁碟檔案、變更為以區塊大小與磁碟大小相符。
++
+....
+dd if=/dev/zero of=/oralogs/asm/nfs_logs_disk01 bs=1M count=40960 oflag=direct
+dd if=/dev/zero of=/oralogs/asm/nfs_logs_disk02 bs=1M count=40960 oflag=direct
+....
+. 以 root 使用者身分、將記錄磁碟檔案權限變更為 640
++
+....
+chmod 640 /oralogs/asm/*
+....
+. 重新啟動 EC2 執行個體主機。
+
+
+====
+
+
+=== Oracle 網格基礎架構安裝
+
+[%collapsible]
+====
+. 以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體、並取消註解以啟用密碼驗證 `PasswordAuthentication yes` 然後留言 `PasswordAuthentication no`。
++
+....
+sudo vi /etc/ssh/sshd_config
+....
+. 重新啟動 sshd 服務。
++
+....
+sudo systemctl restart sshd
+....
+. 重設 Oracle 使用者密碼。
++
+....
+sudo passwd oracle
+....
+. 以 Oracle 重新啟動軟體擁有者使用者（ Oracle ）的身分登入。建立 Oracle 目錄、如下所示：
++
+....
+mkdir -p /u01/app/oracle
+mkdir -p /u01/app/oraInventory
+....
+. 變更目錄權限設定。
++
+....
+chmod -R 775 /u01/app
+....
+. 建立網格主目錄並加以變更。
++
+....
+mkdir -p /u01/app/oracle/product/19.0.0/grid
+cd /u01/app/oracle/product/19.0.0/grid
+....
+. 解壓縮網格安裝檔案。
++
+....
+unzip -q /tmp/archive/LINUX.X64_193000_grid_home.zip
+....
+. 從網格首頁刪除 `OPatch` 目錄。
++
+....
+rm -rf OPatch
+....
+. 從網格首頁複製 `p6880880_190000_Linux-x86-64.zip` 到 GRIN_HOME 、然後將其解壓縮。
++
+....
+cp /tmp/archive/p6880880_190000_Linux-x86-64.zip .
+unzip p6880880_190000_Linux-x86-64.zip
+....
+. 從網格首頁修改 `cv/admin/cvu_config`、取消註解並取代 `CV_ASSUME_DISTID=OEL5` 與 `CV_ASSUME_DISTID=OL7`。
++
+....
+vi cv/admin/cvu_config
+....
+. 準備 `gridsetup.rsp` 用於無訊息安裝的檔案、並將 rsp 檔案放入 `/tmp/archive` 目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：
++
+....
+INVENTORY_LOCATION=/u01/app/oraInventory
+oracle.install.option=HA_CONFIG
+ORACLE_BASE=/u01/app/oracle
+oracle.install.asm.OSDBA=dba
+oracle.install.asm.OSOPER=oper
+oracle.install.asm.OSASM=asm
+oracle.install.asm.SYSASMPassword="SetPWD"
+oracle.install.asm.diskGroup.name=DATA
+oracle.install.asm.diskGroup.redundancy=EXTERNAL
+oracle.install.asm.diskGroup.AUSize=4
+oracle.install.asm.diskGroup.disks=/oradata/asm/*,/oralogs/asm/*
+oracle.install.asm.diskGroup.diskDiscoveryString=/oradata/asm/nfs_data_disk01,/oradata/asm/nfs_data_disk02,/oradata/asm/nfs_data_disk03,/oradata/asm/nfs_data_disk04
+oracle.install.asm.monitorPassword="SetPWD"
+oracle.install.asm.configureAFD=false
+....
+. 以 root 使用者身分登入 EC2 執行個體。
+. 安裝 `cvuqdisk-1.0.10-1.rpm`。
++
+....
+rpm -ivh /u01/app/oracle/product/19.0.0/grid/cv/rpm/cvuqdisk-1.0.10-1.rpm
+....
+. 以 Oracle 使用者身分登入 EC2 執行個體、並在中擷取修補程式 `/tmp/archive` 資料夾。
++
+....
+unzip p34762026_190000_Linux-x86-64.zip
+....
+. 從網格主頁 /u01/app/oracle/product/19.0/grrid 和 Oracle 使用者的身分啟動 `gridSetup.sh` 適用於網格基礎架構安裝。
++
+....
+ ./gridSetup.sh -applyRU /tmp/archive/34762026/ -silent -responseFile /tmp/archive/gridsetup.rsp
+....
++
+忽略有關網格基礎架構錯誤群組的警告。我們使用單一 Oracle 使用者來管理 Oracle 重新啟動、因此這是正常情況。
+
+. 以 root 使用者身分執行下列指令碼：
++
+....
+/u01/app/oraInventory/orainstRoot.sh
+
+/u01/app/oracle/product/19.0.0/grid/root.sh
+....
+. 身為 Oracle 使用者、請執行下列命令以完成組態：
++
+....
+/u01/app/oracle/product/19.0.0/grid/gridSetup.sh -executeConfigTools -responseFile /tmp/archive/gridsetup.rsp -silent
+....
+. 身為 Oracle 使用者、請建立記錄磁碟群組。
++
+....
+bin/asmca -silent -sysAsmPassword 'yourPWD' -asmsnmpPassword 'yourPWD' -createDiskGroup -diskGroupName LOGS -disk '/oralogs/asm/nfs_logs_disk*' -redundancy EXTERNAL -au_size 4
+....
+. 身為 Oracle 使用者、請在安裝組態後驗證網格服務。
++
+....
+bin/crsctl stat res -t
++
+Name                Target  State        Server                   State details
+Local Resources
+ora.DATA.dg         ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.LISTENER.lsnr   ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.LOGS.dg         ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.asm             ONLINE  ONLINE       ip-172-30-15-58          Started,STABLE
+ora.ons             OFFLINE OFFLINE      ip-172-30-15-58          STABLE
+Cluster Resources
+ora.cssd            ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.diskmon         OFFLINE OFFLINE                               STABLE
+ora.driver.afd      ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.evmd            ONLINE  ONLINE       ip-172-30-15-58          STABLE
+....
+
+
+====
+
+
+=== Oracle 資料庫安裝
+
+[%collapsible]
+====
+. 以 Oracle 使用者身分登入、然後取消設定 `$ORACLE_HOME` 和 `$ORACLE_SID` 如果已設定。
++
+....
+unset ORACLE_HOME
+unset ORACLE_SID
+....
+. 建立 Oracle DB 主目錄並變更為該目錄。
++
+....
+mkdir /u01/app/oracle/product/19.0.0/db1
+cd /u01/app/oracle/product/19.0.0/db1
+....
+. 解壓縮 Oracle DB 安裝檔案。
++
+....
+unzip -q /tmp/archive/LINUX.X64_193000_db_home.zip
+....
+. 從 DB 首頁刪除 `OPatch` 目錄。
++
+....
+rm -rf OPatch
+....
+. 從 DB 主目錄複製 `p6880880_190000_Linux-x86-64.zip` 至 `grid_home`然後將其解壓縮。
++
+....
+cp /tmp/archive/p6880880_190000_Linux-x86-64.zip .
+unzip p6880880_190000_Linux-x86-64.zip
+....
+. 從 DB 主目錄修改 `cv/admin/cvu_config`、以及取消註解及取代 `CV_ASSUME_DISTID=OEL5` 與 `CV_ASSUME_DISTID=OL7`。
++
+....
+vi cv/admin/cvu_config
+....
+. 從 `/tmp/archive` 目錄中、解壓縮 DB 19.18 RU 修補程式。
++
+....
+unzip p34765931_190000_Linux-x86-64.zip
+....
+. 在中準備 DB 無訊息安裝 rsp 檔案 `/tmp/archive/dbinstall.rsp` 具有下列值的目錄：
++
+....
+oracle.install.option=INSTALL_DB_SWONLY
+UNIX_GROUP_NAME=oinstall
+INVENTORY_LOCATION=/u01/app/oraInventory
+ORACLE_HOME=/u01/app/oracle/product/19.0.0/db1
+ORACLE_BASE=/u01/app/oracle
+oracle.install.db.InstallEdition=EE
+oracle.install.db.OSDBA_GROUP=dba
+oracle.install.db.OSOPER_GROUP=oper
+oracle.install.db.OSBACKUPDBA_GROUP=oper
+oracle.install.db.OSDGDBA_GROUP=dba
+oracle.install.db.OSKMDBA_GROUP=dba
+oracle.install.db.OSRACDBA_GROUP=dba
+oracle.install.db.rootconfig.executeRootScript=false
+....
+. 從 db1 主目錄 /u01/app/oracle/product/19.0/db1 執行無訊息軟體專屬資料庫安裝。
++
+....
+ ./runInstaller -applyRU /tmp/archive/34765931/ -silent -ignorePrereqFailure -responseFile /tmp/archive/dbinstall.rsp
+....
+. 以root使用者身分執行 `root.sh` 僅軟體安裝後的指令碼。
++
+....
+/u01/app/oracle/product/19.0.0/db1/root.sh
+....
+. 身為 Oracle 使用者、請建立 `dbca.rsp` 包含下列項目的檔案：
++
+....
+gdbName=db1.demo.netapp.com
+sid=db1
+createAsContainerDatabase=true
+numberOfPDBs=3
+pdbName=db1_pdb
+useLocalUndoForPDBs=true
+pdbAdminPassword="yourPWD"
+templateName=General_Purpose.dbc
+sysPassword="yourPWD"
+systemPassword="yourPWD"
+dbsnmpPassword="yourPWD"
+storageType=ASM
+diskGroupName=DATA
+characterSet=AL32UTF8
+nationalCharacterSet=AL16UTF16
+listeners=LISTENER
+databaseType=MULTIPURPOSE
+automaticMemoryManagement=false
+totalMemory=8192
+....
++
+
+NOTE: 根據 EC2 執行個體主機中的可用記憶體來設定總記憶體。Oracle 分配 75% 的 `totalMemory` 至 DB 執行個體 SGA 或緩衝區快取。
+
+. 身為 Oracle 使用者、請使用 dbca 來建立資料庫。
++
+....
+bin/dbca -silent -createDatabase -responseFile /tmp/archive/dbca.rsp
+
+output:
+Prepare for db operation
+7% complete
+Registering database with Oracle Restart
+11% complete
+Copying database files
+33% complete
+Creating and starting Oracle instance
+35% complete
+38% complete
+42% complete
+45% complete
+48% complete
+Completing Database Creation
+53% complete
+55% complete
+56% complete
+Creating Pluggable Databases
+60% complete
+64% complete
+69% complete
+78% complete
+Executing Post Configuration Actions
+100% complete
+Database creation complete. For details check the logfiles at:
+ /u01/app/oracle/cfgtoollogs/dbca/db1.
+Database Information:
+Global Database Name:db1.demo.netapp.com
+System Identifier(SID):db1
+Look at the log file "/u01/app/oracle/cfgtoollogs/dbca/db1/db1.log" for further details.
+....
+. 以 Oracle 使用者身分、在建立資料庫後驗證 Oracle 重新啟動 HA 服務。
++
+....
+[oracle@ip-172-30-15-58 db1]$ ../grid/bin/crsctl stat res -t
+--------------------------------------------------------------------------------
+Name           Target  State        Server                   State details
+--------------------------------------------------------------------------------
+Local Resources
+--------------------------------------------------------------------------------
+ora.DATA.dg
+               ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.LISTENER.lsnr
+               ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.LOGS.dg
+               ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.asm
+               ONLINE  ONLINE       ip-172-30-15-58          Started,STABLE
+ora.ons
+               OFFLINE OFFLINE      ip-172-30-15-58          STABLE
+--------------------------------------------------------------------------------
+Cluster Resources
+--------------------------------------------------------------------------------
+ora.cssd
+      1        ONLINE  ONLINE       ip-172-30-15-58          STABLE
+ora.db1.db
+      1        ONLINE  ONLINE       ip-172-30-15-58          Open,HOME=/u01/app/o
+                                                             racle/product/19.0.0
+                                                             /db1,STABLE
+ora.diskmon
+      1        OFFLINE OFFLINE                               STABLE
+ora.evmd
+      1        ONLINE  ONLINE       ip-172-30-15-58          STABLE
+--------------------------------------------------------------------------------
+[oracle@ip-172-30-15-58 db1]$
+
+....
+. 設定 Oracle 使用者 `.bash_profile`。
++
+....
+vi ~/.bash_profile
+....
+. 新增下列項目：
++
+....
+export ORACLE_HOME=/u01/app/oracle/product/19.0.0/db1
+export ORACLE_SID=db1
+export PATH=$PATH:$ORACLE_HOME/bin
+alias asm='export ORACLE_HOME=/u01/app/oracle/product/19.0.0/grid;export ORACLE_SID=+ASM;export PATH=$PATH:$ORACLE_HOME/bin'
+....
+. 驗證建立的 CDB/PDB 。
++
+....
+. ~/.bash_profile
+
+sqlplus / as sysdba
+
+SQL> select name, open_mode from v$database;
+
+NAME      OPEN_MODE
+
+DB1       READ WRITE
+
+SQL> select name from v$datafile;
+
+NAME
+
++DATA/DB1/DATAFILE/system.256.1132176177
++DATA/DB1/DATAFILE/sysaux.257.1132176221
++DATA/DB1/DATAFILE/undotbs1.258.1132176247
++DATA/DB1/86B637B62FE07A65E053F706E80A27CA/DATAFILE/system.265.1132177009
++DATA/DB1/86B637B62FE07A65E053F706E80A27CA/DATAFILE/sysaux.266.1132177009
++DATA/DB1/DATAFILE/users.259.1132176247
++DATA/DB1/86B637B62FE07A65E053F706E80A27CA/DATAFILE/undotbs1.267.1132177009
++DATA/DB1/F7852758DCD6B800E0533A0F1EAC1DC6/DATAFILE/system.271.1132177853
++DATA/DB1/F7852758DCD6B800E0533A0F1EAC1DC6/DATAFILE/sysaux.272.1132177853
++DATA/DB1/F7852758DCD6B800E0533A0F1EAC1DC6/DATAFILE/undotbs1.270.1132177853
++DATA/DB1/F7852758DCD6B800E0533A0F1EAC1DC6/DATAFILE/users.274.1132177871
+
+NAME
+
++DATA/DB1/F785288BBCD1BA78E0533A0F1EACCD6F/DATAFILE/system.276.1132177871
++DATA/DB1/F785288BBCD1BA78E0533A0F1EACCD6F/DATAFILE/sysaux.277.1132177871
++DATA/DB1/F785288BBCD1BA78E0533A0F1EACCD6F/DATAFILE/undotbs1.275.1132177871
++DATA/DB1/F785288BBCD1BA78E0533A0F1EACCD6F/DATAFILE/users.279.1132177889
++DATA/DB1/F78529A14DD8BB18E0533A0F1EACB8ED/DATAFILE/system.281.1132177889
++DATA/DB1/F78529A14DD8BB18E0533A0F1EACB8ED/DATAFILE/sysaux.282.1132177889
++DATA/DB1/F78529A14DD8BB18E0533A0F1EACB8ED/DATAFILE/undotbs1.280.1132177889
++DATA/DB1/F78529A14DD8BB18E0533A0F1EACB8ED/DATAFILE/users.284.1132177907
+
+19 rows selected.
+
+SQL> show pdbs
+
+    CON_ID CON_NAME                       OPEN MODE  RESTRICTED
+
+         2 PDB$SEED                       READ ONLY  NO
+         3 DB1_PDB1                       READ WRITE NO
+         4 DB1_PDB2                       READ WRITE NO
+         5 DB1_PDB3                       READ WRITE NO
+SQL>
+....
+. 身為 Oracle 使用者、請變更為 Oracle 資料庫主目錄 /u01/app/oracle/product/19.0/db1 和啟用 DNFS
++
+....
+cd /u01/app/oracle/product/19.0.0/db1
+
+mkdir rdbms/lib/odm
+
+cp lib/libnfsodm19.so rdbms/lib/odm/
+....
+. 在 oracle_home 中設定 oranfstab 檔案
++
+....
+vi $ORACLE_HOME/dbs/oranfstab
+
+add following entries:
+
+server: fsx_01
+local: 172.30.15.58 path: 172.30.15.19
+nfs_version: nfsv3
+export: /ora_01_biny mount: /u01
+export: /ora_01_data mount: /oradata
+export: /ora_01_logs mount: /oralogs
+....
+. 以 Oracle 使用者身分、從 sqlplus 登入資料庫、並將 DB 恢復大小和位置設為 +logs 磁碟群組。
++
+....
+
+. ~/.bash_profile
+
+sqlplus / as sysdba
+
+alter system set db_recovery_file_dest_size = 80G scope=both;
+
+alter system set db_recovery_file_dest = '+LOGS' scope=both;
+....
+. 啟用歸檔記錄模式並重新啟動 Oracle DB 執行個體
++
+....
+
+shutdown immediate;
+
+startup mount;
+
+alter database archivelog;
+
+alter database open;
+
+alter system switch logfile;
+
+....
+. 執行個體重新開機後、驗證 DB 記錄模式和 DNFS
++
+....
+
+SQL> select name, log_mode from v$database;
+
+NAME      LOG_MODE
+--------- ------------
+DB1       ARCHIVELOG
+
+SQL> select svrname, dirname from v$dnfs_servers;
+
+SVRNAME
+--------------------------------------------------------------------------------
+DIRNAME
+--------------------------------------------------------------------------------
+fsx_01
+/ora_01_data
+
+fsx_01
+/ora_01_biny
+
+fsx_01
+/ora_01_logs
+
+....
+. 驗證 Oracle ASM
++
+....
+[oracle@ip-172-30-15-58 db1]$ asm
+[oracle@ip-172-30-15-58 db1]$ sqlplus / as sysasm
+
+SQL*Plus: Release 19.0.0.0.0 - Production on Tue May 9 20:39:39 2023
+Version 19.18.0.0.0
+
+Copyright (c) 1982, 2022, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 19c Enterprise Edition Release 19.0.0.0.0 - Production
+Version 19.18.0.0.0
+
+SQL> set lin 200
+SQL> col path form a30
+SQL> select name, path, header_status, mount_status, state from v$asm_disk;
+
+NAME                           PATH                           HEADER_STATU MOUNT_S STATE
+------------------------------ ------------------------------ ------------ ------- --------
+DATA_0002                      /oradata/asm/nfs_data_disk01   MEMBER       CACHED  NORMAL
+DATA_0000                      /oradata/asm/nfs_data_disk02   MEMBER       CACHED  NORMAL
+DATA_0001                      /oradata/asm/nfs_data_disk03   MEMBER       CACHED  NORMAL
+DATA_0003                      /oradata/asm/nfs_data_disk04   MEMBER       CACHED  NORMAL
+LOGS_0000                      /oralogs/asm/nfs_logs_disk01   MEMBER       CACHED  NORMAL
+LOGS_0001                      /oralogs/asm/nfs_logs_disk02   MEMBER       CACHED  NORMAL
+
+6 rows selected.
+
+
+SQL> select name, state, ALLOCATION_UNIT_SIZE, TOTAL_MB, FREE_MB from v$asm_diskgroup;
+
+NAME                           STATE       ALLOCATION_UNIT_SIZE   TOTAL_MB    FREE_MB
+------------------------------ ----------- -------------------- ---------- ----------
+DATA                           MOUNTED                  4194304      81920      73536
+LOGS                           MOUNTED                  4194304      81920      81640
+
+This completes Oracle 19c version 19.18 Restart deployment on an Amazon FSx for ONTAP and EC2 compute instance with NFS/ASM. If desired, NetApp recommends relocating the Oracle control file and online log files to the +LOGS disk group.
+....
+
+
+====
+
+
+=== 自動化部署選項
+
+NetApp 將與 Ansible 一起發佈全自動解決方案部署工具套件、以協助實作此解決方案。請回來查看工具組的可用性。發行後、將會在此張貼連結。
+
+
+
+== 使用 SnapCenter 服務備份、還原及複製 Oracle 資料庫
+
+請參閱 link:snapctr_svcs_ora.html["適用於 Oracle 的 SnapCenter 服務"^] 如需使用 NetApp BlueXP 主控台備份、還原及複製 Oracle 資料庫的詳細資訊、
+
+
+
+== 何處可找到其他資訊
+
+若要深入瞭解本文件所述資訊、請參閱下列文件及 / 或網站：
+
+* 安裝 Oracle Grid Infrastructure for a Standalone Server with a New Database Installation
++
+link:https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/installing-oracle-grid-infrastructure-for-a-standalone-server-with-a-new-database-installation.html#GUID-0B1CEE8C-C893-46AA-8A6A-7B5FAAEC72B3["https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/installing-oracle-grid-infrastructure-for-a-standalone-server-with-a-new-database-installation.html#GUID-0B1CEE8C-C893-46AA-8A6A-7B5FAAEC72B3"^]
+
+* 使用回應檔案安裝及設定 Oracle 資料庫
++
+link:https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/installing-and-configuring-oracle-database-using-response-files.html#GUID-D53355E9-E901-4224-9A2A-B882070EDDF7["https://docs.oracle.com/en/database/oracle/oracle-database/19/ladbi/installing-and-configuring-oracle-database-using-response-files.html#GUID-D53355E9-E901-4224-9A2A-B882070EDDF7"^]
+
+* Amazon FSX for NetApp ONTAP 產品
++
+link:https://aws.amazon.com/fsx/netapp-ontap/["https://aws.amazon.com/fsx/netapp-ontap/"^]
+
+* Amazon EC2
++
+link:https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_channel=ps&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2&ef_id=Cj0KCQiA54KfBhCKARIsAJzSrdqwQrghn6I71jiWzSeaT9Uh1-vY-VfhJixF-xnv5rWwn2S7RqZOTQ0aAh7eEALw_wcB:G:s&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2["https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_channel=ps&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2&ef_id=Cj0KCQiA54KfBhCKARIsAJzSrdqwQrghn6I71jiWzSeaT9Uh1-vY-VfhJixF-xnv5rWwn2S7RqZOTQ0aAh7eEALw_wcB:G:s&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2"^]
+
+

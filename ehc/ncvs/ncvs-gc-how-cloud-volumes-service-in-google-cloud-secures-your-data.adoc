@@ -22,7 +22,7 @@ link:ncvs-gc-overview.html["上一步：總覽。"]
 
 == 安全的架構與租戶模式
 
-透過分割不同端點的服務管理（控制面板）和資料存取（資料面板）、提供Google Cloud中的安全架構、使兩者都不會影響其他端點（請參閱一節）Cloud Volumes Service link:ncvs-gc-cloud-volumes-service-architecture.html["「架構」Cloud Volumes Service"]）。它使用Google的 https://["私有服務存取"^] （PSA）架構以提供服務。此架構可區分由NetApp提供及營運的服務供應商、以及客戶專案中的虛擬私有雲端（VPC）服務消費者、這些客戶是想要存取Cloud Volumes Service VMware檔案共享的客戶。
+透過分割不同端點的服務管理（控制面板）和資料存取（資料面板）、提供Google Cloud中的安全架構、使兩者都不會影響其他端點（請參閱一節）Cloud Volumes Service link:ncvs-gc-cloud-volumes-service-architecture.html["「架構」Cloud Volumes Service"]）。它使用Google的 https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["私有服務存取"^] （PSA）架構以提供服務。此架構可區分由NetApp提供及營運的服務供應商、以及客戶專案中的虛擬私有雲端（VPC）服務消費者、這些客戶是想要存取Cloud Volumes Service VMware檔案共享的客戶。
 
 在此架構中、租戶（請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#tenancy-model["「租賃模式」"]）定義為Google Cloud專案、除非使用者明確連線、否則這些專案彼此之間完全隔離。租戶可利用Cloud Volumes Service 這個功能、將資料磁碟區、外部名稱服務及解決方案的其他重要部分、與其他租戶完全隔離在一起。由於此平台是透過VPC對等連接、因此隔離也適用於此平台。Cloud Volumes Service您Cloud Volumes Service 可以使用共享VPC、在多個專案之間共用一個支援區塊（請參閱一節） link:ncvs-gc-cloud-volumes-service-architecture.html#tenancy-model#shared-vpcs["「共享VPC」"]）。您可以將存取控制套用至SMB共用和NFS匯出、以限制可以檢視或修改資料集的人員或內容。
 
@@ -30,7 +30,7 @@ link:ncvs-gc-overview.html["上一步：總覽。"]
 
 == 針對控制面板提供強大的身分識別管理功能
 
-在執行不完整組態的控制面板Cloud Volumes Service 中、使用管理身分識別管理 https://["身分識別存取管理（IAM）"^]。IAM是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。所有組態都是透過Cloud Volumes Service 使用TLS 1.2加密的安全HTTPS傳輸來執行、而驗證則是使用JWT權杖來執行、以提高安全性。Google Console UI Cloud Volumes Service for the取消功能、可將使用者輸入內容轉譯為Cloud Volumes Service 使用者對功能不整的API呼叫。
+在執行不完整組態的控制面板Cloud Volumes Service 中、使用管理身分識別管理 https://cloud.google.com/iam/docs/overview["身分識別存取管理（IAM）"^]。IAM是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。所有組態都是透過Cloud Volumes Service 使用TLS 1.2加密的安全HTTPS傳輸來執行、而驗證則是使用JWT權杖來執行、以提高安全性。Google Console UI Cloud Volumes Service for the取消功能、可將使用者輸入內容轉譯為Cloud Volumes Service 使用者對功能不整的API呼叫。
 
 
 

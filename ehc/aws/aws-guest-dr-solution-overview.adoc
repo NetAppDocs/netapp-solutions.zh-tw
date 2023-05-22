@@ -57,7 +57,7 @@ link:aws-guest-dr-solution-prereqs.html["災難恢復解決方案要求、預先
 在內部部署ONTAP 的SnapMirror系統與FSXSing之間建立SnapMirror關係時、必須執行下列步驟ONTAP ：
 
 
-NOTE: 請參閱 https://["FSX- ONTAP for Sfor Sfor Sfor - ONTAP 《用戶指南》"^] 如需建立SnapMirror與FSX關係的詳細資訊、
+NOTE: 請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/ONTAPGuide.pdf["FSX- ONTAP for Sfor Sfor Sfor - ONTAP 《用戶指南》"^] 如需建立SnapMirror與FSX關係的詳細資訊、
 
 .記錄來源與目的地叢集間邏輯介面
 [%collapsible]
@@ -160,7 +160,7 @@ NOTE: 在二線儲存設備上、這些標籤會符合與目的地Volume相關�
 
 image:dr-vmc-aws-image17.png["錯誤：缺少圖形影像"]
 
-如需建立SnapCenter SQL Server資料庫的各項功能性原則的詳細資訊、請參閱 https://["本文檔SnapCenter"^]。
+如需建立SnapCenter SQL Server資料庫的各項功能性原則的詳細資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["本文檔SnapCenter"^]。
 
 您必須先建立SnapMirror原則、其中規定要保留的快照複本數量。
 
@@ -226,9 +226,9 @@ FSx-Dest::> volume create -vserver DestSVM -volume DestVolName -aggregate DestAg
 ====
 此解決方案使用NetApp SnapCenter 解決方案來執行SQL Server和Oracle資料庫的應用程式一致備份。搭配使用Veeam備份與複寫來備份虛擬機器VMDK、可為內部部署與雲端型資料中心提供全方位的災難恢復解決方案。
 
-NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://["NetApp文件中心"^]。
+NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://docs.netapp.com/us-en/snapcenter/install/install_workflow.html["NetApp文件中心"^]。
 
-您可SnapCenter 從取得此軟體 https://["此連結"^]。
+您可SnapCenter 從取得此軟體 https://mysupport.netapp.com["此連結"^]。
 
 安裝完畢後、您可以SnapCenter 使用_\https://Virtual_Cluster_IP_or_FQDN:8146_從網頁瀏覽器存取此功能。
 
@@ -254,7 +254,7 @@ image:dr-vmc-aws-image20.png["錯誤：缺少圖形影像"]
 
 
 
-如需將儲存系統新增SnapCenter 至效益管理系統的相關資訊、請參閱文件、網址為 https://["此連結"^]。
+如需將儲存系統新增SnapCenter 至效益管理系統的相關資訊、請參閱文件、網址為 https://docs.netapp.com/us-en/snapcenter/install/task_add_storage_systems.html["此連結"^]。
 
 ====
 .將主機新增SnapCenter 至
@@ -283,9 +283,9 @@ image:dr-vmc-aws-image22.png["錯誤：缺少圖形影像"]
 
 image:dr-vmc-aws-image23.png["錯誤：缺少圖形影像"]
 
-如需建立SQL Server備份原則的完整資訊、請參閱 https://["本文檔SnapCenter"^]。
+如需建立SQL Server備份原則的完整資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["本文檔SnapCenter"^]。
 
-如需建立Oracle備份原則的完整資訊、請參閱 https://["本文檔SnapCenter"^]。
+如需建立Oracle備份原則的完整資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-sco/task_create_backup_policies_for_oracle_database.html["本文檔SnapCenter"^]。
 
 * 附註： *
 
@@ -312,16 +312,16 @@ image:dr-vmc-aws-image25.png["錯誤：缺少圖形影像"]
 
 本《支援》文件涵蓋SnapCenter 建立SQL Server和Oracle資料庫資源群組的逐步詳細資料。
 
-如需備份SQL資源、請遵循 https://["此連結"^]。
+如需備份SQL資源、請遵循 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_back_up_sql_resources.html["此連結"^]。
 
-如需備份Oracle資源、請遵循 https://["此連結"^]。
+如需備份Oracle資源、請遵循 https://docs.netapp.com/us-en/snapcenter/protect-sco/task_back_up_oracle_resources.html["此連結"^]。
 
 ====
 
 
 === 部署及設定Veeam備份伺服器
 
-解決方案中使用Veeam備份與複寫軟體來備份應用程式虛擬機器、並使用Veeam橫向擴充備份儲存庫（SOBR）將備份複本歸檔至Amazon S3儲存庫。在本解決方案中、Veeam部署於Windows伺服器上。如需部署Veeam的具體指引、請參閱 https://["Veeam說明中心技術文件"^]。
+解決方案中使用Veeam備份與複寫軟體來備份應用程式虛擬機器、並使用Veeam橫向擴充備份儲存庫（SOBR）將備份複本歸檔至Amazon S3儲存庫。在本解決方案中、Veeam部署於Windows伺服器上。如需部署Veeam的具體指引、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam說明中心技術文件"^]。
 
 .設定Veeam橫向擴充備份儲存庫
 [%collapsible]
@@ -364,7 +364,7 @@ image:dr-vmc-aws-image30.png["錯誤：缺少圖形影像"]
 +
 image:dr-vmc-aws-image31.png["錯誤：缺少圖形影像"]
 
-. 請依照「新備份儲存庫精靈」中的所有步驟來建立儲存庫。如需建立Veeam備份儲存庫的詳細資訊、請參閱 https://["Veeam文件"^]。
+. 請依照「新備份儲存庫精靈」中的所有步驟來建立儲存庫。如需建立Veeam備份儲存庫的詳細資訊、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam文件"^]。
 +
 image:dr-vmc-aws-image32.png["錯誤：缺少圖形影像"]
 
@@ -419,7 +419,7 @@ image:dr-vmc-aws-image39.png["錯誤：缺少圖形影像"]
 .建立橫向擴充備份儲存庫工作
 [%collapsible]
 =====
-設定Veeam的最後步驟、是使用新建立的SOBR作為備份目的地來建立備份工作。建立備份工作是任何儲存系統管理員的常用程序、我們不在此詳述詳細步驟。如需在Veeam中建立備份工作的完整資訊、請參閱 https://["Veeam說明中心技術文件"^]。
+設定Veeam的最後步驟、是使用新建立的SOBR作為備份目的地來建立備份工作。建立備份工作是任何儲存系統管理員的常用程序、我們不在此詳述詳細步驟。如需在Veeam中建立備份工作的完整資訊、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam說明中心技術文件"^]。
 
 =====
 ====
@@ -434,9 +434,9 @@ image:dr-vmc-aws-image39.png["錯誤：缺少圖形影像"]
 ====
 支援VMware Cloud SDDC部署的VMware伺服器、或安裝在VPC中的EC2執行個體上、並可透過網路連線至VMware Cloud環境。SnapCenter
 
-NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://["NetApp文件中心"^]。
+NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://docs.netapp.com/us-en/snapcenter/install/install_workflow.html["NetApp文件中心"^]。
 
-您可以在找到SnapCenter 該軟件 https://["此連結"^]。
+您可以在找到SnapCenter 該軟件 https://mysupport.netapp.com["此連結"^]。
 
 ====
 .設定次要Windows SnapCenter 靜態伺服器
@@ -459,7 +459,7 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 .部署次要Veeam備份與擴大機；複寫伺服器
 [#deploy-secondary-veeam%collapsible]
 ====
-您可以將Veeam備份與複寫伺服器安裝在AWS或EC2執行個體上VMware Cloud的Windows伺服器上。如需詳細的實作指南、請參閱 https://["Veeam說明中心技術文件"^]。
+您可以將Veeam備份與複寫伺服器安裝在AWS或EC2執行個體上VMware Cloud的Windows伺服器上。如需詳細的實作指南、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam說明中心技術文件"^]。
 
 ====
 .設定次要Veeam備份與擴大機；複寫伺服器
@@ -482,7 +482,7 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 
 === 適用於災難恢復的資料庫備份SnapCenter
 
-支援基礎MySQL資料庫及組態資料的備份與還原、以便在發生災難時恢復該伺服器。SnapCenter SnapCenter就我們的解決方案而言、我們在SnapCenter VPC內的AWS EC2執行個體上恢復了該資料庫和組態。如需此步驟的詳細資訊、請參閱 https://["此連結"^]。
+支援基礎MySQL資料庫及組態資料的備份與還原、以便在發生災難時恢復該伺服器。SnapCenter SnapCenter就我們的解決方案而言、我們在SnapCenter VPC內的AWS EC2執行個體上恢復了該資料庫和組態。如需此步驟的詳細資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/sc-automation/rest_api_workflows_disaster_recovery_of_snapcenter_server.html["此連結"^]。
 
 .支援需求SnapCenter
 [%collapsible]
@@ -515,7 +515,7 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 .備份SnapCenter 還原資料庫與組態
 [%collapsible]
 ====
-支援執行REST API命令的Web用戶端介面。SnapCenter如需透過Swagger存取REST API的相關資訊、請參閱SnapCenter 上的《》文件 https://["此連結"^]。
+支援執行REST API命令的Web用戶端介面。SnapCenter如需透過Swagger存取REST API的相關資訊、請參閱SnapCenter 上的《》文件 https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html["此連結"^]。
 
 .登入Swagger並取得授權權杖
 [%collapsible]
@@ -966,9 +966,9 @@ FSX for ONTAP Sfor AWS是這樣的解決方案之一、可與SnapCenter 支援�
 
 * 解決方案文件連結
 +
-https://["NetApp混合式多雲端搭配VMware解決方案"]
+https://docs.netapp.com/us-en/netapp-solutions/ehc/index.html["NetApp混合式多雲端搭配VMware解決方案"]
 
 +
-https://["NetApp解決方案"]
+https://docs.netapp.com/us-en/netapp-solutions/index.html["NetApp解決方案"]
 
 

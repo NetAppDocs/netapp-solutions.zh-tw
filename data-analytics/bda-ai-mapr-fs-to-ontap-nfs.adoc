@@ -20,7 +20,7 @@ link:bda-ai-gpfs-to-nfs-detailed-steps.html["先前：GPFS到NFS -詳細步驟�
 
 . 為每個MapR節點配置三個LUN、並賦予所有MapR節點的LUN擁有權。
 . 在安裝期間、為MapR叢集磁碟選擇新增的LUN、以用於MapR-FS。
-. 根據安裝MapR叢集 https://["MapR 6.1文件"^]。
+. 根據安裝MapR叢集 https://mapr.com/docs/61/install.html["MapR 6.1文件"^]。
 . 使用MapReduce命令（例如「Hadoop Jar xxx」）檢查基本Hadoop作業。
 . 將客戶資料保留在MapR-FS中。例如、我們使用Teragen在MapR-FS中產生約1 TB的樣本資料。
 . 將MapR-FS設定為NFS匯出。

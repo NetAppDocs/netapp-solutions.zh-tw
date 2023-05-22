@@ -30,11 +30,11 @@ image:azure-dro-image1.png["錯誤：缺少圖形影像"]
 
 === 先決條件和一般建議
 
-* 建立複寫對等關係、確認您已啟用跨區域複寫。請參閱 https://["為 Azure NetApp Files 建立 Volume 複寫"^]。
+* 建立複寫對等關係、確認您已啟用跨區域複寫。請參閱 https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering["為 Azure NetApp Files 建立 Volume 複寫"^]。
 * 您必須在來源與目標 Azure VMware 解決方案私有雲之間設定 ExpressRoute Global Reach 。
 * 您必須擁有可存取資源的服務主體。
 * 支援下列拓撲：主要 AVS 站台到次要 AVS 站台。
-* 設定 https://["複寫"^] 根據業務需求和資料變更率、適當排程每個 Volume 。
+* 設定 https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-introduction["複寫"^] 根據業務需求和資料變更率、適當排程每個 Volume 。
 
 
 
@@ -48,9 +48,9 @@ NOTE: 不支援串聯和扇入及扇出拓撲。
 
 === 部署 Azure VMware 解決方案
 
-。 https://["Azure VMware解決方案"^] （ AVS ）是混合雲服務、可在 Microsoft Azure 公有雲中提供功能完整的 VMware SDDC 。AVS是第一方的解決方案、由Microsoft完全管理及支援、並由VMware驗證、使用Azure基礎架構。因此、客戶可取得 VMware ESXi 來進行運算虛擬化、 vSAN 用於超融合式儲存設備、而 NSX 則用於網路和安全性、同時還能充分利用 Microsoft Azure 的全球知名度、領先同級的資料中心設施、以及鄰近豐富的原生 Azure 服務與解決方案生態系統。Azure VMware解決方案SDDC與Azure NetApp Files VMware解決方案的結合、可提供最佳效能、並將網路延遲降至最低。
+。 https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["Azure VMware解決方案"^] （ AVS ）是混合雲服務、可在 Microsoft Azure 公有雲中提供功能完整的 VMware SDDC 。AVS是第一方的解決方案、由Microsoft完全管理及支援、並由VMware驗證、使用Azure基礎架構。因此、客戶可取得 VMware ESXi 來進行運算虛擬化、 vSAN 用於超融合式儲存設備、而 NSX 則用於網路和安全性、同時還能充分利用 Microsoft Azure 的全球知名度、領先同級的資料中心設施、以及鄰近豐富的原生 Azure 服務與解決方案生態系統。Azure VMware解決方案SDDC與Azure NetApp Files VMware解決方案的結合、可提供最佳效能、並將網路延遲降至最低。
 
-若要在 Azure 上設定 AVS 私有雲、請遵循本中的步驟 https://["連結"^] 適用於 NetApp 文件及本文件 https://["連結"^] 適用於 Microsoft 文件。以最小組態設定的導向照明環境可用於 DR 用途。此設定僅包含支援關鍵應用程式的核心元件、而且在發生容錯移轉時、它可以橫向擴充和啟動更多主機來承受大量負載。
+若要在 Azure 上設定 AVS 私有雲、請遵循本中的步驟 https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html["連結"^] 適用於 NetApp 文件及本文件 https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["連結"^] 適用於 Microsoft 文件。以最小組態設定的導向照明環境可用於 DR 用途。此設定僅包含支援關鍵應用程式的核心元件、而且在發生容錯移轉時、它可以橫向擴充和啟動更多主機來承受大量負載。
 
 
 NOTE: 在初始版本中、 DRO 支援現有的 AVS SDDC 叢集。隨需建立SDDC將於即將推出的版本中提供。
@@ -59,7 +59,7 @@ NOTE: 在初始版本中、 DRO 支援現有的 AVS SDDC 叢集。隨需建立SD
 
 === 配置和配置 Azure NetApp Files
 
-https://["Azure NetApp Files"^] 是一項高效能、企業級的計量檔案儲存服務。請依照本文件中的步驟進行 https://["連結"^] 將 Azure NetApp Files 配置為 NFS 資料存放區、以最佳化 AVS 私有雲部署。
+https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-introduction["Azure NetApp Files"^] 是一項高效能、企業級的計量檔案儲存服務。請依照本文件中的步驟進行 https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["連結"^] 將 Azure NetApp Files 配置為 NFS 資料存放區、以最佳化 AVS 私有雲部署。
 
 
 
@@ -69,7 +69,7 @@ https://["Azure NetApp Files"^] 是一項高效能、企業級的計量檔案儲
 
 image:azure-dro-image2.png["錯誤：缺少圖形影像"]
 
-請依照本文件中的步驟進行 https://["連結"^] 建立複寫對等關係來設定跨區域複寫。目的地容量集區的服務層級可與來源容量集區的服務層級相符。不過、在這種特定的使用案例中、您可以選擇標準服務層級、然後再選擇 https://["修改服務層級"^] 發生真正的災難或災難恢復模擬時。
+請依照本文件中的步驟進行 https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering["連結"^] 建立複寫對等關係來設定跨區域複寫。目的地容量集區的服務層級可與來源容量集區的服務層級相符。不過、在這種特定的使用案例中、您可以選擇標準服務層級、然後再選擇 https://learn.microsoft.com/en-us/azure/azure-netapp-files/dynamic-change-volume-service-level["修改服務層級"^] 發生真正的災難或災難恢復模擬時。
 
 
 NOTE: 跨區域複寫關係是先決條件、必須事先建立。
@@ -183,7 +183,7 @@ NOTE: 為了進行示範、本文件涵蓋新增來源網站。
 
 . 更新 vCenter 詳細資料。若要這麼做、請從主 AVS SDDC 的下拉式清單中選取認證、 Azure 區域和資源群組。
 . DRO 會列出區域內所有可用的 SDDC 。從下拉式清單中選取指定的私有雲 URL 。
-. 輸入 `cloudadmin@vsphere.local` 使用者認證。您可以從 Azure Portal 存取此功能。請遵循本文件中所述的步驟 https://["連結"^]。完成後、按一下 * 繼續 * 。
+. 輸入 `cloudadmin@vsphere.local` 使用者認證。您可以從 Azure Portal 存取此功能。請遵循本文件中所述的步驟 https://learn.microsoft.com/en-us/azure/azure-vmware/tutorial-access-private-cloud["連結"^]。完成後、按一下 * 繼續 * 。
 +
 image:azure-dro-image6.png["錯誤：缺少圖形影像"]
 
@@ -328,22 +328,22 @@ Azure NetApp Files 與 Azure VMware 災難恢復解決方案提供下列優點�
 
 * 為 Azure NetApp Files 建立 Volume 複寫
 +
-https://["https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering"^]
+https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering["https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-create-peering"^]
 
 * Azure NetApp Files 磁碟區的跨區域複寫
 +
-https://["https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-introduction#service-level-objectives"^]
+https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-introduction%23service-level-objectives["https://learn.microsoft.com/en-us/azure/azure-netapp-files/cross-region-replication-introduction#service-level-objectives"^]
 
-* https://["Azure VMware解決方案"^]
+* https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["Azure VMware解決方案"^]
 +
-https://["https://learn.microsoft.com/en-us/azure/azure-vmware/introduction"^]
+https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["https://learn.microsoft.com/en-us/azure/azure-vmware/introduction"^]
 
 * 在Azure上部署及設定虛擬化環境
 +
-https://["https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html"^]
+https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html["https://docs.netapp.com/us-en/netapp-solutions/ehc/azure/azure-setup.html"^]
 
 * 部署及設定 Azure VMware 解決方案
 +
-https://["https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal"^]
+https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal"^]
 
 
