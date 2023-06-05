@@ -8697,7 +8697,6 @@
   <block id="60398bdc931fc67a9b6d781434c3a15a" category="section-title">vSphere適用的ONTAP</block>
   <block id="09d6c6a1868cc36795c7a0f8f84e50c9" category="paragraph">自ONTAP 2002年推出現代化資料中心以來、NetApp功能一直是VMware vSphere環境的領先儲存解決方案、並持續增加創新功能、以簡化管理、同時降低成本。本文件介紹ONTAP VMware Site Recovery Manager（SRM）的解決方案、這是VMware領先業界的災難恢復（DR）軟體、其中包括最新的產品資訊和最佳實務做法、可簡化部署、降低風險及簡化後續管理。</block>
   <block id="e3445c3aa798f5ad98665e33d34dd952" category="paragraph">最佳實務做法是輔助其他文件、例如指南和相容性工具。這些技術是根據實驗室測試和NetApp工程師與客戶廣泛的現場經驗所開發。在某些情況下、建議的最佳實務做法可能不適合您的環境；不過、它們通常是最簡單的解決方案、能滿足大多數客戶的需求。</block>
-  <block id="c3edc14dbc5862176444f521372d1744" category="paragraph">本文件著重於ONTAP 近期發行的《支援功能》、搭配ONTAP VMware vSphere支援版本的《支援功能》（包括NetApp儲存複寫介面卡[SRA]和VASA Provider [VP]）、以及VMware Site Recovery Manager 8。4.</block>
   <block id="c40f8c2af56356193284f6b46865d954" category="section-title">為何ONTAP 要搭配SRM使用此功能？</block>
   <block id="3c41d5be62c97a13079e9c7abf078292" category="paragraph">NetApp資料管理平台採用ONTAP VMware軟體、是SRM最廣泛採用的儲存解決方案之一。原因很多：安全、高效能、統一化的傳輸協定（NAS與SAN結合在一起）資料管理平台、提供業界定義的儲存效率、多租戶、服務品質控管、利用節省空間的Snapshot複本提供資料保護、以及使用SnapMirror進行複寫。所有這些工具都能運用原生混合式多雲端整合技術來保護VMware工作負載、並在彈指之間提供大量的自動化與協調工具。</block>
   <block id="0d573b6a27c08499fee406e3db49812f" category="paragraph">當您使用SnapMirror進行陣列型複寫時、就能充分利用ONTAP最獲實證且最成熟的技術之一。SnapMirror可讓您享有安全且高效率的資料傳輸優勢、只複製變更的檔案系統區塊、而非複製整個VM或資料存放區。即使是這些區塊、也能善用空間節約效益、例如重複資料刪除、壓縮及壓縮等。現代化ONTAP 的支援系統現在使用獨立於版本的SnapMirror、讓您能夠靈活選擇來源和目的地叢集。SnapMirror已真正成為最強大的災難恢復工具之一。</block>
@@ -19195,4 +19194,5 @@
   <block id="9abbd7aed7e9791d9c52e8e17f34a756" category="section-title">支援應用裝置型 SRM 伺服器</block>
   <block id="2a71574e89a69c8218fbac3f604b5728" category="paragraph">營運效能是執行SRM工作的關鍵需求。為了滿足現代 RTO 和 RPO 的需求、採用 ONTAP 工具的已新增三項改良功能。</block>
   <block id="c82379d922d9cdc55fa21affe9f9b8bf" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可在需要重新計算儲存效率後、快速重新同步鏡像。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
+  <block id="10b8f80c23f8a44dfa6b10ae56d7dbe9" category="paragraph">本文件著重於最新版 ONTAP 9 的功能、這些功能搭配適用於 VMware vSphere 9.12 的 ONTAP 工具（包括 NetApp 儲存複寫介面卡 [SRA] 和 VASA Provider [VP] ）、以及 VMware Site Recovery Manager 8.7 。</block>
 </blocks>
