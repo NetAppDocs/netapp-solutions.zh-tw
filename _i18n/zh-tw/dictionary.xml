@@ -9359,15 +9359,12 @@
   <block id="ce4df831657d2621e80bbef9271c33cd" category="summary">隨著舊有虛擬應用裝置的移轉、ONTAP VMware的功能豐富、限制更高、並提供全新vVols支援。</block>
   <block id="45b1565c472fff4046d0f7ddbe1342f2" category="doc">SRM和ONTAP VMware Tools的新功能</block>
   <block id="116d20fc387d73c8e4a86e7998913947" category="section-title">vSphere和Site Recovery Manager的最新版本</block>
-  <block id="aa73b07f008975ca9fcabf87bfafb167" category="paragraph">隨著SRM 8.3及更新版本、以及9.7.1及更新版本ONTAP 的版次、您現在可以保護在VMware vSphere 7上執行的VM。</block>
   <block id="96ca6fcc2ffdab3c06d0875be8d4fe29" category="paragraph">NetApp已與VMware建立了近二十年的深厚合作關係、並致力於盡快提供最新版本的支援。請務必查看NetApp互通性對照表工具IMT （NetApp Interoperability Matrix Tool、簡稱「參考資訊」）、以取得最新的合格軟體組合。</block>
   <block id="63fe9875fcf8108a4dca29a0795d8674" category="paragraph">您IMT 可以找到NetApp解決方案<block ref="dd81e3609a71c92c2a90d9165ca7bb00" category="inline-link-rx"></block>。</block>
   <block id="23a6222620917211381cf4455d9e0a83" category="section-title">VVols支援（以及SPBM為何重要、即使是SRM也沒問題）</block>
-  <block id="a36269071ceeb480e636654c4620f7fb" category="paragraph">從8.3版開始、SRM現在支援利用vVols和陣列型複寫的儲存原則型管理（SPBM）。為達成此目標、SRM伺服器已更新為包含新的SRM vVols提供者服務、該服務會與vCenter伺服器的SMS服務通訊、以執行VASA相關工作。</block>
   <block id="4567f5576b4577c63b126cac3f6aa5fa" category="paragraph">此架構的一項優點是不再需要SRA、因為所有的工作都是使用VASA來處理。</block>
   <block id="e04031e1cecdb6732f91d44b204dbcf3" category="paragraph">SPBM是vSphere工具箱中功能強大的工具、可在私有雲和混合雲環境中、透過自動化架構、提供簡化、可預測且一致的儲存服務供使用。從根本上說、SPBM可讓您定義符合多元客戶群需求的服務類別。SRM現在可讓您針對需要健全的業界標準災難恢復協調與自動化的關鍵工作負載、向客戶展示複寫功能。</block>
   <block id="6f1ad7cac2af0e3b92a3936efc393a0e" category="paragraph"><block ref="6f1ad7cac2af0e3b92a3936efc393a0e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="48e2854d95fac45929940abc72062193" category="section-title">vVols架構2.3支援以應用裝置為基礎的SRM伺服器</block>
   <block id="925c477f139cce0692e13946a7f75eac" category="paragraph">除了舊版的Windows平台之外、現在還支援以pherton OS為基礎的SRM伺服器。</block>
   <block id="62c2c4203aebe081ddbc6cdd489f8ad7" category="paragraph">您現在可以安裝SRA介面卡、無論您偏好的SRM伺服器類型為何。</block>
   <block id="7cb1700928c008eb817bc79250cc9002" category="section-title">支援IPv6</block>
@@ -9377,7 +9374,6 @@
   <block id="918d32b75f0ab883abba3a8dc0c3ae8d" category="inline-link">互通性對照表工具</block>
   <block id="02e7e71042609d3158020ab7befe45c6" category="list-text">請檢查<block ref="218f4ad7153f69cdc5467065434cd2f0" category="inline-link-rx"></block> 以取得最新的合格版本。</block>
   <block id="e887aed8f9c3dbecd37e8896d96b6637" category="section-title">提升效能</block>
-  <block id="3efd4ca8de094abf49f004186cd70fff" category="paragraph">營運效能是執行SRM工作的關鍵需求。為了滿足現代RTO和RPO的需求、採用ONTAP VMware技術的SRA新增了兩項改良功能。</block>
   <block id="bd403c539a0c414afacd7477bf3d311f" category="list-text">*支援並行重新保護作業。*第一次於SRA 9.2.1中推出、啟用此功能可讓您同時在兩個以上的恢復計畫上執行重新保護、進而縮短容錯移轉或移轉後重新保護資料存放區所需的時間、並保留在RTO和RPO參數範圍內。</block>
   <block id="f63b947f655a5aee2cf69d4f30d7f96b" category="list-text">*《支援工具》9.8新增了一種僅限NAS的最佳化模式。*當您使用SVM範圍的帳戶、並僅使用NFS型資料存放區連線至VMware叢集時、您可以啟用僅限NAS的最佳化模式、在支援的環境中達到尖峰效能。ONTAP ONTAP</block>
   <block id="4a4842d7448ef71eb69b013e560b18bb" category="section-title">擴充性更高</block>
@@ -19193,4 +19189,10 @@
   <block id="59c347a74805b3b681ca29fc54f07d9f" category="paragraph"><block ref="59c347a74805b3b681ca29fc54f07d9f" category="inline-image-macro-rx" type="image"></block></block>
   <block id="f95cad6e29b1c5d602bd5bc840867b18" category="inline-image-macro">Antos BareMetal 邏輯網路圖</block>
   <block id="ba294d7813cac4403ec9802c03c3e6aa" category="paragraph"><block ref="ba294d7813cac4403ec9802c03c3e6aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="57359b8d2b77ce83f2e854fdd323377f" category="paragraph">隨着 SRM 8.7 及更新版本以及 9.12 及更新版本的 ONTAP 工具的發佈、您現在可以保護在 VMware vSphere 8 更新 1 上執行的 VM 。</block>
+  <block id="59b1c22b20ea1c08eb95a351dd18a01e" category="paragraph">從 8.3 版本開始、 SRM 現在支援以儲存原則為基礎的複寫管理（ SPBM ）、可運用 vVols 和陣列型複寫功能、針對使用 iSCSI 、 FCP 和 NFS v3 的資料存放區進行複寫。為達成此目標、SRM伺服器已更新為包含新的SRM vVols提供者服務、該服務會與vCenter伺服器的SMS服務通訊、以執行VASA相關工作。</block>
+  <block id="1b6204fa76bd422416757c4e2d6187bd" category="paragraph">使用 FCP 或 iSCSI 的 VVols 架構範例：</block>
+  <block id="9abbd7aed7e9791d9c52e8e17f34a756" category="section-title">支援應用裝置型 SRM 伺服器</block>
+  <block id="2a71574e89a69c8218fbac3f604b5728" category="paragraph">營運效能是執行SRM工作的關鍵需求。為了滿足現代 RTO 和 RPO 的需求、採用 ONTAP 工具的已新增三項改良功能。</block>
+  <block id="c82379d922d9cdc55fa21affe9f9b8bf" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可在需要重新計算儲存效率後、快速重新同步鏡像。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
 </blocks>
