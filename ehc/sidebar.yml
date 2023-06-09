@@ -31,6 +31,8 @@ entries:
       url: "/ehc/azure/azure-native-overview.html"
     - title: AVS的來賓連線儲存設備
       url: "/ehc/azure/azure-guest.html"
+    - title: GCVE 的補充 NFS 資料存放區
+      url: "/ehc/gcp/gcp-ncvs-datastore.html"
     - title: GCVE.訪客連線儲存設備
       url: "/ehc/gcp/gcp-guest.html"
     - title: NFS資料存放區的區域支援
@@ -84,10 +86,20 @@ entries:
 - title: 適用於GCP / GCVE
   url: "/ehc/gcp/index.html"
   entries:
-  - title: 應用程式災難恢復：SnapCenter 利用功能進行功能性、CVO和Veeam複寫
-    url: "/ehc/gcp/gcp-app-dr-sc-cvo-veeam.html"
-  - title: 使用VMware HCX將工作負載移轉至Cloud Volume Service NFS資料存放區
-    url: "/ehc/gcp/gcp-migrate-vmware-hcx.html"
+  - title: 保護工作負載
+    entries:
+    - title: 使用 Veeam 進行災難恢復（補充 NFS 資料存放區）
+      url: "/ehc/gcp/gcp-app-dr-sc-cvs-veeam.html"
+    - title: 使用 Veeam （來賓連線儲存設備）進行災難恢復
+      url: "/ehc/gcp/gcp-app-dr-sc-cvo-veeam.html"
+  - title: 移轉工作負載
+    entries:
+    - title: 使用VMware HCX將工作負載移轉至Cloud Volume Service NFS資料存放區
+      url: "/ehc/gcp/gcp-migrate-vmware-hcx.html"
+    - title: 使用 Veeam Replication 將 VM 工作負載移轉至 NetApp Cloud Volume Service NFS 資料存放區
+      url: "/ehc/gcp/gcp-migrate-veeam.html"
+  - title: NetApp CVS NFS 資料存放區的區域支援
+    url: "/ehc/gcp/gcp-regions.html"
   - title: 安全性總覽- Cloud Volumes Service Google Cloud中的NetApp解決方案（CVS）
     type: solutions
     entries:

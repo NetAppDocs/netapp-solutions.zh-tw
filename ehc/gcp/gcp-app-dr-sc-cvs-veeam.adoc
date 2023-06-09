@@ -1,0 +1,135 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp/gcp-app-dr-sc-cvs-veeam.html 
+keywords: gcp, gcve, snapcenter, cvo, cvs, iscsi, guest connect, dr, disaster recovery 
+summary: 災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可以複寫到Cloud Volumes ONTAP 在Google Cloud上執行的NetApp VMware。 
+---
+= 使用 NetApp SnapCenter 和 Veeam 複寫、實現應用程式一致的災難恢復
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+
+
+== 總覽
+
+作者：NetApp Suresh ThopPay
+
+許多客戶都在尋找一套有效的災難恢復解決方案、以供其在 VMware vSphere 上代管的應用程式 VM 使用。其中許多使用現有的備份解決方案來在災難恢復期間執行恢復。
+該解決方案多次增加 RTO 、但未能達到他們的期望。為了降低 RPO 和 RTO 、只要有適當權限的網路連線能力和環境、就能在內部部署到 GCVE 之間使用 Veeam VM 複寫。
+
+
+NOTE: Veeam VM Replication 無法保護 VM 來賓連接的儲存裝置、例如 iSCSI 或 NFS 裝載在來賓 VM 內。需要分別保護這些資料。
+
+為了針對 SQL VM 進行應用程式一致的複寫、並降低 RTO 、我們使用 SnapCenter 來協調 SQL 資料庫和記錄磁碟區的 SnapMirror 作業。
+
+本文件提供逐步方法、以設定及執行使用NetApp SnapMirror、Veeam及Google Cloud VMware Engine（GCVE）的災難恢復。
+
+image:dr-cvs-gcve-veeam-image1.png["應用程式 VM 複寫架構"]
+
+
+
+== 假設
+
+本文件著重於客體內儲存應用程式資料（也稱為來賓連線）、我們假設內部環境使用SnapCenter 的是應用程式一致的備份。
+
+
+NOTE: 本文件適用於任何第三方備份或還原解決方案。視環境中使用的解決方案而定、請遵循最佳實務做法來建立符合組織SLA的備份原則。
+
+若要在內部部署環境與Google Cloud網路之間建立連線、請使用專屬互連或Cloud VPN等連線選項。應根據內部部署的VLAN設計來建立區段。
+
+
+NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓我們無法在此文件中概述特定的工作流程。如需適當的內部部署至Google連線方法、請參閱Google Cloud文件。
+
+
+
+== 部署災難恢復解決方案
+
+
+
+=== 解決方案部署總覽
+
+. 確保應用程式資料是以SnapCenter 不必要的RPO要求使用支援功能進行備份。
+. 在適當的訂閱和虛擬網路中、使用 BlueXP 以正確的執行個體大小來佈建 Cloud Volumes ONTAP 。
++
+.. 為相關的應用程式磁碟區設定SnapMirror。
+.. 更新SnapCenter 中的備份原則、以便在排程工作之後觸發SnapMirror更新。
+
+
+. 安裝Veeam軟體、並開始將虛擬機器複寫至Google Cloud VMware Engine執行個體。
+. 在災難事件期間、使用 BlueXP 中斷 SnapMirror 關係、並使用 Veeam 觸發虛擬機器的容錯移轉。
++
+.. 重新連接應用程式VM的iSCSI LUN和NFS掛載。
+.. 將應用程式上線。
+
+
+. 在主站台恢復後、透過反向重新同步SnapMirror來叫用容錯回復至受保護站台。
+
+
+
+
+=== 部署詳細資料
+
+.在Google Cloud上設定CVO、並將磁碟區複寫至CVO
+[%collapsible]
+====
+第一步是在Cloud Volumes ONTAP Google Cloud上設定 (https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp/gcp-guest.html["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
+
+image:dr-cvo-gcve-image2.png["錯誤：缺少圖形影像"]
+
+如需設定SnapCenter 不一致及複寫資料的逐步說明範例、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/aws/aws-guest-dr-config-snapmirror.html["利用SnapCenter 功能進行複寫設定"]
+
+video::dr-cvo-gcve-video2.mp4[Review of SQL VM protection with SnapCenter]
+====
+.設定GCVO主機和CVO資料存取
+[%collapsible]
+====
+部署SDDC時、需要考量的兩個重要因素是GCVE解決方案中SDDC叢集的大小、以及SDDC持續運作的時間。這兩項災難恢復解決方案的關鍵考量、有助於降低整體營運成本。SDDC可只有三部主機、在全規模部署中、一直到多主機叢集為止。
+
+NetApp Cloud Volume Service for NFS Datastore 和 Cloud Volumes ONTAP for SQL 資料庫和記錄可部署至任何 VPC 、 GCVE 應與該 VPC 建立私有連線、以掛載 NFS 資料存放區、並讓 VM 連線至 iSCSI LUN 。
+
+若要設定GCVE/ SDDC、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp/gcp-setup.html["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
+
+正確設定好VMware和GCVETM之後Cloud Volumes ONTAP 、請開始設定Veeam、使用Veeam複寫功能、並利用SnapMirror將應用程式Volume複本複製到Cloud Volumes ONTAP VMware、將內部部署工作負載的恢復作業自動化至GCVETM（使用應用程式VMDK的VM和使用客體內建儲存設備的VM）。
+
+====
+.安裝Veeam元件
+[%collapsible]
+====
+根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。
+https://helpcenter.veeam.com/docs/backup/vsphere/replication_components.html?ver=120["如需安裝程序、請參閱Veeam文件"]
+如需其他資訊、請參閱 link:gcp-migrate-veeam.html["使用 Veeam Replication 移轉"]
+
+====
+.使用Veeam設定VM複寫
+[%collapsible]
+====
+內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。 https://helpcenter.veeam.com/docs/backup/vsphere/replica_job.html?ver=120["設定vSphere VM複寫工作"] 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。
+
+video::dr-cvo-gcve-video1.mp4[Veeam Replication Job of SQL VM]
+====
+.容錯移轉Microsoft SQL Server VM
+[%collapsible]
+====
+video::dr-cvo-gcve-video3.mp4[Failover of SQL VM]
+====
+
+
+== 本解決方案的優點
+
+* 使用SnapMirror的高效率和彈性複寫。
+* 利用不含資料的快照保留功能、可即時恢復至任何可用點ONTAP 。
+* 從儲存、運算、網路和應用程式驗證步驟、將數百個VM恢復到數千個VM所需的所有步驟均可完全自動化。
+* 使用不會變更複寫磁碟區的複製機制。SnapCenter
++
+** 如此可避免磁碟區和快照發生資料毀損的風險。
+** 避免災難恢復測試工作流程期間的複寫中斷。
+** 利用DR資料處理DR以外的工作流程、例如開發/測試、安全性測試、修補程式與升級測試、以及補救測試。
+
+
+* Veeam Replication允許變更DR站台上的VM IP位址。
+
