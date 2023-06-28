@@ -58,8 +58,8 @@ image:rhhc_storage_opt_pod2vol.png["Pod 與 ONTAP Volume 的關係"]
 
 對於 VMware CSI 和 Astra Trident CSI 、 ONTAP 支援 nconnect 、工作階段主幹、 Kerberos 等、適用於 NFS 和多重路徑、 chap 驗證等區塊傳輸協定。
 
-在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS 效能準則"]。為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。
-
+在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS 效能準則"]。
+為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。
 image:rhhc_storage_options_fsxn_options.png["複寫多個 AZ 和單一 AZ"]
 
 如需 FSX ONTAP 支援的 SVM 數量、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-svms.html#max-svms["管理 FSX ONTAP 儲存虛擬機器"]
