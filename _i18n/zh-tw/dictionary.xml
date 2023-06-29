@@ -6021,7 +6021,6 @@
   <block id="9b73989307c1975dfa4d5e1581e4afe8" category="paragraph">通知檔案提供有關 NetApp 軟體所使用之協力廠商版權與授權的資訊。</block>
   <block id="33be49f7ebc56eb7d336a201f7ac0df6" category="inline-link-macro">SAP on Azure NetApp Files</block>
   <block id="e131204502a58630f2f72937238604c8" category="section-title">影片/示範</block>
-  <block id="2b1dd692c0da980c4ec2ad9fd523c47d" category="inline-link-macro">SQL High Availability叢集Azure NetApp Files</block>
   <block id="9efcc0ad3c93b238cc0495e3c87b715f" category="inline-link-macro">利用FlexPod Ansible在支援的基礎上自動部署Oracle 19c RAC</block>
   <block id="92637d8d513510f7c1f5bfac6e1cce9b" category="summary">若要與NetApp ONTAP 支援儲存系統進行Trident整合、您必須建立後端、以便與儲存系統進行通訊。</block>
   <block id="cbaa3aa588b8aa5c85dca443c15a0195" category="doc">NetApp ONTAP 不適用於NFS組態</block>
@@ -7295,7 +7294,6 @@
   <block id="5402bb91006fe391aea122e11c3607db" category="paragraph">在此使用案例中、我們需要限制特定專案中的Pod、使其無法從非專屬專案的儲存類別中申請儲存設備。為達成此目標、我們必須將「&lt;storage-class-name&gt;.storageclass.storage.k8s.io/永久性 磁碟區」設為0、以限制其他儲存類別的持續磁碟區宣告。此外、叢集管理員必須確保專案中的開發人員不應擁有修改資源配額的存取權。</block>
   <block id="6c7eefdca8e3859011afa00995879a32" category="inline-link-macro">下一步：組態。</block>
   <block id="0c86c0f2c0ad5b82864ef1b20a904132" category="paragraph"><block ref="0c86c0f2c0ad5b82864ef1b20a904132" category="inline-link-macro-rx"></block></block>
-  <block id="68d13ef3d87e892878a6e6cbb44d1f21" category="doc">在RHV上部署Red Hat OpenShift：搭配NetApp的Red Hat OpenShift</block>
   <block id="74eb4c6138d4b8cd8399b01966c5af28" category="doc">適用於GCP的NetApp儲存選項</block>
   <block id="8f08ff97ca555f50f0d05fdf950a0568" category="paragraph">Google Cloud支援下列組態的NetApp儲存設備：</block>
   <block id="3017a9031d66c55b0258c102decfd1b9" category="inline-link-macro">以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP</block>
@@ -8866,16 +8864,8 @@
   <block id="2dd739333b022cfeccd93e19c8c39d83" category="paragraph">VMware Tanzu可讓客戶透過vSphere或VMware Cloud Foundation來部署、管理及管理Kubernetes環境。VMware產品組合可讓客戶從單一控制面板管理所有相關的Kubernetes叢集、選擇最符合需求的VMware Tanzu版本。</block>
   <block id="f8d0723a562ed498a977795477b75cb0" category="inline-link">VMware Tanzu概述</block>
   <block id="2d3e9ef8ae693e8ff80c4d6e70f0a876" category="paragraph">如需VMware Tanzu的詳細資訊、請參閱<block ref="1951d4038519ab642a1c0f8898cecfe0" category="inline-link-rx"></block>。本審查涵蓋使用案例、可用的新增項目、以及有關VMware Tanzu的更多資訊。</block>
-  <block id="31c49b154032d3d6039542b651e0f3d4" category="list-text"><block ref="31c49b154032d3d6039542b651e0f3d4" category="inline-link-rx"></block></block>
-  <block id="fcf1189eaf4e4e32d27ee5174d63ae3c" category="list-text"><block ref="fcf1189eaf4e4e32d27ee5174d63ae3c" category="inline-link-rx"></block></block>
-  <block id="5963b1ea39cb7cc8a0a4f5ce7c5ef816" category="list-text"><block ref="5963b1ea39cb7cc8a0a4f5ce7c5ef816" category="inline-link-rx"></block></block>
-  <block id="20cf4402cce1622d010e58ef54b0c753" category="section-title">採用Red Hat OpenShift的NetApp</block>
-  <block id="0454c59b86dfb678c92c2c7480958d1c" category="paragraph">Red Hat OpenShift是一款企業Kubernetes平台、可讓您以開放式混合雲策略來執行以容器為基礎的應用程式。Red Hat OpenShift可在領先業界的公有雲或自助管理軟體上作為雲端服務提供客戶在設計容器型解決方案時所需的靈活度。</block>
   <block id="2426b725f5be26f50931584ae804c2eb" category="inline-link">Red Hat OpenShift總覽</block>
-  <block id="ad973740d0b3378d367abba8a74a610e" category="paragraph">如需Red Hat OpenShift的詳細資訊、請參閱此<block ref="dc6de73076240cafa99651f2d6acfef4" category="inline-link-rx"></block>。您也可以檢閱產品文件和部署選項、深入瞭解Red Hat OpenShift。</block>
   <block id="3699cb747ce71b2fed488fef61ad35be" category="inline-link">工作負載移轉：採用NetApp的Red Hat OpenShift</block>
-  <block id="ade88b04ec62ed28eb857e48bc32cef5" category="list-text"><block ref="ade88b04ec62ed28eb857e48bc32cef5" category="inline-link-rx"></block></block>
-  <block id="a2f2cd3053597e34724347a57620122b" category="list-text"><block ref="a2f2cd3053597e34724347a57620122b" category="inline-link-rx"></block></block>
   <block id="5a44477fe5ac4beac2dc6574097cf079" category="summary">本頁提供在ONTAP VMware vSphere環境中部署NetApp支援iSCSI VMFS資料存放區的步驟。</block>
   <block id="6fe85aae6e8fa231a1f417edfeef3759" category="doc">vSphere VMFS資料存放區- iSCSI儲存後端ONTAP 搭配功能</block>
   <block id="4f6f7882fc7b858bc0eb3e3a41991494" category="paragraph">本節說明如何使用ONTAP VMware iSCSI儲存設備來建立VMFS資料存放區。</block>
@@ -11340,7 +11330,6 @@
   <block id="e890f04973d00c3664a44f4cc586bb5d" category="doc">NetApp企業資料庫解決方案</block>
   <block id="809247403bb2b3e7178b69b038356678" category="inline-link-macro">vSphere資料存放區與傳輸協定功能：NFS</block>
   <block id="ff7854cc2ae62511b4a52320f31aa005" category="paragraph"><block ref="ff7854cc2ae62511b4a52320f31aa005" category="inline-link-macro-rx"></block></block>
-  <block id="6309162dffb4a082a2a106613c448e9f" category="doc">混合雲、虛擬化與容器影片與示範</block>
   <block id="ccf0b7773e492df3e851d36b689b69b1" category="paragraph">請觀看下列影片和示範、重點介紹混合雲、虛擬化和容器解決方案的特定功能。</block>
   <block id="ab5efb952cd51767fdde3f548f7d3f18" category="paragraph">如需有關SnapCenter 適用於VMware vSphere的NetApp解決方案外掛程式的詳細資訊、請參閱 <block ref="39b49e6fd504a137658d6db31d129abd" category="inline-link-macro-rx"></block>。</block>
   <block id="0b59976821e81163a037c4ed7f21b209" category="paragraph"><block ref="0b59976821e81163a037c4ed7f21b209" category="inline-link-macro-rx"></block></block>
@@ -15106,9 +15095,6 @@
   <block id="b0d7b47f43a6efe75ff49bfd5e21f6fd" category="list-text"><block ref="b0d7b47f43a6efe75ff49bfd5e21f6fd" category="inline-link-macro-rx"></block></block>
   <block id="90e97692c42b1eb0ec22c639049d78a1" category="list-text"><block ref="90e97692c42b1eb0ec22c639049d78a1" category="inline-link-macro-rx"></block></block>
   <block id="6ff1dafebf930a9c5fef12bf43046987" category="example-title">企業應用程式與資料庫</block>
-  <block id="98e44b407e40d6f57f90877a1960efae" category="list-text"><block ref="98e44b407e40d6f57f90877a1960efae" category="inline-link-macro-rx"></block></block>
-  <block id="e2cd0f8dc5281c13263991c6973df405" category="list-text"><block ref="e2cd0f8dc5281c13263991c6973df405" category="inline-link-macro-rx"></block></block>
-  <block id="bf49d74794280c8a3a207a97d6447db7" category="list-text"><block ref="bf49d74794280c8a3a207a97d6447db7" category="inline-link-macro-rx"></block></block>
   <block id="4efd965058c15f138d2c4d43454c3012" category="list-text"><block ref="4efd965058c15f138d2c4d43454c3012" category="inline-link-macro-rx"></block></block>
   <block id="5bfc3700f5feddf9397449627edbbdb9" category="example-title">Container / Kubernetes</block>
   <block id="665b01682714e51e25b232a31a06b70e" category="inline-link-macro">NetApp與Google Anthos影片</block>
@@ -16241,7 +16227,6 @@
   <block id="3c2e1436532e8615aa8fdb7bb7432f80" category="paragraph">如果內部部署的Oracle資料庫位於ONTAP 某個不支援的儲存陣列上、那麼使用內建於AWS FSX ONTAP S庫 的NetApp SnapMirror技術、就能更輕鬆地設定資料庫移轉的複寫作業。您可以使用NetApp BlueXP主控台來協調移轉程序。</block>
   <block id="ed7c233990ddaa2e7103a9f5b77ee3de" category="list-text">切換時、請關閉主要應用程式以停止所有交易。在Oracle sqlplus CLI介面中、執行Oracle線上記錄交換器、並允許SnapMirror同步將上次歸檔的記錄推送至目標磁碟區。</block>
   <block id="094ef1326e70f1212e06a1b5d65d2922" category="paragraph">下列影片示範如何使用NetApp BlueXP主控台和SnapMirror複寫、將Oracle資料庫從內部部署移轉至AWS FSx/EC2。</block>
-  <block id="0ed0689d68d30d32584025a19c85c9e1" category="inline-link-macro">Oracle資料庫透過SnapMirror和BlueXP從內部部署移轉至FSx/EC2</block>
   <block id="e54801d4a4497c3566a98c0ef4ec6f18" category="section-title">使用最大可用度的pdb重新配置、將內部部署的Oracle資料庫移轉至AWS FSx/EC2</block>
   <block id="16d584a60d17de3de7cd0dcc0828fee9" category="paragraph">這種移轉方法最適合已部署於PDB/CDB多租戶模式的Oracle資料庫、ONTAP 而且無法在內部部署使用此功能。pdb重新配置方法使用Oracle pdb熱複製技術、在來源CDB和目標CDB之間移動PDB、同時將服務中斷降至最低。</block>
   <block id="c5bd16be343bf2e5a3c081284c6c799b" category="paragraph">首先、請在AWS FSx/EC2中建立CDB、並提供足夠的儲存空間來裝載要從內部部署移轉的PDF。多個內部部署的PDF可一次移轉一個。</block>
@@ -16678,8 +16663,6 @@
   <block id="fbaad71632f1f86a6aec0eb25bf981d7" category="list-text">若要獲得最佳儲存效能、請將檔案系統容量配置為資料庫總使用量的1.35倍。</block>
   <block id="697ac904ffe5f281c2b20466e99a46ec" category="paragraph"><block ref="697ac904ffe5f281c2b20466e99a46ec" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9ea2cbade31de8af1dca89093e681575" category="paragraph">下列影片示範本文件所述的部分功能：</block>
-  <block id="f1633856fe511230f9c635e7a1c53316" category="inline-link-macro">影片：在Anthos 1.14叢集上部署Trident</block>
-  <block id="cf1f8100313c03361151f9caa6715bac" category="paragraph"><block ref="cf1f8100313c03361151f9caa6715bac" category="inline-link-macro-rx"></block></block>
   <block id="1780877562a197bb240c255e7ebc64a6" category="paragraph"><block ref="1780877562a197bb240c255e7ebc64a6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="9f281f23fa0eaa9fab3de640f4c4ed29" category="cell">1.14</block>
   <block id="b2311a2cf7a04db2bfe860c3fa17635c" category="cell">硬體元件</block>
@@ -18166,7 +18149,6 @@
   <block id="c9e4df26177106ff846782e8ee98f56a" category="list-text">若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照程序進行<block ref="33c646d34972887e04f4f11763cd42b6" category="inline-link-rx"></block> 適用於 Ubuntu 和 RHEL 。</block>
   <block id="8319a8c7a5b0b686057dbf3e7b4068f2" category="paragraph">如需裸機硬體和軟體需求的Anthos、請參閱<block ref="ee9c468e431b4e6c834acacee08b5282" category="inline-link-rx"></block> 頁面。</block>
   <block id="9b368ea783a99ed08472f5ee27e26dc9" category="paragraph">若要識別閘道位址以手動設定用戶端、請參閱<block ref="65651a617c871e663f36b036935811c9" category="inline-link-rx"></block>。</block>
-  <block id="0fc2ee38d3f3fcee9b5d5d0bad287f93" category="paragraph">如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱<block ref="06275778c7333bddf485b7069aff5016" category="inline-link-rx"></block></block>
   <block id="e88bacbfc81933567e64c9db4797fe2a" category="paragraph">作者： NetApp 解決方案工程公司 Niyaz Mohamed</block>
   <block id="b9f6e76ebb09998e4efe8f7d8cdfc1a1" category="paragraph">在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。</block>
   <block id="6d3f247317af532e62e79af4e327e266" category="paragraph">災難恢復協調器（ DRO ）（一種具有 UI 的指令碼化解決方案）可用於無縫恢復從一個 AVS SDDC 複製到另一個 AVS SDDC 的工作負載。DRO 會中斷複寫對等關係、然後將目的地磁碟區掛載為資料存放區、透過 VM 註冊至 AVS 、將其自動還原至 NSS-T 上的網路對應（包含在所有 AVS 私有雲中）。</block>
@@ -18665,7 +18647,6 @@
   <block id="585d77f28be6ed7195a002752abf2272" category="video-title">將 FSxN 與 Astra Trident 整合</block>
   <block id="bcb10d9a12c5b72d4b9a3e3af5c448bd" category="video-title">透過 FSxN 在 ROSA 上容錯移轉和容錯回復應用程式</block>
   <block id="a1b302ac6b7c1aec08c902797c133e13" category="paragraph-title">DR 使用 Astra Control Center</block>
-  <block id="7c75a912761dd20f4e8a9aceb430dc5f" category="paragraph"><block ref="7c75a912761dd20f4e8a9aceb430dc5f" category="inline-link-macro-rx"></block></block>
   <block id="52463fc86a53e3e78c2a77069889838f" category="paragraph">如需SnapCenter 在AWS中駐留的《不景伺服器》上完成的步驟清單、請參閱一節 <block ref="1d252dd870179a0ef2258cd4837b106d" category="inline-link-macro-rx"></block>。</block>
   <block id="365ee461cb4c118a8bc7c388fee3410a" category="sidebar">價值主張</block>
   <block id="46d480fc201dd71bbb912a8bd377a13c" category="sidebar">已驗證的解決方案</block>
@@ -18694,35 +18675,7 @@
   <block id="bd0cd83be209951ff7339cce298b2e3d" category="sidebar">將 Container 工作負載移轉至 AWS</block>
   <block id="effcc9c0e3cea8d66e69bb552e757275" category="sidebar">混合雲與供應商管理的元件</block>
   <block id="b432f68713f4ab09d27d581993480c2d" category="sidebar">在 AWS 上移轉 Container 工作負載</block>
-  <block id="ade715591998b800c1cfe73575a49726" category="inline-link-macro">影片： ROSA 叢集整合 Amazon FSX for ONTAP</block>
-  <block id="c8e393d522db54d3ac719e4998c2a654" category="paragraph"><block ref="c8e393d522db54d3ac719e4998c2a654" category="inline-link-macro-rx"></block></block>
-  <block id="f8fb2d5adf2db87cf9d33e114cb80575" category="inline-link-macro">使用 BlueXP 和 Argo CD 示範應用程式容錯移轉和容錯回復的案例</block>
-  <block id="55df569a88370497c8ccff939f1cdbf8" category="paragraph">下列影片為 A <block ref="b4091ac5968eba755149e6cb1c2edfa3" category="inline-link-macro-rx"></block>。</block>
-  <block id="66ed0c3109a99ed48b8e19b3ea3e112e" category="inline-link-macro">將 FSxN 與 Astra Trident 整合至 ROSA 叢集</block>
-  <block id="ffcb76e0c60e5a44b49519333dd0194c" category="list-text">示範影片： <block ref="58850cfea1fa121cea81f72dd009fa05" category="inline-link-macro-rx"></block></block>
-  <block id="201e9faa1242e9b7183ff586a3ba3c2a" category="inline-link-macro">備份在某個區域執行的 ROSA 應用程式、並還原至另一個區域</block>
-  <block id="abcb712f64351f6c5f0472721b87f5ae" category="paragraph">下列影片顯示 <block ref="2dc8a5a2bc86074ad0a0e8e7f4e5b318" category="inline-link-macro-rx"></block>。</block>
-  <block id="71a6bd696d2fae9b814517a7d92bfcbc" category="list-text"><block ref="71a6bd696d2fae9b814517a7d92bfcbc" category="inline-link-macro-rx"></block></block>
-  <block id="388300e739012da938a81f6e1af1ff39" category="list-text"><block ref="388300e739012da938a81f6e1af1ff39" category="inline-link-macro-rx"></block></block>
-  <block id="36157c9e209c8979447922ce87de3cd1" category="list-text"><block ref="36157c9e209c8979447922ce87de3cd1" category="inline-link-macro-rx"></block></block>
-  <block id="817764a04f7d60378db2e847654c1539" category="list-text"><block ref="817764a04f7d60378db2e847654c1539" category="inline-link-macro-rx"></block></block>
-  <block id="fee8fe82e522035a7aceafec3c7eb139" category="list-text"><block ref="fee8fe82e522035a7aceafec3c7eb139" category="inline-link-macro-rx"></block></block>
-  <block id="36b649d911c5a639f1a7816791db7984" category="list-text"><block ref="36b649d911c5a639f1a7816791db7984" category="inline-link-macro-rx"></block></block>
-  <block id="d630c209c8c42a9406fc5a34012e63ca" category="list-text"><block ref="d630c209c8c42a9406fc5a34012e63ca" category="inline-link-macro-rx"></block></block>
-  <block id="6f3aa8cc391e48ef33c0bac1f0a61bcc" category="list-text"><block ref="6f3aa8cc391e48ef33c0bac1f0a61bcc" category="inline-link-macro-rx"></block></block>
   <block id="e43c7c28921efd6b3b8317da66940803" category="inline-link-macro">VMware HCX for VMC 和 FSxN 的 VMotion 移轉示範</block>
-  <block id="da7eb811cbd17bba8f12f27f38257f1d" category="list-text"><block ref="da7eb811cbd17bba8f12f27f38257f1d" category="inline-link-macro-rx"></block></block>
-  <block id="5e3367880386fc41e711938f4bf627af" category="list-text"><block ref="5e3367880386fc41e711938f4bf627af" category="inline-link-macro-rx"></block></block>
-  <block id="00d1fad18d0809f0c14b55e102486400" category="list-text"><block ref="00d1fad18d0809f0c14b55e102486400" category="inline-link-macro-rx"></block></block>
-  <block id="4b8895eff9d52e0e8afb0ed211727598" category="list-text"><block ref="4b8895eff9d52e0e8afb0ed211727598" category="inline-link-macro-rx"></block></block>
-  <block id="abe35f29ee68aeb6f84de5c4079074fb" category="list-text"><block ref="abe35f29ee68aeb6f84de5c4079074fb" category="inline-link-macro-rx"></block></block>
-  <block id="003c1dd7b840f8456c4791182c9fde5a" category="list-text"><block ref="003c1dd7b840f8456c4791182c9fde5a" category="inline-link-macro-rx"></block></block>
-  <block id="84921f8cc2bf20286ae17b9de74106a0" category="list-text"><block ref="84921f8cc2bf20286ae17b9de74106a0" category="inline-link-macro-rx"></block></block>
-  <block id="af40f0e9ced2e668b6f08b591e4e8597" category="list-text"><block ref="af40f0e9ced2e668b6f08b591e4e8597" category="inline-link-macro-rx"></block></block>
-  <block id="758b02fccea165bc8dfebac1544de665" category="list-text"><block ref="758b02fccea165bc8dfebac1544de665" category="inline-link-macro-rx"></block></block>
-  <block id="e1ad6dfb06d02a2a99475f773655cd57" category="list-text"><block ref="e1ad6dfb06d02a2a99475f773655cd57" category="inline-link-macro-rx"></block></block>
-  <block id="6f0facf1f54443bdc599b2133f9e4f4b" category="list-text"><block ref="6f0facf1f54443bdc599b2133f9e4f4b" category="inline-link-macro-rx"></block></block>
-  <block id="e9a701073b3fd8acabf1bad2951a244e" category="list-text"><block ref="e9a701073b3fd8acabf1bad2951a244e" category="inline-link-macro-rx"></block></block>
   <block id="87e6f97c8ec2f31df616ef84401ffaf4" category="paragraph">有幾種疑難排解資源可提供額外資訊。</block>
   <block id="9d2169c1c2855b78a7aeaa4f42d27dc7" category="section-title">NetApp 支援網站</block>
   <block id="890eb741924c425abbb11e4618560181" category="paragraph">除了 NetApp 虛擬化產品的各種知識庫文章之外、 NetApp 支援網站 也提供方便的登陸頁面<block ref="6e90053136fd326e5d581844ca21966d" category="inline-link-rx"></block> 產品。此入口網站提供 NetApp 社群文章、下載、技術報告及 VMware 解決方案討論的連結。您可以在以下網址取得：</block>
@@ -19095,72 +19048,20 @@
   <block id="3999d762a7e0bf52c3b5bb4c81e69fa3" category="cell">新增 TR-4400 ：採用 NetApp ONTAP 的 VMware vSphere 虛擬磁碟區（ VVols ）</block>
   <block id="cbed44df5ec7c45f2ff978c1548b0a51" category="cell">新增 TR-4974 ：在 AWS FS3/EC2 上使用 NFS/ASM 獨立重新啟動 Oracle 19c</block>
   <block id="a0c46f7ca88d42325d9a279391f96391" category="inline-link-macro">Astra Control Center 提供 CI/CD 管線中的資料保護功能</block>
-  <block id="22d2f4e375e6a1f84fdb3832953f4f7f" category="list-text"><block ref="22d2f4e375e6a1f84fdb3832953f4f7f" category="inline-link-macro-rx"></block></block>
-  <block id="db562544764617393e919acaad8fd8b1" category="list-text"><block ref="db562544764617393e919acaad8fd8b1" category="inline-link-macro-rx"></block></block>
   <block id="6b8847bb26c687aff3755cd309c49318" category="inline-link-macro">利用Astra Control和NetApp FlexClone技術加速軟體開發</block>
-  <block id="40b6826b067b46ed179407428b912a14" category="list-text"><block ref="40b6826b067b46ed179407428b912a14" category="inline-link-macro-rx"></block></block>
   <block id="92a855a1b8d950731fa531dc04dd0f9d" category="paragraph">下列影片示範本文件所述的部分功能：</block>
   <block id="a52898916cc1d93c0528b275e6753070" category="inline-link-macro">利用 Astra Control 和 NetApp FlexClone 技術加速軟體開發 - Red Hat OpenShift with NetApp</block>
-  <block id="bc8cba96dcc9500f49d8351817ec2ab9" category="list-text"><block ref="bc8cba96dcc9500f49d8351817ec2ab9" category="inline-link-macro-rx"></block></block>
   <block id="c96541f511f34e58176bb7aa13511ea5" category="inline-link-macro">使用 Astra Control Center 進行工作負載移轉： Red Hat OpenShift with NetApp</block>
-  <block id="ccdfb787e2e36aa03d5103295bdcf8e2" category="list-text"><block ref="ccdfb787e2e36aa03d5103295bdcf8e2" category="inline-link-macro-rx"></block></block>
-  <block id="1fc270be1b5f2a77ff5dc8c38eef8377" category="list-text"><block ref="1fc270be1b5f2a77ff5dc8c38eef8377" category="inline-link-macro-rx"></block></block>
   <block id="f572afcba8a95128ddd328e44a23a189" category="inline-link-macro">安裝OpenShift虛擬化：採用NetApp的Red Hat OpenShift</block>
-  <block id="8f38ce4604b19a8754310e38a5830e55" category="list-text"><block ref="8f38ce4604b19a8754310e38a5830e55" category="inline-link-macro-rx"></block></block>
   <block id="c9e349766e4968ee277d240ff7b169e6" category="inline-link-macro">部署採用OpenShift虛擬化技術的虛擬機器-採用NetApp的Red Hat OpenShift</block>
-  <block id="6298a01de37c23ee55503f9d1b58a421" category="list-text"><block ref="6298a01de37c23ee55503f9d1b58a421" category="inline-link-macro-rx"></block></block>
   <block id="e110e2333a8febc7917146824eb919fd" category="inline-link-macro">NetApp HCI for Red Hat OpenShift on Red Hat 虛擬化</block>
-  <block id="9757cd789c0e1ed35924aecd3b72bd8f" category="list-text"><block ref="9757cd789c0e1ed35924aecd3b72bd8f" category="inline-link-macro-rx"></block></block>
   <block id="176e18501cba531e3471815ba9a59850" category="inline-link-macro">使用 Astra Trident 在 VMware Tanzu - VMware Tanzu 與 NetApp 中配置持續儲存設備</block>
-  <block id="105ec97636a71578534f9edb06858fd6" category="list-text"><block ref="105ec97636a71578534f9edb06858fd6" category="inline-link-macro-rx"></block></block>
   <block id="c16700d624be3fd2dae451c45971452e" category="inline-link-macro">使用 Astra Control Center 在 VMware Tanzu - VMware Tanzu 搭配 NetApp 複製應用程式</block>
-  <block id="a982ae8c95911d1a875df77c1a52b14a" category="list-text"><block ref="a982ae8c95911d1a875df77c1a52b14a" category="inline-link-macro-rx"></block></block>
   <block id="f02831926b719e575a346f87ac04a87e" category="admonition">這些示範是以 TKG 1.3.1 版和 Astra Control Center 21.12 版的技術預覽形式錄製而成。請參閱支援對照表以取得正式支援版本。</block>
   <block id="fa7c3c752a982d726108dc5492181d9f" category="inline-link-macro">在裸機上部署索斯（ Anthos ） - 使用 NetApp</block>
-  <block id="caf5a3c16432b74b4ccbe6776e6cd8e9" category="list-text"><block ref="caf5a3c16432b74b4ccbe6776e6cd8e9" category="inline-link-macro-rx"></block></block>
-  <block id="1c8f005f3181fbcbb6ddbfcddf51852b" category="inline-link-macro">影片：使用 SnapCenter 保護 SQL VM</block>
-  <block id="02d9a97cbba5909dfa25fa7f69a6dd64" category="paragraph"><block ref="02d9a97cbba5909dfa25fa7f69a6dd64" category="inline-link-macro-rx"></block></block>
-  <block id="c21a77013b3aef1dd08dc7c4b96bbed3" category="inline-link-macro">影片： SQL VM 的 Veeam 複寫</block>
-  <block id="e51211c534350ee4f4efdbabff96dc39" category="paragraph"><block ref="e51211c534350ee4f4efdbabff96dc39" category="inline-link-macro-rx"></block></block>
-  <block id="8fecf29320ad59188acc8216233f31a8" category="inline-link-macro">影片： SQL VM 容錯移轉</block>
-  <block id="6a3d39507033afd82699f9b9047f2652" category="paragraph"><block ref="6a3d39507033afd82699f9b9047f2652" category="inline-link-macro-rx"></block></block>
-  <block id="cb01858134220220fc17af0ed61b6ec6" category="inline-link-macro">請依照詳細的逐步解說影片進行</block>
-  <block id="50204c1aeb418a9d4e9aae7cfedae231" category="paragraph">如需深入瞭解此程序、歡迎使用 <block ref="964dac3586dc14d6b923e746f0773ecd" category="inline-link-macro-rx"></block>。</block>
-  <block id="6c34509649c5f63230e4145b6f36c0da" category="paragraph">如需深入瞭解此程序、歡迎使用 <block ref="b40e2696579d0c9abee322831e822ef1" category="inline-link-macro-rx"></block>。</block>
-  <block id="fd905228252968e30159ddaf6b50a819" category="inline-link-macro">觀看此程序的影片逐步解說。</block>
-  <block id="03f2db2657b7aac1b8b02a6f2ef447b8" category="paragraph"><block ref="03f2db2657b7aac1b8b02a6f2ef447b8" category="inline-link-macro-rx"></block></block>
-  <block id="03902293420f82fb82005c74d6585bd6" category="inline-link-macro">觀看此步驟的影片逐步解說。</block>
-  <block id="1a5bbc34e788151c599920c6662d0543" category="paragraph"><block ref="1a5bbc34e788151c599920c6662d0543" category="inline-link-macro-rx"></block></block>
-  <block id="f6cb5d265c266320c3d40f04afb21ecf" category="inline-link-macro">在 VMC SDDC 上掛載 Amazon FSX for ONTAP Volumes</block>
-  <block id="f7e70a28c0a0cfc716693ebe0f1398f9" category="paragraph"><block ref="f7e70a28c0a0cfc716693ebe0f1398f9" category="inline-link-macro-rx"></block></block>
-  <block id="1bc0426a42dc8da25c55d6f8852beec9" category="paragraph"><block ref="1bc0426a42dc8da25c55d6f8852beec9" category="inline-link-macro-rx"></block></block>
   <block id="627b3c41fe5df988246e05db6908af86" category="inline-link-macro">空間和規模需求</block>
   <block id="aac915d3befc8db9d5b3a3dee5c7a58a" category="paragraph">如需詳細資訊、請參閱 <block ref="904c80f66e5056357fd992ed854be90e" category="inline-link-macro-rx"></block>。</block>
-  <block id="daeb122264557e55234c2004cdaa36e9" category="inline-link-macro">使用 AWS FSX for ONTAP 在 Amazon EC2 上部署 SQL Server</block>
-  <block id="ba24a3d4798de52b7ab0cbed150170a1" category="paragraph"><block ref="ba24a3d4798de52b7ab0cbed150170a1" category="inline-link-macro-rx"></block></block>
-  <block id="f314f22bf5afea67ed515de0ae918938" category="inline-link-macro">AWS EC2/FSX 中的自動 PostreSQL 資料庫部署與保護</block>
-  <block id="ea8ecea5c68b3f3986c013c41216bde7" category="paragraph"><block ref="ea8ecea5c68b3f3986c013c41216bde7" category="inline-link-macro-rx"></block></block>
   <block id="ff1acb029b62c5c8f2a7b9fa9cd89004" category="doc">TR-4974 ：使用 NFS/ASM 在 AWS FS3/EC2 上獨立重新啟動 Oracle 19c</block>
-  <block id="6bf42fd64d83f6451d1acd2cfbdd1ec6" category="list-text"><block ref="6bf42fd64d83f6451d1acd2cfbdd1ec6" category="inline-link-macro-rx"></block></block>
-  <block id="ff1a0374aa003a5c50bcc68762f43ee5" category="list-text"><block ref="ff1a0374aa003a5c50bcc68762f43ee5" category="inline-link-macro-rx"></block></block>
-  <block id="eb6d202d5596336c272b99d41ff7a35b" category="list-text"><block ref="eb6d202d5596336c272b99d41ff7a35b" category="inline-link-macro-rx"></block></block>
-  <block id="2aa07559b2f406272e092d18777b4b80" category="list-text"><block ref="2aa07559b2f406272e092d18777b4b80" category="inline-link-macro-rx"></block></block>
-  <block id="d26980e842e8f83f7d733162a7c95047" category="inline-link-macro">使用 NetApp BlueXP 主控台進行 SnapCenter SaaS 備份 / 還原</block>
-  <block id="7ce639392a263e2e2411a5001d30055a" category="paragraph"><block ref="7ce639392a263e2e2411a5001d30055a" category="inline-link-macro-rx"></block></block>
-  <block id="7dd562f7c78c1dd7cf2b7d454ceb2b8b" category="list-text"><block ref="7dd562f7c78c1dd7cf2b7d454ceb2b8b" category="inline-link-macro-rx"></block></block>
-  <block id="cdc0f3bf4319566033942309f5be7428" category="list-text"><block ref="cdc0f3bf4319566033942309f5be7428" category="inline-link-macro-rx"></block></block>
-  <block id="fba1eaafef41cd910ba38a2de7aa7816" category="list-text"><block ref="fba1eaafef41cd910ba38a2de7aa7816" category="inline-link-macro-rx"></block></block>
-  <block id="f6df93e0647546f8d9dcd5133e376747" category="list-text"><block ref="f6df93e0647546f8d9dcd5133e376747" category="inline-link-macro-rx"></block></block>
-  <block id="ee2f0846f969ae139f76b3e2074538b1" category="list-text"><block ref="ee2f0846f969ae139f76b3e2074538b1" category="inline-link-macro-rx"></block></block>
-  <block id="e918336ffb95f3fb92ceb25195bd9494" category="list-text"><block ref="e918336ffb95f3fb92ceb25195bd9494" category="inline-link-macro-rx"></block></block>
-  <block id="aa22f75ec52fada146256039b916943d" category="list-text"><block ref="aa22f75ec52fada146256039b916943d" category="inline-link-macro-rx"></block></block>
-  <block id="5fbbc8b2dfdaf77ff31cf935e71056f3" category="list-text"><block ref="5fbbc8b2dfdaf77ff31cf935e71056f3" category="inline-link-macro-rx"></block></block>
-  <block id="8a166bb9412979684883a9f295166e10" category="inline-link-macro">在AWS EC2上使用Amazon FSX for NetApp ONTAP ®部署SQL Server
-</block>
-  <block id="a433c14b442ac027fd51cd03e0935cc8" category="list-text"><block ref="a433c14b442ac027fd51cd03e0935cc8" category="inline-link-macro-rx"></block></block>
-  <block id="7753495730d0cba86e901996d651c999" category="list-text"><block ref="7753495730d0cba86e901996d651c999" category="inline-link-macro-rx"></block></block>
-  <block id="3a30229aa77d2ff319b5648560b5c4fb" category="list-text"><block ref="3a30229aa77d2ff319b5648560b5c4fb" category="inline-link-macro-rx"></block></block>
-  <block id="993e64eb12fccfcd60446d9022f4df0f" category="list-text"><block ref="993e64eb12fccfcd60446d9022f4df0f" category="inline-link-macro-rx"></block></block>
   <block id="883c8d1cbd39f9d229e4d41d04637d5c" category="sidebar">使用 NetApp ONTAP 的 VMware vSphere 虛擬磁碟區（ vVols ）</block>
   <block id="8856d6754d87bd5cea98aca2dc6bae02" category="cell">混合式多雲端搭配 Red Hat</block>
   <block id="ad7299eadf8b7bc851beaaf29efb9fad" category="cell">在混合式多雲端模式中定義 NetApp 、包括在公有雲中定義 Red Hat 技術、以及在每個超大型擴充器中定義 NetApp 儲存選項。  混合式多雲登陸頁面提供內容特定「並排」的熱門內容。</block>
@@ -19303,10 +19204,6 @@
   <block id="7d14043e2cdfe5f80dbf7456184b3298" category="sidebar">使用 Veeam 進行災難恢復（補充 NFS 資料存放區）</block>
   <block id="92ef9ceb20c6f7456f4a032dfc9b936a" category="sidebar">使用 Veeam （來賓連線儲存設備）進行災難恢復</block>
   <block id="38943740bfb1c9d0f91a2b9c5f28c5d3" category="sidebar">NetApp CVS NFS 資料存放區的區域支援</block>
-  <block id="2b5f7f41c5c29f5e4b505fb600cf00c6" category="inline-link-macro">SQL VM 的 Veeam 複寫工作</block>
-  <block id="540ae7989dc4362242b68c527324365b" category="paragraph"><block ref="540ae7989dc4362242b68c527324365b" category="inline-link-macro-rx"></block></block>
-  <block id="c8596ecd5f3e8b5f6cbfb717a8618aa1" category="inline-link-macro">SQL VM 容錯移轉</block>
-  <block id="2664ca85e7e24c42f77e6d92ddd1ff96" category="paragraph"><block ref="2664ca85e7e24c42f77e6d92ddd1ff96" category="inline-link-macro-rx"></block></block>
   <block id="676b3c6fe52210ed7050e0d913efabed" category="list-text"><block ref="676b3c6fe52210ed7050e0d913efabed" category="inline-link-macro-rx"></block></block>
   <block id="f97944acc5aaa9b4b0adb546cdbf3563" category="paragraph">本文件說明保護 ONTAP 工具的技術與技術、以保護 VMware vSphere 9.X 免受產品環境中現有和新興威脅的影響。</block>
   <block id="1965d168d69f3aaabc31c5eb077df0ca" category="doc">WP-7355 ：適用於 VMware vSphere 的 SnapCenter 外掛程式 - 產品安全性</block>
@@ -19434,4 +19331,16 @@
   <block id="26340070db5e3907487c23df7dcd4ddc" category="sidebar">SnapCenter for Databases</block>
   <block id="37a8ebbbcf603230c17a02eb0e2dac13" category="sidebar">使用 SnapCenter 服務進行 Oracle 備份、還原及複製 - AWS</block>
   <block id="7fa7ffa04f68e2d66ac6bd8166d8ca35" category="sidebar">使用 AWS FSX ONTAP 快速恢復和複製 Oracle VLDB</block>
+  <block id="20cb410071ca8d069418df5daa3b2617" category="paragraph">如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱<block ref="06275778c7333bddf485b7069aff5016" category="inline-link-rx"></block>
+如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱<block ref="06275778c7333bddf485b7069aff5016" category="inline-link-rx"></block></block>
+  <block id="9682ccea75ba1a582dd9ea16fe998427" category="paragraph">若要深入瞭解此程序、歡迎觀看下列影片：</block>
+  <block id="d7b54624d819bcd713a8bade6dc96b79" category="paragraph">在 Antos 1.14 叢集上部署 Trident</block>
+  <block id="eb31a7776d93779742d99cf1d8e165d4" category="doc">虛擬化影片與示範</block>
+  <block id="7dfeac309946b61a62a7a65944ad0acb" category="paragraph">請參閱 <block ref="3db733da05bd3e3967dc04592cc322a8" category="inline-link-macro-rx"></block> 適用於 ** 複寫與備份與還原 ** 選項。</block>
+  <block id="e8a4b8e8901d2f683b07625de269d152" category="paragraph">請參閱 <block ref="b17026f8b157d793dc85ba49db8a185d" category="inline-link-macro-rx"></block> 如需關於 ** 複製的其他詳細資料 ** 。</block>
+  <block id="bc7b3bff8f442739862cfc5d624d340d" category="paragraph">以下影片示範使用 BlueXP 和 Argo CD 的應用程式容錯移轉和容錯回復案例。</block>
+  <block id="a7d7ab71d74f0c10d8bcfe243ebe5243" category="paragraph">下列影片顯示在某個區域執行的 ROSA 應用程式備份、並還原至另一個區域。</block>
+  <block id="b4aaa3fbc0d85cfa527c7cb7f59187fd" category="paragraph">在AWS EC2上使用Amazon FSX for NetApp ONTAP ®部署SQL Server</block>
+  <block id="7dbe34f3fef2db9f333edc2d7f26f092" category="inline-link-macro">在 NetAppTV 上觀看</block>
+  <block id="2dd4d779ad3660fdc971965df3e63860" category="paragraph"><block ref="2dd4d779ad3660fdc971965df3e63860" category="inline-link-macro-rx"></block></block>
 </blocks>
