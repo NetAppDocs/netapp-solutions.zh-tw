@@ -71,6 +71,7 @@ image:fsx-nfs-image7.png["錯誤：缺少圖形影像"]
 
 . 在*預設Volume Configuration（Volume組態）*區段中、指定資料存放區所需的磁碟區名稱和大小、然後按一下* Next*（*下一步*）。這應該是NFSv3 Volume。若為*儲存效率*、請選擇*已啟用*以開啟ONTAP 「支援」儲存效率功能（壓縮、重複資料刪除及壓縮）。建立之後、請使用Shell使用* Volume modify__*修改Volume參數、如下所示：
 +
+[cols="50%, 50%"]
 |===
 | 設定 | 組態 
 

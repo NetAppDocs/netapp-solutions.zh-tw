@@ -2668,7 +2668,6 @@
   <block id="548bf87c41c9d3bb76981decbd599c90" category="list-text">在ONTAP 不支援的NFS儲存設備上設定Oracle 19c</block>
   <block id="950496934d91d07bb089d6ed0999b5a9" category="paragraph">如需更多詳細資料或要開始、請參閱下方的總覽影片。</block>
   <block id="b923f56ad2a53fa1a3ca1160e48f141e" category="section-title">AWX/Tower部署</block>
-  <block id="ab81e47672e89830ec16c581f44cb23c" category="list-text">第1部分：入門、需求、自動化詳細資料及初始AWX/Tower組態</block>
   <block id="cf7bbd18f18fdc73ee49ffea888126c7" category="list-text">第2部分：變數與執行教戰手冊</block>
   <block id="f5e227cfa54c5693c512c6adf41a3772" category="section-title">CLI部署</block>
   <block id="0b8a09b5974336d1f5e510d18205c03c" category="list-text">第1部分：入門、需求、自動化詳細資料和可控制主機設定</block>
@@ -5008,7 +5007,6 @@
   <block id="02216530e0245f79b0b7448e14bffbce" category="inline-link-macro">下一步：JARVIS部署</block>
   <block id="a9ca2532d8607b5827969961f314249e" category="paragraph"><block ref="a9ca2532d8607b5827969961f314249e" category="inline-link-macro-rx"></block></block>
   <block id="1e92efa8f46c28a3c3a1c03ababfa7be" category="doc">NetApp零售助理示範</block>
-  <block id="bb07f1ff94c6f99bf48a403706bea4ca" category="paragraph">我們錄製了NetApp零售助理（Nara）的示範影片。按一下<block ref="c1305d6e7f2e06345748f63e36abba33" category="inline-link-rx"></block> 開啟下圖並播放影片示範。</block>
   <block id="088070f65f454d6b38e8e40e332e70a8" category="paragraph"><block ref="088070f65f454d6b38e8e40e332e70a8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="3d81ccbd202a60c621000abca3f6f3de" category="inline-link-macro">下一步：使用NetApp Cloud Sync 解決方案將對話記錄歸檔</block>
   <block id="a165baa9089720dc90e8baf16267821f" category="paragraph"><block ref="a165baa9089720dc90e8baf16267821f" category="inline-link-macro-rx"></block></block>
@@ -9912,7 +9910,6 @@
   <block id="659aed3f7f249a658860ff0d51cdef11" category="paragraph">若要設定關聯群組、請參閱下方適用於您的VMware vSphere版本的適當連結。</block>
   <block id="bfe724d354657c9ac5cef22bd231f66f" category="inline-link">vSphere 7.0文件：使用DRS關聯性規則</block>
   <block id="10c2b11d36730909ac14bcf903f9c456" category="paragraph"><block ref="0817a5be4b4f4733045646ef5cffc66c" category="inline-link-rx"></block>。<block ref="211975e132e07e8f3a0d0d18ff3759e5" category="inline-link-rx"></block>。</block>
-  <block id="a272bae97494286f198c532bb9579161" category="list-text">接著、將映像登錄TLS憑證上傳至OpenShift節點。若要這麼做、請使用TLS憑證在「openshift-config」命名空間中建立組態對應、並將其修補至叢集映像組態、使憑證成為信任的憑證。</block>
   <block id="306235ad6a87783a223e0ba03145dc12" category="doc">建立私有映像登錄</block>
   <block id="56a0195518edf56f84e2b789302cf485" category="paragraph">本程序說明如何建立私有映像登錄、並以由Astra Trident和NetApp ONTAP 供應的持續磁碟區作為後盾。</block>
   <block id="13bb7c6596c212587d7a35708de351f2" category="admonition">Astra Control Center需要登錄來裝載Astra容器所需的映像。下節說明在Red Hat OpenShift叢集上設定私有登錄的步驟、以及推送支援Astra Control Center安裝所需的映像。</block>
@@ -10166,10 +10163,6 @@
   <block id="f11253856e2b859c46731353f46b732e" category="image-alt">Prod應用程式已升級</block>
   <block id="70817285f3f68722fd851dde7464feb2" category="paragraph">在CI/CD管道中、我們建立完整的應用程式感知備份、展現保護應用程式的能力。由於整個應用程式都已備份為促銷活動到正式作業的傳輸途徑之一、因此您對於高度自動化的應用程式部署更有信心。此應用程式感知備份包含應用程式的資料、狀態和組態、對於眾多DevOps工作流程而言非常實用。其中一項重要工作流程是在發生無法預期的問題時、將應用程式回復至舊版。</block>
   <block id="94ec4ad32f9ba408876eabf1a42f6901" category="paragraph">雖然我們透過Jenkins工具展示了CI/CD工作流程、但這項概念可以輕鬆且有效率地推斷到不同的工具和策略。若要查看實際使用案例、請觀看影片 <block ref="2eda593691b1da530fed5bfcba32a663" category="inline-link-macro-rx"></block>。</block>
-  <block id="b36bddb7c9d9a83be2a0353a3a744767" category="paragraph">NetApp擁有數個符合Astra Trident與Astra Control資格的儲存平台、可為容器化應用程式提供、保護及管理資料。</block>
-  <block id="963b3936c1baa510ebca7a5496ece873" category="paragraph">NetApp提供多種產品來協助您協調、管理、保護及移轉狀態化容器化應用程式及其資料。</block>
-  <block id="8a52e85b93902c27be7f0b5fa8493e52" category="paragraph">NetApp Astra Control提供豐富的儲存設備與應用程式感知資料管理服務、適用於狀態明確的Kubernetes工作負載、採用NetApp資料保護技術。Astra Control Service可支援雲端原生Kubernetes部署中的狀態工作負載。Astra Control Center可支援企業Kubernetes平台（例如｛k8s_distribution_name｝）內部部署中的狀態工作負載。如需詳細資訊、請參閱NetApp Astra Control網站<block ref="508f471fa59796a53754f031c40091c1" category="inline-link-rx"></block>。</block>
-  <block id="6026755482efeb14efb7399db02c4e5e" category="paragraph">Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。</block>
   <block id="0e60ae06a3d7bec5f8950d8ea76b57d4" category="paragraph">最新版的Astra Trident於2022年4月推出22.04版。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品<block ref="34562000b9988739736848a0014e5230" category="inline-link-rx"></block>。</block>
   <block id="b453397e87e54278a4cd32ac644d5934" category="sidebar">關於我們的合作夥伴解決方案</block>
   <block id="ff94fd25dea669a1eb9fc9bad5af5e80" category="sidebar">Red Hat OpenShift網站</block>
@@ -16489,13 +16482,10 @@
   <block id="e59b92fc604ecde201ab865ddefca7c2" category="summary">本節將更詳細地介紹本解決方案的主要元件。</block>
   <block id="56cdae354d8e4efeaa936d576b919c49" category="paragraph"><block ref="56cdae354d8e4efeaa936d576b919c49" category="inline-link-macro-rx"></block></block>
   <block id="995049066ee0a46858d3a35e74f687fc" category="paragraph">NetApp AFF 支援NetApp的儲存系統、可讓企業以領先業界的效能、優異的靈活度、雲端整合及同級最佳的資料管理功能、滿足企業的儲存需求。專為Flash而設計AFF 的支援功能、可協助加速、管理及保護業務關鍵資料。</block>
-  <block id="bd06e3e9a11cc16a8f389477f9ed6a95" category="paragraph">NetApp AFF 產品介紹A400是一款以FAS2650硬體和SSD Flash媒體為基礎的中階NVMe Flash儲存系統。</block>
   <block id="9cdcb25bd8b8e9dd029f0c58f1c1ce14" category="inline-image-macro">此圖描述NetApp AFF 處理器A400儲存控制器的正面。</block>
   <block id="55f69aa150e5e2d9b4339594dbb70471" category="paragraph"><block ref="55f69aa150e5e2d9b4339594dbb70471" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6a4c41eb7420fce0589579f0f045df87" category="inline-image-macro">此圖描述NetApp AFF 處理器A400儲存控制器的背面。</block>
   <block id="e83035ebe127e618e86974c913d42589" category="paragraph"><block ref="e83035ebe127e618e86974c913d42589" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="5062a65c6ae4cbe0c015396c4011a811" category="paragraph">NetApp AFF NetApp VA400中階儲存系統功能包括：</block>
-  <block id="722f61060a76e673835749dd7040109c" category="list-text">最大有效容量：702.7PB</block>
   <block id="9b150a217729988c3dd54fdaf7b0f9b3" category="list-text">最大橫向擴充：2-24個節點（12個HA配對）</block>
   <block id="ae3b033d221455bb2825ac51bee7200e" category="list-text">25GbE與16GB FC主機支援</block>
   <block id="e16f4e2b178ce47880c3556c501efea4" category="list-text">透過整合式乙太網路（RoCE）連接至NVMe擴充儲存櫃的100GbE RDMA</block>
@@ -16672,7 +16662,6 @@
   <block id="eba1f3287bdc33dfa25c084b5e15a4c5" category="cell">9.12.1%</block>
   <block id="8dfda84fc7f59655e20a770603bf9231" category="cell">23.01</block>
   <block id="a6eee2bc9df13513ff08680b88b5140c" category="paragraph">在NetApp執行的「Anthos就緒」平台驗證期間、實驗室環境是以下列圖表為基礎打造、讓我們能夠使用各種NetApp ONTAP 解決方案的後端儲存設備來測試多個案例。</block>
-  <block id="ba18949144254244b0c22a4dda957809" category="paragraph"><block ref="ba18949144254244b0c22a4dda957809" category="inline-image-macro-rx" type="image"></block></block>
   <block id="3001330ca359a25f2bb0fb3a80b81f98" category="inline-link"><block ref="3001330ca359a25f2bb0fb3a80b81f98" category="inline-link-rx"></block></block>
   <block id="ce31d50048cf83e159c11cdf9571f300" category="paragraph"><block ref="ce31d50048cf83e159c11cdf9571f300" category="inline-link-rx"></block></block>
   <block id="e961adb60321df286b916effec21c9d5" category="paragraph">NetApp擁有數個符合Astra Trident Storage Orchestrator資格的儲存平台、可為部署為容器的應用程式配置儲存設備。</block>
@@ -18646,7 +18635,6 @@
   <block id="7726892a5c5734a343a1539f3b3f6b28" category="video-title">ROSA DR 使用 Astra Control Service</block>
   <block id="585d77f28be6ed7195a002752abf2272" category="video-title">將 FSxN 與 Astra Trident 整合</block>
   <block id="bcb10d9a12c5b72d4b9a3e3af5c448bd" category="video-title">透過 FSxN 在 ROSA 上容錯移轉和容錯回復應用程式</block>
-  <block id="a1b302ac6b7c1aec08c902797c133e13" category="paragraph-title">DR 使用 Astra Control Center</block>
   <block id="52463fc86a53e3e78c2a77069889838f" category="paragraph">如需SnapCenter 在AWS中駐留的《不景伺服器》上完成的步驟清單、請參閱一節 <block ref="1d252dd870179a0ef2258cd4837b106d" category="inline-link-macro-rx"></block>。</block>
   <block id="365ee461cb4c118a8bc7c388fee3410a" category="sidebar">價值主張</block>
   <block id="46d480fc201dd71bbb912a8bd377a13c" category="sidebar">已驗證的解決方案</block>
@@ -19057,10 +19045,8 @@
   <block id="e110e2333a8febc7917146824eb919fd" category="inline-link-macro">NetApp HCI for Red Hat OpenShift on Red Hat 虛擬化</block>
   <block id="176e18501cba531e3471815ba9a59850" category="inline-link-macro">使用 Astra Trident 在 VMware Tanzu - VMware Tanzu 與 NetApp 中配置持續儲存設備</block>
   <block id="c16700d624be3fd2dae451c45971452e" category="inline-link-macro">使用 Astra Control Center 在 VMware Tanzu - VMware Tanzu 搭配 NetApp 複製應用程式</block>
-  <block id="f02831926b719e575a346f87ac04a87e" category="admonition">這些示範是以 TKG 1.3.1 版和 Astra Control Center 21.12 版的技術預覽形式錄製而成。請參閱支援對照表以取得正式支援版本。</block>
   <block id="fa7c3c752a982d726108dc5492181d9f" category="inline-link-macro">在裸機上部署索斯（ Anthos ） - 使用 NetApp</block>
   <block id="627b3c41fe5df988246e05db6908af86" category="inline-link-macro">空間和規模需求</block>
-  <block id="aac915d3befc8db9d5b3a3dee5c7a58a" category="paragraph">如需詳細資訊、請參閱 <block ref="904c80f66e5056357fd992ed854be90e" category="inline-link-macro-rx"></block>。</block>
   <block id="ff1acb029b62c5c8f2a7b9fa9cd89004" category="doc">TR-4974 ：使用 NFS/ASM 在 AWS FS3/EC2 上獨立重新啟動 Oracle 19c</block>
   <block id="883c8d1cbd39f9d229e4d41d04637d5c" category="sidebar">使用 NetApp ONTAP 的 VMware vSphere 虛擬磁碟區（ vVols ）</block>
   <block id="8856d6754d87bd5cea98aca2dc6bae02" category="cell">混合式多雲端搭配 Red Hat</block>
@@ -19084,22 +19070,6 @@
   <block id="c82379d922d9cdc55fa21affe9f9b8bf" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可在需要重新計算儲存效率後、快速重新同步鏡像。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
   <block id="10b8f80c23f8a44dfa6b10ae56d7dbe9" category="paragraph">本文件著重於最新版 ONTAP 9 的功能、這些功能搭配適用於 VMware vSphere 9.12 的 ONTAP 工具（包括 NetApp 儲存複寫介面卡 [SRA] 和 VASA Provider [VP] ）、以及 VMware Site Recovery Manager 8.7 。</block>
   <block id="6e45cce163df251494c8f01f0567f19c" category="paragraph">在大多數情況下、 IPI 安裝方法是首選的方法、因為它允許快速部署 OpenShift 叢集以用於開發、測試和正式作業環境。</block>
-  <block id="2558c618cb338262f6026774a894d746" category="doc">使用 NetApp SnapCenter 和 Veeam 複寫、實現應用程式一致的災難恢復</block>
-  <block id="d5f7a7883d2912bf654a2743fbcb4456" category="paragraph">許多客戶都在尋找一套有效的災難恢復解決方案、以供其在 VMware vSphere 上代管的應用程式 VM 使用。其中許多使用現有的備份解決方案來在災難恢復期間執行恢復。
-該解決方案多次增加 RTO 、但未能達到他們的期望。為了降低 RPO 和 RTO 、只要有適當權限的網路連線能力和環境、就能在內部部署到 GCVE 之間使用 Veeam VM 複寫。</block>
-  <block id="b8a805c1681e1a495931655336fcde5c" category="admonition">Veeam VM Replication 無法保護 VM 來賓連接的儲存裝置、例如 iSCSI 或 NFS 裝載在來賓 VM 內。需要分別保護這些資料。</block>
-  <block id="d80d0a117c54407b1f6f425ffae47614" category="paragraph">為了針對 SQL VM 進行應用程式一致的複寫、並降低 RTO 、我們使用 SnapCenter 來協調 SQL 資料庫和記錄磁碟區的 SnapMirror 作業。</block>
-  <block id="17219d098d65f47282273cb90d58dcb0" category="inline-image-macro">應用程式 VM 複寫架構</block>
-  <block id="85a0251ddf0da4488f77abf2784ccfdb" category="paragraph"><block ref="85a0251ddf0da4488f77abf2784ccfdb" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d26b5935fc58111f2d8db9c078c08af6" category="list-text">在適當的訂閱和虛擬網路中、使用 BlueXP 以正確的執行個體大小來佈建 Cloud Volumes ONTAP 。</block>
-  <block id="534253a0a05c40a27f9df1dfb786d936" category="list-text">在災難事件期間、使用 BlueXP 中斷 SnapMirror 關係、並使用 Veeam 觸發虛擬機器的容錯移轉。</block>
-  <block id="8064e6b40ef12da2c44763dcfe735ae8" category="paragraph">如需設定SnapCenter 不一致及複寫資料的逐步說明範例、請參閱<block ref="68793c30d3c5e8a024de6c79bc478fe1" category="inline-link-rx"></block></block>
-  <block id="b76e26ed981d5f491522c965efa7c46b" category="paragraph">NetApp Cloud Volume Service for NFS Datastore 和 Cloud Volumes ONTAP for SQL 資料庫和記錄可部署至任何 VPC 、 GCVE 應與該 VPC 建立私有連線、以掛載 NFS 資料存放區、並讓 VM 連線至 iSCSI LUN 。</block>
-  <block id="989c086533ca63f7888fce83e4a46a4a" category="inline-link-macro">使用 Veeam Replication 移轉</block>
-  <block id="4bff962e3835ed7a5df1cbab1f33f819" category="paragraph">根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。
-<block ref="fe81875323ba8244cd35f234258570cc" category="inline-link-rx"></block>
-如需其他資訊、請參閱 <block ref="57b6bba9f472c9c5faf92f0cbcc6ff10" category="inline-link-macro-rx"></block></block>
-  <block id="c28fedc2a43517971c6f09573d0875cd" category="paragraph">內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。<block ref="92166da7fd4418ef19e64644a99fe5e2" category="inline-link-rx"></block> 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。</block>
   <block id="4f7c519d1404e63966706278645a0036" category="list-text"><block ref="4f7c519d1404e63966706278645a0036" category="inline-link-macro-rx"></block></block>
   <block id="f23bceee6cf81e0ef3be6d7e6bcaf5eb" category="example-title">將 NetApp Cloud Volume Service 補充資料存放區部署至 GCVE</block>
   <block id="26e746bc6f0371ea1606252ec0320808" category="inline-link-macro">使用 NetApp CVS 將補充 NFS 資料存放區部署至 GCVE 的程序</block>
@@ -19333,7 +19303,6 @@
   <block id="7fa7ffa04f68e2d66ac6bd8166d8ca35" category="sidebar">使用 AWS FSX ONTAP 快速恢復和複製 Oracle VLDB</block>
   <block id="20cb410071ca8d069418df5daa3b2617" category="paragraph">如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱<block ref="06275778c7333bddf485b7069aff5016" category="inline-link-rx"></block>
 如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱<block ref="06275778c7333bddf485b7069aff5016" category="inline-link-rx"></block></block>
-  <block id="9682ccea75ba1a582dd9ea16fe998427" category="paragraph">若要深入瞭解此程序、歡迎觀看下列影片：</block>
   <block id="d7b54624d819bcd713a8bade6dc96b79" category="paragraph">在 Antos 1.14 叢集上部署 Trident</block>
   <block id="eb31a7776d93779742d99cf1d8e165d4" category="doc">虛擬化影片與示範</block>
   <block id="7dfeac309946b61a62a7a65944ad0acb" category="paragraph">請參閱 <block ref="3db733da05bd3e3967dc04592cc322a8" category="inline-link-macro-rx"></block> 適用於 ** 複寫與備份與還原 ** 選項。</block>
@@ -19343,63 +19312,104 @@
   <block id="b4aaa3fbc0d85cfa527c7cb7f59187fd" category="paragraph">在AWS EC2上使用Amazon FSX for NetApp ONTAP ®部署SQL Server</block>
   <block id="7dbe34f3fef2db9f333edc2d7f26f092" category="inline-link-macro">在 NetAppTV 上觀看</block>
   <block id="2dd4d779ad3660fdc971965df3e63860" category="paragraph"><block ref="2dd4d779ad3660fdc971965df3e63860" category="inline-link-macro-rx"></block></block>
-  <block id="63e74751c1fcdeccfc1f7a594bfb8e24" category="section-title">AWS FSxN 中的 Apache Kafka</block>
   <block id="29144a8d530212e5210d98eceae62106" category="paragraph">網路檔案系統（ NFS ）是廣泛使用的網路檔案系統、用於儲存大量資料。在大多數組織中、像 Apache Kafka 這樣的串流應用程式越來越多地產生資料。這些工作負載需要擴充性、低延遲、以及具備現代化儲存功能的健全資料擷取架構。為了實現即時分析並提供可據以行動的洞見、需要設計完善且效能優異的基礎架構。</block>
-  <block id="3f967133c1559360b8fdb37917d76e3b" category="paragraph">Kafka by 的設計可搭配 POSIX 相容的檔案系統使用、並仰賴檔案系統來處理檔案作業、但在 NFSv3 檔案系統上儲存資料時、 Kafka Broker NFS 用戶端可以與本地檔案系統（例如 XFS 或 ext4 ）不同地解譯檔案作業。常見的例子是 NFS 愚蠢重新命名、導致 Kafka Brokers 在擴充叢集和重新分配分割區時失敗。為了因應這項挑戰、 NetApp 已更新開放原始碼 Linux NFS 用戶端、現在已在 RHEL8.7 、 RHEL9.1 中普遍提供變更、並從目前的適用於 ONTAP 版本 ONTAP 9.12.1 的 FSX 中獲得支援。</block>
-  <block id="e4aeaeded85f5a0caa3b8435a8093058" category="paragraph">Amazon FSX for NetApp ONTAP 可在雲端中提供完全託管、可擴充且高效能的 NFS 檔案系統。適用於 NetApp 的 FSX 上的 Kafka 資料可擴充以處理大量資料、並確保容錯能力。NFS 可為重要且敏感的資料集提供集中化的儲存管理與資料保護。</block>
-  <block id="02246e3778487a8335fd843bc4aa31a8" category="paragraph">這些增強功能可讓 AWS 客戶在 AWS 運算服務上執行 Kafka 工作負載時、善用適用於 ONTAP 的 FSX 。這些效益包括：
-* 降低 CPU 使用率、以縮短 I/O 等待時間
-* 更快的 Kafka 代理程式恢復時間
-* 可靠性與效率
-* 擴充性與效能
-* 多可用性區域可用度
-* 資料保護</block>
-  <block id="dbbb6154410adc71c037ae9540ba853e" category="section-title">AWS FSxN 中的效能概觀與驗證</block>
-  <block id="e98812b1f0bd6a95aa5099abee7c0586" category="paragraph">NetApp NFS 上安裝儲存層的 Kafka 叢集、是 AWS FSxN 效能的基準測試。基準測試範例將於下列各節中說明。</block>
-  <block id="caa7651f81acf102ab8d80e41b42b30f" category="section-title">AWS FSxN 中的 Kafka （主動式被動式）</block>
-  <block id="7e2b4f28323666c1b230658b0f4cf0d4" category="paragraph">採用 AWS FSxN 的 Kafka 叢集、是 AWS 雲端效能的基準測試結果。以下各節將說明此基準測試。</block>
-  <block id="5358ad9d33df7a4ba170a28ba93f5a14" category="paragraph">下表顯示使用 AWS FSxN 的 Kafka 叢集環境組態。</block>
-  <block id="038790391c3f6a420beaed7bca0eb306" category="cell">AWS FSxN</block>
-  <block id="2c43c131f9dbd6c6f7e53fae2c631bab" category="cell">主動被動執行個體、處理量為 4GB/ 秒、 IPS 為 160000</block>
-  <block id="15689de1e8c8e9df3d3a505fc1cc508a" category="section-title">NetApp FSxN 設定</block>
-  <block id="15e09b09a424c129f640d4d8bf8a57fb" category="list-text">在我們的初始測試中、我們為 NetApp ONTAP 檔案系統建立了 FSX 、其 2 TB 和 4 、 000 IOPs 的處理量為 2 GB/ 秒。</block>
-  <block id="0723b0eb6313719dea73d580daba9812" category="list-text">在 FSX for NetApp ONTAP 中、我們測試區域（美國東部 -1 ）每秒 2 GB 處理量檔案系統的最高 IOPS 為 8 、 000 IOPS 。NetApp ONTAP 檔案系統的 FSX 總 IOPS 為 16 、 000 IOPS 、需要每秒 4 GB 的處理量部署、我們將在本文件稍後說明</block>
-  <block id="9919bc442a9a9f2d8d7fc1de906af09a" category="paragraph">您可以在這裡找到適用於 FSX 「 cree-file-system 」的詳細命令列語法：<block ref="6dfaa72a4db79e3cd69acb6bd09e3928" category="inline-link-rx"></block>
-例如、您可以指定特定的 KMS 金鑰、而非指定 KMS 金鑰時所使用的預設 FSX 主要金鑰。</block>
-  <block id="a11fdad778ae8db20df33a7105f25d61" category="list-text">請等到 JSON 將檔案系統描述如下之後、「生命週期」狀態變更為「可用」：</block>
-  <block id="bd4800c6b066706993280a489b3c1efc" category="list-text">fsxadmin 的密碼是第一次建立檔案系統時設定的密碼。</block>
-  <block id="60d53fd06e4b6c504e7525da9dd9e960" category="list-text">透過 fsxadmin 登入 FsxN 以驗證認證</block>
-  <block id="aa843ceeced5cab33e1975e4b24bc034" category="list-text">在 FSxN 上建立儲存虛擬機器</block>
-  <block id="c067fa16a6a6be12f2e2a0ce711ea081" category="list-text">SSH 移至新建立的 NetApp ONTAP 檔案系統 FSX 、並使用以下範例命令在儲存虛擬機器中建立磁碟區、同樣地、我們也會建立 6 個磁碟區來進行此驗證。根據我們的驗證結果、保留預設成分（ 8 ）或以下成分、可為 Kafka 提供更好的效能。</block>
-  <block id="1fe8082897bcfbb9ee581ea0eb414b55" category="list-text">將磁碟區的大小延伸至 2TB 、並安裝在連接路徑上。</block>
-  <block id="b99f4a484fbac55e4f5cfb75ab0ece88" category="list-text">我們將 FSxN 處理量容量從每秒 2 GB 擴充至每秒 4 GB 、將 IOPS 擴充至 160000</block>
   <block id="dc9ae5e2a4f056e820a82eac9514fb2c" category="paragraph">您可以在這裡找到適用於 FSX 「 update-file-system 」的詳細命令列語法：
 <block ref="f3196344ef0cf3de8d956a0736aba68b" category="inline-link-rx"></block></block>
-  <block id="3fb5c18262c8a073095e4d565e517cbe" category="list-text">FSxN 磁碟區是以 nconnect 和預設選項安裝在 kafkar Brokers 中</block>
   <block id="eadd57f60c0f2d488d9abad2d2c90410" category="inline-image-macro">此影像顯示 FSxN 型 Kafka 叢集的架構。</block>
   <block id="fc5366ca7693dfbf0d27e605f38150d1" category="paragraph"><block ref="fc5366ca7693dfbf0d27e605f38150d1" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="16203081c08c46b57d034098ddad1707" category="list-text">運算：我們使用三節點的 Kafka 叢集、在專用伺服器上執行三節點的 zookeeper 群集。每個代理程式在 FSxN 執行個體上有六個 NFS 裝載點至六個磁碟區。</block>
   <block id="447931d0542671d1817df0b8bdc35ff4" category="list-text">監控。我們使用兩個節點作為 Prometheus-Grafana 組合。為了產生工作負載、我們使用了一個獨立的三節點叢集、可以產生和使用這個Kafka叢集。</block>
-  <block id="33bb274c8f0f88ce86b14f072d149260" category="list-text">儲存設備。我們使用 FSxN 搭配六個 1TB 磁碟區。然後使用NFS掛載將磁碟區匯出至Kafka代理程式。</block>
   <block id="c06018aab55e4fa9ef871b34b2cf7897" category="section-title">OpenMessage 基準測試組態。</block>
-  <block id="90bdac7d782d430afae34ade3de71547" category="paragraph">我們使用的組態與 NetApp Cloud Volume ONTAP 相同、其詳細資料如下：
-<block ref="6134638458f4b728e1bf1e106663272c" category="inline-link-rx"></block></block>
   <block id="79f0e8e2c892a7ffb6c02f9be47fd6f5" category="list-text">Kafka 叢集是根據上述規格、使用 terraform 和 Ansible 來進行佈建。Terraform 用於使用適用於 Kafka 叢集的 AWS 執行個體來建置基礎架構、 Ansible 則在其上建置 Kafka 叢集。</block>
-  <block id="74751dc90af7ed6cd33e91134b59f098" category="paragraph">對於 Kafka Replication factor 1 和 FSxN ：</block>
   <block id="477397883986e4a6ef0944db3f171a9a" category="list-text">同步驅動程式一致產生的總處理量：約 3218 Mbps 、尖峰效能約 3652 Mbps 。</block>
   <block id="526cf61e40ed54cf3e36bc48e608fe6a" category="list-text">輸送量驅動程式一致產生的總處理量：約 3679 Mbps 、尖峰效能約 3908 Mbps 。</block>
-  <block id="e7e5847dcc7a7e35914f5073abcdef2c" category="paragraph">對於具有複寫係數 3 和 FSxN 的 Kafka ：</block>
   <block id="1d0957e5fc4340aeed631639b2076501" category="list-text">同步驅動程式一致產生的總處理量：約 1252 Mbps 、尖峰效能約 1382 Mbps 。</block>
   <block id="e18b6be6753e1c55e4474648e1073e75" category="list-text">輸送量驅動程式一致產生的總處理量：約 1218 Mbps 、尖峰效能約 1328 Mbps 。</block>
-  <block id="49d5fc1dfe926a49be3fe6cf6181e2d5" category="paragraph">在 Kafka 複寫係數 3 中、 FSxN 的讀寫作業發生三次、在 Kafka 複寫係數 1 中、 FSxN 的讀寫作業是一次、因此在兩次驗證中、我們都能達到每秒 4GB 的最大處理量。</block>
   <block id="5d4902b750979a6daa75a334daf3b4dd" category="inline-image-macro">此影像顯示 Kafka 搭配 RF1 和 RF3 的效能</block>
   <block id="67731dd79a61f656bfde458fade09eb2" category="paragraph"><block ref="67731dd79a61f656bfde458fade09eb2" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d7b7649bb7a53117242ecfeb58fc74d1" category="paragraph">下表顯示 Kafka 複寫係數 3 的每秒 2GB FSxn 和 4GB/ 秒效能。複寫因素 3 會在 FSxN 儲存設備上執行三次讀寫作業。處理量驅動程式的總速率為每秒 881 MB 、在 2GB/ 秒 FSxN 檔案系統上讀寫 Kafka 作業約為每秒 2.64 GB 、處理量驅動程式的總速率為每秒 1328 MB 、可讀寫 Kafka 作業約每秒 3.98 GB 。ther Kafka 效能是線性的、可根據 FSxN 處理量進行擴充。</block>
   <block id="a7ddac9765853f96e59270871b8a3925" category="inline-image-macro">此影像顯示每秒 2 GB 和 4 GB/ 秒的橫向擴充效能。</block>
   <block id="94043e4666620e8e09ceedcb705c7951" category="paragraph"><block ref="94043e4666620e8e09ceedcb705c7951" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="537010d3e62b0585eeff4338a8b7247d" category="paragraph">下表顯示 EC2 執行個體與 FSxN 之間的效能（ Kafka Replication Factor ： 3 ）</block>
   <block id="d5e31e558823422acd821d826cc2d30e" category="inline-image-macro">此影像顯示 RF3 中 EC2 與 FSxN 的效能比較。</block>
   <block id="6800ca66a2adebbbdc5a76b6efd0b0a8" category="paragraph"><block ref="6800ca66a2adebbbdc5a76b6efd0b0a8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="0b05c2120fe0b40027db89aa85227b95" category="cell">2023 年 7 月 14 日</block>
   <block id="ac317965fba0e8fd0be4f0af1ef1f7d6" category="cell">更新 TR-4947 ：使用 NetApp NFS 儲存設備的 Apache Kafka 工作負載（包括 AWS FSxN ）</block>
+  <block id="46a23ec855bc77294247d5b63fce3ba7" category="paragraph">若要深入瞭解此程序、歡迎觀看下列影片：
+若要深入瞭解此程序、歡迎觀看下列影片：</block>
+  <block id="cc090bcb755694ec2b8ab2fa1beb2258" category="inline-link-macro">適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原</block>
+  <block id="6845b59b08e758d1f76493bad3a906c7" category="list-text"><block ref="6845b59b08e758d1f76493bad3a906c7" category="inline-link-macro-rx"></block></block>
+  <block id="66b9f9c0bde1599e448251ccc5fa8591" category="inline-link-macro">NetApp 與 VMware ：前所未有的優異表現</block>
+  <block id="7734acb06ea7c8149179f40ae688ea8a" category="list-text"><block ref="7734acb06ea7c8149179f40ae688ea8a" category="inline-link-macro-rx"></block></block>
+  <block id="6ffc220bcf68cdea1a7ee60630b3770b" category="inline-link-macro">vSphere 上的 Kubernetes （第 1 部分）</block>
+  <block id="718b7fcd61673194858446821c8dea31" category="list-text"><block ref="718b7fcd61673194858446821c8dea31" category="inline-link-macro-rx"></block></block>
+  <block id="c6960ae743737cb2431e58eb8f3f4c8c" category="inline-link-macro">vSphere 上的 Kubernetes （第 2 部分）</block>
+  <block id="6f01eedbaa404894cc11e49fa3f62506" category="list-text"><block ref="6f01eedbaa404894cc11e49fa3f62506" category="inline-link-macro-rx"></block></block>
+  <block id="7e070ddc3eb99185899abdf70d76d7fd" category="admonition">這些示範是以 TKG 1.3.1 版和 Astra Control Center 21.12 版的技術預覽形式錄製而成。請參閱支援對照表以取得正式支援版本。
+附註：這些示範是以 TKG 1.3.1 版和 Astra Control Center 21.12 版的技術預覽形式錄製。請參閱支援對照表以取得正式支援版本。</block>
+  <block id="4075bbf4578ffc77ff6b5286e539aafc" category="cell">8.01</block>
+  <block id="1a3a2b5e6c52142797bb5c00594e2a3c" category="cell">23.04</block>
+  <block id="6d7f176a0fc1f875832f44d7e99c669e" category="paragraph"><block ref="6d7f176a0fc1f875832f44d7e99c669e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7d27ef580e2b25090157af5d439420b3" category="cell">2023 年 11 月 7 日</block>
+  <block id="5e164a0091363c6e0b1da21420856dc0" category="cell">更新 TR - 4947 ： Apache Kafka with FSxN</block>
+  <block id="66ed0c3109a99ed48b8e19b3ea3e112e" category="video-title">將 FSxN 與 Astra Trident 整合至 ROSA 叢集</block>
+  <block id="1a8aad6624d7b4fac77277944621f147" category="video-title">ROSA 叢集整合 Amazon FSX for ONTAP</block>
+  <block id="bfbf5b1dfe74d3c210d9bff256a2d37d" category="video-title"> 採用Amazon FSX for NetApp ONTAP 的VMware Cloud on AWS TCO節約效益</block>
+  <block id="f14bcb2fca0b787c927519fa290c9276" category="video-title"> Azure VMware解決方案DR Cloud Volumes ONTAP 搭配VMware功能、包括功能不完整、SnapCenter 功能完整</block>
+  <block id="517ef02b70647f930adac5d5e8a518a2" category="paragraph">[ 底線 ]#*DR 使用 Astra Control Center*#</block>
+  <block id="a665cc68d0592e6ceaf6663fa7e859ec" category="paragraph">如需詳細資訊、請參閱 <block ref="904c80f66e5056357fd992ed854be90e" category="inline-link-macro-rx"></block>。
+如需詳細資訊、請參閱 <block ref="904c80f66e5056357fd992ed854be90e" category="inline-link-macro-rx"></block>。</block>
+  <block id="410842bedcb028e7fa2b16b6f7ecb30a" category="paragraph">第1部分：入門、需求、自動化詳細資料及初始AWX/Tower組態
+第1部分：入門、需求、自動化詳細資料及初始AWX/Tower組態</block>
+  <block id="a513ccac96294c17623435e7ea5fdf5b" category="doc">AWS FSX for NetApp ONTAP 的效能概觀與驗證</block>
+  <block id="a5f3ee5e211d0871f420cf5a36bebe83" category="inline-link-macro">上一篇： AWS 中的效能概覽與驗證 - Cloud Volume ONTAP 。</block>
+  <block id="47cb5f9b8f7ccfebd7c510120879da7c" category="paragraph"><block ref="47cb5f9b8f7ccfebd7c510120879da7c" category="inline-link-macro-rx"></block></block>
+  <block id="d30bd16c873aea4d3714997da3d96677" category="paragraph">NetApp NFS 上安裝儲存層的 Kafka 叢集、是 AWS FSX for NetApp ONTAP 效能的基準測試。基準測試範例將於下列各節中說明。</block>
+  <block id="f03d1e3325d1abef2b2d40923019ec24" category="section-title">AWS FSX for NetApp ONTAP 中的 Apache Kafka</block>
+  <block id="515a18b2b67265864bb21b039945426f" category="paragraph">Kafka by 的設計可搭配 POSIX 相容的檔案系統使用、並仰賴檔案系統來處理檔案作業、但在 NFSv3 檔案系統上儲存資料時、 Kafka Broker NFS 用戶端可以與本地檔案系統（例如 XFS 或 ext4 ）不同地解譯檔案作業。常見的例子是 NFS 愚蠢重新命名、導致 Kafka Brokers 在擴充叢集和重新分配分割區時失敗。為了因應這項挑戰、 NetApp 已更新開放原始碼 Linux NFS 用戶端、現在已在 RHEL8.7 、 RHEL9.1 中普遍提供變更、並從目前的適用於 NetApp ONTAP 版本 ONTAP 9.12.1 的 FSX 中獲得支援。</block>
+  <block id="4d0e9f7486615357fc91eeb4d7b21afe" category="paragraph">Amazon FSX for NetApp ONTAP 可在雲端中提供完全託管、可擴充且高效能的 NFS 檔案系統。適用於 NetApp ONTAP 的 FSX 上的 Kafka 資料可擴充以處理大量資料、並確保容錯能力。NFS 可為重要且敏感的資料集提供集中化的儲存管理與資料保護。</block>
+  <block id="26f2651d5272b19f416b75e2459d265e" category="paragraph">這些增強功能可讓 AWS 客戶在 AWS 運算服務上執行 Kafka 工作負載時、善用適用於 NetApp ONTAP 的 FSX 。這些效益包括：
+* 降低 CPU 使用率、以縮短 I/O 等待時間
+* 更快的 Kafka 代理程式恢復時間。
+* 可靠性與效率。
+* 擴充性與效能。
+* 多可用性區域可用度。
+* 資料保護。</block>
+  <block id="a946c589e72411c6ca06f80658569055" category="section-title">AWS FSX for NetApp ONTAP 中的 Kafka</block>
+  <block id="8958542ca63d1c1db2794fe10ad42745" category="paragraph">採用 AWS FSX for NetApp ONTAP 的 Kafka 叢集、在 AWS 雲端中以效能為基準。以下各節將說明此基準測試。</block>
+  <block id="6d2318a94e4971f5c792ce5ef39546a7" category="paragraph">下表顯示使用 AWS FSX for NetApp ONTAP 的 Kafka 叢集環境組態。</block>
+  <block id="294a286601ea0d06d3268d1dfe0dddd8" category="cell">AWS FSX for NetApp ONTAP</block>
+  <block id="9e813193a6755822d3c1628326e814e6" category="cell">具有 4GB/ 秒處理量和 160000 IOPS 的多 AZ</block>
+  <block id="5be51511cfc1e4bffe14ee63e6319797" category="section-title">NetApp FSX for NetApp ONTAP 設定</block>
+  <block id="2c2b7aa212365a0a958a10494ee7d17a" category="list-text">在我們的初始測試中、我們為 NetApp ONTAP 檔案系統建立了 FSX 、容量為 2TB 、傳輸量為每秒 2GB 的 40000 IOPs 。</block>
+  <block id="c9d491255cca763c5febacf246a8a550" category="paragraph">在我們的範例中、我們透過 AWS CLI 部署適用於 NetApp ONTAP 的 FSX 。您必須視需要在環境中進一步自訂命令。此外、也可透過 AWS 主控台部署和管理適用於 NetApp ONTAP 的 FSX 、以減少命令列輸入、提供更輕鬆、更精簡的部署體驗。</block>
+  <block id="c97db261e82d5db4b96152113691af22" category="paragraph">FSX for NetApp ONTAP 的文件資料、我們測試區域（美國東部 -1 ）每秒 2 GB 處理量檔案系統的最高 IOPS 為 8 、 000 IOPS 。NetApp ONTAP 檔案系統的 FSX 總 IOPS 為 16 、 000 IOPS 、需要每秒 4 GB 的處理量部署、我們將在本文件稍後說明。</block>
+  <block id="cab28d9c3e2ebaff500104615f70cece" category="paragraph">如需適用於 NetApp ONTAP 效能規格的 FSX 詳細資訊、請隨時造訪 AWS FSX for NetApp ONTAP 文件：<block ref="f270bb91d9718c264ef59ceaf9562990" category="inline-link-rx"></block> 。</block>
+  <block id="d2a50944ae04ca40cf752eb413d44240" category="paragraph">您可以在這裡找到適用於 FSX 「 cree-file-system 」的詳細命令列語法：<block ref="6dfaa72a4db79e3cd69acb6bd09e3928" category="inline-link-rx"></block></block>
+  <block id="4510c1fa7d54bc22137fc99fdee7ec14" category="paragraph">例如、您可以指定特定的 KMS 金鑰、而非指定 KMS 金鑰時所使用的預設 AWS FSX 主要金鑰。</block>
+  <block id="56dcf09d20c6c8ce71e510beece4fb43" category="list-text">為 NetApp ONTAP 檔案系統建立 FSX 時、請等到 JSON 將檔案系統描述如下之後、「生命週期」狀態變更為「可用」：</block>
+  <block id="5f772c6f56452d403e6db1bd43d88805" category="list-text">與 fsxadmin 使用者登入適用於 NetApp ONTAP SSH 的 FSX 、以驗證認證：
+Fsxadmin 是建立時適用於 NetApp ONTAP 檔案系統之 FSX 的預設管理帳戶。fsxadmin 的密碼是我們在步驟 1 中完成的第一次在 AWS 主控台或 AWS CLI 中建立檔案系統時所設定的密碼。</block>
+  <block id="0d4e5a2cd068395a686f870f1385128d" category="list-text">認證通過驗證後、請在適用於 NetApp ONTAP 檔案系統的 FSX 上建立儲存虛擬機器</block>
+  <block id="949e270419f0a5ea95408c6ad9d46d49" category="paragraph">儲存虛擬機器（ SVM ）是一部隔離式檔案伺服器、具有自己的管理認證和端點、可用於管理和存取適用於 NetApp ONTAP 磁碟區的 FSX 中的資料、並提供適用於 NetApp ONTAP 多租戶的 FSX 。</block>
+  <block id="49cb05ea5d58197c396f5cc2fc3d6385" category="list-text">設定主要儲存虛擬機器之後、請將 SSH 移至新建立的 NetApp ONTAP 檔案系統 FSX 、並使用以下範例命令在儲存虛擬機器中建立 Volume 、同樣地、我們也會建立 6 個磁碟區來進行此驗證。根據我們的驗證結果、保留預設成分（ 8 ）或以下成分、以提供更好的 Kafka 效能。</block>
+  <block id="f82c8c9ef7e5f94bfc60abe80b30a2c1" category="list-text">我們的磁碟區需要額外的容量來進行測試。將磁碟區的大小延伸至 2TB 、並安裝在連接路徑上。</block>
+  <block id="57ffc46c7abade26210d6b279d948642" category="paragraph">在適用於 NetApp ONTAP 的 FSX 中、磁碟區可以精簡配置。在我們的範例中、擴充磁碟區總容量超過檔案系統總容量、因此我們需要擴充檔案系統總容量、才能解除鎖定額外的資源配置磁碟區容量、我們將在下一步中示範。</block>
+  <block id="f5149cad95db621501bb57a5e8f9fdc8" category="list-text">接下來、為了提升效能與容量、我們將 NetApp ONTAP 處理量容量的 FSX 從每秒 2 GB 擴充至每秒 4 GB 、 IOPS 擴充至 160000 、容量則擴充至 5 TB</block>
+  <block id="2586c56e24677e7ec9e689a2715d582f" category="list-text">NetApp ONTAP 磁碟區的 FSX 會在 Kafka Brokers 中使用 nconnect 和預設選項進行掛載</block>
+  <block id="f3a650428631f984ec62ea11d7184e28" category="paragraph">下圖顯示我們的 FSX for NetApp ONTAP 卡夫卡叢集的最終架構：</block>
+  <block id="1d3c06332d47b7673bfb3de4b1873c05" category="list-text">運算：我們使用三節點的 Kafka 叢集、在專用伺服器上執行三節點的 zookeeper 群集。每個代理程式都有六個 NFS 掛載點、可連接至 FSX for NetApp ONTAP 執行個體上的六個磁碟區。</block>
+  <block id="1eec4077fa002cb2f4b537c3a8504829" category="list-text">儲存設備。我們使用適用於 NetApp ONTAP 的 FSX 搭配六個 2TB 磁碟區。然後使用 NFS 掛載將該 Volume 匯出至 Kafka 代理程式。 NetApp ONTAP 磁碟區的 FSX 會在 Kafka 代理程式中以 16 個 nconnect 工作階段和預設選項掛載。</block>
+  <block id="2ea31b84b3c57f71152888fb4f418f80" category="paragraph">我們使用的組態與 NetApp Cloud Volumes ONTAP 相同、其詳細資料如下：
+<block ref="6134638458f4b728e1bf1e106663272c" category="inline-link-rx"></block></block>
+  <block id="1b45f9648944314d0313517cb18e6725" category="paragraph">對於 Kafka Replication factor 1 和適用於 NetApp ONTAP 的 FSX ：</block>
+  <block id="90a4ae0f0929d214ce8581c894aa570e" category="paragraph">適用於具有複寫係數 3 的 Kafka 和適用於 NetApp ONTAP 的 FSX ：</block>
+  <block id="f10b62074123ea83c62b78dd7b9e3bbc" category="paragraph">在 Kafka 複寫係數 3 中、 NetApp ONTAP 的 FSX 執行讀寫作業三次、在 Kafka 複寫係數 1 中、 NetApp ONTAP 的讀寫作業是在 FSX 上執行一次、因此在兩次驗證中、 我們能夠達到每秒 4GB 的最大處理量。</block>
+  <block id="87da5afc68c648a72b9345b444e73dc0" category="paragraph">下表顯示 NetApp ONTAP 的 2GB/ 秒 FSX 和 Kafka 複寫係數 3 的 4GB/ 秒效能。複寫因素 3 會在 NetApp ONTAP 儲存設備的 FSX 上執行三次讀寫作業。處理量驅動程式的總速率是 881 MB/s 、在 NetApp ONTAP 檔案系統的 2GB/ 秒 FSX 上執行讀寫 Kafka 作業約 2.64 GB/ 秒、處理量驅動程式的總速率是 1328 MB/ 秒、可讀寫 Kafka 作業約 3.98 GB/ 秒。卡夫卡的效能是線性的、可根據 NetApp ONTAP 處理量的 FSX 進行擴充。</block>
+  <block id="af5fd1c3f0fb06bafc9ae98e66229d75" category="paragraph">下表顯示 EC2 執行個體與 NetApp ONTAP 的 FSX 之間的效能（ Kafka 複寫係數： 3 ）</block>
+  <block id="464d53bba388e6fc869ccca37cb431f7" category="inline-link-macro">下一步： AWS FSxN NetApp ONTAP 中的效能概觀與驗證。</block>
+  <block id="109f723e7c2154fe3bb29eb71c02ec02" category="paragraph"><block ref="109f723e7c2154fe3bb29eb71c02ec02" category="inline-link-macro-rx"></block></block>
+  <block id="32fbd740c28afd94422aeceef5424762" category="paragraph">NetApp AFF A400 是一款中階 NVMe Flash 儲存系統、內含下列功能：</block>
+  <block id="4b78ed4e994ac9de0ed2b09e38067a6a" category="list-text">最大有效容量：約 20PB</block>
+  <block id="a7e34646cec9235e89d2d2fdc097a010" category="paragraph">我們錄製了NetApp零售助理（Nara）的示範影片。</block>
+  <block id="19ae8131d6f70ff609fd60ac98b46986" category="section-title">Nara 影片示範</block>
+  <block id="d7fd58c27a131209e8f320d109b293cc" category="sidebar">AWS 中的效能概觀與驗證 - Cloud Volume ONTAP</block>
+  <block id="3f2906298c684e48c8e4b47425c2cf34" category="sidebar">AWS - FSxN NetApp ONTAP 中的效能概觀與驗證</block>
 </blocks>

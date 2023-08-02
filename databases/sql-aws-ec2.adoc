@@ -72,7 +72,10 @@ summary:
 ====
 有了FSX ONTAP 功能、採購儲存設備是最簡單的工作、而且可以透過更新檔案系統來執行。這項簡單的程序可視需要進行動態成本與效能最佳化、有助於平衡SQL工作負載、同時也是精簡配置的絕佳推手。FSX ONTAP 支援不中斷資源配置是專為執行SQL Server的EC2執行個體所設計、其邏輯儲存空間比檔案系統中的資源配置更多。儲存空間會隨著資料寫入而動態分配給每個Volume或LUN、而非預先配置空間。在大多數組態中、當刪除磁碟區或LUN中的資料（且未被任何Snapshot複本保留）時、也會釋出可用空間。下表提供動態分配儲存設備的組態設定。
 
+[cols="40%, 60%"]
 |===
+
+
 | 設定 | 組態 
 
 
@@ -304,6 +307,7 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 ====
 下表列出在SnapCenter Microsoft Windows Server上安裝支援服務器和外掛程式的最低需求。
 
+[cols="50%, 50%"]
 |===
 | 元件 | 需求 
 
@@ -345,6 +349,7 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 
 
 |===
+如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/snapcenter/install/reference_space_and_sizing_requirements.html["空間和規模需求"]。
 如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/snapcenter/install/reference_space_and_sizing_requirements.html["空間和規模需求"]。
 
 如需版本相容性、請參閱 https://mysupport.netapp.com/matrix/["NetApp 互通性對照表工具"^]。
@@ -434,6 +439,8 @@ image:sql-awsec2-image18.png["錯誤：缺少圖形影像"]
 將資料庫和記錄檔放在FSX ONTAP 支援LUN上之後、SnapCenter 即可使用支援功能來備份資料庫。下列程序用於建立完整備份。
 
 |===
+
+
 | 最佳實務做法 
 
 
@@ -467,6 +474,8 @@ image:sql-awsec2-image23.png["錯誤：缺少圖形影像"]
 
 
 |===
+
+
 | 最佳實務做法 
 
 
@@ -515,6 +524,8 @@ NetApp也建議您將資料庫數量分組、而非為每個資料庫或執行�
 除了完整備份、NetApp建議您為關鍵資料庫設定交易記錄備份。確定資料庫內容已設定為完整還原模式。
 
 |===
+
+
 | 最佳實務做法 
 
 
@@ -580,7 +591,7 @@ image:sql-awsec2-image27.png["錯誤：缺少圖形影像"]
 ====
 若要深入瞭解此程序、請觀看下列影片：
 
-
+video::27f28284-433d-4273-8748-b01200fb3cd7[panopto,width=360]
 
 
 == 附錄
