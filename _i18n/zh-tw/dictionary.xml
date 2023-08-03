@@ -19458,7 +19458,6 @@ Fsxadmin 是建立時適用於 NetApp ONTAP 檔案系統之 FSX 的預設管理�
   <block id="3287abe20108fcae946deb6260cf8563" category="list-text">指定原則、保留期間、頻率和複寫選項、以及快照標籤的名稱。</block>
   <block id="663b8460da445a8bdcdacd5586794a5a" category="image-alt">建立原則</block>
   <block id="288f9e0d4ace01e5bcd057f2b9aa9cbd" category="admonition">在 SnapCenter 外掛程式中建立原則時、您會看到 SnapMirror 和 SnapVault 的選項。如果您選擇 SnapMirror 、原則中指定的保留排程對於主要和次要快照都是相同的。如果您選擇 SnapVault 、次要快照的保留排程將會根據與 SnapMirror 關係一起實作的個別排程而定。當您希望次要備份的保留時間較長時、這項功能非常實用。</block>
-  <block id="85ddc39126e35d4b51b71eda88f1079e" category="admonition">快照標籤非常實用、因為它們可用於制定原則、並在特定保留期間內、將 SnapVault 複本複寫到次要 ONTAP 叢集。搭配 BlueXP 備份與還原使用選擇控制閥時、 Snapshot 標籤欄位必須空白或是 BlueXP 備份原則中指定的標籤 [Underline] #match# 。</block>
   <block id="9a9dafcee3fdb0dbad8b58495e0676e8" category="list-text">針對所需的每個原則重複此程序。例如、每日、每週和每月備份的個別原則。</block>
   <block id="b9c3c294e7e2345ef69743b4899f43f0" category="paragraph">資源群組包含要納入備份工作的資料存放區和虛擬機器、以及相關的原則和備份排程。</block>
   <block id="91157a1c630ebb8dfa5964bc5c596222" category="paragraph">檢閱<block ref="1100db64f963d9605fc8b4bac46beeaa" category="inline-link-rx"></block> 如需詳細資訊、請參閱文件的一節。</block>
@@ -19648,4 +19647,5 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="ede1cce9f240fed5ecc4264bd699cee1" category="sidebar">BlueXP 備份與還原</block>
   <block id="fb62fbf89ea149f795c0e8c9d524188d" category="sidebar">BlueXP 備份與還原</block>
   <block id="7f65285e967e5d62effe7b87198351bc" category="sidebar">適用於 VM 的 BlueXP 備份與還原</block>
+  <block id="8f2f97c92df3167b68eb2fdcff188793" category="admonition">快照標籤非常實用、因為它們可用於制定原則、並在特定保留期間內、將 SnapVault 複本複寫到次要 ONTAP 叢集。當選擇控制閥搭配 BlueXP 備份與還原使用時、「 Snapshot （快照）」標籤欄位必須是空白或通過： [ &lt;u&gt; &lt;/u&gt; （藍光快照） ] 標籤是 BlueXP 備份原則中指定的標籤。</block>
 </blocks>
