@@ -64,16 +64,15 @@ image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台中的 Clou
 |===
 
 
-3+| *硬體* 
+| 3^ | *硬體* | FSX ONTAP 支援儲存 
 
 
-| FSX ONTAP 支援儲存 | AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 
+| AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 | EC2運算執行個體 
 
 
-| EC2運算執行個體 | T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器 
+| T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器
 
-
-3+| *軟體* 
+3^ | *軟體* 
 
 
 | RedHat Linux | RHEL-8.6.0_HVM-20220504-x86_64：2-Hourly2-GP2 | 已部署RedHat訂閱以進行測試 
@@ -111,10 +110,10 @@ image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台中的 Clou
 
 * 請閱讀一般說明 link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-protect-cloud-app-data-to-cloud.html#architecture["保護雲端原生應用程式資料"^] 以及與 Oracle 和 Amazon FSX for ONTAP 相關的章節。
 * 觀看下列影片逐步解說。
-+
-video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto,width=360]
 
 
+.解決方案部署
+video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto]
 
 
 === SnapCenter 服務部署的必要條件
@@ -138,10 +137,10 @@ video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto,width=360]
 ====
 . 使用連結 link:https://console.bluexp.netapp.com/["NetApp BlueXP"] 註冊 BlueXP 主控台存取。
 . 若要設定 BlueXP 來管理 AWS 雲端資源、例如 Amazon FSX for ONTAP 、您應該已經設定 AWS 帳戶。接著您可以登入 AWS 帳戶、建立 IAM 原則、將 SnapCenter 服務存取權授予 AWS 帳戶、以用於連接器部署。
-+
+
+
 image:snapctr_svcs_connector_01-policy.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-+
 原則應設定為 JSON 字串、在啟動連接器資源配置時可使用、系統會提示您已建立 IAM 原則、並將其授予用於連接器部署的 AWS 帳戶。
 
 . 您也需要 AWS VPC 、 AWS 帳戶的金鑰和機密、用於 EC2 存取的 SSH 金鑰、安全群組等、才能準備好配置連接器。
@@ -155,39 +154,48 @@ image:snapctr_svcs_connector_01-policy.png["GUI 中顯示此步驟的螢幕擷�
 [%collapsible]
 ====
 . 登入 BlueXP 主控台。若是共用帳戶、最佳做法是按一下 * 帳戶 * > * 管理帳戶 * > * 工作區 * 來新增工作區、以建立個別工作區。
-+
+
+
 image:snapctr_svcs_connector_02-wspace.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * 新增 Connector* 以啟動 Connector 資源配置工作流程。
-+
+
+
 image:snapctr_svcs_connector_03-add.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇您的雲端供應商（在此案例中為 * Amazon Web Services* ）。
-+
+
+
 image:snapctr_svcs_connector_04-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 如果您已在 AWS 帳戶中設定 * 權限 * 、 * 驗證 * 和 * 網路 * 步驟、請略過這些步驟。否則、您必須先設定這些項目、才能繼續。您也可以從這裡擷取上一節所提及的 AWS 原則權限。<<開始準備 BlueXP>>。」
-+
+
+
 image:snapctr_svcs_connector_05-remind.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 輸入 AWS 帳戶驗證存取金鑰和秘密金鑰。
-+
+
+
 image:snapctr_svcs_connector_06-auth.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 命名連接器執行個體、然後在 * 詳細資料 * 下選取 * 建立角色 * 。
-+
+
+
 image:snapctr_svcs_connector_07-details.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 使用適當的 VPC 、子網路和 SSH 金鑰配對來設定網路、以供 EC2 存取。
-+
+
+
 image:snapctr_svcs_connector_08-network.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 設定連接器的安全性群組。
-+
+
+
 image:snapctr_svcs_connector_09-security.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱摘要頁面、然後按一下 * 新增 * 以開始建立連接器。完成部署通常需要 10 分鐘。完成後、連接器執行個體會顯示在 AWS EC2 儀表板中。
-+
+
+
 image:snapctr_svcs_connector_10-review.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 部署連接器之後、請以 EC2 使用者的身分、使用 SSH 金鑰登入連接器 EC2 主機、以安裝 SnapCenter 外掛程式、並遵循下列指示： link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-add-host-discover-oracle-databases.html#deploy-the-plug-in-using-script-and-add-host-from-ui-using-manual-option["使用指令碼部署外掛程式、並使用手動選項從UI新增主機"^]。
@@ -203,58 +211,69 @@ image:snapctr_svcs_connector_10-review.png["GUI 中顯示此步驟的螢幕擷�
 部署連接器後、現在可以使用下列程序來設定 SnapCenter 服務：
 
 . 從 * 我的工作環境 * 按一下 * 新增工作環境 * 、探索在 AWS 中部署的 FSX 。
-+
+
+
 image:snapctr_svcs_setup_01.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇 * Amazon Web Services* 作為位置。
-+
+
+
 image:snapctr_svcs_setup_02.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * Amazon FSX for ONTAP * 旁的 * 探索現有 * 。
-+
+
+
 image:snapctr_svcs_setup_03.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選取提供 BlueXP 所需權限的認證、以管理 ONTAP 的 FSX 。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。
-+
+
+
 image:snapctr_svcs_setup_04.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇部署 Amazon FSX for ONTAP 的 AWS 區域、選取裝載 Oracle 資料庫的 FSX 叢集、然後按一下「新增」。
-+
+
+
 image:snapctr_svcs_setup_05.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 探索到的 Amazon FSX for ONTAP 執行個體現在會出現在工作環境中。
-+
+
+
 image:snapctr_svcs_setup_06.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 您可以使用 fsxadmin 帳戶認證登入 FSX 叢集。
-+
+
+
 image:snapctr_svcs_setup_07.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 登入 Amazon FSX for ONTAP 之後、請檢閱您的資料庫儲存資訊（例如資料庫磁碟區）。
-+
+
+
 image:snapctr_svcs_setup_08.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 從主控台的左側側欄中、將滑鼠移到保護圖示上、然後按一下 * 保護 * > * 應用程式 * 、即可開啟應用程式啟動頁面。按一下「*探索應用程式*」。
-+
+
+
 image:snapctr_svcs_setup_09.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選取 * 雲端原生 * 作為應用程式來源類型。
-+
+
+
 image:snapctr_svcs_setup_10.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇 * Oracle* 作為應用程式類型。
-+
+
+
 image:snapctr_svcs_setup_13.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 提供 Oracle EC2 執行個體主機詳細資料以新增主機。核取此方塊以確認主機上的 Oracle 外掛程式已安裝、因為您在配置連接器之後部署外掛程式。
-+
+
+
 image:snapctr_svcs_setup_16.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 探索 Oracle EC2 主機並將其新增至 * 應用程式 * 、主機上的任何資料庫也會一併探索並顯示在頁面上。資料庫 * 保護狀態 * 顯示為 * 未受保護 * 。
-+
+
+
 image:snapctr_svcs_setup_17.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-
 
 這將完成 Oracle SnapCenter 服務的初始設定。本文件接下來三節將說明 Oracle 資料庫備份、還原及複製作業。
 
@@ -266,34 +285,39 @@ image:snapctr_svcs_setup_17.png["GUI 中顯示此步驟的螢幕擷取畫面。"
 [%collapsible]
 ====
 . 按一下資料庫 * 保護狀態 * 旁的三個點、然後按一下 * 原則 * 、即可檢視可套用以保護 Oracle 資料庫的預設預先載入資料庫保護原則。
-+
+
+
 image:snapctr_svcs_bkup_01.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 您也可以使用自訂的備份頻率和備份資料保留時間來建立自己的原則。
-+
+
+
 image:snapctr_svcs_bkup_02.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 當您對原則組態感到滿意時、即可指派您選擇的原則來保護資料庫。
-+
+
+
 image:snapctr_svcs_bkup_03.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇要指派給資料庫的原則。
-+
+
+
 image:snapctr_svcs_bkup_04.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 套用原則之後、資料庫保護狀態會變更為 * 受保護 * 、並加上綠色核取記號。
-+
+
+
 image:snapctr_svcs_bkup_05.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 資料庫備份會以預先定義的排程執行。您也可以執行一次性隨選備份、如下所示。
-+
+
+
 image:snapctr_svcs_bkup_06.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下功能表清單中的 * 檢視詳細資料 * 即可檢視資料庫備份詳細資料。其中包括備份名稱、備份類型、 SCN 和備份日期。備份集涵蓋資料磁碟區和記錄磁碟區的快照。記錄 Volume 快照會在資料庫 Volume 快照之後立即執行。如果您要在長清單中尋找特定備份、可以套用篩選器。
-+
+
+
 image:snapctr_svcs_bkup_07.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-
 
 ====
 
@@ -303,25 +327,26 @@ image:snapctr_svcs_bkup_07.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 [%collapsible]
 ====
 . 若要進行資料庫還原、請依 SCN 或備份時間選擇正確的備份。按一下資料庫資料備份中的三個點，然後按一下 * 還原 * 來啟動資料庫還原與還原。
-+
+
+
 image:snapctr_svcs_restore_01.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇您的還原設定。如果您確定備份後實體資料庫結構中沒有任何變更（例如新增資料檔案或磁碟群組）、您可以使用 * 強制就地還原 * 選項、這通常會更快。否則、請勿勾選此方塊。
-+
+
+
 image:snapctr_svcs_restore_02.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱並開始資料庫還原與還原。
-+
+
+
 image:snapctr_svcs_restore_03.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 從 * 工作監控 * 標籤、您可以在還原工作執行時檢視其狀態及任何詳細資料。
-+
+
+
 image:snapctr_svcs_restore_05.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-+
 image:snapctr_svcs_restore_04.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-
 
 ====
 
@@ -333,33 +358,36 @@ image:snapctr_svcs_restore_04.png["GUI 中顯示此步驟的螢幕擷取畫面�
 若要複製資料庫、請從相同的資料庫備份詳細資料頁面啟動複製工作流程。
 
 . 選取正確的資料庫備份複本、按一下三個點以檢視功能表、然後選擇 * Clone * 選項。
-+
+
+
 image:snapctr_svcs_clone_02.png["錯誤：缺少圖形影像"]
 
 . 如果不需要變更任何複製的資料庫參數、請選取 * 基本 * 選項。
-+
+
+
 image:snapctr_svcs_clone_03.png["錯誤：缺少圖形影像"]
 
 . 或者、您也可以選取 * 規格檔 * 、讓您選擇下載目前的初始化檔案、進行變更、然後將其上傳回工作。
-+
+
+
 image:snapctr_svcs_clone_03_1.png["錯誤：缺少圖形影像"]
 
 . 檢閱並啟動工作。
-+
+
+
 image:snapctr_svcs_clone_04.png["錯誤：缺少圖形影像"]
 
 . 從 * 工作監控 * 標籤監控複製工作狀態。
-+
+
+
 image:snapctr_svcs_clone_07-status.png["錯誤：缺少圖形影像"]
 
 . 驗證 EC2 執行個體主機上的複製資料庫。
-+
+
+
 image:snapctr_svcs_clone_08-crs.png["錯誤：缺少圖形影像"]
 
-+
 image:snapctr_svcs_clone_08-db.png["錯誤：缺少圖形影像"]
-
-
 
 ====
 
@@ -369,19 +397,21 @@ image:snapctr_svcs_clone_08-db.png["錯誤：缺少圖形影像"]
 若要深入瞭解本文所述資訊、請檢閱下列文件和 / 或網站：
 
 * 設定及管理BlueXP
-+
+
+
 link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.htmll["https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html"^]
 
 * 雲端備份文件
-+
+
+
 link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html["https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html"^]
 
 * Amazon FSX for NetApp ONTAP 產品
-+
+
+
 link:https://aws.amazon.com/fsx/netapp-ontap/["https://aws.amazon.com/fsx/netapp-ontap/"^]
 
 * Amazon EC2
-+
+
+
 link:https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_channel=ps&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2&ef_id=Cj0KCQiA54KfBhCKARIsAJzSrdqwQrghn6I71jiWzSeaT9Uh1-vY-VfhJixF-xnv5rWwn2S7RqZOTQ0aAh7eEALw_wcB:G:s&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2["https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_channel=ps&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2&ef_id=Cj0KCQiA54KfBhCKARIsAJzSrdqwQrghn6I71jiWzSeaT9Uh1-vY-VfhJixF-xnv5rWwn2S7RqZOTQ0aAh7eEALw_wcB:G:s&s_kwcid=AL!4422!3!467723097970!e!!g!!aws%20ec2"^]
-
-

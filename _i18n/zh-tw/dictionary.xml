@@ -229,7 +229,6 @@
   <block id="48dbb4d925fe4a46f28c0a8466a2f628" category="cell">（必填）AWS認證帳戶名稱。</block>
   <block id="90305bb6fba97091f683e8b82f9bf805" category="summary">NetApp解決方案自動化可讓客戶將許多常見的基礎架構和應用程式工作的部署、組態和執行自動化。</block>
   <block id="a123daaac5749e4d0965aca160f0adfd" category="doc">NetApp解決方案自動化</block>
-  <block id="d78228187c1a83d3bb4d8e97cd657807" category="paragraph">自動化可簡化NetApp解決方案的使用。</block>
   <block id="d1029167179320d8b6d70b11c3d01bd3" category="list-text">Ansible控制節點的需求：</block>
   <block id="9ced761647f5d80fe615526ffff63937" category="list-text">安裝下列套件的Ubuntu / Debian機器：</block>
   <block id="ca60b3698dd3d27a5f91e4dc0a1a2546" category="list-text">Python3.</block>
@@ -2446,7 +2445,6 @@
   <block id="3ef6389d9b9aacdce331793dd2a96ce8" category="paragraph">為了簡化自動化、我們預設了許多必要的Oracle參數、並提供預設值。一般而言、大多數部署都不需要變更預設參數。較進階的使用者可以謹慎變更預設參數。預設參數位於預設目錄下的每個角色資料夾中。</block>
   <block id="a98d844e94ad28c8e0fb089e005d6b9f" category="inline-link-macro">請參閱此處以瞭解詳細的AWX/Tower程序</block>
   <block id="7e599865fd1cdad0e26add5715f65267" category="paragraph">準備好之後、按一下 <block ref="d28bc5520349bb0598caaa5132432326" category="inline-link-macro-rx"></block>。</block>
-  <block id="d0db3f5a4a306cff20be4187b3ef3445" category="doc">VAR</block>
   <block id="6551468cb4811e7add616eea103efea9" category="doc">逐步部署程序</block>
   <block id="0e6b1c16527d2792d391c578bbf12efe" category="section-title">CLI部署Oracle 19c資料庫</block>
   <block id="57daddd847cdbab22b7363630de48a2f" category="inline-link-macro">「使用入門與需求」一節</block>
@@ -7735,7 +7733,6 @@
   <block id="c5a9ec38aba893e2a0d701ba2f45a50e" category="paragraph">若要針對位於AWS SDDC上VMware Cloud上的主機完成相同的作業、請完成下列步驟：</block>
   <block id="2cbe60394fdca23a31c3a05a49aba035" category="list-text">將RDP移至AWS上VMware雲端上的VM。</block>
   <block id="04d63507299c2b866ddad09b32b37fb3" category="list-text">選取「啟用多重路徑」、然後選取「電腦啟動時自動還原此連線」或「將此連線新增至最愛目標清單」。按一下進階。</block>
-  <block id="15c42f0d55e1a75b7606d8cd1d0f0840" category="paragraph">+<block ref="f87da6f2c46cbdbedc31faf67374f8f6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c11f54f9bd2797dc115ca9e98fb0116d" category="paragraph">SVM的LUN會顯示為Windows主機的磁碟。主機不會自動探索任何新增的磁碟。完成下列步驟、觸發手動重新掃描以探索磁碟：</block>
   <block id="733dc90ee8ecde5a3fe64fd837d0eec1" category="paragraph"><block ref="733dc90ee8ecde5a3fe64fd837d0eec1" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5b173d8aceed1850c1882fee5f7479d4" category="paragraph"><block ref="5b173d8aceed1850c1882fee5f7479d4" category="inline-image-macro-rx" type="image"></block></block>
@@ -15525,9 +15522,6 @@
   <block id="4bff8ed7bd736139029b8aa4f639ccd9" category="paragraph"><block ref="4bff8ed7bd736139029b8aa4f639ccd9" category="inline-image-macro-rx" type="image"></block></block>
   <block id="f94de8933712f5d52ca62caf7fef6eb5" category="list-text">為獲得最佳效能、請新增更多工作階段；NetApp建議建立五個iSCSI工作階段。選取*內容*&gt;*新增工作階段**進階*、然後重複步驟12。</block>
   <block id="5636fa6e8685f1da20bf9489bcadc782" category="paragraph"><block ref="5636fa6e8685f1da20bf9489bcadc782" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c762aaec425b12667f2a575012e48905" category="list-text">為每個目標介面設定五個iSCSI工作階段、以獲得最佳效能。</block>
-  <block id="72a53f90bcbaa031cad1c79575c53094" category="list-text">設定循環配置資源原則、以獲得最佳的整體iSCSI效能。</block>
-  <block id="168b03d713c83578e3c90be8e0a76a8e" category="list-text">格式化LUN時、請確定分區的分配單元大小設為64K</block>
   <block id="a196b0bfd5261a81ff3d40a2043f792c" category="list-text">執行下列PowerShell命令、確認iSCSI工作階段持續存在。</block>
   <block id="58fbf35d4173787943d2fe31aed43341" category="paragraph"><block ref="58fbf35d4173787943d2fe31aed43341" category="inline-image-macro-rx" type="image"></block></block>
   <block id="22ae84abced8e9e1236160d982616772" category="list-text">使用下列PowerShell命令初始化磁碟。</block>
@@ -15597,7 +15591,6 @@
   <block id="14b0febccc904523871b9498c72ab705" category="list-text">使用資源群組來進行Snapshot最佳化的備份組態、以及要管理的工作數。</block>
   <block id="45be64dc5372d4c03684e301633c794c" category="list-text">選擇* Resources（資源）*、然後從左上角的下拉式功能表中選取* Microsoft SQL Server *。選擇*重新整理資源*。</block>
   <block id="94cc612f3fcbd977b78ea3b7a422c531" category="paragraph"><block ref="94cc612f3fcbd977b78ea3b7a422c531" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3b8d60492f611ef339bf79fdbeb56dda" category="list-text">選取要備份的資料庫、然後選取*下一步*和（*+*）以新增原則（如果尚未建立原則）。遵循*新的SQL Server備份原則*來建立新原則。</block>
   <block id="d99e4391045a563d9d1d2d78ddd2417a" category="paragraph"><block ref="d99e4391045a563d9d1d2d78ddd2417a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="89f2e11b6c9317605c01622834d4853d" category="list-text">必要時選取驗證伺服器。此伺服器SnapCenter 是在建立完整備份後執行DBCC CHECKDB的伺服器。按*下一步*以取得通知、然後選取*摘要*以檢閱。檢閱後、按一下*完成*。</block>
   <block id="fc2d6f88564b6e12fc40b19f28b7420d" category="paragraph"><block ref="fc2d6f88564b6e12fc40b19f28b7420d" category="inline-image-macro-rx" type="image"></block></block>
@@ -16329,9 +16322,7 @@
   <block id="57c7844b0a299340cf9b625ce4a0745a" category="section-title">設定hosts檔案</block>
   <block id="ed578fbfbec5634c4fa508cde5bc4e85" category="paragraph">將主要的FSX ONTAP 支援叢集管理IP和EC2執行個體主機名稱輸入主機檔案。</block>
   <block id="6ef214427ca7b42201d0b0508f56df98" category="section-title">在host_vars資料夾中設定host_name.yml檔案</block>
-  <block id="6967d323b85203ba993572c1cd814dc1" category="paragraph">在藍色加底線的欄位中輸入系統的適當參數、然後將項目複製並貼到中<block ref="caa6779553864dba00727ae27752b182" prefix=" " category="inline-code"></block> 檔案<block ref="3342582e194d63e4c91b56623752c9c6" prefix=" " category="inline-code"></block> 資料夾。</block>
   <block id="77ac1da2cd356e327eb4bfc4c5a21bcc" category="section-title">在vars資料夾中設定全域FSx_vars.yml檔案</block>
-  <block id="7876ddba2c3af67cbee2b37f64072428" category="paragraph">將系統的適當參數輸入藍色加底線的欄位、然後複製並貼上項目至<block ref="cb8e25d5e6251a20afadf4c5f4b626bb" prefix=" " category="inline-code"></block> 位於Ansible控制器主機的檔案。</block>
   <block id="d56625a35762821798a2f3dd55ead05d" category="section-title">PostgreSQL部署與HA/DR設定</block>
   <block id="943a124028d8f011631df765453640dc" category="paragraph">下列工作會部署PostgreSQL DB伺服器服務、並在主要EC2 DB伺服器主機的主要站台初始化資料庫。然後在待命站台設定備用主EC2 DB伺服器主機。最後、資料庫Volume複寫是從主站台FSX叢集設定為待命站台FSX叢集、以進行災難恢復。</block>
   <block id="08f6dd070ef1adfcbe3d7f3c70b08905" category="list-text">在主要FSX叢集上建立DB Volume、並在主要EC2執行個體主機上設定PostgreSQL。</block>
@@ -17317,7 +17308,6 @@
   <block id="e55870c74749ffe7a1d8b4c1a9cb5b60" category="list-text">擁有應用程式的應用程式擁有者、這些應用程式部署至 Amazon FSX 以進行 ONTAP 儲存</block>
   <block id="a9bed64bc676f536e10a189728888614" category="image-alt">此映像提供 BlueXP 主控台中的 Cloud Backup for Application 詳細圖片、包括其管理的 UI 、連接器和資源。</block>
   <block id="ccd967b78d046cba29272c0823500e3f" category="paragraph">此映像提供 BlueXP 主控台內的 Cloud Backup for Application 詳細圖片、包括 UI 、連接器及其管理的資源。</block>
-  <block id="6f4cd1b0523380b825fa78ec70975a14" category="cell">兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器</block>
   <block id="86fae68c14c723bf36942c2c83e8a847" category="list-text">* Connector 部署在與資料庫和 FSX 相同的 VPC 中。 * 盡可能將連接器部署在相同的 AWS VPC 中、以便連線至 FSX 儲存設備和 EC2 運算執行個體。</block>
   <block id="f4c5cbc76886ee4d3b06a979e007f04c" category="list-text">* 為 SnapCenter Connector 建立的 AWS IAM 原則。 * 詳細的 SnapCenter 服務文件中提供 JSON 格式的原則。當您使用 BlueXP 主控台啟動 Connector 部署時、系統會提示您設定先決條件。原則應指派給擁有連接器的 AWS 使用者帳戶。</block>
   <block id="9a4e5feb06bb2dae4e8b115b6528fb7d" category="list-text">* AWS 帳戶存取金鑰和在 AWS 帳戶中建立的 SSH 金鑰配對。 * SSH 金鑰配對會指派給 EC2 使用者、用於登入連接器主機、然後將資料庫外掛程式部署到 EC2 DB 伺服器主機。存取金鑰會授予資源配置所需連接器的權限。</block>
@@ -19648,4 +19638,33 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="7f65285e967e5d62effe7b87198351bc" category="sidebar">適用於 VM 的 BlueXP 備份與還原</block>
   <block id="8f2f97c92df3167b68eb2fdcff188793" category="admonition">快照標籤非常實用、因為它們可用於制定原則、並在特定保留期間內、將 SnapVault 複本複寫到次要 ONTAP 叢集。當選擇控制閥搭配 BlueXP 備份與還原使用時、「 Snapshot （快照）」標籤欄位必須是空白或通過： [ &lt;u&gt; &lt;/u&gt; （藍光快照） ] 標籤是 BlueXP 備份原則中指定的標籤。</block>
   <block id="6622de5008f90d398faa1e625092402e" category="example-title">建立 BlueXP 備份原則</block>
+  <block id="8a4b419d5126ba3004ad4d071ac8a766" category="list-text">以 Oracle 使用者身分登入 Oracle 伺服器、然後執行下列命令：</block>
+  <block id="38333d478471b938020592b577fc16c2" category="list-text">登入資料庫、檢查使用下列命令集建立的資料庫組態設定和 PDB 。</block>
+  <block id="b178089f1eac81c2c81eba2c223e2740" category="list-text">透過接聽程式連線至資料庫、使用下列命令檢查 hte Oracle 接聽程式組態。變更為適當的接聽程式連接埠和資料庫服務名稱。</block>
+  <block id="44f9187dc57a34800a68152bf3e51e8f" category="video-title">AWX 部署</block>
+  <block id="9234eaf4b40d25f09b5abdd71c1e1a7b" category="video-title">AWX Playbook Run</block>
+  <block id="9225d2c6eb68109e4084ab87f17664fa" category="video-title">執行 CLI 教戰手冊</block>
+  <block id="73977a3ad17c882a666b80c9eccec0e7" category="list-text">從 Ansible 控制器執行下列命令：</block>
+  <block id="60cc8e16ee1bd6e820e063f90fd35cbe" category="list-text">下載儲存庫之後、請將目錄變更為 na_oracle19c_deploy &lt;cd na_oracle19c_deploy&gt; 。</block>
+  <block id="ca9312842450cb1907f68cbfe9e7ebdd" category="list-text">傳送正確的標記和 ONTAP 叢集使用者名稱、以執行 ONTAP 教戰手冊。請填入 ONTAP 叢集的密碼、並在系統提示時填入 vsadmin 。</block>
+  <block id="27dddea37ed0de0ca5959c367057ba57" category="list-text">執行 Linux 教戰手冊以執行部署的 Linux 部分。輸入管理 ssh 密碼和 Sudo 密碼。</block>
+  <block id="1c71909fca063bf285ff220dab00cfa1" category="list-text">執行 Oracle 教戰手冊以執行部署的 Oracle 部分。輸入管理 ssh 密碼和 Sudo 密碼。</block>
+  <block id="ae3e02c14eb0bd7dc27d63de85a8ffd7" category="cell">3^</block>
+  <block id="e0b1a973244e7e3c60d62153f2d530ae" category="cell">兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器
+
+3^</block>
+  <block id="5cf04a9bbc1dcc2fadd56ff48a750287" category="video-title">自動化 PostgreSQL 部署與保護</block>
+  <block id="7bb2d8deceb07f4e39dcbf5735eeb48b" category="paragraph">+
+* 最佳實務做法 *</block>
+  <block id="fe4eae1181f6a5f1aa2dd32a8a0e6818" category="paragraph">+
+* 為每個目標介面設定五個 iSCSI 工作階段、以獲得最佳效能。
+* 設定循環配置資源原則、以獲得最佳的整體 iSCSI 效能。
+* 格式化 LUN 時、請確定分割區的分配單元大小設為 64K</block>
+  <block id="92a02c3e922aecfbb22227bc7a4f73e8" category="list-text">選擇要備份的資料庫、然後選取 * 下一步 * 和（ ** ）、以在尚未建立原則的情況下新增原則。遵循*新的SQL Server備份原則*來建立新原則。</block>
+  <block id="6cd47796208de7b1d81ffd66d5fa0744" category="video-title">將內部部署的 Oracle DB 移轉至 AWS</block>
+  <block id="2ad3cefd13309f11aa1b961ca1a2e942" category="video-title">使用 HCX 移轉工作負載</block>
+  <block id="92a300f3d27268bb5dc79fc4a6a350e1" category="video-title">HCx VMotion</block>
+  <block id="bad38ce6b4954ebab11050b4a7cf208c" category="video-title">Amazon FSX for ONTAP VMware Cloud</block>
+  <block id="f87da6f2c46cbdbedc31faf67374f8f6" category="paragraph"><block ref="f87da6f2c46cbdbedc31faf67374f8f6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="50a2af1b36504de3cf8dc288f0697fc4" category="video-title">AWS 上適用於 Red Hat OpenShift 服務的 FSX NetApp ONTAP</block>
 </blocks>

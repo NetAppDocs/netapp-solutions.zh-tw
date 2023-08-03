@@ -11,6 +11,8 @@
 
 === 驗證Oracle安裝
 
+. 以 Oracle 使用者身分登入 Oracle 伺服器、然後執行下列命令：
+
 
 [source, cli]
 ----
@@ -18,6 +20,8 @@ ps -ef | grep ora
 ----
 
 NOTE: 如果安裝已如預期完成、且Oracle資料庫已啟動、則會列出Oracle程序
+
+. 登入資料庫、檢查使用下列命令集建立的資料庫組態設定和 PDB 。
 
 
 [source, cli]
@@ -68,6 +72,8 @@ SVRNAME目錄NFSVERSion －－－－－－－－－－－－－－－ －－－�
 ----
 This confirms that dNFS is working properly.
 ----
+. 透過接聽程式連線至資料庫、使用下列命令檢查 hte Oracle 接聽程式組態。變更為適當的接聽程式連接埠和資料庫服務名稱。
+
 
 [source, cli]
 ----
