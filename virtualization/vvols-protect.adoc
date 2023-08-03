@@ -104,50 +104,20 @@ image:vvols-image18.png["SnapCenter 架構、 300"]
 
 下列最佳實務做法可協助您充分發揮 SnapCenter 部署的效益。
 
-|===
-
-
- a| 
-* 選擇控制閥同時支援 vCenter Server RBAC 和 ONTAP RBAC 、並包含預先定義的 vCenter 角色、這些角色會在登錄外掛程式時自動為您建立。您可以深入瞭解受支援的 RBAC 類型 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_types_of_rbac_for_snapcenter_users.html["請按這裡。"]
+. 選擇控制閥同時支援 vCenter Server RBAC 和 ONTAP RBAC 、並包含預先定義的 vCenter 角色、這些角色會在登錄外掛程式時自動為您建立。您可以深入瞭解受支援的 RBAC 類型 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_types_of_rbac_for_snapcenter_users.html["請按這裡。"]
 +
 ** 使用 vCenter UI 、使用所述的預先定義角色指派最低權限的帳戶存取權 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_predefined_roles_packaged_with_snapcenter.html["請按這裡"]。
 ** 如果您在 SnapCenter 伺服器上使用選擇控制閥、則必須指派 _SnapCenterAdmin_ 角色。
 ** ONTAP RBAC 是指用於新增及管理選擇控制閥所使用儲存系統的使用者帳戶。ONTAP RBAC 不適用於 vVols 型備份。深入瞭解 ONTAP RBAC 和選擇控制閥 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_ontap_rbac_features_in_snapcenter.html["請按這裡"]。
 
 
+. 使用 SnapMirror 將備份資料集複寫到第二個系統、以取得來源磁碟區的完整複本。如前所述、您也可以使用鏡射資料保險箱原則、以長期保留備份資料、而不受來源磁碟區快照保留設定影響。vVols 支援這兩種機制。
+. 由於選擇控制閥也需要 VMware vSphere 的 ONTAP 工具才能使用 vVols 功能、因此請務必檢查 NetApp 互通性對照表工具（ IMT ）以瞭解特定版本的相容性
+. 如果您在 VMware SRM 中使用 vVols 複寫、請注意您的原則 RPO 和備份排程
+. 使用保留設定來設計備份原則、以符合組織定義的還原點目標（ RPO ）
+. 在資源群組上設定通知設定、以便在執行備份時收到狀態通知（請參閱下方圖 10 ）
 
 
-
-
- a| 
-* 使用 SnapMirror 將備份資料集複寫到第二個系統、以取得來源磁碟區的完整複本。如前所述、您也可以使用鏡射資料保險箱原則、以長期保留備份資料、而不受來源磁碟區快照保留設定影響。vVols 支援這兩種機制。
-
-
-
-
- a| 
-* 由於選擇控制閥也需要 VMware vSphere 的 ONTAP 工具才能使用 vVols 功能、因此請務必檢查 NetApp 互通性對照表工具（ IMT ）以瞭解特定版本的相容性
-
-
-
-
- a| 
-* 如果您在 VMware SRM 中使用 vVols 複寫、請注意您的原則 RPO 和備份排程
-
-
-
-
- a| 
-* 使用保留設定來設計備份原則、以符合組織定義的還原點目標（ RPO ）
-
-
-
-
- a| 
-* 在資源群組上設定通知設定、以便在執行備份時收到狀態通知（請參閱下方圖 10 ）
-
-
-|===
 
 
 === 資源群組通知選項

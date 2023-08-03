@@ -8,6 +8,7 @@ summary:
 :allow-uri-read: 
 
 
+[role="lead"]
 NetApp的Chance Bingen
 
 本文件說明用於保護 NetApp SnapCenter Plug-in for VMware vSphere 4.X 免受產品環境中現有和新興威脅的技術與技術。
@@ -16,7 +17,6 @@ NetApp的Chance Bingen
 
 == 安全的開發活動
 
-[role="lead"]
 適用於VMware vSphere軟體工程的NetApp SnapCenter 支援外掛程式使用下列安全開發活動：
 
 * *威脅建模。*威脅建模的目的是在軟體開發生命週期初期、發現某項功能、元件或產品的安全性瑕疵。威脅模式是對影響應用程式安全性的所有資訊的結構化呈現。基本上、它是透過安全性觀點來檢視應用程式及其環境。
@@ -63,6 +63,7 @@ permitted by applicable law.
 
 下表提供開放連接埠詳細資料。
 
+[cols="60%, 40%"]
 |===
 | TCP v4/v6連接埠號碼 | 功能 
 
@@ -94,17 +95,3 @@ permitted by applicable law.
 
 
 NetApp針對SnapCenter VMware vSphere應用裝置開發有關VMware vSphere外掛程式的軟體功能與安全性修補程式、然後將其作為套裝軟體平台發佈給客戶。由於這些應用裝置包括特定的Linux子作業系統相依性、以及我們的專屬軟體、因此NetApp建議您不要變更子作業系統、因為這會對NetApp應用裝置造成重大影響。這可能會影響NetApp支援應用裝置的能力。NetApp建議測試及部署我們最新的應用裝置程式碼版本、因為這些版本已發行以修補任何與安全性相關的問題。
-
-
-
-== 版本歷程記錄
-
-|===
-| 版本 | 日期 | 文件版本歷程記錄 
-
-
-| 1.0版 | 2022年3月 | 初始版本。 
-
-
-| 版本 1.0.1 | 2023 年 6 月 | 少量的語法和品牌編輯。 
-|===

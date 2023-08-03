@@ -24,12 +24,11 @@ summary: 在流程9中ONTAP 、叢集管理員可以看到叢集的實體元件�
 * SVM可控制橫跨叢集中多個節點的LUN和磁碟區。
 
 
-|===
-| 最佳實務做法 
+* 最佳實務 *
+
+. 若要判斷可支援性、請謹記此規則：若要使用SRM和NetApp SRA來保護VM、VM的所有部分都必須只存在於一個SVM上。此規則同時適用於受保護的站台和恢復站台。
 
 
-| 若要判斷可支援性、請謹記此規則：若要使用SRM和NetApp SRA來保護VM、VM的所有部分都必須只存在於一個SVM上。此規則同時適用於受保護的站台和恢復站台。 
-|===
 
 
 == 支援的SnapMirror配置
@@ -93,12 +92,11 @@ NOTE: NetApp SRA支援「鏡射-保存庫」原則類型。
 
 如需SnapMirror和SnapVault 適用於ONTAP SnapMirror的更新資訊、請參閱 https://www.netapp.com/media/17229-tr4015.pdf?v=127202175503P["TR-4015《SnapMirror組態最佳實務指南ONTAP 》（英文）。"^]
 
-|===
-| 最佳實務做法 
+* 最佳實務 *
+
+. 如果SnapVault 在同一個環境中使用了VMware vCenter和SRM、NetApp建議使用SnapMirror SnapVault 來進行還原串聯組態、SnapVault 以便從DR站台的SnapMirror目的地執行還原備份。發生災難時、此組態會使主要站台無法存取。將SnapVault 還原目的地保留在恢復站台、可在SnapVault 容錯移轉後重新設定還原功能、SnapVault 以便在恢復站台上操作時繼續執行還原備份。
 
 
-| 如果SnapVault 在同一個環境中使用了VMware vCenter和SRM、NetApp建議使用SnapMirror SnapVault 來進行還原串聯組態、SnapVault 以便從DR站台的SnapMirror目的地執行還原備份。發生災難時、此組態會使主要站台無法存取。將SnapVault 還原目的地保留在恢復站台、可在SnapVault 容錯移轉後重新設定還原功能、SnapVault 以便在恢復站台上操作時繼續執行還原備份。 
-|===
 在VMware環境中、每個資料存放區都有通用唯一識別碼（UUID）、而且每個VM都有唯一的託管物件ID（MOID）。在容錯移轉或容錯回復期間、SRM不會維護這些ID。由於SRM在容錯移轉期間不會維護資料存放區UUID和VM MOID、因此在SRM容錯移轉之後、任何依賴這些ID的應用程式都必須重新設定。例如NetApp Active IQ Unified Manager 解決方案就是應用程式、它可協調SnapVault vSphere環境中的功能複寫。
 
 下圖說明SnapMirror至SnapVault SnapMirror串聯組態。如果該站台位於DR站台或第三站台、但不受主站台中斷影響、則可重新設定環境、以便在容錯移轉後繼續備份。SnapVault
@@ -125,9 +123,7 @@ qtree是允許應用NAS檔案系統配額的特殊目錄。利用SnapMirror複�
 
 VMware SRM和NetApp SRA支援在一個站台使用FC傳輸協定、在另一個站台使用iSCSI傳輸協定。不過、它不支援在同一個ESXi主機或同一個叢集中的不同主機上混合使用FC附加資料存放區和iSCSI附加資料存放區。SRM不支援此組態、因為在SRM容錯移轉或測試容錯移轉期間、SRM會在要求中包含ESXi主機中的所有FC和iSCSI啟動器。
 
-|===
-| 最佳實務做法 
+* 最佳實務 *
 
+. SRM和SRA支援受保護站台與恢復站台之間的混合FC和iSCSI傳輸協定。不過、每個站台只能設定一個FC或iSCSI傳輸協定、而非在同一個站台設定兩個傳輸協定。如果要求在同一個站台同時設定FC和iSCSI傳輸協定、NetApp建議某些主機使用iSCSI、而其他主機則使用FC。在此情況下、NetApp也建議設定SRM資源對應、以便將VM設定為容錯移轉至一組主機或另一組主機。
 
-| SRM和SRA支援受保護站台與恢復站台之間的混合FC和iSCSI傳輸協定。不過、每個站台只能設定一個FC或iSCSI傳輸協定、而非在同一個站台設定兩個傳輸協定。如果要求在同一個站台同時設定FC和iSCSI傳輸協定、NetApp建議某些主機使用iSCSI、而其他主機則使用FC。在此情況下、NetApp也建議設定SRM資源對應、以便將VM設定為容錯移轉至一組主機或另一組主機。 
-|===
