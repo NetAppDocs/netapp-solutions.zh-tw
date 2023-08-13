@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: databases/snapctr_svcs_ora.html 
 keywords: Oracle, Database, SnapCenter, SnapShot, FlexClone, BlueXP, Database Backup, Database Restore, Database Clone 
-summary: 本解決方案提供使用 BlueXP 主控台的 NetApp SnapCenter SaaS 進行 Oracle 資料庫備份、還原、複製的概觀與詳細資料。 
+summary: 本解決方案提供使用 Azure 雲端中 BlueXP 主控台的 NetApp SnapCenter SaaS 進行 Oracle 資料庫備份、還原、複製的概觀與詳細資料。 
 ---
-= TR-4964 ：使用 SnapCenter 服務備份、還原及複製 Oracle 資料庫
+= TR-4964 ：使用 SnapCenter 服務 - AWS 備份、還原及複製 Oracle 資料庫
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -13,6 +13,7 @@ summary: 本解決方案提供使用 BlueXP 主控台的 NetApp SnapCenter SaaS 
 :imagesdir: ./../media/
 
 
+[role="lead"]
 NetApp公司的Alleno Cao、Niyazz Mohamed
 
 
@@ -60,19 +61,21 @@ image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台中的 Clou
 
 === 硬體與軟體元件
 
+*硬體*
+
 [cols="33%, 33%, 33%"]
 |===
 
 
-| 3^ | *硬體* | FSX ONTAP 支援儲存 
+| FSX ONTAP 支援儲存 | AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 
 
 
-| AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 | EC2運算執行個體 
+| EC2運算執行個體 | T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器 
+|===
+*軟體*
 
-
-| T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器
-
-3^ | *軟體* 
+[cols="33%, 33%, 33%"]
+|===
 
 
 | RedHat Linux | RHEL-8.6.0_HVM-20220504-x86_64：2-Hourly2-GP2 | 已部署RedHat訂閱以進行測試 
@@ -94,10 +97,10 @@ image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台中的 Clou
 === 部署考量的關鍵因素
 
 * * Connector 部署在與資料庫和 FSX 相同的 VPC 中。 * 盡可能將連接器部署在相同的 AWS VPC 中、以便連線至 FSX 儲存設備和 EC2 運算執行個體。
-* * 為 SnapCenter Connector 建立的 AWS IAM 原則。 * 詳細的 SnapCenter 服務文件中提供 JSON 格式的原則。當您使用 BlueXP 主控台啟動 Connector 部署時、系統會提示您設定先決條件。原則應指派給擁有連接器的 AWS 使用者帳戶。
-* * AWS 帳戶存取金鑰和在 AWS 帳戶中建立的 SSH 金鑰配對。 * SSH 金鑰配對會指派給 EC2 使用者、用於登入連接器主機、然後將資料庫外掛程式部署到 EC2 DB 伺服器主機。存取金鑰會授予資源配置所需連接器的權限。
-* * 新增至 BlueXP 主控台設定的認證。 * 若要將 Amazon FSX for ONTAP 新增至 BlueXP 工作環境、您可以在 BlueXP 主控台設定中設定認證、以授予從 BlueXP 主控台存取 Amazon FSX for ONTAP 的權限。
-* * 部署至 EC2 資料庫執行個體主機的 SnapCenter 外掛程式。 * SnapCenter 服務會撥打由 EC2 資料庫執行個體主機上的 SnapCenter 外掛程式執行的 API 呼叫。您必須在設定服務之前部署。
+* * 為 SnapCenter Connector 建立的 AWS IAM 原則。 * 詳細的 SnapCenter 服務文件中提供 JSON 格式的原則。當您使用 BlueXP 主控台啟動 Connector 部署時、系統也會提示您設定先決條件、並以 JSON 格式提供必要權限的詳細資料。原則應指派給擁有連接器的 AWS 使用者帳戶。
+* * AWS 帳戶存取金鑰和在 AWS 帳戶中建立的 SSH 金鑰配對。 * SSH 金鑰配對會指派給 EC2 使用者、用於登入連接器主機、然後將資料庫外掛程式部署到 EC2 DB 伺服器主機。存取金鑰可授予權限、以使用上述 IAM 原則來配置所需的連接器。
+* * 新增至 BlueXP 主控台設定的認證。 * 若要將 Amazon FSX for ONTAP 新增至 BlueXP 工作環境、請在 BlueXP 主控台設定中設定認證、以授予 BlueXP 存取 Amazon FSX for ONTAP 的權限。
+* * 安裝在 EC2 資料庫執行個體主機上的 Java-11-OpenJDK 。 * SnapCenter 服務安裝需要 Java 版本 11 。在外掛程式部署嘗試之前、必須先將其安裝在應用程式主機上。
 
 
 
@@ -123,9 +126,9 @@ video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto]
 部署需要下列先決條件。
 
 . EC2 執行個體上的主要 Oracle 資料庫伺服器、已完全部署並執行 Oracle 資料庫。
-. 在 AWS 中部署的 Amazon FSX for ONTAP 叢集、託管上述資料庫。
-. EC2 執行個體上的選用資料庫伺服器、可用於測試將 Oracle 資料庫複製到替代主機的情形、以支援開發 / 測試工作負載、或是任何需要完整資料集正式作業 Oracle 資料庫的使用案例。
-. 如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^]。
+. 在 AWS 中部署的 Amazon FSX for ONTAP 叢集、裝載上述資料庫磁碟區。
+. EC2 執行個體上的選用資料庫伺服器、可用於測試將 Oracle 資料庫複製到替代主機的情形、以支援開發 / 測試工作負載、或是任何需要正式作業 Oracle 資料庫完整資料集的使用案例。
+. 如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^] 或白皮書 link:aws_ora_fsx_ec2_deploy_intro.html["在 EC2 和 FSX 最佳實務上部署 Oracle 資料庫"^]
 
 
 ====
@@ -136,14 +139,14 @@ video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto]
 [%collapsible]
 ====
 . 使用連結 link:https://console.bluexp.netapp.com/["NetApp BlueXP"] 註冊 BlueXP 主控台存取。
-. 若要設定 BlueXP 來管理 AWS 雲端資源、例如 Amazon FSX for ONTAP 、您應該已經設定 AWS 帳戶。接著您可以登入 AWS 帳戶、建立 IAM 原則、將 SnapCenter 服務存取權授予 AWS 帳戶、以用於連接器部署。
-
-
+. 登入 AWS 帳戶以建立具有適當權限的 IAM 原則、並將原則指派給將用於 BlueXP Connector 部署的 AWS 帳戶。
++
 image:snapctr_svcs_connector_01-policy.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-原則應設定為 JSON 字串、在啟動連接器資源配置時可使用、系統會提示您已建立 IAM 原則、並將其授予用於連接器部署的 AWS 帳戶。
++
+原則應使用 NetApp 文件中提供的 JSON 字串來設定。當啟動 Connector 資源配置、並提示您指定先決條件權限時、也可以從頁面擷取 JSON 字串。
 
-. 您也需要 AWS VPC 、 AWS 帳戶的金鑰和機密、用於 EC2 存取的 SSH 金鑰、安全群組等、才能準備好配置連接器。
+. 您也需要 AWS VPC 、子網路、安全性群組、 AWS 使用者帳戶存取金鑰和密碼、 EC2 使用者的 SSH 金鑰等、才能準備好配置連接器。
 
 
 ====
@@ -154,8 +157,7 @@ image:snapctr_svcs_connector_01-policy.png["GUI 中顯示此步驟的螢幕擷�
 [%collapsible]
 ====
 . 登入 BlueXP 主控台。若是共用帳戶、最佳做法是按一下 * 帳戶 * > * 管理帳戶 * > * 工作區 * 來新增工作區、以建立個別工作區。
-
-
++
 image:snapctr_svcs_connector_02-wspace.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * 新增 Connector* 以啟動 Connector 資源配置工作流程。
@@ -173,9 +175,8 @@ image:snapctr_svcs_connector_04-aws.png["GUI 中顯示此步驟的螢幕擷取�
 
 image:snapctr_svcs_connector_05-remind.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 輸入 AWS 帳戶驗證存取金鑰和秘密金鑰。
-
-
+. 使用 * 存取金鑰 * 和 * 秘密金鑰 * 來輸入 AWS 帳戶驗證。
++
 image:snapctr_svcs_connector_06-auth.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 命名連接器執行個體、然後在 * 詳細資料 * 下選取 * 建立角色 * 。
@@ -183,14 +184,12 @@ image:snapctr_svcs_connector_06-auth.png["GUI 中顯示此步驟的螢幕擷取�
 
 image:snapctr_svcs_connector_07-details.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 使用適當的 VPC 、子網路和 SSH 金鑰配對來設定網路、以供 EC2 存取。
-
-
+. 使用適當的 *VPC* 、 * 子網路 * 和 SSH * 金鑰配對 * 來設定網路連線、以進行連接器存取。
++
 image:snapctr_svcs_connector_08-network.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 設定連接器的安全性群組。
-
-
+. 設定連接器的 * 安全性群組 * 。
++
 image:snapctr_svcs_connector_09-security.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱摘要頁面、然後按一下 * 新增 * 以開始建立連接器。完成部署通常需要 10 分鐘。完成後、連接器執行個體會顯示在 AWS EC2 儀表板中。
@@ -198,7 +197,43 @@ image:snapctr_svcs_connector_09-security.png["GUI 中顯示此步驟的螢幕擷
 
 image:snapctr_svcs_connector_10-review.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 部署連接器之後、請以 EC2 使用者的身分、使用 SSH 金鑰登入連接器 EC2 主機、以安裝 SnapCenter 外掛程式、並遵循下列指示： link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/task-add-host-discover-oracle-databases.html#deploy-the-plug-in-using-script-and-add-host-from-ui-using-manual-option["使用指令碼部署外掛程式、並使用手動選項從UI新增主機"^]。
+====
+
+
+=== 在 BlueXP 中定義用於 AWS 資源存取的認證
+
+[%collapsible]
+====
+. 首先、從 AWS EC2 主控台、在 * 身分識別與存取管理（ IAM ） * 功能表 * 角色 * 、 * 建立角色 * 中建立角色、以開始角色建立工作流程。
++
+image:snapctr_svcs_credential_01-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 在 * 選取信任的實體 * 頁面中、選擇 * AWS 帳戶 * 、 * 另一個 AWS 帳戶 * 、然後貼到 BlueXP 帳戶 ID 、可從 BlueXP 主控台擷取。
++
+image:snapctr_svcs_credential_02-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 依 FSX 篩選權限原則、並將 * 權限原則 * 新增至角色。
++
+image:snapctr_svcs_credential_03-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 在 * 角色詳細資料 * 頁面中、命名角色、新增說明、然後按一下 * 建立角色 * 。
++
+image:snapctr_svcs_credential_04-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 回到 BlueXP 主控台、按一下主控台右上角的設定圖示以開啟 * 帳戶認證 * 頁面、按一下 * 新增認證 * 以啟動認證組態工作流程。
++
+image:snapctr_svcs_credential_05-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 選擇認證位置為： * Amazon Web Services - BlueXP* 。
++
+image:snapctr_svcs_credential_06-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 使用適當的 * 角色 ARN* 來定義 AWS 認證、可從上述步驟一所建立的 AWS IAM 角色中擷取。BlueXP * 帳戶 ID* 、用於在步驟一中建立 AWS IAM 角色。
++
+image:snapctr_svcs_credential_07-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+. 審查與 * 新增 * 。
+image:snapctr_svcs_credential_08-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 ====
@@ -208,7 +243,7 @@ image:snapctr_svcs_connector_10-review.png["GUI 中顯示此步驟的螢幕擷�
 
 [%collapsible]
 ====
-部署連接器後、現在可以使用下列程序來設定 SnapCenter 服務：
+部署連接器並新增認證之後、即可透過下列程序來設定 SnapCenter 服務：
 
 . 從 * 我的工作環境 * 按一下 * 新增工作環境 * 、探索在 AWS 中部署的 FSX 。
 
@@ -225,9 +260,8 @@ image:snapctr_svcs_setup_02.png["GUI 中顯示此步驟的螢幕擷取畫面。"
 
 image:snapctr_svcs_setup_03.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 選取提供 BlueXP 所需權限的認證、以管理 ONTAP 的 FSX 。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。
-
-
+. 選取您在上一節中建立的 * 認證名稱 * 、以授予 BlueXP 管理 ONTAP 的 FSX 所需的權限。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。
++
 image:snapctr_svcs_setup_04.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇部署 Amazon FSX for ONTAP 的 AWS 區域、選取裝載 Oracle 資料庫的 FSX 叢集、然後按一下「新增」。
@@ -265,15 +299,23 @@ image:snapctr_svcs_setup_10.png["GUI 中顯示此步驟的螢幕擷取畫面。"
 
 image:snapctr_svcs_setup_13.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 提供 Oracle EC2 執行個體主機詳細資料以新增主機。核取此方塊以確認主機上的 Oracle 外掛程式已安裝、因為您在配置連接器之後部署外掛程式。
+. 填寫 AWS EC2 Oracle 應用程式主機詳細資料。選擇 * 使用 SSH* 作為 * 主機安裝類型 * 、以進行單一步驟外掛程式安裝和資料庫探索。然後按一下 * 新增 SSH 私密金鑰 * 。
++
+image:snapctr_svcs_setup_14.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
+. 將您的 EC2 使用者 SSH 金鑰貼到資料庫 EC2 主機、然後按一下 * 驗證 * 繼續。
++
+image:snapctr_svcs_setup_14-1.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-image:snapctr_svcs_setup_16.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+. 系統將提示您 * 驗證指紋 * 以繼續。
++
+image:snapctr_svcs_setup_14-2.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 探索 Oracle EC2 主機並將其新增至 * 應用程式 * 、主機上的任何資料庫也會一併探索並顯示在頁面上。資料庫 * 保護狀態 * 顯示為 * 未受保護 * 。
-
-
+. 按一下 * 下一步 * 安裝 Oracle 資料庫外掛程式、並探索 EC2 主機上的 Oracle 資料庫。發現的資料庫會新增至 * 應用程式 * 。最初發現資料庫 * 保護狀態 * 時、資料庫會顯示為 * 未受保護 * 。
++
 image:snapctr_svcs_setup_17.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+
+
 
 這將完成 Oracle SnapCenter 服務的初始設定。本文件接下來三節將說明 Oracle 資料庫備份、還原及複製作業。
 
