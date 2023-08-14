@@ -2,15 +2,16 @@
 sidebar: sidebar 
 permalink: containers/rh-os-n_overview_openshift.html 
 keywords: OpenShift, deploy, baremetal, private cloud, virtual 
-summary: Red Hat OpenShift Container Platform將開發與IT作業整合在單一平台上、可在內部部署與混合雲基礎架構之間一致地建置、部署及管理應用程式。Red Hat OpenShift以開放原始碼創新技術和產業標準為基礎、包括Kubernetes和Red Hat Enterprise Linux CoreOS、這是全球領先業界的企業級Linux套裝作業系統、專為以容器為基礎的工作負載所設計。 
+summary: Red Hat OpenShift Container Platform將開發與IT作業整合在單一平台上、可在內部部署與混合雲基礎架構之間一致地建置、部署及管理應用程式。Red Hat OpenShift 是以開放原始碼創新技術和產業標準為基礎打造、包括 Kubernetes 和 Red Hat Enterprise Linux CoreOS 、這是專為容器型工作負載所設計的領先企業級 Linux 套裝作業系統。 
 ---
 = OpenShift總覽
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
 
-
-
-
-== OpenShift總覽
 
 [role="lead"]
 Red Hat OpenShift Container Platform將開發與IT作業整合在單一平台上、可在內部部署與混合雲基礎架構之間一致地建置、部署及管理應用程式。Red Hat OpenShift以開放原始碼創新技術和產業標準為基礎、包括Kubernetes和Red Hat Enterprise Linux CoreOS、這是全球領先業界的企業級Linux套裝作業系統、專為以容器為基礎的工作負載所設計。OpenShift是Cloud Native Computing Foundation（CNCF）認證Kubernetes方案的一部分、提供容器工作負載的可攜性與互通性。
@@ -19,17 +20,18 @@ Red Hat OpenShift Container Platform將開發與IT作業整合在單一平台上
 
 == Red Hat OpenShift提供下列功能：
 
-* *自助服務資源配置。*開發人員可利用最常用的工具、快速輕鬆地隨需建立應用程式、而營運部門則可完全掌控整個環境。
-* *持續儲存。* OpenShift Container Platform支援持續儲存、可讓您同時執行狀態化應用程式和雲端原生無狀態應用程式。
-* *持續整合與持續開發（CI/CD）。*此原始碼平台可大規模管理建置與部署映像。
-* *開放原始碼標準。*這些標準除了其他開放原始碼技術之外、還納入開放容器方案（OCI）和Kubernetes的容器協調功能。您不受限於特定廠商的技術或業務藍圖。
-* * CI/CD管道。* OpenShift為CI/CD管道提供隨裝即用的支援、讓開發團隊能夠自動化應用程式交付程序的每個步驟、並確保在應用程式的程式碼或組態所做的每個變更中執行。
-* *角色型存取控制（RBAC）。*此功能可提供團隊與使用者追蹤功能、協助組織大型開發人員群組。
-* *自動化建置與部署。* OpenShift可讓開發人員選擇建置容器化的應用程式、或是讓平台從應用程式原始程式碼、甚至是二進位檔來建置容器。然後、平台會根據應用程式定義的特性、在基礎架構上自動部署這些應用程式。例如、應該配置的資源數量、以及應該部署在基礎架構上的何處、以符合第三方授權的要求。
-* *一致的環境。* OpenShift可確保為開發人員配置的環境、以及應用程式的整個生命週期、從作業系統到程式庫、執行時間版本（例如Java執行時間）、 甚至是使用中的應用程式執行時間（例如tomcat）、以移除來自不一致環境的風險。
-* *組態管理。*組態與敏感資料管理是內建於平台中、無論應用程式是使用何種技術來建置應用程式、或是部署何種環境、都能為應用程式提供一致且不受環境限制的應用程式組態。
-* *應用程式記錄與指標。*快速回應是應用程式開發的重要層面。OpenShift整合式監控與記錄管理功能可立即提供指標給開發人員、讓他們瞭解應用程式在變更過程中的運作方式、並能在應用程式生命週期中盡快修正問題。
-* *安全性與容器目錄。* OpenShift提供多租戶共享功能、並利用安全性增強的Linux（SELinux）、cGroups及安全運算模式（seccompp）來隔離及保護容器、保護使用者免受有害程式碼執行的危害。它也透過TLS憑證為各種子系統提供加密功能、並可存取經過掃描和評分的Red Hat認證容器（access.redhat.com/containers）、特別強調安全性、為終端使用者提供認證、信任和安全的應用程式容器。
+* * 自助服務資源配置 * 開發人員可以利用他們最常用的工具、快速輕鬆地根據需求建立應用程式、同時讓作業完全掌控整個環境。
+* * 持續儲存 * OpenShift Container Platform 支援持續儲存、可讓您同時執行有狀態的應用程式和雲端原生無狀態應用程式。
+* * 持續整合與持續開發（ CI/CD ） * 此原始碼平台可大規模管理建置與部署映像。
+* * 開放原始碼標準 * 除了其他開放原始碼技術之外、這些標準還納入開放容器計畫（ OCI ）和 Kubernetes 、以進行容器協調。您不受限於特定廠商的技術或業務藍圖。
+* * CI/CD 管線 * OpenShift 提供立即可用的 CI/CD 管線支援、讓開發團隊能夠自動化應用程式交付程序的每個步驟、並確保在對應用程式程式碼或組態所做的每一項變更上執行。
+* * 角色型存取控制（ RBAC ） * 此功能提供團隊與使用者追蹤功能、協助組織大型開發人員群組。
+* * 自動化建置與部署 * OpenShift 可讓開發人員選擇建置容器化應用程式、或是讓平台從應用程式原始碼或甚至是二進位檔建置容器。然後、平台會根據應用程式定義的特性、在基礎架構上自動部署這些應用程式。例如、應該配置的資源數量、以及應該部署在基礎架構上的何處、以符合第三方授權的要求。
+* * 一致的環境 * OpenShift 可確保為開發人員及整個應用程式生命週期所配置的環境、無論是作業系統、程式庫、執行階段版本（例如 Java 執行時期）、 甚至是使用中的應用程式執行階段（例如、 tomcat ）、以移除不一致環境所產生的風險。
+* * 組態管理 * 平台內建組態與敏感資料管理功能、無論使用哪些技術來建置應用程式、或是使用何種環境、都能確保應用程式的應用程式組態一致且不受環境限制
+已部署。
+* * 應用程式記錄和指標。 * 快速意見反應是應用程式開發的重要層面。OpenShift整合式監控與記錄管理功能可立即提供指標給開發人員、讓他們瞭解應用程式在變更過程中的運作方式、並能在應用程式生命週期中盡快修正問題。
+* * 安全性與容器目錄 * OpenShift 提供多租戶服務、並使用安全增強型 Linux （ SELinux ）、 cgroups 和安全運算模式（ seccomp ）來隔離及保護容器、保護使用者免於執行有害程式碼。它也透過TLS憑證為各種子系統提供加密功能、並可存取經過掃描和評分的Red Hat認證容器（access.redhat.com/containers）、特別強調安全性、為終端使用者提供認證、信任和安全的應用程式容器。
 
 
 image:redhat_openshift_image4.png["錯誤：缺少圖形影像"]
@@ -48,7 +50,7 @@ image:redhat_openshift_image4.png["錯誤：缺少圖形影像"]
 
 安裝程式佈建的OpenShift基礎架構（IPI）部署包括下列高層級步驟：
 
-. 請造訪Red Hat OpenShift https://www.openshift.com["網站"^] 並使用SSO認證登入。
+. 請造訪Red Hat OpenShift link:https://www.openshift.com["網站"^] 並使用SSO認證登入。
 . 選取您要部署Red Hat OpenShift的環境。
 +
 image:redhat_openshift_image8.jpeg["錯誤：缺少圖形影像"]
@@ -57,7 +59,7 @@ image:redhat_openshift_image8.jpeg["錯誤：缺少圖形影像"]
 +
 image:redhat_openshift_image9.jpeg["錯誤：缺少圖形影像"]
 
-. 請依照 https://docs.openshift.com/container-platform/4.7/installing/index.html["安裝說明"] 由Red Hat提供、可部署至您選擇的環境。
+. 請依照 link:https://docs.openshift.com/container-platform/4.7/installing/index.html["安裝說明"] 由Red Hat提供、可部署至您選擇的環境。
 
 
 

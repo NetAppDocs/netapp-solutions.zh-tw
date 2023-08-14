@@ -1,0 +1,162 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vmware-glossary.html 
+keywords: netapp, vmware, product, glossary 
+summary:  
+---
+= VMware 與 NetApp ：強大的解決方案聯盟
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+NetApp 和 VMware 合作夥伴關係是唯一的合作夥伴關係、單一儲存系統可解決 VMware 定義的所有關鍵使用案例。
+
+
+
+== VMware vSphere
+
+* 什麼是 VMware vSphere ？ *
+
+vSphere 是 VMware 伺服器虛擬化產品套件的產品名稱、其中包括其 ESXi Hypervisor 和 vCenter 管理軟體。
+
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/What-s-new-with-ONTAP-tools-for-VMware-vSphere-9-12/ba-p/443759["為何您應該使用 NetApp ONTAP 工具升級至 vSphere 8"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["取得適用於 vSphere 的 ONTAP 工具的所有文件"]
+* link:index.html["探索適用於 VMware vSphere 的 NetApp 解決方案"]
+* link:vmware-vsphere8-intro.html["VMware vSphere 8 的新功能"]
+* link:https://docs.netapp.com/us-en/ontap-whatsnew/ontap98fo_vmware_virtualization.html["ONTAP 中的 VMware 虛擬化新功能"]
+* link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["深入瞭解適用於 vSphere 的 SnapCenter 外掛程式"]
+* link:https://docs.netapp.com/us-en/vsc-vasa-provider-sra-97/deploy/concept-virtual-storage-console-overview.html#vasa-provider["深入瞭解 NetApp VASA 供應商"]
+
+
+* VMware 為何重視外部儲存設備？ *
+
+客戶通常會有各種工作負載需求、包括與其應用程式、使用者及保護原則所需的儲存相關的工作負載需求。對於 VMware 環境、這些需求通常以資料存放區或來賓連線儲存設備的形式來滿足。資料存放區可透過 VMware vCenter 組態使用、而來賓連線的儲存設備則是以每個 VM 或容器為基礎。通常、這兩種存取方法都是透過 NetApp ONTAP 等共享儲存設備來提供協助。
+
+VMware 將儲存設備分為兩類：傳統儲存設備和軟體定義儲存模式。傳統儲存模式包括 SAN 、 NAS 和原始裝置對應（ RDM ）等組態、而軟體定義儲存模式則包括 VMware 虛擬磁碟區（ vVols ）和 vSAN 。NetApp 是適用於傳統儲存產品和 VVols 的完美平台、我們的產品整合、企業級功能、以及解決方案深度和廣度都證明了這一點。
+
+* VMware 資料存放區如何運作？ *
+
+資料存放區是邏輯容器、類似於檔案系統、可隱藏實體儲存設備的詳細資訊、並提供統一的模型來儲存虛擬機器檔案。資料存放區也可用於儲存 ISO 映像、虛擬機器範本和磁片映像。
+
+* link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_best_practices.html#vsphere-datastore-and-protocol-features["NetApp ONTAP 支援所有儲存傳輸協定"]
+
+
+* 什麼是 FlexPod ？ *
+
+FlexPod 是 Cisco / NetApp 合作夥伴提供的融合式基礎架構解決方案。  它包含由運算、網路和儲存設備組成的「一體化」虛擬資料中心。  FlexPod 提供許多以 VMware 產品為基礎的解決方案。
+
+* link:https://docs.netapp.com/us-en/flexpod/["FlexPod 解決方案文件儲存庫"]
+
+
+* 為什麼 NVMe over TCP 對 VM 很重要？ *
+
+對於在 NVMe over TCP 上執行的 VM 、您可以利用 NVMe 搭配 NetApp 上的虛擬磁碟區來降低 CPU 使用率、並獲得效能和可靠性、以實現擴充性、簡易性和自動化。
+
+* link:https://www.netapp.com/data-storage/nvme/what-is-nvme/?internal_promo=comp_pure_ww_ontap_awareness-coas_blog["瞭解 NVMe 的優點"]
+
+
+
+
+== VMware HCX [[HCx]]
+
+* 什麼是 VMware HCX ？ *
+
+VMware HCX 是一套應用程式行動平台、專為簡化應用程式移轉、重新平衡工作負載、以及最佳化跨資料中心和雲端的災難恢復而設計。
+
+HCx 在兩個或更多不同的環境之間提供服務。環境可能執行舊版 vSphere 、或是執行現代化的 vSphere SDDC 、也可能是 VMware 型公有雲執行個體。
+
+image::vmware-hcx.png[VMware HCx]
+
+* link:../ehc/aws/aws-migrate-vmware-hcx.html["使用 VMware HCX 將工作負載移轉至 FSX ONTAP 資料存放區"]
+* link:../ehc/azure/azure-migrate-vmware-hcx.html["使用 VMware HCX 將工作負載移轉至 Azure NetApp Files 資料存放區"]
+* link:../ehc/gcp/gcp-migrate-vmware-hcx.html["使用 VMware HCX 將工作負載移轉至 Google Cloud 上的 NetApp Cloud Volume Service 資料存放區 VMware Engine"]
+
+
+
+
+== VMware Tanzu[[tanzu]
+
+* 什麼是 VMware Tanzu ？ *
+
+vSphere with Tanzu 是適用於容器化應用程式的新一代 vSphere 。這套簡化的單一解決方案、可為內部部署和公有雲中的現代化雲端原生應用程式、提供新型基礎架構、讓 IT 營運與開發人員之間的差距得以跨越。
+
+* link:https://www.netapp.com/hybrid-cloud/vmware/what-is-vmware-tanzu/["使用 VMware Tanzu 管理 Kubernetes"]
+* link:../containers/tanzu_with_netapp/vtwn_solution_overview.html["適用於 VMware Tanzu 的 NetApp 解決方案"]
+
+
+
+
+== VMware Aria [[ARIA]]
+
+* 什麼是 VMware Aria ？ *
+
+VMware Aria 是一款智慧型多雲端管理解決方案、包含一套產品、可讓您持續部署及操作應用程式、基礎架構及平台服務。透過 ARIA 、您可以透過單一平台和通用資料模型、在私有雲、混合雲和多個雲端之間控制環境。
+
+Aria Automation Orchestrator Client 的編輯器可利用預先定義和系統管理員設定的工作流程庫、建立簡單易用的服務項目。透過將此程式庫中預先定義的儲存工作與 NetApp 的 REST API 結合、您可以建立各種服務項目。只有在 Aria Automation 的自助服務目錄中發佈這些服務項目、才能達成任何業務或 IT 目標。
+
+除了可達成的作業相關工作之外、 Aria 還能協助管理員即時掌握其基礎架構。VMware Aria Management Pack for NetApp FS/AFF 是適用於 VMware Aria Operations 的內嵌介面卡。這項整合可提供基礎架構的分析和最新資訊、協助您在問題發生時或可能更快發現問題。
+
+* link:https://www.vmware.com/products/aria.html["VMware Aria 文件"]
+* link:https://docs.vmware.com/en/VMware-Aria-Operations-for-Integrations/4.2/Management-Pack-for-NetApp-FAS-AFF/GUID-9B9C2353-3975-403A-8803-EBF6CDB62D2C.html["適用於 NetApp FS/AFF 的 VMware Aria Operations Management Pack"]
+
+
+
+
+== VMware 虛擬磁碟區（ vVols ）
+
+* 什麼是 VMware 虛擬磁碟區（ vVols ）？ *
+
+VMware vVols 是虛擬機器的低層儲存設備、可支援儲存陣列層級上的作業、類似於用於建立資料存放區的傳統 LUN 。儲存陣列不使用傳統的 VMFS 檔案系統、而是定義如何使用儲存陣列來提供虛擬機器的存取和組織資料。
+
+* link:https://www.netapp.tv/details/29476["瞭解 VMware vVols 在 NetApp 上的功能"]
+* link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vvols-overview.html["VVols 技術文件"]
+
+
+
+
+== VMware Cloud Foundation （ VCF ）
+
+* 什麼是 VMware Cloud Foundation ？ *
+
+VMware Cloud Foundation （ VCF ）是適用於傳統企業和現代應用程式的混合雲平台。以 VMware 軟體定義堆疊為基礎、用於運算、儲存、網路、容器和雲端管理； VCF 內的資源可透過建立網域來提供。根據最佳實務做法、網域會將運算、網路和儲存設備分組到邏輯單元中。網域有兩種類型：初始管理網域和虛擬基礎架構工作負載網域。
+
+建立初始管理網域之後、會視需要部署後續的工作負載網域、以滿足業務需求。工作負載網域是透過主要儲存設備或補充儲存設備來配置效能和容量。Vcf 透過部署這些應用程式就緒的工作負載網域、為異質環境提供簡化且標準化的體驗。
+
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/deploy/vmware_cloud_foundation_mode_deployment.html["瞭解 NetApp 基礎架構如何與 VCF 搭配運作"]
+* link:https://www.vmware.com/products/cloud-foundation.html["VMware VCF 產品頁面"]
+* link:https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/flexpod_vcf_design.html["FlexPod as a Workload Domain for VMware Cloud Foundation 設計指南"]
+
+
+
+
+== VMware Site Recovery Manager （ SRM ）
+
+* 什麼是 VMware Site Recovery Manager ？ *
+
+Site Recovery Manager （ SRM ）是領先業界的災難恢復（ DR ）管理解決方案、可在發生災難時將停機時間降至最低。它提供原則型管理、自動化協調、以及不中斷營運的集中式恢復計畫測試。
+
+* link:vsrm-ontap9_1._introduction_to_srm_with_ontap.html["VMware Site Recovery Manager搭配NetApp ONTAP 功能9"]
+
+
+
+
+== VMware Cloud Services
+
+* 什麼是 VMware 與 NetApp 的混合式多雲端？ *
+
+沒有任何其他基礎架構供應商能同時支援 VMware 內部部署和雲端、任何雲端上的工作負載。  NetApp 是第一家在 AWS 、 Microsoft Azure 和 Google Cloud 上的雲端中支援 VMware 的基礎架構供應商。
+
+每個主要公有雲供應商都提供虛擬化服務、讓應用程式和工作負載可以在內部部署時執行。
+
+NetApp 為這些雲端虛擬化環境提供全套解決方案。
+
+* link:../ehc/index.html["適用於雲端虛擬化環境的 NetApp 解決方案"]
+* link:../ehc/aws/index.html["適用於 AWS VMware Cloud （ VMC ）的 NetApp 解決方案"]
+* link:../ehc/azure/index.html["適用於Azure VMware解決方案（AVS）"]
+* link:../ehc/gcp/index.html["NetApp Solutions for Google Cloud VMware Engine （ GCVE ）"]
+

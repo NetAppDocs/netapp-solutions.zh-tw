@@ -5,7 +5,21 @@ keywords: vSphere, datastore, VMFS, FCoE, ONTAP tools, zone, network interface
 summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援區FCoE VMFS資料存放區的步驟。 
 ---
 = vSphere VMFS資料存放區-採用ONTAP VMware解決方案的乙太網路光纖通道儲存傳輸協定
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+:scriptsdir: ./../scripts/
+:author: Suresh Thoppay, TME - Hybrid Cloud Solutions
+:ontap_version: ONTAP 9.8 or later
+:vsphere_version: vSphere 7.0 or later
+:firstname: Suresh
+:authorinitials: STT
+:middlename: Thoppay,
+:lastname: TME - Hybrid Cloud Solutions
+:authors: Suresh Thoppay, TME - Hybrid Cloud Solutions
 
 
 
@@ -21,14 +35,14 @@ summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援區FCoE V
 == 您需要的一切
 
 * 管理vSphere環境與ONTAP VMware所需的基本技能
-* 執行｛ONTAP_version｝的支援系統（FAS/AFF/CVO/ONTAP Select）ONTAP
+* 執行 ONTAP 9.8 或更新版本的 ONTAP 儲存系統（ FAS/AFF/CVO/ONTAP Select ）
 * 資訊（SVM名稱、使用者ID和密碼）ONTAP
 * link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-sanconf/GUID-CE5218C0-2572-4E12-9C72-BF04D5CE222A.html++["支援的FCoE組合"]
 * link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-fc-esx-cpg/GUID-429C4DDD-5EC0-4DBD-8EA8-76082AB7ADEC.html++["完整的組態工作表"]
 * vCenter Server認證
 * vSphere主機資訊
 +
-** ｛vSphere_version｝
+** vSphere 7.0 或更新版本
 
 
 * 網路交換器

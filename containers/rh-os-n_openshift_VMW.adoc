@@ -5,20 +5,25 @@ keywords: OpenShift, VMware vSphere, ESXi
 summary: VMware vSphere是一套虛擬化平台、可集中管理ESXi Hypervisor上執行的大量虛擬化伺服器和網路。 
 ---
 = VMware vSphere上的OpenShift
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
 
 
 [role="lead"]
 VMware vSphere是一套虛擬化平台、可集中管理ESXi Hypervisor上執行的大量虛擬化伺服器和網路。
 
-如需VMware vSphere的詳細資訊、請參閱 https://www.vmware.com/products/vsphere.html["VMware vSphere網站"^]。
+如需VMware vSphere的詳細資訊、請參閱 link:https://www.vmware.com/products/vsphere.html["VMware vSphere網站"^]。
 
 VMware vSphere提供下列功能：
 
-* * VMware vCenter Server.* VMware vCenter Server可從單一主控台統一管理所有主機和VM、並集合叢集、主機和VM的效能監控。
-* * VMware vSphere VMotion.* VMware vCenter可讓您在叢集內的節點之間、以不中斷營運的方式、根據要求熱移轉VM。
-* * vSphere High Availability。*為了避免主機故障時發生中斷、VMware vSphere允許將主機叢集化並設定為高可用度。由於主機故障而中斷的VM會在叢集中的其他主機上、於近期重新開機、以還原服務。
-* *分散式資源排程器（DRS）。* VMware vSphere叢集可設定為負載平衡其所託管之VM的資源需求。具有資源爭用的VM可熱移轉至叢集中的其他節點、以確保有足夠的可用資源。
+* * VMware vCenter Server* VMware vCenter Server 可從單一主控台統一管理所有主機和虛擬機器、並彙總叢集、主機和虛擬機器的效能監控。
+* * VMware vSphere VMotion* VMware vCenter 可讓您在要求時、以不中斷營運的方式、在叢集中的節點之間熱移轉 VM 。
+* * vSphere High Availability * 為了避免在主機故障時造成中斷、 VMware vSphere 可讓主機進行叢集化並設定為高可用度。由於主機故障而中斷的VM會在叢集中的其他主機上、於近期重新開機、以還原服務。
+* * 分散式資源排程器（ DRS ） * VMware vSphere 叢集可設定為負載平衡其所裝載虛擬機器的資源需求。具有資源爭用的VM可熱移轉至叢集中的其他節點、以確保有足夠的可用資源。
 
 
 image:redhat_openshift_image33.png["錯誤：缺少圖形影像"]
@@ -35,6 +40,7 @@ Red Hat OpenShift on NetApp解決方案使用兩個資料交換器、以25Gbps�
 
 VMware vSphere上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以邏輯方式分隔不同用途的網路流量。此組態可擴充以滿足客戶需求、或進一步隔離特定的網路服務。下表列出在NetApp驗證解決方案時實作解決方案所需的VLAN。
 
+[cols="40%, 40%, 20%"]
 |===
 | VLAN | 目的 | VLAN ID 
 
@@ -92,7 +98,7 @@ VMware vSphere上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN
 
 關聯性或反關聯性是一種定義一組VM和/或主機規則的方法、用以判斷VM是在同一主機或群組中的主機上一起執行、還是在不同的主機上執行。它會透過建立關聯群組來套用至VM、這些群組由一組相同的參數和條件的VM和/或主機組成。根據關聯群組中的VM是在同一主機或群組中的主機上執行、還是分別在不同主機上執行、關聯群組的參數可以定義正關聯性或負關聯性。
 
-若要設定關聯群組、請參閱 https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 6.7說明文件：使用DRS關聯性規則"^]。
+若要設定關聯群組、請參閱 link:https://docs.vmware.com/en/VMware-vSphere/6.7/com.vmware.vsphere.resmgmt.doc/GUID-FF28F29C-8B67-4EFF-A2EF-63B3537E6934.html["vSphere 6.7說明文件：使用DRS關聯性規則"^]。
 
 
 
@@ -100,6 +106,6 @@ VMware vSphere上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN
 
 IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、您可能需要在叢集部署中變更某些預設值。
 
-在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈、但精靈會建立組態檔、以便日後部署叢集。如果您需要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.7/installing/installing_vsphere/installing-vsphere-installer-provisioned-customizations.html["Red Hat OpenShift使用自訂功能在vSphere上安裝叢集"^]。
+在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈、但精靈會建立組態檔、以便日後部署叢集。如果您需要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 link:https://docs.openshift.com/container-platform/4.7/installing/installing_vsphere/installing-vsphere-installer-provisioned-customizations.html["Red Hat OpenShift使用自訂功能在vSphere上安裝叢集"^]。
 
 link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

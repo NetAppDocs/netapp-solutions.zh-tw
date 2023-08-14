@@ -20,7 +20,7 @@ OSP是一種基礎架構即服務（IaaS）雲端、由管理運算、儲存和�
 
 OpenStack專案是快速開發的社群專案、每六個月提供更新版本。Red Hat OpenStack Platform一開始會隨著每個上游版本一起發佈新版本、並為每個第三版提供長期支援、以跟上這個發行週期。最近、隨著OSP 16.0版（以OpenStack火車為基礎）的推出、Red Hat選擇不跟上發行版本的腳步、而是將新功能支援至次發行版本。最新版本為Red Hat OpenStack Platform 16.1、其中包含使用實例和上游版本的支援進階功能。
 
-如需OSP的詳細資訊、請參閱 https://www.redhat.com/en/technologies/linux-platforms/openstack-platform["Red Hat OpenStack Platform網站"^]。
+如需OSP的詳細資訊、請參閱 link:https://www.redhat.com/en/technologies/linux-platforms/openstack-platform["Red Hat OpenStack Platform網站"^]。
 
 
 
@@ -30,9 +30,8 @@ OpenStack平台服務部署為容器、可將服務彼此隔離、並可輕鬆�
 
 image:redhat_openshift_image34.png["錯誤：缺少圖形影像"]
 
+[cols="15%, 15%, 70%"]
 |===
-
-
 | 服務 | 專案名稱 | 說明 
 
 
@@ -76,6 +75,7 @@ Red Hat OpenStack Director需要IPMI功能、才能使用具有諷刺意味的�
 
 Red Hat OpenShift with NetApp的設計、是為了使用虛擬區域網路（VLAN）、以邏輯方式將網路流量分隔為不同用途。此組態可擴充以滿足客戶需求、或進一步隔離特定的網路服務。下表列出在NetApp驗證解決方案時實作解決方案所需的VLAN。
 
+[cols="15%, 70%, 15%"]
 |===
 | VLAN | 目的 | VLAN ID 
 
@@ -144,7 +144,7 @@ Red Hat OpenShift with NetApp的設計、是為了使用虛擬區域網路（VLA
 
 NOTE: OSP伺服器群組有特定的硬關聯性/反關聯性限制；如果資源不足、無法部署在個別節點上、或資源不足、無法共用節點、則VM將無法開機。
 
-若要設定關聯群組、請參閱 https://access.redhat.com/solutions/1977943["如何設定OpenStack執行個體的關聯性和反關聯性？"^]。
+若要設定關聯群組、請參閱 link:https://access.redhat.com/solutions/1977943["如何設定OpenStack執行個體的關聯性和反關聯性？"^]。
 
 
 
@@ -152,6 +152,6 @@ NOTE: OSP伺服器群組有特定的硬關聯性/反關聯性限制；如果資�
 
 IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、您可能需要在叢集部署中變更某些預設值。
 
-在這些執行個體中、您無需立即部署叢集、即可執行及執行wizard;而是建立組態檔、以便日後部署叢集。如果您需要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.7/installing/installing_openstack/installing-openstack-installer-custom.html["Red Hat OpenShift使用自訂功能在OpenStack上安裝叢集"^]。
+在這些執行個體中、您無需立即部署叢集、即可執行及執行wizard;而是建立組態檔、以便日後部署叢集。如果您需要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 link:https://docs.openshift.com/container-platform/4.7/installing/installing_openstack/installing-openstack-installer-custom.html["Red Hat OpenShift使用自訂功能在OpenStack上安裝叢集"^]。
 
 link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

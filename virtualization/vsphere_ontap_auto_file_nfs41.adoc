@@ -5,7 +5,22 @@ keywords: vSphere, datastore, nfs, ONTAP tools, vlan, network interface, service
 summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援NFS版本4資料存放區的步驟。 
 ---
 = vSphere NFS資料存放區-含ONTAP 功能的4.1版
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+:scriptsdir: ./../scripts/
+:author: Suresh Thoppay, TME - Hybrid Cloud Solutions
+:ontap_version: ONTAP 9.8 or later
+:vsphere_version: vSphere 7.0 or later
+:includesdir: ./../
+:firstname: Suresh
+:authorinitials: STT
+:middlename: Thoppay,
+:lastname: TME - Hybrid Cloud Solutions
+:authors: Suresh Thoppay, TME - Hybrid Cloud Solutions
 
 
 
@@ -21,12 +36,12 @@ summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援NFS版本
 == 您需要的一切
 
 * 管理vSphere環境與ONTAP VMware所需的基本技能
-* 執行｛ONTAP_version｝的資料儲存系統（FAS/AFF/CVO/ONTAP Select/Cloud Volume Service/Azure NetApp Files）ONTAP
+* 執行 ONTAP 9.8 或更新版本的 ONTAP 儲存系統（ FAS/AFF/CVO/ONTAP Select/Cloud Volume Service/Azure NetApp 檔案）
 * 資訊（SVM名稱、使用者ID、密碼）ONTAP
 * NFS的網路連接埠、SVM和LUN資訊ONTAP
 * link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-nfs-vaai/GUID-BBD301EF-496A-4974-B205-5F878E44BF59.html++["完整的NFS組態工作表"]
 * vCenter Server認證
-* vSphere主機資訊｛vSphere_version｝
+* vSphere 主機資訊 vSphere 7.0 或更新版本
 * NFS VMKernel介面卡IP資訊
 * 網路交換器
 +

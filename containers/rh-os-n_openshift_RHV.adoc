@@ -16,15 +16,15 @@ summary: RHV是企業虛擬資料中心平台、可在Red Hat Enterprise Linux�
 [role="lead"]
 Red Hat虛擬化（RHV）是企業虛擬資料中心平台、可在Red Hat Enterprise Linux（RHEL）上執行、並使用KVM Hypervisor。
 
-如需更多有關RHV的資訊、請參閱 https://www.redhat.com/en/technologies/virtualization/enterprise-virtualization["Red Hat虛擬化網站"^]。
+如需更多有關RHV的資訊、請參閱 link:https://www.redhat.com/en/technologies/virtualization/enterprise-virtualization["Red Hat虛擬化網站"^]。
 
 RHV提供下列功能：
 
-* *集中管理VM和主機。* RHV管理程式在部署中以實體或虛擬機器（VM）的形式執行、並提供網路型GUI、以便從中央介面管理解決方案。
-* *自我代管引擎。*為了將硬體需求降至最低、RHV可將RHV Manager（RHV-M）部署為VM、部署在執行客體VM的同一部主機上。
-* *高可用度。*為了避免發生主機故障時造成中斷、RHV可讓VM設定為高可用度。高可用度的VM是使用恢復原則在叢集層級加以控制。
-* *高擴充性。*單一RHV叢集最多可有200部Hypervisor主機、讓IT能夠支援大型VM的需求、以裝載資源密集、企業級的工作負載。
-* *增強安全性。* RHV採用Secure Virtualization（sVirt）和Security Enhanced Linux（SELinux）技術、以提升主機和VM的安全性和強化功能。這些功能的主要優勢在於邏輯隔離VM及其相關資源。
+* * 集中管理 VM 和主機 * RHE 管理程式在部署中以實體或虛擬機器（ VM ）的形式執行、並提供 Web 型 GUI 、以便從中央介面管理解決方案。
+* * 自我代管引擎 * 為了將硬體需求降至最低、 RHE 可讓 RHE Manager （ RHV-M ）在執行來賓 VM 的同一部主機上部署為 VM 。
+* * 高可用度 * 為了避免在主機故障時發生中斷、 RHE 可讓 VM 設定為高可用度。高可用度的VM是使用恢復原則在叢集層級加以控制。
+* * 高擴充性 * 單一 RHE 叢集可擁有多達 200 部 Hypervisor 主機、讓 IT 能夠支援大型 VM 的需求、以裝載資源密集的企業級工作負載。
+* RHE 採用從 RHE 繼承的增強安全性 * 、安全虛擬化（ sVirt ）和安全性增強 Linux （ SELinux ）技術、以提升主機和 VM 的安全性和強化。這些功能的主要優勢在於邏輯隔離VM及其相關資源。
 
 
 image:redhat_openshift_image3.png["錯誤：缺少圖形影像"]
@@ -41,6 +41,7 @@ Red Hat OpenShift on NetApp解決方案使用兩個資料交換器、以25Gbps�
 
 RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以邏輯方式分隔不同用途的網路流量。此組態可擴充以滿足客戶需求、或進一步隔離特定的網路服務。下表列出在NetApp驗證解決方案時實作解決方案所需的VLAN。
 
+[cols="40%, 40%, 20%"]
 |===
 | VLAN | 目的 | VLAN ID 
 
@@ -94,7 +95,7 @@ RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以�
 
 為參數定義的條件可以是強制或軟強制。強制強制性可確保關聯群組中的虛擬機器永遠嚴格遵循正面或負面關聯性、而不受任何外部條件影響。軟強制功能可確保關聯群組中的VM設定較高的喜好設定、以便在可行的情況下遵循正面或負面關聯性。在本文所述的兩或三個Hypervisor組態中、建議使用軟性關聯性。在較大型的叢集中、硬關聯性可以正確分散OpenShift節點。
 
-若要設定關聯群組、請參閱 https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/virtual_machine_management_guide/sect-affinity_groups["Red Hat 6.11.關聯群組文件"^]。
+若要設定關聯群組、請參閱 link:https://access.redhat.com/documentation/en-us/red_hat_virtualization/4.4/html/virtual_machine_management_guide/sect-affinity_groups["Red Hat 6.11.關聯群組文件"^]。
 
 
 
@@ -102,6 +103,6 @@ RHV上的Red Hat OpenShift設計用於使用虛擬區域網路（VLAN）、以�
 
 IPI可透過本文稍早討論的互動式精靈、輕鬆部署OpenShift叢集。不過、在叢集部署過程中、可能需要變更某些預設值。
 
-在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈工作。而是會建立組態檔、以便稍後部署叢集。如果您想要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 https://docs.openshift.com/container-platform/4.4/installing/installing_rhv/installing-rhv-customizations.html["Red Hat OpenShift使用自訂功能在RHV上安裝叢集"^]。
+在這些執行個體中、您無需立即部署叢集、即可執行及執行精靈工作。而是會建立組態檔、以便稍後部署叢集。如果您想要變更任何IPI預設值、或是想要在環境中部署多個相同的叢集以供其他用途（例如多租戶）、這項功能就非常實用。如需建立OpenShift自訂安裝組態的詳細資訊、請參閱 link:https://docs.openshift.com/container-platform/4.4/installing/installing_rhv/installing-rhv-customizations.html["Red Hat OpenShift使用自訂功能在RHV上安裝叢集"^]。
 
 link:rh-os-n_overview_netapp.html["下一步：NetApp儲存設備總覽。"]

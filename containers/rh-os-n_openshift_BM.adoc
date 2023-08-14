@@ -22,10 +22,10 @@ summary:
 
 == 裸機上的OpenShift提供下列功能：
 
-* * IPI或輔助安裝程式部署*。*有了由安裝程式佈建基礎架構（IPI）部署的OpenShift叢集、客戶就能直接在市售伺服器上部署高度通用、易於擴充的OpenShift環境、而不需要管理Hypervisor層。
-* *精簡叢集設計。*為了將硬體需求降至最低、裸機上的OpenShift可讓使用者部署只有3個節點的叢集、同時讓OpenShift控制面板節點也能做為工作者節點和主機容器。
-* * OpenShift虛擬化。* OpenShift可以使用OpenShift虛擬化在容器內執行虛擬機器。此容器原生虛擬化可在容器內執行KVM Hypervisor、並附加持續磁碟區以供VM儲存。
-* *最佳化的AI/ML基礎架構。*將GPU型工作節點整合至OpenShift環境、並運用OpenShift進階排程技術、部署Kubeflow等機器學習應用程式。
+* * IPI 或輔助安裝程式部署 * 透過安裝程式佈建基礎架構（ IPI ）在裸機伺服器上部署的 OpenShift 叢集、客戶可以直接在市售伺服器上部署功能廣泛、易於擴充的 OpenShift 環境、而無需管理 Hypervisor 層。
+* * 精簡型叢集設計 * 為了將硬體需求降至最低、裸機上的 OpenShift 可讓使用者僅部署 3 個節點的叢集、讓 OpenShift 控制平面節點也能做為工作節點和主機容器。
+* * OpenShift 虛擬化 * OpenShift 可以使用 OpenShift 虛擬化在容器內執行虛擬機器。此容器原生虛擬化可在容器內執行KVM Hypervisor、並附加持續磁碟區以供VM儲存。
+* * AI / ML 最佳化基礎架構 * 將 Kubeflow 等應用程式整合至 OpenShift 環境、並運用 OpenShift 進階排程技術、為機器學習應用程式部署 Kubeflflow 。
 
 
 
@@ -36,8 +36,8 @@ Red Hat OpenShift on NetApp解決方案使用兩個資料交換器、以25Gbps�
 
 對於OpenShift裸機IPI部署、您必須建立資源配置程式節點、這是一台Red Hat Enterprise Linux 8機器、必須將網路介面連接至不同的網路。
 
-* *資源配置網路。*此網路用於開機裸機節點、並安裝必要的映像和套件、以部署OpenShift叢集。
-* *裸機網路。*此網路用於叢集部署後的對外通訊。
+* * 資源配置網路 * 此網路用於開機裸機節點、並安裝必要的映像和套件以部署 OpenShift 叢集。
+* * 裸機網路 * 此網路用於叢集部署後的公開通訊。
 
 
 為了設定資源配置工具節點、客戶建立橋接介面、讓流量能在節點本身和為部署目的而配置的Bootstrap VM上正確路由傳送。部署叢集之後、API和入口VIP位址會從啟動節點移轉至新部署的叢集。
@@ -54,9 +54,8 @@ image:redhat_openshift_image37.png["錯誤：缺少圖形影像"]
 
 Red Hat OpenShift with NetApp解決方案的設計是使用虛擬區域網路（VLAN）、以邏輯方式將網路流量分隔為不同用途。
 
+[cols="40%, 40%, 20%"]
 |===
-
-
 | VLAN | 目的 | VLAN ID 
 
 
