@@ -109,7 +109,7 @@ NOTE: 在寫入本文檔時、來賓儲存設備是唯一可用的選項。隨�
 === 值得記住的重點
 
 * 在混合式儲存模式中、將層級1或高優先順序的工作負載放在vSAN資料存放區上、以因應任何特定的延遲需求、因為它們是主機本身的一部分、而且位於鄰近範圍內。針對可接受交易延遲的任何工作負載VM、使用來賓機制。
-* 使用NetApp SnapMirror®技術、將工作負載資料從內部部署ONTAP 的SnapMirror系統複寫到Cloud Volumes ONTAP 適用於NetApp ONTAP 的Sf2或Amazon FSX、以便使用區塊層級機制輕鬆移轉。這不適用於Azure NetApp Files 「不適用於」和「Cloud Volumes服務」。若要將資料移轉至Azure NetApp Files 「供應資料」或「雲端磁碟區服務」、請根據Cloud Sync 所使用的檔案傳輸協定、使用NetApp XCP、Rysnc或Robocopy。
+* 使用NetApp SnapMirror®技術、將工作負載資料從內部部署ONTAP 的SnapMirror系統複寫到Cloud Volumes ONTAP 適用於NetApp ONTAP 的Sf2或Amazon FSX、以便使用區塊層級機制輕鬆移轉。這不適用於Azure NetApp Files 「不適用於」和「Cloud Volumes服務」。若要將資料移轉至 Azure NetApp Files 或雲端 Volume Services 、請根據使用的檔案傳輸協定、使用 NetApp XCP 、 BlueXP 複製與同步、 rysnc 或 Robocopy 。
 * 測試顯示、從個別SDDC存取儲存設備時、會有2至4毫秒的額外延遲。在對應儲存設備時、請將額外延遲因素納入應用程式需求。
 * 若要在測試容錯移轉和實際容錯移轉期間掛載與來賓連線的儲存設備、請確認iSCSI啟動器已重新設定、SMB共用的DNS已更新、而且Fstab中的NFS掛載點已更新。
 * 請確定已在VM內部正確設定來賓Microsoft多重路徑I/O（MPIO）、防火牆及磁碟逾時登錄設定。

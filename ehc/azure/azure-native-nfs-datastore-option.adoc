@@ -302,14 +302,14 @@ Volume重新塑形和動態服務層級變更對SDDC而言完全透明。在VMwa
 
 NOTE: 使用ANF資料存放區時、「Restore to New Volume」（還原至新磁碟區）選項可用於複製整個資料存放區磁碟區、還原的磁碟區可作為另一個資料存放區掛載至AVS SDDC內的主機。資料存放區掛載完成後、即可登錄、重新設定及自訂其中的VM、如同個別複製VM一樣。
 
-.適用於虛擬機器的雲端備份
+.適用於虛擬機器的 BlueXP 備份與還原
 [%collapsible]
 =====
-適用於虛擬機器的Cloud Backup可在vCenter上提供vSphere Web用戶端GUI、透過Azure NetApp Files 備份原則保護Azure VMware解決方案虛擬機器和VMware資料存放區。這些原則可定義排程、保留及其他功能。Cloud Backup for Virtual Machine功能可以使用Run命令進行部署。
+適用於虛擬機器的 BlueXP 備份與還原功能可在 vCenter 上提供 vSphere Web 用戶端 GUI 、透過備份原則來保護 Azure VMware 解決方案虛擬機器和 Azure NetApp Files 資料存放區。這些原則可定義排程、保留及其他功能。  您可以使用 Run 命令來部署 BlueXP 虛擬機器備份與還原功能。
 
 完成下列步驟即可安裝設定與保護原則：
 
-. 使用Run命令、在Azure VMware解決方案私有雲中安裝適用於虛擬機器的Cloud Backup。
+. 使用 Run 命令、在 Azure VMware 解決方案私有雲中安裝適用於虛擬機器的 BlueXP 備份與還原。
 . 新增雲端訂閱認證（用戶端和機密值）、然後新增雲端訂閱帳戶（NetApp帳戶和相關資源群組）、其中包含您想要保護的資源。
 . 建立一或多個備份原則、以管理資源群組備份的保留、頻率及其他設定。
 . 建立一個容器、以新增一或多個需要備份原則保護的資源。

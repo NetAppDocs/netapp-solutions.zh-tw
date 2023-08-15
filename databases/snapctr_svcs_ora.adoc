@@ -53,9 +53,9 @@ SnapCenter 服務是傳統 SnapCenter 資料庫管理 UI 工具的 SaaS 版本�
 
 === 架構
 
-image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台中的 Cloud Backup for Application 詳細圖片、包括其管理的 UI 、連接器和資源。]
+image::snapctr_svcs_architecture.png[此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原的詳細圖片、包括它所管理的 UI 、連接器和資源。]
 
-此映像提供 BlueXP 主控台內的 Cloud Backup for Application 詳細圖片、包括 UI 、連接器及其管理的資源。
+此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原詳細圖片、包括 UI 、連接器及其管理的資源。
 
 
 
@@ -128,6 +128,7 @@ video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto]
 . EC2 執行個體上的主要 Oracle 資料庫伺服器、已完全部署並執行 Oracle 資料庫。
 . 在 AWS 中部署的 Amazon FSX for ONTAP 叢集、裝載上述資料庫磁碟區。
 . EC2 執行個體上的選用資料庫伺服器、可用於測試將 Oracle 資料庫複製到替代主機的情形、以支援開發 / 測試工作負載、或是任何需要正式作業 Oracle 資料庫完整資料集的使用案例。
+. 如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^] 或白皮書 link:aws_ora_fsx_ec2_deploy_intro.html["在 EC2 和 FSX 最佳實務上部署 Oracle 資料庫"^]
 . 如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^] 或白皮書 link:aws_ora_fsx_ec2_deploy_intro.html["在 EC2 和 FSX 最佳實務上部署 Oracle 資料庫"^]
 
 
@@ -475,7 +476,7 @@ image:snapctr_svcs_clone_08-db.png["錯誤：缺少圖形影像"]
 
 link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.htmll["https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html"^]
 
-* 雲端備份文件
+* BlueXP 備份與還原文件
 
 
 link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html["https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html"^]

@@ -1472,7 +1472,6 @@
   <block id="c590e653cde69438d43731b18edd533c" category="list-text">客戶想要處理來自雲端服務供應商之GPU中EC2/EMR、HDInsight或DataProc服務中的資料。Hadoop資料移轉器可利用NIPAM和「Hadoop distcp」命令、將資料從Hadoop服務移至Cloud Volumes Services。</block>
   <block id="8cae7d7989a25f83bf9df9952b16ed2b" category="list-text">透過NFS傳輸協定將支援的資料配置給AI。透過AI處理的資料、除了可透過NIPAM、SnapMirror和NPS傳送NVIDIA叢集之外、也可傳送到內部部署位置進行巨量資料分析。Cloud Volumes Service</block>
   <block id="980894bd0921c687decdf218e89107e2" category="paragraph">在此案例中、客戶在NAS系統的遠端位置擁有大量的檔案數資料、而在內部部署的NetApp儲存控制器上進行AI處理時、則需要這些資料。在此案例中、最好使用XCP移轉工具以更快的速度移轉資料。</block>
-  <block id="002cfe6c68deff9c2fcb4fbb3820a5ff" category="paragraph">混合式使用案例客戶可以使用Cloud Sync 支援功能、將內部部署資料從NFS、CIFS和S3資料移轉至雲端、反之亦然、使用GPU（例如NVIDIA叢集）進行AI處理。支援將NFS資料移轉至NetApp支援NFS的功能包括：Cloud Sync ONTAP</block>
   <block id="22033f5439b399254e73f6f3588b9b9e" category="inline-link-macro">下一步：GPFS移轉至NetApp ONTAP Sfnfs。</block>
   <block id="f56cb05715de107bd001dd11a41b0cf6" category="paragraph"><block ref="f56cb05715de107bd001dd11a41b0cf6" category="inline-link-macro-rx"></block></block>
   <block id="e353dbe42c8654f33588d4da0b517469" category="doc">摘要</block>
@@ -1583,8 +1582,6 @@
   <block id="6efa8f47d1a76af77ce311b436e4dca9" category="section-title">NetApp XCP</block>
   <block id="a12ce47d330a9ea070b4fd322ca5f890" category="paragraph">NetApp XCP是用戶端軟體、可快速且可靠地進行NetApp與NetApp之間的資料移轉。此工具旨在將大量非結構化NAS資料從任何NAS系統複製到NetApp儲存控制器。XCP移轉工具使用多核心、多通道I/O串流引擎、可平行處理許多要求、例如資料移轉、檔案或目錄清單、以及空間報告。這是預設的NetApp資料移轉工具。您可以使用XCP將資料從Hadoop叢集和HPC複製到NetApp NFS儲存設備。下圖顯示使用XCP從Hadoop和HPC叢集傳輸到NetApp NFS磁碟區的資料。</block>
   <block id="cd7e68aa30250a331c260fee49ff230e" category="paragraph"><block ref="cd7e68aa30250a331c260fee49ff230e" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="dc188738e6cc2e9f8314e1b95f18ebfd" category="section-title">NetApp Cloud Sync</block>
-  <block id="1bce96270b79327e5daf4c0745d66023" category="paragraph">NetApp Cloud Sync 支援混合式資料複寫軟體即服務、可在內部部署儲存設備與雲端儲存設備之間順暢安全地傳輸及同步NFS、S3與CIFS資料。此軟體可用於資料移轉、歸檔、協同作業、分析等作業。資料傳輸完成後Cloud Sync 、Syncs地 會持續同步來源和目的地之間的資料。接下來、它會傳輸差異。它也能保護您自己網路、雲端或內部部署中的資料安全。本軟體以隨用隨付模式為基礎、提供具成本效益的解決方案、並提供監控與報告功能、方便您傳輸資料。</block>
   <block id="cbba30a09e75669ecb5b3b2d83a25284" category="inline-link-macro">下一步：客戶挑戰。</block>
   <block id="63aa417c654afafebdbdfcaf7a13c8b6" category="paragraph"><block ref="63aa417c654afafebdbdfcaf7a13c8b6" category="inline-link-macro-rx"></block></block>
   <block id="fa7dcae8e4f7d8ecc191c3ce8547a53a" category="summary">此使用案例與負責為客戶的Big Data分析資料提供多雲端連線的雲端服務合作夥伴有關。</block>
@@ -3368,7 +3365,6 @@
   <block id="ccfdc9ae99a97b7a6b8ad83a329bcdc8" category="paragraph"><block ref="eb3a0fd60dc608626ce6d809beb18359" category="inline-link-macro-rx"></block> 是GPU加速的SDK、可用於建置多式對話AI應用程式、在GPU上提供即時效能。NVIDIA訓練、調適及最佳化（TAO）工具套件提供更快速、更簡單的方法來加速訓練、並快速建立高度準確且效能優異的網域專屬AI模型。</block>
   <block id="600ff5755ecd6aa4213eb806162b679e" category="paragraph">NetApp DataOps Toolkit是Python程式庫、可讓開發人員、資料科學家、DevOps工程師及資料工程師輕鬆執行各種資料管理工作。這包括近乎即時地配置新的資料磁碟區或JupyterLab工作區、近乎即時地複製資料磁碟區或JupyterLab工作區、以及近乎即時的資料磁碟區快照或JupyterLab工作區、以供追蹤及建立基準。</block>
   <block id="2b0d957e4ad1bdfd446155ff5bb8a9b2" category="section-title">架構圖</block>
-  <block id="1c8bd88c9d2cb845c6c27915f4a3fe8e" category="paragraph">下圖顯示解決方案架構。有三大環境類別：雲端、核心和邊緣。每個類別都可以分散在不同的地理位置。例如、雲端包含的物件儲存區位於不同區域的儲存區、音訊檔案則位於不同區域、而核心則可能包含透過高速網路或NetApp Cloud Sync 還原連結的資料中心。邊緣節點表示個人人力代理商的日常工作平台、其中提供互動式儀表板工具和麥克風、可視覺化感受、並從與客戶的對話中收集音訊資料。</block>
   <block id="be5acbec67071810913f6782071a73eb" category="inline-link-macro">儲存設計</block>
   <block id="5d103a663d28ddc9aa2af5f7b958e52c" category="inline-link">Riva</block>
   <block id="cc7a5a83afae781789c3a002465500b5" category="inline-link">TAO工具套件</block>
@@ -3406,8 +3402,6 @@
   <block id="19aa61315132dbea1d19c7aeeef5f5b2" category="section-title">Flash儲存系統</block>
   <block id="a5119a6bd0f4d733e0f1f4c10f9d063b" category="section-title">NetApp ONTAP 產品9.</block>
   <block id="fd5487a1e906d6cd514dbbc16f17a489" category="paragraph">NetApp最新一代的儲存管理軟體- NetApp 9.9、可讓企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP</block>
-  <block id="e367efbc26bd12c0d6ae37dd6a55ef9b" category="inline-link">Cloud Sync</block>
-  <block id="78a2efe59d4ad6ad51556ea77f5fdec3" category="paragraph"><block ref="f0ec1a9d50acb3759e364a1cdfa9961d" category="inline-link-rx"></block> 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：</block>
   <block id="df2c24964ca3e99761acc48b2c8a75c9" category="list-text">NetApp ONTAP 產品S3</block>
   <block id="7450cfde7058dc5e1f7909d0280fd7ae" category="list-text">Azure NetApp Files</block>
   <block id="ddcf3699b41cd4c4ee5be4b9dd95c1e6" category="list-text">Amazon簡易儲存服務（Amazon S3）</block>
@@ -3415,7 +3409,6 @@
   <block id="52745271323ee9ea30e3a37d0338d118" category="list-text">Azure Blob</block>
   <block id="833c2c211a541e50ad94433664e4b5c1" category="list-text">Google Cloud Storage</block>
   <block id="5446a6bee3301e1f52824fc0affa6299" category="list-text">IBM Cloud 物件儲存設備</block>
-  <block id="1b238365e840da0711b49e8f646e2fdf" category="paragraph">協助您快速安全地將檔案移至所需的位置。Cloud Sync資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是一種簡單易用的軟體即服務（SaaS）工具。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。</block>
   <block id="a5c952f5be43013a024d778712474fbc" category="paragraph">由軟體定義的物件儲存套件可無縫支援各種公有、私有及混合式多雲端環境的使用案例。StorageGRIDNetApp StorageGRID 支援領先業界的創新技術、可儲存、保護及保留非結構化資料、以供多種用途使用、包括長期的自動化生命週期管理。如需詳細資訊、請參閱<block ref="7660f0463c83c682b9f091117b07c3b3" category="inline-link-rx"></block> 網站。</block>
   <block id="7ddb33edf227a18eb76201fcb9e2c9db" category="section-title">軟體需求</block>
   <block id="6ffce2da93d4b296032f30d7b2adea01" category="paragraph">下表列出實作此解決方案所需的軟體元件。在解決方案的任何特定實作中使用的軟體元件、可能會因客戶需求而異。</block>
@@ -3568,9 +3561,7 @@
   <block id="78b7c8c28867630a421236d6f1ff9ba3" category="paragraph">以下範例的PVc定義檔中指定「存取模式」值「ReadWriteMany」。如需「存取模式」欄位的詳細資訊、請參閱<block ref="ca589c3cf5b20ae0a636e2b7691f2873" category="inline-link-rx"></block>。</block>
   <block id="c515da31cebf8cf63b394c59f3f5f2c0" category="inline-link-macro">下一步：ONTAP 適用於AI部署的高效能工作範例總覽。</block>
   <block id="5c11e6d83807487f2c41bd48dc524734" category="paragraph"><block ref="5c11e6d83807487f2c41bd48dc524734" category="inline-link-macro-rx"></block></block>
-  <block id="3ad0505876550699ce505845f96683a7" category="doc">使用NetApp Cloud Sync 解決方案將對話記錄歸檔</block>
   <block id="5b7a8a379330d9d43907b47a6d7ee306" category="inline-link-macro">使用Nemo訓練來擴充Intent模式</block>
-  <block id="a7e4c14a726c28e6cb4b935701ac2899" category="paragraph">透過將對話歷史記錄一天轉存至CSV檔案一次、我們就能利用Cloud Sync 效益分析將記錄檔下載至本機儲存設備。下圖顯示將JARVIS部署在內部部署和公有雲中的架構、同時使用Cloud Sync 效益分析功能將對話記錄傳送給Nemo訓練。如需Nemo訓練的詳細資料、請參閱一節 <block ref="14a0a4dd1a1c18cba42b2036fe4dfc33" category="inline-link-macro-rx"></block>。</block>
   <block id="e60c4461b2b4dcf3aa8535e3aab780b3" category="paragraph"><block ref="e60c4461b2b4dcf3aa8535e3aab780b3" category="inline-image-macro-rx" type="image"></block></block>
   <block id="00717575e300ae9f18fa0a24d97bcca5" category="inline-link-macro">下一步：使用Nemo訓練來擴充Intent模式</block>
   <block id="7ee8a10f8da0d566f0c5cccb9528b186" category="paragraph"><block ref="7ee8a10f8da0d566f0c5cccb9528b186" category="inline-link-macro-rx"></block></block>
@@ -3896,7 +3887,6 @@
   <block id="64b0abe7a29610e134041ed793101fce" category="inline-link-macro">下一步：Trident作業範例。</block>
   <block id="f6c488122d476f1d213cf78dc2ee84d2" category="paragraph"><block ref="f6c488122d476f1d213cf78dc2ee84d2" category="inline-link-macro-rx"></block></block>
   <block id="4ac9fa791a6d1c7c97bbae134dd22586" category="paragraph">真正的對話式AI系統會進行類似人的對話、瞭解情境、並提供智慧型回應。這類AI模式通常非常龐大且極為複雜。有了NVIDIA GPU和NetApp儲存設備、就能訓練並最佳化大規模的先進語言模式、以迅速執行推斷。這是邁向結束AI模式的重大進展、而這種模式與大型且複雜的AI模式相比、速度更快。GPU最佳化的語言理解模式可整合至AI應用程式、適用於醫療、零售和金融服務等產業、為智慧型喇叭和客戶服務線中的進階數位語音助理提供支援。這些高品質的對話AI系統可讓垂直市場的企業在與客戶互動時、提供先前無法達成的個人化服務。</block>
-  <block id="45d5663acc501eba25058f8956035e9a" category="paragraph">JARVIS可部署虛擬助理、數位虛擬助理、多式模式感測Fusion 器等使用案例（CV融合了ASR/NLP/TS）、或任何ASR/NLP/TTS/CV獨立使用案例、例如複本。我們建立了虛擬零售助理、可回答有關天氣、興趣點和庫存定價的問題。我們也示範如何利用Cloud Sync 介紹新資料的功能、將對話歷史記錄歸檔、並訓練Nemo模型、藉此改善對話AI系統的自然語言理解能力。</block>
   <block id="38a609a97a676f2cc28ccec3d3097d4b" category="paragraph"><block ref="38a609a97a676f2cc28ccec3d3097d4b" category="inline-link-macro-rx"></block></block>
   <block id="1a17b23dd49d997677e18c9b9fe29935" category="summary">本頁說明如何使用原生工作串流儀表板來監控dask。</block>
   <block id="3268570ddd540695f3e92ff79d8f4684" category="doc">使用原生工作串流儀表板監控dsask</block>
@@ -4090,11 +4080,8 @@
   <block id="8df86cf2931aab70fd9ad1f919f40449" category="list-text">提高團隊生產力。RUN：AI公平演算法保證所有使用者和團隊都能獲得公平的資源共享。您可以預設優先專案的相關原則、而平台可將資源從一個使用者團隊動態分配到另一個使用者團隊、協助使用者及時存取令人夢寐以求的GPU資源。</block>
   <block id="c835378d4be1896f62ef5d2760340909" category="list-text">提升GPU使用率。Run:AI排程器可讓使用者輕鬆使用分數GPU、整數GPU及GPU的多個節點、以進行Kubernetes的分散式訓練。如此一來、AI工作負載就會根據需求而非容量來執行。資料科學團隊能夠在相同的基礎架構上執行更多AI實驗。</block>
   <block id="dde440f8f7c47863e65c2d82a820b8a5" category="paragraph"><block ref="d9533ea5c6cb975dff314dace88f2aa4" category="inline-link-macro-rx"></block>。</block>
-  <block id="4ed0a51bc1c995651eec6f50591eec1a" category="section-title">NetApp ONTAP 產品AI與Cloud Sync 產品</block>
   <block id="bff183f31dd9706bece9767f4388a819" category="paragraph">NetApp ONTAP 採用NVIDIA DGX系統和NetApp雲端連線儲存系統的NetApp AI架構、是由NetApp和NVIDIA開發與驗證的。此參考架構可為IT組織提供下列優勢：</block>
   <block id="88acd7d612f76d7928b6b0448806e1ea" category="list-text">提供多種儲存選項、適用於各種效能與成本點NetApp ONTAP AI將DGX系統與NetApp AFF 推出先進的網路功能、緊密整合在一起。NetApp ONTAP 採用AI和DGX系統、可免除設計複雜度和猜測、簡化AI部署。客戶可以從小規模開始、以不中斷的方式擴充系統、同時以智慧方式管理從邊緣到核心到雲端及後端的資料。</block>
-  <block id="69be3bc10a1ad78dbe823def1907c730" category="paragraph">NetApp Cloud Sync 支援您在各種傳輸協定之間輕鬆移動資料、無論資料是在兩個NFS共用區、兩個CIFS共用區或一個檔案共用區、以及Amazon S3、Amazon Elastic File System（EFS）或Azure Blob儲存區之間。雙主動式作業表示您可以繼續同時使用來源和目標、並在必要時逐步同步資料變更。透過讓您在任何來源與目的地系統之間移動及逐步同步資料、Cloud Sync 無論是內部部署或雲端型、都能開啟各種新的資料使用方式。在內部部署系統、雲端內建與雲端移轉、或是協同作業與資料分析之間移轉資料、都能輕鬆達成。下圖顯示可用的來源和目的地。</block>
-  <block id="1e01782ef13699818c9eb9eab796bffc" category="paragraph">在對話式AI系統中、開發人員可以利用Cloud Sync 支援功能將對話歷史記錄從雲端歸檔至資料中心、以便進行自然語言處理（NLP）模式的離線訓練。透過訓練模式來辨識更多意圖、對話式AI系統將能更妥善地管理終端使用者提出的更複雜問題。</block>
   <block id="45f2cdf50f8bb89b245e814009b4244c" category="section-title">NVIDIA JARVIS多模式架構</block>
   <block id="7e3a7922ac3cd73ae37b26c0b9c99ee3" category="paragraph"><block ref="7e3a7922ac3cd73ae37b26c0b9c99ee3" category="inline-image-macro-rx" type="image"></block></block>
   <block id="7ad66827309f61fd22dc58cbbb2f8273" category="inline-link">NVIDIA JARVIS</block>
@@ -4933,9 +4920,6 @@
   <block id="553416a55e03cc49df61e631d17b8011" category="paragraph">NetApp SnapMirror軟體是一款具成本效益且易於使用的統一化複寫解決方案、適用於整個資料架構。它可透過LAN或WAN高速複寫資料。它可為各種應用程式提供高資料可用度及快速資料複寫、包括虛擬與傳統環境中的業務關鍵應用程式。當您將資料複寫到一或多個NetApp儲存系統、並持續更新次要資料時、資料會保持最新狀態、而且隨時可供使用。不需要外部複寫伺服器。請參閱下圖、瞭解運用SnapMirror技術的架構範例。</block>
   <block id="5a12ba5d186c9ffcce65438f531e7c47" category="paragraph">SnapMirror軟體透過ONTAP 網路僅傳送變更的區塊、充分發揮NetApp的效能。SnapMirror軟體也使用內建的網路壓縮功能來加速資料傳輸、並減少高達70%的網路頻寬使用率。有了SnapMirror技術、您可以利用單一精簡複寫資料串流來建立單一儲存庫、同時維護作用中鏡像和先前的時間點複本、最多可減少50%的網路流量。</block>
   <block id="423eee692f81241addaf586841d0c66a" category="paragraph"><block ref="423eee692f81241addaf586841d0c66a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2e386ef1ace3f8ea71edbaa6f9cbbd00" category="paragraph">NetApp提供快速安全的資料同步服務。Cloud Sync無論您是需要在內部部署NFS或SMB檔案共享之間傳輸檔案、NetApp StorageGRID 支援、NetApp ONTAP 支援S3、NetApp Cloud Volumes Service 支援、Azure NetApp Files 支援、支援、支援、支援、支援、支援、 Google Cloud Storage或IBM Cloud Object Storage Cloud Sync 可快速安全地將檔案移至您需要的位置。</block>
-  <block id="c1bea6c8c836c6911127e6fe3fde762a" category="paragraph">資料傳輸完成後、即可在來源和目標上完全使用。當觸發更新或根據預先定義的排程持續同步資料時、可視需要同步資料。Cloud Sync無論怎樣、Cloud Sync 由於不支援功能只會移動差異、因此資料複寫所花費的時間與金錢都會減至最低。</block>
-  <block id="18c24ab391d7e12f4abcfea370fb4e81" category="paragraph">不只是軟體即服務（SaaS）工具、設定與使用極為簡單。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。可在AWS、Azure、Google Cloud Platform或內部部署中部署資料代理程式。Cloud Sync</block>
   <block id="0e4fcaf78d0d4feda27a31ecb6944b58" category="paragraph">NetApp XCP是以用戶端為基礎的軟體、適用於任何對NetApp和NetApp對NetApp的資料移轉及檔案系統洞見。XCP的設計旨在利用所有可用的系統資源來處理大量資料集和高效能移轉、以擴充並達到最大效能。XCP可讓您利用產生報告的選項、全面掌握檔案系統。</block>
   <block id="9a3914e340e4b09762f8231f9fd0ddaa" category="paragraph">NetApp XCP可在單一套件中取得、支援NFS和SMB傳輸協定。XCP包含適用於NFS資料集的Linux二進位檔、以及適用於SMB資料集的Windows執行檔。</block>
   <block id="adc911d4d2f4e0008e765523cff39824" category="paragraph">NetApp XCP檔案分析是以主機為基礎的軟體、可偵測檔案共用、在檔案系統上執行掃描、並提供檔案分析儀表板。XCP檔案分析可與NetApp和非NetApp系統相容、並可在Linux或Windows主機上執行、以提供NFS和SMB匯出檔案系統的分析功能。</block>
@@ -4992,8 +4976,6 @@
   <block id="a9ca2532d8607b5827969961f314249e" category="paragraph"><block ref="a9ca2532d8607b5827969961f314249e" category="inline-link-macro-rx"></block></block>
   <block id="1e92efa8f46c28a3c3a1c03ababfa7be" category="doc">NetApp零售助理示範</block>
   <block id="088070f65f454d6b38e8e40e332e70a8" category="paragraph"><block ref="088070f65f454d6b38e8e40e332e70a8" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3d81ccbd202a60c621000abca3f6f3de" category="inline-link-macro">下一步：使用NetApp Cloud Sync 解決方案將對話記錄歸檔</block>
-  <block id="a165baa9089720dc90e8baf16267821f" category="paragraph"><block ref="a165baa9089720dc90e8baf16267821f" category="inline-link-macro-rx"></block></block>
   <block id="adb2100439d02c2978c4a5670cda87b8" category="summary">本頁列出用來建置此工作的程式庫和架構。所有這些元件均已與Azure的角色型存取與安全控管功能完全整合。</block>
   <block id="235ff38f40d20846e27b4c64e964ce28" category="doc">用於資料處理和模型訓練的程式庫</block>
   <block id="542e61809d35e9c83a99b29c87aa40fb" category="inline-link-macro">上一篇：Azure NetApp Files 不一樣的效能等級。</block>
@@ -5030,8 +5012,6 @@
   <block id="0664d9eb73230b2a0b514b0facae8ade" category="cell">NVIDIA JARVIS架構</block>
   <block id="cc5f21cb121669006a19c9fde049f048" category="cell">企業版0.2</block>
   <block id="317fe32bf712dffb43ddc0ee8dde8c3c" category="cell">nvcr.io/nvidia/nemo:v0.10</block>
-  <block id="3032d0de2852f0bb1e13142c2c47cd5b" category="inline-link-macro">下一步：使用JARVIS、Cloud Sync VMware及Nemo Overview建立虛擬助理</block>
-  <block id="5cefb81f0324c44ec13c02fa7700924b" category="paragraph"><block ref="5cefb81f0324c44ec13c02fa7700924b" category="inline-link-macro-rx"></block></block>
   <block id="2034cc978abb3057c4cf27e92b16ee74" category="doc">Kubernetes部署</block>
   <block id="47302a7393e0a038a150e679c9b3e80d" category="paragraph">若要使用NVIDIA DeepOps部署及設定Kubernetes叢集、請從部署跳接主機執行下列工作：</block>
   <block id="5c51dc3fcfdd9653809e90fa3948c2f4" category="inline-link">入門頁面</block>
@@ -5519,7 +5499,6 @@
   <block id="0cb5e14601fcf39745352a9556939aa3" category="paragraph"><block ref="0cb5e14601fcf39745352a9556939aa3" category="inline-image-macro-rx" type="image"></block></block>
   <block id="810aceabf729ffa8c2dfd61a3aaeafaa" category="inline-link-macro">下一步：概念與元件</block>
   <block id="0a01ff9defa9120e928e7e306e3e3234" category="paragraph"><block ref="0a01ff9defa9120e928e7e306e3e3234" category="inline-link-macro-rx"></block></block>
-  <block id="1d91c2c04b7f73cb59edb799d095c75c" category="paragraph">本白皮書針對客戶使用NVIDIA JARVIS架構和NetApp ONTAP 支援AI與Cloud Sync 支援零售及其他使用案例的支援、提供建立對話式人工智慧（AI）解決方案的準則。其中包含開發自然語言處理（NLP）模型以供虛擬助理使用的高層級工作流程、已驗證的測試案例及結果等資訊。</block>
   <block id="00760d3595ff19f6db2da5213b1fdd58" category="summary">本文件說明運算與儲存架構、可在符合新興應用程式案例的邊緣環境中、於NetApp儲存控制器和Lenovo ThinkSystem伺服器上部署GPU型人工智慧（AI）。</block>
   <block id="09f4ae28e2596e14a7568f3e12a77834" category="doc">TR-4886：Edge的AI推斷-採用Lenovo ThinkSystem的NetApp解決方案設計</block>
   <block id="6671938f046112e34e990cb75cc642dd" category="paragraph">Sathish Thyagarajan、NetApp Miroslav Hodak、聯想</block>
@@ -5655,7 +5634,6 @@
   <block id="2b34e4806834294a7dd611ad1d7d0308" category="section-title">高枕無憂</block>
   <block id="7847b3892c0f355acdb3fe824654e209" category="paragraph">透過易於使用的內建System Manager介面、即可提供優異的資料保護、主動監控及認證安全性。SANtricity簡化儲存管理工作。獲得所有E系列儲存系統進階調校所需的靈活度。隨時隨地管理NetApp E系列系統。我們隨裝即用的網路介面可簡化您的管理工作流程。</block>
   <block id="2758085534b10a85f702f6a61737eefb" category="paragraph"><block ref="d14308042ff124582c531f74c03d90f3" category="inline-link-rx"></block> NetApp是適用於Docker和Kubernetes的開放原始碼動態儲存協調工具、可簡化持續儲存的建立、管理和使用。Kubernetes原生應用程式Trident直接在Kubernetes叢集內執行。Trident可讓客戶將DL Container映像無縫部署到NetApp儲存設備、並為AI Container部署提供企業級體驗。Kubernetes使用者（例如ML開發人員和資料科學家）可以建立、管理及自動化協調與複製、以充分利用NetApp技術所提供的NetApp進階資料管理功能。</block>
-  <block id="2d76806bea2175a1c575d37015a3621b" category="paragraph"><block ref="f0ec1a9d50acb3759e364a1cdfa9961d" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署NFS或SMB檔案共享之間傳輸檔案、NetApp StorageGRID 效益、NetApp ONTAP S3、NetApp Cloud Volumes Service 效益、Azure NetApp Files 支援、Amazon Simple Storage Service（Amazon S3）、Amazon Elastic File System（Amazon EFS）、Azure Blob、Google Cloud Storage、 或者IBM Cloud Object Storage Cloud Sync 、讓您快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、因此能將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是軟體即服務（SaaS）工具、設定與使用極為簡單。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。</block>
   <block id="e76fa728781968dd4a707e2d3b1d8108" category="paragraph">聯想ThinkSystem伺服器採用創新的硬體、軟體和服務、可解決客戶目前的挑戰、並提供革命性的符合用途的模組化設計方法、以因應未來的挑戰。這些伺服器運用同級最佳的業界標準技術、搭配與眾不同的Lenovo創新技術、為x86伺服器提供最大的靈活度。</block>
   <block id="493e1540ce727fb5f465fff015aa4733" category="paragraph">部署Lenovo ThinkSystem伺服器的主要優勢包括：</block>
   <block id="b7c6c5eb82b90f69eddd06060626e5e3" category="list-text">可隨企業成長而擴充的模組化設計</block>
@@ -5809,9 +5787,6 @@
   <block id="7cbca96fc14ecadf4054303e98a81787" category="list-text">NetApp與NVIDIA–重新定義AI影片的可能性</block>
   <block id="cb9dfd830902f3481279d486cd9ddd0d" category="inline-link"><block ref="cb9dfd830902f3481279d486cd9ddd0d" category="inline-link-rx"></block></block>
   <block id="c7531fbb829ae07f04aab76de6fad46c" category="paragraph"><block ref="c7531fbb829ae07f04aab76de6fad46c" category="inline-link-rx"></block></block>
-  <block id="1e48409a293254dced52407be3dbb722" category="doc">使用JARVIS、Cloud Sync VMware及Nemo建置虛擬助理</block>
-  <block id="68dc442228015e015ca6272edb5994e4" category="inline-link-macro">下一步：使用JARVIS、Cloud Sync VMware及Nemo Overview建立虛擬助理</block>
-  <block id="f308b9afc8e29196ebb4fe535e29fc51" category="paragraph"><block ref="f308b9afc8e29196ebb4fe535e29fc51" category="inline-link-macro-rx"></block></block>
   <block id="8537de5688b6b855ec8b5465eca4e8f6" category="list-text">NVIDIA DGX Station、V100 GPU、GPU Cloud</block>
   <block id="e4c64a7040f5ee4721b3880f35ae02c8" category="inline-link"><block ref="e4c64a7040f5ee4721b3880f35ae02c8" category="inline-link-rx"></block></block>
   <block id="432a0462f3a215c89d6067d01ac9fee8" category="list-text">NVIDIA DGX工作站<block ref="00e84bc2760804fd15a292583676639b" category="inline-link-rx"></block></block>
@@ -7525,7 +7500,6 @@
   <block id="e3bdc3102c3de4f73860c229550bc6f4" category="paragraph">因此、使用NetApp Cloud Volumes做為與來賓連線的儲存設備、有助於擴充儲存設備並最佳化TCO、同時滿足效能與資料保護需求。</block>
   <block id="571c0d425ce03c2532e7d9f34ca87cb1" category="section-title">值得記住的重點</block>
   <block id="8e6eaed3852a3b311ab6ed1b8b6fc239" category="list-text">在混合式儲存模式中、將層級1或高優先順序的工作負載放在vSAN資料存放區上、以因應任何特定的延遲需求、因為它們是主機本身的一部分、而且位於鄰近範圍內。針對可接受交易延遲的任何工作負載VM、使用來賓機制。</block>
-  <block id="43ff7a71a2ea2fc47a29d410cd1e4944" category="list-text">使用NetApp SnapMirror®技術、將工作負載資料從內部部署ONTAP 的SnapMirror系統複寫到Cloud Volumes ONTAP 適用於NetApp ONTAP 的Sf2或Amazon FSX、以便使用區塊層級機制輕鬆移轉。這不適用於Azure NetApp Files 「不適用於」和「Cloud Volumes服務」。若要將資料移轉至Azure NetApp Files 「供應資料」或「雲端磁碟區服務」、請根據Cloud Sync 所使用的檔案傳輸協定、使用NetApp XCP、Rysnc或Robocopy。</block>
   <block id="d3c0fd4b510310b9bd00463208eade94" category="list-text">測試顯示、從個別SDDC存取儲存設備時、會有2至4毫秒的額外延遲。在對應儲存設備時、請將額外延遲因素納入應用程式需求。</block>
   <block id="b83cf0bc9b65a0fcd5f49d4c96dceea8" category="list-text">若要在測試容錯移轉和實際容錯移轉期間掛載與來賓連線的儲存設備、請確認iSCSI啟動器已重新設定、SMB共用的DNS已更新、而且Fstab中的NFS掛載點已更新。</block>
   <block id="1b4048870ed334dbc2e7d6f09a814188" category="list-text">請確定已在VM內部正確設定來賓Microsoft多重路徑I/O（MPIO）、防火牆及磁碟逾時登錄設定。</block>
@@ -7858,7 +7832,6 @@
   <block id="9b971596a6ee599483fd04c84d2ce18d" category="paragraph"><block ref="9b971596a6ee599483fd04c84d2ce18d" category="inline-image-macro-rx" type="image"></block></block>
   <block id="cf5341803b0061ef190495343f39fa02" category="list-text">提供要建立的環境詳細資料、包括環境名稱和管理員認證資料。將Azure環境的資源群組標記新增為選用參數。完成後、按一下「Continue（繼續）」。</block>
   <block id="350a5c2219e5e14fd23dda8372344842" category="paragraph"><block ref="350a5c2219e5e14fd23dda8372344842" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="360a69a0b184770c2409949f2c7e1140" category="list-text">選擇Cloud Volumes ONTAP 用於進行支援的附加服務、包括Cloud Data Sense、Cloud Backup和Cloud Insights 效益。選取服務、然後按一下「Continue（繼續）」。</block>
   <block id="11728d9ffc9e6944adf4891d5543e154" category="paragraph"><block ref="11728d9ffc9e6944adf4891d5543e154" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ee060e03da823e605453fbfa27743d77" category="list-text">設定Azure位置和連線能力。選取要使用的Azure區域、資源群組、vnet和子網路。</block>
   <block id="4549d76a3daf0d322686b6d4f6fb1490" category="paragraph"><block ref="4549d76a3daf0d322686b6d4f6fb1490" category="inline-image-macro-rx" type="image"></block></block>
@@ -8555,7 +8528,6 @@
   <block id="4fe11b4a91ff38ec9933009a15dd5b0b" category="paragraph">另一ONTAP 項優勢是廣泛支援混合雲、將內部部署私有雲中的系統與公有雲功能合併在一起。以下是一些可搭配vSphere使用的NetApp雲端解決方案：</block>
   <block id="67464b4510c09197c8a5e16ba6702435" category="list-text">* Cloud Volumes.* NetApp Cloud Volumes Service 的AWS或GCP及Azure NetApp Files 適用於ANF的支援功能、可在領先業界的公有雲環境中提供高效能、多重傳輸協定的託管儲存服務。VMware Cloud VM來賓可以直接使用。</block>
   <block id="0ac7b95ec26051fb8842ae35427ecc22" category="list-text">*《NetApp》資料管理軟體可在您選擇的雲端上、為您的資料提供控制、保護、靈活度及效率。Cloud Volumes ONTAP Cloud Volumes ONTAPNetApp是以NetApp解決方案儲存軟體為建置基礎的雲端原生資料管理軟體。Cloud Volumes ONTAP ONTAP搭配Cloud Manager一起使用、即可部署Cloud Volumes ONTAP 及管理包含ONTAP 內部部署的各種系統的不二執行個體。利用進階NAS和iSCSI SAN功能、以及統一化資料管理、包括Snapshot複本和SnapMirror複寫。</block>
-  <block id="2a11701c0c01affc0ce96eb0d0c16ed9" category="list-text">* Cloud Services。*使用Cloud Backup Service NetApp或SnapMirror Cloud、利用公有雲儲存設備保護內部部署系統的資料。可協助您在NAS、物件儲存區和物件儲存區之間移轉及保持資料同步。Cloud Sync Cloud Volumes Service</block>
   <block id="fa9b5353337118a51ced7968bccc02a0" category="inline-link">儲存更多VM的Snapshot複本</block>
   <block id="c79f1f00e1e3c8f100e8604eec888859" category="list-text">* FabricPool 《*》FabricPool *《*》*《*》提供快速且簡單的ONTAP 資料分層功能。Snapshot複本中的冷區塊可移轉至公有雲或私有StorageGRID 的物件存放區、ONTAP 並在再次存取該資料時自動重新叫用。或是將物件層用作SnapVault 已由效益管理的資料的第三層保護。您可以使用這種方法<block ref="1d0add9d2d81e2d7e790f727021e53aa" category="inline-link-rx"></block> 在一線ONTAP 和/或二線的不二元儲存系統上。</block>
   <block id="1a7072854c9dd945a98f4314b3f77408" category="list-text">*《*》。*使用NetApp軟體定義的儲存設備、將您的私有雲端延伸至遠端設施和辦公室、您可以使用《》來支援區塊和檔案服務、以及您在企業資料中心擁有的相同vSphere資料管理功能。ONTAP Select ONTAP Select</block>
@@ -9239,7 +9211,6 @@
   <block id="9afb01441ce427bb3863eaccd46b9b5d" category="paragraph">您可以選擇Azure、AWS、IBM或Google雲端、以最佳化成本並避免受限。視需要運用OpenStack和Container技術的進階支援。</block>
   <block id="8a61dac106bf2a7f3b869c8ff58c4ce5" category="paragraph">資料保護通常是客戶開始雲端之旅時的第一件事。保護可以像非同步複寫金鑰資料一樣簡單、也可以像完整的熱備份站台一樣複雜。資料保護主要以NetApp SnapMirror技術為基礎。</block>
   <block id="d059ff0a497ad1427248dbb8f770b1d5" category="paragraph">有些客戶選擇將整個工作負載移至雲端。這可能比單純使用雲端來保護資料更為複雜、ONTAP 但由於您不需要重新寫入應用程式、就能使用雲端型儲存設備、所以無法簡化移動作業。在雲端上運作的過程如同內部部署的功能一樣。ONTAP ONTAP您的內部部署ONTAP 的支援功能可提供資料效率功能、讓您在較少的實體空間中儲存更多資料、並分層極少使用的資料、以降低儲存成本。無論您是使用混合雲組態、或是將整個工作負載移至雲端、ONTAP 都能使儲存效能與效率達到最大化。</block>
-  <block id="ad622d292f56f20b32a61fe1b8bd2f56" category="paragraph">NetApp也提供雲端型備份（SnapMirror Cloud、Cloud Backup Service VMware及Cloud Sync VMware）、以及FabricPool 適用於VMware的儲存分層與歸檔工具（VMware®）ONTAP 、協助降低營運成本、並充分運用雲端的廣泛應用。</block>
   <block id="49c437176039e1c910728eac1f332689" category="paragraph">下圖提供混合雲使用案例範例。</block>
   <block id="e61ead4102c89a9758572df81301a1d2" category="inline-image-macro">混合雲</block>
   <block id="9188eeccf6b5386d9573cea87cf05102" category="paragraph"><block ref="9188eeccf6b5386d9573cea87cf05102" category="inline-image-macro-rx" type="image"></block></block>
@@ -9400,7 +9371,6 @@
   <block id="dc4489aacb3c4d74b8253c49732b73e9" category="list-text">*統一化儲存設備。*執行ONTAP 此功能的系統以多種重要方式統一化。這種方法原本是指NAS和SAN兩種傳輸協定、ONTAP 而除了NAS的原始優勢之外、它仍是SAN的領導平台。在vSphere環境中、這種方法也可能代表虛擬桌面基礎架構（VDI）的統一化系統、以及虛擬伺服器基礎架構（VSI）。執行ONTAP VMware軟體的系統通常比傳統企業陣列便宜、但在同一個系統中擁有進階的儲存效率功能來處理VDI。此外、從SSD到SATA、還能統一化各種儲存媒體、並將這些媒體輕鬆延伸到雲端。ONTAP不需要購買單一Flash Array來提升效能、SATA陣列用於歸檔、以及獨立的雲端系統。將它們緊密連結在一起。ONTAP</block>
   <block id="ec8cd066c60323f007135b1f083b64de" category="list-text">*虛擬磁碟區與儲存原則型管理。* NetApp是VMware的早期設計合作夥伴、負責開發vSphere虛擬磁碟區（vVols）、提供架構輸入及早期支援vVols與VMware vSphere API以提高儲存感知（VASA）。這種方法不僅能將精細的VM儲存管理功能帶入VMFS、也支援透過儲存原則型管理來自動化儲存資源配置。此方法可讓儲存架構設計師設計具有不同功能的儲存資源池、讓VM管理員輕鬆使用。這個解決方案是VVol擴充儲存產業的領導廠商、可在單一叢集內支援數十萬個vVols、而企業陣列和小型Flash陣列廠商則可支援每個陣列數千個vVols。ONTAPNetApp也透過即將推出的VVols 3.0支援功能、推動精細VM管理的演進。</block>
   <block id="fd5311fb87e61b58d3c3d278df26af4f" category="list-text">*儲存效率。*雖然NetApp是第一家針對正式作業工作負載提供重複資料刪除技術的公司、但這項創新並不是此領域的第一或最後一項。首先是ONTAP 使用不影響效能的空間效率資料保護機制、以及FlexClone技術來即時製作VM的讀寫複本、以供正式作業和備份使用。NetApp繼續提供內嵌功能、包括重複資料刪除、壓縮及零區塊重複資料刪除、讓昂貴的SSD發揮最大的儲存容量。最近、利用壓縮技術、將較小的I/O作業和檔案封裝到磁碟區塊中的功能更為豐富。ONTAP這些功能的結合、讓客戶看到VSI的節約效益高達5：1、VDI的節約效益高達30：1。</block>
-  <block id="bb73602f3344c326a7b63c94db24362a" category="list-text">*混合雲*無論是用於內部部署的私有雲、公有雲基礎架構、或是結合兩者最佳功能的混合雲、ONTAP 均可利用此解決方案協助您打造資料架構、以簡化及最佳化資料管理。從高效能All Flash系統開始著手、然後將它們與磁碟或雲端儲存系統結合、以提供資料保護和雲端運算。您可以選擇Azure、AWS、IBM或Google雲端、以最佳化成本並避免受限。視需要運用OpenStack和Container技術的進階支援。NetApp也提供雲端型備份（SnapMirror Cloud、Cloud Backup Service VMware及Cloud Sync VMware）、以及FabricPool 適用於VMware的儲存分層與歸檔工具（VMware®）ONTAP 、協助降低營運成本、並充分運用雲端的廣泛應用。</block>
   <block id="0c157ce4e4fd6289dbf0b282993c2f80" category="list-text">*及更多資訊。*善用NetApp AFF Sa系列陣列的極致效能、加速虛擬化基礎架構、同時管理成本。使用橫向擴充ONTAP 的叢集、享受完全不中斷營運的體驗、從維護到升級、到儲存系統的完整更換。使用NetApp加密功能保護閒置資料、無需額外成本。透過精細的服務品質功能、確保效能符合業務服務層級。這些都是ONTAP 業界領先的企業資料管理軟體、即包含在眾多功能中的一部分。</block>
   <block id="c0ddbacfe0f703e62904558059e40001" category="summary">本節提供ONTAP 有關特定版本之VMware及vSphere所支援功能的指引。NetApp建議確認特定版本與NetApp互通性對照表的組合。</block>
   <block id="bc8be72fdc9d6054f356bb2b7f80fd12" category="inline-link">NetApp 互通性對照表</block>
@@ -11467,9 +11437,6 @@
   <block id="35b46e301702b6fcb16192f9f4cf4533" category="inline-link">Astra控制服務</block>
   <block id="eb75cc706ac8cc6c0f4cb17f4fb073dd" category="paragraph">NetApp Astra產品系列提供儲存與應用程式感知資料管理服務、適用於Kubernetes應用程式的內部部署與公有雲、採用NetApp儲存與資料管理技術。它可讓您輕鬆備份Kubernetes應用程式、將資料移轉至不同的叢集、並即時建立運作中的應用程式複本。如果您需要管理在公有雲上執行的Kubernetes應用程式、請參閱的文件<block ref="6d442ad773e9d31651277931acd1583a" category="inline-link-rx"></block>。Astra Control Service是NetApp管理的服務、可在Google Kubernetes Engine（GKE）和Azure Kubernetes Service（KS）中、提供Kubernetes叢集的應用程式感知資料管理功能。</block>
   <block id="545b3003eeeed3a05db492712188eaa8" category="paragraph">Astra<block ref="b792e70a7bbe82fe69049fd18abe3c18" category="inline-link-rx"></block> NetApp是適用於Docker和Kubernetes的開放原始碼動態儲存協調工具、可簡化持續儲存的建立、管理和使用。Kubernetes原生應用程式Trident直接在Kubernetes叢集內執行。Trident可讓客戶將DL Container映像無縫部署到NetApp儲存設備、並為AI Container部署提供企業級體驗。Kubernetes使用者（ML開發人員、資料科學家等）可以建立、管理及自動化協調與複製、以充分利用NetApp技術所提供的進階資料管理功能。</block>
-  <block id="434636f83b39076d7f319707cddbd844" category="paragraph"><block ref="f0ec1a9d50acb3759e364a1cdfa9961d" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署NFS或SMB檔案共享之間傳輸檔案、NetApp StorageGRID 效益、NetApp ONTAP S3、NetApp Cloud Volumes Service 效益、Azure NetApp Files 支援、Amazon Simple Storage Service（Amazon S3）、Amazon Elastic File System（Amazon EFS）、Azure Blob、Google Cloud Storage、 或者IBM Cloud Object Storage Cloud Sync 、讓您快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。根據預先定義的排程、不間斷地同步資料、只移動差異、因此能將資料複寫所花費的時間和金錢減至最低。Cloud Sync不只是軟體即服務（SaaS）工具、設定與使用極為簡單。Cloud Sync由資料代理人執行由功能不整所觸發的資料傳輸Cloud Sync 。您可以在Cloud Sync AWS、Azure、Google Cloud Platform或內部部署中部署不實資料代理程式。</block>
-  <block id="66b5cd4a3c9ce410ceb216447176b92c" category="section-title">NetApp Cloud Data Sense</block>
-  <block id="37b37a18c5e4fe4e0985503adba1ee06" category="paragraph">採用強大的AI演算法、 <block ref="41205542004b3a03df744ae454bd65c9" category="inline-link-rx"></block> 在整個資料產業中提供自動化控管與資料治理功能。您可以輕鬆找出成本節約效益、找出法規遵循與隱私權的考量、並找出最佳化商機。Cloud Data Sense儀表板可讓您深入瞭解如何識別重複資料、以消除備援、對應個人、非個人及敏感資料、並針對敏感資料和異常狀況開啟警示。</block>
   <block id="b391770315ecce50e9dae3b6506d3513" category="inline-link-macro">下一步：測試與驗證計畫。</block>
   <block id="d063081c0d1c6aff0b7c690b473d4045" category="paragraph"><block ref="d063081c0d1c6aff0b7c690b473d4045" category="inline-link-macro-rx"></block></block>
   <block id="fb0e25ed6b061ae8d5a55a94457e445e" category="summary">在這項驗證中、我們將Protopia混淆套用至1920 x 1080像素映像五倍、並測量每次執行模糊化步驟所需的時間量。</block>
@@ -12753,10 +12720,7 @@
   <block id="36e402ac6b1a4b9a31bd376a7f89c68e" category="paragraph">備份虛擬機器並快速恢復這些虛擬機器、是ANF資料存放區的最大優勢之一。使用Snapshot複本來快速複製VM或資料存放區、而不影響效能、然後將它們傳送至Azure儲存設備以提供長期資料保護、或使用跨區域複寫來進行災難恢復。這種方法只儲存變更的資訊、可將儲存空間和網路頻寬減至最低。</block>
   <block id="2bd24edc1157f2ea366bbf67e980b57e" category="paragraph">使用VMware Snapshot複本進行一般保護、並使用應用程式工具來保護位於客體VM上的交易資料、例如SQL Server或Oracle。Azure NetApp Files這些Snapshot複本與VMware（一致性）快照不同、適合長期保護。</block>
   <block id="c69157396b1ac0cb910d839c99a0a9e3" category="admonition">使用ANF資料存放區時、「Restore to New Volume」（還原至新磁碟區）選項可用於複製整個資料存放區磁碟區、還原的磁碟區可作為另一個資料存放區掛載至AVS SDDC內的主機。資料存放區掛載完成後、即可登錄、重新設定及自訂其中的VM、如同個別複製VM一樣。</block>
-  <block id="92b97805e00b695b9f8aeddf2cc8828d" category="example-title">適用於虛擬機器的雲端備份</block>
-  <block id="3b0ec96ab43930bb5b0f274d7a4733bd" category="paragraph">適用於虛擬機器的Cloud Backup可在vCenter上提供vSphere Web用戶端GUI、透過Azure NetApp Files 備份原則保護Azure VMware解決方案虛擬機器和VMware資料存放區。這些原則可定義排程、保留及其他功能。Cloud Backup for Virtual Machine功能可以使用Run命令進行部署。</block>
   <block id="ad15ef62ee17e83e2a2c4de5cfc0a7e0" category="paragraph">完成下列步驟即可安裝設定與保護原則：</block>
-  <block id="68efc774d1525ecfc4ad132a4f363c10" category="list-text">使用Run命令、在Azure VMware解決方案私有雲中安裝適用於虛擬機器的Cloud Backup。</block>
   <block id="3a1d9263efa0039dd46c2e2d0dfc2dec" category="list-text">新增雲端訂閱認證（用戶端和機密值）、然後新增雲端訂閱帳戶（NetApp帳戶和相關資源群組）、其中包含您想要保護的資源。</block>
   <block id="60d5826756f013d28eadac75aec57698" category="list-text">建立一或多個備份原則、以管理資源群組備份的保留、頻率及其他設定。</block>
   <block id="6ad3833cba216d2fe6639be4726ad69e" category="list-text">建立一個容器、以新增一或多個需要備份原則保護的資源。</block>
@@ -13434,7 +13398,6 @@
   <block id="6f9886092f343d1ecc5b676f4ca381c7" category="paragraph">如需備份SQL資源、請遵循<block ref="d0500a8d119256a2ca6775a9357c88fa" category="inline-link-rx"></block>。</block>
   <block id="ffbeca6b667809b446c63465c7ff671f" category="paragraph">如需備份Oracle資源、請遵循<block ref="c6b13e1956473c7b22893d8b12c1b8be" category="inline-link-rx"></block>。</block>
   <block id="601c3055944b06a3d06d7da4128af752" category="summary">若要將我們的應用程式VM和資料庫Volume容錯移轉至執行於AWS的VMware Cloud Volume服務、必須安裝並設定SnapCenter 執行中的VMware Server和Veeam備份與複寫伺服器執行個體。容錯移轉完成後、也必須將這些工具設定為恢復正常的備份作業、直到規劃並執行內部部署資料中心的容錯回復為止。</block>
-  <block id="f93f90f32b570b5fbcc3458fb93a6ab2" category="doc">雲端備份工具</block>
   <block id="4f31ced8146865d2c2823db3f623bf36" category="section-title">部署備份工具</block>
   <block id="4dad49c9583060929c06d355e24a683a" category="paragraph">VMware Cloud SDDC可安裝支援伺服器與Veeam備份與複寫伺服器、也可安裝在VPC中的EC2執行個體上、並可透過網路連線至VMware Cloud環境。SnapCenter</block>
   <block id="f709ed2f05802131924f53cb483d0216" category="section-title">伺服器SnapCenter</block>
@@ -13772,7 +13735,6 @@
   <block id="edf0320adc8658b25ca26be5351b6c4a" category="cell">8144</block>
   <block id="397d2ce87a0d127486b8fa20c5f3cdb9" category="cell">此連接埠可用於從vCenter vSphere Web用戶端和SnapCenter 從VMware Server進行通訊。</block>
   <block id="f201deaeba7cc565253f52d974008543" category="summary">若要將應用程式VM和資料庫Volume容錯移轉至執行於AWS的VMware Cloud Volume服務、您必須同時安裝SnapCenter 並設定執行中的VMware Server和Veeam備份與複寫伺服器執行個體。容錯移轉完成後、您也必須設定這些工具、以便恢復正常的備份作業、直到規劃並執行內部部署資料中心的容錯回復為止。</block>
-  <block id="ee51a40e9d2538b4e33b441d66869c24" category="doc">雲端備份工具與組態</block>
   <block id="a514f4da2fec40b52d89613d7b3854fa" category="section-title">部署次要Windows SnapCenter 功能伺服器</block>
   <block id="dba3e8475ef38dcd147447c5730c2f7c" category="paragraph">支援VMware Cloud SDDC部署的VMware伺服器、或安裝在VPC中的EC2執行個體上、並可透過網路連線至VMware Cloud環境。SnapCenter</block>
   <block id="1a297f32b70010f208d00a4f58855fec" category="paragraph">NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱<block ref="92e6fa322f689d7da93690560d0b41bd" category="inline-link-rx"></block>。</block>
@@ -14140,36 +14102,13 @@
   <block id="ea3387672e6f02f40253d603226e4fd8" category="list-text">存取vCenter以驗證NFS資料存放區、如下所示：</block>
   <block id="30880d4531deb5f77cf22e65ed7f3bc8" category="paragraph"><block ref="30880d4531deb5f77cf22e65ed7f3bc8" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ff56eef7a458cc9250ee84cb0b8b3752" category="cell">FSX ONTAP<block ref="b9210f6aa16b7e370d59e02bd5b54f88" category="inline-link-macro-rx"></block></block>
-  <block id="b2859c129ed9d2683658aaef48d31759" category="doc">解決方案名稱&gt;</block>
-  <block id="4845fee41e2c9edce3bd46094fdb57a2" category="paragraph">作者：&lt;name&gt;、&lt;TITLE&gt;、&lt;company &gt;</block>
   <block id="ef1e6887c579ba81dcedc3f4e3793cd2" category="section-title">目標對象</block>
-  <block id="46c04e63acdf5955295f68d8a963bfbd" category="paragraph">本解決方案適用於對&lt;goal &gt;感興趣的&lt;role &gt;。</block>
-  <block id="1d00e7dce692e8dc3f6877f035e3a616" category="paragraph">或</block>
-  <block id="b98cf6de800fd94a50eaa1fff8bfd974" category="section-title">解決方案測試/驗證環境</block>
   <block id="aca7234abb238eb8646973440eb294d3" category="paragraph">本解決方案的測試/驗證是在實驗室中執行、可能與最終部署環境相符或不相符。如需詳細資訊、請參閱下列各節。</block>
   <block id="bb46e30937334302b789ae4644fdc412" category="image-alt">解決方案架構示意圖</block>
   <block id="39f3ba4cf87d6a47181e787c275344e5" category="section-title">硬體/軟體元件</block>
   <block id="958c530ea1ae0e18b942f8784148734c" category="cell">*硬體*</block>
-  <block id="619d009ae026df3741648cc5d1d82614" category="cell">&lt;硬體名稱&gt;</block>
-  <block id="295146e011d375f76fc8093d2a5f746a" category="cell">&lt;機型/版本&gt;</block>
-  <block id="18206c5add24b8898426959c811b779b" category="cell">更多資訊</block>
   <block id="7eef23b11d6e87eee968a9bef33fd707" category="cell">*軟體*</block>
-  <block id="b8b4ca3eb830ebaf39f536d59b342a79" category="cell">軟體名稱&gt;</block>
-  <block id="192dcc5c64e1f37fd6c9e50a1b157443" category="cell">&lt;版本&gt;</block>
-  <block id="94f04537971d7a4a561c607ec55952a2" category="section-title">其他附註</block>
-  <block id="5f8c710bd804698095dac1f01702f2dc" category="list-text">附註1.</block>
-  <block id="b5be88cc2b21098a0407835f4cf72ead" category="list-text">附註n</block>
   <block id="dd1d4adbfe73c3cd87fc248a003b05a0" category="section-title">解決方案部署</block>
-  <block id="335680aa8906e185cbdaebb23568afb0" category="example-title">步驟1：&amp;lt；說明步驟名稱&amp;gt;</block>
-  <block id="8368bea2982e0341bdf3dd2e21ae59ba" category="list-text">工作1.</block>
-  <block id="246b81c0be9905296fd43f043d65acf9" category="list-text">工作n</block>
-  <block id="dc84800e606f171d76211870801056d9" category="example-title">步驟2：&amp;lt；說明步驟名稱&amp;gt;</block>
-  <block id="1361b538eba6bc2813d883fde1eaa379" category="example-title">步驟n：&amp;lt；說明步驟名稱&amp;gt;</block>
-  <block id="b57b7771f6b9c2ff769c133b18814390" category="section-title">其他部署選項</block>
-  <block id="43437c4ac7246d8571bf69d647faab0e" category="inline-link-macro">文件說明</block>
-  <block id="0da1d1196a3aec2a948937502374b5bb" category="list-text"><block ref="0da1d1196a3aec2a948937502374b5bb" category="inline-link-macro-rx"></block></block>
-  <block id="71214e9c5af2e86babf8e62565a8dda2" category="inline-link-macro">另一份文件的說明</block>
-  <block id="2757c805d63f926c06b19e462b16de69" category="list-text"><block ref="2757c805d63f926c06b19e462b16de69" category="inline-link-macro-rx"></block></block>
   <block id="2f9ce81cf9e5f73733bacd731daaedbc" category="sidebar">補充NFS資料存放區：總覽</block>
   <block id="cd9738c68373595541959c8e55ede29e" category="sidebar">補充NFS資料存放區：選項</block>
   <block id="00ec4042cd11b865f5a96645c8f6abca" category="sidebar">FSX ONTAP 支援補充NFS資料存放區：總覽</block>
@@ -14203,11 +14142,6 @@
   <block id="5659fbd7d9a7a1963d1f57717f874bcb" category="list-text">下一步是驗證相關VPC中的安全性群組是否已更新為SDDC群組CIDR的正確傳入規則。</block>
   <block id="381318b231b70d3c81a3bb05e8912be3" category="paragraph">這是準備連線至適當SDDC的最後步驟。在設定檔案系統、新增路由及更新安全性群組之後、現在正是掛載資料存放區的好時機。</block>
   <block id="e60de72a8067fd05498b03b24d9f93e7" category="paragraph">本解決方案可解決下列使用案例：</block>
-  <block id="50f68cc3bee11411ba8ee639a7ed59d7" category="list-text">&lt;使用案例1&gt;</block>
-  <block id="bfbe592724efe7b70f86b50a78741381" category="list-text">&lt;使用案例n&gt;</block>
-  <block id="732f94f3061dc1751b3c7e3ea8566239" category="paragraph">本解決方案適用於：</block>
-  <block id="dab739113e8cfebbcfcfaea1515c0bcf" category="list-text">、誰對&lt;goal &gt;感興趣、</block>
-  <block id="7367185552beb127edfea2f14982e67f" category="list-text">、誰對&lt;goal &gt;感興趣。</block>
   <block id="71b51633ceea83cdf1136196fce39901" category="admonition">客體內儲存設備是唯一支援的將Cloud Volumes ONTAP 功能連接到AWS VMC的方法。</block>
   <block id="9761d5208d76a88ba5a08152c4431c2f" category="admonition">客體內儲存設備是唯一支援的連線Cloud Volumes ONTAP 至Azure VMware解決方案的方法。</block>
   <block id="bb19e956b854f8e209f51237a29feb31" category="admonition">客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功能、可將VMware（CVO）連線至AWS VMC。</block>
@@ -14617,7 +14551,6 @@
   <block id="6dc7db5e9c1da14f7d61e2a7f4428219" category="list-text">主要挑戰是建置具成本效益且高效率的解決方案、在不同的內部部署環境與雲端環境之間提供混合式分析服務。</block>
   <block id="cc4772ffa75dd53e0fb87df4b15528cd" category="paragraph">我們的資料保護與多重雲端連線解決方案解決了跨多個大型擴充程式使用雲端分析應用程式的難題。如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。</block>
   <block id="88971c24837a2734fa58ba8805336328" category="paragraph">由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。因此、因為內部部署和NPS儲存都執行ONTAP 了一套功能不全的軟體、<block ref="fcca72a796080b3a5e2b7b1394bd00ad" category="inline-link-rx"></block> 可將NPS資料鏡射至內部部署叢集、在內部部署和多個雲端之間提供混合雲分析。</block>
-  <block id="6e53d162faf0b7bc51e81ca980f05f86" category="paragraph">為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括<block ref="0adb843c17d646acd72646e9688dde2b" category="inline-link-rx"></block> 和<block ref="4c1cade27212922d2ee7525beab5b4a9" category="inline-link-rx"></block> 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。</block>
   <block id="1e73bec6e2f584224cb16d4550039696" category="inline-link-macro">下一步：每個主要使用案例的Python指令碼。</block>
   <block id="cf6b62d678290b47b2c7abc2f11eb6d5" category="paragraph"><block ref="cf6b62d678290b47b2c7abc2f11eb6d5" category="inline-link-macro-rx"></block></block>
   <block id="edeeafbd44ff39ea2ff14f5de4488b69" category="summary">本頁說明可使用此解決方案的不同領域。</block>
@@ -14676,23 +14609,7 @@
   <block id="6e9120b39f924b2eed528e3bcdd009ac" category="paragraph">第三個指令碼是「rrun _crite_criteo_site.py」。</block>
   <block id="be0ba1bf6a99c201834567c4d58fc40e" category="paragraph"><block ref="be0ba1bf6a99c201834567c4d58fc40e" category="inline-link-macro-rx"></block></block>
   <block id="2ce0710320aace7b17c3af20eaac2918" category="sidebar">使用案例摘要</block>
-  <block id="7a28dc06a92c8c13aba4217cc065d556" category="list-text">&lt;使用案例2 &gt;...</block>
-  <block id="e71faea04999fd95e327c2ae1b14b591" category="list-text">附註2 ...</block>
-  <block id="39a42e9bc59c02bbbf3ed4eb16b1cca4" category="paragraph">您可以完成此解決方案的部署：</block>
-  <block id="7300ce5706dee36f69c820d38d478b65" category="list-text">請依照螢幕擷取畫面中的詳細指示手動完成、</block>
-  <block id="8412750c53dfad13bb8a2baccb69df63" category="list-text">請手動追蹤影片、並顯示要執行的步驟、或</block>
-  <block id="ec325ca23fb4f2a557b0efcf8667bf31" category="list-text">自動依照自動化部分所提供的指示進行。</block>
-  <block id="d22702677ec3ab6384e6dae329022796" category="open-title">詳細指示</block>
-  <block id="233777e8b1ab8b0114d7518acdbd2377" category="list-text">任務2 ...</block>
-  <block id="2f43b42fd833d1e77420a8dae7419000" category="paragraph">...</block>
-  <block id="a0c7049fba5354f8f1711e379e6f4201" category="open-title">影片逐步解說</block>
-  <block id="c6388aefff17f19b12b255766fe6b6fe" category="paragraph">&lt;請在此附上影片詳細資料&gt;</block>
   <block id="f674169036173cc4a9f01e223c275c8d" category="open-title">自動化部署</block>
-  <block id="b9e9e9354502c35dc60d3744fb1506e6" category="paragraph">&lt;在此處加入自動化步驟/程序/影片&gt;</block>
-  <block id="bbc8a731eb9387bfdc71e5f35721af4c" category="example-title">&amp;l;選項說明1&amp;gt;</block>
-  <block id="e83c35e6afea2838c146155292120e3a" category="paragraph">&lt;在此輸入選項的詳細資料&gt;</block>
-  <block id="a8ec4bf9dc004e6dc4ec8c7c8cb307a3" category="example-title">&amp;l;選項說明2&amp;gt;</block>
-  <block id="13e60333560bb11c5611ca7faa0dff3b" category="example-title">&amp;l;選項說明n&amp;gt;</block>
   <block id="329ecbed66c88e6c0c049d051ad6aa9a" category="paragraph">NetApp公司David Arette和Sung-HAN LIN</block>
   <block id="d940dfad6ae514d8235749f5f5bf92ed" category="paragraph">NVA-1151-Design說明NetApp認證的機器學習架構、以及使用NetApp AFF ®XA800儲存系統、NVIDIA DGX A100系統和NVIDIA Mellanox網路交換器的人工智慧工作負載。其中也包含已實作架構的基準測試結果。</block>
   <block id="16550c71fdf2102ec8face86a5d82746" category="cell">2022年9月30日</block>
@@ -15176,66 +15093,6 @@
   <block id="ce32836b59e052d959dee4d2358e5a21" category="paragraph">為了進行測試、此驗證所使用的內部部署實驗室環境是透過站台對站台VPN連線、因此可內部部署連線至Azure VMware解決方案。</block>
   <block id="0bcfdba2f090838df9da44d825fedc49" category="doc">TR 4942：ONTAP 使用VMware HCX將工作負載移轉至FSx支援資料存放區</block>
   <block id="dd5244d49dea74bb9effd68426155ca2" category="sidebar">使用VMware HCX將工作負載移轉至FSXfor ONTAP VMware資料存放區</block>
-  <block id="cdf4d8a8fa9326debf96606ee7177f41" category="doc">AsciDoc編碼與輸出範例</block>
-  <block id="6c1cc46d8764b2147f50c80e336ab770" category="paragraph">本文包含Asciidocc來源和結果輸出的一些範例。</block>
-  <block id="c252a357a127635943f82514442e62b3" category="section-title">標題層級</block>
-  <block id="8000c50cdc8b68dd9ea0d326040cbd63" category="paragraph">[藍色底線]*來源AsciDoc：*</block>
-  <block id="3c2f44ba0863f4f0fcb5023aa4ee6ca2" category="paragraph">[藍色底線]*產生HTML：*</block>
-  <block id="efea650a2edf10e173ba726fa4e90c5f" category="section-title">標題層級1（章節標題）</block>
-  <block id="2b70e22920b3d78a96efdd65b4b37c1f" category="section-title">標題層級2（章節標題）</block>
-  <block id="3742ded2a390654e38f763a70bd4e35a" category="section-title">標題層級3（章節標題）</block>
-  <block id="4d1ebef97112908dabe0c9c786eaa7ba" category="section-title">標題層級4（章節標題）</block>
-  <block id="44e6fd3a1839882d90b6020944c4aeb1" category="section-title">標題層級5（章節標題）</block>
-  <block id="691d1860ec58dd973e803e209697d065" category="section-title">清單</block>
-  <block id="d3263947659da25e39643e07688fb919" category="paragraph">無序清單：</block>
-  <block id="6e991c331de28266251c487c42df1f10" category="list-text">這是無序清單</block>
-  <block id="d1ad2884248be2067d5bc70a584eba6d" category="list-text">這仍是未排序的清單</block>
-  <block id="b84268ab94bb6da5f97f344b7f78bf9f" category="list-text">這是無序清單中的子元素</block>
-  <block id="434aab8bf1245d04dc3e96af08e1842e" category="paragraph">訂購清單：</block>
-  <block id="07628350d195b6ebaae83ec46df8e1c3" category="list-text">這是有序的清單</block>
-  <block id="964f443f29145e9fa43a38671d07d447" category="list-text">這仍是有序的清單</block>
-  <block id="239cecc0851db8990cd18461b6243348" category="list-text">這是有序清單中的子元素</block>
-  <block id="fff0d600f8a0b5e19e88bfb821dd1157" category="section-title">映像</block>
-  <block id="340c4d7a25252d5807344db646713010" category="paragraph">您可以連結至儲存庫內或網路上任何位置的影像。對於儲存庫內的影像、這些影像會放置在媒體資料夾中、因此您必須確保「：imagesdir：./media/」設定適當。</block>
-  <block id="13d002c81cf56705c2becc11e5ed9a4f" category="image-alt">儲存庫內的映像</block>
-  <block id="43d8eb4fa9bb019f23b6835a3d3c93d7" category="image-alt">儲存庫外的映像</block>
-  <block id="bd908db5ccb07777ced8023dffc802f4" category="section-title">連結</block>
-  <block id="69faa60007e518154e5dfa6c7cb9606d" category="paragraph">如同影像、連結可以參考儲存庫內或網路上任何位置的文件。對於內部參考、請務必確認「LINK:」陳述式中已指定連結來源的路徑。</block>
-  <block id="8cc0407dfab26edc02bac943afa1c50d" category="inline-link-macro">NetApp解決方案變更記錄（內部）</block>
-  <block id="e5eddd5cb0a7a1048bd37c62e18ae2dd" category="paragraph"><block ref="e5eddd5cb0a7a1048bd37c62e18ae2dd" category="inline-link-macro-rx"></block></block>
-  <block id="4d9909e75daa4ee8685674e4136d2046" category="inline-link-macro">NetApp解決方案變更記錄（外部）</block>
-  <block id="bc630a540bb452bb9f726ed7c7e14715" category="paragraph"><block ref="bc630a540bb452bb9f726ed7c7e14715" category="inline-link-macro-rx"></block></block>
-  <block id="3bdabc119341b76ec34be01ada064a84" category="section-title">可摺疊的內容（也稱為Twisties）</block>
-  <block id="b78a3223503896721cca1303f776159b" category="example-title">標題</block>
-  <block id="b66944886034ca73431f2e338216bd4b" category="paragraph">在此處顯示要摺疊的文字。</block>
-  <block id="70f60b4a0e07b27ad4d42c2ede9220f3" category="admonition">按一下「Title（標題）」以查看展開的內容</block>
-  <block id="1cc54ce67047f47e6e0b998e4757610b" category="section-title">建立表格</block>
-  <block id="2e0fea6cc0d29edadf544e93bf56013c" category="cell">欄A</block>
-  <block id="778c1ae51201605a08ca7745c8dd3856" category="cell">欄B</block>
-  <block id="00862db58047a1191cc2f83e69ff9892" category="cell">欄C</block>
-  <block id="19273115ac8897b4064a43ccf533c3ba" category="cell">欄A中的文字</block>
-  <block id="9ed785bee043f58e69669715e38bfe2d" category="cell">欄B中的文字</block>
-  <block id="ec7498417999a2d1bc9ab843b061d478" category="cell">欄C中的文字</block>
-  <block id="19ffdf534588898ed43f67fde767f1fd" category="paragraph">以下是另一個範例、其中一列橫跨整個表格、而其他列的資料跨越多個欄：</block>
-  <block id="bf767d30d483b6701f943a456017bf9d" category="cell">標頭欄1</block>
-  <block id="6e3e0843cfe6ff00d3b74bf168580453" category="cell">標題欄2.</block>
-  <block id="a2fa10d34df17b106b689ca93f07c770" category="cell">標題欄3.</block>
-  <block id="61bd6ed3bebad9294ee30668abbeff3c" category="cell">標題欄4.</block>
-  <block id="1a168c8aca72f77bf84798bb31a4cb8c" category="cell">這真的是一列長的資料行、橫跨表格的所有4欄。這是此列中唯一的儲存格、不會留下空白儲存格。</block>
-  <block id="4f14cfb44ee45b336256dd439e135021" category="cell">這是一長列、橫跨表格中的3個欄、保留一個空白儲存格。</block>
-  <block id="43eddd3ae82d79991b5cefa462bed9d7" category="cell">此列橫跨2欄、保留2個儲存格為空白。</block>
-  <block id="77631ca4f0e08419b70726a447333ab6" category="cell">這</block>
-  <block id="f1965a857bc285d26fe22023aa5ab50d" category="cell">列</block>
-  <block id="a2a551a6458a8de22446cc76d639a9e9" category="cell">是</block>
-  <block id="fea087517c26fadd409bd4b9dc642555" category="cell">正常</block>
-  <block id="00a4cb60b0815316a1416dae59b77543" category="inline-link-macro">AsciDoc文件</block>
-  <block id="c784ba850708b73450bc80d79e01313e" category="admonition">您可以指定許多選項來變更表格的配置。如需詳細資訊、請在您要達成的儲存庫（HTML版本）中找到範例、然後前往VsCode檢視來源、或造訪 <block ref="8ce64cdd9ff98df64c05c93fb30bd0b8" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
-  <block id="e2f7e3242523777351b6658f86564416" category="section-title">索引標籤式區塊</block>
-  <block id="d6d281824a9f2f56cd13926cacd6f6c3" category="open-title">第一個索引標籤</block>
-  <block id="a13c148381823333364efc7a66153681" category="paragraph">第一個索引標籤的內容請參閱此處</block>
-  <block id="99a1d6da572d7987b546c07b1053d7b0" category="open-title">第二個索引標籤</block>
-  <block id="d93aaa34fa764ccd0a071f1c256e0a6f" category="paragraph">第二個索引標籤的內容請參閱此處</block>
-  <block id="3b04793c63a616fa65f54f1d98c263e1" category="admonition">按一下「第二個索引標籤」以查看該區段的內容。</block>
   <block id="c53dba1ad099d932b01eacd82bd500f2" category="doc">NVA-1155：Oracle 19c RAC Database on FlexPod Arscide Datacenter with Cisco UCS and NetApp AFF E支援FC的Oracle 19c RAC資料庫-設計與部署指南</block>
   <block id="547673676a9fdbc79f1364e749be4d0a" category="paragraph">NetApp的Alleno Cao</block>
   <block id="6e170e4c0b9eb50546a09aafc90dc157" category="doc">TR-4794：NetApp EF系列上的Oracle資料庫</block>
@@ -15264,7 +15121,6 @@
   <block id="806008ac96286a2e08058ba3a3daa601" category="paragraph">Ryan Rodine、NetApp</block>
   <block id="3e22ed7172d7770cfa1457b7e70b2b06" category="doc">TR-4915：E系列和BeeGFS的資料搬移功能、適用於AI和分析工作流程</block>
   <block id="b85127cc663f1e3f1a6a366bb2732406" category="paragraph">CODY Harrman和Ryan Rovine、NetApp</block>
-  <block id="f75519c0654938719b5319e8d452e91a" category="paragraph">TR-4915說明如何將資料從任何資料儲存庫移至以NetApp E系列SAN儲存設備為後盾的BeeGFS檔案系統。對於人工智慧（AI）和機器學習（ML）應用程式、客戶可能經常需要將超過數PB資料的大型資料集移至BeeGFS叢集、以便進行模型開發。本文將探討如何使用NetApp XCP和NetApp Cloud Sync 等工具來達成此目標。</block>
   <block id="ff50db1ba0f8ba4a103a810e1ceb2afc" category="paragraph">NetApp公司的阿卜杜勒·薩德克、Tim Chau、Joe McCormick和David Arntette</block>
   <block id="1d78c2c26f50714898cd986ca8147756" category="paragraph">NVA-1156設計說明採用NetApp EF600 NVMe儲存系統、BeeGFS平行檔案系統、NVIDIA DGX A100系統及NVIDIA Mellanox Quantum QM8700 200Gbps IB交換器的NetApp驗證機器學習（ML）與人工智慧（AI）工作負載架構。此設計採用200Gbps InfiniBand（IB）、適用於儲存設備和運算叢集互連架構、為客戶提供完全以IB為基礎的架構、以滿足高效能工作負載的需求。本文件也包含已實作架構的基準測試結果。</block>
   <block id="eae34d8ef755492887b6a7aa4362588d" category="paragraph">Rick Huang、Sung-HAN LIN、Sathish Thyagarajan、NetApp JacCI Cenci、NVIDIA</block>
@@ -15288,7 +15144,6 @@
   <block id="1dcb8fb2d6ad519f4a7ecd244f9c7c76" category="paragraph">NetApp的Mitch Blackbur燒</block>
   <block id="6a67053961e2b9d7e16bf757a5bea347" category="doc">現代化資料分析：不同分析策略的不同解決方案</block>
   <block id="8e1e8679efe4694874eb9820dff26af8" category="paragraph">本白皮書說明NetApp現代化資料分析解決方案策略。其中包括業務成果、客戶挑戰、技術趨勢、競爭老舊架構、現代化工作流程、使用案例、產業、雲端、技術合作夥伴、資料移動者、NetApp Active IQ 功能區、NetApp DataOps Toolkit、Hadoop to Spark、採用NetApp Astra Control的軟體定義儲存設備、容器、企業資料管理、歸檔及分層、以達成AI與分析的目標、以及NetApp與客戶如何共同將資料架構現代化。</block>
-  <block id="4eb5c705ea54813c084d88a3d5a668f0" category="admonition">每個文件只應有一個文件標題（層級0）、區段標題不可跳過（區段次標題必須是區段下的下一個標題層級）。因此、輸出中不會顯示範例、以避免處理期間發生建置錯誤。</block>
   <block id="9b6f25534617a536120885c9ce2bf30b" category="inline-link">如需安裝程序、請參閱Veeam文件</block>
   <block id="51c7ff4d9c3185f2df469eed762010d5" category="inline-link-macro">VMware Cloud技術區</block>
   <block id="baab3b6c6024ccda908423e27d1a7d5b" category="admonition">此解決方案也可從VMware取得。請造訪 <block ref="e4f8fde8ba3579a04642cf870e6e362f" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
@@ -17231,8 +17086,6 @@
   <block id="d6e066caa1ab2a9ead96779ac0a95670" category="list-text">對測試公有 AWS 雲端中的 Oracle 資料庫備份、還原和複製感興趣的解決方案架構設計師</block>
   <block id="3e05bb0c3eae0733dd3f5b6eda0da89e" category="list-text">支援及管理 Amazon FSX for ONTAP 儲存設備的儲存管理員</block>
   <block id="e55870c74749ffe7a1d8b4c1a9cb5b60" category="list-text">擁有應用程式的應用程式擁有者、這些應用程式部署至 Amazon FSX 以進行 ONTAP 儲存</block>
-  <block id="a9bed64bc676f536e10a189728888614" category="image-alt">此映像提供 BlueXP 主控台中的 Cloud Backup for Application 詳細圖片、包括其管理的 UI 、連接器和資源。</block>
-  <block id="ccd967b78d046cba29272c0823500e3f" category="paragraph">此映像提供 BlueXP 主控台內的 Cloud Backup for Application 詳細圖片、包括 UI 、連接器及其管理的資源。</block>
   <block id="86fae68c14c723bf36942c2c83e8a847" category="list-text">* Connector 部署在與資料庫和 FSX 相同的 VPC 中。 * 盡可能將連接器部署在相同的 AWS VPC 中、以便連線至 FSX 儲存設備和 EC2 運算執行個體。</block>
   <block id="16d04337973f389d2f7da86eac115afd" category="paragraph">我們提供廣泛的 NetApp 文件、範圍更廣、可協助您保護雲端原生應用程式資料。本文件旨在提供逐步程序、以 BlueXP 主控台涵蓋 SnapCenter 服務部署、以保護部署至 Amazon FSX for ONTAP 和 EC2 運算執行個體的 Oracle 資料庫。本文件會填入更多一般指示中可能遺漏的特定詳細資料。</block>
   <block id="20c4c0cc24d7fc086bd9c72220d4827f" category="paragraph">若要開始使用、請完成下列步驟：</block>
@@ -17329,7 +17182,6 @@
   <block id="f12aeeed0f164c86af69a57fddb01689" category="list-text">設定及管理BlueXP</block>
   <block id="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-macro"><block ref="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-rx"></block></block>
   <block id="54d1b98b8cdfd12e2afc7f08278645ba" category="paragraph"><block ref="54d1b98b8cdfd12e2afc7f08278645ba" category="inline-link-macro-rx"></block></block>
-  <block id="846099e77083903f32f72c0e2156c3c5" category="list-text">雲端備份文件</block>
   <block id="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-macro"><block ref="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-rx"></block></block>
   <block id="21af149e524c5f7a8eb5e23197309e60" category="paragraph"><block ref="21af149e524c5f7a8eb5e23197309e60" category="inline-link-macro-rx"></block></block>
   <block id="7e7efb7e7b278c5ce5253a775d1c8313" category="sidebar">AWS FS3/EC2 中的自動化 PostgreSQL 高可用度部署和災難恢復</block>
@@ -20146,4 +19998,47 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="8280f5b2d1831bf3e03685c3088e8723" category="sidebar">HGC 設定</block>
   <block id="0b4637c872919e9ac6e7b6fbb0d36ba2" category="sidebar">MLRun 設定</block>
   <block id="6ce7d8f4f3e1c7d9bd9b39dbef990193" category="sidebar">設定程序</block>
+  <block id="ccf66760432e212bf920c4b630bf24a8" category="section-title">NetApp BlueXP 複製與同步</block>
+  <block id="182c915d2a513090f731fbf85d4576bd" category="paragraph">NetApp BlueXP 複製與同步是混合式資料複寫軟體即服務、可在內部部署儲存設備和雲端儲存設備之間順暢且安全地傳輸及同步 NFS 、 S3 和 CIFS 資料。此軟體可用於資料移轉、歸檔、協同作業、分析等作業。傳輸資料後、 BlueXP 複製與同步會持續同步來源與目的地之間的資料。接下來、它會傳輸差異。它也能保護您自己網路、雲端或內部部署中的資料安全。本軟體以隨用隨付模式為基礎、提供具成本效益的解決方案、並提供監控與報告功能、方便您傳輸資料。</block>
+  <block id="1ae50adfec05c416d0398e26bea5fc01" category="inline-link">BlueXP 複製與同步</block>
+  <block id="bc35f58684dbedfb73dd7ff64a4bd5a8" category="paragraph">為獲得最佳效能、NetApp通常建議使用多個網路介面、直接連線或快速路由、從雲端執行個體存取資料。我們還有其他資料移動機解決方案、包括<block ref="0adb843c17d646acd72646e9688dde2b" category="inline-link-rx"></block> 和<block ref="079cab06c3947ff50532e4e825fc7b2c" category="inline-link-rx"></block> 協助客戶建置應用程式感知、安全且具成本效益的混合雲Spark叢集。</block>
+  <block id="74c03e6f525ff7a5f56d15dd77d9d7ee" category="paragraph">混合使用案例客戶可使用 BlueXP 複製與同步功能、將內部部署資料從 NFS 、 CIFS 和 S3 資料移轉至雲端、反之亦然、可使用 GPU （例如 NVIDIA 叢集中的 GPU ）進行 AI 處理。BlueXP 複製與同步和 XCP 移轉工具都是用於將 NFS 資料移轉至 NetApp ONTAP NFS 。</block>
+  <block id="f11ac801004d872ca260befe72ccef06" category="image-alt">此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原的詳細圖片、包括它所管理的 UI 、連接器和資源。</block>
+  <block id="cbe02f66cac21399f800de4cd1e8fe3b" category="paragraph">此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原詳細圖片、包括 UI 、連接器及其管理的資源。</block>
+  <block id="96410c05710545cd17f642c52cfd8867" category="video-title">部署 Oracle 和 anf 的影片</block>
+  <block id="0f0ed589c348106f3d56ba98e1ddab80" category="section-title">BlueXP 備份與還原工具與組態</block>
+  <block id="a7d116b4f79b851af3f003fb89bb665f" category="section-title">BlueXP 備份與還原工具</block>
+  <block id="c7c2ab504bc51e5c58244a8e520ba0af" category="list-text">使用NetApp SnapMirror®技術、將工作負載資料從內部部署ONTAP 的SnapMirror系統複寫到Cloud Volumes ONTAP 適用於NetApp ONTAP 的Sf2或Amazon FSX、以便使用區塊層級機制輕鬆移轉。這不適用於Azure NetApp Files 「不適用於」和「Cloud Volumes服務」。若要將資料移轉至 Azure NetApp Files 或雲端 Volume Services 、請根據使用的檔案傳輸協定、使用 NetApp XCP 、 BlueXP 複製與同步、 rysnc 或 Robocopy 。</block>
+  <block id="1b9258f782f1f43eb6c8141e179d6551" category="list-text">選取 Cloud Volumes ONTAP 部署的附加服務、包括 BlueXP 分類、 BlueXP 備份與還原、以及 Cloud Insights 。選取服務、然後按一下「Continue（繼續）」。</block>
+  <block id="f77f38d4087d3b85caf7e7a5d2ce7a0f" category="example-title">適用於虛擬機器的 BlueXP 備份與還原</block>
+  <block id="abf639280c85d22acee1ee5d067cd10e" category="paragraph">適用於虛擬機器的 BlueXP 備份與還原功能可在 vCenter 上提供 vSphere Web 用戶端 GUI 、透過備份原則來保護 Azure VMware 解決方案虛擬機器和 Azure NetApp Files 資料存放區。這些原則可定義排程、保留及其他功能。  您可以使用 Run 命令來部署 BlueXP 虛擬機器備份與還原功能。</block>
+  <block id="eedeb9e01d71fc097a45d66a7bd05a5b" category="list-text">使用 Run 命令、在 Azure VMware 解決方案私有雲中安裝適用於虛擬機器的 BlueXP 備份與還原。</block>
+  <block id="5013a6fd1f99c69173a553aeb12b1bbc" category="paragraph">本白皮書為客戶提供使用 NVIDIA Jarvis 架構、以及 NetApp ONTAP AI 和 BlueXP 複製與同步解決方案的交談式人工智慧（ AI ）解決方案準則、適用於零售和其他使用案例。其中包含開發自然語言處理（NLP）模型以供虛擬助理使用的高層級工作流程、已驗證的測試案例及結果等資訊。</block>
+  <block id="c869f18bf7374f26127ff1fcac433340" category="doc">使用 Jarvis 、 BlueXP Copy and Sync 和 Nemo 建立虛擬助理</block>
+  <block id="7ce9aa2e37f5d6f229413a5ac6836381" category="inline-link-macro">下一步：使用 Jarvis 、 BlueXP 複製與同步及 Nemo 概述來建置虛擬助理</block>
+  <block id="4a03ee30ef4da835305c8534548e6347" category="paragraph"><block ref="4a03ee30ef4da835305c8534548e6347" category="inline-link-macro-rx"></block></block>
+  <block id="f96192051337044e8471c7c7fbc5864c" category="paragraph"><block ref="9f25cf06e22037e38bb7442b4d301b6c" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署 NFS 或 SMB 檔案共用之間傳輸檔案、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 Amazon Simple Storage Service （ Amazon S3 ）、 Amazon Elastic File System （ Amazon EFS ）、 Azure Blob 、 Google Cloud Storage 、 或者 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製和 Syncc 會根據預先定義的排程持續同步資料、只移動資料量、將資料複寫所花的時間和金錢降到最低。BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使用極為簡單。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。您可以在 AWS 、 Azure 、 Google Cloud Platform 或內部部署中部署 BlueXP 複製和同步資料代理人。</block>
+  <block id="b8bc3287c1345ab1a36c796d2de0aaa2" category="section-title">NetApp BlueXP 分類</block>
+  <block id="196f1872673d3381d912260929325605" category="paragraph">採用強大的AI演算法、 <block ref="860dd213c65646bc2292a7454f4cfbac" category="inline-link-rx"></block> 在整個資料產業中提供自動化控管與資料治理功能。您可以輕鬆找出成本節約效益、找出法規遵循與隱私權的考量、並找出最佳化商機。BlueXP 分類儀表板可讓您深入瞭解如何識別重複的資料、以消除備援、對應個人、非個人及敏感資料、並針對敏感資料和異常狀況開啟警示。</block>
+  <block id="6b60cb834d58cfe9d8033ae023a4b412" category="paragraph">下圖顯示解決方案架構。有三大環境類別：雲端、核心和邊緣。每個類別都可以分散在不同的地理位置。例如、雲端的物件儲存區在不同區域的儲存區中、音訊檔案位於儲存區中、而核心則可能包含透過高速網路或 NetApp BlueXP 複製與同步連結的資料中心。邊緣節點表示個人人力代理商的日常工作平台、其中提供互動式儀表板工具和麥克風、可視覺化感受、並從與客戶的對話中收集音訊資料。</block>
+  <block id="d1c4e340ccc4079839c03f573adcacc1" category="paragraph"><block ref="9f25cf06e22037e38bb7442b4d301b6c" category="inline-link-rx"></block> 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：</block>
+  <block id="12e7ca219a6a247bae3aa00ea0454969" category="paragraph">BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步功能會根據預先定義的排程、持續同步資料、只移動資料量、將資料複寫所花費的時間與金錢減至最低。BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、易於設定與使用。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。您可以在 AWS 、 Azure 、 Google Cloud Platform 或內部部署中部署 BlueXP 複製和同步資料代理人。</block>
+  <block id="59c7b05142bcca22de50fe7efee7634e" category="paragraph">BlueXP 複製與同步是 NetApp 服務、可快速安全地同步資料。無論您需要在內部部署的 NFS 或 SMB 檔案共用、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 AWS S3 、 AWS EFS 、 Azure Blob 、 Google Cloud Storage 或 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。</block>
+  <block id="7e333cc0e24ef7489559129fd944c91f" category="paragraph">資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步可在觸發更新時隨需同步資料、或根據預先定義的排程持續同步資料。不過、 BlueXP 複製與同步只會移動資料量、因此將用於資料複寫的時間與金錢降到最低。</block>
+  <block id="22716a1c6493f7fb09f4caf2084ad23c" category="paragraph">BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使用極為簡單。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。BlueXP 複製與同步資料代理人可以部署在 AWS 、 Azure 、 Google Cloud Platform 或內部部署。</block>
+  <block id="3d0f0ca5c2317af15851035710e255fa" category="inline-link-macro">下一步：使用 Jarvis 、 BlueXP 複製與同步及 Nemo 概述來建置虛擬助理</block>
+  <block id="c641e3725abe63782f47291ee4a5cd33" category="paragraph"><block ref="c641e3725abe63782f47291ee4a5cd33" category="inline-link-macro-rx"></block></block>
+  <block id="87b09f7f1171ffad02c2e837c629e216" category="paragraph"><block ref="9f25cf06e22037e38bb7442b4d301b6c" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署 NFS 或 SMB 檔案共用之間傳輸檔案、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 Amazon Simple Storage Service （ Amazon S3 ）、 Amazon Elastic File System （ Amazon EFS ）、 Azure Blob 、 Google Cloud Storage 、 或者 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步功能會根據預先定義的排程、持續同步資料、只移動資料量、因此資料複寫所花的時間和金錢將降至最低。BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使用極為簡單。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。您可以在 AWS 、 Azure 、 Google Cloud Platform 或內部部署中部署 BlueXP 複製和同步資料代理人。</block>
+  <block id="66d3e7e91c965dcc2bb5fec9d4ff0d5d" category="doc">使用 NetApp BlueXP 複製與同步功能來歸檔對話記錄</block>
+  <block id="95a3955f1845c0d9746e0f62e78cd2d8" category="paragraph">我們可以每天將對話記錄傾印至 CSV 檔案一次、然後利用 BlueXP 複製與同步功能將記錄檔下載至本機儲存設備。下圖顯示 Jarvis 部署在內部部署和公有雲的架構、同時使用 BlueXP Copy and Sync 傳送 Nemo 訓練的對話記錄。如需Nemo訓練的詳細資料、請參閱一節 <block ref="14a0a4dd1a1c18cba42b2036fe4dfc33" category="inline-link-macro-rx"></block>。</block>
+  <block id="71afa64b9c4b330adacfbbf9c45e42ee" category="paragraph">JARVIS可部署虛擬助理、數位虛擬助理、多式模式感測Fusion 器等使用案例（CV融合了ASR/NLP/TS）、或任何ASR/NLP/TTS/CV獨立使用案例、例如複本。我們建立了虛擬零售助理、可回答有關天氣、興趣點和庫存定價的問題。我們也示範如何使用 BlueXP 複製與同步歸檔對話記錄、並針對新資料訓練 Nemo 模型、藉此改善對話 AI 系統的自然語言瞭解能力。</block>
+  <block id="7c049abc901ad83a66ed63776568829a" category="section-title">NetApp ONTAP AI 和 BlueXP 複製與同步</block>
+  <block id="25d94f852eb8236dfc01d120a282e328" category="paragraph">NetApp BlueXP 複製與同步可讓您輕鬆地在各種通訊協定上移動資料、無論資料是在兩個 NFS 共用區、兩個 CIFS 共用區、或是一個檔案共用區和 Amazon S3 、 Amazon Elastic File System （ EFS ）或 Azure Blob 儲存區之間。雙主動式作業表示您可以繼續同時使用來源和目標、並在必要時逐步同步資料變更。BlueXP 複製與同步功能可讓您在任何來源與目的地系統之間移動及遞增同步資料、無論是內部部署或雲端型系統、都能以各種新方式使用資料。在內部部署系統、雲端內建與雲端移轉、或是協同作業與資料分析之間移轉資料、都能輕鬆達成。下圖顯示可用的來源和目的地。</block>
+  <block id="8d46625518c31befd50f169c1579bf83" category="paragraph">在對話式 AI 系統中、開發人員可以利用 BlueXP 複製和同步功能、將雲端的對話記錄歸檔到資料中心、以便離線訓練自然語言處理（ NLP ）模式。透過訓練模式來辨識更多意圖、對話式AI系統將能更妥善地管理終端使用者提出的更複雜問題。</block>
+  <block id="65a605b0178652b6d381379cb111e20b" category="paragraph">TR-4915說明如何將資料從任何資料儲存庫移至以NetApp E系列SAN儲存設備為後盾的BeeGFS檔案系統。對於人工智慧（AI）和機器學習（ML）應用程式、客戶可能經常需要將超過數PB資料的大型資料集移至BeeGFS叢集、以便進行模型開發。本文件探討如何使用 NetApp XCP 和 NetApp BlueXP 複製與同步工具來達成此目標。</block>
+  <block id="fd2a8aa9399f787b541bb4748f1ba9bb" category="inline-link-macro">下一步：使用 NetApp BlueXP 複製與同步功能來封存對話記錄</block>
+  <block id="15f53f694191f874ca00a779e55ced75" category="paragraph"><block ref="15f53f694191f874ca00a779e55ced75" category="inline-link-macro-rx"></block></block>
+  <block id="2b1794b52a6c3719e2a164bc3b9891a3" category="paragraph">NetApp 也提供雲端型備份（ SnapMirror Cloud 、 BlueXP 備份與還原服務、 BlueXP 複製與同步）、以及適用於 ONTAP 的儲存分層與歸檔工具（ FabricPool ）、協助降低營運成本、並充分利用雲端的廣泛範圍。</block>
+  <block id="dff645e23468836efcab1d0944e07594" category="list-text">*混合雲*無論是用於內部部署的私有雲、公有雲基礎架構、或是結合兩者最佳功能的混合雲、ONTAP 均可利用此解決方案協助您打造資料架構、以簡化及最佳化資料管理。從高效能All Flash系統開始著手、然後將它們與磁碟或雲端儲存系統結合、以提供資料保護和雲端運算。您可以選擇Azure、AWS、IBM或Google雲端、以最佳化成本並避免受限。視需要運用OpenStack和Container技術的進階支援。NetApp 也提供雲端型備份（ SnapMirror Cloud 、 BlueXP 備份與還原服務、 BlueXP 複製與同步）、以及適用於 ONTAP 的儲存分層與歸檔工具（ FabricPool ）、協助降低營運成本、並充分利用雲端的廣泛範圍。</block>
+  <block id="cf20e321f7d2cbf7a39b08799a01b6dc" category="list-text">* 雲端服務。 * 使用 BlueXP 備份與還原服務或 SnapMirror Cloud 、使用公有雲儲存設備保護內部部署系統的資料。BlueXP 複製與同步可協助您在 NAS 、物件儲存區和 Cloud Volumes Service 儲存區之間移轉及保持資料同步。</block>
 </blocks>
