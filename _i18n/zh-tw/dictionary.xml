@@ -7615,7 +7615,6 @@
   <block id="1ce9ef4a253b6301539d9cab4fca67b6" category="paragraph"><block ref="1ce9ef4a253b6301539d9cab4fca67b6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="d1552a04c8237c4a2d938cca2db53683" category="list-text">提供要建立的環境詳細資料、包括環境名稱和管理員認證資料。按一下「繼續」。</block>
   <block id="525c0dbff313821edbeaa46a9b5d88dd" category="paragraph"><block ref="525c0dbff313821edbeaa46a9b5d88dd" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="7fdbae44a4deac52e923aa6480a3f1f2" category="list-text">選擇Cloud Volumes ONTAP 用於進行支援的附加服務、包括Cloud Data Sense、Cloud Backup和Cloud Insights 效益。按一下「繼續」。</block>
   <block id="7191330ca38db1397356e7619c4baf63" category="paragraph"><block ref="7191330ca38db1397356e7619c4baf63" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5908a77615c1d6294f872ff6f0e9ec5c" category="list-text">在「HA部署模型」頁面上、選擇「多可用度區域」組態。</block>
   <block id="e2dff93e99a18f3bbf601965a86556d3" category="paragraph"><block ref="e2dff93e99a18f3bbf601965a86556d3" category="inline-image-macro-rx" type="image"></block></block>
@@ -18515,7 +18514,6 @@
   <block id="94ef809dc16e728151bda996f8b4f8aa" category="inline-image-macro">ONTAP 工具 VASA 供應商架構、 240</block>
   <block id="d78de3410d86d345a548abdf67aff375" category="paragraph"><block ref="d78de3410d86d345a548abdf67aff375" category="inline-image-macro-rx" type="image"></block></block>
   <block id="5e5421e75636200787a4449a2cdaa1f1" category="section-title">產品安裝</block>
-  <block id="3ef3033a2b9a744a1e4e7e93fa01f909" category="paragraph">若要進行新的安裝、請將虛擬應用裝置部署到 vSphere 環境中。目前版本的 ONTAP 工具會自動向 vCenter 註冊、並預設啟用 VASA Provider 。除了 ESXi 主機和 vCenter Server 資訊外、您還需要應用裝置的 IP 位址組態詳細資料。如前所述、 VASA Provider 要求 ONTAP FlexClone 授權已安裝在您計畫用於 VVols 的任何 ONTAP 叢集上。此應用裝置內建監控程式、可確保可用度、最佳實務做法是設定 VMware High Availability 及選擇性的容錯功能。如需其他詳細資料、請參閱第 4.1 節。請勿將 ONTAP 工具應用裝置或 vCenter Server 應用裝置（ VCSA ）安裝或移至 vVols 儲存設備、因為這可能會導致應用裝置無法重新啟動。</block>
   <block id="6a5c862f634c8967f7246f42eb9de6e1" category="paragraph">使用 NetApp 支援網站 （ NSS ）上可供下載的升級 ISO 檔案、即可支援 ONTAP 工具的就地升級。請依照部署與設定指南的指示來升級應用裝置。</block>
   <block id="3c07c9b4b562a16890d9fee571f0441e" category="inline-link">VMware vSphere ONTAP 工具規模調整指南</block>
   <block id="8eda831c03b7cd0d243f982500cca330" category="paragraph">如需調整虛擬應用裝置規模及瞭解組態限制、請參閱本知識庫文章：<block ref="401e218ff1e8ab443c4d65a773762b1a" category="inline-link-rx"></block></block>
@@ -18750,7 +18748,6 @@
   <block id="1b6204fa76bd422416757c4e2d6187bd" category="paragraph">使用 FCP 或 iSCSI 的 VVols 架構範例：</block>
   <block id="9abbd7aed7e9791d9c52e8e17f34a756" category="section-title">支援應用裝置型 SRM 伺服器</block>
   <block id="2a71574e89a69c8218fbac3f604b5728" category="paragraph">營運效能是執行SRM工作的關鍵需求。為了滿足現代 RTO 和 RPO 的需求、採用 ONTAP 工具的已新增三項改良功能。</block>
-  <block id="c82379d922d9cdc55fa21affe9f9b8bf" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可在需要重新計算儲存效率後、快速重新同步鏡像。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
   <block id="10b8f80c23f8a44dfa6b10ae56d7dbe9" category="paragraph">本文件著重於最新版 ONTAP 9 的功能、這些功能搭配適用於 VMware vSphere 9.12 的 ONTAP 工具（包括 NetApp 儲存複寫介面卡 [SRA] 和 VASA Provider [VP] ）、以及 VMware Site Recovery Manager 8.7 。</block>
   <block id="6e45cce163df251494c8f01f0567f19c" category="paragraph">在大多數情況下、 IPI 安裝方法是首選的方法、因為它允許快速部署 OpenShift 叢集以用於開發、測試和正式作業環境。</block>
   <block id="4f7c519d1404e63966706278645a0036" category="list-text"><block ref="4f7c519d1404e63966706278645a0036" category="inline-link-macro-rx"></block></block>
@@ -19367,8 +19364,6 @@ ONTAP 工具 VASA 供應商負責管理 FCP 、 iSCSI 群組、以及 ONTAP 中�
 避免指定不需要的功能、只要將這些功能設為「任何」即可。這可將選擇或建立 FlexVol 磁碟區時發生的問題減至最低。例如、在 VASA Provider 7.1 及更早版本中、如果將壓縮保留在預設的 SCP 設定「否」、則會嘗試停用壓縮、即使在 AFF 系統上也一樣。</block>
   <block id="e64fb4a2ff65e8250ce77cc5db39caac" category="list-text">* 使用預設的 SCP 做為範例範本來建立您自己的範本。 *
 隨附的 SCP 適用於大多數一般用途、但您的需求可能有所不同。</block>
-  <block id="d4442e423b708a344742336ebcfcd8db" category="list-text">* 請考慮使用最大 IOPS 來控制未知虛擬機器或測試虛擬機器。 *
-VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS 限制在特定的 vVol 、以避免對其他更重要的工作負載造成影響。如需效能管理的詳細資訊、請參閱表 4 。</block>
   <block id="bdbd10905a1446f944699405bca52654" category="list-text">* 確保您擁有足夠的資料生命。 *
 每個 HA 配對每個節點至少建立兩個生命期。根據您的工作負載、可能需要更多資源。</block>
   <block id="0c04fb585a85675569ca59c1ca71bc66" category="list-text">* 遵循所有通訊協定最佳實務做法。 *
@@ -19634,8 +19629,6 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="a70359387fcaa0512296895fb4f6a4ae" category="list-text">系統將提示您 * 驗證指紋 * 以繼續。</block>
   <block id="e36c0283d568f55714770a9abddff851" category="paragraph"><block ref="e36c0283d568f55714770a9abddff851" category="inline-image-macro-rx" type="image"></block></block>
   <block id="032b4254e4889aa8b7e197feb31cbc5a" category="list-text">按一下 * 下一步 * 安裝 Oracle 資料庫外掛程式、並探索 EC2 主機上的 Oracle 資料庫。發現的資料庫會新增至 * 應用程式 * 。最初發現資料庫 * 保護狀態 * 時、資料庫會顯示為 * 未受保護 * 。</block>
-  <block id="6a2c1ac1da51eca0c1a65afffab8dfab" category="inline-image-macro">透過 NFS v3500 使用 vVols 進行網路組態</block>
-  <block id="53b4e37aeeb9aaf52da56528778439d6" category="paragraph"><block ref="53b4e37aeeb9aaf52da56528778439d6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="db9e9ec215ebe0fc52fb46e84cda4d6e" category="sidebar">使用 SnapCenter 服務進行 Oracle 備份、還原及複製 - Azure</block>
   <block id="8a708dc28e6881f4ca61b1dac86fb745" category="sidebar">BlueXP SaaS for Oracle - Azure</block>
   <block id="72fabf1add0034062f091db87a4723b3" category="sidebar">BlueXP SaaS for Oracle - AWS</block>
@@ -20041,4 +20034,9 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="2b1794b52a6c3719e2a164bc3b9891a3" category="paragraph">NetApp 也提供雲端型備份（ SnapMirror Cloud 、 BlueXP 備份與還原服務、 BlueXP 複製與同步）、以及適用於 ONTAP 的儲存分層與歸檔工具（ FabricPool ）、協助降低營運成本、並充分利用雲端的廣泛範圍。</block>
   <block id="dff645e23468836efcab1d0944e07594" category="list-text">*混合雲*無論是用於內部部署的私有雲、公有雲基礎架構、或是結合兩者最佳功能的混合雲、ONTAP 均可利用此解決方案協助您打造資料架構、以簡化及最佳化資料管理。從高效能All Flash系統開始著手、然後將它們與磁碟或雲端儲存系統結合、以提供資料保護和雲端運算。您可以選擇Azure、AWS、IBM或Google雲端、以最佳化成本並避免受限。視需要運用OpenStack和Container技術的進階支援。NetApp 也提供雲端型備份（ SnapMirror Cloud 、 BlueXP 備份與還原服務、 BlueXP 複製與同步）、以及適用於 ONTAP 的儲存分層與歸檔工具（ FabricPool ）、協助降低營運成本、並充分利用雲端的廣泛範圍。</block>
   <block id="cf20e321f7d2cbf7a39b08799a01b6dc" category="list-text">* 雲端服務。 * 使用 BlueXP 備份與還原服務或 SnapMirror Cloud 、使用公有雲儲存設備保護內部部署系統的資料。BlueXP 複製與同步可協助您在 NAS 、物件儲存區和 Cloud Volumes Service 儲存區之間移轉及保持資料同步。</block>
+  <block id="3d9d252df1d439ee29952d36a2243ad9" category="list-text">選取 Cloud Volumes ONTAP 部署的附加服務、包括 BlueXP 分類、 BlueXP 備份與還原、以及 Cloud Insights 。按一下「繼續」。</block>
+  <block id="00f56afe6353b0ce455cfc43657daaea" category="paragraph">若要進行新的安裝、請將虛擬應用裝置部署到 vSphere 環境中。目前版本的 ONTAP 工具會自動向 vCenter 註冊、並預設啟用 VASA Provider 。除了 ESXi 主機和 vCenter Server 資訊外、您還需要應用裝置的 IP 位址組態詳細資料。如前所述、 VASA Provider 要求 ONTAP FlexClone 授權已安裝在您計畫用於 VVols 的任何 ONTAP 叢集上。此應用裝置內建監控程式、可確保可用度、最佳實務做法是設定 VMware High Availability 及選擇性的容錯功能。請勿將 ONTAP 工具應用裝置或 vCenter Server 應用裝置（ VCSA ）安裝或移至 vVols 儲存設備、因為這可能會導致應用裝置無法重新啟動。</block>
+  <block id="70539c7020df05e5f8568b6f518f56ac" category="list-text">* 請考慮使用最大 IOPS 來控制未知虛擬機器或測試虛擬機器。 *
+VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS 限制在特定的 vVol 、以避免對其他更重要的工作負載造成影響。</block>
+  <block id="4bc626ee63de2acf979b765422f8952a" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可快速重新同步鏡像、而不需重新計算儲存效率的後續程序。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
 </blocks>

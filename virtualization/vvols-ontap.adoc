@@ -34,7 +34,7 @@ image:vvols-image5.png["ONTAP 工具 VASA 供應商架構、 240"]
 
 === 產品安裝
 
-若要進行新的安裝、請將虛擬應用裝置部署到 vSphere 環境中。目前版本的 ONTAP 工具會自動向 vCenter 註冊、並預設啟用 VASA Provider 。除了 ESXi 主機和 vCenter Server 資訊外、您還需要應用裝置的 IP 位址組態詳細資料。如前所述、 VASA Provider 要求 ONTAP FlexClone 授權已安裝在您計畫用於 VVols 的任何 ONTAP 叢集上。此應用裝置內建監控程式、可確保可用度、最佳實務做法是設定 VMware High Availability 及選擇性的容錯功能。如需其他詳細資料、請參閱第 4.1 節。請勿將 ONTAP 工具應用裝置或 vCenter Server 應用裝置（ VCSA ）安裝或移至 vVols 儲存設備、因為這可能會導致應用裝置無法重新啟動。
+若要進行新的安裝、請將虛擬應用裝置部署到 vSphere 環境中。目前版本的 ONTAP 工具會自動向 vCenter 註冊、並預設啟用 VASA Provider 。除了 ESXi 主機和 vCenter Server 資訊外、您還需要應用裝置的 IP 位址組態詳細資料。如前所述、 VASA Provider 要求 ONTAP FlexClone 授權已安裝在您計畫用於 VVols 的任何 ONTAP 叢集上。此應用裝置內建監控程式、可確保可用度、最佳實務做法是設定 VMware High Availability 及選擇性的容錯功能。請勿將 ONTAP 工具應用裝置或 vCenter Server 應用裝置（ VCSA ）安裝或移至 vVols 儲存設備、因為這可能會導致應用裝置無法重新啟動。
 
 使用 NetApp 支援網站 （ NSS ）上可供下載的升級 ISO 檔案、即可支援 ONTAP 工具的就地升級。請依照部署與設定指南的指示來升級應用裝置。
 
@@ -170,7 +170,7 @@ https://www.netapp.com/pdf.html?item=/media/10681-tr4684.pdf["_TR-4684 使用 NV
 . * 使用預設的 SCP 做為範例範本來建立您自己的範本。 *
 隨附的 SCP 適用於大多數一般用途、但您的需求可能有所不同。
 . * 請考慮使用最大 IOPS 來控制未知虛擬機器或測試虛擬機器。 *
-VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS 限制在特定的 vVol 、以避免對其他更重要的工作負載造成影響。如需效能管理的詳細資訊、請參閱表 4 。
+VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS 限制在特定的 vVol 、以避免對其他更重要的工作負載造成影響。
 . * 確保您擁有足夠的資料生命。 *
 每個 HA 配對每個節點至少建立兩個生命期。根據您的工作負載、可能需要更多資源。
 . * 遵循所有通訊協定最佳實務做法。 *
