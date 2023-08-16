@@ -16829,7 +16829,6 @@
   <block id="c31fea06105fe5260bb879284c6181e0" category="list-text">更新<block ref="9733772c7c0780d4ef7a6a8d6a9dbd7d" prefix=" " category="inline-code"></block> 至Kafka磁碟區、如下所示：</block>
   <block id="8be4a12c21ef3f52e24811e4ffe0d444" category="summary">本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。</block>
   <block id="cd2c2a58f3cb485687fd1f77834654e5" category="doc">FSX- ONTAP 使用AWS Lambda功能進行資料監控和自動調整大小</block>
-  <block id="1ebfeec31c440a4fac484932940c73b1" category="paragraph">作者：Dhruv Tyagi、Niyazz Mohamed</block>
   <block id="77b2a3f373c1bcab9cefd635e81303eb" category="section-title">總覽：透過ONTAP AWS Lambda功能監控及自動調整FSX的大小、以利執行功能</block>
   <block id="88f21a3befc798942cec953cec96af16" category="paragraph">FSX for ONTAP Sfor Ef2是AWS上提供的第一款企業級雲端儲存服務、以熱門的NetApp ONTAP Sing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。</block>
   <block id="8799f4655655a26ca808c044ad467a88" category="paragraph">本解決方案提供下列功能：</block>
@@ -16851,7 +16850,6 @@
   <block id="974bba02716a5e7c8414499dd06bbb62" category="example-title">步驟1：複製GitHub儲存庫</block>
   <block id="3233c0d0dc9395d6085fb8167fdd8393" category="paragraph">在本機系統上複製GitHub儲存庫：</block>
   <block id="06df343d3a431a2f511aa7fef58e4a23" category="paragraph">瀏覽至AWS主控台&gt;*參數儲存區*、然後按一下*建立參數*。</block>
-  <block id="faec730272cd4b39d377b89835a6a82c" category="paragraph">按一下「*建立參數*」。</block>
   <block id="1cefa861aa6d9ba408841133e7325545" category="inline-image-macro">此影像說明AWS主控台上的「建立SSM參數」視窗。</block>
   <block id="a19e362ed1a0d7ca174a7abf2c59853a" category="paragraph"><block ref="a19e362ed1a0d7ca174a7abf2c59853a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="bcd5fa3fbab9dadf361d9eba36b8382c" category="paragraph">瀏覽至AWS主控台&gt;*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。</block>
@@ -16868,10 +16866,8 @@
   <block id="38752522b6aecd6cdf7355a1cdaa38ad" category="inline-image-macro">此影像說明AWS Lambda功能主控台的「新增階層」按鈕。</block>
   <block id="cc07bde473345c3ce0ae0c8fc7097fdc" category="paragraph"><block ref="cc07bde473345c3ce0ae0c8fc7097fdc" category="inline-image-macro-rx" type="image"></block></block>
   <block id="cc8034a8cc3761841b945895d5bb5e74" category="list-text">按一下「* Layer SOURGE*」下的「*建立新的圖層*」</block>
-  <block id="2be5f6c30358de16d6c4b531db0541b0" category="list-text">建立2個層：1個用於申請、1個用於帕拉米克、並上傳* requests.Zip *和*帕拉米克.Zip *檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。</block>
   <block id="44dec222c0e2e40e9770472e89813d69" category="inline-image-macro">此影像說明AWS主控台的Create New Layer（建立新的層）視窗。</block>
   <block id="1a144f1799018bb0e4a3aff87c3ae15f" category="paragraph"><block ref="1a144f1799018bb0e4a3aff87c3ae15f" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="2b67d38577d56792dd4197d29c7c25fd" category="list-text">瀏覽回AWS Lambda * Add Layer *&gt;* Custom Layers*、然後逐一新增參數和要求層。</block>
   <block id="018f803496bf51d7eca913d543f61cdc" category="inline-image-macro">此影像描述AWS Lambda功能主控台的新增層視窗。</block>
   <block id="74aec608a6fed03dea60e0a7998ac4c6" category="paragraph"><block ref="74aec608a6fed03dea60e0a7998ac4c6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6dcc7aaf4ab69d9f33228c8aca077bf7" category="inline-image-macro">此影像說明AWS Lambda功能主控台上新增的圖層。</block>
@@ -17322,7 +17318,6 @@
   <block id="5215f5ee52e78e416520bfecaf294472" category="paragraph">請依照下列步驟完成本解決方案的自動化部署：</block>
   <block id="6436b05fc0216b37135d2a66a585e96f" category="example-title">步驟 2 ：設定 AWS S3 貯體</block>
   <block id="7d54d293b4849834117fc9160feb6cbc" category="list-text">瀏覽至 AWS 主控台 &gt; * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。</block>
-  <block id="040d8a375b4543c424d11036c6faa0d7" category="list-text">進入貯體後、按一下 * 上傳 * &gt; * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Paramiko.zip* 和 * requests.zip* 。</block>
   <block id="66b09b43432fbb9814d51e48e9a98ade" category="inline-image-macro">此影像描述上傳 zip 檔案的 S3 視窗</block>
   <block id="0f71a8c9bb8a785323461956bf9e217a" category="paragraph"><block ref="0f71a8c9bb8a785323461956bf9e217a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6ea6ef5eae0a05760ec8bf19495d8645" category="example-title">步驟 3 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）</block>
@@ -20039,4 +20034,15 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="70539c7020df05e5f8568b6f518f56ac" category="list-text">* 請考慮使用最大 IOPS 來控制未知虛擬機器或測試虛擬機器。 *
 VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS 限制在特定的 vVol 、以避免對其他更重要的工作負載造成影響。</block>
   <block id="4bc626ee63de2acf979b765422f8952a" category="list-text">* ONTAP 工具 9.12 增加了對 ONTAP SnapMirror 快速重新同步功能的支援。 * 這可快速重新同步鏡像、而不需重新計算儲存效率的後續程序。此功能預設不會使用、但可在大型環境中啟用、而大型環境中的傳統重新同步需要太長時間或逾時。</block>
+  <block id="e2345fd4c052d288390c6f86c2c4789f" category="list-text">能夠在單一 VPC 中監控多個適用於 ONTAP 檔案系統的 FSX</block>
+  <block id="6c50e35e9c06dfe13c154919340f20e3" category="admonition">涵蓋 ONTAP 檔案系統的單一 FSX 。</block>
+  <block id="e1ce9d5c8ac3567da4228f49df78e5b0" category="list-text">進入貯體後、按一下 * 上傳 * &gt; * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Utilities.zip* 。</block>
+  <block id="e796877161cfa3af2876f4bc473b909a" category="admonition">支援在單一 VPC 中監控多個適用於 ONTAP 檔案系統的 FSX 。</block>
+  <block id="05da5a25aeee329a7caf8be6493209f7" category="paragraph">按一下「*建立參數*」。
+針對要監控的所有 ONTAP 檔案系統、重複上述步驟。</block>
+  <block id="4a86a06630441d1655597fa23dc66379" category="list-text">建立 Layer 並上傳 * Utilities.zip* 檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。</block>
+  <block id="2c53df99d2ac43dfed0bb27c1189a72a" category="list-text">返回 AWS Lambda * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
+  <block id="6c51cd5dc46c2931b78f7f79a5f41525" category="cell">* fsxList*</block>
+  <block id="9659e450f8ee0db6cba199aa524306d2" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
+在清單中加入所有檔案系統、以便監控和自動調整大小。</block>
 </blocks>
