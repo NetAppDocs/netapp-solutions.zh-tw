@@ -16830,21 +16830,17 @@
   <block id="8be4a12c21ef3f52e24811e4ffe0d444" category="summary">本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。</block>
   <block id="cd2c2a58f3cb485687fd1f77834654e5" category="doc">FSX- ONTAP 使用AWS Lambda功能進行資料監控和自動調整大小</block>
   <block id="77b2a3f373c1bcab9cefd635e81303eb" category="section-title">總覽：透過ONTAP AWS Lambda功能監控及自動調整FSX的大小、以利執行功能</block>
-  <block id="88f21a3befc798942cec953cec96af16" category="paragraph">FSX for ONTAP Sfor Ef2是AWS上提供的第一款企業級雲端儲存服務、以熱門的NetApp ONTAP Sing檔案系統為基礎、提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備。</block>
   <block id="8799f4655655a26ca808c044ad467a88" category="paragraph">本解決方案提供下列功能：</block>
   <block id="c342d53b891fb460586d3a137ff99a6e" category="list-text">監控能力：</block>
   <block id="138be07c6f8ee03d211e5f345546b7af" category="list-text">使用FSX ONTAP 的整體儲存容量來實現功能性的提升</block>
   <block id="e0f2ee8f41ba7bcb505bbabfcab0c31d" category="list-text">每個磁碟區的使用量（精簡配置/完整配置）</block>
   <block id="34b7d0bb9429625764e4da258f94ae19" category="list-text">每個LUN的使用量（精簡配置/完整配置）</block>
   <block id="685d6918f18b4d0d12cf6582187aff57" category="list-text">當超出使用者定義的臨界值時、能夠調整上述任何項目的大小</block>
-  <block id="378c1fc07823bfb610dec17052eacf6d" category="list-text">警示機制、透過電子郵件接收使用量警告及調整通知大小</block>
-  <block id="f4f72a76c2acbf4ea687920f5e120816" category="list-text">能夠刪除早於使用者定義臨界值的快照</block>
   <block id="91602eeac7d8a4cc46329128033d33d3" category="list-text">能夠取得與FlexClone磁碟區和快照相關的清單</block>
   <block id="dd0679a0ea834bda0a34b306e7a09346" category="paragraph">開始之前、請先確定符合下列先決條件：</block>
   <block id="561d599e4e659439d1b142dbe29b15c7" category="list-text">部署FSX ONTAP for Sfor Sf</block>
   <block id="7f42d2e23aac4d85dca59633ff2cf58d" category="list-text">已針對FSx ONTAP for Sf0設定「fsxadmin」密碼</block>
   <block id="eb99e653d349f732eb98619784a340ac" category="list-text">AWS Lambda功能會呼叫FSX以ONTAP 供擷取及更新儲存容量、Volume和LUN的大小。</block>
-  <block id="f350c91a602035a3521ac328a432c7ed" category="list-text">將「fsxadmin」密碼儲存為AWS SSM參數儲存區中的安全字串、以增加安全層。</block>
   <block id="3eac8a068c2043f39b9aec5a2b7ee6af" category="list-text">AWS SES（簡易電子郵件服務）用於在發生調整大小事件時通知終端使用者。</block>
   <block id="432a24ba141fb90355a80ec4c6d3825e" category="paragraph"><block ref="432a24ba141fb90355a80ec4c6d3825e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="974bba02716a5e7c8414499dd06bbb62" category="example-title">步驟1：複製GitHub儲存庫</block>
@@ -16856,13 +16852,11 @@
   <block id="60461626b891b858b74da97b0ee89b6e" category="paragraph">按一下「*建立身分識別*」</block>
   <block id="af9b6260888bf7e72d2766823e7a2bb6" category="inline-image-macro">此影像說明AWS主控台的SES身分識別建立視窗。</block>
   <block id="59f38a9e267a3ea7e5d173c163613f58" category="paragraph"><block ref="59f38a9e267a3ea7e5d173c163613f58" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="f7eef2aeccb65815a4f57ad9796278b3" category="list-text">瀏覽至AWS主控台&gt;* AWS Lambd達*、然後按一下* Create Function *（建立功能*）、該區域與FSX for ONTAP Sf2相同</block>
   <block id="eb625a560eb6c02ecd5a6a9f47d5d768" category="list-text">使用預設的*從頭開始作者*並更新下列欄位：</block>
   <block id="8af4ad16f59e1ac333921353c65b1492" category="paragraph">按一下「*建立功能*」。</block>
   <block id="957437001751593737e6afeb8cd3163b" category="inline-image-macro">此影像描述AWS主控台的Lambda建立視窗。</block>
   <block id="e6242cbb73c003c124d84270c0afe97a" category="paragraph"><block ref="e6242cbb73c003c124d84270c0afe97a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="417809fda70cc9785afc8e3ceec62dff" category="paragraph"><block ref="417809fda70cc9785afc8e3ceec62dff" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1659ba661865f087a67032f3c9be9fc2" category="list-text">向下捲動至新建立的Lambda功能的*圖層*區段、然後按一下*新增圖層*。</block>
   <block id="38752522b6aecd6cdf7355a1cdaa38ad" category="inline-image-macro">此影像說明AWS Lambda功能主控台的「新增階層」按鈕。</block>
   <block id="cc07bde473345c3ce0ae0c8fc7097fdc" category="paragraph"><block ref="cc07bde473345c3ce0ae0c8fc7097fdc" category="inline-image-macro-rx" type="image"></block></block>
   <block id="cc8034a8cc3761841b945895d5bb5e74" category="list-text">按一下「* Layer SOURGE*」下的「*建立新的圖層*」</block>
@@ -16872,7 +16866,6 @@
   <block id="74aec608a6fed03dea60e0a7998ac4c6" category="paragraph"><block ref="74aec608a6fed03dea60e0a7998ac4c6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6dcc7aaf4ab69d9f33228c8aca077bf7" category="inline-image-macro">此影像說明AWS Lambda功能主控台上新增的圖層。</block>
   <block id="87fcbd11f44be8b210a0adbfafc5f083" category="paragraph"><block ref="87fcbd11f44be8b210a0adbfafc5f083" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="cdb5e7241bb52c5f33fc903e816595a6" category="list-text">瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將「逾時」變更為* 5分鐘*、然後按一下「儲存」。</block>
   <block id="92997aae940f33750d6c43a65315fc0d" category="list-text">瀏覽至Lambda功能的*權限*索引標籤、然後按一下指派的角色。在角色的權限索引標籤中、按一下*新增權限*&gt;*建立內嵌原則*。</block>
   <block id="e80446ca49af46cfdbc8af6661176f5b" category="list-text">按一下Json索引標籤、然後從GitHub repo貼上檔案policy.json的內容。</block>
   <block id="85aff31d07a1ff90ecd6d3dc6401eed0" category="list-text">將每次出現的$｛AWS：：AccountId｝替換為您的帳戶ID、然後按一下* Review Policy*</block>
@@ -16900,12 +16893,10 @@
   <block id="be6cbc09482802bc252464f7f9dc5176" category="cell">（必填）輸入您要保留的Volume層級快照天數。任何早於所提供值的快照都會刪除、並透過電子郵件通知相同的快照。</block>
   <block id="8983bb09e5de73133d38fd252364a173" category="inline-image-macro">此影像描述AWS Lambda功能主控台上的Lambda程式碼。</block>
   <block id="8355eb726273f03ca5f55fd35b0a710a" category="paragraph"><block ref="8355eb726273f03ca5f55fd35b0a710a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="b474ff33c546908035499b53002f61bb" category="list-text">按一下* Test*、建立空白的測試事件、然後執行測試、檢查指令碼是否正常執行。</block>
   <block id="44903daf5480dcfa1bb48a9ba24e0617" category="list-text">測試成功後、請瀏覽至*組態*&gt;*觸發程序*&gt;*新增觸發程序*。</block>
   <block id="6bb73947635f7fd1d1f74c0544fa89a6" category="paragraph">按一下「新增」。</block>
   <block id="e12ebba9179a3c37608a804ce282348d" category="inline-image-macro">此影像描述AWS Lambda功能主控台的事件橋接建立視窗。</block>
   <block id="4e8d49756f1c9d97f6044f5c9c1c5d02" category="paragraph"><block ref="4e8d49756f1c9d97f6044f5c9c1c5d02" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d140dcb54f7073751446004207785331" category="paragraph">透過所提供的解決方案、您可以輕鬆設定監控解決方案、定期監控FSXfor ONTAP ExStorage、根據使用者指定的臨界值調整其大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。</block>
   <block id="c8219112931de58f84e7a14a0d24d1ce" category="list-text">Apache Kafka的託管平台</block>
   <block id="a96e98488edf9123c2fb5281e71c6ec2" category="paragraph"><block ref="a96e98488edf9123c2fb5281e71c6ec2" category="inline-link-rx"></block></block>
   <block id="0cb1f340d12ba20e283d00e1e0823526" category="list-text">支援Apache Kafka</block>
@@ -17171,7 +17162,6 @@
   <block id="827b60b27e967d900114ade1f31eed53" category="paragraph"><block ref="827b60b27e967d900114ade1f31eed53" category="inline-image-macro-rx" type="image"></block></block>
   <block id="4e0fb0a8b932b4f05d487ea8a5748901" category="list-text">驗證 EC2 執行個體主機上的複製資料庫。</block>
   <block id="d139cf7562ab53c3922d5a0a6804786c" category="paragraph"><block ref="d139cf7562ab53c3922d5a0a6804786c" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="6cfa4396db779261100202ab3f0ffdcd" category="paragraph"><block ref="6cfa4396db779261100202ab3f0ffdcd" category="inline-image-macro-rx" type="image"></block></block>
   <block id="f12aeeed0f164c86af69a57fddb01689" category="list-text">設定及管理BlueXP</block>
   <block id="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-macro"><block ref="74e12c8bec754bf4a9feb44c8cada2dc" category="inline-link-rx"></block></block>
   <block id="54d1b98b8cdfd12e2afc7f08278645ba" category="paragraph"><block ref="54d1b98b8cdfd12e2afc7f08278645ba" category="inline-link-macro-rx"></block></block>
@@ -17307,19 +17297,16 @@
   <block id="1d2114df6a9f8f5d7e8f597e9c70a6c1" category="sidebar">使用 NetApp 檔案物件雙重性和 AWS SageMaker 進行雲端資料管理</block>
   <block id="74ed7031eb75ffbb784ebe9ffbd6be6a" category="cell">更新部落格「 FSX for ONTAP Monitoring and Auto-Resizing Using AWS Lambda Functions 」、提供私有 / 公有部署選項、以及手動 / 自動化部署選項。</block>
   <block id="2ab02c4627e2022ecdf98de0e3b6b18d" category="cell">新增部落格：使用 AWS Lambda 功能進行 ONTAP 監控和自動調整大小的 FSX</block>
-  <block id="2991ec0aa5bd4825c01d9bef4b9bdaad" category="paragraph">FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。本文件提供逐步指南、可建立自動設定、定期監控FSX以ONTAP 供使用、在超過使用者指定的臨界值時通知及調整大小、並通知管理員調整大小活動。</block>
   <block id="8e8aff933e5047a57263663f8a18e3c3" category="list-text">能夠定期監控檢查</block>
   <block id="e2b4916d6d7f53cde2d5633fd6119cc4" category="list-text">能夠在存取或不存取網際網路的情況下使用解決方案</block>
   <block id="a90d7c3c15ad351b936f52283c3587ef" category="list-text">能夠手動部署或使用 AWS CloudForgation Template</block>
   <block id="1526ea467258021d67f8f59298e57f70" category="list-text">可連線至 ONTAP 的 FSX 的私有子網路</block>
-  <block id="baebd0d5b177b5744e776be025952058" category="list-text">如果在沒有網際網路存取的 VPC 中部署解決方案、則會設定適用於 AWS SSM 、 FSX 和 SES 的 VPC 端點、以允許 Lambda 透過 AWS 內部網路存取這些服務。</block>
   <block id="5215f5ee52e78e416520bfecaf294472" category="paragraph">請依照下列步驟完成本解決方案的自動化部署：</block>
   <block id="6436b05fc0216b37135d2a66a585e96f" category="example-title">步驟 2 ：設定 AWS S3 貯體</block>
   <block id="7d54d293b4849834117fc9160feb6cbc" category="list-text">瀏覽至 AWS 主控台 &gt; * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。</block>
   <block id="66b09b43432fbb9814d51e48e9a98ade" category="inline-image-macro">此影像描述上傳 zip 檔案的 S3 視窗</block>
   <block id="0f71a8c9bb8a785323461956bf9e217a" category="paragraph"><block ref="0f71a8c9bb8a785323461956bf9e217a" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6ea6ef5eae0a05760ec8bf19495d8645" category="example-title">步驟 3 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）</block>
-  <block id="90db95943ff24327f32dd935aa7395d5" category="paragraph">如果您想要部署不含網際網路存取的解決方案、請遵循此步驟（注意：由於 VPC 端點正在設定、因此會增加相關成本）。</block>
   <block id="972167638becf55a9af0b4e5c414a75e" category="list-text">瀏覽至 AWS Console （ AWS 主控台） &gt; * AWS Simple Email Service （ SES ） * &gt; SMTP Settings （ SMTP 設定）、然後按一下 * Create SMTP 全權證書 * （建立 SMTP 認證）</block>
   <block id="68d59bd0e9b2839f0843ab1b2d6b136f" category="list-text">輸入 IAM 使用者名稱或保留預設值、然後按一下「建立」。儲存使用者名稱和密碼以供進一步使用。</block>
   <block id="796d9a158268a6ea8a7895c4fc08b2f7" category="admonition">如果 SES SMTP 設定已就緒、請跳過此步驟。</block>
@@ -17337,7 +17324,6 @@
   <block id="113624fc80b505576882228d73fc03c5" category="paragraph"><block ref="113624fc80b505576882228d73fc03c5" category="inline-image-macro-rx" type="image"></block></block>
   <block id="13069c8f4182a2f6ab810369ebe8b0ad" category="paragraph"><block ref="13069c8f4182a2f6ab810369ebe8b0ad" category="inline-image-macro-rx" type="image"></block></block>
   <block id="bd90b3549ddb2a170121e2cae9d2e442" category="paragraph"><block ref="bd90b3549ddb2a170121e2cae9d2e442" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="dcd7d4e3b6e000a6821009f7370ab47e" category="list-text">一旦 CloudForgation 部署開始、「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求他們授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。</block>
   <block id="d22d74b4244b97ca549876dbaf6e5906" category="list-text">一旦完成 CloudForgation 堆疊部署、如果有任何警告 / 通知、系統會傳送電子郵件給收件者電子郵件 ID 、其中會附上通知詳細資料。</block>
   <block id="bb44dcc303804fcbbf13971e05b223b4" category="inline-image-macro">此影像描述通知可用時收到的電子郵件通知</block>
   <block id="80b7092ae7ee31bafccb6f27ea2a5603" category="paragraph"><block ref="80b7092ae7ee31bafccb6f27ea2a5603" category="inline-image-macro-rx" type="image"></block></block>
@@ -17348,17 +17334,12 @@
   <block id="0aa7c69c57f475cc1f055c49b0e3136e" category="example-title">步驟 3 ：為 fsxadmin 密碼建立 SSM 參數</block>
   <block id="8a7ca52152a916f189b032d05768ed10" category="paragraph">如果部署的解決方案沒有網際網路存取、請執行相同的步驟來儲存 SMTP 使用者名稱和 SMTP 密碼。否則、請跳過新增這 2 個參數。</block>
   <block id="06e0a02f6ce962b7038b6b2918585271" category="example-title">步驟 4 ：設定電子郵件服務</block>
-  <block id="14bcb93088a1eb5d0e0d7ce578a73a08" category="paragraph">「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求擁有者授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。</block>
-  <block id="88adaee1fa88f871bc7cf8d579e59cdd" category="example-title">步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）</block>
-  <block id="0261907012c6fd6ed0e80ab991a9d462" category="admonition">只有在部署時沒有網際網路存取時才需要。由於 VPC 端點、因此會產生額外的相關成本。</block>
   <block id="71bb5fff33b1866d7266866fb9c94f45" category="list-text">瀏覽至 AWS 主控台 &gt; * VPC* &gt; * 端點 * 、然後按一下 * 建立端點 * 、並輸入下列詳細資料：</block>
   <block id="6683864f2c9e5bbb1fa4128837ed8eab" category="paragraph">按一下「建立端點」。</block>
   <block id="5f80bfe9763fe273a3a7722c1c647604" category="inline-image-macro">此影像說明 VPC 端點建立視窗</block>
   <block id="9a4cd1bb8a39a7c230290453794b4429" category="paragraph"><block ref="9a4cd1bb8a39a7c230290453794b4429" category="inline-image-macro-rx" type="image"></block></block>
   <block id="603ef5b528d0bd1def7291cf6417ff56" category="paragraph"><block ref="603ef5b528d0bd1def7291cf6417ff56" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="1c96306d4c766c38569c564c9bdb80a7" category="list-text">依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務 &lt;region&gt; 將分別對應於 *com.amazonaws.smtp* 和 &lt;region&gt; 。 SSM* 。</block>
   <block id="a07090d2d501e8e696338339ab098115" category="example-title">步驟 6 ：建立及設定 AWS Lambda 功能</block>
-  <block id="6b0889223ab16d524cd0322c25d0b4b3" category="cell">（必填）將此變數設為 True 、可在儲存容量 / Volume / LUN 使用量超過 75% 但低於臨界值時接收通知。</block>
   <block id="785e900d8ea09cab57830ac6967cb709" category="cell">* 網際網路存取 *</block>
   <block id="24498a6850ca31bfb18f639aae517582" category="cell">（必要）如果從部署 Lambda 的子網路上可以存取網際網路、請將此變數設為 True 。否則請將其設為 False 。</block>
   <block id="cd9e7c04a0bb02c275868aa4344613da" category="cell">*SMTP_region*</block>
@@ -20037,10 +20018,7 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="05da5a25aeee329a7caf8be6493209f7" category="paragraph">按一下「*建立參數*」。
 針對要監控的所有 ONTAP 檔案系統、重複上述步驟。</block>
   <block id="4a86a06630441d1655597fa23dc66379" category="list-text">建立 Layer 並上傳 * Utilities.zip* 檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。</block>
-  <block id="2c53df99d2ac43dfed0bb27c1189a72a" category="list-text">返回 AWS Lambda * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
   <block id="6c51cd5dc46c2931b78f7f79a5f41525" category="cell">* fsxList*</block>
-  <block id="9659e450f8ee0db6cba199aa524306d2" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
-在清單中加入所有檔案系統、以便監控和自動調整大小。</block>
   <block id="eb9bdfa4e36f09f9fc14822772fd03c6" category="cell">2023 年 8 月 17 日</block>
   <block id="6b60406f1591d6e6f410379e23bb66fc" category="cell">新增：使用 Veeam Replication 和 Azure NetApp Files 資料存放區將災難恢復至 Azure VMware 解決方案</block>
   <block id="4ac0795b239c621e30488feee37cd924" category="cell">新增：使用 Veeam Replication 和 FSX for ONTAP 在 AWS 上進行 VMware Cloud 災難恢復</block>
@@ -20203,4 +20181,28 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="caf8b775aa69a5ba386520c85bf77ca0" category="paragraph"><block ref="caf8b775aa69a5ba386520c85bf77ca0" category="inline-image-macro-rx" type="image"></block></block>
   <block id="4d47a618f27fda5779a63d84527053b2" category="paragraph"><block ref="4d47a618f27fda5779a63d84527053b2" category="inline-image-macro-rx" type="image"></block></block>
   <block id="ae40ac16df59df85ba7c1891e1d4fc9c" category="paragraph">Azure NetApp Files 資料存放區功能可讓 Veeam 或任何經過驗證的協力廠商工具、利用 Pilot Light 叢集來提供低成本的災難恢復解決方案、而非只為了容納 VM 複本而站在大型叢集上。這可有效處理量身打造的自訂災難恢復計畫、並可重複使用內部現有的備份產品進行災難恢復、透過結束內部部署的災難恢復資料中心來實現雲端型災難恢復。在發生災難時按一下按鈕即可進行容錯移轉、或在發生災難時自動進行容錯移轉。</block>
+  <block id="88f83c706b3d2e5f8d1169971db47853" category="paragraph">適用於 ONTAP 的 FSX 是 AWS 上提供的第一方企業級雲端儲存服務、可提供以熱門 NetApp ONTAP 檔案系統為基礎的高可靠性、可擴充性、高效能及功能豐富的檔案儲存設備。</block>
+  <block id="461935e6fc4ef009527a8b35dda4c285" category="paragraph">FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。  本文件提供逐步指南、協助您建立自動設定、定期監控適用於 ONTAP 的 FSX 、並在超過使用者指定的臨界值時通知及調整大小、並通知系統管理員調整大小活動。</block>
+  <block id="a7cd615e255b9b089f1b061e5e189abd" category="list-text">警示機制、可透過電子郵件接收使用警告及調整通知大小</block>
+  <block id="0d50ae6aa92c4ec6f263491e478e7d82" category="list-text">能夠刪除早於使用者定義臨界值的快照</block>
+  <block id="703ead715d6d2f8639484c00e0ed0d5d" category="example-title">高階架構</block>
+  <block id="2b9ee323cc707d4cd4f3a2a127530351" category="list-text">「 fsxadmin 」密碼會儲存為 AWS SSM 參數儲存區中的安全字串、以增加安全層級。</block>
+  <block id="a2c0867d899b117aa3870a45761a92a6" category="list-text">如果在沒有網際網路存取的 VPC 中部署解決方案、則會設定適用於 AWS SSM 、 FSX 和 SES 的 VPC 端點、以允許 Lambda 透過 AWS 內部網路存取這些服務。</block>
+  <block id="002c69c38fe81f4ebc5f950b44e22628" category="paragraph">如果您想要部署不需存取網際網路的解決方案、請遵循此步驟（注意：將會增加與 VPC 端點相關的成本）。</block>
+  <block id="a1e0c9bd0fc75dba09f52b2963994041" category="list-text">瀏覽至 AWS 主控台 &gt; * AWS 簡單電子郵件服務（ SES ） * &gt; * SMTP 設定 * 、然後按一下 * 建立 SMTP 認證 *</block>
+  <block id="8ff28e341f8985ff5b224f50aa4ffa38" category="list-text">輸入 IAM 使用者名稱或保留預設值、然後按一下 * 建立使用者 * 。保存 *SMTP 用戶名 * 和 *SMTP 密碼 * 以供進一步使用。</block>
+  <block id="9665e80899cc4ee16b02e57f6f6bd770" category="list-text">一旦 CloudForgation 部署開始、「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求他們授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。</block>
+  <block id="28b8479848099212d34ed9e8ff2f3288" category="paragraph">「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求擁有者授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。</block>
+  <block id="ab00efb48492ba46bf143309d7d5a995" category="example-title">步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）</block>
+  <block id="a896cb4c0f87c01212691e2e656eb9c4" category="admonition">只有在部署時沒有網際網路存取時才需要。與 VPC 端點相關的額外成本。</block>
+  <block id="efd995d112fb4cf555fe5f14b1077928" category="list-text">依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務將 &lt;region&gt; 分別對應於 *com.amazonaws.smtp* 和 &lt;region&gt; 。 SSM* 。</block>
+  <block id="0067996368770d245be1642cf338806d" category="list-text">瀏覽至 AWS Console （ AWS 主控台） &gt; * AWS Lambda* &gt; * Functions * （函數 * ）、然後在與 ONTAP 的 FSX 相同的區域中按一下 * Create Funct職能 * （建立函數 * ）</block>
+  <block id="ced74238d4f3e0d01b23a4ded2b9663c" category="list-text">瀏覽至新建立的 Lambda 功能 &gt; 向下捲動至 * Layers* 區段、然後按一下 * 新增圖層 * 。</block>
+  <block id="c712825b20324ef1f5b77e495f50777c" category="list-text">返回 AWS Lambda 函數 &gt; * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
+  <block id="5ce6c1605d609112f3e70cd0eb8d92a5" category="list-text">瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將超時更改爲 *5 分鐘 * ，然後單擊 * 保存 * 。</block>
+  <block id="8c3dbb053dda6aee3d1fc3bfcc03f78a" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
+在清單中加入所有檔案系統、以進行監控和自動調整大小。</block>
+  <block id="740343954e72caba682c972de1bc4459" category="cell">（必填）將此變數設為 True 、當儲存容量 / 磁碟區 / LUN 使用量超過 75% 但低於臨界值時、就會收到通知。</block>
+  <block id="8a5fe4432309ce27193ef047eaf8b7ea" category="list-text">按一下 * 測試 * 、建立含有空白 JSON 物件的測試事件、然後按一下 * 叫用 * 來檢查指令碼是否正常執行、以執行測試。</block>
+  <block id="0551dbffe30f51dd77e5f8b4a0dfb8e6" category="paragraph">透過提供的解決方案、您可以輕鬆設定監控解決方案、定期監控適用於 ONTAP 儲存設備的 FSX 、根據使用者指定的臨界值調整大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。</block>
 </blocks>
