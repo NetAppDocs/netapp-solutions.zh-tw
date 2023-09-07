@@ -536,7 +536,6 @@
   <block id="0b55c84dbc04b54418b0d507f7b8f669" category="list-text">如果啟動時出現提示、請填寫任何變數、然後再按一下「Launch（重新啟動）」。</block>
   <block id="2fbb88fe90f9183c7eab541bc808795f" category="summary">本頁說明使用Terraform在雲端供應商（AWS、Azure、GCP）上部署NetApp Volume的自動化方法。</block>
   <block id="8eece2f5500ed61d5d5d24d6b8cc6da5" category="doc">透過Terraform實現雲端Volume自動化</block>
-  <block id="fbd9a83d6df239351ac0498cbaa58065" category="paragraph">本解決方案使用ONTAP Terraform模組、記錄AWS（CVO單一節點、CVO HA和FSX0）和Azure（CVO單一節點、CVO HA和ANF）上的雲端Volume自動化部署。您可以在找到該程式碼<block ref="d07ec9f91b2ccc52b0d628a1b144c1d8" category="inline-link-rx"></block></block>
   <block id="e11da9afe91d381489a365c86cc614ab" category="section-title">先決條件</block>
   <block id="95332f844502bac70e3783f2d906688c" category="list-text">Terraform &gt;= 0.13</block>
   <block id="82410a61f302c6bdce619218d5036674" category="list-text">Cloud Manager帳戶</block>
@@ -15431,10 +15430,7 @@
   <block id="20606e28a0d567be1dabd5cf50a2dc3b" category="section-title">附錄</block>
   <block id="16dfbb688028526582ec31ab802b9589" category="example-title">附錄A：適用於雲端形成範本的Y反 洗錢檔案</block>
   <block id="4c76ae47de51751cc57a4033d14f2f2a" category="paragraph">下列.yaml檔案可與AWS主控台的雲端形成範本搭配使用。</block>
-  <block id="76f249edcff2b74fcc17020455372f1b" category="inline-link"><block ref="76f249edcff2b74fcc17020455372f1b" category="inline-link-rx"></block></block>
-  <block id="57ea11aec1064892e5db378204f829c4" category="list-text"><block ref="57ea11aec1064892e5db378204f829c4" category="inline-link-rx"></block></block>
   <block id="f6d8279768d195862ae69a3df8dd51ab" category="inline-link">此GitHub連結</block>
-  <block id="4d39c6875a330594fc8521c48cadd7f6" category="paragraph">若要使用SnapCenter PowerShell自動建立iSCSI LUN及NetApp更新安裝、請從複製repo<block ref="445e758235a70998ddfcd1531f3ae35b" category="inline-link-rx"></block>。</block>
   <block id="00867e5f5ae22280c11a2626b65e657b" category="example-title">附錄B：用於配置磁碟區和LUN的PowerShell指令碼</block>
   <block id="0826ee2b94a579e02e80bfcdf26c5648" category="paragraph">下列指令碼可用來配置磁碟區和LUN、也可根據上述指示來設定iSCSI。有兩個PowerShell指令碼：</block>
   <block id="81e24f41fbaff249c9819985065173e3" category="list-text"><block ref="2a9a99327bbfb47d37ee76307e959506" prefix="" category="inline-code"></block></block>
@@ -19775,19 +19771,6 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="90a3396e8967bc372a59a701f133c2c1" category="inline-link-macro">災難恢復協調器 - AWS</block>
   <block id="81bc896ca904bd682e11ffe1d5abf3d8" category="inline-link-macro">災難恢復協調器 - Azure</block>
   <block id="6049d00b73dc4321e44f8849d8742ed7" category="inline-link-macro">適用於 VMware vSphere 部署的 SnapCenter 外掛程式、含 Ansible</block>
-  <block id="63e272055a89a3194aa50eafdd05ffd5" category="paragraph">以下是一些可與 VMware Aria 整合的額外資源。
-<block ref="dda17c7c890517ceeb30661fbdc5a21b" category="inline-link-macro-rx"></block>
-<block ref="95499a321602fd640851edb11cd0652b" category="inline-link-macro-rx"></block>
-<block ref="d60c12aedc8c0da5f4e1be13c4dc721b" category="inline-link-macro-rx"></block>
-<block ref="358a5bcd9bbface85de25c9415f0fe82" category="inline-link-macro-rx"></block>
-<block ref="5fc05f965f5c74950011cf97e1927c78" category="inline-link-macro-rx"></block>
-<block ref="375a308e38a72a52f57edf008a10609d" category="inline-link-macro-rx"></block>
-<block ref="0bc03b693cc088995a6238c26e595281" category="inline-link-macro-rx"></block>
-<block ref="3ac5a2677e3f6fe8f5869b429b93acff" category="inline-link-macro-rx"></block>
-<block ref="56daa806549cf76d44eec0ef69c5d6c2" category="inline-link-macro-rx"></block>
-<block ref="ec71f6e51d9c1ee1ea4460e13b624df0" category="inline-link-macro-rx"></block>
-<block ref="89505d87a2c92f122bfb4f697f10a1ed" category="inline-link-macro-rx"></block>
-<block ref="8acf1898e88961a998bf3a52f78fdb3a" category="inline-link-macro-rx"></block></block>
   <block id="03c47bd2899cb12e9401f463f8d3eee0" category="paragraph">VMware Aria 可協助管理員即時掌握其基礎架構、協助他們執行與營運相關的工作。VMware Aria Management Pack for NetApp FS/AFF 是適用於 VMware Aria Operations 的內嵌介面卡。這項整合可提供基礎架構的分析和最新資訊、協助您在問題發生時或可能更快發現問題。</block>
   <block id="c41833aa6cc278fcc92faa8cca4c82e6" category="inline-link-macro">VMware Aria 產品頁面</block>
   <block id="a99a8e803ccceb46d9ab18ad17c534d1" category="list-text"><block ref="a99a8e803ccceb46d9ab18ad17c534d1" category="inline-link-macro-rx"></block></block>
@@ -20205,4 +20188,21 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="740343954e72caba682c972de1bc4459" category="cell">（必填）將此變數設為 True 、當儲存容量 / 磁碟區 / LUN 使用量超過 75% 但低於臨界值時、就會收到通知。</block>
   <block id="8a5fe4432309ce27193ef047eaf8b7ea" category="list-text">按一下 * 測試 * 、建立含有空白 JSON 物件的測試事件、然後按一下 * 叫用 * 來檢查指令碼是否正常執行、以執行測試。</block>
   <block id="0551dbffe30f51dd77e5f8b4a0dfb8e6" category="paragraph">透過提供的解決方案、您可以輕鬆設定監控解決方案、定期監控適用於 ONTAP 儲存設備的 FSX 、根據使用者指定的臨界值調整大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。</block>
+  <block id="c9ac504cc0f9e496d5b4468f0abe1266" category="paragraph">以下是一些可與 VMware Aria 整合的額外資源。
+<block ref="dda17c7c890517ceeb30661fbdc5a21b" category="inline-link-macro-rx"></block>
+<block ref="95499a321602fd640851edb11cd0652b" category="inline-link-macro-rx"></block>
+<block ref="d60c12aedc8c0da5f4e1be13c4dc721b" category="inline-link-macro-rx"></block>
+<block ref="358a5bcd9bbface85de25c9415f0fe82" category="inline-link-macro-rx"></block>
+<block ref="5fc05f965f5c74950011cf97e1927c78" category="inline-link-macro-rx"></block>
+<block ref="375a308e38a72a52f57edf008a10609d" category="inline-link-macro-rx"></block>
+<block ref="0bc03b693cc088995a6238c26e595281" category="inline-link-macro-rx"></block>
+<block ref="3ac5a2677e3f6fe8f5869b429b93acff" category="inline-link-macro-rx"></block>
+<block ref="56daa806549cf76d44eec0ef69c5d6c2" category="inline-link-macro-rx"></block>
+<block ref="8365bd165718cb0c985697761d0f7bd4" category="inline-link-macro-rx"></block>
+<block ref="42c2925dafd34b5edd17bc78e2f6cfce" category="inline-link-macro-rx"></block>
+<block ref="8acf1898e88961a998bf3a52f78fdb3a" category="inline-link-macro-rx"></block></block>
+  <block id="4955754540a3275b8091953009e5babc" category="paragraph">本解決方案使用ONTAP Terraform模組、記錄AWS（CVO單一節點、CVO HA和FSX0）和Azure（CVO單一節點、CVO HA和ANF）上的雲端Volume自動化部署。您可以在找到該程式碼<block ref="443c555d04d240afc4ca748e75f63754" category="inline-link-rx"></block></block>
+  <block id="af5a37a09e4cee2968d7fd03f421a0a2" category="inline-link"><block ref="af5a37a09e4cee2968d7fd03f421a0a2" category="inline-link-rx"></block></block>
+  <block id="681814eb62cc26ee1c660bd58a9ce6eb" category="list-text"><block ref="681814eb62cc26ee1c660bd58a9ce6eb" category="inline-link-rx"></block></block>
+  <block id="275e63e9a49f296c063604ee4db5723e" category="paragraph">若要使用SnapCenter PowerShell自動建立iSCSI LUN及NetApp更新安裝、請從複製repo<block ref="a4dae7a3e0d905f7a66835dd216b7b06" category="inline-link-rx"></block>。</block>
 </blocks>
