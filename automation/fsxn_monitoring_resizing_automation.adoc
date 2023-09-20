@@ -78,23 +78,21 @@ image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案�
 
 NOTE: 涵蓋 ONTAP 檔案系統的單一 FSX 。
 
-[%collapsible]
-====
 請依照下列步驟完成本解決方案的自動化部署：
 
 .步驟1：複製GitHub儲存庫
 [%collapsible]
-=====
+====
 在本機系統上複製GitHub儲存庫：
 
 [listing]
 ----
 git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 ----
-=====
+====
 .步驟 2 ：設定 AWS S3 貯體
 [%collapsible]
-=====
+====
 . 瀏覽至 AWS 主控台 > * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。
 . 進入貯體後、按一下 * 上傳 * > * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Utilities.zip* 。
 +
@@ -102,10 +100,10 @@ image:fsxn-monitoring-resizing-s3-upload-zip-files.png["此影像描述上傳 zi
 
 
 
-=====
+====
 .步驟 3 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
 [%collapsible]
-=====
+====
 如果您想要部署不需存取網際網路的解決方案、請遵循此步驟（注意：將會增加與 VPC 端點相關的成本）。
 
 . 瀏覽至 AWS 主控台 > * AWS 簡單電子郵件服務（ SES ） * > * SMTP 設定 * 、然後按一下 * 建立 SMTP 認證 *
@@ -119,10 +117,10 @@ image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS 
 
 
 
-=====
+====
 .步驟 4 ： AWS CloudForgation 部署
 [%collapsible]
-=====
+====
 . 瀏覽至 AWS 主控台 > * CloudForgiate* > Create stack > with New Resources （標準）。
 +
 [listing]
@@ -164,7 +162,6 @@ image:fsxn-monitoring-resizing-email-2.png["此影像描述通知可用時收到
 
 
 
-=====
 ====
 
 
@@ -173,23 +170,21 @@ image:fsxn-monitoring-resizing-email-2.png["此影像描述通知可用時收到
 
 NOTE: 支援在單一 VPC 中監控多個適用於 ONTAP 檔案系統的 FSX 。
 
-[%collapsible]
-====
 請依照下列步驟完成本解決方案的手動部署：
 
 .步驟1：複製GitHub儲存庫
 [%collapsible]
-=====
+====
 在本機系統上複製GitHub儲存庫：
 
 [listing]
 ----
 git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 ----
-=====
+====
 .步驟 2 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
 [%collapsible]
-=====
+====
 如果您想要部署不需存取網際網路的解決方案、請遵循此步驟（注意：將會增加與 VPC 端點相關的成本）。
 
 . 瀏覽至 AWS Console （ AWS 主控台） > * AWS Simple Email Service （ SES ） * > SMTP Settings （ SMTP 設定）、然後按一下 * Create SMTP 全權證書 * （建立 SMTP 認證）
@@ -199,10 +194,10 @@ image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS 
 
 
 
-=====
+====
 .步驟 3 ：為 fsxadmin 密碼建立 SSM 參數
 [%collapsible]
-=====
+====
 瀏覽至AWS主控台>*參數儲存區*、然後按一下*建立參數*。
 
 [listing]
@@ -215,16 +210,17 @@ KMS key source: My current account
 Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
 ----
 按一下「*建立參數*」。
+
 針對要監控的所有 ONTAP 檔案系統、重複上述步驟。
 
 image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
 
 如果部署的解決方案沒有網際網路存取、請執行相同的步驟來儲存 SMTP 使用者名稱和 SMTP 密碼。否則、請跳過新增這 2 個參數。
 
-=====
+====
 .步驟 4 ：設定電子郵件服務
 [%collapsible]
-=====
+====
 瀏覽至AWS主控台>*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。
 
 [listing]
@@ -238,10 +234,10 @@ Email address: <Enter an email address to be used for sending resizing notificat
 
 image:fsxn-monitoring-resizing-ses.png["此影像說明AWS主控台的SES身分識別建立視窗。"]
 
-=====
+====
 .步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）
 [%collapsible]
-=====
+====
 
 NOTE: 只有在部署時沒有網際網路存取時才需要。與 VPC 端點相關的額外成本。
 
@@ -269,10 +265,10 @@ image:fsxn-monitoring-resizing-vpc-endpoint-create-2.png["此影像說明 VPC �
 . 依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務將 <region> 分別對應於 *com.amazonaws.smtp* 和 <region> 。 SSM* 。
 
 
-=====
+====
 .步驟 6 ：建立及設定 AWS Lambda 功能
 [%collapsible]
-=====
+====
 . 瀏覽至 AWS Console （ AWS 主控台） > * AWS Lambda* > * Functions * （函數 * ）、然後在與 ONTAP 的 FSX 相同的區域中按一下 * Create Funct職能 * （建立函數 * ）
 . 使用預設的*從頭開始作者*並更新下列欄位：
 +
@@ -397,7 +393,6 @@ image:fsxn-monitoring-resizing-eventbridge.png["此影像描述AWS Lambda功能�
 
 
 
-=====
 ====
 
 
