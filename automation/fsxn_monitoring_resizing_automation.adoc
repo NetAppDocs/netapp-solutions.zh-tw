@@ -212,8 +212,6 @@ Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
 按一下「*建立參數*」。
 針對要監控的所有 ONTAP 檔案系統、重複上述步驟。
 
-針對要監控的所有 ONTAP 檔案系統、重複上述步驟。
-
 image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
 
 如果部署的解決方案沒有網際網路存取、請執行相同的步驟來儲存 SMTP 使用者名稱和 SMTP 密碼。否則、請跳過新增這 2 個參數。
@@ -303,7 +301,7 @@ image:fsxn-monitoring-resizing-add-layer-button.png["此影像說明AWS Lambda�
 +
 image:fsxn-monitoring-resizing-create-layer-paramiko.png["此影像說明AWS主控台的Create New Layer（建立新的層）視窗。"]
 
-. 返回 AWS Lambda * 新增圖層 * > * 自訂圖層 * 、然後新增公用程式圖層。
+. 返回 AWS Lambda 函數 > * 新增圖層 * > * 自訂圖層 * 、然後新增公用程式圖層。
 +
 image:fsxn-monitoring-resizing-add-layer-window.png["此影像描述AWS Lambda功能主控台的新增層視窗。"]
 
@@ -328,7 +326,7 @@ image:fsxn-monitoring-resizing-layers-added.png["此影像說明AWS Lambda功能
 
 
 | * fsxList* | 清單 | （必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
-在清單中加入所有檔案系統、以便監控和自動調整大小。 
+在清單中加入所有檔案系統、以進行監控和自動調整大小。 
 
 
 | * fsxMgmtIp* | 字串 | （必填）從ONTAP AWS上的FSX for Ef0主控台輸入「管理端點- IP位址」。 

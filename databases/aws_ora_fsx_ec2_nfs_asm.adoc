@@ -58,21 +58,20 @@ image::aws_ora_fsx_ec2_nfs_asm_architecture.png[此映像提供在 AWS 公有雲
 
 === 硬體與軟體元件
 
-*硬體*
-
 [cols="33%, 33%, 33%"]
 |===
+
+
+3+| *硬體* 
 
 
 | FSX ONTAP 支援儲存 | AWS 提供的目前版本 | 同一個 VPC 和可用區域中的一個 FSX HA 叢集 
 
 
 | EC2運算執行個體 | T2.xlarge / 4vcpU/16G | 兩個 EC2 T2 大型 EC2 執行個體、一個做為主要資料庫伺服器、另一個做為複製資料庫伺服器 
-|===
-*軟體*
 
-[cols="33%, 33%, 33%"]
-|===
+
+3+| *軟體* 
 
 
 | RedHat Linux | RHEL-8.6.0_HVM-20220504-x86_64：2-Hourly2-GP2 | 已部署RedHat訂閱以進行測試 
