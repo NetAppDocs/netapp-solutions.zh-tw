@@ -5,6 +5,8 @@ url: "/databases/index.html"
 entries:
 - title: Oracle資料庫
   entries:
+  - title: 使用 AWS FSX ONTAP 降低 Active Data Guard 成本
+    url: "/databases/aws_ora_fsx_ec2_data_guard.html"
   - title: 使用 AWS FSX ONTAP 快速恢復和複製 Oracle VLDB
     url: "/databases/aws_ora_fsx_ec2_inc_merge.html"
   - title: 在 AWS FS3/EC2 上使用 NFS/ASM 獨立重新啟動 Oracle 19c
@@ -69,6 +71,10 @@ entries:
     url: "/databases/tr-4794.html"
 - title: Microsoft SQL Server
   entries:
+  - title: AWS FSX for ONTAP 上的 Microsoft SQL Server 備份與還原
+    url: "/databases/sqlsb-backup-restore-aws-fsxn.html"
+  - title: SQL Server on AWS EC2使用Amazon FSX for NetApp ONTAP 解決方案
+    url: "/databases/sql-aws-ec2.html"
   - title: SQL Server on Azure NetApp Files
     url: "/databases/sql-srv-anf_overview.html"
     entries:
@@ -88,13 +94,17 @@ entries:
     url: "/databases/tr-4467.html"
   - title: 現代化Microsoft SQL Server
     url: "/databases/na-446.html"
+  - title: Microsoft SQL Server with ONTAP 的最佳實務做法指南
+    url: "/databases/tr-4590.html"
   - title: 採用NetApp EF系列的Microsoft SQL Server最佳實務做法指南
     url: "/databases/tr-4764.html"
 - title: 開放原始碼資料庫
   entries:
   - title: 自動化的PostgreSQL HA部署與DR（在AWS FSx/EC2中）
     url: "/databases/aws_postgres_fsx_ec2_hadr.html"
-- title: 資料庫適用SnapCenter
+  - title: NetApp ONTAP 上的 MySQL 資料庫
+    url: "/databases/tr-4722.html"
+- title: SnapCenter for Databases
   entries:
   - title: BlueXP SaaS for Oracle - Azure
     url: "/databases/snapctr_svcs_ora_azure.html"
@@ -126,3 +136,10 @@ entries:
       url: "/databases/hybrid_dbops_snapcenter_devtest.html"
     - title: 災難恢復工作流程
       url: "/databases/hybrid_dbops_snapcenter_dr.html"
+- title: 資料庫自動化工具套件
+  entries:
+  - title: Oracle 移轉
+    url: "/databases/automation_ora_migration.html"
+  - title: Oracle HA/DR 搭配 AWS FSX ONTAP
+    url: "/databases/automation_ora_hadr_fsx.html"
+  - title: AWS FSX ONTAP 和 EC2 資源配置

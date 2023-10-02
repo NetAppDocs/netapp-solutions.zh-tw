@@ -239,45 +239,6 @@ image:snapctr_svcs_credential_08-aws.png["GUI 中顯示此步驟的螢幕擷取�
 ====
 
 
-=== 在 BlueXP 中定義用於 AWS 資源存取的認證
-
-[%collapsible]
-====
-. 首先、從 AWS EC2 主控台、在 * 身分識別與存取管理（ IAM ） * 功能表 * 角色 * 、 * 建立角色 * 中建立角色、以開始角色建立工作流程。
-+
-image:snapctr_svcs_credential_01-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 在 * 選取信任的實體 * 頁面中、選擇 * AWS 帳戶 * 、 * 另一個 AWS 帳戶 * 、然後貼到 BlueXP 帳戶 ID 、可從 BlueXP 主控台擷取。
-+
-image:snapctr_svcs_credential_02-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 依 FSX 篩選權限原則、並將 * 權限原則 * 新增至角色。
-+
-image:snapctr_svcs_credential_03-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 在 * 角色詳細資料 * 頁面中、命名角色、新增說明、然後按一下 * 建立角色 * 。
-+
-image:snapctr_svcs_credential_04-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 回到 BlueXP 主控台、按一下主控台右上角的設定圖示以開啟 * 帳戶認證 * 頁面、按一下 * 新增認證 * 以啟動認證組態工作流程。
-+
-image:snapctr_svcs_credential_05-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 選擇認證位置為： * Amazon Web Services - BlueXP* 。
-+
-image:snapctr_svcs_credential_06-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 使用適當的 * 角色 ARN* 來定義 AWS 認證、可從上述步驟一所建立的 AWS IAM 角色中擷取。BlueXP * 帳戶 ID* 、用於在步驟一中建立 AWS IAM 角色。
-+
-image:snapctr_svcs_credential_07-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-. 審查與 * 新增 * 。
-image:snapctr_svcs_credential_08-aws.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
-
-
-====
-
-
 === SnapCenter 服務設定
 
 [%collapsible]

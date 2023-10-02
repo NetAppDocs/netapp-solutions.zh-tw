@@ -16123,7 +16123,6 @@
   <block id="2ee6a0567aa163f6ace02183cb041cbd" category="cell">在AWS FSx/EC2中新增PostgreSQL高可用度部署和災難恢復</block>
   <block id="a54420e6e0f519f841f4280cf2545365" category="sidebar">開放原始碼資料庫</block>
   <block id="1ae3eccde141a365ede8f18b188ae588" category="sidebar">自動化的PostgreSQL HA部署與DR（在AWS FSx/EC2中）</block>
-  <block id="6fabfc29f0b3a196c8407c190bb67293" category="sidebar">資料庫適用SnapCenter</block>
   <block id="1f599c1b266e901a2c8d38e266e23c6f" category="summary">本節說明詳細的測試程序結果。</block>
   <block id="c87fa6e515cf0976291b387e5a8ab6f6" category="doc">測試程序與詳細結果</block>
   <block id="5a05f12c2c7f8b9ff569496691352e05" category="paragraph"><block ref="5a05f12c2c7f8b9ff569496691352e05" category="inline-link-macro-rx"></block></block>
@@ -20175,10 +20174,7 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="efd995d112fb4cf555fe5f14b1077928" category="list-text">依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務將 &lt;region&gt; 分別對應於 *com.amazonaws.smtp* 和 &lt;region&gt; 。 SSM* 。</block>
   <block id="0067996368770d245be1642cf338806d" category="list-text">瀏覽至 AWS Console （ AWS 主控台） &gt; * AWS Lambda* &gt; * Functions * （函數 * ）、然後在與 ONTAP 的 FSX 相同的區域中按一下 * Create Funct職能 * （建立函數 * ）</block>
   <block id="ced74238d4f3e0d01b23a4ded2b9663c" category="list-text">瀏覽至新建立的 Lambda 功能 &gt; 向下捲動至 * Layers* 區段、然後按一下 * 新增圖層 * 。</block>
-  <block id="c712825b20324ef1f5b77e495f50777c" category="list-text">返回 AWS Lambda 函數 &gt; * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
   <block id="5ce6c1605d609112f3e70cd0eb8d92a5" category="list-text">瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將超時更改爲 *5 分鐘 * ，然後單擊 * 保存 * 。</block>
-  <block id="8c3dbb053dda6aee3d1fc3bfcc03f78a" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
-在清單中加入所有檔案系統、以進行監控和自動調整大小。</block>
   <block id="740343954e72caba682c972de1bc4459" category="cell">（必填）將此變數設為 True 、當儲存容量 / 磁碟區 / LUN 使用量超過 75% 但低於臨界值時、就會收到通知。</block>
   <block id="8a5fe4432309ce27193ef047eaf8b7ea" category="list-text">按一下 * 測試 * 、建立含有空白 JSON 物件的測試事件、然後按一下 * 叫用 * 來檢查指令碼是否正常執行、以執行測試。</block>
   <block id="0551dbffe30f51dd77e5f8b4a0dfb8e6" category="paragraph">透過提供的解決方案、您可以輕鬆設定監控解決方案、定期監控適用於 ONTAP 儲存設備的 FSX 、根據使用者指定的臨界值調整大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。</block>
@@ -20288,15 +20284,16 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="7f8ef2f7d9a73eb64e35d815049ddd46" category="paragraph">只有在模型接受品質資料的大量訓練時、泛用 AI 才能產生有效的結果。雖然 LMS 已達成卓越的里程碑、但必須瞭解其與資料移動性和資料品質相關的限制、設計挑戰和風險。LMS 仰賴來自異質資料來源的大型和獨立訓練資料集。模型產生的不正確結果或不公正結果、可能會使企業和消費者面臨危險。這些風險可能會對應資料品質、資料安全性和資料移動性等資料管理挑戰所帶來的潛在 LLM 限制。NetApp 可協助企業組織因資料快速成長、資料移動性、多雲端管理及採用 AI 所帶來的複雜性。大規模的 AI 基礎架構和高效率的資料管理對於定義 AI 應用程式（例如泛用 AI ）的成功與否至關重要。關鍵客戶涵蓋所有的部署情境、而不影響企業在控制成本效益、資料治理和道德 AI 實務的同時、隨需擴充的能力。NetApp 持續協助客戶簡化及加速 AI 部署。</block>
   <block id="a47a30d701c91b6f3e99208cf0007ceb" category="cell">2023 年 9 月 19 日</block>
   <block id="8a8fb212134a7bd99f920d8c26fd7003" category="cell">新增白皮書：泛用 AI 和 NetApp 價值</block>
-  <block id="faec730272cd4b39d377b89835a6a82c" category="paragraph">按一下「*建立參數*」。</block>
   <block id="6f0562aa7a2ab44ba84605b638a493c6" category="paragraph">針對要監控的所有 ONTAP 檔案系統、重複上述步驟。</block>
   <block id="5b95d24dbc11f9b34c6cf18b07dcf3f7" category="list-text">您也可以使用自訂的備份頻率和備份資料保留時間來建立自己的原則。</block>
   <block id="dd06e85eab955d6e3843bf0f5c71961c" category="paragraph"><block ref="dd06e85eab955d6e3843bf0f5c71961c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6cfa4396db779261100202ab3f0ffdcd" category="paragraph"><block ref="6cfa4396db779261100202ab3f0ffdcd" category="inline-image-macro-rx" type="image"></block></block>
   <block id="a72cdbea9b76d7b6bbbdf396dd2634e3" category="inline-link-macro">NetApp 主廚食譜</block>
   <block id="85248cff92afa610864cea6879da1e1c" category="inline-link-macro">ONTAP Puppet 模組</block>
-  <block id="910559515b35856037a35a86222c2fe4" category="inline-link-macro">NetApp DataOps 工具組</block>
-  <block id="4793539dea2cfb696568dc3f072f6931" category="paragraph">以下是一些可與 VMware Aria 整合的額外資源。
+  <block id="f85439e6fd58c2c10bb7b6282043d280" category="cell">2023 年 9 月 29 日</block>
+  <block id="4fc5b080fafbd5903f95a5c2e4e35bd3" category="cell">新增 TR-4981 ：使用 AWS FSX ONTAP 、有效降低資料保護成本</block>
+  <block id="273d67a1e8ae0816e130d8995b509b2b" category="inline-link-macro">DataOps 工具套件</block>
+  <block id="f93ce65f1991e25180482bf92d805e27" category="paragraph">以下是一些可與 VMware Aria 整合的額外資源。
 <block ref="dda17c7c890517ceeb30661fbdc5a21b" category="inline-link-macro-rx"></block>
 <block ref="95499a321602fd640851edb11cd0652b" category="inline-link-macro-rx"></block>
 <block ref="06c40e6c0f3d38ebd5ca68a5e35a36d7" category="inline-link-macro-rx"></block>
@@ -20306,9 +20303,203 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
 <block ref="358a5bcd9bbface85de25c9415f0fe82" category="inline-link-macro-rx"></block>
 <block ref="5fc05f965f5c74950011cf97e1927c78" category="inline-link-macro-rx"></block>
 <block ref="375a308e38a72a52f57edf008a10609d" category="inline-link-macro-rx"></block>
+<block ref="0bc03b693cc088995a6238c26e595281" category="inline-link-macro-rx"></block>
 <block ref="3ac5a2677e3f6fe8f5869b429b93acff" category="inline-link-macro-rx"></block>
-<block ref="236ed73cc1b213517d95a7edf0ff510f" category="inline-link-macro-rx"></block>
-<block ref="8365bd165718cb0c985697761d0f7bd4" category="inline-link-macro-rx"></block>
-<block ref="42c2925dafd34b5edd17bc78e2f6cfce" category="inline-link-macro-rx"></block>
+<block ref="56daa806549cf76d44eec0ef69c5d6c2" category="inline-link-macro-rx"></block>
+<block ref="ec71f6e51d9c1ee1ea4460e13b624df0" category="inline-link-macro-rx"></block>
+<block ref="89505d87a2c92f122bfb4f697f10a1ed" category="inline-link-macro-rx"></block>
 <block ref="8acf1898e88961a998bf3a52f78fdb3a" category="inline-link-macro-rx"></block></block>
+  <block id="05da5a25aeee329a7caf8be6493209f7" category="paragraph">按一下「*建立參數*」。
+針對要監控的所有 ONTAP 檔案系統、重複上述步驟。</block>
+  <block id="2c53df99d2ac43dfed0bb27c1189a72a" category="list-text">返回 AWS Lambda * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
+  <block id="9659e450f8ee0db6cba199aa524306d2" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
+在清單中加入所有檔案系統、以便監控和自動調整大小。</block>
+  <block id="d79b12332bd4254f1e9cd6c23201a104" category="doc">TR-4722 ： NetApp ONTAP 最佳實務上的 MySQL 資料庫</block>
+  <block id="ecb384a7266ef6f8f011aa654a810c39" category="paragraph">Anup Bharti 、 Manohar Kulkarni 、 Jeffrey Steiner NetApp</block>
+  <block id="4fca42d652144c29317f1a8ee0ccf6b4" category="paragraph">MySQL 及其變種（包括 MariaDB 和 Percona ）廣泛用於許多企業應用程式。這些應用程式涵蓋全球社群網站和龐大的電子商務系統、以及包含數千個資料庫執行個體的中小企業代管系統。本文檔介紹了配置要求，並提供了有關在 NetApp ® ONTAP ® 數據管理軟件上部署 MySQL 的調整和存儲配置的指導。若要判斷本報告中指定的環境、組態和版本是否支援您的環境、請參閱互通性對照表工具（ IMT ）。</block>
+  <block id="74836ad3df3c237074f67acbd8f54d15" category="paragraph"><block ref="74836ad3df3c237074f67acbd8f54d15" category="inline-link-macro-rx"></block></block>
+  <block id="d65cd7440cb7c3d2954a848fa38e76ad" category="summary">此解決方案提供 Ansible 型自動化工具組、可將 Oracle 資料庫高可用度和災難恢復（ HA/DR ）與 AWS FSX ONTAP 做為 Oracle 資料庫儲存設備、並將 EC2 執行個體做為 AWS 中的運算執行個體進行設定。</block>
+  <block id="179da6be91ec55cc0787c674958241c1" category="doc">AWS FSX ONTAP 中的自動化 Oracle HA/DR</block>
+  <block id="1e7007fdca2061f9d6a2ce2a055e96ef" category="paragraph">NetApp 解決方案工程團隊</block>
+  <block id="f2329a9e32664ebaf897c18c90d9f922" category="paragraph">此工具套件可自動化設定及管理高可用度與災難恢復（ HR/DR ）環境的工作、以將部署於 AWS 雲端的 Oracle 資料庫與 ONTAP 儲存設備和 EC2 運算執行個體的 FSX 一起部署。</block>
+  <block id="4a33bb67171f627fe4d6f7f0aab6d032" category="list-text">設定 HA/DR 目標主機：核心組態、 Oracle 組態、以符合來源伺服器主機。</block>
+  <block id="497e7ba562ed7bbfac16fe52b6810372" category="list-text">設定 FSX ONTAP ：叢集對等關係、虛擬伺服器對等關係、 Oracle Volume SnapMirror 關係設定、從來源到目標。</block>
+  <block id="bda57e799072bafeaf42a5313a8206c5" category="list-text">透過 Snapshot 備份 Oracle 資料庫資料 - 從 crontab 執行</block>
+  <block id="5adf1aa082234fb813d8465d075205a9" category="list-text">透過 Snapshot 備份 Oracle 資料庫歸檔記錄 - 從 crontab 執行</block>
+  <block id="4c8c6940cbdf156409787ce0cae0679d" category="list-text">在 HA/DR 主機上執行容錯移轉與還原 - 測試並驗證 HA/DR 環境</block>
+  <block id="041824f980a2368afbea3529f4a85a3b" category="list-text">在容錯移轉測試後執行重新同步 - 在 HA/DR 模式中重新建立資料庫磁碟區 SnapMirror 關係</block>
+  <block id="39275aba85b7b3d5e108bf8a7f06b013" category="list-text">在 AWS 中設定 Oracle 資料庫以實現高可用度、資料保護和災難恢復的 DBA 。</block>
+  <block id="98ad1b0bb680f4935dc6ec065ab7dd53" category="list-text">對 AWS 雲端中的儲存層級 Oracle HA/DR 解決方案感興趣的資料庫解決方案架構設計師。</block>
+  <block id="7d780f9063c90f956c5b395f01862b2c" category="list-text">管理支援 Oracle 資料庫的 AWS FSX ONTAP 儲存設備的儲存管理員。</block>
+  <block id="cac0f059e3c711509277efdd488db471" category="list-text">喜歡在 AWS FSS/EC2 環境中為 HA/DR 備份 Oracle 資料庫的應用程式擁有者。</block>
+  <block id="0baa4333d01c4608c10c4852824e68ad" category="inline-link-macro">授權檔案</block>
+  <block id="0407397c670512dcadbf77a1ee9efa74" category="paragraph">存取、下載、安裝或使用此 GitHub 儲存庫中的內容、即表示您同意中所列的授權條款 <block ref="b109f24efb5af51bee6ff86849dfd222" category="inline-link-macro-rx"></block>。</block>
+  <block id="eaec65e969505bc6e2570f344e081174" category="admonition">對於與此 GitHub 儲存庫中的內容產生及 / 或共用任何衍生作品、有特定限制。使用內容前、請務必先閱讀授權條款。如果您不同意所有條款、請勿存取、下載或使用此儲存庫中的內容。</block>
+  <block id="fae7cbbd0ae5df13f97c6dfeea641d7c" category="section-title">下載工具組</block>
+  <block id="613fbd46486706dc14277a2503a8ddad" category="section-title">整體變數組態</block>
+  <block id="91cc3cb48c2d9b7fe947f975bb6e12c2" category="paragraph">Ansible 教戰手冊是可變驅動的。其中包含範例通用變數檔案 FSx_vars_example.yml 、以示範一般組態。以下是主要考量事項：</block>
+  <block id="0c967c2ba96575fe1c2db47376151512" category="section-title">主機變數組態</block>
+  <block id="548d628ee47e884858313f141ed3e385" category="paragraph">主機變數是在主機 _vars 目錄中定義、名稱為 ｛ ｛ host_name ｝ ｝ 。 yml 。其中包含主機變數檔 host_name.yml 範例、以示範典型組態。以下是主要考量事項：</block>
+  <block id="dc4f36380101bead8c5e803fa39d75ac" category="section-title">DB 伺服器主機檔案組態</block>
+  <block id="405805427d2874a5f24a3b376f51c62a" category="paragraph">AWS EC2 執行個體預設會使用 IP 位址來命名主機。如果您在主機檔案中使用不同的名稱來進行 Ansible 、請在 /etc/hosts 檔案中為來源伺服器和目標伺服器設定主機命名解析。以下是範例。</block>
+  <block id="ba1f06e05d1c791f2b15c9e1088a97c0" category="section-title">教戰手冊執行 - 依序執行</block>
+  <block id="f438c38014afe1cb719dbcb14f389a74" category="list-text">安裝 Ansible 控制器預先安裝。</block>
+  <block id="4fd73e564820faeafea813887ea61f6f" category="list-text">設定目標 EC2 DB 執行個體。</block>
+  <block id="7cfc03bc74a1c83d93eecac222f51283" category="list-text">設定來源與目標資料庫磁碟區之間的 FSX ONTAP SnapMirror 關係。</block>
+  <block id="ad995c0821f0dec2ecd6c5d1361b2ee1" category="list-text">透過來自 crontab 的快照備份 Oracle 資料庫資料磁碟區。</block>
+  <block id="06ddbe5b0f86c1d7fdff984cbe3f2ef5" category="list-text">透過來自 crontab 的快照備份 Oracle 資料庫歸檔記錄磁碟區。</block>
+  <block id="4ffffdfa8108984ff063883f05b2cb05" category="list-text">在目標 EC2 DB 執行個體上執行容錯移轉並恢復 Oracle 資料庫 - 測試並驗證 HA/DR 組態。</block>
+  <block id="665aea4799536e845b4d19fc4b3e4ee9" category="list-text">在容錯移轉測試後執行重新同步 - 在複寫模式中重新建立資料庫磁碟區 SnapMirror 關係。</block>
+  <block id="13b6326e5a684ad1d8a9de13b31a2069" category="paragraph">若要深入瞭解 NetApp 解決方案自動化、請參閱下列網站 <block ref="03bbd03f7d2552fa2076b42f86a04360" category="inline-link-macro-rx"></block></block>
+  <block id="784f4d9bc2efa477eafb911859744478" category="summary">本解決方案提供使用 AWS FSX ONTAP 做為備用站台的 Oracle 資料庫儲存設備來設定 Oracle Data Guard 的概述與詳細資料、以降低 AWS 中 Oracle Data Guard HA/DR 解決方案的授權與營運成本。</block>
+  <block id="73d3c98d13bcd463c30008dec3df8482" category="doc">TR-4981 ：使用 AWS FSX ONTAP 、有效降低資料保護成本</block>
+  <block id="f9ca3bf31876c6185710d49eac400cfe" category="paragraph">Oracle Data Guard 可確保在主要資料庫和待命資料庫複寫組態中、為企業資料提供高可用度、資料保護和災難恢復。Oracle Active Data Guard 可讓使用者存取待命資料庫、同時從主要資料庫到待命資料庫的資料複寫處於作用中狀態。Data Guard 是 Oracle Database Enterprise Edition 的一項功能。它不需要個別授權。另一方面、 Active Data Guard 是 Oracle Database Enterprise Edition 選項、因此需要另行授權。在 Active Data Guard 設定中、多個待命資料庫可以從主要資料庫接收資料複寫。不過、每個額外的待命資料庫都需要 Active Data Guard 授權、並需要額外的儲存空間作為主要資料庫的大小。營運成本迅速增加。</block>
+  <block id="9b5cb00e4268739e8f2781c020ad2477" category="paragraph">如果您熱衷於降低 Oracle 資料庫作業的成本、並計畫在 AWS 中設定 Active Data Guard 、您應該考慮另一種方法。使用 Data Guard 取代 Active Data Guard 、將主要資料庫複寫到 AWS FSX ONTAP 儲存設備上的單一實體待命資料庫。之後、可複製此待命資料庫的多個複本、並開啟以供讀寫存取、以處理許多其他使用案例、例如報告、開發、測試等 淨結果可有效提供 Active Data Guard 的功能、同時免除 Active Data Guard 授權、並為每個額外的備用資料庫增加額外的儲存成本。在本文件中、我們將示範如何在 AWS 中使用現有的主要資料庫來設定 Oracle Data Guard 、並將實體待命資料庫放置在 AWS FSX ONTAP 儲存設備上。待機資料庫會透過快照進行備份、並視需要複製以進行讀取 / 寫入存取、以供使用案例使用。</block>
+  <block id="ca7c3105dcf9272dbe41727059afe721" category="list-text">在 AWS 中任何儲存設備上的主要資料庫之間建立 Oracle Data Guard 、以在 AWS FSX ONTAP 儲存設備上建立待命資料庫。</block>
+  <block id="1373f5f0167ef176e393747ff34f4b37" category="list-text">在關閉的情況下複製待命資料庫、以供資料複寫使用、例如報告、開發、測試等</block>
+  <block id="b7224dd0f37ea7dba810e399e48f1e1f" category="list-text">在 AWS 中設定 Oracle Active Data Guard 的 DBA 、可實現高可用度、資料保護和災難恢復。</block>
+  <block id="550c8c85ffce2de3188f9704c188de3c" category="list-text">對 AWS 雲端中的 Oracle Active Data Guard 組態感興趣的資料庫解決方案架構設計師。</block>
+  <block id="e4efb5457095eb4b55bfc3c725c45bc6" category="list-text">管理支援 Oracle Data Guard 的 AWS FSX ONTAP 儲存設備的儲存管理員。</block>
+  <block id="3b6ea806d7ca3ec3483737a2c6b96a47" category="list-text">喜歡在 AWS FSS/EC2 環境中站立 Oracle Data Guard 的應用程式擁有者。</block>
+  <block id="bc91f44d9c65e0ff00460fc3cbf1d4a7" category="paragraph">此解決方案的測試與驗證是在 AWS FSX ONTAP 和 EC2 實驗室環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
+  <block id="952689151ce0aec7f82b269a33a2d561" category="image-alt">此映像提供 AWS with FSxN 中 Oracle Data Guard 實作的詳細圖片。</block>
+  <block id="2121dc715f8fee4210e0374eb562c84d" category="cell">三個 EC2 T2 大型 EC2 執行個體、一個做為主要 DB 伺服器、一個做為備用 DB 伺服器、第三個做為複製 DB 伺服器</block>
+  <block id="ca8a675d4efb691e78dedc948041f3b6" category="section-title">Oracle Data Guard 組態、採用假設的紐約至洛杉磯 DR 設定</block>
+  <block id="7a8d3dc7f0e719542e9e706dbca4f3ec" category="cell">*資料庫*</block>
+  <block id="6e63145f93e8264084d51b8487d8bb5a" category="cell">* DB_UNIQUE 名稱 *</block>
+  <block id="08ede96534ff1efd5b0193eda6efd01c" category="cell">* Oracle Net Service Name*</block>
+  <block id="074de7e7c226d5c60f8af14c20725352" category="cell">主要</block>
+  <block id="668f361c1cd1909a84f76c9e89450691" category="cell">DB1_NY</block>
+  <block id="31cedb742316bfb63604cb838e2fbd67" category="cell">db1_NY.demo.netapp.com</block>
+  <block id="0bb7066f912b36d8b2abd23b39aea8bf" category="cell">實體待命</block>
+  <block id="3b1ac5a2383d6bae39c010102ab76ec8" category="cell">DB1_LA</block>
+  <block id="12eea44985687889a715748b159aacb5" category="cell">db1_LA.demo.netapp.com</block>
+  <block id="96686b873db5b24893df16faa4703808" category="list-text">* Oracle 備用資料庫 FlexClone 的運作方式。 * AWS FSX ONTAP FlexClone 提供可寫入的相同待命資料庫磁碟區的共用複本。這些磁碟區的複本實際上是連結回原始資料區塊的指標、直到新的寫入作業在複本上啟動為止。然後、 ONTAP 會為新的寫入作業配置新的儲存區塊。任何讀取的 IOS 都由原始資料區塊在作用中複寫下提供服務。因此、複本具有極高的儲存效率、可用於許多其他使用案例、並可為新的寫入 IOS 分配最少且遞增的新儲存設備。如此可大幅減少 Active Data Guard 儲存設備佔用空間、進而大幅節省儲存成本。NetApp 建議在資料庫從主要儲存設備切換至待命的 FSX 儲存設備時、將 FlexClone 活動降至最低、以維持 Oracle 高效能。</block>
+  <block id="714b6519d8509d6b6dd2df24196f06e4" category="inline-link-macro">support.oracle.com</block>
+  <block id="152b17ea33225ac5ef2e7e8c31552009" category="list-text">* Oracle 軟體需求。 * 一般而言、實體待命資料庫必須與主要資料庫具有相同的資料庫首頁版本、包括修補程式集例外（ PSE ）、重大修補程式更新（ CPU ）、 和 Patch Set Update （ PSU ）、除非 Oracle Data Guard 備用先修補套用程序程序正在進行中（如 My Oracle Support 附註 1265700.1 中所述、網址為： <block ref="d99e1f6f4fd91fa805a3e3c6b994744c" category="inline-link-macro-rx"></block></block>
+  <block id="9a74dfee83f901bbb995e7d4d9f21057" category="list-text">* 備用資料庫目錄結構考量事項。 * 如果可能、主要和待命系統上的資料檔案、記錄檔和控制檔應具有相同的名稱和路徑名稱、並使用最佳彈性架構（ OFA ）命名慣例。待命資料庫上的歸檔目錄也應在站台之間相同、包括大小和結構。此策略可讓其他作業（例如備份、切換和容錯移轉）執行相同的步驟集、降低維護複雜度。</block>
+  <block id="76d62bcf48e1a8f37c916496440df6b5" category="list-text">* 強制記錄模式。 * 若要防止無法傳播至待命資料庫的主要資料庫中未記錄的直接寫入，請在執行資料檔案備份以進行待命建立之前，先在主要資料庫中開啟強制記錄功能。</block>
+  <block id="6aab76a9832cdc4aedf822409a67b715" category="list-text">* 資料庫儲存管理。 * 為了簡化作業、 Oracle 建議您在 Oracle Data Guard 組態中設定 Oracle 自動儲存管理（ Oracle ASM ）和 Oracle 託管檔案（ OMF ）、以便在主要和待命資料庫上對稱地設定。</block>
+  <block id="89a78e9473b16ecb4c8c28739f77fbbf" category="list-text">* EC2 運算執行個體。 * 在這些測試與驗證中、我們使用 AWS EC2 T2.xlge 執行個體做為 Oracle 資料庫運算執行個體。NetApp 建議在正式作業部署中使用 M5 類型 EC2 執行個體作為 Oracle 的運算執行個體、因為它已針對資料庫工作負載最佳化。您必須根據實際工作負載需求、適當調整 EC2 執行個體的 vCPU 數量和 RAM 數量。</block>
+  <block id="891a36218aaef7e59d635d4a02fcd917" category="list-text">* FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。在 HA 配對中配置的 FSX 叢集、會同步鏡射在一對主動被動式檔案系統中、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。</block>
+  <block id="7714e62713b517325d1dbcb277ffec72" category="paragraph">假設您已在 VPC 的 AWS EC2 環境中部署主要 Oracle 資料庫、作為設定 Data Guard 的起點。主要資料庫是使用 Oracle ASM 進行儲存管理。  兩個 ASM 磁碟群組：為 Oracle 資料檔案、記錄檔及控制檔等建立 +data 和 +logs 如需在 AWS 中使用 ASM 部署 Oracle 的詳細資訊、請參閱下列技術報告以取得協助。</block>
+  <block id="88b61a3452017ca36f5aa8c16a481cdc" category="paragraph">您的主要 Oracle 資料庫可以在 FSX ONTAP 上執行、或在 AWS EC2 生態系統內的任何其他儲存設備上執行。下節提供逐步部署程序、可在具備 ASM 儲存設備的主要 EC2 DB 執行個體之間、將 Oracle Data Guard 設定為具備 ASM 儲存設備的備用 EC2 DB 執行個體。</block>
+  <block id="48c88f2a91b527275016272b31c75e1b" category="list-text">從 AWS EC2 主控台、您至少需要部署三個 EC2 Linux 執行個體、一個做為主要 Oracle DB 執行個體、一個做為備用 Oracle DB 執行個體、以及一個複製目標 DB 執行個體來進行報告、開發和測試等 如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 AWS <block ref="b75ecbbec453f67f58d497ccd97a8075" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="193808e0311479eb0cb075549cfb7b49" category="list-text">從 AWS EC2 主控台、部署 Amazon FSX for ONTAP 儲存 HA 叢集、以裝載儲存 Oracle 待命資料庫的 Oracle Volume 。如果您不熟悉FSX儲存設備的部署、請參閱文件 <block ref="17d8b312d287f0afd6f44b3f25c4f20b" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
+  <block id="de6e6d5e21c4f7d0dd4ef74edf3eb0c8" category="section-title">準備 Data Guard 的主要資料庫</block>
+  <block id="4c47bc26cdbea7cfef6220602d142b03" category="paragraph">在本示範中、我們已在主要 EC2 DB 執行個體上設定名為 db1 的主要 Oracle 資料庫、並在獨立式重新啟動組態中設定兩個 ASM 磁碟群組、其中包含 ASM 磁碟群組中的資料檔案、以及 ASM 磁碟群組 + 記錄中的資料和 Flash 恢復區域。以下說明設定 Data Guard 主要資料庫的詳細程序。所有步驟均應以資料庫擁有者 - Oracle 使用者的身分執行。</block>
+  <block id="546bfa96e0a0fe70a11d127711d7cf98" category="list-text">主要 EC2 DB 執行個體 IP-172-30-15-45 上的主要資料庫 db1 組態。ASM 磁碟群組可位於 EC2 生態系統內的任何類型儲存設備上。</block>
+  <block id="f3efbb87660ec6fc6923520ba7c0e4b6" category="list-text">在 sqlplus 中、啟用主要登入的強制登入功能。</block>
+  <block id="851a2cc6266fe01721754a67b63d272b" category="list-text">在 sqlplus 中、啟用主要上的回溯功能。回溯功能可讓您在容錯移轉後、輕鬆將主要資料庫恢復為待命狀態。</block>
+  <block id="1456924ad439596396b0366750feb882" category="list-text">使用 Oracle 密碼檔案設定重做傳輸驗證：如果未設定、請使用 orapwd 公用程式在主要資料庫上建立 pwd 檔案、然後複製到備用資料庫 $oracle_home/DBS 目錄。</block>
+  <block id="b84ef5068c2f6a0e7ab5c634421500e4" category="list-text">在主要資料庫上建立與目前線上記錄檔大小相同的待機重做記錄檔。記錄群組是一個以上的線上記錄檔群組。然後、主要資料庫可以快速轉換至待命角色、並在必要時開始接收重做資料。</block>
+  <block id="b8dcabc8241b7fa9922b791123f161c6" category="list-text">從 sqlplus 中、從 spfile 建立 pfile 以進行編輯。</block>
+  <block id="a58bc66502bff24a62e9167f326de414" category="list-text">修改 pfile 並新增下列參數。</block>
+  <block id="16df6366013fa1b51fdf63103f5de61c" category="list-text">從 sqlplus 中、從 /home/Oracle 目錄中的修訂版 pfile 、在 ASM +data 目錄中建立 spfile 。</block>
+  <block id="be5835a569bacd58dbd2984013ec9da7" category="list-text">在 +data 磁碟群組下找到新建立的 spfile （如有必要、請使用 asmcmd 公用程式）。使用 srvctl 修改網格、從新的 spfile 啟動資料庫、如下所示。</block>
+  <block id="721f734d4d55c537a4bcd8247cb42f38" category="list-text">修改 tnsnames.ora 以新增 db_unique 名稱以進行名稱解析。</block>
+  <block id="ff9562404eb9d339e5f7ac0fd7a0a111" category="list-text">將主要資料庫的資料保護服務名稱 db1_NY_DGMGRL.demo.netapp 新增至 listener.ora 檔案。</block>
+  <block id="f0dcdb53dfe79df7c33ad468e718cf3c" category="list-text">使用 srvctl 關機並重新啟動資料庫、並驗證資料保護參數現在是否為作用中。</block>
+  <block id="0a3ecc4b9c7f192a3a8eff9f43d62a49" category="paragraph">如此即可完成 Data Guard 的主要資料庫設定。</block>
+  <block id="8ed94134ccc7df045497fffb338e491e" category="section-title">準備備用資料庫並啟動 Data Guard</block>
+  <block id="25df9ef065954340ff37157530509f47" category="paragraph">Oracle Data Guard 需要作業系統核心組態和 Oracle 軟體堆疊、包括待機 EC2 DB 執行個體上的修補集、以符合主要 EC2 DB 執行個體。為了便於管理和簡化、備援的 EC2 DB 執行個體資料庫儲存組態理想上也應與主要的 EC2 DB 執行個體相符、例如 ASM 磁碟群組的名稱、數量和大小。以下是設定 Data Guard 的待機 EC2 DB 執行個體的詳細程序。所有命令均應以 Oracle 擁有者使用者 ID 執行。</block>
+  <block id="100d87382d4e9f0b77c8fbd50ae70cf2" category="list-text">首先、檢閱主要 EC2 執行個體上的主要資料庫組態。在本示範中、我們在主要 EC2 DB 執行個體上設定了一個名為 db1 的主要 Oracle 資料庫、其中有兩個 ASM 磁碟群組 + 資料和 + 登入獨立重新啟動組態。主要 ASM 磁碟群組可能位於 EC2 生態系統內的任何類型儲存設備上。</block>
+  <block id="34754319c23ee13eb7a5d5a802622e85" category="list-text">請遵循文件中的程序 <block ref="bd945e1e32897f5f009e986b39da694c" category="inline-link-macro-rx"></block> 在待機 EC2 DB 執行個體上安裝及設定網格和 Oracle 、以符合主要資料庫。資料庫儲存設備應從與主要 EC2 DB 執行個體具有相同儲存容量的 FSX ONTAP 、配置並分配給待命 EC2 DB 執行個體。</block>
+  <block id="18b8757dc8f63de46858f8a4f433e251" category="admonition">請在步驟 10 中停止<block ref="b7e3e332087b6a041c83ce22cce9043c" prefix=" " category="inline-code"></block> 區段。備用資料庫將使用 dbca 資料庫複製功能從主要資料庫產生。</block>
+  <block id="3b2b93ec0c82f6e3a38fad684bfd6663" category="list-text">安裝並設定 Oracle 軟體後、從待命的 $Oracle_home DBS 目錄、從主要資料庫複製 Oracle 密碼。</block>
+  <block id="3aa916a972ab6509dee982918f3d899e" category="list-text">使用下列項目建立 tnsnames.ora 檔案。</block>
+  <block id="493f867c0c59207e4189028d16dd6d26" category="list-text">將 DB 資料保護服務名稱新增至 listener.ora 檔案。</block>
+  <block id="bcd6424f66bc448fbe685fc80ff70e1a" category="list-text">設定 Oracle 主目錄和路徑。</block>
+  <block id="143a60719ec63d00d99a825714665a55" category="list-text">使用 dbca 從主資料庫 db1 產生待命資料庫。</block>
+  <block id="57fbd0472b92ebaf5a1a0a8528a2f0a8" category="list-text">驗證備份的備用資料庫。剛備份的備用資料庫一開始會以唯讀模式開啟。</block>
+  <block id="3e003fdb2211d99cead68668fab65036" category="list-text">在中重新啟動待命資料庫<block ref="19822b1b15d9eefc54c07ab49f87b100" prefix=" " category="inline-code"></block> 執行下列命令來啟動待機資料庫管理的還原。</block>
+  <block id="e87af5ff6c25c9c1c0fdf389aea9426b" category="list-text">驗證待命資料庫的恢復狀態。請注意<block ref="9bda3daa17eb022a72164386ee4bf249" prefix=" " category="inline-code"></block> 在中<block ref="1f38735e57e053804f3980f01073a19b" prefix=" " category="inline-code"></block> 行動。</block>
+  <block id="d418efa4afda10fc6b0130047c165f48" category="paragraph">如此一來、在啟用託管式待命恢復的情況下、即可完成 DB1 從主要到待命的 Data Guard 保護設定。</block>
+  <block id="9c88c2ff7d57ccdc26ed6cc8c6a551d8" category="section-title">設定 Data Guard Broker</block>
+  <block id="e716a36152601014d22404c34a545dfb" category="paragraph">Oracle Data Guard Broker 是一套分散式管理架構、可自動化及集中建立、維護及監控 Oracle Data Guard 組態。以下章節示範如何設定 Data Guard Broker 來管理 Data Guard 環境。</block>
+  <block id="ae65cf354bdba5f399cecafe69181bb2" category="list-text">透過 sqlplus 執行下列命令、即可在主要和待命資料庫上啟動資料保護代理程式。</block>
+  <block id="7085ea049485ef36270b678214c896bc" category="list-text">從主要資料庫連線至 Data Guard Borker 、做為 SYSDBA 。</block>
+  <block id="e3e1655d27b7ec5fede117507abebc04" category="list-text">建立並啟用 Data Guard Broker 組態。</block>
+  <block id="bf87cf945b0165017223255d29eb5838" category="list-text">驗證 Data Guard Broker 管理架構內的資料庫狀態。</block>
+  <block id="d3ee713ceb1d01a3c56111f66bf8cef8" category="paragraph">發生故障時、 Data Guard Broker 可用於立即將主要資料庫容錯移轉至待命。</block>
+  <block id="c4b565b8f619a1841207c12605df0bdc" category="section-title">針對其他使用案例複製待命資料庫</block>
+  <block id="2f2d5e4f7687bc11754fc0051b64a5a8" category="paragraph">在 Data Guard 中、在 AWS FSX ONTAP 上暫存備用資料庫的主要優點是可以透過 FlexClould 來處理許多其他使用案例、而且只需最少的額外儲存投資。在下一節中、我們將示範如何在 FSX ONTAP 上快照及複製掛載及還原中的備用資料庫磁碟區、以用於其他用途、例如開發、測試、報告等。 使用 NetApp SnapCenter 工具。</block>
+  <block id="65373b5acaf68c44756a21bcfb515cf6" category="paragraph">以下是使用 SnapCenter 從 Data Guard 中的託管實體待命資料庫複製讀寫資料庫的高階程序。如需如何設定和設定 SnapCenter 的詳細說明、請參閱 <block ref="abd45cc4d2eb76c4bd20bec40a5e9781" category="inline-link-macro-rx"></block> Oracle 相關章節。</block>
+  <block id="a225c0845c18b63c94952d45800129eb" category="list-text">我們先建立測試表格、然後在主要資料庫的測試表格中插入一列。接著我們會驗證交易是否經過待機、最後是複製作業。</block>
+  <block id="815578506a24796bc380c0deef04702e" category="list-text">將 FSX 儲存叢集新增至<block ref="5c6ab1284b6b7a5a7102854a969c99be" prefix=" " category="inline-code"></block> SnapCenter 搭配 FSX 叢集管理 IP 和 fsxadmin 認證。</block>
+  <block id="4d4fbfa1c7c19b55ec3f48a0d412d8eb" category="list-text">將 AWS EC2 使用者新增至<block ref="03bc142e6422dbb9b288ad2cabee08c7" prefix=" " category="inline-code"></block> 在中<block ref="f4f70727dc34561dfde1a3c529b6205c" prefix=" " category="inline-code"></block>。</block>
+  <block id="6aa54e14f0875581094dc6b2192d66b3" category="list-text">新增待機 EC2 DB 執行個體、並將 EC2 DB 執行個體複製到<block ref="8124579383e90243e4b06323d2b37f8d" prefix=" " category="inline-code"></block>。</block>
+  <block id="3b1e0e523773d1a64309d849962b020d" category="admonition">Clone EC2 DB 執行個體應安裝並設定類似的 Oracle 軟體堆疊。在我們的測試案例中、已安裝並設定網格基礎架構和 Oracle 19C 、但未建立任何資料庫。</block>
+  <block id="0d3c38b30657980a0b2c8d695bdc04d9" category="list-text">建立專為離線 / 掛載完整資料庫備份量身打造的備份原則。</block>
+  <block id="03749905cda41a9a5af37311da788dc7" category="list-text">套用備份原則以保護中的待命資料庫<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤。</block>
+  <block id="4b541cfd01eab70b7124c0a9281d9abf" category="list-text">按一下資料庫名稱以開啟資料庫備份頁面。選取要用於資料庫複製的備份、然後按一下<block ref="ff24590464659ee8cdec688128c35f89" prefix=" " category="inline-code"></block> 啟動複製工作流程的按鈕。</block>
+  <block id="2fdf9c5dfda12930fd177f22620253c6" category="list-text">選取<block ref="6d966589c645cae872f42060de0bbe70" prefix=" " category="inline-code"></block> 並命名複製執行個體的 SID 。</block>
+  <block id="2bdb6fd7703480f999a0decdea3783dc" category="list-text">選取複製主機、將複製的資料庫從待命資料庫主控。接受資料檔案、控制檔和重做記錄檔的預設值。將在複製主機上建立兩個 ASM 磁碟群組、這些群組對應於待命資料庫上的磁碟群組。</block>
+  <block id="7b2116fe35be064eb0458bc516aa4d13" category="list-text">作業系統型驗證不需要資料庫認證。將 Oracle 主目錄設定與複製 EC2 資料庫執行個體上所設定的項目配對。</block>
+  <block id="ff5976c8af9ff4b0957fafc90bc2fdab" category="list-text">視需要變更複製資料庫參數、並指定要在 cloen （如果有）之前執行的指令碼。</block>
+  <block id="34685717b91981d7859ecf81678b5b09" category="list-text">輸入 SQL 以在複製後執行。在示範中、我們執行命令來關閉開發 / 測試 / 報告資料庫的資料庫歸檔模式。</block>
+  <block id="d197c170bbaec3c7352356cf0cbb8ac1" category="list-text">視需要設定電子郵件通知。</block>
+  <block id="6f8f71975bdd986583495fef78017b0f" category="list-text">檢閱摘要、按一下<block ref="a20ddccbb6f808ec42cd66323e6c6061" prefix=" " category="inline-code"></block> 以開始複製。</block>
+  <block id="22d02716c7a3c135a2c329f25e9bd9ae" category="list-text">監控中的複製工作<block ref="d2986ac8cb6bd55892099c1ffd6b1f6f" prefix=" " category="inline-code"></block> 索引標籤。我們觀察到、複製資料庫約 300 GB 的資料庫磁碟區大小約需 8 分鐘。</block>
+  <block id="39f89201f1ea425071614bb5bd7079a3" category="list-text">從 SnapCenter 驗證複製資料庫、此資料庫會立即在中登錄<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 在複製作業後立即按下 Tab 鍵。</block>
+  <block id="8bf431d7e50f6303bf40547e5d4895df" category="list-text">從複製 EC2 執行個體查詢複製資料庫。我們已驗證在主要資料庫中發生的測試交易已遍歷至複製資料庫。</block>
+  <block id="956670247c2a1898065893fdcbce36e6" category="paragraph">這將完成從 FSX 儲存設備上 Data Guard 的待命資料庫複製和驗證新 Oracle 資料庫、以供開發、測試、報告或任何其他使用案例使用。您可以在 Data Guard 中、將多個 Oracle 資料庫複製到同一個待命資料庫。</block>
+  <block id="33b688f7c946852447f97b29aa780fe5" category="list-text">Data Guard 概念與管理</block>
+  <block id="8de2fc4ad1f7fa0dce48702c017a0131" category="inline-link-macro"><block ref="8de2fc4ad1f7fa0dce48702c017a0131" category="inline-link-rx"></block></block>
+  <block id="f4b13dd9902b833ab09c8b2e85ee348f" category="paragraph"><block ref="f4b13dd9902b833ab09c8b2e85ee348f" category="inline-link-macro-rx"></block></block>
+  <block id="ba976162adc7c0619bf3a1f2c24454f2" category="list-text">WP-7357 ：在 EC2 和 FSX 最佳實務做法上部署 Oracle 資料庫</block>
+  <block id="a365d6dca7b395f6a6b72ec8b5827a23" category="inline-link-macro"><block ref="a365d6dca7b395f6a6b72ec8b5827a23" category="inline-link-rx"></block></block>
+  <block id="4e373bf0e0fd6e32269c2aab88e54fb4" category="paragraph"><block ref="4e373bf0e0fd6e32269c2aab88e54fb4" category="inline-link-macro-rx"></block></block>
+  <block id="0502e6755528910223db364699e71622" category="doc">TR-4590 ： Microsoft SQL Server with ONTAP 的最佳實務做法指南</block>
+  <block id="7788b16f8e56867380c0e39b9e9a9b73" category="paragraph">NetApp 的 Manohar Kulkarni 和 Pat Sinthusan</block>
+  <block id="b9cbe6804d5d84ce7a89f43558ac30e6" category="paragraph">本文件說明在執行 NetApp ONTAP ® 軟體的 NetApp 儲存系統上部署 SQL Server 的最佳實務做法、並提供深入的設計考量、以達成有效且有效率的儲存部署、以及端點對端點資料保護與保留規劃。</block>
+  <block id="ddfcd18933c13e026412b8c36996dbaf" category="inline-link-macro">TR-4590 ： Microsoft SQL Server with ONTAP 的最佳實務做法指南</block>
+  <block id="49814a6b08319963f5bef4f7ea99cfb5" category="paragraph"><block ref="49814a6b08319963f5bef4f7ea99cfb5" category="inline-link-macro-rx"></block></block>
+  <block id="b809961749987c861856cdba226ec9d6" category="summary">此解決方案提供 Ansible 型自動化工具組、可透過最大可用度方法、使用 PDB 重新定位來移轉 Oracle 資料庫。移轉可以是內部部署和雲端的任何組合、做為來源或目標</block>
+  <block id="efe4709bf33362b47c6863c35ca74034" category="doc">自動化 Oracle 移轉</block>
+  <block id="0c530f43a566539fb8e9da49f0404689" category="paragraph">此工具套件可將 Oracle 資料庫從內部部署移轉至 AWS 雲端、並將 FSX ONTAP 儲存設備和 EC2 運算執行個體作為目標基礎架構。假設客戶已在 CDB/PDB 模型中部署內部部署 Oracle 資料庫。此工具組可讓客戶使用 Oracle PDB 重新定位程序、並提供最大可用度選項、從 Oracle 主機上的容器資料庫重新定位命名的 PDB 。這表示任何內部部署儲存陣列上的來源 PDB 都會重新定位至新的容器資料庫、而且服務中斷最少。Oracle 重新定位程序會在資料庫連線時移動 Oracle 資料檔案。當所有資料檔案移轉至 AWS 雲端時、它隨後會將使用者工作階段從內部部署重新路由至重新部署的資料庫服務。加底線的技術已獲證實是 Oracle PDB 熱複製方法。</block>
+  <block id="2243370defca1a4982b4883641ab7db6" category="list-text">在內部部署來源 DB 伺服器上建立移轉使用者並授予必要權限。</block>
+  <block id="c0e736291b01799f9f67b55a02e64b14" category="list-text">將 PDB 從內部部署 CDB 重新放置到雲端中的目標 CDB 、而來源 PDB 則保持在線上狀態、直到切換為止。</block>
+  <block id="491c7279129ef66f3b72abb0fa1c5226" category="list-text">將 Oracle 資料庫從內部預置移轉至 AWS 雲端的 DBA 。</block>
+  <block id="01afc77b414372b3af135907ed869982" category="list-text">資料庫解決方案架構設計師、對 Oracle 資料庫從內部部署移轉至 AWS 雲端感興趣。</block>
+  <block id="e41dc9cf512ed2ab6c255a63a5f967b4" category="list-text">喜歡將 Oracle 資料庫從內部預置移轉至 AWS 雲端的應用程式擁有者。</block>
+  <block id="ed893dd012b708a5fd2d5f084ab862fb" category="paragraph">AWS EC2 執行個體預設會使用 IP 位址來命名主機。如果您在主機檔案中使用不同的名稱來進行 Ansible 、請在 /etc/hosts 檔案中為來源伺服器和目標伺服器設定主機命名解析。以下是範例。</block>
+  <block id="d3518be78ee50170d8c5adafaa49ddaa" category="list-text">安裝 Ansible 控制器先決條件。</block>
+  <block id="fc6c92008801d751651a5b8d0facab6e" category="list-text">在內部伺服器上執行移轉前工作 - 假設 admin 是 ssh 使用者、以使用 Sudo 權限連線至內部部署的 Oracle 主機。</block>
+  <block id="f4c57f09769c649b5fc9d173ca0b0872" category="list-text">在 AWS EC2 執行個體中、執行 Oracle PDB 從內部部署 CDB 移轉至目標 CDB - 假設 EC2 DB 執行個體連線使用 EC2 使用者、以及使用 EC2 使用者 ssh 金鑰配對的 db1.pem 。</block>
+  <block id="4bea7b97045c9b0e4ce9c8011fb9152f" category="summary">此解決方案提供 Terraform 型自動化工具組、用於配置 FSX ONTAP 叢集和 EC2 運算執行個體</block>
+  <block id="40fe82be1dcddf04fa06215186892fca" category="doc">AWS FSX ONTAP 叢集和 EC2 執行個體資源配置</block>
+  <block id="e3637f41b7212e1a66abdc03f5c26148" category="paragraph">此工具套件可自動化 AWS FSX ONTAP 儲存叢集和 EC2 運算執行個體的資源配置工作、之後可用於資料庫部署。</block>
+  <block id="03a4416e24ed4a9b0f3d357eb5ee56b6" category="list-text">在預先定義的 VPC 子網路中、在 AWS 雲端中佈建 EC2 運算執行個體、並將 EC2 執行個體存取的 ssh 金鑰設為 EC2 使用者。</block>
+  <block id="44188940066649e119396216339b4869" category="list-text">在所需的可用性區域中佈建 AWS FSX ONTAP 儲存叢集、並設定儲存 SVM 並設定叢集管理使用者 fsxadmin 密碼。</block>
+  <block id="8c695812e6b1d0da09e4112dcc98afd8" category="list-text">管理 AWS EC2 環境中資料庫的 DBA 。</block>
+  <block id="db0b5d976134ac432c6b546956e1fc38" category="list-text">對 AWS EC2 生態系統中的資料庫部署感興趣的資料庫解決方案架構設計師。</block>
+  <block id="15c649f61e0d97ef85f0d2d224019197" category="list-text">管理支援資料庫的 AWS FSX ONTAP 儲存設備的儲存管理員。</block>
+  <block id="bb09d79b045e0d8930bca68ba2651754" category="list-text">喜歡在 AWS EC2 生態系統中執行資料刪除資料庫的應用程式擁有者。</block>
+  <block id="27fdb8c570948be4eb4398435585214b" category="section-title">連線與驗證</block>
+  <block id="c69ff338618074e4998292b223cb19e5" category="paragraph">此工具組應從 AWS 雲端 Shell 執行。AWS 雲端 Shell 是瀏覽器型的 Shell 、可讓您輕鬆安全地管理、探索及與 AWS 資源互動。CloudShell 已使用您的主控台認證預先驗證。一般的開發與作業工具已預先安裝、因此不需要進行本機安裝或組態。</block>
+  <block id="0669fa7d1422db0d2c494b9d3a9ff1fe" category="section-title">Terraform provider .tf 和 main.tf 檔案組態</block>
+  <block id="08fcc92ec353c4f98b1154a2f8544890" category="paragraph">provider .tf 定義 Terraform 透過 API 呼叫來配置資源的供應商。main.tf 定義要配置的資源的資源和屬性。以下是一些詳細資料：</block>
+  <block id="67761b4e694cd5f5a45c4ed0cc314099" category="section-title">Terraform variables.tf 和 terraform.tfvars 組態</block>
+  <block id="fd5f90c196b871dc50ecaf85f49b1656" category="paragraph">variables.tf 會宣告將用於 main.tf 的變數。terraform.tfvars 包含變數的實際值。以下是一些範例：</block>
+  <block id="7215ebabbf870f26836f50f66cc5b6fd" category="section-title">逐步程序 - 依序執行</block>
+  <block id="43c9b395c61de869dc87f1da35eed2e4" category="list-text">在 AWS 雲端 Shell 中安裝 Terraform 。</block>
+  <block id="fc3090054fced18dc06b7eb57b234758" category="list-text">請從 NetApp GitHub 公用網站下載此工具套件</block>
+  <block id="a9c7e2c70153c59e87147abf329cbb29" category="list-text">執行初始化以初始化 terraform</block>
+  <block id="3165803a1a69113b1f417123a736b5ac" category="list-text">輸出執行計畫</block>
+  <block id="fbe54173b4068c6e761f53f237a17b68" category="list-text">套用執行計畫</block>
+  <block id="17f070e48ce0935f57d600652c3c8f21" category="list-text">執行銷毀以移除完成後的資源</block>
+  <block id="839a5e9d346e3ac874bc8e301897bdc6" category="list-text">從網格主頁解壓縮<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block>。</block>
+  <block id="f2be6b31ed6989aef561023d439a1cd3" category="list-text">從 DB 主目錄解壓縮<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block>。</block>
+  <block id="d8355ab14e57998a605424192bd16757" category="sidebar">使用 AWS FSX ONTAP 降低 Active Data Guard 成本</block>
+  <block id="9d816887d40a5251f5427d7cacd2c573" category="sidebar">Microsoft SQL Server with ONTAP 的最佳實務做法指南</block>
+  <block id="a778c2474db5f0263c74583332c37399" category="sidebar">NetApp ONTAP 上的 MySQL 資料庫</block>
+  <block id="ca2e1a380482fd9930ca46613b332f65" category="sidebar">資料庫自動化工具套件</block>
+  <block id="b10be6167fc647935cb532890f8c0bf5" category="sidebar">Oracle 移轉</block>
+  <block id="d8c849deb1477c8cfaee422dd193388f" category="sidebar">Oracle HA/DR 搭配 AWS FSX ONTAP</block>
+  <block id="66dad052ac40ee68d24cc33be0c024b6" category="sidebar">AWS FSX ONTAP 和 EC2 資源配置</block>
+  <block id="e3ce8983bc629b4ee630222fd3aa446f" category="sidebar">AWS 中的 PostgreSQL 部署</block>
+  <block id="41d1f90d40c880117fe398482ef683dd" category="sidebar">Oracle 資料保護</block>
+  <block id="01a5e447db651c94d485cf1d5981801d" category="sidebar">Oracle 部署</block>
+  <block id="d24600498de924ea279e7306aaa43ca0" category="sidebar">Oracle RAC 部署</block>
 </blocks>

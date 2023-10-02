@@ -323,13 +323,13 @@ igroup create -igroup ora_01 -protocol iscsi -ostype linux -initiator iqn.1994-0
 . 將 LUN 對應到上述建立的 igroup 。依序遞增磁碟區內每個額外 LUN 的 LUN ID 。
 +
 ....
-map -path /vol/ora_01_biny/ora_01_biny_01 -igroup ora_01 -vserver svm_ora -lun-id 0
-map -path /vol/ora_01_data/ora_01_data_01 -igroup ora_01 -vserver svm_ora -lun-id 1
-map -path /vol/ora_01_data/ora_01_data_02 -igroup ora_01 -vserver svm_ora -lun-id 2
-map -path /vol/ora_01_data/ora_01_data_03 -igroup ora_01 -vserver svm_ora -lun-id 3
-map -path /vol/ora_01_data/ora_01_data_04 -igroup ora_01 -vserver svm_ora -lun-id 4
-map -path /vol/ora_01_logs/ora_01_logs_01 -igroup ora_01 -vserver svm_ora -lun-id 5
-map -path /vol/ora_01_logs/ora_01_logs_02 -igroup ora_01 -vserver svm_ora -lun-id 6
+lun map -path /vol/ora_01_biny/ora_01_biny_01 -igroup ora_01 -vserver svm_ora -lun-id 0
+lun map -path /vol/ora_01_data/ora_01_data_01 -igroup ora_01 -vserver svm_ora -lun-id 1
+lun map -path /vol/ora_01_data/ora_01_data_02 -igroup ora_01 -vserver svm_ora -lun-id 2
+lun map -path /vol/ora_01_data/ora_01_data_03 -igroup ora_01 -vserver svm_ora -lun-id 3
+lun map -path /vol/ora_01_data/ora_01_data_04 -igroup ora_01 -vserver svm_ora -lun-id 4
+lun map -path /vol/ora_01_logs/ora_01_logs_01 -igroup ora_01 -vserver svm_ora -lun-id 5
+lun map -path /vol/ora_01_logs/ora_01_logs_02 -igroup ora_01 -vserver svm_ora -lun-id 6
 ....
 . 驗證 LUN 對應。
 +
@@ -444,7 +444,6 @@ defaults {
     user_friendly_names yes
 }
 
-[source, cli]
 blacklist {
     devnode "^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*"
     devnode "^hd[a-z]"
@@ -533,6 +532,7 @@ multipaths {
                 wwid            3600a09806c574235472455534e685146
                 alias           ora_01_logs_02
         }
+}
 ....
 . 重新啟動多重路徑服務、以驗證所在的裝置 `/dev/mapper` 已變更為 LUN 名稱與序列十六進位 ID 。
 +
@@ -675,11 +675,10 @@ unzip -q /tmp/archive/LINUX.X64_193000_grid_home.zip
 ....
 rm -rf OPatch
 ....
-. 從網格首頁複製 `p6880880_190000_Linux-x86-64.zip` 到 GRIN_HOME 、然後將其解壓縮。
+. 從網格主頁解壓縮 `p6880880_190000_Linux-x86-64.zip`。
 +
 ....
-cp /tmp/archive/p6880880_190000_Linux-x86-64.zip .
-unzip p6880880_190000_Linux-x86-64.zip
+unzip -q /tmp/archive/p6880880_190000_Linux-x86-64.zip
 ....
 . 從網格首頁修改 `cv/admin/cvu_config`、取消註解並取代 `CV_ASSUME_DISTID=OEL5` 與 `CV_ASSUME_DISTID=OL7`。
 +
@@ -699,8 +698,8 @@ oracle.install.asm.SYSASMPassword="SetPWD"
 oracle.install.asm.diskGroup.name=DATA
 oracle.install.asm.diskGroup.redundancy=EXTERNAL
 oracle.install.asm.diskGroup.AUSize=4
-oracle.install.asm.diskGroup.disks=/dev/mapper/ora_01_data*
-oracle.install.asm.diskGroup.diskDiscoveryString=/dev/mapper/ora_01_data_01,/dev/mapper/ora_01_data_02,/dev/mapper/ora_01_data_03,/dev/mapper/ora_01_data_04
+oracle.install.asm.diskGroup.disks=/dev/mapper/ora_01_data_01,/dev/mapper/ora_01_data_02,/dev/mapper/ora_01_data_03,/dev/mapper/ora_01_data_04
+oracle.install.asm.diskGroup.diskDiscoveryString=/dev/mapper/*
 oracle.install.asm.monitorPassword="SetPWD"
 oracle.install.asm.configureAFD=true
 ....
@@ -834,11 +833,10 @@ unzip -q /tmp/archive/LINUX.X64_193000_db_home.zip
 ....
 rm -rf OPatch
 ....
-. 從 DB 主目錄複製 `p6880880_190000_Linux-x86-64.zip` 至 `grid_home`然後將其解壓縮。
+. 從 DB 主目錄解壓縮 `p6880880_190000_Linux-x86-64.zip`。
 +
 ....
-cp /tmp/archive/p6880880_190000_Linux-x86-64.zip .
-unzip p6880880_190000_Linux-x86-64.zip
+unzip -q /tmp/archive/p6880880_190000_Linux-x86-64.zip
 ....
 . 從 DB 主目錄修改 `cv/admin/cvu_config`、以及取消註解及取代 `CV_ASSUME_DISTID=OEL5` 與 `CV_ASSUME_DISTID=OL7`。
 +
