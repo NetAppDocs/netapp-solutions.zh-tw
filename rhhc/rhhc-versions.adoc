@@ -16,7 +16,7 @@ summary:
 [role="lead"]
 此解決方案使用 OpenShift Container 平台、 OpenShift 進階叢集管理程式、 NetApp ONTAP 和 NetApp Astra 控制中心來測試及驗證移轉與集中式資料保護。
 
-解決方案的各種案例均已使用下表所示的版本進行驗證：
+解決方案的案例 1 、 2 和 3 已使用下表所示的版本進行驗證：
 
 [cols="25%, 75%"]
 |===
@@ -44,4 +44,35 @@ summary:
 
 
 | * AWS FSX for NetApp ONTAP * | 單一 AZ 
+|===
+解決方案的案例 4 已使用下表所示的版本進行驗證：
+
+[cols="25%, 75%"]
+|===
+
+
+| *元件* | *版本* 
+
+
+| * VMware * | vSphere Client 8.0.2.00000 版
+VMware ESXi 、 8.0.2 、 22380479 
+
+
+| * 集線器叢集 * | OpenShift 4.13.13. 
+
+
+| * 來源與目的地叢集 * | OpenShift 4.13.12.
+內部部署和 Google Cloud 
+
+
+| * NetApp Astra Trident * | Trident Server 和 Client 23.07.0 
+
+
+| * NetApp Astra 控制中心 * | ACC 23.07.0-25 
+
+
+| * NetApp ONTAP * | 零點9.12.1. ONTAP 
+
+
+| * Cloud Volumes ONTAP * | 單一 AZ 、單一節點、 9.14.0 
 |===
