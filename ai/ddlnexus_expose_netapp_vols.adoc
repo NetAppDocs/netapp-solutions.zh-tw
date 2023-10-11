@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ai/ddlnexus_expose_netapp_vols.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps - 將現有的 NetApp Volume 暴露於 Domino 中 
+---
+= 將現有的 NetApp Volume 暴露於 Domino 中
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ddlnexus_initial_setup.html["上一步：初始設定。"]
+
+[role="lead"]
+本節說明將現有 NetApp ONTAP NFS 磁碟區公開至 Domino MLOps 平台所需執行的工作。這些相同步驟同時適用於內部部署和 AWS 。
+
+
+
+== 為何要將 NetApp ONTAP Volume 暴露於 Domino 中？
+
+將 NetApp Volume 搭配 Domino 使用可提供下列優點：
+
+* 您可以利用 NetApp ONTAP 的橫向擴充功能、針對極為龐大的資料集執行工作負載。
+* 您可以跨多個運算節點執行工作負載、而無需將資料複製到個別節點。
+* 您可以利用 NetApp 的混合式多雲端資料移動與同步功能、在多個資料中心和 / 或雲端之間存取資料。
+* 您希望能夠在不同的資料中心或雲端中、快速輕鬆地建立資料快取。
+
+
+
+
+== 揭露 Astra Trident 未配置的現有 NFS Volume
+
+如果您現有的 NetApp ONTAP NFS 磁碟區並非由 Astra Trident 配置、請遵循本小節所述的步驟。
+
+
+
+=== 在 Kubernetes 建立 PV 和 PVC
+
+
+NOTE: 對於內部部署磁碟區、請在內部部署的 Kubernetes 叢集中建立 PV 和 PVC 。對於 Amazon FSX for NetApp ONTAP Volume 、請在 Amazon EKS 中建立 PV 和 PVC 。
+
+首先、您必須在 Kubernetes 叢集中建立持續性 Volume （ PV ）和持續性 Volume Claim （ PVC ）。若要建立 PV 和 PVC 、請使用 link:https://docs.dominodatalab.com/en/latest/admin_guide/4cdae9/set-up-kubernetes-pv-and-pvc/#_nfs_pvpvc_example["NFS PV/PVC 範例"] 從 Domino 管理指南更新值、以反映您的環境。請務必為指定正確的值 `namespace`、 `nfs.path`和 `nfs.server` 欄位。此外、我們建議您提供 PV 和 PVC 的唯一名稱、以代表儲存在對應 ONTAP NFS Volume 上的資料性質。例如、如果 Volume 包含製造瑕疵的影像、您可以將 PV 命名為 `pv-mfg-defect-images`和 PVC 、 `pvc-mfg-defect-images`。
+
+
+
+=== 在 Domino 中註冊外部資料 Volume
+
+接下來、您必須在 Domino 中登錄外部資料 Volume 。若要登錄外部資料 Volume 、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/9c3564/register-external-data-volumes/["說明"] 在 Domino 管理指南中。登錄 Volume 時、請務必從「 Volume Type 」（ Volume 類型）下拉式功能表中選取「 NFS 」（ NFS ）。選取「 NFS 」之後、您應該會在「可用磁碟區」清單中看到您的 PVC 。
+
+image:ddlnexus_image3.png["錯誤：缺少圖形影像"]
+
+
+
+== 揭露 Astra Trident 所佈建的現有 Volume
+
+如果您現有的磁碟區是由 Astra Trident 配置、請遵循本子節所述的步驟。
+
+
+
+=== 編輯現有的 PVC
+
+如果您的 Volume 是由 Astra Trident 配置、則您的 Volume Claim （ PVC ）已對應於您的 Volume 。若要將此 Volume 暴露於 Domino 中、您必須編輯 PVC 並將下列標籤新增至中的標籤清單 `metadata.labels` 欄位：
+
+....
+"dominodatalab.com/external-data-volume": "Generic"
+....
+
+
+=== 在 Domino 中註冊外部資料 Volume
+
+接下來、您必須在 Domino 中登錄外部資料 Volume 。若要登錄外部資料 Volume 、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/9c3564/register-external-data-volumes/["說明"] 在 Domino 管理指南中。登錄 Volume 時、請務必從「 Volume Type 」（ Volume 類型）下拉式功能表中選取「 Generic 」（一般）。選取「一般」之後、您應該會在「可用磁碟區」清單中看到您的 PVC 。
+
+link:ddlnexus_access_data_hybrid.html["下一步：跨不同環境存取相同的資料。"]

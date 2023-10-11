@@ -1,0 +1,138 @@
+---
+sidebar: sidebar 
+permalink: ai/ddlnexus_access_data_hybrid.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps ：可在不同環境中存取相同的資料 
+---
+= 在不同環境中存取相同的資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ddlnexus_expose_netapp_vols.html["上一篇：將現有的 NetApp Volume 公開給 Domino 。"]
+
+[role="lead"]
+本節說明在不同運算環境中存取相同資料所需執行的工作。在 Domino MLOps 平台中、運算環境稱為「資料平面」。 如果資料位於一個資料平面的 NetApp Volume 上、但您需要在另一個資料平面中存取、請遵循本節所述的工作。這類情境通常稱為「爆增」、或是當目的地環境是雲端時、稱為「雲端爆增」。 處理受限或超額訂閱的運算資源時、通常需要此功能。例如、如果內部部署運算叢集訂閱過度、您可能會想要將工作負載排程到雲端、以便立即啟動。
+
+存取位於不同資料平面的 NetApp Volume 有兩個建議選項。以下子節概述這些選項。根據您的特定需求、選擇其中一個選項。下表說明這兩個選項的優點和缺點。
+
+|===
+| 選項 | 效益 | 缺點 
+
+
+| 選項 1 - 快取 | - 簡化工作流程
+能夠根據需求快取資料子集
+能夠將資料寫回來源
+- 沒有要管理的遠端複本 | - 隨著快取增加、初始資料存取的延遲也隨之增加。 
+
+
+| 選項 2 - 鏡射 | - 來源 Volume 的完整複本
+- 快取補水不會增加延遲（鏡射作業完成後） | - 必須等待鏡射作業完成後、才能存取資料
+- 必須管理遠端複本
+無法回寫至來源 
+|===
+
+
+== 選項 1 ：建立位於不同 Data Plane 的 Volume 快取
+
+與 link:https://docs.netapp.com/us-en/ontap/flexcache/accelerate-data-access-concept.html["NetApp FlexCache 技術"]、您可以建立位於不同資料平面的 NetApp Volume 快取。例如、如果內部部署資料層中有 NetApp Volume 、而您需要在 AWS 資料層面中存取該 Volume 、則可以在 AWS 中建立該 Volume 的快取。本節概述為了建立位於不同資料層的 NetApp Volume 快取而必須執行的工作。
+
+
+
+=== 在目的地環境中建立 FlexCache Volume
+
+
+NOTE: 如果目的地環境是內部部署的資料中心、您將在內部部署的 ONTAP 系統上建立 FlexCache Volume 。如果目的地環境是 AWS 、您將在 Amazon FSX for NetApp ONTAP 執行個體上建立 FlexCache Volume 。
+
+首先、您必須在目的地環境中建立 FlexCache Volume 。
+
+我們建議您使用 BlueXP 來建立 FlexCache Volume 。若要使用 BlueXP 建立 FlexCache Volume 、請遵循中所述的指示進行 link:https://docs.netapp.com/us-en/bluexp-volume-caching/["BlueXP Volume 快取文件"]。
+
+如果您不想使用 BlueXP 、可以使用 ONTAP 系統管理員或 ONTAP CLI 來建立 FlexCache Volume 。若要使用系統管理員建立 FlexCache Volume 、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/task_nas_flexcache.html["本文檔 ONTAP"]。若要使用 ONTAP CLI 建立 FlexCache Volume 、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/flexcache/index.html["本文檔 ONTAP"]。
+
+如果您想要將此程序自動化、可以使用 link:https://docs.netapp.com/us-en/bluexp-automation/["BlueXP API"]、 link:https://devnet.netapp.com/restapi.php["靜態API ONTAP"]或 link:https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html["ONTAP Ansible 系列"]。
+
+
+NOTE: Amazon FSX for NetApp ONTAP 不提供 System Manager 。
+
+
+
+=== 將 FlexCache Volume 暴露於 Domino 中
+
+接下來、您必須將 FlexCache 磁碟區公開至 Domino MLOps 平台。若要將 FlexCache Volume 暴露於 Domino 中、請遵循中「公開未由 Astra Trident 配置的現有 NFS Volume 」子區段中所述的指示 link:ddlnexus_expose_netapp_vols.html["「將現有的 NetApp Volume 暴露於 Domino 中」一節"] 。
+
+現在、您可以在目的地資料平面中啟動工作和工作區時、掛載 FlexCache Volume 、如下面的螢幕擷取畫面所示。
+
+
+
+==== 建立 FlexCache Volume 之前
+
+image:ddlnexus_image4.png["錯誤：缺少圖形影像"]
+
+
+
+==== 將 FlexCache Volume 暴露於 Domino 之後
+
+image:ddlnexus_image5.png["錯誤：缺少圖形影像"]
+
+
+
+== 選項 2 ：複寫位於不同 Data Plane 的 Volume
+
+與 link:https://www.netapp.com/cyber-resilience/data-protection/data-backup-recovery/snapmirror-data-replication/["NetApp SnapMirror 資料複寫技術"]、您可以建立位於不同資料平面的 NetApp Volume 複本。例如、如果內部部署資料層中有 NetApp Volume 、而您需要在 AWS 資料層面中存取該 Volume 、則可以在 AWS 中建立該 Volume 的複本。本節概述建立位於不同資料平面的 NetApp Volume 複本時、需要執行的工作。
+
+
+
+=== 建立SnapMirror關係
+
+首先、您必須在來源 Volume 和目的地環境中的新目的地 Volume 之間建立 SnapMirror 關係。請注意、目的地磁碟區將在建立 SnapMirror 關係的過程中建立。
+
+我們建議您使用 BlueXP 建立 SnapMirror 關係。若要與 BlueXP 建立 SnapMirror 關係、請遵循中所述的指示 link:https://docs.netapp.com/us-en/bluexp-replication/["BlueXP 複寫文件"]。
+
+如果您不想使用 BlueXP 、可以使用 ONTAP 系統管理員或 ONTAP CLI 來建立 SnapMirror 關係。若要與 System Manager 建立 SnapMirror 關係、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/task_dp_configure_mirror.html["本文檔 ONTAP"]。若要與 ONTAP CLI 建立 SnapMirror 關係、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/data-protection/snapmirror-replication-workflow-concept.html["本文檔 ONTAP"]。
+
+如果您想要將此程序自動化、可以使用 link:https://docs.netapp.com/us-en/bluexp-automation/["BlueXP API"]、 link:https://devnet.netapp.com/restapi.php["靜態API ONTAP"]或 link:https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html["ONTAP Ansible 系列"]。
+
+
+NOTE: Amazon FSX for NetApp ONTAP 不提供 System Manager 。
+
+
+
+=== 打破SnapMirror關係
+
+接下來、您必須中斷 SnapMirror 關係、才能啟動目的地 Volume 以進行資料存取。請等到初始複寫完成後再執行此步驟。
+
+
+NOTE: 您可以檢查 BlueXP 、 ONTAP 系統管理員或 ONTAP CLI 中的鏡射狀態、判斷複寫是否完成。複寫完成後、鏡射狀態將會是「快照鏡射」。
+
+我們建議您使用 BlueXP 來打破 SnapMirror 關係。若要中斷與 BlueXP 的 SnapMirror 關係、請遵循中所述的指示 link:https://docs.netapp.com/us-en/bluexp-replication/task-managing-replication.html["BlueXP 複寫文件"]。
+
+如果您不想使用 BlueXP 、可以使用 ONTAP 系統管理員或 ONTAP CLI 來中斷 SnapMirror 關係。若要中斷與 System Manager 的 SnapMirror 關係、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/task_dp_serve_data_from_destination.html["本文檔 ONTAP"]。若要中斷與 ONTAP CLI 的 SnapMirror 關係、請參閱中所述的指示 link:https://docs.netapp.com/us-en/ontap/data-protection/make-destination-volume-writeable-task.html["本文檔 ONTAP"]。
+
+如果您想要將此程序自動化、可以使用 link:https://docs.netapp.com/us-en/bluexp-automation/["BlueXP API"]、 link:https://devnet.netapp.com/restapi.php["靜態API ONTAP"]或 link:https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html["ONTAP Ansible 系列"]。
+
+
+
+=== 將目的地 Volume 公開至 Domino
+
+接下來、您必須將目的地 Volume 公開至 Domino MLOps 平台。若要將目的地 Volume 暴露於 Domino 中、請遵循中「公開未由 Astra Trident 配置的現有 NFS Volume 」子區段中所述的指示 link:ddlnexus_expose_netapp_vols.html["「將現有的 NetApp Volume 暴露於 Domino 中」一節"] 。
+
+現在、您可以在目的地資料平面中啟動工作和工作區時、掛載目的地 Volume 、如下面的螢幕擷取畫面所示。
+
+
+
+==== 建立 SnapMirror 關係之前
+
+image:ddlnexus_image4.png["錯誤：缺少圖形影像"]
+
+
+
+==== 將目的地 Volume 暴露於 Domino 之後
+
+image:ddlnexus_image5.png["錯誤：缺少圖形影像"]
+
+link:ddlnexus_additional_information.html["下一步：其他資訊。"]

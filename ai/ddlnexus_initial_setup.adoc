@@ -1,0 +1,60 @@
+---
+sidebar: sidebar 
+permalink: ai/ddlnexus_initial_setup.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+summary: 混合式多雲端 MLOps 搭配 Domino Data Lab 和 NetApp - 初始設定 
+---
+= 初始設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+link:ddlnexus_architecture.html["上一篇：架構。"]
+
+[role="lead"]
+本節說明在結合內部部署資料中心和 AWS 的混合式環境中、為了將 Domino Nexus 與 NetApp 資料服務搭配使用而需要執行的初始設定工作。
+
+
+
+== 先決條件
+
+在您執行本節概述的步驟之前、我們假設您已執行下列工作：
+
+* 您已部署並設定內部部署的 NetApp ONTAP 儲存平台。如需詳細資訊、請參閱 link:https://www.netapp.com/support-and-training/documentation/["NetApp產品文件"]。
+* 您已在 AWS 中配置 Amazon FSX for NetApp ONTAP 執行個體。如需詳細資訊、請參閱 link:https://aws.amazon.com/fsx/netapp-ontap/["Amazon FSX for NetApp ONTAP 產品頁面"]。
+* 您已在內部部署資料中心內配置 Kubernetes 叢集。如需詳細資訊、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/b35e66/admin-guide/["Domino 管理指南"]。
+* 您已在 AWS 中佈建 Amazon EKS 叢集。如需詳細資訊、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/b35e66/admin-guide/["Domino 管理指南"]。
+* 您已在內部部署的 Kubernetes 叢集中安裝 NetApp Astra Trident 。此外、您已將此 Trident 執行個體設定為在資源配置和管理時、使用內部部署的 NetApp ONTAP 儲存平台。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/index.html["NetApp Astra Trident文件"]。
+* 您已在 Amazon EKS 叢集中安裝 NetApp Astra Trident 。此外、您已將此 Trident 執行個體設定為在資源配置和管理儲存資源時、使用 Amazon FSX for NetApp ONTAP 執行個體。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/index.html["NetApp Astra Trident文件"]。
+* 您必須在內部部署資料中心和 AWS 中的虛擬私有雲（ VPC ）之間建立雙向網路連線。如需實作此選項的詳細資訊、請參閱 link:https://docs.aws.amazon.com/vpc/latest/userguide/vpn-connections.html["Amazon 虛擬私有網路（ VPN ）文件"]。
+
+
+
+
+== 在 AWS 中安裝 Domino Enterprise AI Platform
+
+若要在 AWS 中安裝 Domino Enterprise MLOps Platform 、請遵循中所述的指示 link:https://docs.dominodatalab.com/en/latest/admin_guide/c1eec3/deploy-domino/["Domino 管理指南"]。您必須將 Domino 部署在先前佈建的同一個 Amazon EKS 叢集中。此外、 NetApp Astra Trident 必須已在此 EKS 叢集中安裝及設定、而且您必須將 Trident 託管儲存類別指定為 Domino.yml 安裝組態檔案中的共用儲存類別。
+
+
+NOTE: 請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/7f4331/install-configuration-reference/#storage-classes["Domino 安裝組態參考指南"] 如需如何在 domino.yml 安裝組態檔案中指定共用儲存類別的詳細資訊、
+
+
+NOTE: link:https://www.netapp.com/media/79922-tr-4952.pdf["技術報告 TR-4952."] 逐步在 AWS 中部署 Domino 、搭配 Amazon FSX for NetApp ONTAP 、是疑難排解任何問題的實用參考資料。
+
+
+
+== 啟用 Domino Nexus
+
+接下來、您必須啟用 Domino Nexus 。請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/c65074/nexus-hybrid-architecture/["Domino 管理指南"] 以取得詳細資料。
+
+
+
+== 在內部部署資料中心部署 Domino Data Plane
+
+接下來、您必須在內部部署資料中心部署 Domino Data Plane 。您必須將此資料層部署在先前已配置的內部部署 Kubernetes 叢集。此外、 NetApp Astra Trident 必須已在此 Kubernetes 叢集中安裝及設定。請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/5781ea/data-planes/["Domino 管理指南"] 以取得詳細資料。
+
+link:ddlnexus_expose_netapp_vols.html["下一步：將現有的 NetApp Volume 公開至 Domino 。"]
