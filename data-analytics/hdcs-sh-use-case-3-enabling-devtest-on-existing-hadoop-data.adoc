@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: data-analytics/hdcs-sh-use-case-3--enabling-devtest-on-existing-hadoop-data.html 
+permalink: data-analytics/hdcs-sh-use-case-3-enabling-devtest-on-existing-hadoop-data.html 
 keywords: devtest, hadoop, spark, analytics data, reporting 
 summary: 在此使用案例中、客戶的需求是根據現有的Hadoop叢集、快速且有效率地建置新的Hadoop / Spark叢集、其中包含大量用於DevTest的分析資料、並在同一個資料中心和遠端位置進行報告。 
 ---
@@ -13,7 +13,7 @@ summary: 在此使用案例中、客戶的需求是根據現有的Hadoop叢集�
 :imagesdir: ./../media/
 
 
-link:hdcs-sh-use-case-2--backup-and-disaster-recovery-from-the-cloud-to-on-premises.html["上一篇：使用案例2：從雲端到內部部署的備份與災難恢復。"]
+link:hdcs-sh-use-case-2-backup-and-disaster-recovery-from-the-cloud-to-on-premises.html["上一篇：使用案例2：從雲端到內部部署的備份與災難恢復。"]
 
 [role="lead"]
 在此使用案例中、客戶的需求是根據現有的Hadoop叢集、快速且有效率地建置新的Hadoop / Spark叢集、其中包含大量用於DevTest的分析資料、並在同一個資料中心和遠端位置進行報告。
@@ -44,12 +44,10 @@ FlexClone技術可用來滿足上述需求。FlexClone技術是Snapshot複本的
 
 首先、使用NetApp一致性群組建立現有叢集的Snapshot複本。
 
-NetApp System Manager或儲存設備管理提示中的Snapshot複本。一致性群組Snapshot複本是應用程式一致的群組Snapshot複本、而FlexClone Volume則是根據一致性群組Snapshot複本建立。值得一提的是、FlexClone Volume繼承父Volume的NFS匯出原則。建立Snapshot複本之後、必須安裝新的Hadoop叢集以供DevTest和報告之用、如下圖所示。就地分析模組透過就地分析模組使用者和NFS資料的群組授權、從新的Hadoop叢集存取複製的NFS磁碟區。
-
-若要擁有適當的存取權、新叢集必須針對在原地分析模組使用者和群組組組態中設定的使用者、擁有相同的UID和GUID。
+NetApp System Manager或儲存設備管理提示中的Snapshot複本。一致性群組Snapshot複本是應用程式一致的群組Snapshot複本、而FlexClone Volume則是根據一致性群組Snapshot複本建立。值得一提的是、FlexClone Volume繼承父Volume的NFS匯出原則。建立Snapshot複本之後、必須安裝新的Hadoop叢集以供DevTest和報告之用、如下圖所示。從新 Hadoop 叢集複製的 NFS Volume 可存取 NFS 資料。
 
 此影像顯示DevTest的Hadoop叢集。
 
 image:hdcs-sh-image11.png["錯誤：缺少圖形影像"]
 
-link:hdcs-sh-use-case-4--data-protection-and-multicloud-connectivity.html["下一步：使用案例4：資料保護與多雲端連線。"]
+link:hdcs-sh-use-case-4-data-protection-and-multicloud-connectivity.html["下一步：使用案例4：資料保護與多雲端連線。"]

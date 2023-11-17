@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: data-analytics/hdcs-sh-use-case-2--backup-and-disaster-recovery-from-the-cloud-to-on-premises.html 
+permalink: data-analytics/hdcs-sh-use-case-2-backup-and-disaster-recovery-from-the-cloud-to-on-premises.html 
 keywords: cloud-based analytics, apache spark, hadoop, ebs, hdfs 
 summary: 此使用案例是以需要將雲端型分析資料備份到內部部署資料中心的廣播客戶為基礎。 
 ---
@@ -13,7 +13,7 @@ summary: 此使用案例是以需要將雲端型分析資料備份到內部部�
 :imagesdir: ./../media/
 
 
-link:hdcs-sh-use-case-1--backing-up-hadoop-data.html["上一篇：使用案例1 -備份Hadoop資料。"]
+link:hdcs-sh-use-case-1-backing-up-hadoop-data.html["上一篇：使用案例1 -備份Hadoop資料。"]
 
 [role="lead"]
 此使用案例是根據需要將雲端型分析資料備份到內部部署資料中心的廣播客戶、如下圖所示。
@@ -45,10 +45,10 @@ image:hdcs-sh-image9.png["錯誤：缺少圖形影像"]
 
 為了滿足這些需求、NetApp ONTAP 支援將NetApp支援雲端部署在AWS中、並建立NFS共用區、做為Spark/Hadoop叢集的備份目標。
 
-建立NFS共用區之後、就會利用就地分析模組、將HDFS EBS儲存區的資料複製到ONTAP 穩定的NFS共用區。當資料位於ONTAP NFS中的SnapMirror Cloud之後、SnapMirror技術可用來將資料從雲端鏡射到內部部署儲存設備、並以安全且有效率的方式進行鏡射。
+建立 NFS 共用之後、將資料從 HDFS EBS 儲存設備複製到 ONTAP NFS 共用區。當資料位於ONTAP NFS中的SnapMirror Cloud之後、SnapMirror技術可用來將資料從雲端鏡射到內部部署儲存設備、並以安全且有效率的方式進行鏡射。
 
 此影像顯示從雲端到內部部署解決方案的備份與災難恢復。
 
 image:hdcs-sh-image10.png["錯誤：缺少圖形影像"]
 
-link:hdcs-sh-use-case-3--enabling-devtest-on-existing-hadoop-data.html["下一步：使用案例3：在現有Hadoop資料上啟用DevTest。"]
+link:hdcs-sh-use-case-3-enabling-devtest-on-existing-hadoop-data.html["下一步：使用案例3：在現有Hadoop資料上啟用DevTest。"]

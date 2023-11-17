@@ -1050,7 +1050,6 @@
   <block id="4783ab1f0401dc9c24cc9afa6dc5823e" category="list-text">NetApp備份解決方案所建立的備份可用於本機建置於資料中心的Hadoop叢集、以及在遠端站台的災難恢復位置執行的Hadoop叢集。</block>
   <block id="1dbc869d2df036d4d6e732e9c680ab6b" category="list-text">建議的解決方案必須符合成本效益。</block>
   <block id="7405e6ba4b630f11b88a7976325a95e4" category="list-text">建議的解決方案必須在備份期間降低目前執行中的線上分析工作的效能影響。</block>
-  <block id="e3d4f6860e578b28733c41c2c852f821" category="section-title">客戶現有的備份解決方案</block>
   <block id="f350f804f84a5bf788cd78cd4aae7eab" category="paragraph">下圖顯示原始Hadoop原生備份解決方案。</block>
   <block id="2975218bd3c71a4ac4eac95d3529a9cb" category="paragraph"><block ref="2975218bd3c71a4ac4eac95d3529a9cb" category="inline-image-macro-rx" type="image"></block></block>
   <block id="76b8e496c38192b97fdfa6cae2ba2bb4" category="paragraph">正式作業資料會透過中繼備份叢集保護至磁帶：</block>
@@ -1067,7 +1066,6 @@
   <block id="1b4d2bf420e7f05ecb82ecf2197ab810" category="section-title">備份解決方案</block>
   <block id="6d977e36854ae6439cbc4fe8e0c1b227" category="paragraph">根據這些挑戰和要求、並考慮到現有的備份系統、建議三種可能的備份解決方案。以下各小節分別說明這三種不同的備份解決方案、分別標示為解決方案A至解決方案C</block>
   <block id="c5a6c012dc14dc7f9d2fa0df0ccb0cdf" category="section-title">解決方案A</block>
-  <block id="8ee7b0fbb95cf5b1c98578a7ef03b9eb" category="paragraph">解決方案A將就地分析模組新增至備份Hadoop叢集、可將次要備份至NetApp NFS儲存系統、免除磁帶需求、如下圖所示。</block>
   <block id="411ee6c684ee720eff303771433e41d6" category="paragraph"><block ref="411ee6c684ee720eff303771433e41d6" category="inline-image-macro-rx" type="image"></block></block>
   <block id="2813f022c034c63ad3d6efeeb503eb70" category="paragraph">解決方案A的詳細工作包括：</block>
   <block id="0406c5ca05cfb5f7a0c02971c3962460" category="list-text">正式作業Hadoop叢集的HDFS中有客戶的分析資料需要保護。</block>
@@ -1075,7 +1073,6 @@
   <block id="b3f54540429c806b8cf0080fd78b34bc" category="list-text">執行「Hadoop distcp–update–diff &lt;hdfs1&gt;&lt;hdfs2&gt;'命令、保護Hadoop正式作業資料、使其免受正式作業叢集HDFS對備份叢集HDFS的影響。</block>
   <block id="2de4833848a0b94bd672bdf9bc60d4aa" category="admonition">Hadoop快照可用來保護資料、使其不受正式作業環境的影響、也不受Hadoop叢集的影響。</block>
   <block id="79ef8fc2c565c69b33f5918c3a0bdd9a" category="list-text">NetApp ONTAP 功能區儲存控制器提供NFS匯出的Volume、可配置給備份Hadoop叢集。</block>
-  <block id="b0e42779d51b21a745cae08f938ec60a" category="list-text">藉由運用MapReduce和多個mappers執行「Hadoop distcp」命令、分析資料就能使用就地分析模組、從備份Hadoop叢集保護為NFS。</block>
   <block id="738997de22c6371f563f69e1bb57b6e5" category="paragraph">在NetApp儲存系統的NFS中儲存資料之後、NetApp Snapshot、SnapRestore 支援功能和FlexClone技術可視需要備份、還原及複製Hadoop資料。</block>
   <block id="0bd252182290e872b264ad65d369637f" category="admonition">Hadoop資料可透過SnapMirror技術、保護至雲端及災難恢復位置。</block>
   <block id="4a1b9aaeaa6487c6df7072326cf3798e" category="paragraph">解決方案A的優點包括：</block>
@@ -1090,11 +1087,9 @@
   <block id="0628ac302dce6afb9d95a6b8ebd0d013" category="paragraph">客戶最近部署了解決方案A、因為它的簡易性、成本和整體效能。</block>
   <block id="7a3ba8b554aec9832f399bff2ba17c74" category="paragraph">在本解決方案中、ONTAP 可以使用來自於支援的SAN磁碟來取代JBOD。此選項可將備份叢集儲存負載卸載ONTAP 至Ef2、但缺點是需要SAN光纖交換器。</block>
   <block id="501a1b4ce382e8e2da0089aded30d11e" category="section-title">解決方案B</block>
-  <block id="304af2b0b47890c7db8f6097978fdede" category="paragraph">解決方案B將就地分析模組新增至正式作業Hadoop叢集、免除備份Hadoop叢集的需求、如下圖所示。</block>
   <block id="303388aba87d7dcff207a6cd098b0cfe" category="paragraph"><block ref="303388aba87d7dcff207a6cd098b0cfe" category="inline-image-macro-rx" type="image"></block></block>
   <block id="8ca30c628556726e2038c5df9689fd91" category="paragraph">解決方案B的詳細工作包括：</block>
   <block id="e493f6dc701d2253466d5705af2e5bb1" category="list-text">NetApp ONTAP 功能區儲存控制器會將NFS匯出至正式作業Hadoop叢集。</block>
-  <block id="3c321f811c173c1f133bdcc77fc81a33" category="paragraph">Hadoop原生「Hadoop distcp」命令可透過就地分析模組、保護Hadoop資料、從正式作業叢集HDFS到NFS。</block>
   <block id="665cfb3949b836c368d9be47d34bcbba" category="list-text">在NetApp儲存系統的NFS中儲存資料之後、將SnapRestore 使用Snapshot、支援功能和FlexClone技術來備份、還原及複製Hadoop資料。</block>
   <block id="4f1aeb2a94e89562b7bef27c368ed9cc" category="paragraph">解決方案B的優點包括：</block>
   <block id="748dc25f775dc78e1da24328f753d1e1" category="list-text">正式作業叢集已針對備份解決方案進行稍微修改、以簡化實作並降低額外的基礎架構成本。</block>
@@ -1113,7 +1108,6 @@
   <block id="f499d7fd731eb2bb1efe6c4069efcb47" category="paragraph">解決方案C的優點包括：</block>
   <block id="abe0be0b8deb695793caa75a1dcfc4b3" category="list-text">使用Snapshot技術可以建立節省空間的備份。</block>
   <block id="5788267ffe4023e91b333de591766cca" category="inline-link-macro">下一步：使用案例2：從雲端到內部部署的備份與災難恢復。</block>
-  <block id="1619284091911820ebd1407554fb6da7" category="paragraph"><block ref="1619284091911820ebd1407554fb6da7" category="inline-link-macro-rx"></block></block>
   <block id="191ea533aa1478d35c965840430fbfe6" category="summary">NetApp現代化資料分析解決方案是一套策略與技術功能、可在AI環境中展現NetApp儲存設備的功能。</block>
   <block id="3f7d09efe0b4d4a65add41ac272194fd" category="doc">NetApp現代化資料分析解決方案</block>
   <block id="663d826f2d39c93c218bb619244537b3" category="summary">我們已使用Kafka的Conflent Platform進行認證、以在NetApp StorageGRID 餐廳進行階層式儲存。</block>
@@ -1150,7 +1144,6 @@
   <block id="2c755351ada495582a6d9015943de077" category="summary">在此使用案例中、客戶的需求是根據現有的Hadoop叢集、快速且有效率地建置新的Hadoop / Spark叢集、其中包含大量用於DevTest的分析資料、並在同一個資料中心和遠端位置進行報告。</block>
   <block id="acb2dd720b2161405c8cb1ca6035618b" category="doc">使用案例3：在現有Hadoop資料上啟用DevTest</block>
   <block id="aeab228f25b5fbe0b00f83117579246e" category="inline-link-macro">上一篇：使用案例2：從雲端到內部部署的備份與災難恢復。</block>
-  <block id="cf44ed74ea7e07a8e4478e43d9537e07" category="paragraph"><block ref="cf44ed74ea7e07a8e4478e43d9537e07" category="inline-link-macro-rx"></block></block>
   <block id="4e19c1aafa6d3711ae619f7e1621a61e" category="paragraph">在此案例中、多個Spark / Hadoop叢集是以內部部署的大型Hadoop資料湖實作以及災難恢復位置所建置而成。</block>
   <block id="5768edca640abf2b08dd5ba0e593dcc7" category="list-text">針對DevTest、QA或任何其他需要存取相同正式作業資料的目的、建立多個Hadoop叢集。這方面的挑戰是、以極具空間效益的方式、即時複製大型Hadoop叢集多次。</block>
   <block id="529c78f9988d342b33707ecaae7d2576" category="list-text">將Hadoop資料同步至DevTest和報告團隊、以提高營運效率。</block>
@@ -1159,12 +1152,9 @@
   <block id="49b21ad0d38942f635877e7bbc5d7a1e" category="section-title">解決方案</block>
   <block id="6442ec446d11bbd47497299e0ffceed5" category="paragraph">FlexClone技術可用來滿足上述需求。FlexClone技術是Snapshot複本的讀寫複本。它會從父Snapshot複本資料讀取資料、只會消耗新增/修改區塊的額外空間。它既快速又節省空間。</block>
   <block id="51a22383ed7ac5a70a455d81a9bad789" category="paragraph">首先、使用NetApp一致性群組建立現有叢集的Snapshot複本。</block>
-  <block id="4b481b20e942087b64c5bb7b07d9dca9" category="paragraph">NetApp System Manager或儲存設備管理提示中的Snapshot複本。一致性群組Snapshot複本是應用程式一致的群組Snapshot複本、而FlexClone Volume則是根據一致性群組Snapshot複本建立。值得一提的是、FlexClone Volume繼承父Volume的NFS匯出原則。建立Snapshot複本之後、必須安裝新的Hadoop叢集以供DevTest和報告之用、如下圖所示。就地分析模組透過就地分析模組使用者和NFS資料的群組授權、從新的Hadoop叢集存取複製的NFS磁碟區。</block>
-  <block id="4c490dfedbcc5a021b8a4c823e337d41" category="paragraph">若要擁有適當的存取權、新叢集必須針對在原地分析模組使用者和群組組組態中設定的使用者、擁有相同的UID和GUID。</block>
   <block id="6ee7e035a9c46bb26ee76c40aa671148" category="paragraph">此影像顯示DevTest的Hadoop叢集。</block>
   <block id="4157075925c8c1518cc71d1d0abab403" category="paragraph"><block ref="4157075925c8c1518cc71d1d0abab403" category="inline-image-macro-rx" type="image"></block></block>
   <block id="e10ad11fd299ee6f161f17d772a78a48" category="inline-link-macro">下一步：使用案例4：資料保護與多雲端連線。</block>
-  <block id="8109e574f349ced8f667b9389c9189a4" category="paragraph"><block ref="8109e574f349ced8f667b9389c9189a4" category="inline-link-macro-rx"></block></block>
   <block id="a64b3943d4911d301243b8ac8779ba53" category="summary">本節摘要說明NetApp為滿足各種Hadoop資料保護需求所提供的使用案例與解決方案。</block>
   <block id="23496143e5ca83c13eb4d953786abdcd" category="inline-link-macro">上一篇：使用案例5：加速分析工作負載。</block>
   <block id="09b7371b2ae3168a3c54b30e4966e86e" category="paragraph"><block ref="09b7371b2ae3168a3c54b30e4966e86e" category="inline-link-macro-rx"></block></block>
@@ -1189,8 +1179,6 @@
   <block id="143ece864a38e1c8267bd8318d458955" category="inline-link"><block ref="143ece864a38e1c8267bd8318d458955" category="inline-link-rx"></block></block>
   <block id="b890b67174812331efb42656a186fa42" category="paragraph"><block ref="b890b67174812331efb42656a186fa42" category="inline-link-rx"></block></block>
   <block id="49d7c87b66a2b688ec65b1a4fe9b5ddc" category="list-text">NetApp就地分析模組</block>
-  <block id="1d669c79bffe95dd384dffb8309a0d40" category="inline-link"><block ref="1d669c79bffe95dd384dffb8309a0d40" category="inline-link-rx"></block></block>
-  <block id="fde1cd76fa73f8065aeb8a97c77b40ec" category="paragraph"><block ref="fde1cd76fa73f8065aeb8a97c77b40ec" category="inline-link-rx"></block></block>
   <block id="0407c27180c9b019e644e8ad4c6a9324" category="section-title">感謝</block>
   <block id="c4f052e8512b2541f8154dd256a529d6" category="list-text">Paul Burland、NetApp ANZ Victoria地區銷售代表</block>
   <block id="5d14432aa90b3b3ebfa87b98a1844edb" category="list-text">NetApp業務開發經理Hosub Dermilian</block>
@@ -1384,7 +1372,6 @@
   <block id="9d9b3c1914053d9ff102d01b77ab40a9" category="summary">此使用案例是以需要將雲端型分析資料備份到內部部署資料中心的廣播客戶為基礎。</block>
   <block id="0abf694ae9fa8ac43b805ba39a10d143" category="doc">使用案例2：從雲端到內部部署的備份與災難恢復</block>
   <block id="d05b5b5452aa966fcd3c8947a172f44a" category="inline-link-macro">上一篇：使用案例1 -備份Hadoop資料。</block>
-  <block id="d6b3b64a2054103914910c4432cc9e18" category="paragraph"><block ref="d6b3b64a2054103914910c4432cc9e18" category="inline-link-macro-rx"></block></block>
   <block id="733d8d14fe9ffb98d02b33079e3d3db2" category="paragraph">此使用案例是根據需要將雲端型分析資料備份到內部部署資料中心的廣播客戶、如下圖所示。</block>
   <block id="063e138ba69a95a99bd2f908b540e210" category="paragraph"><block ref="063e138ba69a95a99bd2f908b540e210" category="inline-image-macro-rx" type="image"></block></block>
   <block id="26fea23389e404e4cb8cf9be2c100cbd" category="paragraph">在此案例中、IoT感應器資料會擷取至雲端、並使用AWS內的開放原始碼Apache Spark叢集進行分析。這項需求是將處理過的資料從雲端備份到內部部署。</block>
@@ -1393,11 +1380,9 @@
   <block id="848b66ad8aca524142404de79ce64c73" category="list-text">可在不同的情況下、例如隨需、即時和低叢集負載期間、靈活地將資料從雲端傳輸至內部部署。</block>
   <block id="4d8011e28e4ef4359ca7c169e7797091" category="paragraph">客戶使用AWS Elastic Block Store（EBS）作為Spark叢集HDFS儲存設備、透過Kafka從遠端感應器接收及擷取資料。因此、HDFS儲存設備可做為備份資料的來源。</block>
   <block id="e55d60f6f17896ce9b53a0ef23e23413" category="paragraph">為了滿足這些需求、NetApp ONTAP 支援將NetApp支援雲端部署在AWS中、並建立NFS共用區、做為Spark/Hadoop叢集的備份目標。</block>
-  <block id="c260f0b6bfdb6eff1473aafbf5bd075a" category="paragraph">建立NFS共用區之後、就會利用就地分析模組、將HDFS EBS儲存區的資料複製到ONTAP 穩定的NFS共用區。當資料位於ONTAP NFS中的SnapMirror Cloud之後、SnapMirror技術可用來將資料從雲端鏡射到內部部署儲存設備、並以安全且有效率的方式進行鏡射。</block>
   <block id="aecad7c5bdfba92aa6cd945a9045c37f" category="paragraph">此影像顯示從雲端到內部部署解決方案的備份與災難恢復。</block>
   <block id="94c7a6b63152038de5e8b2763cdef06c" category="paragraph"><block ref="94c7a6b63152038de5e8b2763cdef06c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="bbd6a10b63926b84e9a28da6d4214925" category="inline-link-macro">下一步：使用案例3：在現有Hadoop資料上啟用DevTest。</block>
-  <block id="e0f915fb1893e398d54abc6f9d00ca57" category="paragraph"><block ref="e0f915fb1893e398d54abc6f9d00ca57" category="inline-link-macro-rx"></block></block>
   <block id="bc15ae13f16a39532174d0aec78a6432" category="summary">在此設定中、我們會示範如何使用Kafka S3接收器連接器、直接從Kafka讀取和寫入物件儲存區中的主題。在這項測試中、我們使用獨立的ConFluent叢集、但此設定適用於分散式叢集。</block>
   <block id="8b7e627b574df4c4813de77ed2896ad8" category="doc">Connent S3連接器</block>
   <block id="9b154eb37aabb62c75c78bd31457468f" category="inline-link-macro">先前版本：效能測試搭配擴充性。</block>
@@ -1501,7 +1486,6 @@
   <block id="6a15e1dac7cc5c330a1da84c32b3ff2e" category="doc">Hadoop資料保護使用案例總覽</block>
   <block id="d161097dc6596d3807b21a5635856d71" category="inline-link-macro">先前版本：Hadoop資料保護與NetApp。</block>
   <block id="1a5df0b83f496dc00b4a331caac0d5cd" category="paragraph"><block ref="1a5df0b83f496dc00b4a331caac0d5cd" category="inline-link-macro-rx"></block></block>
-  <block id="385dae214dc9bab52698dc7cd42632ad" category="paragraph">在此使用案例中、就地分析模組協助大型金融機構將長時間的備份時間從24小時以上縮短至幾小時以內。</block>
   <block id="06b83cb579d9aaf1f26d8c4284a5a42e" category="paragraph">藉由使用NetApp技術的資料架構做為建置區塊、一家大型廣播公司能夠根據不同的資料傳輸模式（例如隨需、即時、 或根據Hadoop / Spark叢集負載。</block>
   <block id="da17b6db6e3e50f66b5bcaee1d74f8b1" category="paragraph">NetApp解決方案協助線上音樂經銷商在不同的分公司快速建置多個節省空間的Hadoop叢集、以使用排程原則來建立報告並執行每日DevTest工作。</block>
   <block id="2268700ee8bd2216d594273e566b0cc9" category="section-title">使用案例4：資料保護與多雲端連線</block>
@@ -1509,7 +1493,6 @@
   <block id="0158648474e8dffab94ca58af2257b92" category="section-title">使用案例5：加速分析工作負載</block>
   <block id="67f07a55567ecfc26b3c7b54823a43ee" category="paragraph">最大的金融服務與投資銀行之一使用NetApp網路附加儲存解決方案來縮短I/O等待時間、並加速其量化財務分析平台。</block>
   <block id="2afe208a471bf6c54f0ccc97f4c6508d" category="inline-link-macro">下一步：使用案例1 -備份Hadoop資料。</block>
-  <block id="aac250a096aacf9aed26ebbd137818da" category="paragraph"><block ref="aac250a096aacf9aed26ebbd137818da" category="inline-link-macro-rx"></block></block>
   <block id="c877e65bbe37324c3309ace4aa7745d1" category="summary">在巨量資料叢集中、資料會儲存在HDFS或HCFS中、例如MapR-FS、Windows Azure Storage Blob、S3或Google檔案系統。我們使用ONTAP 來自來源的Hadoop distcp命令、使用HDFS、MapR-FS和S3作為來源、在NIPAM的協助下、將資料複製到NetApp的RsNFS匯出。</block>
   <block id="d73e7d11401e9256a0dea0d1e174e1de" category="doc">資料移動機解決方案</block>
   <block id="6d1963202b436934d6b74acc8232dc94" category="inline-link-macro">先前：客戶挑戰。</block>
@@ -1523,7 +1506,6 @@
   <block id="1f4c259e626baca3c7947e6f3db323d4" category="paragraph"><block ref="1f4c259e626baca3c7947e6f3db323d4" category="inline-link-macro-rx"></block></block>
   <block id="69efde21ccf40f1dda4d665f81bacefe" category="summary">在此案例中、大型金融服務與投資銀行的分析平台已採用NetApp NFS儲存解決方案進行現代化、以大幅改善分析資產管理與量化業務單位的投資風險與衍生工具。</block>
   <block id="c8ea1eda8e0ac121148ac86dee9649a7" category="inline-link-macro">上一篇：使用案例4：資料保護與多雲端連線。</block>
-  <block id="87fb2a1eb3f12014af6e5dd36ba66e5e" category="paragraph"><block ref="87fb2a1eb3f12014af6e5dd36ba66e5e" category="inline-link-macro-rx"></block></block>
   <block id="24b0e878b8196875cd088397ac8312a9" category="paragraph">在客戶現有的環境中、用於分析平台的Hadoop基礎架構會利用Hadoop伺服器的內部儲存設備。由於JBOD環境的專屬性質、組織內的許多內部客戶無法利用Monte Carlo量化模型、這是一種仰賴即時資料重複取樣的模擬。對於量化資產管理業務單位而言、無法充分瞭解市場變動不確定性的影響。</block>
   <block id="788ab145281501314f18747a0ab1eaea" category="paragraph">該銀行的量化業務單位需要高效率的預測方法、才能達到準確且及時的預測。為達成此目標、團隊認為必須將基礎架構現代化、縮短現有I/O等待時間、並改善Hadoop和Spark等分析應用程式的效能、以有效模擬投資模式、衡量潛在獲利並分析風險。</block>
   <block id="5ff37557b096819452a25d129a312360" category="paragraph">客戶現有的Spark解決方案擁有JBOD。NetApp的NetApp功能、NetApp功能區和MinIO閘道至NFS、可縮短銀行的量化財務團隊的I/O等待時間、以便針對評估潛在獲利與風險的投資模式、進行模擬與分析。ONTAP StorageGRID此影像顯示採用NetApp儲存設備的Spark解決方案。</block>
@@ -1585,7 +1567,6 @@
   <block id="63aa417c654afafebdbdfcaf7a13c8b6" category="paragraph"><block ref="63aa417c654afafebdbdfcaf7a13c8b6" category="inline-link-macro-rx"></block></block>
   <block id="fa7dcae8e4f7d8ecc191c3ce8547a53a" category="summary">此使用案例與負責為客戶的Big Data分析資料提供多雲端連線的雲端服務合作夥伴有關。</block>
   <block id="2c8eccdfa6390b1d09b2527f7d7d2cc5" category="inline-link-macro">上一篇：使用案例3：在現有Hadoop資料上啟用DevTest。</block>
-  <block id="fda5cc5b496f5f7aa6de18740227bc15" category="paragraph"><block ref="fda5cc5b496f5f7aa6de18740227bc15" category="inline-link-macro-rx"></block></block>
   <block id="3cec8f6cf1ce867e7f73dd5132b7fbf3" category="paragraph">在此案例中、從不同來源收到的AWS IoT資料會儲存在NPS的中央位置。NPS儲存設備連接至AWS和Azure中的Spark/Hadoop叢集、可讓在多個雲端上執行的Big Data分析應用程式存取相同的資料。</block>
   <block id="bed6436414550585ccb4ac4c67a449a3" category="list-text">客戶想要使用多個雲端在相同的資料上執行分析工作。</block>
   <block id="6af3e1f448b2a56e9bd0fbbd43b31bc8" category="list-text">必須透過不同的感應器和集線器、從內部部署和雲端等不同來源接收資料。</block>
@@ -1593,11 +1574,9 @@
   <block id="b320f1b1ab6d0a21e40ee3d444669645" category="list-text">主要挑戰是建置具成本效益且有效率的解決方案、在內部部署和不同雲端之間提供混合式分析服務。</block>
   <block id="0d4b3cfa555ff36cd92fb4e36fb69fbf" category="paragraph">此影像說明資料保護與多雲端連線解決方案。</block>
   <block id="faaf8e6278dc7a68fd1dd98dfe7f525a" category="paragraph"><block ref="faaf8e6278dc7a68fd1dd98dfe7f525a" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="14c23633f1ab374f4c801386847ba2f8" category="paragraph">如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。這種方法可解決跨多個大型擴充系統進行雲端分析的問題。</block>
   <block id="4089db0b43263b1f59a9c2db909edf6e" category="paragraph">因此ONTAP 、由於內部部署和NPS儲存設備都執行了一套功能完善的軟體、SnapMirror可以將NPS資料鏡射到內部部署叢集、在內部部署和多個雲端之間提供混合雲分析功能。</block>
   <block id="d446808fb03b5fae4f2e518cbc7d767f" category="paragraph">為了獲得最佳效能、NetApp通常建議使用多個網路介面和直接連線/快速路由、從雲端執行個體存取資料。</block>
   <block id="1ef541fe0fa79d247c0f1751629bb504" category="inline-link-macro">下一步：使用案例5：加速分析工作負載。</block>
-  <block id="7dfabd0b120fe0403ff107668db4094a" category="paragraph"><block ref="7dfabd0b120fe0403ff107668db4094a" category="inline-link-macro-rx"></block></block>
   <block id="7747c0c1913888384e25d3a99b247187" category="summary">本文件提供將Kafka搭配NetApp儲存設備使用的最佳實務準則、包括Connent Kafka認證測試、效能結果、調校、Kafka連接器及自我重新平衡功能。</block>
   <block id="0c7a4422707cf3f11c73c66ea0d5d215" category="inline-link-macro">上一篇：規模調整。</block>
   <block id="f902aefc255b4eb6b31c283ad42816de" category="paragraph"><block ref="f902aefc255b4eb6b31c283ad42816de" category="inline-link-macro-rx"></block></block>
@@ -1767,7 +1746,6 @@
   <block id="0da79db0a9974fc0002f744165467752" category="list-text">簡化及自動化</block>
   <block id="5d5b69e7e19270db49a42eb4e96be2ee" category="paragraph">本文件涵蓋九種使用案例中的兩種（連同其解決方案）：</block>
   <block id="7adb8b5c573e74594feeb2f74e1ffc96" category="section-title">NetApp NFS直接存取</block>
-  <block id="233060aa11b5715000c000e94576cca9" category="paragraph">NetApp NFS直接存取（先前稱為NetApp就地分析模組）（如下圖所示）可讓客戶在現有或新的NFSv3或NFSv4資料上執行巨量資料分析工作、而無需移動或複製資料。它可防止多個資料複本、並免除將資料與來源同步的需求。例如、在金融產業中、資料從一個地方搬移到另一個地方、必須符合法律義務、這不是一項容易的任務。在此案例中、NetApp NFS直接存取會從原始位置分析財務資料。另一項主要優點是使用NetApp NFS直接存取功能、使用原生Hadoop命令來簡化Hadoop資料的保護、並利用NetApp豐富的資料管理產品組合來啟用資料保護工作流程。</block>
   <block id="96e1e6bac181280c42ba5de56a8ef4c2" category="paragraph"><block ref="96e1e6bac181280c42ba5de56a8ef4c2" category="inline-image-macro-rx" type="image"></block></block>
   <block id="aa47c768dc0f007b4606d394be4330c3" category="paragraph">NetApp NFS直接存取可為Hadoop / Spark叢集提供兩種部署選項：</block>
   <block id="cc7514a5b2b35641026a81211ae7fe9a" category="list-text">根據預設、Hadoop / Spark叢集會使用Hadoop分散式檔案系統（HDFS）進行資料儲存、並使用預設的檔案系統。NetApp NFS直接存取可將預設的HDFS取代為預設的NFS儲存系統、以便直接分析NFS資料。</block>
@@ -20814,4 +20792,25 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="7b3d5a145c3f76308664a64408c99eaa" category="sidebar">NetApp 與 VMware Sovereign Cloud</block>
   <block id="c3b79b7f428245629a780a6384a8a1a9" category="sidebar">主權雲端總覽</block>
   <block id="c35913dc4f441893df75bf6ebf7ce3c0" category="sidebar">使用案例搭配 NetApp</block>
+  <block id="d38f3643bd3997174f5d6644116e5e9a" category="paragraph"><block ref="d38f3643bd3997174f5d6644116e5e9a" category="inline-link-macro-rx"></block></block>
+  <block id="3c0f76e2d6fa82b2004270ec86f39aa7" category="paragraph">建立 NFS 共用之後、將資料從 HDFS EBS 儲存設備複製到 ONTAP NFS 共用區。當資料位於ONTAP NFS中的SnapMirror Cloud之後、SnapMirror技術可用來將資料從雲端鏡射到內部部署儲存設備、並以安全且有效率的方式進行鏡射。</block>
+  <block id="98df49b2e6372c3767f0c1f42d0009dc" category="paragraph"><block ref="98df49b2e6372c3767f0c1f42d0009dc" category="inline-link-macro-rx"></block></block>
+  <block id="a443e971c77259f92abfeb3191e66bd5" category="paragraph">NetApp NFS 可讓客戶在現有或新的 NFSv3 或 NFSv4 資料上執行巨量資料分析工作、而無需移動或複製資料。它可防止多個資料複本、並免除將資料與來源同步的需求。例如、在金融產業中、資料從一個地方搬移到另一個地方、必須符合法律義務、這不是一項容易的任務。在此案例中、NetApp NFS直接存取會從原始位置分析財務資料。另一項主要優點是使用NetApp NFS直接存取功能、使用原生Hadoop命令來簡化Hadoop資料的保護、並利用NetApp豐富的資料管理產品組合來啟用資料保護工作流程。</block>
+  <block id="586cdbbdcb83b20b6b077b1756061b9e" category="paragraph"><block ref="586cdbbdcb83b20b6b077b1756061b9e" category="inline-link-macro-rx"></block></block>
+  <block id="ff0e15997f709c232408a5055738df05" category="paragraph">NetApp System Manager或儲存設備管理提示中的Snapshot複本。一致性群組Snapshot複本是應用程式一致的群組Snapshot複本、而FlexClone Volume則是根據一致性群組Snapshot複本建立。值得一提的是、FlexClone Volume繼承父Volume的NFS匯出原則。建立Snapshot複本之後、必須安裝新的Hadoop叢集以供DevTest和報告之用、如下圖所示。從新 Hadoop 叢集複製的 NFS Volume 可存取 NFS 資料。</block>
+  <block id="9e21d7c099e0bc8885c64b89b02d50a1" category="paragraph"><block ref="9e21d7c099e0bc8885c64b89b02d50a1" category="inline-link-macro-rx"></block></block>
+  <block id="6f2c5dcd0294b9c34430b1de4713c06d" category="paragraph">在這種使用案例中、 NetApp NFS Volume 協助大型金融機構將長備份時間從 24 小時以上縮短為幾小時以下。</block>
+  <block id="ac65786db8d85610c786dc38dfc9f30b" category="paragraph"><block ref="ac65786db8d85610c786dc38dfc9f30b" category="inline-link-macro-rx"></block></block>
+  <block id="d35c13377a59cb905b9e8f5af7acd749" category="paragraph"><block ref="d35c13377a59cb905b9e8f5af7acd749" category="inline-link-macro-rx"></block></block>
+  <block id="4ea48e5206de42785842cb864377766c" category="paragraph">如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。由於 NetApp NPS 分別透過直接連線和快速路由連線連線至 Amazon AWS 和 Microsoft Azure 、因此客戶可以從 Amazon 和 AWS 分析叢集存取 NFS 資料。這種方法可解決跨多個大型擴充系統進行雲端分析的問題。</block>
+  <block id="ae0333da858ae3d330139b64c325a8d3" category="paragraph"><block ref="ae0333da858ae3d330139b64c325a8d3" category="inline-link-macro-rx"></block></block>
+  <block id="fb784db76f57bc935639ba5340089d77" category="cell">2023 年 11 月</block>
+  <block id="11ec45d75a4ad726423d44fadee3074a" category="cell">移除 NIPAM 詳細資料</block>
+  <block id="ca9bf18599094e54193c13e68260f4a1" category="section-title">客戶現有的備份解決方案 x</block>
+  <block id="bc98837ed486c01d428d23d0c3a83d6a" category="paragraph">在解決方案 A 中、備份 Hadoop 叢集會將次要備份傳送至 NetApp NFS 儲存系統、免除磁帶需求、如下圖所示。</block>
+  <block id="1b449b0ea4a324dc81f41259db2c13e9" category="list-text">執行<block ref="e23fdb1dae75e2830274d92fdf2535ed" prefix=" " category="inline-code"></block> 命令運用 MapReduce 和多個地圖程式、可保護分析資料、使其不受從備份 Hadoop 叢集到 NFS 的影響。</block>
+  <block id="099eafc2208317136c2902383d7b0755" category="paragraph">解決方案 B 會將 NFS Volume 新增至正式作業的 Hadoop 叢集、這樣就不需要備份 Hadoop 叢集、如下圖所示。</block>
+  <block id="b8c0e409f361575b0a2787968f3e6737" category="paragraph">Hadoop 原生<block ref="4ac6e29f0a48949098d034a028773150" prefix=" " category="inline-code"></block> 命令可保護從正式作業叢集 HDFS 到 NFS 的 Hadoop 資料。</block>
+  <block id="ab821c44d2b1a92bc280e555feb84ca2" category="paragraph"><block ref="ab821c44d2b1a92bc280e555feb84ca2" category="inline-link-macro-rx"></block></block>
+  <block id="968e83b8bdfb55c739336bf82b8badf1" category="paragraph"><block ref="968e83b8bdfb55c739336bf82b8badf1" category="inline-link-macro-rx"></block></block>
 </blocks>

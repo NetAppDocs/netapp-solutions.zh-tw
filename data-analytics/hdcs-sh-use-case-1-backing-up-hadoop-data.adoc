@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: data-analytics/hdcs-sh-use-case-1--backing-up-hadoop-data.html 
+permalink: data-analytics/hdcs-sh-use-case-1-backing-up-hadoop-data.html 
 keywords: use case 2, Hadoop repository, dr, disaster recovery 
 summary: 在此案例中、客戶擁有大型內部部署Hadoop儲存庫、並想要備份以供災難恢復之用。然而、客戶目前的備份解決方案成本高昂、而且備份時間長達24小時以上。 
 ---
@@ -40,7 +40,7 @@ link:hdcs-sh-overview-of-hadoop-data-protection-use-cases.html["上一篇：Hado
 
 
 
-== 客戶現有的備份解決方案
+== 客戶現有的備份解決方案 x
 
 下圖顯示原始Hadoop原生備份解決方案。
 
@@ -76,7 +76,7 @@ image:hdcs-sh-image5.png["錯誤：缺少圖形影像"]
 
 === 解決方案A
 
-解決方案A將就地分析模組新增至備份Hadoop叢集、可將次要備份至NetApp NFS儲存系統、免除磁帶需求、如下圖所示。
+在解決方案 A 中、備份 Hadoop 叢集會將次要備份傳送至 NetApp NFS 儲存系統、免除磁帶需求、如下圖所示。
 
 image:hdcs-sh-image6.png["錯誤：缺少圖形影像"]
 
@@ -91,7 +91,7 @@ image:hdcs-sh-image6.png["錯誤：缺少圖形影像"]
 NOTE: Hadoop快照可用來保護資料、使其不受正式作業環境的影響、也不受Hadoop叢集的影響。
 
 * NetApp ONTAP 功能區儲存控制器提供NFS匯出的Volume、可配置給備份Hadoop叢集。
-* 藉由運用MapReduce和多個mappers執行「Hadoop distcp」命令、分析資料就能使用就地分析模組、從備份Hadoop叢集保護為NFS。
+* 執行 `Hadoop distcp` 命令運用 MapReduce 和多個地圖程式、可保護分析資料、使其不受從備份 Hadoop 叢集到 NFS 的影響。
 +
 在NetApp儲存系統的NFS中儲存資料之後、NetApp Snapshot、SnapRestore 支援功能和FlexClone技術可視需要備份、還原及複製Hadoop資料。
 
@@ -121,7 +121,7 @@ NOTE: Hadoop資料可透過SnapMirror技術、保護至雲端及災難恢復位�
 
 === 解決方案B
 
-解決方案B將就地分析模組新增至正式作業Hadoop叢集、免除備份Hadoop叢集的需求、如下圖所示。
+解決方案 B 會將 NFS Volume 新增至正式作業的 Hadoop 叢集、這樣就不需要備份 Hadoop 叢集、如下圖所示。
 
 image:hdcs-sh-image7.png["錯誤：缺少圖形影像"]
 
@@ -129,7 +129,7 @@ image:hdcs-sh-image7.png["錯誤：缺少圖形影像"]
 
 * NetApp ONTAP 功能區儲存控制器會將NFS匯出至正式作業Hadoop叢集。
 +
-Hadoop原生「Hadoop distcp」命令可透過就地分析模組、保護Hadoop資料、從正式作業叢集HDFS到NFS。
+Hadoop 原生 `hadoop distcp` 命令可保護從正式作業叢集 HDFS 到 NFS 的 Hadoop 資料。
 
 * 在NetApp儲存系統的NFS中儲存資料之後、將SnapRestore 使用Snapshot、支援功能和FlexClone技術來備份、還原及複製Hadoop資料。
 
@@ -168,4 +168,4 @@ NOTE: Snapshot技術提供的備份、無論資料大小為何、都能在數秒
 * 可透過NetApp工具執行企業管理功能。
 
 
-link:hdcs-sh-use-case-2--backup-and-disaster-recovery-from-the-cloud-to-on-premises.html["下一步：使用案例2：從雲端到內部部署的備份與災難恢復。"]
+link:hdcs-sh-use-case-2-backup-and-disaster-recovery-from-the-cloud-to-on-premises.html["下一步：使用案例2：從雲端到內部部署的備份與災難恢復。"]

@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: data-analytics/hdcs-sh-use-case-4--data-protection-and-multicloud-connectivity.html 
+permalink: data-analytics/hdcs-sh-use-case-4-data-protection-and-multicloud-connectivity.html 
 keywords: iot, aws, nps, azure, analytics application 
 summary: 此使用案例與負責為客戶的Big Data分析資料提供多雲端連線的雲端服務合作夥伴有關。 
 ---
@@ -13,7 +13,7 @@ summary: 此使用案例與負責為客戶的Big Data分析資料提供多雲端
 :imagesdir: ./../media/
 
 
-link:hdcs-sh-use-case-3--enabling-devtest-on-existing-hadoop-data.html["上一篇：使用案例3：在現有Hadoop資料上啟用DevTest。"]
+link:hdcs-sh-use-case-3-enabling-devtest-on-existing-hadoop-data.html["上一篇：使用案例3：在現有Hadoop資料上啟用DevTest。"]
 
 [role="lead"]
 此使用案例與負責為客戶的Big Data分析資料提供多雲端連線的雲端服務合作夥伴有關。
@@ -44,10 +44,10 @@ link:hdcs-sh-use-case-3--enabling-devtest-on-existing-hadoop-data.html["上一�
 
 image:hdcs-sh-image12.png["錯誤：缺少圖形影像"]
 
-如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。由於NetApp NPS分別透過Direct Connect和Express Route連線連線至Amazon AWS和Microsoft Azure、因此客戶可以利用就地分析模組、從Amazon和AWS分析叢集存取資料。這種方法可解決跨多個大型擴充系統進行雲端分析的問題。
+如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。由於 NetApp NPS 分別透過直接連線和快速路由連線連線至 Amazon AWS 和 Microsoft Azure 、因此客戶可以從 Amazon 和 AWS 分析叢集存取 NFS 資料。這種方法可解決跨多個大型擴充系統進行雲端分析的問題。
 
 因此ONTAP 、由於內部部署和NPS儲存設備都執行了一套功能完善的軟體、SnapMirror可以將NPS資料鏡射到內部部署叢集、在內部部署和多個雲端之間提供混合雲分析功能。
 
 為了獲得最佳效能、NetApp通常建議使用多個網路介面和直接連線/快速路由、從雲端執行個體存取資料。
 
-link:hdcs-sh-use-case-5--accelerate-analytic-workloads.html["下一步：使用案例5：加速分析工作負載。"]
+link:hdcs-sh-use-case-5-accelerate-analytic-workloads.html["下一步：使用案例5：加速分析工作負載。"]
