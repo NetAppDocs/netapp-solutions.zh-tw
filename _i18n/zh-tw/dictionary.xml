@@ -15165,8 +15165,6 @@
   <block id="3603e14740d8edd319e72186341cb0af" category="cell">2022年6月12日</block>
   <block id="48461fa824ae344e0934144c7523c3f6" category="cell">新增7段影片、說明如何在混合雲中使用Amazon FSX儲存設備進行Oracle資料庫現代化</block>
   <block id="954a2b08ded0ca2c881930f5ebeee24a" category="example-title">人工智慧（AI）與現代化資料分析</block>
-  <block id="672d7bebe35b300386767050d4222453" category="paragraph">[Underlin]#*影片：AWS和FS6*#採用混合雲進行Oracle現代化</block>
-  <block id="deb1d0bb3f3f4ef0121635c0f832a3bf" category="video-title">第1部分：使用案例和解決方案架構</block>
   <block id="369b9aec1beb25441dc7c7fb46bc0fc6" category="video-title">第2a部分：使用自動化的pdb重新配置功能、以最大可用度從內部部署移轉至AWS的資料庫</block>
   <block id="2edb94ef9695015c5cd01fec59bcc782" category="video-title">第2b部分：透過SnapMirror使用BlueXP主控台、將資料庫從內部部署移轉至AWS</block>
   <block id="59fa2b2110d3350efd262bd841c10975" category="video-title">第3部分：自動化資料庫HA/DR複寫設定、容錯移轉、重新同步</block>
@@ -16910,7 +16908,6 @@
   <block id="11a64b78983fb952ba99933c98fc56df" category="list-text">* FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。FSXHA叢集會以HA配對進行配置、並在一對主動-被動檔案系統中進行鏡射同步、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。</block>
   <block id="660a107d1d4a80542a6c11d9a1ed2db4" category="list-text">* FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。</block>
   <block id="0907de49479565aae7dd2f8a84ef2915" category="list-text">* Oracle 資料和記錄配置。 * 在我們的測試和驗證中、我們分別部署了兩個 ASM 磁碟群組來處理資料和記錄。在 +data asm 磁碟群組中、我們在資料磁碟區中配置了四個 LUN 。在 +logs asm 磁碟群組中、我們在一個記錄磁碟區中配置了兩個 LUN 。一般而言、在 Amazon FSX for ONTAP Volume 中配置多個 LUN 可提供更好的效能。</block>
-  <block id="511a515ed4428c1ca16462485a26f4fc" category="list-text">* iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫預覽 I/O 處理量需求、以便選擇適當的 EC2 運算執行個體、同時滿足應用程式和 iSCSI 流量處理量需求。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。</block>
   <block id="db1de135a2e3ba870a8f80ce78d2d05e" category="list-text">* 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 由於 FSX 已鏡射 FSX 叢集層級上的儲存設備、因此您應該使用「外部備援」、這表示該選項不允許 Oracle ASM 鏡射磁碟群組的內容。</block>
   <block id="e35fd1c687443b2da6a609bba53616b4" category="list-text">* 資料庫備份。 * NetApp 提供 SnapCenter 軟體服務的 SaaS 版本、可在雲端中進行資料庫備份、還原及複製、並可透過 NetApp BlueXP 主控台 UI 取得。NetApp 建議實作這樣的服務、以快速（一分鐘內）進行快照備份、快速（幾分鐘）資料庫還原和資料庫複製。</block>
   <block id="77e4d80ae2f4257081e17476b146608a" category="section-title">解決方案部署</block>
@@ -17019,7 +17016,6 @@
   <block id="05472424b7ce7bd118009f6cde3a0614" category="list-text">設定 Oracle 使用者<block ref="9e0037ad71166970bde5f910189cc94a" prefix=" " category="inline-code"></block>。</block>
   <block id="cadaa91ab9001028d3a153b4325f10a5" category="list-text">新增下列項目：</block>
   <block id="ab5f5bab123b3441fc9c838b46ff1150" category="list-text">驗證建立的 CDB/PDB 。</block>
-  <block id="561a4d93b7f68977bd06286fa019a254" category="list-text">將 DB 恢復位置設定為 +logs 磁碟群組。</block>
   <block id="a0b58d032d36bf0801e5ca3a2aa515d9" category="list-text">使用 sqlplus 登入資料庫、並啟用歸檔記錄模式。</block>
   <block id="0a31d377857a1d2e24f8e85950a44aac" category="paragraph">這將完成 Oracle 19c 版本 19.18 重新啟動在 Amazon FSX for ONTAP 和 EC2 運算執行個體上的部署。如有需要、 NetApp 建議將 Oracle 控制檔和線上記錄檔重新定位至 +logs 磁碟群組。</block>
   <block id="4d3617697efd9a8201cb07f5e610e306" category="section-title">自動化部署選項</block>
@@ -20322,10 +20318,7 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="665aea4799536e845b4d19fc4b3e4ee9" category="list-text">在容錯移轉測試後執行重新同步 - 在複寫模式中重新建立資料庫磁碟區 SnapMirror 關係。</block>
   <block id="13b6326e5a684ad1d8a9de13b31a2069" category="paragraph">若要深入瞭解 NetApp 解決方案自動化、請參閱下列網站 <block ref="03bbd03f7d2552fa2076b42f86a04360" category="inline-link-macro-rx"></block></block>
   <block id="784f4d9bc2efa477eafb911859744478" category="summary">本解決方案提供使用 AWS FSX ONTAP 做為備用站台的 Oracle 資料庫儲存設備來設定 Oracle Data Guard 的概述與詳細資料、以降低 AWS 中 Oracle Data Guard HA/DR 解決方案的授權與營運成本。</block>
-  <block id="73d3c98d13bcd463c30008dec3df8482" category="doc">TR-4981 ：使用 AWS FSX ONTAP 、有效降低資料保護成本</block>
   <block id="f9ca3bf31876c6185710d49eac400cfe" category="paragraph">Oracle Data Guard 可確保在主要資料庫和待命資料庫複寫組態中、為企業資料提供高可用度、資料保護和災難恢復。Oracle Active Data Guard 可讓使用者存取待命資料庫、同時從主要資料庫到待命資料庫的資料複寫處於作用中狀態。Data Guard 是 Oracle Database Enterprise Edition 的一項功能。它不需要個別授權。另一方面、 Active Data Guard 是 Oracle Database Enterprise Edition 選項、因此需要另行授權。在 Active Data Guard 設定中、多個待命資料庫可以從主要資料庫接收資料複寫。不過、每個額外的待命資料庫都需要 Active Data Guard 授權、並需要額外的儲存空間作為主要資料庫的大小。營運成本迅速增加。</block>
-  <block id="9b5cb00e4268739e8f2781c020ad2477" category="paragraph">如果您熱衷於降低 Oracle 資料庫作業的成本、並計畫在 AWS 中設定 Active Data Guard 、您應該考慮另一種方法。使用 Data Guard 取代 Active Data Guard 、將主要資料庫複寫到 AWS FSX ONTAP 儲存設備上的單一實體待命資料庫。之後、可複製此待命資料庫的多個複本、並開啟以供讀寫存取、以處理許多其他使用案例、例如報告、開發、測試等 淨結果可有效提供 Active Data Guard 的功能、同時免除 Active Data Guard 授權、並為每個額外的備用資料庫增加額外的儲存成本。在本文件中、我們將示範如何在 AWS 中使用現有的主要資料庫來設定 Oracle Data Guard 、並將實體待命資料庫放置在 AWS FSX ONTAP 儲存設備上。待機資料庫會透過快照進行備份、並視需要複製以進行讀取 / 寫入存取、以供使用案例使用。</block>
-  <block id="ca7c3105dcf9272dbe41727059afe721" category="list-text">在 AWS 中任何儲存設備上的主要資料庫之間建立 Oracle Data Guard 、以在 AWS FSX ONTAP 儲存設備上建立待命資料庫。</block>
   <block id="1373f5f0167ef176e393747ff34f4b37" category="list-text">在關閉的情況下複製待命資料庫、以供資料複寫使用、例如報告、開發、測試等</block>
   <block id="b7224dd0f37ea7dba810e399e48f1e1f" category="list-text">在 AWS 中設定 Oracle Active Data Guard 的 DBA 、可實現高可用度、資料保護和災難恢復。</block>
   <block id="550c8c85ffce2de3188f9704c188de3c" category="list-text">對 AWS 雲端中的 Oracle Active Data Guard 組態感興趣的資料庫解決方案架構設計師。</block>
@@ -20461,7 +20454,6 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="17f070e48ce0935f57d600652c3c8f21" category="list-text">執行銷毀以移除完成後的資源</block>
   <block id="839a5e9d346e3ac874bc8e301897bdc6" category="list-text">從網格主頁解壓縮<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block>。</block>
   <block id="f2be6b31ed6989aef561023d439a1cd3" category="list-text">從 DB 主目錄解壓縮<block ref="63628571f2dfaeb6f0a0a676290e6e82" prefix=" " category="inline-code"></block>。</block>
-  <block id="d8355ab14e57998a605424192bd16757" category="sidebar">使用 AWS FSX ONTAP 降低 Active Data Guard 成本</block>
   <block id="9d816887d40a5251f5427d7cacd2c573" category="sidebar">Microsoft SQL Server with ONTAP 的最佳實務做法指南</block>
   <block id="a778c2474db5f0263c74583332c37399" category="sidebar">NetApp ONTAP 上的 MySQL 資料庫</block>
   <block id="ca2e1a380482fd9930ca46613b332f65" category="sidebar">資料庫自動化工具套件</block>
@@ -20811,4 +20803,203 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="968e83b8bdfb55c739336bf82b8badf1" category="paragraph"><block ref="968e83b8bdfb55c739336bf82b8badf1" category="inline-link-macro-rx"></block></block>
   <block id="15089057e7e1dcee019d35458b18ed72" category="inline-link-macro">NetApp 公告</block>
   <block id="17e2ffe7ea16377a3383f963821c7e4d" category="list-text"><block ref="17e2ffe7ea16377a3383f963821c7e4d" category="inline-link-macro-rx"></block></block>
+  <block id="5a7ba809855186bf7ed82cff9d5e1cdf" category="summary">本解決方案提供在 AWS 中使用 FSX ONTAP 做為主要資料庫儲存設備的 VMware Cloud 中進行 Oracle 部署和保護的概觀和詳細資料、以及在獨立重新啟動時使用 asm 做為 Volume Manager 設定的 Oracle 資料庫。</block>
+  <block id="b8215f5d072996ac99e525e329cdc570" category="doc">TR-4979 ：在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle</block>
+  <block id="57f6567867e5c3b757fdb3bee9c7654f" category="paragraph">數十年來、企業一直在私有資料中心執行 Oracle on VMware 。AWS 上的 VMware Cloud （ VMC ）提供按鈕式解決方案、可將 VMware 的企業級軟體定義資料中心（ SDDC ）軟體帶入 AWS Cloud 專用、靈活、裸機的基礎架構。AWS FSX ONTAP 為 VMC SDDC 提供優質儲存設備、並提供資料架構、讓客戶能夠在 vSphere ® 型私有、公有和混合雲環境中執行 Oracle 等業務關鍵應用程式、並能最佳化存取 AWS 服務。無論是現有或新的 Oracle 工作負載、 AWS 上的 VMC 都能在 VMware 上提供熟悉、簡化且自我管理的 Oracle 環境、並享有 AWS 雲端的所有優點、同時將所有平台管理與最佳化作業延後至 VMware 。</block>
+  <block id="e73bc10aceb8a9e7c4ac45f0d1d0da5b" category="paragraph">本文件說明如何在 VMC 環境中部署及保護 Oracle 資料庫、並將 Amazon FSX ONTAP 作為主要資料庫儲存設備。Oracle 資料庫可部署至 FSX 儲存設備上的 VMC 、做為直接 VM 來賓安裝 LUN 或 NFS 安裝的 VMware VMDK 資料存放區磁碟。本技術報告著重於 Oracle 資料庫部署、將其作為直接安裝於來賓的 FSX 儲存設備、部署至使用 iSCSI 傳輸協定和 Oracle ASM 的 VMC 叢集中的 VM 。我們也示範如何使用 NetApp SnapCenter UI 工具來備份、還原及複製 Oracle 資料庫、以供開發 / 測試、或是在 AWS 上的 VMC 中執行儲存效率高的資料庫作業。</block>
+  <block id="1bcbe40dab06a9681d7e0fcf5e561941" category="list-text">在 AWS 上的 VMC 中部署 Oracle 資料庫、並將 Amazon FSX ONTAP 做為主要資料庫儲存設備</block>
+  <block id="8652360c0a7d6cf650f303d3611a363c" category="list-text">使用 NetApp SnapCenter 工具在 AWS 上的 VMC 中備份和還原 Oracle 資料庫</block>
+  <block id="cf30ea590ca185afdd551e920e4fade2" category="list-text">使用 NetApp SnapCenter 工具在 AWS 上的 VMC 中進行開發 / 測試用的 Oracle 資料庫複製、或其他使用案例</block>
+  <block id="ef8cc3b3b7c4616678cc6819452f021a" category="list-text">DBA 希望在 AWS 上使用 Amazon FSX ONTAP 在 VMC 中部署 Oracle</block>
+  <block id="796c3d4a6179f628784371e4fb7fa9d9" category="list-text">資料庫解決方案架構設計師、希望在 AWS 雲端上的 VMC 中測試 Oracle 工作負載</block>
+  <block id="cb94ba9e822edf8670a9aedebc0852c1" category="list-text">想要部署及管理部署至 AWS 上 VMC 的 Oracle 資料庫、並搭配 Amazon FSX ONTAP 的儲存管理員</block>
+  <block id="b2777eda52c529f2b03fa9eced1c9680" category="list-text">想要在 AWS 雲端上的 VMC 中備份 Oracle 資料庫的應用程式擁有者</block>
+  <block id="d172135745ee569873f61bcd3531f83e" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、而在 AWS 上執行的 VMC 可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
+  <block id="968ee2170dde4e5744b413462ee41e35" category="cell">一個 FSX ONTAP HA 叢集位於與 VMC 相同的 VPC 和可用性區域</block>
+  <block id="a19ad08a54b29b409555bf1681f098ee" category="cell">VMC SDDC 叢集</block>
+  <block id="cad01e8ce0c8a902e41beab182a6fe81" category="cell">Amazon EC2 i3. 金屬單節點 / Intel Xeon E5-2686 CPU 、 36 核心 /512G RAM</block>
+  <block id="392bcaf841ff67a89aefe2473cff840b" category="cell">10.37 TB vSAN 儲存設備</block>
+  <block id="1c212a485e9ad2c1762d607a18b009c7" category="cell">RHEL-8.6 、 4.18.0-372.9.1.el8.x86_64 核心</block>
+  <block id="95a90af1d5b68afaa24b9f917e25e4ec" category="cell">Windows伺服器</block>
+  <block id="42d321198a77603330bc430ffb26bda9" category="cell">2022 Standard 、 10.0.20348 Build 20348</block>
+  <block id="815500b6cb0b06f1db60bc89ea48ae53" category="cell">託管 SnapCenter 伺服器</block>
+  <block id="53a1507a1f45d24e7525d19279ab1ce7" category="cell">版本 4.9P1</block>
+  <block id="72867dcacfff3a93a471e5f8c9489599" category="cell">工作群組部署</block>
+  <block id="2d2a0d505d952b5fcde17cab075157a3" category="cell">1.0 版</block>
+  <block id="af6552ad45cff98ac3271a6c92ff6d19" category="cell">部署為 ova vSphere 外掛程式 VM</block>
+  <block id="6644cd5d665b50522c19c606bd2b1bde" category="cell">8.0.1.00300 版</block>
+  <block id="128d81403c72151caa28f9cb8909d048" category="cell">VMware Tools 版本： 11365 - Linux 、 12352 - Windows</block>
+  <block id="8ae78dca8fef9243be9f1089e2a97fb7" category="cell">開啟 JDK</block>
+  <block id="3848bc77489b71d744f003ab713f7429" category="cell">版本 Jave-1.8.0-OpenJDK.x86_64</block>
+  <block id="3782cc74a007a1871c7229f0fc16f9f4" category="cell">DB VM 上的 SnapCenter 外掛程式需求</block>
+  <block id="f7c55f54e2022628f07d7e62a55eec78" category="section-title">AWS 上 VMC 中的 Oracle 資料庫組態</block>
+  <block id="40142fee915d9c636c34c1581018dfaa" category="cell">*伺服器*</block>
+  <block id="0086e85e653acc061fd4d7315e2fa26d" category="cell">* 資料庫儲存 *</block>
+  <block id="460dc55b5ffb0266f2c889b06ee73344" category="cell">ora_01</block>
+  <block id="84e8b41cc4a43202bd012704510bd6b6" category="cell">cdb1 （ cdb1_pdb1 、 cdb1_pdb2 、 cdb1_pdb3 ）</block>
+  <block id="f1566e01e42cd3da5d95437ef837891d" category="cell">FSX ONTAP 上的 VMDK 資料存放區</block>
+  <block id="3e17b19d4466b08c46121ab170ec8b1d" category="cell">cdb2 （ cdb2_pdb ）</block>
+  <block id="57fd581683176a30051cde40522ddce1" category="cell">ora_02</block>
+  <block id="be2e4558b7d000c11b6d37e9ed3f40c8" category="cell">cdb3 （ cdb3_pdb1 、 cdb3_pdb2 、 cdb3_pdb3 ）</block>
+  <block id="127cba96fa239f4b6e7834fe0c898c23" category="cell">直接安裝於來賓的 FSX ONTAP</block>
+  <block id="9b7c2c624034bf5c8ad48b5e15db2c29" category="cell">cdb4 （ cdb4_pdb ）</block>
+  <block id="6f65a6cc41917509aec67dd6572235ca" category="list-text">* 從 FSX 到 VMC 連線能力。 * 在 AWS 上的 VMware Cloud 上部署 SDDC 時、會在 AWS 帳戶和 VPC 內建立、專供貴組織使用、並由 VMware 管理。您也必須將 SDDC 連線至屬於您的 AWS 帳戶、稱為客戶 AWS 帳戶。此連線可讓您的 SDDC 存取屬於您客戶帳戶的 AWS 服務。適用於 ONTAP 的 FSX 是部署在客戶帳戶中的 AWS 服務。一旦 VMC SDDC 連線至您的客戶帳戶、就能在 VMC SDDC 中為 VM 提供 FSX 儲存設備、以便直接裝載來賓。</block>
+  <block id="d646cd02ef2e3f2e443a3c7efd88d346" category="list-text">* FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。NetApp 也建議在同一個可用性區域的 AWS 上部署適用於 NetApp ONTAP 和 VMware Cloud 的 FSX 、以獲得更好的效能、並避免在可用性區域之間傳輸資料費用。</block>
+  <block id="1a38c6d0981634333a342ef435e9fcb4" category="list-text">* FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。</block>
+  <block id="3952b027a479110ef8d51b7631000bf0" category="list-text">* Oracle 資料和記錄配置。 * 在我們的測試和驗證中、我們分別部署了兩個 ASM 磁碟群組來處理資料和記錄。在 +data asm 磁碟群組中、我們在資料磁碟區中配置了四個 LUN 。在 +logs asm 磁碟群組中、我們在一個記錄磁碟區中配置了兩個 LUN 。一般而言、在 Amazon FSX for ONTAP Volume 中配置多個 LUN 可提供更好的效能。</block>
+  <block id="10fd1c6c748022c4eac81e0e7815e3c9" category="list-text">* iSCSI 組態。 * VMC SDDC 中的資料庫 VM 會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。請務必仔細分析 Oracle AWR 報告、以判斷應用程式和 iSCSI 流量處理需求、以評估 Oracle 資料庫的尖峰 I/O 處理量需求。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。</block>
+  <block id="5fa486195592a222708baf1d0d84b596" category="list-text">* 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 因為 FSX ONTAP 已經鏡射 FSX 叢集層級上的儲存設備、所以您應該使用「外部備援」、這表示該選項不允許 Oracle ASM 鏡射磁碟群組的內容。</block>
+  <block id="5b9eec312e4891b17065381671c7234b" category="list-text">* 資料庫備份。 * NetApp 提供 SnapCenter 軟體套件、以方便使用者的 UI 介面進行資料庫備份、還原及複製。NetApp 建議實作這樣的管理工具、以快速（在一分鐘內）備份快照、快速（分鐘）資料庫還原及資料庫複製。</block>
+  <block id="f02a238998ba2723f4626a5994f00464" category="paragraph">以下各節提供在 AWS 上的 VMC 中部署 Oracle 19c 的逐步程序、並將直接掛載的 FSX ONTAP 儲存設備部署至單一節點的 DB VM 重新啟動組態、並將 Oracle ASM 做為資料庫 Volume Manager 。</block>
+  <block id="3ebe73caee30b8d941aa7da02afb494d" category="list-text">已建立使用 VMware Cloud on AWS 的軟體定義資料中心（ SDDC ）。如需如何在 VMC 中建立 SDDC 的詳細指示、請參閱 VMware 文件 <block ref="8f2441f58c4fdf4959e58cb9afc7d8c0" category="inline-link-macro-rx"></block></block>
+  <block id="8be484f960dc0192a878263a8ac3c41d" category="list-text">已設定AWS帳戶、並已在AWS帳戶中建立必要的VPC和網路區段。AWS 帳戶會連結至 VMC SDDC 。</block>
+  <block id="1bbb79d8429a5f56d5bcc3e4783976a9" category="list-text">從 AWS EC2 主控台、部署 Amazon FSX for ONTAP Storage HA 叢集來主控 Oracle 資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 <block ref="17d8b312d287f0afd6f44b3f25c4f20b" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
+  <block id="c7480d38cc7c53dd45b4135ac24c2e50" category="list-text">您可以使用下列 Terraform 自動化工具組來執行上述步驟、此工具組可透過 SSH 和 FSX 檔案系統、在 VMC 存取中建立 EC2 執行個體作為 SDDC 的跳接主機。在執行之前、請仔細檢閱指示並變更變數以符合您的環境。</block>
+  <block id="ab75bf4284ff33ce0dff4b433e5cc77f" category="list-text">在 AWS 上的 VMware SDDC 中建置虛擬機器、以裝載要部署在 VMC 中的 Oracle 環境。在我們的示範中、我們建置了兩個 Linux VM 做為 Oracle DB 伺服器、一個 Windows 伺服器做為 SnapCenter 伺服器、以及一個選用的 Linux 伺服器做為 Ansible 控制器、以便在需要時進行自動化 Oracle 安裝或組態。以下是實驗室環境的快照、供解決方案驗證之用。</block>
+  <block id="0ca3188ea78762727379ffff3db432b9" category="inline-image-macro">顯示 VMC SDDC 測試環境的螢幕擷取畫面。</block>
+  <block id="abb7f3bb8704666f8428401b2a2aea9b" category="paragraph"><block ref="abb7f3bb8704666f8428401b2a2aea9b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f0f02fd8431ed2c0ed849e4a2cc644c9" category="list-text">此外、 NetApp 也提供數個自動化工具套件、可在適用的情況下執行 Oracle 部署和組態。請參閱 <block ref="b0afda18826eac248fb3694e4dd33826" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="d50fb02d2ad265b4dc8ea5d6a329f52c" category="admonition">請確定您已在 Oracle VM 根 Volume 中至少分配 50 g 、以便有足夠的空間來存放 Oracle 安裝檔案。</block>
+  <block id="7b73a23b90df52ef2a02ef00b5200773" category="section-title">DB VM 核心組態</block>
+  <block id="9144d3423aec7a4a79da57105f06a978" category="paragraph">在已配置先決條件的情況下、透過 SSH 以管理員使用者身分登入 Oracle VM 、並使用 Sudo 以 root 使用者身分登入、以設定 Linux 核心以進行 Oracle 安裝。Oracle 安裝檔案可分段在 AWS S3 貯體中、並傳輸至 VM 。</block>
+  <block id="5fa261bdb9bdacac6f1656fc0febc8c5" category="paragraph">請參閱下列要在中說明的安裝檔案清單<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 在 DB VM 上。</block>
+  <block id="3f09cc7324f8c1244747932eaf3dc3ce" category="list-text">安裝<block ref="c8dff58175a7ddfedf00d77953ef42dd" prefix=" " category="inline-code"></block>。</block>
+  <block id="9b044ccb441d52e3c435f781b8c3488d" category="list-text">安裝 SG3_utils 。</block>
+  <block id="6e92674c0bf485348ed8c0cc3f038b5f" category="list-text">安裝 device-mapper-multipath 。</block>
+  <block id="5d1e157d7edb057e0d33d878529ef182" category="list-text">在中新增下列行<block ref="08561da4afe8299be4016c92bfe83435" prefix=" " category="inline-code"></block> 以停用<block ref="d78ade61a64b6a278ed6278e7cfd91f3" prefix=" " category="inline-code"></block> 重新開機後。</block>
+  <block id="b9104e6156e755e4d417f51a5619e651" category="list-text">新增下列行至<block ref="8b5eec1c5f63341b700263cc37cbae02" prefix=" " category="inline-code"></block> 設定檔案描述元限制和堆疊大小。</block>
+  <block id="258d4c0ff1dcaaa41c50d5706b27500e" category="list-text">如果沒有使用此指示設定交換空間、請將交換空間新增至 DB VM ： <block ref="53c9867a131506eab4afe1a1678bb974" category="inline-link-macro-rx"></block> 要新增的確切空間量取決於 RAM 大小、最高可達 16G 。</block>
+  <block id="554a8b968dbbeb452b0d18a4f8d31077" category="list-text">新增 asm 管理使用者（ Oracle ）的 asm 群組。</block>
+  <block id="d979e8c8a06dddf190cfc1c00bdbb48b" category="list-text">修改 Oracle 使用者、將 asm 群組新增為次要群組（ Oracle 使用者應該是在 Oracle 預先安裝 RPM 安裝之後建立的）。</block>
+  <block id="25cbc423fe11e7d196553da546d785d1" category="list-text">如果 Linux 防火牆處於作用中狀態、請停止並停用該防火牆。</block>
+  <block id="1ee999f15fe9c423eb377e0090aad2bf" category="list-text">取消註解、為管理員使用者啟用無密碼 Sudo<block ref="1cb32f4855eb0834d64969fe24edd26d" prefix=" " category="inline-code"></block> 行位於 /etc/sudoers 檔案中。變更檔案權限以進行編輯。</block>
+  <block id="e05fc5da4fb01e91a42e8baab993c77f" category="section-title">將 FSX ONTAP LUN 配置並對應至 DB VM</block>
+  <block id="20767a279b850aa7f1bcaef1c31a5834" category="paragraph">透過 ssh 和 FSX 叢集管理 IP 、以 fsxadmin 使用者身分登入 FSX 叢集、從命令列配置三個磁碟區。在磁碟區內建立 LUN 、以裝載 Oracle 資料庫二進位、資料和記錄檔。</block>
+  <block id="a4d17921e42af0c865a419c2383fc24e" category="list-text">驗證建立的磁碟區。</block>
+  <block id="fe34db0a054599cd0a406e3502d0ef5c" category="paragraph">命令輸出：</block>
+  <block id="907146434a35238d633ca6753dd9c615" category="list-text">將 LUN 對應到上述建立的 igroup 。為每個額外的 LUN 依序遞增 LUN ID 。</block>
+  <block id="223bac04448ebaf5c7f63e60fcdb0498" category="section-title">DB VM 儲存組態</block>
+  <block id="a50ba1970162deb2e69ba6ac5cd43b03" category="paragraph">現在、請匯入並設定用於在 VMC 資料庫 VM 上安裝 Oracle 網格基礎架構和資料庫的 FSX ONTAP 儲存設備。</block>
+  <block id="25129372dcdad77bdf8f853444a467a1" category="list-text">使用 Windows 跳躍伺服器的 Putty 、以管理員使用者身分透過 SSH 登入 DB VM 。</block>
+  <block id="159ce09d3368d57420a832ccbf7ef199" category="list-text">使用任一 SVM iSCSI IP 位址探索 FSX iSCSI 端點。變更為您的環境專屬入口網站位址。</block>
+  <block id="669ffba4950ab12059582a3c3fa10940" category="list-text">以 fsxadmin 使用者身分透過 SSH 登入 FSX ONTAP 叢集、以 6c574xxx 開始擷取每個 LUN 的序列十六進位數字 ... 、十六進位數字以 3600a0980 開始、即 AWS 廠商 ID 。</block>
+  <block id="c44eb19dc7906a6753272e8a1de9b1cb" category="list-text">變更<block ref="a8946fa5f211c5345e3610710e471cb4" prefix=" " category="inline-code"></block> 將點所有權掛載至 Oracle 使用者及其相關的主要群組。</block>
+  <block id="ebf44954c543813531faf671e318bdc9" category="list-text">以管理員使用者身分透過 SSH 登入 DB VM 、並取消註解以啟用密碼驗證<block ref="cd94e87e5216cd088acdc4de0e9c30f1" prefix=" " category="inline-code"></block> 然後留言<block ref="f18918133cfc22e041baab71b051c41f" prefix=" " category="inline-code"></block>。</block>
+  <block id="d36d86c204f6126a4742f3c17a52b50a" category="list-text">準備<block ref="77d9f4d56c58834c8dacf6d0cb94e085" prefix=" " category="inline-code"></block> 用於無訊息安裝的檔案、並將 rsp 檔案放入<block ref="d66a510d21988f96fd9c018f6843c729" prefix=" " category="inline-code"></block> 目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：</block>
+  <block id="9bd3ed1deb734d02d4b9004adb88c1ed" category="list-text">初始化磁碟裝置以搭配 Oracle ASM 篩選器驅動程式使用。</block>
+  <block id="f0c1c255ad4ee079686c5de8b56372a2" category="list-text">驗證 HA 服務狀態。</block>
+  <block id="d4d4203c3b64386ed31cefd3e527f1fc" category="list-text">建立 Oracle DB 主目錄、並將目錄變更為該目錄。</block>
+  <block id="51fbc23284cfef48739fa117053b0496" category="list-text">從 DB 主目錄修改<block ref="ef8657f0a0a00af93ba7f1c8885339ca" prefix=" " category="inline-code"></block> 並取消註解及取代<block ref="bb7738211dd8eb3dbadf4cc63ae8eb8a" prefix=" " category="inline-code"></block> 與<block ref="b2affc1a941fe7e5e65933911250249c" prefix=" " category="inline-code"></block>。</block>
+  <block id="900c7011e47a25c71c72d7baa3d4786b" category="list-text">從 cdb3 主頁 /u01/app/oracle/product/19.0/cdb3 執行無訊息軟體專屬資料庫安裝。</block>
+  <block id="77ca17b9b0d011a8a9693dea585ec113" category="list-text">以root使用者身分執行<block ref="08030ad08b2b991d61b424afd8828758" prefix=" " category="inline-code"></block> 純軟體安裝後的指令碼。</block>
+  <block id="c4cf035e92613b739d2fdb8f3f864b6e" category="list-text">身為 Oracle 使用者、請建立<block ref="c170c347c737b82ad62c48db1f7bff3c" prefix=" " category="inline-code"></block> 包含下列項目的檔案：</block>
+  <block id="29362c5952e8a273a25c1d86fc91d838" category="list-text">身為 Oracle 使用者、請使用 dbca 啟動資料庫建立。</block>
+  <block id="5483ea94e6740cb9506d49c7b420197b" category="paragraph">輸出：</block>
+  <block id="519ad91eddb5ee99b4c197b4172c79cf" category="list-text">重複步驟 2 中的相同程序、在單獨的 Oracle 主目錄 /u01/app/oracle/product/19.0/cdb4 中、使用單一的 PDB 建立容器資料庫 cdb4 。</block>
+  <block id="3a3a87b9aff1fff5afe3fd3a13cf4bec" category="list-text">身為 Oracle 使用者、在資料庫建立後驗證 Oracle 重新啟動 HA 服務、確認所有資料庫（ cdb3 、 cdb4 ）均已向 HA 服務註冊。</block>
+  <block id="1d891a18ce35238aed4ee18804d6c368" category="list-text">驗證為 cdb3 建立的 CDB/PDB 。</block>
+  <block id="2fa6ba00439ae530528e2071b0cae3b6" category="list-text">驗證為 cdb4 建立的 CDB/PDB 。</block>
+  <block id="7f1463c4022e8bf5ef77ee7b4272d57e" category="list-text">使用 sqlplus 以 sysdba 登入每個 cdb 、並將 DB 恢復目的地大小設為兩個 cdbs 的 +logs 磁碟群組大小。</block>
+  <block id="d2dff87fed5b165c0917439bd2348ee6" category="list-text">使用 sqlplus 以 sysdba 登入每個 cdb 、並依序使用下列命令集啟用歸檔記錄模式。</block>
+  <block id="f2b57195a1baf4f2ad2f33b948c0307c" category="paragraph">這項作業完成了 Oracle 19c 版本 19.18 重新啟動在 Amazon FSX 上的 ONTAP 儲存設備和 VMC DB VM 部署。如有需要、 NetApp 建議將 Oracle 控制檔和線上記錄檔重新定位至 +logs 磁碟群組。</block>
+  <block id="d372b360dda93a1ed98b047b474a8d14" category="section-title">使用 SnapCenter 進行 Oracle 備份、還原及複製</block>
+  <block id="d4c868638655b6a0f05ff19eb2dc90b3" category="section-title">SnapCenter 設定</block>
+  <block id="43b9d4da02f11505dff89d05efea04c6" category="inline-link-macro">如何使用Oracle資料庫的外掛程式</block>
+  <block id="c6dd5b1c74dacee8c5ea6ea24ec47c61" category="paragraph">SnapCenter 仰賴資料庫 VM 上的主機端外掛程式來執行應用程式感知的資料保護管理活動。如需 NetApp SnapCenter 外掛程式 for Oracle 的詳細資訊、請參閱本文件 <block ref="7a6b1ddf3a0731d31936d6522df7c6ca" category="inline-link-macro-rx"></block>。以下提供設定 SnapCenter 以進行 Oracle 資料庫備份、還原及複製的高階步驟。</block>
+  <block id="68f9ff06ec00760816a8852081d652a9" category="inline-link-macro">NetApp支援下載</block>
+  <block id="9f3f125ee631455138d3f4f0e7e3eab6" category="list-text">從 NetApp 支援網站 下載最新版本的 SnapCenter 軟體： <block ref="3cca19c7256555824970f142627f53d3" category="inline-link-macro-rx"></block>。</block>
+  <block id="4e26d4a1dcc35c4e1d2dfd9c3b78e535" category="inline-link-macro">取得適用於桌面應用程式的 Java</block>
+  <block id="a6e522693361323d4999a459b325b038" category="list-text">身為系統管理員、請從安裝最新的 Java JDK <block ref="1a0bb7a886be273015991771cf1b1190" category="inline-link-macro-rx"></block> 在 SnapCenter 伺服器 Windows 主機上。</block>
+  <block id="02e32891e3de53a22cecc990dca68e55" category="admonition">如果 Windows 伺服器部署在網域環境中、請將網域使用者新增至 SnapCenter 伺服器本機系統管理員群組、然後與網域使用者一起執行 SnapCenter 安裝。</block>
+  <block id="d71146f6c986dedfe7a80892a16bf95a" category="list-text">以安裝使用者身分透過 HTTPS 連接埠 8846 登入 SnapCenter UI 、以設定 SnapCenter for Oracle 。</block>
+  <block id="ce9b8e01e17b619f7f8a43211a1ffd57" category="list-text">更新<block ref="6b2d6702a0358e8df43b31cf0890a30f" prefix=" " category="inline-code"></block> 在全域設定中。</block>
+  <block id="10f89a6808c7ca8a60e377ea9537da91" category="inline-image-macro">顯示 SnapCenter 組態的螢幕擷取畫面。</block>
+  <block id="85672e90c98085f57c2ae3c44917712f" category="paragraph"><block ref="85672e90c98085f57c2ae3c44917712f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0c933eebaf80d285dfac08fec41a6a6b" category="list-text">建立 Oracle 資料庫備份原則。理想情況下、請建立個別的歸檔記錄備份原則、以允許更頻繁的備份間隔、在發生故障時將資料遺失降至最低。</block>
+  <block id="b7807a41275760e1b78e468d71930135" category="paragraph"><block ref="b7807a41275760e1b78e468d71930135" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="638c0eb2b08e7f1a3e5f520754df2492" category="list-text">新增資料庫伺服器<block ref="03bc142e6422dbb9b288ad2cabee08c7" prefix=" " category="inline-code"></block> 用於 SnapCenter 存取 DB VM 。認證應在 Linux VM 上擁有 Sudo 權限、或在 Windows VM 上擁有系統管理員權限。</block>
+  <block id="5e17eda957603128db38ebd2ac85c948" category="paragraph"><block ref="5e17eda957603128db38ebd2ac85c948" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bd00724bb50c560f784951b9675078a9" category="list-text">將 FSX ONTAP 儲存叢集新增至<block ref="5c6ab1284b6b7a5a7102854a969c99be" prefix=" " category="inline-code"></block> 使用叢集管理 IP 並透過 fsxadmin 使用者 ID 驗證。</block>
+  <block id="06266ddd982682fde812804c954be4b8" category="paragraph"><block ref="06266ddd982682fde812804c954be4b8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="026ec4d6f3dd2407e2e1278ccc1eb4de" category="list-text">將 VMC 中的 Oracle 資料庫 VM 新增至<block ref="8124579383e90243e4b06323d2b37f8d" prefix=" " category="inline-code"></block> 使用在上一步 6 中建立的伺服器認證。</block>
+  <block id="7ea1ad2a56d7a348316923a11db03d9c" category="paragraph"><block ref="7ea1ad2a56d7a348316923a11db03d9c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="363544b94b5ce99f22af62c11cdfb685" category="admonition">請確定 SnapCenter 伺服器名稱可以解析為 DB VM 的 IP 位址、而 DB VM 名稱可以解析為 SnapCenter 伺服器的 IP 位址。</block>
+  <block id="025cf2f18f2e268b39a9e3b95afe5c03" category="section-title">資料庫備份</block>
+  <block id="569cda6ea25c5dbb40dbe351743ff809" category="paragraph">相較於傳統的 RMAN 型方法、 SnapCenter 利用 FSX ONTAP Volume Snapshot 來加快資料庫備份、還原或複製速度。當資料庫在快照之前處於 Oracle 備份模式時、快照的應用程式一致。</block>
+  <block id="edf9da3decc598bb9b93dc595dfb701a" category="list-text">從<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤中的任何資料庫都會在 VM 新增至 SnapCenter 之後自動探索。一開始、資料庫狀態會顯示為<block ref="4aa6066b3ed6d1b995450c6c7ad4a3d8" prefix=" " category="inline-code"></block>。</block>
+  <block id="893edc75ba61b6ca745222f511c30ed8" category="paragraph"><block ref="893edc75ba61b6ca745222f511c30ed8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0a671953c31e073dfa8b0ed9da13f596" category="list-text">建立資源群組、以邏輯群組（例如 DB VM 等）備份資料庫 在此範例中、我們建立了一個 ora_02_data 群組、為 VM ora_02 上的所有資料庫進行完整線上資料庫備份。資源群組 ora_02_log 僅在 VM 上執行歸檔記錄的備份。建立資源群組也會定義執行備份的排程。</block>
+  <block id="3e3cb6db0e0d4246d80184678b59bd99" category="paragraph"><block ref="3e3cb6db0e0d4246d80184678b59bd99" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7b0d69d2347240232ff1724962274d17" category="list-text">您也可以按一下、手動觸發資源群組備份<block ref="9af892ad254c844922acba8e89078d6d" prefix=" " category="inline-code"></block> 並使用資源群組中定義的原則執行備份。</block>
+  <block id="b1a4ac3cb7410f99fdf1e929fd2afa03" category="paragraph"><block ref="b1a4ac3cb7410f99fdf1e929fd2afa03" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3ddf172cecda6c976fecf4c27819e241" category="list-text">可在監控備份工作<block ref="d2986ac8cb6bd55892099c1ffd6b1f6f" prefix=" " category="inline-code"></block> 按一下執行中工作的索引標籤。</block>
+  <block id="b65cfc1d7fcd04e8f7f332746d62c572" category="paragraph"><block ref="b65cfc1d7fcd04e8f7f332746d62c572" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d972f47eb27d37493fd1b73f1c799699" category="list-text">成功備份後、資料庫狀態會顯示工作狀態和最近的備份時間。</block>
+  <block id="24b01304b08e51fed8808b76ee6398c9" category="paragraph"><block ref="24b01304b08e51fed8808b76ee6398c9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1b29d7776717c0a002b1cfb23bba6ede" category="list-text">按一下資料庫以檢閱每個資料庫的備份集。</block>
+  <block id="4e28c2a57d60b499cdcc00a0f61b4827" category="paragraph"><block ref="4e28c2a57d60b499cdcc00a0f61b4827" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="381a4da48b283cb83eaca25d4d82a5a0" category="section-title">資料庫恢復</block>
+  <block id="5586b3dfa8d7aaa4771cba0c795dcc1c" category="paragraph">SnapCenter 從快照備份中為 Oracle 資料庫提供許多還原與還原選項。在本範例中、我們會示範時間點還原、以錯誤地恢復掉落的資料表。在 VM ora_02 上、兩個資料庫 cdb3 、 cdb4 共用相同的 +data 和 +logs 磁碟群組。一個資料庫的資料庫還原不會影響其他資料庫的可用性。</block>
+  <block id="7cc816f478b8fdfd718bae0b9383c204" category="list-text">首先、建立測試表格、並在表格中插入一列、以驗證時間點恢復。</block>
+  <block id="10196ada2a83568ea4b23ac007abb3e1" category="list-text">我們從 SnapCenter 執行手動快照備份。然後放下表格。</block>
+  <block id="5ab664c5c8573a6f098f67e573077ddb" category="list-text">從上次步驟建立的備份集、記下記錄備份的 SCN 編號。按一下<block ref="2bd339d85ee3b33e513359ce781b60cc" prefix=" " category="inline-code"></block> 啟動還原復原工作流程。</block>
+  <block id="315fed8f89b8c5b338500179379cc429" category="paragraph"><block ref="315fed8f89b8c5b338500179379cc429" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c4d348e917d1812ea79e94ee7799918a" category="list-text">選擇還原範圍。</block>
+  <block id="87db3e581fdf19b9ceda3b0023586483" category="paragraph"><block ref="87db3e581fdf19b9ceda3b0023586483" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8d1ae3afc2dfbd2dfa9b6aa0b4557161" category="list-text">從上次完整資料庫備份中、選擇直到記錄 SCN 為止的還原範圍。</block>
+  <block id="5f7100fc833c9e13756fe1addbc1f2e1" category="paragraph"><block ref="5f7100fc833c9e13756fe1addbc1f2e1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c70ff881ea5d29e3a88b724e098e9d66" category="list-text">指定要執行的任何選用預先指令碼。</block>
+  <block id="05078f6add244d809c383bed45780fd7" category="paragraph"><block ref="05078f6add244d809c383bed45780fd7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="81bc29b1b95871e6d5d7d76b917a005a" category="list-text">指定要執行的任何選擇性指令碼後置作業。</block>
+  <block id="424f45782efa369bd2e988482819cd44" category="paragraph"><block ref="424f45782efa369bd2e988482819cd44" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="550a7e596b298565d43b08bbdc9e9502" category="list-text">視需要傳送工作報告。</block>
+  <block id="daa0299e8620585899d0f25f2eb0321d" category="paragraph"><block ref="daa0299e8620585899d0f25f2eb0321d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9c30b39b40cf957f005a8d97554cb792" category="list-text">檢閱摘要、然後按一下<block ref="a20ddccbb6f808ec42cd66323e6c6061" prefix=" " category="inline-code"></block> 以啟動還原與還原。</block>
+  <block id="e4182860aaaaf13f444a75db3f793102" category="paragraph"><block ref="e4182860aaaaf13f444a75db3f793102" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2b097285b35ac926b6e3a30da709b120" category="list-text">從 Oracle 重新啟動網格控制項、我們觀察到 cdb3 正在還原、而恢復 cdb4 已上線且可供使用。</block>
+  <block id="683ed6b87193d258ccabd5e8ad26ed11" category="paragraph"><block ref="683ed6b87193d258ccabd5e8ad26ed11" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b011ed6e72e83b31014ed609b024d671" category="list-text">寄件者<block ref="d2986ac8cb6bd55892099c1ffd6b1f6f" prefix=" " category="inline-code"></block> 索引標籤、開啟工作以檢閱詳細資料。</block>
+  <block id="edcbcb1388308ea29897aeba4d67d61c" category="paragraph"><block ref="edcbcb1388308ea29897aeba4d67d61c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f8dc42fb122639d83a29d4d65e2b815e" category="list-text">從 DB VM ora_02 、驗證在成功還原之後、刪除的資料表是否已恢復。</block>
+  <block id="82459660e8d561fc463b49540987f53f" category="section-title">資料庫複製</block>
+  <block id="f6e7e97c5e19c813d868b9fef1ce8249" category="paragraph">在此範例中、相同的備份集是用來在不同的 Oracle_home 中、於同一個 VM 上複製資料庫。如果需要、這些程序同樣適用於從備份複製資料庫、以在 VMC 中分離 VM 。</block>
+  <block id="166b0369d9dcd60c22b00908c9989b23" category="list-text">開啟資料庫 cdb3 備份清單。從您選擇的資料備份中、按一下<block ref="ff24590464659ee8cdec688128c35f89" prefix=" " category="inline-code"></block> 啟動資料庫複製工作流程的按鈕。</block>
+  <block id="8884a3b01304139dad7b903ad06a0400" category="paragraph"><block ref="8884a3b01304139dad7b903ad06a0400" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="26e18e582adb0a52168bd3417e7e507d" category="list-text">命名複製資料庫的 SID 。</block>
+  <block id="020ba895c5ede4e323c57c02fda1d9bd" category="paragraph"><block ref="020ba895c5ede4e323c57c02fda1d9bd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1864ca75c3d9655e9c9c1fb1fea390df" category="list-text">在 VMC 中選取 VM 作為目標資料庫主機。應已在主機上安裝並設定相同的 Oracle 版本。</block>
+  <block id="f2d475f0f2d0c03930fdfb87708ed66b" category="paragraph"><block ref="f2d475f0f2d0c03930fdfb87708ed66b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c1b5c3a41783f4011163cf3a7694f36d" category="list-text">在目標主機上選取適當的 Oracle_Home 、使用者和群組。將認證設為預設值。</block>
+  <block id="9babaecbfa4c55df35c955ca48c71e0d" category="paragraph"><block ref="9babaecbfa4c55df35c955ca48c71e0d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="991df28ae4ba0a10c1ae7d1cc1ea3292" category="list-text">變更複製資料庫參數、以符合複製資料庫的組態或資源需求。</block>
+  <block id="c6ca5ba171b4aa097ee12c8c90bdf3de" category="paragraph"><block ref="c6ca5ba171b4aa097ee12c8c90bdf3de" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="73ec64d1d5561a05f8953f32ccc418e3" category="list-text">選擇恢復範圍。<block ref="e6cb3190c21226943d9002045ab8a93a" prefix=" " category="inline-code"></block> 在備份集中恢復到最後一個可用日誌文件的克隆。</block>
+  <block id="582f52e16891639865aa1d539ebc46aa" category="paragraph"><block ref="582f52e16891639865aa1d539ebc46aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9f940cd9350acca488dc054b4cb0fd9e" category="list-text">檢閱摘要並啟動複製工作。</block>
+  <block id="35103de66034af2bc4c3bb0e027bc3b5" category="paragraph"><block ref="35103de66034af2bc4c3bb0e027bc3b5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a6aaccd301944bbd2ed25852fb0e705a" category="list-text">從監控複製工作的執行<block ref="d2986ac8cb6bd55892099c1ffd6b1f6f" prefix=" " category="inline-code"></block> 索引標籤。</block>
+  <block id="efc1edfade1fbd6646dda59463983b2c" category="paragraph"><block ref="efc1edfade1fbd6646dda59463983b2c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4eb7f9133e0f7dd8abfb2b1a117e57d8" category="list-text">複製的資料庫會立即在 SnapCenter 中登錄。</block>
+  <block id="aee2043864cad9a081fa4672728b956c" category="paragraph"><block ref="aee2043864cad9a081fa4672728b956c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="65640816580ff72a56a1081922993c9f" category="list-text">從 DB VM ora_02 中、複製的資料庫也會在 Oracle 重新啟動網格控制項中登錄、而刪除的測試表格則會在複製的資料庫 cdb3tst 中復原、如下所示。</block>
+  <block id="9f6329a70dd516951fa70a4f7a3a10ea" category="paragraph">這完成了 SnapCenter 在 AWS 上的 VMC SDDC 中備份、還原及複製 Oracle 資料庫的示範。</block>
+  <block id="ac9c0a61f41745e8c77a713ddf6821eb" category="list-text">VMware Cloud on AWS 文件</block>
+  <block id="c795642cf5dd34e946fb3142d8f52288" category="inline-link-macro"><block ref="c795642cf5dd34e946fb3142d8f52288" category="inline-link-rx"></block></block>
+  <block id="450d2faa3005c2b5ef481da0fa99a49c" category="paragraph"><block ref="450d2faa3005c2b5ef481da0fa99a49c" category="inline-link-macro-rx"></block></block>
+  <block id="7a84a73fe9b54c9478dfc0e58c918688" category="paragraph">ASM （自動儲存管理）是許多 Oracle 安裝中常用的 Oracle 儲存 Volume Manager 。這也是 Oracle 推薦的儲存管理解決方案。它是傳統 Volume 管理程式和檔案系統的替代方案。從 Oracle 11g 版開始、 ASM 就會隨附網格基礎架構、而非資料庫。因此、若要在沒有 RAC 的情況下使用 Oracle ASM 進行儲存管理、您必須在獨立伺服器中安裝 Oracle 網格基礎架構、也稱為 Oracle 重新啟動。這樣做肯定會增加 Oracle 資料庫部署的複雜度。不過、顧名思義、當 Oracle 部署在重新啟動模式時、故障的 Oracle 服務會透過網格基礎架構自動重新啟動、或在主機重新開機之後、而無需使用者介入、這會提供一定程度的高可用度或 HA 功能。</block>
+  <block id="38c723472785b6d114cf9e85b7ffd3d1" category="list-text">* iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫尖峰 I/O 處理量需求、以便選擇同時符合應用程式和 iSCSI 流量處理量需求的正確 EC2 運算執行個體。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。</block>
+  <block id="c5b771b8234c127dccd38858c77e24a0" category="list-text">新增 ASM 群組、以用於 asm sysasm 群組。</block>
+  <block id="35a8e6f6e0f2c89cd450cda8861ac889" category="list-text">如果 Linux 防火牆處於作用中狀態、請停止並停用它。</block>
+  <block id="432e3219f8a15b5476e2e71941cc6e61" category="list-text">將 DB 恢復目的地大小設為 +logs 磁碟群組大小。</block>
+  <block id="d41392db0c7e69ca86a4c8f0c8bc2a8f" category="doc">TR-4981 ：使用 Amazon FSX ONTAP 降低 Oracle Active Data Guard 成本</block>
+  <block id="5afa567381b78444937fdc789ad61e1a" category="paragraph">如果您熱衷於降低 Oracle 資料庫作業的成本、並計畫在 AWS 中設定 Active Data Guard 、您應該考慮另一種方法。使用 Data Guard 取代 Active Data Guard 、將主要資料庫複寫到 Amazon FSX ONTAP 儲存設備上的單一實體待命資料庫。之後、可複製此待命資料庫的多個複本、並開啟以供讀寫存取、以處理許多其他使用案例、例如報告、開發、測試等 淨結果可有效提供 Active Data Guard 的功能、同時免除 Active Data Guard 授權、並為每個額外的備用資料庫增加額外的儲存成本。在本文件中、我們將示範如何在 AWS 中使用現有的主要資料庫來設定 Oracle Data Guard 、並將實體備用資料庫放置在 Amazon FSX ONTAP 儲存設備上。待機資料庫會透過快照進行備份、並視需要複製以進行讀取 / 寫入存取、以供使用案例使用。</block>
+  <block id="309cd12bd99b7c9e7ad680fcef778228" category="list-text">在 AWS 中任何儲存設備上的主要資料庫之間建立 Oracle Data Guard 、以在 Amazon FSX ONTAP 儲存設備上建立待命資料庫。</block>
+  <block id="1aadf275ee5a04d3c8ffb5a23e3f8f9b" category="cell">11/27/2023</block>
+  <block id="42f7b826cf30e5551e1f39ed1fa60120" category="paragraph">[ 底線 ]#* 適用於 Oracle 資料庫的影片 *#</block>
+  <block id="7c0e65d458719c1a00061043a5c9b695" category="video-title">在 NetApp ASA 上使用 iSCSI 簡化並自動化 Oracle 部署</block>
+  <block id="f42a1319fb57cedbad32a23e45ec11fc" category="video-title">第 1 部分：在 AWS 和 FSX 中使用混合雲進行 Oracle 現代化</block>
+  <block id="91935697a3dec69875fc666d39a8fef8" category="sidebar">在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle</block>
+  <block id="8add5603a4a488cc171276dbbbed71ea" category="sidebar">使用 AWS FSX ONTAP 降低 Oracle Active Data Guard 成本</block>
+  <block id="8d4ab3d80a936103be6c5ad407f12335" category="sidebar">Oracle in VMware Cloud on AWS with guest-mounted FSX ONTAP</block>
+  <block id="998e18ee910f7610303d504847d5f06d" category="sidebar">使用 Amazon FSX ONTAP 降低 Oracle Active Data Guard 成本</block>
 </blocks>

@@ -4,7 +4,7 @@ permalink: databases/aws_ora_fsx_ec2_data_guard.html
 keywords: Oracle, AWS, FSx ONTAP, FSx, Database, Oracle 19c, Data Guard 
 summary: 本解決方案提供使用 AWS FSX ONTAP 做為備用站台的 Oracle 資料庫儲存設備來設定 Oracle Data Guard 的概述與詳細資料、以降低 AWS 中 Oracle Data Guard HA/DR 解決方案的授權與營運成本。 
 ---
-= TR-4981 ：使用 AWS FSX ONTAP 、有效降低資料保護成本
+= TR-4981 ：使用 Amazon FSX ONTAP 降低 Oracle Active Data Guard 成本
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -21,11 +21,11 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 Oracle Data Guard 可確保在主要資料庫和待命資料庫複寫組態中、為企業資料提供高可用度、資料保護和災難恢復。Oracle Active Data Guard 可讓使用者存取待命資料庫、同時從主要資料庫到待命資料庫的資料複寫處於作用中狀態。Data Guard 是 Oracle Database Enterprise Edition 的一項功能。它不需要個別授權。另一方面、 Active Data Guard 是 Oracle Database Enterprise Edition 選項、因此需要另行授權。在 Active Data Guard 設定中、多個待命資料庫可以從主要資料庫接收資料複寫。不過、每個額外的待命資料庫都需要 Active Data Guard 授權、並需要額外的儲存空間作為主要資料庫的大小。營運成本迅速增加。
 
-如果您熱衷於降低 Oracle 資料庫作業的成本、並計畫在 AWS 中設定 Active Data Guard 、您應該考慮另一種方法。使用 Data Guard 取代 Active Data Guard 、將主要資料庫複寫到 AWS FSX ONTAP 儲存設備上的單一實體待命資料庫。之後、可複製此待命資料庫的多個複本、並開啟以供讀寫存取、以處理許多其他使用案例、例如報告、開發、測試等 淨結果可有效提供 Active Data Guard 的功能、同時免除 Active Data Guard 授權、並為每個額外的備用資料庫增加額外的儲存成本。在本文件中、我們將示範如何在 AWS 中使用現有的主要資料庫來設定 Oracle Data Guard 、並將實體待命資料庫放置在 AWS FSX ONTAP 儲存設備上。待機資料庫會透過快照進行備份、並視需要複製以進行讀取 / 寫入存取、以供使用案例使用。
+如果您熱衷於降低 Oracle 資料庫作業的成本、並計畫在 AWS 中設定 Active Data Guard 、您應該考慮另一種方法。使用 Data Guard 取代 Active Data Guard 、將主要資料庫複寫到 Amazon FSX ONTAP 儲存設備上的單一實體待命資料庫。之後、可複製此待命資料庫的多個複本、並開啟以供讀寫存取、以處理許多其他使用案例、例如報告、開發、測試等 淨結果可有效提供 Active Data Guard 的功能、同時免除 Active Data Guard 授權、並為每個額外的備用資料庫增加額外的儲存成本。在本文件中、我們將示範如何在 AWS 中使用現有的主要資料庫來設定 Oracle Data Guard 、並將實體備用資料庫放置在 Amazon FSX ONTAP 儲存設備上。待機資料庫會透過快照進行備份、並視需要複製以進行讀取 / 寫入存取、以供使用案例使用。
 
 本解決方案可解決下列使用案例：
 
-* 在 AWS 中任何儲存設備上的主要資料庫之間建立 Oracle Data Guard 、以在 AWS FSX ONTAP 儲存設備上建立待命資料庫。
+* 在 AWS 中任何儲存設備上的主要資料庫之間建立 Oracle Data Guard 、以在 Amazon FSX ONTAP 儲存設備上建立待命資料庫。
 * 在關閉的情況下複製待命資料庫、以供資料複寫使用、例如報告、開發、測試等
 
 
