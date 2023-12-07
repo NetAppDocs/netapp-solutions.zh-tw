@@ -20260,7 +20260,6 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="a72cdbea9b76d7b6bbbdf396dd2634e3" category="inline-link-macro">NetApp 主廚食譜</block>
   <block id="85248cff92afa610864cea6879da1e1c" category="inline-link-macro">ONTAP Puppet 模組</block>
   <block id="f85439e6fd58c2c10bb7b6282043d280" category="cell">2023 年 9 月 29 日</block>
-  <block id="4fc5b080fafbd5903f95a5c2e4e35bd3" category="cell">新增 TR-4981 ：使用 AWS FSX ONTAP 、有效降低資料保護成本</block>
   <block id="273d67a1e8ae0816e130d8995b509b2b" category="inline-link-macro">DataOps 工具套件</block>
   <block id="f93ce65f1991e25180482bf92d805e27" category="paragraph">以下是一些可與 VMware Aria 整合的額外資源。
 <block ref="dda17c7c890517ceeb30661fbdc5a21b" category="inline-link-macro-rx"></block>
@@ -20462,7 +20461,6 @@ VASA Provider 7.1 首度提供最大 IOPS 、可將未知工作負載的 IOPS �
   <block id="66dad052ac40ee68d24cc33be0c024b6" category="sidebar">AWS FSX ONTAP 和 EC2 資源配置</block>
   <block id="e3ce8983bc629b4ee630222fd3aa446f" category="sidebar">AWS 中的 PostgreSQL 部署</block>
   <block id="41d1f90d40c880117fe398482ef683dd" category="sidebar">Oracle 資料保護</block>
-  <block id="01a5e447db651c94d485cf1d5981801d" category="sidebar">Oracle 部署</block>
   <block id="d24600498de924ea279e7306aaa43ca0" category="sidebar">Oracle RAC 部署</block>
   <block id="c712825b20324ef1f5b77e495f50777c" category="list-text">返回 AWS Lambda 函數 &gt; * 新增圖層 * &gt; * 自訂圖層 * 、然後新增公用程式圖層。</block>
   <block id="8c3dbb053dda6aee3d1fc3bfcc03f78a" category="cell">（必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
@@ -21003,4 +21001,81 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="8d4ab3d80a936103be6c5ad407f12335" category="sidebar">Oracle in VMware Cloud on AWS with guest-mounted FSX ONTAP</block>
   <block id="998e18ee910f7610303d504847d5f06d" category="sidebar">使用 Amazon FSX ONTAP 降低 Oracle Active Data Guard 成本</block>
   <block id="10d41f38bc95cdeefa9cfa148ff3ce23" category="paragraph">請造訪 <block ref="401ec48193c76b048983762f48444f2d" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="99fe6df2c175c51f618b547c9c5531ab" category="cell">12/07/2023</block>
+  <block id="9f46a807ff699639e2cc7823e6e6af0c" category="cell">TR-4983 ：簡化的自動化 Oracle 部署、可在 NetApp ASA 上搭配 iSCSI</block>
+  <block id="a7577b3ed39dfbe88f44ad4e9ecf9d33" category="cell">新增 TR-4981 ：使用 AWS FSX ONTAP 降低 Oracle Active Data Guard 成本</block>
+  <block id="6fe128158b3a49eb57fa5fd65f346285" category="summary">本解決方案提供 NetApp ASA 陣列中自動化 Oracle 部署與保護的概觀與詳細資料、以做為主要資料庫儲存設備、並以磁碟區管理程式的形式、在獨立重新啟動時設定 iSCSI 傳輸協定和 Oracle 資料庫。</block>
+  <block id="48b1c35e5d3a9a7a6193997c19dc15c4" category="paragraph">NetApp ASA 系統為您的 SAN 基礎架構提供現代化的解決方案。它們可簡化規模、讓您加速資料庫等業務關鍵應用程式、確保資料隨時可用（ 99.9999 % 的正常運作時間）、並減少 TCO 和碳足跡。NetApp ASA 系統包括專為效能需求最高的應用程式所設計的 A 系列機型、以及針對具成本效益的大容量部署而最佳化的 C 系列機型。ASA A 系列和 C 系列系統結合在一起、可提供卓越的效能、以改善客戶體驗、縮短達成成果的時間、維持業務關鍵資料的可用性、保護及安全性、並為任何工作負載提供更有效的容量、並享有業界最有效的保證。</block>
+  <block id="11a7a6f75b72d76fae23c2f7ac91e083" category="paragraph">本文件說明如何在使用 Ansible 自動化技術的 ASA 系統所建置的 SAN 環境中、簡化 Oracle 資料庫的部署。Oracle 資料庫部署在獨立式重新啟動組態中、並採用 iSCSI 傳輸協定進行資料存取、而 Oracle ASM 則用於 ASA 儲存陣列上的儲存管理。我們也會示範如何使用 NetApp SnapCenter UI 工具來備份、還原及複製 Oracle 資料庫、以供開發 / 測試、或是在 NetApp ASA 系統中執行儲存效率高的資料庫作業的其他使用案例。</block>
+  <block id="5e1389ae5f652921b9ffd76077a35898" category="list-text">在 NetApp ASA 系統中自動化部署 Oracle 資料庫、做為主要資料庫儲存設備</block>
+  <block id="2904575eaf0239e26839c87b5886427e" category="list-text">使用 NetApp SnapCenter 工具在 NetApp ASA 系統中進行 Oracle 資料庫備份與還原</block>
+  <block id="c9a02887c464e3024b4e7b8853bd3731" category="list-text">使用 NetApp SnapCenter 工具的 NetApp ASA 系統中用於開發 / 測試的 Oracle 資料庫複製、或其他使用案例</block>
+  <block id="475d53db06ccc49c194cd167ad6b6a7c" category="list-text">DBA 希望在 NetApp ASA 系統中部署 Oracle 。</block>
+  <block id="489fc03d48bb97d0eaaf947d524863e3" category="list-text">想要在 NetApp ASA 系統中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
+  <block id="48b96d37ce8b7763e19ce55ff6b38bbc" category="list-text">想要在 NetApp ASA 系統上部署及管理 Oracle 資料庫的儲存管理員。</block>
+  <block id="4d9a01e17799c2443651952a5571e588" category="list-text">想要在 NetApp ASA 系統中備份 Oracle 資料庫的應用程式擁有者。</block>
+  <block id="0e9eaa00642412ade40b8fd3a255bf04" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、可能與最終部署環境不符。請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="50ca835c71c489ce33e359fe138d33a1" category="cell">NetApp ASA A400</block>
+  <block id="4fec937db99b8a74dd5bef9285d0e4c0" category="cell">9.13.1P1 版</block>
+  <block id="37f8b8f146367f24cfb85a152645d03f" category="cell">2 個 NS224 機櫃、 48 個 NVMe AFF 磁碟機、共 69.3 TiB 容量</block>
+  <block id="9c08b0397caf8f25e294bcbc2a0e51e0" category="cell">UCSSB-B200-M4</block>
+  <block id="e2ff57aae17fb4ecdf52974845c54701" category="cell">Intel （ R ） Xeon （ R ） CPU E5-2690 v4 @ 2.60GHz</block>
+  <block id="c491601abe9558a73f61ab26d912bb5f" category="cell">4 節點 VMware ESXi 叢集</block>
+  <block id="f53b4e7c2027602d331a4c185b942cc0" category="cell">VMware vSphere Hypervisor</block>
+  <block id="1b0ad5208e7d764ed80119ac20af542d" category="cell">6.5.0.20000 版</block>
+  <block id="696ee8cdabfa8fdd24a026188354d0b7" category="section-title">實驗室環境中的 Oracle 資料庫組態</block>
+  <block id="96767712a689a097a11e94abd86cc050" category="cell">NTAP1 （ NTAP1_PDB1 、 NTAP1_PDB2 、 NTAP1_PDB3 ）</block>
+  <block id="4fb5214b8185c21390fdea76917c92a6" category="cell">ASA A400 上的 iSCSI LUN</block>
+  <block id="46be4f57ab41b19252133f7da26ea98c" category="cell">NTAP2 （ NTAP2_PDB1 、 NTAP2_PDB2 、 NTAP2_PDB3 ）</block>
+  <block id="b0398625aacfb5d5b9822b7812c9b00b" category="list-text">* Oracle 資料庫儲存配置。 * 在這項自動化 Oracle 部署中、我們預設會配置四個資料庫磁碟區來主控 Oracle 二進位、資料和記錄檔。然後我們會從資料和記錄 LUN 建立兩個 ASM 磁碟群組。在 +data asm 磁碟群組中、我們會在每個 ASA A400 叢集節點的磁碟區中配置兩個資料 LUN 。在 +logs asm 磁碟群組中、我們會在單一 ASA A400 節點的記錄磁碟區中建立兩個 LUN 。在 ONTAP 磁碟區內配置多個 LUN 、整體效能更佳。</block>
+  <block id="0d4f29ed9e7a7e62ee7c1007f59cf4fd" category="list-text">* 部署多部 DB 伺服器。 * 自動化解決方案可在單一 Ansible 教戰手冊中、將 Oracle 容器資料庫部署至多部 DB 伺服器。無論資料庫伺服器的數量為何、教戰手冊的執行方式都會維持不變。在多重 DB 伺服器部署的情況下、教戰手冊會以演算法建立、以最佳化方式將資料庫 LUN 放置在 ASA A400 的雙控制器上。在控制器 1 上的伺服器主機索引位置中、二進位和記錄 ODD 編號 DB 伺服器的 LUN 。在控制器 2 上的伺服器主機索引位置中、二進位和記錄偶數 DB 伺服器的 LUN 。DB 資料 LUN 平均分散到兩個控制器。Oracle ASM 將兩個控制器上的資料 LUN 合併為單一 ASM 磁碟群組、以充分利用兩個控制器的處理能力。</block>
+  <block id="d736c1553b176f562bec3a52c7666a46" category="list-text">* iSCSI 組態。 * 資料庫 VM 會使用 iSCSI 傳輸協定連線至 ASA 儲存設備以進行儲存存取。您應該在每個控制器節點上設定雙路徑以實現備援、並在 DB 伺服器上設定 iSCSI 多路徑以進行多路徑儲存存取。在儲存網路上啟用巨型框架、以最大化效能和處理量。</block>
+  <block id="324218b4c8087f7e5c5645ab81e7e37f" category="list-text">* 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 因為 ASA A400 會在 RAID DP 中設定儲存設備、以便在叢集磁碟層級進行資料保護、因此您應該使用<block ref="1f9ad4982cbae9fb459c61ba4e63bac9" prefix=" " category="inline-code"></block>，這表示該選項不允許 Oracle ASM 鏡像磁碟群組的內容。</block>
+  <block id="e75571d5f211bacdfc757d78a94b1174" category="paragraph">以下各節提供在 NetApp ASA A400 中進行自動化 Oracle 19c 部署與保護的逐步程序、透過 iSCSI 將資料庫 LUN 直接掛載至 DB VM 、並以 Oracle ASM 作為資料庫 Volume Manager 重新啟動組態。</block>
+  <block id="2b6209b8cfa6394be638dd05678f5955" category="inline-link-macro">詳細指南 - ASA A400</block>
+  <block id="31204f552767acd2692e7c823fa43de2" category="list-text">假設 NetApp ASA 儲存陣列已安裝並設定完成。這包括 iSCSI 廣播網域、兩個控制器節點上的 LACP 介面群組 a0a 、兩個控制器節點上的 iSCSI VLAN 連接埠（ &lt;iscsi-a-vlan-id&gt; 、 &lt;iscsi-b-vlan-id&gt; ）。如果需要協助、以下連結提供詳細的逐步指示。 <block ref="dac36656cf4136f69adb63b41114dcfc" category="inline-link-macro-rx"></block></block>
+  <block id="bfadbe7fafa688587cf6d17bde739aca" category="list-text">在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： <block ref="d576fa25882e2898cbf3f4c87dd84dd3" category="inline-link-macro-rx"></block> 在第 - 節中<block ref="3d45b043c5518eca1e47fb4ba8a813da" prefix=" " category="inline-code"></block> 或<block ref="2afb5cc3404c6c8162722fd41895c2de" prefix=" " category="inline-code"></block>。</block>
+  <block id="4b7f6d2449e34b4ea603f0da9f1fbe25" category="list-text">複製適用於 iSCSI 的 NetApp Oracle 部署自動化工具套件複本。</block>
+  <block id="21b9d06e7d54191458538a265ac76c29" category="list-text">佈建 Windows 伺服器以使用最新版本執行 NetApp SnapCenter UI 工具。如需詳細資訊、請參閱下列連結： <block ref="131e9eb1b10c693e5b08c2ea655bbc23" category="inline-link-macro-rx"></block></block>
+  <block id="708e23b82d10932400d291c3e2b3bc71" category="list-text">建置兩部 RHEL Oracle DB 伺服器、無論是裸機或虛擬化 VM 。在 DB 伺服器上建立不含密碼權限的管理員使用者、並在 Ansible 主機和 Oracle DB 伺服器主機之間啟用 SSH 私密 / 公開金鑰驗證。在 DB 伺服器 /tmp/archive 目錄上執行 Oracle 19c 安裝檔案之後的階段。</block>
+  <block id="bed197af3286bd48fb98fb5ab7c412e8" category="admonition">請確定您已在 Oracle VM 根磁碟區中至少分配 50 g 的空間、以便有足夠的空間來存放 Oracle 安裝檔案。</block>
+  <block id="c7cce81dff9cf2d89de25a04e65022ff" category="list-text">觀看下列影片：</block>
+  <block id="0d7d691fad590aa9a630443ea67bd9e3" category="section-title">自動化參數檔案</block>
+  <block id="fba0c848a47cb6bb0240eff0160df8c6" category="paragraph">Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工作。對於此 Oracle 自動化解決方案、有三個使用者定義的參數檔案需要使用者輸入才能執行教戰手冊。</block>
+  <block id="855c2f749e58e35ceee58f4017dc530f" category="list-text">主機：定義自動化教戰手冊所針對的目標。</block>
+  <block id="6f45aa108f0f48a8f2287aacfb4783b0" category="list-text">VARS/vars.yml - 定義適用於所有目標的變數的全域變數檔案。</block>
+  <block id="472b525267a1a194a67c4917378fdee0" category="list-text">host_vars/host_name.yml - 定義僅套用至本機目標的變數的本機變數檔案。在我們的使用案例中、這些是 Oracle DB 伺服器。</block>
+  <block id="cab5395d741aa9c28cd5c2a21d7a0d82" category="paragraph">除了這些使用者定義的變數檔案之外、還有幾個預設變數檔案、其中包含預設參數、除非必要、否則不需要變更。下列各節說明如何設定使用者定義的變數檔案。</block>
+  <block id="20cc11da843aa0ce89fbbd78488ae8e4" category="section-title">參數檔組態</block>
+  <block id="d54f40d7ab3c0634ad1696cedcc056e5" category="list-text">Ansible 目標<block ref="85cf4e6d42a71e693fd780c8b29accdd" prefix=" " category="inline-code"></block> 檔案組態：</block>
+  <block id="5a4926a405d0ccf33e709fb7c676de97" category="list-text">全域<block ref="014d194d817c312b5ce910e74b4d3836" prefix=" " category="inline-code"></block> 檔案組態</block>
+  <block id="ca238f0541280751b05d697a897544e7" category="list-text">本機 DB 伺服器<block ref="0c83664bfb17d8d2c0bbc3551297e488" prefix=" " category="inline-code"></block> 組態</block>
+  <block id="3fde1508528c4b7e4e8ed67ccec6aa4a" category="section-title">教戰手冊執行</block>
+  <block id="14d9db80ea19110225e53e6d5acbfd0a" category="paragraph">自動化工具套件共有五本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。</block>
+  <block id="23dd50b88058bb1b19714aa9e0075a39" category="paragraph">有三個選項可用來執行具有下列命令的教戰手冊。</block>
+  <block id="878dc2221c24495a92fccb9bc9bbdab7" category="list-text">一次執行所有教戰手冊。</block>
+  <block id="349525a68f403cd1f88f72915b15991b" category="list-text">一次執行一個教戰手冊、編號順序為 1-4 。</block>
+  <block id="084e0a87eeeb8271a247c015eee77631" category="list-text">使用標記執行 0-all_playbook.yml 。</block>
+  <block id="a9b2ae37ad24a5f409f16a4e39642547" category="list-text">復原環境</block>
+  <block id="ea74dbc6158f42a810daaf43cd099b11" category="section-title">執行後驗證</block>
+  <block id="4a14bc710ed72d934f5ba41fcf17501d" category="paragraph">執行教戰手冊後、以 Oracle 使用者身分登入 Oracle DB 伺服器、以驗證 Oracle 網格基礎架構和資料庫是否已成功建立。以下是主機 ora_01 上 Oracle 資料庫驗證的範例。</block>
+  <block id="4bdbd55cbefd29d973edca906ecf6bb7" category="list-text">驗證建立的網格基礎架構和資源。</block>
+  <block id="a773c985c5b1ab20847bc20444a2ada8" category="admonition">忽略<block ref="6ea3b08636255f181e49cd8acbf4d75b" prefix=" " category="inline-code"></block> In State 詳細資料。這是因為與接聽程式發生手動和動態資料庫登錄衝突、因此可以安全地忽略。</block>
+  <block id="57f7f3c35be8fec41fec2c4cf2cd226c" category="list-text">驗證 ASM 篩選器驅動程式是否正常運作。</block>
+  <block id="04bd1d337fb9a151a616cc5294c0c92a" category="list-text">登入 Oracle Enterprise Manager Express 以驗證資料庫。</block>
+  <block id="5c77c055267014cd170539e91c06519a" category="image-alt">此映像提供 Oracle Enterprise Manager Express 的登入畫面</block>
+  <block id="85ebbf6138572e940325e081dbbe45e6" category="image-alt">此映像可從 Oracle Enterprise Manager Express 提供容器資料庫檢視</block>
+  <block id="daacada39b443fddce73dce4738f4337" category="image-alt">此映像可從 Oracle Enterprise Manager Express 提供 PDB 資料庫檢視</block>
+  <block id="46299f9ef7e8382bf68d338656e51ccb" category="paragraph">請參閱 TR-4979 <block ref="c20f17fc2e5f1396430a5d0ec62c8eda" category="inline-link-macro-rx"></block> 區段<block ref="d372b360dda93a1ed98b047b474a8d14" prefix=" " category="inline-code"></block> 如需如何設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、</block>
+  <block id="6a56c935b27efdd9e9fde9e036ca687b" category="list-text">NetApp ASA ： All Flash SAN 陣列</block>
+  <block id="fa78b7e09f15ae55ea12cbcb34d44847" category="inline-link-macro"><block ref="fa78b7e09f15ae55ea12cbcb34d44847" category="inline-link-rx"></block></block>
+  <block id="1d2dc43013dd6328b22d33484061bd50" category="paragraph"><block ref="1d2dc43013dd6328b22d33484061bd50" category="inline-link-macro-rx"></block></block>
+  <block id="2b77070b5c32e55f23537589ffd4f81f" category="list-text">將 Red Hat Enterprise Linux 8.2 與 ONTAP 搭配使用</block>
+  <block id="0a70ec939ee7a15f5b26fe9f48cb7667" category="inline-link-macro"><block ref="0a70ec939ee7a15f5b26fe9f48cb7667" category="inline-link-rx"></block></block>
+  <block id="b37dd5ca6d78b3f11a3df8e7a9070fac" category="paragraph"><block ref="b37dd5ca6d78b3f11a3df8e7a9070fac" category="inline-link-macro-rx"></block></block>
+  <block id="8c21b1cb48bb75d39598b2efc8c1246d" category="doc">TR-4979 ：在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle</block>
+  <block id="5803335e5bcae83badcbc5583ac2d60e" category="sidebar">在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上使用簡化的自我管理 Oracle</block>
+  <block id="366a32367c76504b66f48c17b771a662" category="sidebar">簡化的自動化 Oracle 部署、可在 NetApp ASA 上搭配 iSCSI 使用</block>
+  <block id="5d2006f876181f3b98ec7d5380af6e7b" category="sidebar">適用於 iSCSI 的 Oracle 部署</block>
+  <block id="2df63c64a06182bcc41618cc0e041735" category="sidebar">Oracle Deployment for NFS</block>
 </blocks>
