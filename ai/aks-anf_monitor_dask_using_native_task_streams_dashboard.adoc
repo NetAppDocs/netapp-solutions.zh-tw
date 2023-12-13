@@ -13,8 +13,6 @@ summary: 本頁說明如何使用原生工作串流儀表板來監控dask。
 :imagesdir: ./../media/
 
 
-link:aks-anf_load_day_15_in_dask_and_train_a_dask_cuml_random_forest_model.html["上一篇：在dask中載入第15天、並訓練dask cuML隨機樹系模型。"]
-
 [role="lead"]
 。 https://docs.dask.org/en/latest/scheduling.html["dask分散式排程器"^] 提供兩種形式的即時回饋：
 
@@ -29,5 +27,3 @@ image:aks-anf_image13.png["錯誤：缺少圖形影像"]
 您可以選擇分析個別工作、以毫秒為單位檢查執行時間、或找出任何障礙或阻礙。例如、下圖顯示隨機樹系模型擬合階段的工作串流。執行的功能相當多、包括用於DataFrame處理的獨特區塊、用於調整隨機樹系的_Constrature_RF等。大多數時間都花在DataFrame作業上、因為Criteo Click記錄中一天資料的大小（45GB）太大。
 
 image:aks-anf_image14.png["錯誤：缺少圖形影像"]
-
-link:aks-anf_training_time_comparison.html["下一步：訓練時間比較。"]

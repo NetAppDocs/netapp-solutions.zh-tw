@@ -13,8 +13,6 @@ summary: 在此驗證中、我們使用四部伺服器做為網路共用磁碟�
 :imagesdir: ./../media/
 
 
-link:bda-ai-data-mover-solution-for-ai.html["上一篇：AI的資料移動機解決方案。"]
-
 [role="lead"]
 在此驗證中、我們使用四部伺服器做為網路共用磁碟（NSD）伺服器、為GPFS提供實體磁碟。GPFS是在NSD磁碟上建立、以匯出為NFS匯出、讓NFS用戶端可以存取這些磁碟、如下圖所示。我們使用XCP將資料從GPFS匯出的NFS複製到NetApp NFS磁碟區。
 
@@ -87,5 +85,3 @@ GPFS使用下列節點類型：
 . 使用XCP將資料從GPFS匯出的NFS移至NetApp NFS。
 . 驗證NFS用戶端上的GPFS檔案。
 
-
-link:bda-ai-hdfs-and-mapr-fs-to-ontap-nfs.html["下一步：HDFS和MapR-FS移轉ONTAP 到Sfnfs。"]

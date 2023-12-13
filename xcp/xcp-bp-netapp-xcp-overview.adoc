@@ -13,8 +13,6 @@ summary: NetApp XCP使用多執行緒和可自訂功能來傳輸資料。它的�
 :imagesdir: ./../media/
 
 
-link:xcp-bp-introduction.html["上一篇：簡介。"]
-
 [role="lead"]
 NetApp XCP使用多執行緒和可自訂功能來傳輸資料。它的設計主要適用於三種使用案例：資料搬移或移轉、檔案系統分析、以及快速目錄樹狀結構刪除。
 
@@ -96,5 +94,3 @@ rpcinfo -p < NAS IP or on-prem nfs data LIF ip >
 . 最大檔案大小（預設為308 MB）可定義單一資料夾中的最大檔案數（約100萬）。增加最大大小值以增加檔案數。增加此值會影響額外的CPU週期。
 . 在雲端中、NetApp建議您在內部部署和雲端之間使用ExpressRoute（Azure）、Direct Connect（AWS）或Cloud Interconnect（GCP）。
 
-
-link:xcp-bp-migration-workflow-overview.html["下一步：移轉工作流程。"]

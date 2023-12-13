@@ -13,8 +13,6 @@ summary: AI的資料移轉解決方案是根據客戶處理AI作業Hadoop資料�
 :imagesdir: ./../media/
 
 
-link:bda-ai-data-mover-solution.html["上一篇：資料移動機解決方案。"]
-
 [role="lead"]
 AI的資料移轉解決方案是根據客戶處理AI作業Hadoop資料的需求而打造。NetApp使用NIPAM將資料從HDFS移至NFS。在一種使用案例中、客戶需要將資料移至內部部署的NFS、而另一位客戶則需要將資料從Windows Azure Storage Blob移至Cloud Volumes Service Suse、才能處理來自雲端GPU雲端執行個體的資料。
 
@@ -37,5 +35,3 @@ image:bda-ai-image4.png["錯誤：缺少圖形影像"]
 在此案例中、客戶在NAS系統的遠端位置擁有大量的檔案數資料、而在內部部署的NetApp儲存控制器上進行AI處理時、則需要這些資料。在此案例中、最好使用XCP移轉工具以更快的速度移轉資料。
 
 混合使用案例客戶可使用 BlueXP 複製與同步功能、將內部部署資料從 NFS 、 CIFS 和 S3 資料移轉至雲端、反之亦然、可使用 GPU （例如 NVIDIA 叢集中的 GPU ）進行 AI 處理。BlueXP 複製與同步和 XCP 移轉工具都是用於將 NFS 資料移轉至 NetApp ONTAP NFS 。
-
-link:bda-ai-gpfs-to-netapp-ontap-nfs.html["下一步：GPFS移轉至NetApp ONTAP Sfnfs。"]

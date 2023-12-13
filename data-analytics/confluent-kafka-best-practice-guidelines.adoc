@@ -13,9 +13,9 @@ summary: 本節將說明從本認證中學到的經驗教訓。
 :imagesdir: ./../media/
 
 
-link:confluent-kafka-confluent-kafka-rebalance.html["先前版本：Conflent自我重新平衡叢集。"]
-
 [role="lead"]
+本節將說明從本認證中學到的經驗教訓。
+
 * 根據我們的驗證結果、S3物件儲存設備最適合Connent來保存資料。
 * 我們可以使用高處理量SAN（特別是FC）來保留代理程式的熱資料或本機磁碟、因為在Conflent階層式儲存組態中、 代理資料目錄中的資料大小取決於資料移至物件儲存設備時的區段大小和保留時間。
 * 當sege.bytes較高時、物件存放區可提供較佳的效能；我們測試了512MB。
@@ -40,5 +40,3 @@ kafka-acls --bootstrap-server localhost:9092 --command-config adminclient-config
 NOTE: 將使用者「<Kafka>'」取代為部署中的實際代理主體。
 
 例如、命令「conflexe-層 狀態」會針對階層式儲存設備的內部主題設定ACL。目前只有一個與階層式儲存有關的內部主題。此範例會建立ACL、為內部主題的所有作業提供主要的Kafka權限。
-
-link:confluent-kafka-sizing.html["下一步：規模調整。"]

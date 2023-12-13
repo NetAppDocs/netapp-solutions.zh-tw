@@ -13,8 +13,6 @@ summary: NVIDIA AI Enterprise搭配NetApp和VMware -使用NVIDIA NGC軟體-範�
 :imagesdir: ./../media/
 
 
-link:nvaie_ngc_setup.html["上一步：設定。"]
-
 [role="lead"]
 本節說明在NVIDIA AI Enterprise環境中執行TensorFlow訓練工作所需執行的工作。
 
@@ -74,5 +72,3 @@ $ sudo docker run --gpus all -v ~/imagenet:/imagenet -it --rm nvcr.io/nvaie/tens
 $ python ./nvidia-examples/cnn/resnet.py --layers 50 -b 64 -i 200 -u batch --precision fp16 --data_dir /imagenet/data
 ....
 
-
-link:nvaie_additional_information.html["下一步：何處可找到其他資訊。"]

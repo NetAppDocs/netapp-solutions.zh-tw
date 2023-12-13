@@ -13,8 +13,6 @@ summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps ：可在
 :imagesdir: ./../media/
 
 
-link:ddlnexus_expose_netapp_vols.html["上一篇：將現有的 NetApp Volume 公開給 Domino 。"]
-
 [role="lead"]
 本節說明在不同運算環境中存取相同資料所需執行的工作。在 Domino MLOps 平台中、運算環境稱為「資料平面」。 如果資料位於一個資料平面的 NetApp Volume 上、但您需要在另一個資料平面中存取、請遵循本節所述的工作。這類情境通常稱為「爆增」、或是當目的地環境是雲端時、稱為「雲端爆增」。 處理受限或超額訂閱的運算資源時、通常需要此功能。例如、如果內部部署運算叢集訂閱過度、您可能會想要將工作負載排程到雲端、以便立即啟動。
 
@@ -134,5 +132,3 @@ image:ddlnexus_image4.png["錯誤：缺少圖形影像"]
 ==== 將目的地 Volume 暴露於 Domino 之後
 
 image:ddlnexus_image5.png["錯誤：缺少圖形影像"]
-
-link:ddlnexus_additional_information.html["下一步：其他資訊。"]

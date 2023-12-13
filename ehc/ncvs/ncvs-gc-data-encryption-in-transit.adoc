@@ -13,8 +13,6 @@ summary: 傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路�
 :imagesdir: ./../../media/
 
 
-link:ncvs-gc-data-plane-architecture.html["先前版本：資料平面架構。"]
-
 [role="lead"]
 傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路本身也會加密、如下列各節所述。
 
@@ -128,5 +126,3 @@ sec=krb5p uses Kerberos V5 for user authentication, integrity checking, and encr
 
 |===
 在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關NFS Kerberos如何顯示在封包擷取中的資訊、請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#packet-sniffing/trace-considerations["「封包偵測/追蹤考量。」"]
-
-link:ncvs-gc-data-encryption-at-rest.html["下一步：閒置資料加密。"]

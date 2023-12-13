@@ -13,8 +13,6 @@ summary: 本頁比較使用傳統Pandas的模型訓練時間與dask。對於Pand
 :imagesdir: ./../media/
 
 
-link:aks-anf_monitor_dask_using_native_task_streams_dashboard.html["上一步：使用原生工作串流儀表板監控dask。"]
-
 [role="lead"]
 本節比較使用傳統Pandas的模型訓練時間與dask。對於Pandas而言、由於處理時間變慢、因此載入的資料量較少、以避免記憶體溢位。因此、我們將結果插補以提供公平的比較。
 
@@ -41,5 +39,3 @@ link:aks-anf_monitor_dask_using_native_task_streams_dashboard.html["上一步：
 | 「激流勇進」：將第15天的全部20B列當作訓練資料 | 1小時12分鐘11秒 
 |===
 在上表中、您可以看到、透過使用配備DASK的PRUs將資料處理和模型訓練分散到多個GPU執行個體、相較於使用sciker-Learn模型訓練的傳統Pandas DataFrame處理、執行時間大幅縮短。此架構可在多節點、多GPU叢集內、在雲端及內部部署中進行橫向擴充。
-
-link:aks-anf_monitor_dask_and_rapids_with_prometheus_and_grafana.html["接下來：使用Prometheus和Grafana監控dask和水流。"]

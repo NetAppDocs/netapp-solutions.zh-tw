@@ -13,8 +13,6 @@ summary: 本節說明NFS伺服器和NFS用戶端解決此問題所需的一些�
 :imagesdir: ./../media/
 
 
-link:kafka-nfs-introduction.html["上一篇：簡介。"]
-
 [role="lead"]
 Kafka的建置假設基礎檔案系統符合POSIX標準：例如XFS或ext4。在應用程式仍在使用檔案時、Kafka資源重新平衡功能會移除檔案。符合POSIX標準的檔案系統可讓您繼續解除連結。不過、只有在所有檔案參考資料都消失之後、它才會移除檔案。如果基礎檔案系統是網路附加的、NFS用戶端會攔截取消連結的呼叫、並管理工作流程。由於在要取消連結的檔案上有擱置的開啟、NFS用戶端會將重新命名要求傳送至NFS伺服器、並在上次關閉未連結檔案時、對重新命名的檔案執行移除作業。這種行為通常稱為NFS ruted rame、由NFS用戶端協調。
 
@@ -27,5 +25,3 @@ NFS伺服器和NFS用戶端需要進行下列變更、才能解決這個「愚�
 
 
 上述NFS用戶端和伺服器的變更、讓Kafka能夠安全地享有網路附加NFS儲存設備的所有優點。
-
-link:kafka-nfs-functional-validation-silly-rename-fix.html["下一步：功能驗證-錯誤的重新命名修正。"]

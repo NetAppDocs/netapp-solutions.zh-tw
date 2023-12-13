@@ -13,10 +13,10 @@ summary: 對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和M
 :imagesdir: ./../media/
 
 
-link:bda-ai-gpfs-to-netapp-ontap-nfs.html["上一篇：GPFS對NetApp ONTAP 的SfNFS。"]
-
 [role="lead"]
-對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和MapR叢集資料移轉至ONTAP 不含NFS的情形。資料存放在MapR-FS和HDFS中。NetApp XCP推出一項新功能、可直接將資料從HDFS和MapR-FS等分散式檔案系統移轉至ONTAP 支援NFS。XCP使用非同步執行緒和HDFS C API呼叫來通訊和傳輸MapR-FS和HDFS的資料。下圖顯示資料從資料湖（HDFS）和MapR-FS移轉到ONTAP SNFS的資料。有了這項新功能、您不需要將來源匯出為NFS共用區。
+對於此解決方案、NetApp已驗證資料從資料湖（HDFS）和MapR叢集資料移轉至ONTAP 不含NFS的情形。資料存放在MapR-FS和HDFS中。NetApp XCP推出一項新功能、可直接將資料從HDFS和MapR-FS等分散式檔案系統移轉至ONTAP 支援NFS。XCP使用非同步執行緒和HDFS C API呼叫來通訊和傳輸MapR-FS和HDFS的資料。
+
+下圖顯示資料從資料湖（HDFS）和MapR-FS移轉到ONTAP SNFS的資料。有了這項新功能、您不需要將來源匯出為NFS共用區。
 
 image:bda-ai-image6.png["錯誤：缺少圖形影像"]
 
@@ -40,5 +40,3 @@ image:bda-ai-image6.png["錯誤：缺少圖形影像"]
 根據初始測試結果、我們獲得20Gbps的處理量、而且能夠每天傳輸2PB的資料。
 
 如需不將HDFS匯出至NFS的HDFS資料移轉詳細資訊、請參閱中的「部署步驟- NAS」一節 https://docs.netapp.com/us-en/netapp-solutions/xcp/xcp-bp-deployment-steps.html["TR-4863：TR-4863：NetApp XCP最佳實務準則：資料移轉、檔案移轉及分析"^]。
-
-link:bda-ai-business-benefits.html["下一步：商業效益。"]

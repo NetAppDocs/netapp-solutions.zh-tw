@@ -14,7 +14,8 @@ keywords: workflow, on premises, rbac, roles, permissions
 :imagesdir: ./../media/
 
 
-link:hybrid_dbops_snapcenter_getting_started.html["上一步：入門概述。"]
+[role="lead"]
+NetApp SnapCenter 解決方案支援工具使用角色型存取控制（RBAC）來管理使用者資源存取和權限授予、SnapCenter 而安裝此工具則可建立預先填入的角色。您也可以根據自己的需求或應用程式來建立自訂角色。
 
 
 
@@ -24,7 +25,7 @@ link:hybrid_dbops_snapcenter_getting_started.html["上一步：入門概述。"]
 
 === 1 SnapCenter 、設定資料庫管理員使用者
 
-NetApp SnapCenter 解決方案支援工具使用角色型存取控制（RBAC）來管理使用者資源存取和權限授予、SnapCenter 而安裝過程則會建立預先填入的角色。您也可以根據自己的需求或應用程式來建立自訂角色。針對支援的每個資料庫平台、使用專屬的管理員使用者ID進行SnapCenter 資料庫備份、還原及/或災難恢復是很合理的做法。您也可以使用單一ID來管理所有資料庫。在我們的測試案例和示範中、我們分別為Oracle和SQL Server建立專屬的管理使用者。
+針對支援的每個資料庫平台、使用專屬的管理員使用者ID進行SnapCenter 資料庫備份、還原及/或災難恢復是很合理的做法。您也可以使用單一ID來管理所有資料庫。在我們的測試案例和示範中、我們分別為Oracle和SQL Server建立專屬的管理使用者。
 
 某些SnapCenter 支援功能資源只能以SnapCenterAdmin角色來配置。然後可以將資源指派給其他使用者ID以供存取。
 
@@ -553,5 +554,3 @@ image:snapctr_job_status_sql.PNG["錯誤：缺少圖形影像"]
 image:snapctr_job_status_ora.PNG["錯誤：缺少圖形影像"]
 
 此時、雲端中的資料庫備份複本已準備好複製、以便在發生一線故障時執行開發/測試程序或進行災難恢復。
-
-link:hybrid_dbops_snapcenter_getting_started_aws.html["下一步：AWS公有雲入門。"]

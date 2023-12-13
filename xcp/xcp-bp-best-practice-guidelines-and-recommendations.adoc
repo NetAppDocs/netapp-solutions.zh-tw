@@ -13,8 +13,6 @@ summary: 本節包含使用NetApp XCP移轉資料的最佳實務做法、準則�
 :imagesdir: ./../media/
 
 
-link:xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.html["先前版本：將CIFS資料從來源儲存設備的ACL移轉至ONTAP"]
-
 [role="lead"]
 * 使用IMT 支援的XCP用戶端作業系統。支援的客戶端符合NetApp資格。IMT
 * 在Linux作業系統中以root使用者身分執行XCP、以執行移轉。您可以以Sudo使用者的身分執行XCP命令、但XCP不支援此命令。
@@ -24,5 +22,3 @@ link:xcp-bp-cifs-data-migration-with-acls-from-a-source-storage-box-to-ontap.htm
 * 如果您執行的是以快照為基礎的移轉、則最好繼續以快照為基礎的移轉、直到轉換為止。
 * 如果您有超過1000萬個檔案、而且遞增資料變更率超過50%、則最佳做法是使用比安裝與管理指南中最低建議更高的核心數和更多記憶體。
 
-
-link:xcp-bp-troubleshooting.html["下一步：疑難排解。"]

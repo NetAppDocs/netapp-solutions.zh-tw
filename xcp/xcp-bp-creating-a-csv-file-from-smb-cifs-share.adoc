@@ -13,8 +13,6 @@ summary: 本節中的命令會以CSV格式傾印資料。您可以加總「大�
 :imagesdir: ./../media/
 
 
-link:xcp-bp-specific-date-based-scan-and-copy-of-data.html["上一頁：特定日期型掃描與資料複本。"]
-
 [role="lead"]
 下列命令會以CSV格式傾印資料。您可以加總「大小」欄、以取得資料的總大小。
 
@@ -38,5 +36,3 @@ erase\report_av_fp_cdot_crosstab.csvreport_av_fp_cdot_crosstab.csv20-01-29-10:26
 xcp scan -match “type == d” -depth 3 -fmt "'{}, {}, {}, {}'.format(name, relpath, size)" NFS_Server_IP:/share > directory_report.csv
 ....
 這是使用「-fmt」命令的自訂報告。它會掃描所有目錄、並將目錄的名稱、路徑和大小傾印到CSV檔案中。您可以從試算表應用程式排序「大小」欄。
-
-link:xcp-bp-data-migration-from-7-mode-to-ontap.html["下一步：資料從7-Mode移轉至ONTAP VMware。"]

@@ -13,8 +13,6 @@ summary: 內部部署時、我們使用NetApp AFF 的VMware RC20a儲存控制器
 :imagesdir: ./../media/
 
 
-link:kafka-nfs-performance-overview-and-validation-in-aws.html["上一篇：AWS的效能總覽與驗證。"]
-
 [role="lead"]
 內部部署時、我們使用NetApp AFF VMware不支援ONTAP VMware的儲存控制器搭配VMware不支援套件（更新版本）來驗證Kafka叢集的效能與擴充性。我們使用的測試平台與ONTAP 先前採用的階層式儲存最佳實務做法相同、只要搭配使用即可AFF 。
 
@@ -190,4 +188,3 @@ max(t[cluster]) <= max(t[storage]) * #brokers/r
 
 | 1. | 10.2 
 |===
-link:kafka-nfs-conclusion.html["下一步：結論。"]

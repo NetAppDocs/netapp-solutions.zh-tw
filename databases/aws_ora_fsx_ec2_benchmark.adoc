@@ -14,8 +14,6 @@ keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter
 :imagesdir: ./../media/
 
 
-link:aws_ora_fsx_ec2_mgmt.html["先前版本：Oracle資料庫管理。"]
-
 [role="lead"]
 此效能驗證的目標不是設定任何標記。相反地、如果您遵循本文件所述的部署程序和最佳實務做法、您可以預期在公有雲上部署Oracle資料庫時、也會有類似的效能指標。
 
@@ -104,5 +102,3 @@ image:aws_ora_fsx_ec2_swin_04.PNG["錯誤：缺少圖形影像"]
 image:aws_ora_fsx_ec2_swin_05.PNG["錯誤：缺少圖形影像"]
 
 當Oracle伺服器EC2執行個體成為限制因素時、我們並未達到以IOPS或處理量為單位的已配置FSX儲存容量。因此、您必須根據使用者應用程式層級的交易磁碟區、適當調整運算和儲存容量、如本節所示 link:aws_ora_fsx_ec2_factors.html["Oracle資料庫部署的考量因素。"]
-
-link:aws_ora_fsx_ec2_migration.html["下一步：資料庫移轉。"]

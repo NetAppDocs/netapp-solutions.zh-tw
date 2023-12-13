@@ -13,8 +13,6 @@ summary: 所有的流通量Cloud Volumes Service 均使用AES-256加密進行閒
 :imagesdir: ./../../media/
 
 
-link:ncvs-gc-data-encryption-in-transit.html["上一篇：傳輸中的資料加密。"]
-
 [role="lead"]
 所有的流通量Cloud Volumes Service 均使用AES-256加密進行閒置加密、這表示寫入媒體的所有使用者資料都會加密、而且只能使用每個磁碟區的金鑰來解密。
 
@@ -25,5 +23,3 @@ link:ncvs-gc-data-encryption-in-transit.html["上一篇：傳輸中的資料加�
 自2021年11月起、客戶管理的加密金鑰（CMEK）功能已可供預覽。這可讓您使用裝載於的每個專案個別區域主金鑰來加密每個Volume金鑰 https://cloud.google.com/kms/docs["Google金鑰管理服務（KMS）。"^] KMS可讓您附加外部金鑰管理程式。
 
 如需設定KMS以獲得CVS效能的相關資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/customer-managed-keys?hl=en_US["設定客戶管理的加密金鑰"^]。
-
-link:ncvs-gc-firewall.html["下一步：防火牆。"]

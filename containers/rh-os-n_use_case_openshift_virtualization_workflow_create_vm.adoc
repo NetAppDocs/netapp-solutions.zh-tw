@@ -39,5 +39,3 @@ image::redhat_openshift_image54.JPG[建立VM]
 
 
 當從URL或登錄設定範本或作業系統的開機來源時、會在「openshift-virtualization作業系統映像」專案中建立一個PVc、並將KVM來賓映像下載至PVc。您必須確定範本PVCS有足夠的資源配置空間、以容納對應作業系統的KVM來賓映像。這些PVCS隨後會以rootdisks的形式複製並附加至虛擬機器、並在任何專案中使用各自的範本建立。
-
-link:rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html["下一步：工作流程：VM即時移轉。"]

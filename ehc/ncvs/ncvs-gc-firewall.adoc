@@ -13,8 +13,6 @@ summary: 可公開多個TCP連接埠以服務NFS和SMB共用。Cloud Volumes Ser
 :imagesdir: ./../../media/
 
 
-link:ncvs-gc-data-encryption-at-rest.html["上一篇：閒置資料加密。"]
-
 [role="lead"]
 可公開多個TCP連接埠以服務NFS和SMB共用：Cloud Volumes Service
 
@@ -27,5 +25,3 @@ link:ncvs-gc-data-encryption-at-rest.html["上一篇：閒置資料加密。"]
 使用分配給的CIDR範圍內的IP位址、即可將其移出Cloud Volumes Service `gcloud compute address` 命令的同時 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en_US["登入Cloud Volumes Service 時"^]。您可以使用此CIDR做為來源位址、為Active Directory網域控制器設定傳入防火牆。
 
 Active Directory網域控制器必須具備 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["請依照Cloud Volumes Service 此處所述、將連接埠公開給這些開發署"^]。
-
-link:ncvs-gc-nas-protocols_overview.html["下一步：NAS傳輸協定總覽。"]

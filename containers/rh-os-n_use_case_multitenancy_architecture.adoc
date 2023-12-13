@@ -59,5 +59,3 @@ image::redhat_openshift_image40.jpg[Red Hat OpenShift叢集上的多租戶共享
 由於儲存類別並非命名資源、我們如何確保另一個命名空間或專案中的Pod對某個專案的儲存類別提出的要求遭到拒絕？答案是使用資源配額。資源配額是控制每個專案資源總使用量的物件。它可以限制專案中物件可耗用的資源數量和總容量。使用資源配額幾乎可以限制專案的所有資源、而且有效率地使用資源、有助於組織降低因資源過度配置或過度使用而造成的成本與中斷。請參閱文件 https://docs.openshift.com/container-platform/4.7/applications/quotas/quotas-setting-per-project.html["請按這裡"^] 以取得更多資訊。
 
 在此使用案例中、我們需要限制特定專案中的Pod、使其無法從非專屬專案的儲存類別中申請儲存設備。為達成此目標、我們必須將「<storage-class-name>.storageclass.storage.k8s.io/永久性 磁碟區」設為0、以限制其他儲存類別的持續磁碟區宣告。此外、叢集管理員必須確保專案中的開發人員不應擁有修改資源配額的存取權。
-
-link:rh-os-n_use_case_multitenancy_configuration.html["下一步：組態。"]

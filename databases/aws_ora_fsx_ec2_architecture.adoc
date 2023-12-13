@@ -14,8 +14,6 @@ keywords: architecture, Oracle RDS, RDS, FSx ONTAP, FSx, AWS, Oracle, HA, DR
 :imagesdir: ./../media/
 
 
-link:aws_ora_fsx_ec2_deploy_intro.html["上一篇：簡介。"]
-
 [role="lead"]
 下列架構圖表說明使用FSX儲存服務、在AWS EC2執行個體上部署高可用度的Oracle資料庫。類似的部署方案、但在不同地區的待機模式下、可以設定災難恢復。
 
@@ -32,5 +30,3 @@ FSXX儲存叢集的設計具有雙重備援、因此主儲存叢集和待命儲�
 提供Oracle資料庫時間點還原工作流程、或視需要在主要或待命區域進行資料庫複製。SnapCenter透過SnapCenter SUI、您可以設定Oracle資料庫備份與複寫至待命的FSX儲存設備、以便根據RTO或RPO目標、達到高可用度或災難恢復。
 
 此解決方案提供的替代程序、可提供與Oracle RAC和Data Guard部署類似的功能。
-
-link:aws_ora_fsx_ec2_factors.html["下一步：要考量的因素。"]

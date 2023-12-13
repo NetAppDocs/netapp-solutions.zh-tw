@@ -40,5 +40,3 @@ image:hcvdivds_image40.png["錯誤：缺少圖形影像"]
 對於共享的多工作階段環境、請考慮分配多個同質vGPU設定檔。不過、對於高階專業繪圖應用程式、最好讓每個VM都專供使用者使用、以隔離VM。
 
 GPU處理器可由QoS原則控制、而每個vGPU設定檔都可以有專屬的框架緩衝區。不過、編碼器和解碼器會針對每個卡共用。將vGPU設定檔放置在GPU卡上、是由vSphere主機GPU指派原則所控制、可強調效能（分散VM）或整合（群組VM）。
-
-link:hcvdivds_solutions_for_industry.html["下一步：產業解決方案。"]

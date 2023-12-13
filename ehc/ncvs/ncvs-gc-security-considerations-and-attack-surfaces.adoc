@@ -13,10 +13,10 @@ summary: 瞭解如何保護資料安全的第一步、就是找出風險和潛�
 :imagesdir: ./../../media/
 
 
-link:ncvs-gc-how-cloud-volumes-service-in-google-cloud-secures-your-data.html["上一篇：Cloud Volumes Service Google Cloud的功能介紹如何保護資料安全。"]
-
 [role="lead"]
-瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。其中包括（但不限於）下列項目：
+瞭解如何保護資料安全的第一步、就是找出風險和潛在的攻擊面。
+
+其中包括（但不限於）下列項目：
 
 * 系統管理與登入
 * 閒置資料
@@ -177,5 +177,3 @@ Volume複本為唯讀、可在異地提供不可改變的資料複本、以便�
 從資料庫傳輸Cloud Volumes Service 到GCS時、會使用內部服務的Google網路、搭配HTTPS和TLS1.2。資料會以Google管理的金鑰進行閒置加密。
 
 若要管理Cloud Volumes Service 此功能（建立、刪除及還原備份）、使用者必須擁有 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["角色/netappcloudVolumes.admin"^] 角色：
-
-link:ncvs-gc-architecture_overview.html["下一步：架構總覽。"]

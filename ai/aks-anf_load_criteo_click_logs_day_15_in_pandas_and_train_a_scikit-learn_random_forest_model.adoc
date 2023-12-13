@@ -13,8 +13,6 @@ summary: 本頁說明我們如何使用Pandas和dask DataFrames從Criteo Terabyt
 :imagesdir: ./../media/
 
 
-link:aks-anf_libraries_for_data_processing_and_model_training.html["上一篇：資料處理與模型訓練的程式庫。"]
-
 [role="lead"]
 本節說明我們如何使用Pandas和dask DataFrames從Criteo Terabyte資料集載入Click記錄資料。使用案例與數位廣告有關、可預測是否要點選廣告、或是Exchange未在自動化管道中使用準確的模式、藉此建立使用者的設定檔。
 
@@ -69,4 +67,3 @@ from sklearn import metrics
 # Model Accuracy
 print("Accuracy:",metrics.accuracy_score(test_Y, pred_df))
 ....
-link:aks-anf_load_day_15_in_dask_and_train_a_dask_cuml_random_forest_model.html["下一步：在dask中載入第15天、並訓練dask cuML隨機樹系模型。"]

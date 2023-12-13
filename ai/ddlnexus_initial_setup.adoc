@@ -13,8 +13,6 @@ summary: 混合式多雲端 MLOps 搭配 Domino Data Lab 和 NetApp - 初始設�
 :imagesdir: ./../media/
 
 
-link:ddlnexus_architecture.html["上一篇：架構。"]
-
 [role="lead"]
 本節說明在結合內部部署資料中心和 AWS 的混合式環境中、為了將 Domino Nexus 與 NetApp 資料服務搭配使用而需要執行的初始設定工作。
 
@@ -56,5 +54,3 @@ NOTE: link:https://www.netapp.com/media/79922-tr-4952.pdf["技術報告 TR-4952.
 == 在內部部署資料中心部署 Domino Data Plane
 
 接下來、您必須在內部部署資料中心部署 Domino Data Plane 。您必須將此資料層部署在先前已配置的內部部署 Kubernetes 叢集。此外、 NetApp Astra Trident 必須已在此 Kubernetes 叢集中安裝及設定。請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/5781ea/data-planes/["Domino 管理指南"] 以取得詳細資料。
-
-link:ddlnexus_expose_netapp_vols.html["下一步：將現有的 NetApp Volume 公開至 Domino 。"]

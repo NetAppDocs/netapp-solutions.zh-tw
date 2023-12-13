@@ -13,8 +13,6 @@ summary: 此支援中心解決方案的架構以NVIDIA預先建置的工具和Ne
 :imagesdir: ./../media/
 
 
-link:ai-sent-use-cases.html["先前：使用案例。"]
-
 [role="lead"]
 此支援中心解決方案的架構以NVIDIA預先建置的工具和NetApp DataOps Toolkit為核心。NVIDIA的工具可用於使用預先建置的機型和管線、快速部署高效能AI解決方案。NetApp DataOps Toolkit可簡化各種資料管理工作、加速開發。
 
@@ -244,5 +242,3 @@ image:ai-sent-image6.png["錯誤：缺少圖形影像"]
 image:ai-sent-image8.png["錯誤：缺少圖形影像"]
 
 TAO工具套件中的語音對文字和情緒分析也使用類似的管道。主要差異在於使用標籤來微調模型。TAO工具套件管道從資料檔案的處理開始。然後是預先訓練的模型（來自 https://ngc.nvidia.com/catalog["NVIDIA NGC目錄"^]）使用支援中心資料進行微調。系統會根據其對應的效能指標來評估微調模型、如果它們的效能比預先訓練的模型更高、則會部署到Riva伺服器。
-
-link:ai-sent-design-considerations.html["下一步：設計考量。"]

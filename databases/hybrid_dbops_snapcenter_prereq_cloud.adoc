@@ -14,8 +14,6 @@ keywords: prerequisites, aws, azure, gcp, cloud central, cloud volumes ontap
 :imagesdir: ./../media/
 
 
-link:hybrid_dbops_snapcenter_prereq_onprem.html["先前版本：內部部署的先決條件。"]
-
 [role="lead"]
 在安裝Cloud Manager連接器及Cloud Volumes ONTAP 進行SnapMirror的不中斷和設定之前、我們必須先為雲端環境做一些準備。本頁說明需要完成的工作、以及部署Cloud Volumes ONTAP 時的考量事項。
 
@@ -70,5 +68,3 @@ link:hybrid_dbops_snapcenter_prereq_onprem.html["先前版本：內部部署的�
 對於災難恢復使用案例或是將暫用儲存設備轉成開發與測試用途、單一節點是常見的、因為突然發生的分區或基礎架構中斷所造成的影響較低。然而、對於任何正式作業使用案例、如果資料只位於單一位置、或資料集必須擁有更多備援和可用度、則建議使用高可用度。
 
 如需每個雲端高可用度版本架構的詳細資訊、請參閱的文件 https://docs.netapp.com/us-en/occm/concept_ha.html["AWS"^]、 https://docs.netapp.com/us-en/occm/concept_ha_azure.html["Azure"^] 和 https://docs.netapp.com/us-en/occm/concept_ha_google_cloud.html["GCP"^]。
-
-link:hybrid_dbops_snapcenter_getting_started.html["下一步：入門概述。"]

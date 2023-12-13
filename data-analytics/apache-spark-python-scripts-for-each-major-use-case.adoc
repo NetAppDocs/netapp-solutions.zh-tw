@@ -13,8 +13,6 @@ summary:
 :imagesdir: ./,,/media/
 
 
-link:apache-spark-hybrid-cloud-solution.html["先前版本：混合雲解決方案。"]
-
 [role="lead"]
 下列三個Python指令碼分別對應三個測試的主要使用案例。第一是"entitment_section_sparknlp.py"。
 
@@ -728,4 +726,3 @@ if __name__ == "__main__":
     print("test LogLoss", round(log_loss(pd.to_numeric(test.select(target).toPandas()).values, pred_ans), 4))
     print("test AUC", round(roc_auc_score(pd.to_numeric(test.select(target).toPandas()).values, pred_ans), 4))
 ....
-link:apache-spark-conclusion.html["下一步：結論。"]

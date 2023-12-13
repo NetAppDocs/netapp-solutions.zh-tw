@@ -13,8 +13,6 @@ summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps - 將現�
 :imagesdir: ./../media/
 
 
-link:ddlnexus_initial_setup.html["上一步：初始設定。"]
-
 [role="lead"]
 本節說明將現有 NetApp ONTAP NFS 磁碟區公開至 Domino MLOps 平台所需執行的工作。這些相同步驟同時適用於內部部署和 AWS 。
 
@@ -73,5 +71,3 @@ image:ddlnexus_image3.png["錯誤：缺少圖形影像"]
 === 在 Domino 中註冊外部資料 Volume
 
 接下來、您必須在 Domino 中登錄外部資料 Volume 。若要登錄外部資料 Volume 、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/9c3564/register-external-data-volumes/["說明"] 在 Domino 管理指南中。登錄 Volume 時、請務必從「 Volume Type 」（ Volume 類型）下拉式功能表中選取「 Generic 」（一般）。選取「一般」之後、您應該會在「可用磁碟區」清單中看到您的 PVC 。
-
-link:ddlnexus_access_data_hybrid.html["下一步：跨不同環境存取相同的資料。"]

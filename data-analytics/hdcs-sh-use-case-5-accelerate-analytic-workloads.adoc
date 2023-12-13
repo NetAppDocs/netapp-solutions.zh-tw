@@ -13,8 +13,6 @@ summary: 在此案例中、大型金融服務與投資銀行的分析平台已�
 :imagesdir: ./../media/
 
 
-link:hdcs-sh-use-case-4-data-protection-and-multicloud-connectivity.html["上一篇：使用案例4：資料保護與多雲端連線。"]
-
 [role="lead"]
 在此案例中、大型金融服務與投資銀行的分析平台已採用NetApp NFS儲存解決方案進行現代化、以大幅改善分析資產管理與量化業務單位的投資風險與衍生工具。
 
@@ -43,5 +41,3 @@ image:hdcs-sh-image13.png["錯誤：缺少圖形影像"]
 客戶舊環境中的直接附加儲存（DAS）解決方案、對於獨立擴充運算與儲存設備而說、有其缺點。有ONTAP 了適用於Spark的NetApp解決方案、該銀行的財務分析業務單位就能將儲存設備與運算分離、並視需要更有效地提供基礎架構資源。
 
 藉由使用ONTAP 支援NFS的功能、運算伺服器CPU幾乎已完全用於Spark SQL工作、I/O等待時間縮短將近70%、因此能為Spark工作負載提供更好的運算能力和效能提升。之後、CPU使用率的提升也讓客戶能夠運用GPU（例如GPUDirect）來進一步進行平台現代化。此外StorageGRID 、針對Spark工作負載提供低成本的儲存選項、MinIO閘道則透過S3傳輸協定提供對NFS資料的安全存取。對於雲端資料、NetApp建議Cloud Volumes ONTAP 使用「功能性」、Azure NetApp Files 「功能性」和「NetApp Cloud Volumes Service 功能性」。
-
-link:hdcs-sh-conclusion.html["下一步：結論。"]

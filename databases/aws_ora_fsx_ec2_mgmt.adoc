@@ -14,8 +14,6 @@ keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter
 :imagesdir: ./../media/
 
 
-link:aws_ora_fsx_ec2_procedures.html["先前：部署程序。"]
-
 [role="lead"]
 除了AWS EC2和FSX管理主控台之外、我們SnapCenter 也部署Ansible控制節點和the SUI工具、以便在此Oracle環境中進行資料庫管理。
 
@@ -275,5 +273,3 @@ NOTE: 而非主要Oracle備份複本、也可以使用相同的程序、從目�
 git clone https://github.com/NetApp-Automation/na_ora_hadr_failover_resync.git
 ----
 在嘗試設定和容錯移轉測試之前、請先仔細閱讀README說明。
-
-link:aws_ora_fsx_ec2_migration.html["下一步：資料庫移轉。"]

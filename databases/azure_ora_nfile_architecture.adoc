@@ -14,8 +14,6 @@ keywords: architecture, database, Oracle, Azure, Azure NetApp Files
 :imagesdir: ./../media/
 
 
-link:azure_ora_nfile_usecase.html["上一篇：簡介。"]
-
 [role="lead"]
 下列架構圖表說明Azure VM執行個體和Azure NetApp Files 整套功能的高可用度Oracle資料庫部署。
 
@@ -32,5 +30,3 @@ image:db_ora_azure_anf_architecture.PNG["此映像描述主要站台、待命站
 image:db_ora_azure_anf_architecture2.PNG["此映像描述使用vNet對等處理的單一Azure VM組織、以建立兩個獨立的虛擬網路。"]
 
 Azure Oracle環境可使用NetApp提供的資料庫部署、備份、還原及資料庫移轉工具套件、以Ansible控制器節點進行自動化管理。Oracle Azure VM執行個體作業系統核心或Oracle修補的任何更新、都可同時執行、以保持主要和待命同步。事實上、初始工具套件可輕鬆擴充、以便在需要時執行每日Oracle工作。如果您需要設定CLI Ansible控制器的協助、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html["NetApp解決方案自動化"^] 開始使用。
-
-link:azure_ora_nfile_factors.html["下一步：要考量的因素。"]

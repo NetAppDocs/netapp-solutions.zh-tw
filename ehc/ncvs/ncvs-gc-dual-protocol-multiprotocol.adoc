@@ -13,8 +13,6 @@ summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持�
 :imagesdir: ./../../media/
 
 
-link:ncvs-gc-smb.html["上一篇：SMB。"]
-
 [role="lead"]
 支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的存取權限Cloud Volumes Service (https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["雙傳輸協定"^]）。這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。
 
@@ -51,5 +49,3 @@ link:ncvs-gc-smb.html["上一篇：SMB。"]
 
 
 如果要建立雙傳輸協定磁碟區、您可以在建立磁碟區時選擇ACL樣式。這項決定應以所需的權限管理為基礎。如果使用者管理來自Windows / SMB用戶端的權限、請選取NTFS。如果您的使用者偏好使用NFS用戶端和chmod/chown、請使用UNIX安全性樣式。
-
-link:ncvs-gc-considerations-creating-active-directory-connections.html["下一步：建立Active Directory連線的考量事項。"]

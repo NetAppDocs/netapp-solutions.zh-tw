@@ -13,11 +13,7 @@ summary: 在此驗證中、我們執行MLPerf v2.0指定的影像辨識訓練。
 :imagesdir: ./../media/
 
 
-link:a400-thinksystem-technology-overview.html["上一篇：技術總覽。"]
-
 [role="lead"]
 在此驗證中、我們執行MLPerf v2.0指定的影像辨識訓練。具體而言、我們訓練ResNet v2.0模型與ImageNet資料集、直到達到76.1%的準確度為止。主要指標是達到所需準確度的時間。我們也報告每秒以影像為單位的訓練頻寬、以更好地判斷橫向擴充效率。
 
 主要測試案例評估了同時執行的多個獨立訓練程序（每個節點一個）。這會模擬主要使用案例、這是多位資料科學家所使用的共享系統。第二個測試案例評估橫向擴充效率。
-
-link:a400-thinksystem-test-results.html["下一步：測試結果。"]
