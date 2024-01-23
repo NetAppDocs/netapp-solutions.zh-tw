@@ -1,35 +1,9 @@
 ---
 sidebar: sidebar 
 permalink: virtualization/vsphere_admin_hybrid_cloud.html 
-keywords: vSphere, cloud, hybrid cloud, AWS, Azure, Google cloud, snapmirror cloud, cloud backup service, BlueXP Copy and Sync, FabricPool, ONTAP 
-summary: 本頁說明ONTAP 適用於VMware vSphere的混合雲功能。 
+redirect: ontap-apps-dbs/vmware/vmware-vsphere-overview.html# 
 ---
-= 混合雲ONTAP 搭配VMware及vSphere
-:hardbreaks:
+= 
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ./../media/
 
 
-
-
-== 關於混合雲
-
-無論是用於內部部署私有雲、公有雲基礎架構、或是結合兩者最佳功能的混合雲ONTAP 、本解決方案都能協助您打造資料架構、以簡化及最佳化資料管理。從高效能的All Flash系統開始、然後將它們與磁碟或雲端儲存系統結合、以提供資料保護和雲端運算。
-
-您可以選擇Azure、AWS、IBM或Google雲端、以最佳化成本並避免受限。視需要運用OpenStack和Container技術的進階支援。
-
-資料保護通常是客戶開始雲端之旅時的第一件事。保護可以像非同步複寫金鑰資料一樣簡單、也可以像完整的熱備份站台一樣複雜。資料保護主要以NetApp SnapMirror技術為基礎。
-
-有些客戶選擇將整個工作負載移至雲端。這可能比單純使用雲端來保護資料更為複雜、ONTAP 但由於您不需要重新寫入應用程式、就能使用雲端型儲存設備、所以無法簡化移動作業。在雲端上運作的過程如同內部部署的功能一樣。ONTAP ONTAP您的內部部署ONTAP 的支援功能可提供資料效率功能、讓您在較少的實體空間中儲存更多資料、並分層極少使用的資料、以降低儲存成本。無論您是使用混合雲組態、或是將整個工作負載移至雲端、ONTAP 都能使儲存效能與效率達到最大化。
-
-NetApp 也提供雲端型備份（ SnapMirror Cloud 、 BlueXP 備份與還原服務、 BlueXP 複製與同步）、以及適用於 ONTAP 的儲存分層與歸檔工具（ FabricPool ）、協助降低營運成本、並充分利用雲端的廣泛範圍。
-
-下圖提供混合雲使用案例範例。
-
-image:vsphere_admin_hybrid_cloud.png["混合雲"]
-
-
-NOTE: 如需ONTAP 更多有關不景和混合雲的資訊、請參閱 https://docs.netapp.com/ontap-9/index.jsp?lang=en["及雲端ONTAP"^] 在VMware的《VMware®文件中心》（英文）ONTAP 中。

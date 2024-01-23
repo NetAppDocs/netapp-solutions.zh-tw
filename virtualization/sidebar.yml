@@ -3,94 +3,29 @@ section: virtualization
 title: 虛擬化
 url: "/virtualization/index.html"
 entries:
-- title: VMware虛擬化的新功能
-  url: https://docs.netapp.com/us-en/ontap-whatsnew/ontap98fo_vmware_virtualization.html
-- title: VMware vSphere適用的VMware工具-產品安全性ONTAP
-  url: "/virtualization/tools-vmware-secure-development-activities.html"
 - title: VMware ONTAP 虛擬化技術
+  url: https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html
+- title: VMware vSphere Automation
+  url: "/virtualization/vsphere_auto_introduction.html"
   entries:
-  - title: NetApp ONTAP 為VMware vSphere管理員帶來的效益
+  - title: 傳統區塊儲存資源配置
+    url: "/virtualization/vsphere_ontap_auto_block.html"
     entries:
-    - title: 簡介
-      url: "/virtualization/vsphere_admin_introduction.html"
-    - title: 統一化儲存設備
-      url: "/virtualization/vsphere_admin_unified_storage.html"
-    - title: 儲存效率
-      url: "/virtualization/vsphere_admin_storage_efficiencies.html"
-    - title: 虛擬Volume與儲存原則型管理
-      url: "/virtualization/vsphere_admin_vvols_and_spbm.html"
-    - title: 混合雲
-      url: "/virtualization/vsphere_admin_hybrid_cloud.html"
-  - title: VMware vSphere搭配ONTAP 《最佳實務做法》
-    url: "/virtualization/vsphere_ontap_ontap_for_vsphere.html"
+    - title: VMFS -光纖通道
+      url: "/virtualization/vsphere_ontap_auto_block_fc.html"
+    - title: VMFS -乙太網路光纖通道
+      url: "/virtualization/vsphere_ontap_auto_block_fcoe.html"
+    - title: VMFS - iSCSI
+      url: "/virtualization/vsphere_ontap_auto_block_iscsi.html"
+    - title: VMFS - NVMe over Fabric
+      url: "/virtualization/vsphere_ontap_auto_block_nvmeof.html"
+  - title: 傳統檔案儲存資源配置
+    url: "/virtualization/vsphere_ontap_auto_file.html"
     entries:
-    - title: vSphere的功能ONTAP
-      url: "/virtualization/vsphere_ontap_ontap_capabilities_for_vsphere.html"
-    - title: 資料存放區與傳輸協定
-      url: "/virtualization/vsphere_ontap_best_practices.html"
-    - title: vSphere的其他功能
-      url: "/virtualization/vsphere_ontap_other_capabilities_for_vsphere.html"
-    - title: 針對vSphere版本的資訊ONTAP
-      url: "/virtualization/vsphere_ontap_ontap_and_vsphere_release-specific_information.html"
-    - title: 建議的ESXi主機和其他ONTAP 功能設定
-      url: "/virtualization/vsphere_ontap_recommended_esxi_host_and_other_ontap_settings.html"
-    - title: 何處可找到其他資訊
-      url: "/virtualization/vsphere_ontap_where_to_find_additional_information.html"
-    - title: 聯絡我們
-      url: "/virtualization/vsphere_ontap_contact_us.html"
-  - title: 使用 NetApp ONTAP 的 VMware vSphere 虛擬磁碟區（ vVols ）
-    url: "/virtualization/vvols-overview.html"
-    entries:
-    - title: 搭配 ONTAP 使用 vVols
-      url: "/virtualization/vvols-ontap.html"
-    - title: 部署 VVols Storage
-      url: "/virtualization/vvols-deploy.html"
-    - title: 保護 vVols
-      url: "/virtualization/vvols-protect.html"
-    - title: 疑難排解
-      url: "/virtualization/vvols-resources.html"
-  - title: VMware Site Recovery Manager搭配NetApp ONTAP 功能9
-    url: "/virtualization/vsrm-ontap9_1._introduction_to_srm_with_ontap.html"
-    entries:
-    - title: SRM和ONTAP VMware Tools的新功能
-      url: "/virtualization/vsrm-ontap9_new_features_with_srm_and_ontap_tools.html"
-    - title: 部署最佳實務做法
-      url: "/virtualization/vsrm-ontap9_deployment_best_practices.html"
-    - title: 營運最佳實務做法
-      url: "/virtualization/vsrm-ontap9_operational_best_practices.html"
-    - title: 複寫拓撲
-      url: "/virtualization/vsrm-ontap9_replication_topologies.html"
-    - title: 使用vVols複寫時疑難排解SRM
-      url: "/virtualization/vsrm-ontap9_appendix_a__troubleshooting_srm_when_using_vvols_replication.html"
-    - title: 結論
-      url: "/virtualization/vsrm-ontap9_conclusion.html"
-    - title: 其他資訊
-      url: "/virtualization/vsrm-ontap9_additional_information.html"
-  - title: VMware vSphere適用的VMware工具-產品安全性ONTAP
-    url: "/virtualization/tools-vmware-secure-development-activities.html"
-  - title: VMware vSphere內建程式：產品安全性SnapCenter
-    url: "/virtualization/scvmware-security-secure-development-activities.html"
-  - title: VMware vSphere Automation
-    url: "/virtualization/vsphere_auto_introduction.html"
-    entries:
-    - title: 傳統區塊儲存資源配置
-      url: "/virtualization/vsphere_ontap_auto_block.html"
-      entries:
-      - title: VMFS -光纖通道
-        url: "/virtualization/vsphere_ontap_auto_block_fc.html"
-      - title: VMFS -乙太網路光纖通道
-        url: "/virtualization/vsphere_ontap_auto_block_fcoe.html"
-      - title: VMFS - iSCSI
-        url: "/virtualization/vsphere_ontap_auto_block_iscsi.html"
-      - title: VMFS - NVMe over Fabric
-        url: "/virtualization/vsphere_ontap_auto_block_nvmeof.html"
-    - title: 傳統檔案儲存資源配置
-      url: "/virtualization/vsphere_ontap_auto_file.html"
-      entries:
-      - title: NFS - v3
-        url: "/virtualization/vsphere_ontap_auto_file_nfs.html"
-      - title: NFS - v4.1
-        url: "/virtualization/vsphere_ontap_auto_file_nfs41.html"
+    - title: NFS - v3
+      url: "/virtualization/vsphere_ontap_auto_file_nfs.html"
+    - title: NFS - v4.1
+      url: "/virtualization/vsphere_ontap_auto_file_nfs41.html"
 - title: 適用於公有雲的VMware
   url: "/ehc/index.html"
 - title: VMware 混合式多雲端使用案例

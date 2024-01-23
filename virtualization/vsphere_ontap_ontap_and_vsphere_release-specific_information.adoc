@@ -1,57 +1,9 @@
 ---
 sidebar: sidebar 
 permalink: virtualization/vsphere_ontap_ontap_and_vsphere_release-specific_information.html 
-keywords: vSphere, release, ESXi, Cisco UCS, NFS Plug In for VMware VAAI, VASA Provider 
-summary: 本節提供ONTAP 有關特定版本之VMware及vSphere所支援功能的指引。NetApp建議確認特定版本與NetApp互通性對照表的組合。 
+redirect: ontap-apps-dbs/vmware/vmware-vsphere-overview.html 
 ---
-= 針對vSphere版本的資訊ONTAP
-:hardbreaks:
+= 
 :allow-uri-read: 
-:nofooter: 
-:icons: font
-:linkattrs: 
-:imagesdir: ./../media/
 
 
-[role="lead"]
-本節提供ONTAP 有關特定版本之VMware及vSphere所支援功能的指引。NetApp建議您確認與的特定版本組合 http://mysupport.netapp.com/matrix/["NetApp 互通性對照表"^]。
-
-
-
-== 發行版ONTAP
-
-在發佈時、NetApp為這些版本系列提供完整支援：
-
-* 版本9.5 ONTAP
-* 部分9.6 ONTAP
-* 更新ONTAP
-* 部分9.8 ONTAP
-
-
-
-
-== vSphere與ESXi支援
-
-NetApp ONTAP 支援vSphere ESXi主機的廣泛功能。上述四個主要版本系列（9.5、9.6、9.7及9.8）均完全支援做為最新vSphere版本的資料儲存平台、包括6.0、6.5及7.0（包括這些版本的更新）。NFS v3互通性是廣泛定義的、NetApp支援任何符合NFS v3標準的用戶端、包括Hypervisor。NFSv4.1支援僅限vSphere 6.0至7.0。
-
-對於SAN環境、NetApp會對SAN元件進行廣泛的測試。一般而言、NetApp支援標準的x86-64機架伺服器和Cisco UCS伺服器、以及用於iSCSI連線的標準乙太網路介面卡。由於需要HBA韌體和驅動程式、因此FC、FCoE和NVMe/FC環境具有更明確的支援定義。
-
-請務必檢查 http://mysupport.netapp.com/matrix/["NetApp 互通性對照表"^] 確認支援特定的硬體與軟體組態。
-
-
-
-== 適用於VMware VAAI的NFS外掛程式
-
-ESXi主機的此外掛程式有助於使用ONTAP VAAI將作業卸載至VMware。最新版本1.1.2支援NFSv4.1資料存放區、包括Kerberos（krb5和krb5i）支援。ESXi 6.0、6.5和7.0搭配ONTAP 使用支援此功能、並搭配使用VMware 9.5至9.8。
-
-
-
-== VASA供應商
-
-NetApp的VASA Provider支援VVol資源配置與管理（請參閱第3.7節）。最新版本的VASA Provider支援ESXi 6.0、6.5和7.0、搭配ONTAP 使用支援VMware 9.5%至9.8。
-
-
-
-== VMware vSphere適用的工具ONTAP
-
-VMware vSphere的VMware vSphere工具是搭配vSphere一起管理VMware vSphere的重要工具（最佳實務做法是使用）ONTAP ONTAP 。vSphere 6.5與7.0搭配ONTAP 使用時支援最新版本9.8、並搭配使用
