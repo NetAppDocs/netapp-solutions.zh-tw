@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/mlops_fsxn_cictcd.html 
-keywords: FSxN, AWS S3, SageMaker, MLOps, NetApp ONTAP 
+keywords: FSxN, MLOps, NetApp ONTAP, AWS Lambda Functions, SageMaker, AWS S3 
 summary: 本文提供使用 AWS 服務建置 MLOps 管線的指南、著重於自動化模型重新訓練、部署及成本最佳化。 
 ---
 = 第 3 部分：建立簡化的 MLOps 管道（ CI/CT/CD ）
@@ -16,7 +16,7 @@ summary: 本文提供使用 AWS 服務建置 MLOps 管線的指南、著重於�
 
 [role="lead"]
 * 作者： *
-NetApp 資深資料與應用科學家 Ken Jian
+NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
 
 
 
@@ -32,10 +32,10 @@ NetApp 資深資料與應用科學家 Ken Jian
 | 功能 | 名稱 | 留言 
 
 
-| 資料儲存 | AWS FSxN | 請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/ai/mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。 
+| 資料儲存 | AWS FSxN | 請參閱 link:./mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。 
 
 
-| 資料科學 IDE | AWS SageMaker | 本教學課程是以 Jupyter 筆記型電腦為基礎、如所示 link:https://docs.netapp.com/us-en/netapp-solutions/ai/mlops_fsxn_sagemaker_integration_training.html["第 2 部分：運用 AWS FSx for NetApp ONTAP （ FSxN ）做為 SageMaker 模型訓練的資料來源"]。 
+| 資料科學 IDE | AWS SageMaker | 本教學課程是以 Jupyter 筆記型電腦為基礎、如所示 link:./mlops_fsxn_sagemaker_integration_training.html["第 2 部分：運用 AWS FSx for NetApp ONTAP （ FSxN ）做為 SageMaker 模型訓練的資料來源"]。 
 
 
 | 觸發 MLOps 管道的功能 | AWS Lambda 功能 | - 
@@ -112,7 +112,7 @@ echo "Starting the autostop script in cron"
 (crontab -l 2>/dev/null; echo "*/5 * * * * bash -c 'if ps -p $nbconvert_pid > /dev/null; then echo \"Notebook is still running.\" >> /var/log/jupyter.log; else echo \"Notebook execution completed.\" >> /var/log/jupyter.log; $PYTHON_DIR -c \"import boto3;boto3.client(\'sagemaker\').stop_notebook_instance(NotebookInstanceName=get_notebook_name())\" >> /var/log/jupyter.log; fi'") | crontab -
 EOF
 ----
-. 此指令碼會執行 Jupyter Notebook 、以處理模型的重新訓練和重新部署以供推斷。執行完成後、筆記型電腦將在 5 分鐘內自動關機。若要深入瞭解問題陳述和程式碼實作、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/ai/mlops_fsxn_sagemaker_integration_training.html["第 2 部分：運用 AWS FSx for NetApp ONTAP （ FSxN ）做為 SageMaker 模型訓練的資料來源"]。
+. 此指令碼會執行 Jupyter Notebook 、以處理模型的重新訓練和重新部署以供推斷。執行完成後、筆記型電腦將在 5 分鐘內自動關機。若要深入瞭解問題陳述和程式碼實作、請參閱 link:./mlops_fsxn_sagemaker_integration_training.html["第 2 部分：運用 AWS FSx for NetApp ONTAP （ FSxN ）做為 SageMaker 模型訓練的資料來源"]。
 +
 image:mlops_fsxn_cictcd_3.png["錯誤：建立生命週期組態"]
 
