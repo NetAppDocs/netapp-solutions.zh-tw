@@ -46,7 +46,7 @@ terraform {
   required_providers {
     netapp-cloudmanager = {
       source = "NetApp/netapp-cloudmanager"
-      version = "20.10.0"
+      version = ">= 23.0.0"
     }
   }
 }
@@ -650,6 +650,9 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 
 | * AZ_NetApp_vol_storage儲存配額* | 字串 | （必填）檔案系統允許的最大儲存配額（GB）。 
 |===
+
+NOTE: 根據建議、此指令碼會使用 `prevent_destroy` 生命週期引數、以降低組態檔案中意外遺失資料的可能性。如需的詳細資訊、請參閱 `prevent_destroy` 生命週期引數請參閱 terraform 文件： https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle#prevent-resource-deletion[]。
+
 --
 .ANF資料保護
 --
@@ -803,6 +806,9 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 
 | * AZ_DP_replation_frequency * | 字串 | （必填）複寫頻率、支援的值為「10分鐘」、「每小時」、「每日」、值區分大小寫。 
 |===
+
+NOTE: 根據建議、此指令碼會使用 `prevent_destroy` 生命週期引數、以降低組態檔案中意外遺失資料的可能性。如需的詳細資訊、請參閱 `prevent_destroy` 生命週期引數請參閱 terraform 文件： https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle#prevent-resource-deletion[]。
+
 --
 .ANF雙協定
 --
@@ -932,6 +938,9 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 
 | * AZ SMB DNS伺服器* | 字串 | （必要）DNS伺服器IP以建立ActiveDirectory物件。 
 |===
+
+NOTE: 根據建議、此指令碼會使用 `prevent_destroy` 生命週期引數、以降低組態檔案中意外遺失資料的可能性。如需的詳細資訊、請參閱 `prevent_destroy` 生命週期引數請參閱 terraform 文件： https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle#prevent-resource-deletion[]。
+
 --
 .ANF Volume（快照）
 --
@@ -1050,6 +1059,9 @@ NOTE: 您可以選擇使用現有的vnet和子網路來部署ANF磁碟區、方�
 
 | * AZ_snapshot _id* | 字串 | （必填）將使用哪個Snapshot ID建立新的ANF磁碟區。 
 |===
+
+NOTE: 根據建議、此指令碼會使用 `prevent_destroy` 生命週期引數、以降低組態檔案中意外遺失資料的可能性。如需的詳細資訊、請參閱 `prevent_destroy` 生命週期引數請參閱 terraform 文件： https://developer.hashicorp.com/terraform/tutorials/state/resource-lifecycle#prevent-resource-deletion[]。
+
 --
 .CVO單一節點部署
 --
