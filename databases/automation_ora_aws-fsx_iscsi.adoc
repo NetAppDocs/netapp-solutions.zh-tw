@@ -4,7 +4,7 @@ permalink: databases/automation_ora_aws-fsx_iscsi.html
 keywords: Database, Oracle, AWS, FSx, ONTAP, Automation 
 summary: 本解決方案提供 Amazon FSX ONTAP 中自動化 Oracle 部署與保護的概觀與詳細資料、以作為主要資料庫儲存設備、並以 Oracle asm 作為 Volume Manager 、在獨立重新啟動時設定 iSCSI 傳輸協定和 Oracle 資料庫。 
 ---
-= 透過 iSCSI 在 Amazon FSX ONTAP 上進行簡化且自動化的 Oracle 部署
+= TR-4986 ：在採用 iSCSI 的 Amazon FSX ONTAP 上進行簡化的自動化 Oracle 部署
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -276,7 +276,7 @@ memory_limit: 8192
 
 [%collapsible]
 ====
-自動化工具套件共有五本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
+自動化工具套件共有六本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
 
 ....
 0-all_playbook.yml - execute playbooks from 1-4 in one playbook run.
@@ -288,7 +288,7 @@ memory_limit: 8192
 ....
 有三個選項可用來執行具有下列命令的教戰手冊。
 
-. 一次執行所有教戰手冊。
+. 在一次合併執行中執行所有部署教戰手冊。
 +
 [source, cli]
 ----

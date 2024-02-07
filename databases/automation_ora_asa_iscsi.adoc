@@ -21,7 +21,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 NetApp ASA 系統為您的 SAN 基礎架構提供現代化的解決方案。它們可簡化規模、讓您加速資料庫等業務關鍵應用程式、確保資料隨時可用（ 99.9999 % 的正常運作時間）、並減少 TCO 和碳足跡。NetApp ASA 系統包括專為效能需求最高的應用程式所設計的 A 系列機型、以及針對具成本效益的大容量部署而最佳化的 C 系列機型。ASA A 系列和 C 系列系統結合在一起、可提供卓越的效能、以改善客戶體驗、縮短達成成果的時間、維持業務關鍵資料的可用性、保護及安全性、並為任何工作負載提供更有效的容量、並享有業界最有效的保證。
 
-本文件說明如何在使用 Ansible 自動化技術的 ASA 系統所建置的 SAN 環境中、簡化 Oracle 資料庫的部署。Oracle 資料庫部署在獨立式重新啟動組態中、並採用 iSCSI 傳輸協定進行資料存取、而 Oracle ASM 則用於 ASA 儲存陣列上的儲存管理。我們也會示範如何使用 NetApp SnapCenter UI 工具來備份、還原及複製 Oracle 資料庫、以供開發 / 測試、或是在 NetApp ASA 系統中執行儲存效率高的資料庫作業的其他使用案例。
+本文件說明如何在使用 Ansible 自動化技術的 ASA 系統所建置的 SAN 環境中、簡化 Oracle 資料庫的部署。Oracle 資料庫部署在獨立式重新啟動組態中、並使用 iSCSI 傳輸協定進行資料存取、而 Oracle ASM 則用於 ASA 儲存陣列上的資料庫磁碟管理。它也提供 Oracle 資料庫備份、還原及複製的相關資訊、使用 NetApp SnapCenter UI 工具在 NetApp ASA 系統中執行儲存效率高的資料庫作業。
 
 本解決方案可解決下列使用案例：
 
@@ -52,7 +52,7 @@ NetApp ASA 系統為您的 SAN 基礎架構提供現代化的解決方案。它�
 
 === 架構
 
-image::automation_ora_asa_iscsi_archit.png[此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。]
+image::automation_ora_asa_iscsi_archit.png[此映像提供 NetApp ASA 系統中具有 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。]
 
 
 
@@ -142,7 +142,7 @@ image::automation_ora_asa_iscsi_archit.png[此映像提供在 AWS 公有雲中�
 部署需要下列先決條件。
 
 . 假設 NetApp ASA 儲存陣列已安裝並設定完成。這包括 iSCSI 廣播網域、兩個控制器節點上的 LACP 介面群組 a0a 、兩個控制器節點上的 iSCSI VLAN 連接埠（ <iscsi-a-vlan-id> 、 <iscsi-b-vlan-id> ）。如果需要協助、以下連結提供詳細的逐步指示。 link:https://docs.netapp.com/us-en/ontap-systems/asa400/install-detailed-guide.html["詳細指南 - ASA A400"^]
-. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:https://review.docs.netapp.com/us-en/netapp-solutions_acao_ora_vmc/automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
+. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
 . 複製適用於 iSCSI 的 NetApp Oracle 部署自動化工具套件複本。
 +
 [source, cli]
@@ -220,7 +220,7 @@ ora_02 ansible_host=10.61.180.23 ansible_ssh_private_key_file=ora_02.pem
 ######                 ONTAP env specific config variables                                             ######
 #############################################################################################################
 
-# Enter the ONTAP platform: on-prem, aws_fsx, aws_cvo, etc.
+# Enter the supported ONTAP platform: on-prem, aws-fsx.
 ontap_platform: on-prem
 
 # Enter ONTAP cluster management user credentials
@@ -284,19 +284,19 @@ memory_limit: 8192
 
 [%collapsible]
 ====
-自動化工具套件共有五本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
+自動化工具套件共有六本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
 
 ....
 0-all_playbook.yml - execute playbooks from 1-4 in one playbook run.
 1-ansible_requirements.yml - set up Ansible controller with required libs and collections.
 2-linux_config.yml - execute Linux kernel configuration on Oracle DB servers.
-3-ontap_config.yml - configure ONTAP for Oracle database including the creation of SVM, data volumes/luns provision, host igroup setup, etc.
+3-ontap_config.yml - configure ONTAP svm/volumes/luns for Oracle database and grant DB server access to luns.
 4-oracle_config.yml - install and configure Oracle on DB servers for grid infrastructure and create a container database.
 5-destroy.yml - optional to undo the environment to dismantle all.
 ....
 有三個選項可用來執行具有下列命令的教戰手冊。
 
-. 一次執行所有教戰手冊。
+. 在一次合併執行中執行所有部署教戰手冊。
 +
 [source, cli]
 ----
@@ -496,7 +496,7 @@ image::automation_ora_asa_em_03.png[此映像可從 Oracle Enterprise Manager Ex
 
 [%collapsible]
 ====
-請參閱 TR-4979 link:https://docs.netapp.com/us-en/netapp-solutions/databases/aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需如何設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
+請參閱 TR-4979 link:https://docs.netapp.com/us-en/netapp-solutions/databases/aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
 
 ====
 
