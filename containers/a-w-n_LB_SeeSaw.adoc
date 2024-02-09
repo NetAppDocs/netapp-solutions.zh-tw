@@ -1,0 +1,107 @@
+---
+sidebar: sidebar 
+permalink: containers/a-w-n_LB_SeeSaw.html 
+summary: 本頁詳述SEETAW負載平衡器的安裝與組態指示。 
+keywords: Anthos, GKE, Kubernetes, SeeSaw, LoadBalancer 
+---
+= 安裝Seesaww負載平衡器
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本頁列出SEETAW託管負載平衡器的安裝與組態指示。
+
+Seesaw是安裝在VMware環境Anthos叢集（從1.6版到1.10版）中的預設託管網路負載平衡器。
+
+
+
+== 安裝SEETAW負載平衡器
+
+SEETAW負載平衡器與VMware上的Anthos叢集完全整合、並在管理與使用者叢集設定中自動執行部署。叢集.yaml組態檔中有一些文字區塊必須加以修改、才能提供負載平衡器資訊、然後在叢集部署之前、有一個額外步驟可以使用內建的「gkectl」工具來部署負載平衡器。
+
+
+NOTE: 可以在HA或非HA模式下部署SEETAW負載平衡器。為了進行此驗證、SEEW負載平衡器是以非HA模式部署、這是預設設定。出於正式作業目的、NetApp建議在HA組態中部署SEETAW、以確保容錯能力與可靠性。
+
+
+
+== 與Anthos整合
+
+每個組態檔中分別有一節是針對管理叢集、以及您選擇部署以設定負載平衡器的每個使用者叢集、以便由Anthos on -Prem來管理。
+
+以下文字是GKE管理叢集分割區組態的範例。需要取消註釋和修改的值會以粗體顯示於下方：
+
+[listing, subs="+quotes,+verbatim"]
+----
+*loadBalancer:*
+  # (Required) The VIPs to use for load balancing
+  *vips:*
+    # Used to connect to the Kubernetes API
+    *controlPlaneVIP: "10.61.181.230"*
+    # # (Optional) Used for admin cluster addons (needed for multi cluster features). Must
+    # # be the same across clusters
+    # # addonsVIP: ""
+  # (Required) Which load balancer to use "F5BigIP" "Seesaw" or "ManualLB". Uncomment
+  # the corresponding field below to provide the detailed spec
+  *kind: Seesaw*
+  # # (Required when using "ManualLB" kind) Specify pre-defined nodeports
+  # manualLB:
+  #   # NodePort for ingress service's http (only needed for user cluster)
+  #   ingressHTTPNodePort: 0
+  #   # NodePort for ingress service's https (only needed for user cluster)
+  #   ingressHTTPSNodePort: 0
+  #   # NodePort for control plane service
+  #   controlPlaneNodePort: 30968
+  #   # NodePort for addon service (only needed for admin cluster)
+  #   addonsNodePort: 31405
+  # # (Required when using "F5BigIP" kind) Specify the already-existing partition and
+  # # credentials
+  # f5BigIP:
+  #   address:
+  #   credentials:
+  #     username:
+  #     password:
+  #   partition:
+  #   # # (Optional) Specify a pool name if using SNAT
+  #   # snatPoolName: ""
+  # (Required when using "Seesaw" kind) Specify the Seesaw configs
+  *seesaw:*
+  # (Required) The absolute or relative path to the yaml file to use for IP allocation
+  #  for LB VMs. Must contain one or two IPs.
+  *ipBlockFilePath: "admin-seesaw-block.yaml"*
+  #   (Required) The Virtual Router IDentifier of VRRP for the Seesaw group. Must
+  #   be between 1-255 and unique in a VLAN.
+    *vrid: 100*
+  #   (Required) The IP announced by the master of Seesaw group
+    *masterIP: "10.61.181.236"*
+  #   (Required) The number CPUs per machine
+    *cpus: 1*
+  #   (Required) Memory size in MB per machine
+    *memoryMB: 2048*
+  #   (Optional) Network that the LB interface of Seesaw runs in (default: cluster
+  #   network)
+    *vCenter:*
+  #   vSphere network name
+      *networkName: VM_Network*
+  #   (Optional) Run two LB VMs to achieve high availability (default: false)
+    *enableHA: false*
+----
+SEETAW負載平衡器也有一個獨立的靜態「SEAL-block.yaml」檔案、您必須為每個叢集部署提供該檔案。此檔案必須位於與「叢集.yaml」部署檔案相關的相同目錄中、否則必須在上述章節中指定完整路徑。
+
+「admin-seesaw-block.yaml」檔案的範例如下所示：
+
+[listing, subs="+quotes,+verbatim"]
+----
+blocks:
+  - netmask: "255.255.255.0"
+    gateway: "10.63.172.1"
+    ips:
+    - ip: "10.63.172.152"
+      hostname: "admin-seesaw-vm"
+----
+
+NOTE: 此檔案提供負載平衡器提供給基礎叢集之網路的閘道和網路遮罩、以及部署以執行負載平衡器之虛擬機器的管理IP和主機名稱。

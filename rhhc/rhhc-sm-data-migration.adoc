@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-sm-data-migration.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= 使用 Astra Control Center 進行資料移轉
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+此頁面顯示 Red Hat OpenShift 叢集搭配 Astra Control Center （ ACC ）的容器工作負載資料移轉選項。特別是、客戶可以使用 ACC 將部分選定的工作負載或所有工作負載從內部部署資料中心移至雲端、將應用程式複製到雲端、以供測試之用、或是從資料中心移至雲端
+
+
+
+== 資料移轉
+
+若要將應用程式從一個環境移轉至另一個環境、您可以使用下列 Acc 功能之一：
+
+* ** 複寫 **
+* ** 備份與還原 **
+* ** 複製 **
+
+
+請參閱 link:../data-protection["資料保護區段"] 適用於 ** 複寫與備份與還原 ** 選項。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/clone-apps.html["請按這裡"] 如需關於 ** 複製的其他詳細資料 ** 。
+
+
+NOTE: Astra Replication 功能僅支援 Trident Container Storage Interface （ CSI ）。不過、 NAS 經濟型和 SAN 經濟型驅動程式不支援複寫。
+
+
+
+=== 使用 Acc 執行資料複寫
+
+image:rhhc-onprem-dp-rep.png["Astra Control Center 複寫"]

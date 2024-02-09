@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp-setup.html 
+keywords: NetApp Solutions, google cloud, gcp, gcve, vmware managed cloud, enterprise, hybrid, cloud, config, configuration, 
+summary:  
+---
+= 在Google Cloud Platform（GCP）上部署及設定虛擬化環境
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+如同內部部署、規劃Google Cloud VMware Engine（GCVM）對於成功建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。
+
+本節說明如何設定及管理GCVE,並搭配可用的選項來連接NetApp儲存設備。
+
+設定程序可分為下列步驟：
+
+.部署及設定GCVE
+[%collapsible]
+====
+若要在GCP上設定GCVE環境、請登入GCP主控台、然後存取VMware Engine入口網站。
+
+按一下「New Private Cloud」（新私有雲端）按鈕、然後輸入所需的GCVM私有雲端組態。在「位置」上、請務必在部署CVS/CVO的相同地區/區域中部署私有雲端、以確保最佳效能和最低延遲。
+
+先決條件：
+
+* 設定VMware引擎服務管理IAM角色
+* link:https://cloud.google.com/vmware-engine/docs/quickstart-prerequisites["啟用VMware Engine API存取和節點配額"]
+* 請確定CIDR範圍不會與任何內部部署或雲端子網路重疊。CIDR範圍必須為/27或更高。
+
+
+image:gcve-deploy-1.png[""]
+
+附註：建立私有雲端可能需要30分鐘到2小時的時間。
+
+====
+.啟用對GCVE的私有存取
+[%collapsible]
+====
+一旦私有雲端資源配置完成、請設定私有雲端存取、以實現高處理量和低延遲的資料路徑連線。
+
+如此可確保Cloud Volumes ONTAP 執行了某些執行個體的VPC網路能夠與GCVR私有雲端通訊。若要這麼做、請遵循 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/quickstart["GCP文件"]。對於Cloud Volume Service、請Cloud Volumes Service 在租戶主機專案之間執行一次對等、以建立VMware Engine與VMware Infrastructure之間的連線。如需詳細步驟、請遵循此步驟 link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service["連結"]。
+
+image:gcve-access-1.png[""]
+
+使用CloudOwner@gve.estil使用者登入vCenter。若要存取認證資料、請前往VMware Engine入口網站、前往資源、然後選取適當的私有雲。在基本資訊區段中、按一下vCenter登入資訊（vCenter Server、HCX Manager）或NSX-T登入資訊（NSX Manager）的檢視連結。
+
+image:gcve-access-2.png[""]
+
+在Windows虛擬機器中、開啟瀏覽器並瀏覽至vCenter Web用戶端URL  並將管理使用者名稱用作CloudOwner@gve.erl、然後貼上複製的密碼。同樣地、您也可以使用Web用戶端URL來存取NSxT-T Manager  並使用管理使用者名稱貼上複製的密碼、以建立新區段或修改現有的層級閘道。
+
+若要從內部部署網路連線至VMware Engine私有雲、請善用雲端VPN或雲端互連來進行適當的連線、並確保所需的連接埠是開放的。如需詳細步驟、請遵循此步驟 link:https://ubuntu.com/server/docs/service-iscsi["連結"]。
+
+image:gcve-access-3.png[""]
+
+image:gcve-access-4.png[""]
+
+====
+.將 NetApp Cloud Volume Service 補充資料存放區部署至 GCVE
+[%collapsible]
+====
+請參閱 link:gcp-ncvs-datastore.html["使用 NetApp CVS 將補充 NFS 資料存放區部署至 GCVE 的程序"]
+
+====

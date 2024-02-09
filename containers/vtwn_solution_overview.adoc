@@ -1,0 +1,164 @@
+---
+sidebar: sidebar 
+permalink: containers/vtwn_solution_overview.html 
+keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Astra Trident, Astra Control, Astra 
+summary: 本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。 
+---
+= NVA-1166：採用NetApp的VMware Tanzu
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp公司Alan Cowles和NIKhil M Kulkarni
+
+本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。同時也說明與NetApp儲存系統和Astra Trident儲存協調程式的儲存整合、以管理持續儲存設備、以及Astra控制中心、以便使用該持續儲存設備備份及複製狀態化應用程式。最後、文件提供解決方案整合與驗證的影片示範。
+
+
+
+== 使用案例
+
+採用NetApp的VMware Tanzu解決方案的架構設計、可為具有下列使用案例的客戶提供卓越價值：
+
+* 易於部署和管理VMware Tanzu Kubernetes Grid產品、這些產品部署在VMware vSphere上、並與NetApp儲存系統整合。
+* 結合企業容器與虛擬化工作負載的強大功能、以及VMware Tanzu Kubernetes Grid產品。
+* 實際組態與使用案例、突顯VMware Tanzu與NetApp儲存設備及NetApp Astra產品套件搭配使用時的功能。
+* 應用程式一致的保護或移轉部署在VMware Tanzu Kubernetes Grid叢集上的容器化工作負載、這些叢集的資料使用Astra Control Center存放在NetApp儲存系統上。
+
+
+
+
+== 商業價值
+
+企業逐漸採用DevOps實務來建立新產品、縮短發行週期、並快速新增新功能。由於容器和微服務的本質天生敏捷、因此在支援DevOps實務做法上扮演著重要角色。然而、在企業環境中以正式作業規模實作DevOps、卻帶來了自身的挑戰、並對基礎架構提出特定要求、例如：
+
+* 堆疊中所有層級的高可用度
+* 易於部署的程序
+* 不中斷營運與升級
+* API導向且可程式化的基礎架構、可跟上微服務敏捷度的腳步
+* 多租戶共享、效能保證
+* 能夠同時執行虛擬化與容器化的工作負載
+* 能夠根據工作負載需求獨立擴充基礎架構
+* 能夠在混合雲模式中部署、並在內部部署資料中心和雲端上執行容器。
+
+
+VMware Tanzu與NetApp共同肯定這些挑戰、並提供解決方案、協助客戶在混合雲環境中部署VMware Tanzu Kubernetes產品、以解決每個疑慮。
+
+
+
+== 技術總覽
+
+VMware Tanzu with NetApp解決方案包含下列主要元件：
+
+
+
+=== VMware Tanzu Kubernetes平台
+
+VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已在實驗室中通過驗證。每個Tanzu版本都能與NetApp儲存產品組合成功整合、而且每個產品都能滿足特定的基礎架構需求。下列項目符號重點說明本文件所述的每個Tanzu版本的特色與產品。
+
+* VMware Tanzu Kubernetes Grid（TKG）*
+
+* 部署在VMware vSphere環境中的標準上游Kubernetes環境。
+* 前身為Essential PKS（取自2019年2月的赫特（Hetio）收購案）。
+* TKG是以獨立的管理叢集執行個體來部署、以支援vSphere 6.7U3及更高版本。
+* TKG部署也可與AWS或Azure一起部署在雲端。
+* 允許使用Windows或Linux工作節點（Ubuntu / Photon）。
+* NSX T、HA Proxy、Avi網路或負載平衡器可用於控制面板。
+* TKG支援應用程式/資料平面的MetalLB。
+* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI。
+
+
+* VMware Tanzu Kubernetes Grid Service（TKGS）*
+
+* 部署在VMware vSphere環境中的標準上游Kubernetes環境。
+* 前身為Essential PKS（取自2019年2月的赫特（Hetio）收購案）。
+* TKGS僅在vSphere 7.0U1及後續版本上隨監督者叢集和工作負載叢集一起部署。
+* 允許使用Windows或Linux工作節點（Ubuntu / Photon）。
+* NSX T、HA Proxy、Avi網路或負載平衡器可用於控制面板。
+* TKGS支援應用程式/資料平面的MetalLB。
+* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI。
+* 支援搭配Tanzu的vSphere Pod、可讓Pod直接在環境中啟用的ESXi主機上執行。
+
+
+* VMware Tanzu Kubernetes Grid整合（TKGI*）
+
+* 先前稱為企業PKS（取自2019年2月的赫塔（Hetio）收購案）。
+* 可以使用NSX T、HA Proxy或Avi。您也可以提供自己的負載平衡器。
+* 支援vSphere 6.7U3及AWS、Azure和GCP。
+* 透過精靈進行設定、以便輕鬆部署。
+* 在由Bosh管理的可控不可變虛擬機器中執行Tanzu。
+* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI（部分條件適用）。
+
+
+* vSphere with Tanzu（vSphere Pod）*
+
+* vSphere原生Pod可在採用指定虛擬硬體的薄型、以光子為基礎的層面上執行、以實現完整的隔離。
+* 需要NSxT-T、但這可提供額外的功能支援、例如港映像登錄。
+* 在vSphere 7.0U1中部署及管理、然後使用虛擬的監控叢集（例如TKGS）。直接在ESXi節點上執行Pod。
+* vSphere管理功能可完全整合vSphere、提供最高可見度與控制能力。
+* 隔離式CRX型Pod、提供最高層級的安全性。
+* 僅支援vSphere SCSI作為持續儲存設備。不支援任何協力廠商儲存協調程式。
+
+
+
+
+=== NetApp儲存系統
+
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+
+如需詳細資訊、請造訪NetApp網站 https://www.netapp.com["請按這裡"]。
+
+
+
+=== NetApp儲存整合
+
+NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感知資料管理服務、可處理有狀態的Kubernetes工作負載、部署於內部環境、並採用值得信賴的NetApp資料保護技術。
+
+如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
+
+Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。
+
+如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+
+
+
+== 已驗證版本的目前支援對照表
+
+|===
+
+
+| 技術 | 目的 | 軟體版本 
+
+
+| NetApp ONTAP | 儲存設備 | 9.9.1 
+
+
+| NetApp Astra控制中心 | 應用程式感知資料管理 | 22.04 
+
+
+| NetApp Astra Trident | 儲存協調 | 22.04.0 
+
+
+| VMware Tanzu Kubernetes Grid | 容器協調 | 1.4以上 
+
+
+.2+| VMware Tanzu Kubernetes Grid Service .2+| 容器協調 | 0.0.15 [vSphere命名空間] 
+
+
+| 1.22.6 [監控叢集Kubernetes ] 
+
+
+| 整合VMware Tanzu Kubernetes Grid | 容器協調 | 1.13.3 
+
+
+| VMware vSphere | 資料中心虛擬化 | 7.0U3 
+
+
+| VMware NSX T資料中心 | 網路與安全性 | 3.1.3 
+
+
+| VMware NSX進階負載平衡器 | 負載平衡器 | 20.1.3 
+|===

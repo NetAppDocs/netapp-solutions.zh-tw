@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-pm-solution.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= 在 AWS 上使用託管 Red Hat OpenShift Container 平台工作負載的 NetApp 解決方案
+:allow-uri-read: 
+
+
+
+
+== 在 AWS 上使用託管 Red Hat OpenShift Container 平台工作負載的 NetApp 解決方案
+
+[role="lead"]
+客戶可能是「天生於雲端」、或是準備好將某些特定工作負載或所有工作負載從資料中心移至雲端時、處於現代化過程的某個階段。他們可以選擇在雲端使用由供應商管理的 OpenShift 容器和由供應商管理的 NetApp 儲存設備來執行工作負載。他們應該規劃並部署雲端中的託管 Red Hat OpenShift Container 叢集（ ROSA ）、以便為其容器工作負載打造成功的正式作業環境。當他們位於 AWS 雲端時、也可以針對 NetApp ONTAP 部署 FSX 以滿足儲存需求。
+
+適用於 NetApp ONTAP 的 FSX 可為 AWS 中的容器部署提供資料保護、可靠性和靈活度。Astra Trident 是動態儲存資源配置程式、可為客戶的有狀態應用程式使用持續的 FSxN 儲存設備。
+
+由於 ROSA 可在 HA 模式中部署、控制平面節點分散於多個可用性區域、因此也可透過 Multi-AZ 選項來配置 FSX ONTAP 、以提供高可用度並防範 AZ 故障。
+
+
+NOTE: 從檔案系統的慣用可用性區域（ AZ ）存取 Amazon FSX 檔案系統時、不會收取資料傳輸費用。如需定價的詳細資訊、請參閱 link:https://aws.amazon.com/fsx/netapp-ontap/pricing/["請按這裡"]。
+
+
+
+== 適用於 OpenShift Container 工作負載的資料保護與移轉解決方案
+
+image:rhhc-rosa-with-fsxn.png[""]

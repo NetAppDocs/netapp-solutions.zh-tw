@@ -1,0 +1,295 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws-native-nfs-datastore-option.html 
+keywords:  
+summary:  
+---
+= AWS中的補充NFS資料存放區選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+當VMware Cloud準備就緒並連線至AWS VPC之後、您必須將Amazon FSXfor NetApp ONTAP 支援部署至新指定的VPC、而非原始連線或現有的預設VPC。
+
+若要開始、請在SDDC所在的相同地區和可用度區域部署額外的VPC、然後將Amazon FSx for NetApp ONTAP 支援部署到新的VPC。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-6B20CA3B-ABCD-4939-9176-BCEA44473C2B.html["在VMware Cloud中設定SDDC群組"^] 主控台可啟用連線至新指定VPC所需的網路組態選項、以便ONTAP 部署FSXfor Sfor。
+
+
+NOTE: 在ONTAP AWS SDDC上部署FSx for VMware與VMware Cloud相同的可用區域。
+
+
+NOTE: 您無法在ONTAP 連線的VPC上部署FSXfor Sfor。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。
+
+.步驟1：在ONTAP 新的指定VPC中建立Amazon FSX for Sf0
+[%collapsible]
+====
+若要建立及掛載Amazon FSX for NetApp ONTAP Sfor NetApp Sfor文件系統、請完成下列步驟：
+
+. 在「https://console.aws.amazon.com/fsx/`」開啟Amazon FSX主控台、然後選擇「*建立檔案系統*」來啟動「*建立檔案系統*」精靈。
+. 在「Select File System Type」（選取檔案系統類型）頁面上、選取「* Amazon FSX for NetApp ONTAP 」（*適用於NetApp的Amazon FSx*）、然後按一下「* Next*」（此時將顯示「*建立檔案系統*」頁面。
++
+image:fsx-nfs-image2.png["錯誤：缺少圖形影像"]
+
+. 對於建立方法、請選擇*標準建立*。
++
+image:fsx-nfs-image3.png["錯誤：缺少圖形影像"]
+
++
+image:fsx-nfs-image4.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 資料存放區大小會因客戶而異。雖然每個NFS資料存放區建議的虛擬機器數量是主觀的、但許多因素都決定了每個資料存放區可放置的最佳VM數量。雖然大多數系統管理員只考慮容量、但傳送到VMDK的並行I/O量是整體效能最重要的因素之一。使用內部部署的效能統計資料來調整資料存放區磁碟區的大小。
+
+. 在虛擬私有雲端（VPC）的*網路*區段中、選擇適當的VPC和偏好的子網路、以及路由表。在此情況下、會從下拉式功能表中選取「示範- FSxforONTAP-VPC」。
++
+
+NOTE: 請確定這是新的指定VPC、而非連接的VPC。
+
++
+
+NOTE: 根據預設ONTAP 、FSX for Sf0使用198.19.0/16做為檔案系統的預設端點IP位址範圍。確保端點IP位址範圍不會與AWS SDDC、相關VPC子網路和內部部署基礎架構上的VMC衝突。如果您不確定、請使用無衝突的無重疊範圍。
+
++
+image:fsx-nfs-image5.png["錯誤：缺少圖形影像"]
+
+. 在加密金鑰的「*安全性與加密*」區段中、選擇可保護檔案系統閒置資料的AWS金鑰管理服務（AWS KMS）加密金鑰。在*檔案系統管理密碼*中、輸入fsxadmin使用者的安全密碼。
++
+image:fsx-nfs-image6.png["錯誤：缺少圖形影像"]
+
+. 在*預設儲存虛擬機器組態*區段中、指定SVM的名稱。
++
+
+NOTE: 到GA時、支援四個NFS資料存放區。
+
++
+image:fsx-nfs-image7.png["錯誤：缺少圖形影像"]
+
+. 在*預設Volume Configuration（Volume組態）*區段中、指定資料存放區所需的磁碟區名稱和大小、然後按一下* Next*（*下一步*）。這應該是NFSv3 Volume。若為*儲存效率*、請選擇*已啟用*以開啟ONTAP 「支援」儲存效率功能（壓縮、重複資料刪除及壓縮）。建立之後、請使用Shell使用* Volume modify__*修改Volume參數、如下所示：
++
+[cols="50%, 50%"]
+|===
+| 設定 | 組態 
+
+
+| Volume保證（空間保證形式） | 無（精簡配置）–預設設定 
+
+
+| 分數保留（分數保留） | 0%–預設設定 
+
+
+| Snap_Reserve（百分比快照空間） | 0% 
+
+
+| 自動調整大小（自動調整大小模式） | 大幅縮減 
+
+
+| 儲存效率 | 已啟用–預設設定 
+
+
+| 自動刪除 | Volume / OLDEST_First 
+
+
+| Volume分層原則 | 僅Snapshot–預設設定 
+
+
+| 先試用 | 自動擴充 
+
+
+| Snapshot原則 | 無 
+|===
++
+使用下列SSH命令建立及修改磁碟區：
+
++
+*命令從Shell建立新的資料存放區磁碟區：*
+
++
+ volume create -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -aggregate aggr1 -size 1024GB -state online -tiering-policy snapshot-only -percent-snapshot-space 0 -autosize-mode grow -snapshot-policy none -junction-path /DemoDS002
++
+*附註：*透過Shell建立的磁碟區需要幾分鐘的時間才能顯示在AWS主控台。
+
++
+*修改Volume參數的命令（預設未設定）：*
+
++
+....
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -fractional-reserve 0
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -space-mgmt-try-first vol_grow
+volume modify -vserver FSxONTAPDatastoreSVM -volume DemoDS002 -autosize-mode grow
+....
++
+image:fsx-nfs-image8.png["錯誤：缺少圖形影像"]
+
++
+image:fsx-nfs-image9.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 在初始移轉案例中、預設的快照原則可能會造成資料存放區容量已滿問題。若要克服此問題、請修改快照原則以符合需求。
+
+. 檢閱「*建立檔案系統*」頁面上顯示的檔案系統組態。
+. 按一下「*建立檔案系統*」。
++
+image:fsx-nfs-image10.png["錯誤：缺少圖形影像"]
+
++
+image:fsx-nfs-image11.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 重複上述步驟、根據容量和效能需求、建立更多儲存虛擬機器或檔案系統、以及資料存放區磁碟區。
+
+
+
+若要深入瞭解Amazon FSX ONTAP 的效能、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["Amazon FSX提供NetApp ONTAP 的效能"^]。
+
+====
+.步驟2：建立SDDC群組
+[%collapsible]
+====
+建立檔案系統和SVM之後、請使用VMware Console建立SDDC群組、並設定VMware Transit Connect。若要這麼做、請完成下列步驟、並記住您必須在VMware Cloud Console和AWS主控台之間進行瀏覽。
+
+. 登入VMC主控台：https://vmc.vmware.com`。
+. 在「* Inventory *」頁面上、按一下「* SDDC Groups*」。
+. 在「* SDDC Groups *（* SDDC群組*）」索引標籤上、按一下「* actions *（*動作*）」、然後選取「Create SDDC Group*（為了展示用途、SDDC群組稱為「FSxONTAPDatastoreGrp」。
+. 在「成員資格」網格中、選取要納入為群組成員的SDDC。
++
+image:fsx-nfs-image12.png["錯誤：缺少圖形影像"]
+
+. 確認已勾選「為您的群組設定VMware Transit Connect將會產生每個附件和資料傳輸的費用」、然後選取*建立群組*。此程序可能需要幾分鐘的時間才能完成。
++
+image:fsx-nfs-image13.png["錯誤：缺少圖形影像"]
+
+
+
+====
+.步驟3：設定VMware Transit Connect
+[%collapsible]
+====
+. 將新建立的指定VPC附加至SDDC群組。選取*外部VPC*索引標籤、然後遵循 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-A3D03968-350E-4A34-A53E-C0097F5F26A9.html["將外部VPC附加至群組的說明"^]。此程序可能需要10-15分鐘才能完成。
++
+image:fsx-nfs-image14.png["錯誤：缺少圖形影像"]
+
+. 按一下*新增帳戶*。
++
+.. 提供用來配置FSX以供ONTAP 參考檔案系統的AWS帳戶。
+.. 按一下「 * 新增 * 」。
+
+
+. 回到AWS主控台、登入相同的AWS帳戶、然後瀏覽至*資源存取管理程式*服務頁面。有一個按鈕可讓您接受資源共用。
++
+image:fsx-nfs-image15.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 在外部VPC程序中、系統會透過AWS主控台、透過資源存取管理程式提示您存取新的共用資源。共享資源是由VMware Transit Connect管理的AWS Transit閘道。
+
+. 按一下*接受資源共用*。
++
+image:fsx-nfs-image16.png["錯誤：缺少圖形影像"]
+
+. 回到VMC主控台、您現在可以看到外部VPC處於關聯狀態。這可能需要幾分鐘的時間才會出現。
+
+
+====
+.步驟4：建立傳輸閘道附加
+[%collapsible]
+====
+. 在AWS主控台中、前往VPC服務頁面、然後瀏覽至用於配置FSX檔案系統的VPC。您可在此處按一下右側導覽窗格上的* Transit Gateway附件*、以建立傳輸閘道附件。
+. 在「* VPC附件*」下、確認已勾選「DNS支援」、然後選取ONTAP 部署FSX for Sf1的VPC。
++
+image:fsx-nfs-image17.png["錯誤：缺少圖形影像"]
+
+. 按一下「*建立**傳輸閘道附加*」。
++
+image:fsx-nfs-image18.png["錯誤：缺少圖形影像"]
+
+. 返回VMware Cloud Console、瀏覽至SDDC Group >外部VPC索引標籤。選取用於FSX的AWS帳戶ID、然後按一下VPC、再按一下* Accept*。
++
+image:fsx-nfs-image19.png["錯誤：缺少圖形影像"]
+
++
+image:fsx-nfs-image20.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 此選項可能需要幾分鐘的時間才會出現。
+
+. 然後在* Routes *（*路由*）列的* Extern外部VPC*（*外部VPC*）標籤中、按一下* Add Routes（*新增路由*）選項、並新增所需的路由：
++
+** 適用於NetApp ONTAP 的Amazon FSX的浮動IP範圍路由。
+** 新建立外部VPC位址空間的路由。
++
+image:fsx-nfs-image21.png["錯誤：缺少圖形影像"]
+
++
+image:fsx-nfs-image22.png["錯誤：缺少圖形影像"]
+
+
+
+
+
+====
+.步驟5：設定路由（AWS VPC和SDDC）和安全性群組
+[%collapsible]
+====
+. 在AWS主控台中、找出VPC服務頁面中的VPC、然後選取VPC的*主*路由表、以建立返回SDDC的路由。
+. 瀏覽至下方面板中的路由表、然後按一下*編輯路由*。
++
+image:fsx-nfs-image23.png["錯誤：缺少圖形影像"]
+
+. 在「*編輯路由*」面板中、按一下「*新增路由*」、然後選取「* Transit Gateway*」和相關的TGW ID、輸入SDDC基礎架構的CIDR。按一下*儲存變更*。
++
+image:fsx-nfs-image24.png["錯誤：缺少圖形影像"]
+
+. 下一步是驗證相關VPC中的安全性群組是否已更新為SDDC群組CIDR的正確傳入規則。
+. 使用SDDC基礎架構的CIDR區塊來更新傳入規則。
++
+image:fsx-nfs-image25.png["錯誤：缺少圖形影像"]
+
++
+
+NOTE: 確認VPC（FSXfor ONTAP Sf2所在位置）路由表已更新、以避免連線問題。
+
++
+
+NOTE: 更新安全性群組以接受NFS流量。
+
+
+
+這是準備連線至適當SDDC的最後步驟。在設定檔案系統、新增路由及更新安全性群組之後、現在正是掛載資料存放區的好時機。
+
+====
+.步驟6：將NFS磁碟區作為資料存放區附加至SDDC叢集
+[%collapsible]
+====
+在檔案系統佈建且連線到位之後、請存取VMware Cloud Console來掛載NFS資料存放區。
+
+. 在VMC主控台中、開啟SDDC的* Storage*索引標籤。
++
+image:fsx-nfs-image27.png["錯誤：缺少圖形影像"]
+
+. 單擊* attach datastori*並填寫所需的值。
++
+
+NOTE: NFS伺服器位址是NFS IP位址、可在FSX > Storage virtual machines（儲存虛擬機器）索引標籤> AWS主控台內的端點下找到。
+
++
+image:fsx-nfs-image28.png["錯誤：缺少圖形影像"]
+
+. 按一下*附加資料存放區*、將資料存放區附加至叢集。
++
+image:fsx-nfs-image29.png["錯誤：缺少圖形影像"]
+
+. 存取vCenter以驗證NFS資料存放區、如下所示：
++
+image:fsx-nfs-image30.png["錯誤：缺少圖形影像"]
+
+
+
+====

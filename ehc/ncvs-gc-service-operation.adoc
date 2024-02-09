@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs-gc-service-operation.html 
+keywords: physical security, operations team, customer responsibilities, malicious sre protection, certifications, gdpr 
+summary: 這個支援團隊負責管理Google Cloud的後端服務、並運用多種策略來保護平台安全、防止不必要的存取。Cloud Volumes Service 
+---
+= 服務營運
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+這個支援團隊負責管理Google Cloud的後端服務、並運用多種策略來保護平台安全、防止不必要的存取。Cloud Volumes Service
+
+每位客戶都有自己專屬的子網路、預設會有與其他客戶隔離的存取權限、Cloud Volumes Service 而在這個子網路中、每個租戶都會獲得自己的命名空間和VLAN、以實現整體資料隔離。驗證使用者之後、服務交付引擎（SDE）只能讀取該租戶專屬的組態資料。
+
+
+
+== 實體安全性
+
+在適當的預先核准下、只有現場工程師和NetApp認可的現場支援工程師（FSE）才能存取機箱和機架進行實體工作。不允許進行儲存與網路管理。只有這些現場資源能夠執行硬體維護工作。
+
+對於現場工程師、會提出一份工作說明書（SOW）的票證、其中包括機架ID和裝置位置（RU）、以及所有其他詳細資料均包含在票證中。對於NetApp FSE、必須向Colo出示網站參訪票證、票證中必須包含訪客的詳細資料、日期和時間、以供稽核之用。FSE的SOW會在內部傳達給NetApp。
+
+
+
+== 營運團隊
+
+支援此功能的營運團隊Cloud Volumes Service 由Production Engineering和Site可靠性工程師（SRE）組成、負責雲端Volume Services、以及NetApp現場支援工程師和硬體合作夥伴。所有營運團隊成員均已獲得Google Cloud認證、並會針對每張提出的問題單、維護詳細的工作記錄。此外、也有嚴格的變更控管與核准程序、確保每項決策都經過適當的審查。
+
+SRE團隊負責管理控制面板、以及如何將資料從UI要求路由傳送至Cloud Volumes Service 支援的後端硬體和軟體。SRE團隊也會管理系統資源、例如磁碟區和inode上限。SRES不得與客戶資料互動或存取。SRES也能與退貨材料授權（RMA）協調、例如新磁碟或後端硬體的記憶體更換要求。
+
+
+
+== 客戶責任
+
+客戶負責管理組織的Active Directory和使用者角色管理、以及磁碟區和資料作業。Cloud Volumes Service客戶可以擁有管理角色、並可使用NetApp和Google Cloud提供的兩個預先定義角色（管理員和檢視者）、將權限委派給同一個Google Cloud專案中的其他終端使用者。
+
+系統管理員可以對等客戶專案中的任何VPC、Cloud Volumes Service 使客戶認爲適當。客戶有責任管理其Google Cloud市場訂閱的存取權、以及管理可存取資料層面的VPC。
+
+
+
+== 惡意SRE保護
+
+可能會產生的一項疑慮是Cloud Volumes Service 、當發生惡意SRE或SRE認證遭入侵時、如何保護不受攻擊？
+
+只有少數SRE人員能夠存取正式作業環境。系統管理權限進一步限制給少數經驗豐富的系統管理員。我們的安全資訊與事件管理（SIEM）威脅情報平台會記錄所有在整個流程環境中由任何人執行的行動Cloud Volumes Service 、並偵測到任何基礎異常或可疑活動。因此、在Cloud Volumes Service 對該後端造成太多損害之前、可以追蹤並減輕惡意行為。
+
+
+
+== Volume生命週期
+
+僅管理服務中的物件、而非磁碟區內的資料。Cloud Volumes Service只有存取磁碟區的用戶端才能管理資料、ACL、檔案擁有者等。這些磁碟區中的資料會在閒置時加密、而且只能由Cloud Volumes Service 執行個體的租戶存取。
+
+支援的Volume生命週期Cloud Volumes Service 是「cree-update-delete」。Volume會保留Volume的Snapshot複本、直到磁碟區被刪除為止、而且只有通過驗證Cloud Volumes Service 的NetApp管理員才能刪除Cloud Volumes Service 整個實體中的Volume。當系統管理員要求刪除磁碟區時、需要輸入磁碟區名稱的其他步驟來驗證刪除作業。刪除磁碟區後、磁碟區便會消失、無法恢復。
+
+如果終止了某個方面的合約、NetApp會在特定時間段後將磁碟區標示為刪除。Cloud Volumes Service在該期間到期之前、您可以應客戶的要求來恢復磁碟區。
+
+
+
+== 認證
+
+Cloud Volumes Services for Google Cloud目前已通過ISO/IEC 27001：2013和ISO/IEC 27018：2019標準的認證。該服務最近也收到SOC2類型I證明報告。如需NetApp對資料安全性與隱私權承諾的相關資訊、請參閱 https://www.netapp.com/company/trust-center/compliance/["法規遵循：資料安全與資料隱私"^]。
+
+
+
+== GDPR
+
+我們對隱私權和遵守GDPR的承諾、已在我們的多個公司中提供  https://www.netapp.com/how-to-buy/sales-terms-and-conditions%22%20/o%20%22SEO%20-%20Sales%20Terms%20and%20Conditions["客戶合約"^]、例如我們的 https://netapp.na1.echosign.com/public/esignWidget?wid=CBFCIBAA3AAABLblqZhCqPPgcufskl_71q-FelD4DHz5EMJVOkqqT0iiORT10DlfZnZeMpDrse5W6K9LEw6o*["客戶資料處理附錄"^]、其中包括  https://ec.europa.eu/info/law/law-topic/data-protection/international-dimension-data-protection/standard-contractual-clauses-scc_en["標準合約條款"^] 由歐盟委員會提供。我們也會在隱私權政策中做出這些承諾、並以公司行為準則中所列的核心價值為後盾。

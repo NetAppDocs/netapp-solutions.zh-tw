@@ -1,0 +1,74 @@
+---
+sidebar: sidebar 
+permalink: ehc/azure-avs.html 
+keywords: NetApp Solutions, hyperscalers, azure, avs, enterprise, hybrid, cloud, migrate, migration, disaster recovery, dr 
+summary:  
+---
+= 適用於Azure AVS的NetApp功能
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+深入瞭解NetApp為Azure VMware解決方案（AVS）帶來的功能：從NetApp做為來賓連線儲存設備或補充NFS資料存放區、到移轉工作流程、延伸/突增至雲端、備份/還原及災難恢復、皆可從中獲益。
+
+從下列選項中選取、跳至所需內容的區段：
+
+* link:#config["在Azure中設定AVS"]
+* link:#datastore["適用於AVS的NetApp儲存選項"]
+* link:#solutions["NetApp / VMware雲端解決方案"]
+
+
+
+
+== 在Azure中設定AVS
+
+如同內部部署、規劃雲端型虛擬化環境對於成功建立虛擬機器和移轉的正式作業就緒環境來說、是非常重要的。
+
+本節說明如何設定及管理Azure VMware解決方案、以及如何搭配可用的選項來連接NetApp儲存設備。
+
+
+NOTE: 客體內儲存設備是唯一支援的連線Cloud Volumes ONTAP 至Azure VMware解決方案的方法。
+
+設定程序可分為下列步驟：
+
+* 註冊資源供應商並建立私有雲
+* 連線至新的或現有的ExpressRoute虛擬網路閘道
+* 驗證網路連線能力並存取私有雲端
+
+
+檢視詳細資訊 link:azure-setup.html["AVS的組態步驟"]。
+
+
+
+== 適用於AVS的NetApp儲存選項
+
+NetApp儲存設備可在Azure AVS中以多種方式使用、無論是作為猜測連接的或作為補充NFS資料存放區。
+
+請造訪 link:../ehc-support-configs.html["支援的NetApp儲存選項"] 以取得更多資訊。
+
+Azure以下列組態支援NetApp儲存設備：
+
+* 以客體連線儲存設備的形式提供Azure NetApp Files
+* 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+* 作爲NFS補充資料存放區的能力（ANF Azure NetApp Files ）
+
+
+檢視詳細資訊 link:azure-guest.html["AVS的來賓連線儲存選項"]。檢視詳細資訊 link:azure-native-nfs-datastore-option.html["AVS的補充NFS資料存放區選項"]。
+
+
+
+== 解決方案使用案例
+
+有了NetApp和VMware雲端解決方案、在Azure AVS中部署的許多使用案例都很簡單。系統會針對VMware定義的每個雲端領域定義SE案例：
+
+* 保護（包括災難恢復和備份/還原）
+* 延伸
+* 移轉
+
+
+link:azure-solutions.html["瀏覽適用於Azure AVS的NetApp解決方案"]

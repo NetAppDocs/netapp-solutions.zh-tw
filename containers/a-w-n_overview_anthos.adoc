@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: containers/a-w-n_overview_anthos.html 
+keywords: Anthos, deploy, baremetal, virtual 
+summary: Anthos將開發與IT作業整合在單一平台上、以一致的方式在內部部署與混合雲基礎架構之間建置、部署及管理應用程式。Anthos以虛擬或裸機格式、將GKE Kubernetes叢集直接帶入您的資料中心環境。 
+---
+= Anthos總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+Anthos with NetApp是經過驗證、最佳實務的混合雲架構、可可靠可靠地部署內部部署的Google Kubernetes Engine（GKE）環境。這份NetApp驗證架構參考文件可做為部署至裸機和虛擬環境之NetApp解決方案的Anthos設計指南和部署驗證。本文件中所述的架構已通過NetApp和Google Cloud的主題專家驗證、可在企業資料中心環境中提供執行Anthos的優勢。
+
+
+
+== 安索斯
+
+Anthos是混合雲Kubernetes資料中心解決方案、可讓組織建構及管理現代化的混合雲基礎架構、同時採用敏捷的工作流程、專注於應用程式開發。Anthos on VMware是以開放原始碼技術為基礎的解決方案、可在VMware vSphere基礎架構的內部環境中執行、並可在Google Cloud中與Anthos GKE連線及互通。採用容器、服務網格及其他轉型技術、可讓組織在本機和雲端型環境中、體驗一致的應用程式開發週期和正式作業就緒工作負載。下圖說明Anthos解決方案、以及內部部署資料中心的部署如何與雲端的基礎架構互連。
+
+如需更多關於Anthos的資訊、請參閱Anthos網站 https://cloud.google.com/anthos["請按這裡"^]。
+
+Anthos提供下列功能：
+
+* * Anthos組態管理。*自動化混合式Kubernetes部署的原則與安全性。
+* * Anthos Service Mesh。*利用Istio驅動的服務網格、強化應用程式的觀察能力、安全性及控制能力。
+* *適用於Kubernetes應用程式的Google Cloud Marketplace。*這是精選的容器應用程式目錄、可供輕鬆部署。
+* *移轉至Anthos *自動將實體服務和VM從內部部署移轉至雲端。
+* * Google提供的Stackdrivan.*管理服務、用於記錄及監控雲端執行個體。
+
+
+image:a-w-n_anthos_architecture.png["錯誤：缺少圖形影像"]
+
+
+
+== Anthos的部署方法
+
+
+
+=== VMware的Anthos叢集
+
+部署至VMware vSphere環境的Anthos叢集、可輕鬆部署、維護及快速擴充、以因應大多數終端使用者Kubernetes工作負載。
+
+如需更多有關VMware上的Anthos叢集（與NetApp一起部署）的資訊、請參閱頁面 link:a-w-n_anthos_VMW.html["請按這裡"^]。
+
+
+
+=== 裸機上的Anthos
+
+部署在裸機伺服器上的Anthos叢集不受硬體限制、可讓您針對個人化的使用案例、選擇最佳化的運算平台。
+
+如需更多有關透過NetApp部署裸機叢集的Anthos資訊、請參訪 link:a-w-n_anthos_BM.html["請按這裡"^]。

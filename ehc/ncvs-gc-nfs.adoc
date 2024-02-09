@@ -1,0 +1,469 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs-gc-nfs.html 
+keywords: default, local, unix users, groups, root user, anonymous user, acls for NFSv3, 
+summary: NFS是一種分散式檔案系統傳輸協定、是在Request for Comments（RFC）中定義的開放式IETF標準、可讓任何人實作該傳輸協定。 
+---
+= NFS
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+NFS是一種分散式檔案系統傳輸協定、是在Request for Comments（RFC）中定義的開放式IETF標準、可讓任何人實作該傳輸協定。
+
+透過匯出可供用戶端或一組用戶端存取的路徑、將位於此功能的Volume Cloud Volumes Service 共享給NFS用戶端。掛載這些匯出的權限是由匯出原則和規則所定義、Cloud Volumes Service 這些原則和規則可由資訊管理員設定。
+
+NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業NAS環境。以下各節涵蓋Cloud Volumes Service 支援的NFS和特定安全功能、以及如何實作這些功能。
+
+
+
+== 預設的本機UNIX使用者和群組
+
+包含多個預設UNIX使用者和群組、可提供各種基本功能。Cloud Volumes Service這些使用者和群組目前無法修改或刪除。目前無法將新的本機使用者和群組新增Cloud Volumes Service 至無法更新的功能。外部LDAP名稱服務必須提供預設使用者和群組以外的UNIX使用者和群組。
+
+下表顯示預設使用者和群組及其對應的數字ID。NetApp建議不要在LDAP或重新使用這些數字ID的本機用戶端上建立新的使用者或群組。
+
+|===
+| 預設使用者：數字ID | 預設群組：數字ID 
+
+
+ a| 
+* 根目錄：0
+* pcuser:65534
+* 無人：65535
+
+ a| 
+* 根目錄：0
+* 精靈：1.
+* pcuser:65534
+* 無人：65535
+
+
+|===
+
+NOTE: 使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目錄時、可能會顯示為nobnobody。這是因為用戶端的ID網域對應組態。請參閱「」一節 <<NFSv4.1和nobody使用者/群組>> 以取得此問題的詳細資訊及解決方法。
+
+
+
+== root使用者
+
+在Linux中、root帳戶可以存取Linux型檔案系統中的所有命令、檔案和資料夾。由於此帳戶的強大功能、安全性最佳實務做法通常會要求root使用者停用或限制某種方式。在NFS匯出中、root使用者對檔案和資料夾的控制能力、可Cloud Volumes Service 透過匯出原則和規則、以及稱為root squash的概念、在整個過程中加以控制。
+
+root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿名的數字使用者65534（請參閱「」一節）<<匿名使用者>>」）、目前僅適用於使用CVS效能的情況、方法是在建立匯出原則規則期間選取「Off」（關閉）進行root存取。如果root使用者被擠到匿名使用者、就無法再執行chown或 https://en.wikipedia.org/wiki/Setuid["setuid/setgid命令（sticky位元）"^] 在NFS掛載的檔案或資料夾上、root使用者建立的檔案或資料夾會將anon UID顯示為擁有者/群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制root使用者的檔案和資料夾權限存取、請考慮使用具有NTFS ACL的磁碟區、建立名為「root」的Windows使用者、並將所需權限套用至檔案或資料夾。
+
+
+
+== 匿名使用者
+
+匿名（anon）使用者ID會指定對應至用戶端要求的UNIX使用者ID或使用者名稱、而該用戶端要求沒有有效的NFS認證。使用root使用者時、這可能包括root使用者。Anon的Cloud Volumes Service 使用者是65534。
+
+此UID通常與Linux環境中的使用者名稱「nobnob」或「nfsnobn」相關聯。也使用65534作為本機UNIX使用者的pcuser'（請參閱「Cloud Volumes Service<<預設的本機UNIX使用者和群組>>」）、這也是Windows到UNIX名稱對應的預設後援使用者、但LDAP中找不到有效的相符UNIX使用者。
+
+由於Linux使用者名稱與Cloud Volumes Service 適用於UID 65534的使用者名稱不同、因此使用NFSv4.1時對應至65534的使用者名稱字串可能不相符。因此、您可能會在某些檔案和資料夾上看到「無人」的使用者身分。請參閱「」一節<<NFSv4.1和nobody使用者/群組>>」以取得此問題的相關資訊及解決方法。
+
+
+
+== 存取控制/匯出
+
+NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型匯出原則規則來控制。定義主機IP、主機名稱、子網路、網路群組或網域、以允許存取掛載NFS共用區、以及允許存取主機的層級。匯出原則規則組態選項取決於Cloud Volumes Service 哪些方面。
+
+對於CVS軟體、下列選項可用於匯出原則組態：
+
+* *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
+* * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」來控制對EXPE/CVs-Performance的存取層級、提供下列選項：
+* *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
+* * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。
+* *根存取權（開啟/關閉）。*設定根分區（請參閱「<<root使用者>>」的詳細資料）。
+* *傳輸協定類型。*這會將NFS掛載的存取限制為特定的傳輸協定版本。為Volume指定NFSv3和NFSv4.1時、請將兩者留白或同時勾選兩個方塊。
+* * Kerberos安全性層級（選取「啟用Kerberos」時）。*提供krb5、krb5i及/或krb5p選項、以進行唯讀或讀寫存取。
+
+
+
+
+== 變更擁有權（chown）和變更群組（chgrp）
+
+NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾上執行chown / chgrp。其他使用者也會看到「不允許操作」錯誤、即使是他們自己擁有的檔案也一樣。如果您使用root quash（如一節中所述）<<root使用者>>」）時、root會被擠到非root使用者、且不允許存取chown和chgrp。目前在不允許非root使用者使用chown和chgrp的因應措施Cloud Volumes Service 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。
+
+
+
+== 權限管理
+
+支援兩種模式位元（例如rwx的644、777等）和NFSv4.1 ACL、以控制使用UNIX安全型態之磁碟區在NFS用戶端上的權限。Cloud Volumes Service標準權限管理用於這些項目（例如、chmod、chown或nfs4_setfacl）、並可與任何支援這些項目的Linux用戶端搭配使用。
+
+此外、當使用設為NTFS的雙傳輸協定磁碟區時、NFS用戶端可以利用Cloud Volumes Service 指向Windows使用者的名稱對應功能來解析NTFS權限。這需要LDAP連線Cloud Volumes Service 至才能提供數字ID對使用者名稱的轉譯、因為Cloud Volumes Service 需要有效的UNIX使用者名稱才能正確對應至Windows使用者名稱。
+
+
+
+=== 為NFSv3提供精細的ACL
+
+模式位元權限僅涵蓋語義中的擁有者、群組及其他所有人、這表示基本NFSv3沒有精細的使用者存取控制。由於不支援POSIX ACL、也不支援擴充屬性（例如chatr）、因此使用NFSv3時、只有在下列情況下才能使用精細的ACL：Cloud Volumes Service
+
+* NTFS安全型磁碟區（需要CIFS伺服器）、具有有效的UNIX至Windows使用者對應。
+* 使用管理用戶端掛載NFSv4.1套用NFSv4.1 ACL以套用ACL。
+
+
+這兩種方法都需要LDAP連線才能進行UNIX身分識別管理、並填入有效的UNIX使用者和群組資訊（請參閱一節 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap["「LDAP」"]）和僅適用於CVS效能執行個體。若要將NTFS安全型磁碟區搭配NFS使用、您必須使用雙傳輸協定（SMB和NFSv3）或雙傳輸協定（SMB和NFSv4.1）、即使沒有建立SMB連線。若要在NFSv3掛載中使用NFSv4.1 ACL、您必須選取「兩者（NFSv3/NFSv4.1）」作為傳輸協定類型。
+
+一般UNIX模式位元在權限方面的精細度與NTFS或NFSv4.x ACL所提供的精細度不同。下表比較NFSv3模式位元與NFSv4.1 ACL之間的權限精細度。如需NFSv4.1 ACL的相關資訊、請參閱 https://linux.die.net/man/5/nfs4_acl["nfs4_ACL - NFSv4存取控制清單"^]。
+
+|===
+| NFSv3模式位元 | NFSv4.1 ACL 
+
+
+ a| 
+* 設定執行時的使用者ID
+* 設定執行時的群組ID
+* 儲存交換的文字（未在POSIX中定義）
+* 擁有者的讀取權限
+* 擁有者的寫入權限
+* 對檔案擁有者執行權限；或在目錄中查詢（搜尋）擁有者權限
+* 群組的讀取權限
+* 群組的寫入權限
+* 對檔案上的群組執行權限；或查詢（搜尋）目錄中的群組權限
+* 其他人的讀取權限
+* 其他人的寫入權限
+* 對檔案上的其他人執行權限；或查詢（搜尋）目錄中的其他人權限
+
+ a| 
+存取控制項目（ACE）類型（允許/拒絕/稽核）*繼承旗標*目錄繼承*檔案繼承*不傳播繼承*僅繼承
+
+權限*讀取資料（檔案）/ list-directory（目錄）*寫入資料（檔案）/建立檔案（目錄）*附加資料（檔案）/ create子目錄（目錄）*執行（檔案）/變更目錄（目錄）*刪除*刪除子項目*讀取屬性*寫入屬性*讀取命名屬性*寫入命名屬性*寫入命名屬性* ACL
+
+|===
+最後、根據RPC封包限制、NFS群組成員資格（NFSv3和NFSv4.x）的AUTH_SYS預設上限為16。NFS Kerberos最多可提供32個群組、NFSv4 ACL則可透過精細的使用者和群組ACL（每個ACE最多可容納1024個項目）來移除限制。
+
+此外Cloud Volumes Service 、支援範圍更廣泛、最多可將支援的群組數量擴充至32個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此項目的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes?hl=en_US["建立及管理NFS磁碟區"^] 在Google文件中。
+
+
+
+== NFSv3使用者與群組ID
+
+NFSv3使用者和群組ID會以數字ID而非名稱的形式出現在線路上。使用NFSv3時、由於UNIX安全型磁碟區只使用模式位元、因此無法針對這些數字ID進行使用者名稱解析。Cloud Volumes Service當NFSv4.1 ACL存在時、即使使用NFSv3、仍需要數字ID查詢和/或名稱字串查詢、才能正確解析ACL。使用NTFS安全型磁碟區時Cloud Volumes Service 、必須先將數字ID解析為有效的UNIX使用者、然後對應至有效的Windows使用者以協商存取權限。
+
+
+
+=== NFSv3使用者與群組ID的安全性限制
+
+使用NFSv3時、用戶端和伺服器永遠不需要確認使用者使用數字ID進行讀取或寫入、這只是隱含信任而已。如此一來、只要偽造任何數字ID、檔案系統就會遭受潛在的資料外洩。為了避免這類安全漏洞、Cloud Volumes Service 我們提供一些選項供大家選擇。
+
+* 實作Kerberos for NFS會強制使用者使用使用者名稱和密碼或Keytab檔案進行驗證、以取得Kerberos票證、以便存取掛載。Kerberos適用於CVS效能執行個體、僅適用於NFSv4.1。
+* 限制匯出原則規則中的主機清單、會限制NFSv3用戶端存取Cloud Volumes Service 該卷的權限。
+* 使用雙傳輸協定磁碟區並將NTFS ACL套用至磁碟區、會強制NFSv3用戶端將數字ID解析為有效的UNIX使用者名稱、以便正確驗證以存取裝載。這需要啟用LDAP並設定UNIX使用者和群組身分識別。
+* 浪費root使用者的力量可限制root使用者對NFS掛載所造成的損害、但並不會完全消除風險。如需詳細資訊、請參閱「」一節<<root使用者>>。」
+
+
+最後、NFS安全性僅限於您所使用的傳輸協定版本。NFSv3的整體效能比NFSv4.1高、但提供的安全性層級卻不相同。
+
+
+
+== NFSv4.1
+
+NFSv4.1提供比NFSv3更高的安全性與可靠性、原因如下：
+
+* 透過租賃型機制進行整合式鎖定
+* 狀態工作階段
+* 單一連接埠上的所有NFS功能（2049）
+* 僅TCP
+* ID網域對應
+* Kerberos整合（NFSv3可以使用Kerberos、但僅適用於NFS、而非用於NLM等輔助傳輸協定）
+
+
+
+
+=== NFSv4.1相依性
+
+由於NFSv4.1還有額外的安全功能、因此不需要使用NFSv3（類似於SMB需要相依性（例如Active Directory）的方式）、也會涉及一些外部相依性。
+
+
+
+=== NFSv4.1 ACL
+
+支援NFSv4.x ACL、相較於一般的POSIX式權限、可提供明顯的優勢、例如：Cloud Volumes Service
+
+* 精細控制使用者對檔案和目錄的存取
+* 更好的NFS安全性
+* 改善與CIFS/SMB的互通性
+* 使用AUTH_SYS安全性移除每位使用者16個群組的NFS限制
+* ACL不需要群組ID（GID）解析、因此能有效移除GID限制NFSv4.1 ACL、而非Cloud Volumes Service 從無法更新的NFS用戶端控制。若要使用NFSv4.1 ACL、請確定用戶端的軟體版本支援這些ACL、並已安裝適當的NFS公用程式。
+
+
+
+
+=== NFSv4.1 ACL與SMB用戶端之間的相容性
+
+NFSv4 ACL與Windows檔案層級ACL（NTFS ACL）不同、但具有類似的功能。不過、在多重傳輸協定NAS環境中、如果有NFSv4.1 ACL、而且您使用的是雙傳輸協定存取（NFS和SMB位於同一個資料集）、則使用SMB2.0及更新版本的用戶端將無法從Windows安全性索引標籤檢視或管理ACL。
+
+
+
+=== NFSv4.1 ACL的運作方式
+
+下列術語為參考定義：
+
+* *存取控制清單（ACL）。*權限項目清單。
+* *存取控制項目（ACE）。*清單中的權限項目。
+
+
+當用戶端在設定作業期間、在檔案上設定NFSv4.1 ACL時、Cloud Volumes Service 會將物件上的ACL設定為由任何現有的ACL取代。如果檔案上沒有ACL、則檔案的模式權限會從Owner@、group @和任何人@計算。如果檔案上有任何現有的SUID/SGID/便利貼位元、則不會受到影響。
+
+當用戶端在GetAttr作業期間取得檔案的NFSv4.1 ACL時、Cloud Volumes Service 會讀取與物件相關聯的NFSv4.1 ACL、建構ACE清單、並將清單傳回用戶端。如果檔案具有NT ACL或模式位元、則會從模式位元建構ACL並傳回用戶端。
+
+如果ACL中存在拒絕的ACE、則會拒絕存取；如果存在允許的ACE、則會授予存取權。不過、如果ACL中沒有任何ACE、也會拒絕存取。
+
+安全性描述元由安全性ACL（SACL）和判別ACL（DACL）組成。當NFSv4.1與CIFS/SMB互操作時、DACL會以一對一的方式對應NFSv4和CIFS。DACL由允許和拒絕的ACE組成。
+
+如果在已設定NFSv4.1 ACL的檔案或資料夾上執行基本的「chmod」、則會保留現有的使用者和群組ACL、但會修改預設的「擁有者」、「群組@」、「每個人@」ACL。
+
+使用NFSv4.1 ACL的用戶端可以設定及檢視系統上檔案和目錄的ACL。當在具有ACL的目錄中建立新檔案或子目錄時、該物件會繼承ACL中已標記適當的所有ACE http://linux.die.net/man/5/nfs4_acl["繼承旗標"^]。
+
+如果檔案或目錄具有NFSv4.1 ACL、則無論使用哪種傳輸協定來存取檔案或目錄、該ACL都能用來控制存取。
+
+只要將ACE標記為正確的繼承旗標、檔案和目錄就會從父目錄的NFSv4 ACL繼承ACE（可能需要適當的修改）。
+
+當檔案或目錄是因NFSv4要求而建立時、產生的檔案或目錄上的ACL取決於檔案建立要求是否包含ACL或僅包含標準UNIX檔案存取權限。ACL也取決於父目錄是否具有ACL。
+
+* 如果要求包含ACL、則會使用該ACL。
+* 如果要求僅包含標準UNIX檔案存取權限、且父目錄沒有ACL、則會使用用戶端檔案模式來設定標準UNIX檔案存取權限。
+* 如果要求僅包含標準UNIX檔案存取權限、且父目錄具有不可繼承的ACL、則會針對新物件設定以傳遞至要求的模式位元為基礎的預設ACL。
+* 如果要求僅包含標準UNIX檔案存取權限、但父目錄具有ACL、則只要將ACE標記為適當的繼承旗標、父目錄ACL中的ACE就會由新檔案或目錄繼承。
+
+
+
+
+=== ACE權限
+
+NFSv4.1 ACL權限使用一系列大小寫字母值（例如「raptncy」）來控制存取。如需這些字母值的詳細資訊、請參閱 https://www.osc.edu/book/export/html/4523["使用方法：使用NFSv4 ACL"^]。
+
+
+
+=== 具有umask和ACL繼承的NFSv4.1 ACL行為
+
+http://linux.die.net/man/5/nfs4_acl["NFSv4 ACL可提供ACL繼承功能"^]。ACL繼承意味著在使用NFSv4.1 ACL集的物件下建立的檔案或資料夾、可以根據的組態來繼承ACL http://linux.die.net/man/5/nfs4_acl["ACL繼承旗標"^]。
+
+https://man7.org/linux/man-pages/man2/umask.2.html["umask"^] 用於控制在目錄中建立檔案和資料夾的權限等級、而無需系統管理員互動。根據預設Cloud Volumes Service 、支援使用者使用支援功能來覆寫繼承的ACL、這是預期的行為 https://datatracker.ietf.org/doc/html/rfc5661["RFC 5661"^]。
+
+
+
+=== ACL格式化
+
+NFSv4.1 ACL具有特定格式化。下列範例是檔案上的ACE設定：
+
+....
+A::ldapuser@domain.netapp.com:rwatTnNcCy
+....
+上述範例遵循下列ACL格式準則：
+
+....
+type:flags:principal:permissions
+....
+一種「A」表示「允許」。 在此情況下不會設定繼承旗標、因為主體不是群組、不包含繼承。此外、由於ACE不是稽核項目、因此不需要設定稽核旗標。如需NFSv4.1 ACL的詳細資訊、請參閱 http://linux.die.net/man/5/nfs4_acl["http://linux.die.net/man/5/nfs4_acl"^]。
+
+如果NFSv4.1 ACL設定不正確（或用戶端和伺服器無法解析名稱字串）、則ACL可能無法如預期般運作、或ACL變更可能無法套用及拋出錯誤。
+
+範例錯誤包括：
+
+....
+Failed setxattr operation: Invalid argument
+Scanning ACE string 'A:: user@rwaDxtTnNcCy' failed.
+....
+
+
+=== 明確拒絕
+
+NFSv4.1權限可包含擁有者、群組及所有人的明確拒絕屬性。這是因為NFSv4.1 ACL是預設拒絕ACL、這表示如果某個ACL未由ACE明確授予、就會拒絕該ACL。明確拒絕屬性會覆寫任何明確或不明確的存取ACE。
+
+拒絕ACE的屬性標籤設定為「D」。
+
+在以下範例中、允許群組@擁有所有讀取和執行權限、但拒絕所有寫入權限。
+
+....
+sh-4.1$ nfs4_getfacl /mixed
+A::ldapuser@domain.netapp.com:ratTnNcCy
+A::OWNER@:rwaDxtTnNcCy
+D::OWNER@:
+A:g:GROUP@:rxtncy
+D:g:GROUP@:waDTC
+A::EVERYONE@:rxtncy
+D::EVERYONE@:waDTC
+....
+應盡可能避免使用拒絕的ACE、因為它們可能會造成混淆和複雜；允許不明確定義的ACL被隱含拒絕。當設定拒絕ACE時、使用者預期會被授予存取權限時、可能會被拒絕存取。
+
+上述一組ACE相當於模式位元中的755、這表示：
+
+* 擁有者擁有完整權利。
+* 群組具有唯讀。
+* 其他人則為唯讀。
+
+
+不過、即使權限調整為等同的775個權限、仍會因為每個人都設定明確的拒絕權限而拒絕存取。
+
+
+
+=== NFSv4.1 ID網域對應相依性
+
+NFSv4.1利用ID網域對應邏輯做為安全層、協助驗證嘗試存取NFSv4.1掛載的使用者確實是他們宣稱的對象。在這些情況下、來自NFSv4.1用戶端的使用者名稱和群組名稱會附加名稱字串、並傳送至Cloud Volumes Service 該實例。如果該使用者名稱/群組名稱和ID字串組合不相符、則使用者和（或）群組會被擠到用戶端上「/etc/idmapd.conf」檔案中指定的預設nober使用者。
+
+此ID字串是適當遵循權限的必要條件、尤其是使用NFSv4.1 ACL和/或Kerberos時。因此、需要使用名稱服務伺服器相依性（例如LDAP伺服器）來確保用戶端之間的一致性、Cloud Volumes Service 以及使用者和群組名稱身分識別解析是否正確。
+
+使用靜態預設ID網域名稱值「defaultv4iddomain.com」Cloud Volumes Service 。NFS用戶端的ID網域名稱設定預設為DNS網域名稱、但您可以在「/etc/idmapd.conf」中手動調整ID網域名稱。
+
+如果在Cloud Volumes Service 支援功能中啟用LDAP、Cloud Volumes Service 則當NFS ID網域在DNS中變更為搜尋網域所設定的項目時、不需要修改用戶端、除非他們使用不同的DNS網域搜尋名稱。
+
+當能夠解析本機檔案或LDAP中的使用者名稱或群組名稱時、會使用網域字串、而非相符的網域ID則會對nobnobody進行儲存。Cloud Volumes Service如果Cloud Volumes Service 無法在本機檔案或LDAP中找到使用者名稱或群組名稱、則會使用數字ID值、NFS用戶端會正確解析名稱（這與NFSv3行為類似）。
+
+在不變更用戶端的NFSv4.1 ID網域以符合Cloud Volumes Service 使用的功能的情況下、您會看到下列行為：
+
+* UNIX使用者和群組的本機項目Cloud Volumes Service （例如root、如本機UNIX使用者和群組所定義）會被浪費在nobnobody值。
+* 如果Cloud Volumes Service DNS網域不同於NFS用戶端和Cloud Volumes Service 更新、則UNIX使用者和在LDAP中有項目的群組（如果將Sfuse設定為使用LDAP）會被浪費給任何人。
+* 沒有本機項目或LDAP項目的UNIX使用者和群組會使用數字ID值、並解析為NFS用戶端上指定的名稱。如果用戶端上不存在名稱、則只會顯示數字ID。
+
+
+以下顯示上述案例的結果：
+
+....
+# ls -la /mnt/home/prof1/nfs4/
+total 8
+drwxr-xr-x 2 nobody nobody 4096 Feb  3 12:07 .
+drwxrwxrwx 7 root   root   4096 Feb  3 12:06 ..
+-rw-r--r-- 1   9835   9835    0 Feb  3 12:07 client-user-no-name
+-rw-r--r-- 1 nobody nobody    0 Feb  3 12:07 ldap-user-file
+-rw-r--r-- 1 nobody nobody    0 Feb  3 12:06 root-user-file
+....
+當用戶端和伺服器ID網域相符時、相同的檔案清單看起來就像這樣：
+
+....
+# ls -la
+total 8
+drwxr-xr-x 2 root   root         4096 Feb  3 12:07 .
+drwxrwxrwx 7 root   root         4096 Feb  3 12:06 ..
+-rw-r--r-- 1   9835         9835    0 Feb  3 12:07 client-user-no-name
+-rw-r--r-- 1 apache apache-group    0 Feb  3 12:07 ldap-user-file
+-rw-r--r-- 1 root   root            0 Feb  3 12:06 root-user-file
+....
+如需此問題及其解決方法的詳細資訊、請參閱「」一節<<NFSv4.1和nobody使用者/群組>>。」
+
+
+
+=== Kerberos相依性
+
+如果您打算使用Kerberos搭配NFS、Cloud Volumes Service 則必須搭配下列功能搭配使用才能使用：
+
+* 適用於Kerberos Distribution Center服務（Kdc）的Active Directory網域
+* Active Directory網域中的使用者和群組屬性會填入UNIX資訊以供LDAP功能使用（Cloud Volumes Service 在列舉NFS Kerberos時、需要使用者的SPN-UNIX使用者對應才能正常運作）。
+* LDAP已在Cloud Volumes Service 實例上啟用
+* DNS服務的Active Directory網域
+
+
+
+
+=== NFSv4.1和nobody使用者/群組
+
+NFSv4.1組態最常見的問題之一、就是檔案或資料夾列在使用「ls」的清單中、顯示為「user:group」的「nobnon:nobnobnone」組合。
+
+例如：
+
+....
+sh-4.2$ ls -la | grep prof1-file
+-rw-r--r-- 1 nobody nobody    0 Apr 24 13:25 prof1-file
+....
+數字ID是「99」。
+
+....
+sh-4.2$ ls -lan | grep prof1-file
+-rw-r--r-- 1 99 99    0 Apr 24 13:25 prof1-file
+....
+在某些情況下、檔案可能會顯示正確的擁有者、但不會顯示「nobody」為群組。
+
+....
+sh-4.2$ ls -la | grep newfile1
+-rw-r--r-- 1 prof1  nobody    0 Oct  9  2019 newfile1
+....
+誰是無人？
+
+NFSv4.1中的「nobn」使用者與「nfsnobnobn」使用者不同。您可以執行「id」命令來檢視NFS用戶端如何查看每位使用者：
+
+....
+# id nobody
+uid=99(nobody) gid=99(nobody) groups=99(nobody)
+# id nfsnobody
+uid=65534(nfsnobody) gid=65534(nfsnobody) groups=65534(nfsnobody)
+....
+使用NFSv4.1時、「noban」使用者是由「idmapd.conf」檔案定義的預設使用者、可定義為任何您要使用的使用者。
+
+....
+# cat /etc/idmapd.conf | grep nobody
+#Nobody-User = nobody
+#Nobody-Group = nobody
+....
+為什麼會發生這種情況？
+
+由於透過名稱字串對應來確保安全性是NFSv4.1作業的重要宗旨、因此名稱字串不適當時的預設行為是將該使用者分成通常無法存取使用者和群組所擁有之檔案和資料夾的使用者。
+
+當您在檔案清單中看到使用者和（或）群組的「nobnoby」時、這通常表示NFSv4.1中的某些項目設定錯誤。區分大小寫的功能可在此處發揮。
+
+例如、如果user1@CVSDEM.LOSLL（uid、1234、gid、1234）正在存取匯出、Cloud Volumes Service 則必須找到user1@CVSDEM.LOSLL（uid、gid、1234）。如果Cloud Volumes Service 使用者在支援資料的範本中是USER1@CVSDEMO.在許多情況下、您可以在用戶端的訊息檔案中看到下列內容：
+
+....
+May 19 13:14:29 centos7 nfsidmap[17481]: nss_getpwnam: name 'root@defaultv4iddomain.com' does not map into domain 'CVSDEMO.LOCAL'
+May 19 13:15:05 centos7 nfsidmap[17534]: nss_getpwnam: name 'nobody' does not map into domain 'CVSDEMO.LOCAL'
+....
+用戶端和伺服器必須都同意使用者確實是他們聲稱的對象、因此您必須檢查下列項目、以確保用戶端看到的使用者擁有Cloud Volumes Service 與此使用者相同的資訊。
+
+* * NFSv4.x ID網域。*用戶端：「idmapd.conf」檔案；Cloud Volumes Service 使用「defaultv4iddomain.com」、無法手動變更。如果將LDAP搭配NFSv4.1使用、Cloud Volumes Service 則將ID網域變更為DNS搜尋網域所使用的網域、與AD網域相同。
+* *使用者名稱和數字ID。*這會決定用戶端尋找使用者名稱的位置、並運用名稱服務交換器組態：用戶端：「nsswitch.conf」和（或）本機密碼和群組檔案；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。
+* *群組名稱和數字ID。*這會決定用戶端尋找群組名稱的位置、並運用名稱服務交換器組態（用戶端：「nsswitch.conf」和/或本機密碼和群組檔案）；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。
+
+
+在幾乎所有的情況Cloud Volumes Service 下、如果您在用戶端的使用者和群組清單中看到「nobnoby」、問題在於使用者或群組名稱網域ID轉譯功能會在更新到NFS用戶端之間進行。若要避免這種情況發生、請使用LDAP來解決用戶端和Cloud Volumes Service 客戶端之間的使用者和群組資訊。
+
+
+
+=== 在用戶端上檢視NFSv4.1的名稱ID字串
+
+如果您使用NFSv4.1、NFS作業期間會發生名稱字串對應、如前所述。
+
+除了使用「/var/log/Messages」來找出NFSv4 ID的問題、您也可以使用 https://man7.org/linux/man-pages/man5/nfsidmap.5.html["nfsidmap -l"^] NFS用戶端上的命令、可檢視哪些使用者名稱已正確對應至NFSv4網域。
+
+例如、此命令會在用戶端找到使用者之後輸出、Cloud Volumes Service 並由用戶端存取NFSv4.x掛載：
+
+....
+# nfsidmap -l
+4 .id_resolver keys found:
+  gid:daemon@CVSDEMO.LOCAL
+  uid:nfs4@CVSDEMO.LOCAL
+  gid:root@CVSDEMO.LOCAL
+  uid:root@CVSDEMO.LOCAL
+....
+如果未正確對應至NFSv4.1 ID網域的使用者（在此案例中為「NetApp-user」）嘗試存取相同的掛載、並接觸檔案、就會依照預期指派「nobnan:nobnobnobn」。
+
+....
+# su netapp-user
+sh-4.2$ id
+uid=482600012(netapp-user), 2000(secondary)
+sh-4.2$ cd /mnt/nfs4/
+sh-4.2$ touch newfile
+sh-4.2$ ls -la
+total 16
+drwxrwxrwx  5 root   root   4096 Jan 14 17:13 .
+drwxr-xr-x. 8 root   root     81 Jan 14 10:02 ..
+-rw-r--r--  1 nobody nobody    0 Jan 14 17:13 newfile
+drwxrwxrwx  2 root   root   4096 Jan 13 13:20 qtree1
+drwxrwxrwx  2 root   root   4096 Jan 13 13:13 qtree2
+drwxr-xr-x  2 nfs4   daemon 4096 Jan 11 14:30 testdir
+....
+nfidmap -l輸出顯示螢幕上的使用者為「pcuser"、但不是「NetApp-user"；這是我們的匯出原則規則（「65534」）中的匿名使用者。
+
+....
+# nfsidmap -l
+6 .id_resolver keys found:
+  gid:pcuser@CVSDEMO.LOCAL
+  uid:pcuser@CVSDEMO.LOCAL
+  gid:daemon@CVSDEMO.LOCAL
+  uid:nfs4@CVSDEMO.LOCAL
+  gid:root@CVSDEMO.LOCAL
+  uid:root@CVSDEMO.LOCAL
+....

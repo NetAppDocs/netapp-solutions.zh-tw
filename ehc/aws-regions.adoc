@@ -1,0 +1,124 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws-regions.html 
+keywords: NetApp Solutions, amazon, vmc, regions 
+summary:  
+---
+= 區域可用度–VMC的補充NFS資料存放區
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+AWS / VMC上的補充NFS資料存放區可用度由Amazon定義。首先、您需要判斷VMC和FSxN是否在指定的區域中可用。接下來、您需要判斷該區域是否支援FSxN補充NFS資料存放區。
+
+* 檢查VMC的可用度 link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-19FB6A08-B1DA-4A6F-88A3-50ED445CFFCF.html["請按這裡"]。
+* Amazon定價指南提供FSxN（FSx ONTAP ）的可用位置資訊。您可以找到這些資訊 link:https://aws.amazon.com/fsx/netapp-ontap/pricing/["請按這裡"]。
+* VMC的FSxN補充NFS資料存放區即將推出。
+
+
+在資訊仍在發佈期間、下表將目前對VMC、FSxN和FSxN的支援識別為補充NFS資料存放區。
+
+[role="tabbed-block"]
+====
+.美洲
+--
+[cols="25%, 25%, 25%, 25%"]
+|===
+
+
+| * AWS地區* | * VMC可用度* | * FSX ONTAP 不間斷供應* | * NFS資料存放區可用度* 
+
+
+| 美國東部（北維吉尼亞州） | 是的 | 是的 | 是的 
+
+
+| 美國東部（俄亥俄州） | 是的 | 是的 | 是的 
+
+
+| 美國西部（北加州） | 是的 | 否 | 否 
+
+
+| 美國西部（俄勒岡州） | 是的 | 是的 | 是的 
+
+
+| GovCloud（美國西部） | 是的 | 是的 | 是的 
+
+
+| 加拿大（中部） | 是的 | 是的 | 是的 
+
+
+| 南美洲（聖保羅） | 是的 | 是的 | 是的 
+|===
+最後更新日期：2022年6月2日。
+
+--
+.EMEA
+--
+[cols="25%, 25%, 25%, 25%"]
+|===
+
+
+| * AWS地區* | * VMC可用度* | * FSX ONTAP 不間斷供應* | * NFS資料存放區可用度* 
+
+
+| 歐洲（愛爾蘭） | 是的 | 是的 | 是的 
+
+
+| 歐洲（倫敦） | 是的 | 是的 | 是的 
+
+
+| 歐洲（法蘭克福） | 是的 | 是的 | 是的 
+
+
+| 歐洲（巴黎） | 是的 | 是的 | 是的 
+
+
+| 歐洲（米蘭） | 是的 | 是的 | 是的 
+
+
+| 歐洲（斯德哥爾摩） | 是的 | 是的 | 是的 
+|===
+最後更新日期：2022年6月2日。
+
+--
+.亞太地區
+--
+[cols="25%, 25%, 25%, 25%"]
+|===
+
+
+| * AWS地區* | * VMC可用度* | * FSX ONTAP 不間斷供應* | * NFS資料存放區可用度* 
+
+
+| 亞太地區（悉尼） | 是的 | 是的 | 是的 
+
+
+| 亞太地區（東京） | 是的 | 是的 | 是的 
+
+
+| 亞太地區（大阪） | 是的 | 否 | 否 
+
+
+| 亞太地區（新加坡） | 是的 | 是的 | 是的 
+
+
+| 亞太地區（首爾） | 是的 | 是的 | 是的 
+
+
+| 亞太地區（Mumbai） | 是的 | 是的 | 是的 
+
+
+| 亞太地區（雅加達） | 否 | 否 | 否 
+
+
+| 亞太地區（香港） | 是的 | 是的 | 是的 
+|===
+最後更新日期：2022年9月28日。
+
+--
+====

@@ -1,0 +1,338 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs-gc-smb.html 
+keywords: smb, access control, name aliases, authentication dialects, NTFS, mmc, 
+summary: SMB是由Microsoft開發的網路檔案共用傳輸協定、可透過乙太網路為多個SMB用戶端提供集中式使用者/群組驗證、權限、鎖定及檔案共用。 
+---
+= 中小企業
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831795(v=ws.11)["中小企業"^] 是由Microsoft開發的網路檔案共用傳輸協定、可透過乙太網路為多個SMB用戶端提供集中式使用者/群組驗證、權限、鎖定及檔案共用。檔案和資料夾會以共用的方式呈現給用戶端、您可以設定各種共用內容、並透過共用層級權限來提供存取控制。SMB可以呈現給任何支援該傳輸協定的用戶端、包括Windows、Apple和Linux用戶端。
+
+支援SMB 2.1和3.x版的傳輸協定。Cloud Volumes Service
+
+
+
+== 存取控制/SMB共用區
+
+* 當Windows使用者名稱要求存取Cloud Volumes Service 到此卷時、Cloud Volumes Service 功能區會使用Cloud Volumes Service 由管理員設定的方法尋找UNIX使用者名稱。
+* 如果已設定外部UNIX身分識別供應商（LDAP）、且Windows / UNIX使用者名稱相同、則Windows使用者名稱會將1：1對應至UNIX使用者名稱、而不需要任何額外的組態。啟用LDAP時、會使用Active Directory來裝載使用者和群組物件的UNIX屬性。
+* 如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap#using-ldap-for-asymmetric-name-mapping["「使用LDAP進行非對稱名稱對應」"]）。
+* 如果未使用LDAP、則Windows SMB使用者會對應至Cloud Volumes Service 預設的本地UNIX使用者、名稱為「pcuser" in fuse」。這表示在Windows中、對應到「pcuser'」的使用者所寫入的檔案、會在多重傳輸協定NAS環境中、將UNIX擁有權顯示為「pcuser'」。這裏的「pcuser」實際上是Linux環境中的「nobnobody」使用者（UID 65534）。
+
+
+在僅使用SMB的部署中、「pcuser'」對應仍會發生、但這並不重要、因為Windows使用者和群組擁有權已正確顯示、而且不允許NFS存取SMB專屬磁碟區。此外、純SMB磁碟區在建立之後、不支援轉換成NFS或雙傳輸協定磁碟區。
+
+Windows利用Kerberos與Active Directory網域控制器進行使用者名稱驗證、這需要與Cloud Volumes Service AD DC交換使用者名稱/密碼、此區段是由實例外部的。當SMB用戶端使用「\伺服器名稱」的UNC路徑時、就會使用Kerberos驗證、下列情況為真：
+
+* 伺服器名稱存在DNS A/Aaaa項目
+* 伺服器名稱具有SMB / CIFS存取的有效SPN
+
+
+建立一個支援功能的SMB Volume時、會依區段中的定義建立機器帳戶名稱Cloud Volumes Service link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["「Cloud Volumes Service 如何在Active Directory中顯示此功能。」"] 該機器帳戶名稱也會成為SMB共用存取路徑、因為Cloud Volumes Service 它利用動態DNS（DDNS）在DNS中建立必要的A/AAAA和PTr項目、以及在機器帳戶主體上建立必要的SPN-s項目。
+
+
+NOTE: 若要建立PTr項目、Cloud Volumes Service DNS伺服器上必須存在適用於此實例IP位址的反向對應區域。
+
+例如Cloud Volumes Service 、此Sesvvolume使用下列的UNC共用路徑：「\cs-east- 433d.cvsdemo.local'」。
+
+在Active Directory中、這些是Cloud Volumes Service產生的SPN項目：
+
+image:ncvs-gc-image6.png["錯誤：缺少圖形影像"]
+
+這是DNS轉送/反轉查詢結果：
+
+....
+PS C:\> nslookup CVS-EAST-433D
+Server:  activedirectory. region. lab. internal
+Address:  10. xx.0. xx
+Name:    CVS-EAST-433D.cvsdemo.local
+Address:  10. xxx.0. x
+PS C:\> nslookup 10. xxx.0. x
+Server:  activedirectory.region.lab.internal
+Address:  10.xx.0.xx
+Name:    CVS-EAST-433D.CVSDEMO.LOCAL
+Address:  10. xxx.0. x
+....
+或者、啟用Cloud Volumes Service /要求SMB加密以利執行更多存取控制、以利執行支援。如果其中一個端點不支援SMB加密、則不允許存取。
+
+
+
+=== 使用SMB名稱別名
+
+在某些情況下、終端使用者可能會擔心安全問題、因為他們知道Cloud Volumes Service 使用中的機器帳戶名稱以供使用。在其他情況下、您可能只想提供更簡單的存取路徑給終端使用者。在這些情況下、您可以建立SMB別名。
+
+如果您想要為SMB共用路徑建立別名、可以利用DNS中稱為「CNAME-」記錄的名稱。例如、如果您想要使用名稱「\CIFS」來存取共享區、而不是「\CVS東- 433d.cvsdemo.local」、但仍想要使用Kerberos驗證、DNS中的一種命名為「CNAME」、指向現有的A/AAAA記錄、以及新增至現有機器帳戶的其他SPN-s、則可提供Kerberos存取。
+
+image:ncvs-gc-image7.png["錯誤：缺少圖形影像"]
+
+這是在新增CNAME:
+
+....
+PS C:\> nslookup cifs
+Server:  ok-activedirectory.us-east4-a.c.cv-solution-architect-lab.internal
+Address:  10. xx.0. xx
+Name:    CVS-EAST-433D.cvsdemo.local
+Address:  10. xxx.0. x
+Aliases:  cifs.cvsdemo.local
+....
+這是新增SPN後產生的SPN查詢：
+
+image:ncvs-gc-image8.png["錯誤：缺少圖形影像"]
+
+在封包擷取中、我們可以使用與CNAMA相關的SPN來查看工作階段設定要求。
+
+image:ncvs-gc-image9.png["錯誤：缺少圖形影像"]
+
+
+
+=== SMB驗證的語言
+
+支援下列項目Cloud Volumes Service https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/8df1a501-ce4e-4287-8848-5f1d4733e280["方言"^] SMB驗證：
+
+* LM
+* NTLM
+* NTLMv2
+* Kerberos
+
+
+SMB共用存取的Kerberos驗證是您可以使用的最安全驗證層級。啟用AES和SMB加密後、安全層級會進一步提升。
+
+支援LM和NTLM驗證的向下相容性。Cloud Volumes Service當Kerberos設定錯誤時（例如建立SMB別名時）、共用存取會回復到較弱的驗證方法（例如：NTLMv2）。由於這些機制較不安全、因此在某些Active Directory環境中會停用這些機制。如果停用較弱的驗證方法、但未正確設定Kerberos、則共用存取會失敗、因為沒有有效的驗證方法可以還原。
+
+如需在Active Directory中設定/檢視支援的驗證層級的相關資訊、請參閱 https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level["網路安全性：LAN Manager驗證層級"^]。
+
+
+
+== 權限模式
+
+
+
+=== NTFS/檔案權限
+
+NTFS權限是指套用至檔案系統中符合NTFS邏輯的檔案和資料夾。您可以在「基本」或「進階」中套用NTFS權限、並可設定為「允許」或「允許」以進行存取控制。
+
+基本權限包括：
+
+* 完全控制
+* 修改
+* 讀取與執行
+* 讀取
+* 寫入
+
+
+當您設定使用者或群組的權限（稱為ACE）時、該使用者或群組會駐留在ACL中。NTFS權限使用與UNIX模式位元相同的讀取/寫入/執行基礎、但也可延伸至更精細且延伸的存取控制（也稱為特殊權限）、例如「取得所有權」、「建立資料夾/附加資料」、「寫入屬性」等。
+
+標準UNIX模式位元提供的精細度與NTFS權限不同（例如、能夠設定ACL中個別使用者和群組物件的權限、或是設定延伸屬性）。不過NFSv4.1 ACL確實提供與NTFS ACL相同的功能。
+
+NTFS權限比共用權限更為特定、可搭配共用權限使用。使用NTFS權限結構時、會套用最嚴格的限制。因此、在定義存取權限時、明確拒絕使用者或群組甚至會覆寫「完全控制」。
+
+NTFS權限由Windows SMB用戶端控制。
+
+
+
+=== 共用權限
+
+共用權限比NTFS權限更為一般（唯讀/變更/完全控制）、並控制SMB共用的初始項目、類似於NFS匯出原則規則的運作方式。
+
+雖然NFS匯出原則規則可透過主機型資訊（例如IP位址或主機名稱）來控制存取、但SMB共用權限可以使用共用ACL中的使用者和群組ACE來控制存取。您可以從Windows用戶端或Cloud Volumes Service 從功能區管理UI設定共用ACL。
+
+根據預設、共用ACL和初始Volume ACL包括「完全控制的每個人」。檔案ACL應該變更、但共用權限會被共用區中物件的檔案權限所取代。
+
+例如、如果使用者只能讀取Cloud Volumes Service 對此實體磁碟區檔案ACL的存取權、則即使共用ACL設定為「擁有完全控制權的所有人」、仍無法存取建立檔案和資料夾、如下圖所示。
+
+image:ncvs-gc-image10.png["錯誤：缺少圖形影像"]
+
+image:ncvs-gc-image11.png["錯誤：缺少圖形影像"]
+
+若要獲得最佳的安全性結果、請執行下列步驟：
+
+* 從共用和檔案ACL中移除「所有人」、改為設定使用者或群組的共用存取權。
+* 使用群組進行存取控制、而非個別使用者、以利管理、並更快移除/新增使用者、透過群組管理來共用ACL。
+* 允許對共用權限上的ACE進行較少限制、較為一般的共用存取、並鎖定具有檔案權限的使用者和群組存取、以達到更精細的存取控制。
+* 避免一般使用明確拒絕ACL、因為它們會覆寫允許ACL。限制使用者或群組的明確拒絕ACL、以防止他們快速存取檔案系統。
+* 請務必注意 https://www.varonis.com/blog/permission-propagation/["ACL繼承"^] 修改權限時的設定；在目錄或磁碟區的最上層設定具有高檔案計數的繼承旗標、表示該目錄或磁碟區下方的每個檔案都已新增繼承權限、 這可能會在調整每個檔案時產生不必要的行為、例如非預期的存取/拒絕、以及冗長的權限修改。
+
+
+
+
+== SMB共享安全功能
+
+當您第一次在Cloud Volumes Service 支援SMB存取的情況下建立Volume時、系統會提供一系列的選項來保護該Volume。
+
+這些選項中的部分取決於Cloud Volumes Service 「樣層」（「效能」或「軟體」）、選項包括：
+
+* *使Snapshot目錄可見（同時適用於CVs-Performance和CVs-SW）。*此選項控制SMB用戶端是否可以存取SMB共用區（「\伺服器\共用\~snapshot」和/或「舊版」索引標籤）中的Snapshot目錄。未核取預設設定、這表示磁碟區預設為隱藏及不允許存取「~snapshot」目錄、而且磁碟區的「舊版」索引標籤不會顯示Snapshot複本。
+
+
+image:ncvs-gc-image12.png["錯誤：缺少圖形影像"]
+
+基於安全理由、效能理由（將這些資料夾隱藏在AV掃描之外）或偏好、可能需要從終端使用者處隱藏Snapshot複本。由於「支援快照」是唯讀的、因此即使這些快照可見、終端使用者仍無法刪除或修改Snapshot目錄中的檔案。Cloud Volumes Service應用Snapshot複本時、檔案或資料夾的檔案權限。如果檔案或資料夾的權限在Snapshot複本之間變更、則變更也會套用至Snapshot目錄中的檔案或資料夾。使用者和群組可以根據權限存取這些檔案或資料夾。雖然無法刪除或修改Snapshot目錄中的檔案、但仍可將檔案或資料夾從Snapshot目錄中複製出來。
+
+* *啟用SMB加密（同時適用於CVs-Performance和CVs-SW）。* SMB加密預設為停用（未核取）。核取此方塊可啟用SMB加密、這表示SMB用戶端與伺服器之間的流量會在傳輸中加密、並以議定的最高支援加密層級進行加密。支援高達AES-256的SMB加密。Cloud Volumes Service啟用SMB加密確實會造成效能損失、而您的SMB用戶端可能會或可能不會察覺到這種情況、範圍大致介於10-20%之間。NetApp強烈建議測試、以瞭解效能損失是否可接受。
+* *隱藏SMB共用區（同時適用於CVS效能和CVS軟體）。*設定此選項會隱藏SMB共用路徑、使其無法正常瀏覽。這表示不知道共用路徑的用戶端在存取預設的UNC路徑（例如：「\CVS SMB」）時、無法看到共用區。核取此核取方塊時、只有明確知道SMB共用路徑或由群組原則物件定義共用路徑的用戶端才能存取該路徑（透過混淆來確保安全）。
+* *啟用存取型列舉（ABE）（僅限CVs-SW）。*這類似於隱藏SMB共用區、但共用區或檔案只會隱藏在沒有存取物件權限的使用者或群組中。例如、如果不允許Windows使用者「Joe」透過權限至少讀取存取權、則Windows使用者「Joe」根本看不到SMB共用區或檔案。此功能預設為停用、您可以選取核取方塊來啟用此功能。如需ABE的詳細資訊、請參閱NetApp知識庫文章 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_does_Access_Based_Enumeration_(ABE)_work["存取型列舉（ABE）如何運作？"^]
+* *啟用持續可用的（CA）共用支援（僅限CVS效能）。* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_are_SMB_Continuously_Available_(CA)_Shares["持續可用的SMB共用"^] 透過在Cloud Volumes Service 整個節點之間複寫鎖定狀態、將容錯移轉事件期間的應用程式中斷降至最低。這不是一項安全功能、但確實能提供更好的整體恢復能力。目前、此功能僅支援SQL Server和FSLogix應用程式。
+
+
+
+
+== 預設隱藏共用
+
+當SMB伺服器是以Cloud Volumes Service 支援功能建立時、就會出現這種情況 https://library.netapp.com/ecmdocs/ECMP1366834/html/GUID-5B56B12D-219C-4E23-B3F8-1CB1C4F619CE.html["隱藏的管理共用"^] （使用$命名慣例）、這是在資料Volume SMB共用區之外建立的。其中包括C$（命名空間存取）和IPC$（共用具名管道、用於程式之間的通訊、例如用於Microsoft管理主控台（MMC）存取的遠端程序呼叫（RPC）））。
+
+IPC$共用區不含共用ACL、無法修改、嚴格用於RPC呼叫和 https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/inter-process-communication-share-null-session["Windows預設不允許匿名存取這些共用"^]。
+
+依預設、C$共用可讓BUILTIN/系統管理員存取、但Cloud Volumes Service 由於能夠存取C$共用區、因此無法檢視Cloud Volumes Service 所有安裝於此的磁碟區、因此無法存取共享ACL。因此、嘗試瀏覽至「\SERVER\C$」失敗。
+
+
+
+== 具有本機/BUILTIN/系統管理員/備份權限的帳戶
+
+由於本機群組（例如BUILTIN\Administrator）會套用存取權限給選取的網域使用者和群組、因此、支援SMB伺服器的功能與一般Windows SMB伺服器類似。Cloud Volumes Service
+
+當您指定要新增至備份使用者的使用者時、該使用者會新增至Cloud Volumes Service 使用該Active Directory連線的執行個體中BUILTIN\Backup Operators群組、然後取得 https://docs.microsoft.com/en-us/windows-hardware/drivers/ifs/privileges["SeBackup權限和Se恢復 權限"^]。
+
+當您將使用者新增至「安全性權限使用者」時、系統會將SeSecurityPrivilege賦予使用者、這在某些應用程式使用案例（例如）中很有用 https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["SMB共用上的SQL Server"^]。
+
+image:ncvs-gc-image13.png["錯誤：缺少圖形影像"]
+
+您可以Cloud Volumes Service 透過具有適當權限的MMC檢視本地的群組成員資格。下圖顯示使用Cloud Volumes Service 者已透過使用此功能新增的使用者。
+
+image:ncvs-gc-image14.png["錯誤：缺少圖形影像"]
+
+下表顯示預設BUILTIN群組清單、以及預設新增的使用者/群組。
+
+|===
+| 本機/BUILTIN.群組 | 預設成員 
+
+
+| 內建\系統管理員* | 網域\網域管理員 
+
+
+| 內建\備份操作員* | 無 
+
+
+| 內建\訪客 | 網域\網域來賓 
+
+
+| 內建\超級使用者 | 無 
+
+
+| 內建\網域使用者 | 網域\網域使用者 
+|===
+*群組成員資格是由Cloud Volumes Service 不實Active Directory連線組態所控制。
+
+您可以在MMC視窗中檢視本機使用者和群組（及群組成員）、但無法從這個主控台新增或刪除物件或變更群組成員資格。根據預設、Cloud Volumes Service 只有Domain Admins群組和Administrator會新增至功能區的BUILTIN\Administrator群組。目前您無法修改此項目。
+
+image:ncvs-gc-image15.png["錯誤：缺少圖形影像"]
+
+image:ncvs-gc-image16.png["錯誤：缺少圖形影像"]
+
+
+
+== MMC/電腦管理存取
+
+SMB存取Cloud Volumes Service 功能可連線至電腦管理MMC、讓您檢視共用區、管理共用ACL、以及檢視/管理SMB工作階段和開啟檔案。
+
+若要使用MMC來檢視Cloud Volumes Service SMB共用區和Sessions、目前登入的使用者必須是網域管理員。其他使用者可以從MMC檢視或管理SMB伺服器、並在嘗試檢視Cloud Volumes Service 有關Sisb執行個體的共用或工作階段時、收到「您沒有權限」對話方塊。
+
+若要連線至SMB伺服器、請開啟「電腦管理」、在「電腦管理」上按一下滑鼠右鍵、然後選取「連線至其他電腦」。這會開啟「Select Computer（選取電腦）」對話方塊、您可以在其中輸入SMB伺服器名稱（可在Cloud Volumes Service 《支援資料》資料冊中找到）。
+
+當您檢視具有適當權限的SMB共用時、Cloud Volumes Service 您會看到共享Active Directory連線的所有可用共享區。若要控制這種行為、請在Cloud Volumes Service 現象區執行個體上設定隱藏SMB共用選項。
+
+請記住、每個地區只允許一個Active Directory連線。
+
+image:ncvs-gc-image17.png["錯誤：缺少圖形影像"]
+
+image:ncvs-gc-image18.png["錯誤：缺少圖形影像"]
+
+下表顯示MMC支援/不支援的功能清單。
+
+|===
+| 支援的功能 | 不支援的功能 
+
+
+ a| 
+* 檢視共享區
+* 檢視作用中的SMB工作階段
+* 檢視開啟的檔案
+* 檢視本機使用者和群組
+* 檢視本機群組成員資格
+* 列舉系統中的工作階段、檔案和樹狀結構連線清單
+* 關閉系統中開啟的檔案
+* 關閉開啟的工作階段
+* 建立/管理共用
+
+ a| 
+* 建立新的本機使用者/群組
+* 管理/檢視現有的本機使用者/群組
+* 檢視事件或效能記錄
+* 管理儲存設備
+* 管理服務與應用程式
+
+
+|===
+
+
+== SMB伺服器安全性資訊
+
+本產品的SMB伺服器Cloud Volumes Service 使用一系列選項來定義SMB連線的安全性原則、包括Kerberos時鐘偏移、票證存留期、加密等。
+
+下表列出這些選項、其功能、預設組態、以及是否可以使用Cloud Volumes Service 更新。部分選項不適用於Cloud Volumes Service 此功能。
+
+|===
+| 安全選項 | 它的作用 | 預設值 | 可以改變嗎？ 
+
+
+| Kerberos時鐘最大偏差（分鐘） | 最大Cloud Volumes Service 程度地縮短了在各個領域控制器之間的時間偏差。如果時間偏移超過5分鐘、Kerberos驗證就會失敗。這會設為Active Directory預設值。 | 5. | 否 
+
+
+| Kerberos票證壽命（小時） | Kerberos票證在要求續約之前保持有效的最長時間。如果在10小時之前沒有續約、您必須取得新的通知單。系統會自動執行這些續約作業。Cloud Volumes Service10小時為Active Directory預設值。 | 10. | 否 
+
+
+| Kerberos票證續約上限（天） | 在需要新授權要求之前、可以續約Kerberos票證的最大天數。自動更新SMB連線的問題單。Cloud Volumes ServiceActive Directory預設值為七天。 | 7. | 否 
+
+
+| Kerberos Kdc連線逾時（秒） | Kdc連線逾時前的秒數。 | 3. | 否 
+
+
+| 需要簽署傳入的SMB流量 | 設定為需要SMB流量的簽署。如果設為true、則不支援簽署的用戶端會失敗連線。 | 錯 |  
+
+
+| 本機使用者帳戶需要密碼複雜度 | 用於本機SMB使用者的密碼。由於不支援建立本機使用者、因此此選項不適用於支援。Cloud Volumes Service Cloud Volumes Service | 是的 | 否 
+
+
+| Active Directory LDAP連線使用start_tls | 用於啟用Active Directory LDAP的啟動TLS連線。目前不支援啟用此功能。Cloud Volumes Service | 錯 | 否 
+
+
+| 為啟用Kerberos的AES-128和AES-256加密 | 這會控制AES加密是否用於Active Directory連線、並在建立/修改Active Directory連線時、使用「啟用Active Directory驗證的AES加密」選項加以控制。 | 錯 | 是的 
+
+
+| LM相容層級 | Active Directory連線所支援的驗證語言層級。請參閱「」一節<<SMB驗證的語言>>」以取得更多資訊。 | vLMvb-krb | 否 
+
+
+| 傳入CIFS流量需要SMB加密 | 所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節）<<SMB共享安全功能>>」）。 | 錯 | 否 
+
+
+| 用戶端工作階段安全性 | 設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap#ldap-channel-binding["「LDAP通道繫結。」"]。 | 無 | 否 
+
+
+| SMB2可啟用DC連線 | 使用SMB2進行DC連線。預設為啟用。 | 系統預設值 | 否 
+
+
+| LDAP轉介追蹤 | 使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。目前不支援此功能Cloud Volumes Service 。 | 錯 | 否 
+
+
+| 使用LDAPS進行安全的Active Directory連線 | 啟用LDAP over SSL。目前不受Cloud Volumes Service 支援。 | 錯 | 否 
+
+
+| DC連線需要加密 | 需要加密才能成功建立DC連線。在功能不完整的情況下、預設為停用Cloud Volumes Service 。 | 錯 | 否 
+|===

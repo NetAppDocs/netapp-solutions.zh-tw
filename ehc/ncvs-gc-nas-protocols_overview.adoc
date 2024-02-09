@@ -1,0 +1,20 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs-gc-nas-protocols_overview.html 
+keywords: nas, nfs, smb, cifs 
+summary: NAS傳輸協定包括NFS（v3和v4.1）和SMB/CIFS（2.x和3.x）。這些通訊協定是CVS如何允許跨多個NAS用戶端共用存取資料。此外Cloud Volumes Service 、支援同時存取NFS和SMB/CIFS用戶端（雙傳輸協定）、同時遵守NAS共用中檔案和資料夾的所有身分識別和權限設定。 
+---
+= NAS傳輸協定總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+NAS傳輸協定包括NFS（v3和v4.1）和SMB/CIFS（2.x和3.x）。這些通訊協定是CVS如何允許跨多個NAS用戶端共用存取資料。此外Cloud Volumes Service 、支援同時存取NFS和SMB/CIFS用戶端（雙傳輸協定）、同時遵守NAS共用中檔案和資料夾的所有身分識別和權限設定。為了維持最高的資料傳輸安全性、Cloud Volumes Service 支援使用SMB加密和NFS Kerberos 5p的傳輸協定加密。
+
+
+NOTE: 雙傳輸協定僅適用於CVs-Performance。

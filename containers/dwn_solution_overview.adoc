@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: containers/dwn_solution_overview.html 
+keywords: DevOps, Netapp, Astra Trident, Astra Control, Astra 
+summary: 本技術報告概述NetApp如何在使用容器化應用程式時、讓DevOps使用案例在多個方面變得簡單又有效率。首先、我們會利用Astra產品組合、詳述NetApp儲存系統及其與Kubernetes平台的整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。 
+---
+= TR-4919：採用NetApp Astra的DevOps
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+:k8s_distribution_name: Red Hat OpenShift, VMware Tanzu, Anthos by Google Cloud etc.
+
+
+[role="lead"]
+NetApp公司Alan Cowles和NIKhil M Kulkarni
+
+
+
+== 使用案例
+
+採用NetApp Astra解決方案的DevOps旨在為下列使用案例的客戶提供卓越價值：
+
+* 在支援的Kubernetes發佈版本上、輕鬆部署及管理應用程式與開發環境。
+* 討論DevOps工作流程的實際使用案例、以及NetApp可提供的工具與方法範例、協助您更輕鬆地採用及使用這些方法。
+* 探索如何使用應用程式一致的快照、備份和複製來增強DevOps體驗。
+
+
+
+
+== 商業價值
+
+企業逐漸採用DevOps實務來建立新產品、縮短發行週期、並快速新增新功能。由於容器和微服務的本質天生敏捷、因此在支援DevOps實務做法上扮演著重要角色。然而、在企業環境中以正式作業規模實作DevOps、卻帶來了自身的挑戰、並對基礎架構提出特定要求、例如：
+
+* 堆疊中所有層級的高可用度、讓工作流程永遠不會中斷。
+* 簡易的終端使用者部署與管理程序。
+* API導向且可程式化的基礎架構、可跟上微服務和開發人員敏捷度的腳步。
+* 能夠根據工作負載需求、以自動化方式獨立擴充基礎架構。
+* 保護應用程式及其持續備份的DevOps工作流程資料集、無需仰賴重新部署或手動複製資料、可加速上市時間。
+
+
+本技術報告瞭解這些功能與挑戰、概述使用各種NetApp產品組合來改善及簡化容器化應用程式的DevOps使用案例流程。
+
+
+
+== 技術總覽
+
+DevOps with NetApp解決方案包含下列主要元件：
+
+
+
+=== DevOps實務
+
+DevOps實務著重於自動化、可重複執行且易於管理的作業、讓終端使用者能夠控制開發程式碼的環境、進而強化開發工作流程。本解決方案提供幾個範例和使用案例、其中NetApp技術可為這類作業帶來最大效益。
+
+
+
+=== 容器協調
+
+目前有許多容器協調平台正在使用中。雖然這些平台大多是以Kubernetes為基礎、但每個平台都有優缺點。因此、在選擇適用於DevOps工作流程的容器協調平台時、務必瞭解功能集與整合。有了NetApp Astra產品套件、我們就能支援下列平台、滿足正式的DevOps使用案例：
+
+* https://www.redhat.com/en/technologies/cloud-computing/openshift["Red Hat OpenShift"] 4.6.8+
+* https://rancher.com/["Rancher"] 2.5以上
+* https://kubernetes.io/["Kubernetes"] 1.20以上
+* https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid/index.html["VMware Tanzu Kubernetes Grid"] 1.4以上
+* https://docs.vmware.com/en/VMware-Tanzu-Kubernetes-Grid-Integrated-Edition/index.html["VMware Tanzu Kubernetes Grid整合版"] 1.12.2+
+
+
+
+
+=== NetApp儲存系統
+
+NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲部署。NetApp產品組合包括NetApp ONTAP 的NetApp功能、NetApp Element 功能與NetApp E系列儲存系統、所有這些系統都能為容器化應用程式提供持續儲存。
+
+如需詳細資訊、請造訪NetApp網站 https://www.netapp.com["請按這裡"]。
+
+
+
+=== NetApp儲存整合
+
+NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資料管理服務、適用於部署在內部環境中且採用值得信賴的NetApp資料保護技術的狀態式Kubernetes工作負載。
+
+如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
+
+Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。
+
+如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。

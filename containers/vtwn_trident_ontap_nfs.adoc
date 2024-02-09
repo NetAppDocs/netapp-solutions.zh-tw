@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: containers/vtwn_trident_ontap_nfs.html 
+keywords: Trident, Astra Trident, ONTAP, AFF, FAS, NFS, VMware Tanzu 
+summary: 若要與NetApp ONTAP 支援儲存系統進行Trident整合、您必須建立後端、以便與儲存系統進行通訊。 
+---
+= NetApp ONTAP 不適用於NFS組態
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+若要透過ONTAP NFS啟用Trident與NetApp支援儲存系統的整合、您必須建立後端、以便與儲存系統進行通訊。我們在此解決方案中設定基本的後端、但如果您想要更多自訂選項、請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["請按這裡"^]。
+
+
+
+== 在SVM ONTAP 中建立SVM
+
+. 登入ONTAP 「支援系統管理程式」、瀏覽至「儲存設備」>「儲存VM」、然後按一下「新增」。
+. 輸入SVM的名稱、啟用NFS傳輸協定、勾選「允許NFS用戶端存取」核取方塊、然後在匯出原則規則中新增工作節點所在的子網路、以允許將磁碟區掛載為工作負載叢集中的PV。
++
+image::vtwn_image06.jpg[SVM使用NFS建立]
+
++
+
+NOTE: 如果您使用以NAT'ed部署搭配NSN-T的使用者叢集或工作負載叢集、則必須將Egress子網路（若為TKGS0或浮動IP子網路（若為TKGi）新增至匯出原則規則。
+
+. 提供資料生命量的詳細資料及SVM管理帳戶的詳細資料、然後按一下「Save（儲存）」。
++
+image::vtwn_image07.jpg[SVM資料生命量與SVM管理]
+
+. 將集合體指派給SVM。瀏覽至「Storage（儲存設備）」>「Storage VM（儲存設備VM）」、按一下新建立的SVM旁的省略符號、然後按一下「Edit（編輯）」。核取「將Volume建立限制為偏好的本機層級」核取方塊、然後將所需的集合體附加到其中。
++
+image::vtwn_image08.jpg[SVM Aggregate分配]
+
+. 如果要在其中安裝Trident的使用者或工作負載叢集進行NAT部署、則儲存掛載要求可能會因為SNAT而從非標準連接埠送達。根據預設、ONTAP 從根連接埠發出磁碟區掛載要求時、僅能使用此功能。因此、請登入ONTAP 不符合標準的CLI並修改設定、以允許來自非標準連接埠的掛載要求。
++
+[listing]
+----
+ontap-01> vserver nfs modify -vserver tanzu_svm -mount-rootonly disabled
+----
+
+
+
+
+== 建立後端和StorageClass
+
+. 對於ONTAP 提供NFS的NetApp支援系統、請在跳接主機上使用backendName、managementLIF、dataLIF、SVM、UserName、 密碼及其他詳細資料。
++
+[listing]
+----
+{
+    "version": 1,
+    "storageDriverName": "ontap-nas",
+    "backendName": "ontap-nas+10.61.181.221",
+    "managementLIF": "172.21.224.201",
+    "dataLIF": "10.61.181.221",
+    "svm": "trident_svm",
+    "username": "admin",
+    "password": "password"
+}
+----
++
+
+NOTE: 最佳實務做法是將自訂的backendName值定義為storageDriverName和資料LIF的組合、以利NFS識別。
+
+. 執行下列命令來建立Trident後端。
++
+[listing]
+----
+[netapp-user@rhel7]$ ./tridentctl -n trident create backend -f backend-ontap-nas.json
++-------------------------+----------------+--------------------------------------+--------+---------+
+|          NAME           | STORAGE DRIVER |                 UUID                 | STATE  | VOLUMES |
++-------------------------+----------------+--------------------------------------+--------+---------+
+| ontap-nas+10.61.181.221 | ontap-nas      | be7a619d-c81d-445c-b80c-5c87a73c5b1e | online |       0 |
++-------------------------+----------------+--------------------------------------+--------+---------+
+----
+. 建立後端之後、您必須接著建立儲存類別。下列儲存類別定義範例強調顯示必要和基本欄位。參數「backendType」應反映新建立之Trident後端的儲存驅動程式。
++
+[listing]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nfs
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+----
+. 執行kubecl命令來建立儲存類別。
++
+[listing]
+----
+[netapp-user@rhel7 trident-installer]$ kubectl create -f storage-class-nfs.yaml
+storageclass.storage.k8s.io/ontap-nfs created
+----
+. 建立儲存類別之後、您必須建立第一個持續磁碟區宣告（PVc）。以下提供範例PVc定義。請確定「儲存類別名稱」欄位符合剛建立的儲存類別名稱。根據所需的工作負載、您可以進一步自訂PVc定義。
++
+[listing]
+----
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: basic
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ontap-nfs
+----
+. 發出kubectl命令來建立PVc。視所建立的備用磁碟區大小而定、建立作業可能需要一些時間、因此您可以在完成時觀看程序。
++
+[listing]
+----
+[netapp-user@rhel7 trident-installer]$ kubectl create -f pvc-basic.yaml
+persistentvolumeclaim/basic created
+
+[netapp-user@rhel7 trident-installer]$ kubectl get pvc
+NAME    STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+basic   Bound    pvc-b4370d37-0fa4-4c17-bd86-94f96c94b42d   1Gi        RWO            ontap-nfs      7s
+----
+

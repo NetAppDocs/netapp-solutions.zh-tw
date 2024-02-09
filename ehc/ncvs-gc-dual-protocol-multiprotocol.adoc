@@ -1,0 +1,51 @@
+---
+sidebar: sidebar 
+permalink: ehc/ncvs-gc-dual-protocol-multiprotocol.html 
+keywords: access control, user mapping, permission model 
+summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的雙傳輸協定存取權限。Cloud Volumes Service這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。 
+---
+= 雙傳輸協定/多傳輸協定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的存取權限Cloud Volumes Service (https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["雙傳輸協定"^]）。這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。
+
+
+
+== 存取控制
+
+* *共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用從SMB用戶端設定共用層級ACL https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html["MMC/電腦管理"^] 擁有Cloud Volumes Service 管理員權限的帳戶（請參閱一節） link:ncvs-gc-smb.html#accounts-with-local/builtin-administrator/backup-rights["「擁有本機/BUILTIN/系統管理員/備份權限的帳戶。」"]）。
+* *檔案存取控制。*控制檔案或資料夾層級的權限、且永遠從NAS用戶端進行管理。NFS用戶端可以使用傳統模式位元（rwx）或NFSv4 ACL。SMB用戶端運用NTFS權限。
+
+
+將資料提供給NFS和SMB的磁碟區存取控制權取決於使用中的傳輸協定。如需雙協定權限的相關資訊、請參閱「」一節<<權限模式>>。」
+
+
+
+== 使用者對應
+
+當用戶端存取Volume時Cloud Volumes Service 、嘗試將傳入的使用者對應至相反方向的有效使用者。這是確定跨傳輸協定適當存取的必要條件、並確保要求存取的使用者確實是他們聲稱的對象。
+
+例如、如果名為「Joe」的Windows使用者嘗試透過SMB存取具有UNIX權限的Volume、Cloud Volumes Service 則會執行搜尋、尋找名為「Joe」的對應UNIX使用者。如果存在、則以Windows使用者「Joe」的身分寫入SMB共用區的檔案會顯示為來自NFS用戶端的UNIX使用者「Joe」。
+
+或者、如果名為「Joe」的UNIX使用者嘗試以Cloud Volumes Service Windows權限存取某個Windows Volume、則UNIX使用者必須能夠對應至有效的Windows使用者。否則、將拒絕存取磁碟區。
+
+目前、只有Active Directory支援使用LDAP進行外部UNIX身分識別管理。如需設定此服務存取權的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["建立AD連線"^]。
+
+
+
+== 權限模式
+
+使用雙傳輸協定設定時Cloud Volumes Service 、利用磁碟區的安全樣式來判斷ACL的類型。這些安全型態是根據所指定的NAS傳輸協定來設定、或是在建立Cloud Volumes Service 完實體磁碟區時選擇使用雙傳輸協定。
+
+* 如果您只使用NFS、Cloud Volumes Service 則Sfelles Volume會使用UNIX權限。
+* 如果您只使用SMB、Cloud Volumes Service 則支援使用NTFS權限的功能。
+
+
+如果要建立雙傳輸協定磁碟區、您可以在建立磁碟區時選擇ACL樣式。這項決定應以所需的權限管理為基礎。如果使用者管理來自Windows / SMB用戶端的權限、請選取NTFS。如果您的使用者偏好使用NFS用戶端和chmod/chown、請使用UNIX安全性樣式。

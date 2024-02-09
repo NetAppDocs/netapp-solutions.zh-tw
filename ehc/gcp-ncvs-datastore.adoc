@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp-ncvs-datastore.html 
+keywords: gcp, gcve, cvs, nfs, supplemental, datastore, vcenter, vmware 
+summary: 客戶可以使用 NetApp Cloud Volume Service 的 NFS 補充資料存放區來擴充 Google Cloud VMware Engine 的儲存容量。 
+---
+= Google Cloud VMware Engine 補充 NFS 資料存放區、含 NetApp 雲端 Volume Service
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 總覽
+
+作者：NetApp Suresh ThopPay
+
+需要在 Google Cloud VMware Engine （ GCVE ）環境中增加儲存容量的客戶、可以使用 NetApp Cloud Volume Service 來裝載作為補充 NFS 資料存放區。
+在 NetApp Cloud Volume Service 上儲存資料可讓客戶在不同地區之間複寫資料、以防止萬用磁碟機發生災難。
+
+image:gcp_ncvs_ds01.png["GCVE 上的 NetApp Cloud Volume Service NFS 資料存放區"]
+
+
+
+== 在 GCVE 上從 NetApp CVS 掛載 NFS 資料存放區的部署步驟
+
+.配置 CVS 效能 Volume
+[%collapsible]
+====
+NetApp Cloud Volume Service Volume 可以透過進行資源配置
+link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/workflow["使用 Google Cloud Console"]
+link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-service-gcp/task-create-volumes.html["使用 NetApp BlueXP 入口網站或 API"]
+
+====
+.將 CVS Volume 標記為不可刪除的
+[%collapsible]
+====
+為了避免在 VM 執行時意外刪除 Volume 、請確保將該 Volume 標示為不可刪除、如下面的螢幕快照所示。
+image:gcp_ncvs_ds02.png["NetApp CVS 不可刪除選項"]
+如需詳細資訊、請參閱 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes#creating_an_nfs_volume["正在建立 NFS Volume"] 文件。
+
+====
+.確保 NetApp CVS 租戶 VPC 存在 GCVE 上的私有連線。
+[%collapsible]
+====
+若要掛載 NFS 資料存放區、 GCVE 與 NetApp CVS 專案之間應該存在私有連線。
+如需詳細資訊、請參閱 link:https://cloud.google.com/vmware-engine/docs/networking/howto-setup-private-service-access["如何設定私有服務存取"]
+
+====
+.掛載 NFS 資料存放區
+[%collapsible]
+====
+如需如何在 GCVE 上掛載 NFS 資料存放區的指示、請參閱 link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service-datastores["如何使用 NetApp CVS 建立 NFS 資料存放區"]
+
+
+NOTE: 由於 vSphere 主機是由 Google 管理、因此您無法安裝 NFS vSphere API for Array Integration （ VAAI ） vSphere 安裝套件（ VIB ）。
+如果您需要虛擬磁碟區（ vVol ）支援、請通知我們。
+如果您想要使用巨型框架、請參閱 link:https://cloud.google.com/vpc/docs/mtu["GCP 上支援的最大 MTU 大小"]
+
+====
+
+
+== 利用 NetApp 雲端 Volume Service 節省成本
+
+若要深入瞭解 NetApp Cloud Volume Service 可為您的 GCVE 儲存需求節省的潛在成本、請查看 link:https://bluexp.netapp.com/gcve-cvs/roi["NetApp ROI 計算機"]
+
+
+
+== 參考連結
+
+* link:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["Google 部落格：如何使用 NetApp CVS 做為 Google Cloud VMware Engine 的資料存放區"]
+* link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["NetApp 部落格：將儲存豐富應用程式移轉至 Google Cloud 的更佳方式"]
+

@@ -1,0 +1,91 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-sm-gcp-setup.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Google Cloud Platform, Google Cloud, GCP 
+summary:  
+---
+= 在 GCP 上部署和設定 Red Hat OpenShift Container 平台
+:allow-uri-read: 
+
+
+
+
+== 在 GCP 上部署和設定 Red Hat OpenShift Container 平台
+
+[role="lead"]
+本節說明如何在 GCP 中設定及管理 OpenShift 叢集、以及在其中部署有狀態應用程式的高階工作流程。它顯示在 Astra Trident 協助下使用 NetApp Cloud Volumes ONTAP 儲存設備來提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+
+下圖顯示了在 GCP 上部署並使用 VPN 連線至資料中心的叢集。
+
+image:rhhc-self-managed-gcp.png[""]
+
+
+NOTE: 在 GCP 中部署 Red Hat OpenShift Container 平台叢集有多種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:../rhhc-resources.html["資源區段"]。
+
+設定程序可分為下列步驟：
+
+.從 CLI 在 GCP 上安裝 OCP 叢集。
+[%collapsible]
+====
+* 請確定您已符合上述所有先決條件 link:https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["請按這裡"]。
+* 針對內部部署與 GCP 之間的 VPN 連線、我們建立並設定了 pfSense VM 。如需相關指示、請參閱 https://docs.netgate.com/pfsense/en/latest/recipes/ipsec-s2s-psk.html["請按這裡"]。
++
+** 只有在 Google Cloud Platform 中建立 VPN 閘道之後、才能在 pfSense 中設定遠端閘道位址。
+** 只有在 OpenShift 叢集安裝程式執行並建立叢集的基礎架構元件之後、才能設定階段 2 的遠端網路 IP 位址。
+** 只有在安裝程式建立叢集的基礎架構元件之後、才能在 Google Cloud 中設定 VPN 。
+
+
+* 現在在 GCP 上安裝 OpenShift 叢集。
++
+** 請取得安裝程式和抽取密碼、並依照文件中所提供的步驟部署叢集 https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["請按這裡"]。
+** 安裝作業會在 Google Cloud Platform 中建立 VPC 網路。它也會在 Cloud DNS 中建立私有區域、並新增記錄。
++
+*** 使用 VPC 網路的 CIDR 區塊位址來設定 pfSense 並建立 VPN 連線。確保防火牆設定正確。
+*** 使用 Google Cloud DNS A 記錄中的 IP 位址、在內部部署環境的 DNS 中新增記錄。
+
+
+** 叢集安裝完成、並將提供一個 kubeconfig 檔案、使用者名稱和密碼、以登入叢集的主控台。
+
+
+
+
+====
+.使用 BlueXP 在 GCP 中部署 Cloud Volumes ONTAP 。
+[%collapsible]
+====
+* 在 Google Cloud 中安裝 Connector 。請參閱指示 https://docs.netapp.com/us-en/bluexp-setup-admin/task-install-connector-google-bluexp-gcloud.html["請按這裡"]。
+* 使用 Connector 在 Google Cloud 中部署 CVO 執行個體。請參閱此處的指示。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-getting-started-gcp.html[]
+
+
+====
+.在 GCP 的 OCP 叢集中安裝 Astra Trident
+[%collapsible]
+====
+* 如圖所示、部署 Astra Trident 有許多方法 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。
+* 針對此專案、 Astra Trident 是依照指示手動部署 Astra Trident 操作員來安裝 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["請按這裡"]。
+* 建立後端和儲存類別。請參閱指示 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html["請按這裡"]。
+
+
+====
+.將 GCP 上的 OCP 叢集新增至 Astra Control Center 。
+[%collapsible]
+====
+* 使用叢集角色建立獨立的 KubeConfig 檔案、其中包含 Astra Control 管理叢集所需的最低權限。您可以找到相關指示
+link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#create-a-cluster-role-kubeconfig["請按這裡"]。
+* 依照指示將叢集新增至 Astra Control Center
+link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster["請按這裡"]
+
+
+====
+.在多區域架構中使用 Trident 的 CSI 拓撲功能
+如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"] 以取得更多詳細資料。
+
+
+NOTE: Kubernetes 支援兩種磁碟區繫結模式： - 當 **_Volume BindingMode_ 設為 _Immediate_** （預設）時、 Astra Trident 會在沒有任何拓撲感知的情況下建立磁碟區。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。- 當 **_Volume BindingMode_ 設定為 _WaitForFirstConsumer （客戶） ** 時、永久 Volume 的建立與繫結將延遲、直到排程並建立使用 PVC 的 Pod 為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。Astra Trident 儲存後端可根據可用性區域（可識別拓撲的後端）、選擇性地配置磁碟區。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。（可識別拓撲的 StorageClass ）請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"] 以取得更多詳細資料。
+
+[ 底線 ]#* 示範影片 * #
+
+.在 Google Cloud Platform 上安裝 OpenShift 叢集
+video::4efc68f1-d37f-4cdd-874a-b09700e71da9[panopto,width=360]
+.將 OpenShift 叢集匯入 Astra Control Center
+video::57b63822-6bf0-4d7b-b844-b09700eac6ac[panopto,width=360]

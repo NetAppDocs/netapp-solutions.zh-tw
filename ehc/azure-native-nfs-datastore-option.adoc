@@ -1,0 +1,333 @@
+---
+sidebar: sidebar 
+permalink: ehc/azure-native-nfs-datastore-option.html 
+keywords:  
+summary:  
+---
+= Azure中的補充NFS資料存放區選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+ESXi版本3在內部部署部署中引進NFS資料存放區支援、大幅擴充vSphere的儲存功能。
+
+在NFS上執行vSphere是內部部署虛擬化的廣泛採用選項、因為它提供強大的效能與穩定性。如果您在內部部署資料中心擁有大量的網路附加儲存設備（NAS）、則應考慮在Azure中部署Azure VMware解決方案SDDC與Azure NetApp檔案資料存放區、以克服容量與效能方面的挑戰。
+
+以領先業界的高可用度NetApp解決方案資料管理軟體為基礎。Azure NetApp Files ONTAPMicrosoft Azure服務分為三類：基礎、主流及專業。支援的硬體已部署在許多地區、屬於專業類別。Azure NetApp Files利用內建的高可用度（HA）Azure NetApp Files 功能、讓您的資料不受大多數停機的影響、並提供領先業界的SLA https://azure.microsoft.com/support/legal/sla/netapp/v1_1/["99.99%"^] 正常運作時間：
+
+在推出「資料儲存區」功能之前Azure NetApp Files 、客戶若想要裝載效能與儲存密集工作負載、則必須同時擴充運算與儲存設備、才能進行橫向擴充作業。
+
+請記住下列問題：
+
+* SDDC叢集不建議使用不平衡的叢集組態。因此擴充儲存設備意味著增加更多主機、這意味著TCO更高。
+* 只能有一個vSAN環境。因此、所有儲存流量都會直接與正式作業工作負載競爭。
+* 您無法選擇提供多個效能層級來調整應用程式需求、效能和成本。
+* 在叢集主機之上建置vSAN的儲存容量限制很容易達到。整合Azure原生平台即服務（PaaS）產品、例如Azure NetApp Files 以資料存放區形式建置的 客戶可選擇獨立擴充儲存設備、並視需要只將運算節點新增至SDDC叢集。這項功能克服了上述挑戰。
+
+
+此外、您也可以部署多個資料存放區、將虛擬機器放入適當的資料存放區、並指派所需的服務層級來滿足工作負載效能需求、藉此模擬內部部署模式。Azure NetApp Files藉由多重傳輸協定支援的獨特功能、來賓儲存設備是SQL和Oracle等資料庫工作負載的額外選項、同時也使用補充的NFS資料存放區功能來容納剩餘的VMDK。此外、原生快照功能可讓您執行快速備份和精細還原。
+
+
+NOTE: 請聯絡Azure與NetApp解決方案架構設計師、以規劃及調整儲存容量、並決定所需的主機數量。NetApp建議在完成資料存放區配置以進行測試、POC及正式作業部署之前、先找出儲存效能需求。
+
+
+
+== 詳細架構
+
+從高層面來看、此架構說明如何在內部部署環境和Azure之間實現混合雲連線和應用程式可攜性。同時也說明Azure NetApp Files 如何使用VMware作為補充NFS資料存放區、以及將其作為來賓虛擬機器的客體內儲存選項、以供Azure VMware解決方案代管。
+
+image:vmware-dr-image1.png["錯誤：缺少圖形影像"]
+
+
+
+== 規模調整
+
+移轉或災難恢復最重要的一點、是判斷目標環境的大小是否正確。瞭解從內部部署到Azure VMware解決方案的提升與轉換作業需要多少節點、這一點非常重要。
+
+若要調整規模、請使用RVTools（偏好）或其他工具（例如即時光纖或Azure移轉）、從內部部署環境取得的歷史資料。RVTools是擷取vCPU、vMem、vDisk及所有必要資訊（包括已開啟或關閉電源的VM）的理想工具、以呈現目標環境的特性。
+
+若要執行RVtool,請完成下列步驟:
+
+. 下載並安裝RVTools。
+. 執行RVTools、輸入連線至內部部署vCenter Server所需的資訊、然後按下Login（登入）。
+. 將庫存匯出至Excel試算表。
+. 編輯試算表、並從vInfo索引標籤移除任何不理想候選的VM。此方法提供明確的儲存需求輸出、可用來調整Azure VMware SDDC叢集的大小及所需的主機數量。
+
+
+
+NOTE: 與來賓儲存設備一起使用的來賓VM必須分開計算；不過Azure NetApp Files 、由於能夠輕鬆涵蓋額外的儲存容量、因此整體TCO維持在低位。
+
+
+
+== 部署及設定Azure VMware解決方案
+
+如同內部部署、規劃Azure VMware解決方案對於建立虛擬機器和移轉的正式作業就緒環境而言、是非常重要的。
+
+本節說明如何設定及管理AVS、以便搭配Azure NetApp Files 使用以供搭配使用的資料存放區搭配來賓儲存設備。
+
+設定程序可分為三個部分：
+
+* 註冊資源供應商並建立私有雲。
+* 連線至新的或現有的ExpressRoute虛擬網路閘道。
+* 驗證網路連線能力並存取私有雲端。請參閱此 link:azure-avs.html["連結"^] 逐步瞭解Azure VMware解決方案SDDC資源配置程序。
+
+
+
+
+== 使用Azure NetApp Files Azure VMware解決方案設定功能
+
+利用全新的融合功能、您可以透過Azure VMware解決方案資源供應商API/CLI建立NFS資料存放區、搭配使用VMware Volume、並將資料存放區掛載至私有雲端中您所選的叢集。Azure NetApp Files Azure NetApp Files除了裝載VM和應用程式VMDK之外、Azure NetApp檔案磁碟區也可從Azure VMware Solution SDDC環境中建立的VM掛載。這些磁碟區可掛載到Linux用戶端、並對應到Windows用戶端、因為Azure NetApp Files 支援伺服器訊息區（SMB）和網路檔案系統（NFS）傳輸協定。
+
+
+NOTE: 為了獲得最佳效能、請將Azure NetApp Files VMware部署在私有雲端所在的相同可用度區域。與Express Route fastpath共置可提供最佳效能、並將網路延遲降至最低。
+
+若要附加Azure NetApp File Volume做為Azure VMware Solution私有雲的VMware資料存放區、請確定符合下列先決條件。
+
+.先決條件
+[%collapsible]
+====
+. 使用AZ登入、並驗證訂閱已登錄至Microsoft .AVS命名空間中的CloudSanExperience功能。
+
+
+....
+az login –tenant xcvxcvxc- vxcv- xcvx- cvxc- vxcvxcvxcv
+az feature show --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+. 如果尚未註冊、請加以註冊。
+
+
+....
+az feature register --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+
+NOTE: 完成註冊大約需要15分鐘。
+
+. 若要檢查登錄狀態、請執行下列命令。
+
+
+....
+az feature show --name "CloudSanExperience" --namespace "Microsoft.AVS" --query properties.state
+....
+. 如果登錄停留在中繼狀態超過15分鐘、請取消登錄、然後重新登錄旗標。
+
+
+....
+az feature unregister --name "CloudSanExperience" --namespace "Microsoft.AVS"
+az feature register --name "CloudSanExperience" --namespace "Microsoft.AVS"
+....
+. 確認訂閱已登錄至Microsoft .AVS命名空間中的AnfDatastoreExperience功能。
+
+
+....
+az feature show --name "AnfDatastoreExperience" --namespace "Microsoft.AVS" --query properties.state
+....
+. 確認已安裝VMware擴充功能。
+
+
+....
+az extension show --name vmware
+....
+. 如果擴充已安裝、請確認版本為3.0.0。如果安裝的是舊版、請更新副檔名。
+
+
+....
+az extension update --name vmware
+....
+. 如果尚未安裝擴充功能、請安裝它。
+
+
+....
+az extension add --name vmware
+....
+====
+.建立及掛載Azure NetApp Files 功能
+[%collapsible]
+====
+. 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files 「AZ供應商登錄」、命名空間Microsoft.NetApp–wait命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。註冊後、請建立NetApp帳戶。請參閱此 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["連結"^] 以取得詳細步驟。
+
+
+image:vmware-dr-image2.png["錯誤：缺少圖形影像"]
+
+. 建立NetApp帳戶之後、請設定容量資源池、並設定所需的服務層級和大小。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["連結"^]。
+
+
+image:vmware-dr-image3.png["錯誤：缺少圖形影像"]
+
+|===
+| 值得記住的重點 
+
+
+ a| 
+* NFSv3支援Azure NetApp Files 以供支援的資料存放區使用。
+* 視需要使用Premium或Standard層來處理容量限制工作負載、並使用Ultra層來處理效能限制工作負載、同時補充預設的vSAN儲存設備。
+
+
+|===
+. 設定Azure NetApp Files 委派的子網路以供使用、並在建立磁碟區時指定此子網路。如需建立委派子網路的詳細步驟、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-delegate-subnet["連結"^]。
+. 使用容量集區刀鋒下的Volume刀鋒、為資料存放區新增NFS磁碟區。
+
+
+image:vmware-dr-image4.png["錯誤：缺少圖形影像"]
+
+如需瞭Azure NetApp Files 解根據大小或配額的功能、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-performance-considerations["效能考量Azure NetApp Files"^]。
+
+====
+.將Azure NetApp Files 資料儲存區新增至私有雲
+[%collapsible]
+====
+
+NOTE: 您可以使用Azure Portal將此資料量附加至私有雲端Azure NetApp Files 。請遵循此步驟 link:https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["Microsoft的連結"] 逐步使用Azure入口網站來掛載Azure NetApp Files 支援的資料存放區。
+
+若要將Azure NetApp Files 某個資料存放區新增至私有雲、請完成下列步驟：
+
+. 登錄必要功能之後、請執行適當的命令、將NFS資料存放區附加至Azure VMware Solution私有雲叢集。
+. 使用Azure VMware解決方案私有雲叢集中現有的ANF磁碟區建立資料存放區。
+
+
+....
+C:\Users\niyaz>az vmware datastore netapp-volume create --name ANFRecoDSU002 --resource-group anfavsval2 --cluster Cluster-1 --private-cloud ANFDataClus --volume-id /subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002
+{
+  "diskPoolVolume": null,
+  "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.AVS/privateClouds/ANFDataClus/clusters/Cluster-1/datastores/ANFRecoDSU002",
+  "name": "ANFRecoDSU002",
+  "netAppVolume": {
+    "id": "/subscriptions/0efa2dfb-917c-4497-b56a-b3f4eadb8111/resourceGroups/anfavsval2/providers/Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002",
+    "resourceGroup": "anfavsval2"
+  },
+  "provisioningState": "Succeeded",
+  "resourceGroup": "anfavsval2",
+  "type": "Microsoft.AVS/privateClouds/clusters/datastores"
+}
+
+. List all the datastores in a private cloud cluster.
+
+....
+C：\Users\Niyaz>AZ VMware資料存放區清單- resource-group anfavsval2 -叢集Cluster-1 -私有雲端ANFDataClus [｛"diskPoolVolume"：null、"id"："/uncs/0efa2dfb-917c-447-b56a-b3f4eadblaseds/resources/avarc/secnatrofinds/us/sec/sorbledsorc/data/catroups111/s"c/ s"c/sbledsbleds/categroups/categroupsor/categroups/categroups"us/se/categroups/categroups/cs/csor/c"data/findsor/c"us" Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecods/volumes/ANFRecoDS001"群組"us/csorategroups/c"finds/csorsorsorsorsorategroupsorsor/categroupsor/c"datace/s"us/c"us/c"us/c"datace/s"us/c ｛"diskPoolVolume"：null、"id"："/cups/0efa2dfb-917c-447-b56a-b3f4eadb8111/resources/anfavsval2/providers/microsoft.avs/privateClouds/ANFDataCluss/Clusters/Clusters/Cluster-1//DSANAmsnaparated/safatrosors002/"datas"datased"datased/s"datas"datas"datas"datas"/usc/ Microsoft.NetApp/netAppAccounts/anfdatastoreacct/capacityPools/anfrecodsu/volumes/anfrecodsU002" datased"/usc/資料存放區"/favarecatlecatlecnates"、"/usc/安全性組"#"/usc/資料儲存區/usc/資料儲存區"c/資料儲存區"/usc/資料儲存區"/usc/資料儲存區"/usc/資料儲存區、"/64977-6497"/favarc/資料儲存區"/us"/usc/資料儲存區"/us"/us"/usc/資料儲存區
+
+. 建立必要的連線之後、磁碟區就會以資料存放區的形式掛載。
+
+
+image:vmware-dr-image5.png["錯誤：缺少圖形影像"]
+
+====
+
+
+== 規模與效能最佳化
+
+支援三種服務層級：標準（每TB 16Mbps）、高級（每TB 64MBps）和超高（每TB 12MBps）Azure NetApp Files 。配置適當的磁碟區大小、對於資料庫工作負載的最佳效能而言非常重要。利用VMware、磁碟區效能和處理量限制取決於下列因素：Azure NetApp Files
+
+* 磁碟區所屬之容量集區的服務層級
+* 指派給磁碟區的配額
+* 容量集區的服務品質（QoS）類型（自動或手動）
+
+
+image:vmware-dr-image6.png["錯誤：缺少圖形影像"]
+
+如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^]。
+
+請參閱此 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/performance-benchmarks-azure-vmware-solution["Microsoft的連結"] 以取得可在規模調整練習中使用的詳細效能基準測試。
+
+|===
+| 值得記住的重點 
+
+
+ a| 
+* 使用資料存放區磁碟區的Premium或Standard層、以獲得最佳容量和效能。如果需要效能、則可使用超層。
+* 如需來賓掛載需求、請使用Premium或Ultra層級、並針對來賓VM的檔案共用需求、使用Standard或Premium層級磁碟區。
+
+
+|===
+
+
+== 效能考量
+
+請務必瞭解、有了NFS版本3、ESXi主機與單一儲存目標之間只有一條作用中的連線管道。這表示雖然可能有替代連線可供容錯移轉、但單一資料存放區和基礎儲存設備的頻寬僅限於單一連線所能提供的頻寬。
+
+若要利用Azure NetApp Files 更多可用頻寬來搭配使用、ESXi主機必須有多個儲存目標連線。若要解決此問題、您可以使用ESXi主機與儲存設備之間的個別連線、針對每個資料存放區設定多個資料存放區。
+
+若要提高頻寬、最佳實務做法是使用多個ANF磁碟區建立多個資料存放區、建立VMDK、並在VMDK之間分段邏輯磁碟區。
+
+請參閱此 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/performance-benchmarks-azure-vmware-solution["Microsoft的連結"] 以取得可在規模調整練習中使用的詳細效能基準測試。
+
+|===
+| 值得記住的重點 
+
+
+ a| 
+* Azure VMware解決方案預設允許八個NFS資料存放區。這可透過支援要求來增加。
+* 運用ER fastpath搭配Ultra SKU、以獲得更高的頻寬和更低的延遲。更多資訊
+* 藉助Azure NetApp Files 於《基本》網路功能、Azure VMware解決方案的連線能力受到ExpressRoute電路和ExpressRoute閘道頻寬的限制。
+* 支援使用「標準」網路功能的支援功能的支援功能、例如ExpressRoute FastPath Azure NetApp Files 。啟用時、FastPath Azure NetApp Files 會將網路流量直接傳送至支援速度較快的支援區、繞過提供較高頻寬和較低延遲的閘道。
+
+
+|===
+
+
+== 增加資料存放區的大小
+
+Volume重新塑形和動態服務層級變更對SDDC而言完全透明。在VMware中、這些功能可提供持續的效能、容量和成本最佳化。Azure NetApp Files從Azure Portal或使用CLI調整磁碟區大小、以增加NFS資料存放區的大小。完成後、請存取vCenter、移至「Datastore」（資料存放區）索引標籤、在適當的資料存放區上按一下滑鼠右鍵、然後選取「Refresh Capacity Information」（重新整理容量資訊）。此方法可用於增加資料存放區容量、並以動態方式提高資料存放區效能、而不需停機。此程序對應用程式也完全透明。
+
+|===
+| 值得記住的重點 
+
+
+ a| 
+* Volume重新調整和動態服務層級功能可讓您針對穩定狀態的工作負載調整規模、以最佳化成本、進而避免過度資源配置。
+* VAAI未啟用。
+
+
+|===
+
+
+== 工作負載
+
+.移轉
+[%collapsible]
+====
+移轉是最常見的使用案例之一。使用VMware HCX或VMotion來移動內部部署的VM。或者、您也可以使用Rivermeadow將VM移轉至Azure NetApp Files 各個資料存放區。
+
+====
+.資料保護
+[%collapsible]
+====
+備份虛擬機器並快速恢復這些虛擬機器、是ANF資料存放區的最大優勢之一。使用Snapshot複本來快速複製VM或資料存放區、而不影響效能、然後將它們傳送至Azure儲存設備以提供長期資料保護、或使用跨區域複寫來進行災難恢復。這種方法只儲存變更的資訊、可將儲存空間和網路頻寬減至最低。
+
+使用VMware Snapshot複本進行一般保護、並使用應用程式工具來保護位於客體VM上的交易資料、例如SQL Server或Oracle。Azure NetApp Files這些Snapshot複本與VMware（一致性）快照不同、適合長期保護。
+
+
+NOTE: 使用ANF資料存放區時、「Restore to New Volume」（還原至新磁碟區）選項可用於複製整個資料存放區磁碟區、還原的磁碟區可作為另一個資料存放區掛載至AVS SDDC內的主機。資料存放區掛載完成後、即可登錄、重新設定及自訂其中的VM、如同個別複製VM一樣。
+
+.適用於虛擬機器的 BlueXP 備份與還原
+[%collapsible]
+=====
+適用於虛擬機器的 BlueXP 備份與還原功能可在 vCenter 上提供 vSphere Web 用戶端 GUI 、透過備份原則來保護 Azure VMware 解決方案虛擬機器和 Azure NetApp Files 資料存放區。這些原則可定義排程、保留及其他功能。  您可以使用 Run 命令來部署 BlueXP 虛擬機器備份與還原功能。
+
+完成下列步驟即可安裝設定與保護原則：
+
+. 使用 Run 命令、在 Azure VMware 解決方案私有雲中安裝適用於虛擬機器的 BlueXP 備份與還原。
+. 新增雲端訂閱認證（用戶端和機密值）、然後新增雲端訂閱帳戶（NetApp帳戶和相關資源群組）、其中包含您想要保護的資源。
+. 建立一或多個備份原則、以管理資源群組備份的保留、頻率及其他設定。
+. 建立一個容器、以新增一或多個需要備份原則保護的資源。
+. 發生故障時、請將整個VM或特定的個別VMDK還原至相同位置。
+
+
+
+NOTE: 利用Snapshot快照技術、備份與還原的速度非常快。Azure NetApp Files
+
+image:vmware-dr-image7.png["錯誤：缺少圖形影像"]
+
+=====
+.利用Azure NetApp Files VMware解決方案進行災難恢復、提供VMware vCenter災難恢復
+[%collapsible]
+=====
+災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載免受站台停機和資料毀損事件（例如勒索軟體）的影響。使用VMware VAIO架構、內部部署的VMware工作負載可複寫至Azure Blob儲存設備並進行還原、使資料遺失率降至最低或接近零、RTO接近零。可以使用Jetstream DR無縫恢復從內部部署複製到AVS的工作負載、特別是Azure NetApp Files 到還原的工作負載。它能在災難恢復站台使用最少的資源、並以具成本效益的雲端儲存設備、實現具成本效益的災難恢復。透過Azure Blob Storage、在Anf資料存放區中自動恢復、根據網路對應、Jetstream DR會將獨立的VM或相關VM群組恢復至恢復站台基礎架構、並提供時間點還原功能以保護勒索軟體。
+
+link:azure-native-dr-jetstream.html["災難恢復解決方案、包括ANF、Jetstream和AVS"]。
+
+=====
+====

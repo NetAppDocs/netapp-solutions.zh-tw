@@ -1,0 +1,105 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp-migrate-veeam.html 
+keywords: gcp, gcve, cvs, migrate , dr, disaster recovery, veeam, replication, proxy, re-ip 
+summary: 目前使用 Veeam 保護資料需求的客戶、會繼續使用該解決方案將工作負載移轉至 GCVE 、並享有 NetApp Cloud Volume Service NFS 資料存放區的優點。 
+---
+= VM 移轉至 Google Cloud 上的 NetApp 雲端 Volume Service NFS 資料存放區使用 Veeam 複寫功能的 VMware 引擎
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 總覽
+
+作者：NetApp Suresh ThopPay
+
+在 VMware vSphere 上執行的 VM 工作負載可透過 Veeam Replication 功能移轉至 Google Cloud VMware Engine （ GCVE ）。
+
+本文件提供逐步設定及執行 VM 移轉的方法、使用 NetApp Cloud Volume Service 、 Veeam 及 Google Cloud VMware Engine （ GCVE ）。
+
+image:gcp_migration_veeam_01.png["Veeam VM 複寫架構"]
+
+
+
+== 假設
+
+本文件假設您已備有 Google Cloud VPN 或 Cloud Interconnect 或其他網路選項、可從現有的 vSphere 伺服器建立網路連線至 Google Cloud VMware Engine 。
+
+
+NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓我們無法在此文件中概述特定的工作流程。
+請參閱 link:https://cloud.google.com/network-connectivity/docs/how-to/choose-product["Google Cloud文件"] 以取得適當的內部部署與 Google 連線方法。
+
+
+
+== 部署移轉解決方案
+
+
+
+=== 解決方案部署總覽
+
+. 請確定 NetApp Cloud Volume Service 的 NFS 資料存放區已裝載於 GCVE vCenter 。
+. 確保 Veeam Backup Recovery 已部署在現有的 VMware vSphere 環境中
+. 建立複寫工作、開始將虛擬機器複寫至 Google Cloud VMware Engine 執行個體。
+. 執行 Veeam 複寫工作的容錯移轉。
+. 在 Veeam 上執行永久性容錯移轉。
+
+
+
+
+=== 部署詳細資料
+
+
+
+==== 請確定 NetApp Cloud Volume Service 的 NFS 資料存放區已裝載於 GCVE vCenter
+
+登入 GCVE vCenter 、確保 NFS 資料存放區有足夠的可用空間。
+如果沒有、請參閱 link:gcp-ncvs-datastore.html["將 NetApp CVS 掛載為 GCVE 上的 NFS 資料存放區"]
+
+
+
+==== 確保 Veeam Backup Recovery 已部署在現有的 VMware vSphere 環境中
+
+請參閱 link:https://helpcenter.veeam.com/docs/backup/vsphere/replication_components.html?ver=120["Veeam Replication Components"] 安裝必要元件的文件。
+
+
+
+==== 建立複寫工作、開始將虛擬機器複寫至 Google Cloud VMware Engine 執行個體。
+
+內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。 link:https://helpcenter.veeam.com/docs/backup/vsphere/replica_job.html?ver=120["設定vSphere VM複寫工作"]
+以下是說明方法的影片
+link:https://youtu.be/uzmKXtv7EeY["設定複寫工作"]。
+
+
+NOTE: 複本 VM 的 IP 可能與來源 VM 不同、也可以連線至不同的連接埠群組。如需詳細資訊、請參閱上述影片。
+
+
+
+==== 執行 Veeam 複寫工作的容錯移轉
+
+若要移轉 VM 、請執行 link:https://helpcenter.veeam.com/docs/backup/vsphere/performing_failover.html?ver=120["執行容錯移轉"]
+
+
+
+==== 在 Veeam 上執行永久性容錯移轉。
+
+若要將 GCVE 視為新的來源環境、請執行 link:https://helpcenter.veeam.com/docs/backup/vsphere/permanent_failover.html?ver=120["永久性容錯移轉"]
+
+
+
+== 本解決方案的優點
+
+* 現有的 Veeam 備份基礎架構可用於移轉。
+* Veeam Replication 允許變更目標站台上的 VM IP 位址。
+* 能夠重新對應 Veeam 以外複寫的現有資料（例如 BlueXP 複寫的資料）
+* 能夠在目標站台上指定不同的網路連接埠群組。
+* 可指定 VM 的開機順序。
+* 利用 VMware 變更區塊追蹤功能、將透過 WAN 傳送的資料量降到最低。
+* 能夠執行複寫的前置和後置指令碼。
+* 能夠執行快照的前後指令碼。
+
