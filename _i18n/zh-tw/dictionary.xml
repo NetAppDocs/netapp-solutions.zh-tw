@@ -19139,7 +19139,6 @@ NetApp 資深資料與應用科學家 Jian Jian （ Ken ）</block>
   <block id="39182d8bb094516788625069e7ecaf1d" category="list-text">驗證 Oracle 資料庫和 DNFS</block>
   <block id="3a9e92fed2a83eee60f3bac7ce51cbed" category="section-title">將 Oracle 資料庫移轉至 Azure</block>
   <block id="ce9b5da67cd6dc3cd4e1e77ddf5c5eac" category="paragraph">Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正確的策略和自動化功能、可以順利完成程序、並將服務中斷和停機時間降至最低。請遵循此詳細指示 <block ref="9701ccef4d74ef0a1719e8a2a189be37" category="inline-link-macro-rx"></block> 引導您的資料庫移轉過程。</block>
-  <block id="c7be10a0c903442d0e816c0066a99fa1" category="paragraph">NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracle 資料庫。我們很快就會提供詳細的解決方案文件。</block>
   <block id="03b3d2a7a581e28eade41b2069651904" category="list-text">部署 Oracle Direct NFS</block>
   <block id="54d61c6a6d7438a74568da42787fa14b" category="inline-link-macro"><block ref="54d61c6a6d7438a74568da42787fa14b" category="inline-link-rx"></block></block>
   <block id="a31fb0666cfd1ef716527d49b2f71a7a" category="paragraph"><block ref="a31fb0666cfd1ef716527d49b2f71a7a" category="inline-link-macro-rx"></block></block>
@@ -19193,4 +19192,100 @@ NetApp 資深資料與應用科學家 Jian Jian （ Ken ）</block>
   <block id="8628c3cf5f4fcba5f1600917db78b55d" category="list-text"><block ref="8628c3cf5f4fcba5f1600917db78b55d" category="inline-link-macro-rx"></block></block>
   <block id="f25e48bc4daa79e5ab8b68aab54060d0" category="list-text"><block ref="f25e48bc4daa79e5ab8b68aab54060d0" category="inline-link-macro-rx"></block></block>
   <block id="f138a8607f7628a978548192d4e77f98" category="list-text"><block ref="f138a8607f7628a978548192d4e77f98" category="inline-link-macro-rx"></block></block>
+  <block id="05441238a4ac95ea5590a12260bd58b4" category="cell">2024 年 2 月 15 日</block>
+  <block id="7e1e9b5b7e0095d951940c85504f756e" category="cell">全新 TR-4988 ： Oracle 資料庫備份、恢復及完整複製（使用 SnapCenter ）</block>
+  <block id="7d5231eeeadfe71a5efcd24a1d5e0be9" category="video-title">Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行</block>
+  <block id="8eb7bac9a4678cba7fbecce513dbb48d" category="paragraph">NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracle 資料庫。請參閱 TR-4988 ： <block ref="e0df2f7dd9e56bade59bd40321e8f1c5" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="e0df2f7dd9e56bade59bd40321e8f1c5" category="paragraph"><block ref="e0df2f7dd9e56bade59bd40321e8f1c5" category="inline-link-macro-rx"></block></block>
+  <block id="92726ec0eae6e1e73c6db87d872ebe6e" category="summary">本解決方案提供 Microsoft Azure NetApp Files 中自動化 Oracle 部署的概觀與詳細資料、做為具有 NFS 傳輸協定的主要資料庫儲存設備、而 Oracle 資料庫則部署為啟用 DNFS 的容器資料庫。部署在 Azure 中的資料庫會使用 SnapCenter UI 工具來保護、以簡化資料庫管理</block>
+  <block id="2a5eba546233f90579d3260dd00dbd31" category="doc">TR-4988 ： Oracle 資料庫備份、還原及複製、透過 SnapCenter 進行</block>
+  <block id="3c0b969f02b8a026925047057738fc1b" category="paragraph">NetApp SnapCenter 流通軟體是易於使用的企業平台、可安全地協調及管理應用程式、資料庫及檔案系統之間的資料保護。它可將這些工作卸載給應用程式擁有者、而不犧牲在儲存系統上監督及管理活動的能力、進而簡化備份、還原及複製生命週期管理。藉由運用儲存型資料管理功能、可提升效能與可用度、並縮短測試與開發時間。</block>
+  <block id="42eb4ddfe3f445ea0352aef56b5e7fdb" category="paragraph">在 TR-4987 中、 <block ref="0f9ba0e2eb61f2970cc50a6cb6799a08" category="inline-link-macro-rx"></block>、我們示範在 Azure 雲端的 Azure NetApp Files （ anf ）上自動部署 Oracle 。在本文件中、我們以非常簡單易用的 SnapCenter UI 工具、在 Azure 雲端的 ANF 上展示 Oracle 資料庫保護與管理功能。</block>
+  <block id="81fa72cbc547f894c7c04a4127dfe5ea" category="list-text">備份與還原部署在 Azure 雲端的 SnapCenter 、並將 Oracle 資料庫部署在 ANF 上。</block>
+  <block id="6cfd0230dc78dea7b5afceb0812f2f42" category="list-text">管理資料庫快照和複製複本、以加速應用程式開發並改善資料生命週期管理。</block>
+  <block id="9de2392a5a7812b0166ee1ad25de89f1" category="list-text">想要在 Azure NetApp Files 上部署 Oracle 資料庫的 DBA 。</block>
+  <block id="9a0a3a7d3a2a195a355c15770cfa5372" category="list-text">想要在 Azure NetApp Files 上部署及管理 Oracle 資料庫的儲存管理員。</block>
+  <block id="88ee29f0e07795688dabad629e6b1a38" category="cell">具有優質服務層級的容量集區</block>
+  <block id="5b51e2d6963535892778a3ec85923303" category="cell">兩個 Linux 虛擬機器執行個體</block>
+  <block id="fcac956b151981c790450bffbe8a6ec5" category="cell">2022 DataCenter ； AE HotPatch - x64 Gen2</block>
+  <block id="66bda974b27aec9fc4c649e866e2d848" category="cell">修補 p34765931_190000_Linux-x86-64.zip</block>
+  <block id="e2bc304a34949cf78793eb2d9a4466f7" category="cell">修補 p6880880_190000_Linux-x86-64.zip</block>
+  <block id="58b1cd722de6d096e347df95b97f1708" category="list-text">* SnapCenter 部署。 * SnapCenter 可以部署在 Windows 網域或工作群組環境中。對於網域型部署、網域使用者帳戶應為網域系統管理員帳戶、或是網域使用者屬於 SnapCenter 主機服務器上本機系統管理員的群組。</block>
+  <block id="51b67e7136bcea8684399bd788343a3d" category="list-text">* 名稱解析。 * SnapCenter 伺服器需要將名稱解析為每個受管理目標資料庫伺服器主機的 IP 位址。每個目標資料庫伺服器主機都必須將 SnapCenter 伺服器名稱解析為 IP 位址。如果 DNS 伺服器無法使用、請將命名新增至本機主機檔案以進行解析。</block>
+  <block id="5201585f52455453631952654fbcfdc1" category="list-text">* 資源群組組組態。 * SnapCenter 中的資源群組是類似資源的邏輯群組、可一起備份。因此、它能簡化並減少大型資料庫環境中的備份工作數量。</block>
+  <block id="9b274f274cc2fdf5c2eaac7308f2a980" category="list-text">* 獨立的完整資料庫和歸檔記錄備份。 * 完整資料庫備份包括資料磁碟區和記錄磁碟區一致的群組快照。頻繁的完整資料庫快照可提高儲存使用率、但可改善 RTO 。另一個替代方案是較不常備份完整資料庫快照和更頻繁的歸檔記錄備份、這不僅會減少儲存需求、也會改善 RPO 、但可能會延長 RTO 。設定備份方案時、請考量您的 RTO 和 RPO 目標。磁碟區上的快照備份數量也有限制（ 1023 ）。</block>
+  <block id="b85fa7425df71e674278fea13b4d8df3" category="list-text">* 權限委派 * 。 * 利用 SnapCenter UI 內建的角色型存取控制、視需要將權限委派給應用程式和資料庫團隊。</block>
+  <block id="e27bf8eca64c83fe8b6062fb95e333d9" category="paragraph">以下各節提供在 Azure 雲端的 Azure NetApp Files 上進行 SnapCenter 部署、組態和 Oracle 資料庫備份、還原和複製的逐步程序。</block>
+  <block id="e7994b73209a873dc947f84bcf831bc5" category="paragraph">部署需要在 Azure 的 ANF 上執行現有的 Oracle 資料庫。如果沒有、請依照下列步驟建立兩個 Oracle 資料庫以進行解決方案驗證。如需在 Azure 雲端以自動化技術部署 Oracle 資料庫的詳細資訊、請參閱 TR-4987 ： <block ref="0f9ba0e2eb61f2970cc50a6cb6799a08" category="inline-link-macro-rx"></block></block>
+  <block id="7248ba2d36ba4b2b7deb2879ad658327" category="list-text">從 Azure 雲端入口網站佈建 Windows 伺服器、以最新版本執行 NetApp SnapCenter UI 工具。如需詳細資訊、請參閱下列連結： <block ref="131e9eb1b10c693e5b08c2ea655bbc23" category="inline-link-macro-rx"></block>。</block>
+  <block id="f5823da50f0c261f93cac13c89efabe5" category="inline-link-macro">TR-4887</block>
+  <block id="f0d197390e31ccddcd560c68c6c1ba54" category="list-text">複製 NetApp Oracle 部署自動化工具套件 for NFS 的複本。請遵循中的指示 <block ref="b96eb2a0d3fd0ab56815beb32051064b" category="inline-link-macro-rx"></block> 以執行教戰手冊。</block>
+  <block id="bfa29a4d1633c304ce5ea63b28050c30" category="list-text">檢閱<block ref="e0c4332e8c13be976552a059f106354f" prefix=" " category="inline-code"></block> 線上功能表。</block>
+  <block id="b6bfa5b7d69b44a49fead07bd2c2a3ae" category="section-title">SnapCenter 安裝與設定</block>
+  <block id="7608e75619cff3eeb4e8bce40481b456" category="inline-link-macro">軟件文檔SnapCenter</block>
+  <block id="d2e6519128f0c0f4297df9dfcf74f4f4" category="paragraph">我們建議您上網瀏覽 <block ref="709a64672cb1b481d7e1d00abe15371a" category="inline-link-macro-rx"></block> 繼續 SnapCenter 安裝和組態之前：。以下提供在 Azure anf 上安裝及設定 SnapCenter 軟體的高階步驟摘要。</block>
+  <block id="2f16590362b9a77201075964ad79edf6" category="list-text">從 SnapCenter Windows 伺服器下載並安裝最新的 Java JDK <block ref="1a0bb7a886be273015991771cf1b1190" category="inline-link-macro-rx"></block>。</block>
+  <block id="4c432947190d17ebbfafd109af579e8b" category="inline-link-macro">NetApp | 支援</block>
+  <block id="252ae86269b0f2ac0af59ba9dbaf9f77" category="list-text">從 SnapCenter Windows 伺服器、從 NetApp 支援網站 下載並安裝最新版本（目前為 5.0 ）的 SnapCenter 安裝執行檔： <block ref="f0da1a8fe9efadb5bab3d3f47fea4f67" category="inline-link-macro-rx"></block>。</block>
+  <block id="06f6fe269bc66b13969ba522de05e124" category="list-text">安裝 SnapCenter 伺服器之後、請啟動瀏覽器、透過連接埠 8146 使用 Windows 本機管理員使用者或網域使用者認證登入 SnapCenter 。</block>
+  <block id="59b99dff4b9ef65674331e7340fa08d7" category="image-alt">此影像提供 SnapCenter 伺服器的登入畫面</block>
+  <block id="96a37aec5c27e605088aea24d5d14206" category="list-text">檢閱<block ref="e0c4332e8c13be976552a059f106354f" prefix=" " category="inline-code"></block> 線上功能表。</block>
+  <block id="e4ecaf6c95aea5efc31bb0908136fe57" category="image-alt">此影像提供 SnapCenter 伺服器的線上功能表</block>
+  <block id="26580f485e752465df198f9ca8753224" category="list-text">在中<block ref="4d6066956a45bb2668fa0c138b1f3d03" prefix=" " category="inline-code"></block>、檢查<block ref="6b2d6702a0358e8df43b31cf0890a30f" prefix=" " category="inline-code"></block> 然後按一下「更新」。</block>
+  <block id="ffae6a01cee8b80c47313ba0d044f280" category="image-alt">此映像提供 SnapCenter 伺服器的 Hypervisor 設定</block>
+  <block id="3b970cc736d04d4b56c58fea4ad5c9da" category="list-text">如有需要、請調整<block ref="67fde4caae23fade4d1bd7de40c81bc7" prefix=" " category="inline-code"></block> 將 SnapCenter UI 設定為所需的時間間隔。</block>
+  <block id="d0d8ee4e483915ff866ab8323293c1d0" category="image-alt">此映像為 SnapCenter 伺服器提供工作階段逾時</block>
+  <block id="a0acc9513d8b87ae002c74de46229c03" category="list-text">視需要新增其他使用者至 SnapCenter 。</block>
+  <block id="025955fc32ea828a9e5153bf02eac7b2" category="image-alt">此映像提供 SnapCenter 伺服器的設定 - 使用者和存取權</block>
+  <block id="e481d0de1e224ddd98e9dfb72c1f658d" category="list-text">。<block ref="a5cd3ed116608dac017f14c046ea56bf" prefix=" " category="inline-code"></block> 索引標籤列出可指派給不同 SnapCenter 使用者的內建角色。自訂角色也可由具有所需權限的管理員使用者建立。</block>
+  <block id="ee0d0d1f1f6fe1110797be4d48053fae" category="image-alt">此映像提供 SnapCenter 伺服器的角色</block>
+  <block id="3fb40cbc384305df9161da52ec4c2d0d" category="list-text">寄件者<block ref="c4646a4d73e5bf2cf1843bda6cd9f769" prefix=" " category="inline-code"></block>、為 SnapCenter 管理目標建立認證。在本示範使用案例中、他們是 Linux 使用者、可登入 Azure VM 、並使用 ANF 認證來存取容量集區。</block>
+  <block id="dc06424d30636d2437b7c082a44271de" category="image-alt">此映像提供 SnapCenter 伺服器的認證</block>
+  <block id="dd4237b12d92b22e7ad381bf28522e7f" category="list-text">寄件者<block ref="5c6ab1284b6b7a5a7102854a969c99be" prefix=" " category="inline-code"></block> 索引標籤、請新增<block ref="7450cfde7058dc5e1f7909d0280fd7ae" prefix=" " category="inline-code"></block> 使用上述建立的認證。</block>
+  <block id="71e910f4881c08ea6897e22b79389cf4" category="image-alt">此映像提供 Azure NetApp Files for SnapCenter 伺服器</block>
+  <block id="d7702d89b895aa6ec99def769587c405" category="list-text">寄件者<block ref="8124579383e90243e4b06323d2b37f8d" prefix=" " category="inline-code"></block> 索引標籤中、新增 Azure DB VM 、可在 Linux 上安裝適用於 Oracle 的 SnapCenter 外掛程式。</block>
+  <block id="b979fe379fa5345e56adf94005f84929" category="image-alt">此映像可為 SnapCenter 伺服器提供主機</block>
+  <block id="a3a63bd1ddab3e696228b7b61878c09d" category="inline-link-macro">為Oracle資料庫建立備份原則</block>
+  <block id="2166a1bececf10153acd19c3ed9b1d2e" category="list-text">在 DB 伺服器 VM 上安裝主機外掛程式後、會自動探索主機上的資料庫、並在中顯示<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤。返回<block ref="6c8a99d2cb03d4bc5a863f8606453994" prefix=" " category="inline-code"></block>，請為完整的 Oracle 資料庫線上備份和僅歸檔記錄備份建立備份原則。請參閱本文件 <block ref="9c987a74ad0aa597c1c522b0007ec5d5" category="inline-link-macro-rx"></block> 以取得詳細的逐步程序。</block>
+  <block id="886ca5ebbeb3beae0e42d559adb9afa6" category="image-alt">此映像提供 SnapCenter 伺服器的設定原則</block>
+  <block id="89a532a917f392c521eb9922d1a47d62" category="paragraph">NetApp 快照備份會建立資料庫磁碟區的時間點映像、以便在系統故障或資料遺失時進行還原。Snapshot 備份所需時間很少、通常不到一分鐘。備份映像會佔用最少的儲存空間、而且效能成本可忽略不計、因為它只會記錄自上次執行快照複本之後對檔案所做的變更。下節說明在 SnapCenter 中實作 Oracle 資料庫備份的快照。</block>
+  <block id="2622a793728d35ec6877f6afb1a153e6" category="list-text">瀏覽至<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤、列出在資料庫 VM 上安裝 SnapCenter 外掛程式後所探索到的資料庫。一開始<block ref="58d4fcf0afd65a0eb3857a2d3e254c8c" prefix=" " category="inline-code"></block> 資料庫的顯示方式為<block ref="4aa6066b3ed6d1b995450c6c7ad4a3d8" prefix=" " category="inline-code"></block>。</block>
+  <block id="4ba96929ee643a0f3d8eb215ab8d7c35" category="image-alt">此映像可為 SnapCenter 伺服器提供資料庫備份</block>
+  <block id="7fb0e0d4bbba69fa67fe86fdcf6fa41f" category="list-text">按一下<block ref="4351cfebe4b61d8aa5efa1d020710005" prefix=" " category="inline-code"></block> 下拉式清單可變更為<block ref="dd23acac46f17cbfd4d5541f8ee3c7a1" prefix=" " category="inline-code"></block>。按一下<block ref="ec211f7c20af43e742bf2570c3cb84f9" prefix=" " category="inline-code"></block> 登入右側以新增資源群組。</block>
+  <block id="19ff1cea165e0fcce11d79410c000e25" category="list-text">命名資源群組、標記及任何自訂命名。</block>
+  <block id="9cf2d7ee69e3a812dae0bd35100b6081" category="list-text">新增資源至<block ref="dd23acac46f17cbfd4d5541f8ee3c7a1" prefix=" " category="inline-code"></block>。將類似資源分組可簡化大型環境中的資料庫管理。</block>
+  <block id="875d3bcc106894cef94c8362d4bada10" category="list-text">選取備份原則、然後按一下下方的「 + 」號來設定排程<block ref="b54c2aaa814d856436c9f864ac8afdd5" prefix=" " category="inline-code"></block>。</block>
+  <block id="7918c5620dbf35faced9d7a3a666da15" category="list-text">如果原則中未設定備份驗證、請保持驗證頁面不變。</block>
+  <block id="b2396ffd0abd0c6bffee737277b76430" category="list-text">為了以電子郵件傳送備份報告和通知、環境中需要 SMTP 郵件伺服器。如果沒有設定郵件伺服器、請將其留黑。</block>
+  <block id="71dc91d121e985620a277b7fad0f6168" category="list-text">新資源群組摘要。</block>
+  <block id="9fbbeced92d891e91891234bc859d078" category="list-text">重複上述程序、使用對應的備份原則建立僅限資料庫歸檔記錄檔的備份。</block>
+  <block id="24f86cfce0092ac5d9090957526aacbe" category="list-text">按一下資源群組以顯示其中包含的資源。除了排程的備份工作外、按一下即可觸發一次性備份<block ref="9a9852432e1a7055c64fef6ff8f6dd65" prefix=" " category="inline-code"></block>。</block>
+  <block id="287f76d0aaad99fd67c4537bef25ac74" category="list-text">按一下執行中的工作以開啟監控視窗、讓操作員能夠即時追蹤工作進度。</block>
+  <block id="489facdfbfbab274d7adce93c4539d9f" category="list-text">成功完成備份工作後、資料庫拓撲下方會出現快照備份集。完整的資料庫備份集包含資料庫資料磁碟區的快照、以及資料庫記錄磁碟區的快照。純記錄備份僅包含資料庫記錄磁碟區的快照。</block>
+  <block id="b7bd6844cb7d1a58c24be2eb5e09dd9e" category="paragraph">透過 SnapCenter 進行資料庫還原可還原資料庫 Volume 映像時間點的快照複本。接著、資料庫會依 SCN/timestamp 或備份集中可用的歸檔記錄所允許的點、向前捲動至所需的點。下節說明使用 SnapCenter UI 進行資料庫還原的工作流程。</block>
+  <block id="1276bda3e84c962765c7f939562edc1b" category="list-text">寄件者<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤、開啟資料庫<block ref="9075f786989ed7df222b4297bec16422" prefix=" " category="inline-code"></block> 頁面。選擇資料庫資料 Volume 的快照、然後按一下<block ref="2bd339d85ee3b33e513359ce781b60cc" prefix=" " category="inline-code"></block> 啟動資料庫恢復工作流程的按鈕。如果您想要透過 Oracle SCN 或時間戳記執行恢復、請記下備份集中的 SCN 編號或時間戳記。</block>
+  <block id="a482c65925dcf03c4f1df8c0c00d80a6" category="image-alt">此映像可為 SnapCenter 伺服器提供資料庫還原</block>
+  <block id="7a0d6064f45219ea8485b59931a129f9" category="list-text">選取<block ref="2fff52bd70c3fc704bb228287925cfae" prefix=" " category="inline-code"></block>。對於容器資料庫、 SnapCenter 可靈活執行完整的容器資料庫（所有資料檔案）、可插入的資料庫或資料表空間層級還原。</block>
+  <block id="bac7059283bff97f7d76c4328850c8e8" category="list-text">選取<block ref="ec47ba775b6cce559706e86f20fde009" prefix=" " category="inline-code"></block>。<block ref="d50d6a874b376378de702eec4c6c0b96" prefix=" " category="inline-code"></block> 表示將所有可用的歸檔記錄套用至備份集中。也可使用 SCN 或時間戳記的時間點還原。</block>
+  <block id="e89ca0accc18535a19f3f8bf9e942886" category="list-text">。<block ref="ced009502445c11dc6162d3d7758d07b" prefix=" " category="inline-code"></block> 允許在還原 / 還原作業之前、針對資料庫執行指令碼。</block>
+  <block id="c23a56c7db12aa77b66795215479decf" category="list-text">。<block ref="5fa20aa4f779d0f14b1c9545ded7baa6" prefix=" " category="inline-code"></block> 可在還原 / 還原作業後、針對資料庫執行指令碼。</block>
+  <block id="33402d9fc6c4297fd3a48930e49eb9e4" category="list-text">如有需要、可透過電子郵件通知。</block>
+  <block id="4867bf6fc07300b11d5e52009f6943e3" category="list-text">還原工作摘要</block>
+  <block id="a2ac78daad6f0e5548bf6b3c8a744961" category="list-text">按一下「執行中的工作」以開啟<block ref="4f65019520415bd6c5a529f526f86dd7" prefix=" " category="inline-code"></block> 視窗。您也可以從開啟和檢視工作狀態<block ref="d2986ac8cb6bd55892099c1ffd6b1f6f" prefix=" " category="inline-code"></block> 索引標籤。</block>
+  <block id="fd808403d73611b482552bb655a619b6" category="paragraph">透過 SnapCenter 複製資料庫是透過從磁碟區快照建立新的磁碟區來完成。系統會使用快照資訊、在擷取快照時使用磁碟區上的資料來複製新的磁碟區。更重要的是、相較於其他方法、製作正式作業資料庫的複本以支援開發或測試的速度很快（幾分鐘）、而且效率很高。因此、可大幅改善資料庫應用程式生命週期管理。下節說明使用 SnapCenter UI 複製資料庫的工作流程。</block>
+  <block id="f2914a331ca3beda8620803b7496d121" category="list-text">寄件者<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤、開啟資料庫<block ref="9075f786989ed7df222b4297bec16422" prefix=" " category="inline-code"></block> 頁面。選擇資料庫資料 Volume 的快照、然後按一下<block ref="d329fd777726c300d7a044e482b967e7" prefix=" " category="inline-code"></block> 啟動資料庫複製工作流程的按鈕。</block>
+  <block id="f9d20d3938f49ba79e7e71b35367dd8a" category="image-alt">此映像提供 SnapCenter 伺服器的資料庫複製</block>
+  <block id="dd25eb8a6cd5e51eb9a829670231a42d" category="list-text">命名複製資料庫的 SID 。或者、對於容器資料庫、您也可以在 PDB 層級上執行複製作業。</block>
+  <block id="25fa34588c9138998f469c3fd58ada8e" category="list-text">選取要放置複製資料庫複本的 DB 伺服器。除非您想要以不同的名稱命名、否則請保留預設檔案位置。</block>
+  <block id="af6adf0da4d64fb1eb5f9d629d0dfaeb" category="list-text">原始資料庫中的 Oracle 軟體堆疊應已安裝並設定在 Clone DB 主機上。保留預設認證、但變更<block ref="021e4a863e5da100e496150783eb8099" prefix=" " category="inline-code"></block> 以符合複製 DB 主機上的設定。</block>
+  <block id="1be0ae8621a560e5682f70d0ad924cb8" category="list-text">。<block ref="ced009502445c11dc6162d3d7758d07b" prefix=" " category="inline-code"></block> 允許在複製作業之前執行指令碼。資料庫參數可調整以符合與正式作業資料庫（例如 SGA 降低目標）相較的複製資料庫需求。</block>
+  <block id="9b647ca121466de8e754099a317efa26" category="list-text">。<block ref="5fa20aa4f779d0f14b1c9545ded7baa6" prefix=" " category="inline-code"></block> 允許在複製作業後對資料庫執行指令碼。複製資料庫還原可以是 SCN 、時間戳記型、或直到取消為止（將資料庫復原至備份集中的最後一個封存記錄檔）。</block>
+  <block id="bf4fecad178142ecaf84d1631bd0de91" category="list-text">複製工作摘要。</block>
+  <block id="2b9ad7101315fee480147c99a1b004e9" category="list-text">複製的資料庫會立即向 SnapCenter 登錄。</block>
+  <block id="f1a562c6e48bea55b2f5d52385feef1c" category="list-text">驗證資料庫伺服器主機上的複製資料庫。對於複製的開發資料庫、應關閉資料庫歸檔模式。</block>
+  <block id="532841fbf704673d5f6dc65db8d8cf66" category="inline-link-macro"><block ref="532841fbf704673d5f6dc65db8d8cf66" category="inline-link-rx"></block></block>
+  <block id="a88dfa4149ba3595ee197cb2ff9fdd79" category="paragraph"><block ref="a88dfa4149ba3595ee197cb2ff9fdd79" category="inline-link-macro-rx"></block></block>
+  <block id="d5332bd979a7c13c13196f1f6d63e40e" category="inline-link-macro"><block ref="d5332bd979a7c13c13196f1f6d63e40e" category="inline-link-rx"></block></block>
+  <block id="a1d2708a3aeb146438315b9f07b6673d" category="paragraph"><block ref="a1d2708a3aeb146438315b9f07b6673d" category="inline-link-macro-rx"></block></block>
+  <block id="d7ea87ae176596e65c20709701590891" category="sidebar">Oracle 資料庫備份、恢復及複製</block>
 </blocks>
