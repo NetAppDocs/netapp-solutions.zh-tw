@@ -4348,7 +4348,6 @@
   <block id="42ba8b77b788a422a7e4ba2d8bb2d45e" category="list-text">讓使用者能夠使用Snapshot複本。</block>
   <block id="a51448debe1bbe5bb229b849d4057e09" category="list-text">讓使用者能夠將大量資料儲存在Azure NetApp Files 功能區上。</block>
   <block id="b7c10d399d058ef3538882e444459ba5" category="list-text">在Azure NetApp Files 大量檔案上執行模型時、請善用效能優勢。</block>
-  <block id="2bbac71d034e7a7a1fca44c7500e187b" category="doc">NetApp ONTAP 採用NVIDIA技術的AI</block>
   <block id="4618b9225719de309c0b0f5aa4718c7b" category="paragraph">NetApp與NVIDIA提供的整合式基礎架構解決方案總覽ONTAP 。</block>
   <block id="ab9d770eb05e7725141740f508566fce" category="section-title">NetApp ONTAP 採用NVIDIA DGX A100系統的AI</block>
   <block id="1027b152cc3e8165ce099ede9548be95" category="list-text"><block ref="1027b152cc3e8165ce099ede9548be95" category="inline-link-macro-rx"></block></block>
@@ -19585,4 +19584,173 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="9515e6ca96537d18f6a47819aa47cc22" category="list-text"><block ref="9515e6ca96537d18f6a47819aa47cc22" category="inline-link-macro-rx"></block></block>
   <block id="3d7129df95acd2cd7bb86d4047c105f8" category="list-text"><block ref="3d7129df95acd2cd7bb86d4047c105f8" category="inline-link-macro-rx"></block></block>
   <block id="b8e6da86588e4fe5d778fc4a343aaa80" category="list-text"><block ref="b8e6da86588e4fe5d778fc4a343aaa80" category="inline-link-macro-rx"></block></block>
+  <block id="90d5ac5fb2e6ff10937e8123a8a6a025" category="summary">採用 NVIDIA DGX 系統的 NetApp AI Pod - 架構</block>
+  <block id="abbccbb7b1aa1f96d63011e4ce8797ce" category="inline-link-macro">上一篇： ONTAP AI - 軟體元件。</block>
+  <block id="94cd56265a31d688191dee3940ce15c8" category="paragraph"><block ref="94cd56265a31d688191dee3940ce15c8" category="inline-link-macro-rx"></block></block>
+  <block id="3f381e6a41ca392b45f43ba4f34ab6df" category="paragraph">此參考架構運用不同的架構來進行運算叢集互連和儲存存取、並提供運算節點之間的 NDR200 和 HDR200 Infiniband （ IB ）連線選項。DGX H100 系統隨附預先安裝的 ConnectX-7 卡、可用於 NDR IB 連線、而 DGX A100 系統則可分別使用 ConnectX-6 或 ConnectX-7 卡進行 HDR 或 NDR 連線。</block>
+  <block id="ad2df044322e8106a8cc8de22f244a4d" category="section-title">ONTAP AI 搭配 DGX H100 系統</block>
+  <block id="3d694dd0ad96a84ea66212ee1d2ba5fb" category="paragraph">下圖顯示搭配 ONTAP AI 使用 DGX H100 系統時的整體解決方案拓撲。</block>
+  <block id="46c237759b2148cd25b3e26c41c02d7a" category="paragraph"><block ref="46c237759b2148cd25b3e26c41c02d7a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ef196914293d6fbeb06754cf53725689" category="paragraph">在此組態中、運算叢集網路使用一對 QM9700 NDR IB 交換器、這些交換器會連接在一起以獲得高可用度。每個 DGX H100 系統都使用八個 NDR200 連線連接至交換器、並將偶數連接埠連接至一台交換器、而奇數連接埠則連接至另一台交換器。</block>
+  <block id="cf30772f9d733e6942cfd61d8ba9ca55" category="paragraph">對於儲存系統存取、頻內管理和用戶端存取、會使用一對 SN4600 乙太網路交換器。交換器是透過交換器間的連結連接、並設定多個 VLAN 來隔離各種流量類型。對於較大型的部署、乙太網路可擴充至葉脊組態、視需要新增額外的交換器配對以供脊椎和其他葉片使用。每個 DGX A100 系統均配備兩個雙埠 ConnectX-6 卡、用於乙太網路和儲存流量、而此解決方案則有四個連接埠、連接至以 200 Gbps 速度連接至 SN4600 乙太網路交換器。每個卡的一個連接埠都設定為 LACP MLAG 連結、每個交換器連接一個連接埠、而用於頻內管理、用戶端存取和使用者層級儲存存取的 VLAN 則裝載在此連結上。每個卡上的另一個連接埠分別用於獨立的專用 Roce 儲存 VLAN 、以連線至 AFF A800 儲存系統、這些連接埠支援使用 NFS v3 、 NFSv4.x 搭配 pNFS 和 NFS over RDMA 的高效能儲存存取。</block>
+  <block id="c95998835114a4e50f348f8c5e5686ed" category="inline-link-macro">NVIDIA BasePOD 文件</block>
+  <block id="04f8dff94bd730a0e6df3f5a3c60ec77" category="paragraph">除了運算互連和高速乙太網路之外、所有實體裝置也會連線至一或多個 SN2201 乙太網路交換器、以進行頻外管理。  如需 DGX A100 系統連線的詳細資訊、請參閱 <block ref="784f66b69fd9a6fd2983e969e5202b40" category="inline-link-macro-rx"></block>。</block>
+  <block id="752dcec6a30a284b3424b4978c38cdae" category="section-title">ONTAP AI 搭配 DGX A100 系統</block>
+  <block id="cec282d139bd30e924a25ced20b42647" category="paragraph">下圖顯示使用 DGX A100 系統和使用 ONTAP AI 的 HDR 運算架構時的整體解決方案拓撲。</block>
+  <block id="f925fdc62bdd065ac287513f312499f8" category="paragraph"><block ref="f925fdc62bdd065ac287513f312499f8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="612ffd7908be69eb117f9a20d125c128" category="paragraph">在此組態中、運算叢集網路使用一對 QM8700 HDR IB 交換器、這些交換器會連接在一起以獲得高可用度。每個 DGX A100 系統均使用四個單埠 ConnectX-6 卡以 200 Gbps 的速度連接至交換器、並將偶數連接埠連接至一台交換器、而奇數連接埠則連接至另一台交換器。</block>
+  <block id="b6420553f17ebdab39fa9a1825d57651" category="section-title">管理層伺服器</block>
+  <block id="298f36627f6e0a3c8b1627ee6cabcf3d" category="paragraph">此參考架構也包含五部以 CPU 為基礎的伺服器、供管理層使用。其中兩個系統是作為 Base Command Manager 的主要節點、用於叢集部署和管理。其餘三個系統則用於提供額外的叢集服務、例如 Kubernetes 主節點或登入節點、以便使用 Slurm 進行工作排程。使用 Kubernetes 的部署可運用 NetApp Astra Trident CSI 驅動程式、為 AFF A800 儲存系統上的管理和 AI 工作負載提供自動化資源配置和資料服務、並持續儲存。</block>
+  <block id="88bf375fbad1fdc351121a9b4f677a9a" category="paragraph">每部伺服器都會實體連接至 IB 交換器和乙太網路交換器、以啟用叢集部署和管理、並透過管理 SVM 將 NFS 裝載至儲存系統、以儲存叢集管理產出工件、如前所述。</block>
+  <block id="cdee7c019bcceaf7d9433865ac8b4043" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AI Pod - 儲存系統設計與規模調整指南。</block>
+  <block id="8bbcb4f79d76105dba99d801b4cad65d" category="paragraph"><block ref="8bbcb4f79d76105dba99d801b4cad65d" category="inline-link-macro-rx"></block></block>
+  <block id="3588242b057ae23fa2aff188226f0df3" category="doc">採用 NVIDIA 的 NetApp AI</block>
+  <block id="594e3fc7b73790ecc9bd004f21cccf98" category="section-title">NetApp AI Pod 搭配 NVIDIA DGX 系統</block>
+  <block id="e882bb8cdbe4d96968a5233de7080fa2" category="list-text"><block ref="e882bb8cdbe4d96968a5233de7080fa2" category="inline-link-macro-rx"></block></block>
+  <block id="665a75ebe7f2eb08b429734e2cfb1639" category="summary">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 儲存系統設計與規模調整指南</block>
+  <block id="0aeeac6e481ccf5fb94ec4f4b60ebe60" category="inline-link-macro">上一篇：採用 NVIDIA DGX 系統的 NetApp AI Pod - 架構。</block>
+  <block id="0e612fc72e44ac3b868669c64baeba1f" category="paragraph"><block ref="0e612fc72e44ac3b868669c64baeba1f" category="inline-link-macro-rx"></block></block>
+  <block id="42dc99c097c1b9b9af75ba060788e1f1" category="section-title">儲存系統設計</block>
+  <block id="a8bbeb39283cabdf232353640b1912a2" category="paragraph">每個 AFF A800 儲存系統都使用每個控制器的四個 100 GbE 連接埠進行連線。每個控制器的兩個連接埠用於從 DGX 系統存取工作負載資料、每個控制器的兩個連接埠則設定為 LACP 介面群組、以支援從管理平面伺服器存取叢集管理成品和使用者主目錄。儲存系統的所有資料存取都是透過 NFS 提供、其中儲存虛擬機器（ SVM ）專用於 AI 工作負載存取、另有專用於叢集管理用途的獨立 SVM 。</block>
+  <block id="67004abc3c020854d6f0ce5c0303d67e" category="paragraph">工作負載 SVM 總共設定了四個邏輯介面（生命）、每個儲存 VLAN 上有兩個生命。每個實體連接埠都會裝載兩個生命體、每個控制器上每個 VLAN 會產生兩個生命體。此組態可提供最大頻寬、以及將每個 LIF 容錯移轉到同一個控制器上的另一個連接埠的方法、以便在網路故障時、兩個控制器都能保持作用中。此組態也支援 NFS over RDMA 以啟用 GPUDirect 儲存存取。儲存容量是以橫跨兩個控制器的單一大型 FlexGroup 磁碟區的形式進行配置。此 FlexGroup 可從 SVM 上的任何生命負載存取、而 DGX A100 系統的裝載點則分散在可用的生命負載平衡中。</block>
+  <block id="570a94ea84b9e283c5f0051826733505" category="paragraph">管理 SVM 只需要單一 LIF 、裝載在每個控制器上設定的雙連接埠介面群組上。管理 SVM 上的其他 FlexGroup 磁碟區則是用來存放叢集管理產出工件、例如叢集節點映像、系統監控歷史資料、以及終端使用者主目錄。下圖顯示儲存系統的邏輯組態。</block>
+  <block id="7775254786443c9bb9d3a8210f791295" category="paragraph"><block ref="7775254786443c9bb9d3a8210f791295" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4534545218c3df22ad30ec5ab0466128" category="section-title">儲存系統規模調整指南</block>
+  <block id="22ba4624feefdfa4ac6f4c2457463981" category="paragraph">此架構是供想要在 NVIDIA DGX 系統和 NetApp AFF 儲存系統上實作 DL 基礎架構的客戶和合作夥伴參考。下表顯示每個 AFF 機型所支援的 A100 和 H100 GPU 數量的粗略估計值。</block>
+  <block id="0ba478911eb0d5e4ac05f4b07afc5fee" category="paragraph"><block ref="0ba478911eb0d5e4ac05f4b07afc5fee" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="728adfd3607777ad12144223b13e3beb" category="inline-link-macro">此參考架構的舊版</block>
+  <block id="9bab6352a567b3c48bc08877594fe4ed" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AI Pod - 結論。</block>
+  <block id="81be048c32cf3fb6f8ea022bb0314c88" category="paragraph">如所示 <block ref="e7d2483a5af77a681a4ce9b70e0123d3" category="inline-link-macro-rx"></block>AFF A800 系統可輕鬆支援八個 DGX A100 系統所產生的 DL 訓練工作負載。上述其他儲存系統的預估值是根據這些結果計算、而 H100 GPU 的預估值則是 A100 系統所需的儲存處理量加倍。  對於儲存效能需求較高的大型部署、可在單一叢集中新增最多 12 個 HA 配對（ 24 個節點）的額外 AFF 系統至 NetApp ONTAP 叢集。使用本解決方案所述的 FlexGroup 技術、 24 節點叢集可在單一命名空間中提供 40 PB 以上的資料傳輸量、以及高達 300 Gbps 的傳輸量。其他 NetApp 儲存系統（例如 AFF A400 、 A250 和 C800 ）則提供較低的效能和 / 或較高的容量選項、以較低的成本進行較小型的部署。由於 ONTAP 9 支援混合模式叢集、因此客戶可以從較小的初始佔用空間開始、並在容量和效能需求增加時、將更多或更大的儲存系統新增至叢集。
+<block ref="73b5ef96476759553df4b1fa88f8c59f" category="inline-link-macro-rx"></block></block>
+  <block id="9d870cfc7d3b4785018d0bd93fc9bf55" category="summary">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 硬體元件</block>
+  <block id="ccd969597853514e4ca5637cd776275e" category="inline-link-macro">上一篇：採用 NVIDIA DGX 系統的 NetApp AI Pod - 簡介。</block>
+  <block id="56ca9ec382420a55613b6e140afeb5f8" category="paragraph"><block ref="56ca9ec382420a55613b6e140afeb5f8" category="inline-link-macro-rx"></block></block>
+  <block id="68674fa5fbd6fb83969183d07d48b8cd" category="section-title">NetApp AFF 儲存系統</block>
+  <block id="3b6d33ce139758ecf9b0b83f9ecce001" category="paragraph">NetApp AFF 最先進的儲存系統、讓 IT 部門能夠以領先業界的效能、優異的靈活度、雲端整合、以及同級最佳的資料管理、滿足企業儲存需求。專為Flash而設計AFF 的支援功能、可協助加速、管理及保護業務關鍵資料。</block>
+  <block id="ff87fbb55ee5d0babf3f8626effa4069" category="section-title">AFF A 系列儲存系統</block>
+  <block id="c4b5adeb5d36c44aeff74d166b1b9fbb" category="paragraph">A900 更新！！！</block>
+  <block id="3bd3c1439ccd6590c2d11e6eefb57663" category="paragraph">NetApp AFF A800 系統是業界第一個端對端 NVMe 解決方案。對於 NAS 工作負載、單一 AFF A800 系統支援 25Gbps 的循序讀取傳輸量、以及 100 萬 IOPS 的小型隨機讀取傳輸率、延遲低於 500 µ s 。</block>
+  <block id="0e7f645002576751bde40de5a9135f7f" category="paragraph"><block ref="0e7f645002576751bde40de5a9135f7f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="24ef0368f2216c1272de5164c9ebc9df" category="paragraph">AFF A800 系統支援下列功能：
+* 在 24 節點叢集中、高達 300GBps 和 1140 萬 IOPS 的龐大處理量
+* 100GbE 與 32GB FC 連線能力
+* 最多 30TB 固態硬碟（ SSD ）、可進行多串流寫入
+* 在 2U 磁碟機櫃中使用 2PB 的高密度
+* 從 200TB （ 2 個控制器）擴充至 9.6PB （ 24 個控制器）
+* NetApp ONTAP 提供完整的資料保護與複寫功能套件、提供領先業界的資料管理功能</block>
+  <block id="058a1c6761b0f2edb8f0586c63768e61" category="paragraph">對於規模最大的部署、 AFF A900 系統提供更高的效能和容量選項、而其他 NetApp 儲存系統（例如 AFF A700 、 AFF A400 和 AFF A250 ）則提供更低成本的小型部署選項。</block>
+  <block id="64dc43320ec1a44c390fafb5e2408f4b" category="section-title">NVIDIA DGX基礎POD</block>
+  <block id="c76db82f784b10b3da003e977f51d4bf" category="paragraph">DGX BasePOD 是整合式解決方案、包含 NVIDIA 硬體與軟體元件、 MLOps 解決方案、以及協力廠商儲存設備。客戶可運用 NVIDIA 產品和驗證的合作夥伴解決方案的橫向擴充系統設計最佳實務做法、為 AI 開發建置高效率且可管理的平台。圖 1 重點介紹 NVIDIA DGX BasePOD 的各種元件。</block>
+  <block id="f0f018f9cd4b877bb27c1ec17a56ca92" category="paragraph"><block ref="f0f018f9cd4b877bb27c1ec17a56ca92" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cc66d4c5eb637c6dd822090f6aedf70a" category="section-title">NVIDIA DGX H100 系統</block>
+  <block id="d68bf4c0a1bfe78bae29559fd6cacc53" category="paragraph">DGX&amp;#8482 ； H100 系統是 DGX 系統和 AI 動力中心的最新代產品、 NVIDIA H100 GPU 的突破性效能加速了這項技術。</block>
+  <block id="5f963393c2322795ad10a925536dd4f5" category="paragraph"><block ref="5f963393c2322795ad10a925536dd4f5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dc859317edf0d5f0279b0f70c306c380" category="paragraph">DGX H100 系統的主要規格如下：
+* 八個 NVIDIA H100 GPU 。
+* 80 GB GPU 記憶體。
+* 四個 NVIDIA NVSwitch ™晶片。
+* 支援 PCIe 5.0 的雙 56 核心第四代 Intel ® Xeon ® 處理器。
+* 2 TB 的 DDR5 系統記憶體。
+* 四個 OSFP 連接埠、可處理八個單埠 NVIDIA ConnectX-7 VPI 、三個雙埠 NVIDIA ConnectX-7 VPI 。
+* 兩個適用於 DGX 作業系統的 1.92 TB M.2 NVMe 磁碟機、八個用於儲存 / 快取的 3.84 TB U.2 NVMe 磁碟機。
+* 11.3 kW 最大功率。
+圖 7 顯示 DGX H100 CPU 匣的後端連接埠。其中四個 OFP 連接埠可為 InfiniBand 運算架構提供八個 ConnectX-7 HCA 。每對雙連接埠 ConnectX-7 HCA 都提供平行路徑、可通往儲存和管理架構。頻外連接埠用於 BMC 存取。
+<block ref="c608c627c0ecb2f38dab7b009eaf5b08" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5de4f426a771d3530fa57be156dc0d41" category="section-title">NVIDIA DGX A100 系統</block>
+  <block id="a017a3548691b3c4f7b11bbd1b022ca8" category="paragraph">NVIDIA DGX A100 系統在全球首款 5 PetaFLOPS AI 系統中、提供前所未有的運算密度、效能和靈活度。</block>
+  <block id="30d23638e07011af9a8ee22e615eb975" category="paragraph"><block ref="30d23638e07011af9a8ee22e615eb975" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e2f13a5097b7876e83f134c4168615ab" category="paragraph">DGX A100 系統的主要規格如下：
+* 八個 NVIDIA A100 Tensor Core GPU 。
+* 40 GB 或 80 GB GPU 記憶體選項。
+* 六個 NVIDIA NVSwitch ™晶片。
+* 雙 AMD EPYC ™ 7742 CPU 、共 128 個核心、 2.25 GHz （基礎）、 3.4 GHz （最大提升）。
+* 最多 2 TB 系統記憶體。
+* 八個 NVIDIA ConnectX-6 或 ConnectX-7 InfiniBand HCA 。
+* 兩個適用於 DGX 作業系統的 1.92 TB M.2 NVMe 磁碟機、八個用於儲存 / 快取的 3.84 TB U.2 NVMe 磁碟機。
+* 6.5 kW 最大電力。</block>
+  <block id="83b31fa8f6aa38393350ad7e89d8c0ee" category="paragraph">有關 DGX A100 系統的詳細資訊、請參閱 <block ref="51b7ff9aa3d5b3b46514eda755fe7445" category="inline-link-macro-rx"></block>。</block>
+  <block id="758f3bd0cfde6cbbe227425cf06569eb" category="paragraph">圖 5 顯示 DGX A100 CPU 匣的後端連接埠。InfiniBand 運算架構使用四個單埠 HCA 。每對雙連接埠 HCA 都提供平行路徑、可通往儲存和管理架構。頻外連接埠用於 BMC 存取。
+<block ref="efda34bba653afe16afec0d1440df7f3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d90238071267e4279a25de2c6945b227" category="section-title">NVIDIA Networking</block>
+  <block id="0f078644fa1021178903a49b54a60d79" category="section-title">NVIDIA QM9700 交換器</block>
+  <block id="7c5472176fe27ac0982fc5c39ceba041" category="paragraph"><block ref="7c5472176fe27ac0982fc5c39ceba041" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2944b34bf878526547a8de3a93339175" category="paragraph">NVIDIA QM9700 交換器搭配 NDR InfiniBand 連線能力、可在 NDR BasePOD 組態中為運算架構提供強大動力。ConnectX-7 單埠介面卡用於 InfiniBand 運算架構。每個 NVIDIA DGX 系統都有兩個連線至每個 QM9700 交換器、提供多個高頻寬、低延遲的路徑
+系統。</block>
+  <block id="5fefa95961b806a5d6b9ce9a3faa278f" category="section-title">NVIDIA QM8700 交換器</block>
+  <block id="e80906d95737ceb829379c4a96e10ac8" category="paragraph"><block ref="e80906d95737ceb829379c4a96e10ac8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="64f1f1702e7ed61061aa3b4cb4a0186c" category="paragraph">NVIDIA QM8700 交換器搭配 HDR InfiniBand 連線能力、可在 HDR BasePOD 組態中為運算架構提供強大動力。ConnectX-6 單埠介面卡用於 InfiniBand 運算架構。每個 NVIDIA DGX 系統都有兩個連線至每個 QM8700 交換器、可在系統之間提供多個高頻寬、低延遲的路徑。</block>
+  <block id="ecfd5ed74b7403cb1a011147318f8d7a" category="section-title">NVIDIA SN4600 交換器</block>
+  <block id="93f27aa403d7c7e82bc9a1ef9b133f86" category="paragraph"><block ref="93f27aa403d7c7e82bc9a1ef9b133f86" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="94871c2bef457445b4e6e2cd189ad545" category="paragraph">NVIDIA SN4600 交換器總共提供 128 個連接埠（每個交換器 64 個）、可提供備援連線功能、以利 DGX BasePOD 的頻內管理。NVIDIA SN4600 交換器可提供 1 GbE 與 200 GbE 之間的速度。對於透過乙太網路連線的儲存設備、也會使用 NVIDIA SN4600 交換器。NVIDIA DGX 雙埠 HCA 上的連接埠可用於頻內管理和儲存連線。</block>
+  <block id="8f0b0dfc93a46904a07daa2ac08b2546" category="section-title">NVIDIA SN2201 交換器</block>
+  <block id="9275c33c537624ba00430286fe175cd2" category="paragraph"><block ref="9275c33c537624ba00430286fe175cd2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dd679a2cd4cec43c460e4d404badab8f" category="paragraph">NVIDIA SN2201 交換器提供 48 個連接埠、可提供頻外管理的連線功能。頻外管理可為 BasePOD 中的所有元件提供整合式管理連線。</block>
+  <block id="62288f40d47c2d155b32d32dff8b1101" category="section-title">NVIDIA Connect-X 7 HCA</block>
+  <block id="0c0dd8294d601335a989399c06724414" category="paragraph"><block ref="0c0dd8294d601335a989399c06724414" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a1e3cb661ca2ac3a413606ed60f4c5fd" category="paragraph">ConnectX-7 HCA 是最新的 ConnectX HCA 系列。它可以提供 25/50/100/200/400G 的處理量。NVIDIA DGX 系統同時使用單埠和雙埠 ConnectX-7 HCA 、以 NDR 為 DGX BasePOD 部署提供靈活彈性。此處提供其他規格。</block>
+  <block id="d2f574d8c6e9acd5199aaa36563a9453" category="section-title">NVIDIA Connect-X 6 HCA</block>
+  <block id="bbd8df265ada29ee9545e49b8584abb5" category="paragraph"><block ref="bbd8df265ada29ee9545e49b8584abb5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4b85a2e92dbaff5b552a9d70f500f97a" category="paragraph">ConnectX-6 HCA 可提供 10/25/40/50/100/200g 的處理量。NVIDIA DGX 系統同時使用單連接埠和雙連接埠 ConnectX-6 HCA 、以 HDR 為 DGX BasePOD 部署提供靈活彈性。</block>
+  <block id="a1b5441b356de4c7aa943f88b8ddb9e6" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AI Pod - 軟體元件。</block>
+  <block id="32326e3a4d02dc9d0948ae633c82c0e6" category="paragraph"><block ref="32326e3a4d02dc9d0948ae633c82c0e6" category="inline-link-macro-rx"></block></block>
+  <block id="d347ba1211916e66366029d11b59ba2d" category="summary">ONTAP AI 是一種企業級的參考架構、以 NVIDIA BasePOD 為基礎、使用 ONTAP AFF 儲存系統和 NVIDIA 網路和 DGX 系統進行深度學習和人工智慧。</block>
+  <block id="022a857c06271f783a0d38612e98dbc0" category="doc">NetApp AI Pod 搭配 NVIDIA DGX BasePOD - 簡介</block>
+  <block id="8790c3b96b175989365c226e2f90762d" category="paragraph">Dave Arette 、 NetApp</block>
+  <block id="4aca3e6f7db20954268b5cc64ee4dd5e" category="paragraph">NetApp AI Pod 參考架構採用 NVIDIA DGX BasePOD&amp;#8482 、搭配 NetApp 雲端連線的儲存系統、可消除設計複雜度和猜測工作負載、簡化機器學習（ ML ）和人工智慧（ AI ）工作負載的基礎架構部署。ONTAP AI 以 NVIDIA DGX BasePOD 設計為基礎、為新一代工作負載提供卓越的運算效能、並新增 NetApp AFF 儲存系統、讓客戶從小開始、不中斷營運地成長、同時智慧地管理從邊緣到核心到雲端及後端的資料。NetApp AI Pod 是 NetApp AI 解決方案較大型產品組合的一部分、如下圖所示：</block>
+  <block id="df414eefe37bdc243f5daac10fc3d749" category="paragraph"><block ref="df414eefe37bdc243f5daac10fc3d749" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4745c24df216933624630ee34257b9e3" category="paragraph">本文件說明 AI Pod 參考架構的關鍵元件、系統連線資訊和解決方案規模指南。本文件適用於有興趣為 ML/DL 和分析工作負載部署高效能基礎架構的 NetApp 和合作夥伴解決方案工程師及客戶策略決策者。</block>
+  <block id="03479b81af64177030f17debcbe954fd" category="inline-link-macro">下一步： ONTAP AI - 硬體元件</block>
+  <block id="4f95edfb679a4d883a14bec5fb0b765f" category="paragraph"><block ref="4f95edfb679a4d883a14bec5fb0b765f" category="inline-link-macro-rx"></block></block>
+  <block id="9bec4f1a6f6f48f582c28bf09d7a8166" category="summary">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 軟體元件</block>
+  <block id="4818c62d0685b6b304d93ea9f26ba7c4" category="inline-link-macro">上一篇： ONTAP AI - 硬體元件。</block>
+  <block id="040983721e883e938d8487ed9456765d" category="paragraph"><block ref="040983721e883e938d8487ed9456765d" category="inline-link-macro-rx"></block></block>
+  <block id="5475410ded0787143601d2206a245532" category="section-title">NVIDIA 軟體</block>
+  <block id="c7bef72157cc39b6eb7c391a393a20d2" category="section-title">NVIDIA Base Command</block>
+  <block id="bddf5760536b58d1a8484301e9f90eae" category="paragraph">NVIDIA Base Command&amp;#8482 ；（圖 2 ）為每個 DGX BasePOD 提供強大動力、讓組織能夠充分發揮 NVIDIA 軟體創新的最佳效益。企業可以透過備受肯定的平台、充分發揮投資潛力、包括企業級協調與叢集管理、加速運算、儲存與網路基礎架構的程式庫、以及針對 AI 工作負載最佳化的作業系統（ OS ）。</block>
+  <block id="75dcca08486bcfff7ba5db2bc97895d2" category="paragraph"><block ref="75dcca08486bcfff7ba5db2bc97895d2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="327b053bd13ca457c7d93b27fecda336" category="paragraph">NVIDIA NGC ™（圖 3 ）提供軟體、可滿足具有各種 AI 專業水準的資料科學家、開發人員和研究人員的需求。NGC 軟體會掃描一組彙總的常見弱點與曝險（ CVE ）、加密和私密金鑰。它經過測試與設計、可擴充至多個 GPU 、在許多情況下、可擴充至多節點、確保使用者在 DGX 系統上的投資發揮最大效益。</block>
+  <block id="41c979aacd0dd9c1c894a1570596b6fe" category="paragraph"><block ref="41c979aacd0dd9c1c894a1570596b6fe" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5e8010721a7d2d406751df26b7b427de" category="paragraph">NVIDIA AI Enterprise 是一套 AI 和資料分析軟體、針對 AI 的開發與部署進行最佳化。NVIDIA AI Enterprise 包含備受肯定的開放原始碼容器和架構、例如 NVIDIA Riders ™、 NVIDIA TAO Toolkit 、 NVIDIA TensorRT ™和 NVIDIA Triton Inference Server 、這些都已通過認證並支援在 DGX 系統上執行。NVIDIA AI Enterprise 隨 DGX 系統提供、可搭配 NVIDIA Base Command 和 NVIDIA NGC 使用。</block>
+  <block id="9aeccfb63defa46cb78ffa3611d362c6" category="section-title">NetApp 軟體</block>
+  <block id="19ca873746e39bc49842120d4d9e9fd2" category="list-text">NetApp FlexCache 。提供遠端磁碟區快取功能、可簡化檔案發佈、減少 WAN 延遲、並降低 WAN 頻寬成本。FlexCache 可在多個站台之間進行分散式產品開發、並可從遠端位置加速存取公司資料集。</block>
+  <block id="8a68622cad27cba61f341e6f0f30464d" category="list-text">效能與較低的延遲。ONTAP 以最低的延遲提供最高的處理量、包括支援使用 NFS over RDMA 的 NVIDIA GPUDirect 儲存設備（ GDS ）。</block>
+  <block id="bacf2403430c9be349e22f8a7e42a5b9" category="paragraph">NetApp DataOps Toolkit是一款以Python為基礎的工具、可簡化開發/訓練工作區和推斷伺服器的管理、這些工作區都以高效能橫向擴充的NetApp儲存設備為後盾。DataOps Toolkit 可作為獨立公用程式運作、在 Kubernetes 環境中更有效、利用 NetApp Astra Trident 來自動化儲存作業。主要功能包括：</block>
+  <block id="6d6a60565999069de29c89c2183b5290" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AI Pod - 架構。</block>
+  <block id="871d272efcc8e0b2d6b81d0ad9436985" category="paragraph"><block ref="871d272efcc8e0b2d6b81d0ad9436985" category="inline-link-macro-rx"></block></block>
+  <block id="06fccd13fe37c98002ea1b7db4383539" category="summary">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 結論</block>
+  <block id="29960dc3f77022de2577936fc818e360" category="inline-link-macro">上一篇文章： NetApp AI Pod 搭配 NVIDIA DGX 系統 - 儲存系統設計與規模調整指南。</block>
+  <block id="a099ae3c8f02e9a97a4d28a54904ee4f" category="paragraph"><block ref="a099ae3c8f02e9a97a4d28a54904ee4f" category="inline-link-macro-rx"></block></block>
+  <block id="949416db0d1989692b36b5f6f8ce5a0f" category="paragraph">DGX BasePOD 架構是新一代的深度學習平台、需要同樣進階的儲存與資料管理功能。透過將 DGX BasePOD 與 NetApp AFF 系統結合、幾乎可以任何規模實作此架構、從與 AFF A250 儲存系統配對的單一 DGX A100 、到 24 節點 AFF A800 叢集上的 48 個 DGX A100 系統。AFF 結合 NetApp ONTAP 優異的雲端整合功能和軟體定義功能、提供跨越邊緣、核心和雲端的完整資料傳輸管道、讓 DL 專案成功完成。</block>
+  <block id="bbd4de8c111df7a7c885105e16d426eb" category="inline-link-macro">下一步： NetApp AI Pod 搭配 NVIDIA DGX 系統 - 其他資訊。</block>
+  <block id="234027be73c5b020cd4dfbd23082ea4c" category="paragraph"><block ref="234027be73c5b020cd4dfbd23082ea4c" category="inline-link-macro-rx"></block></block>
+  <block id="faf3bfb28373fa64aad8c3c641b272d3" category="summary">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 何處可以找到其他資訊</block>
+  <block id="890699b1202f548485a4d15db59e30e9" category="inline-link-macro">上一篇： NetApp AI Pod 搭配 NVIDIA DGX 系統 - 結論。</block>
+  <block id="7ae738bf396314b8df6c0f3531207693" category="paragraph"><block ref="7ae738bf396314b8df6c0f3531207693" category="inline-link-macro-rx"></block></block>
+  <block id="3e25f5537dc80d1324e8b8639d0f3331" category="list-text">ONTAP AI - 採用 NVIDIA DGX A100 系統的 NetApp 驗證架構</block>
+  <block id="81df4cf10cdf43ee92694f3c8c2c5ae8" category="inline-link"><block ref="81df4cf10cdf43ee92694f3c8c2c5ae8" category="inline-link-rx"></block></block>
+  <block id="e4e23e4911dfd012ecb94a958409f0b9" category="paragraph"><block ref="e4e23e4911dfd012ecb94a958409f0b9" category="inline-link-rx"></block></block>
+  <block id="5f60faf04d2b972aa0cf8c369cfc6a26" category="inline-link"><block ref="5f60faf04d2b972aa0cf8c369cfc6a26" category="inline-link-rx"></block></block>
+  <block id="d99ede023f079413a479e349dcb54616" category="paragraph"><block ref="d99ede023f079413a479e349dcb54616" category="inline-link-rx"></block></block>
+  <block id="0ab76d4872db09ecb57fa710fc123418" category="inline-link"><block ref="0ab76d4872db09ecb57fa710fc123418" category="inline-link-rx"></block></block>
+  <block id="01bf6d43d7d61e8ecfb56c62edde16aa" category="paragraph"><block ref="01bf6d43d7d61e8ecfb56c62edde16aa" category="inline-link-rx"></block></block>
+  <block id="d33e3a5f8c0cfc60c3e79f3c4a1c7d60" category="list-text">NVIDIA BasePOD</block>
+  <block id="6ff1278864800ae134fcd2dda1a5e0e9" category="inline-link"><block ref="6ff1278864800ae134fcd2dda1a5e0e9" category="inline-link-rx"></block></block>
+  <block id="0c2cd58ffa7f091c420ae61854a0a8db" category="paragraph"><block ref="0c2cd58ffa7f091c420ae61854a0a8db" category="inline-link-rx"></block></block>
+  <block id="fe9aea34e4ae9a0dee450504e80761d5" category="list-text">NVIDIA DGX A100 系統</block>
+  <block id="0cc2b112d6c81a7525840f7c4cd76527" category="inline-link"><block ref="0cc2b112d6c81a7525840f7c4cd76527" category="inline-link-rx"></block></block>
+  <block id="64d169ecb4b9b6ca5305f7275294eaae" category="paragraph"><block ref="64d169ecb4b9b6ca5305f7275294eaae" category="inline-link-rx"></block></block>
+  <block id="51c8257f6c8ba308b83f9f13b405dad0" category="inline-link"><block ref="51c8257f6c8ba308b83f9f13b405dad0" category="inline-link-rx"></block></block>
+  <block id="a19d7568aa9c7e4c1f3bf3e831367115" category="paragraph"><block ref="a19d7568aa9c7e4c1f3bf3e831367115" category="inline-link-rx"></block></block>
+  <block id="42c9b161f86365b647172182503d9520" category="inline-link"><block ref="42c9b161f86365b647172182503d9520" category="inline-link-rx"></block></block>
+  <block id="f5802e2c53799babc0ac27f6cb392604" category="paragraph"><block ref="f5802e2c53799babc0ac27f6cb392604" category="inline-link-rx"></block></block>
+  <block id="3389dae361af79b04c9c8e7057f60cc6" category="paragraph">*</block>
+  <block id="c7d87fc52e88be1efa24c63608d4b0a0" category="summary">採用 NVIDIA DGX 系統的 NetApp AIPod 是一種企業級參考架構、以 NVIDIA BasePOD 為基礎、使用 NetApp ONTAP AFF 儲存系統、 NVIDIA 網路和 DGX 系統、提供深度學習和人工智慧。</block>
+  <block id="f49da8f3acb959d0d61b034069f4bfb6" category="doc">NetApp AI Pod 搭配 NVIDIA DGX 系統 - 簡介</block>
+  <block id="217432d0ec5a422d97fdd8082983c438" category="paragraph">NetApp 解決方案工程</block>
+  <block id="88934f15007bff6dc49c8fa3861edfb7" category="paragraph">採用 NVIDIA DGX 系統的 NetApp AI Pod 搭載 NVIDIA DGX BasePOD 和 #8482 ；以及 NetApp 雲端連線儲存系統、可消除設計複雜度和猜測工作負載、簡化機器學習（ ML ）和人工智慧（ AI ）工作負載的基礎架構部署。以 NVIDIA DGX BasePOD 設計為基礎、為新一代工作負載提供卓越的運算效能、採用 DGX 系統的 AI Pod 新增了 NetApp AFF 儲存系統、可讓客戶從小開始、不中斷地成長、同時智慧地管理從邊緣到核心、再到雲端再回來的資料。NetApp AI Pod 是 NetApp AI 解決方案較大型產品組合的一部分、如下圖所示：</block>
+  <block id="b3b5cdccc739f8791e862e9eab926624" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AI Pod - 硬體元件</block>
+  <block id="589a3c404a7fd8138eba12920c2d85dd" category="paragraph"><block ref="589a3c404a7fd8138eba12920c2d85dd" category="inline-link-macro-rx"></block></block>
+  <block id="92ec695ca920130ca89f66da808dffff" category="sidebar">採用 NVIDIA DGX 系統的 NetApp AI Pod</block>
+  <block id="b9e1a3a8b51ada26e5769669b14ee9ff" category="sidebar">硬體元件</block>
+  <block id="abdab95e10f075f1f46038e7adf39694" category="sidebar">軟體元件</block>
 </blocks>
