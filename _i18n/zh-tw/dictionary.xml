@@ -17072,12 +17072,6 @@ Fsxadmin 是建立時適用於 NetApp ONTAP 檔案系統之 FSX 的預設管理�
   <block id="27dddea37ed0de0ca5959c367057ba57" category="list-text">執行 Linux 教戰手冊以執行部署的 Linux 部分。輸入管理 ssh 密碼和 Sudo 密碼。</block>
   <block id="1c71909fca063bf285ff220dab00cfa1" category="list-text">執行 Oracle 教戰手冊以執行部署的 Oracle 部分。輸入管理 ssh 密碼和 Sudo 密碼。</block>
   <block id="5cf04a9bbc1dcc2fadd56ff48a750287" category="video-title">自動化 PostgreSQL 部署與保護</block>
-  <block id="7bb2d8deceb07f4e39dcbf5735eeb48b" category="paragraph">+
-* 最佳實務做法 *</block>
-  <block id="fe4eae1181f6a5f1aa2dd32a8a0e6818" category="paragraph">+
-* 為每個目標介面設定五個 iSCSI 工作階段、以獲得最佳效能。
-* 設定循環配置資源原則、以獲得最佳的整體 iSCSI 效能。
-* 格式化 LUN 時、請確定分割區的分配單元大小設為 64K</block>
   <block id="92a02c3e922aecfbb22227bc7a4f73e8" category="list-text">選擇要備份的資料庫、然後選取 * 下一步 * 和（ ** ）、以在尚未建立原則的情況下新增原則。遵循*新的SQL Server備份原則*來建立新原則。</block>
   <block id="6cd47796208de7b1d81ffd66d5fa0744" category="video-title">將內部部署的 Oracle DB 移轉至 AWS</block>
   <block id="2ad3cefd13309f11aa1b961ca1a2e942" category="video-title">使用 HCX 移轉工作負載</block>
@@ -19667,8 +19661,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="67f778c9ede0c0e222ba60a5644d0ef9" category="video-title">使用 Amazon FSX 進行 NetApp ONTAP 儲存的 AWS （ ROSA ）叢集上 Red Hat OpenShift 服務上的應用程式快照 / 還原</block>
   <block id="82b67ae3d50932b0d818b7c3a23b3428" category="summary">NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構</block>
   <block id="577df6236e6e1a1682f65355d6d35a2c" category="doc">NetApp AIPod 搭配 NVIDIA DGX 系統 - 解決方案架構</block>
-  <block id="e768686aaf74da904c7c8966e526e0ad" category="inline-link-macro">上一篇： ONTAP AI - 軟體元件</block>
-  <block id="d6d5b68389c5209df0ea55ba641bb018" category="paragraph"><block ref="d6d5b68389c5209df0ea55ba641bb018" category="inline-link-macro-rx"></block></block>
   <block id="a39e45b08dafc96fc22bd34295329031" category="section-title">搭載 DGX H100 系統的 NetApp AI Pod</block>
   <block id="8fe7cb1d6c5baff682d5f1357d387742" category="paragraph">下圖顯示搭配 NetApp AIPod 使用 DGX H100 系統時的整體解決方案拓撲。</block>
   <block id="eb606e206352457153b2069dbeccf372" category="paragraph"><block ref="eb606e206352457153b2069dbeccf372" category="inline-image-macro-rx" type="image"></block></block>
@@ -19685,8 +19677,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="6c9aef89eae0fd771909b15623e452df" category="paragraph">管理 SVM 只需要單一 LIF 、裝載在每個控制器上設定的雙連接埠介面群組上。管理 SVM 上的其他 FlexGroup 磁碟區則是用來存放叢集管理產出工件、例如叢集節點映像、系統監控歷史資料、以及終端使用者主目錄。下圖顯示儲存系統的邏輯組態。</block>
   <block id="2ec795ef40b2ed0ebfe1725380b1fcc0" category="paragraph"><block ref="2ec795ef40b2ed0ebfe1725380b1fcc0" category="inline-image-macro-rx" type="image"></block></block>
   <block id="6822c860c58e2ab2c8d6f14b8b765be8" category="paragraph">此參考架構也包含五部以 CPU 為基礎的伺服器、供管理層使用。其中兩個系統是作為 Base Command Manager 的主要節點、用於叢集部署和管理。其餘三個系統則用於提供額外的叢集服務、例如 Kubernetes 主節點或登入節點、以便使用 Slurm 進行工作排程。使用 Kubernetes 的部署可運用 NetApp Astra Trident CSI 驅動程式、為 AFF A900 儲存系統上的管理和 AI 工作負載提供自動化的資源配置和資料服務、</block>
-  <block id="a8583d720ed329cf49ab7a670664dc7b" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AIPod - 解決方案驗證與規模調整指南</block>
-  <block id="f29056b0007dcee6eb6cf6c57fd1da5b" category="paragraph"><block ref="f29056b0007dcee6eb6cf6c57fd1da5b" category="inline-link-macro-rx"></block></block>
   <block id="19a97f58216292f6ce34aa1a3ad9e96e" category="summary">NetApp AIPod 搭配 NVIDIA DGX 系統 - 何處可以找到其他資訊</block>
   <block id="4cc9926ab22b0001fe330910bedef302" category="doc">NetApp AIPod 搭配 NVIDIA DGX 系統 - 結論與其他資訊</block>
   <block id="86b221b3904230f3b61b8a59c459ae46" category="inline-link-macro">上一篇： NetApp AIPod 搭配 NVIDIA DGX 系統 - 解決方案驗證與規模調整指南</block>
@@ -19779,4 +19769,7 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="89499f1c5b524f3ec39275214b8e3241" category="paragraph">本文件說明 AIPod 參考架構的主要元件、系統連線資訊和解決方案規模指南。本文件適用於有興趣為 ML/DL 和分析工作負載部署高效能基礎架構的 NetApp 和合作夥伴解決方案工程師及客戶策略決策者。</block>
   <block id="2ce56ff2610ea929e68ca98f14b571b7" category="inline-link-macro">下一步：採用 NVIDIA DGX 系統的 NetApp AIPod - 硬體元件</block>
   <block id="80ddd7f3c9e49fe76ef18afcde547154" category="paragraph"><block ref="80ddd7f3c9e49fe76ef18afcde547154" category="inline-link-macro-rx"></block></block>
+  <block id="c762aaec425b12667f2a575012e48905" category="list-text">為每個目標介面設定五個iSCSI工作階段、以獲得最佳效能。</block>
+  <block id="72a53f90bcbaa031cad1c79575c53094" category="list-text">設定循環配置資源原則、以獲得最佳的整體iSCSI效能。</block>
+  <block id="168b03d713c83578e3c90be8e0a76a8e" category="list-text">格式化LUN時、請確定分區的分配單元大小設為64K</block>
 </blocks>

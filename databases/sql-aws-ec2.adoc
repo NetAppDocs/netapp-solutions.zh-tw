@@ -173,7 +173,7 @@ image:sql-awsec2-image3.png["錯誤：缺少圖形影像"]
 
 
 ....
-Vol create -vserver svm001 -volume vol_awssqlprod01_data -aggregate aggr1 -size 800GB -state online -tiering-policy snapshot-only -percent-snapshot-space 0 -autosize-mode grow -snapshot-policy none -security-style ntfs -aggregate aggr1
+vol create -vserver svm001 -volume vol_awssqlprod01_data -aggregate aggr1 -size 800GB -state online -tiering-policy snapshot-only -percent-snapshot-space 0 -autosize-mode grow -snapshot-policy none -security-style ntfs
 volume modify -vserver svm001 -volume vol_awssqlprod01_data -fractional-reserve 0
 volume modify -vserver svm001 -volume vol_awssqlprod01_data -space-mgmt-try-first vol_grow
 volume snapshot autodelete modify -vserver svm001 -volume vol_awssqlprod01_data -delete-order oldest_first
@@ -209,7 +209,7 @@ igroup create -igroup igrp_ws2019sql1 -protocol iscsi -ostype windows -initiator
 
 
 ....
-lun create -path /vol/vol_awssqlprod01_data/lun_awssqlprod01_data -size 700GB -ostype windows_2008 -space-reserve enabled -space-allocation enabled lun create -path /vol/vol_awssqlprod01_log/lun_awssqlprod01_log -size 100GB -ostype windows_2008 -space-reserve enabled -space-allocation enabled
+lun create -path /vol/vol_awssqlprod01_data/lun_awssqlprod01_data -size 700GB -ostype windows_2008 -space-allocation enabled lun create -path /vol/vol_awssqlprod01_log/lun_awssqlprod01_log -size 100GB -ostype windows_2008 -space-allocation enabled
 ....
 image:sql-awsec2-image5.png["錯誤：缺少圖形影像"]
 
@@ -249,15 +249,15 @@ foreach ($TargetPortal in $TargetPortals) {New-IscsiTargetPortal -TargetPortalAd
 ....
 image:sql-awsec2-image10.png["錯誤：缺少圖形影像"]
 
-+
 * 最佳實務做法 *
 
+* 為每個目標介面設定五個iSCSI工作階段、以獲得最佳效能。
+* 設定循環配置資源原則、以獲得最佳的整體iSCSI效能。
+* 格式化LUN時、請確定分區的分配單元大小設為64K
 +
-* 為每個目標介面設定五個 iSCSI 工作階段、以獲得最佳效能。
-* 設定循環配置資源原則、以獲得最佳的整體 iSCSI 效能。
-* 格式化 LUN 時、請確定分割區的分配單元大小設為 64K
+.. 執行下列PowerShell命令、確認iSCSI工作階段持續存在。
 
-. 執行下列PowerShell命令、確認iSCSI工作階段持續存在。
+
 
 
 ....
@@ -414,13 +414,16 @@ NOTE: 使用主機記錄目錄來儲存交易記錄備份資料SnapCenter 。這
 
 * 不含Tempdb資料庫的系統資料庫備份
 * 10%的LUN負荷空間將主機記錄目錄放置在專用的磁碟區或LUN上。主機記錄目錄中的資料量取決於備份的大小和保留備份的天數。
-
-
++
 image:sql-awsec2-image17.png["錯誤：缺少圖形影像"]
 
++
 如果已配置LUN、您可以選取掛載點來代表主機記錄目錄。
 
++
 image:sql-awsec2-image18.png["錯誤：缺少圖形影像"]
+
+
 
 ====
 現在您已準備好執行SQL Server的備份、還原和複製作業。
@@ -437,31 +440,28 @@ image:sql-awsec2-image18.png["錯誤：缺少圖形影像"]
 * 使用資源群組來進行Snapshot最佳化的備份組態、以及要管理的工作數。
 +
 .. 選擇* Resources（資源）*、然後從左上角的下拉式功能表中選取* Microsoft SQL Server *。選擇*重新整理資源*。
-
-
-
-
++
 image:sql-awsec2-image19.png["錯誤：缺少圖形影像"]
 
-. 選擇要備份的資料庫、然後選取 * 下一步 * 和（ ** ）、以在尚未建立原則的情況下新增原則。遵循*新的SQL Server備份原則*來建立新原則。
-
-
+.. 選擇要備份的資料庫、然後選取 * 下一步 * 和（ ** ）、以在尚未建立原則的情況下新增原則。遵循*新的SQL Server備份原則*來建立新原則。
++
 image:sql-awsec2-image20.png["錯誤：缺少圖形影像"]
 
-. 必要時選取驗證伺服器。此伺服器SnapCenter 是在建立完整備份後執行DBCC CHECKDB的伺服器。按*下一步*以取得通知、然後選取*摘要*以檢閱。檢閱後、按一下*完成*。
-
-
+.. 必要時選取驗證伺服器。此伺服器SnapCenter 是在建立完整備份後執行DBCC CHECKDB的伺服器。按*下一步*以取得通知、然後選取*摘要*以檢閱。檢閱後、按一下*完成*。
++
 image:sql-awsec2-image21.png["錯誤：缺少圖形影像"]
 
-. 按一下*立即備份*以測試備份。在快顯視窗中、選取*備份*。
-
-
+.. 按一下*立即備份*以測試備份。在快顯視窗中、選取*備份*。
++
 image:sql-awsec2-image22.png["錯誤：缺少圖形影像"]
 
-. 選取*監控*以驗證備份是否已完成。
-
-
+.. 選取*監控*以驗證備份是否已完成。
++
 image:sql-awsec2-image23.png["錯誤：缺少圖形影像"]
+
+
+
+
 
 * 最佳實務做法 *
 
