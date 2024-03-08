@@ -19944,4 +19944,41 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="0ae87dfe21efbb4555334e2467ecf6a2" category="paragraph">登入 PostgreSQL 用戶端、您現在應該會在先前的表格中看到表格和記錄。  就是這樣。只要按一下按鈕、您的應用程式就會還原至先前的狀態。這就是我們利用 Astra Control 為客戶打造的簡單方式。</block>
   <block id="c4b7e4476f0c1295b7ad2b84095afbb7" category="paragraph"><block ref="c4b7e4476f0c1295b7ad2b84095afbb7" category="inline-image-macro-rx" type="image"></block></block>
   <block id="63864fe27243a67429a0ee731461c1fd" category="sidebar">將 VM 從 VMware 移轉至 OpenShift 虛擬化</block>
+  <block id="622b235a9123d972c612737c81eb55a1" category="doc">NFSv3 nConnect 功能搭配 NetApp 和 VMware</block>
+  <block id="922214eccd42dc7249f715ccfe0f66fd" category="paragraph">從 VMware vSphere 8.0 U1 （技術預覽）開始、 nconnect 功能可為 NFS v3 資料存放區磁碟區啟用多個 TCP 連線、以達到更高的處理量。  使用 NFS 版本 3 資料存放區的客戶現在可以增加與 NFS 伺服器的連線數量、進而最大化高速網路介面卡的使用率。</block>
+  <block id="2f5a0a2f5bc09f02ff2874d6f119ce71" category="inline-link-macro">VMware vSphere 8.0 Update 2 的版本資訊</block>
+  <block id="a780007c9fc76074a8010f3e0baef2ef" category="admonition">此功能通常適用於 8.0 U2 、請參閱儲存區一節 <block ref="b47acafec9d9ecdb185067327510996c" category="inline-link-macro-rx"></block></block>
+  <block id="029dffdb3a47e8a7b61eefb05272f3b6" category="list-text">在同一主機上、每個 NFS 資料存放區裝載更多虛擬機器。</block>
+  <block id="c9c3ecb745a906eed9c9dc66bce091b2" category="list-text">提升 NFS 資料存放區效能。</block>
+  <block id="e2d5091735d8049dbac491b96e7800e3" category="list-text">提供一個選項、可在較高層級為 VM 和 Container 型應用程式提供服務。</block>
+  <block id="52eb43485175b27d516a58a137af2d9a" category="section-title">技術詳細資料</block>
+  <block id="456bb25eb1c4cc4d1d3167077db63dc3" category="inline-link-macro">NFS 最佳實務做法與實作指南</block>
+  <block id="80fbff02df105327c999a32ee770abbd" category="paragraph">nconnect 的用途是在 vSphere 主機上、為每個 NFS 資料存放區提供多個 TCP 連線。這有助於提高 NFS 資料存放區的平行度和效能。  在 ONTAP 中、當建立 NFS 掛載時、會建立連線 ID （ CID ）。CID 最多可提供 128 個同時進行的機上作業。當用戶端超過該數目時、 ONTAP 會採取一種形式的流程控制、直到其他作業完成時、它可以釋出一些可用的資源為止。這些暫停通常只有幾微秒、但在數百萬次的作業過程中、這些作業可能會增加並造成效能問題。nConnect 可以達到 128 個限制、並將其乘以用戶端上的 nconnect 工作階段數量、這可為每個 CID 提供更多並行作業、並可能增加效能效益。如需其他詳細資料、請參閱 <block ref="2286147d95e2b48568ae4e520e809846" category="inline-link-macro-rx"></block></block>
+  <block id="a117913f518b234647a8b383734ba750" category="section-title">預設 NFSv3 資料存放區</block>
+  <block id="5362dc6cc8a918b056c07a887b52e3bd" category="paragraph">為了解決 NFS 資料存放區單一連線的效能限制、會裝載額外的資料存放區、或新增額外的主機來增加連線。</block>
+  <block id="147d27fd2004a0ec68674942c780aa9a" category="image-alt">不含 nconnect 功能的 NFSv3 資料存放區</block>
+  <block id="debf3a3ee7d6a6155b69615056e5ce4b" category="section-title">使用 nConnect NFSv3 資料存放區</block>
+  <block id="2ff2577b7287e07a33b1e780f8b40120" category="paragraph">一旦使用 ONTAP 工具或其他選項建立 NFS 資料存放區、就可以使用 vSphere CLI 、 PowerCLI 、政府工具或其他 API 選項、修改每個 NFSv3 資料存放區的連線數量。為了避免效能問題和 VMotion 、請將屬於 vSphere 叢集一部分的所有 vSphere 主機上的 NFS 資料存放區的連線數量保持不變。</block>
+  <block id="dba363f6b127a7aeb65476b3b3edb346" category="image-alt">啟用 nconnect 功能的 NFSv3 資料存放區</block>
+  <block id="5aa0dfe1002dfe6bce0026bf5a097872" category="section-title">先決條件</block>
+  <block id="d7d014eeaf77806f8ad332d6854a67d8" category="paragraph">若要使用 nconnect 功能、應符合下列相依性。</block>
+  <block id="e8467e9b509c4924668c01eb7ab2adde" category="cell">版本ONTAP</block>
+  <block id="cd88f82366c9681ae528ea72ce607479" category="cell">vSphere 版本</block>
+  <block id="8413c683b4b27cc3f4dbd4c90329d8ba" category="cell">註解</block>
+  <block id="9d00c1626c7c0d2a2cd78a53a717750f" category="cell">9.8 或更高版本</block>
+  <block id="eb0c9cc2c6a76a4089f51a287dd39018" category="cell">8 更新 1</block>
+  <block id="e1d5cb4dfc779ae2355a88e6a3f38365" category="cell">可選擇增加連線數量的技術預覽。</block>
+  <block id="9b89481f1fd15e1e95aeaa045da8b998" category="cell">8 更新 2.</block>
+  <block id="7d1a33e2cd7619ca1e16a100c756f5b0" category="cell">通常可選擇增加和減少連線數量。</block>
+  <block id="a3ea8d7f45af50751b41f8125b9a7129" category="section-title">更新 NFS 資料存放區連線數量</block>
+  <block id="92e68741358a011ae3df1c44bf7d4c35" category="paragraph">使用 ONTAP 工具或 vCenter 建立 NFS 資料存放區時、會使用單一 TCP 連線。若要增加連線數量、可使用 vSphere CLI 。參考命令如下所示。</block>
+  <block id="c7d92ab621306068cc4168881ed2f1ed" category="paragraph">或使用 PowerCLI 、如下所示</block>
+  <block id="e80a22c5f59287fb8f804bd0a2e09455" category="paragraph">以下是增加與政府工具連線數量的範例。</block>
+  <block id="50b0980875a7cd34545a5c01a4398252" category="inline-link-macro">VMware 知識庫文章 91497</block>
+  <block id="3ba5ed93588ff7ccc7888bd1cba3cdc7" category="paragraph">請參閱 <block ref="fbb4155d7308fecba08eb8bea19301a0" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="224bf8a6dd71d9cf8a138d3b25a8d716" category="paragraph">ONTAP 支援的最大連線數量取決於儲存平台機型。請在上尋找 exec_ctx <block ref="2286147d95e2b48568ae4e520e809846" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="afd75162084fb9f067c0d9f408ee61ed" category="inline-link-macro">VMware 知識庫文章 91481</block>
+  <block id="3a516056fd5d0047684222dc0a7805ae" category="paragraph">隨著每個 NFSv3 資料存放區的連線數量增加、可裝載於該 vSphere 主機上的 NFS 資料存放區數量也會減少。每個 vSphere 主機支援的連線總數為 256 個。檢查 <block ref="d75d1c1247a51175ceaa5837dc1dae33" category="inline-link-macro-rx"></block> 適用於每個 vSphere 主機的資料存放區限制。</block>
+  <block id="3689679bbefbc2ba446cce4674849fa3" category="admonition">VVOL 資料存放區不支援 nConnect 功能。但是、傳輸協定端點會計入連線限制。建立 vVol 資料存放區時、會為 SVM 的每個資料 LIF 建立一個傳輸協定端點。</block>
+  <block id="6fe78fbb29bed287952ede829b7529d4" category="sidebar">n 使用 NetApp 和 VMware 連接功能</block>
 </blocks>
