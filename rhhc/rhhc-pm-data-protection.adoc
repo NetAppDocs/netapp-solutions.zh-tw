@@ -14,13 +14,275 @@ summary:
 
 
 [role="lead"]
-本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）上管理 Red Hat OpenShift 的資料保護選項。
+本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）叢集上管理 Red Hat OpenShift 的資料保護選項。Astra Control Service （ ACS ）提供簡單易用的圖形化使用者介面、可讓您新增叢集、定義在叢集上執行的應用程式、以及執行應用程式感知的資料管理活動。您也可以使用 API 來存取 ACS 功能、以自動化工作流程。
+
+驅動 Astra 控制（ ACS 或 ACC ）是 NetApp Astra Trident 。Astra Trident 整合了多種 Kubernetes 叢集類型、例如 Red Hat OpenShift 、 EKS 、 aks 、 SUSE Rancher 、 Anthos 等。 提供各種 NetApp ONTAP 儲存設備、例如 FAS / AFF 、 ONTAP Select 、 CVO 、 Google Cloud Volumes Service 、 Azure NetApp Files 和 Amazon FSX for NetApp ONTAP 。
+
+本節詳細說明使用 ACS 的下列資料保護選項：
+
+* 顯示在某個區域執行之 ROSA 應用程式的備份與還原、並還原至另一個區域的影片。
+* 顯示 ROSA 應用程式快照與還原的影片。
+* 安裝 ROSA 叢集 Amazon FSX for NetApp ONTAP 的逐步詳細資料、使用 NetApp Astra Trident 與儲存後端整合、在 ROSA 叢集上安裝 PostgreSQL 應用程式、使用 ACS 建立應用程式快照、並從其中還原應用程式。
+* 一個部落格、顯示在使用 ACS 的 ONTAP 適用的 FSX 之 ROSA 叢集上、從 mysql 應用程式的快照建立及還原的逐步詳細資料。
 
 
 
-== 適用於 AWS 上 Red Hat OpenShift 服務的 FSX NetApp ONTAP （ ROSA ）
+
+== 從備份備份 / 還原
 
 下列影片顯示在某個區域執行的 ROSA 應用程式備份、並還原至另一個區域。
 
 .AWS 上適用於 Red Hat OpenShift 服務的 FSX NetApp ONTAP
 video::01dd455e-7f5a-421c-b501-b01200fa91fd[panopto]
+
+
+== 快照 / 從快照還原
+
+下列影片顯示在拍攝 ROSA 應用程式的快照、並在之後從快照還原。
+
+.使用 Amazon FSX 進行 NetApp ONTAP 儲存的 AWS （ ROSA ）叢集上 Red Hat OpenShift 服務上的應用程式快照 / 還原
+video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto]
+
+
+== 部落格
+
+* link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Using-Astra-Control-Service-for-data-management-of-apps-on-ROSA-clusters-with/ba-p/450903["使用 Astra Control Service 來管理內含 Amazon FSX 儲存設備的 ROSA 叢集上的應用程式資料"]
+
+
+
+
+== 建立快照並從快照還原的逐步詳細資料
+
+
+
+=== 必要設定
+
+* link:https://signin.aws.amazon.com/signin?redirect_uri=https://portal.aws.amazon.com/billing/signup/resume&client_id=signup["AWS帳戶"]
+* link:https://console.redhat.com/["Red Hat OpenShift 帳戶"]
+* IAM 使用者 link:https://www.rosaworkshop.io/rosa/1-account_setup/["適當的權限"] 建立及存取 ROSA 叢集
+* link:https://aws.amazon.com/cli/["AWS CLI"]
+* link:https://console.redhat.com/openshift/downloads["ROSA CLI"]
+* link:https://console.redhat.com/openshift/downloads["OpenShift CLI"]（ OC ）
+* 具備子網路和適當閘道和路由的 VPC
+* link:https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-installing-rosa.html["已安裝 ROSA 叢集"] 進入 VPC
+* link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["Amazon FSX for NetApp ONTAP 產品"] 在同一個 VPC 中建立
+* 從存取 ROSA 叢集 link:https://console.redhat.com/openshift/overview["OpenShift 混合雲主控台"]
+
+
+
+
+=== 後續步驟
+
+. 建立管理員使用者並登入叢集。
+. 為叢集建立一個 kubeconfig 檔案。
+. 在叢集上安裝 Astra Trident 。
+. 使用 Trident CSI 資源管理程式建立後端、儲存類別和快照類別組態。
+. 在叢集上部署 PostgreSQL 應用程式。
+. 建立資料庫並新增記錄。
+. 將叢集新增至 ACS 。
+. 在 ACS 中定義應用程式。
+. 使用 ACS 建立快照。
+. 刪除 PostgreSQL 應用程式中的資料庫。
+. 使用 ACS 從快照還原。
+. 確認您的應用程式已從快照中還原。
+
+
+
+
+==== **1.建立管理員使用者並登入叢集 **
+
+使用下列命令建立管理員使用者、即可存取 ROSA 叢集：（只有在安裝時未建立管理員使用者時、才需要建立管理員使用者）
+
+`rosa create admin --cluster=<cluster-name>`
+
+此命令會提供如下所示的輸出。使用登入叢集 `oc login` 輸出中提供的命令。
+
+image:rhhc-rosa-cluster-admin-create.png[""]
+
+
+NOTE: 您也可以使用權杖登入叢集。如果您在建立叢集時已建立管理員使用者、則可以使用管理員使用者認證、從 Red Hat OpenShift 混合雲主控台登入叢集。然後按一下右上角顯示登入使用者名稱的、即可取得 `oc login` 命令列的命令（權杖登入）。
+
+
+
+==== **2.為叢集建立一個 kubeconfig 檔案 **
+
+請依照程序進行 link:https://docs.netapp.com/us-en/astra-control-service/get-started/create-kubeconfig.html#create-a-kubeconfig-file-for-red-hat-openshift-service-on-aws-rosa-clusters["請按這裡"] 為 ROSA 叢集建立 KRBeconfig 檔案。將叢集新增至 ACS 後、將會使用此 kubeconfig 檔案。
+
+
+
+==== ** 3.在叢集上安裝 Astra Trident **
+
+在 ROSA 叢集上安裝 Astra Trident （最新版本）。若要這麼做、您可以遵循所提供的任何一個程序 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。若要從叢集主控台使用 helm 來安裝 Trident 、請先建立名為 Trident 的專案。
+
+image:rhhc-trident-project-create.png[""]
+
+然後從「開發人員」檢視中建立 Helm 圖表儲存庫。供 URL 欄位使用 `'https://netapp.github.io/trident-helm-chart'`。然後為 Trident 運算子建立 helm 版本。
+
+image:rhhc-helm-repo-create.png[""]
+image:rhhc-helm-release-create.png[""]
+
+返回主控台的「管理員」檢視、然後在 Trident 專案中選取「群組」、以確認所有 Trident 群組都在執行中。
+
+image:rhhc-trident-installed.png[""]
+
+
+
+==== **4.使用 Trident CSI 資源管理程式 ** 建立後端、儲存類別和快照類別組態
+
+請使用下方顯示的 yaml 檔案來建立 Trident 後端物件、儲存類別物件和 Volumesnapshot 物件。請務必在後端組態 yaml 中、為您所建立的 NetApp ONTAP 檔案系統提供 Amazon FSX 的認證、以及檔案系統的管理 LIF 和 Vserver 名稱。若要取得這些詳細資料、請前往 Amazon FSX 的 AWS 主控台並選取檔案系統、然後瀏覽至管理索引標籤。此外、按一下更新以設定的密碼 `fsxadmin` 使用者：
+
+
+NOTE: 您可以使用命令列來建立物件、或使用混合雲主控台的 yaml 檔案來建立物件。
+
+image:rhhc-fsx-details.png[""]
+
+** Trident 後端組態 **
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-tbc-ontap-nas-secret
+type: Opaque
+stringData:
+  username: fsxadmin
+  password: <password>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: ontap-nas
+spec:
+  version: 1
+  storageDriverName: ontap-nas
+  managementLIF: <management lif>
+  backendName: ontap-nas
+  svm: fsx
+  credentials:
+    name: backend-tbc-ontap-nas-secret
+----
+** 儲存等級 **
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ontap-nas
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  media: "ssd"
+  provisioningType: "thin"
+  snapshots: "true"
+allowVolumeExpansion: true
+----
+** 快照類別 **
+
+[source, yaml]
+----
+apiVersion: snapshot.storage.k8s.io/v1
+kind: VolumeSnapshotClass
+metadata:
+  name: trident-snapshotclass
+driver: csi.trident.netapp.io
+deletionPolicy: Delete
+----
+發出下列命令、確認已建立後端、儲存類別和 Trident -snapshotClass 物件。
+
+image:rhhc-tbc-sc-verify.png[""]
+
+此時、您需要進行的重要修改是將 ONTAP NAS 設定為預設儲存類別、而非 GP3 、以便您稍後部署的 PostgreSQL 應用程式可以使用預設儲存類別。在叢集的 Openshift 主控台中、選取 Storage （儲存設備）下的 StorageClasses （儲存設備類別）。將目前預設類別的註釋編輯為假、並將 ONTAP NAS 儲存類別的標註 storagecasse.Kubernetes.IO/is 預設類別設定為 true 。
+
+image:rhhc-change-default-sc.png[""]
+
+image:rhhc-default-sc.png[""]
+
+
+
+==== ** 5.在叢集上部署 PostgreSQL 應用程式 **
+
+您可以從命令列部署應用程式、如下所示：
+
+`helm install postgresql bitnami/postgresql -n postgresql --create-namespace`
+
+image:rhhc-postgres-install.png[""]
+
+
+NOTE: 如果您沒有看到應用程式 Pod 正在執行、則可能會因為安全內容限制而導致錯誤。
+image:rhhc-scc-error.png[""]
+編輯以修正錯誤 `runAsUser` 和 `fsGroup` 中的欄位 `statefuleset.apps/postgresql` 的輸出中有 uid 的物件 `oc get project` 命令、如下所示。
+image:rhhc-scc-fix.png[""]
+
+PostgreSQL 應用程式應執行、並使用 Amazon FSX 支援的持續磁碟區來儲存 NetApp ONTAP 。
+
+image:rhhc-postgres-running.png[""]
+
+image:rhhc-postgres-pvc.png[""]
+
+
+
+==== **6.建立資料庫並新增記錄 **
+
+image:rhhc-postgres-db-create.png[""]
+
+
+
+==== **7.將叢集新增至 ACS**
+
+登入 ACS 。選取叢集、然後按一下新增。選取「其他」、然後上傳或貼上 Kupleconfig 檔案。
+
+image:rhhc-acs-add-1.png[""]
+
+按一下 * 下一步 * 、然後選取 ONTAP NAS 作為 ACS 的預設儲存類別。按一下 * 下一步 * 、檢閱詳細資料和 * 新增 * 叢集。
+
+image:rhhc-acs-add-2.png[""]
+
+
+
+==== ** 8.在 ACS** 中定義應用程式
+
+在 ACS 中定義 PostgreSQL 應用程式。從登陸頁面、選取 * 應用程式 * 、 * 定義 * 、然後填寫適當的詳細資料。按幾次 * 下一步 * 、檢閱詳細資料、然後按一下 * 定義 * 。應用程式隨即新增至 ACS 。
+
+image:rhhc-acs-add-2.png[""]
+
+
+
+==== **9.使用 ACS** 建立快照
+
+在 ACS 中建立快照的方法有許多種。您可以選取應用程式、並從顯示應用程式詳細資料的頁面建立快照。您可以按一下「建立快照」來建立隨選快照、或是設定保護原則。
+
+只要按一下 * 建立 SnapShot * 、提供名稱、檢閱詳細資料、然後按一下 * Snapshot * 、即可建立隨選快照。作業完成後、快照狀態會變更為「健全」。
+
+image:rhhc-snapshot-create.png[""]
+
+image:rhhc-snapshot-on-demand.png[""]
+
+
+
+==== **10.刪除 PostgreSQL 應用程式中的資料庫 **
+
+重新登入 PostgreSQL 、列出可用的資料庫、刪除您先前建立的資料庫、然後再次列出、以確保資料庫已刪除。
+
+image:rhhc-postgres-db-delete.png[""]
+
+
+
+==== **11.使用 ACS** 從快照還原
+
+若要從快照還原應用程式、請前往 ACS UI 登陸頁面、選取應用程式、然後選取還原。您需要選擇要還原的快照或備份。（通常、您會根據已設定的原則建立多個）。在接下來的幾個畫面中做出適當的選擇、然後按一下 * 還原 * 。應用程式狀態會在從快照還原後、從還原移至可用狀態。
+
+image:rhhc-app-restore-1.png[""]
+
+image:rhhc-app-restore-2.png[""]
+
+image:rhhc-app-restore-3.png[""]
+
+
+
+==== **12.確認您的應用程式已從 SnapShot 中還原 **
+
+登入 PostgreSQL 用戶端、您現在應該會在先前的表格中看到表格和記錄。  就是這樣。只要按一下按鈕、您的應用程式就會還原至先前的狀態。這就是我們利用 Astra Control 為客戶打造的簡單方式。
+
+image:rhhc-app-restore-verify.png[""]
