@@ -24,15 +24,15 @@ summary:
 
 === 簡介
 
-近 20 年來、 NetApp ONTAP 軟體已成為 VMware vSphere 環境的主要儲存解決方案、持續推出創新功能、可簡化管理並降低成本。NetApp 是 NAS 與統一化儲存平台開發領域的公認領導者、提供廣泛的傳輸協定與連線支援。除了這個市場區隔之外、還有許多客戶偏好以區塊型 SAN 儲存平台的簡易性和成本效益、而這些平台則專注於做好一項工作。NetApp 的 All Flash SAN Array （ AFF ASA ）能夠以大規模的簡易性和一致的管理與自動化功能、為所有應用程式和雲端供應商提供上述承諾。
+近 20 年來、 NetApp ONTAP 軟體已成為 VMware vSphere 環境的主要儲存解決方案、持續推出創新功能、可簡化管理並降低成本。NetApp 是 NAS 與統一化儲存平台開發領域的公認領導者、提供廣泛的傳輸協定與連線支援。除了這個市場區隔之外、還有許多客戶偏好以區塊型 SAN 儲存平台的簡易性和成本效益、而這些平台則專注於做好一項工作。NetApp 的 All Flash SAN Array （ ASA ）能夠以大規模的簡易性和一致的管理與自動化功能、為所有應用程式和雲端供應商提供上述承諾。
 
 
 
 === 本文檔的用途
 
-在本文件中、我們將說明搭配 VMware vSphere 使用 NetApp AFF ASA 儲存系統的獨特價值、並提供 NetApp All Flash SAN 陣列的技術概觀。此外、我們也會探討其他工具、以簡化儲存資源配置、資料保護、以及監控 VMware 和 ONTAP 資料中心。
+在本文件中、我們將說明搭配 VMware vSphere 使用 NetApp ASA 儲存系統的獨特價值、並提供 NetApp All Flash SAN 陣列的技術概觀。此外、我們也會探討其他工具、以簡化儲存資源配置、資料保護、以及監控 VMware 和 ONTAP 資料中心。
 
-本文件的部署區段涵蓋使用適用於 VMware vSphere 的 ONTAP 工具建立 vVol 資料存放區、以及使用 NetApp Cloud Insights 建立現代化資料中心的可服務性。
+本文件的部署區段涵蓋使用適用於 VMware vSphere 的 ONTAP 工具建立 vVol 資料存放區、以及使用 NetApp Cloud Insights 建立現代化資料中心的觀察功能。
 
 
 
@@ -68,13 +68,13 @@ vSphere 8.0 引進了一些新的改善功能、包括但不限於：
 
 * 整合式 Kubernetes Runtime * ：隨附 Tanzu 、 vSphere 8.0 可簡化容器協調作業。
 
-如需詳細資訊、請參閱部落格： https://core.vmware.com/resource/whats-new-vsphere-8/["vSphere 8 的新增功能"]
+如需詳細資訊、請參閱部落格： https://core.vmware.com/resource/whats-new-vsphere-8/["vSphere 8 的新增功能"]。
 
 
 
 ===== VMware 虛擬磁碟區（ vVols ）
 
-VVols 是 vSphere 叢集中創新的儲存管理方法、可簡化管理、並更精細地控制儲存資源。在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 VMware API for Storage Aware （ VASA ）提供者進行、讓儲存系統能夠識別 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。
+VVols 是 vSphere 叢集中創新的儲存管理方法、可簡化管理、並更精細地控制儲存資源。在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 * VMware API for Storage aware （ VASA ） * 供應商進行、並可讓儲存系統瞭解 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。
 
 VVols 是一種簡化的儲存管理方法、在某些使用案例中較為偏好。
 
@@ -88,6 +88,7 @@ VVols 是一種簡化的儲存管理方法、在某些使用案例中較為偏�
 
 如需搭配 vSphere 使用 NVMe 的詳細資訊、請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-storage/GUID-2A80F528-5B7D-4BE9-8EF6-52E2301DC423.html["關於 VMware NVMe Storage"] 在 vSphere 儲存設備文件中。
 
+'''
 
 
 === NetApp ONTAP
@@ -170,6 +171,7 @@ ONTAP One 授權包含下列所有功能：
 
 *S3 SnapMirror* –可將 ONTAP S3 物件複寫至其他 S3 相容目標。
 
+'''
 
 
 === NetApp All Flash SAN Array
@@ -250,6 +252,7 @@ NetApp 為 NetApp All Flash SAN 陣列提供一組獨特的儲存保證。獨特
 
 請參閱 https://www.netapp.com/data-storage/all-flash-san-storage-array/["NetApp ASA 產品入口網站"] 以取得更多資訊。
 
+'''
 
 
 === 適用於 VMware vSphere 的 NetApp 外掛程式
@@ -271,7 +274,7 @@ ONTAP 工具包括下列元件：
 
 * 儲存複寫介面卡（ SRA ）： * 啟用並搭配 VMware Site Recovery Manager （ SRM ）使用時、 SRA 可協助在發生故障時恢復 vCenter Server 資料存放區和虛擬機器、允許設定受保護的站台和還原站台以進行災難恢復。
 
-如需適用於 VMware 的 NetApp ONTAP 工具的詳細資訊、請參閱下列內容： https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html[]。
+如需適用於 VMware 的 NetApp ONTAP 工具的詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["VMware vSphere文件的相關工具ONTAP"]。
 
 
 
@@ -295,8 +298,9 @@ SnapCenter 外掛程式可在 NetApp 儲存陣列上協調虛擬機器的停止�
 
 BlueXP 整合可實現 3-2-1 備份策略、將資料複本延伸到雲端的物件儲存。
 
-如需更多關於 BlueXP 的 3-2-1 備份策略的資訊、請造訪 https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-backup-and/ba-p/446180["適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原"]。
+如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪 https://community.netapp.com/t5/Tech-ONTAP-Blogs/3-2-1-Data-Protection-for-VMware-with-SnapCenter-Plug-in-and-BlueXP-backup-and/ba-p/446180["適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原"]。
 
+'''
 
 
 === NetApp Cloud Insights

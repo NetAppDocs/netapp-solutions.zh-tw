@@ -16227,8 +16227,6 @@
   <block id="356be904a2ad4050250d6fe2a3227030" category="list-text">為叢集設定新的 Argo CD 執行個體。請參閱指示 <block ref="119b4b110537aa2ea9e3e33df43cde60" category="inline-link-macro-rx"></block>。</block>
   <block id="abe8993411729ddd001265652209bf86" category="paragraph">開啟 Argo CD 的主控台、然後部署應用程式。例如、您可以使用 Argo CD 搭配 Helm 圖表來部署 Jenkins 應用程式。建立應用程式時、會提供下列詳細資料：專案：預設叢集：<block ref="9f21a485a51630661e0fefa38fbbf6ca" category="inline-link-rx"></block>命名空間： Jenkins The URL for the Helm Chart:<block ref="0e94db883459a2938e67dc90b6e8375d" category="inline-link-rx"></block></block>
   <block id="c6900348e4c35229bfdef15cd046933d" category="paragraph">船舵參數： global.storageClass ： fsxn-NAS</block>
-  <block id="7dd560122213e64b542e95018ff44ab1" category="paragraph">本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）上管理 Red Hat OpenShift 的資料保護選項。</block>
-  <block id="cd25a3e993cfcb7dc008e56db66965e0" category="section-title">適用於 AWS 上 Red Hat OpenShift 服務的 FSX NetApp ONTAP （ ROSA ）</block>
   <block id="5866b98c049a53ea6dc7f50f9349f434" category="doc">資料移轉</block>
   <block id="7314163a6d61f383fe22eabc7f7478f4" category="paragraph">本頁顯示使用適用於 NetApp ONTAP 的 FSX 進行持續儲存的託管 Red Hat OpenShift 叢集上的容器工作負載資料移轉選項。</block>
   <block id="82352e8a86338ccc54d2fbc2c403810e" category="paragraph">AWS 上的 Red Hat OpenShift 服務以及適用於 NetApp ONTAP 的 FSx （ FSxN ）是 AWS 服務產品組合的一部分。FSxN 適用於單一 AZ 或多 AZ 選項。Multi-Az 選項可提供資料保護、避免可用性區域故障。FSxN 可與 Astra Trident 整合、為 ROSA 叢集上的應用程式提供持續儲存。</block>
@@ -18797,8 +18795,6 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="a09bb554da4ec8e5fc0324d3572de9b9" category="video-title">使用 Astra Control 進行應用程式的容錯移轉和容錯回復</block>
   <block id="31785036e45820f58909e6d05372e4de" category="paragraph">內部部署與 Azure Cloud
 <block ref="d435634e1130201ebaff428f4390dbf7" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="c3ae34e32e1b64f47fb79db64784fcd5" category="inline-link-macro">使用備份的 Astra Control Center 示範災難恢復影片</block>
-  <block id="ca9d44629d70b9f7b3c3cd14440f8f24" category="paragraph"><block ref="ca9d44629d70b9f7b3c3cd14440f8f24" category="inline-link-macro-rx"></block></block>
   <block id="9425d614f064104bce0a104a933f137f" category="section-title">災難恢復（使用複寫進行容錯移轉和容錯回復）</block>
   <block id="911dfc75aae37dbea6cc7ec160568e9e" category="section-title">案例 2 ：使用主動定速控制系統、從內部環境到 AWS 環境的資料保護與移轉</block>
   <block id="a528051afdc7f56e98729098e73932f0" category="section-title">案例 3 ：資料保護、從內部環境移轉至 AWS 環境</block>
@@ -19362,7 +19358,6 @@ ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一�
   <block id="e0638e586b5898ffa8c0e59208991e18" category="paragraph">* 虛擬儲存主控台（ VSC ）： * VSC 包含與 vSphere 用戶端整合的介面、您可以在其中新增儲存控制器、配置資料存放區、監控資料存放區效能、以及檢視和更新 ESXi 主機設定。</block>
   <block id="ec93ef8c528aead8ec9970d99b9914d0" category="paragraph">* VASA 提供者： * VMware vSphere API for Storage Aware （ VASA ） Provider for ONTAP 會將 VMware vSphere 使用的儲存設備相關資訊傳送至 vCenter Server 、以利配置 VMware 虛擬磁碟區（ VVols ）資料存放區、建立及使用儲存功能設定檔、法規遵循驗證及效能監控。</block>
   <block id="a09fd8551db7fb2026cfc8efe4862a8f" category="paragraph">* 儲存複寫介面卡（ SRA ）： * 啟用並搭配 VMware Site Recovery Manager （ SRM ）使用時、 SRA 可協助在發生故障時恢復 vCenter Server 資料存放區和虛擬機器、允許設定受保護的站台和還原站台以進行災難恢復。</block>
-  <block id="4d4ba496b4f0dc194700795fc237faf8" category="paragraph">如需適用於 VMware 的 NetApp ONTAP 工具的詳細資訊、請參閱下列內容：<block ref="0cd045306bc3576af8183014d5e67d13" category="inline-link-rx"></block>。</block>
   <block id="19101a1c66612e80411e774ecf1ab39b" category="paragraph">在本解決方案中、我們將示範如何使用 ONTAP Tools for VMware vSphere 來配置 VMware 虛擬磁碟區（ vVol ）資料存放區、並在 vVol 資料存放區上建立虛擬機器。</block>
   <block id="1bbd6c2e8ac48e75bae3d15f6494751e" category="paragraph">在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 VMware API for Storage Aware （ VASA ）供應商（隨 ONTAP 工具一起安裝）進行、並可讓儲存系統瞭解 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。</block>
   <block id="de87237500f3d597c647b3ad9c7a9e73" category="inline-link">虛擬 Volume vVols ONTAP ）</block>
@@ -19370,9 +19365,7 @@ ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一�
   <block id="520e3327a5acf8d84deaf45f44a45661" category="paragraph">本解決方案涵蓋下列高階步驟：</block>
   <block id="841de13857d1f7d1837468a733b82244" category="list-text">在 ONTAP 工具中新增儲存系統。</block>
   <block id="eebec2d1b32c4d22f597560afadd33d8" category="list-text">在 ONTAP 工具中建立儲存功能設定檔。</block>
-  <block id="fbdc91ffdd7daaedfe8c905469b7ccd7" category="list-text">在 ONTAP 工具中建立 VVols 資料存放區。</block>
   <block id="e4c6236e8fe2a36759cb1bd7db6731e3" category="list-text">在 vSphere 用戶端中建立 VM 儲存原則。</block>
-  <block id="08a1d7f1c2016a3c156aedd569b76c36" category="list-text">在 VVOL 資料存放區上建立新的虛擬機器。</block>
   <block id="7686062580e0cafa2a49f4792089ff82" category="paragraph">本解決方案使用下列元件：</block>
   <block id="e91701c614e2d9fc4a39565492176e2c" category="list-text">在 ASA 上建立的 iSCSI SVM 、可透過網路連線至 ESXi 主機。</block>
   <block id="6e2d80ee18d82e249a2dad12c3fffd0a" category="list-text">適用於 VMware vSphere 9.13 的 ONTAP 工具（根據預設、 VASA 提供者已啟用）。</block>
@@ -19439,10 +19432,7 @@ ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一�
   <block id="f80d15addf814f6098d34d85c75c1f72" category="list-text">填寫 * 自訂硬體 * 頁面。請注意、您可以為每個硬碟（ VMDK 檔案）選取個別的 VM 儲存原則。</block>
   <block id="c40ff83c36de91056b6e541e69fe61a5" category="list-text">最後、請檢閱摘要頁面、然後按一下 * 完成 * 來建立 VM 。</block>
   <block id="c502713a5af3ca9a03e4b7aafb1645d8" category="paragraph">總而言之、 NetApp ONTAP 工具可自動化在 ONTAP 儲存系統上建立 vVol 資料存放區的程序。儲存功能設定檔不僅定義要用於建立資料存放區的儲存系統、還規定可在個別 VMDK 基礎上實作的 QoS 原則。VVols 提供簡化的儲存管理模式、並緊密整合 NetApp 與 VMware 、使這套實用的解決方案能夠簡化、有效率且精細地控制虛擬化環境。</block>
-  <block id="2efdd23c783ab54962b58f12ce701d65" category="paragraph">近 20 年來、 NetApp ONTAP 軟體已成為 VMware vSphere 環境的主要儲存解決方案、持續推出創新功能、可簡化管理並降低成本。NetApp 是 NAS 與統一化儲存平台開發領域的公認領導者、提供廣泛的傳輸協定與連線支援。除了這個市場區隔之外、還有許多客戶偏好以區塊型 SAN 儲存平台的簡易性和成本效益、而這些平台則專注於做好一項工作。NetApp 的 All Flash SAN Array （ AFF ASA ）能夠以大規模的簡易性和一致的管理與自動化功能、為所有應用程式和雲端供應商提供上述承諾。</block>
   <block id="54a8345ff2a6a2f233047593d2765803" category="section-title">本文檔的用途</block>
-  <block id="b4530eef7f8f0bc10bf093f6c400701b" category="paragraph">在本文件中、我們將說明搭配 VMware vSphere 使用 NetApp AFF ASA 儲存系統的獨特價值、並提供 NetApp All Flash SAN 陣列的技術概觀。此外、我們也會探討其他工具、以簡化儲存資源配置、資料保護、以及監控 VMware 和 ONTAP 資料中心。</block>
-  <block id="9e6ba1d46bc0cffa3e81fff28cb518e3" category="paragraph">本文件的部署區段涵蓋使用適用於 VMware vSphere 的 ONTAP 工具建立 vVol 資料存放區、以及使用 NetApp Cloud Insights 建立現代化資料中心的可服務性。</block>
   <block id="9a32f2d98aeba4bf598e4940144de4c4" category="paragraph">此解決方案包含 VMware 和 NetApp 的創新技術。</block>
   <block id="03bd7c3d3ef7840ecb1250d4983b17fd" category="section-title">VMware vSphere 8.0</block>
   <block id="9841ed75ab22fd29222cc33f714541c3" category="paragraph">VMware vSphere 是一種虛擬化平台、可將實體資源轉換成運算、網路和儲存資源池、以滿足客戶的工作負載和應用程式需求。VMware vSphere 的主要元件包括：</block>
@@ -19457,8 +19447,6 @@ ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一�
   <block id="3b0f92038b718d9310b4822e190f2ea9" category="paragraph">* 與混合雲服務 * 整合：此功能有助於在內部部署工作負載與雲端工作負載之間順暢轉換。</block>
   <block id="d9c04e38b95a4f64f99b1e706b74e215" category="paragraph">* 整合式 Kubernetes Runtime * ：隨附 Tanzu 、 vSphere 8.0 可簡化容器協調作業。</block>
   <block id="02ad284966c2817bfc9c5d9210bb5af6" category="inline-link">vSphere 8 的新增功能</block>
-  <block id="518e47c93e69d4a174cdafdf8a9414e3" category="paragraph">如需詳細資訊、請參閱部落格：<block ref="6c0e9abec6dc681507978a831ea0e777" category="inline-link-rx"></block></block>
-  <block id="50fcabb98fa7ab9b2e9c945050fb4730" category="paragraph">VVols 是 vSphere 叢集中創新的儲存管理方法、可簡化管理、並更精細地控制儲存資源。在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 VMware API for Storage Aware （ VASA ）提供者進行、讓儲存系統能夠識別 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。</block>
   <block id="d622652399002a7028cbce65d4dbda27" category="paragraph">VVols 是一種簡化的儲存管理方法、在某些使用案例中較為偏好。</block>
   <block id="393f36eae2cbaf3ab2126633ce399282" category="inline-link">VVols 入門指南</block>
   <block id="3082269ca4479ee6e0cd860efa66ceb4" category="paragraph">如需 VVols 的詳細資訊、請參閱<block ref="a8334a213edf76a5b910674ca75c27b3" category="inline-link-rx"></block>。</block>
@@ -19560,7 +19548,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="63ed5102f407af8ed9f05b2f5ea2e1f3" category="paragraph">SnapCenter 外掛程式可在 NetApp 儲存陣列上協調虛擬機器的停止、並搭配硬體型快照。SnapMirror 技術可用於將備份複本複寫到雲端中的次要儲存系統。</block>
   <block id="609c561339999562beedaf58644c3b92" category="paragraph">如需詳細資訊、請參閱<block ref="fd09d840cdc38c5c49b0c677f2a8e284" category="inline-link-rx"></block>。</block>
   <block id="44e57e00f55c3c7bc1288367a36e3504" category="paragraph">BlueXP 整合可實現 3-2-1 備份策略、將資料複本延伸到雲端的物件儲存。</block>
-  <block id="aae60b14d60420f7e28ea45710bbb10f" category="paragraph">如需更多關於 BlueXP 的 3-2-1 備份策略的資訊、請造訪<block ref="03d75d8eabdbf0203a534d12a18ae5b7" category="inline-link-rx"></block>。</block>
   <block id="7b74c6344c00414d3cdec5caa25b8c7a" category="paragraph">NetApp Cloud Insights 簡化內部部署和雲端基礎架構的觀察、並提供分析和疑難排解功能、協助解決複雜的問題。Cloud Insights 的運作方式是從資料中心環境收集資料、然後將資料傳送至雲端。這是透過本機安裝的軟體（稱為「擷取單元」）、以及啟用資料中心資產的特定收集器來完成。</block>
   <block id="2ebcc887856b1f0f8e07b2ae22a11dc3" category="paragraph">Cloud Insights 中的資產可以加上附註、以提供組織及分類資料的方法。您可以使用各種 Widget 來建立儀表板、以顯示資料、並可建立度量查詢、以供詳細的資料表格式檢視。</block>
   <block id="bbade6161059fb94b024211369b13b58" category="paragraph">Cloud Insights 隨附大量現成的儀表板、有助於在特定類型的問題領域和資料類別中歸零。</block>
@@ -19981,4 +19968,14 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="3a516056fd5d0047684222dc0a7805ae" category="paragraph">隨著每個 NFSv3 資料存放區的連線數量增加、可裝載於該 vSphere 主機上的 NFS 資料存放區數量也會減少。每個 vSphere 主機支援的連線總數為 256 個。檢查 <block ref="d75d1c1247a51175ceaa5837dc1dae33" category="inline-link-macro-rx"></block> 適用於每個 vSphere 主機的資料存放區限制。</block>
   <block id="3689679bbefbc2ba446cce4674849fa3" category="admonition">VVOL 資料存放區不支援 nConnect 功能。但是、傳輸協定端點會計入連線限制。建立 vVol 資料存放區時、會為 SVM 的每個資料 LIF 建立一個傳輸協定端點。</block>
   <block id="6fe78fbb29bed287952ede829b7529d4" category="sidebar">n 使用 NetApp 和 VMware 連接功能</block>
+  <block id="46c4d9bfa1c229940459326940489ab0" category="inline-link">VMware vSphere文件的相關工具ONTAP</block>
+  <block id="29c47efbd8bbf63e61c46ec3cdc0b75a" category="paragraph">如需適用於 VMware 的 NetApp ONTAP 工具的詳細資訊、請參閱<block ref="20b60c31d47f743ee9878127e24d7f6c" category="inline-link-rx"></block>。</block>
+  <block id="a85dadcd951e9bebb0adc5c488afcd45" category="list-text">在 ONTAP 工具中建立 VVols 資料存放區。</block>
+  <block id="a3ac4ecc74a6b0ee53f6bb96ea0ba893" category="list-text">在 vVol 資料存放區上建立新的虛擬機器。</block>
+  <block id="8b79830a0101dcf4e323b785f8162808" category="paragraph">近 20 年來、 NetApp ONTAP 軟體已成為 VMware vSphere 環境的主要儲存解決方案、持續推出創新功能、可簡化管理並降低成本。NetApp 是 NAS 與統一化儲存平台開發領域的公認領導者、提供廣泛的傳輸協定與連線支援。除了這個市場區隔之外、還有許多客戶偏好以區塊型 SAN 儲存平台的簡易性和成本效益、而這些平台則專注於做好一項工作。NetApp 的 All Flash SAN Array （ ASA ）能夠以大規模的簡易性和一致的管理與自動化功能、為所有應用程式和雲端供應商提供上述承諾。</block>
+  <block id="d9da6c2a7de58f678321e8645884a4c7" category="paragraph">在本文件中、我們將說明搭配 VMware vSphere 使用 NetApp ASA 儲存系統的獨特價值、並提供 NetApp All Flash SAN 陣列的技術概觀。此外、我們也會探討其他工具、以簡化儲存資源配置、資料保護、以及監控 VMware 和 ONTAP 資料中心。</block>
+  <block id="021c111410060ac655a707029dd278a7" category="paragraph">本文件的部署區段涵蓋使用適用於 VMware vSphere 的 ONTAP 工具建立 vVol 資料存放區、以及使用 NetApp Cloud Insights 建立現代化資料中心的觀察功能。</block>
+  <block id="574bee4cc8ebe398e103e2a02c1ab460" category="paragraph">如需詳細資訊、請參閱部落格：<block ref="6c0e9abec6dc681507978a831ea0e777" category="inline-link-rx"></block>。</block>
+  <block id="a846eb98bc1cde598651dd6e83c67dbe" category="paragraph">VVols 是 vSphere 叢集中創新的儲存管理方法、可簡化管理、並更精細地控制儲存資源。在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 * VMware API for Storage aware （ VASA ） * 供應商進行、並可讓儲存系統瞭解 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。</block>
+  <block id="e2e58b8de23019071fea5cee3b65927c" category="paragraph">如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪<block ref="03d75d8eabdbf0203a534d12a18ae5b7" category="inline-link-rx"></block>。</block>
 </blocks>
