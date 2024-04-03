@@ -119,7 +119,7 @@ image::automation_ora_aws-fsx_iscsi_archit.png[此映像提供在 AWS 公有雲�
 
 * * Oracle 資料庫儲存配置。 * 在這項自動化 Oracle 部署中、我們預設會配置四個資料庫磁碟區來主控 Oracle 二進位、資料和記錄檔。磁碟區中的單一 LUN 會分配給 Oracle 二進位。然後我們會從資料和記錄 LUN 建立兩個 ASM 磁碟群組。在 +data asm 磁碟群組中、我們會在一個磁碟區中配置兩個資料磁碟區和兩個 LUN 。在 +logs asm 磁碟群組中、我們會在記錄磁碟區中建立兩個 LUN 。在 ONTAP 磁碟區內配置多個 LUN 、整體效能更佳。
 * * 部署多部 DB 伺服器。 * 自動化解決方案可在單一 Ansible 教戰手冊中、將 Oracle 容器資料庫部署至多部 DB 伺服器。無論資料庫伺服器的數量為何、教戰手冊的執行方式都會維持不變。您可以將多個容器資料庫部署到具有不同資料庫執行個體 ID （ Oracle SID ）的單一 EC2 執行個體。但請確保主機上有足夠的記憶體來支援部署的資料庫。
-* * iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫尖峰 I/O 處理量需求、以便選擇同時符合應用程式和 iSCSI 流量處理量需求的正確 EC2 運算執行個體。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。
+* * iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫尖峰 I/O 處理量需求、以便選擇同時符合應用程式和 iSCSI 流量處理量需求的正確 EC2 運算執行個體。此外、 AWS EC2 通常會將每個 TCP 流量限制為 5 Gbps 。每個 iSCSI 路徑都提供 5 Gbps （ 625 Mbps ）的頻寬、可能需要多個 iSCSI 連線才能支援更高的處理量需求。
 * * 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 因為 Amazon FSX ONTAP 已啟用 HA 、可在叢集磁碟層級提供資料保護、因此您應該使用 `External Redundancy`，這表示該選項不允許 Oracle ASM 鏡像磁碟群組的內容。
 * * 資料庫備份。 * NetApp 提供 SnapCenter 軟體套件、以方便使用者的 UI 介面進行資料庫備份、還原及複製。NetApp 建議實作這樣的管理工具、以快速（在一分鐘內）備份快照、快速（分鐘）資料庫還原及資料庫複製。
 

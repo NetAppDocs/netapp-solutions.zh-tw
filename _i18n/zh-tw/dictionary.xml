@@ -2756,8 +2756,6 @@
   <block id="1531cb3c2d4db27dcd3bfa2ad4711ec5" category="list-text">在AWS中建立CVO執行個體</block>
   <block id="2f159b717f78e9925b219e87cbd20f9a" category="list-text">將內部部署的叢集新增至Cloud Manager</block>
   <block id="df16a1e23dbbcc2f19f07ab1af741617" category="list-text">在來源上建立叢集間LIF</block>
-  <block id="d1f660bb2bff2f31a46c751115155999" category="list-text">第1部分：待定</block>
-  <block id="1ee2253d8fe666dbea54ab3648a62511" category="list-text">第2部分：待定</block>
   <block id="68eff5f8d34b801d40ab55f098bc6478" category="inline-link-macro">請參閱此處以瞭解解決方案的使用入門</block>
   <block id="e5dec240e8be4a30564a7e8ddc0d568a" category="list-text">準備好之後、按一下 <block ref="a171481e1cde5211da297c03090cb7ce" category="inline-link-macro-rx"></block>。</block>
   <block id="64899c745691f41e5b1dc01d3a4487d2" category="summary">本節說明Azure NetApp Files 當在雲端使用SQL Server時、您應該考慮的不同問題。</block>
@@ -8131,7 +8129,6 @@
   <block id="699700175d80778f1738d906ee9540d5" category="sidebar">入門與需求</block>
   <block id="210fdbe41d80b2e8690a970de86a7ffb" category="sidebar">自動化Oracle 19c AWX/Tower部署</block>
   <block id="13cf6478a61a7904a3062d587248fb75" category="sidebar">自動化Oracle 19c CLI部署</block>
-  <block id="12367669ba6a0b6e059b69b5a95f2902" category="sidebar">Oracle資料庫資料保護</block>
   <block id="3e9d3644ee18a66c51ddd16b668eaa5a" category="sidebar">自動化Oracle資料保護</block>
   <block id="82be90bcfc8fd03855e030edaa25583a" category="sidebar">自動Oracle Data Protection for AWX/Tower</block>
   <block id="bc113eb23aa0579a5e1d93e97ca13635" category="sidebar">NetApp EF系列上的Oracle資料庫</block>
@@ -8400,7 +8397,6 @@
   <block id="a6c34625dcf8367e84732b5219f81cb7" category="list-text">*開發然後發佈。*內部部署可在應用程式開發期間使用、以便在公開於雲端上使用之前、先在本機資料中心的隱私環境中測試應用程式。</block>
   <block id="4418ae814387892bd88d45091a182234" category="list-text">* vSphere High Availability。*為了避免主機故障時發生中斷、VMware vSphere允許將主機叢集化並設定為高可用度。由於主機故障而中斷的VM會在叢集中的其他主機上、於近期重新開機、以還原服務。</block>
   <block id="696c660ff8d9323e55146a6dbd4e4088" category="section-title">作業系統</block>
-  <block id="69da39b403ff0537d2282cb291d4397c" category="paragraph">VMware上的Anthos叢集可部署至客戶選擇的vSphere 6和7環境、以協助符合其目前的資料中心基礎架構。</block>
   <block id="23d300c91b3d48f94c1e7f5953ad3e5e" category="cell">7.0U3</block>
   <block id="89f7e5d7117ac9eb1ece116273f5f012" category="paragraph">為了完成以NetApp為完整驗證解決方案的Anthos部署、NetApp與合作夥伴工程師已測試網路與儲存設備的其他資料中心元件。</block>
   <block id="fe02a8fc8838381700e175498b8e1db0" category="cell">Mellanox</block>
@@ -16739,9 +16735,7 @@
   <block id="718b7fcd61673194858446821c8dea31" category="list-text"><block ref="718b7fcd61673194858446821c8dea31" category="inline-link-macro-rx"></block></block>
   <block id="c6960ae743737cb2431e58eb8f3f4c8c" category="inline-link-macro">vSphere 上的 Kubernetes （第 2 部分）</block>
   <block id="6f01eedbaa404894cc11e49fa3f62506" category="list-text"><block ref="6f01eedbaa404894cc11e49fa3f62506" category="inline-link-macro-rx"></block></block>
-  <block id="4075bbf4578ffc77ff6b5286e539aafc" category="cell">8.01</block>
   <block id="1a3a2b5e6c52142797bb5c00594e2a3c" category="cell">23.04</block>
-  <block id="6d7f176a0fc1f875832f44d7e99c669e" category="paragraph"><block ref="6d7f176a0fc1f875832f44d7e99c669e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="7d27ef580e2b25090157af5d439420b3" category="cell">2023 年 11 月 7 日</block>
   <block id="5e164a0091363c6e0b1da21420856dc0" category="cell">更新 TR - 4947 ： Apache Kafka with FSxN</block>
   <block id="66ed0c3109a99ed48b8e19b3ea3e112e" category="video-title">將 FSxN 與 Astra Trident 整合至 ROSA 叢集</block>
@@ -18823,7 +18817,6 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="53c4eb7bf80a61459560a0d2c63d513a" category="cell">Amazon FSX ONTAP 檔案系統上的 iSCSI LUN</block>
   <block id="94b06bafed4a2fc40a5a6d7e8836f0e6" category="list-text">* Oracle 資料庫儲存配置。 * 在這項自動化 Oracle 部署中、我們預設會配置四個資料庫磁碟區來主控 Oracle 二進位、資料和記錄檔。磁碟區中的單一 LUN 會分配給 Oracle 二進位。然後我們會從資料和記錄 LUN 建立兩個 ASM 磁碟群組。在 +data asm 磁碟群組中、我們會在一個磁碟區中配置兩個資料磁碟區和兩個 LUN 。在 +logs asm 磁碟群組中、我們會在記錄磁碟區中建立兩個 LUN 。在 ONTAP 磁碟區內配置多個 LUN 、整體效能更佳。</block>
   <block id="515a6f662581dbf5fadf71e23b6029a6" category="list-text">* 部署多部 DB 伺服器。 * 自動化解決方案可在單一 Ansible 教戰手冊中、將 Oracle 容器資料庫部署至多部 DB 伺服器。無論資料庫伺服器的數量為何、教戰手冊的執行方式都會維持不變。您可以將多個容器資料庫部署到具有不同資料庫執行個體 ID （ Oracle SID ）的單一 EC2 執行個體。但請確保主機上有足夠的記憶體來支援部署的資料庫。</block>
-  <block id="799dcf0ac999758102eda5ceb490c092" category="list-text">* iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫尖峰 I/O 處理量需求、以便選擇同時符合應用程式和 iSCSI 流量處理量需求的正確 EC2 運算執行個體。NetApp 也建議將四個 iSCSI 連線分配給兩個 FSX iSCSI 端點、並正確設定多重路徑。</block>
   <block id="e20408188cf4521115d65495b7b67a54" category="list-text">* 您所建立的每個 Oracle ASM 磁碟群組都要使用 Oracle ASM 備援層級。 * 因為 Amazon FSX ONTAP 已啟用 HA 、可在叢集磁碟層級提供資料保護、因此您應該使用<block ref="1f9ad4982cbae9fb459c61ba4e63bac9" prefix=" " category="inline-code"></block>，這表示該選項不允許 Oracle ASM 鏡像磁碟群組的內容。</block>
   <block id="6775f2209818a69f1e1e3a6ed8b4aecf" category="paragraph">以下各節提供在 Amazon FSX ONTAP 檔案系統上進行自動化 Oracle 19c 部署和保護的逐步程序、透過 iSCSI 將直接掛載的資料庫 LUN 直接安裝至單一節點的 EC2 執行個體 VM 。重新啟動組態時、 Oracle ASM 會以資料庫 Volume Manager 的形式進行。</block>
   <block id="960e137d6acb4fa6cfda82d7568472c0" category="list-text">從 AWS EC2 主控台、將 EC2 Linux 執行個體部署為 Oracle DB 伺服器。為 EC2 使用者啟用 SSH 私密 / 公開金鑰驗證。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 <block ref="b75ecbbec453f67f58d497ccd97a8075" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
@@ -19978,4 +19971,92 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="574bee4cc8ebe398e103e2a02c1ab460" category="paragraph">如需詳細資訊、請參閱部落格：<block ref="6c0e9abec6dc681507978a831ea0e777" category="inline-link-rx"></block>。</block>
   <block id="a846eb98bc1cde598651dd6e83c67dbe" category="paragraph">VVols 是 vSphere 叢集中創新的儲存管理方法、可簡化管理、並更精細地控制儲存資源。在 vVols 資料存放區中、每個虛擬磁碟都是 vVol 、並成為儲存系統上的原生 LUN 物件。儲存系統與 vSphere 的整合是透過 * VMware API for Storage aware （ VASA ） * 供應商進行、並可讓儲存系統瞭解 VM 資料並據此進行管理。vCenter Client 中定義的儲存原則可用於分配和管理儲存資源。</block>
   <block id="e2e58b8de23019071fea5cee3b65927c" category="paragraph">如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪<block ref="03d75d8eabdbf0203a534d12a18ae5b7" category="inline-link-rx"></block>。</block>
+  <block id="6d5fb8ff3bb6388cfbd3f38fc9e6515e" category="cell">04/03/2024</block>
+  <block id="c0d6f3125de2225f0b83f6051f4afadd" category="cell">全新 TR-4990 ：快速恢復 Oracle VLDB 、並在無基礎上進行遞增式合併</block>
+  <block id="0f07773d1d3bbe9fd494333211f6feaa" category="cell">1.28.</block>
+  <block id="4e9b156e7e2788c8cd4b0877fd922657" category="cell">24.02</block>
+  <block id="ab7854373386a8b1e9ba4f90bfee6e0a" category="paragraph">VMware 上的 Antos 叢集可部署至客戶選擇的 vSphere 7 和 8 環境、以協助符合目前的資料中心基礎架構。</block>
+  <block id="0c008dad767075dab996c133e44d5d2f" category="cell">vCenter</block>
+  <block id="33fe6d8f3148d10c2ff7ce3ff095dd41" category="cell">8.0.1</block>
+  <block id="50ce33a86e6915635518e9752cf0a12f" category="cell">24.02.0</block>
+  <block id="d5be180cffbcebeed45fc66b922620ec" category="paragraph"><block ref="d5be180cffbcebeed45fc66b922620ec" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="300ff7c5525219cf0316ee35285ce086" category="summary">本解決方案提供概觀與詳細資料、可快速恢復部署至 Azure VM 運算執行個體的 Oracle VLDB 、並在 Azure NetApp Files 容量集區上安裝 NFS 、以暫存透過 RMAN 不斷遞增合併的備用資料庫複本。</block>
+  <block id="af9bda0d447d00102cfa07c616299ce9" category="doc">TR-4990 ：快速恢復 Oracle VLDB 並在無</block>
+  <block id="36c33b5f7d9b9effb307d69b5d9bbfcd" category="paragraph">如果您熱衷於 VLDB 的 SLA 、並考慮將 Oracle 資料庫移轉至公有雲（例如 Azure ）、您可以使用 Microsoft Azure NetApp Files （ anf ）等資源來設定類似的資料庫保護結構、以進行備用資料庫映像複本的暫存。在本文件中、我們將示範如何從儲存容量集區中佈建及匯出 NFS 檔案系統、以安裝在 Oracle 資料庫伺服器上、以便在發生主要儲存設備故障時、執行備用資料庫複本以快速恢復。</block>
+  <block id="7c743caa66583893abbd5fd02fcd8c44" category="list-text">Oracle VLDB 映像複本透過 RMAN 遞增合併、位於 Microsoft anf 容量集區儲存設備的 NFS 裝載點上。</block>
+  <block id="c7b169899b3bf3e517397a1e66b1f9ba" category="list-text">在同一 Azure 資料庫伺服器 VM 發生故障時、快速恢復 Oracle VLDB 。</block>
+  <block id="3ddf9d0387ffbe57231793a1a3a59444" category="list-text">在備用 Azure 資料庫伺服器 VM 發生故障時、快速恢復 Oracle VLDB 。</block>
+  <block id="96f297eca8d0059e7b41d63cbfa46bb8" category="list-text">在 Azure 中透過 RMAN 設定 Oracle VLDB 映像複本遞增合併的 DBA 、可加快資料庫恢復速度。</block>
+  <block id="86cc76cfb1ceaac3aaa0bace96f788de" category="list-text">在 Azure 公有雲中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
+  <block id="a92ab2bd86f06e76dca598f233e87f33" category="list-text">管理部署至容量集區儲存設備的 Oracle 資料庫的儲存管理員。</block>
+  <block id="96ffa3242f6ce78c662078c986d2dd13" category="list-text">想要在 Azure 雲端環境中備份 Oracle 資料庫的應用程式擁有者。</block>
+  <block id="c9d052a026f163663b788c2146e65703" category="paragraph">此解決方案的測試與驗證是在 Microsoft anf 容量集區儲存設備和 Azure VM 運算環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
+  <block id="df5be9cce2556109a991648585423150" category="image-alt">此映像提供在 Azure 公有雲與 anf 中執行 Oracle VLDB 遞增合併實作的詳細圖片。</block>
+  <block id="952ad133c322e6ea15c7668391a420d8" category="cell">ANF 儲存設備</block>
+  <block id="85dec17e5aae8074e9cc2265ba72e4f3" category="cell">Microsoft 目前提供的版本</block>
+  <block id="16f2328b190976509986f33db9227d85" category="cell">2 TiB anf 容量集區儲存設備、提供優質服務層級</block>
+  <block id="6d06f0bd5a2f3059a22e9257d7c1a905" category="cell">2 個 VM 、一個做為主要 DB 伺服器、另一個做為待命</block>
+  <block id="2e705b831fd1a05f9ff862ccde72a99f" category="list-text">* 用於 RMAN 遞增合併的 Oracle VLDB 儲存配置。 * 在我們的測試與驗證中、用於 Oracle 遞增備份與合併的 NFS 磁碟區是從單一 anf 容量集區分配、每個磁碟區有 100 TiB 、總容量上限為 1000 TiB 。針對超過臨界值的部署、可將多個磁碟區和 anf 容量集區與多個 NFS 裝載點平行串聯、以提供更高的容量。</block>
+  <block id="fa44cff8a0d3a1bde3e39afbd57dc266" category="list-text">* 使用 RMAN 遞增合併的 Oracle 可恢復性。 * RMAN 遞增備份與合併通常會根據您的 RTO 和 RPO 目標、以使用者定義的頻率執行。如果主要資料儲存和 / 或歸檔記錄檔全部遺失、資料可能會遺失。Oracle 資料庫可從 ANF 資料庫備份映像複本還原至最後一次可用的遞增備份。為了將資料遺失降至最低、可在無 NFS 裝載點上設定 Oracle Flash 恢復區域、並將歸檔記錄備份至無 NFS 裝載、以及資料庫映像複本。</block>
+  <block id="30de34c3a06eca8594944e005f614d80" category="list-text">* 在無 NFS 檔案系統上執行 Oracle VLDB 。 * 與其他用於資料庫備份的大量儲存設備不同、 Microsoft anf 是一種雲端型正式作業級儲存設備、可提供高層級的效能與儲存效率。一旦 Oracle VLDB 在 ANF NFS 檔案系統上從主要儲存設備切換至映像複本、資料庫效能就能維持在高層級、同時解決主要儲存設備故障。您可以安心地瞭解使用者應用程式體驗不會因為主要儲存設備故障而受到影響。</block>
+  <block id="98ba9c7927b5d14764e8115588d2d54d" category="list-text">* Azure 運算執行個體。 * 在這些測試與驗證中、我們使用 Standard_B4ms Azure VM 做為 Oracle 資料庫伺服器。還有其他 Azure VM 可能經過最佳化、更適合資料庫工作負載。您也需要根據實際工作負載需求、適當調整 Azure VM 的大小、以符合 vCPU 數量和 RAM 數量。</block>
+  <block id="f09ca0335aec5f261a1b868e570f0505" category="list-text">* 無容量池服務層級。 * 無容量池提供三種服務層級： Standard 、 Premium 、 Ultra 。依預設、自動 QoS 會套用至容量集區內建立的磁碟區、以限制磁碟區的處理量。磁碟區的處理量可根據容量集區和服務層級的大小來手動調整。</block>
+  <block id="4d189a9c9e5d55cc3a34938358e133d3" category="list-text">* DNFS 組態。 * DNFS 內建於 Oracle 核心、已知在 Oracle 部署至 NFS 儲存設備時、可大幅提升 Oracle 資料庫效能。DNFS 封裝為 Oracle 二進位檔案、但預設不會開啟。在 NFS 上進行任何 Oracle 資料庫部署時、都應開啟此功能。對於 VLDB 的多個 ANF 容量集區部署、應正確設定通往不同 ANF 容量集區儲存設備的 DNFS 多重路徑。</block>
+  <block id="5ae994fde73945264c47ce48647d57b2" category="paragraph">假設您已在 Vnet 內的 Azure 雲端環境中部署 Oracle VLDB 。如果您需要 Azure 中 Oracle 部署的協助、請參閱下列技術報告以取得協助。</block>
+  <block id="0f9ba0e2eb61f2970cc50a6cb6799a08" category="list-text"><block ref="0f9ba0e2eb61f2970cc50a6cb6799a08" category="inline-link-macro-rx"></block></block>
+  <block id="3870968819bfb321072190bbe14d9870" category="list-text"><block ref="3870968819bfb321072190bbe14d9870" category="inline-link-macro-rx"></block></block>
+  <block id="a3f00a7e147e7b84aa2b711174f65541" category="paragraph">您的 Oracle VLDB 可以在 ANF 儲存設備上執行、或在 Azure 雲端生態系統中選擇任何其他儲存設備。下節提供逐步部署程序、可將 RMAN 遞增合併設定為 Oracle VLDB 的映像複本、該複本會暫存於 NFS 掛載中的 ANF 儲存設備。</block>
+  <block id="dda1820cbe40a6a04b7c08135677cb5f" category="list-text">Azure 帳戶已設定完成、您的 Azure 帳戶已建立必要的 Azure vnet 和網路區段。</block>
+  <block id="ee50869919154f8e0bb1c9a79b0e68bf" category="inline-link-macro">Azure Virtual Machine 系列</block>
+  <block id="12b67dd937a6aa2aac9654fe14c80158" category="list-text">從 Azure 入口網站主控台、您必須部署兩個 Azure VM 執行個體、分別做為主要 Oracle DB 伺服器和選用的備用 DB 伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 <block ref="0bcbff73d1e13f874b4c63b6603f9a12" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="2439b2fcc93766c923093f1c217cff51" category="list-text">從 Azure 入口網站主控台部署 anf 儲存設備、以裝載儲存 Oracle 資料庫待命映像複本的 NFS 磁碟區。如果您不熟悉 anf 的部署、請參閱文件 <block ref="1bbe5611068f9dda0e0123e846af8b8b" category="inline-link-macro-rx"></block> 以取得逐步指示。</block>
+  <block id="c78f04ded81296476b99e27cfcf8b81e" category="admonition">請確定您已在 Azure VM 根 Volume 中至少分配 128G 、以便有足夠的空間來存放 Oracle 安裝檔案。</block>
+  <block id="57ce3e90b99a309ad26ec73de2896ff9" category="section-title">配置及匯出要掛載於主 Oracle VLDB 伺服器上的 NFS 磁碟區</block>
+  <block id="48e63302f12330ed309d536a92b3ff3d" category="paragraph">在本節中、我們將透過 Azure 入口網站主控台、從 ANF 容量集區配置 NFS Volume 。如果設定了多個 ANF 容量集區以容納資料庫的大小、請在其他 ANF 容量集區上重複這些程序。</block>
+  <block id="edc598e26c4191781ff6fb9a427f3e26" category="list-text">首先、從 Azure 入口網站主控台、瀏覽至用於暫存 Oracle VLDB 映像複本的 anf 容量集區。</block>
+  <block id="db13e5cf484d3e563e6a6313426b51c3" category="image-alt">此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面</block>
+  <block id="e5ba92870c86eabfee4cc4cc8bd42317" category="list-text">從所選容量集區 -<block ref="11e0eed8d3696c0a632f822df385ab3c" prefix=" " category="inline-code"></block>、按一下<block ref="c6f01c78bfe0a0a495cb5d3ed77824a9" prefix=" " category="inline-code"></block> 然後、<block ref="da20d395d0cd59983278111b9c95d6c3" prefix=" " category="inline-code"></block> 啟動附加 Volume 工作流程。</block>
+  <block id="1318d277156dfc7ca8b396a8bacab47d" category="list-text">填寫<block ref="7ffce295d6c61cb38fd76a4e505cdb33" prefix=" " category="inline-code"></block>、<block ref="d2d5c3e087f684e56b5b81d6212d7ccb" prefix=" " category="inline-code"></block>、<block ref="bf76cafc47141522dca89c4d6e25b822" prefix=" " category="inline-code"></block>和<block ref="48d32046f376779858d068d73d85f80e" prefix=" " category="inline-code"></block> 以移至<block ref="888a77f5ac0748b6c8001822417df8b6" prefix=" " category="inline-code"></block> 頁面。</block>
+  <block id="6ca80750436bdab142d2e43cd1ef42cf" category="list-text">記下檔案路徑、輸入允許的用戶端 CIDR 範圍、然後啟用<block ref="677c422f11e77a5df1d44e4f6c517954" prefix=" " category="inline-code"></block> 適用於 Volume 。</block>
+  <block id="3df3ccf0cba7ad3be7d9143f84d067b4" category="list-text">視需要新增Volume標記。</block>
+  <block id="427d09585c379ab8f0af7219a6cac2a1" category="list-text">檢閱並建立磁碟區。</block>
+  <block id="d0f312ff08c789fc7e37000b9637b9c6" category="list-text">以具有 Sudo 權限的使用者身分登入主要 Oracle VLDB 伺服器、並掛載從 anf 儲存設備匯出的 NFS 磁碟區。視需要變更為您的 ANF NFS 伺服器 IP 位址和檔案路徑。您可以從 anf Volume 主控台頁面擷取 anf NFS 伺服器 IP 位址。</block>
+  <block id="73304323457935ed833c76e67c23f068" category="section-title">在 anf 上設定 Oracle RMAN 遞增合併至影像複本</block>
+  <block id="ec95b19db84d374be749fe05dbb34147" category="list-text">以 Oracle 使用者身分登入主要 Oracle VLDB 伺服器。</block>
+  <block id="9466e78eda574ac1c2b0373b37e691eb" category="list-text">在掛載點 /nfsanf 下建立 oracopy 目錄、以儲存 Oracle 資料檔案映像複本和 Oracle Flash 恢復區域的 archlog 目錄。</block>
+  <block id="94c15d2a6c277de2e60033355a135ffd" category="list-text">透過 sqlplus 登入 Oracle 資料庫、啟用區塊變更追蹤功能、以加快遞增備份速度、並將 Oracle Flash 恢復區域變更為目前位於主要儲存設備上的 anf NFS 裝載。這可讓 RMAN 預設控制檔 / spfile 自動備份和歸檔記錄備份到 ANF NFS 掛載進行還原。</block>
+  <block id="d15e02bf0c54e008af2e8212aa7c7d4f" category="paragraph">預期輸出：</block>
+  <block id="fb6dc8561460f909af465eb0cfcfd84d" category="list-text">在主 Oracle VLDB 伺服器上、以具有或不含 RMAN 目錄的 Oracle 使用者身分、在本機登入 RMAN 。在本示範中、我們並未連線至 RMAN 目錄。</block>
+  <block id="c937bbcfc1739e03f02ce386195ec2fc" category="list-text">備份後列出資料庫映像複本、觀察是否已在 anf NFS 掛載點中建立資料庫映像複本。</block>
+  <block id="7d3185dbec5bee3286899aa1908bdbc4" category="list-text">從 Oracle RMAN 命令提示字元報告架構、觀察目前的 VLDB 資料檔案位於主要儲存設備上。</block>
+  <block id="0c6f3c70d69fdbc10889c0bf3d54d400" category="paragraph">這將完成 Oracle VLDB 待機映像複本備份與合併的設定。</block>
+  <block id="1afaba9f41e3dd6015389dd6a151412d" category="section-title">將 Oracle VLDB 切換至映像複本、以快速恢復</block>
+  <block id="dfba912cd166af4cfe8896146ef629da" category="paragraph">如果由於主要儲存問題（例如資料遺失或毀損）而發生故障、資料庫可以快速切換至 anf NFS 掛載上的映像複本、並在不進行資料庫還原的情況下恢復至目前狀態。消除媒體還原可大幅加速 VLDB 的資料庫還原。此使用案例假設 Oracle VLDB DB 伺服器完整無缺、而且資料庫控制檔、歸檔和目前的記錄都可供還原。</block>
+  <block id="15f67ba350e31e49f6aac9b603305228" category="list-text">以 Oracle 使用者身分登入 Azure 主要 VLDB 伺服器主機、並在切換之前建立測試表。</block>
+  <block id="dce3cc3b84024400ca1056239e416340" category="list-text">恢復後從 sqlplus 檢查資料庫結構、觀察除控制、暫存和目前記錄檔以外的所有 VLDB 資料檔案現在都已切換到 anf NFS 檔案系統上的複本。</block>
+  <block id="bab07f680481d370684c7c7bb3717bae" category="list-text">從 SQL Plus 、檢查我們在切換至複本之前插入的測試表格內容。</block>
+  <block id="26644cbe4753a4ade8012d2ba03e81e4" category="list-text">您可以在 ANF NFS 掛載中長時間執行 Oracle VLDB 、同時維持預期的效能等級。當主要儲存問題解決時、您可以將遞增備份合併程序還原、並將停機時間降到最低、藉此回復到 IT 。</block>
+  <block id="5a00ad02f147850c7af23fdfd27e0eaa" category="section-title">Oracle VLDB 可從映像複本恢復到備用 DB 伺服器</block>
+  <block id="17296cbb22286362e179c848e8e57295" category="paragraph">如果主儲存設備和主要 DB 伺服器主機都遺失、則無法從原始伺服器執行還原。不過、在 ANF NFS 檔案系統上提供的 Oracle 資料庫備份映像複本非常實用。您可以使用備份映像複本、將主要資料庫快速恢復至備用 DB 伺服器（如果有）。在本節中、我們將示範此類恢復的逐步程序。</block>
+  <block id="6936d296c2b811c489aca0e32d359fcd" category="list-text">插入一列以測試先前為 Oracle VLDB 所建立的表格、以還原至替代主機驗證。</block>
+  <block id="f18d7c57a5ebb3caa3ea2bfe276de7f2" category="list-text">身為 Oracle 使用者、請執行 RMAN 遞增備份並合併、將交易排清為在 anf NFS 掛載上的備份集。</block>
+  <block id="cb94a5220dfad4d0aa2f693c894fb9e9" category="list-text">關閉主要 VLDB 伺服器主機、以模擬儲存設備和 DB 伺服器主機的整體故障。</block>
+  <block id="e761e3a893aaa3520b400ce648ab8a6a" category="list-text">在具有相同作業系統和版本的備用 DB 伺服器 ora-02 上、作業系統核心應該修補為主要 VLDB 伺服器主機。此外、在備份 DB 伺服器上安裝和設定的 Oracle 版本和修補程式、只有軟體選項。</block>
+  <block id="8c37710929190bb2d41b656aeceeae08" category="list-text">類似於主 VLDB 伺服器 ora_01 （例如 oratab ）和 Oracle 使用者 .bash_profile 等）來設定 Oracle 環境 將這些檔案備份到 anf NFS 掛載點是很好的做法。</block>
+  <block id="62b6592dd07cf67430eb62e8fa7a1134" category="list-text">然後、在 ANF NFS 檔案系統上的 Oracle 資料庫備份映像複本會掛載到備用 DB 伺服器上進行還原。下列程序將示範程序的詳細資料。</block>
+  <block id="d7ee3226eda2c84f098cd207f0d54f24" category="paragraph">身為 azueruser 、請建立掛載點。</block>
+  <block id="ad8e2a2e998153fae9d61ff8f9d9f743" category="paragraph">身為 azureuser 、裝載儲存 Oracle VLDB 備份映像複本的 NFS 磁碟區。</block>
+  <block id="57037eb23ec9213da633092ef5499d2e" category="list-text">在 anf NFS 掛載點上驗證 Oracle 資料庫備份映像複本。</block>
+  <block id="ebb08557fe1c4afb90525797dd43db2e" category="list-text">驗證 anf NFS 掛載上的可用 Oracle 歸檔記錄以進行恢復、並記下最後一個記錄檔日誌續期編號。在這種情況下、是 10 。我們的恢復點是記錄續期數字 11 。</block>
+  <block id="a4182a7080e9f6f2151069ccb62a5457" category="list-text">以 Oracle 使用者身分、將 Oracle_home 變數設為待機 DB 伺服器 ora-02 上目前的 Oracle 安裝、將 oracle_sID 設為主要 Oracle 執行個體 SID 。在這種情況下、它是 NTAP1 。</block>
+  <block id="a0cf68f6b5b4902668150f7bd93de702" category="list-text">身為 Oracle 使用者、請在 $Oracle_home/DBS 目錄中建立通用的 Oracle 初始化檔案、並設定適當的管理目錄。最重要的是、擁有 Oracle<block ref="54205e08f5455705eb7a595f7e4f620f" prefix=" " category="inline-code"></block> 指向主要 Oracle VLDB 伺服器中定義的 anf NFS 裝載路徑。 <block ref="54205e08f5455705eb7a595f7e4f620f" prefix=" " category="inline-code"></block> 組態將在章節中示範<block ref="73304323457935ed833c76e67c23f068" prefix=" " category="inline-code"></block>。將 Oracle 控制檔設定為 anf NFS 檔案系統。</block>
+  <block id="a43978f8f72cfac9215264289dc0bbc5" category="paragraph">如果存在差異、應將上述初始化檔案替換為從主要 Oracle VLDB 伺服器還原的備份初始化檔案。</block>
+  <block id="763216a4e00351ecca33c64834ed517e" category="list-text">身為 Oracle 使用者、請啟動 RMAN 、以便在備用 DB 伺服器主機上執行 Oracle 恢復。首先、在中啟動 Oracle 執行個體<block ref="b407a7f2e317a40388660332475e7643" prefix=" " category="inline-code"></block> 州/省。</block>
+  <block id="8d54569996869aecad559c10bb1e2c87" category="list-text">設定資料庫 ID 。資料庫 ID 可從 ANF NFS 掛載點上的影像複本 Oracle 檔案名稱擷取。</block>
+  <block id="a36331bab1648a62444eb296287a6fdc" category="list-text">將初始化檔案從 spfile 還原至 /tmp 資料夾、以便稍後更新參數檔案、以符合主要 VLDB 。</block>
+  <block id="245c0febb36259f78725542aabcf3a2c" category="list-text">驗證還原至新主機的資料庫結構、以及我們在主要 VLDB 故障之前插入的測試列。</block>
+  <block id="5cfbf4ac8374e1dd5933aecbf7073072" category="list-text">丟棄無效的 tempfiles 並將新的 tempfiles 新增至暫存資料表空間。</block>
+  <block id="b254731bf46f569e3541aea574a9240f" category="paragraph">如此即可完成 Oracle VLDB 資料庫從 ANF NFS 檔案系統上的備份映像複本還原至備用 DB 伺服器主機。</block>
+  <block id="d54a80e2830c5cb42b06497a7012bf36" category="list-text">* iSCSI 組態。 * EC2 執行個體資料庫伺服器會使用 iSCSI 傳輸協定連線至 FSX 儲存設備。EC2 執行個體通常使用單一網路介面或 ENI 進行部署。單一 NIC 介面可同時傳輸 iSCSI 和應用程式流量。請務必仔細分析 Oracle AWR 報告、以評估 Oracle 資料庫尖峰 I/O 處理量需求、以便選擇同時符合應用程式和 iSCSI 流量處理量需求的正確 EC2 運算執行個體。此外、 AWS EC2 通常會將每個 TCP 流量限制為 5 Gbps 。每個 iSCSI 路徑都提供 5 Gbps （ 625 Mbps ）的頻寬、可能需要多個 iSCSI 連線才能支援更高的處理量需求。</block>
+  <block id="c90c43251c42b6636335f78ddce9094b" category="sidebar">快速恢復 Oracle VLDB 、並在無基礎上增加合併功能</block>
 </blocks>
