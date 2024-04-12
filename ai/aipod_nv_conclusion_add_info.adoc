@@ -19,7 +19,7 @@ link:aipod_nv_validation_sizing.html["上一篇： NetApp AIPod 搭配 NVIDIA DG
 
 == 結論
 
-DGX BasePOD 架構是新一代的深度學習平台、需要同樣進階的儲存與資料管理功能。透過將 DGX BasePOD 與 NetApp AFF 系統結合、 NetApp AIPod 架構幾乎可在任何規模上實作、從 OEM 伺服器中的單一 GPU 、搭配 AFF A250 儲存系統、在 24 節點 AFF A900 叢集上最多可達 48 個 DGX H100 系統。AFF 結合 NetApp ONTAP 優異的雲端整合功能和軟體定義功能、提供跨越邊緣、核心和雲端的完整資料傳輸管道、讓 DL 專案成功完成。
+DGX BasePOD 架構是新一代的深度學習平台、需要同樣進階的儲存與資料管理功能。透過將 DGX BasePOD 與 NetApp AFF 系統結合、 NetApp AIPod 與 DGX 系統架構幾乎可在 24 節點 AFF A900 叢集上以任何規模實作、最多可擴充至 48 個 DGX H100 系統。AFF 結合 NetApp ONTAP 優異的雲端整合功能和軟體定義功能、提供跨越邊緣、核心和雲端的完整資料傳輸管道、讓 DL 專案成功完成。
 
 
 
@@ -47,21 +47,33 @@ https://github.com/NetApp/netapp-dataops-toolkit["https://github.com/NetApp/neta
 +
 https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_overview_trident.html["https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_overview_trident.html"^]
 
-* ONTAP AI - 採用 NVIDIA DGX A100 系統的 NetApp 驗證架構
+* NetApp GPUDirect 儲存部落格 -
 +
-https://docs.netapp.com/us-en/netapp-solutions/ai/ontap-ai-overview.html["https://docs.netapp.com/us-en/netapp-solutions/ai/ontap-ai-overview.html"^]
+https://www.netapp.com/blog/ontap-reaches-171-gpudirect-storage/["https://www.netapp.com/blog/ontap-reaches-171-gpudirect-storage/"]
 
-* NVIDIA BasePOD
+* NVIDIA DGX基礎POD
 +
 https://www.nvidia.com/en-us/data-center/dgx-basepod/["https://www.nvidia.com/en-us/data-center/dgx-basepod/"^]
 
-* NVIDIA DGX A100 系統
+* NVIDIA DGX H100 系統
 +
-https://www.nvidia.com/en-us/data-center/dgx-a100/["https://www.nvidia.com/en-us/data-center/dgx-a100/"^]
+https://www.nvidia.com/en-us/data-center/dgx-h100/["https://www.nvidia.com/en-us/data-center/dgx-h100/"^]
 
 * NVIDIA Networking
 +
 https://www.nvidia.com/en-us/networking/["https://www.nvidia.com/en-us/networking/"^]
+
+* NVIDIA Magnum IO GPUDirect 儲存設備
++
+https://docs.nvidia.com/gpudirect-storage["https://docs.nvidia.com/gpudirect-storage"]
+
+* NVIDIA Base Command
++
+https://www.nvidia.com/en-us/data-center/base-command/["https://www.nvidia.com/en-us/data-center/base-command/"]
+
+* NVIDIA Base Command Manager
++
+https://www.nvidia.com/en-us/data-center/base-command/manager["https://www.nvidia.com/en-us/data-center/base-command/manager"]
 
 * NVIDIA AI Enterprise
 +
@@ -73,4 +85,4 @@ https://www.nvidia.com/en-us/data-center/products/ai-enterprise/["https://www.nv
 
 == 感謝
 
-本文件為 NetApp 解決方案與 ONTAP 工程團隊的工作成果： David Arnette 、 Olga Kornievskaia 、 Dustin Fischer 、 Srikanth Kaligotla 、 Mohit Kumar 和 Rajeev Badrinath 。作者也想感謝 NVIDIA 和 BasePOD 工程團隊持續提供支援。
+本文件為 NetApp 解決方案與 ONTAP 工程團隊的工作成果： David Arnette 、 Olga Kornievskaia 、 Dustin Fischer 、 Srikanth Kaligotla 、 Mohit Kumar 和 Rajeev Badrinath 。作者也想感謝 NVIDIA 和 NVIDIA DGX BasePOD 工程團隊持續提供支援。

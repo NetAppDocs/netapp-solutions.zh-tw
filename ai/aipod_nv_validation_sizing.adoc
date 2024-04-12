@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ai/aipod_nv_validation_sizing.html 
 keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVIDIA BasePOD, NVIDIA DGX 
-summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 結論 
+summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 解決方案驗證與規模調整指南 
 ---
 = NetApp AIPod 搭配 NVIDIA DGX 系統 - 解決方案驗證與規模調整指南
 :hardbreaks:
@@ -41,8 +41,9 @@ link:aipod_nv_architecture.html["上一篇：採用 NVIDIA DGX 系統的 NetApp 
 
 == 儲存系統規模調整指南
 
-根據上述測試、 NVDIIA 已證實所測試的儲存組態可輕鬆支援八個 DGX H100 系統的叢集。對於儲存效能需求較高的大型部署、可在單一叢集中新增最多 12 個 HA 配對（ 24 個節點）的額外 AFF 系統至 NetApp ONTAP 叢集。使用本解決方案所述的 FlexGroup 技術、 24 節點叢集可在單一命名空間中提供 40 PB 以上的資料傳輸量、以及高達 300 Gbps 的傳輸量。其他 NetApp 儲存系統（例如 AFF A400 、 A250 和 C800 ）則提供較低的效能和 / 或較高的容量選項、以較低的成本進行較小型的部署。由於 ONTAP 9 支援混合模式叢集、因此客戶可以從較小的初始佔用空間開始、並在容量和效能需求增加時、將更多或更大的儲存系統新增至叢集。下表顯示每個 AFF 機型所支援的 A100 和 H100 GPU 數量的粗略估計值。
+NetApp 已成功完成 DGX BasePOD 認證、兩對通過測試的 A900 HA 可輕鬆支援八個 DGX H100 系統的叢集。對於儲存效能需求較高的大型部署、可在單一叢集中新增最多 12 個 HA 配對（ 24 個節點）的額外 AFF 系統至 NetApp ONTAP 叢集。使用本解決方案所述的 FlexGroup 技術、 24 節點叢集可在單一命名空間中提供 40 PB 以上的資料傳輸量、以及高達 300 Gbps 的傳輸量。其他 NetApp 儲存系統（例如 AFF A400 、 A250 和 C800 ）則提供較低的效能和 / 或較高的容量選項、以較低的成本進行較小型的部署。由於 ONTAP 9 支援混合模式叢集、因此客戶可以從較小的初始佔用空間開始、並在容量和效能需求增加時、將更多或更大的儲存系統新增至叢集。下表顯示每個 AFF 機型所支援的 A100 和 H100 GPU 數量的粗略估計值。
 
-image:aipod_nv_sizing.png["錯誤：缺少圖形影像"]
+NetApp 儲存系統規模調整指南 _
+image:aipod_nv_sizing_new.png["錯誤：缺少圖形影像"]
 
 link:aipod_nv_conclusion_add_info.html["下一步：採用 NVIDIA DGX 系統的 NetApp AIPod - 結論與其他資訊"]
