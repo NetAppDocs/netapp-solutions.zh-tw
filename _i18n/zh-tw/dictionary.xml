@@ -20214,10 +20214,6 @@ ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。</block>
 <block ref="593072cec0260f2bb27124338ab043c0" category="inline-link-macro-rx"></block>
 <block ref="6968e35abd1952220c77606158074b41" category="inline-link-macro-rx"></block>
 <block ref="ef09cb46023a74a11707df91db2b15f5" category="inline-link-macro-rx"></block></block>
-  <block id="0146176b0348d74f15a3409a6a4921fc" category="paragraph">側邊列：側邊列
-永久連結： AI / aipod_nv_hw_components.html
-關鍵字： NetApp AI 、 AI 、人工智慧、 ML 、機器學習、 NVIDIA 、 NVIDIA AI Enterprise 、 NVIDIA BasePOD 、 NVIDIA DGX
-摘要： NetApp AIPod 搭配 NVIDIA DGX 系統 - 硬體元件</block>
   <block id="c3ae34e32e1b64f47fb79db64784fcd5" category="inline-link-macro">使用備份的 Astra Control Center 示範災難恢復影片</block>
   <block id="ca9d44629d70b9f7b3c3cd14440f8f24" category="paragraph"><block ref="ca9d44629d70b9f7b3c3cd14440f8f24" category="inline-link-macro-rx"></block></block>
   <block id="7dd560122213e64b542e95018ff44ab1" category="paragraph">本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）上管理 Red Hat OpenShift 的資料保護選項。</block>
@@ -20227,4 +20223,25 @@ ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。</block>
   <block id="3500ba09d0538297440ca620c9dd46bf" category="sidebar">備份</block>
   <block id="2bd339d85ee3b33e513359ce781b60cc" category="sidebar">還原</block>
   <block id="1d6394982dcf1616cecf68fcde7cdf0f" category="sidebar">刪除備份與還原</block>
+  <block id="ca9f31b430e2d1494cf56125653b71e1" category="doc">SnapCenter Oracle Clone Lifecycle Automation</block>
+  <block id="a95c751edfb266fb61714e4b56479b01" category="paragraph">客戶喜歡 NetApp ONTAP 儲存設備的 FlexClone 功能、因為它能大幅節省儲存成本。這套 Ansible 型工具套件可利用 NetApp SnapCenter 命令列公用程式、將複製的 Oracle 資料庫的設定、複製和重新整理作業自動化、以簡化生命週期管理。此工具套件適用於部署至 ONTAP 儲存設備的 Oracle 資料庫、無論是在預先設定或公有雲、皆可由 NetApp SnapCenter UI 工具管理。</block>
+  <block id="305b49cab56a63db69a75b8a90237992" category="list-text">設定 Oracle 資料庫複製規格組態檔。</block>
+  <block id="ffe89dfaf822383b1610d2235661b139" category="list-text">根據使用者定義的排程建立及重新整理 Oracle 資料庫複本。</block>
+  <block id="5a82f1374e653dd60890a248f3da4afa" category="list-text">使用 SnapCenter 管理 Oracle 資料庫的 DBA 。</block>
+  <block id="eeb8bce8b54b9d524c33c1838a0d56ff" category="list-text">使用 SnapCenter 管理 ONTAP 儲存設備的儲存管理員。</block>
+  <block id="d2d0cadcec645d853fb3c7ebf1705d31" category="list-text">可存取 SnapCenter UI 的應用程式擁有者。</block>
+  <block id="ec26bffdac6e146ef20365de82135a71" category="section-title">Ansible 目標主機檔案組態</block>
+  <block id="c57304a243a04357bd7b6a14b757cb11" category="paragraph">此工具套件包含主機檔案、可定義 Ansible 教戰手冊執行的目標。通常是目標 Oracle 複製主機。以下是範例檔案。主機項目包括目標主機 IP 位址和 ssh 金鑰、讓管理員使用者存取主機以執行 clone 或 refresh 命令。</block>
+  <block id="f4516853063c4206701e5aa89787feaa" category="paragraph">#Oracle 複製主機</block>
+  <block id="dd5cc97aa774a3a1c065bbb01fcf3e7d" category="paragraph">Ansible 教戰手冊可從數個可變檔案中取得可變的輸入。以下是通用變數檔案 vars.yml 的範例。</block>
+  <block id="a4f107861ae1069b802d4818e857efeb" category="paragraph">主機變數是在主機 _vars 目錄中定義、名稱為 ｛ ｛ host_name ｝ ｝ 。 yml 。以下是目標 Oracle 主機變數檔案 ora_04.cie.netapp.com.yml 的範例、顯示典型組態。</block>
+  <block id="b9221ffda439eb4a537f8bb3073871aa" category="section-title">額外的複製目標 Oracle 伺服器組態</block>
+  <block id="d94c052d91f30fa14b5db2ac2139bda3" category="paragraph">Clone 目標 Oracle 伺服器應安裝和修補與來源 Oracle 伺服器相同的 Oracle 軟體堆疊。Oracle 使用者 .bash_profile 有 $oracle_base 、並已設定 $oracle_home 。此外、 $oracle_home 變數應與來源 Oracle 伺服器設定相符。以下是範例。</block>
+  <block id="9ed50a56f8c83c496fdb2d3fe909497f" category="paragraph">使用 SnapCenter CLI 公用程式執行 Oracle 資料庫複製生命週期總共有三本教戰手冊。</block>
+  <block id="56f060833065e38dfd98d52734f5c81c" category="list-text">安裝 Ansible 控制器先決條件 - 僅一次。</block>
+  <block id="230f70b0a7d8d86c8ea52493d17f962f" category="list-text">設定複製規格檔案 - 僅一次。</block>
+  <block id="6a1fa0bf47a6db0c3d4281d1316fd9e0" category="list-text">使用 Shell 指令碼定期從 crontab 建立及重新整理複製資料庫、以呼叫重新整理教戰手冊。</block>
+  <block id="8aafbc88c398f3b5492811671ba656ad" category="paragraph">對於其他複製資料庫、請建立個別的 clone _n_setup.yml 和 clone n_refresh.yml 、以及 clone n_refresh.sh 。相應地在 host_vars 目錄中配置 Ansible 目標主機和 hostname.yml 文件。</block>
+  <block id="465d2a2dc0602710238ac36717c64844" category="cell">04/17/2024</block>
+  <block id="2de363e9c11e72fe1c95728c8cf3e449" category="sidebar">SnapCenter Oracle Clone 生命週期</block>
 </blocks>
