@@ -20089,46 +20089,25 @@ DGX H100 CPU 匣的後端連接埠如下所示。四個 OFP 連接埠可為 Infi
   <block id="2efc3fc2b37d3580270c66f09bb57f3f" category="cell">2024 年 4 月 16 日</block>
   <block id="db2f9342403e0e147464a85b899ec12c" category="cell">Red Hat OpenShift 虛擬化</block>
   <block id="f4efc57f099da586ee9e764c4aef9527" category="cell">在 OpenShift 虛擬化中新增用於虛擬機器資料保護的新內容</block>
-  <block id="938fe00af70d53e7740eb142a2360118" category="doc">在 OpenShift 虛擬化中為 VM 建立隨選備份</block>
   <block id="a35185b73e84533fd73cfb8322fefa9c" category="section-title">建立 VM 備份的步驟</block>
   <block id="55876228853abf632dec9346a4f372ec" category="inline-link-macro">文件</block>
   <block id="f4c2b4c588235f6ac7745db472c4d9ab" category="paragraph">若要建立整個 VM 的隨需備份（ VM 中繼資料和 VM 磁碟）、請按一下「 ** 備份 ** 」標籤。這會建立備份自訂資源（ CR ）。我們提供範例 yaml 來建立備份 CR 。使用此 yaml 、將會備份指定命名空間中的 VM 及其磁碟。您可以如所示設定其他參數 <block ref="45bf4fcb30cb666d5b02b54fb671e73b" category="inline-link-macro-rx"></block>。</block>
-  <block id="d3aa4c39de3a15f84842920144c63227" category="paragraph">支援磁碟的持續磁碟區快照將由 CSI 建立、並移至 yaml 中提供的物件儲存位置。備份將保留在系統中 30 天、如 TTL 所指定。</block>
-  <block id="406af315bc6f8b734c8d71a44e399671" category="paragraph">備份完成後、其階段應顯示為「已完成」。</block>
   <block id="a2eabcbade98a44462292c4666e62044" category="image-alt">備份已完成</block>
   <block id="946a36c298d905e86e94d12bcab9ac5d" category="paragraph">您可以在 S3 瀏覽器應用程式的協助下、在物件儲存區中檢查備份。備份路徑會顯示在已設定的貯體中、其前置名稱為（ Velero/ demobackup ）。您可以查看備份內容、包括虛擬機器的磁碟區快照、記錄和其他中繼資料。</block>
   <block id="d414db715c5a0faf9dc9e0d273b68aeb" category="image-alt">S3 中的備份物件</block>
-  <block id="0b663f2c3a1f9674640f99830b524958" category="section-title">在 OpenShift 虛擬化中為 VM 建立排程備份</block>
-  <block id="0a864e5dc7f7014867414d73890ed0f5" category="paragraph">若要根據排程建立備份、您需要建立排程自訂資源。
-排程只是 Cron 運算式、可讓您指定建立備份的時間。建立排程 CR 的範例 yaml 。</block>
-  <block id="edbdc20dce82eb2f6c6bb9ee2cdc2286" category="paragraph">Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
-也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來建立指定時間和頻率的備份。</block>
-  <block id="599face14cd53a7849f684fdf7b91e65" category="paragraph">排程建立完成後、即會啟用。</block>
-  <block id="d3d6921625349c57f2e95781861ce577" category="image-alt">排程已建立</block>
-  <block id="2b8a498ff5a5d59604f3b541192e2fb4" category="paragraph">備份將根據此排程建立、並可從備份索引標籤檢視。</block>
   <block id="42deac4908a17efb438eb8235d8b5154" category="doc">從備份還原 VM</block>
   <block id="2e5000f442fd03af453e55818984dcc1" category="paragraph">若要從備份還原、請假設虛擬機器所在的命名空間遭到意外刪除。</block>
-  <block id="055b90e47586c7da0ec177582ee37d29" category="section-title">執行還原的步驟</block>
-  <block id="817bfe5a3d1ef4b919c34f1853ec0d4e" category="paragraph">若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。
-您可以如所示設定其他參數 <block ref="d4d5c1753093015ad4958595f6604080" category="inline-link-macro-rx"></block>。按一下「建立」按鈕。</block>
   <block id="1f38706eb4f3fcc34033d5f026d6870b" category="image-alt">建立還原 CR</block>
-  <block id="60b0a5917eb63a3c7cfa05f652e13885" category="paragraph">當階段顯示為完成時、您會看到虛擬機器已還原
-快照的狀態。（如果備份是在虛擬機器執行時建立、則從備份還原虛擬機器將會啟動還原的虛擬機器、並使其進入執行中狀態）</block>
-  <block id="ea3b38ec81faf9e333626090c388d6fc" category="image-alt">還原 CR 已建立</block>
   <block id="eeaf1836a10a1c281451e90f85037328" category="summary">Red Hat OpenShift NetApp ONTAP 虛擬化資料保護</block>
   <block id="39d968e9e86e45a17aaecf4eb0762d19" category="doc">OpenShift 虛擬化中的虛擬機器資料保護使用 OpenShift API 保護資料（ OADP ）</block>
-  <block id="51765431479b075297f5949865a21aa0" category="paragraph">班努 · 鬆達哈爾、 NetApp</block>
-  <block id="28e2afa019c3de78b55f070c9cc22d88" category="paragraph">本參考文件提供使用 OpenShift API for Data Protection （ OADP ）搭配 Velero 建立 VM 備份的詳細資料、並將其移至 ONTAP S3 。虛擬機器的 PVC 備份是使用 CSI Astra Trident Snapshot 建立的。</block>
   <block id="ae4c2d0da7b1da91fd7f98644678ccf9" category="paragraph">OpenShift 虛擬化環境中的虛擬機器是容器化應用程式、可在 OpenShift Container 平台的工作節點中執行。保護 VM 中繼資料以及 VM 的持續磁碟非常重要、如此一來、當它們遺失或毀損時、您就可以將它們復原。</block>
   <block id="ddf882d4f00c5a1aa695a3765e09aea4" category="inline-link-macro">Astra Trident CSI</block>
   <block id="f2a7e994212d23b2ffccc1bee676f29f" category="inline-link-macro">OpenShift API for Data Protection （ OADP ）</block>
-  <block id="ccfa4c77382c5273ed402c5536f3d52a" category="paragraph">OpenShift 虛擬化虛擬化 VM 的持續磁碟可由整合至 OpenShift 叢集的 ONTAP 儲存設備作為備份、使用 <block ref="062873b3d48316bca3a2c248dcd88de0" category="inline-link-macro-rx"></block>。在本節中、我們使用 <block ref="aae2b983a17c22c7bfaf66419d8e0186" category="inline-link-macro-rx"></block> 將虛擬機器（包括其資料磁碟區）備份至 ONTAP 物件儲存設備。接著我們會在需要時從備份還原。</block>
   <block id="645cfb8bb0213c85adb7638ec5054531" category="paragraph">OADP 可在 OpenShift 叢集上備份、還原及災難恢復應用程式。可以使用 OADP 保護的資料包括 Kubernetes 資源物件、持續磁碟區和內部映像。</block>
   <block id="57ed5e4243b7ab15efb8cc256dd4518b" category="image-alt">用於資料保護的 OpenShift API</block>
   <block id="9f8db730aab5d6b3737b3fc6e78f7615" category="inline-link-macro">Velero</block>
   <block id="fa110fea65371933396f17bbaa225240" category="paragraph">Red Hat OpenShift 已運用開放原始碼社群開發的解決方案來保護資料。 <block ref="baf3dad02604469cf9b36dfd048d949d" category="inline-link-macro-rx"></block> 是一種開放原始碼工具、可安全地備份與還原、執行災難恢復、以及移轉 Kubernetes 叢集資源與持續磁碟區。為了輕鬆使用 Velero 、 OpenShift 開發了 OADP 運算子和 Velero 外掛程式、以與 CSI 儲存驅動程式整合。公開的 OADP API 核心是以 Velero API 為基礎。安裝 OADP 運算子並進行設定後、可執行的備份 / 還原作業會根據 Velero API 所公開的作業而定。</block>
   <block id="74d684a3f25550e917b95ae9fa8fddda" category="paragraph">OADP 1.3 可從 OpenShift 叢集 4.12 及更新版本的運算中心取得。它內建 Data Mover 、可將 CSI Volume 快照移至遠端物件儲存區。如此可在備份期間將快照移至物件儲存位置、提供可攜性和耐用性。然後、快照便可在災難發生後進行還原。</block>
-  <block id="dd7ff2c535ed2c9d6721eb93c5430fba" category="paragraph">** 以下是本節中範例的元件版本 **</block>
   <block id="443be02ba2637faabbc0d68461011a3d" category="list-text">OpenShift 叢集 4.14</block>
   <block id="1bee4f1f27d6d9a577c022b39d05b420" category="list-text">OpenShift 虛擬化是透過 Red Hat 提供的 OperatorOpenShift 虛擬化運算子所安裝</block>
   <block id="27ecce8b73263f2e40c88e1f01e4d4c6" category="list-text">Red Hat 提供的 OADP 運算子 1.13</block>
@@ -20143,36 +20122,16 @@ DGX H100 CPU 匣的後端連接埠如下所示。四個 OFP 連接埠可為 Infi
   <block id="e21b4714c9959f7c9a1fa807e31c7116" category="list-text">在 OpenShift 虛擬化的命名空間中部署 VM</block>
   <block id="c93a01c0f83c7ea0609bfb2cc8f14c20" category="admonition">如果您想在 VM 處於執行中狀態時備份 VM 、則必須在該虛擬機器上安裝 QEMU 來賓代理程式。如果您使用現有範本安裝 VM 、則會自動安裝 QEMU 代理程式。QEMU 可讓來賓代理在快照程序期間、在來賓作業系統中靜態執行中資料、並避免可能的資料毀損。如果您尚未安裝 QEMU 、則可以在備份之前停止虛擬機器。</block>
   <block id="d408f71cb5fd6e747be27c658e9f7fdc" category="section-title">安裝 OADP 操作員的步驟</block>
-  <block id="15ff59f2a650db0b818fd466cd210cd4" category="list-text">前往叢集的運算子中樞、然後選取 Red Hat OADP 運算子。在「安裝」頁面中、使用所有預設選項、然後按一下「安裝」。在下一頁中、再次使用所有預設值、然後按一下「安裝」。OADP 運算子將安裝在稱為 openshift-adp 的命名空間中。</block>
   <block id="5517fb73a08c07a1960011021183897d" category="image-alt">OpenShift API 、用於在 Operator Hub 中保護資料</block>
   <block id="e3cf4023272c20d25b66b4dca774707e" category="image-alt">OpenShift API 適用於 Data Protection Operator 安裝</block>
   <block id="13f3d0c72d626d4cca010a4ad2f68b56" category="image-alt">已安裝適用於 Data Protection Operator 的 OpenShift API</block>
-  <block id="bfbf4879e848fecd05e0a49021104a4b" category="section-title">具備 ONTAP S3 詳細資料的 Velero 組態先決條件：</block>
   <block id="14bd28b66817d866e672d1cfd75ea2d7" category="inline-link-macro">ONTAP 文件的「物件儲存管理」一節</block>
   <block id="6472ef2c73ad502b7fcd59786c91dbf9" category="paragraph">操作員安裝成功後、請設定 Velero 執行個體。
 可將 Velero 設定為使用 S3 相容的物件儲存設備。使用中所示的程序來設定 ONTAP S3 <block ref="5d673d28662558605ee1703146e0f91d" category="inline-link-macro-rx"></block>。您需要 ONTAP S3 組態的下列資訊、才能與 Velero 整合。</block>
-  <block id="a9f3b7cb989ad409c2657f91615fd66b" category="list-text">可用於存取 S3 的邏輯介面（ LIF ） IP</block>
   <block id="bedf3fd9118c5ca295c1598dd4b8eddf" category="list-text">存取 S3 的使用者認證、其中包括存取金鑰和秘密存取金鑰</block>
   <block id="0dd1a3a2828692d2794be8354b1e1904" category="list-text">S3 中的貯體名稱、用於具有使用者存取權限的備份</block>
   <block id="0078beddeff16d325abdba87d72ecd51" category="list-text">為了安全存取物件儲存設備、應在物件儲存伺服器上安裝 TLS 憑證。</block>
   <block id="ff89d7533cfe0ae0aef578589170d1c7" category="section-title">設定 Velero 的步驟</block>
-  <block id="1f9f10ee404b93c7ae7bfa3e74cb28dd" category="list-text">首先、為 ONTAP S3 使用者認證建立秘密。這將用於稍後設定 Velero 。您可以從 CLI 或 Web 主控台建立機密。
-若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。
-提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。</block>
-  <block id="8c5bf85c6d105abb6861b5d17939bfad" category="image-alt">ONTAP S3 認證的秘密</block>
-  <block id="c29b12ab9caa3bb0712bff818e67788c" category="image-alt">為 ONTAP S3 認證建立秘密</block>
-  <block id="2d7075af58f91f839efcc50d05a2d271" category="admonition">若要從 CLI 建立預設的加密雲端認證、您可以使用下列命令。如果備份和快照位置使用相同的認證、您只需要建立如上所示的預設秘密。如需其他案例、請參閱 OADP 文件。</block>
-  <block id="073d8427bb7ac583740a3a778d0e5131" category="image-alt">使用 CLI 為 ONTAP S3 認證建立秘密</block>
-  <block id="89d41e5568a64a3e27a8b401c02e0741" category="list-text">接著、在「設定 Velero 」中、從「運算子」下的功能表項目中選取「已安裝的運算子」、按一下 OADP 運算子、然後選取「 DataProtectionApplication 」索引標籤。</block>
-  <block id="9008c35bfe3869440e28fa139fb2d3ec" category="image-alt">DataProtectionApplication</block>
-  <block id="39658e507fb56267a59206317ef9b26e" category="paragraph">按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。</block>
-  <block id="a190a7e1ff0a242b91e3d3a6e2c9095d" category="image-alt">建立 DataProtectionApplication</block>
-  <block id="12af820b66995e7fc70948f4bde4a610" category="paragraph">現在請前往 YAML 檢視並取代預設資訊、或新增如下 Yaml 檔案所示的資訊。</block>
-  <block id="93768d42b808f1240fffa2f905b07de1" category="paragraph">上述的 YAML 在規格中有下列章節需要適當設定、與範例類似：</block>
-  <block id="cc06d4523bd2b55a0b5dcf3f8a70503e" category="paragraph">** 備份位置 **
-ONTAP S3 （憑證和 Yaml 中顯示的其他資訊）已設定為 Velero 的預設備份位置。</block>
-  <block id="8908e767de99dfbd8f941e67124da917" category="paragraph">** 快照位置 **
-ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。</block>
   <block id="dd19c4f79c4af35933158cf34586fe93" category="paragraph">** 啟用 CSI **
 將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
 為了備份 CSI 備份的 PVCS 、 Velero CSI 外掛程式會選擇叢集中已設定 **Velero.IO/csi - volumesnapshot-class** 標籤的 Volume SnapshotClass 。針對此</block>
@@ -20180,10 +20139,7 @@ ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。</block>
   <block id="17473960c94d8c852076c1ded0ed61d4" category="list-text">編輯 Trident 快照類別的標籤、並將其設定為
 **Velero.IO/csi － volumesnapshot-class=true** 如下所示。</block>
   <block id="5b84ef6c22304abf29804f8916170efa" category="image-alt">Trident Snapshot 類別標籤</block>
-  <block id="6ac8cb1820ec8de353207d0c94f33b12" category="paragraph">確保即使刪除了 Volume Snapshot 物件、快照仍可持續存在。您可以將 delectionPolicy 設定為 Retain 、來完成這項工作。否則、刪除命名空間將會完全遺失其中備份的所有 PVC 。</block>
   <block id="243775d2bc11b8ace4a04fb1b855ce1d" category="image-alt">應將 VolumeSnapshotClass 刪除原則設定為保留</block>
-  <block id="05bd5e78c996c165b2b1a844cb7b14b8" category="paragraph">確保已建立 DataProtectionApplication 、且其狀態為：已調整。</block>
-  <block id="2c1d400031827c3d65ce20bdbb3dc8e6" category="image-alt">DataProtectionApplication 物件即會建立</block>
   <block id="910eb46960200452a3b203a9e0ccdc76" category="paragraph">OADP 操作員將建立對應的 BackupStorageLocation 。這將在建立備份時使用。</block>
   <block id="3a11516868032de940e8bc2e948be30e" category="image-alt">已建立 BackupStorageLocation</block>
   <block id="89735a04d3c597f9647cd26344ac104b" category="doc">使用 Velero 刪除備份和還原</block>
@@ -20244,4 +20200,64 @@ ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。</block>
   <block id="8aafbc88c398f3b5492811671ba656ad" category="paragraph">對於其他複製資料庫、請建立個別的 clone _n_setup.yml 和 clone n_refresh.yml 、以及 clone n_refresh.sh 。相應地在 host_vars 目錄中配置 Ansible 目標主機和 hostname.yml 文件。</block>
   <block id="465d2a2dc0602710238ac36717c64844" category="cell">04/17/2024</block>
   <block id="2de363e9c11e72fe1c95728c8cf3e449" category="sidebar">SnapCenter Oracle Clone 生命週期</block>
+  <block id="a665a0615deeadccebb2b482acba8067" category="doc">在 OpenShift 虛擬化中為虛擬機器建立隨選備份</block>
+  <block id="f5895613b4fc01023daa64f694a33785" category="paragraph">CSI 會建立作為磁碟備份的持續磁碟區快照。虛擬機器的備份及其磁碟的快照會建立並儲存在 yaml 中指定的備份位置。備份將保留在系統中 30 天、如 TTL 所指定。</block>
+  <block id="c04e0f40b83a86fd835680d3df9ce399" category="paragraph">備份完成後、其階段會顯示為「已完成」。</block>
+  <block id="b5382c0e4bf285954c930cb33792960b" category="admonition">在 StorageGRID 中、您也可以使用租戶管理員提供的 S3 主控台來檢視備份物件。</block>
+  <block id="d894351907b5c62a82330f8b48880b61" category="section-title">在 OpenShift 虛擬化中建立虛擬機器排程備份</block>
+  <block id="a570c2a7ad008eb74b91833b64be8f14" category="paragraph">若要根據排程建立備份、您需要建立排程 CR 。</block>
+  <block id="5b5fd2fb9c0b0cb1fe0dccfac76005ef" category="paragraph">排程只是 Cron 運算式、可讓您指定建立備份的時間。建立排程 CR 的範例 yaml 。</block>
+  <block id="5ecb8594d45ba6d911bd9416145be11f" category="paragraph">Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
+也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來在指定的時間和頻率建立備份。</block>
+  <block id="7bc6014ccd6b125db01c49e268bdcbe8" category="paragraph">排程建立完成後、即會啟用。
+影像：： redhat_openshift_OADP_backup_image3.jpg[Schedule Created ]</block>
+  <block id="e6013f4af13aa8a3971fca83b1d02ab7" category="paragraph">備份將根據此排程建立、並可從備份索引標籤檢視。
+影像：： redhat_openshift_OADP_backup_image4.jpg[Schedule Created ]</block>
+  <block id="2003f0bb711323d885f4b2f0ae1d61bd" category="section-title">還原至相同的命名空間</block>
+  <block id="19b526387a9916ff1e3f24e7910f1f12" category="paragraph">若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 <block ref="d4d5c1753093015ad4958595f6604080" category="inline-link-macro-rx"></block>。按一下「建立」按鈕。</block>
+  <block id="0119ea7355249cd061216800d9972a5d" category="paragraph">當階段顯示為已完成時、您可以看到虛擬機器已還原至拍攝快照時的狀態。（如果備份是在 VM 執行時建立、則從備份還原 VM 將會啟動還原的 VM 、並使其進入執行中狀態）。VM 會還原至相同的命名空間。</block>
+  <block id="5b6c62a4db94a4f3481a2d5a0ef5af6d" category="image-alt">還原已完成</block>
+  <block id="c0bfb19cff18dbe0f707ea3ed21faf24" category="section-title">還原至不同的命名空間</block>
+  <block id="373be542c95ab51acdf76c1ba1d5fc66" category="paragraph">若要將 VM 還原至不同的命名空間、您可以在還原 CR 的 yaml 定義中提供名稱映射。</block>
+  <block id="a2289695178b47ac9d248a46fd2ba2da" category="paragraph">下列範例 yaml 檔案會建立還原 CR 、以便在將備份移至虛擬機器命名空間時、在虛擬機器示範命名空間中還原 VM 及其磁碟。</block>
+  <block id="7c42a4e6c0db52ae181519f469f6e201" category="paragraph">當階段顯示為已完成時、您可以看到虛擬機器已還原至拍攝快照時的狀態。（如果備份是在 VM 執行時建立、則從備份還原 VM 將會啟動還原的 VM 、並使其進入執行中狀態）。VM 會還原至 yaml 中指定的不同命名空間。</block>
+  <block id="d28a382595dbda22d6ba52726aa62a21" category="paragraph">影像：： redhat_openshift_OADP_restore_image3.jpg[Restore 已完成新命名空間的使用 ]%</block>
+  <block id="35cca3f67f9c3684a5e45bf0a2d8b122" category="paragraph">作者： Banu Sundhar 、 NetApp</block>
+  <block id="b78fa3a575621789b7179dedef424eba" category="paragraph">參考文件的本節提供使用 OpenShift API for Data Protection （ OADP ）與 NetApp ONTAP S3 或 NetApp StorageGRID S3 上的 Velero 建立 VM 備份的詳細資料。VM 磁碟的持續磁碟區（ PV ）備份是使用 CSI Astra Trident Snapshot 建立的。</block>
+  <block id="ded063633b39604bc7b1c600315571cd" category="paragraph">OpenShift 虛擬化虛擬化 VM 的持續磁碟可由整合至 OpenShift 叢集的 ONTAP 儲存設備作為備份、使用 <block ref="062873b3d48316bca3a2c248dcd88de0" category="inline-link-macro-rx"></block>。在本節中、我們使用 <block ref="aae2b983a17c22c7bfaf66419d8e0186" category="inline-link-macro-rx"></block> 將 VM （包括其資料磁碟區）備份至</block>
+  <block id="4e62c9089f3c563d3b9c278e981a164f" category="list-text">ONTAP 物件儲存</block>
+  <block id="684bd3b292fe41f5fcee6f80cd2303d2" category="list-text">StorageGRID</block>
+  <block id="23be3887459d40814f4226e62b794ea1" category="paragraph">接著我們會在需要時從備份還原。</block>
+  <block id="a6040c159eeb9dc3a8ee2778db8e299e" category="paragraph">** 以下是本節中範例所使用的各種元件版本 **</block>
+  <block id="f2bda2a9fa50f0674bbaba251b860df8" category="paragraph"><block ref="062873b3d48316bca3a2c248dcd88de0" category="inline-link-macro-rx"></block>
+<block ref="aae2b983a17c22c7bfaf66419d8e0186" category="inline-link-macro-rx"></block>
+<block ref="baf3dad02604469cf9b36dfd048d949d" category="inline-link-macro-rx"></block></block>
+  <block id="01fa6531f7bcef888024dd93319f31ff" category="list-text">前往叢集的運算子中樞、然後選取 Red Hat OADP 運算子。在「安裝」頁面中、使用所有預設選項、然後按一下「安裝」。在下一頁中、再次使用所有預設值、然後按一下「安裝」。OADP 運算子將安裝在命名空間 openshift-adp 中。</block>
+  <block id="80a097bd3a7570af018db5b969b84eff" category="section-title">具備 ONTAP S3 詳細資料的 Velero 組態先決條件</block>
+  <block id="fed42ad347e6995a74e43865716d36f9" category="list-text">可用於存取 S3 的邏輯介面（ LIF ）</block>
+  <block id="4532aae7bcd069b0eb6b2b7b3c2a9e54" category="section-title">具備 StorageGRID S3 詳細資料的 Velero 組態先決條件</block>
+  <block id="b32dc31939d5e424a326bf0cb3346335" category="inline-link-macro">StorageGRID 文件</block>
+  <block id="c202f9cfe87000c6e5b7128c7e5f1b63" category="paragraph">可將 Velero 設定為使用 S3 相容的物件儲存設備。您可以使用中所示的程序來設定 StorageGRID S3 <block ref="00ef2c4541e5f7978cb11cef09e42f3d" category="inline-link-macro-rx"></block>。您需要 StorageGRID S3 組態的下列資訊、才能與 Velero 整合。</block>
+  <block id="91df1f1faa6e819848f91465e5e20aa3" category="list-text">可用於存取 S3 的端點</block>
+  <block id="7d9161edeafc7f813d18fb639a34b1f1" category="list-text">首先、為 ONTAP S3 使用者認證或 StorageGRID 租戶使用者認證建立秘密。這將用於稍後設定 Velero 。您可以從 CLI 或 Web 主控台建立機密。
+若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。適當命名機密。在下面的範例中、系統會建立一個內含 ONTAP S3 使用者認證的密碼、名稱為 ONTAP S3 認證。</block>
+  <block id="af88dcba6a1b60fd13dab3b4661894f1" category="image-alt">S3 使用者認證的秘密</block>
+  <block id="59057b98650fa41bca9719fde2c67273" category="image-alt">建立 S3 使用者認證的秘密</block>
+  <block id="283ffaf4a7e7d75161ace0bcfc6321d1" category="paragraph">若要從 CLI 建立名為 sg-s3-creDcreDs 的秘密、您可以使用下列命令。
+圖： redhat_openshift_OADP_install_image6.jpg[Create 使用 CLI 提供 S3 使用者認證的秘密 ]</block>
+  <block id="85dcf020e0162eb9cc2a68529579d120" category="list-text">接著、若要設定 Velero 、請從運算子下的功能表項目中選取已安裝的運算子、按一下 OADP 運算子、然後選取 DataProtectionApplication 索引標籤。
+圖片： redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]</block>
+  <block id="4e2b16951fd5a29395afbfc2749925d2" category="paragraph">按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。
+圖片： redhat_openshift_OADP_install_image8.jpg[Create DataProtectionApplication]</block>
+  <block id="72b64d2ebd0901d2e51026c57dd096fe" category="paragraph">現在請前往 YAML 檢視並取代規格資訊、如以下 yaml 檔案範例所示。</block>
+  <block id="5597a937099a8099e0a04565b9d02f97" category="paragraph">** 範例 yaml 檔案、用於將 Velero 設定為 ONTAP S3 作為備份位置 **</block>
+  <block id="0b9704b74e90ab5906d1a5fa08177856" category="paragraph">** 範例 yaml 檔案、用於將 Velero 與 StorageGRID S3 設定為備份位置和 snapshotLocation**</block>
+  <block id="737c9ca341247cad0069f3a8db7d712f" category="paragraph">上述 YAML 檔案在規格中有下列章節、其設定方式與上述範例類似</block>
+  <block id="a0f9e33cefd69b70382dd17bbaf09cb3" category="paragraph">** 備份位置 **
+ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設定為 Velero 的預設備份位置。</block>
+  <block id="098a52e4f20328bdaf8852e706f9ad80" category="paragraph">** 快照位置 **
+如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立一個 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用的是 Astra Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立了 Volume SnapShotClass CR 。</block>
+  <block id="e7e77e84a12b26da5fb80a5965defbec" category="paragraph">確保即使刪除了 Volume Snapshot 物件、快照仍可持續存在。您可以將 * 刪除原則 * 設定為保留來完成此作業。否則、刪除命名空間將會完全遺失其中備份的所有 PVC 。</block>
+  <block id="58e9be9afc81874abdc32da0b86e1850" category="paragraph">確保已建立 DataProtectionApplication 、且其狀態為：已調整。
+影像：： redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件已建立 ]</block>
 </blocks>

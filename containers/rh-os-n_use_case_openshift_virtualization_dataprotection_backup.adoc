@@ -4,7 +4,7 @@ permalink: containers/rh-os-n_use_case_openshift_virtualization_dataprotection_b
 keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization, OADP operator, Openshift Data Protection Application operator, velero 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
-= 在 OpenShift 虛擬化中為 VM 建立隨選備份
+= 在 OpenShift 虛擬化中為虛擬機器建立隨選備份
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -19,7 +19,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 若要建立整個 VM 的隨需備份（ VM 中繼資料和 VM 磁碟）、請按一下「 ** 備份 ** 」標籤。這會建立備份自訂資源（ CR ）。我們提供範例 yaml 來建立備份 CR 。使用此 yaml 、將會備份指定命名空間中的 VM 及其磁碟。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["文件"]。
 
-支援磁碟的持續磁碟區快照將由 CSI 建立、並移至 yaml 中提供的物件儲存位置。備份將保留在系統中 30 天、如 TTL 所指定。
+CSI 會建立作為磁碟備份的持續磁碟區快照。虛擬機器的備份及其磁碟的快照會建立並儲存在 yaml 中指定的備份位置。備份將保留在系統中 30 天、如 TTL 所指定。
 
 ....
 apiVersion: velero.io/v1
@@ -31,22 +31,27 @@ spec:
   includedNamespaces:
   - virtual-machines-demo
   snapshotVolumes: true
-  storageLocation: velero-demo-1
+  storageLocation: velero-demo-1 //this is the backupStorageLocation previously created
+                                 //when Velero is configured.
   ttl: 720h0m0s
 ....
-備份完成後、其階段應顯示為「已完成」。
+備份完成後、其階段會顯示為「已完成」。
 
 image::redhat_openshift_OADP_backup_image1.jpg[備份已完成]
 
 您可以在 S3 瀏覽器應用程式的協助下、在物件儲存區中檢查備份。備份路徑會顯示在已設定的貯體中、其前置名稱為（ Velero/ demobackup ）。您可以查看備份內容、包括虛擬機器的磁碟區快照、記錄和其他中繼資料。
 
+
+NOTE: 在 StorageGRID 中、您也可以使用租戶管理員提供的 S3 主控台來檢視備份物件。
+
 image::redhat_openshift_OADP_backup_image2.jpg[S3 中的備份物件]
 
 
 
-== 在 OpenShift 虛擬化中為 VM 建立排程備份
+== 在 OpenShift 虛擬化中建立虛擬機器排程備份
 
-若要根據排程建立備份、您需要建立排程自訂資源。
+若要根據排程建立備份、您需要建立排程 CR 。
+
 排程只是 Cron 運算式、可讓您指定建立備份的時間。建立排程 CR 的範例 yaml 。
 
 ....
@@ -66,12 +71,10 @@ spec:
     ttl: 720h0m0s
 ....
 Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
-也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來建立指定時間和頻率的備份。
+也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來在指定的時間和頻率建立備份。
 
 排程建立完成後、即會啟用。
-
-image::redhat_openshift_OADP_backup_image3.jpg[排程已建立]
+影像：： redhat_openshift_OADP_backup_image3.jpg[Schedule Created ]
 
 備份將根據此排程建立、並可從備份索引標籤檢視。
-
-image::redhat_openshift_OADP_backup_image4.jpg[排程已建立]
+影像：： redhat_openshift_OADP_backup_image4.jpg[Schedule Created ]

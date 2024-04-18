@@ -21,10 +21,9 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 
 
-== 執行還原的步驟
+== 還原至相同的命名空間
 
-若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。
-您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
+若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
 
 image::redhat_openshift_OADP_restore_image1.jpg[建立還原 CR]
 
@@ -38,7 +37,32 @@ spec:
   backupName: backup1
   restorePVs: true
 ....
-當階段顯示為完成時、您會看到虛擬機器已還原
-快照的狀態。（如果備份是在虛擬機器執行時建立、則從備份還原虛擬機器將會啟動還原的虛擬機器、並使其進入執行中狀態）
+當階段顯示為已完成時、您可以看到虛擬機器已還原至拍攝快照時的狀態。（如果備份是在 VM 執行時建立、則從備份還原 VM 將會啟動還原的 VM 、並使其進入執行中狀態）。VM 會還原至相同的命名空間。
 
-image::redhat_openshift_OADP_restore_image2.jpg[還原 CR 已建立]
+image::redhat_openshift_OADP_restore_image2.jpg[還原已完成]
+
+
+
+== 還原至不同的命名空間
+
+若要將 VM 還原至不同的命名空間、您可以在還原 CR 的 yaml 定義中提供名稱映射。
+
+下列範例 yaml 檔案會建立還原 CR 、以便在將備份移至虛擬機器命名空間時、在虛擬機器示範命名空間中還原 VM 及其磁碟。
+
+....
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-to-different-ns
+  namespace: openshift-adp
+spec:
+  backupName: backup
+  restorePVs: true
+  includedNamespaces:
+  - virtual-machines-demo
+  namespaceMapping:
+    virtual-machines-demo: virtual-machines
+....
+當階段顯示為已完成時、您可以看到虛擬機器已還原至拍攝快照時的狀態。（如果備份是在 VM 執行時建立、則從備份還原 VM 將會啟動還原的 VM 、並使其進入執行中狀態）。VM 會還原至 yaml 中指定的不同命名空間。
+
+影像：： redhat_openshift_OADP_restore_image3.jpg[Restore 已完成新命名空間的使用 ]%

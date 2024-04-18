@@ -36,7 +36,7 @@ NOTE: 如果您想在 VM 處於執行中狀態時備份 VM 、則必須在該虛
 
 == 安裝 OADP 操作員的步驟
 
-. 前往叢集的運算子中樞、然後選取 Red Hat OADP 運算子。在「安裝」頁面中、使用所有預設選項、然後按一下「安裝」。在下一頁中、再次使用所有預設值、然後按一下「安裝」。OADP 運算子將安裝在稱為 openshift-adp 的命名空間中。
+. 前往叢集的運算子中樞、然後選取 Red Hat OADP 運算子。在「安裝」頁面中、使用所有預設選項、然後按一下「安裝」。在下一頁中、再次使用所有預設值、然後按一下「安裝」。OADP 運算子將安裝在命名空間 openshift-adp 中。
 
 
 image::redhat_openshift_OADP_install_image1.jpg[OpenShift API 、用於在 Operator Hub 中保護資料]
@@ -47,12 +47,24 @@ image::redhat_openshift_OADP_install_image3.jpg[已安裝適用於 Data Protecti
 
 
 
-=== 具備 ONTAP S3 詳細資料的 Velero 組態先決條件：
+=== 具備 ONTAP S3 詳細資料的 Velero 組態先決條件
 
 操作員安裝成功後、請設定 Velero 執行個體。
 可將 Velero 設定為使用 S3 相容的物件儲存設備。使用中所示的程序來設定 ONTAP S3 link:https://docs.netapp.com/us-en/ontap/object-storage-management/index.html["ONTAP 文件的「物件儲存管理」一節"]。您需要 ONTAP S3 組態的下列資訊、才能與 Velero 整合。
 
-* 可用於存取 S3 的邏輯介面（ LIF ） IP
+* 可用於存取 S3 的邏輯介面（ LIF ）
+* 存取 S3 的使用者認證、其中包括存取金鑰和秘密存取金鑰
+* S3 中的貯體名稱、用於具有使用者存取權限的備份
+* 為了安全存取物件儲存設備、應在物件儲存伺服器上安裝 TLS 憑證。
+
+
+
+
+=== 具備 StorageGRID S3 詳細資料的 Velero 組態先決條件
+
+可將 Velero 設定為使用 S3 相容的物件儲存設備。您可以使用中所示的程序來設定 StorageGRID S3 link:https://docs.netapp.com/us-en/storagegrid-116/s3/configuring-tenant-accounts-and-connections.html["StorageGRID 文件"]。您需要 StorageGRID S3 組態的下列資訊、才能與 Velero 整合。
+
+* 可用於存取 S3 的端點
 * 存取 S3 的使用者認證、其中包括存取金鑰和秘密存取金鑰
 * S3 中的貯體名稱、用於具有使用者存取權限的備份
 * 為了安全存取物件儲存設備、應在物件儲存伺服器上安裝 TLS 憑證。
@@ -62,30 +74,27 @@ image::redhat_openshift_OADP_install_image3.jpg[已安裝適用於 Data Protecti
 
 === 設定 Velero 的步驟
 
-* 首先、為 ONTAP S3 使用者認證建立秘密。這將用於稍後設定 Velero 。您可以從 CLI 或 Web 主控台建立機密。
-若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。
-提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。
+* 首先、為 ONTAP S3 使用者認證或 StorageGRID 租戶使用者認證建立秘密。這將用於稍後設定 Velero 。您可以從 CLI 或 Web 主控台建立機密。
+若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。適當命名機密。在下面的範例中、系統會建立一個內含 ONTAP S3 使用者認證的密碼、名稱為 ONTAP S3 認證。
 
 
-image::redhat_openshift_OADP_install_image4.jpg[ONTAP S3 認證的秘密]
+image::redhat_openshift_OADP_install_image4.jpg[S3 使用者認證的秘密]
 
-image::redhat_openshift_OADP_install_image5.jpg[為 ONTAP S3 認證建立秘密]
+image::redhat_openshift_OADP_install_image5.jpg[建立 S3 使用者認證的秘密]
 
+若要從 CLI 建立名為 sg-s3-creDcreDs 的秘密、您可以使用下列命令。
+圖： redhat_openshift_OADP_install_image6.jpg[Create 使用 CLI 提供 S3 使用者認證的秘密 ]
 
-NOTE: 若要從 CLI 建立預設的加密雲端認證、您可以使用下列命令。如果備份和快照位置使用相同的認證、您只需要建立如上所示的預設秘密。如需其他案例、請參閱 OADP 文件。
+* 接著、若要設定 Velero 、請從運算子下的功能表項目中選取已安裝的運算子、按一下 OADP 運算子、然後選取 DataProtectionApplication 索引標籤。
+圖片： redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]
 
-image::redhat_openshift_OADP_install_image6.jpg[使用 CLI 為 ONTAP S3 認證建立秘密]
-
-* 接著、在「設定 Velero 」中、從「運算子」下的功能表項目中選取「已安裝的運算子」、按一下 OADP 運算子、然後選取「 DataProtectionApplication 」索引標籤。
-
-
-image::redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]
 
 按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。
+圖片： redhat_openshift_OADP_install_image8.jpg[Create DataProtectionApplication]
 
-image::redhat_openshift_OADP_install_image8.jpg[建立 DataProtectionApplication]
+現在請前往 YAML 檢視並取代規格資訊、如以下 yaml 檔案範例所示。
 
-現在請前往 YAML 檢視並取代預設資訊、或新增如下 Yaml 檔案所示的資訊。
+** 範例 yaml 檔案、用於將 Velero 設定為 ONTAP S3 作為備份位置 **
 
 ....
 spec:
@@ -99,7 +108,7 @@ spec:
           s3Url: 'https://10.xx.xx.xx' //Ensure TLS certificate for S3 is configured
         credential:
           key: cloud
-          name: cloud-credentials //previously created secret named cloud-credentials
+          name: ontap-s3-credentials //previously created secret
         default: true
         objectStorage:
           bucket: velero //Your bucket name previously created in S3 for backups
@@ -116,20 +125,45 @@ spec:
         - openshift
         - aws
         - kubevirt //Add this plugin
-  snapshotLocations:
+....
+** 範例 yaml 檔案、用於將 Velero 與 StorageGRID S3 設定為備份位置和 snapshotLocation**
+
+....
+spec:
+  backupLocations:
     - velero:
         config:
+          insecureSkipTLSVerify: 'true'
           profile: default
-          region: us-east
+          region: us-east-1 // region of your StorageGrid system
+          s3ForcePathStyle: 'True'
+          s3Url: 'https://172.21.254.25:10443' //the IP used to access S3
+        credential:
+          key: cloud
+          name: sg-s3-credentials //secret created earlier
+        default: true
+        objectStorage:
+          bucket: velero
+          prefix: demobackup
         provider: aws
+  configuration:
+    nodeAgent:
+      enable: true
+      uploaderType: kopia
+    velero:
+      defaultPlugins:
+        - csi
+        - openshift
+        - aws
+        - kubevirt
 ....
-上述的 YAML 在規格中有下列章節需要適當設定、與範例類似：
+上述 YAML 檔案在規格中有下列章節、其設定方式與上述範例類似
 
 ** 備份位置 **
-ONTAP S3 （憑證和 Yaml 中顯示的其他資訊）已設定為 Velero 的預設備份位置。
+ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設定為 Velero 的預設備份位置。
 
 ** 快照位置 **
-ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。
+如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立一個 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用的是 Astra Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立了 Volume SnapShotClass CR 。
 
 ** 啟用 CSI **
 將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
@@ -142,7 +176,7 @@ ONTAP S3 已設定為 Velero 的 PVC 快照預設位置。
 
 image::redhat_openshift_OADP_install_image9.jpg[Trident Snapshot 類別標籤]
 
-確保即使刪除了 Volume Snapshot 物件、快照仍可持續存在。您可以將 delectionPolicy 設定為 Retain 、來完成這項工作。否則、刪除命名空間將會完全遺失其中備份的所有 PVC 。
+確保即使刪除了 Volume Snapshot 物件、快照仍可持續存在。您可以將 * 刪除原則 * 設定為保留來完成此作業。否則、刪除命名空間將會完全遺失其中備份的所有 PVC 。
 
 ....
 apiVersion: snapshot.storage.k8s.io/v1
@@ -155,8 +189,7 @@ deletionPolicy: Retain
 image::redhat_openshift_OADP_install_image10.jpg[應將 VolumeSnapshotClass 刪除原則設定為保留]
 
 確保已建立 DataProtectionApplication 、且其狀態為：已調整。
-
-image::redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件即會建立]
+影像：： redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件已建立 ]
 
 OADP 操作員將建立對應的 BackupStorageLocation 。這將在建立備份時使用。
 
