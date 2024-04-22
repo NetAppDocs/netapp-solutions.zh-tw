@@ -36,7 +36,8 @@ spec:
   ttl: 720h0m0s
 ....
 備份完成後、其階段會顯示為「已完成」。
-影像：： redhat_openshift_OADP_backup_image1.jpg[Backup completed]
+
+image::redhat_openshift_OADP_backup_image1.jpg[備份已完成]
 
 您可以在 S3 瀏覽器應用程式的協助下、在物件儲存區中檢查備份。備份路徑會顯示在已設定的貯體中、其前置名稱為（ Velero/ demobackup ）。您可以查看備份內容、包括虛擬機器的磁碟區快照、記錄和其他中繼資料。
 
@@ -72,7 +73,9 @@ Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
 也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來在指定的時間和頻率建立備份。
 
 排程建立完成後、即會啟用。
-影像：： redhat_openshift_OADP_backup_image3.jpg[Schedule Created ]
+
+image::redhat_openshift_OADP_backup_image3.jpg[排程已建立]
 
 備份將根據此排程建立、並可從備份索引標籤檢視。
-影像：： redhat_openshift_OADP_backup_image4.jpg[Schedule Created ]
+
+image::redhat_openshift_OADP_backup_image4.jpg[排程已建立]

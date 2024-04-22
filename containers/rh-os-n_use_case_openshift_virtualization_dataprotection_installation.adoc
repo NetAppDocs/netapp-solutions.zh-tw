@@ -83,14 +83,17 @@ image::redhat_openshift_OADP_install_image4.jpg[S3 使用者認證的秘密]
 image::redhat_openshift_OADP_install_image5.jpg[建立 S3 使用者認證的秘密]
 
 若要從 CLI 建立名為 sg-s3-creDcreDs 的秘密、您可以使用下列命令。
-圖： redhat_openshift_OADP_install_image6.jpg[Create 使用 CLI 提供 S3 使用者認證的秘密 ]
+
+image::redhat_openshift_OADP_install_image6.jpg[使用 CLI 為 S3 使用者認證建立秘密]
 
 * 接著、若要設定 Velero 、請從運算子下的功能表項目中選取已安裝的運算子、按一下 OADP 運算子、然後選取 DataProtectionApplication 索引標籤。
-圖片： redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]
 
+
+image::redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]
 
 按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。
-圖片： redhat_openshift_OADP_install_image8.jpg[Create DataProtectionApplication]
+
+image::redhat_openshift_OADP_install_image8.jpg[建立 DataProtectionApplication]
 
 現在請前往 YAML 檢視並取代規格資訊、如以下 yaml 檔案範例所示。
 
@@ -157,7 +160,7 @@ spec:
         - aws
         - kubevirt
 ....
-上述 YAML 檔案在規格中有下列章節、其設定方式與上述範例類似
+yaml 檔案中的 SPEC 區段應適當設定、以符合上述範例所述的下列參數
 
 ** 備份位置 **
 ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設定為 Velero 的預設備份位置。
@@ -165,7 +168,8 @@ ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設�
 ** 快照位置 **
 如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立一個 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用的是 Astra Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立了 Volume SnapShotClass CR 。
 
-** 啟用 CSI **
+** 啟用 CSI 外掛程式 **
+
 將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
 為了備份 CSI 備份的 PVCS 、 Velero CSI 外掛程式會選擇叢集中已設定 **Velero.IO/csi - volumesnapshot-class** 標籤的 Volume SnapshotClass 。針對此
 
@@ -189,7 +193,9 @@ deletionPolicy: Retain
 image::redhat_openshift_OADP_install_image10.jpg[應將 VolumeSnapshotClass 刪除原則設定為保留]
 
 確保已建立 DataProtectionApplication 、且其狀態為：已調整。
-影像：： redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件已建立 ]
+
+image::redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件即會建立]
 
 OADP 操作員將建立對應的 BackupStorageLocation 。這將在建立備份時使用。
-影像：： redhat_openshift_OADP_install_image12.jpg[BackupStorageLocation 已建立 ]
+
+image::redhat_openshift_OADP_install_image12.jpg[已建立 BackupStorageLocation]
