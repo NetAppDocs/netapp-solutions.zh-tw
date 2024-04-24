@@ -19,10 +19,9 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 若要從備份還原、請假設虛擬機器所在的命名空間遭到意外刪除。
 
-
-
-== 還原至相同的命名空間
-
+.還原至相同的命名空間
+[%collapsible]
+====
 若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
 
 image::redhat_openshift_OADP_restore_image1.jpg[建立還原 CR]
@@ -41,10 +40,10 @@ spec:
 
 image::redhat_openshift_OADP_restore_image2.jpg[還原已完成]
 
-
-
-== 還原至不同的命名空間
-
+====
+.還原至不同的命名空間
+[%collapsible]
+====
 若要將 VM 還原至不同的命名空間、您可以在還原 CR 的 yaml 定義中提供名稱映射。
 
 下列範例 yaml 檔案會建立還原 CR 、以便在將備份移至虛擬機器命名空間時、在虛擬機器示範命名空間中還原 VM 及其磁碟。
@@ -66,3 +65,62 @@ spec:
 當階段顯示為已完成時、您可以看到虛擬機器已還原至拍攝快照時的狀態。（如果備份是在 VM 執行時建立、則從備份還原 VM 將會啟動還原的 VM 、並使其進入執行中狀態）。VM 會還原至 yaml 中指定的不同命名空間。
 
 image::redhat_openshift_OADP_restore_image3.jpg[還原已完成至新命名空間]
+
+====
+.還原至不同的儲存類別
+[%collapsible]
+====
+Velero 提供一般功能、可在還原期間透過指定 json 修補程式來修改資源。json 修補程式會在還原之前套用至資源。json 修補程式是在 configmap 中指定、組態對應則是在 restore 命令中參照。此功能可讓您使用不同的儲存類別進行還原。
+
+在以下範例中、虛擬機器在建立期間會使用 ONTAP NAS 做為其磁碟的儲存類別。系統會建立名為 Backup1 的虛擬機器備份。
+
+image::redhat_openshift_OADP_restore_image4.jpg[使用 ONTAP NAS 的 VM]
+
+image::redhat_openshift_OADP_restore_image5.jpg[VM 備份 ONTAP-NAS]
+
+刪除虛擬機器以模擬虛擬機器遺失的情況。
+
+若要使用不同的儲存類別還原 VM 、例如 ONTAP NAS 生態儲存類別、您需要執行下列兩個步驟：
+
+** 步驟 1**
+
+在 openshift-adp 命名空間中建立組態對應（主控台）、如下所示：
+填寫如螢幕擷取畫面所示的詳細資料：
+選取命名空間： openshift-adp
+名稱： change-storage class-config （可以是任何名稱）
+金鑰： change-storage class-config.yaml ：
+價值：
+
+....
+version: v1
+    resourceModifierRules:
+    - conditions:
+         groupResource: persistentvolumeclaims
+         resourceNameRegex: "^rhel*"
+         namespaces:
+         - virtual-machines-demo
+      patches:
+      - operation: replace
+        path: "/spec/storageClassName"
+        value: "ontap-nas-eco"
+....
+image::redhat_openshift_OADP_restore_image6.jpg[組態對應 UI]
+
+產生的組態對應物件應如下所示（ CLI ）：
+
+image::redhat_openshift_OADP_restore_image7.jpg[組態對應 CLI]
+
+建立還原時、此組態對應將套用資源修飾語規則。針對從 RHEL 開始的所有持續磁碟區宣告、將套用修補程式、將儲存類別名稱取代為 ONTAP NAS 生態。
+
+** 步驟 2**
+
+若要還原虛擬機器、請從 Velero CLI 使用下列命令：
+
+....
+#velero restore create restore1 --from-backup backup1 --resource-modifier-configmap change-storage-class-config -n openshift-adp
+....
+VM 會在相同的命名空間中還原、並使用儲存類別 ONTAP-NAS-ECO 建立磁碟。
+
+image::redhat_openshift_OADP_restore_image8.jpg[VM 恢復 ONTAP － NAS － Eco]
+
+====

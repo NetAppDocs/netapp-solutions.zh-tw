@@ -20267,4 +20267,26 @@ Cloud Insights 也支援 Telegraf 做為其收集整合資料的代理程式。T
   <block id="3a11516868032de940e8bc2e948be30e" category="image-alt">已建立 BackupStorageLocation</block>
   <block id="5d2d4303446e0c5e9645e0b2422a1ad8" category="sidebar">OpenShift 虛擬化的資料保護</block>
   <block id="9efbc1b64cbf1bbaf08130fd4c478321" category="paragraph"><block ref="9efbc1b64cbf1bbaf08130fd4c478321" category="inline-link-rx"></block></block>
+  <block id="7150e1290a17ad9e4549acb1a4f4a888" category="example-title">還原至不同的儲存類別</block>
+  <block id="a6b055a2f62dc049defeb05a7d186312" category="paragraph">Velero 提供一般功能、可在還原期間透過指定 json 修補程式來修改資源。json 修補程式會在還原之前套用至資源。json 修補程式是在 configmap 中指定、組態對應則是在 restore 命令中參照。此功能可讓您使用不同的儲存類別進行還原。</block>
+  <block id="b45b5adeeb9d3b646ac0e2962eed14b8" category="paragraph">在以下範例中、虛擬機器在建立期間會使用 ONTAP NAS 做為其磁碟的儲存類別。系統會建立名為 Backup1 的虛擬機器備份。</block>
+  <block id="0f5ab9dea568b63380f582d47142605d" category="image-alt">使用 ONTAP NAS 的 VM</block>
+  <block id="36f3d5f77370ebf54f23222450623d24" category="image-alt">VM 備份 ONTAP-NAS</block>
+  <block id="8eb0f9243be0e48a55ecbcd42e605c3e" category="paragraph">刪除虛擬機器以模擬虛擬機器遺失的情況。</block>
+  <block id="67371bfa2c4d892a1d4841cc3ab1de4f" category="paragraph">若要使用不同的儲存類別還原 VM 、例如 ONTAP NAS 生態儲存類別、您需要執行下列兩個步驟：</block>
+  <block id="529c8e63075a3c60a8fc833f0c664f87" category="paragraph">** 步驟 1**</block>
+  <block id="8aac47e6b29cf85fe908aa025bc1db44" category="paragraph">在 openshift-adp 命名空間中建立組態對應（主控台）、如下所示：
+填寫如螢幕擷取畫面所示的詳細資料：
+選取命名空間： openshift-adp
+名稱： change-storage class-config （可以是任何名稱）
+金鑰： change-storage class-config.yaml ：
+價值：</block>
+  <block id="281d2e013ca2bbec46f79d7f0c8cfe96" category="image-alt">組態對應 UI</block>
+  <block id="9dd92251e4f33d4c989f95e5c2d71788" category="paragraph">產生的組態對應物件應如下所示（ CLI ）：</block>
+  <block id="a164b60352c32f22a83568e6f2405ea1" category="image-alt">組態對應 CLI</block>
+  <block id="bcb8a9f8aea6e89a60470e3aedd27caf" category="paragraph">建立還原時、此組態對應將套用資源修飾語規則。針對從 RHEL 開始的所有持續磁碟區宣告、將套用修補程式、將儲存類別名稱取代為 ONTAP NAS 生態。</block>
+  <block id="d685633fbcf8ed1958820e107d3ef519" category="paragraph">** 步驟 2**</block>
+  <block id="f62abd32a25a95630687a09de6a8a27f" category="paragraph">若要還原虛擬機器、請從 Velero CLI 使用下列命令：</block>
+  <block id="3b87fef5f45775a22e4ab995164459cc" category="paragraph">VM 會在相同的命名空間中還原、並使用儲存類別 ONTAP-NAS-ECO 建立磁碟。</block>
+  <block id="7fe12b8c679f04a968c25b25ee90efc6" category="image-alt">VM 恢復 ONTAP － NAS － Eco</block>
 </blocks>
