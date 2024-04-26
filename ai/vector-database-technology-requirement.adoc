@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-technology-requirement.html 
+keywords: vector database 
+summary: 技術需求： NetApp 的向量資料庫解決方案 
+---
+= 技術需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 技術需求
+
+除了效能之外、以下所述的硬體和軟體組態已用於本文件中執行的大多數驗證。這些組態是協助您設定環境的準則。不過、請注意、特定元件可能會因個別客戶需求而異。
+
+
+
+== 硬體需求
+
+|===
+| 硬體 | 詳細資料 
+
+
+| NetApp AFF 儲存陣列 HA 配對 | * A800
+* ONTAP 9.14.1
+* 48 x 3.49TB SSD - NVM
+* 兩個彈性群組磁碟區：中繼資料和資料。
+* 中繼資料 NFS 磁碟區有 12 個容量 250 GB 的持續磁碟區。
+* 資料是 ONTAP NAS S3 Volume 
+
+
+| 6 x Fujitsu PRIMERGY RX2540 M4 | * 64 個 CPU
+* Intel （ R ） Xeon （ R ） Gold 6142 CPU @ 2.60GHz
+* 256 GM 實體記憶體
+1 個 100GbE 網路連接埠 
+
+
+| 網路 | 100 GbE 
+
+
+| StorageGRID | * 1 個 SG100 、 3 個 SGF6024
+* 3 x 24 x 7.68TB 
+|===
+
+
+== 軟體需求
+
+|===
+| 軟體 | 詳細資料 
+
+
+| Milvus 叢集 | * 圖表 - milvus-4.1.11 。
+* 應用程式版本– 2.3.4
+* 相關套裝組合、例如 bookkeeper 、 zookkeeper 、 Pulsar 、 etcd 、 Proxy 、 querynod節點 、 worker 
+
+
+| Kubernetes | * 5 節點 K8s 叢集
+* 1 個主節點和 4 個工作節點
+* 版本– 1.7.2 
+
+
+| Python | *3.10.12. 
+|===

@@ -1,0 +1,28 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-solution-verification-overview.html 
+keywords: Solution Overview vector database 
+summary: 解決方案驗證總覽： NetApp 的向量資料庫解決方案 
+---
+= 解決方案總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+我們已針對五個關鍵領域進行全面的解決方案驗證、詳細內容概述如下。每個部分都會深入探討客戶所面臨的挑戰、 NetApp 提供的解決方案、以及後續對客戶的好處。
+
+. link:./vector-database-milvus-cluster-setup.html["在內部部署使用 Kubernetes 進行 Milvus 叢集設定"]
+客戶在儲存與運算、有效的基礎架構管理與資料管理上、必須自行擴充規模、這是一項挑戰。在本節中、我們將詳細說明在 Kubernetes 上安裝 Milvus 叢集的程序、並使用 NetApp 儲存控制器來處理叢集資料和客戶資料。
+. link:./vector-database-milvus-with-Amazon-FSxN-for-NetApp-ONTAP.html["Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性"]
+在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。
+. link:./vector-database-protection-using-snapcenter.html["使用 NetApp SnapCenter 保護向量資料庫。"]
+在本節中、我們將深入探討 SnapCenter 如何保護 ONTAP 中的向量資料庫資料和 Milvus 資料。在此範例中、我們將從 NFS ONTAP Volume （ vol1 ）衍生的 NAS 儲存區（ milvusdbvol1 ）用於客戶資料、並將獨立的 NFS Volume （ vectordbpv ）用於 Milvus 叢集組態資料。
+. link:./vector-database-disaster-recovery-using-netapp-snapmirror.html["使用 NetApp SnapMirror 進行災難恢復"]
+在本節中、我們將討論災難恢復（ DR ）對於向量資料庫的重要性、以及 NetApp 災難恢復產品 SnapMirror 如何為向量資料庫提供災難恢復解決方案。
+. link:./vector-database-performance-validation.html["效能驗證"]
+在本節中、我們的目標是深入探討向量資料庫（例如 Milvus 和 pgveco.RS ）的效能驗證、重點在於其儲存效能特性、例如 I/O 設定檔和 NetApp 儲存控制器行為、以支援 LLM 生命週期內的 RAG 和推斷工作負載。當這些資料庫與 ONTAP 儲存解決方案結合使用時、我們會評估並找出任何效能差異。我們的分析將以關鍵效能指標為基礎、例如每秒處理的查詢數（ QPS ）。
+

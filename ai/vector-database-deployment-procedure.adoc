@@ -1,0 +1,61 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-deployment-procedure.html 
+keywords: vector database, vector-database-deployment-procedure 
+summary: Vector-database-deployment-procedure ： NetApp 的向量資料庫解決方案 
+---
+= 部署程序
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 部署程序
+
+在本部署區段中、我們將 Milvus 向量資料庫與 Kubernetes 一起用於實驗室設定、如下所示。
+
+image:Deployment_architecture.png["錯誤：缺少圖形影像"]
+
+NetApp 儲存設備可為叢集提供儲存設備、以保留客戶資料和 milvus 叢集資料。
+
+
+
+=== NetApp 儲存設備設定– ONTAP
+
+* 儲存系統初始化
+* 建立儲存虛擬機器（ SVM ）
+* 邏輯網路介面指派
+* NFS 、 S3 組態和授權
+
+
+請遵循下列 NFS （網路檔案系統）步驟：
+
+. 為 NFSv4 建立 FlexGroup Volume 。在我們的驗證設定中、我們使用了 48 個 SSD 、 1 個 SSD 專用於控制器的根磁碟區、 47 個 SSD 散佈於 NFSv4]] 。請確認 FlexGroup 磁碟區的 NFS 匯出原則具有 Kubernetes （ K8s ）節點網路的讀取 / 寫入權限。如果沒有這些權限、請為 K8s 節點網路授予讀取 / 寫入（ RW ）權限。
+. 在所有 K8s 節點上、建立資料夾、並透過每個 K8s 節點上的邏輯介面（ LIF ）、將 FlexGroup 磁碟區掛載至此資料夾。
+
+
+請針對 NAS S3 （網路附加儲存簡易儲存服務）執行下列步驟：
+
+. 建立 FlexGroup Volume for NFS 。
+. 使用「 vserver object-store-server create 」命令設定物件儲存區伺服器、並將管理狀態設定為「 up 」。您可以選擇啟用 HTTPS 並設定自訂接聽程式連接埠。
+. 使用「 vserver object-store-server user create -user <username> 」命令建立物件儲存伺服器使用者。
+. 若要取得存取金鑰和秘密金鑰、您可以執行下列命令：「 Set diag; vserver object-store-server user show -user <username> 」。不過、在使用者建立程序期間、將會提供這些金鑰、也可以使用 REST API 呼叫來擷取這些金鑰。
+. 使用在步驟 2 中建立的使用者建立物件儲存區伺服器群組、並授予存取權。在此範例中、我們提供了「 FullAccess 」。
+. 將 NAS 貯體的類型設定為「 NAS 」、並提供 NFSv3 Volume 的路徑、以建立 NAS 貯體。您也可以使用 S3 儲存貯體來達到此目的。
+
+
+
+
+=== NetApp 儲存設備設定– StorageGRID
+
+. 安裝 StorageGRID 軟體。
+. 建立租戶和貯體。
+. 建立具有必要權限的使用者。
+
+
+如需詳細資訊、請參閱 https://docs.netapp.com/us-en/storagegrid-116/primer/index.html[]

@@ -1,0 +1,203 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-performance-validation.html 
+keywords: vector database 
+summary: 向量資料庫效能驗證： NetApp 的向量資料庫解決方案 
+---
+= 向量資料庫效能驗證
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 效能驗證
+
+效能驗證在向量資料庫和儲存系統中都扮演重要角色、是確保最佳運作和有效資源使用率的關鍵因素。向量資料庫以處理高維度資料和執行相似度搜尋而聞名、因此需要維持高效能層級、才能快速準確地處理複雜的查詢。效能驗證有助於識別瓶頸、微調組態、並確保系統能夠處理預期的負載、而不會降低服務品質。同樣地、在儲存系統中、效能驗證是確保資料儲存及擷取效率的關鍵、而不會產生延遲問題或瓶頸、進而影響整體系統效能。它也有助於在資訊充足的情況下、針對必要的儲存基礎架構升級或變更做出決策。因此、效能驗證是系統管理的關鍵層面、有助於維持高服務品質、營運效率和整體系統可靠性。
+
+在本節中、我們的目標是深入探討向量資料庫（例如 Milvus 和 pgveco.RS ）的效能驗證、重點在於其儲存效能特性、例如 I/O 設定檔和 NetApp 儲存控制器行為、以支援 LLM 生命週期內的 RAG 和推斷工作負載。當這些資料庫與 ONTAP 儲存解決方案結合使用時、我們會評估並找出任何效能差異。我們的分析將以關鍵效能指標為基礎、例如每秒處理的查詢數（ QPS ）。
+
+請查看以下 Milvus 使用的方法和進度。
+
+|===
+| 詳細資料 | Milvus （獨立式和叢集） | Postgres （ pgveco.RS ） 
+
+
+| 版本 | 2.3.2. | 0.2.0 
+
+
+| 檔案系統 | iSCSI LUN 上的 XFS |  
+
+
+| 工作負載產生器 | link:https://github.com/zilliztech/VectorDBBench["VectorDB-Bench"] – v0.0.5. |  
+
+
+| 資料集 | LAION 資料集
+* 1 億套嵌入式產品
+* 768 尺寸
+* ~300GB 資料集大小 |  
+|===
+
+
+=== VectorDB-Bench 搭配 Milvus 獨立式叢集
+
+我們在採用 vectorDB-Bench 的 mivus 獨立叢集上進行了下列效能驗證。
+milvus 獨立叢集的網路和伺服器連線能力如下。
+
+image:./perf_mivus_standalone.png["錯誤。遺失圖形影像"]
+
+在本節中、我們分享了測試 Milvus 獨立式資料庫的觀察結果和結果。
+。	我們選擇 DiskANN 作為這些測試的索引類型。
+。	擷取、最佳化及建立約 100GB 資料集的索引約需 5 小時。在這段期間中、配備 20 個核心（啟用超執行緒時等於 40 個 vCPU ）的 Milvus 伺服器、其最大 CPU 容量為 100% 。我們發現、對於超過系統記憶體大小的大型資料集而言、 DiskANN 特別重要。
+。	在查詢階段中、我們觀察到每秒查詢數（ QPS ）率為 10.93 、而且回收率為 0.9987 。查詢的第 99 個百分位數延遲是以 708.2 毫秒的時間來測量。
+
+從儲存的角度來看、資料庫在擷取、插入後最佳化和索引建立階段中、每秒發行約 1 、 000 次作業。在查詢階段、它需要 32,000 個作業 / 秒
+
+下節將說明儲存效能指標。
+
+|===
+| 工作負載階段 | 度量 | 價值 
+
+
+| 資料擷取
+和
+插入後最佳化 | IOPS | < 1 、 000 
+
+
+|  | 延遲 | < 400 美元 
+
+
+|  | 工作負載 | 讀取 / 寫入混合、大部分是寫入 
+
+
+|  | IO 大小 | 64KB 
+
+
+| 查詢 | IOPS | 尖峰時間為 32,000 
+
+
+|  | 延遲 | < 400 美元 
+
+
+|  | 工作負載 | 100% 快取讀取 
+
+
+|  | IO 大小 | 主要 8KB 
+|===
+vectorDB-bench 結果如下。
+
+image:vector_db_result_standalone.png["錯誤：遺失圖形影像"]
+
+從獨立式 Milvus 執行個體的效能驗證來看、目前的設定顯然不足以支援容量為 1536 的 500 萬向量資料集。我們已確定儲存設備擁有足夠的資源、並不構成系統的瓶頸。
+
+
+
+=== VectorDB-Bench 搭配 milvus 叢集
+
+在本節中、我們將討論在 Kubernetes 環境中部署 Milvus 叢集的問題。這項 Kubernetes 設定是在 VMware vSphere 部署的基礎上建構、該部署是 Kubernetes 主節點和工作節點的主節點。
+
+VMware vSphere 和 Kubernetes 部署的詳細資料將在下列各節中說明。
+
+image:milvus_vmware_perf.png["錯誤：缺少圖形影像"]
+image:milvus_cluster_perf.png["錯誤：缺少圖形影像"]
+
+在本節中、我們會介紹測試 Milvus 資料庫的觀察結果和結果。
+* 使用的索引類型為 DiskANN 。
+* 下表提供獨立部署與叢集部署之間的比較、以 1536 的維度處理 500 萬個向量。我們觀察到、叢集部署中的資料擷取和插入後最佳化所需時間較短。與獨立安裝相比、叢集部署中查詢延遲的第 99 百分位數減少了六倍。
+* 雖然叢集部署中的每秒查詢數（ QPS ）速率較高、但並未達到所需的層級。
+
+image:milvus_standalone_cluster_perf.png["錯誤：缺少圖形影像"]
+
+下圖提供各種儲存指標的檢視、包括儲存叢集延遲和 IOPS 總計（每秒輸入 / 輸出作業數）。
+
+image:storagecluster_latency_iops_milcus.png["錯誤：缺少圖形影像"]
+
+下節將說明主要的儲存效能指標。
+
+|===
+| 工作負載階段 | 度量 | 價值 
+
+
+| 資料擷取
+和
+插入後最佳化 | IOPS | < 1 、 000 
+
+
+|  | 延遲 | < 400 美元 
+
+
+|  | 工作負載 | 讀取 / 寫入混合、大部分是寫入 
+
+
+|  | IO 大小 | 64KB 
+
+
+| 查詢 | IOPS | 尖峰為 147,000 
+
+
+|  | 延遲 | < 400 美元 
+
+
+|  | 工作負載 | 100% 快取讀取 
+
+
+|  | IO 大小 | 主要 8KB 
+|===
+根據獨立式 Milvus 和 Milvus 叢集的效能驗證、我們提供儲存 I/O 設定檔的詳細資料。
+* 我們觀察到、在獨立部署和叢集部署中、 I/O 設定檔保持一致。
+* 觀察到的尖峰 IOPS 差異、可歸因於叢集部署中的用戶端數量較多。
+
+
+
+=== vectorDB-Bench 搭配 Postgres （ pgvector.RS ）
+
+我們使用 VectorDB-Bench 在 PostgreSQL （ pgvec托 .RS ）上執行下列動作：
+PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如下：
+
+image:pgvecto_perf_network_connectivity.png["錯誤：缺少圖形影像"]
+
+在本節中、我們分享了測試 PostgreSQL 資料庫的觀察結果、特別是使用 pgveco.RS 。
+* 我們選擇 HNSW 作為這些測試的索引類型、因為在測試時、 DiskANN 無法用於 pgveco.RS 。
+* 在資料擷取階段、我們載入 Cohere 資料集、其中包含 1 、 000 萬個向量、維度為 768 。此程序約需 4.5 小時。
+* 在查詢階段、我們觀察到每秒查詢數（ QPS ）為 1 、 068 、召回率為 0.6344 。查詢的第 99 個百分位數延遲是以 20 毫秒為測量單位。在大部分的執行時間中、用戶端 CPU 以 100% 的容量運作。
+
+下圖提供各種儲存指標的檢視、包括儲存叢集延遲總計 IOPS （每秒輸入 / 輸出作業數）。
+
+image:pgvecto_storage_iops_latency.png["錯誤：缺少圖形影像"]
+
+ The following section presents the key storage performance metrics.
+image:pgvecto_storage_perf_metrics.png["錯誤：缺少圖形影像"]
+
+
+
+=== 向量 DB Bench 上的 milvus 與 postgres 效能比較
+
+image:perf_comp_milvus_postgres.png["錯誤：缺少圖形影像"]
+
+根據我們使用 VectorDBBench 對 Milvus 和 PostgreSQL 的效能驗證、我們觀察到下列事項：
+
+* 索引類型： HNSW
+* 資料集： Cohere 提供 1 、 000 萬個向量、尺寸 768
+
+
+我們發現 pgveco.RS 的每秒查詢數（ QPS ）為 1 、 068 、回收率為 0.6344 、而 Milvus 的 QPS 率為 106 、回收率為 0.9842 。
+
+如果查詢的高精度是優先順序、 Milvus 會比 pgveco.RS 更出色、因為它會擷取每個查詢的相關項目比例更高。不過、如果每秒查詢數是更重要的因素、 pgveco.RS 就會超過 Milvus 。不過、請務必注意、透過 pgvecto 擷取的資料品質較低、其中約 37% 的搜尋結果是不相關的項目。
+
+
+
+=== 根據我們的效能驗證進行觀察：
+
+根據我們的績效驗證、我們提出下列觀察：
+
+在 Milvus 中、 I/O 設定檔與 OLTP 工作負載非常相似、例如 Oracle slob 。基準測試包含三個階段：資料擷取、最佳化後及查詢。初始階段的主要特徵是 64KB 寫入作業、而查詢階段則主要涉及 8KB 讀取。我們期望 ONTAP 能以專業的方式處理 Milvus I/O 負載。
+
+PostgreSQL I/O 設定檔並不代表具有挑戰性的儲存工作負載。由於目前正在進行記憶體內建實作、我們在查詢階段並未觀察到任何磁碟 I/O 。
+
+DiskANN 是儲存差異化的關鍵技術。它能有效擴充向量 DB 搜尋、使其超越系統記憶體界限。但是、不太可能利用記憶體內向量 DB 指數（例如 HNSW ）來建立儲存效能差異化。
+
+此外、值得注意的是、當索引類型為 HSNW 時、在查詢階段、儲存設備並不扮演關鍵角色、 HSNW 是支援 RAG 應用程式的向量資料庫最重要的作業階段。這裏的含意是、儲存效能不會對這些應用程式的整體效能造成重大影響。

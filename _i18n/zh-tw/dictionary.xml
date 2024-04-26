@@ -20397,4 +20397,396 @@ Cloud Insights 也支援 Telegraf 做為其收集整合資料的代理程式。T
 <block ref="a1b160da533b2cfee0734b4e536da205" category="inline-link-rx"></block>
 <block ref="c041b58a139d19e8eb3afdf1c5f3b721" category="inline-link-rx"></block></block>
   <block id="5ccca54298e375044707defdae8151e1" category="sidebar">將 VM 移轉至 ONTAP 資料存放區</block>
+  <block id="80f3b490016fb09dd087c51b2a8b26f5" category="summary">Milvus 叢集設定 - NetApp 的向量資料庫解決方案</block>
+  <block id="c0f2e2b603c0c8186341bf2945e1ad13" category="doc">在內部部署使用 Kubernetes 的 Milvus 叢集設定</block>
+  <block id="b5be4c6d053fbcf3d99fa7a27f14df10" category="section-title">在內部部署使用 Kubernetes 進行 Milvus 叢集設定</block>
+  <block id="ae5afd2c726fae66bdccf19c83604efb" category="paragraph">客戶在儲存與運算上的擴充、有效的基礎架構管理與資料管理、
+Kubernetes 和向量資料庫一起形成強大且可擴充的解決方案、可用於管理大型資料作業。Kubernetes 可最佳化資源並管理容器、而向量資料庫則可有效處理高維度資料和相似度搜尋。這項組合可快速處理大型資料集的複雜查詢、並可隨著不斷成長的資料量順暢擴充、因此非常適合巨量資料應用程式和 AI 工作負載。</block>
+  <block id="b74b373b546797287d3c21cceba52d3d" category="list-text">在本節中、我們將詳細說明在 Kubernetes 上安裝 Milvus 叢集的程序、並使用 NetApp 儲存控制器來處理叢集資料和客戶資料。</block>
+  <block id="65c0326e8e372682bfaae45cec62723f" category="list-text">若要安裝 Milvus 叢集、儲存來自各種 Milvus 叢集元件的資料時、需要持續磁碟區（ PV ）。這些元件包括 etcd （三個執行個體）、 Pulsar-bootike-journal （三個執行個體）、 Pulsar-bootike-ledgers （三個執行個體）和 Pulsar-zooker-data （三個執行個體）。</block>
+  <block id="eea5737b25740da376e769b4f799f861" category="list-text">我們從 NetApp ONTAP 建立了單一 NFS Volume 、並建立了 12 個持續磁碟區、每個磁碟區都有 250GB 的儲存容量。儲存容量可能會因叢集大小而異；例如、我們有另一個叢集、其中每個 PV 都有 50GB 。請參閱下列 PV YAML 檔案之一、以取得更多詳細資料；我們總共有 12 個此類檔案。在每個檔案中、 storageClassName 會設為「預設」、而儲存設備和路徑對每個 PV 都是唯一的。</block>
+  <block id="09430f029ba122d93535ba15a5812434" category="list-text">為每個 PV YAML 檔案執行「 kutbectl apply 」命令、以建立持續磁碟區、然後使用「 kutbectl Get PV 」驗證其建立</block>
+  <block id="3468fc776a2c10c6b885c4b8f38fbb6f" category="list-text">為了儲存客戶資料、 Milvus 支援 MinIO 、 Azure Blob 和 S3 等物件儲存解決方案。在本指南中、我們使用 S3 。下列步驟同時適用於 ONTAP S3 和 StorageGRID 物件存放區。我們使用 Helm 來部署 Milvus 叢集。從 Milvus 下載位置下載組態檔案 values.yaml 。請參閱附錄以取得本文件所使用的 values.yaml 檔案。</block>
+  <block id="ac8152f5c769ca08c180374241d9797c" category="list-text">請確定每個區段的「 sorageClass 」都設為「預設」、包括記錄檔、 etcd 、 zookeeper 和 bookkeeper 的「預設類別」。</block>
+  <block id="3c27656d225ef946516e7bec88519049" category="list-text">在 MinIO 區段中、停用 MinIO 。</block>
+  <block id="a9c572c8c594acac80d859b834139c09" category="list-text">從 ONTAP 或 StorageGRID 物件儲存區建立 NAS 儲存區、並將其納入具有物件儲存認證的外部 S3 。</block>
+  <block id="5c01f0212f13cb62a8e9c91143a9a0e8" category="list-text">在建立 Milvus 叢集之前、請確定 PersistentVolume Claim （ PVC ）沒有任何預先存在的資源。</block>
+  <block id="8916cc7e0054297b71b9453a888657d1" category="list-text">使用 Helm 和 values.yaml 組態檔案來安裝和啟動 Milvus 叢集。</block>
+  <block id="774a1cf197a96a839f6b770e85cb2445" category="list-text">驗證 PersistentVolume Claims （ PVCS ）的狀態。</block>
+  <block id="63b2b2b30427688208b8a24971cee62e" category="list-text">檢查 Pod 的狀態。</block>
+  <block id="dd8ea9d93ed00e685d78c6fc5fed876d" category="paragraph">請確定 Pod 狀態為「執行中」、並正常運作</block>
+  <block id="890a387ef3d7768088115e7fea8a9ff6" category="list-text">在 Milvus 和 NetApp 物件儲存設備中測試資料寫入和讀取。</block>
+  <block id="e5aef6bb28887bb265d168f37e539b38" category="list-text">使用「 Prepare _data_NetApp_new.py 」 Python 程式寫入資料。</block>
+  <block id="db12c3e2840ba5032e784bab8e8fb917" category="list-text">使用「 VERIFY_data_NetApp.py 」 Python 檔案讀取資料。</block>
+  <block id="25ab62108c16e9b732c38f62755ec991" category="paragraph">根據上述驗證、 Kubernetes 與向量資料庫的整合、透過在 Kubernetes 上使用 NetApp 儲存控制器部署 Milvus 叢集、為客戶提供強大、可擴充且有效率的解決方案、以管理大規模資料作業。這項設定可讓客戶快速有效地處理高維度資料、並執行複雜查詢、是大型資料應用程式和 AI 工作負載的理想解決方案。將持續磁碟區（ PV ）用於各種叢集元件、以及從 NetApp ONTAP 建立單一 NFS 磁碟區、可確保最佳的資源使用率和資料管理。驗證 PersistentVolume Claims （ PVCS ）和 Pod 狀態的程序、以及測試資料寫入和讀取、可讓客戶確保資料作業可靠且一致。使用 ONTAP 或 StorageGRID 物件儲存設備來儲存客戶資料、可進一步增強資料的存取能力和安全性。整體而言、這項設定可讓客戶擁有彈性且高效能的資料管理解決方案、並可隨著不斷成長的資料需求順暢地擴充。</block>
+  <block id="0a5775b4af8d3c53f18b8ccaf913945d" category="summary">這是 NetApp 向量資料基礎解決方案的抽象頁面。</block>
+  <block id="8df98bd508b3983f9578ff172fd33def" category="doc">NetApp 向量資料庫解決方案</block>
+  <block id="7dff0a79d9410666d77e5f2ac7d0344f" category="paragraph">NetApp 的 Kartheyan Nagalingam 和 Rodrigo Nascimento</block>
+  <block id="faf8404caf3fd929b090e6891c39a11e" category="paragraph">本文件使用 NetApp 的儲存解決方案、徹底探索向量資料庫（例如 Milvus ）的部署與管理、以及 pgvecto 開放原始碼 PostgreSQL 延伸。其中詳述使用 NetApp ONTAP 和 StorageGRID 物件儲存設備的基礎架構準則、並驗證 AWS FSX for NetApp ONTAP 中的 Milvus 資料庫應用程式。本文件說明 NetApp 的檔案物件雙重性、以及其用於支援向量嵌入的向量資料庫和應用程式的公用程式。它強調 NetApp 企業管理產品 SnapCenter 的功能、可為向量資料庫提供備份與還原功能、確保資料完整性與可用度。本文件進一步深入探討 NetApp 的混合雲解決方案、討論其在內部部署和雲端環境中的資料複寫與保護角色。其中包括對 NetApp ONTAP 上向量資料庫效能驗證的深入見解、最後以兩個泛用 AI 的實際使用案例做為結論：使用 LLM 和 NetApp 內部 ChatAI 。本文檔是利用 NetApp 的儲存解決方案來管理向量資料庫的完整指南。</block>
+  <block id="ad452e95198e544e4d893fc75ad47dd6" category="paragraph">參考架構著重於下列項目：</block>
+  <block id="b125f2f6de5373f99daf863c9eac833e" category="list-text"><block ref="b125f2f6de5373f99daf863c9eac833e" category="inline-link-macro-rx"></block></block>
+  <block id="11506e90a968f7a3daccf476834605d8" category="list-text"><block ref="11506e90a968f7a3daccf476834605d8" category="inline-link-macro-rx"></block></block>
+  <block id="34e317d16a291e422cfed7563b8e4b74" category="inline-link-macro">向量資料庫</block>
+  <block id="fb468c8780b9fdb88e643eeebb5ec36c" category="list-text"><block ref="fb468c8780b9fdb88e643eeebb5ec36c" category="inline-link-macro-rx"></block></block>
+  <block id="55496e6b06de6e72c19b578ad4ce71d8" category="inline-link-macro">技術需求</block>
+  <block id="9e106e448fdcc2b27e493a80d0e304fa" category="list-text"><block ref="9e106e448fdcc2b27e493a80d0e304fa" category="inline-link-macro-rx"></block></block>
+  <block id="3cd3290a9231e38be51fc2cb3ce01572" category="inline-link-macro">部署程序</block>
+  <block id="15e960cff7b6446fef0618c64c35f0c4" category="list-text"><block ref="15e960cff7b6446fef0618c64c35f0c4" category="inline-link-macro-rx"></block></block>
+  <block id="8c8f8b93bc06c57499a04ec1b06dae28" category="inline-link-macro">解決方案驗證總覽</block>
+  <block id="13b00b6e99a110ef67f51e7a72ccc7ab" category="list-text"><block ref="13b00b6e99a110ef67f51e7a72ccc7ab" category="inline-link-macro-rx"></block></block>
+  <block id="8505d7d1a5bb8f0709861077b6053aac" category="inline-link-macro">使用 PostgreSQL 的 Instaclustr 向量資料庫： pgvector</block>
+  <block id="9578366975499855acbdef8b80f56a95" category="list-text"><block ref="9578366975499855acbdef8b80f56a95" category="inline-link-macro-rx"></block></block>
+  <block id="a4349288a9fe8fecb32674ed8a0e5d15" category="inline-link-macro">向量資料庫使用案例</block>
+  <block id="2002064ab917574c5edbb1c08e581e9c" category="list-text"><block ref="2002064ab917574c5edbb1c08e581e9c" category="inline-link-macro-rx"></block></block>
+  <block id="75a2e329e5bb55196f8e5a7b28491f4f" category="list-text"><block ref="75a2e329e5bb55196f8e5a7b28491f4f" category="inline-link-macro-rx"></block></block>
+  <block id="fec04177b34fde0762c2d0f1cb5bcf85" category="inline-link-macro">附錄 A ： values.yaml</block>
+  <block id="4d3fdb5eee60e076ea8351c7a9b011ff" category="list-text"><block ref="4d3fdb5eee60e076ea8351c7a9b011ff" category="inline-link-macro-rx"></block></block>
+  <block id="f7ab9b609aa315a4d224e6e33b2a10ee" category="inline-link-macro">附錄 B ： prepare_data_netapp_new.py</block>
+  <block id="6726311a72c30880355ad28130e57cca" category="list-text"><block ref="6726311a72c30880355ad28130e57cca" category="inline-link-macro-rx"></block></block>
+  <block id="016166f68a717d3a544b77970134fe92" category="inline-link-macro">附錄 C ： verify_data_netapp.py</block>
+  <block id="9282ef7d5ab3800f47d43f22336bbf2f" category="list-text"><block ref="9282ef7d5ab3800f47d43f22336bbf2f" category="inline-link-macro-rx"></block></block>
+  <block id="05b4af2cc796ae07ae3efb49a12abe45" category="inline-link-macro">附錄 D ：泊塢視窗 - 組合 .yml</block>
+  <block id="74add55033c86bf78ecdd2e5f285d205" category="list-text"><block ref="74add55033c86bf78ecdd2e5f285d205" category="inline-link-macro-rx"></block></block>
+  <block id="f60546114707495cbcefb83f806b47e2" category="summary">技術需求： NetApp 的向量資料庫解決方案</block>
+  <block id="1507fd593972e19976a48675eb11483a" category="paragraph">除了效能之外、以下所述的硬體和軟體組態已用於本文件中執行的大多數驗證。這些組態是協助您設定環境的準則。不過、請注意、特定元件可能會因個別客戶需求而異。</block>
+  <block id="74cc4ae913d72260c083ab2b346121ec" category="cell">NetApp AFF 儲存陣列 HA 配對</block>
+  <block id="7e9534170bcf0d2cab4a69e22cdca79c" category="cell">* A800
+* ONTAP 9.14.1
+* 48 x 3.49TB SSD - NVM
+* 兩個彈性群組磁碟區：中繼資料和資料。
+* 中繼資料 NFS 磁碟區有 12 個容量 250 GB 的持續磁碟區。
+* 資料是 ONTAP NAS S3 Volume</block>
+  <block id="bcb4d8bb0642dc62c114f2a0a31f5aa3" category="cell">6 x Fujitsu PRIMERGY RX2540 M4</block>
+  <block id="891b7b85ad27bcf31f4d6b9d3e5f55eb" category="cell">* 64 個 CPU
+* Intel （ R ） Xeon （ R ） Gold 6142 CPU @ 2.60GHz
+* 256 GM 實體記憶體
+1 個 100GbE 網路連接埠</block>
+  <block id="edcd3f3adc6d51b309e9115847fa497f" category="cell">100 GbE</block>
+  <block id="4515188d6af40c03b16b310778b865c8" category="cell">* 1 個 SG100 、 3 個 SGF6024
+* 3 x 24 x 7.68TB</block>
+  <block id="e7f07d17d04d9ac60dd3ebc382a1d58b" category="cell">Milvus 叢集</block>
+  <block id="5c9a77f3be5149b25ef3dd4a0d42f61e" category="cell">* 圖表 - milvus-4.1.11 。
+* 應用程式版本– 2.3.4
+* 相關套裝組合、例如 bookkeeper 、 zookkeeper 、 Pulsar 、 etcd 、 Proxy 、 querynod節點 、 worker</block>
+  <block id="b0654cc6796be715102b69214bddfb52" category="cell">* 5 節點 K8s 叢集
+* 1 個主節點和 4 個工作節點
+* 版本– 1.7.2</block>
+  <block id="5b8215321456694f36bc83a178e44856" category="cell">*3.10.12.</block>
+  <block id="fe51a53701c4e0dd7696bed40b6f70db" category="summary">Vector-database-deployment-procedure ： NetApp 的向量資料庫解決方案</block>
+  <block id="fa0b3671f099fc4fc4fbe3ac8374d92c" category="section-title">部署程序</block>
+  <block id="b63c54c37cdb817c256ef1a7e50fc5fe" category="paragraph">在本部署區段中、我們將 Milvus 向量資料庫與 Kubernetes 一起用於實驗室設定、如下所示。</block>
+  <block id="f0851b8042c2ed5c71be0022c3cc636c" category="paragraph"><block ref="f0851b8042c2ed5c71be0022c3cc636c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="76b4b9b6998f8b3056b486430aa9c6fd" category="paragraph">NetApp 儲存設備可為叢集提供儲存設備、以保留客戶資料和 milvus 叢集資料。</block>
+  <block id="46d201d3a5d870036bd7573752054979" category="section-title">NetApp 儲存設備設定– ONTAP</block>
+  <block id="82c8a5cee83d98576ecd7fb9135c1b41" category="list-text">儲存系統初始化</block>
+  <block id="8028442c79907b3f88933ff5c16fac5e" category="list-text">建立儲存虛擬機器（ SVM ）</block>
+  <block id="ff602335ea946bbb0494a8ca5aa58bf5" category="list-text">邏輯網路介面指派</block>
+  <block id="c1d1275f7bc999e53ce84a9b2a48cc7f" category="list-text">NFS 、 S3 組態和授權</block>
+  <block id="1fa9de5db47759d3e586f783f647d3e8" category="paragraph">請遵循下列 NFS （網路檔案系統）步驟：</block>
+  <block id="ff4d3521202706166de40748524aa43f" category="list-text">為 NFSv4 建立 FlexGroup Volume 。在我們的驗證設定中、我們使用了 48 個 SSD 、 1 個 SSD 專用於控制器的根磁碟區、 47 個 SSD 散佈於 NFSv4]] 。請確認 FlexGroup 磁碟區的 NFS 匯出原則具有 Kubernetes （ K8s ）節點網路的讀取 / 寫入權限。如果沒有這些權限、請為 K8s 節點網路授予讀取 / 寫入（ RW ）權限。</block>
+  <block id="a53a2ae8c8ba1b0def8ad999e086f94c" category="list-text">在所有 K8s 節點上、建立資料夾、並透過每個 K8s 節點上的邏輯介面（ LIF ）、將 FlexGroup 磁碟區掛載至此資料夾。</block>
+  <block id="b02cc86a747fc07392e2eceafa48816f" category="paragraph">請針對 NAS S3 （網路附加儲存簡易儲存服務）執行下列步驟：</block>
+  <block id="a1ec6ff754c8c8958a577b43995e9caf" category="list-text">建立 FlexGroup Volume for NFS 。</block>
+  <block id="28863b320894e844cb1d2df9a479aa31" category="list-text">使用「 vserver object-store-server create 」命令設定物件儲存區伺服器、並將管理狀態設定為「 up 」。您可以選擇啟用 HTTPS 並設定自訂接聽程式連接埠。</block>
+  <block id="993520e0cce3e5f87179d01caa10a746" category="list-text">使用「 vserver object-store-server user create -user &lt;username&gt; 」命令建立物件儲存伺服器使用者。</block>
+  <block id="4c7b617c418e3a5f7073d2d64ba8cb1c" category="list-text">若要取得存取金鑰和秘密金鑰、您可以執行下列命令：「 Set diag; vserver object-store-server user show -user &lt;username&gt; 」。不過、在使用者建立程序期間、將會提供這些金鑰、也可以使用 REST API 呼叫來擷取這些金鑰。</block>
+  <block id="c3d4f7a6161c482cb921db78c64d1543" category="list-text">使用在步驟 2 中建立的使用者建立物件儲存區伺服器群組、並授予存取權。在此範例中、我們提供了「 FullAccess 」。</block>
+  <block id="c550fe4970f3cf4781625e620b4e30a9" category="list-text">將 NAS 貯體的類型設定為「 NAS 」、並提供 NFSv3 Volume 的路徑、以建立 NAS 貯體。您也可以使用 S3 儲存貯體來達到此目的。</block>
+  <block id="81f40424ce0b0dbbc91e2bc42bee8924" category="section-title">NetApp 儲存設備設定– StorageGRID</block>
+  <block id="c8462ad4cf62a8bf6b594e7929097b68" category="list-text">安裝 StorageGRID 軟體。</block>
+  <block id="aec1f80331e64507a359fd96a93d2dee" category="list-text">建立租戶和貯體。</block>
+  <block id="6eea00d5693e3a2106cc3859939c6e8e" category="list-text">建立具有必要權限的使用者。</block>
+  <block id="5288dc14a18d189389b382eda1a7f83a" category="paragraph">如需詳細資訊、請參閱<block ref="c095f7864703639165de914bdacb9488" category="inline-link-rx"></block></block>
+  <block id="11eb7151c13e504e17cca8ecf079bd88" category="summary">向量資料庫 - NetApp 的向量資料庫解決方案</block>
+  <block id="02cf9216cd9290a38db4e591b2d891a3" category="paragraph">向量資料庫是一種特殊類型的資料庫、專門設計用來處理、索引及搜尋非結構化資料、並使用機器學習模型的內嵌資料。它不會以傳統的表格格式來組織資料、而是將資料排列成高維向量、也稱為向量嵌入式。這種獨特的結構可讓資料庫更有效率且更準確地處理複雜的多維資料。</block>
+  <block id="ee365553124acd5ca06a0026c4856306" category="paragraph">向量資料庫的關鍵功能之一、就是使用泛型 AI 來執行分析。這包括相似性搜尋、資料庫可識別資料點、例如指定的輸入、以及異常狀況偵測、藉此找出與正常情況大不相同的資料點。</block>
+  <block id="377318d59206559fb5530d8fbada8420" category="paragraph">此外、向量資料庫非常適合處理時間資料或時間戳記資料。這類資料會依序、針對指定 IT 系統內的所有其他事件、提供有關「發生什麼事」及發生時間的資訊。這種處理和分析時間資料的能力、使得向量資料庫對於需要瞭解一段時間內事件的應用程式特別有用。</block>
+  <block id="196ef3e0d720a0c9b617f7c8c553f64f" category="section-title">ML 和 AI 向量資料庫的優點：</block>
+  <block id="2143262d5355c4a47b87575a67b2545b" category="list-text">高維度搜尋：向量資料庫在管理和擷取高維度資料方面表現優異、這通常是在 AI 和 ML 應用程式中產生的。</block>
+  <block id="eaec9d6e0bc3d169492279c991b5c1e1" category="list-text">擴充性：可有效擴充以處理大量資料、支援 AI 和 ML 專案的成長與擴充。</block>
+  <block id="1a581e9eb96703e6c387548283765d0f" category="list-text">靈活度：向量資料庫提供高度靈活度、可容納多種資料類型和結構。</block>
+  <block id="23f1f41790fda943f83f4fee180eb9c7" category="list-text">效能：提供高效能的資料管理與擷取功能、對於 AI 和 ML 作業的速度與效率而言非常重要。</block>
+  <block id="5ec5f2c444dccfe97885b44e9f81c73a" category="list-text">可自訂的索引：向量資料庫提供可自訂的索引選項、可根據特定需求來最佳化資料組織和擷取。</block>
+  <block id="431b6b79e58c421f73a7d7653f3a2641" category="section-title">向量資料庫和使用案例。</block>
+  <block id="03e65b2645d14a51684616a56e46e74b" category="paragraph">本節提供各種向量資料庫及其使用案例詳細資料。</block>
+  <block id="4873dee9aab8428a3bad0247c8891122" category="section-title">Faiss 和 ScaNN</block>
+  <block id="f8255a0712bd834e092674fb685b593d" category="paragraph">這些程式庫是向量搜尋領域中的重要工具。這些程式庫提供的功能有助於管理和搜尋向量資料、讓它們在這個專門的資料管理領域中擁有寶貴的資源。</block>
+  <block id="45e23a169652aaf95ce80da844f3df0d" category="section-title">彈性搜尋</block>
+  <block id="f4e39bd0ea4cd14785f0ac55a8cd1079" category="paragraph">這是一款廣為使用的搜尋與分析引擎、最近整合了向量搜尋功能。這項新功能可強化其功能、讓 IT 更有效地處理及搜尋向量資料。</block>
+  <block id="f6af38c920e468b8adbdd5793a09b4ca" category="section-title">Pinecone</block>
+  <block id="e50d3eac5e6bdb3d1ddd1f564ee13308" category="paragraph">它是一個強大的向量資料庫、具有一組獨特的功能。它在索引功能中同時支援密集和稀疏的向量、可增強其靈活度和適應能力。其主要優勢之一在於能夠將傳統搜尋方法與 AI 型密集向量搜尋結合、建立混合式搜尋方法、充分發揮兩者的最佳效益。</block>
+  <block id="b9927e214309feb2980bf532e256f428" category="paragraph">Pinecone 主要是雲端型、專為機器學習應用程式所設計、並與多種平台完美整合、包括 GCP 、 AWS 、 Open AI 、 GPT -3 、 GPT-3.5 、 GPT-4 、 Catgut Plus 、 Elasticsearch 、 Haystack 、 還有更多。請務必注意、 Pinecone 是一個封閉來源平台、可作為「軟體即服務」（ SaaS ）產品使用。</block>
+  <block id="b30cd65a7e403a5d3e792a3c02cfe9ef" category="paragraph">Pinecone 具備先進功能、特別適合網路安全產業、可有效運用其高維度搜尋和混合式搜尋功能來偵測和回應威脅。</block>
+  <block id="12f586b0171cf0f06960a27796d811d6" category="section-title">CHROMA</block>
+  <block id="c3dceb7f81239d1f25666dcb2178930f" category="paragraph">這是一個向量資料庫、具有四個主要功能的核心 API 、其中一個包含記憶體內文件向量儲存區。它也利用 Face Transformers 程式庫來向文件進行向量化、以增強文件的功能和多用途性。
+Chroma 可在雲端和內部環境中運作、根據使用者需求提供靈活度。特別是在音訊相關應用程式中、它是音訊型搜尋引擎、音樂推薦系統和其他音訊相關使用案例的最佳選擇。</block>
+  <block id="2a1e8d184d8101d9d99e3d491cd7be71" category="section-title">Weaviate</block>
+  <block id="f39a13c64e42d0be7d4b78e85cca045e" category="paragraph">這是一個多功能的向量資料庫、可讓使用者使用其內建模組或自訂模組、將內容向量化、根據特定需求提供靈活度。它同時提供完全託管和自行代管的解決方案、可因應各種部署偏好。</block>
+  <block id="e455af63cbe72749e7c52a45a49208e6" category="paragraph">Weaviate 的其中一項重要功能是能夠同時儲存向量和物件、以增強其資料處理能力。它廣泛用於多種應用程式、包括在 ERP 系統中進行語義搜尋和資料分類。在電子商務領域、它提供搜尋和推薦引擎。Weaviate 也可用於影像搜尋、異常偵測、自動資料協調、以及網路安全威脅分析、顯示其在多個網域中的多功能性。</block>
+  <block id="e111446745a1825b862f8727ae63bce4" category="section-title">紅皮</block>
+  <block id="58cbcbf294faed43c2a7b44bb5dcafcc" category="paragraph">Redis 是高效能的向量資料庫、以其快速的記憶體內儲存設備聞名、提供低延遲的讀寫作業。因此、對於需要快速存取資料的推薦系統、搜尋引擎和資料分析應用程式來說、這是絕佳的選擇。</block>
+  <block id="4f9bdf8e8091be6f95cde54860bb88f7" category="paragraph">Redis 支援各種向量資料結構、包括清單、集和排序集。它也提供向量作業、例如計算向量之間的距離、或尋找交叉和聯合。這些功能對於相似性搜尋、叢集和內容型建議系統特別有用。</block>
+  <block id="2391a64216fab42522be1700985c5a9e" category="paragraph">在擴充性和可用度方面、 Redis 在處理高處理量工作負載方面表現優異、並提供資料複寫功能。它也能與其他資料類型完美整合、包括傳統關聯式資料庫（ RDBMS ）。
+Redis 包含發佈 / 訂閱（發佈 / 訂閱（發佈 / 訂閱）（發佈 / 訂閱）（發佈 / 訂閱）功能、可用於即時更新、這對管理即時向量很有幫助。此外、 Redis 不僅重量輕、使用簡易、更是管理向量資料的易用解決方案。</block>
+  <block id="4f3d528166032bacea5de8a509bb4d17" category="section-title">Milvus</block>
+  <block id="1b701b434364ea50d35adbb6d9568157" category="paragraph">這是一個多功能的向量資料庫、提供類似文件儲存區的 API 、就像 MongoDB 一樣。它之所以脫穎而出、是因為它支援多種資料類型、使其成為資料科學和機器學習領域的熱門選擇。</block>
+  <block id="721289969b3252686195bfa7a3feba3d" category="paragraph">Milvus 的獨特功能之一是其多向量化功能、可讓使用者在執行階段指定用於搜尋的向量類型。此外、它還利用 KnowWhere 程式庫、它位於其他程式庫（如 Faiss ）之上、來管理查詢與向量搜尋演算法之間的通訊。</block>
+  <block id="bd3a3ade101e0f6fe46ad769dbf3cfa0" category="paragraph">由於 Milvus 與 PyTorch 和 TensorFlow 相容、因此也能與機器學習工作流程無縫整合。這使得它成為各種應用程式的絕佳工具、包括電子商務、影像和視訊分析、物件辨識、影像相似度搜尋和內容型影像擷取。在自然語言處理領域、 Milvus 用於文件叢集、語義搜尋和問題解答系統。</block>
+  <block id="df5acf267fd9d50988a9132e88ec089f" category="paragraph">針對此解決方案、我們選擇 Milvus 進行解決方案驗證。為了提升效能、我們同時使用 milvus 和 postgres （ pgveco.RS ）。</block>
+  <block id="6b9a995b1c19c83b6360f58654598ab0" category="section-title">為什麼我們選擇 milvus 來解決此問題？</block>
+  <block id="ac80bf421cb6dec4ca81d75401709fce" category="list-text">開放原始碼： Milvus 是開放原始碼向量資料庫、鼓勵社群導向的開發與改善。</block>
+  <block id="72e0b014c4927b1166a4c34028bf0a94" category="list-text">AI 整合：利用內嵌相似性搜尋和 AI 應用程式來增強向量資料庫功能。</block>
+  <block id="1f3d7f832f4c276984a989e5a4760e7d" category="list-text">大容量處理： Milvus 可儲存、索引及管理深度神經網路（ DNN ）和機器學習（ ML ）模式所產生的十多億種內嵌向量。</block>
+  <block id="be23175f1d046ec7a81f41bbfbb7a710" category="list-text">易用：使用方便、設定不到一分鐘。Milvus 也提供適用於不同程式設計語言的 SDK 。</block>
+  <block id="2c86f12d4bdb64f5ff99e182033e6664" category="list-text">速度：提供超快的擷取速度、比某些替代方案快 10 倍。</block>
+  <block id="23a12a1d1c53642355185e4cf7fd3d30" category="list-text">擴充性與可用度： Mivus 具有高度擴充性、並可視需要進行擴充。</block>
+  <block id="eaa6e5cbb0e6c82b8217f591711c391a" category="list-text">功能豐富：支援不同的資料類型、屬性篩選、使用者定義功能（ UDF ）支援、可設定的一致性層級和差旅時間、讓它成為各種應用程式的多功能工具。</block>
+  <block id="cb1e9d4cfab2279dd63f9f75796dc14f" category="section-title">Milvus 架構總覽</block>
+  <block id="baa5f7f59168079bff29c3a5f79b7fe9" category="paragraph"><block ref="baa5f7f59168079bff29c3a5f79b7fe9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="535180530d3e5af927c5f094836d7626" category="paragraph">本節提供更高的槓桿元件和服務、用於 Milvus 架構。
+* 存取層：由一組無狀態 Proxy 組成、可做為使用者的系統和端點的前層。
+* 協調員服務：將工作指派給工作節點、並做為系統的大腦。它有三種協調器類型：根座標、資料座標和查詢座標。
+* 工作者節點：它遵循協調器服務的指示、執行使用者觸發的 DML/DDL commands.it 有三種類型的工作者節點、例如查詢節點、資料節點和索引節點。
+* 儲存：負責資料持續性。它包含中繼儲存設備、記錄檔代理程式和物件儲存設備。NetApp 儲存設備（例如 ONTAP 和 StorageGRID ）可為客戶資料和向量資料庫資料、提供物件儲存和檔案型儲存設備給 Milvus 。</block>
+  <block id="123ffe6774f72f5d1c22607445987e46" category="summary">為 NetApp 準備資料對向量資料庫解決方案</block>
+  <block id="755a3ba009d32e46dd37e73b1449ec79" category="summary">NetApp 向量資料庫解決方案簡介</block>
+  <block id="16091ccd671260c1a85526587bdd6247" category="paragraph">向量資料庫可有效因應大型語言模型（ LMS ）和泛用人工智慧（ AI ）中的語義搜尋複雜度所設計的挑戰。與傳統的資料管理系統不同、向量資料庫能夠處理及搜尋各種類型的資料、包括影像、影片、文字、音訊、 使用資料本身的內容、而非標籤或標籤、以及其他形式的非結構化資料。</block>
+  <block id="abd729dd7dfee14433df8341cdef1b8d" category="paragraph">Relational Database Management Systems （ RDBMS ）的侷限性已詳加記錄、尤其是在 AI 應用程式中、它們與高維度資料呈現和非結構化資料的爭用。RDBMS 通常需要耗時且容易出錯的程序、將資料整合至更容易管理的結構、導致搜尋延遲和效率不彰。然而、向量資料庫的設計旨在規避這些問題、提供更有效率且更準確的解決方案來管理及搜尋複雜的高維度資料、進而協助 AI 應用程式的發展。</block>
+  <block id="a5ab987c2f5d5d5ef93d240ee7bdbe76" category="paragraph">本文件為目前使用或計畫使用向量資料庫的客戶提供全方位指南、詳述在 NetApp ONTAP 、 NetApp StorageGRID 、 Amazon FSxN for NetApp ONTAP 和 SnapCenter 等平台上使用向量資料庫的最佳實務做法。此處提供的內容涵蓋多個主題：</block>
+  <block id="a7e003a045fea49874b32ab9648eeff1" category="list-text">NetApp 儲存設備透過 NetApp ONTAP 和 StorageGRID 物件儲存設備提供的向量資料庫基礎架構準則、例如 Milvus 。</block>
+  <block id="38e9e87e2fc6b3e7eadcb6d10798c72f" category="list-text">透過檔案和物件存放區、驗證 AWS FSX for NetApp ONTAP 中的 Milvus 資料庫。</block>
+  <block id="e42320479375be988b4f85444b7ed522" category="list-text">深入瞭解 NetApp 的檔案物件雙重性、展現其在向量資料庫及其他應用程式中的資料實用度。</block>
+  <block id="88c776ee0d5e778459d15701e59d22f9" category="list-text">NetApp 的資料保護管理產品 SnapCenter 如何為向量資料庫資料提供備份與還原功能。</block>
+  <block id="5a807d92eeb266ad3872c552ad88b02a" category="list-text">NetApp 的混合雲如何在內部部署和雲端環境中提供資料複寫與保護。</block>
+  <block id="73d0a81a7f19b02b2cf3e9084b655966" category="list-text">深入瞭解 NetApp ONTAP 上的向量資料庫（例如 Milvus 和 pgvector ）的效能驗證。</block>
+  <block id="0fcebd0c64e4d93a7b8e5d5c38b6c362" category="list-text">兩種特定使用案例：擷取使用大語言模型（ LLM ）的擴增世代（ RAG ）、以及 NetApp IT 團隊的 ChatAI 、提供所概述概念和實務做法的實際範例。</block>
+  <block id="bdcc26240ab0215ba46efad29038278d" category="summary">解決方案驗證總覽： NetApp 的向量資料庫解決方案</block>
+  <block id="a11dfa705c151f0af3e80cc954126655" category="paragraph">我們已針對五個關鍵領域進行全面的解決方案驗證、詳細內容概述如下。每個部分都會深入探討客戶所面臨的挑戰、 NetApp 提供的解決方案、以及後續對客戶的好處。</block>
+  <block id="c361b178d825a2bef715b1a90fd8221c" category="list-text"><block ref="2181e06ede9c8b5fdf6158f04f16dae6" category="inline-link-macro-rx"></block>
+客戶在儲存與運算、有效的基礎架構管理與資料管理上、必須自行擴充規模、這是一項挑戰。在本節中、我們將詳細說明在 Kubernetes 上安裝 Milvus 叢集的程序、並使用 NetApp 儲存控制器來處理叢集資料和客戶資料。</block>
+  <block id="d0b9236cab332e629dbe0ce43b176f5b" category="inline-link-macro">Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性</block>
+  <block id="093b0f92245bb3b3ede417488314dc75" category="list-text"><block ref="50e2dcdf13c0483f3ba99df73901b312" category="inline-link-macro-rx"></block>
+在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。</block>
+  <block id="62e16ceab82346a15bf6bb06f5076498" category="inline-link-macro">使用 NetApp SnapCenter 保護向量資料庫。</block>
+  <block id="c11c8c5180c3a224b1c2180e2253f11e" category="list-text"><block ref="27a9aa753a69ba6eeb6da8207ec44cbc" category="inline-link-macro-rx"></block>
+在本節中、我們將深入探討 SnapCenter 如何保護 ONTAP 中的向量資料庫資料和 Milvus 資料。在此範例中、我們將從 NFS ONTAP Volume （ vol1 ）衍生的 NAS 儲存區（ milvusdbvol1 ）用於客戶資料、並將獨立的 NFS Volume （ vectordbpv ）用於 Milvus 叢集組態資料。</block>
+  <block id="e55b3630a4d66c6bf27e22779ce5d63e" category="inline-link-macro">使用 NetApp SnapMirror 進行災難恢復</block>
+  <block id="617e028659334185befe270938d15f8a" category="list-text"><block ref="363e483bec80d46ae090acaaac027333" category="inline-link-macro-rx"></block>
+在本節中、我們將討論災難恢復（ DR ）對於向量資料庫的重要性、以及 NetApp 災難恢復產品 SnapMirror 如何為向量資料庫提供災難恢復解決方案。</block>
+  <block id="b6cfc76ea350ca4f5d60951493942562" category="list-text"><block ref="4df70798ff35bb3f26406b62dcacfcaa" category="inline-link-macro-rx"></block>
+在本節中、我們的目標是深入探討向量資料庫（例如 Milvus 和 pgveco.RS ）的效能驗證、重點在於其儲存效能特性、例如 I/O 設定檔和 NetApp 儲存控制器行為、以支援 LLM 生命週期內的 RAG 和推斷工作負載。當這些資料庫與 ONTAP 儲存解決方案結合使用時、我們會評估並找出任何效能差異。我們的分析將以關鍵效能指標為基礎、例如每秒處理的查詢數（ QPS ）。</block>
+  <block id="2adc0d5a06f39e5bd606c62ac1bdec94" category="summary">instaclustr 搭配 pgvector - NetApp 的向量資料庫解決方案</block>
+  <block id="126ac9f6149081eb0e97c2e939eaad52" category="inline-link-macro">部落格</block>
+  <block id="ce45c4fd921f8a88625f0a8322aeaf15" category="paragraph">在本節中、我們將深入探討 instaclustr 產品如何與 PostgreSQL 在 pgvector 功能上整合的細節。我們提供了一個範例：「如何使用 PGVector 和 PostgreSQL ® 來改善 LLM 的準確度和效能：內嵌與 PGVector 角色簡介」。請檢查 <block ref="f7c4562444dacce2474e07621eb487a5" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="1b4b1bbd037e26c942386744e0c37fb6" category="summary">docker-compose.xml ： NetApp 的向量資料庫解決方案</block>
+  <block id="5a019cf3628ae4961c3ba86198ac5410" category="summary">使用案例： NetApp 的向量資料庫解決方案</block>
+  <block id="61798ad0c56d51680f77d6b9f4694877" category="paragraph">在本節中、我們將討論兩個使用案例、例如使用大語言模式擷取擴增代和 NetApp IT 聊天。</block>
+  <block id="2b376c37a6f0c2c21b8ba7b62ac86693" category="section-title">使用大語言模型（ LRAM ）擷取擴增產生（ RAG ）</block>
+  <block id="6a482cb4a386f8c0b7889b5dc11a997a" category="paragraph">NVIDIA Enterprise RAG LLM Operator 是在企業中實作 RAG 的實用工具。此運算子可用於部署完整的 RAG 管線。您可以自訂 RAG 管道、以使用 Milvus 或 pgvecto 作為儲存知識庫嵌入資料的向量資料庫。如需詳細資訊、請參閱文件。</block>
+  <block id="4c1729beb205806fa130c0dbf0364b59" category="paragraph">圖 1 ）採用 NVIDIA Nemo Microservices 和 NetApp 技術的企業級 RAG</block>
+  <block id="4a20ebbd5528736c1fb930c990aa64f3" category="inline-image-macro">錯誤。遺失圖形影像</block>
+  <block id="eabee9467a6fc2ecab8f8359adcbdd20" category="paragraph"><block ref="eabee9467a6fc2ecab8f8359adcbdd20" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="da66e40722180b5a0466a9ff253976af" category="section-title">NetApp IT chatbot 使用案例</block>
+  <block id="497416719429ff96f2462d991f6ea3f8" category="paragraph">NetApp 的 chatbot 是向量資料庫的另一個即時使用案例。在這種情況下、 NetApp Private OpenAI 沙箱提供有效、安全且有效率的平台、可管理 NetApp 內部使用者的查詢。它整合了嚴格的安全性通訊協定、高效率的資料管理系統、以及精密的 AI 處理功能、可根據使用者在組織中的角色和責任、透過 SSO 驗證、確保對使用者做出高品質、精準的回應。此架構強調了合併進階技術以建立以使用者為中心的智慧型系統的潛力。</block>
+  <block id="b92b5877c05775ad7727c44758c919d1" category="paragraph"><block ref="b92b5877c05775ad7727c44758c919d1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ff2b3d5b17bdfc4a02990dd4115b7d4d" category="paragraph">使用案例可分為四個主要部分。</block>
+  <block id="e21f69fe36aefc844dcebf8fb52262a3" category="section-title">使用者驗證與驗證：</block>
+  <block id="7457d61423f49fa817953d3c8e0c08cf" category="list-text">使用者查詢會先完成 NetApp 單一登入（ SSO ）程序、以確認使用者的身分識別。</block>
+  <block id="3dedad86d8ac55d8b2b034f0ff353ea5" category="list-text">驗證成功後、系統會檢查 VPN 連線、以確保資料傳輸安全無虞。</block>
+  <block id="34ef9101314d114f1bed9a4fc8c13666" category="section-title">資料傳輸與處理：</block>
+  <block id="e5aa3164f4a76a72d1d074c0285a4d54" category="list-text">VPN 驗證完成後、資料會透過 NetAIChat 或 NetAIICureate Web 應用程式傳送至 MariaDB 。MariaDB 是一套快速且有效率的資料庫系統、用於管理及儲存使用者資料。</block>
+  <block id="d0d4d700ca2ba3e943833a184fce15db" category="list-text">接著 MariaDB 會將資訊傳送至 NetApp Azure 執行個體、該執行個體會將使用者資料連線至 AI 處理單元。</block>
+  <block id="b1cbaf6e413b3b5a92538942710197de" category="section-title">與 OpenAI 和內容篩選的互動：</block>
+  <block id="e7a51c3da456741ac0fe5ae031a539a3" category="list-text">Azure 執行個體會將使用者的問題傳送至內容篩選系統。此系統會清理查詢、並準備處理。</block>
+  <block id="8449bc1c7d0f0641656072f90d8d06db" category="list-text">清理後的輸入會傳送至 Azure OpenAI 基礎模型、此模型會根據輸入產生回應。</block>
+  <block id="ce4abebf9a6d91e3d12d3bd86ebd308f" category="section-title">回應產生與仲裁：</block>
+  <block id="70ee91d51a5da426448f1ed59462804d" category="list-text">首先檢查基礎模型的回應、以確保其準確且符合內容標準。</block>
+  <block id="40d26f0ba80199b0eaf7b7e0525c7f34" category="list-text">通過檢查後、系統會將回應傳回給使用者。此程序可確保使用者獲得清楚、準確且適當的查詢答案。</block>
+  <block id="705451e750819c9ce68fb278a7b09839" category="summary">value-xml ： NetApp 的向量資料庫解決方案</block>
+  <block id="6e6c82b93338e2283cf42123803b79d4" category="doc">附錄 A ： values.yaml</block>
+  <block id="738158dc90e1d60ff7273e21bc2d2c4e" category="summary">向量資料庫效能驗證： NetApp 的向量資料庫解決方案</block>
+  <block id="39301670f58445b6e5aed7e2a2694632" category="doc">向量資料庫效能驗證</block>
+  <block id="0dfe6e4dda5bda08f3b2f54fe5f51a3b" category="paragraph">效能驗證在向量資料庫和儲存系統中都扮演重要角色、是確保最佳運作和有效資源使用率的關鍵因素。向量資料庫以處理高維度資料和執行相似度搜尋而聞名、因此需要維持高效能層級、才能快速準確地處理複雜的查詢。效能驗證有助於識別瓶頸、微調組態、並確保系統能夠處理預期的負載、而不會降低服務品質。同樣地、在儲存系統中、效能驗證是確保資料儲存及擷取效率的關鍵、而不會產生延遲問題或瓶頸、進而影響整體系統效能。它也有助於在資訊充足的情況下、針對必要的儲存基礎架構升級或變更做出決策。因此、效能驗證是系統管理的關鍵層面、有助於維持高服務品質、營運效率和整體系統可靠性。</block>
+  <block id="9115de397cf08aaab47480ba37fbda9b" category="paragraph">在本節中、我們的目標是深入探討向量資料庫（例如 Milvus 和 pgveco.RS ）的效能驗證、重點在於其儲存效能特性、例如 I/O 設定檔和 NetApp 儲存控制器行為、以支援 LLM 生命週期內的 RAG 和推斷工作負載。當這些資料庫與 ONTAP 儲存解決方案結合使用時、我們會評估並找出任何效能差異。我們的分析將以關鍵效能指標為基礎、例如每秒處理的查詢數（ QPS ）。</block>
+  <block id="259349a97b2ad2022418ffa271915c7f" category="paragraph">請查看以下 Milvus 使用的方法和進度。</block>
+  <block id="3805969a7e504e8baa224367a87cc5a8" category="cell">Milvus （獨立式和叢集）</block>
+  <block id="a8877a091e6dc4eacc0c0ed9860c26be" category="cell">Postgres （ pgveco.RS ）</block>
+  <block id="2af72f100c356273d46284f6fd1dfc08" category="cell">版本</block>
+  <block id="c2ee74b62870d06b4b4ad6819b9bf142" category="cell">2.3.2.</block>
+  <block id="44b732a6709d52e07db0367d4938965c" category="cell">0.2.0</block>
+  <block id="ac52cf637478f3656a1fdee5c02324fd" category="cell">檔案系統</block>
+  <block id="6f27ca3ac8a02564ce2eef7e706e1e50" category="cell">iSCSI LUN 上的 XFS</block>
+  <block id="30b5bb1d010e4fe15e0541fa9b96dbdc" category="cell">工作負載產生器</block>
+  <block id="73676a7da2a7cbd819e3a72dab6d2364" category="inline-link-macro">VectorDB-Bench</block>
+  <block id="b9350528e041c5ef962f5553183ca801" category="cell"><block ref="5a4d2a4510eb4d9895b68971f8744a05" category="inline-link-macro-rx"></block> – v0.0.5.</block>
+  <block id="f1cb45f64cdd7b55480ba6aeecd7b797" category="cell">資料集</block>
+  <block id="0adc231fd0cbf3d7d8d5a0ff68eb2783" category="cell">LAION 資料集
+* 1 億套嵌入式產品
+* 768 尺寸
+* ~300GB 資料集大小</block>
+  <block id="39138e4aea637ddf9fc568de53bed3af" category="section-title">VectorDB-Bench 搭配 Milvus 獨立式叢集</block>
+  <block id="3a82e1f5d5f2195d71ba779a6ede894f" category="paragraph">我們在採用 vectorDB-Bench 的 mivus 獨立叢集上進行了下列效能驗證。
+milvus 獨立叢集的網路和伺服器連線能力如下。</block>
+  <block id="a6fc5b8037647ffd328ec0cfc9753379" category="inline-image-macro">錯誤。遺失圖形影像</block>
+  <block id="55316d0f99816c2bc15104bb69a0abdd" category="paragraph"><block ref="55316d0f99816c2bc15104bb69a0abdd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="663c78b1d11f60d7440f91f77e4f328a" category="paragraph">在本節中、我們分享了測試 Milvus 獨立式資料庫的觀察結果和結果。
+。	我們選擇 DiskANN 作為這些測試的索引類型。
+。	擷取、最佳化及建立約 100GB 資料集的索引約需 5 小時。在這段期間中、配備 20 個核心（啟用超執行緒時等於 40 個 vCPU ）的 Milvus 伺服器、其最大 CPU 容量為 100% 。我們發現、對於超過系統記憶體大小的大型資料集而言、 DiskANN 特別重要。
+。	在查詢階段中、我們觀察到每秒查詢數（ QPS ）率為 10.93 、而且回收率為 0.9987 。查詢的第 99 個百分位數延遲是以 708.2 毫秒的時間來測量。</block>
+  <block id="624dbbdc3175c82e67aadff554ee1850" category="paragraph">從儲存的角度來看、資料庫在擷取、插入後最佳化和索引建立階段中、每秒發行約 1 、 000 次作業。在查詢階段、它需要 32,000 個作業 / 秒</block>
+  <block id="2063cebb91be357ea64826c835821b9d" category="paragraph">下節將說明儲存效能指標。</block>
+  <block id="5805c53ecb86f7c7ae7765287eda00d6" category="cell">工作負載階段</block>
+  <block id="216ab40cda5c7c00ff42a4efb1827d89" category="cell">度量</block>
+  <block id="7f2bb2bf609fe39698d58a2d1d86863a" category="cell">資料擷取
+和
+插入後最佳化</block>
+  <block id="79073619fba8242703524f16870ff858" category="cell">IOPS</block>
+  <block id="648a472fd7585d9d0c15b90f36365597" category="cell">&lt; 1 、 000</block>
+  <block id="26ae7bdd1d6fb8c4886e6fde8d12601c" category="cell">延遲</block>
+  <block id="822500fd5bb8ac11d944779a6703df98" category="cell">&lt; 400 美元</block>
+  <block id="68eaabb91b0d1c52be44217a24f27b91" category="cell">工作負載</block>
+  <block id="59829f7cd61cf1113b8214b47aaeacd8" category="cell">讀取 / 寫入混合、大部分是寫入</block>
+  <block id="991ff9e60b05b3e05e67404474611720" category="cell">IO 大小</block>
+  <block id="6b29aa131a7b968826c90e6801bacd23" category="cell">64KB</block>
+  <block id="66c1b4c7f3dc385b68a9fa903ccd016d" category="cell">查詢</block>
+  <block id="7d38c4599a45db6312f66bfac2fbba0d" category="cell">尖峰時間為 32,000</block>
+  <block id="866fc78d18122580af38eeff4375a3c0" category="cell">100% 快取讀取</block>
+  <block id="9632dc4ffd7ab759c4fc53341977d887" category="cell">主要 8KB</block>
+  <block id="06b68ce1a31c0cdf5430d925dabff321" category="paragraph">vectorDB-bench 結果如下。</block>
+  <block id="65eaa0e4c40a8a5ec7f74aa2f6aef4df" category="inline-image-macro">錯誤：遺失圖形影像</block>
+  <block id="c5dca993d13869d62f469a5b9c7f7b8f" category="paragraph"><block ref="c5dca993d13869d62f469a5b9c7f7b8f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bf13afd123e82c2f8504d046ac979ce6" category="paragraph">從獨立式 Milvus 執行個體的效能驗證來看、目前的設定顯然不足以支援容量為 1536 的 500 萬向量資料集。我們已確定儲存設備擁有足夠的資源、並不構成系統的瓶頸。</block>
+  <block id="7a2e31e50716ca1d05ae61faa264e4d9" category="section-title">VectorDB-Bench 搭配 milvus 叢集</block>
+  <block id="1a3dd3962bc3776e2a670ea2dccbf4aa" category="paragraph">在本節中、我們將討論在 Kubernetes 環境中部署 Milvus 叢集的問題。這項 Kubernetes 設定是在 VMware vSphere 部署的基礎上建構、該部署是 Kubernetes 主節點和工作節點的主節點。</block>
+  <block id="2f38e478e85318635a3c104d2f9689ea" category="paragraph">VMware vSphere 和 Kubernetes 部署的詳細資料將在下列各節中說明。</block>
+  <block id="bcc6d04e9a09bac8a16f779c7fb0fc95" category="paragraph"><block ref="5791df94d4986ab991cc300518869c79" category="inline-image-macro-rx" type="image"></block>
+<block ref="05f3833c9fdbe56c1673e9aff4a671ab" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="09618a18978db1f9288bf0626e2e9d77" category="paragraph">在本節中、我們會介紹測試 Milvus 資料庫的觀察結果和結果。
+* 使用的索引類型為 DiskANN 。
+* 下表提供獨立部署與叢集部署之間的比較、以 1536 的維度處理 500 萬個向量。我們觀察到、叢集部署中的資料擷取和插入後最佳化所需時間較短。與獨立安裝相比、叢集部署中查詢延遲的第 99 百分位數減少了六倍。
+* 雖然叢集部署中的每秒查詢數（ QPS ）速率較高、但並未達到所需的層級。</block>
+  <block id="275b6e13248f0275c0c999d3c848cfa8" category="paragraph"><block ref="275b6e13248f0275c0c999d3c848cfa8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ec05b5e2e1b5d66f987712f952bfd377" category="paragraph">下圖提供各種儲存指標的檢視、包括儲存叢集延遲和 IOPS 總計（每秒輸入 / 輸出作業數）。</block>
+  <block id="7d3c6148c13f75187a14deac27f18769" category="paragraph"><block ref="7d3c6148c13f75187a14deac27f18769" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f34ceedf45c53ac5bfc4732c7e9eb992" category="paragraph">下節將說明主要的儲存效能指標。</block>
+  <block id="40c9acf8f61419691d77b3dec178cdc9" category="cell">尖峰為 147,000</block>
+  <block id="971ae6b3c89c8ab12e0eed4e70f3ad7a" category="paragraph">根據獨立式 Milvus 和 Milvus 叢集的效能驗證、我們提供儲存 I/O 設定檔的詳細資料。
+* 我們觀察到、在獨立部署和叢集部署中、 I/O 設定檔保持一致。
+* 觀察到的尖峰 IOPS 差異、可歸因於叢集部署中的用戶端數量較多。</block>
+  <block id="537edb0aa02f73a246f084214ff9a1e4" category="section-title">vectorDB-Bench 搭配 Postgres （ pgvector.RS ）</block>
+  <block id="62f6737d84249676fddeaa6678755d2a" category="paragraph">我們使用 VectorDB-Bench 在 PostgreSQL （ pgvec托 .RS ）上執行下列動作：
+PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如下：</block>
+  <block id="0ce83d65f434552990155dd20e6ee60f" category="paragraph"><block ref="0ce83d65f434552990155dd20e6ee60f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8c44485d9cd6dac0a66cb412625abbe2" category="paragraph">在本節中、我們分享了測試 PostgreSQL 資料庫的觀察結果、特別是使用 pgveco.RS 。
+* 我們選擇 HNSW 作為這些測試的索引類型、因為在測試時、 DiskANN 無法用於 pgveco.RS 。
+* 在資料擷取階段、我們載入 Cohere 資料集、其中包含 1 、 000 萬個向量、維度為 768 。此程序約需 4.5 小時。
+* 在查詢階段、我們觀察到每秒查詢數（ QPS ）為 1 、 068 、召回率為 0.6344 。查詢的第 99 個百分位數延遲是以 20 毫秒為測量單位。在大部分的執行時間中、用戶端 CPU 以 100% 的容量運作。</block>
+  <block id="1f3e94e90c6dc70493177c947144e128" category="paragraph">下圖提供各種儲存指標的檢視、包括儲存叢集延遲總計 IOPS （每秒輸入 / 輸出作業數）。</block>
+  <block id="5db260a9f61b5432fce02de6926cd7ff" category="paragraph"><block ref="5db260a9f61b5432fce02de6926cd7ff" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="47f7991f6fa1482cd641be850f5e0b40" category="paragraph"><block ref="47f7991f6fa1482cd641be850f5e0b40" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fa49276609916c00fd739a7d0474f2e0" category="section-title">向量 DB Bench 上的 milvus 與 postgres 效能比較</block>
+  <block id="b5363bf251732b12f73447616694ee5b" category="paragraph"><block ref="b5363bf251732b12f73447616694ee5b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9a6bb1cc3086d7d67df39b7f25c55f2f" category="paragraph">根據我們使用 VectorDBBench 對 Milvus 和 PostgreSQL 的效能驗證、我們觀察到下列事項：</block>
+  <block id="edec147efc5d9e9f8c60dd4f8475a94a" category="list-text">索引類型： HNSW</block>
+  <block id="2d14d931ff962fab0d69fc6c540c032e" category="list-text">資料集： Cohere 提供 1 、 000 萬個向量、尺寸 768</block>
+  <block id="0e18fa0193d93ed358d7fdb6a65a8bbc" category="paragraph">我們發現 pgveco.RS 的每秒查詢數（ QPS ）為 1 、 068 、回收率為 0.6344 、而 Milvus 的 QPS 率為 106 、回收率為 0.9842 。</block>
+  <block id="6f8820eba6bfb1c4427de7e140948640" category="paragraph">如果查詢的高精度是優先順序、 Milvus 會比 pgveco.RS 更出色、因為它會擷取每個查詢的相關項目比例更高。不過、如果每秒查詢數是更重要的因素、 pgveco.RS 就會超過 Milvus 。不過、請務必注意、透過 pgvecto 擷取的資料品質較低、其中約 37% 的搜尋結果是不相關的項目。</block>
+  <block id="35a1dd67e98f2039e3b4dc79a35aaa3e" category="section-title">根據我們的效能驗證進行觀察：</block>
+  <block id="e6b80e98176081ee739c8e730d3feb58" category="paragraph">根據我們的績效驗證、我們提出下列觀察：</block>
+  <block id="9d57f733c58a90a624b060f00ad469bd" category="paragraph">在 Milvus 中、 I/O 設定檔與 OLTP 工作負載非常相似、例如 Oracle slob 。基準測試包含三個階段：資料擷取、最佳化後及查詢。初始階段的主要特徵是 64KB 寫入作業、而查詢階段則主要涉及 8KB 讀取。我們期望 ONTAP 能以專業的方式處理 Milvus I/O 負載。</block>
+  <block id="e63d591f52bb0af8effc43c397a26a24" category="paragraph">PostgreSQL I/O 設定檔並不代表具有挑戰性的儲存工作負載。由於目前正在進行記憶體內建實作、我們在查詢階段並未觀察到任何磁碟 I/O 。</block>
+  <block id="dca2ae788fda893b11a6e115cfbd0c5d" category="paragraph">DiskANN 是儲存差異化的關鍵技術。它能有效擴充向量 DB 搜尋、使其超越系統記憶體界限。但是、不太可能利用記憶體內向量 DB 指數（例如 HNSW ）來建立儲存效能差異化。</block>
+  <block id="dc94ef6a238640d927556506c546662f" category="paragraph">此外、值得注意的是、當索引類型為 HSNW 時、在查詢階段、儲存設備並不扮演關鍵角色、 HSNW 是支援 RAG 應用程式的向量資料庫最重要的作業階段。這裏的含意是、儲存效能不會對這些應用程式的整體效能造成重大影響。</block>
+  <block id="e74b9287ad8cc207ad48fbfdff9cf078" category="summary">結論： NetApp 的向量資料庫解決方案</block>
+  <block id="476b570b8123021111ca6589e5f0aceb" category="paragraph">最後、本文件提供關於 NetApp 儲存解決方案上部署和管理向量資料庫（例如 Milvus 和 pgvector ）的完整概觀。我們討論了使用 NetApp ONTAP 和 StorageGRID 物件儲存設備的基礎架構準則、並透過檔案和物件存放區、驗證 AWS FSX for NetApp ONTAP 中的 Milvus 資料庫。</block>
+  <block id="9799eea6b7d21ae2ad3b8f14f6de8b57" category="paragraph">我們探討了 NetApp 的檔案物件雙重性、不僅展示了它在向量資料庫中的資料、也展示了其他應用程式的實用功能。我們也特別強調 NetApp 企業管理產品 SnapCenter 如何為向量資料庫資料提供備份、還原和複製功能、確保資料完整性和可用度。</block>
+  <block id="31068d7cc739be3f40f71a1c2165b247" category="paragraph">本文件也說明 NetApp 的混合雲解決方案如何在內部部署和雲端環境中提供資料複寫與保護、提供無縫且安全的資料管理體驗。我們針對 NetApp ONTAP 上的 Milvus 和 pgvecto 等向量資料庫的效能驗證提供深入見解、提供有關其效率和擴充性的寶貴資訊。</block>
+  <block id="1ab788fd9237f8cc94d5e5948a6d24ac" category="paragraph">最後、我們討論了兩個泛用 AI 使用案例：使用 LLM 和 NetApp 內部 ChatAI 。這些實用範例強調了本文所概述的概念和實務做法的實際應用程式和效益。總的來說、本文件是一份全面性指南、適合任何想要運用 NetApp 強大儲存解決方案來管理向量資料庫的人。</block>
+  <block id="95ab8b5192fec6278c61d897cbcc59b7" category="paragraph">作者衷心感謝下列貢獻者、其他提供意見回饋和意見的人、讓這篇文章對 NetApp 客戶和 NetApp 領域非常有價值。</block>
+  <block id="cf069f89f8b650e3f6d927f7417a21f1" category="list-text">NetApp ONTAP AI &amp; Analytics 技術行銷工程師 Sathish Thyagarajan</block>
+  <block id="633e7060d92a08658a3f5248a7c7cdf2" category="list-text">NetApp 資深總監 AJ Mahajan</block>
+  <block id="4963f582fdf68104e20554eb28bcf2ca" category="list-text">NetApp 工作負載效能工程經理 Joe Scott</block>
+  <block id="710fcc80e2c0809a7239d471028d8f70" category="list-text">Pueet Dhawan 、 NetApp 產品管理 FSX 資深總監</block>
+  <block id="7b62519a4ae964c6b307925c68166ca7" category="list-text">NetApp FSX 產品團隊資深產品經理 Yuval Kalderon</block>
+  <block id="b97cdeb80b669ea57564c9bf0542d2ef" category="list-text">Milvus 文件 -<block ref="35e085709f47cfca6bbc0746cd0ba49f" category="inline-link-rx"></block></block>
+  <block id="f7356e8678620084b93884e3b7a23a9f" category="list-text">Milvus 獨立式文件 -<block ref="a47fb3f2bfaa36fa0b44dc5f5ba452a4" category="inline-link-rx"></block></block>
+  <block id="8b8bc5296c7be638754abb2f408d2099" category="list-text">NetApp 產品文件
+<block ref="3cd8b5fe5ca94a9fdb5caaf96875ef7e" category="inline-link-rx"></block></block>
+  <block id="3852b719e664b2ae1596e622f21daba3" category="inline-link-macro">instalragram 說明文件</block>
+  <block id="9351f6d4d819e15d23724c78a36aea99" category="list-text">instaclustr - <block ref="39b68163c56ae9979050121a6264d765" category="inline-link-macro-rx"></block></block>
+  <block id="3b3d7bce734c0832c20ba464b1f2d199" category="cell">2024 年 4 月</block>
+  <block id="8ceee6fd58c3c198cf913f99da69f893" category="summary">使用 NetApp SnapMirror 進行災難恢復 - 適用於 NetApp 的向量資料庫解決方案</block>
+  <block id="2c1fd8c8a0f510a5c58420af4a2c0488" category="paragraph"><block ref="2c1fd8c8a0f510a5c58420af4a2c0488" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5b0f055a15ce6f9f633fb54c0d2436b6" category="paragraph">災難恢復對於維持向量資料庫的完整性和可用度至關重要、尤其是在管理高維度資料和執行複雜的相似性搜尋時、更是如此。妥善規劃且實作的災難恢復策略可確保在發生意外事件（例如硬體故障、自然災害或網路攻擊）時、不會遺失或洩漏資料。這對於仰賴向量資料庫的應用程式而言特別重要、因為資料遺失或毀損可能會導致重大的營運中斷和財務損失。此外、健全的災難恢復計畫也能將停機時間降至最低、並讓服務快速還原、確保業務持續運作。這是透過 NetApp 資料複寫產品鏡射鏡射功能、跨越不同的地理位置、定期備份和容錯移轉機制來達成。因此、災難恢復不僅是一項保護措施、也是負責且有效率的向量資料庫管理的關鍵元件。</block>
+  <block id="c37567d5fe01335124697e36ce452df7" category="paragraph">NetApp 的 SnapMirror 可將資料從一個 NetApp ONTAP 儲存控制器複寫到另一個儲存控制器、主要用於災難恢復（ DR ）和混合式解決方案。在向量資料庫的環境中、此工具有助於在內部部署環境和雲端環境之間順暢地轉換資料。這項轉換不需要進行任何資料轉換或應用程式重構、因此可提升跨多個平台的資料管理效率與靈活度。</block>
+  <block id="b6c8a7338bea39b5f253444e1d873d4d" category="paragraph">向量資料庫案例中的 NetApp 混合式解決方案可帶來更多優勢：</block>
+  <block id="d5b08af26bbd9e22b5c9396449d45127" category="list-text">擴充性： NetApp 的混合雲解決方案可根據您的需求擴充您的資源。您可以將內部部署資源用於一般可預測的工作負載和雲端資源、例如 Amazon FSxN for NetApp ONTAP 和 Google Cloud NetApp Volume （ GCNV ）、以因應尖峰時間或非預期的負載。</block>
+  <block id="c471a0669949fb6902a8ba657759604f" category="list-text">成本效益： NetApp 的混合雲模式可讓您將內部部署資源用於一般工作負載、並在需要時僅支付雲端資源的費用、藉此最佳化成本。這種隨用隨付模式可與 NetApp instaclustr 服務產品相較、具有相當高的成本效益。對於內部部署和主要雲端服務供應商、 instaclustr 提供支援和諮詢服務。</block>
+  <block id="6544e3cb40acee466e12bad4b51cee88" category="list-text">靈活度： NetApp 的混合雲可讓您靈活選擇處理資料的位置。例如、您可以選擇在內部環境中執行複雜的向量作業、而內部環境中的硬體功能更強大、而且雲端作業的密集度也更低。</block>
+  <block id="2a11cdb9dd362247d7154c07bd516471" category="list-text">營運不中斷：萬一發生災難、將資料放在 NetApp 混合雲中可確保營運不中斷。如果內部部署資源受到影響、您可以快速切換至雲端。我們可以利用 NetApp SnapMirror 將資料從內部部署移至雲端、反之亦然。</block>
+  <block id="dc054fad50d920c51aad0182a5083bf1" category="list-text">創新： NetApp 的混合雲解決方案也能提供最先進的雲端服務與技術、以加速創新。NetApp 在雲端的創新技術、例如 Amazon FSxN for NetApp ONTAP 、 Azure NetApp Files 和 Google Cloud NetApp Volumes 、都是雲端服務供應商的創新產品和偏好的 NAS 。</block>
+  <block id="1746460223f3daa35634698cf8a11429" category="summary">使用 SnapCenter 的向量資料庫保護： NetApp 的向量資料庫解決方案</block>
+  <block id="72043cdd90d91317b18d2fcdc935eea8" category="doc">使用 SnapCenter 的向量資料庫保護</block>
+  <block id="03e2211bf15aaf80440217e34090ab7a" category="paragraph">例如、在電影製作產業中、客戶通常擁有視訊和音訊檔案等重要的嵌入式資料。由於硬碟故障等問題而導致資料遺失、可能會對其營運造成重大影響、進而可能危及數百萬美元的風險。我們曾遇到過寶貴內容遺失的情況、導致嚴重的中斷和財務損失。因此、確保這些重要資料的安全性和完整性、在這個產業中至關重要。
+在本節中、我們將深入探討 SnapCenter 如何保護 ONTAP 中的向量資料庫資料和 Milvus 資料。在此範例中、我們將從 NFS ONTAP Volume （ vol1 ）衍生的 NAS 儲存區（ milvusdbvol1 ）用於客戶資料、並將獨立的 NFS Volume （ vectordbpv ）用於 Milvus 叢集組態資料。請檢查 <block ref="d81f12ee1ce058489f6dd74377fd8f1e" category="inline-link-macro-rx"></block> 適用於 SnapCenter 備份工作流程</block>
+  <block id="e159df91d2537b3f0b589d157dfbffd9" category="list-text">設定用於執行 SnapCenter 命令的主機。</block>
+  <block id="919f2f479be9f6952dbbe62513e87530" category="paragraph"><block ref="919f2f479be9f6952dbbe62513e87530" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="00ebf5cec061915cd0462d73602dcad8" category="inline-link-macro">NetApp Automation Store</block>
+  <block id="e5dbb47baa2442a0c626c78cd3791dfb" category="list-text">安裝及設定儲存外掛程式。從新增的主機中、選取「更多選項」。瀏覽並從選取下載的儲存外掛程式 <block ref="6d50396c8bd3accea0ce09d72830daea" category="inline-link-macro-rx"></block>。安裝外掛程式並儲存組態。</block>
+  <block id="bd2ef0c1ca75701a4ba292fce50113f6" category="paragraph"><block ref="bd2ef0c1ca75701a4ba292fce50113f6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="56efc857e5b28976189acb94af8f4ac8" category="list-text">設定儲存系統和磁碟區：在「儲存系統」下新增儲存系統、然後選取 SVM （儲存虛擬機器）。在此範例中、我們選擇了「 Vs_NVIDIA 」。</block>
+  <block id="bd5af91add77cd0863a55ff305d1c639" category="paragraph"><block ref="bd5af91add77cd0863a55ff305d1c639" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6e2dcb622158143845f18538a410575a" category="list-text">為向量資料庫建立資源、並納入備份原則和自訂快照名稱。</block>
+  <block id="a8f4ce53516fd9e67b7eb9a099d49120" category="list-text">啟用預設值的一致性群組備份、並啟用 SnapCenter 而不需檔案系統一致性。</block>
+  <block id="6230f7a2a3dc9bac46ff1cd677466af1" category="list-text">在「儲存空間」區段中、選取與向量資料庫客戶資料和 Milvus 叢集資料相關的磁碟區。在我們的範例中、這些是「 vol1 」和「 vectordbpv 」。</block>
+  <block id="61f90f32ea94cd1e612c6ce7a1713b45" category="list-text">建立向量資料庫保護原則、並使用原則保護向量資料庫資源。</block>
+  <block id="fdec51072b5915161b150982da7b4c59" category="paragraph"><block ref="fdec51072b5915161b150982da7b4c59" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bc8a652b9ab6e0d4b7d2a344da503ff6" category="list-text">使用 Python 指令碼將資料插入 S3 NAS 貯體。在我們的案例中、我們修改了 Milvus 所提供的備份指令碼、即「 prepy_data_NetApp.py 」、並執行「 Sync 」命令來清除作業系統中的資料。</block>
+  <block id="3474edc9b3792a7404f86710df9ef875" category="list-text">驗證 S3 NAS 貯體中的資料。在我們的範例中、時間戳記為「 2024-04-0821:22 」的檔案是由「 prepy_data_NetApp.py 」指令碼所建立。</block>
+  <block id="d47a679804c0cbffd0dc44fe5bb8fd17" category="list-text">使用「 ilvusdb 」資源中的一致性群組（ CG ）快照來啟動備份</block>
+  <block id="7a7d6682c4daeffbcfedf9779a84aef6" category="paragraph"><block ref="7a7d6682c4daeffbcfedf9779a84aef6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="511f6b9ef02b86884feaa7670c95ad25" category="list-text">為了測試備份功能、我們會在備份程序之後新增一個表格、或是從 NFS （ S3 NAS 儲存區）移除部分資料。</block>
+  <block id="b32454a703c99d763bb542ccb4127d18" category="paragraph">在此測試中、假設有人在備份後建立了新的、不必要的或不適當的集合。在這種情況下、我們需要在新增新集合之前、將向量資料庫還原至其狀態。例如、已插入「 hell_milvus_netapp_sc_testnew 」和「 hell_milvus_netapp_sc_testnew2 」等新集合。</block>
+  <block id="90fecf651d0359e3ca580f04477241cd" category="list-text">從先前的快照執行 S3 NAS 儲存區的完整還原。</block>
+  <block id="eaf900f7181bf489f40d37ded2f5231f" category="paragraph"><block ref="eaf900f7181bf489f40d37ded2f5231f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="78a091f299be6eaf4277ba82c2e35823" category="list-text">使用 Python 指令碼來驗證「 hell_milvus_netapp_sc_test 」和「 hell_milvus_netapp_sc_test2 」集合中的資料。</block>
+  <block id="d680ce42e26a573726db92b9c2422bcc" category="list-text">確認資料庫中不再存在不必要或不適當的集合。</block>
+  <block id="9a792fb5937b90853e4c8d032e6cb887" category="paragraph">最後、使用 NetApp 的 SnapCenter 來保護向量資料庫資料和位於 ONTAP 的 Milvus 資料、對客戶帶來重大效益、尤其是在資料完整性至關重要的產業、例如電影製作。SnapCenter 能夠建立一致的備份並執行完整資料還原、確保重要資料（例如內嵌視訊和音訊檔案）不會因硬碟故障或其他問題而遺失。這不僅可防止營運中斷、也可防止重大財務損失。</block>
+  <block id="2f51cfb1dd79ff854c52264b771ee6f7" category="paragraph">在本節中、我們示範如何設定 SnapCenter 來保護 ONTAP 中的資料、包括主機設定、儲存外掛程式的安裝和組態、以及使用自訂快照名稱建立向量資料庫的資源。我們也展示如何使用一致性群組快照執行備份、並驗證 S3 NAS 儲存區中的資料。</block>
+  <block id="f3b4f7a7e2767144ed9c5f0d9d729580" category="paragraph">此外、我們模擬的案例是在備份之後建立不必要或不適當的集合。在這種情況下、 SnapCenter 可從先前的快照執行完整還原、確保向量資料庫在新增集合之前、可還原至其狀態、進而維持資料庫的完整性。這項將資料還原到特定時間點的功能對客戶來說非常重要、讓他們能夠保證資料不僅安全、而且能正確維護。因此、 NetApp 的 SnapCenter 產品為客戶提供強大可靠的資料保護與管理解決方案。</block>
+  <block id="06a6d343ce5020e8e3f95f05a0d7aef8" category="summary">Milvus 搭配 Amazon FSxN for NetApp ONTAP - 適用於 NetApp 的向量資料庫解決方案</block>
+  <block id="7ca07d718a6e4ccb83a003e9d7ce92c0" category="doc">Milvus 搭配 Amazon FSxN for NetApp ONTAP - 檔案和物件雙重性</block>
+  <block id="3e2462951ee55ce618199ce9a608be86" category="paragraph">在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。</block>
+  <block id="e4e951265d044e143113c04590724aea" category="paragraph">在雲端中部署向量資料庫可提供多項重要效益、特別是對於需要處理高維度資料和執行相似度搜尋的應用程式。首先、雲端型部署提供擴充性、可輕鬆調整資源、以配合不斷成長的資料量和查詢負載。如此可確保資料庫能夠有效處理增加的需求、同時維持高效能。其次、雲端部署可提供高可用度和災難恢復、因為資料可在不同的地理位置上複寫、將資料遺失的風險降至最低、並確保即使發生非預期的事件、仍能持續提供服務。第三、它能提供成本效益、因為您只需支付所使用的資源、並可根據需求進行上下擴充、避免需要大量的硬體前期投資。最後、在雲端部署向量資料庫可加強協同作業、因為資料可以從任何地方存取和共享、有助於團隊工作和資料導向的決策。
+請檢查在此驗證中使用的 Milvus 獨立式與 Amazon FSxN for NetApp ONTAP 的架構。</block>
+  <block id="6216a2648b49207c6fb592ccbbc0441e" category="paragraph"><block ref="6216a2648b49207c6fb592ccbbc0441e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d84c2e07249ade658004dbb92bbadb99" category="list-text">建立 Amazon FSxN for NetApp ONTAP 執行個體、並記下 VPC 、 VPC 安全群組和子網路的詳細資料。建立 EC2 執行個體時、必須提供這項資訊。您可以在這裡找到更多詳細資料 -<block ref="600df3e2da0b9de1446fabf4802a063b" category="inline-link-rx"></block></block>
+  <block id="49e9bdb1c8d91778a69047377ffb09b3" category="list-text">建立 EC2 執行個體、確保 VPC 、安全性群組和子網路與 Amazon FSxN for NetApp ONTAP 執行個體的相符。</block>
+  <block id="3f49259cc5a532eaad35643b8ddc6724" category="list-text">使用命令 'apt-Get install NFS-common' 安裝 NFS-common' 、並使用 'Udo apt-Get update" 更新套件資訊。</block>
+  <block id="6e7d3d0475ca6d03c6aac69a3a63e0b6" category="list-text">建立裝載資料夾、並在其中掛載 Amazon FSxN for NetApp ONTAP 。</block>
+  <block id="79f2982e5eb61f29ccc9204d1e575199" category="list-text">使用「 apt-Get 安裝」安裝 Docker 和 Docker Compose 。</block>
+  <block id="8b2bc8a7f7a7f8a83a1a126f0f97c496" category="list-text">根據泊塢視窗 -compare.yaml 檔案設定 Milvus 叢集、可從 Milvus 網站下載。</block>
+  <block id="10cbb34c4ff9eb3abd03d498fd729fd0" category="list-text">在泊塢視窗 -compile.yml 檔案的「 Volumes 」（磁碟區）區段中、將 NetApp NFS 掛載點對應至對應的 Milvus 容器路徑、特別是 etcd 、 minio 和 standbedy.Check <block ref="74add55033c86bf78ecdd2e5f285d205" category="inline-link-macro-rx"></block>  以取得有關 Yml 變更的詳細資訊</block>
+  <block id="40722d15b9f6ad02c869cf6f587fd141" category="list-text">驗證掛載的資料夾和檔案。</block>
+  <block id="b1c44a1b47e0ee05938bd8b62a636917" category="list-text">從包含泊塢視窗 -compile.yml 檔案的目錄執行「 ocker-competup -d 」。</block>
+  <block id="9a6325448af98c29154cb9ef7423c998" category="list-text">檢查 Milvus 容器的狀態。</block>
+  <block id="b251c29151feb2759171346fe78b0d76" category="list-text">為了驗證向量資料庫的讀寫功能、以及它在 Amazon FSxN for NetApp ONTAP 中的資料、我們使用 Python Milvus SDK 和 PyMilvus 的範例程式。使用 'apt-Get install python3-numpy python3-pip' 安裝必要的套件、並使用 'pip3 install pymilvus' 安裝 PyMilvus 。</block>
+  <block id="bc18c335b3040fd1ec74e97654efbf5d" category="list-text">驗證向量資料庫中 Amazon FSxN for NetApp ONTAP 的資料寫入和讀取作業。</block>
+  <block id="edeedbd869dbb3831a9bfc7c26f04200" category="list-text">使用 verify_data_netapp.py 指令碼檢查讀取作業。</block>
+  <block id="bda2d30c9f3f0d40ab873d7c99e8c13b" category="list-text">如果客戶想要存取（讀取）透過 S3 傳輸協定在向量資料庫中測試的 AI 工作負載 NFS 資料、則可以使用簡單易懂的 Python 程式來驗證。例如、如本節開頭的圖片所述、從其他應用程式搜尋影像的相似性。</block>
+  <block id="bdbf442108c307d7a4fda2f139599fb2" category="paragraph">本節有效說明客戶如何在 Docker 容器中部署及操作獨立的 Milvus 設定、並運用 Amazon 的 NetApp FSxN 來儲存 NetApp ONTAP 資料。這項設定可讓客戶運用向量資料庫的強大功能、在 Docker 容器的可擴充且有效率的環境中、處理高維度資料並執行複雜的查詢。透過為 NetApp ONTAP 執行個體建立 Amazon FSxN 並搭配 EC2 執行個體、客戶可以確保最佳的資源使用率和資料管理。成功驗證向量資料庫中 FSxN 的資料寫入與讀取作業、可讓客戶確保資料作業穩定可靠。此外、透過 S3 傳輸協定列出（讀取） AI 工作負載資料的能力、可增強資料存取能力。因此、這項全方位的程序可為客戶提供強大且有效率的解決方案、讓客戶運用 Amazon FSxN for NetApp ONTAP 的功能來管理大規模資料作業。</block>
+  <block id="87c3db9ccf444604c258b88ee8489364" category="summary">verify_data_netapp.py ： NetApp 的向量資料庫解決方案</block>
+  <block id="34d3fa32b415d892eb0e14786cafccea" category="summary">NetApp 向量資料庫解決方案的解決方案總覽</block>
+  <block id="a837dd9a806e5244b17c1dfeee9bb571" category="paragraph">此解決方案展現 NetApp 為解決向量資料庫客戶所面臨的挑戰而帶來的獨特優勢與功能。藉由運用 NetApp 雲端解決方案 NetApp ONTAP 、 StorageGRID 和 SnapCenter 、客戶可以為業務營運增加重大價值。這些工具不僅能解決現有的問題、也能提升效率和生產力、進而促進整體業務成長。</block>
+  <block id="d383216ef38104a4ae0ac03e48c3f38c" category="section-title">為何選擇 NetApp ？</block>
+  <block id="c8850228b08f24ab3b77cf8228b9b2cf" category="list-text">NetApp 的產品（例如 ONTAP 和 StorageGRID ）可分離儲存和運算、根據特定需求提供最佳的資源使用率。這種靈活度可讓客戶使用 NetApp 儲存解決方案來擴充儲存設備。</block>
+  <block id="bc213af00312a8c2d752b8b42715eed6" category="list-text">藉由運用 NetApp 的儲存控制器、客戶可以使用 NFS 和 S3 傳輸協定、將資料有效地提供給向量資料庫。這些通訊協定可協助客戶儲存資料並管理向量資料庫索引、不需要透過檔案和物件方法存取多個資料複本。</block>
+  <block id="40251a62505d04ab7d80bacded5fec97" category="list-text">NetApp ONTAP 在 AWS 、 Azure 和 Google Cloud 等頂尖雲端服務供應商之間、提供 NAS 和物件儲存的原生支援。這種廣泛的相容性可確保無縫整合、實現客戶資料的移動性、全球存取能力、災難恢復、動態擴充性和高效能。</block>
+  <block id="6c1c83ac60affc59fcc3432ea130dd8f" category="list-text">有了 NetApp 強大的資料管理功能、客戶就能放心、因為他們的資料受到妥善保護、不會受到潛在風險和威脅的影響。NetApp 將資料安全性列為優先考量、讓客戶在安全性與完整性方面安心無虞。</block>
+  <block id="a20ee4ebc8e6614143815c881916cbba" category="sidebar">NetApp 的向量資料庫解決方案</block>
+  <block id="9934c7eb2c2161e05fedd3b280e4eedc" category="sidebar">技術需求</block>
+  <block id="c32b9475298f4d08900119bb0e5e0964" category="sidebar">使用 NetApp SnapCenter 保護向量資料庫</block>
+  <block id="e813a53d42d6bfe69e6907df9b0675d5" category="sidebar">使用 PostgreSQL 的 Instaclustr 向量資料庫： pgvector</block>
+  <block id="7fad254d8199fbf6d695e96590444cff" category="sidebar">附錄 B ： prepy_data_NetApp_new_py</block>
+  <block id="4d4989117d6e4f26e57cc7135af8f508" category="sidebar">附錄 D ：泊塢視窗 _ 組合 .yml</block>
 </blocks>

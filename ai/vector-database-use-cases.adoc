@@ -1,0 +1,78 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-use-cases.html 
+keywords: vector database 
+summary: 使用案例： NetApp 的向量資料庫解決方案 
+---
+= 向量資料庫使用案例
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 向量資料庫使用案例
+
+在本節中、我們將討論兩個使用案例、例如使用大語言模式擷取擴增代和 NetApp IT 聊天。
+
+
+
+=== 使用大語言模型（ LRAM ）擷取擴增產生（ RAG ）
+
+....
+Retrieval-augmented generation, or RAG, is a technique for enhancing the accuracy and reliability of Large Language Models, or LLMs, by augmenting prompts with facts fetched from external sources. In a traditional RAG deployment, vector embeddings are generated from an existing dataset and then stored in a vector database, often referred to as a knowledgebase. Whenever a user submits a prompt to the LLM, a vector embedding representation of the prompt is generated, and the vector database is searched using that embedding as the search query. This search operation returns similar vectors from the knowledgebase, which are then fed to the LLM as context alongside the original user prompt. In this way, an LLM can be augmented with additional information that was not part of its original training dataset.
+....
+NVIDIA Enterprise RAG LLM Operator 是在企業中實作 RAG 的實用工具。此運算子可用於部署完整的 RAG 管線。您可以自訂 RAG 管道、以使用 Milvus 或 pgvecto 作為儲存知識庫嵌入資料的向量資料庫。如需詳細資訊、請參閱文件。
+
+....
+NetApp has validated an enterprise RAG architecture powered by the NVIDIA Enterprise RAG LLM Operator alongside NetApp storage. Refer to our blog post for more information and to see a demo. Figure 1 provides an overview of this architecture.
+....
+圖 1 ）採用 NVIDIA Nemo Microservices 和 NetApp 技術的企業級 RAG
+
+image:RAG_nvidia_nemo.png["錯誤。遺失圖形影像"]
+
+
+
+=== NetApp IT chatbot 使用案例
+
+NetApp 的 chatbot 是向量資料庫的另一個即時使用案例。在這種情況下、 NetApp Private OpenAI 沙箱提供有效、安全且有效率的平台、可管理 NetApp 內部使用者的查詢。它整合了嚴格的安全性通訊協定、高效率的資料管理系統、以及精密的 AI 處理功能、可根據使用者在組織中的角色和責任、透過 SSO 驗證、確保對使用者做出高品質、精準的回應。此架構強調了合併進階技術以建立以使用者為中心的智慧型系統的潛力。
+
+image:netapp_chatbot.png["錯誤：缺少圖形影像"]
+
+使用案例可分為四個主要部分。
+
+
+
+==== 使用者驗證與驗證：
+
+* 使用者查詢會先完成 NetApp 單一登入（ SSO ）程序、以確認使用者的身分識別。
+* 驗證成功後、系統會檢查 VPN 連線、以確保資料傳輸安全無虞。
+
+
+
+
+==== 資料傳輸與處理：
+
+* VPN 驗證完成後、資料會透過 NetAIChat 或 NetAIICureate Web 應用程式傳送至 MariaDB 。MariaDB 是一套快速且有效率的資料庫系統、用於管理及儲存使用者資料。
+* 接著 MariaDB 會將資訊傳送至 NetApp Azure 執行個體、該執行個體會將使用者資料連線至 AI 處理單元。
+
+
+
+
+==== 與 OpenAI 和內容篩選的互動：
+
+* Azure 執行個體會將使用者的問題傳送至內容篩選系統。此系統會清理查詢、並準備處理。
+* 清理後的輸入會傳送至 Azure OpenAI 基礎模型、此模型會根據輸入產生回應。
+
+
+
+
+==== 回應產生與仲裁：
+
+* 首先檢查基礎模型的回應、以確保其準確且符合內容標準。
+* 通過檢查後、系統會將回應傳回給使用者。此程序可確保使用者獲得清楚、準確且適當的查詢答案。
+

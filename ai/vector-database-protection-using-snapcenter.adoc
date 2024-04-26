@@ -1,0 +1,245 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-protection-using-snapcenter.html 
+keywords: vector database 
+summary: 使用 SnapCenter 的向量資料庫保護： NetApp 的向量資料庫解決方案 
+---
+= 使用 SnapCenter 的向量資料庫保護
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 使用 NetApp SnapCenter 保護向量資料庫。
+
+例如、在電影製作產業中、客戶通常擁有視訊和音訊檔案等重要的嵌入式資料。由於硬碟故障等問題而導致資料遺失、可能會對其營運造成重大影響、進而可能危及數百萬美元的風險。我們曾遇到過寶貴內容遺失的情況、導致嚴重的中斷和財務損失。因此、確保這些重要資料的安全性和完整性、在這個產業中至關重要。
+在本節中、我們將深入探討 SnapCenter 如何保護 ONTAP 中的向量資料庫資料和 Milvus 資料。在此範例中、我們將從 NFS ONTAP Volume （ vol1 ）衍生的 NAS 儲存區（ milvusdbvol1 ）用於客戶資料、並將獨立的 NFS Volume （ vectordbpv ）用於 Milvus 叢集組態資料。請檢查 link:https://docs.netapp.com/us-en/snapcenter-47/protect-sco/backup-workflow.html["請按這裡"] 適用於 SnapCenter 備份工作流程
+
+. 設定用於執行 SnapCenter 命令的主機。
++
+image:sc_host_setup.png["錯誤：缺少圖形影像"]
+
+. 安裝及設定儲存外掛程式。從新增的主機中、選取「更多選項」。瀏覽並從選取下載的儲存外掛程式 link:https://automationstore.netapp.com/snap-detail.shtml?packUuid=Storage&packVersion=1.0["NetApp Automation Store"]。安裝外掛程式並儲存組態。
++
+image:sc_storage_plugin.png["錯誤：缺少圖形影像"]
+
+. 設定儲存系統和磁碟區：在「儲存系統」下新增儲存系統、然後選取 SVM （儲存虛擬機器）。在此範例中、我們選擇了「 Vs_NVIDIA 」。
++
+image:sc_storage_system.png["錯誤：缺少圖形影像"]
+
+. 為向量資料庫建立資源、並納入備份原則和自訂快照名稱。
++
+** 啟用預設值的一致性群組備份、並啟用 SnapCenter 而不需檔案系統一致性。
+** 在「儲存空間」區段中、選取與向量資料庫客戶資料和 Milvus 叢集資料相關的磁碟區。在我們的範例中、這些是「 vol1 」和「 vectordbpv 」。
+** 建立向量資料庫保護原則、並使用原則保護向量資料庫資源。
++
+image:sc_resource_vectordatabase.png["錯誤：缺少圖形影像"]
+
+
+
+. 使用 Python 指令碼將資料插入 S3 NAS 貯體。在我們的案例中、我們修改了 Milvus 所提供的備份指令碼、即「 prepy_data_NetApp.py 」、並執行「 Sync 」命令來清除作業系統中的資料。
++
+[source, python]
+----
+root@node2:~# python3 prepare_data_netapp.py
+
+=== start connecting to Milvus     ===
+
+
+=== Milvus host: localhost         ===
+
+Does collection hello_milvus_netapp_sc_test exist in Milvus: False
+
+=== Create collection `hello_milvus_netapp_sc_test` ===
+
+
+=== Start inserting entities       ===
+
+Number of entities in hello_milvus_netapp_sc_test: 3000
+
+=== Create collection `hello_milvus_netapp_sc_test2` ===
+
+Number of entities in hello_milvus_netapp_sc_test2: 6000
+root@node2:~# for i in 2 3 4 5 6   ; do ssh node$i "hostname; sync; echo 'sync executed';" ; done
+node2
+sync executed
+node3
+sync executed
+node4
+sync executed
+node5
+sync executed
+node6
+sync executed
+root@node2:~#
+----
+. 驗證 S3 NAS 貯體中的資料。在我們的範例中、時間戳記為「 2024-04-0821:22 」的檔案是由「 prepy_data_NetApp.py 」指令碼所建立。
++
+[source, bash]
+----
+root@node2:~# aws s3 ls --profile ontaps3  s3://milvusdbvol1/ --recursive | grep '2024-04-08'
+
+<output content removed to save page space>
+2024-04-08 21:18:14       5656 stats_log/448950615991000809/448950615991000810/448950615991001854/100/1
+2024-04-08 21:18:12       5654 stats_log/448950615991000809/448950615991000810/448950615991001854/100/448950615990800869
+2024-04-08 21:18:17       5656 stats_log/448950615991000809/448950615991000810/448950615991001872/100/1
+2024-04-08 21:18:15       5654 stats_log/448950615991000809/448950615991000810/448950615991001872/100/448950615990800876
+2024-04-08 21:22:46       5625 stats_log/448950615991003377/448950615991003378/448950615991003385/100/1
+2024-04-08 21:22:45       5623 stats_log/448950615991003377/448950615991003378/448950615991003385/100/448950615990800899
+2024-04-08 21:22:49       5656 stats_log/448950615991003408/448950615991003409/448950615991003416/100/1
+2024-04-08 21:22:47       5654 stats_log/448950615991003408/448950615991003409/448950615991003416/100/448950615990800906
+2024-04-08 21:22:52       5656 stats_log/448950615991003408/448950615991003409/448950615991003434/100/1
+2024-04-08 21:22:50       5654 stats_log/448950615991003408/448950615991003409/448950615991003434/100/448950615990800913
+root@node2:~#
+----
+. 使用「 ilvusdb 」資源中的一致性群組（ CG ）快照來啟動備份
++
+image:sc_backup_vector_database.png["錯誤：缺少圖形影像"]
+
+. 為了測試備份功能、我們會在備份程序之後新增一個表格、或是從 NFS （ S3 NAS 儲存區）移除部分資料。
++
+在此測試中、假設有人在備份後建立了新的、不必要的或不適當的集合。在這種情況下、我們需要在新增新集合之前、將向量資料庫還原至其狀態。例如、已插入「 hell_milvus_netapp_sc_testnew 」和「 hell_milvus_netapp_sc_testnew2 」等新集合。
+
++
+[source, python]
+----
+root@node2:~# python3 prepare_data_netapp.py
+
+=== start connecting to Milvus     ===
+
+
+=== Milvus host: localhost         ===
+
+Does collection hello_milvus_netapp_sc_testnew exist in Milvus: False
+
+=== Create collection `hello_milvus_netapp_sc_testnew` ===
+
+
+=== Start inserting entities       ===
+
+Number of entities in hello_milvus_netapp_sc_testnew: 3000
+
+=== Create collection `hello_milvus_netapp_sc_testnew2` ===
+
+Number of entities in hello_milvus_netapp_sc_testnew2: 6000
+root@node2:~#
+----
+. 從先前的快照執行 S3 NAS 儲存區的完整還原。
++
+image:sc_restore_vector_database.png["錯誤：缺少圖形影像"]
+
+. 使用 Python 指令碼來驗證「 hell_milvus_netapp_sc_test 」和「 hell_milvus_netapp_sc_test2 」集合中的資料。
++
+[source, python]
+----
+root@node2:~# python3 verify_data_netapp.py
+
+=== start connecting to Milvus     ===
+
+
+=== Milvus host: localhost         ===
+
+Does collection hello_milvus_netapp_sc_test exist in Milvus: True
+{'auto_id': False, 'description': 'hello_milvus_netapp_sc_test', 'fields': [{'name': 'pk', 'description': '', 'type': <DataType.INT64: 5>, 'is_primary': True, 'auto_id': False}, {'name': 'random', 'description': '', 'type': <DataType.DOUBLE: 11>}, {'name': 'var', 'description': '', 'type': <DataType.VARCHAR: 21>, 'params': {'max_length': 65535}}, {'name': 'embeddings', 'description': '', 'type': <DataType.FLOAT_VECTOR: 101>, 'params': {'dim': 8}}]}
+Number of entities in Milvus: hello_milvus_netapp_sc_test : 3000
+
+=== Start Creating index IVF_FLAT  ===
+
+
+=== Start loading                  ===
+
+
+=== Start searching based on vector similarity ===
+
+hit: id: 2998, distance: 0.0, entity: {'random': 0.9728033590489911}, random field: 0.9728033590489911
+hit: id: 1262, distance: 0.08883658051490784, entity: {'random': 0.2978858685751561}, random field: 0.2978858685751561
+hit: id: 1265, distance: 0.09590047597885132, entity: {'random': 0.3042039939240304}, random field: 0.3042039939240304
+hit: id: 2999, distance: 0.0, entity: {'random': 0.02316334456872482}, random field: 0.02316334456872482
+hit: id: 1580, distance: 0.05628091096878052, entity: {'random': 0.3855988746044062}, random field: 0.3855988746044062
+hit: id: 2377, distance: 0.08096685260534286, entity: {'random': 0.8745922204004368}, random field: 0.8745922204004368
+search latency = 0.2832s
+
+=== Start querying with `random > 0.5` ===
+
+query result:
+-{'random': 0.6378742006852851, 'embeddings': [0.20963514, 0.39746657, 0.12019053, 0.6947492, 0.9535575, 0.5454552, 0.82360446, 0.21096309], 'pk': 0}
+search latency = 0.2257s
+
+=== Start hybrid searching with `random > 0.5` ===
+
+hit: id: 2998, distance: 0.0, entity: {'random': 0.9728033590489911}, random field: 0.9728033590489911
+hit: id: 747, distance: 0.14606499671936035, entity: {'random': 0.5648774800635661}, random field: 0.5648774800635661
+hit: id: 2527, distance: 0.1530652642250061, entity: {'random': 0.8928974315571507}, random field: 0.8928974315571507
+hit: id: 2377, distance: 0.08096685260534286, entity: {'random': 0.8745922204004368}, random field: 0.8745922204004368
+hit: id: 2034, distance: 0.20354536175727844, entity: {'random': 0.5526117606328499}, random field: 0.5526117606328499
+hit: id: 958, distance: 0.21908017992973328, entity: {'random': 0.6647383716417955}, random field: 0.6647383716417955
+search latency = 0.5480s
+Does collection hello_milvus_netapp_sc_test2 exist in Milvus: True
+{'auto_id': True, 'description': 'hello_milvus_netapp_sc_test2', 'fields': [{'name': 'pk', 'description': '', 'type': <DataType.INT64: 5>, 'is_primary': True, 'auto_id': True}, {'name': 'random', 'description': '', 'type': <DataType.DOUBLE: 11>}, {'name': 'var', 'description': '', 'type': <DataType.VARCHAR: 21>, 'params': {'max_length': 65535}}, {'name': 'embeddings', 'description': '', 'type': <DataType.FLOAT_VECTOR: 101>, 'params': {'dim': 8}}]}
+Number of entities in Milvus: hello_milvus_netapp_sc_test2 : 6000
+
+=== Start Creating index IVF_FLAT  ===
+
+
+=== Start loading                  ===
+
+
+=== Start searching based on vector similarity ===
+
+hit: id: 448950615990642008, distance: 0.07805602252483368, entity: {'random': 0.5326684390871348}, random field: 0.5326684390871348
+hit: id: 448950615990645009, distance: 0.07805602252483368, entity: {'random': 0.5326684390871348}, random field: 0.5326684390871348
+hit: id: 448950615990640618, distance: 0.13562293350696564, entity: {'random': 0.7864676926688837}, random field: 0.7864676926688837
+hit: id: 448950615990642314, distance: 0.10414951294660568, entity: {'random': 0.2209597460821181}, random field: 0.2209597460821181
+hit: id: 448950615990645315, distance: 0.10414951294660568, entity: {'random': 0.2209597460821181}, random field: 0.2209597460821181
+hit: id: 448950615990640004, distance: 0.11571306735277176, entity: {'random': 0.7765521996186631}, random field: 0.7765521996186631
+search latency = 0.2381s
+
+=== Start querying with `random > 0.5` ===
+
+query result:
+-{'embeddings': [0.15983285, 0.72214717, 0.7414838, 0.44471496, 0.50356466, 0.8750043, 0.316556, 0.7871702], 'pk': 448950615990639798, 'random': 0.7820620141382767}
+search latency = 0.3106s
+
+=== Start hybrid searching with `random > 0.5` ===
+
+hit: id: 448950615990642008, distance: 0.07805602252483368, entity: {'random': 0.5326684390871348}, random field: 0.5326684390871348
+hit: id: 448950615990645009, distance: 0.07805602252483368, entity: {'random': 0.5326684390871348}, random field: 0.5326684390871348
+hit: id: 448950615990640618, distance: 0.13562293350696564, entity: {'random': 0.7864676926688837}, random field: 0.7864676926688837
+hit: id: 448950615990640004, distance: 0.11571306735277176, entity: {'random': 0.7765521996186631}, random field: 0.7765521996186631
+hit: id: 448950615990643005, distance: 0.11571306735277176, entity: {'random': 0.7765521996186631}, random field: 0.7765521996186631
+hit: id: 448950615990640402, distance: 0.13665105402469635, entity: {'random': 0.9742541034109935}, random field: 0.9742541034109935
+search latency = 0.4906s
+root@node2:~#
+----
+. 確認資料庫中不再存在不必要或不適當的集合。
++
+[source, python]
+----
+root@node2:~# python3 verify_data_netapp.py
+
+=== start connecting to Milvus     ===
+
+
+=== Milvus host: localhost         ===
+
+Does collection hello_milvus_netapp_sc_testnew exist in Milvus: False
+Traceback (most recent call last):
+  File "/root/verify_data_netapp.py", line 37, in <module>
+    recover_collection = Collection(recover_collection_name)
+  File "/usr/local/lib/python3.10/dist-packages/pymilvus/orm/collection.py", line 137, in __init__
+    raise SchemaNotReadyException(
+pymilvus.exceptions.SchemaNotReadyException: <SchemaNotReadyException: (code=1, message=Collection 'hello_milvus_netapp_sc_testnew' not exist, or you can pass in schema to create one.)>
+root@node2:~#
+----
+
+
+最後、使用 NetApp 的 SnapCenter 來保護向量資料庫資料和位於 ONTAP 的 Milvus 資料、對客戶帶來重大效益、尤其是在資料完整性至關重要的產業、例如電影製作。SnapCenter 能夠建立一致的備份並執行完整資料還原、確保重要資料（例如內嵌視訊和音訊檔案）不會因硬碟故障或其他問題而遺失。這不僅可防止營運中斷、也可防止重大財務損失。
+
+在本節中、我們示範如何設定 SnapCenter 來保護 ONTAP 中的資料、包括主機設定、儲存外掛程式的安裝和組態、以及使用自訂快照名稱建立向量資料庫的資源。我們也展示如何使用一致性群組快照執行備份、並驗證 S3 NAS 儲存區中的資料。
+
+此外、我們模擬的案例是在備份之後建立不必要或不適當的集合。在這種情況下、 SnapCenter 可從先前的快照執行完整還原、確保向量資料庫在新增集合之前、可還原至其狀態、進而維持資料庫的完整性。這項將資料還原到特定時間點的功能對客戶來說非常重要、讓他們能夠保證資料不僅安全、而且能正確維護。因此、 NetApp 的 SnapCenter 產品為客戶提供強大可靠的資料保護與管理解決方案。

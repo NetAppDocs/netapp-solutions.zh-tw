@@ -1,0 +1,36 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-solution-with-netapp.html 
+keywords: vector database, milvus, usecases 
+summary: 這是 NetApp 向量資料基礎解決方案的抽象頁面。 
+---
+= NetApp 向量資料庫解決方案
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+NetApp 的 Kartheyan Nagalingam 和 Rodrigo Nascimento
+
+[role="lead"]
+本文件使用 NetApp 的儲存解決方案、徹底探索向量資料庫（例如 Milvus ）的部署與管理、以及 pgvecto 開放原始碼 PostgreSQL 延伸。其中詳述使用 NetApp ONTAP 和 StorageGRID 物件儲存設備的基礎架構準則、並驗證 AWS FSX for NetApp ONTAP 中的 Milvus 資料庫應用程式。本文件說明 NetApp 的檔案物件雙重性、以及其用於支援向量嵌入的向量資料庫和應用程式的公用程式。它強調 NetApp 企業管理產品 SnapCenter 的功能、可為向量資料庫提供備份與還原功能、確保資料完整性與可用度。本文件進一步深入探討 NetApp 的混合雲解決方案、討論其在內部部署和雲端環境中的資料複寫與保護角色。其中包括對 NetApp ONTAP 上向量資料庫效能驗證的深入見解、最後以兩個泛用 AI 的實際使用案例做為結論：使用 LLM 和 NetApp 內部 ChatAI 。本文檔是利用 NetApp 的儲存解決方案來管理向量資料庫的完整指南。
+
+參考架構著重於下列項目：
+
+. link:./vector-database-introduction.html["簡介"]
+. link:./vector-database-solution-overview.html["解決方案總覽"]
+. link:./vector-database-vector-database.html["向量資料庫"]
+. link:./vector-database-technology-requirement.html["技術需求"]
+. link:./vector-database-deployment-procedure.html["部署程序"]
+. link:./vector-database-solution-verification-overview.html["解決方案驗證總覽"]
+. link:./vector-database-instaclustr-with-pgvector.html["使用 PostgreSQL 的 Instaclustr 向量資料庫： pgvector"]
+. link:./vector-database-use-cases.html["向量資料庫使用案例"]
+. link:./vector-database-conclusion.html["結論"]
+. link:./vector-database-values-yaml.html["附錄 A ： values.yaml"]
+. link:./vector-database-prepare-data-netapp-new-py.html["附錄 B ： prepare_data_netapp_new.py"]
+. link:./vector-database-verify-data-netapp-py.html["附錄 C ： verify_data_netapp.py"]
+. link:./vector-database-docker-compose-xml.html["附錄 D ：泊塢視窗 - 組合 .yml"]
+

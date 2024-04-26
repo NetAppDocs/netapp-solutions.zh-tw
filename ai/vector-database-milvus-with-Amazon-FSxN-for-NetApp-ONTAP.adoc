@@ -1,0 +1,197 @@
+---
+sidebar: sidebar 
+permalink: ai/vector-database-milvus-with-Amazon-FSxN-for-NetApp-ONTAP.html 
+keywords: vector database 
+summary: Milvus 搭配 Amazon FSxN for NetApp ONTAP - 適用於 NetApp 的向量資料庫解決方案 
+---
+= Milvus 搭配 Amazon FSxN for NetApp ONTAP - 檔案和物件雙重性
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+=== Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性
+
+在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。
+
+在雲端中部署向量資料庫可提供多項重要效益、特別是對於需要處理高維度資料和執行相似度搜尋的應用程式。首先、雲端型部署提供擴充性、可輕鬆調整資源、以配合不斷成長的資料量和查詢負載。如此可確保資料庫能夠有效處理增加的需求、同時維持高效能。其次、雲端部署可提供高可用度和災難恢復、因為資料可在不同的地理位置上複寫、將資料遺失的風險降至最低、並確保即使發生非預期的事件、仍能持續提供服務。第三、它能提供成本效益、因為您只需支付所使用的資源、並可根據需求進行上下擴充、避免需要大量的硬體前期投資。最後、在雲端部署向量資料庫可加強協同作業、因為資料可以從任何地方存取和共享、有助於團隊工作和資料導向的決策。
+請檢查在此驗證中使用的 Milvus 獨立式與 Amazon FSxN for NetApp ONTAP 的架構。
+
+image:Amazon_fsxn_milvus.png["錯誤：缺少圖形影像"]
+
+. 建立 Amazon FSxN for NetApp ONTAP 執行個體、並記下 VPC 、 VPC 安全群組和子網路的詳細資料。建立 EC2 執行個體時、必須提供這項資訊。您可以在這裡找到更多詳細資料 - https://us-east-1.console.aws.amazon.com/fsx/home?region=us-east-1#file-system-create[]
+. 建立 EC2 執行個體、確保 VPC 、安全性群組和子網路與 Amazon FSxN for NetApp ONTAP 執行個體的相符。
+. 使用命令 'apt-Get install NFS-common' 安裝 NFS-common' 、並使用 'Udo apt-Get update" 更新套件資訊。
+. 建立裝載資料夾、並在其中掛載 Amazon FSxN for NetApp ONTAP 。
++
+....
+ubuntu@ip-172-31-29-98:~$ mkdir /home/ubuntu/milvusvectordb
+ubuntu@ip-172-31-29-98:~$ sudo mount 172.31.255.228:/vol1 /home/ubuntu/milvusvectordb
+ubuntu@ip-172-31-29-98:~$ df -h /home/ubuntu/milvusvectordb
+Filesystem            Size  Used Avail Use% Mounted on
+172.31.255.228:/vol1  973G  126G  848G  13% /home/ubuntu/milvusvectordb
+ubuntu@ip-172-31-29-98:~$
+....
+. 使用「 apt-Get 安裝」安裝 Docker 和 Docker Compose 。
+. 根據泊塢視窗 -compare.yaml 檔案設定 Milvus 叢集、可從 Milvus 網站下載。
++
+....
+root@ip-172-31-22-245:~# wget https://github.com/milvus-io/milvus/releases/download/v2.0.2/milvus-standalone-docker-compose.yml -O docker-compose.yml
+--2024-04-01 14:52:23--  https://github.com/milvus-io/milvus/releases/download/v2.0.2/milvus-standalone-docker-compose.yml
+<removed some output to save page space>
+....
+. 在泊塢視窗 -compile.yml 檔案的「 Volumes 」（磁碟區）區段中、將 NetApp NFS 掛載點對應至對應的 Milvus 容器路徑、特別是 etcd 、 minio 和 standbedy.Check link:./vector-database-docker-compose-xml.html["附錄 D ：泊塢視窗 - 組合 .yml"]  以取得有關 Yml 變更的詳細資訊
+. 驗證掛載的資料夾和檔案。
++
+[source, bash]
+----
+ubuntu@ip-172-31-29-98:~/milvusvectordb$ ls -ltrh /home/ubuntu/milvusvectordb
+total 8.0K
+-rw-r--r-- 1 root root 1.8K Apr  2 16:35 s3_access.py
+drwxrwxrwx 2 root root 4.0K Apr  4 20:19 volumes
+ubuntu@ip-172-31-29-98:~/milvusvectordb$ ls -ltrh /home/ubuntu/milvusvectordb/volumes/
+total 0
+ubuntu@ip-172-31-29-98:~/milvusvectordb$ cd
+ubuntu@ip-172-31-29-98:~$ ls
+docker-compose.yml  docker-compose.yml~  milvus.yaml  milvusvectordb  vectordbvol1
+ubuntu@ip-172-31-29-98:~$
+----
+. 從包含泊塢視窗 -compile.yml 檔案的目錄執行「 ocker-competup -d 」。
+. 檢查 Milvus 容器的狀態。
++
+[source, bash]
+----
+ubuntu@ip-172-31-29-98:~$ sudo docker-compose ps
+      Name                     Command                  State                                               Ports
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+milvus-etcd         etcd -advertise-client-url ...   Up (healthy)   2379/tcp, 2380/tcp
+milvus-minio        /usr/bin/docker-entrypoint ...   Up (healthy)   0.0.0.0:9000->9000/tcp,:::9000->9000/tcp, 0.0.0.0:9001->9001/tcp,:::9001->9001/tcp
+milvus-standalone   /tini -- milvus run standalone   Up (healthy)   0.0.0.0:19530->19530/tcp,:::19530->19530/tcp, 0.0.0.0:9091->9091/tcp,:::9091->9091/tcp
+ubuntu@ip-172-31-29-98:~$
+ubuntu@ip-172-31-29-98:~$ ls -ltrh /home/ubuntu/milvusvectordb/volumes/
+total 12K
+drwxr-xr-x 3 root root 4.0K Apr  4 20:21 etcd
+drwxr-xr-x 4 root root 4.0K Apr  4 20:21 minio
+drwxr-xr-x 5 root root 4.0K Apr  4 20:21 milvus
+ubuntu@ip-172-31-29-98:~$
+----
+. 為了驗證向量資料庫的讀寫功能、以及它在 Amazon FSxN for NetApp ONTAP 中的資料、我們使用 Python Milvus SDK 和 PyMilvus 的範例程式。使用 'apt-Get install python3-numpy python3-pip' 安裝必要的套件、並使用 'pip3 install pymilvus' 安裝 PyMilvus 。
+. 驗證向量資料庫中 Amazon FSxN for NetApp ONTAP 的資料寫入和讀取作業。
++
+[source, python]
+----
+root@ip-172-31-29-98:~/pymilvus/examples# python3 prepare_data_netapp_new.py
+=== start connecting to Milvus     ===
+=== Milvus host: localhost         ===
+Does collection hello_milvus_ntapnew_sc exist in Milvus: True
+=== Drop collection - hello_milvus_ntapnew_sc ===
+=== Drop collection - hello_milvus_ntapnew_sc2 ===
+=== Create collection `hello_milvus_ntapnew_sc` ===
+=== Start inserting entities       ===
+Number of entities in hello_milvus_ntapnew_sc: 9000
+root@ip-172-31-29-98:~/pymilvus/examples# find /home/ubuntu/milvusvectordb/
+…
+<removed content to save page space >
+…
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/103/448789845791411923/b3def25f-c117-4fba-8256-96cb7557cd6c
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/103/448789845791411923/b3def25f-c117-4fba-8256-96cb7557cd6c/part.1
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/103/448789845791411923/xl.meta
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/0
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/0/448789845791411924
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/0/448789845791411924/xl.meta
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/1
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/1/448789845791411925
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/1/448789845791411925/xl.meta
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/100
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/100/448789845791411920
+/home/ubuntu/milvusvectordb/volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/100/448789845791411920/xl.meta
+----
+. 使用 verify_data_netapp.py 指令碼檢查讀取作業。
++
+[source, python]
+----
+root@ip-172-31-29-98:~/pymilvus/examples# python3 verify_data_netapp.py
+=== start connecting to Milvus     ===
+
+=== Milvus host: localhost         ===
+
+Does collection hello_milvus_ntapnew_sc exist in Milvus: True
+{'auto_id': False, 'description': 'hello_milvus_ntapnew_sc', 'fields': [{'name': 'pk', 'description': '', 'type': <DataType.INT64: 5>, 'is_primary': True, 'auto_id': False}, {'name': 'random', 'description': '', 'type': <DataType.DOUBLE: 11>}, {'name': 'var', 'description': '', 'type': <DataType.VARCHAR: 21>, 'params': {'max_length': 65535}}, {'name': 'embeddings', 'description': '', 'type': <DataType.FLOAT_VECTOR: 101>, 'params': {'dim': 8}}], 'enable_dynamic_field': False}
+Number of entities in Milvus: hello_milvus_ntapnew_sc : 9000
+
+=== Start Creating index IVF_FLAT  ===
+
+
+=== Start loading                  ===
+
+
+=== Start searching based on vector similarity ===
+
+hit: id: 2248, distance: 0.0, entity: {'random': 0.2777646777746381}, random field: 0.2777646777746381
+hit: id: 4837, distance: 0.07805602252483368, entity: {'random': 0.6451650959930306}, random field: 0.6451650959930306
+hit: id: 7172, distance: 0.07954417169094086, entity: {'random': 0.6141351712303128}, random field: 0.6141351712303128
+hit: id: 2249, distance: 0.0, entity: {'random': 0.7434908973629817}, random field: 0.7434908973629817
+hit: id: 830, distance: 0.05628090724349022, entity: {'random': 0.8544487225667627}, random field: 0.8544487225667627
+hit: id: 8562, distance: 0.07971227169036865, entity: {'random': 0.4464554280115878}, random field: 0.4464554280115878
+search latency = 0.1266s
+
+=== Start querying with `random > 0.5` ===
+
+query result:
+-{'random': 0.6378742006852851, 'embeddings': [0.3017092, 0.74452263, 0.8009826, 0.4927033, 0.12762444, 0.29869467, 0.52859956, 0.23734547], 'pk': 0}
+search latency = 0.3294s
+
+=== Start hybrid searching with `random > 0.5` ===
+
+hit: id: 4837, distance: 0.07805602252483368, entity: {'random': 0.6451650959930306}, random field: 0.6451650959930306
+hit: id: 7172, distance: 0.07954417169094086, entity: {'random': 0.6141351712303128}, random field: 0.6141351712303128
+hit: id: 515, distance: 0.09590047597885132, entity: {'random': 0.8013175797590888}, random field: 0.8013175797590888
+hit: id: 2249, distance: 0.0, entity: {'random': 0.7434908973629817}, random field: 0.7434908973629817
+hit: id: 830, distance: 0.05628090724349022, entity: {'random': 0.8544487225667627}, random field: 0.8544487225667627
+hit: id: 1627, distance: 0.08096684515476227, entity: {'random': 0.9302397069516164}, random field: 0.9302397069516164
+search latency = 0.2674s
+Does collection hello_milvus_ntapnew_sc2 exist in Milvus: True
+{'auto_id': True, 'description': 'hello_milvus_ntapnew_sc2', 'fields': [{'name': 'pk', 'description': '', 'type': <DataType.INT64: 5>, 'is_primary': True, 'auto_id': True}, {'name': 'random', 'description': '', 'type': <DataType.DOUBLE: 11>}, {'name': 'var', 'description': '', 'type': <DataType.VARCHAR: 21>, 'params': {'max_length': 65535}}, {'name': 'embeddings', 'description': '', 'type': <DataType.FLOAT_VECTOR: 101>, 'params': {'dim': 8}}], 'enable_dynamic_field': False}
+----
+. 如果客戶想要存取（讀取）透過 S3 傳輸協定在向量資料庫中測試的 AI 工作負載 NFS 資料、則可以使用簡單易懂的 Python 程式來驗證。例如、如本節開頭的圖片所述、從其他應用程式搜尋影像的相似性。
++
+[source, python]
+----
+root@ip-172-31-29-98:~/pymilvus/examples# sudo python3 /home/ubuntu/milvusvectordb/s3_access.py -i 172.31.255.228 --bucket milvusnasvol --access-key PY6UF318996I86NBYNDD --secret-key hoPctr9aD88c1j0SkIYZ2uPa03vlbqKA0c5feK6F
+OBJECTS in the bucket milvusnasvol are :
+***************************************
+…
+<output content removed to save page space>
+…
+bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/0/448789845791411917/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/1/448789845791411918/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/100/448789845791411913/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/101/448789845791411914/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/102/448789845791411915/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/103/448789845791411916/1c48ab6e-1546-4503-9084-28c629216c33/part.1
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611920/103/448789845791411916/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/0/448789845791411924/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/1/448789845791411925/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/100/448789845791411920/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/101/448789845791411921/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/102/448789845791411922/xl.meta
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/103/448789845791411923/b3def25f-c117-4fba-8256-96cb7557cd6c/part.1
+volumes/minio/a-bucket/files/insert_log/448789845791611912/448789845791611913/448789845791611939/103/448789845791411923/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791211880/448789845791211881/448789845791411889/100/1/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791211880/448789845791211881/448789845791411889/100/448789845791411912/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791611912/448789845791611913/448789845791611920/100/1/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791611912/448789845791611913/448789845791611920/100/448789845791411919/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791611912/448789845791611913/448789845791611939/100/1/xl.meta
+volumes/minio/a-bucket/files/stats_log/448789845791611912/448789845791611913/448789845791611939/100/448789845791411926/xl.meta
+***************************************
+root@ip-172-31-29-98:~/pymilvus/examples#
+----
++
+本節有效說明客戶如何在 Docker 容器中部署及操作獨立的 Milvus 設定、並運用 Amazon 的 NetApp FSxN 來儲存 NetApp ONTAP 資料。這項設定可讓客戶運用向量資料庫的強大功能、在 Docker 容器的可擴充且有效率的環境中、處理高維度資料並執行複雜的查詢。透過為 NetApp ONTAP 執行個體建立 Amazon FSxN 並搭配 EC2 執行個體、客戶可以確保最佳的資源使用率和資料管理。成功驗證向量資料庫中 FSxN 的資料寫入與讀取作業、可讓客戶確保資料作業穩定可靠。此外、透過 S3 傳輸協定列出（讀取） AI 工作負載資料的能力、可增強資料存取能力。因此、這項全方位的程序可為客戶提供強大且有效率的解決方案、讓客戶運用 Amazon FSxN for NetApp ONTAP 的功能來管理大規模資料作業。
+
+
