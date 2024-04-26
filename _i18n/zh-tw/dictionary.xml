@@ -20246,4 +20246,155 @@ Cloud Insights 也支援 Telegraf 做為其收集整合資料的代理程式。T
   <block id="a15ee8ccfbda203e4a226dc6dfa5fc71" category="paragraph">當所有工作都根據區段提交時 <block ref="4a69e55fabddbe5de2ad320fef797766" category="inline-link-macro-rx"></block>、系統儀表板會顯示<block ref="9320270de4ff6824ae7a21f729fb7d44" prefix=" " category="inline-code"></block>、<block ref="238ff8d9192e9c01e50a8d6d21f1607b" prefix=" " category="inline-code"></block>和<block ref="3b40d1328b825dda4b761a8e534669b7" prefix=" " category="inline-code"></block> 所有 GPU 的數量都超過其預設配額。<block ref="9320270de4ff6824ae7a21f729fb7d44" prefix=" " category="inline-code"></block> 與預設的軟配額（四個）相比、 GPU 的佔用量增加四個 GPU 、而<block ref="238ff8d9192e9c01e50a8d6d21f1607b" prefix=" " category="inline-code"></block> 和<block ref="3b40d1328b825dda4b761a8e534669b7" prefix=" " category="inline-code"></block> 每個 GPU 所佔用的 GPU 數量比軟配額（兩個）多兩個。分配的配額過多GPU比例等於預設配額的比例。這是因為當多個團隊要求更多GPU、超過配額時、系統會使用預設配額作為優先順序的參考資料、並據此進行資源配置。當企業資料科學團隊積極參與AI模式的開發與正式作業時、這種自動負載平衡可提供公平性和優先順序。</block>
   <block id="acf646d3df994a986cb4fb734be3745a" category="paragraph">如需工作提交、使用的容器映像及執行命令順序等詳細資料、請參閱一節 <block ref="f68e50551f9bc140041352f2cf4be5e5" category="inline-link-macro-rx"></block>。</block>
   <block id="6d0de71c9859630bdaf1ada9a3828222" category="paragraph">如需測試期間實際執行命令順序的詳細資料、請參閱 <block ref="fc7df2d3920af3c66f165cd183a1291d" category="inline-link-macro-rx"></block>。</block>
+  <block id="d49b03bd02e3a29931f35731ab14ac7a" category="doc">將 VM 移轉至 ONTAP 資料存放區</block>
+  <block id="54d68277c4e43b3c370ab8964ab25cad" category="paragraph">作者： Suresh ThopPay</block>
+  <block id="204cf02ce9cbbfd6e0836ca9884ccf66" category="paragraph">VMware vSphere by Broadcom 支援 VMFS 、 NFS 和 vVol 資料存放區、以裝載虛擬機器。客戶可以選擇使用超融合式基礎架構或集中式共享儲存系統來建立這些資料存放區。客戶通常會看到託管 ONTAP 型儲存系統的價值、能夠提供虛擬機器的空間效率快照和複本、靈活選擇跨資料中心和雲端的各種部署模式、監控和警示工具的營運效率、安全性、治理和選擇性的法規遵循工具來檢查 VM 資料、 等等、</block>
+  <block id="890da9fed14fe309a0fdde943fb5d659" category="paragraph">ONTAP 資料存放區上的 VM 可以使用適用於 VMware vSphere 的 SnapCenter 外掛程式（ SCV ）加以保護。選擇控制閥可建立儲存型快照、也可複寫至遠端 ONTAP 儲存系統。可從主要或次要儲存系統執行還原。</block>
+  <block id="fcc257d7549568e3c425f55212efb787" category="paragraph">客戶可以靈活選擇 Cloud Insights 或 Aria 作業、或是同時選擇使用 ONTAP API 的兩種或其他協力廠商工具、以進行疑難排解、效能監控、報告和警示通知功能。</block>
+  <block id="b819a27fdd8e2f9eaa3407b548fe624b" category="paragraph">客戶可以使用 ONTAP 工具 vCenter 外掛程式輕鬆配置資料存放區、或是將其 API 和 VM 移轉至 ONTAP 資料存放區、即使資料存放區已開機也沒問題。</block>
+  <block id="75d66cd35b187dcc4b725b210065df47" category="inline-link">VMotion 通知</block>
+  <block id="80bbb1148c2b39d0b565b6fa03862d4f" category="admonition">有些 VM 是透過外部管理工具部署、例如 Aria Automation 、 Tanzu （或其他 Kubernetes Flavors ）、通常取決於 VM 儲存原則。如果在同一 VM 儲存原則內的資料存放區之間移轉、對應用程式的影響應該會較小。請洽詢應用程式擁有者、以將這些 VM 正確移轉至新的資料存放區。推出 vSphere 8<block ref="621223852bf67beddd0524df07ac442b" category="inline-link-rx"></block> 準備應用程式以執行 VMotion 。</block>
+  <block id="f6c05c1c9189db18461e6c942d451c95" category="section-title">網路需求</block>
+  <block id="a1003c791b34c3785b58d9768efcbf03" category="example-title">使用 VMotion 移轉虛擬機器</block>
+  <block id="a7652fc6c491d79b3c3c4a99cb76962e" category="paragraph">假設 ONTAP 資料存放區已具備雙儲存網路、可提供連線能力、容錯能力及效能提升。</block>
+  <block id="dde61dad088e88e4aabbeee9c78dfca1" category="paragraph">vSphere 主機的 VMKernel 介面也會處理跨 vSphere 主機的 VM 移轉。對於熱移轉（已開機的 VM ）、使用 VMKernel 介面搭配已啟用 VMotion 的服務、而對於冷移轉（已關閉電源的 VM ）、則會使用已啟用資源配置服務的 VMKernel 介面來移動資料。如果找不到有效的介面、它會使用管理介面來移動某些使用案例可能不需要的資料。</block>
+  <block id="32f8b4cf2402d5eb90cc90d39131168e" category="image-alt">已啟用服務的 VMkernel</block>
+  <block id="16fa66dd55eea6dcf504a1d077edd4c8" category="paragraph">當您編輯 VMKernel 介面時、以下是啟用所需服務的選項。</block>
+  <block id="941e117067da98712335addd3eb2874d" category="image-alt">VMkernel 服務選項</block>
+  <block id="96bb6ffddff2c3d6965d4080b9aeee05" category="admonition">確保至少有兩個高速主動上行鏈路 NIC 可供 VMotion 和 Provisioning VMkernel 介面使用的連接埠群組使用。</block>
+  <block id="407f1754d47b022d224184ba78043466" category="section-title">VM 移轉案例</block>
+  <block id="60a392608625b9eda74d86f2c986cbae" category="paragraph">無論 VM 的電源狀態為何、 VMotion 通常都會用於移轉 VM 。以下提供特定案例的其他考量與移轉程序。</block>
+  <block id="60a503f29372372274084ecd49ed17d1" category="inline-link">vSphere VMotion 的 VM 狀況與限制</block>
+  <block id="0c14b5f3504d3c6600a08f3df7d41c0c" category="admonition">瞭解<block ref="e0cb2315491f681731a706f563808c47" category="inline-link-rx"></block> 繼續進行任何 VM 移轉選項之前。</block>
+  <block id="b54d9fc1cdef0a24fc13ccfcc05a04ca" category="example-title">從特定 vSphere 資料存放區移轉 VM</block>
+  <block id="1209c19104cf806da2509fa4183cf968" category="paragraph">請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。</block>
+  <block id="9f54af6392a5e7279ec1b02fb2298987" category="list-text">使用 vSphere Web Client 、從儲存設備庫存中選取資料存放區、然後按一下 VM 索引標籤。</block>
+  <block id="790aafeec785d0aa5fdfb6623aecca43" category="image-alt">特定資料存放區上的 VM</block>
+  <block id="897f1852c8668105ad2a65f3b4fa48d3" category="list-text">選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。</block>
+  <block id="5b45431eb9e43c0a6c8e25ebeec30931" category="image-alt">要移轉的 VM</block>
+  <block id="319bdcf124675442ec6c92d4d13ea0fc" category="list-text">選擇僅變更儲存設備的選項、然後按一下「下一步」</block>
+  <block id="f01ff7c5824aa7e336bb2c63605af566" category="image-alt">僅變更儲存設備</block>
+  <block id="a9f42c8f26c6400571da2659cf9304b5" category="list-text">選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」</block>
+  <block id="42b9f39f790b84524255a3bc2ab8a0ad" category="image-alt">符合 VM 儲存原則的資料存放區</block>
+  <block id="44deb0f29e9f172ee448f0db4c874fcd" category="list-text">檢閱並按一下「完成」。</block>
+  <block id="bc23a7167da832f427ffc4fa76d9ef6d" category="image-alt">儲存設備移轉審查</block>
+  <block id="0cacdcaa9d3e9fe0bf42cf374b6cbe40" category="paragraph">若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。</block>
+  <block id="8a1755b488b0f6539ec19c5a97bf121e" category="example-title">在同一個 vSphere 叢集中移轉 VM</block>
+  <block id="58b2178d121a8d9a1acd0e9914e2d9a3" category="list-text">使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。</block>
+  <block id="449cadb2d3f338e7c1c5191df927af17" category="image-alt">特定叢集上的 VM</block>
+  <block id="abd56d7535056b175963af8675f32417" category="admonition">當資料存放區叢集與全自動儲存 DRS （動態資源排程）搭配使用、且兩個（來源和目標）資料存放區類型相同（ VMS/NFS/VVol ）時、請在同一個儲存叢集中保留兩個資料存放區、並在來源上啟用維護模式、從來源資料存放區移轉 VM 。經驗將類似於如何處理運算主機以進行維護。</block>
+  <block id="9f6fd7041d2c3ca675247d6e96769bbb" category="example-title">跨多個 vSphere 叢集移轉 VM</block>
+  <block id="c1bd08cef6ea55ad141205bb4652da6f" category="inline-link">CPU 相容性和 vSphere 增強型 VMotion 相容性</block>
+  <block id="09ce712d38435c43c14330eec53eac63" category="admonition">請參閱<block ref="e23eefa452e620c7bec0358099045012" category="inline-link-rx"></block> 當來源和目標主機屬於不同的 CPU 系列或機型時。</block>
+  <block id="a33e2de71bc4a1dd5ee6184e1a98ebb6" category="list-text">選擇選項以變更運算資源和儲存、然後按一下「下一步」</block>
+  <block id="a5bd22742fd4e0f4ecb0c61b99a2c288" category="image-alt">同時變更運算和儲存設備</block>
+  <block id="fd01f71c33a35b5c16d4ecaf7ce1a13e" category="list-text">瀏覽並挑選適當的叢集進行移轉。</block>
+  <block id="ef1457e12341de535ac7ae0516675283" category="image-alt">選取目標叢集</block>
+  <block id="5414b98fd86dc083de07b88f343fb651" category="list-text">選擇 VM 資料夾以放置目標 VM 。</block>
+  <block id="464e747fad140eb886cff9ec3680d475" category="image-alt">目標 VM 資料夾選擇</block>
+  <block id="d32dfec856eea052d20d2b8906fd379b" category="list-text">選取目標連接埠群組。</block>
+  <block id="94dc8485375f9bbfd9b9284b678097cd" category="image-alt">目標連接埠群組選擇</block>
+  <block id="69974531d6c2e078a7a0cde100095d1e" category="example-title">在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM</block>
+  <block id="e4991f515597208b8d5688673bd1ac21" category="paragraph">請遵循下列程序、將 VM 移轉至同一 vSphere Client UI 上列出的新 vCenter 伺服器。</block>
+  <block id="668251322616477782480694c04ab4eb" category="inline-link">vSphere 說明 vCenter 伺服器執行個體之間的 VMotion 需求</block>
+  <block id="ab57d919a9919ca4017920aac2a8e4ee" category="admonition">如需來源和目標 vCenter 版本等其他需求、請參閱<block ref="fe891a9f77ed004b24005fa491da9680" category="inline-link-rx"></block></block>
+  <block id="8ec58dea3da0b291945f34e7c8168d60" category="list-text">在目標 vCenter 伺服器中選取目標叢集。</block>
+  <block id="905bc5c946741b9eafdefa1971a6baa7" category="list-text">檢閱移轉選項、然後按一下「完成」。</block>
+  <block id="29666ff4ecae595758733eced0aa5ad9" category="example-title">在不同 SSO 網域的 vCenter 伺服器之間移轉 VM</block>
+  <block id="1c910c6be757ce73c14710c8122dca21" category="inline-link">進階 Cross vCenter VMotion 的 vSphere 文件</block>
+  <block id="c9f306cb665dd9d71a91c89759c68f93" category="admonition">此案例假設 vCenter 伺服器之間存在通訊。否則、請查看下方列出的跨資料中心位置案例。如需先決條件、請檢查<block ref="bccd34eef164fe095ec62ac5a42de8c6" category="inline-link-rx"></block></block>
+  <block id="e406710b15a07b21d4825ff2f964f699" category="paragraph">請遵循下列程序、使用 UI 將 VM 移轉至不同的 vCenter 伺服器。</block>
+  <block id="498119a32e8d664cab00250b219c58d9" category="list-text">使用 vSphere Web Client 、選取來源 vCenter 伺服器、然後按一下 VM 索引標籤。</block>
+  <block id="ba24b739273947a5409988bbd21c2aab" category="image-alt">來源 vCenter 上的 VM</block>
+  <block id="6881953e56fc32f6e5f25e09d700f15e" category="list-text">選擇選項 Cross vCenter Server Export 、然後按一下 Next （下一步）</block>
+  <block id="9a14e6dcef5d5c8983b859a7a239c6c1" category="image-alt">跨 vCenter Server 匯出</block>
+  <block id="6367b892ffc53d7adaa5a0c9e9b0a02b" category="inline-link">使用進階 Cross vCenter VMotion 匯入或複製虛擬機器</block>
+  <block id="a6f37f2903b9cc572dde89263d795b1e" category="admonition">VM 也可以從目標 vCenter 伺服器匯入。如需該程序、請檢查<block ref="9290a9639d8037eccb6a45858e00f5cb" category="inline-link-rx"></block></block>
+  <block id="34f454ce9807d9bed3fecbe0313c4375" category="list-text">提供 vCenter 認證詳細資料、然後按一下登入。</block>
+  <block id="dcf2f84dc2ed5c13d78c9e07b650b7f3" category="image-alt">vCenter 認證</block>
+  <block id="fb33443398c997be3189bb0bcb56ba84" category="list-text">確認並接受 vCenter 伺服器的 SSL 憑證指紋</block>
+  <block id="756dd24c655b10ff50e1080c86006a66" category="image-alt">SSL 指紋</block>
+  <block id="564e50c5976559e86167f9d548ad6370" category="list-text">展開目標 vCenter 並選取目標運算叢集。</block>
+  <block id="038da2ca8132ab4cf9fe19e675224901" category="image-alt">選取目標運算叢集</block>
+  <block id="1d12db92b7ccf2af58b588c91e5bd82e" category="list-text">根據 VM 儲存原則選取目標資料存放區。</block>
+  <block id="66b61996ce6209d7510dea647e03b769" category="image-alt">選取目標資料存放區</block>
+  <block id="78db36cfcb0440faa85c0516734b05a6" category="list-text">選取目標 VM 資料夾。</block>
+  <block id="72f9e1c10b495969d9ef7f5a79361ad5" category="image-alt">選取目標 VM 資料夾</block>
+  <block id="d94d7e93cfd4acf342602ffbff856d37" category="list-text">為每個網路介面卡對應選擇 VM 連接埠群組。</block>
+  <block id="ed2a8b1e8fab33e7adc52b0ff40ae5f5" category="image-alt">選取目標連接埠群組</block>
+  <block id="ebb73e5c897390410510df8f70d6d74a" category="list-text">檢閱並按一下「完成」、即可在 vCenter 伺服器上啟動 VMotion 。</block>
+  <block id="eba2a6f8bfc6e572c3f1d9fa67ec85d4" category="image-alt">跨 VMotion 操作審查</block>
+  <block id="4d857a0e593650e074a7ffe9773c3632" category="example-title">跨資料中心位置移轉 VM</block>
+  <block id="1237d2428c491a7ca754fb6a3839d446" category="list-text">當第 2 層流量透過 NSX 聯盟或其他選項延伸至資料中心時、請遵循在 vCenter 伺服器之間移轉 VM 的程序。</block>
+  <block id="e0feb3f150778c55cd2bdaa7800bd5d7" category="inline-link">移轉類型</block>
+  <block id="3bd5eca5cdbfa2dd714a010bdaa9345d" category="list-text">HCx 提供各種功能<block ref="3cd60fb0fe6feb45b3393ab8f79e019c" category="inline-link-rx"></block> 包括跨資料中心的複寫輔助 VMotion 、可在不停機的情況下移動 VM 。</block>
+  <block id="92ff10610f02d69d0210f44405b7168f" category="inline-link">Site Recovery Manager（SRM）</block>
+  <block id="53e1f72e49bbe9331d452ecc588b922d" category="list-text"><block ref="a4331ca67aafd96e8a301ab1a33f3509" category="inline-link-rx"></block> 通常用於災難恢復、也常用於利用儲存陣列型複寫進行計畫性移轉。</block>
+  <block id="06c32184313f549852daf2e04dcf218b" category="inline-link">適用於 IO （ VAIO ）的 vSphere API</block>
+  <block id="35f5ef3f322557bcff13138a62b59ef8" category="list-text">持續資料保護（ CDP ）產品的用途<block ref="8ebb1cee71de54be4835de36a0290b69" category="inline-link-rx"></block> 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。</block>
+  <block id="87a66c45cb30347915a4014838a0f4d9" category="list-text">也可以使用備份與還原產品。但通常會導致更長的 RTO 。</block>
+  <block id="6df60b22eb19b43d8974d55e9a795fb5" category="inline-link">BlueXP 災難恢復即服務（ DRaaS ）</block>
+  <block id="d08685f539f3ad65ab57968b61eba3f9" category="list-text"><block ref="69feacfcc51ddf6e1d23ac643481c973" category="inline-link-rx"></block> 利用儲存陣列型複寫功能、將特定工作自動化、以便在目標站台上恢復 VM 。</block>
+  <block id="39a7eb71e665b94466266b569e781f07" category="example-title">在混合雲環境中移轉 VM</block>
+  <block id="72ef6588eba130fb47ce1f5172b69be2" category="inline-link">設定混合式連結模式</block>
+  <block id="0ae4dbb29780eba3f98ffdae192d1e85" category="list-text"><block ref="044e7f3c76e00fe37ca96c5420cef90d" category="inline-link-rx"></block> 並遵循的程序 <block ref="dcf4a615f787596fc0e523e6a8915b60" category="inline-link-macro-rx"></block></block>
+  <block id="0815ed3077a37c90c4f61274fec19467" category="list-text">HCx 提供各種功能<block ref="3cd60fb0fe6feb45b3393ab8f79e019c" category="inline-link-rx"></block> 包括跨資料中心的複寫輔助 VMotion 、可在虛擬機器開機時移動虛擬機器。</block>
+  <block id="edf54c782dbd49c240beed36e32356d4" category="list-text"><block ref="aa69f95f3441e9158198c8fbcd79d1d9" category="inline-link-rx"></block> [TR 4942 ：使用 VMware HCx] 將工作負載移轉至 FSX ONTAP 資料存放區 ]</block>
+  <block id="fb26d4a91849b5222c7cc3e697f73e9e" category="list-text"><block ref="fa614abc6b366c7a8ad7d9f802cdd96f" category="inline-link-rx"></block> [TR-4940 ：使用 VMware HCX 將工作負載移轉至 Azure NetApp Files 資料存放區 - 快速入門指南 ]</block>
+  <block id="0cc35c23da2cbd5d78bedf2bc7ec0265" category="list-text"><block ref="19929a6e4c99723d808e8bb22cd6ada1" category="inline-link-rx"></block> [ 使用 VMware HCX 將工作負載移轉至 Google Cloud 上的 NetApp Cloud Volume Service 資料存放區 VMware Engine 快速入門指南 ]</block>
+  <block id="c9aa8865357f8d28a39b515e32e322fa" category="list-text">使用支援的持續資料保護（ CDP ）產品<block ref="8ebb1cee71de54be4835de36a0290b69" category="inline-link-rx"></block> 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。</block>
+  <block id="548622601625d0572232ff5e88f43cfc" category="admonition">當來源 VM 位於區塊 vVol 資料存放區上時、可以使用 SnapMirror 將其複寫至 Amazon FSX for NetApp ONTAP 或其他支援雲端供應商的 Cloud Volumes ONTAP （ CVO ）、並以 iSCSI Volume 的形式使用雲端原生 VM 。</block>
+  <block id="4b906f2763db0ad5b2cd7b3e4a94e370" category="section-title">VM 範本移轉案例</block>
+  <block id="2beb4533477854135dc786d19e56f54f" category="paragraph">VM 範本可由 vCenter Server 或內容庫管理。VM 範本、 OVF 和 OVA 範本的發佈、其他類型的檔案都是透過將其發佈到本機內容庫來處理、而遠端內容庫則可訂閱此範本。</block>
+  <block id="69aaf7a25ecba3b46f091acc2a26a375" category="list-text">儲存在 vCenter 庫存中的 VM 範本可轉換成 VM 、並使用 VM 移轉選項。</block>
+  <block id="943aaaf14a7b6774218736f11d00128f" category="list-text">OVF 和 OVA 範本、可將儲存在內容庫中的其他類型檔案複製到其他內容庫。</block>
+  <block id="cfe857baa4de93f801753d9bfd30d78e" category="list-text">內容庫 VM 範本可裝載於任何資料存放區、並需要新增至新的內容庫。</block>
+  <block id="7e0919921d3c9a2aef87040ac9bf5f80" category="example-title">移轉存放在資料存放區上的 VM 範本</block>
+  <block id="21177e86f717d23724774d73a0800c3a" category="list-text">在 vSphere Web Client 中、在 VM and Templates 資料夾檢視下的 VM 範本上按一下滑鼠右鍵、然後選取選項以轉換為 VM 。</block>
+  <block id="eec997a307c93d2a7e3b7cd9f25a6307" category="image-alt">將 VM 範本轉換成 VM</block>
+  <block id="be9fd3f8886256221d4e932cf339724a" category="list-text">將其轉換為 VM 後、請遵循 VM 移轉選項。</block>
+  <block id="2a83c46873f4dd078b9c4e000af614cd" category="example-title">內容庫項目的複本</block>
+  <block id="96493622abfb35cd9b4d38122c28c6eb" category="list-text">在 vSphere Web Client 中、選取內容庫</block>
+  <block id="3a22b4031bea0fd8f705f32fe45397e4" category="image-alt">內容庫選擇</block>
+  <block id="ee4734d24f979dc096ebe764cc2dc30f" category="list-text">選取您要複製項目的內容庫</block>
+  <block id="46f4c7aed6bf09d2989a2d223649d910" category="list-text">在項目上按一下滑鼠右鍵、然後按一下複製項目。</block>
+  <block id="029d7ece4004248369beb2eae047063e" category="image-alt">複製內容庫項目</block>
+  <block id="da42d9ba17908a32a08db32c8a9c2ada" category="admonition">如果使用動作功能表、請確定列出正確的目標物件以執行動作。</block>
+  <block id="02afe2bc03a35181a52f02b50a6ba678" category="list-text">選取目標內容庫、然後按一下「確定」。</block>
+  <block id="9138c408681dceaa26ff381fc0b1b8c1" category="image-alt">目標內容庫選擇</block>
+  <block id="f807729efd88585dea30094890b0b720" category="list-text">驗證項目是否可在目標內容庫上使用。</block>
+  <block id="787a396ffcf3ffeca0f5904980751f1f" category="image-alt">複製項目驗證</block>
+  <block id="409e8a1acb8f8c223147cf43f2316437" category="paragraph">以下是範例 PowerCLI 指令碼、可將內容庫項目從 CL01 複製到 CL02 。</block>
+  <block id="b781f7a1513ea04287a8c6d1dd3081be" category="example-title">將 VM 新增為內容庫中的範本</block>
+  <block id="2e1700a6761ff9d108dd97f2a584bdf9" category="list-text">在 vSphere Web Client 中、選取虛擬機器、然後按一下滑鼠右鍵、選擇「在程式庫中複製為範本」</block>
+  <block id="73da111dc3ec824e3b0bed6ebdf4461c" category="image-alt">在 libary 中以範本形式複製 VM</block>
+  <block id="2cf7310335b47fd818497808d4753dd1" category="admonition">如果在 libary 中選取要複製的 VM 範本、則只能將其儲存為 OVF 和 OVA 範本、而不能儲存為 VM 範本。</block>
+  <block id="64f74f21a516453c3e0e651802577261" category="list-text">確認已選取範本類型作為 VM 範本、然後依照回答精靈來完成作業。</block>
+  <block id="98e04836ab8cd3209aa7fa6295b4389d" category="image-alt">範本類型選擇</block>
+  <block id="22ee93f09388f930aa163b6fbcf82288" category="inline-link">vSphere VM 管理指南</block>
+  <block id="494b77ce135ad96a652ab9647e5e25f3" category="admonition">如需內容庫上 VM 範本的其他詳細資料、請參閱<block ref="c284cacffafdeb5d7a286a9127e38521" category="inline-link-rx"></block></block>
+  <block id="36be1a9a089ef5749ee2801cebb76989" category="example-title">從第三方儲存系統（包括 vSAN ）移轉至 ONTAP 資料存放區。</block>
+  <block id="8d529016191c5d8888d2b3cee0d947cc" category="list-text">根據 ONTAP 資料存放區的佈建位置、從上方選擇 VM 移轉選項。</block>
+  <block id="82154dec8199b96d4b6fc6e680b3987f" category="example-title">從舊版移轉至最新版的 vSphere 。</block>
+  <block id="5109f11ddb7fa395a2b9702dd7da5188" category="list-text">如果無法進行就地升級、則可建立新環境並使用上述移轉選項。</block>
+  <block id="334bd7f3fcfccda29c4ee8976c9828cb" category="admonition">在跨 vCenter 移轉選項中、如果來源上沒有匯出選項、則從目標匯入。如需該程序、請檢查<block ref="9290a9639d8037eccb6a45858e00f5cb" category="inline-link-rx"></block></block>
+  <block id="fcfd0c15962db1f564732b4025884f01" category="example-title">移轉至 VCF 工作負載網域。</block>
+  <block id="67885add60f172422ab38b3902e15ebe" category="list-text">將 VM 從每個 vSphere 叢集移轉至目標工作負載網域。</block>
+  <block id="ed0e87b54c5aad3a24966d14ebf411a5" category="inline-link">設定用於橋接的 Edge VM</block>
+  <block id="19de566bd971c51837ce2deb47067778" category="admonition">若要允許與來源 vCenter 上其他叢集上的現有虛擬機器進行網路通訊、請將來源 vCenter vSphere 主機新增至傳輸區域、以延伸 NSX 區段、或使用邊緣上的 L2 橋接器、以允許 VLAN 中的 L2 通訊。請參閱的 NSX 文件<block ref="bb2820de2f23f7b0baf46c5e8a60841a" category="inline-link-rx"></block></block>
+  <block id="bc9119ed58244e2689047c3cedd83108" category="inline-link">vSphere 虛擬機器移轉</block>
+  <block id="90ff984679593568b4363d81214593c7" category="inline-link">vSphere 8 for VMotion 的新功能</block>
+  <block id="3530a6bb587bbd3bccbd4f5c5a3313fe" category="inline-link">vSphere VMotion 資源</block>
+  <block id="3a231af9bfa3b8f20d401bc62fdd9c21" category="inline-link">NSX 聯盟中的 Tier-0 閘道組態</block>
+  <block id="4c7b9062bf6dec81cf8f1f612748c4ea" category="inline-link">HCx 4.8 使用者指南</block>
+  <block id="4617dd5a7193927c5552182931541c9c" category="inline-link">VMware Site Recovery Manager文件</block>
+  <block id="9cbdaaae1425029c06e92fc0ff0ff025" category="inline-link">適用於 VMware 的 BlueXP 災難恢復</block>
+  <block id="82f8578ded21713de0f5ef6be76e3c35" category="paragraph"><block ref="737bdbf6f9dcb079099f0cc0c45b3e20" category="inline-link-rx"></block>
+<block ref="d27dd599aabe2e126f2234fd46858e0b" category="inline-link-rx"></block>
+<block ref="d2b062be46952e71b615056bb86e0f22" category="inline-link-rx"></block>
+<block ref="1c850a6572152069960afafbf7b9cafd" category="inline-link-rx"></block>
+<block ref="17002551c272e5801f1939557c549c43" category="inline-link-rx"></block>
+<block ref="a1b160da533b2cfee0734b4e536da205" category="inline-link-rx"></block>
+<block ref="c041b58a139d19e8eb3afdf1c5f3b721" category="inline-link-rx"></block></block>
+  <block id="5ccca54298e375044707defdae8151e1" category="sidebar">將 VM 移轉至 ONTAP 資料存放區</block>
 </blocks>
