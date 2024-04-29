@@ -1,0 +1,112 @@
+---
+sidebar: sidebar 
+permalink: rhhc/on-premises/rhhc-op-data-protection.html 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
+summary:  
+---
+= 使用 Astra 保護資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../../media/
+
+
+[role="lead"]
+本頁顯示在 VMware vSphere 上使用 Astra Control Center （ ACC ）執行的 Red Hat OpenShift Container 應用程式資料保護選項。
+
+當使用者使用 Red Hat OpenShift 將應用程式現代化的過程中、應制定資料保護策略、以保護他們不受意外刪除或任何其他人為錯誤的影響。為了保護資料不受萬用者的影響、通常也需要採取保護策略來達到法規或法規遵循的目的。
+
+資料保護的需求各不相同、從還原到時間點複本、到自動容錯移轉到不同的故障網域、而無需人為介入。許多客戶選擇 ONTAP 做為其 Kubernetes 應用程式的首選儲存平台、因為其豐富的功能包括多租戶、多重傳輸協定、高效能與容量、多站台位置的複寫與快取、安全性與靈活度。
+
+ONTAP 中的資料保護可以使用臨機操作或原則控制的方式來達成 - ** 快照 ** - ** 備份與還原 **
+
+Snapshot 複本和備份都能保護下列資料類型： - ** 代表應用程式狀態的應用程式中繼資料 ** - ** 任何與應用程式相關的持續資料磁碟區 ** - ** 屬於應用程式的任何資源成品 **
+
+
+
+== 使用 Acc 快照
+
+使用 Snapshot with Acc 可擷取資料的時間點複本。保護原則定義要保留的 Snapshot 複本數量。最低排程選項為每小時一次。您可以隨時以比排程 Snapshot 複本更短的時間間隔來進行手動隨選 Snapshot 複本。Snapshot 複本會儲存在與應用程式相同的已佈建磁碟區上。
+
+
+
+=== 使用 Acc 設定 Snapshot
+
+image::rhhc-onprem-dp-snap.png[Astra Control Center Snapshot 檢視]
+
+
+
+== 使用 Acc 進行備份與還原
+
+備份是以 Snapshot 為基礎。主動定速控制系統可以使用 CSI 來製作 Snapshot 複本、並使用時間點 Snapshot 複本來執行備份。備份會儲存在外部物件存放區（任何相容的 S3 、包括位於不同位置的 ONTAP S3 ）。您可以針對排程備份和要保留的備份版本數量、設定保護原則。最小 RPO 為一小時。
+
+
+
+=== 使用 Acc 從備份還原應用程式
+
+主動定速控制系統會從儲存備份的 S3 儲存區還原應用程式。
+
+image:rhhc-onprem-dp-br.png["Astra Control Center Restore 選項"]
+
+
+
+== 應用程式特定的執行攔截器
+
+此外、執行攔截器可設定為與託管應用程式的資料保護作業一起執行。雖然儲存陣列層級的資料保護功能可供使用、但通常需要額外的步驟才能使備份與還原作業一致。應用程式專屬的其他步驟可能是：建立 Snapshot 複本之前或之後。- 建立備份之前或之後。從 Snapshot 複本或備份還原之後。
+
+Astra Control 可以執行這些應用程式專屬步驟、這些步驟編碼為稱為執行攔截程式的自訂指令碼。
+
+https://github.com/NetApp/Verda["NetApp Verda GitHub專案"] 提供常用雲端原生應用程式的執行掛鉤、讓保護應用程式變得簡單、強大且易於協調。如果您有足夠的資訊可用於儲存庫中未包含的應用程式、請隨時為該專案做出貢獻。
+
+
+
+== Redis 應用程式快照前的執行掛鉤範例。
+
+image::rhhc-onprem-dp-br-hook.png[Astra Control Center 執行掛鉤]
+
+
+
+== 使用 Acc 進行複寫
+
+為了提供區域保護、或是採用低 RPO 和 RTO 解決方案、應用程式可以複寫到另一個在不同站台上執行的 Kubernetes 執行個體、最好是在其他區域。主動定速控制系統採用 ONTAP 非同步 SnapMirror 、 RPO 最短可達 5 分鐘。複寫是透過複寫到 ONTAP 、然後容錯移轉會在目的地叢集中建立 Kubernetes 資源。
+
+
+NOTE: 請注意、複寫與備份移至 S3 並從 S3 執行還原的備份與還原不同。請參閱連結： https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html#replication-to-a-remote-cluster[here] 以取得兩種資料保護類型之間差異的其他詳細資料。
+
+請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["請按這裡"] SnapMirror 安裝說明。
+
+
+
+=== SnapMirror 搭配 Acc
+
+image::rhhc-onprem-dp-rep.png[Astra Control Center 複寫]
+
+
+NOTE: SAN 經濟型和 NAS 經濟型儲存驅動程式不支援複寫功能。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#astra-trident-requirements["請按這裡"] 以取得更多詳細資料。
+
+
+
+=== 示範影片：
+
+link:https://www.netapp.tv/details/29504?mcid=35609780286441704190790628065560989458["Astra Control Center 的災難恢復示範影片"]
+
+.Astra Control Center 提供資料保護功能
+video::0cec0c90-4c6f-4018-9e4f-b09700eefb3a[panopto,width=360]
+
+
+== 使用 MetroCluster 實現營運不中斷
+
+我們的 ONTAP 硬體平台大多具備高可用度功能、可防止裝置故障、避免執行災難恢復。但為了防範火災或任何其他災難、並以零 RPO 和低 RTO 持續經營業務、通常會使用 MetroCluster 解決方案。
+
+目前擁有 ONTAP 系統的客戶可在提供區域層級災難恢復的距離限制內新增支援的 ONTAP 系統、以延伸至 MetroCluster 。Astra Trident 、 CSI （ Container 儲存介面）支援 NetApp ONTAP 、包括 MetroCluster 組態、以及其他選項、例如 Cloud Volumes ONTAP 、 Azure NetApp Files 、 AWS FSX for NetApp ONTAP 等 Astra Trident 提供五種 ONTAP 儲存驅動程式選項、所有選項都支援 MetroCluster 組態。請參閱 link:https://docs.netapp.com/us-en/trident/trident-concepts/ontap-drivers.html["請按這裡"] 如需 Astra Trident 支援的 ONTAP 儲存驅動程式的詳細資訊、請參閱。
+
+MetroCluster 解決方案需要第 2 層網路擴充功能、或從兩個故障網域存取相同的網路位址。一旦 MetroCluster 組態就緒、應用程式擁有者就能清楚瞭解解決方案、因為 MetroCluster SVM 中的所有磁碟區都受到保護、並享有 SyncMirror （零 RPO ）的優勢。
+
+image:rhhc-onprem-dp-bc.png["使用 MetroCluster 的營運不中斷解決方案"]
+
+
+TIP: 對於 Trident 後端組態（ TBC ）、使用 MetroCluster 組態時、請勿指定 dataLIF 和 SVM 。指定用於管理 LIF 的 SVM 管理 IP 、並使用 vsadmin 角色認證。
+
+我們提供 Astra Control Center 資料保護功能的詳細資訊 link:https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html["請按這裡"]
