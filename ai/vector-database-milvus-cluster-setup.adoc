@@ -22,6 +22,10 @@ Kubernetes 和向量資料庫一起形成強大且可擴充的解決方案、可
 
 . 在本節中、我們將詳細說明在 Kubernetes 上安裝 Milvus 叢集的程序、並使用 NetApp 儲存控制器來處理叢集資料和客戶資料。
 . 若要安裝 Milvus 叢集、儲存來自各種 Milvus 叢集元件的資料時、需要持續磁碟區（ PV ）。這些元件包括 etcd （三個執行個體）、 Pulsar-bootike-journal （三個執行個體）、 Pulsar-bootike-ledgers （三個執行個體）和 Pulsar-zooker-data （三個執行個體）。
++
+
+NOTE: 在 milvus 叢集中、我們可以使用 Pulsar 或 Kafka 作為基礎引擎、以支援 Milvus 叢集可靠的儲存、以及訊息串流的發佈 / 訂閱。針對 NFS 的 Kafka 、 NetApp 已在 ONTAP 9.12.1 及更新版本中進行改善、這些增強功能以及 RHEL 8.7 或 9.1 或更新版本中所包含的 NFSv4.1 及 Linux 變更、可解決透過 NFS 執行 Kafka 時可能發生的「愚蠢重新命名」問題。如果您想深入瞭解如何使用 NetApp NFS 執行 Kafka 解決方案、請查看： https://docs.netapp.com/us-en/netapp-solutions/data-analytics/kafka-nfs-introduction.html[]。
+
 . 我們從 NetApp ONTAP 建立了單一 NFS Volume 、並建立了 12 個持續磁碟區、每個磁碟區都有 250GB 的儲存容量。儲存容量可能會因叢集大小而異；例如、我們有另一個叢集、其中每個 PV 都有 50GB 。請參閱下列 PV YAML 檔案之一、以取得更多詳細資料；我們總共有 12 個此類檔案。在每個檔案中、 storageClassName 會設為「預設」、而儲存設備和路徑對每個 PV 都是唯一的。
 +
 [source, yaml]
