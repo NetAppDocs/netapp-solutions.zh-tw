@@ -1,0 +1,353 @@
+---
+sidebar: sidebar 
+permalink: virtualization/vmware_vcf_asa_supp_mgmt_iscsi.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, array, ontap tools, otv, sddc, iscsi 
+summary:  
+---
+= 使用 ONTAP 工具來設定 VCF 管理網域的補充儲存設備
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+作者： Josh Powell
+
+
+
+== 使用 ONTAP 工具來設定 VCF 管理網域的補充儲存設備
+
+
+
+=== 案例總覽
+
+在此案例中、我們將示範如何部署及使用 ONTAP Tools for VMware vSphere （ OTV ）來設定 VCF 管理網域的 iSCSI 資料存放區。
+
+此案例涵蓋下列高層級步驟：
+
+* 為 iSCSI 流量建立具有邏輯介面（生命）的儲存虛擬機器（ SVM ）。
+* 在 VCF 管理網域上為 iSCSI 網路建立分散式連接埠群組。
+* 在 ESXi 主機上為 VCF 管理網域建立 iSCSI 的 vmkernel 介面卡。
+* 在 VCF 管理網域上部署 ONTAP 工具。
+* 在 VCF 管理網域上建立新的 VMFS 資料存放區。
+
+
+
+
+=== 先決條件
+
+此案例需要下列元件和組態：
+
+* ONTAP ASA 儲存系統、乙太網路交換器上的實體資料連接埠專用於儲存流量。
+* vcf 管理網域部署已完成、 vSphere 用戶端可存取。
+
+
+NetApp 建議 iSCSI 採用完全備援的網路設計。下圖說明備援組態的範例、為儲存系統、交換器、網路卡和主機系統提供容錯能力。請參閱 NetApp link:https://docs.netapp.com/us-en/ontap/san-config/index.html["SAN組態參考"] 以取得更多資訊。
+
+image:vmware-vcf-asa-image74.png["iSCSI 網路設計"]
+｛ nbsp ｝
+
+對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議 iSCSI 組態中的所有 SVM 、每個儲存節點在不同的乙太網路中至少擁有兩個生命期。
+
+本文件說明建立新 SVM 的程序、並指定 IP 位址資訊以建立多個用於 iSCSI 流量的生命週期。若要新增生命至現有 SVM 、請參閱 link:https://docs.netapp.com/us-en/ontap/networking/create_a_lif.html["建立 LIF （網路介面）"]。
+
+如需搭配 VMware 使用 VMFS iSCSI 資料存放區的其他資訊、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/virtualization/vsphere_ontap_auto_block_iscsi.html["vSphere VMFS資料存放區- iSCSI儲存後端ONTAP 搭配功能"]。
+
+
+TIP: 在相同 IP 網路上設定多個 VMkernel 介面卡的情況下、建議使用 ESXi 主機上的軟體 iSCSI 連接埠繫結、以確保介面卡之間的負載平衡。請參閱知識庫文章 link:https://kb.vmware.com/s/article/2038869["在 ESX/ESXi 中使用軟體 iSCSI 連接埠繫結的考量（ 2038869 ）"]。
+
+
+
+=== 部署步驟
+
+若要部署 ONTAP 工具並使用它在 VCF 管理網域上建立 VMFS 資料存放區、請完成下列步驟：
+
+
+
+==== 在 ONTAP 儲存系統上建立 SVM 和生命
+
+下列步驟是在 ONTAP 系統管理員中執行。
+
+.建立儲存 VM 和生命
+[%collapsible]
+====
+請完成下列步驟、為 iSCSI 流量建立 SVM 及多個生命期。
+
+. 從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 VM* 、然後按一下 *+ Add* 開始。
++
+image:vmware-vcf-asa-image01.png["按一下 + 新增以開始建立 SVM"]
+
++
+｛ nbsp ｝
+
+. 在 * 新增儲存 VM* 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定下、按一下 * iSCSI * 標籤、並勾選 * 啟用 iSCSI* 方塊。
++
+image:vmware-vcf-asa-image02.png["新增儲存 VM 精靈 - 啟用 iSCSI"]
+
+. 在 * 網路介面 * 區段中、填寫第一個 LIF 的 * IP 位址 * 、 * 子網路遮罩 * 和 * 廣播網域和連接埠 * 。對於後續的生命、核取方塊可以啟用、以便在所有剩餘的生命中使用一般設定、或使用個別的設定。
++
+
+NOTE: 對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議 iSCSI 組態中的所有 SVM 、每個儲存節點在不同的乙太網路中至少擁有兩個生命期。
+
++
+image:vmware-vcf-asa-image03.png["填寫網路資訊以取得生命"]
+
+. 選擇是否啟用 Storage VM Administration 帳戶（適用於多租戶環境）、然後按一下 * Save* 以建立 SVM 。
++
+image:vmware-vcf-asa-image04.png["啟用 SVM 帳戶並完成"]
+
+
+
+====
+
+
+==== 在 ESXi 主機上設定 iSCSI 網路
+
+下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行。
+
+.為 iSCSI 流量建立分散式連接埠群組
+[%collapsible]
+====
+完成下列步驟、為每個 iSCSI 網路建立新的分散式連接埠群組：
+
+. 從管理網域叢集的 vSphere 用戶端、瀏覽至 * 清查 > 網路 * 。瀏覽至現有的分散式交換器、然後選擇建立 * 新的分散式連接埠群組 ... * 的動作。
++
+image:vmware-vcf-asa-image05.png["選擇以建立新的連接埠群組"]
+
++
+｛ nbsp ｝
+
+. 在 * 新增分散式連接埠群組 * 精靈中、填入新連接埠群組的名稱、然後按一下 * 下一步 * 繼續。
+. 在「 * 組態設定 * 」頁面上、填寫所有設定。如果使用 VLAN 、請務必提供正確的 VLAN ID 。按一下 * 下一步 * 繼續。
++
+image:vmware-vcf-asa-image06.png["填寫 VLAN ID"]
+
++
+｛ nbsp ｝
+
+. 在「 * 準備完成 * 」頁面上、檢閱變更、然後按一下「 * 完成 * 」來建立新的分散式連接埠群組。
+. 重複此程序、為第二個使用的 iSCSI 網路建立分散式連接埠群組、並確保您輸入正確的 * VLAN ID* 。
+. 建立兩個連接埠群組之後、請瀏覽至第一個連接埠群組、然後選取「 * 編輯設定 ... * 」動作。
++
+image:vmware-vcf-asa-image27.png["DPG - 編輯設定"]
+
++
+｛ nbsp ｝
+
+. 在 * 分散式連接埠群組 - 編輯設定 * 頁面上、瀏覽左側功能表中的 * 成組和容錯移轉 * 、然後按一下 * 上線 2* 將其向下移至 * 未使用的上行鏈路 * 。
++
+image:vmware-vcf-asa-image28.png["將 uplink2 移至未使用的"]
+
+. 對第二個 iSCSI 連接埠群組重複此步驟。但是，這次將 *uplink1* 向下移到 * 未使用的上行鏈路 * 。
++
+image:vmware-vcf-asa-image29.png["將 uplink1 移至未使用的"]
+
+
+
+====
+.在每個 ESXi 主機上建立 VMkernel 介面卡
+[%collapsible]
+====
+在管理網域中的每個 ESXi 主機上重複此程序。
+
+. 從 vSphere 用戶端導覽至管理網域清查中的其中一個 ESXi 主機。從 * 組態 * 標籤中選取 * VMkernel 介面卡 * 、然後按一下 * 新增網路 ... * 開始。
++
+image:vmware-vcf-asa-image07.png["開始新增網路精靈"]
+
++
+｛ nbsp ｝
+
+. 在 *Select connection type* （選擇連接類型 * ）窗口中選擇 *VMkernel Network Adapter* （ VMkernel 網絡適配器 * ），然後單擊 *Next* （下一步）繼續。
++
+image:vmware-vcf-asa-image08.png["選擇 [VMkernel 網路介面卡 ]"]
+
++
+｛ nbsp ｝
+
+. 在 * 選取目標裝置 * 頁面上、選擇先前建立的 iSCSI 分散式連接埠群組之一。
++
+image:vmware-vcf-asa-image09.png["選擇目標連接埠群組"]
+
++
+｛ nbsp ｝
+
+. 在「 * 連接埠內容 * 」頁面上保留預設值、然後按一下「 * 下一步 * 」繼續。
++
+image:vmware-vcf-asa-image10.png["VMkernel 連接埠內容"]
+
++
+｛ nbsp ｝
+
+. 在 *IPv4 settings* 頁面上，填寫 *IP 地址 * 、 * 子網掩碼 * ，並提供新的網關 IP 地址（僅在需要時）。按一下 * 下一步 * 繼續。
++
+image:vmware-vcf-asa-image11.png["VMkernel IPv4 設定"]
+
++
+｛ nbsp ｝
+
+. 在「 * 準備完成 * 」頁面上檢閱您的選擇、然後按一下「 * 完成 * 」來建立 VMkernel 介面卡。
++
+image:vmware-vcf-asa-image12.png["檢閱 VMkernel 選擇"]
+
++
+｛ nbsp ｝
+
+. 重複此程序、為第二個 iSCSI 網路建立 VMkernel 介面卡。
+
+
+====
+
+
+==== 部署並使用 ONTAP 工具來設定儲存設備
+
+下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 VMFS iSCSI 資料存放區、以及將管理 VM 移轉至新的資料存放區。
+
+.部署適用於 VMware vSphere 的 ONTAP 工具
+[%collapsible]
+====
+VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。
+
+請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：
+
+. 從取得 ONTAP 工具 OVA 映像 link:https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["NetApp 支援網站"] 並下載至本機資料夾。
+. 登入 VCF 管理網域的 vCenter 應用裝置。
+. 在 vCenter 應用裝置介面上、以滑鼠右鍵按一下管理叢集、然後選取 * 部署 OVF 範本… *
++
+image:vmware-vcf-aff-image21.png["部署 OVF 範本 ..."]
+
++
+｛ nbsp ｝
+
+. 在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取上一步中下載的 ONTAP 工具 OVA 檔案。
++
+image:vmware-vcf-aff-image22.png["選取 OVA 檔案"]
+
++
+｛ nbsp ｝
+
+. 如需精靈的步驟 2 至 5 、請選取虛擬機器的名稱和資料夾、選取運算資源、檢閱詳細資料、然後接受授權合約。
+. 針對組態和磁碟檔案的儲存位置、選取 VCF 管理網域叢集的 vSAN 資料存放區。
++
+image:vmware-vcf-aff-image23.png["選取 OVA 檔案"]
+
++
+｛ nbsp ｝
+
+. 在「選取網路」頁面上、選取用於管理流量的網路。
++
+image:vmware-vcf-aff-image24.png["選取網路"]
+
++
+｛ nbsp ｝
+
+. 在「自訂範本」頁面上、填寫所有必要資訊：
++
+** 用於管理 OTV 存取的密碼。
+** NTP 伺服器 IP 位址。
+** OTV 維護帳戶密碼。
+** OTV Derby DB 密碼。
+** 請勿勾選 * 啟用 VMware Cloud Foundation （ VCF ） * 的方塊。部署補充儲存設備不需要 vcf 模式。
+** vCenter 應用裝置的 FQDN 或 IP 位址、並提供 vCenter 的認證。
+** 提供必要的網路內容欄位。
++
+按一下 * 下一步 * 繼續。
+
++
+image:vmware-vcf-aff-image25.png["自訂 OTV 範本 1."]
+
++
+image:vmware-vcf-asa-image13.png["自訂 OTV 範本 2."]
+
++
+｛ nbsp ｝
+
+
+
+. 檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 OTV 應用裝置。
+
+
+====
+.使用 OTV 在管理網域上設定 VMFS iSCSI 資料存放區
+[%collapsible]
+====
+請完成下列步驟、以使用 OTV 將 VMFS iSCSI 資料存放區設定為管理網域上的補充儲存區：
+
+. 在 vSphere 用戶端中、瀏覽至主功能表、然後選取 * NetApp ONTAP Tools* 。
++
+image:vmware-vcf-asa-image14.png["瀏覽至 ONTAP 工具"]
+
+. 進入 * ONTAP Tools* 後、從「入門」頁面（或從 * 儲存系統 * ）、按一下 * 新增 * 以新增儲存系統。
++
+image:vmware-vcf-asa-image15.png["新增儲存系統"]
+
++
+｛ nbsp ｝
+
+. 提供 ONTAP 儲存系統的 IP 位址和認證、然後按一下 * 新增 * 。
++
+image:vmware-vcf-asa-image16.png["提供 ONTAP 系統的 IP 和認證"]
+
++
+｛ nbsp ｝
+
+. 按一下 * 是 * 來授權叢集憑證並新增儲存系統。
++
+image:vmware-vcf-asa-image17.png["授權叢集憑證"]
+
+
+
+====
+.將管理 VM&#8217 移轉至 iSCSI 資料存放區
+[%collapsible]
+====
+如果偏好使用 ONTAP 儲存設備來保護 VCF 管理虛擬機器的 VMotion 、則可將虛擬機器移轉至新建立的 iSCSI 資料存放區。
+
+完成下列步驟、將 VCF 管理 VM 移轉至 iSCSI 資料存放區。
+
+. 從 vSphere Client 導覽至管理網域叢集、然後按一下 * VMS* 標籤。
+. 選取要移轉至 iSCSI 資料存放區的 VM 、按一下滑鼠右鍵、然後選取 * 移轉。 * 。
++
+image:vmware-vcf-asa-image18.png["選取要移轉的 VM"]
+
++
+｛ nbsp ｝
+
+. 在 * 虛擬機器 - 移轉 * 精靈中、選取 * 僅變更儲存設備 * 作為移轉類型、然後按一下 * 下一步 * 繼續。
++
+image:vmware-vcf-asa-image19.png["選取移轉類型"]
+
++
+｛ nbsp ｝
+
+. 在 * 選取儲存設備 * 頁面上、選取 iSCSI 資料存放區、然後選取 * 下一步 * 繼續。
++
+image:vmware-vcf-asa-image20.png["選取目的地資料存放區"]
+
++
+｛ nbsp ｝
+
+. 檢閱選項、然後按一下 * 完成 * 以開始移轉。
+. 重新定位狀態可從 *Recent Tasks* 窗格中查看。
++
+image:vmware-vcf-asa-image21.png["vSphere 用戶端最近工作窗格"]
+
+
+
+====
+
+
+=== 其他資訊
+
+如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
+
+如需設定 VCF 的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]。
+
+
+
+=== 此解決方案的影片示範
+
+.iSCSI 資料存放區是 VCF 管理網域的補充儲存設備
+video::1d0e1af1-40ae-483a-be6f-b156015507cc[panopto,width=360]

@@ -15257,7 +15257,6 @@
   <block id="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-macro"><block ref="ed133d2d4bade971a41aae35897a0bd2" category="inline-link-rx"></block></block>
   <block id="21af149e524c5f7a8eb5e23197309e60" category="paragraph"><block ref="21af149e524c5f7a8eb5e23197309e60" category="inline-link-macro-rx"></block></block>
   <block id="7e7efb7e7b278c5ce5253a775d1c8313" category="sidebar">AWS FS3/EC2 中的自動化 PostgreSQL 高可用度部署和災難恢復</block>
-  <block id="d36111f9de8e485ef98facff50b6fd6e" category="sidebar">Oracle 資料庫部署與保護：使用 iSCSI/ASM</block>
   <block id="5ed492cbbbf7e6d167035a7c10478daa" category="summary">使用 NetApp HCI 的 VMware 終端使用者運算是經過預先驗證的最佳實務資料中心架構、可在企業規模部署虛擬桌面工作負載。</block>
   <block id="b4a3c2c985fcfc0d0e59c8d9c3259eb0" category="doc">NVA-1129-Deploy ：採用 NetApp HCI 和 NVIDIA GPU 的 VMware 終端使用者運算</block>
   <block id="8b3f1e47da9509d2edf2f21012c6ec7e" category="paragraph">採用 NetApp HCI 的 VMware 終端使用者運算是經過預先驗證的最佳實務資料中心架構、可在企業規模部署虛擬桌面工作負載。本文件說明如何以可靠且無風險的方式、在線上規模部署解決方案</block>
@@ -16692,7 +16691,6 @@
   <block id="0623403e61b2d6dd08cf57fdc3dc8789" category="sidebar">使用 AWS FSX ONTAP 上的遞增式合併功能、快速恢復及複製 Oracle VLDB</block>
   <block id="26340070db5e3907487c23df7dcd4ddc" category="sidebar">SnapCenter for Databases</block>
   <block id="37a8ebbbcf603230c17a02eb0e2dac13" category="sidebar">使用 SnapCenter 服務進行 Oracle 備份、還原及複製 - AWS</block>
-  <block id="7fa7ffa04f68e2d66ac6bd8166d8ca35" category="sidebar">使用 AWS FSX ONTAP 快速恢復和複製 Oracle VLDB</block>
   <block id="d7b54624d819bcd713a8bade6dc96b79" category="paragraph">在 Antos 1.14 叢集上部署 Trident</block>
   <block id="eb31a7776d93779742d99cf1d8e165d4" category="doc">虛擬化影片與示範</block>
   <block id="7dfeac309946b61a62a7a65944ad0acb" category="paragraph">請參閱 <block ref="3db733da05bd3e3967dc04592cc322a8" category="inline-link-macro-rx"></block> 適用於 ** 複寫與備份與還原 ** 選項。</block>
@@ -19905,7 +19903,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="fb891ae3e0024b90a290ce66233d5f6a" category="paragraph">NetApp&amp;#8482 ；採用 NVIDIA DGX&amp;#8482 的 AIPod ；系統和 NetApp 雲端連線儲存系統、可消除設計複雜度和猜測、簡化機器學習（ ML ）和人工智慧（ AI ）工作負載的基礎架構部署。AIPod 採用 NVIDIA DGX BasePOD 設計、為新一代工作負載提供卓越的運算效能、搭配 NVIDIA DGX 系統的 AIPod 新增了 NetApp AFF 儲存系統、可讓客戶從小開始、不中斷地成長、同時智慧地管理從邊緣到核心、再到雲端再回來的資料。NetApp AIPod 是 NetApp AI 解決方案較大型產品組合的一部分、如下圖所示：</block>
   <block id="c1bce5bf8b373a52b3c554a9aaec682e" category="paragraph">NetApp AI 解決方案產品組合 _
 <block ref="28fc4ff24eeac14eb2855c3d52eb752f" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="90d5ac5fb2e6ff10937e8123a8a6a025" category="summary">採用 NVIDIA DGX 系統的 NetApp AI Pod - 架構</block>
   <block id="19b486adfd04484f926fbbf1ecc903e4" category="paragraph">此參考架構運用獨立的架構來進行運算叢集互連和儲存存取、並在運算節點之間提供 400GB / 秒 InfiniBand （ IB ）連線能力。下圖顯示 NetApp AIPod 搭配 DGX H100 系統的整體解決方案拓撲。</block>
   <block id="d8a66baebc12d026cceddd2879c5ed5c" category="paragraph">NetApp AIPod 解決方案拓撲 _
 <block ref="eb606e206352457153b2069dbeccf372" category="inline-image-macro-rx" type="image"></block></block>
@@ -20209,9 +20206,6 @@ Cloud Insights 也支援 Telegraf 做為其收集整合資料的代理程式。T
   <block id="39658e507fb56267a59206317ef9b26e" category="paragraph">按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。</block>
   <block id="a190a7e1ff0a242b91e3d3a6e2c9095d" category="image-alt">建立 DataProtectionApplication</block>
   <block id="9a61266e5f6546757f71bb6329126490" category="paragraph">yaml 檔案中的 SPEC 區段應適當設定、以符合上述範例所述的下列參數</block>
-  <block id="a68b2348883a87a5ea93dd25acc5cdd6" category="paragraph">** 啟用 CSI 外掛程式 **</block>
-  <block id="96e71ab67ae223478d46f140d4875a14" category="paragraph">將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
-為了備份 CSI 備份的 PVCS 、 Velero CSI 外掛程式會選擇叢集中已設定 **Velero.IO/csi - volumesnapshot-class** 標籤的 Volume SnapshotClass 。針對此</block>
   <block id="05bd5e78c996c165b2b1a844cb7b14b8" category="paragraph">確保已建立 DataProtectionApplication 、且其狀態為：已調整。</block>
   <block id="2c1d400031827c3d65ce20bdbb3dc8e6" category="image-alt">DataProtectionApplication 物件即會建立</block>
   <block id="910eb46960200452a3b203a9e0ccdc76" category="paragraph">OADP 操作員將建立對應的 BackupStorageLocation 。這將在建立備份時使用。</block>
@@ -20805,4 +20799,870 @@ PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如�
   <block id="27a9aa753a69ba6eeb6da8207ec44cbc" category="list-text"><block ref="27a9aa753a69ba6eeb6da8207ec44cbc" category="inline-link-macro-rx"></block></block>
   <block id="363e483bec80d46ae090acaaac027333" category="list-text"><block ref="363e483bec80d46ae090acaaac027333" category="inline-link-macro-rx"></block></block>
   <block id="4df70798ff35bb3f26406b62dcacfcaa" category="list-text"><block ref="4df70798ff35bb3f26406b62dcacfcaa" category="inline-link-macro-rx"></block></block>
+  <block id="15b6c3b7c262523ffa905e75ee3f804c" category="list-text">從目的地 ONTAP 叢集、使用 CLI 中的下列命令建立 SVM 對等關係：</block>
+  <block id="bcfb1dc18c6a8cf18c1134e801d4d088" category="paragraph">** 啟用 CSI 外掛程式 **
+將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
+為了備份 CSI 備份的 PVCS 、 Velero CSI 外掛程式會選擇叢集中已設定 **Velero.IO/csi - volumesnapshot-class** 標籤的 Volume SnapshotClass 。針對此</block>
+  <block id="1f5f26fac2d8f5d83dd7df422a581c02" category="cell">05/01/2024</block>
+  <block id="89687b363c00339745ca0971026c00e6" category="cell">全新 Oracle Sizing Guidance for Azure NetApp Files</block>
+  <block id="45c3099c7390d75c0ec4be79983bc3e7" category="doc">使用 ONTAP 工具來設定 VCF 工作負載網域的補充儲存（ vVols ）</block>
+  <block id="f5c48bf43a6ec75589ee1b2181d664d2" category="paragraph">作者： Josh Powell</block>
+  <block id="d151d9455ad642c3b662c8273892afe4" category="section-title">案例總覽</block>
+  <block id="ece50ad2c8856b704128d19a27a1bd88" category="paragraph">在此案例中、我們將示範如何部署及使用適用於 VMware vSphere （ OTV ）的 ONTAP 工具、為 VCF 工作負載網域設定 * vVols datastore* 。</block>
+  <block id="6819904c812b5563e5ee3accae1d2424" category="paragraph">*ISCSI* 是 vVols 資料存放區的儲存傳輸協定。</block>
+  <block id="f255e8f9269b61d7c7154e8e4f7c50f3" category="paragraph">此案例涵蓋下列高層級步驟：</block>
+  <block id="96083c7da626562cffa7fef2a47a0d03" category="list-text">為 iSCSI 流量建立具有邏輯介面（生命）的儲存虛擬機器（ SVM ）。</block>
+  <block id="b5be24af1f669ebbe987e1d1eb319fa9" category="list-text">在 VI 工作負載網域上為 iSCSI 網路建立分散式連接埠群組。</block>
+  <block id="4f77331a740016465eba8eb9373e83c6" category="list-text">在 ESXi 主機上為 VI 工作負載網域建立 iSCSI 的 vmkernel 介面卡。</block>
+  <block id="2832693ce9f0e3a533143ba510d9e552" category="list-text">在 VI 工作負載網域上部署 ONTAP 工具。</block>
+  <block id="d5792b219408b94b8c5931a52e6c4410" category="list-text">在 VI 工作負載網域上建立新的 vVols 資料存放區。</block>
+  <block id="d6cff067914e45800c90b1701f6ba0cf" category="paragraph">此案例需要下列元件和組態：</block>
+  <block id="b1b87f633515cafa93d2f697dfaa525d" category="list-text">ONTAP ASA 儲存系統、乙太網路交換器上的實體資料連接埠專用於儲存流量。</block>
+  <block id="5a4f6cc7da4fbb76616cfd7b0e3ed616" category="list-text">vcf 管理網域部署已完成、 vSphere 用戶端可存取。</block>
+  <block id="3264149daf2669825fbc78c80448df51" category="list-text">先前已部署 VI 工作負載網域。</block>
+  <block id="121d9e4993fb92968420c9621abc9dd8" category="inline-link-macro">SAN組態參考</block>
+  <block id="671fe47a354bda76d31d49938ba490f1" category="paragraph">NetApp 建議 iSCSI 採用完全備援的網路設計。下圖說明備援組態的範例、為儲存系統、交換器、網路卡和主機系統提供容錯能力。請參閱 NetApp <block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="28110a27762d5b643ed15b39e757da0c" category="inline-image-macro">NVMe TCP 網路設計</block>
+  <block id="bf961954105418d2ed85bcdb2ff6c4a9" category="paragraph"><block ref="bf961954105418d2ed85bcdb2ff6c4a9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="24a1e84f171f7624a56edc931ebd942f" category="paragraph">｛ nbsp ｝</block>
+  <block id="e37fb1809bb764bfb3fd72bbba3bb6b7" category="paragraph">對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議 iSCSI 組態中的所有 SVM 、每個儲存節點在不同的乙太網路中至少擁有兩個生命期。</block>
+  <block id="753ad49162ca6621affe67bf28ce6a1e" category="inline-link-macro">建立 LIF （網路介面）</block>
+  <block id="e431b828d2ebd2bcb7d98edc5b0d3240" category="paragraph">本文件說明建立新 SVM 的程序、並指定 IP 位址資訊以建立多個用於 iSCSI 流量的生命週期。若要新增生命至現有 SVM 、請參閱 <block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block>。</block>
+  <block id="bf1c83b2f4ba225f2ff2681026f9e942" category="inline-link-macro">在 ESX/ESXi 中使用軟體 iSCSI 連接埠繫結的考量（ 2038869 ）</block>
+  <block id="ced52633602b3a5787fd97286f6b481c" category="admonition">在相同 IP 網路上設定多個 VMkernel 介面卡的情況下、建議使用 ESXi 主機上的軟體 iSCSI 連接埠繫結、以確保介面卡之間的負載平衡。請參閱知識庫文章 <block ref="0e76184bcca5ed217fa5c3889595471e" category="inline-link-macro-rx"></block>。</block>
+  <block id="9b3208b9f64f9387e5361bf8e71e6e90" category="paragraph">如需搭配 VMware 使用 VMFS iSCSI 資料存放區的其他資訊、請參閱 <block ref="a870cab946743096435c2f0d0c42915c" category="inline-link-macro-rx"></block>。</block>
+  <block id="c29867b9b73b44a843191dce55c50c3c" category="section-title">部署步驟</block>
+  <block id="e50f55277df464f052b40ee2e63bafc3" category="paragraph">若要部署 ONTAP 工具並使用它在 VCF 管理網域上建立 VVols 資料存放區、請完成下列步驟：</block>
+  <block id="bf165a00a32f17ae82c66d2f310d86c9" category="section-title">在 ONTAP 儲存系統上建立 SVM 和生命</block>
+  <block id="494e8aaaae597fac78b8454b04a8a208" category="paragraph">下列步驟是在 ONTAP 系統管理員中執行。</block>
+  <block id="bf59f50e86e49323a2f307c1bf328bc2" category="example-title">建立儲存 VM 和生命</block>
+  <block id="dd89dbb738472ad058b6c0c6d771695f" category="paragraph">請完成下列步驟、為 iSCSI 流量建立 SVM 及多個生命期。</block>
+  <block id="ca891a3c566c6e105afe5cda31d8f6c4" category="list-text">從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 VM* 、然後按一下 *+ Add* 開始。</block>
+  <block id="2afb3163d9a98bef416c248f76950d88" category="inline-image-macro">按一下 + 新增以開始建立 SVM</block>
+  <block id="4c28cecf005795b7ebe9b0e44da0ff9d" category="paragraph"><block ref="4c28cecf005795b7ebe9b0e44da0ff9d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e1be82dc50a7cac2157d550e35b52569" category="list-text">在 * 新增儲存 VM* 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定 * 下、按一下 * iSCSI * 索引標籤、並勾選 * 啟用 iSCSI* 方塊。</block>
+  <block id="c253f656831a3a2b78357dcf174aa9ee" category="inline-image-macro">新增儲存 VM 精靈 - 啟用 iSCSI</block>
+  <block id="47fc7e35376903d869fd2775a895e3ee" category="paragraph"><block ref="47fc7e35376903d869fd2775a895e3ee" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dad161d4f49e88fee6944eb0c0f6310e" category="list-text">在 * 網路介面 * 區段中、填寫第一個 LIF 的 * IP 位址 * 、 * 子網路遮罩 * 和 * 廣播網域和連接埠 * 。對於後續的生命、核取方塊可以啟用、以便在所有剩餘的生命中使用一般設定、或使用個別的設定。</block>
+  <block id="a7ce9450ac3e26c2cfc577b3bfb4e6c2" category="admonition">對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議 iSCSI 組態中的所有 SVM 、每個儲存節點在不同的乙太網路中至少擁有兩個生命期。</block>
+  <block id="ef3c23abfc072f5da407b00089bce910" category="inline-image-macro">填寫網路資訊以取得生命</block>
+  <block id="8aece51cda947626451abc1a8a03e5e2" category="paragraph"><block ref="8aece51cda947626451abc1a8a03e5e2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bf383636a71a48b1437545a114581d36" category="list-text">選擇是否啟用 Storage VM Administration 帳戶（適用於多租戶環境）、然後按一下 * Save* 以建立 SVM 。</block>
+  <block id="2b2946adae2fa6a4c3f389e5fd8e4c64" category="inline-image-macro">啟用 SVM 帳戶並完成</block>
+  <block id="d3e3a270d030d936fe07f866c2a8bce3" category="paragraph"><block ref="d3e3a270d030d936fe07f866c2a8bce3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="399bf9cc9a7e189bbada52daca2a3ff1" category="section-title">在 ESXi 主機上設定 iSCSI 網路</block>
+  <block id="55565e34679e127ef262b6bb47439b2f" category="paragraph">以下步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行的。在此案例中、正在使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中是通用的。</block>
+  <block id="250fbff7439e4b0003b750f815c488c5" category="example-title">為 iSCSI 流量建立分散式連接埠群組</block>
+  <block id="9bc8445e8e7576b744f8a26ebcdd82ba" category="paragraph">完成下列步驟、為每個 iSCSI 網路建立新的分散式連接埠群組：</block>
+  <block id="cd1138b60f43cbf02730d8d5dd56dd94" category="list-text">從 vSphere 用戶端瀏覽至工作負載網域的 * 清查 &gt; 網路 * 。瀏覽至現有的分散式交換器、然後選擇建立 * 新的分散式連接埠群組 ... * 的動作。</block>
+  <block id="32e9772b22abd486b6c4ceaded713e33" category="inline-image-macro">選擇以建立新的連接埠群組</block>
+  <block id="dac692fdfa0b219b7e4ddecc0537e30a" category="paragraph"><block ref="dac692fdfa0b219b7e4ddecc0537e30a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="45c75dbcac59e53cfd63391446d83f93" category="list-text">在 * 新增分散式連接埠群組 * 精靈中、填入新連接埠群組的名稱、然後按一下 * 下一步 * 繼續。</block>
+  <block id="ffda2d94bbc8b213e3695644f99451ad" category="list-text">在「 * 組態設定 * 」頁面上、填寫所有設定。如果使用 VLAN 、請務必提供正確的 VLAN ID 。按一下 * 下一步 * 繼續。</block>
+  <block id="0adb5b9b8db0064f1648b981ef1a85e4" category="inline-image-macro">填寫 VLAN ID</block>
+  <block id="85b891f93ce30918bdc884a93b8cd9c7" category="paragraph"><block ref="85b891f93ce30918bdc884a93b8cd9c7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7219c6e659b3bfef1dffae6af7e86177" category="list-text">在「 * 準備完成 * 」頁面上、檢閱變更、然後按一下「 * 完成 * 」來建立新的分散式連接埠群組。</block>
+  <block id="52506beb63aab278b57ef11c81fd088a" category="list-text">重複此程序、為第二個使用的 iSCSI 網路建立分散式連接埠群組、並確保您輸入正確的 * VLAN ID* 。</block>
+  <block id="c7b0037c6f3efb767357cf4d2e211bf2" category="list-text">建立兩個連接埠群組之後、請瀏覽至第一個連接埠群組、然後選取「 * 編輯設定 ... * 」動作。</block>
+  <block id="d41f36f6f8b288b07b42a39738e029b8" category="inline-image-macro">DPG - 編輯設定</block>
+  <block id="f20d0b2f5a59554f19ae8c09dbb56131" category="paragraph"><block ref="f20d0b2f5a59554f19ae8c09dbb56131" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9e7134182773e4d3ad2c0c477f46eff7" category="list-text">在 * 分散式連接埠群組 - 編輯設定 * 頁面上、瀏覽左側功能表中的 * 成組和容錯移轉 * 、然後按一下 * 上線 2* 將其向下移至 * 未使用的上行鏈路 * 。</block>
+  <block id="ce496791d8c9cf2df9f2972f01ed445c" category="inline-image-macro">將 uplink2 移至未使用的</block>
+  <block id="4fc262d0c9d5a5b32d214fe181862374" category="paragraph"><block ref="4fc262d0c9d5a5b32d214fe181862374" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2cf059cd7ab68b76ae33e25499ef4254" category="list-text">對第二個 iSCSI 連接埠群組重複此步驟。但是，這次將 *uplink1* 向下移到 * 未使用的上行鏈路 * 。</block>
+  <block id="02f66f9f960e3441541c39583b1778e8" category="inline-image-macro">將 uplink1 移至未使用的</block>
+  <block id="50bad0a2e092080b763ccd1976b3bcf2" category="paragraph"><block ref="50bad0a2e092080b763ccd1976b3bcf2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="87eb9c3eaebb02a00fd9170915c216bd" category="example-title">在每個 ESXi 主機上建立 VMkernel 介面卡</block>
+  <block id="4a9779f7855e8a48c13841b78db04c1a" category="paragraph">在工作負載網域中的每個 ESXi 主機上重複此程序。</block>
+  <block id="c08a7e679c1ccf416eb0be789ac4ee72" category="list-text">從 vSphere 用戶端導覽至工作負載網域清查中的其中一個 ESXi 主機。從 * 組態 * 標籤中選取 * VMkernel 介面卡 * 、然後按一下 * 新增網路 ... * 開始。</block>
+  <block id="d8656c86c5c7733a16a86297a7534cc4" category="inline-image-macro">開始新增網路精靈</block>
+  <block id="83a5dec6dbdd42112ebd33a065cb1097" category="paragraph"><block ref="83a5dec6dbdd42112ebd33a065cb1097" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b6169a7e27efc87b9bcda4db0c74fb5c" category="list-text">在 *Select connection type* （選擇連接類型 * ）窗口中選擇 *VMkernel Network Adapter* （ VMkernel 網絡適配器 * ），然後單擊 *Next* （下一步）繼續。</block>
+  <block id="a6a3d20b855ce7ae84152359f70f07eb" category="inline-image-macro">選擇 [VMkernel 網路介面卡 ]</block>
+  <block id="e66251978cf168c130c89e0a7dc74a9d" category="paragraph"><block ref="e66251978cf168c130c89e0a7dc74a9d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5c8178e61983fbffcea76cbe27f605d0" category="list-text">在 * 選取目標裝置 * 頁面上、選擇先前建立的 iSCSI 分散式連接埠群組之一。</block>
+  <block id="45ff30554a566c9ec5381cac4a93b20f" category="inline-image-macro">選擇目標連接埠群組</block>
+  <block id="4a33d71ff4ba7434767f359fd98b0467" category="paragraph"><block ref="4a33d71ff4ba7434767f359fd98b0467" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ce6520286b2356c765c2a6122fa85d57" category="list-text">在「 * 連接埠內容 * 」頁面上保留預設值、然後按一下「 * 下一步 * 」繼續。</block>
+  <block id="651d0e0694075918301d2c251e0d4435" category="inline-image-macro">VMkernel 連接埠內容</block>
+  <block id="998f553fa8bef043a171cffdaebc4af4" category="paragraph"><block ref="998f553fa8bef043a171cffdaebc4af4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2358f2f0a0f4561364a1161bfbdf1924" category="list-text">在 *IPv4 settings* 頁面上，填寫 *IP 地址 * 、 * 子網掩碼 * ，並提供新的網關 IP 地址（僅在需要時）。按一下 * 下一步 * 繼續。</block>
+  <block id="62d48e4e1ffa4a0b4c3e18180552b5c3" category="inline-image-macro">VMkernel IPv4 設定</block>
+  <block id="b150fce00a50cd3979e38d5472763baf" category="paragraph"><block ref="b150fce00a50cd3979e38d5472763baf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="815a4b2575b65bbb4318061f10c478e5" category="list-text">在「 * 準備完成 * 」頁面上檢閱您的選擇、然後按一下「 * 完成 * 」來建立 VMkernel 介面卡。</block>
+  <block id="0e4758adf28f3808841b96d3cd202d59" category="inline-image-macro">檢閱 VMkernel 選擇</block>
+  <block id="bc2b8d19236ce21462410e1695536cbb" category="paragraph"><block ref="bc2b8d19236ce21462410e1695536cbb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6b699f5c7dbc44d7624bc8851ade6925" category="list-text">重複此程序、為第二個 iSCSI 網路建立 VMkernel 介面卡。</block>
+  <block id="32e66c8f48d6cd3e72fd9bc47d1653b6" category="section-title">部署並使用 ONTAP 工具來設定儲存設備</block>
+  <block id="bd51e321dd788646750870c6103c44b1" category="paragraph">下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 vVols iSCSI 資料存放區、以及將管理 VM 移轉至新的資料存放區。</block>
+  <block id="9b88f9344af15f36eca7faab714fd1e3" category="paragraph">對於 VI 工作負載網域、 OTV 會安裝到 VCF 管理叢集、但會登錄到與 VI 工作負載網域相關聯的 vCenter 。</block>
+  <block id="415331dd04beeabf95c76adf6d78d369" category="inline-link-macro">在多個 vCenter Server 環境中登錄 ONTAP 工具的需求</block>
+  <block id="cd73dc0500630d023ed88620e13d3b9a" category="paragraph">如需在多個 vCenter 環境中部署及使用 ONTAP 工具的其他資訊、請參閱 <block ref="8d145519609f3537544147b3e41a34c0" category="inline-link-macro-rx"></block>。</block>
+  <block id="2a03ee5b0887b8a6bf23fd52456544db" category="example-title">部署適用於 VMware vSphere 的 ONTAP 工具</block>
+  <block id="54b98b7fdf167272ca9441f0c9a03632" category="paragraph">VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。</block>
+  <block id="33907856afc6c8cb3e55247e33bd0b9c" category="paragraph">請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：</block>
+  <block id="8c41baf1ca98e1184f48c4721d44d431" category="inline-link-macro">NetApp 支援網站</block>
+  <block id="761d6de2eb49ac1bc8c002149dba9d6e" category="list-text">從取得 ONTAP 工具 OVA 映像 <block ref="19383bb1e197833ea114614ea4b0992b" category="inline-link-macro-rx"></block> 並下載至本機資料夾。</block>
+  <block id="c0c3bb0dafadc093a48cffa2c0db0f2c" category="list-text">登入 VCF 管理網域的 vCenter 應用裝置。</block>
+  <block id="e969fdd89520d3de8a064ab94d603801" category="list-text">在 vCenter 應用裝置介面上、以滑鼠右鍵按一下管理叢集、然後選取 * 部署 OVF 範本… *</block>
+  <block id="d7b9bd8bdc36832205c7aef192ebf267" category="inline-image-macro">部署 OVF 範本 ...</block>
+  <block id="ef35028b4f774d283c83bb4895c26b7e" category="paragraph"><block ref="ef35028b4f774d283c83bb4895c26b7e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ddf5885d5a94bce5a8dc217d427d1c49" category="list-text">在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取上一步中下載的 ONTAP 工具 OVA 檔案。</block>
+  <block id="16de4c1df8f4beb780be16743d7a2041" category="inline-image-macro">選取 OVA 檔案</block>
+  <block id="3635aa3f7e993ddd6d558134162ff486" category="paragraph"><block ref="3635aa3f7e993ddd6d558134162ff486" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ae674e3d04a0ebd719545b63a9975c7f" category="list-text">如需精靈的步驟 2 至 5 、請選取虛擬機器的名稱和資料夾、選取運算資源、檢閱詳細資料、然後接受授權合約。</block>
+  <block id="72123732ba7e10b992a8ac60efd5c813" category="list-text">針對組態和磁碟檔案的儲存位置、選取 VCF 管理網域叢集的 vSAN 資料存放區。</block>
+  <block id="5034edd28ed5bc811da4997304030de5" category="paragraph"><block ref="5034edd28ed5bc811da4997304030de5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="113b056de46f496c6600e34582bda4f4" category="list-text">在「選取網路」頁面上、選取用於管理流量的網路。</block>
+  <block id="b0a787bb6c4a6dba434be1b9b1e637c6" category="inline-image-macro">選取網路</block>
+  <block id="6473af96b07af3c3a2875e3d3ba75628" category="paragraph"><block ref="6473af96b07af3c3a2875e3d3ba75628" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="122626d546c1c44e7d87eacc1dc432f1" category="list-text">在「自訂範本」頁面上、填寫所有必要資訊：</block>
+  <block id="3e01a06be21fdcdb3fe9838d8138c96a" category="list-text">用於管理 OTV 存取的密碼。</block>
+  <block id="2811b68da7b88dcafbec9896940ec714" category="list-text">NTP 伺服器 IP 位址。</block>
+  <block id="d1ed9c55dbe26b03997367ebb336c19f" category="list-text">OTV 維護帳戶密碼。</block>
+  <block id="187b1ea33db4c83ee4a8d373eec4822a" category="list-text">OTV Derby DB 密碼。</block>
+  <block id="3b50ba8962ddee5eede6172f0f0c9f1e" category="list-text">請勿勾選 * 啟用 VMware Cloud Foundation （ VCF ） * 的方塊。部署補充儲存設備不需要 vcf 模式。</block>
+  <block id="6aad212d9a63b3c65bdddf1aac2fd97c" category="list-text">* VI 工作負載網域 * 的 vCenter 應用裝置 FQDN 或 IP 位址</block>
+  <block id="249065b94ede8b5b3b6b7acb148bbca3" category="list-text">* VI 工作負載網域 * 的 vCenter 應用裝置認證</block>
+  <block id="f21993b7f3bad749b5e0aa015dff4d32" category="list-text">提供必要的網路內容欄位。</block>
+  <block id="c205b7d967633d9739fae3e70d0f944f" category="paragraph">按一下 * 下一步 * 繼續。</block>
+  <block id="69dc115bdc7c1daa3755e8607a260504" category="inline-image-macro">自訂 OTV 範本 1.</block>
+  <block id="5c303e0069593bfeca11677991dd4982" category="paragraph"><block ref="5c303e0069593bfeca11677991dd4982" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d8386e580895186e08aca940287a0fc1" category="inline-image-macro">自訂 OTV 範本 2.</block>
+  <block id="9efea6311b352f355772528f8d92ecbd" category="paragraph"><block ref="9efea6311b352f355772528f8d92ecbd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="30f4374fdac79deb95171ddca35b1bf9" category="list-text">檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 OTV 應用裝置。</block>
+  <block id="2d43d7dc8ce072cfc15bb87660452c80" category="list-text">從 ONTAP 工具介面的 * 執行個體 * 下拉式功能表中、選取與要管理的工作負載網域相關聯的 OTV 執行個體。</block>
+  <block id="9deba97306600752ad2c137610d5e044" category="inline-image-macro">選擇 OTV 執行個體</block>
+  <block id="eb8e98e9187f20e56b3518a463886628" category="paragraph"><block ref="eb8e98e9187f20e56b3518a463886628" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="787d250b4622b9b1f34f52b01f5768aa" category="inline-link">新增儲存系統</block>
+  <block id="a3337b9974f5017a6073bd11ee6195a9" category="admonition">VVOL 需要 ONTAP 叢集認證、而非 SVM 認證。如需詳細資訊、請參閱<block ref="7b797fe97b31f4c00e44d1f8444ce45e" category="inline-link-rx"></block> 在 ONTAP 工具文件中。</block>
+  <block id="5075f8592b5e4b3dc4c78ebc51594963" category="image-alt">提供儲存系統認證</block>
+  <block id="7b9a619b28cb1964e66e04824efbc7f8" category="paragraph">儲存功能設定檔說明儲存陣列或儲存系統所提供的功能。它們包括服務定義的品質、可用於選擇符合設定檔中定義之參數的儲存系統。您可以使用其中一個提供的設定檔、也可以建立新的設定檔。</block>
+  <block id="c45581e92a59ba153cb306ad14499b04" category="list-text">在 ONTAP 工具中、從左側功能表中選取 * 儲存功能設定檔 * 、然後按 * 建立 * 。</block>
+  <block id="568e4dd75e163d48ac46054c5cdf3c36" category="list-text">在新資料存放區精靈的 * 一般 * 頁面上、選取 vSphere 資料中心或叢集目的地。選取 * vVols* 作為資料存放區類型、填寫資料存放區名稱、然後選取 * iSCSI* 作為傳輸協定。按一下 * 下一步 * 繼續。</block>
+  <block id="5358757de9216cc29d688612a3d72fe1" category="inline-link-macro">供應說明文件ONTAP</block>
+  <block id="411e10e2e9baf98cb39bd43b19b02860" category="paragraph">如需設定 ONTAP 儲存系統的相關資訊、請參閱 <block ref="35aff952ccfce7456c918bf444cb438d" category="inline-link-macro-rx"></block> 中心。</block>
+  <block id="d9bda8b1c18ddbd2b5915f4d86da5ee6" category="inline-link-macro">VMware Cloud Foundation 文件</block>
+  <block id="ca3e8c4cbe6e0673226518a3889581c4" category="paragraph">如需設定 VCF 的詳細資訊、請參閱 <block ref="1cd8d4ca63ebdcac9c88270833a7587c" category="inline-link-macro-rx"></block>。</block>
+  <block id="32582ec49dffd0bed337be4ce8aacbf1" category="doc">VVOL 資料存放區是 VI 工作負載網域的主要儲存設備</block>
+  <block id="efe3625b3d08fc13db1858ea9264eb1a" category="paragraph">作者： Ravi BCB 、 Josh Powell</block>
+  <block id="bb009b658642eebf54d447f0f5f97fff" category="paragraph">在此案例中、我們將示範如何將 vVols 資料存放區設定為主要儲存區、以便在 VCF 中部署 VI 工作負載網域。VVols 容器必須在部署工作負載網域之前預先準備好。若要執行此 VMware vSphere 的 ONTAP 工具、請安裝在 VCF 管理網域中、並使用 Swagger API 工具來建立 VVols 容器。</block>
+  <block id="5b1db7caeb078e746995fec4865cd3a7" category="paragraph">在適當情況下、我們會參考外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並僅涵蓋儲存組態部分的特定步驟。</block>
+  <block id="a5dbf65f214c80cba15303e4359f4720" category="inline-link-macro">VVols Storage 搭配 VMware Cloud Foundation</block>
+  <block id="0ccf5a1f2b573ba85260196550104b28" category="paragraph">如需將 VVols 儲存設備與 VCF 搭配使用的詳細資訊、請參閱 <block ref="c380afe885705150310befb9d4e30de3" category="inline-link-macro-rx"></block>。</block>
+  <block id="e1fddfb1b754230c4199dab008bc4bca" category="paragraph">如需在 VCF 模式中使用 ONTAP 工具的詳細資訊、請參閱 <block ref="e8086b64f620d229859a9f7c7e1a3bb4" category="inline-link-macro-rx"></block>。</block>
+  <block id="31105ab21024cf734dfbcd7bf8804df3" category="list-text">驗證 ONTAP 儲存虛擬機器（ SVM ）的網路連線、以及是否存在邏輯介面（ LIF ）來傳輸 NFS 流量。</block>
+  <block id="34b89efa4de8cf04540282d45d333e34" category="list-text">建立匯出原則以允許 ESXi 主機存取 NFS Volume 。</block>
+  <block id="eb3d4e1bca1f241892fc66fcb81a7e8d" category="list-text">在 VCF 管理網域中部署適用於 VMware vSphere 的 ONTAP 工具（ VCF 模式）。</block>
+  <block id="5bdc12e3bcdcd2fe9c8f81a0047e1fc9" category="list-text">使用 ONTAP 工具中的 swagger API 來新增 ONTAP 儲存系統。</block>
+  <block id="fc014bbbf080090ad3c7cdea6b730c30" category="list-text">在 SDDC Manager 中建立 NFS 和 VMotion 流量的網路集區。</block>
+  <block id="386159046eb1db1398cdb7eca4e6aa05" category="list-text">在 VI 工作負載網域部署組態期間、指定要連線至 NFS Volume 的資訊。</block>
+  <block id="703023b0854beb3a335eb5ec42591f75" category="list-text">監控儲存驗證和工作負載網域部署。</block>
+  <block id="2564b598e13c2e2ca7b7014938c122ee" category="list-text">確認已建立 NFS 資料存放區。</block>
+  <block id="b33c98a819b286666c0caf49f71f6e56" category="list-text">NetApp AFF 儲存系統、其中儲存虛擬機器（ SVM ）已設定為允許 NFS 流量。</block>
+  <block id="53a0542f2cfd8039738584dc0de0f46e" category="list-text">邏輯介面（ LIF ）是在 IP 網路上建立、用於傳輸 NFS 流量、並與 SVM 相關聯。</block>
+  <block id="f097cea976954bb9d1bf991c8137f5e4" category="list-text">Vcf 管理網域部署已完成、且 SDDC Manager 介面可供存取。</block>
+  <block id="ec6706690b15dcdefcf695771214e908" category="list-text">四（ 4 ）部 ESXi 主機委託給 SDDC Manager 資源清冊。</block>
+  <block id="4badc93e58e16c991b8bf314f24b9c81" category="list-text">為此目的而建立的 VLAN 或網路區段上的 NFS 儲存流量保留的 IP 位址。</block>
+  <block id="09ea0908fbfc4cde85bf416e35dc55c8" category="inline-link-macro">NetApp支援</block>
+  <block id="52a2a103d72b03331d96677e5bde75d1" category="list-text">適用於 VMware vSphere v9.13 的 ONTAP 工具可從下載 <block ref="8e2bab129e3153bc6b56657c484ee69f" category="inline-link-macro-rx"></block> 網站。</block>
+  <block id="29838d583f5393a5b56f63e9ddccc809" category="list-text">在 ONTAP 儲存系統上建立的 NFS 磁碟區、其容量足以容納 VVols 容器。</block>
+  <block id="344001defb2f776f1142f434b94dbc07" category="admonition">部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線。這是在使用 NFS IP 位址新增任何其他 vmkernel 介面卡之前、先使用 ESXi 主機上的管理介面卡來完成。因此、必須確保管理網路可路由傳送至 NFS 伺服器、或 2 ）管理網路的 LIF 已新增至裝載 NFS 資料存放區 Volume 的 SVM 、以確保驗證能夠繼續進行。</block>
+  <block id="cb6ac170973b66560e347531bacbfcc2" category="paragraph">將 vVols 資料存放區部署為主要儲存設備的 VI 工作負載網域、可分成兩個不同的群組。使用適用於 VMware vSphere 的 ONTAP 工具建立 VVols 容器的相關步驟、以及在 VCF SDDC Manager 中完成的步驟。</block>
+  <block id="00739ff9f94bbab225d160c05d769d01" category="section-title">使用 ONTAP 工具建立 VVols 容器</block>
+  <block id="eeb711b9bd8c574536d0f5b232f72c61" category="paragraph">完成下列步驟、在 ONTAP 儲存系統上建立 VVols 容器。</block>
+  <block id="6957e1d45e42741047acacb84a887b30" category="paragraph">VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。在此解決方案中、 OTV 部署在 VCF 模式、不會自動在 vCenter 登錄外掛程式、並提供 swagger API 介面來建立 vVols 容器。</block>
+  <block id="7e3a3b5db0944c649cdea9eaeec09240" category="paragraph">請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：</block>
+  <block id="162710cddbc7be7fe177ed612eec17c0" category="list-text">登入 VCF 管理網域的 vCenter 應用裝置。</block>
+  <block id="512593f185affc0361b7570d53b194ac" category="list-text">針對組態和磁碟檔案的儲存位置、選取 VCF Management Domain 叢集的 vSAN 資料存放區。</block>
+  <block id="f8544c19fdf936a291f519d4d5a98b6c" category="list-text">核取方塊以 * 啟用 VMware Cloud Foundation （ VCF ） * 。</block>
+  <block id="796cb8601e0114b42203886a02c7d7e5" category="list-text">vCenter 應用裝置的 FQDN 或 IP 位址、並提供 vCenter 的認證。</block>
+  <block id="a10518e958bba3a7dac2a38906d6a226" category="paragraph">完成後、按一下 * 下一步 * 繼續。</block>
+  <block id="8064286742a33e48a92348e42a04a993" category="paragraph"><block ref="8064286742a33e48a92348e42a04a993" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="983a3abf55aa2960b68faf71699d532c" category="example-title">從 Swagger UI 取得 VCF 應用裝置 API Token</block>
+  <block id="cc6798666b3925a23c731adad3b15943" category="paragraph">必須使用 Swagger-UI 完成多個步驟。第一個是取得 VCF 應用裝置 -API- 權杖。</block>
+  <block id="51c28ee25e7b56f89661e63156c9612b" category="list-text">瀏覽至以存取 Swagger 使用者介面<block ref="57c996efed25d75b3d9d9d668bbfc92a" category="inline-link-rx"></block> 在 Web 瀏覽器中。</block>
+  <block id="eac900dfb4ae54a30ebc1044886a7cd0" category="list-text">向下捲動至 * 使用者驗證：使用者驗證的 API * 、然後選取 * 張貼 /2.0/VCF/ 使用者 / 登入 * 。</block>
+  <block id="021de368e1017a02931654765b4a6dad" category="inline-image-macro">POST /2.0/VCF/ 使用者 / 登入</block>
+  <block id="9ce196b2c5edc6fbe1e59ab2d4760abf" category="paragraph"><block ref="9ce196b2c5edc6fbe1e59ab2d4760abf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="71995b009696bd5138879dd2ab963697" category="list-text">在 * 參數內容類型 * 下、將內容類型切換為 * 應用程式 /json* 。</block>
+  <block id="860e55213b9ea48d7410f099ca2f2879" category="list-text">在 *vcfLoginRequest* 下，輸入 OTV 應用裝置的使用者名稱和密碼。</block>
+  <block id="11aee03cb248226887f3aa4c9aebd889" category="inline-image-macro">輸入 OTV 使用者名稱和密碼</block>
+  <block id="cfb5c249b31e07c3dabc04107b9796a9" category="paragraph"><block ref="cfb5c249b31e07c3dabc04107b9796a9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="15395757c6f40194a555526667979af8" category="list-text">按一下 * 試用！ * 按鈕、然後在 * 回應標頭 * 下複製 * 「授權」： * 文字字串。</block>
+  <block id="bd5e648fb047a1dc235fa548e8bf1c7e" category="inline-image-macro">複製授權回應標頭</block>
+  <block id="c7b94e67837be0e94e050e64c671e796" category="paragraph"><block ref="c7b94e67837be0e94e050e64c671e796" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b78a618618bf5c1b52d3d2868c05398f" category="example-title">取得 ONTAP 儲存系統的公開 SSL 憑證</block>
+  <block id="d953d23a36b178430dbcf6eb93fcca41" category="paragraph">下一步是使用 Swagger UI 取得 ONTAP 儲存系統的公用 SSL 憑證。</block>
+  <block id="ed87f6a6445d12e5c1ca526e284e555c" category="list-text">在 Swagger UI 中、找出 * 安全性：與憑證相關的 API * 、然後選取 * 取得 /3.0/security/certificates/ ｛ host ｝ / 伺服器憑證 * 。</block>
+  <block id="72cb10c0731ec8eb37d61248d08d2cf1" category="inline-image-macro">取得 /3.0/security/certificates/｛ host ｝ / 伺服器憑證</block>
+  <block id="c5399b0aa6ca98b4049f7a0e00231843" category="paragraph"><block ref="c5399b0aa6ca98b4049f7a0e00231843" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="94b970ae3d157c63f41516e39ebb6517" category="list-text">在 *applier-API-token-token * 欄位中、貼上上上一步所取得的文字字串。</block>
+  <block id="e4f8d74d36daf948126ef17aa37e08b9" category="list-text">在 * 主機 * 欄位中、輸入您要從中取得公用 SSL 憑證的 ONTAP 儲存系統 IP 位址。</block>
+  <block id="9f108ddc95de3afc1c1215925185132c" category="inline-image-macro">複製公共 SSL 憑證</block>
+  <block id="570a248398769a10125d3f265296b690" category="paragraph"><block ref="570a248398769a10125d3f265296b690" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7e4f998dd5b52cc5e942de0208631dc2" category="example-title">從 Swagger UI 新增儲存設備至 ONTAP 工具</block>
+  <block id="4aa10aede6a79f6ad78d8e193b58b4e5" category="paragraph">使用 VCF 應用裝置 API Token 和 ONTAP 公共 SSL 憑證、將 ONTAP 儲存系統新增至 OTV 。</block>
+  <block id="32fe71b47f3dac743fcd56b5250d667b" category="list-text">在 Swagger UI 中、捲動至「儲存系統：與儲存系統相關的 API 」、然後選取「 Post /3.0/Storage/叢 集」。</block>
+  <block id="ea43b72b4190b3e83f286741f331f0d8" category="list-text">在 appliance -API 權杖欄位中、填入在前一個步驟中取得的 VCF 權杖。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。</block>
+  <block id="2ae93990a2c39decc5e69a77fca1dbb8" category="list-text">在 * 控制器要求 * 文字方塊中、提供 ONTAP 儲存系統 IP 位址、使用者名稱、密碼、以及在前一步驟中取得的公用 SSL 憑證。</block>
+  <block id="6c63de01ed2de8b89e5867e912f1a83f" category="inline-image-macro">提供新增儲存系統的資訊</block>
+  <block id="329043a12472dabf31b316b4067c43ca" category="paragraph"><block ref="329043a12472dabf31b316b4067c43ca" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f87bc77d7de45d419c17dad55439234a" category="list-text">按一下 * 試用！ * 按鈕、將儲存系統新增至 OTV 。</block>
+  <block id="db0017249336e7e8760b87c67e9986e1" category="example-title">在 ONTAP 儲存設備上建立 VVols 容器</block>
+  <block id="35578d8cc4a971eca962d1465025b334" category="paragraph">下一步是在 ONTAP 儲存系統上建立 vVol 容器。請注意、此步驟需要已在 ONTAP 儲存系統上建立 NFS 磁碟區。請務必使用匯出原則、以便從將存取 NFS 的 ESXi 主機存取 NFS Volume 。請參閱上一個步驟、網址為：</block>
+  <block id="6dd659e7f8b123b6097cdbc28afc8f92" category="list-text">在 Swagger UI 中、捲動至 Container ： API Related to Container 、然後選取 Post /2.0/admin/containers 。</block>
+  <block id="9bce19d28c8d6414e9a815b1d04c0355" category="inline-image-macro">/2.0/admin/containers</block>
+  <block id="c4f49f01eb052339df21d3dc6c96fd9f" category="paragraph"><block ref="c4f49f01eb052339df21d3dc6c96fd9f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c1a3f7202241cd688df7a24bdc07a815" category="list-text">在 *applier-API-token-token * 欄位中、填入在前一個步驟中取得的 VCF 標記。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。</block>
+  <block id="b566074f35066c98fb3e50885cb80d9e" category="list-text">在「容器要求」方塊中、填寫下列必填欄位：</block>
+  <block id="9e262f5e5117b4b8ddda771723f1a39e" category="list-text">「控制器 Ip 」： &lt; ONTAP 管理IP 位址 &gt;</block>
+  <block id="dbe43ce43e853e42e81869ef74740870" category="list-text">「 defaultScp 」： &lt; 要與 VVOL 容器相關聯的儲存功能設定檔 &gt;</block>
+  <block id="02032652ae3215bdec42450c25e939fd" category="list-text">FlexVols - 「 AggateName 」： &lt; NFS 磁碟區所在的 ONTAP Aggregate &gt;</block>
+  <block id="3da9414f4bd988e5128e18ad15695058" category="list-text">FlexVols - 「 name 」： &lt; NFS FlexVol 的名稱 &gt;</block>
+  <block id="6994771cd31c9499ec550d38de71f081" category="list-text">「名稱」 &lt; VOL 容器名稱 &gt;</block>
+  <block id="0a6098fc4e87d99c133011ccb8b3456c" category="list-text">「 vserverName 」： ONTAP Storage SVM 託管 NFS FlexVol &gt;</block>
+  <block id="9962dddc84f85bcffb2ddb09eedfbc81" category="inline-image-macro">VVOL 容器申請表</block>
+  <block id="96b80e03a2e70ab18bb70ca68ed84306" category="paragraph"><block ref="96b80e03a2e70ab18bb70ca68ed84306" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="61a3100ac6acff6f49b5a91625e2ec77" category="paragraph">4 按一下 * 試用！ * 以執行指示並建立 VVOL 容器。</block>
+  <block id="205a31be9e9a41471decaa1aa2cdda0e" category="section-title">使用 vVols 部署 VI 工作負載網域作為主要儲存設備</block>
+  <block id="6d0c633cec2d3ca0e8a1e10bb783be7f" category="paragraph">請在 SDDC Manager 中完成下列步驟、以將 VVols 作為主要儲存設備來部署 VI 工作負載網域。</block>
+  <block id="47448253e9b0f42700e7ce031b915a65" category="doc">使用 ONTAP 工具來設定 VCF 管理網域的補充儲存設備</block>
+  <block id="e223dff7025e3ca7688b9e6363c0a4ba" category="paragraph">在此案例中、我們將示範如何部署及使用 ONTAP Tools for VMware vSphere （ OTV ）來設定 VCF 管理網域的 iSCSI 資料存放區。</block>
+  <block id="24888a24fb0a81b2435814cd5d052bfe" category="list-text">在 VCF 管理網域上為 iSCSI 網路建立分散式連接埠群組。</block>
+  <block id="17d8d2d703d38a957c2bd059d191bfda" category="list-text">在 ESXi 主機上為 VCF 管理網域建立 iSCSI 的 vmkernel 介面卡。</block>
+  <block id="249ed508b8f98200a5a9f0e5100673a5" category="list-text">在 VCF 管理網域上部署 ONTAP 工具。</block>
+  <block id="bf7cebfa097b82053f7793f4b3295e13" category="list-text">在 VCF 管理網域上建立新的 VMFS 資料存放區。</block>
+  <block id="09c89d5b964bcd1404121eca82fcd81a" category="inline-image-macro">iSCSI 網路設計</block>
+  <block id="9c1f3697cef0b1472b7ffcbc54f25bcf" category="paragraph"><block ref="1bd9716e438e382aafd4e93b2257c93b" category="inline-image-macro-rx" type="image"></block>
+｛ nbsp ｝</block>
+  <block id="41f71890c88180a4b5483decca19e7c0" category="paragraph">若要部署 ONTAP 工具並使用它在 VCF 管理網域上建立 VMFS 資料存放區、請完成下列步驟：</block>
+  <block id="47ce606484ac7cf900bd169ebbf43bb0" category="paragraph">下列步驟是在 ONTAP 系統管理員中執行。</block>
+  <block id="0397ab4246a13f4c366341987150e4b6" category="list-text">在 * 新增儲存 VM* 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定下、按一下 * iSCSI * 標籤、並勾選 * 啟用 iSCSI* 方塊。</block>
+  <block id="f1034a0e0adcd697a14a33aeaa8d76e3" category="paragraph">下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行。</block>
+  <block id="4fb2703422cae1899d0395c32e8b6de1" category="list-text">從管理網域叢集的 vSphere 用戶端、瀏覽至 * 清查 &gt; 網路 * 。瀏覽至現有的分散式交換器、然後選擇建立 * 新的分散式連接埠群組 ... * 的動作。</block>
+  <block id="9f260d5bfa9c011c9b14b0f8a8f971f6" category="paragraph"><block ref="9f260d5bfa9c011c9b14b0f8a8f971f6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ae685454f47adfa2c86f7c8ccb2d4d9a" category="paragraph"><block ref="ae685454f47adfa2c86f7c8ccb2d4d9a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7f5e50c45f9e2c93eb1ed2792001580b" category="paragraph"><block ref="7f5e50c45f9e2c93eb1ed2792001580b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d6fc203382bb3a7b508b8e43419b4212" category="paragraph"><block ref="d6fc203382bb3a7b508b8e43419b4212" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="40e66b11f5afc2574cbf05f7723e6fa8" category="paragraph"><block ref="40e66b11f5afc2574cbf05f7723e6fa8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="28aa53e99224863cfb47431b210aa779" category="paragraph">在管理網域中的每個 ESXi 主機上重複此程序。</block>
+  <block id="348cd4ca11f40595cdd13e97f53ddc8b" category="list-text">從 vSphere 用戶端導覽至管理網域清查中的其中一個 ESXi 主機。從 * 組態 * 標籤中選取 * VMkernel 介面卡 * 、然後按一下 * 新增網路 ... * 開始。</block>
+  <block id="76da5865b31db9606ae2056ae135e743" category="paragraph"><block ref="76da5865b31db9606ae2056ae135e743" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cee7432196b56912e9585833a0b9d6a8" category="paragraph"><block ref="cee7432196b56912e9585833a0b9d6a8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="104cae0c8bdcf4c2dd729793140afbe2" category="paragraph"><block ref="104cae0c8bdcf4c2dd729793140afbe2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="07e46fd977b00a46209075e465134ccb" category="paragraph"><block ref="07e46fd977b00a46209075e465134ccb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ca43df70081591863d0714e1ca5ad32a" category="paragraph"><block ref="ca43df70081591863d0714e1ca5ad32a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d0a3a5f0d2a183f278adc1cedfb10363" category="paragraph">下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 VMFS iSCSI 資料存放區、以及將管理 VM 移轉至新的資料存放區。</block>
+  <block id="0222bc20baf096ae95390b96a9b104a1" category="paragraph"><block ref="0222bc20baf096ae95390b96a9b104a1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="561b3d1657b80fe0075692f56d991309" category="example-title">使用 OTV 在管理網域上設定 VMFS iSCSI 資料存放區</block>
+  <block id="27aa9096645992ebab2353138672a5de" category="paragraph">請完成下列步驟、以使用 OTV 將 VMFS iSCSI 資料存放區設定為管理網域上的補充儲存區：</block>
+  <block id="ed8e715fdc4faf96c2ca6173630ab303" category="list-text">在 vSphere 用戶端中、瀏覽至主功能表、然後選取 * NetApp ONTAP Tools* 。</block>
+  <block id="d851a8ecd8cd77aadf3b8afb0eeb2c8f" category="inline-image-macro">瀏覽至 ONTAP 工具</block>
+  <block id="458c1c9eede288d658be688fc9b1adb0" category="paragraph"><block ref="458c1c9eede288d658be688fc9b1adb0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="231a2ef956890d1204a1bbef2955bc82" category="list-text">進入 * ONTAP Tools* 後、從「入門」頁面（或從 * 儲存系統 * ）、按一下 * 新增 * 以新增儲存系統。</block>
+  <block id="15c654d2485bad6ad866ba6e57e138bf" category="paragraph"><block ref="15c654d2485bad6ad866ba6e57e138bf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3ca6bfa30c9f46872d6208cbe24395de" category="list-text">提供 ONTAP 儲存系統的 IP 位址和認證、然後按一下 * 新增 * 。</block>
+  <block id="af7c977676da9209c26d47cf9eaa8672" category="inline-image-macro">提供 ONTAP 系統的 IP 和認證</block>
+  <block id="15a3f175c8c22da4e2b139ef34241639" category="paragraph"><block ref="15a3f175c8c22da4e2b139ef34241639" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f94bda743f0e22fb9dfc87a2dc0cc8c4" category="list-text">按一下 * 是 * 來授權叢集憑證並新增儲存系統。</block>
+  <block id="959f1c9e9e60bedf6f9990ccaa49007d" category="inline-image-macro">授權叢集憑證</block>
+  <block id="c59f574dbc6c98f3f413f29c75929124" category="paragraph"><block ref="c59f574dbc6c98f3f413f29c75929124" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6a9abdf0de7f27fa3ec1492c07ff36a3" category="example-title">將管理 VM&amp;#8217 移轉至 iSCSI 資料存放區</block>
+  <block id="25acb2ac88a55a1a1a91dbc0e5896077" category="paragraph">如果偏好使用 ONTAP 儲存設備來保護 VCF 管理虛擬機器的 VMotion 、則可將虛擬機器移轉至新建立的 iSCSI 資料存放區。</block>
+  <block id="39d71c22e552d00cf52521453f5bab80" category="paragraph">完成下列步驟、將 VCF 管理 VM 移轉至 iSCSI 資料存放區。</block>
+  <block id="594645cd3f384fbd02c065cef16d0eed" category="list-text">從 vSphere Client 導覽至管理網域叢集、然後按一下 * VMS* 標籤。</block>
+  <block id="523bd0371401a4679bd05a08ab0f8c00" category="list-text">選取要移轉至 iSCSI 資料存放區的 VM 、按一下滑鼠右鍵、然後選取 * 移轉。 * 。</block>
+  <block id="5213ea3316b3aafd4594692a279786d8" category="inline-image-macro">選取要移轉的 VM</block>
+  <block id="d5db652c5b783983ad39453d3a6dfe43" category="paragraph"><block ref="d5db652c5b783983ad39453d3a6dfe43" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a662f87efce89e9632ab74fe200fadeb" category="list-text">在 * 虛擬機器 - 移轉 * 精靈中、選取 * 僅變更儲存設備 * 作為移轉類型、然後按一下 * 下一步 * 繼續。</block>
+  <block id="9382bafb96263525df7fcc7cd57254e4" category="inline-image-macro">選取移轉類型</block>
+  <block id="de00f0d03331bd0a25ad687e62735f17" category="paragraph"><block ref="de00f0d03331bd0a25ad687e62735f17" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="15b83b98dbaaeaee7d012ad0278e7b45" category="list-text">在 * 選取儲存設備 * 頁面上、選取 iSCSI 資料存放區、然後選取 * 下一步 * 繼續。</block>
+  <block id="a93698ceb3cc7f2a9d34bc47c51af1c3" category="inline-image-macro">選取目的地資料存放區</block>
+  <block id="6a02c46b76337633c5d6886081bbfdfe" category="paragraph"><block ref="6a02c46b76337633c5d6886081bbfdfe" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2a35d960f5430e1a3e1b72e3b41e0a02" category="list-text">檢閱選項、然後按一下 * 完成 * 以開始移轉。</block>
+  <block id="3b0680cb60afc737eb8e0a472893a41a" category="list-text">重新定位狀態可從 *Recent Tasks* 窗格中查看。</block>
+  <block id="e6fe88cc8fc038a9cd996fe90954f81c" category="inline-image-macro">vSphere 用戶端最近工作窗格</block>
+  <block id="61c89a934106e6e592768cbe4b59922a" category="paragraph"><block ref="61c89a934106e6e592768cbe4b59922a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2ff21993df702c1dd5f5bec680322a7b" category="section-title">此解決方案的影片示範</block>
+  <block id="ac5bbca0aa062edc7bbdb24f026c5183" category="video-title">iSCSI 資料存放區是 VCF 管理網域的補充儲存設備</block>
+  <block id="d2f191d41820f98e0d0b5419335ef25e" category="doc">為 VCF 工作負載網域設定 NVMe / TCP 補充儲存設備</block>
+  <block id="3861e90d6698fcc45fbf0a5f01eb1513" category="paragraph">在此案例中、我們將示範如何為 VCF 工作負載網域設定 NVMe / TCP 補充儲存設備。</block>
+  <block id="64a7c9d7c7f394b204d6bddde009087e" category="list-text">為 NVMe / TCP 流量建立具有邏輯介面（生命）的儲存虛擬機器（ SVM ）。</block>
+  <block id="2b49b3a9cae388a4b7189112862d8563" category="list-text">在 ESXi 主機上新增 NVMe / TCP 介面卡。</block>
+  <block id="3a428e801e285ef6cb787f67fe2d5c35" category="list-text">部署 NVMe / TCP 資料存放區。</block>
+  <block id="6f7b8b0754bbb29abfcb13d1d24670fc" category="paragraph">NetApp 建議使用 NVMe / TCP 的完整備援網路設計。下圖說明備援組態的範例、為儲存系統、交換器、網路卡和主機系統提供容錯能力。請參閱 NetApp <block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="a266887af594d3c5109c3bc09d873df9" category="paragraph">對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議在個別乙太網路中、每個儲存節點至少有兩個生命期、用於 NVMe / TCP 組態中的所有 SVM 。</block>
+  <block id="3b79386575cedcf2d6094449d04f8cb4" category="paragraph">本文件示範建立新 SVM 的程序、並指定 IP 位址資訊、以建立多個 NVMe / TCP 流量的生命週期。若要新增生命至現有 SVM 、請參閱 <block ref="0799421738153cea34aa367bbf9e1c4e" category="inline-link-macro-rx"></block>。</block>
+  <block id="da6f85bd82ea49f7a42024d470c59236" category="paragraph">如需 ONTAP 儲存系統 NVMe 設計考量的其他資訊、請參閱 <block ref="df7e3196a2a30df5e31c2e459384eafe" category="inline-link-macro-rx"></block>。</block>
+  <block id="6e2394c85abd88b84871f58c8cadf8af" category="paragraph">若要使用 NVMe / TCP 在 VCF 工作負載網域上建立 VMFS 資料存放區、請完成下列步驟。</block>
+  <block id="6ae68dd19087ca4fb174c51347145d60" category="section-title">在 ONTAP 儲存系統上建立 SVM 、 Lifs 和 NVMe 命名空間</block>
+  <block id="f2408e2b486c157b8fa3c022487e8572" category="paragraph">請完成下列步驟、為 NVMe / TCP 流量建立 SVM 及多個生命。</block>
+  <block id="ac07278862ced9112ffa1e580ae3c3d6" category="list-text">在 * 新增儲存虛擬機器 * 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定 * 下、按一下 *NVMe * 標籤、並勾選 * 啟用 NVMe / TCP * 方塊。</block>
+  <block id="85597521fc0670558e74ff351a98c06a" category="inline-image-macro">新增儲存 VM 精靈 - 啟用 NVMe / TCP</block>
+  <block id="5e7f2a5e93df197aec11f8cc4963a854" category="paragraph"><block ref="5e7f2a5e93df197aec11f8cc4963a854" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9c28987ec510def545d39ffbaf730c70" category="list-text">在 * 網路介面 * 區段中、填寫第一個 LIF 的 * IP 位址 * 、 * 子網路遮罩 * 和 * 廣播網域和連接埠 * 。對於後續的生命、核取方塊可以啟用、以便在所有剩餘的生命中使用一般設定、或使用個別的設定。</block>
+  <block id="744d6b235ed51a60ca1204d7d0751fdf" category="admonition">對於跨多個路徑的多重路徑和容錯移轉、 NetApp 建議在個別的乙太網路中、每個儲存節點至少有兩個生命期、用於 NVMe / TCP 組態中的所有 SVM 。</block>
+  <block id="acf84968e6460597686ee938fdb3aa12" category="paragraph"><block ref="acf84968e6460597686ee938fdb3aa12" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a2bb8b60bb0aa8f8dba1ae0f7d23199a" category="example-title">建立 NVMe 命名空間</block>
+  <block id="41a49367105445bbdfe1e68bff1cd65f" category="paragraph">NVMe 命名空間類似於 iSCSI 或 FC 的 LUN 。必須先建立 NVMe 命名空間、才能從 vSphere Client 部署 VMFS 資料存放區。若要建立 NVMe 命名空間、必須先從叢集中的每個 ESXi 主機取得 NVMe 合格名稱（ NQN ）。NQN 是由 ONTAP 用來提供命名空間的存取控制。</block>
+  <block id="c076e5c5870a3afcefc3b56a5b0d84b4" category="paragraph">完成下列步驟以建立 NVMe 命名空間：</block>
+  <block id="7eb21fc89a733de9afbce98bf54dc7f3" category="list-text">開啟與叢集中 ESXi 主機的 SSH 工作階段、以取得其 NQN 。從 CLI 使用下列命令：</block>
+  <block id="8e2a4837c3394f376994b5bbd3f7f9b7" category="paragraph">應顯示類似下列內容的輸出：</block>
+  <block id="824f4f9911184c3f3c8da5b3714ef715" category="list-text">記錄叢集中每個 ESXi 主機的 NQN</block>
+  <block id="148c990ec72ae44f442a426532cb9382" category="list-text">從 ONTAP 系統管理員瀏覽至左側功能表中的 * NVMe 命名空間 * 、然後按一下「 *+ Add* 」開始。</block>
+  <block id="0ad53801eab4f6701bdef448d5f5c9dd" category="inline-image-macro">按一下「 + 新增」以建立 NVMe 命名空間</block>
+  <block id="1a5baf5e52ec8b0547ca9b735deff8aa" category="paragraph"><block ref="1a5baf5e52ec8b0547ca9b735deff8aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1e23cbfe01d2323d9dfc6c038d0268a6" category="list-text">在「 * 新增 NVMe 命名空間 * 」頁面上、填入名稱首碼、要建立的命名空間數目、命名空間的大小、以及要存取命名空間的主機作業系統。在 * 主機 NQN* 區段中、建立一個以逗號分隔的 NQN 清單、列出先前從將存取命名空間的 ESXi 主機收集的 NQN 。</block>
+  <block id="4e8a463f5b70a96d952cc7c9319ecdeb" category="paragraph">按一下「 * 更多選項 * 」以設定其他項目、例如快照保護原則。最後、按一下 * 儲存 * 來建立 NVMe 命名空間。</block>
+  <block id="0ba162b140a22b2aa5e28d16dc4f8ece" category="paragraph">+
+<block ref="1a5baf5e52ec8b0547ca9b735deff8aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="373d6471b745a87f73399fac762bf5c1" category="section-title">在 ESXi 主機上設定網路和 NVMe 軟體介面卡</block>
+  <block id="8631ba8e704e0153dc64ce2f9da661f1" category="paragraph">下列步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行。在此案例中、我們使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中都是通用的。</block>
+  <block id="ce7e884f9d06f8cd65c3eacdddcfcc7d" category="example-title">為 NVMe / TCP 流量建立分散式連接埠群組</block>
+  <block id="d92fd221fd2fbc9881979c27175e968f" category="paragraph">完成下列步驟、為每個 NVMe / TCP 網路建立新的分散式連接埠群組：</block>
+  <block id="77c514c5667d97600accdb01661f35ce" category="list-text">重複此程序、為第二個使用的 NVMe / TCP 網路建立分散式連接埠群組、並確保您輸入正確的 * VLAN ID* 。</block>
+  <block id="4ef9cbf6f53521cf4d7309287d806f0a" category="paragraph"><block ref="4ef9cbf6f53521cf4d7309287d806f0a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7ab1c650493810d92f0db8ec21833154" category="paragraph"><block ref="7ab1c650493810d92f0db8ec21833154" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a38040f5653a5c38751be10581872059" category="list-text">對第二個 NVMe / TCP 連接埠群組重複此步驟。但是，這次將 *uplink1* 向下移到 * 未使用的上行鏈路 * 。</block>
+  <block id="3589bef4ad46d3af5e3101933d251b6b" category="inline-image-macro">將上行鏈路 1 移至未使用的</block>
+  <block id="6e689911aa727605214d877c31b944d7" category="paragraph"><block ref="6e689911aa727605214d877c31b944d7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e837b35aa6b1743d0cb235b52f2a4fb3" category="paragraph"><block ref="e837b35aa6b1743d0cb235b52f2a4fb3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b5a2d60833c1f179fec2c587bafa7409" category="list-text">在「 * 連接埠內容 * 」頁面上、按一下「 *NVMe over TCP* 」方塊、然後按一下「 * 下一步 * 」繼續。</block>
+  <block id="f7c0334e8df6ff4f19ded4bfd431c2c9" category="paragraph"><block ref="f7c0334e8df6ff4f19ded4bfd431c2c9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bf3e8be48dce536d7a90454626ba6a50" category="paragraph"><block ref="bf3e8be48dce536d7a90454626ba6a50" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ebbc2d7e09dea61c300dbbf0b4ba3b69" category="paragraph"><block ref="ebbc2d7e09dea61c300dbbf0b4ba3b69" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a15fde47f39c30c87349a305ee192c5c" category="example-title">透過 TCP 介面卡新增 NVMe</block>
+  <block id="4ad203b9277363e874c5d7edd089261c" category="paragraph">工作負載網域叢集中的每個 ESXi 主機都必須為每個專為儲存流量而建立的 NVMe / TCP 網路安裝 NVMe over TCP 軟體介面卡。</block>
+  <block id="50f7b18870480793675c347ecf64b593" category="paragraph">若要透過 TCP 介面卡安裝 NVMe 並探索 NVMe 控制器、請完成下列步驟：</block>
+  <block id="9e40519832853b8d6f493a98ec4cd339" category="list-text">在 vSphere 用戶端中、導覽至工作負載網域叢集中的其中一個 ESXi 主機。從 * 組態 * 標籤按一下功能表中的 * 儲存介面卡 * 、然後從 * 新增軟體介面卡 * 下拉式功能表中、選取 * 透過 TCP 介面卡 * 新增 NVMe 。</block>
+  <block id="d25e26ee47e027377e9fad092af550d3" category="paragraph"><block ref="d25e26ee47e027377e9fad092af550d3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fb201979ec227efb23462b632ba93946" category="list-text">在 * 透過 TCP 介面卡 * 新增軟體 NVMe 視窗中、存取 * 實體網路介面卡 * 下拉式功能表、並選取正確的實體網路介面卡、以啟用 NVMe 介面卡。</block>
+  <block id="06a83e88d9f846f2c40d54fc53cb1be9" category="inline-image-macro">選取實體介面卡</block>
+  <block id="2f93f605b095d1acd49741b10297d9a0" category="paragraph"><block ref="2f93f605b095d1acd49741b10297d9a0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4f07bd112ceef2b050f0ea24444093a5" category="list-text">針對第二個指派給 NVMe over TCP 流量的網路重複此程序、指派正確的實體介面卡。</block>
+  <block id="e00eebecab9e81ce4b1dfb2de6b57167" category="list-text">選取其中一個新安裝的 NVMe over TCP 介面卡、然後在 * 控制器 * 索引標籤上選取 * 新增控制器 * 。</block>
+  <block id="e9ba2d60020d1dd434a9dbe426fcd0dc" category="inline-image-macro">新增控制器</block>
+  <block id="bf0f386c5fd458c42b4f0d65dbd9f4ef" category="paragraph"><block ref="bf0f386c5fd458c42b4f0d65dbd9f4ef" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="59672a27d65bff0888c08541615320aa" category="list-text">在 * 新增控制器 * 視窗中、選取 * 自動 * 標籤、然後完成下列步驟。</block>
+  <block id="523608037f4eb69ee8b3c6f116b0c5e3" category="list-text">在指派給此 NVMe over TCP 介面卡的實體介面卡所在的相同網路上、為其中一個 SVM 邏輯介面填寫 IP 位址。</block>
+  <block id="ad52d6b98275498a9067b68bde8baa30" category="list-text">按一下 * 探索控制器 * 按鈕。</block>
+  <block id="99354ac35ee37d78be32844efb6b4ac2" category="list-text">從探索到的控制器清單中、按一下網路位址與此 NVMe over TCP 介面卡對齊的兩個控制器核取方塊。</block>
+  <block id="f86e19e6e9337f6cb1caafdb9590639d" category="list-text">按一下 * 確定 * 按鈕以新增選取的控制器。</block>
+  <block id="a995d582ed33a0dc115da4394a5014b6" category="inline-image-macro">探索及新增控制器</block>
+  <block id="e0a19b21dbb8eac4ec4e27c54877e4ee" category="paragraph"><block ref="e0a19b21dbb8eac4ec4e27c54877e4ee" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="238fa964cc0d824bf551491058cb2025" category="list-text">幾秒鐘後、您應該會在「裝置」標籤上看到 NVMe 命名空間。</block>
+  <block id="dc5736b70854896dad5594f23412f58a" category="inline-image-macro">NVMe 命名空間列在「裝置」下</block>
+  <block id="5d803d060b2440c1a799e5b74f58e5a3" category="paragraph"><block ref="5d803d060b2440c1a799e5b74f58e5a3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bbd18a5999761c291722d547e95e23b6" category="list-text">重複此程序、為針對 NVMe / TCP 流量建立的第二個網路建立 NVMe over TCP 介面卡。</block>
+  <block id="e766e46218f824c0cfcbf1657fbd1b1d" category="example-title">透過 TCP 資料存放區部署 NVMe</block>
+  <block id="5d3579d134b966a0f95f972ce5b5d8e1" category="paragraph">若要在 NVMe 命名空間上建立 VMFS 資料存放區、請完成下列步驟：</block>
+  <block id="0bfe6bed87c95a8dee540036f211c90c" category="list-text">在 vSphere 用戶端中、導覽至工作負載網域叢集中的其中一個 ESXi 主機。從 * 「動作」 * 功能表中選取 * 「儲存」 &gt; 「新資料存放區 ... 」 * 。</block>
+  <block id="32d44aaf8bcae83f22c635736682a1a3" category="paragraph"><block ref="32d44aaf8bcae83f22c635736682a1a3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ba0457261c37efe553dafb50d8b39915" category="list-text">在 * 新資料存放區 * 精靈中、選取 * VMS* 作為類型。按一下 * 下一步 * 繼續。</block>
+  <block id="2b3287c5185ebd5b6304f4ef0a5f62d1" category="list-text">在 * 名稱和裝置選擇 * 頁面上、提供資料存放區的名稱、然後從可用裝置清單中選取 NVMe 命名空間。</block>
+  <block id="758092d4e4f10da2465ff5873f73a5e4" category="inline-image-macro">名稱與裝置選擇</block>
+  <block id="2ac46a5f7938214f78637e9c805456d9" category="paragraph"><block ref="2ac46a5f7938214f78637e9c805456d9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a0708f44bf6c92360c8c11a87fd33f88" category="list-text">在 *VMFS 版本 * 頁面上、選取資料存放區的 VMFS 版本。</block>
+  <block id="caf86b4c21ba6510c9c590f6e910e035" category="list-text">在「 * 分割區組態 * 」頁面上、對預設分割區配置進行任何所需的變更。按一下 * 下一步 * 繼續。</block>
+  <block id="4b625efef8c42a1d18cb66717eefacdc" category="inline-image-macro">NVMe 分割區組態</block>
+  <block id="bd9e377e0ec24ba14f23a2e6b6088146" category="paragraph"><block ref="bd9e377e0ec24ba14f23a2e6b6088146" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7b0d4d2f05fe81bce57cd004d513bbd5" category="list-text">在 * 準備完成 * 頁面上、檢閱摘要、然後按一下 * 完成 * 來建立資料存放區。</block>
+  <block id="83a376a22c0071f6546497e891520b71" category="list-text">瀏覽至庫存中的新資料存放區、然後按一下 * 主機 * 索引標籤。如果設定正確、則叢集中的所有 ESXi 主機都應列出、並可存取新的資料存放區。</block>
+  <block id="fadd7f5097452b4812eb92260ed93f68" category="inline-image-macro">連線至資料存放區的主機</block>
+  <block id="ca154e520ed0e8cd9667e14342490087" category="paragraph"><block ref="ca154e520ed0e8cd9667e14342490087" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ccb59554dc6afbde2ec9295d1a0ffd06" category="paragraph">* VMware Cloud Foundation 搭配 NetApp All Flash SAN 陣列 *</block>
+  <block id="45d2bcf550cd788d333493b4f34ff30a" category="inline-link-macro">Vcf 搭配 NetApp ASA 陣列、簡介與技術概述</block>
+  <block id="8d11ace06bce984dee0462cee57ead38" category="list-text"><block ref="8d11ace06bce984dee0462cee57ead38" category="inline-link-macro-rx"></block></block>
+  <block id="354a38b5a55b709c6ce601f0b74665ac" category="inline-link-macro">使用 ONTAP 工具在 VCF 管理網域中部署 iSCSI 資料存放區</block>
+  <block id="acde0a21260d6e13253cfa8eb3e3fee9" category="list-text"><block ref="acde0a21260d6e13253cfa8eb3e3fee9" category="inline-link-macro-rx"></block></block>
+  <block id="94e51f68cf00c45ff788c7653dfe471d" category="inline-link-macro">使用 ONTAP 工具在 VI 工作負載網域中部署 vVols （ iSCSI ）資料存放區</block>
+  <block id="d6d555f71f3f6f85a054c657d98ef79e" category="list-text"><block ref="d6d555f71f3f6f85a054c657d98ef79e" category="inline-link-macro-rx"></block></block>
+  <block id="237801ed704830f1dd7298636e3aa24a" category="inline-link-macro">設定 NVMe over TCP 資料存放區以用於 VI 工作負載網域</block>
+  <block id="bace1ffd6dd2b1d5d371a2b9c208f640" category="list-text"><block ref="bace1ffd6dd2b1d5d371a2b9c208f640" category="inline-link-macro-rx"></block></block>
+  <block id="6bfa7fb8b9ede5be0db84b93e0c6c6f2" category="inline-link-macro">部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式、以保護及還原 VI 工作負載網域中的 VM</block>
+  <block id="31a6384963d92c61810a03a78cb8f64c" category="list-text"><block ref="31a6384963d92c61810a03a78cb8f64c" category="inline-link-macro-rx"></block></block>
+  <block id="81da445b9c4eef346ff074c81cf1fb84" category="doc">使用 ONTAP 工具來設定 VCF 工作負載網域的補充儲存（ NFS 和 VVols ）</block>
+  <block id="a9d530e2fcf867cbfa039caf2d6b1a02" category="paragraph">在此案例中、我們將示範如何部署及使用 ONTAP Tools for VMware vSphere （ OTV ）來設定 * NFS 資料存放區 * 、以及用於 VCF 工作負載網域的 * vVols 資料存放區 * 。</block>
+  <block id="6e635fefd68ad40f25697a8d284caf4c" category="paragraph">*NFS* 是 vVols 資料存放區的儲存傳輸協定。</block>
+  <block id="9fbf17fc525d1e6526a46935781f41ab" category="list-text">使用邏輯介面（生命）來建立儲存虛擬機器（ SVM ）、以進行 NFS 流量。</block>
+  <block id="737f26ed93880e456b50da2523531cf4" category="list-text">在 VI 工作負載網域上為 NFS 網路建立分散式連接埠群組。</block>
+  <block id="db7e7b101da68940538bbd0ca37baba3" category="list-text">在 ESXi 主機上為 VI 工作負載網域建立適用於 NFS 的 vmkernel 介面卡。</block>
+  <block id="5add656ee5621528a12864b61fed2068" category="list-text">在 VI 工作負載網域上建立新的 NFS 資料存放區。</block>
+  <block id="8a1bb497e165a3a4ef46a54b6b4469bd" category="list-text">在 VI 工作負載網域上建立新的 vVols 資料存放區。
+=== 先決條件
+此案例需要下列元件和組態：</block>
+  <block id="b23f962a718a78f40714708a6a3d5995" category="list-text">ONTAP AFF 儲存系統、乙太網路交換器上的實體資料連接埠專用於儲存流量。</block>
+  <block id="31df11377ea98ec5f28887242e89863e" category="paragraph">NetApp 建議使用 NFS 的備援網路設計。下圖說明備援組態的範例、為儲存系統、交換器、網路卡和主機系統提供容錯能力。請參閱 NetApp <block ref="7faee073c28821504170f8e609f3d818" category="inline-link-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="f07b6bdfc61e1361cdff22a107160b35" category="paragraph"><block ref="f07b6bdfc61e1361cdff22a107160b35" category="inline-link-rx"></block></block>
+  <block id="a9a6679a790e8c2809ee11d37d73d2f6" category="paragraph">若要部署 ONTAP 工具、並使用它在 VCF 管理網域上建立 VVols 和 NFS 資料存放區、請完成下列步驟：</block>
+  <block id="b724be2987e548ac8480bce520220f60" category="paragraph">請完成下列步驟、為 NFS 流量建立 SVM 和多個生命期。</block>
+  <block id="babc6681adb6ce893875388cced91f06" category="list-text">在 * 新增儲存 VM* 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定 * 下、按一下 *SMB/CIFS 、 NFS 、 S2* 標籤、並勾選 * 啟用 NFS* 方塊。</block>
+  <block id="5323c8249b871a7ef8f8b1bd172c80c7" category="inline-image-macro">新增儲存 VM 精靈 - 啟用 NFS</block>
+  <block id="daa558cffb1a825d99e7dad052181f81" category="paragraph"><block ref="daa558cffb1a825d99e7dad052181f81" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dcadf439045c5377c9b792766afb6f25" category="admonition">此處不需要勾選 * 允許 NFS 用戶端存取 * 按鈕、因為 ONTAP Tools for VMware vSphere 將用於自動化資料存放區部署程序。這包括為 ESXi 主機提供用戶端存取。
+&amp;#160 ；</block>
+  <block id="98f3e861795123db822b8f0df4c4530c" category="paragraph"><block ref="98f3e861795123db822b8f0df4c4530c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e4c8078971d7f4ac25e668bfb61a8d68" category="section-title">在 ESXi 主機上設定 NFS 網路</block>
+  <block id="e797c9824ee6686ad3fe10030743105b" category="example-title">為 NFS 流量建立分散式連接埠群組</block>
+  <block id="189654f47cf9b566455bb3dbc5ee0642" category="paragraph">完成下列步驟、為網路建立新的分散式連接埠群組、以傳輸 NFS 流量：</block>
+  <block id="a8bac903d068220faa0b5518ffbb1cc2" category="paragraph"><block ref="a8bac903d068220faa0b5518ffbb1cc2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4ad7ba867206766725b3ee220c765a50" category="list-text">在 * 分散式連接埠群組 - 編輯設定 * 頁面上、瀏覽左方功能表中的 * 成組和容錯移轉 * 。確保 Uplinks 位於 *Active 上行鏈路 * 區域中、以啟用用於 NFS 流量的群組。將任何未使用的上行鏈路向下移至 * 未使用的上行鏈路 * 。</block>
+  <block id="3199dbb109806d42760da4877f093af6" category="inline-image-macro">DPG - 團隊上行鏈路</block>
+  <block id="ddf44348d3886fdcd2ff38643b9ac2ac" category="paragraph"><block ref="ddf44348d3886fdcd2ff38643b9ac2ac" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="591e8d2dfc8c6de451638aad83b793a1" category="list-text">在「 * 選取目標裝置 * 」頁面上、選擇先前建立的 NFS 分散式連接埠群組之一。</block>
+  <block id="aee936e2b2608af341d6951ab6c4e9a0" category="paragraph"><block ref="aee936e2b2608af341d6951ab6c4e9a0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9417f5d0c7f34338084cff4262015bfb" category="list-text">在「 * 連接埠內容 * 」頁面上保留預設值（無啟用的服務）、然後按一下「 * 下一步 * 」繼續。</block>
+  <block id="1d089bb642adceee342d023f837623c7" category="paragraph"><block ref="1d089bb642adceee342d023f837623c7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="19791a45d0badc3911f3cc44930c3a29" category="paragraph">下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 vVols NFS 資料存放區、以及將管理 VM 移轉至新的資料存放區。</block>
+  <block id="83e67b7f18e7c0c1149e371019ced795" category="example-title">在 ONTAP 工具中建立 NFS 資料存放區</block>
+  <block id="f39afa8fe57d370359e76660e5ccdca3" category="paragraph">請完成下列步驟、使用 ONTAP 工具部署在 NFS 上執行的 ONTAP 資料存放區。</block>
+  <block id="f4a327f36f4599e464818aae9947833b" category="list-text">在新資料存放區精靈的 * 一般 * 頁面上、選取 vSphere 資料中心或叢集目的地。選取 * NFS* 作為資料存放區類型、填寫資料存放區名稱、然後選取傳輸協定。  選擇是否使用 FlexGroup Volume 、以及是否使用儲存功能檔案進行資源配置。按一下 * 下一步 * 繼續。</block>
+  <block id="3f1b295c05103450b8fa247ecc2a1524" category="inline-link">支援且不支援FlexGroup 的功能組態</block>
+  <block id="61b8c0dcd4bc22dd28117e32a0f4d57e" category="paragraph">附註：選擇 * 在叢集 * 之間散佈資料存放區資料將會建立基礎 Volume 作為 FlexGroup Volume 、以排除儲存功能設定檔的使用。請參閱<block ref="d952e216424018ee671efd89746705b8" category="inline-link-rx"></block> 如需使用 FlexGroup Volumes 的詳細資訊、</block>
+  <block id="a32da07b4521a3c2d552a321d9b15cc9" category="list-text">在「 * 儲存屬性 * 」頁面上、選取要使用的集合體、然後按一下「 * 下一步 * 」繼續。</block>
+  <block id="b0ab3fad5f0af123f81ca5d04c42497f" category="list-text">最後、請檢閱 * 摘要 * 、然後按一下完成、開始建立 NFS 資料存放區。</block>
+  <block id="b0c1020cb3390c1983b4b577082607f3" category="image-alt">檢視摘要和完成</block>
+  <block id="7855e636ae2b535a23a99c9bf6fdecc7" category="list-text">在新資料存放區精靈的 * 一般 * 頁面上、選取 vSphere 資料中心或叢集目的地。選取 * vVols* 作為資料存放區類型、填寫資料存放區名稱、然後選取 * NFS* 作為傳輸協定。按一下 * 下一步 * 繼續。</block>
+  <block id="cc0d661db1d8ce993ebe23dfbaa65d65" category="image-alt">儲存屬性 - 下一步</block>
+  <block id="fa1bb43229900c510a2fa15c32411f8d" category="list-text">最後、請檢閱 * 摘要 * 、然後按一下 * 完成 * 以開始 vVol 資料存放區建立程序。</block>
+  <block id="d2781f96ae02abb5af3b827f0c8468a1" category="doc">VMware Cloud Foundation 搭配 NetApp AFF 陣列</block>
+  <block id="7f0a0f1c28a330998671b8ac453d3569" category="paragraph">VMware Cloud Foundation （ VCF ）是整合式軟體定義資料中心（ SDDC ）平台、可提供完整的軟體定義基礎架構堆疊、以便在混合雲環境中執行企業應用程式。它將運算、儲存、網路和管理功能整合到統一的平台中、在私有雲和公有雲之間提供一致的營運體驗。</block>
+  <block id="343b24dcfc4972eac70a97fda857de24" category="paragraph">本文件提供使用 NetApp All Flash AFF 儲存系統的 VMware Cloud Foundation 儲存選項相關資訊。支援的儲存選項涵蓋以 NFS 和 vVol 資料存放區作為主要儲存設備的工作負載網域、以及一系列的補充儲存選項。</block>
+  <block id="addd85966eba82eed1ac551cdd34ac98" category="paragraph">本文件涵蓋的使用案例：</block>
+  <block id="cbd3bbea01f9710659299fdc5acf2b6d" category="list-text">適用於尋求在私有雲和公有雲之間統一環境的客戶。</block>
+  <block id="222f7ba2d7a15aa43d3de7ebee8dd44f" category="list-text">自動化解決方案、用於部署工作負載網域的虛擬基礎架構。</block>
+  <block id="58a3d1357f14a4c5b7aa4bd3b084364d" category="list-text">可擴充的儲存解決方案是專為滿足不斷變化的需求而量身打造、即使不直接符合運算資源需求。</block>
+  <block id="700c91ea544aa00736fa25ccf5a40c61" category="list-text">使用 ONTAP 做為主要儲存設備（ NFS 、 vVol ）來部署 VCF VI 工作負載網域。</block>
+  <block id="4ab9f3500deec7b550498ad8af7ed39e" category="list-text">使用適用於 VMware vSphere 的 ONTAP 工具、將補充儲存設備部署至 VI 工作負載網域。</block>
+  <block id="d0b2f8724fbafc96120989697cb208ce" category="list-text">解決方案架構設計師希望為 VMware 環境提供更具彈性的儲存選項、以便將 TCO 最大化。</block>
+  <block id="0aeaf148d43f56eac757be6e8cd7b02e" category="list-text">尋求 VCF 儲存選項的解決方案架構設計師、可為主要雲端供應商提供資料保護和災難恢復選項。</block>
+  <block id="26a2bf98b2aaaee3ba5cf0f28b4923ab" category="list-text">儲存管理員想要瞭解如何使用主要儲存設備和補充儲存設備來設定 VCF 。</block>
+  <block id="55f4a9df51fa6e3f6b853f0f3190ab46" category="paragraph">VCF with NetApp AFF 解決方案包含下列主要元件：</block>
+  <block id="133718fb84bc5ac404888a8525785647" category="paragraph">VMware Cloud Foundation 將 SDDC Manager 、 vSphere 、 vSAN 、 NSX 和 VMware Aria Suite 等重要元件結合在一起、以建立虛擬化資料中心、進而延伸 VMware 的 vSphere Hypervisor 產品。</block>
+  <block id="5e0a377d29749caac88e919dd2b65e47" category="paragraph">VCF 解決方案同時支援原生 Kubernetes 和虛擬機器型工作負載。VMware vSphere 、 VMware vSAN 、 VMware NSS-T Data Center 和 VMware vRealize Cloud Management 等重要服務是 VCF 套件不可或缺的元件。結合使用時、這些服務會建立軟體定義基礎架構、能夠有效管理運算、儲存、網路、安全性和雲端管理。</block>
+  <block id="80081d8f09b2f868df1d9738b63c502e" category="paragraph">Vcf 由單一管理網域和最多 24 個 VI 工作負載網域組成、每個網域代表一個應用程式就緒基礎架構單元。工作負載網域是由單一 vCenter 執行個體所管理的一或多個 vSphere 叢集所組成。</block>
+  <block id="74233561a24df221218a7ceee50b8507" category="inline-image-macro">Vcf 架構</block>
+  <block id="ce3d06f95282acc5295f7807b6675b76" category="paragraph"><block ref="ce3d06f95282acc5295f7807b6675b76" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c510aa11354e5d733cb0003785482f88" category="inline-link-macro">VMware Cloud Foundation 中的架構模型和工作負載網域類型</block>
+  <block id="9930a781f53e14dfe549ebe64e601989" category="paragraph">如需 VCF 架構與規劃的詳細資訊、請參閱 <block ref="e22346f190239f12fb60e50a9118f8ab" category="inline-link-macro-rx"></block>。</block>
+  <block id="3cec8e61addd0a2fb9c5f51f9c52552c" category="section-title">Vcf 儲存選項</block>
+  <block id="74a71041cae11ecce323cdb611af772c" category="paragraph">VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有適用於 VI 工作負載網域的主要儲存選項和補充儲存選項。</block>
+  <block id="a378bea1f9e6b56fb3cfee0971aa7e27" category="paragraph"><block ref="a378bea1f9e6b56fb3cfee0971aa7e27" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8ae7a0584c0631c041e905751b2dd416" category="paragraph">* 工作負載網域的主要儲存設備 *
+Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設定程序中直接連線至 VI Workload Domain 。主要儲存設備是第一個為工作負載網域設定的資料存放區、其中包括位於光纖通道上的 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。</block>
+  <block id="05f59bb6c85ffa00283e4123dc8bd119" category="paragraph">* 管理與工作負載網域的補充儲存設備 *
+補充儲存設備是一種儲存類型、可在建立叢集之後的任何時間新增至管理或工作負載網域。輔助儲存設備代表最廣泛的支援儲存選項、所有選項均支援 NetApp AFF 陣列。</block>
+  <block id="3cf0ea3eda142e5ba6de538269bc7a7e" category="inline-link-macro">VMware Cloud Foundation 支援的儲存類型</block>
+  <block id="0dd25f916db2f0a4c029c1b1ad75741d" category="inline-link-macro">在 VMware Cloud Foundation 中管理儲存設備</block>
+  <block id="bbf8447702bf3290cc6299fb8388c251" category="paragraph">VMware Cloud Foundation 的其他文件資源：
+* <block ref="1cd8d4ca63ebdcac9c88270833a7587c" category="inline-link-macro-rx"></block>
+* <block ref="7830a0a310d4e4ef2690cac741b37c8b" category="inline-link-macro-rx"></block>
+* <block ref="6cbd276e241466e90d705288cb85832b" category="inline-link-macro-rx"></block></block>
+  <block id="78e583b4affa4d2287e5b031e019d87a" category="section-title">NetApp All Flash 儲存陣列</block>
+  <block id="2e80f86db9a689d13cd838ef8cc50716" category="paragraph">NetApp AFF （ All Flash FAS ）陣列是高效能儲存解決方案、專為運用 Flash 技術的速度與效率而設計。AFF 陣列整合了整合式資料管理功能、例如快照型備份、複寫、精簡配置和資料保護功能。</block>
+  <block id="d4e531f12678b4bf558838f624404bf0" category="paragraph">NetApp AFF 陣列採用 ONTAP 儲存作業系統、為所有與 VCF 相容的儲存選項提供全方位的儲存傳輸傳輸協定支援、所有這些都在統一化架構內。</block>
+  <block id="21f661d7eaee3debb9102ca675581d31" category="paragraph">NetApp AFF 儲存陣列提供最高效能的 A 系列和 QLC Flash 型 C 系列。這兩個系列都使用 NVMe 快閃磁碟機。</block>
+  <block id="30d37924aae959f5f8be738ca035502f" category="inline-link-macro">NetApp AFF A系列</block>
+  <block id="97d7ce7cfe5b74613f34e81c58597e7a" category="paragraph">如需 NetApp AFF A 系列儲存陣列的詳細資訊、請參閱 <block ref="1b89221a42d169daf6c2d6a19eec77c7" category="inline-link-macro-rx"></block> 登陸頁面。</block>
+  <block id="0f48ba7e158160e65859ff8d64ceec40" category="inline-link-macro">NetApp AFF C 系列</block>
+  <block id="0046c466f043de51d8667f504250a4d1" category="paragraph">如需 NetApp C 系列儲存陣列的詳細資訊、請參閱 <block ref="e8aa4ae56e9c3cea6313c5fc47308c76" category="inline-link-macro-rx"></block> 登陸頁面。</block>
+  <block id="f05c1934a1c8a5c784d0c3ae0b119f2a" category="paragraph">ONTAP Tools for VMware vSphere （ OTV ）可讓管理員直接從 vSphere Client 內管理 NetApp 儲存設備。ONTAP 工具可讓您部署及管理資料存放區、以及配置 vVol 資料存放區。</block>
+  <block id="c96879acdb72d7c93eb194596c0d2e87" category="paragraph">ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一組儲存系統屬性。如此可建立具有特定屬性的資料存放區、例如儲存效能和 QoS 。</block>
+  <block id="780947cd39ce0fd8999e92cd44356d2d" category="paragraph">ONTAP 工具也包含適用於 ONTAP 儲存系統的 * VMware vSphere API for Storage Aware （ VASA ） Provider* 、可用於佈建 VMware 虛擬磁碟區（ VVols ）資料存放區、建立及使用儲存功能設定檔、法規遵循驗證及效能監控。</block>
+  <block id="9d1cd3a304d68d8dfff653513351009c" category="paragraph">如需 NetApp ONTAP 工具的詳細資訊、請參閱 <block ref="6109ada13939b224efdaeb96c1858378" category="inline-link-macro-rx"></block> 頁面。</block>
+  <block id="838c98d48ab1866379e2008e8de28bf9" category="paragraph">在本文件所述的案例中、我們將示範如何使用 ONTAP 儲存系統做為 VCF VI 工作負載網域部署的主要儲存設備。此外、我們將安裝並使用 ONTAP Tools for VMware vSphere 來設定 VI 工作負載網域的補充資料存放區。</block>
+  <block id="9bae5a5400819a002db47f8fb83305c3" category="paragraph">本文件涵蓋的案例：</block>
+  <block id="a93d47d38345b5d4142d584860fc74dc" category="inline-link-macro">* 此處 *</block>
+  <block id="c89ddfdbaed64ed342ab02508bd87653" category="list-text">* 在 VI 工作負載網域部署期間、設定並使用 NFS 資料存放區作為主要儲存設備。 * 按一下 <block ref="7a576d73ba779b44f09d4cd76348e3f7" category="inline-link-macro-rx"></block> 部署步驟。按一下 <block ref="7a576d73ba779b44f09d4cd76348e3f7" category="inline-link-macro-rx"></block></block>
+  <block id="6ccb2450cf1f00db1ffa07e4fd4f7ca6" category="list-text">* 在 VI 工作負載網域部署期間、設定並使用 vVol 資料存放區作為主要儲存設備。 * 按一下連結：</block>
+  <block id="7b05cc0d14df7b8ca5ad3b13eb899a59" category="list-text">* 安裝並示範使用 ONTAP 工具來設定及掛載 NFS 資料存放區、做為 VI 工作負載網域中的補充儲存區。 * 按一下 <block ref="1e62df23d236730c562fd8b72ccfbed2" category="inline-link-macro-rx"></block></block>
+  <block id="f6e0a6acafce53eb8e95ce4b918358f0" category="doc">VMware Cloud Foundation 搭配 NetApp All Flash SAN 陣列</block>
+  <block id="7a1f61e49aef9045aef55d574dd9defc" category="paragraph">本文件提供 VMware Cloud Foundation 使用 NetApp All Flash SAN 陣列的儲存選項相關資訊。支援的儲存選項在部署 iSCSI 資料存放區做為管理網域的補充儲存設備、以及將 vVol （ iSCSI ）和 NVMe / TCP 資料存放區做為工作負載網域的補充資料存放區的特定指示中有所涵蓋。同時也涵蓋使用 SnapCenter for VMware vSphere 的虛擬機器和資料存放區資料保護。</block>
+  <block id="f894e280cd42dfe8774ec8c2238c491d" category="list-text">使用適用於 VMware vSphere 的 ONTAP 工具、將補充儲存部署至管理和 VI 工作負載網域。</block>
+  <block id="3c0760302f2a9fef8fc544aab16f667a" category="list-text">使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VM 和資料存放區。</block>
+  <block id="ccaa25a4ab6fd9bf61b65c869ed7c255" category="list-text">儲存管理員需要關於如何使用主要儲存設備和補充儲存設備來設定 VCF 的特定指示。</block>
+  <block id="4968431f264e0f182d50c298a87e844e" category="list-text">儲存管理員需要有關如何保護 ONTAP 儲存設備上的 VM 和資料存放區的特定指示。</block>
+  <block id="2ff06575d1fa3ec8067cb7fc954fc12b" category="paragraph">VCF with NetApp ASA 解決方案包含下列主要元件：</block>
+  <block id="26c3c04465b48271ef8b3a61bd4f6327" category="paragraph">VMware Cloud Foundation 將 SDDC Manager 、 vSphere 、 vSAN 、 NSX 和 VMware Aria Suite 等重要元件結合在一起、以建立軟體定義的資料中心、藉此延伸 VMware 的 vSphere Hypervisor 產品。</block>
+  <block id="300ce943c379f0b187c9c7365f1141b4" category="paragraph">VCF 解決方案同時支援原生 Kubernetes 和虛擬機器型工作負載。VMware vSphere 、 VMware vSAN 、 VMware NSS-T Data Center 和 VMware Aria Cloud Management 等重要服務是 VCF 套件不可或缺的元件。結合使用時、這些服務會建立軟體定義基礎架構、能夠有效管理運算、儲存、網路、安全性和雲端管理。</block>
+  <block id="5bd3747c70965d2534550dbc13a9d4d0" category="paragraph">Vcf 由單一管理網域和最多 24 個 VI 工作負載網域組成、每個網域代表一個應用程式就緒基礎架構單元。工作負載網域是由單一 vCenter 執行個體所管理的一或多個 vSphere 叢集所組成。</block>
+  <block id="edcb3d5f773b07676b94f4f0e136f9be" category="paragraph">VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有 VI 工作負載網域可用的主要儲存選項和補充儲存選項。</block>
+  <block id="b380ad3b242496117b117f7d8538c805" category="paragraph">* 工作負載網域的主要儲存設備 *
+主要儲存設備是指在 SDDC Manager 中的設定程序中、任何類型的儲存設備都可以直接連線至 VI 工作負載網域。主要儲存設備是以 SDDC 管理程式部署、作為叢集建立協調的一部分、也是第一個為工作負載網域設定的資料存放區。它在光纖通道上包含 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。</block>
+  <block id="6d86765c27e12fba136c044ca054e659" category="paragraph">* 管理與工作負載網域的補充儲存設備 *
+補充儲存設備是一種儲存類型、可在建立叢集之後的任何時間新增至管理或工作負載網域。輔助儲存設備代表最廣泛的支援儲存選項、所有選項均支援 NetApp ASA 陣列。您可以針對大多數的儲存傳輸協定類型、使用適用於 VMware vSphere 的 ONTAP 工具來部署補充儲存設備。</block>
+  <block id="fb8ad4be173c62aff84d8c1f86c45b95" category="paragraph">VMware Cloud Foundation 的其他文件資源：
+* <block ref="1cd8d4ca63ebdcac9c88270833a7587c" category="inline-link-macro-rx"></block>
+* <block ref="7830a0a310d4e4ef2690cac741b37c8b" category="inline-link-macro-rx"></block>
+* <block ref="6cbd276e241466e90d705288cb85832b" category="inline-link-macro-rx"></block>
+｛ nbsp ｝</block>
+  <block id="05289b4fc3d920b3c6a465adc4e097c2" category="section-title">NetApp All Flash SAN 陣列</block>
+  <block id="adde35022a1c1822dd9ebfc167e841cd" category="paragraph">如需詳細資訊、請參閱<block ref="29da109c026a61b0a781439b91c0c69b" category="inline-link-rx"></block>。
+｛ nbsp ｝</block>
+  <block id="77b481ce3840ef09969cc962adaf1ff7" category="section-title">儲存傳輸協定支援</block>
+  <block id="e031196453c075eea30223b25bca4bbc" category="paragraph">如需 iSCSI 組態的設計指南、請參閱<block ref="3ae19454fd89c74b513f9ff82efbad77" category="inline-link-rx"></block>。</block>
+  <block id="1f7dff3c61075c9adc3f029c3d58da6e" category="paragraph">如需 NVMe 的設計指南、請參閱<block ref="7aabaf46057cd03af39286b9b532db22" category="inline-link-rx"></block>
+｛ nbsp ｝</block>
+  <block id="62ef7518a85e1a0dcc29f1d3bbf3af4f" category="paragraph">如需詳細資訊、請參閱<block ref="13d62dd0c3e4c67d485585648ace40b6" category="inline-link-rx"></block>。
+｛ nbsp ｝</block>
+  <block id="d9de4256a4ea647f3300ce73a216c829" category="paragraph">請參閱<block ref="2385ec03bab5d626a59c1eddaeed148f" category="inline-link-rx"></block> 以取得更多資訊。
+｛ nbsp ｝</block>
+  <block id="7a6f4fd97757392e112859c13613d0d2" category="paragraph">適用於 VMware vSphere 的 ONTAP 工具可讓管理員直接從 vSphere Client 內管理 NetApp 儲存設備。ONTAP 工具可讓您部署及管理資料存放區、以及配置 vVol 資料存放區。</block>
+  <block id="1df6b6a463bc2d63a8830f0dcec1b57a" category="paragraph">ONTAP 工具也包含適用於 ONTAP 儲存系統的 * VMware vSphere API for Storage Aware （ VASA ） Provider* 、可用於佈建 VMware 虛擬磁碟區（ VVols ）資料存放區、建立及使用儲存功能設定檔、法規遵循驗證及效能監控。</block>
+  <block id="fa4f7feb53132dcf0b1d8159bba2d9fb" category="paragraph">如需 NetApp ONTAP 工具的詳細資訊、請參閱 <block ref="6109ada13939b224efdaeb96c1858378" category="inline-link-macro-rx"></block> 頁面。
+｛ nbsp ｝</block>
+  <block id="7aa29d308676f91c1db0e07c7c15aca5" category="paragraph">SnapCenter Plug-in for VMware vSphere （ SCV ）是 NetApp 提供的軟體解決方案、可為 VMware vSphere 環境提供全方位的資料保護。其設計旨在簡化及簡化保護及管理虛擬機器（ VM ）和資料存放區的程序。選擇控制閥使用儲存型快照和複寫至次要陣列、以滿足較低的恢復時間目標。</block>
+  <block id="d059ed613086fb5fd3a6b6932370e2e8" category="paragraph">如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪<block ref="381065db4e503c42160abe67161e41c7" category="inline-link-rx"></block>。</block>
+  <block id="5a8affbf86113f08bdc1ac4a2fee4b65" category="paragraph">本文件所述的案例將示範如何使用 ONTAP 儲存系統做為管理和工作負載網域的補充儲存設備。此外、適用於 VMware vSphere 的 SnapCenter 外掛程式也可用來保護 VM 和資料存放區。</block>
+  <block id="ffaaad4ed1112ec792ee23fcf76f076e" category="inline-link">* 此處 *</block>
+  <block id="38824c5cc1b86e5f2b7b703924fc293e" category="list-text">使用 ONTAP 工具在 VCF 管理網域中部署 iSCSI 資料存放區。按一下<block ref="8f9776b55343e99d1cd33aae553eadb6" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="f7dc83fabbf48c8be0c52906b44660e3" category="list-text">使用 ONTAP 工具在 VI 工作負載網域中部署 vVols （ iSCSI ）資料存放區。按一下<block ref="62f27c105a63b50192752e75207a8a24" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="186f980bd55cc3b31a895b56f718d85c" category="list-text">設定 NVMe over TCP 資料存放區以用於 VI 工作負載網域。按一下<block ref="d7fde00de2bb83a2164d7af6ea718133" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="354d5ebb4b81b236e77ee7da967e34ba" category="list-text">部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式、以保護及還原 VI 工作負載網域中的 VM 。按一下<block ref="21159a9375f273c849e116dbcf8d5c81" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="38d9705c1fb11cbf2cafd7f4c1316635" category="doc">NFS 是 VI 工作負載網域的主要儲存設備</block>
+  <block id="b5c4da4fffd926064f4220a0f092db69" category="paragraph">在此案例中、我們將示範如何將 NFS 資料存放區設定為主要儲存區、以便在 VCF 中部署 VI 工作負載網域。如有必要、我們會參閱外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並涵蓋儲存組態部分的特定步驟。</block>
+  <block id="ddfedf1a91c403403be9a81231f277e2" category="list-text">驗證 ONTAP 儲存虛擬機器（ SVM ）的網路連線、以及是否存在邏輯介面（ LIF ）來傳輸 NFS 流量。</block>
+  <block id="e592a2b3d910dd91c17e8f623dbf0602" category="list-text">在 ONTAP 儲存系統上建立 NFS 磁碟區。</block>
+  <block id="d1f4e67bf101f891666f321371f1d9d6" category="list-text">委託 VCF 中的主機用於 VI 工作負載網域。</block>
+  <block id="31001b0101cb5abc8b56d00745347511" category="list-text">使用 NFS 資料存放區做為主要儲存設備、在 VCF 中部署 VI 工作負載網域。</block>
+  <block id="2cd449575a6433677571f502b2c3ce6e" category="list-text">安裝適用於VMware VAAI的NetApp NFS外掛程式</block>
+  <block id="a69fddacd6c4379a99eb79c4b41ee33b" category="list-text">4 個 ESXi 主機、設定用於在 VCF 管理網路上進行通訊。</block>
+  <block id="53f507b0e2a181618430b01292b96d43" category="list-text">保留給為此目的而建立的 VLAN 或網路區段上的 VMotion 和 NFS 儲存流量的 IP 位址。</block>
+  <block id="a839f697227f4df6afcd351f64597180" category="paragraph">若要將具有 NFS 資料存放區的 VI 工作負載網域部署為主要儲存設備、請完成下列步驟：</block>
+  <block id="f1e10c745c755e4a76607f3d2885976a" category="example-title">驗證 ONTAP SVM 的網路連線</block>
+  <block id="ba28bb76212a203dd2578afa6872b54f" category="paragraph">確認已為將在 ONTAP 儲存叢集和 VI 工作負載網域之間傳輸 NFS 流量的網路建立必要的邏輯介面。</block>
+  <block id="71f6225a1d9973e05e06e42c86381e67" category="list-text">從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 VM* 、然後按一下要用於 NFS 流量的 SVM 。在 * 概述 * 選項卡的 * 網絡 IP 接口 * 下，單擊 *NFS* 右側的數字。在清單中、確認列出所需的 LIF IP 位址。</block>
+  <block id="70ff4d343a6b03b8b8fee5a746dacc0c" category="inline-image-macro">驗證 SVM 的生命</block>
+  <block id="fc2f419b2b1ebdadf1157f14931e8dbd" category="paragraph"><block ref="fc2f419b2b1ebdadf1157f14931e8dbd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b7f9eeb5fe5bce8b2cd7e1ba2a41bea0" category="paragraph">或者、使用下列命令、從 ONTAP CLI 驗證與 SVM 相關的生命律：</block>
+  <block id="1af0117fef7133e2c686040e49311c04" category="list-text">確認 ESXi 主機可以與 ONTAP NFS 伺服器通訊。透過 SSH 登入 ESXi 主機、並 ping SVM LIF ：</block>
+  <block id="501e0432b713137d34ac056753f03d3d" category="example-title">建立匯出原則以共用 NFS 磁碟區</block>
+  <block id="3e4d8c9b59d33b87a0b137b149302ad7" category="paragraph">在 ONTAP 系統管理員中建立匯出原則、以定義 NFS 磁碟區的存取控制。</block>
+  <block id="0c90f1570fa14c68daf8dd4b5688b180" category="list-text">在 ONTAP 系統管理員中、按一下左側功能表中的 * 儲存 VMS* 、然後從清單中選取 SVM 。</block>
+  <block id="eb92e506fef77d644e91db2d1e4bfa08" category="list-text">在 * 設定 * 索引標籤上、找到 * 匯出原則 * 、然後按一下箭頭以存取。</block>
+  <block id="90c3992b7b1494f70c4b328ef4f261e5" category="inline-image-macro">存取匯出原則</block>
+  <block id="93c67ee0f866cc531216b58fe098f5e3" category="paragraph"><block ref="93c67ee0f866cc531216b58fe098f5e3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="acfa762eaa939fd9e26acfc53164cbb0" category="list-text">在「 * 新增匯出原則 * 」視窗中新增原則名稱、按一下「 * 新增規則 * 」按鈕、然後按一下「 *+Add* 」按鈕、即可開始新增規則。</block>
+  <block id="55eb85801ea8bf38a84ad1ec57c641c7" category="inline-image-macro">新的匯出原則</block>
+  <block id="172c94359bf7fe58f85945b569cbdc2a" category="paragraph"><block ref="172c94359bf7fe58f85945b569cbdc2a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="44d2e5e8743779aefab91726cea51b88" category="list-text">填寫您要納入規則的 IP 位址、 IP 位址範圍或網路。取消勾選 *SMB/CIFS* 和 * FlexCache * 方塊、並在下方選擇存取詳細資料。選取 UNIX 方塊就足以讓 ESXi 主機存取。</block>
+  <block id="0967291e665fef335788c2f64afdc534" category="inline-image-macro">儲存新規則</block>
+  <block id="1e0f9245d231d8047d58372bc1513a71" category="paragraph"><block ref="1e0f9245d231d8047d58372bc1513a71" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fc826b9486861ea09608eb1e928bd6e3" category="admonition">部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線。這是在使用 NFS IP 位址新增任何其他 vmkernel 介面卡之前、先使用 ESXi 主機上的管理介面卡來完成。因此、必須確保匯出原則包含 VCF 管理網路、才能繼續驗證。</block>
+  <block id="8cc1ba292f07913b1147d781b845af4f" category="list-text">輸入所有規則後、按一下 * 儲存 * 按鈕以儲存新的匯出原則。</block>
+  <block id="4b36a626806cbbb75e87c00abc07bd6a" category="list-text">或者、您也可以在 ONTAP CLI 中建立匯出原則和規則。請參閱 ONTAP 文件中的建立匯出原則和新增規則步驟。</block>
+  <block id="bb53c6c29f127a298da7dd86bf00bb89" category="inline-link-macro">建立匯出原則</block>
+  <block id="8006d46f49399731e3aa2b1d6d69fe78" category="list-text">使用 ONTAP CLI 執行 <block ref="364c2676f883ba5857f630dff98e75f3" category="inline-link-macro-rx"></block>。</block>
+  <block id="8c47b652d31bca921bb367b0e3c5ec6d" category="inline-link-macro">新增規則至匯出原則</block>
+  <block id="385ae862d9bd7af38f13dce9cfa884db" category="list-text">使用 ONTAP CLI 執行 <block ref="a2fac1da42d11b1b50d50e4f0d82ae58" category="inline-link-macro-rx"></block>。</block>
+  <block id="cb8488198e8a359b6527f56b5c9b105a" category="example-title">建立 NFS Volume</block>
+  <block id="913db68b7113032226e5dfe7467c0eb5" category="paragraph">在 ONTAP 儲存系統上建立 NFS 磁碟區、作為工作負載網域部署中的資料存放區。</block>
+  <block id="20c35e90de09ce006c42216a7e68f5a1" category="list-text">從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 &gt; 磁碟區 * 、然後按一下 *+Add* 以建立新的磁碟區。</block>
+  <block id="8ec9169c5c8c6922db7708cecce92cdb" category="inline-image-macro">新增磁碟區</block>
+  <block id="152c4bf5e1921b9c98cc23f08a87638b" category="paragraph"><block ref="152c4bf5e1921b9c98cc23f08a87638b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9e5dc677da3973015720757eaffc314b" category="list-text">新增磁碟區名稱、填寫所需容量、並選擇要裝載該磁碟區的儲存 VM 。按一下 * 更多選項 * 繼續。</block>
+  <block id="17183bf11f9a6c50c94f291a33af2011" category="inline-image-macro">新增 Volume 詳細資料</block>
+  <block id="eee18cd87e8d64721d01996ec312b1a5" category="paragraph"><block ref="eee18cd87e8d64721d01996ec312b1a5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e34684731a10ec1f21a2493de6cf2b01" category="list-text">在 [ 存取權限 ] 下，選取 [ 匯出原則 ] ，其中包含用於驗證 NFS 伺服器和 NFS 流量的 VCF 管理網路或 IP 位址和 NFS 網路 IP 位址。</block>
+  <block id="7d7d7df6da89b03b2bb7d632e3d4dbc1" category="paragraph"><block ref="7d7d7df6da89b03b2bb7d632e3d4dbc1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ed8a56c5bbc6bf1e2df8346e5b67e950" category="paragraph">+
+｛ nbsp ｝</block>
+  <block id="7c192459e62b85875b59970db3d2b9ee" category="inline-link-macro">LUN建立</block>
+  <block id="21df84d70ed46f1082b6c4615ab49856" category="list-text">或者、也可以在 ONTAP CLI 中建立 ONTAP Volume 。如需詳細資訊、請參閱 <block ref="4314e90bb8042a457a8d5d4811a80358" category="inline-link-macro-rx"></block> ONTAP 命令文件中的 Command 。</block>
+  <block id="a8858928af0bea74a20677781bee33a4" category="example-title">在 SDDC Manager 中建立網路集區</block>
+  <block id="f2b7793e95192789d56193aeb1570f16" category="paragraph">必須先在 SDDC Manager 中建立 ANetwork Pool 、然後再試運行 ESXi 主機、以準備在 VI 工作負載網域中部署。網路集區必須包含網路資訊和 IP 位址範圍、 VMkernel 介面卡才能用於與 NFS 伺服器通訊。</block>
+  <block id="9920c034248429c2af717abe5021508e" category="list-text">從 SDDC Manager 網路介面瀏覽至左側功能表中的 * 網路設定 * 、然後按一下 *+ 建立網路集區 * 按鈕。</block>
+  <block id="f547a1e8d284e575e5e63e98c2d75473" category="inline-image-macro">建立網路集區</block>
+  <block id="bdf02809d5307c1f6baac4484b68dc4a" category="paragraph"><block ref="bdf02809d5307c1f6baac4484b68dc4a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="333b4926e53e19a374bd0d56e756c0a7" category="list-text">填寫網路集區的名稱、選取 NFS 核取方塊、然後填寫所有網路詳細資料。針對 VMotion 網路資訊重複此步驟。</block>
+  <block id="bda1b7455ea770222cda41a3c06c2823" category="inline-image-macro">網路集區組態</block>
+  <block id="7efd94a5af8383a8f828d2db60489940" category="paragraph"><block ref="7efd94a5af8383a8f828d2db60489940" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="28e5a918b6866ca94c266c743e0cc3b5" category="list-text">按一下 * 儲存 * 按鈕以完成建立網路集區。</block>
+  <block id="d35566195fd75953634eb0ed73abc24b" category="example-title">佣金主辦人</block>
+  <block id="91dcb75b79dba0a5a2ebe384b1e1a9ef" category="paragraph">在 ESXi 主機部署為工作負載網域之前、必須先將其新增至 SDDC Manager 清查。這包括提供必要資訊、通過驗證、以及啟動試運轉程序。</block>
+  <block id="823d3b708152d82e2b812456bc88b6c9" category="paragraph">如需詳細資訊、請參閱 <block ref="2b57babf94151d2322b61df1384f1f69" category="inline-link-macro-rx"></block> 在《 VCF 管理指南》中。</block>
+  <block id="691eb1467ad9142fc393c27fd3e84e48" category="list-text">從 SDDC Manager 介面瀏覽至左側功能表中的 * 主機 * 、然後按一下 * 佣金主機 * 按鈕。</block>
+  <block id="cf211d9fdeea1d251798359d01aafc89" category="inline-image-macro">啟動佣金主機</block>
+  <block id="20b6b6fba93eced04fa26a9d528aa9d0" category="paragraph"><block ref="20b6b6fba93eced04fa26a9d528aa9d0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3fe27bc8c11627fc49a36bf85913f108" category="list-text">第一頁是必備的檢查清單。請勾選所有先決條件、並勾選所有核取方塊以繼續。</block>
+  <block id="9a5d123876bc3bf7c4f01992b6fff2a7" category="inline-image-macro">確認先決條件</block>
+  <block id="b0ce4a28cefc4c5e7a82dbf2aa016a1f" category="paragraph"><block ref="b0ce4a28cefc4c5e7a82dbf2aa016a1f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7095a029485c76a7aa6518056952cf93" category="list-text">在「 * 主機新增與驗證 * 」視窗中、填寫 * 主機 FQDN* 、 * 儲存類型 * 、包含用於工作負載網域的 VMotion 和 NFS 儲存 IP 位址的 * 網路集區 * 名稱、以及存取 ESXi 主機的認證。按一下 * 新增 * 、將主機新增至要驗證的主機群組。</block>
+  <block id="5238883c27cc2e2838698195e3a27941" category="inline-image-macro">主機新增與驗證視窗</block>
+  <block id="a25c6772999897eb41caa2cb2ab28290" category="paragraph"><block ref="a25c6772999897eb41caa2cb2ab28290" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="03d9d499abf5c768ee0f0c63e3baa1af" category="list-text">新增所有要驗證的主機之後、請按一下 * 驗證全部 * 按鈕繼續。</block>
+  <block id="f185111ef91a5813e3ac8c13843121fe" category="list-text">假設所有主機均已通過驗證、請按一下 * 下一步 * 繼續。</block>
+  <block id="4a1f9ebc3122e5d9cabc79c238cea541" category="inline-image-macro">全部驗證、然後按一下「下一步」</block>
+  <block id="920f4428ea4452190e4855465bf37944" category="paragraph"><block ref="920f4428ea4452190e4855465bf37944" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="22df75c0f816f2cad4e71b681b948f79" category="list-text">檢閱要委託的主機清單、然後按一下 * 佣金 * 按鈕以開始此程序。從 SDDC 管理程式的「工作」窗格監控委託程序。</block>
+  <block id="ed39b09fd7c61f9994106bcdcba00d5f" category="paragraph"><block ref="ed39b09fd7c61f9994106bcdcba00d5f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5ac309d4e65efac32d41d28e189d2d0b" category="example-title">部署 VI 工作負載網域</block>
+  <block id="b2c003dbffa89e44cf9221db029e7732" category="paragraph">使用 VCF Cloud Manager 介面即可完成 VI 工作負載網域的部署。此處只會顯示與儲存組態相關的步驟。</block>
+  <block id="97fc94592e3fe40767ce89e81f230b07" category="inline-link-macro">使用 SDDC Manager UI 部署 VI 工作負載網域</block>
+  <block id="d6c04a0c0bafe247e1b40fa604b43371" category="paragraph">如需部署 VI 工作負載網域的逐步指示、請參閱 <block ref="8218da9ac1df72eee003ba91be8aaa59" category="inline-link-macro-rx"></block>。</block>
+  <block id="46eb8ac17f56c83824c5d59c6f68b53e" category="list-text">從 SDDC Manager Dashboard 按一下右上角的 * + Workload Domain* 、即可建立新的 Workload Domain 。</block>
+  <block id="fddfebf7456151262f9a72f3065d13ee" category="inline-image-macro">建立新的工作負載網域</block>
+  <block id="e8498faf63ce28627fc13bd361b5b7b2" category="paragraph"><block ref="e8498faf63ce28627fc13bd361b5b7b2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="622195d2a0a5d879c557c03591e3f912" category="list-text">在 VI 組態精靈中、視需要填寫 * 一般資訊、叢集、運算、網路 * 和 * 主機選擇 * 等章節。</block>
+  <block id="decb14337bef54e532aefaeb54779c3c" category="paragraph">如需填寫 VI 組態精靈所需資訊的相關資訊、請參閱 <block ref="8218da9ac1df72eee003ba91be8aaa59" category="inline-link-macro-rx"></block>。</block>
+  <block id="ffa825120d39aa8ff20031044fb2b14e" category="inline-image-macro">VI 組態精靈</block>
+  <block id="0a8f98dbe311abcb6bd1f0575d2c8d7d" category="paragraph">+
+<block ref="d007a5867f811735dc4ff14ba7b61340" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="68df689049c92f05d4f35f466fcac332" category="list-text">在「 NFS 儲存」區段中、填寫資料存放區名稱、 NFS 磁碟區的資料夾掛載點、以及 ONTAP NFS 儲存 VM LIF 的 IP 位址。</block>
+  <block id="8b1546691675cd985971e6a8819cddcc" category="inline-image-macro">新增 NFS 儲存資訊</block>
+  <block id="e4bb9be8ad774efc0c2082f2b2852877" category="paragraph"><block ref="e4bb9be8ad774efc0c2082f2b2852877" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="08e388c1a004ebe84ca30a8025659a77" category="list-text">在 VI 組態精靈中完成交換器組態和授權步驟、然後按一下 * 完成 * 以開始建立工作負載網域程序。</block>
+  <block id="3984dcc7f48d3ffc1053447053a07413" category="inline-image-macro">完成 VI 組態精靈</block>
+  <block id="fc4da2e0b12b2a41f63f351bc09eb602" category="paragraph"><block ref="fc4da2e0b12b2a41f63f351bc09eb602" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="521a0863a481c4915e2b701a78503d49" category="list-text">監控程序、並解決程序期間發生的任何驗證問題。</block>
+  <block id="8345f1be1d5abaaf5feefa8bf0b5508d" category="paragraph">NetApp NFS 外掛程式 for VMware VAAI 整合了安裝在 ESXi 主機上的 VMware 虛擬磁碟庫、並提供更高效能的複製作業、以更快完成。這是搭配 VMware vSphere 使用 ONTAP 儲存系統時的建議程序。</block>
+  <block id="a6f8fe1106195aff1db9c74c853e136b" category="paragraph">如需部署適用於 VMware VAAI 的 NetApp NFS 外掛程式的逐步指示、請參閱 <block ref="c253aa55dacb4aa32fd2aaf59d3dd38d" category="inline-link-macro-rx"></block>。</block>
+  <block id="db22906eef6b311dfee707097d3706bd" category="doc">使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VCF 工作負載網域上的 VM</block>
+  <block id="fa602bde6cbb8bac5cdc876c7d3112b5" category="paragraph">在此案例中、我們將示範如何部署及使用 SnapCenter Plug-in for VMware vSphere （ SCV ）、在 VCF 工作負載網域上備份及還原 VM 和資料存放區。選擇控制閥採用 ONTAP 快照技術、可快速有效地備份主控 vSphere 資料存放區的 ONTAP 儲存磁碟區。SnapMirror 和 SnapVault 技術可用於在獨立的儲存系統上建立次要備份、並採用模仿原始 Volume 的保留原則、或獨立於原始 Volume 以長期保留。</block>
+  <block id="c8bf5cbe4fec8a792c8211d20513a761" category="paragraph">在此解決方案中、 iSCSI 是做為 VMFS 資料存放區的儲存傳輸協定。</block>
+  <block id="84d62edc8f5c8e1ce2b7829091348aa1" category="list-text">在 VI 工作負載網域上部署適用於 VMware vSphere （ SCV ）的 SnapCenter 外掛程式。</block>
+  <block id="643f22c70a11c763a342a597fd9b0655" category="list-text">將儲存系統新增至選擇控制閥。</block>
+  <block id="f0d34c4614c986f3587f709508d329ea" category="list-text">在選擇控制閥中建立備份原則。</block>
+  <block id="9d23126f6f4cd4e35474d2b20d7929f1" category="list-text">在選擇控制閥中建立資源群組。</block>
+  <block id="df5307055c935d439d813801d0f5ccb6" category="list-text">使用選擇控制閥備份資料存放區或特定 VM 。</block>
+  <block id="56da0bc82ae603fad036dd79fdf8a5f3" category="list-text">使用選擇控制閥將 VM 還原至叢集中的其他位置。</block>
+  <block id="0a86af82536f09650d228d6a87a496f4" category="list-text">使用選擇控制閥將檔案還原至 Windows 檔案系統。</block>
+  <block id="daec270bee33d265d5174aa38e1d664b" category="list-text">ONTAP ASA 儲存系統、其 iSCSI VMFS 資料存放區已分配給工作負載網域叢集。</block>
+  <block id="648d1f27c00f1a28c7f0396d3774e46a" category="list-text">二級 ONTAP 儲存系統、設定為使用 SnapMirror 接收二級備份。</block>
+  <block id="60d41e4d7a17d8c7dd25697d92c15cc2" category="list-text">叢集選擇控制閥上有虛擬機器可供保護。</block>
+  <block id="be7555747e2718ded1cca35029701f42" category="inline-link">* iSCSI 作為管理網域的補充儲存設備 *</block>
+  <block id="f4885ff4cc19ba920deefb50c08673e3" category="paragraph">如需將 iSCSI VMFS 資料存放區設定為補充儲存區的相關資訊、請參閱<block ref="b38ce16c78dfceeef379d34abe09583a" category="inline-link-rx"></block> 請參閱本文件。使用 OTV 部署資料存放區的程序與管理和工作負載網域相同。</block>
+  <block id="2f87bf43c5bb5279a294e91c382a6c2a" category="admonition">除了將選擇控制閥備份複製到次要儲存設備之外、您也可以使用 NetApp BlueXP 備份和 VM 恢復功能、將資料的異地複本複製到三（ 3 ）家領先雲端供應商中的其中一家物件儲存設備。如需詳細資訊、請參閱解決方案 <block ref="e6cdc012f429b818c689b9e946f3f574" category="inline-link-macro-rx"></block>。</block>
+  <block id="0962b93e5c842076570ff580cd17a0f0" category="inline-image-macro">3-2-1 備份策略</block>
+  <block id="3ac0e17c75dab4ddb4a9e36b6ed6f5a3" category="paragraph"><block ref="3ac0e17c75dab4ddb4a9e36b6ed6f5a3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b09b4b2994d40dd936a40590119bcbf6" category="paragraph">若要部署 SnapCenter 外掛程式並使用它來建立備份、以及還原 VM 和資料存放區、請完成下列步驟：</block>
+  <block id="a8b7808a10288c2f8743a3cdde5f5273" category="section-title">部署並使用選擇控制閥來保護 VI 工作負載網域中的資料</block>
+  <block id="36f8d4b4766b338d4160c9d0d96cde18" category="paragraph">完成下列步驟以部署、設定及使用選擇控制閥來保護 VI 工作負載網域中的資料：</block>
+  <block id="82fa2366904e0a4b71704adee28f4e90" category="example-title">部署適用於 VMware vSphere 的 SnapCenter 外掛程式</block>
+  <block id="fb0f87ab54da3a0e6344b7ed7488e38d" category="paragraph">SnapCenter 外掛程式裝載於 VCF 管理網域、但已登錄至 vCenter 的 VI 工作負載網域。每個 vCenter 執行個體都需要一個選擇控制閥執行個體、請記住、工作負載網域可以包含由單一 vCenter 執行個體管理的多個叢集。</block>
+  <block id="106d810567145ad0d10b2cd5d9e5c86b" category="paragraph">從 vCenter 用戶端完成下列步驟、將選擇控制閥部署至 VI 工作負載網域：</block>
+  <block id="b54ea494d12207eb93eeb6f33b20f99c" category="list-text">從 NetApp 支援網站 下載區下載 OVA 檔案、以供選擇控制閥部署 <block ref="cefeb1c642f0b72c3f67cff4ad1c5f78" category="inline-link-macro-rx"></block>。</block>
+  <block id="5c08ef001fd1b3b47d2f6aba9a0e5b33" category="list-text">從管理網域 vCenter Client 中、選取「 * 部署 OVF 範本 ... * 」。</block>
+  <block id="a93c79f7c72a2ae9e048585057f3c7aa" category="paragraph"><block ref="a93c79f7c72a2ae9e048585057f3c7aa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1a511acce23d5d4e9ebfc26c748c1b38" category="list-text">在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取以上傳先前下載的 OVF 範本。按一下 * 下一步 * 繼續。</block>
+  <block id="d981f6cb20952e94916006cadd16e3c8" category="inline-image-macro">選取 OVF 範本</block>
+  <block id="1602dfefd5a952c58fb030a57174b586" category="paragraph"><block ref="1602dfefd5a952c58fb030a57174b586" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cbaa9fd473d85c9c5a84b3a318af03b6" category="list-text">在「 * 選取名稱和資料夾 * 」頁面上、提供選擇控制閥資料代理 VM 的名稱、以及管理網域上的資料夾。按一下 * 下一步 * 繼續。</block>
+  <block id="33f19decfb5810bacb5569bc2068c619" category="list-text">在 * 選取運算資源 * 頁面上、選取叢集中的管理網域叢集或特定 ESXi 主機、以便將 VM 安裝到其中。</block>
+  <block id="2c0233bf6da6c559c228ee78435b3ff1" category="list-text">檢閱 * 審查詳細資料 * 頁面上有關 OVF 範本的資訊、並同意 * 授權合約 * 頁面上的授權條款。</block>
+  <block id="b55b541325186e5bbcb6275f22777ece" category="list-text">在「 * 選取儲存設備 * 」頁面上、選擇要安裝 VM 的資料存放區、然後選取 * 虛擬磁碟格式 * 和 * VM 儲存原則 * 。在本解決方案中、 VM 將安裝在 ONTAP 儲存系統上的 iSCSI VMFS 資料存放區上、如同先前在本文件的另一節中所部署。按一下 * 下一步 * 繼續。</block>
+  <block id="c05d42e08c8405597e9c64aa6368e61f" category="paragraph"><block ref="c05d42e08c8405597e9c64aa6368e61f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0451d8faa82b5cb6e2c321f09a5ce297" category="list-text">在「 * 選取網路 * 」頁面上、選取能夠與工作負載網域 vCenter 應用裝置以及主要和次要 ONTAP 儲存系統進行通訊的管理網路。</block>
+  <block id="010ade3a0e8eaebecf5ed48e4d01f37f" category="inline-image-macro">選取管理網路</block>
+  <block id="4b18eca4d9529fbb3b637e0b619a9928" category="paragraph"><block ref="4b18eca4d9529fbb3b637e0b619a9928" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="acbdd828830a7f63ed6ffd243203fefa" category="list-text">在 * 自訂範本 * 頁面上、填寫部署所需的所有資訊：</block>
+  <block id="0b995cde6746edcb50d9a3b6be294d09" category="list-text">工作負載網域 vCenter 應用裝置的 FQDN 或 IP 、以及認證。</block>
+  <block id="dbbe061198d3015da05565281ecadb77" category="list-text">選擇控制閥管理帳戶的認證。</block>
+  <block id="86b17739b91999dc6b59def44c497e54" category="list-text">選擇控制閥維護帳戶的認證。</block>
+  <block id="7fac0ffc4410a3d305ab5eaf15f3438a" category="list-text">IPv4 網路內容詳細資料（也可使用 IPv6 ）。</block>
+  <block id="217457649be5032b0ed5e0b692e00d4a" category="list-text">日期與時間設定。</block>
+  <block id="049ad79e5f67b46c2748356de0a831be" category="paragraph"><block ref="049ad79e5f67b46c2748356de0a831be" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6e000b3b216680d50f839ae9be0f3742" category="paragraph"><block ref="6e000b3b216680d50f839ae9be0f3742" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7143def0785e1dfa4b07946620e77ca4" category="paragraph"><block ref="7143def0785e1dfa4b07946620e77ca4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3c7dd73a01601895b06c8ec48979cc72" category="list-text">最後、在 * 準備完成頁面 * 上、檢閱所有設定、然後按一下「完成」以開始部署。</block>
+  <block id="96739484e65fe03d1d3ed19e6fa8d849" category="example-title">將儲存系統新增至選擇控制閥</block>
+  <block id="b40ed3388efda17e970b6521f03e1da3" category="paragraph">安裝 SnapCenter 外掛程式後、請完成下列步驟、將儲存系統新增至選擇控制閥：</block>
+  <block id="f64befbd1a1a373362a1385385e564cd" category="list-text">您可以從 vSphere Client 的主功能表存取選擇控制閥。</block>
+  <block id="cf40af13bb63a3deaef9346ea08cbe18" category="inline-image-macro">開啟 SnapCenter 外掛程式</block>
+  <block id="bdaabc58e4a8ae32d62de7f5a86ae30b" category="paragraph"><block ref="bdaabc58e4a8ae32d62de7f5a86ae30b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a657953da68a1f4653cc7eac5ddd615b" category="list-text">在選擇控制閥 UI 介面頂端、選取與要保護的 vSphere 叢集相符的正確選擇控制閥執行個體。</block>
+  <block id="2ceb54e6faba724ac85a641b24fd471e" category="inline-image-macro">選取正確的執行個體</block>
+  <block id="687951a2b4e439750ef82140f721e656" category="paragraph"><block ref="687951a2b4e439750ef82140f721e656" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f9dabb4a1a4ee5cd05cf56d751c65364" category="list-text">瀏覽左側功能表中的 * 儲存系統 * 、然後按一下 * 新增 * 開始使用。</block>
+  <block id="cedffcafe60b5f3bbc12076eb24fa1ae" category="inline-image-macro">新增儲存系統</block>
+  <block id="d707f5b00b4793cf945939ec23574083" category="paragraph"><block ref="d707f5b00b4793cf945939ec23574083" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="126b7d0f4269ce778f9963e6bc900b9f" category="list-text">在 * 新增儲存系統 * 表單上、填寫要新增的 ONTAP 儲存系統的 IP 位址和認證、然後按一下 * 新增 * 以完成此動作。</block>
+  <block id="777b0836fd20f6188e28096338a3194d" category="paragraph"><block ref="777b0836fd20f6188e28096338a3194d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="545e6b8119ea277270e724ccaa46cb1e" category="list-text">對要管理的任何其他儲存系統（包括任何要用作次要備份目標的系統）重複此程序。</block>
+  <block id="3a8a7a74225a06206255a2b145ecc17a" category="example-title">在選擇控制閥中設定備份原則</block>
+  <block id="edc42ed20de8d113c8fa71f24499923b" category="paragraph">如需建立選擇控制閥備份原則的詳細資訊、請參閱 <block ref="2b9cff16b00c1b9d682d20c3ce063f03" category="inline-link-macro-rx"></block>。</block>
+  <block id="f4874a1b428e07bb7649e214597ab550" category="paragraph">完成下列步驟以建立新的備份原則：</block>
+  <block id="7454ba0341f824aeb27a760d17bbe542" category="list-text">從左側菜單中選擇 *Policis* ，然後單擊 *Create* 開始。</block>
+  <block id="66ba4ef5392c25cdb6bb5de6445b283e" category="inline-image-macro">建立新原則</block>
+  <block id="9fedfe4fa7edce27e9d3f98a1af4810b" category="paragraph"><block ref="9fedfe4fa7edce27e9d3f98a1af4810b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bf4df743fae297381fa18c47fa462f62" category="list-text">在 * 新備份原則 * 表單上、提供原則的 * 名稱 * 和 * 說明 * 、備份的 * 頻率 * 、以及指定備份保留時間的 * 保留 * 期間。</block>
+  <block id="d1fa5716f1f3a6889cf290dd3d74f30d" category="paragraph">* 鎖定期間 * 可讓 ONTAP SnapLock 功能建立防竄改快照、並允許設定鎖定期間。</block>
+  <block id="d8795ab81913d5e7982549b80cd5a394" category="paragraph">對於 * 複製 * 選擇此選項可更新 ONTAP 儲存磁碟區的基礎 SnapMirror 或 SnapVault 關係。</block>
+  <block id="6aeaa46ca184bc438857273955bf4032" category="admonition">SnapMirror 和 SnapVault 複寫類似、因為它們都使用 ONTAP SnapMirror 技術、以非同步方式將儲存磁碟區複寫到次要儲存系統、以提高保護和安全性。對於 SnapMirror 關係、在選擇控制閥備份原則中指定的保留排程將控制主要和次要 Volume 的保留。透過 SnapVault 關係、可在次要儲存系統上建立獨立的保留排程、以供長期或不同的保留排程使用。在這種情況下、快照標籤會在選擇控制閥備份原則和與次要磁碟區相關的原則中指定、以識別要套用其自訂保留排程的磁碟區。</block>
+  <block id="734618b2ec2791b52ea04a63579aef45" category="paragraph">選擇任何其他進階選項、然後按一下 * 新增 * 以建立原則。</block>
+  <block id="8fb220de90bf8326dea5998b059f36a5" category="inline-image-macro">填寫原則詳細資料</block>
+  <block id="84d2f014790769952a1f0bdc31bd68cd" category="paragraph"><block ref="84d2f014790769952a1f0bdc31bd68cd" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e0d7212feae244e4c134353aeea1b0ea" category="example-title">在選擇控制閥中建立資源群組</block>
+  <block id="ca3971dfd6fc356080b2795ea7a29e98" category="paragraph">如需建立選擇控制閥資源群組的詳細資訊、請參閱 <block ref="fd7f76f23bb44f79389e29aef835039a" category="inline-link-macro-rx"></block>。</block>
+  <block id="994fa7b94755b57fa6da84eb85043874" category="paragraph">完成下列步驟以建立新的資源群組：</block>
+  <block id="3edee2503f14ee30a88fef8c452eed91" category="list-text">從左側功能表中選取 * 資源群組 * 、然後按一下 * 建立 * 開始。</block>
+  <block id="e402e5c276be05d79d8c134f8dea7f56" category="inline-image-macro">建立新的資源群組</block>
+  <block id="efa3ce56a9446d6bdbc0f6a59ef6d7f7" category="paragraph"><block ref="efa3ce56a9446d6bdbc0f6a59ef6d7f7" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="63d020ac8577c2dc74aaf37c3e69447e" category="list-text">在 * 一般資訊與通知 * 頁面上、提供資源群組的名稱、通知設定、以及快照命名的任何其他選項。</block>
+  <block id="e4d23d58736c7d55202e0bd0a89afcaf" category="list-text">在「 * 資源 * 」頁面上、選取要在資源群組中保護的資料存放區和 VM 。按一下 * 下一步 * 繼續。</block>
+  <block id="8d736d59b43ab631430096499f163859" category="admonition">即使只選取特定 VM 、整個資料存放區也會一律備份。這是因為 ONTAP 會擷取主控資料存放區的磁碟區快照。不過請注意、只選取特定的 VM 進行備份、就會限制只還原到那些 VM 的能力。</block>
+  <block id="79a67f2336d2ca9bc62ca6f22886b7f7" category="inline-image-macro">選取要備份的資源</block>
+  <block id="3036730160eaa08705bbcdc76b26b11d" category="paragraph"><block ref="3036730160eaa08705bbcdc76b26b11d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8a66c5cd970ab44125897d31582e7d83" category="list-text">在「 * 擴充磁碟 * 」頁面上、選取選項、以瞭解如何使用跨多個資料存放區的 VMDK 來處理 VM 。按一下 * 下一步 * 繼續。</block>
+  <block id="883f5b162e72d3b73cff316a54747ba2" category="inline-image-macro">選取跨距資料存放區選項</block>
+  <block id="2d23dfb892828a305018e39f72213dd1" category="paragraph"><block ref="2d23dfb892828a305018e39f72213dd1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="34c333e68b1c2a2c6549a148dea95af2" category="list-text">在「 * 原則 * 」頁面上、選取先前建立的原則或將用於此資源群組的多個原則。  按一下 * 下一步 * 繼續。</block>
+  <block id="681ae83a5d728c5719a400e87a4f24ff" category="inline-image-macro">選取原則</block>
+  <block id="41d3bb55318e5f0e5f8833c6847b0824" category="paragraph"><block ref="41d3bb55318e5f0e5f8833c6847b0824" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b9e309cb0ec2c8828a8e87f27c888603" category="list-text">在 * 排程 * 頁面上、設定一天中的週期和時間、以確定備份的執行時間。按一下 * 下一步 * 繼續。</block>
+  <block id="19b5c3b747c657dd34236c7b131fa8a9" category="inline-image-macro">選取排程 </block>
+  <block id="4ecb6541554d6bf0cc83fdf3c7ea8eb0" category="paragraph"><block ref="4ecb6541554d6bf0cc83fdf3c7ea8eb0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6619fe06d3aca63607f9a9f81c067a08" category="list-text">最後檢閱 * 摘要 * 、然後按一下 * 完成 * 以建立資源群組。</block>
+  <block id="03ad99c7e6469e04ec31596151ecce33" category="inline-image-macro">檢閱摘要並建立資源群組 </block>
+  <block id="394b70ea8c5682644d8073262e36f564" category="paragraph"><block ref="394b70ea8c5682644d8073262e36f564" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d24076bfac60fd251922d202043bd7e5" category="list-text">建立資源群組後、按一下「 * 立即執行 * 」按鈕以執行第一個備份。</block>
+  <block id="dbf1b01cd6aaa0c7d31e62b99d96cb8f" category="inline-image-macro">檢閱摘要並建立資源群組</block>
+  <block id="ab3157096b3a7b80d4fd24c78167a014" category="paragraph"><block ref="ab3157096b3a7b80d4fd24c78167a014" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="275226693b4c7fc751bc2eeb7577a61c" category="list-text">瀏覽至 * 儀表板 * 、並在 * 最近工作活動 * 下按一下 * 工作 ID * 旁的數字、以開啟工作監控器並檢視執行中工作的進度。</block>
+  <block id="c4b24e9423101257ee25abd3c3b5c8bb" category="inline-image-macro">檢視備份工作進度</block>
+  <block id="cd98da5c785c70a777ea0c6d7402237f" category="paragraph"><block ref="cd98da5c785c70a777ea0c6d7402237f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="34f65448c9279c5472268750ce0384fc" category="section-title">使用選擇控制閥來還原 VM 、 VMDK 和檔案</block>
+  <block id="87a5628eb3f1d02e647463695fcc87d3" category="paragraph">SnapCenter 外掛程式可從主要或次要備份還原 VM 、 VMDK 、檔案和資料夾。</block>
+  <block id="d5278efee8caf8cfbccc44ad5cde0ef7" category="paragraph">VM 可還原至原始主機、或還原至同一 vCenter Server 中的替代主機、或還原至由同一個 vCenter 或任何 vCenter 以連結模式管理的替代 ESXi 主機。</block>
+  <block id="76a79d2abdb645cd9db4df7497cb95e1" category="paragraph">VVOL VM 可還原至原始主機。</block>
+  <block id="8c0a6c594da4b50f7a6376296fbffd0d" category="paragraph">傳統 VM 中的 VMDK 可還原至原始資料存放區或替代資料存放區。</block>
+  <block id="99d517943a751dcb5759f3b932e49c36" category="paragraph">vVol VM 中的 VMDK 可還原至原始資料存放區。</block>
+  <block id="47ea04cbe4d98b46cd52b95c92681800" category="paragraph">來賓檔案還原工作階段中的個別檔案和資料夾可以還原、這些檔案和資料夾會附加虛擬磁碟的備份複本、然後還原選取的檔案或資料夾。</block>
+  <block id="894c85b18fd4f921f9e788182e8dc7f0" category="paragraph">完成下列步驟以還原 VM 、 VMDK 或個別資料夾。</block>
+  <block id="f68f43d1dccc73382829c58f897888a7" category="example-title">使用 SnapCenter 外掛程式還原 VM</block>
+  <block id="3ea8d004ad4693e60a4f38a6e7161639" category="paragraph">完成下列步驟、以使用選擇控制閥還原虛擬機器：</block>
+  <block id="8d08ca19ca4dc9d31c4a99d0969c3423" category="list-text">瀏覽至要在 vSphere 用戶端中還原的 VM 、按一下滑鼠右鍵、然後瀏覽至 * SnapCenter Plug-in for VMware vSphere * 。  從子功能表中選取 * 還原 * 。</block>
+  <block id="5359c8723ea8bf2f2be504b90b0d1ca9" category="inline-image-macro">選取以還原 VM</block>
+  <block id="40ee18eefe5a8a4c58ced0d7ba181dd6" category="paragraph"><block ref="40ee18eefe5a8a4c58ced0d7ba181dd6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="61f973926ee88a2d2d476b4b351b59a4" category="admonition">另一種方法是瀏覽至清查中的資料存放區、然後在 * 組態 * 索引標籤下、前往 * SnapCenter Plug-in for VMware vSphere &gt; Backups* 。從所選的備份中、選取要還原的 VM 。</block>
+  <block id="90afb03b5c44aeffe503731e127c177a" category="inline-image-macro">從資料存放區導覽備份</block>
+  <block id="1e7b858621d84435cf92759e7108502b" category="paragraph"><block ref="1e7b858621d84435cf92759e7108502b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d8c9aa71991779b3d6ecf18a2931c9c4" category="list-text">在 * 還原 * 精靈中、選取要使用的備份。按一下 * 下一步 * 繼續。</block>
+  <block id="5335c91e450b9e8575b9efcc110f3181" category="inline-image-macro">選取要使用的備份</block>
+  <block id="ee1b1c7ba101f4fb3248385fe552f590" category="paragraph"><block ref="ee1b1c7ba101f4fb3248385fe552f590" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5dfbed6234d997e096632da227d84661" category="list-text">在「 * 選取範圍 * 」頁面上、填寫所有必填欄位：</block>
+  <block id="30b461f2c66a6fee6b1383aac111e01d" category="list-text">* 還原範圍 * - 選取以還原整個虛擬機器。</block>
+  <block id="1baa3e329a7b5cde9d082f8f75083c8e" category="list-text">* 重新啟動 VM* ：選擇是否在還原後啟動 VM 。</block>
+  <block id="818c3c796539f4b17f162e8536e9fff3" category="list-text">* 還原位置 * ：選擇還原至原始位置或其他位置。選擇替代位置時、請從每個欄位中選取選項：</block>
+  <block id="790377025609aafa3ee799f0a320ec44" category="list-text">* 目的地 vCenter Server * ：本機 vCenter 或以連結模式替代 vCenter</block>
+  <block id="d8f1f0559783fd1b9463bb88b6f0902a" category="list-text">* 目的地 ESXi 主機 *</block>
+  <block id="28d088a01674ea58931c1dffe64fd8b0" category="list-text">*網路*</block>
+  <block id="a5f92c348cbbb56f5463322f1fc8804b" category="list-text">* 還原後的 VM 名稱 *</block>
+  <block id="e990c11d01df42392e2ca8cb120689ea" category="list-text">* 選擇資料存放區： *</block>
+  <block id="181fcd305abb16fa9415dcdc90b0a969" category="inline-image-macro">選取還原範圍選項</block>
+  <block id="ee67fd2dadc1d2d5b0aa09a5a23d7385" category="paragraph"><block ref="ee67fd2dadc1d2d5b0aa09a5a23d7385" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a41127e313b640a77021a07c5d929666" category="list-text">在 * 選取位置 * 頁面上、選擇從主要或次要 ONTAP 儲存系統還原 VM 。按一下 * 下一步 * 繼續。</block>
+  <block id="e58c7a8374fbe70e953099439d4a2319" category="inline-image-macro">選擇儲存位置</block>
+  <block id="254174ceee9f9b2b70ad0c8993a7058a" category="paragraph"><block ref="254174ceee9f9b2b70ad0c8993a7058a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="989c94a102f6981e57f2687299701142" category="list-text">最後、請檢閱 * 摘要 * 、然後按一下 * 完成 * 以開始還原工作。</block>
+  <block id="679b38f5ea0ba67ee8fb46260a113246" category="inline-image-macro">按一下「完成」以開始還原工作</block>
+  <block id="9c970060f00570b7910156f5a9dddc3d" category="paragraph"><block ref="9c970060f00570b7910156f5a9dddc3d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="15e5be96d0d25d1f3a8ee75a3bc13f95" category="list-text">還原工作進度可從 vSphere Client 的「最近工作」窗格和選擇控制閥的工作監控器進行監控。</block>
+  <block id="aaffc0acf95dbeeb1ae1fbfef10f5a9b" category="inline-image-macro">監控還原工作</block>
+  <block id="587c6120dd4b3090b8f4bbe62fd8c42d" category="paragraph"><block ref="587c6120dd4b3090b8f4bbe62fd8c42d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dff5398be698b1992cab6297c7718efb" category="example-title">使用 SnapCenter 外掛程式還原 VMDK</block>
+  <block id="e23bed6207f1fde51d347c491f4ce889" category="paragraph">ONTAP 工具可將 VMDK 完整還原至原始位置、或將 VMDK 作為新磁碟附加至主機系統。在此案例中、 VMDK 會附加至 Windows 主機、以存取檔案系統。</block>
+  <block id="e63ba35863840bcfbaede0fb3b20f63d" category="paragraph">若要從備份附加 VMDK 、請完成下列步驟：</block>
+  <block id="7242e1baee82351786401609a7fce377" category="list-text">在 vSphere Client 導覽至虛擬機器、然後從 * 動作 * 功能表中、選取 * SnapCenter Plug-in for VMware vSphere &gt; Attach Virtual Disk （ s ） * 。</block>
+  <block id="2bb57d0947b074c91abe74b3a82b17d3" category="inline-image-macro">選取附加虛擬磁碟</block>
+  <block id="6eda5940097dd35fba0d37a328bbd7a1" category="paragraph"><block ref="6eda5940097dd35fba0d37a328bbd7a1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8325b88d9603b2f2b42bc50dced406a3" category="list-text">在 * 附加虛擬磁碟 * 精靈中、選取要使用的備份執行個體和要附加的特定 VMDK 。</block>
+  <block id="10bbc1ce90662697173b544eae2ffba9" category="inline-image-macro">選取附加虛擬磁碟設定</block>
+  <block id="c3d38d3c7cb40c9a77c3d7c0c502e9a9" category="paragraph"><block ref="c3d38d3c7cb40c9a77c3d7c0c502e9a9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e2d27067028340dd332a908db1ce2174" category="admonition">篩選選項可用於尋找備份、以及顯示主要與次要儲存系統的備份。</block>
+  <block id="c21f414bfdb2ec9648414a08c99f6e27" category="inline-image-macro">附加虛擬磁碟篩選器</block>
+  <block id="094e6b29ba9dcf10829a8f80b3aa8d6d" category="paragraph"><block ref="094e6b29ba9dcf10829a8f80b3aa8d6d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9a514c0f154b33499ebfb0c12bd417ca" category="list-text">選取所有選項後、按一下 * 附加 * 按鈕以開始還原程序、並將 VMDK 附加到主機。</block>
+  <block id="d975f5b9eae06447fc350905379d781c" category="list-text">完成附加程序後、即可從主機系統的作業系統存取磁碟。在這種情況下、選擇控制閥將磁碟及其 NTFS 檔案系統附加至 Windows SQL Server 的 E ：磁碟機、檔案系統上的 SQL 資料庫檔案則可透過檔案總管存取。</block>
+  <block id="c1787f971d62f98c03bbca365c546c19" category="inline-image-macro">存取 Windows 檔案系統</block>
+  <block id="9fc133041d37308c1ec9f06f679eb451" category="paragraph"><block ref="9fc133041d37308c1ec9f06f679eb451" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4371a5ffed58615c3d460d19d9abe47b" category="example-title">使用 SnapCenter 外掛程式還原客體檔案系統</block>
+  <block id="0d8cc8e2c46b70a8a47794c30e6029d7" category="paragraph">ONTAP 工具可在 Windows 伺服器作業系統上、從 VMDK 還原來賓檔案系統。這是從 SnapCenter 外掛程式介面集中預先建立的。</block>
+  <block id="6d74a680eadd149117f584cf67b83c34" category="inline-link-macro">還原來賓檔案和資料夾</block>
+  <block id="792fe73bea4fbbf60a207d5a3135fc14" category="paragraph">如需詳細資訊、請參閱 <block ref="b291e87108c84e5ca887b85cc84dc2b4" category="inline-link-macro-rx"></block> 在選擇控制閥文件位置。</block>
+  <block id="de2289696799eebc22398ba19baa3eb4" category="paragraph">若要為 Windows 系統執行來賓檔案系統還原、請完成下列步驟：</block>
+  <block id="d6f7e107264b37b809d08ae5cdfedc5a" category="list-text">第一步是建立「以身分執行」認證、以提供對 Windows 主機系統的存取。在 vSphere Client 中瀏覽至 CSV 外掛介面、然後按一下主功能表中的 * 來賓檔案還原 * 。</block>
+  <block id="c3ec50da29eec20a452aee10c1d5b201" category="inline-image-macro">開啟來賓檔案還原</block>
+  <block id="752d1d1e9dda095b7e869ed8f9d36fa2" category="paragraph"><block ref="752d1d1e9dda095b7e869ed8f9d36fa2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e449e21eb5174c058361a0bc81c62051" category="list-text">在 * 以認證身分執行 * 下、按一下 * + * 圖示以開啟 * 以認證身分執行 * 視窗。</block>
+  <block id="9131bbd8358ed6fb727f2e953a7e7e34" category="inline-image-macro">以認證身分執行視窗</block>
+  <block id="9d124fce507cb506f2dbdf0a2cf9374d" category="list-text">填寫認證記錄的名稱、 Windows 系統的管理員使用者名稱和密碼、然後按一下 * 選取 VM* 按鈕、以選取要用於還原的選用 Proxy VM 。
+<block ref="ba8842d2af533387a31fc83fd0a0679d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f4bfb60643ba27eb5d62acedcfad2c65" category="list-text">在 Proxy VM 頁面上、提供虛擬機器的名稱、並依 ESXi 主機或名稱進行搜尋、以找出該虛擬機器。選取後、按一下 * 儲存 * 。</block>
+  <block id="76de86352628eed653f0a362ed003141" category="inline-image-macro">在 Proxy VM 頁面上找到 VM</block>
+  <block id="e8657585f30e26064c63e61a86957b1f" category="paragraph"><block ref="e8657585f30e26064c63e61a86957b1f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5b9658dc2ee86dabd691c32cabafc5c5" category="list-text">在「 * 以認證身分執行 * 」視窗中再次按一下「 * 儲存 * 」以完成記錄的儲存。</block>
+  <block id="603cc8090f96b7adfa71bf7dfa26e2df" category="list-text">接著、瀏覽至庫存中的 VM 。從 * 動作 * 功能表、或在虛擬機器上按一下滑鼠右鍵、選取 * SnapCenter Plug-in for VMware vSphere &gt; 來賓檔案還原 * 。</block>
+  <block id="d38f291ac6207ee0c30fc7dc362b2930" category="inline-image-macro">開啟來賓檔案還原精靈</block>
+  <block id="9956fd4ed9520414f656995f34e740d3" category="paragraph"><block ref="9956fd4ed9520414f656995f34e740d3" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="37fd204c4fedd53855038aae0ce79308" category="list-text">在 * 來賓檔案還原 * 精靈的 * 還原範圍 * 頁面上、選取要還原的備份、特定的 VMDK 、以及還原 VMDK 的位置（主要或次要）。按一下 * 下一步 * 繼續。</block>
+  <block id="a071af30d698e7c8a8e719fa5bac1d03" category="inline-image-macro">客體檔案還原範圍</block>
+  <block id="fc9fcfa19735b91ff921fbe6dfe96090" category="paragraph"><block ref="fc9fcfa19735b91ff921fbe6dfe96090" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d53a22ba3f56727eaa6a1bcbdce9ad8f" category="list-text">在 * 來賓詳細資料 * 頁面上、選取以使用 * 來賓 VM* 或 * 使用 GUEST 檔案還原 Proxy VM* 進行還原。此外、如有需要、請在此填寫電子郵件通知設定。按一下 * 下一步 * 繼續。</block>
+  <block id="7de61658fde6d83c8620c5503d5968a2" category="inline-image-macro">客體檔案詳細資料</block>
+  <block id="e4e2c622ae362979023c77b77d82ceae" category="paragraph"><block ref="e4e2c622ae362979023c77b77d82ceae" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="174ebe2d32a0287c9b4da65dca1fc484" category="list-text">最後、請檢閱 * 摘要 * 頁面、然後按一下 * 完成 * 以開始來賓檔案系統還原工作階段。</block>
+  <block id="a26556eabd16ea4c139c33a45a026e20" category="list-text">返回 SnapCenter 外掛程式介面、再次瀏覽至 * 來賓檔案還原 * 、並在 * 來賓工作階段監視 * 下檢視執行中的工作階段。按一下 * 瀏覽檔案 * 下的圖示以繼續。</block>
+  <block id="d351b4f885de711a6cdac2a09f7d740d" category="inline-image-macro">來賓工作階段監視器</block>
+  <block id="5740eb8b6a4657bac0541db5c94c6aa5" category="paragraph"><block ref="5740eb8b6a4657bac0541db5c94c6aa5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d31478b0c305f22320437db3e54133a5" category="list-text">在 * 來賓檔案瀏覽 * 精靈中、選取要還原的資料夾或檔案、以及要還原的檔案系統位置。最後、按一下 * 還原 * 以開始 * 還原 * 程序。</block>
+  <block id="bfd895854fce327e28db0c892ad570af" category="inline-image-macro">來賓檔案瀏覽 1.</block>
+  <block id="f443eff8b9e16b79eff5830f8cf4749e" category="paragraph"><block ref="f443eff8b9e16b79eff5830f8cf4749e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="70d0529354387aeb2e80234a8b5a8d37" category="inline-image-macro">來賓檔案瀏覽 2.</block>
+  <block id="3a447ac3c17d35deec2e59d68ce33f5c" category="paragraph"><block ref="3a447ac3c17d35deec2e59d68ce33f5c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="247841a4220d7335bbfd5b70e891d7fe" category="list-text">還原工作可從 vSphere Client 工作窗格進行監控。</block>
+  <block id="5fe86242791476a64032625c921dc097" category="paragraph">如需設定 VCF 的詳細資訊、請參閱<block ref="d78185ca2d3f8ff73ecda1a8b6952d88" category="inline-link-rx"></block>。</block>
+  <block id="a8da71f69ec441fc01faeca1c1377a7f" category="paragraph">如需設定 ONTAP 儲存系統的相關資訊、請參閱<block ref="d373e2504cd7cb4d97a8fbb79c309889" category="inline-link-rx"></block> 中心。</block>
+  <block id="56165bd72e4ddeb5659e370a1bdd95d2" category="paragraph">如需使用 SnapCenter Plug-in for VMware vSphere 的相關資訊、請參閱<block ref="245718e19f61bc6ffd537e61a8d903cc" category="inline-link-rx"></block>。</block>
+  <block id="466e75a50b0c71805b14d8243bd95d89" category="summary">此解決方案提供實用的工具組、可用來調整運算和儲存容量、以便在 Azure 雲端的 ANF 上部署 Oracle</block>
+  <block id="785f4ba8d55db20dc724a60afc28f84a" category="doc">Azure NetApp Files 的 Oracle 規模調整指南</block>
+  <block id="ed5766f3cdc3adad7995cc81f0248354" category="paragraph">將現有的 Oracle 工作負載從一個平台移轉至另一個平台、例如從內部部署移轉至公有雲、需要在目標平台中調整運算和儲存容量、以滿足效能和服務層級需求。本文件說明實現這項目標的簡單工具組。</block>
+  <block id="878511663b5526e80590b1e795eb9060" category="paragraph">與新的資料庫應用程式不同、新的資料庫應用程式可能會隨著時間而成長、現有的 Oracle 工作負載已在運算和儲存需求中建立工作負載模式、並記錄在 Oracle 工作負載儲存庫或 AWR 中。此工具套件使用 HTML 剖析器、從 Oracle AWR 擷取相關資訊。此外、透過 SQL 指令碼針對資料庫取得額外的規模調整資訊、以在重新定位 Oracle 資料庫時提供有意義的運算和儲存指引。</block>
+  <block id="e7f0bfd3895df86bb57d400fdbd480eb" category="list-text">在將資料庫從內部部署移轉至 Microsoft Azure 雲端時、提供 Oracle 資料庫伺服器運算的規模調整指引。</block>
+  <block id="4c5bd28bfdb3c1a3ec92f8604e5aacaa" category="list-text">在將資料庫從內部部署移轉至 Microsoft Azure NetApp Files 時、提供 Oracle 資料庫伺服器儲存設備的規模調整指引。</block>
+  <block id="d6d4c06619c0b547d4b3329d35ce5f1d" category="list-text">在內部部署私有資料中心或 Microsoft Azure 雲端環境中管理 Oracle 資料庫的 DBA 。</block>
+  <block id="0028d1ecc06926cad9bf6ed3e97d0582" category="list-text">管理內部儲存設備或支援 Oracle 資料庫的 Microsoft Azure NetApp Files 儲存設備的儲存管理員。</block>
+  <block id="24533dfc47add8f8960eaaf1f7ab538f" category="list-text">喜歡將 Oracle 資料庫從內部部署移轉至 Microsoft Azure 雲端的應用程式擁有者。</block>
+  <block id="398393a6740417ed0a5020cc6382706c" category="paragraph">存取、下載、安裝或使用此工具組儲存庫中的內容、即表示您同意中所列的授權條款 <block ref="62d065fbd7084423125af257eab414b9" category="inline-link-macro-rx"></block>。</block>
+  <block id="1d7ed3a0dc5ae98ed34a1698c0936087" category="admonition">對於與此工具組儲存庫中的內容產生及 / 或共用任何衍生作品、有特定限制。使用內容前、請務必先閱讀授權條款。如果您不同意所有條款、請勿存取、下載或使用此儲存庫中的內容。</block>
+  <block id="a9434144b2ecab8a1551aa3f356831a4" category="list-text">Oracle AWR 報告可擷取應用程式工作負載尖峰期間的資料庫活動快照。</block>
+  <block id="09893c03681f0427847775f074f38963" category="list-text">存取 Oracle 資料庫、以使用 DBA 權限執行 SQL 指令碼。</block>
+  <block id="97b8f9378711f0d69311d576b1f4a080" category="inline-link-macro">Oracle 規模調整指南</block>
+  <block id="d61fd641d504e6b15572a5b645d11d7d" category="paragraph">從儲存庫擷取工具組 <block ref="9d80dd73d3a7a092e6605ac547074b0f" category="inline-link-macro-rx"></block></block>
+  <block id="ef67c85019e8ac817ecbbb2983bd0153" category="section-title">如何使用此工具組？</block>
+  <block id="e0849abccea244e0fba40c3aa575d398" category="paragraph">此工具套件包含一個網路型 HTML 剖析器和兩個 SQL 指令碼、用於收集 Oracle 資料庫資訊。然後將輸出輸入 Excel 範本、以產生 Oracle 資料庫伺服器運算和儲存的規模調整指引。</block>
+  <block id="f5db9a220f11d7b08f96f33f94122f33" category="inline-link-macro">HTML 剖析器</block>
+  <block id="e82f0c37b6bd3400eddaf0d48fac4a76" category="list-text">使用 <block ref="735c7742f70fe756ee1537fe41775ee0" category="inline-link-macro-rx"></block> AWR 模組可從 AWR 報告中擷取目前 Oracle 資料庫的規模資訊。</block>
+  <block id="c000aa7f2c0d2b7df671b9d059b39d9a" category="list-text">執行 ora_db_data_sze.SQL 做為 DBA 、從資料庫擷取實體 Oracle 資料檔案大小。</block>
+  <block id="7e56648a80a16947fe5208c82f20d2f8" category="list-text">執行 ora_db_logs_size.SQL 做為 DBA 、以擷取所需歸檔記錄保留時間（天）內的 Oracle 歸檔記錄大小。</block>
+  <block id="d4cc69ca96964b53d4dc4a8c8e70fa45" category="list-text">將上述的大小調整資訊輸入 Excel 範本檔案 oracle_db_sizing_template_anf.xlsx 、為 Oracle DB 伺服器建立運算與儲存的大小調整指引。</block>
+  <block id="c32f0548f32df1c5796715d6838accdc" category="section-title">工具組使用示範</block>
+  <block id="d5f96f88e7de03605e304965b97f0def" category="list-text">開啟 HTML 剖析器 AWR 模組。</block>
+  <block id="da50365aa63534d4c2bd7ce86099231d" category="image-alt">此映像提供 HTML 剖析器畫面以供 Oracle 調整規模</block>
+  <block id="331c55723aab195e48092626da4e6907" category="list-text">檢查輸出格式為 .csv 、然後按一下<block ref="c7de86f69db264c3950d8ae46ed2e33f" prefix=" " category="inline-code"></block> 上傳 AWR 報告。剖析器會傳回 HTML 頁面、其中包含表格摘要、以及 output.csv 檔案<block ref="801ab24683a4a8c433c6eb40c48bcd9d" prefix=" " category="inline-code"></block> 資料夾。</block>
+  <block id="e58053ef001d0bd68ef74dcf703dbfc2" category="list-text">開啟 Excel 範本檔案、然後將 csv 內容複製到欄 A 和儲存格 1 、以產生 DB 伺服器規模資訊。</block>
+  <block id="a404780f0611d0e3011cd46a7dfab9ca" category="image-alt">此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模</block>
+  <block id="2c72112d51e1f40e5814355a84f4fdae" category="list-text">反白欄 A 和欄位 1 和 2 、然後按一下<block ref="f6068daa29dbb05a7ead1e3b5a48bbee" prefix=" " category="inline-code"></block>然後<block ref="0e219571c786524302c4eebb4879a15e" prefix=" " category="inline-code"></block> 開啟文字精靈。選擇<block ref="f6a6c0fefcadb1df90205a0b9a7fb8b7" prefix=" " category="inline-code"></block>然後<block ref="10ac3d04253ef7e1ddc73e6091c0cd55" prefix=" " category="inline-code"></block> 移至下一個畫面。</block>
+  <block id="3d01033901ef75a46bb97c8b3a8178d1" category="list-text">檢查<block ref="6311ae17c1ee52b36e68aaf4ad066387" prefix=" " category="inline-code"></block>、然後輸入「 = 」為<block ref="958b66a95f3598861511c6b9239889ce" prefix=" " category="inline-code"></block>。按一下<block ref="10ac3d04253ef7e1ddc73e6091c0cd55" prefix=" " category="inline-code"></block> 移至下一個畫面。</block>
+  <block id="709647fd98d95c62185491a6e07ba5b5" category="list-text">按一下<block ref="a20ddccbb6f808ec42cd66323e6c6061" prefix=" " category="inline-code"></block> 可將字串轉換成可讀的欄格式。注意： VM 和 anf 大小調整欄位已填入從 Oracle AWR 報告中擷取的資料。</block>
+  <block id="16a45fbf8378bcc158d03e720d4b5bba" category="list-text">在 sqlplus 中執行 scriptora_db_data_size.SQL 、 ora_db_logs_size.SQL 作為 DBA 、以擷取現有 Oracle 資料庫資料大小和封存記錄大小、並顯示保留天數視窗。</block>
+  <block id="5accfe4816c4c580d7ae070e09f468e5" category="admonition">使用上述指令碼擷取的資料庫大小資訊、是所有實體資料庫資料檔案或記錄檔實際大小的總和。它不會影響每個資料檔案內可用的可用空間。</block>
+  <block id="bb5201d282886d5d02f43e46996631ad" category="list-text">將結果輸入 Excel 檔案以完成大小調整指引輸出。</block>
+  <block id="08917e640578a9459480e8e1aa85c104" category="list-text">ANF 使用三層服務層級（ Standard 、 Premium 、 Ultra ）來管理資料庫 Volume 處理量限制。請參閱 <block ref="d946b67215f0c4092575c0d87ca9aa5f" category="inline-link-macro-rx"></block> 以取得詳細資料。根據規模調整指引輸出、選擇能提供處理量以滿足資料庫要求的 ANF 服務層級。</block>
+  <block id="bab79e483781380f673778a61876dc36" category="paragraph">若要深入瞭解 NetApp 資料庫解決方案、請參閱下列網站 <block ref="ca63df3d5fec1b59772567df2022f4ee" category="inline-link-macro-rx"></block></block>
+  <block id="03bae77dea3a3987d77db8242461c75b" category="paragraph">請參閱 <block ref="2cd70faee7f9c4e18fa00e05f9c37fd7" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
+  <block id="82b67ae3d50932b0d818b7c3a23b3428" category="summary">NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構</block>
+  <block id="15b10a4da1128e223f8fe1b32f5c0282" category="sidebar">Vcf 搭配 NetApp ASA 陣列</block>
+  <block id="46602edaeda15c2126e89b0e9b2aad8f" category="sidebar">iSCSI 是管理網域的補充儲存設備</block>
+  <block id="e1cd49acc1122b2e4285f7cd84f068fc" category="sidebar">VVols 是工作負載網域的補充儲存設備</block>
+  <block id="d3e02e6c5cffa0f959169435986b7185" category="sidebar">NVMe / TCP 是工作負載網域的補充儲存設備</block>
+  <block id="0930e709dff4ff65781cb989625665b5" category="sidebar">使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護工作負載網域</block>
+  <block id="7971b65756ed6daabdb37d67874e0dbb" category="sidebar">AWS Cloud</block>
+  <block id="6e6fa0d6a0c9cc4ff7b09a8dfc32bd84" category="sidebar">使用 Amazon FSX ONTAP 快速恢復並複製 Oracle VLDB</block>
+  <block id="5081e4816da4cb3b09aa6fc9e618b15f" category="sidebar">使用 iSCSI/ASM 在 AWS FSS/EC2 上部署及保護 Oracle 資料庫</block>
+  <block id="83399f78bd83aa045ee6f6e7d51bc5fa" category="sidebar">Azure Cloud</block>
+  <block id="c3db0bb2c63a17a4070e0cf2273a6c74" category="sidebar">內部部署 / 混合雲</block>
+  <block id="62936ff63579c8eba38171d42bc4a84d" category="sidebar">DB 規模調整工具套件</block>
 </blocks>

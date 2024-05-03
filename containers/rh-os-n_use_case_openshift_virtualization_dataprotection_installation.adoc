@@ -169,7 +169,6 @@ ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設�
 如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立一個 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用的是 Astra Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立了 Volume SnapShotClass CR 。
 
 ** 啟用 CSI 外掛程式 **
-
 將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。
 為了備份 CSI 備份的 PVCS 、 Velero CSI 外掛程式會選擇叢集中已設定 **Velero.IO/csi - volumesnapshot-class** 標籤的 Volume SnapshotClass 。針對此
 

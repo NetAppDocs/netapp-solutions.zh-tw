@@ -265,7 +265,7 @@ ONTAP-Dest::> cluster peer show
 ====
 下一步是在包含SnapMirror關係的磁碟區的目的地與來源儲存虛擬機器之間建立SVM關係。
 
-. 從來源FSX叢集、從CLI使用下列命令建立SVM對等關係：
+. 從目的地 ONTAP 叢集、使用 CLI 中的下列命令建立 SVM 對等關係：
 +
 ....
 ONTAP-Dest::> vserver peer create -vserver DestSVM -peer-vserver Backup -peer-cluster OnPremSourceSVM -applications snapmirror
