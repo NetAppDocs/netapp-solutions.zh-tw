@@ -20945,7 +20945,6 @@ PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如�
   <block id="d9bda8b1c18ddbd2b5915f4d86da5ee6" category="inline-link-macro">VMware Cloud Foundation 文件</block>
   <block id="ca3e8c4cbe6e0673226518a3889581c4" category="paragraph">如需設定 VCF 的詳細資訊、請參閱 <block ref="1cd8d4ca63ebdcac9c88270833a7587c" category="inline-link-macro-rx"></block>。</block>
   <block id="32582ec49dffd0bed337be4ce8aacbf1" category="doc">VVOL 資料存放區是 VI 工作負載網域的主要儲存設備</block>
-  <block id="efe3625b3d08fc13db1858ea9264eb1a" category="paragraph">作者： Ravi BCB 、 Josh Powell</block>
   <block id="bb009b658642eebf54d447f0f5f97fff" category="paragraph">在此案例中、我們將示範如何將 vVols 資料存放區設定為主要儲存區、以便在 VCF 中部署 VI 工作負載網域。VVols 容器必須在部署工作負載網域之前預先準備好。若要執行此 VMware vSphere 的 ONTAP 工具、請安裝在 VCF 管理網域中、並使用 Swagger API 工具來建立 VVols 容器。</block>
   <block id="5b1db7caeb078e746995fec4865cd3a7" category="paragraph">在適當情況下、我們會參考外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並僅涵蓋儲存組態部分的特定步驟。</block>
   <block id="a5dbf65f214c80cba15303e4359f4720" category="inline-link-macro">VVols Storage 搭配 VMware Cloud Foundation</block>
@@ -21234,7 +21233,6 @@ PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如�
   <block id="cbd3bbea01f9710659299fdc5acf2b6d" category="list-text">適用於尋求在私有雲和公有雲之間統一環境的客戶。</block>
   <block id="222f7ba2d7a15aa43d3de7ebee8dd44f" category="list-text">自動化解決方案、用於部署工作負載網域的虛擬基礎架構。</block>
   <block id="58a3d1357f14a4c5b7aa4bd3b084364d" category="list-text">可擴充的儲存解決方案是專為滿足不斷變化的需求而量身打造、即使不直接符合運算資源需求。</block>
-  <block id="700c91ea544aa00736fa25ccf5a40c61" category="list-text">使用 ONTAP 做為主要儲存設備（ NFS 、 vVol ）來部署 VCF VI 工作負載網域。</block>
   <block id="4ab9f3500deec7b550498ad8af7ed39e" category="list-text">使用適用於 VMware vSphere 的 ONTAP 工具、將補充儲存設備部署至 VI 工作負載網域。</block>
   <block id="d0b2f8724fbafc96120989697cb208ce" category="list-text">解決方案架構設計師希望為 VMware 環境提供更具彈性的儲存選項、以便將 TCO 最大化。</block>
   <block id="0aeaf148d43f56eac757be6e8cd7b02e" category="list-text">尋求 VCF 儲存選項的解決方案架構設計師、可為主要雲端供應商提供資料保護和災難恢復選項。</block>
@@ -21275,9 +21273,6 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="838c98d48ab1866379e2008e8de28bf9" category="paragraph">在本文件所述的案例中、我們將示範如何使用 ONTAP 儲存系統做為 VCF VI 工作負載網域部署的主要儲存設備。此外、我們將安裝並使用 ONTAP Tools for VMware vSphere 來設定 VI 工作負載網域的補充資料存放區。</block>
   <block id="9bae5a5400819a002db47f8fb83305c3" category="paragraph">本文件涵蓋的案例：</block>
   <block id="a93d47d38345b5d4142d584860fc74dc" category="inline-link-macro">* 此處 *</block>
-  <block id="c89ddfdbaed64ed342ab02508bd87653" category="list-text">* 在 VI 工作負載網域部署期間、設定並使用 NFS 資料存放區作為主要儲存設備。 * 按一下 <block ref="7a576d73ba779b44f09d4cd76348e3f7" category="inline-link-macro-rx"></block> 部署步驟。按一下 <block ref="7a576d73ba779b44f09d4cd76348e3f7" category="inline-link-macro-rx"></block></block>
-  <block id="6ccb2450cf1f00db1ffa07e4fd4f7ca6" category="list-text">* 在 VI 工作負載網域部署期間、設定並使用 vVol 資料存放區作為主要儲存設備。 * 按一下連結：</block>
-  <block id="7b05cc0d14df7b8ca5ad3b13eb899a59" category="list-text">* 安裝並示範使用 ONTAP 工具來設定及掛載 NFS 資料存放區、做為 VI 工作負載網域中的補充儲存區。 * 按一下 <block ref="1e62df23d236730c562fd8b72ccfbed2" category="inline-link-macro-rx"></block></block>
   <block id="f6e0a6acafce53eb8e95ce4b918358f0" category="doc">VMware Cloud Foundation 搭配 NetApp All Flash SAN 陣列</block>
   <block id="7a1f61e49aef9045aef55d574dd9defc" category="paragraph">本文件提供 VMware Cloud Foundation 使用 NetApp All Flash SAN 陣列的儲存選項相關資訊。支援的儲存選項在部署 iSCSI 資料存放區做為管理網域的補充儲存設備、以及將 vVol （ iSCSI ）和 NVMe / TCP 資料存放區做為工作負載網域的補充資料存放區的特定指示中有所涵蓋。同時也涵蓋使用 SnapCenter for VMware vSphere 的虛擬機器和資料存放區資料保護。</block>
   <block id="f894e280cd42dfe8774ec8c2238c491d" category="list-text">使用適用於 VMware vSphere 的 ONTAP 工具、將補充儲存部署至管理和 VI 工作負載網域。</block>
@@ -21317,10 +21312,6 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="d059ed613086fb5fd3a6b6932370e2e8" category="paragraph">如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪<block ref="381065db4e503c42160abe67161e41c7" category="inline-link-rx"></block>。</block>
   <block id="5a8affbf86113f08bdc1ac4a2fee4b65" category="paragraph">本文件所述的案例將示範如何使用 ONTAP 儲存系統做為管理和工作負載網域的補充儲存設備。此外、適用於 VMware vSphere 的 SnapCenter 外掛程式也可用來保護 VM 和資料存放區。</block>
   <block id="ffaaad4ed1112ec792ee23fcf76f076e" category="inline-link">* 此處 *</block>
-  <block id="38824c5cc1b86e5f2b7b703924fc293e" category="list-text">使用 ONTAP 工具在 VCF 管理網域中部署 iSCSI 資料存放區。按一下<block ref="8f9776b55343e99d1cd33aae553eadb6" category="inline-link-rx"></block> 部署步驟。</block>
-  <block id="f7dc83fabbf48c8be0c52906b44660e3" category="list-text">使用 ONTAP 工具在 VI 工作負載網域中部署 vVols （ iSCSI ）資料存放區。按一下<block ref="62f27c105a63b50192752e75207a8a24" category="inline-link-rx"></block> 部署步驟。</block>
-  <block id="186f980bd55cc3b31a895b56f718d85c" category="list-text">設定 NVMe over TCP 資料存放區以用於 VI 工作負載網域。按一下<block ref="d7fde00de2bb83a2164d7af6ea718133" category="inline-link-rx"></block> 部署步驟。</block>
-  <block id="354d5ebb4b81b236e77ee7da967e34ba" category="list-text">部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式、以保護及還原 VI 工作負載網域中的 VM 。按一下<block ref="21159a9375f273c849e116dbcf8d5c81" category="inline-link-rx"></block> 部署步驟。</block>
   <block id="38d9705c1fb11cbf2cafd7f4c1316635" category="doc">NFS 是 VI 工作負載網域的主要儲存設備</block>
   <block id="b5c4da4fffd926064f4220a0f092db69" category="paragraph">在此案例中、我們將示範如何將 NFS 資料存放區設定為主要儲存區、以便在 VCF 中部署 VI 工作負載網域。如有必要、我們會參閱外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並涵蓋儲存組態部分的特定步驟。</block>
   <block id="ddfedf1a91c403403be9a81231f277e2" category="list-text">驗證 ONTAP 儲存虛擬機器（ SVM ）的網路連線、以及是否存在邏輯介面（ LIF ）來傳輸 NFS 流量。</block>
@@ -21665,4 +21656,27 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="83399f78bd83aa045ee6f6e7d51bc5fa" category="sidebar">Azure Cloud</block>
   <block id="c3db0bb2c63a17a4070e0cf2273a6c74" category="sidebar">內部部署 / 混合雲</block>
   <block id="62936ff63579c8eba38171d42bc4a84d" category="sidebar">DB 規模調整工具套件</block>
+  <block id="726da5003fdbbf3f9655312e5259e83b" category="paragraph">作者： Josh Powell 、 Ravi BCB</block>
+  <block id="2178074243563bc9003b3a4b7acf7315" category="list-text">在 ESXi 主機上為 VI 工作負載網域建立 vmkernel 介面卡 for NFS 。</block>
+  <block id="ad3f0e0eec1106b455fe8c04e7b16c32" category="paragraph">NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、網路介面卡和主機系統提供容錯能力。根據架構需求、使用單一子網路或多個子網路來部署 NFS 是很常見的做法。</block>
+  <block id="22379f6ac74b6ffee788e66d6d818b46" category="inline-link">使用 VMware vSphere 執行 NFS 的最佳實務做法</block>
+  <block id="cd6bd1241540d82c88098296d2d54b39" category="paragraph">請參閱<block ref="8a552effd9d4c7b9bb8194394b11bf5b" category="inline-link-rx"></block> 如需 VMware vSphere 的詳細資訊、請參閱。</block>
+  <block id="83b8ed9374b6dff8222f50c173857b35" category="inline-link">網路組態 - NFS</block>
+  <block id="322fc61df29cc0aed213973413a30bb1" category="paragraph">如需搭配 VMware vSphere 使用 ONTAP 的網路指南、請參閱<block ref="89456d8c970a0bfd8ad443bde58fbcfb" category="inline-link-rx"></block> NetApp 企業應用程式文件的一節。</block>
+  <block id="7a9bab4bf37e7af82aa573a2c960be02" category="paragraph">本文件說明建立新 SVM 的程序、並指定 IP 位址資訊、以建立多個用於 NFS 流量的生命週期。若要新增生命至現有 SVM 、請參閱 <block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block>。</block>
+  <block id="7dabbd7da44333322108d34e6649d2ae" category="example-title">為 NFS 流量建立分散式連接埠群組</block>
+  <block id="69cc2e7655025973eb7bc540ddd7511d" category="list-text">建立連接埠群組之後、請瀏覽至連接埠群組、然後選取「 * 編輯設定 ... * 」動作。</block>
+  <block id="2f1a8b2a29374485dec6f8ac0cdf8e16" category="list-text">對叢集中的每個 ESXi 主機重複此程序。</block>
+  <block id="d27b6c6c2b2bd0597d95945d71b394b6" category="example-title">在每個 ESXi 主機上建立 VMkernel 介面卡</block>
+  <block id="384b307ce06d025efa25ee3598fe0c1a" category="paragraph"><block ref="384b307ce06d025efa25ee3598fe0c1a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c02874119ef5876e1601c497fe4ced43" category="list-text">使用 ONTAP 做為主要儲存設備來部署 VCF VI 工作負載網域。</block>
+  <block id="2bb22cacd172b1199157bfc37533a37c" category="list-text">* 在 VI 工作負載網域部署期間、設定並使用 NFS 資料存放區作為主要儲存設備。 * 按一下<block ref="cd33fa4678c0028e04e8eb4e3bb0de99" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="d3b8c8e6fc661a8094cbeda40ba49039" category="list-text">* 安裝並示範使用 ONTAP 工具來設定及掛載 NFS 資料存放區、做為 VI 工作負載網域中的補充儲存區。 * 按一下<block ref="cd33fa4678c0028e04e8eb4e3bb0de99" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="d0f835257fb9a8714bee10716840d6b6" category="list-text">* 使用 ONTAP 工具在 VCF 管理網域 * 中部署 iSCSI 資料存放區。按一下<block ref="8f9776b55343e99d1cd33aae553eadb6" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="c9d476f57274e5921131f78f204e0527" category="list-text">* 使用 ONTAP 工具在 VI 工作負載網域 * 中部署 vVols （ iSCSI ）資料存放區。按一下<block ref="62f27c105a63b50192752e75207a8a24" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="5d659cc4d6e7e924dbc07263c7a69c1d" category="list-text">* 設定 NVMe over TCP 資料存放區、以用於 VI 工作負載網域 * 。按一下<block ref="d7fde00de2bb83a2164d7af6ea718133" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="144e927ec7c86e0bd793779ff2850653" category="list-text">* 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VI 工作負載網域中的虛擬機器 * 。按一下<block ref="21159a9375f273c849e116dbcf8d5c81" category="inline-link-rx"></block> 部署步驟。</block>
+  <block id="5a7f29f568fb10af6ffcaa7cd1e2733e" category="sidebar">Vcf 搭配 NetApp AFF 陣列</block>
+  <block id="bdeb209853bcc53178b3a314a2d9eb6c" category="sidebar">NFS 是工作負載網域的主要儲存設備</block>
+  <block id="311d52ab2a0bb3e46955c806249f590f" category="sidebar">NFS 和 vVols 是工作負載網域的補充儲存設備</block>
 </blocks>
