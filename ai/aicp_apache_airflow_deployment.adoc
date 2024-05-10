@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ai/aicp_apache_airflow_deployment.html 
 keywords: AI, control plane, apache, airflow 
-summary: 本節說明在Kubernetes叢集中部署氣流時、必須完成的工作。 
+summary: 開放原始碼 MLOps 搭配 NetApp - Apache Airflow Deployment 
 ---
 = Apache Airflow部署
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: 本節說明在Kubernetes叢集中部署氣流時、必須完成的工�
 
 
 [role="lead"]
-NetApp建議在Kubernetes上執行Apache Airflow。本節說明在Kubernetes叢集中部署氣流時、必須完成的工作。
+本節說明在Kubernetes叢集中部署氣流時、必須完成的工作。
 
 
 NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外的平台上部署氣流、不在本解決方案的範圍之內。
@@ -26,7 +26,7 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 在您執行本節所述的部署練習之前、我們假設您已經執行下列工作：
 
 . 您已經擁有有效的Kubernetes叢集。
-. 您已經在Kubernetes叢集中安裝並設定NetApp Trident、如「NetApp Trident部署與組態」一節所述。
+. 您已在 Kubernetes 叢集中安裝並設定 NetApp Astra Trident 。如需 Astra Trident 的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident文件"]。
 
 
 
@@ -39,7 +39,7 @@ NOTE: 您可以在Kubernetes以外的平台上部署氣流。在Kubernetes以外
 
 == 設定預設Kubernetes StorageClass
 
-在部署氣流之前、您必須在Kubernetes叢集中指定預設StorageClass。氣流部署程序會嘗試使用預設StorageClass來配置新的持續磁碟區。如果沒有將StorageClass指定為預設StorageClass、則部署將會失敗。若要在叢集內指定預設StorageClass、請遵循一節中所述的指示 link:aicp_kubeflow_deployment_overview.html["Kubeflow部署"]。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。
+在部署氣流之前、您必須在Kubernetes叢集中指定預設StorageClass。氣流部署程序會嘗試使用預設StorageClass來配置新的持續磁碟區。如果沒有將StorageClass指定為預設StorageClass、則部署將會失敗。若要在叢集中指定預設 StorageClass 、請遵循中所述的指示 link:aicp_kubeflow_deployment_overview.html["Kubeflow部署"] 區段。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。
 
 
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ai/aicp_execute_a_single-node_ai_workload.html 
 keywords: Single-Node, AI, Kubernetes, cluster, PVC 
-summary: 若要在Kubernetes叢集中執行單節點AI和ML工作、請從部署跳接主機執行此頁面上的工作。 
+summary: 使用 NetApp 執行開放原始碼 MLOps - 執行單一節點 AI 工作負載 
 ---
 = 執行單節點AI工作負載
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: 若要在Kubernetes叢集中執行單節點AI和ML工作、請從部署
 
 
 [role="lead"]
-若要在Kubernetes叢集中執行單節點AI和ML工作、請從部署跳接主機執行下列工作。有了Trident、您就能快速輕鬆地建立資料磁碟區、讓Kubernetes工作負載能夠存取可能含有PB資料的資料。若要從Kubernetes Pod中存取此類資料磁碟區、只需在Pod定義中指定一個PVc即可。此步驟為Kubernetes原生作業、不需要NetApp專業人員。
+若要在Kubernetes叢集中執行單節點AI和ML工作、請從部署跳接主機執行下列工作。有了Trident、您就能快速輕鬆地建立資料磁碟區、讓Kubernetes工作負載能夠存取可能含有PB資料的資料。若要從Kubernetes Pod中存取此類資料磁碟區、只需在Pod定義中指定一個PVc即可。
 
 
 NOTE: 本節假設您已將您嘗試在Kubernetes叢集中執行的特定AI和ML工作負載（採用Docker容器格式）容器化。

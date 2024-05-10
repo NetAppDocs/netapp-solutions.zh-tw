@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: ai/aicp_introduction.html 
 keywords: tr-4798, tr4798, 4798, NetApp AI, Machine, Deep learning, introduction 
-summary: 本報告說明如何快速複製資料命名空間。本課程說明如何定義及實作AI訓練工作流程、將近乎即時的資料建立與模型基準、以利追蹤及版本管理。同時也說明如何在站台和區域之間順暢複寫資料、並迅速配置Jupyter Notebook工作區、以便存取大量的資料集。 
+summary: 本解決方案旨在示範幾種不同的開放原始碼工具和架構、這些工具和架構可整合至 MLOps 工作流程中。這些不同的工具和架構可以一起使用、也可以自行使用、視需求和使用案例而定。 
 ---
-= TR-4798：NetApp AI Control Plane
+= 使用 NetApp 的開放原始碼 MLOps
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,14 +14,17 @@ summary: 本報告說明如何快速複製資料命名空間。本課程說明�
 
 
 Mike Oglesby、NetApp
+NetApp 的 Mohan Acharya
 
 [role="lead"]
-各種規模的公司和組織、以及許多產業、紛紛轉向人工智慧（AI）、機器學習（ML）和深度學習（DL）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中獲得優勢。隨著企業組織增加AI、ML和DL的使用率、他們面臨許多挑戰、包括工作負載擴充性和資料可用度。本文件說明如何使用NetApp AI Control Plane解決這些挑戰、這套解決方案將NetApp資料管理功能與熱門的開放原始碼工具和架構配對。
+各種規模的公司和組織、以及許多產業、紛紛轉向人工智慧（AI）、機器學習（ML）和深度學習（DL）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中獲得優勢。隨著企業組織增加AI、ML和DL的使用率、他們面臨許多挑戰、包括工作負載擴充性和資料可用度。本解決方案將 NetApp 資料管理功能與熱門的開放原始碼工具和架構配對、示範如何解決這些挑戰。
 
-本報告說明如何快速複製資料命名空間。同時也說明如何在站台和區域之間無縫複寫資料、以建立一致且統一的AI/ML/DL資料傳輸途徑。此外、它還會引導您完成AI、ML和DL訓練工作流程的定義與實作、這些工作流程整合了近乎即時的資料建立與模型基準、以利追蹤及版本管理。有了這套解決方案、您可以追蹤每個模型訓練回溯到用來訓練和/或驗證模型的確切資料集。最後、本文件說明如何快速配置Jupyter Notebook工作區、並存取大量資料集。
+本解決方案旨在示範幾種不同的開放原始碼工具和架構、這些工具和架構可整合至 MLOps 工作流程中。這些不同的工具和架構可以一起使用、也可以自行使用、視需求和使用案例而定。
 
-附註：針對需要共用存取相同資料集的大量GPU伺服器大規模的HPC形式分散式訓練、或是如果您需要/偏好平行檔案系統、請查看 link:https://www.netapp.com/pdf.html?item=/media/31317-tr-4890.pdf["TR-4890"^]。本技術報告說明如何納入 link:https://blog.netapp.com/solution-support-for-beegfs-and-e-series/["NetApp完全支援的平行檔案系統解決方案BeeGFS"^] 作為NetApp AI Control Plane的一部分。此解決方案可從少數NVIDIA DGX A100系統擴充至完整的140節點SupermPOD。
+本解決方案涵蓋下列工具 / 架構：
 
-NetApp AI Control Plane的目標對象是資料科學家和資料工程師、ONTAP 因此需要最少的NetApp或NetApp®專業知識。有了這套解決方案、您就能使用簡單且熟悉的工具和介面來執行資料管理功能。如果您的環境中已經有NetApp儲存設備、您可以立即試用NetApp AI控制面板。如果您想試用解決方案、但還沒有NetApp儲存設備、請造訪 http://cloud.netapp.com/["cloud.netapp.com"^]而且您可以在幾分鐘內使用雲端型NetApp儲存解決方案來啟動和執行。下圖提供解決方案的視覺化功能。
+* link:https://airflow.apache.org["Apache Airflow"]
+* link:https://www.kubeflow.org["Kubeflow"]
+
 
 image:aicp_image1.png["錯誤：缺少圖形影像"]

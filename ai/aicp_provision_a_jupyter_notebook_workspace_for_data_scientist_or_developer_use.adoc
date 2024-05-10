@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html 
 keywords: Jupyter, Notebook, Workspace, Kubeflow 
-summary: Kubeflow能夠快速配置新的Jupyter筆記型電腦伺服器、做為資料科學家工作空間。若要使用Kubeflow來配置新的Jupyter筆記型電腦伺服器、請執行本頁所列的工作。 
+summary: NetApp 的開放原始碼 MLOps ：為資料科學家或開發人員提供 Jupyter 筆記型電腦工作區 
 ---
 = 為資料科學家或開發人員提供Jupyter筆記型電腦工作區
 :hardbreaks:
@@ -14,59 +14,6 @@ summary: Kubeflow能夠快速配置新的Jupyter筆記型電腦伺服器、做�
 
 
 [role="lead"]
-Kubeflow能夠快速配置新的Jupyter筆記型電腦伺服器、做為資料科學家工作空間。若要使用Kubeflow來配置新的Jupyter筆記型電腦伺服器、請執行下列工作。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/notebooks/["官方Kubeflow文件"^]。
+Kubeflow能夠快速配置新的Jupyter筆記型電腦伺服器、做為資料科學家工作空間。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/notebooks/["官方Kubeflow文件"^]。
 
-. 在Kubeflow中央儀表板中、按一下主功能表中的「Notebook Servers（筆記型電腦伺服器）」、瀏覽至Jupyter Notebook server管理頁面。
-+
 image:aicp_image9.png["錯誤：缺少圖形影像"]
-
-. 按一下「New Server（新伺服器）」以配置新的Jupyter Notebook伺服器。
-+
-image:aicp_image10.png["錯誤：缺少圖形影像"]
-
-. 命名新伺服器、選擇您要伺服器所依據的Docker映像、然後指定伺服器要保留的CPU和RAM數量。如果「命名空間」欄位為空白、請使用頁面標題中的「選取命名空間」功能表來選擇命名空間。然後、「Namespace（命名空間）」欄位會自動填入所選的命名空間。
-+
-在以下範例中、會選擇「kubeflow匿名」命名空間。此外、Docker映像、CPU和RAM的預設值也會被接受。
-
-+
-image:aicp_image11.png["錯誤：缺少圖形影像"]
-
-. 指定工作區Volume詳細資料。如果您選擇建立新磁碟區、則該磁碟區或永久虛擬磁碟區會使用預設StorageClass進行資源配置。因為使用Trident的StorageClass已在區段中指定為預設StorageClass link:aicp_kubeflow_deployment_overview.html["Kubeflow部署"]、磁碟區或永久虛擬磁碟區是以Trident來配置。此Volume會自動掛載為Jupyter Notebook Server Container中的預設工作區。使用者在伺服器上建立的任何筆記型電腦、若未儲存至個別的資料Volume、都會自動儲存至此工作區磁碟區。因此、筆記型電腦會在重新開機後持續運作。
-+
-image:aicp_image12.png["錯誤：缺少圖形影像"]
-
-. 新增資料磁碟區。下列範例指定名為「PPB -FG All」的現有PVc、並接受預設掛載點。
-+
-image:aicp_image13.png["錯誤：缺少圖形影像"]
-
-. *選用：*要求將所需的GPU數量分配給您的筆記型電腦伺服器。在下列範例中、需要一個GPU。
-+
-image:aicp_image14.png["錯誤：缺少圖形影像"]
-
-. 按一下「啟動」以配置新的筆記型電腦伺服器。
-. 等待筆記型電腦伺服器完全配置完成。如果您從未使用您指定的Docker映像來配置伺服器、則可能需要幾分鐘的時間、因為該映像需要下載。當伺服器已完全配置完成時、您會在Jupyter筆記型電腦管理頁面的「Status（狀態）」欄中看到綠色勾號。
-+
-image:aicp_image15.png["錯誤：缺少圖形影像"]
-
-. 按一下「連線」以連線至新的伺服器Web介面。
-. 確認已在伺服器上掛載步驟6中指定的資料集磁碟區。請注意、此磁碟區預設會掛載於預設工作區內。從使用者的觀點來看、這只是工作區內的另一個資料夾。使用者可能是資料科學家、而非基礎架構專家、因此不需要擁有任何儲存專業知識、就能使用此磁碟區。
-+
-image:aicp_image16.png["錯誤：缺少圖形影像"]
-
-+
-image:aicp_image17.png["錯誤：缺少圖形影像"]
-
-. 開啟終端機、並假設步驟5要求新磁碟區、執行「df -h」、確認新的Trident資源配置持續磁碟區已掛載為預設工作區。
-+
-預設工作區目錄是您第一次存取伺服器Web介面時所顯示的基礎目錄。因此、您使用Web介面建立的任何成品都會儲存在此Trident資源配置的持續Volume中。
-
-+
-image:aicp_image18.png["錯誤：缺少圖形影像"]
-
-+
-image:aicp_image19.png["錯誤：缺少圖形影像"]
-
-. 使用終端機執行「nvidia-smi」、確認已將正確數量的GPU分配給筆記型電腦伺服器。在下列範例中、已依照步驟7的要求、將一個GPU分配給筆記型電腦伺服器。
-
-
-image:aicp_image20.png["錯誤：缺少圖形影像"]

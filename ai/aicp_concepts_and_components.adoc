@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: ai/aicp_concepts_and_components.html 
 keywords: Trident, DeepOps, ONTAP, FlexClone, containers, AI, Kubernetes, Kubeflow, Jupyter, Airflow 
-summary: 本頁包含瞭解NetApp如何推動AI專案的背景、包括有關Container、Kubernetes、NetApp Trident等項目的資訊。 
+summary: 開放原始碼 MLOps with NetApp - 技術概覽 
 ---
-= 概念與元件
+= 技術總覽
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -40,39 +40,49 @@ image:aicp_image2.png["錯誤：缺少圖形影像"]
 
 == Kubernetes
 
-Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes可將容器化應用程式的部署、管理及擴充功能自動化。近年來、Kubernetes已成為主要的容器協調平台。雖然支援其他容器封裝格式和執行時間、但Kubernetes通常是Docker容器的協調系統。如需詳細資訊、請參閱 https://kubernetes.io["Kubernetes網站"^]。
+Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes可將容器化應用程式的部署、管理及擴充功能自動化。近年來、Kubernetes已成為主要的容器協調平台。如需詳細資訊、請參閱 https://kubernetes.io["Kubernetes網站"^]。
 
 
 
-== NetApp Trident
+== NetApp Astra Trident
 
-Trident是NetApp開發與維護的開放原始碼儲存協調工具、可大幅簡化Kubernetes工作負載的持續儲存設備建立、管理與使用。Trident本身是Kubernetes原生應用程式、直接在Kubernetes叢集內執行。Kubernetes使用者（開發人員、資料科學家、Kubernetes系統管理員等）可以使用他們已經熟悉的標準Kubernetes格式、建立、管理及與持續儲存磁碟區互動。同時、他們也能善用NetApp先進的資料管理功能、以及採用NetApp技術的資料架構。Trident將持續儲存設備的複雜度抽象化、使其易於使用。如需詳細資訊、請參閱 https://netapp.io/persistent-storage-provisioner-for-kubernetes/["Trident網站"^]。
+Astra Trident 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務、以及 Google Cloud 上的 Cloud Volumes Service 。Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與 Kubernetes 原生整合。
 
 
 
-== NVIDIA DeepOps
+== NetApp DataOps工具套件
 
-DeepOps是NVIDIA的開放原始碼專案、使用Ansible可根據最佳實務做法、自動部署GPU伺服器叢集。DeepOps是模組化的、可用於各種部署工作。本文件及其所說明的驗證作業中、DeepOps用於部署Kubernetes叢集、其中包含GPU伺服器工作節點。如需詳細資訊、請參閱 https://github.com/NVIDIA/deepops["DeepOps網站"^]。
+。 link:https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"] 是一套 Python 型工具、可簡化開發 / 訓練工作區的管理、以及以高效能橫向擴充 NetApp 儲存設備為後盾的推斷伺服器。主要功能包括：
+
+* 快速配置以高效能橫向擴充 NetApp 儲存設備為後盾的全新高容量工作區。
+* 以近乎即時的方式複製高容量工作空間、以便進行實驗或快速迭代。
+* 近乎即時地儲存高容量工作區的快照、以供備份及 / 或追蹤 / 基準處理。
+* 近乎即時地配置、複製及快照高容量、高效能的資料磁碟區。
+
 
 
 
 == Kubeflow
 
-Kubeflow是Kubernetes的開放原始碼AI和ML工具套件、最初由Google開發。Kubeflow專案讓Kubernetes上的AI和ML工作流程部署變得簡單、可攜且可擴充。Kubeflow將Kubernetes複雜的資料擷取出來、讓資料科學家能夠專注於他們最瞭解的資料科學。如需視覺化功能、請參閱下圖。由於企業IT部門越來越標準化Kubernetes、Kubeflow的發展也越來越顯著。如需詳細資訊、請參閱 http://www.kubeflow.org/["Kubeflow網站"^]。
-
-image:aicp_image3.png["錯誤：缺少圖形影像"]
+Kubeflow是Kubernetes的開放原始碼AI和ML工具套件、最初由Google開發。Kubeflow專案讓Kubernetes上的AI和ML工作流程部署變得簡單、可攜且可擴充。Kubeflow 將 Kubernetes 的複雜性抽象化、讓資料科學家能夠專注於他們最瞭解的資料科學。如需視覺化功能、請參閱下圖。Kubeflow 是適合偏好一體化 MLOps 平台的組織、是理想的開放原始碼選項。如需詳細資訊、請參閱 http://www.kubeflow.org/["Kubeflow網站"^]。
 
 
 
 === Kubeflow Pipines
 
-Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署可攜式且可擴充的AI和ML工作流程的平台和標準。如需詳細資訊、請參閱 https://www.kubeflow.org/docs/components/pipelines/pipelines/["官方Kubeflow文件"^]。
+Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署可攜式且可擴充的AI和ML工作流程的平台和標準。如需詳細資訊、請參閱 https://www.kubeflow.org/docs/components/pipelines/["官方Kubeflow文件"^]。
 
 
 
 === Jupyter筆記型電腦伺服器
 
 Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱 http://www.jupyter.org/["Jupyter網站"^]。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/notebooks/overview/["官方Kubeflow文件"^]。
+
+
+
+=== Katib
+
+Katib 是 Kubernetes 原生的自動化機器學習（ AutoML ）專案。Katib 支援超參數調校、早期停止和神經架構搜尋（ NAS ）。Katib 是與機器學習（ ML ）架構不相關的專案。它可以調整以使用者選擇的任何語言寫入的應用程式超頻參數、並原生支援許多 ML 架構、例如 TensorFlow 、 MXNet 、 PyTorch 、 XGBoost 、 及其他。Katib 支援許多不同的 AutoML 演算法、例如 Bayesia 最佳化、 Parzen Estimators 樹、隨機搜尋、 Covariance Matrix Adaptation Evolution Strategy 、 Hyperband 、高效神經架構搜尋、差異化架構搜尋等。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/katib/overview/["官方Kubeflow文件"^]。
 
 
 
@@ -88,42 +98,44 @@ Apache Airflow是開放原始碼的工作流程管理平台、可針對複雜的
 
 
 
-== NetApp ONTAP 產品9.
+== NetApp ONTAP
 
-NetApp ONTAP 支援NetApp的最新一代儲存管理軟體、可讓像您這樣的企業將基礎架構現代化、並移轉至雲端就緒的資料中心。藉由領先業界的資料管理功能、ONTAP 無論資料位於何處、您都能使用單一工具組來管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。包含許多功能、可簡化資料管理、加速並保護關鍵資料、以及跨越混合雲架構的符合未來需求的基礎架構。ONTAP
+NetApp最新一代的儲存管理軟體、即支援企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP
 
 
 
 === 簡化資料管理
 
-資料管理對企業IT營運至關重要、因此您可以將適當的資源用於應用程式和資料集。包含下列功能、可簡化及簡化作業、並降低營運總成本：ONTAP
+資料管理對於企業IT營運和資料科學家而言至關重要、因此可將適當的資源用於AI應用程式和訓練AI/ML資料集。下列關於NetApp技術的其他資訊超出此驗證範圍、但可能會因您的部署而有所差異。
 
-* *即時資料壓縮與擴充重複資料刪除技術。*資料壓縮技術可減少儲存區塊內的空間浪費、重複資料刪除技術則可大幅提升有效容量。
-* *服務品質（QoS）的最低、最大和調適性。*精細的QoS控制可協助維持高共享環境中關鍵應用程式的效能等級。
-* *此功能可將冷資料自動分層至公有雲和私有雲儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp以物件為基礎的儲存設備。ONTAP FabricPool StorageGRID
+包含下列功能的資料管理軟體、可簡化及簡化作業、並降低您的總營運成本：ONTAP
+
+* 即時資料精簡與擴充重複資料刪除技術。資料壓縮可減少儲存區塊內的空間浪費、重複資料刪除技術可大幅提升有效容量。這適用於本機儲存的資料、以及分層至雲端的資料。
+* 最低、最大及可調適的服務品質（AQO）。精細的服務品質（QoS）控制有助於維持高共享環境中關鍵應用程式的效能等級。
+* NetApp FabricPool自動將冷資料分層至公有和私有雲端儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp StorageGRID 等儲存解決方案。如需FabricPool 更多有關資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/17239-tr4598pdf.pdf["TR-4598：FabricPool 最佳實務做法"^]。
 
 
 
 
 === 加速並保護資料
 
-提供優異的效能與資料保護、並透過下列功能來延伸這些功能：ONTAP
+提供優異的效能與資料保護、並以下列方式擴充這些功能：ONTAP
 
-* *高效能與低延遲。ONTAP *
-* * NetApp ONTAP FlexGroup 功能* FlexGroup 。*一個功能強大的資料容器、可線性擴充至高達20PB和4000億個檔案、提供簡化資料管理的單一命名空間。
-* *資料保護* ONTAP 效能*功能提供內建的資料保護功能、並可在所有平台上進行通用管理。
-* * NetApp Volume Encryption。ONTAP *支援內建和外部金鑰管理、提供原生Volume層級的加密功能。
+* 效能與較低的延遲。以最低的延遲提供最高的處理量。ONTAP
+* 資料保護：支援所有平台的通用管理功能、可提供內建的資料保護功能。ONTAP
+* NetApp Volume Encryption（NVE）。支援內建和外部金鑰管理、提供原生Volume層級的加密功能。ONTAP
+* 多租戶和多因素驗證。支援以最高安全等級共享基礎架構資源。ONTAP
 
 
 
 
 === 符合未來需求的基礎架構
 
-支援需求嚴苛且瞬息萬變的企業需求：ONTAP
+下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP
 
-* *無縫擴充與不中斷營運。* ONTAP 支援在不中斷營運的情況下、為現有控制器和橫向擴充叢集增加容量。您可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
-* * Cloud connection。* ONTAP 效能不只是雲端連線能力最強的儲存管理軟體之一、ONTAP Select 還可在Cloud Volumes Service 所有公有雲中選擇軟體定義儲存（英文）和雲端原生執行個體（NetApp邊）。
-* *整合新興應用程式。* ONTAP 使用支援現有企業應用程式的相同基礎架構、即可為OpenStack、Hadoop和MongoDB等新一代平台和應用程式提供企業級資料服務。
+* 無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
+* 雲端連線：ONTAP 是最具雲端連線能力的儲存管理軟體、可在所有公有雲中選擇軟體定義儲存設備和雲端原生執行個體。
+* 與新興應用程式整合。利用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式提供企業級資料服務、例如自動駕駛車輛、智慧城市和產業4.0。ONTAP
 
 
 
@@ -153,8 +165,6 @@ image:aicp_image5.png["錯誤：缺少圖形影像"]
 NetApp SnapMirror軟體是一款具成本效益且易於使用的統一化複寫解決方案、適用於整個資料架構。它可透過LAN或WAN高速複寫資料。它可為各種應用程式提供高資料可用度及快速資料複寫、包括虛擬與傳統環境中的業務關鍵應用程式。當您將資料複寫到一或多個NetApp儲存系統、並持續更新次要資料時、資料會保持最新狀態、而且隨時可供使用。不需要外部複寫伺服器。請參閱下圖、瞭解運用SnapMirror技術的架構範例。
 
 SnapMirror軟體透過ONTAP 網路僅傳送變更的區塊、充分發揮NetApp的效能。SnapMirror軟體也使用內建的網路壓縮功能來加速資料傳輸、並減少高達70%的網路頻寬使用率。有了SnapMirror技術、您可以利用單一精簡複寫資料串流來建立單一儲存庫、同時維護作用中鏡像和先前的時間點複本、最多可減少50%的網路流量。
-
-image:aicp_image6.png["錯誤：缺少圖形影像"]
 
 
 

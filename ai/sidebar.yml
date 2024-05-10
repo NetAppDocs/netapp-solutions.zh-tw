@@ -113,54 +113,46 @@ entries:
       url: "/ai/nvaie_additional_information.html"
   - title: 適用於StorageGRID 自主駕駛工作負載的NetApp數據湖
     url: "/ai/tr-4851.html"
-  - title: NetApp AI Control Plane
+  - title: 使用 NetApp 的開放原始碼 MLOps
     entries:
     - title: 簡介
       url: "/ai/aicp_introduction.html"
-    - title: 概念與元件
+    - title: 技術總覽
       url: "/ai/aicp_concepts_and_components.html"
-    - title: 硬體與軟體需求
+    - title: 架構
       url: "/ai/aicp_hardware_and_software_requirements.html"
-    - title: Kubernetes部署
-      url: "/ai/aicp_kubernetes_deployment.html"
-    - title: NetApp Trident部署與組態
+    - title: NetApp Astra Trident 組態
       entries:
-      - title: Trident部署
-        url: "/ai/aicp_netapp_trident_deployment_and_configuration_overview.html"
-      - title: Trident後端範例、適用於ONTAP AI部署
+      - title: NetApp AIPod 部署的 Astra Trident 後端範例
         url: "/ai/aicp_example_trident_backends_for_ontap_ai_deployments.html"
-      - title: Kubernetes StorageClass範例ONTAP 、可用於進行AI部署
+      - title: NetApp AIPod 部署的 Kubernetes StorageClasses 範例
         url: "/ai/aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html"
-    - title: Kubeflow部署
-      url: "/ai/aicp_kubeflow_deployment_overview.html"
-    - title: Kubeflow作業與工作範例
-      url: "/ai/aicp_example_kubeflow_operations_and_tasks_overview.html"
+    - title: Kubeflow
       entries:
-      - title: 總覽
-        url: "/ai/aicp_example_kubeflow_operations_and_tasks_overview.html"
-      - title: 為資料科學家或開發人員提供Jupyter筆記型電腦工作區
-        url: "/ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html"
-      - title: 筆記型電腦和管線範例
-        url: "/ai/aicp_example_notebooks_and_pipelines.html"
-    - title: Apache Airflow部署
-      url: "/ai/aicp_apache_airflow_deployment.html"
-    - title: Apache氣流工作流程範例
-      url: "/ai/aicp_example_apache_airflow_workflows_overview.html"
-    - title: Trident作業範例
+      - title: Kubeflow部署
+        url: "/ai/aicp_kubeflow_deployment_overview.html"
+      - title: Kubeflow作業與工作範例
+        entries:
+        - title: 為資料科學家或開發人員提供Jupyter筆記型電腦工作區
+          url: "/ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html"
+        - title: 使用 NetApp DataOps Toolkit 搭配 Kubeflow
+          url: "/ai/aicp_example_notebooks_and_pipelines.html"
+        - title: 範例工作流程 - 訓練影像辨識模型
+          url: "/ai/aicp_kubeflow_train_image_recognition.html"
+    - title: Apache Airflow
+      entries:
+      - title: Apache Airflow部署
+        url: "/ai/aicp_apache_airflow_deployment.html"
+      - title: 使用 NetApp DataOps 工具套件搭配氣流
+        url: "/ai/aicp_example_apache_airflow_workflows_overview.html"
+    - title: Astra Trident 營運範例
       url: "/ai/aicp_example_trident_operations_overview.html"
-    - title: 適用於AI部署的高效能工作範例ONTAP
-      url: "/ai/aicp_example_high-performance_jobs_for_ontap_ai_deployments_overview.html"
+    - title: 適用於 AIPod 部署的高效能工作範例
       entries:
-      - title: 總覽
-        url: "/ai/aicp_example_high-performance_jobs_for_ontap_ai_deployments_overview.html"
       - title: 執行單節點AI工作負載
         url: "/ai/aicp_execute_a_single-node_ai_workload.html"
       - title: 執行同步分散式AI工作負載
         url: "/ai/aicp_execute_a_synchronous_distributed_ai_workload.html"
-    - title: 效能測試
-      url: "/ai/aicp_performance_testing.html"
-    - title: 結論
-      url: "/ai/aicp_conclusion.html"
   - title: 採用Iguazio的MLRun Pipeline
     entries:
     - title: 簡介

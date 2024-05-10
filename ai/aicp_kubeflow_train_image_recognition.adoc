@@ -1,0 +1,71 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_kubeflow_train_image_recognition.html 
+keywords: Jupyter Notebook, Kubeflow Pipeline, NetApp DataOps Toolkit, MNIST, Image Recognition 
+summary: 開放原始碼 MLOps 搭配 NetApp - 範例工作流程 - 使用 Kubeflow 和 NetApp DataOps Toolkit 訓練影像辨識模型 
+---
+= 範例工作流程：使用 Kubeflow 和 NetApp DataOps Toolkit 訓練影像辨識模型
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節說明使用 Kubeflow 和 NetApp DataOps 工具套件來訓練及部署用於影像辨識的神經網路所涉及的步驟。這是一個範例、旨在展示整合 NetApp 儲存設備的訓練工作。
+
+
+
+== 先決條件
+
+使用必要的組態建立一個 Dockerfile 、以用於 Kubeflow 管道中的訓練和測試步驟。
+以下是一個 Dockerfile 的範例：
+
+[source]
+----
+FROM pytorch/pytorch:latest
+RUN pip install torchvision numpy scikit-learn matplotlib tensorboard
+WORKDIR /app
+COPY . /app
+COPY train_mnist.py /app/train_mnist.py
+CMD ["python", "train_mnist.py"]
+----
+視您的需求而定、安裝執行程式所需的所有必要程式庫和套件。在您訓練機器學習模式之前、我們假設您已經有一個有效的 Kubefflow 部署。
+
+
+
+== 使用 PyTorch 和 Kubeflow Pipelines 訓練一部小型 NN on MIST Data
+
+我們使用小型神經網路的範例來訓練 MIST 資料。MIST 資料集由 0-9 位數的手寫影像組成。影像大小為 28x28 像素。資料集分為 60 、 000 個訓練影像和 10 、 000 個驗證影像。此實驗使用的神經網路是 2 層饋送網路。訓練是使用 Kubeflow Pipelines 執行。請參閱文件 https://www.kubeflow.org/docs/components/pipelines/v1/introduction/["請按這裡"^] 以取得更多資訊。我們的 Kubeflow 管道整合了「先決條件」區段中的泊塢視窗影像。
+
+image:kubeflow_pipeline.png["Kubeflow Pipeline Run 視覺化"]
+
+
+
+== 使用 Tensorboard 視覺化結果
+
+一旦模型經過訓練、我們就可以使用 Tensorboard 將結果視覺化。 https://www.tensorflow.org/tensorboard["Tensorboard"^] 可在 Kubeflow 儀表板上作為功能使用。您可以為工作建立自訂的浮動期管理板。以下範例顯示訓練準確度與的繪圖時期和訓練損失與時期數。
+
+image:tensorboard_graph.png["訓練損失與準確度的 Tensorboard 圖表"]
+
+
+
+== 使用 Katib 嘗試使用 Hyperparameters
+
+https://www.kubeflow.org/docs/components/katib/hyperparameter/["Katib"^] 是 Kubeflow 內的一項工具、可用於實驗模型超參數。若要建立實驗、請先定義所需的指標 / 目標。這通常是測試準確度。一旦定義了度量、請選擇您想要使用的超參數（最佳化器 / 學習率 / 層數）。Katib 會使用使用者定義的值執行超參數掃描、以找出符合所需度量的最佳參數組合。您可以在 UI 的每個區段中定義這些參數。或者、您也可以使用必要的規格來定義 * YAML* 檔案。以下是 Katib 實驗的圖例：
+
+image:katib_experiment_1.png["使用超參數的 Katib 實驗儀表板"]
+
+image:katib_experiment_2.png["成功的試用檢查"]
+
+
+
+== 使用 NetApp Snapshot 來儲存資料以進行追蹤
+
+在模型訓練期間、我們可能想要儲存訓練資料集的快照、以便追蹤。為達成此目標、我們可以將快照步驟新增至管道、如下所示。若要建立快照、我們可以使用 https://github.com/NetApp/netapp-dataops-toolkit/tree/main/netapp_dataops_k8s["適用於Kubernetes的NetApp DataOps工具套件"^]。
+
+image:kubeflow_snapshot.png["在 Kubeflow 中建立 Snapshot 管線的程式碼"]
+
+請參閱 https://github.com/NetApp/netapp-dataops-toolkit/tree/main/netapp_dataops_k8s/Examples/Kubeflow["NetApp DataOps Toolkit Kubeflow 範例"^] 以取得更多資訊。
