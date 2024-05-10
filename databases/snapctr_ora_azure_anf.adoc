@@ -21,7 +21,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 NetApp SnapCenter 流通軟體是易於使用的企業平台、可安全地協調及管理應用程式、資料庫及檔案系統之間的資料保護。它可將這些工作卸載給應用程式擁有者、而不犧牲在儲存系統上監督及管理活動的能力、進而簡化備份、還原及複製生命週期管理。藉由運用儲存型資料管理功能、可提升效能與可用度、並縮短測試與開發時間。
 
-在 TR-4987 中、 link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_anf_nfs.html["Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署"^]、我們示範在 Azure 雲端的 Azure NetApp Files （ anf ）上自動部署 Oracle 。在本文件中、我們以非常簡單易用的 SnapCenter UI 工具、在 Azure 雲端的 ANF 上展示 Oracle 資料庫保護與管理功能。
+在 TR-4987 中、 link:automation_ora_anf_nfs.html["Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署"^]、我們示範在 Azure 雲端的 Azure NetApp Files （ anf ）上自動部署 Oracle 。在本文件中、我們以非常簡單易用的 SnapCenter UI 工具、在 Azure 雲端的 ANF 上展示 Oracle 資料庫保護與管理功能。
 
 本解決方案可解決下列使用案例：
 
@@ -141,10 +141,10 @@ image::automation_ora_anf_nfs_archit.png[此映像提供在 AWS 公有雲中使�
 
 [%collapsible]
 ====
-部署需要在 Azure 的 ANF 上執行現有的 Oracle 資料庫。如果沒有、請依照下列步驟建立兩個 Oracle 資料庫以進行解決方案驗證。如需在 Azure 雲端以自動化技術部署 Oracle 資料庫的詳細資訊、請參閱 TR-4987 ： link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_anf_nfs.html["Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署"^]
+部署需要在 Azure 的 ANF 上執行現有的 Oracle 資料庫。如果沒有、請依照下列步驟建立兩個 Oracle 資料庫以進行解決方案驗證。如需在 Azure 雲端以自動化技術部署 Oracle 資料庫的詳細資訊、請參閱 TR-4987 ： link:automation_ora_anf_nfs.html["Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署"^]
 
 . Azure 帳戶已設定完成、您的 Azure 帳戶已建立必要的 vnet 和網路區段。
-. 從 Azure 雲端入口網站、將 Azure Linux VM 部署為 Oracle DB 伺服器。為 Oracle 資料庫建立 Azure NetApp Files 容量集區和資料庫磁碟區。啟用 VM SSH 私密 / 公開金鑰驗證、以利 azureuser 與 DB 伺服器之間的驗證。如需環境設定的詳細資訊、請參閱上一節的架構圖表。也請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_procedures.html["Azure VM和Azure NetApp Files 整套Oracle部署程序"^] 以取得詳細資訊。
+. 從 Azure 雲端入口網站、將 Azure Linux VM 部署為 Oracle DB 伺服器。為 Oracle 資料庫建立 Azure NetApp Files 容量集區和資料庫磁碟區。啟用 VM SSH 私密 / 公開金鑰驗證、以利 azureuser 與 DB 伺服器之間的驗證。如需環境設定的詳細資訊、請參閱上一節的架構圖表。也請參閱 link:azure_ora_nfile_procedures.html["Azure VM和Azure NetApp Files 整套Oracle部署程序"^] 以取得詳細資訊。
 +
 
 NOTE: 對於部署了本機磁碟備援的 Azure VM 、請確定您已在 VM 根磁碟中至少分配 128G 、以有足夠的空間來存放 Oracle 安裝檔案、並新增 OS 交換檔。相應地展開 /tmplv 和 /rontlv OS 分區。確保資料庫磁碟區命名遵循 VMNAME-u01 、 VMNAME-u02 和 VMNAME-u03 慣例。
@@ -160,14 +160,14 @@ sudo lvresize -r -L +20G /dev/mapper/rootvg-rootlv
 sudo lvresize -r -L +10G /dev/mapper/rootvg-tmplv
 ----
 . 從 Azure 雲端入口網站佈建 Windows 伺服器、以最新版本執行 NetApp SnapCenter UI 工具。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["安裝SnapCenter 此伺服器"^]。
-. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中
+. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:../automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中
 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或
 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
 +
 
 NOTE: Ansible 控制器節點可在預先置入或 Azure 雲端中找到、只要透過 ssh 連接埠到達 Azure DB VM 即可。
 
-. 複製 NetApp Oracle 部署自動化工具套件 for NFS 的複本。請遵循中的指示 link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_anf_nfs.html["TR-4887"^] 以執行教戰手冊。
+. 複製 NetApp Oracle 部署自動化工具套件 for NFS 的複本。請遵循中的指示 link:automation_ora_anf_nfs.html["TR-4887"^] 以執行教戰手冊。
 +
 [source, cli]
 ----
@@ -548,6 +548,6 @@ link:https://docs.netapp.com/us-en/snapcenter/index.html["https://docs.netapp.co
 
 * TR-4987 ：簡化的自動化 Azure NetApp Files NFS 部署
 +
-link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_anf_nfs.html["https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_anf_nfs.html"^]
+link:automation_ora_anf_nfs.html["部署程序"]
 
 

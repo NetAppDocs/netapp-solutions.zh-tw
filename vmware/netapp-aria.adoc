@@ -1,0 +1,56 @@
+---
+sidebar: sidebar 
+permalink: vmware/netapp-aria.html 
+keywords: netapp, vmware, aria, getting, started 
+summary:  
+---
+= NetApp 與 VMware Aria
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+VMware Aria 是一款智慧型多雲端管理解決方案、包含一套產品、可讓您持續部署及操作應用程式、基礎架構及平台服務。
+
+VMware Aria 可讓管理員透過單一平台和通用資料模型、在私有雲、混合雲和多個雲端之間取得環境的控制權。VMware Aria Automation 不僅能在資源配置期間執行自動化、也能管理虛擬機器應用程式或 Kubernetes 型應用程式的完整生命週期。
+
+image:netapp-aria-image01.png["VMware Aria 與 NetApp ONTAP 整合選項"]
+
+VMware Aria 提供各種整合選項、包括使用 RESTful API 、 Python 、 PowerShell 、 Node.js 、 Ansible 、 木偶、大廚、鹽、泰拉表（ Terraform ）等 對於 vSphere 資料存放區資源配置工作流程、請考慮使用 ONTAP 工具 RESTful API 來減少要執行的工作數量。
+
+我們的大多數產品、例如 ONTAP 、 ONTAP 工具、適用於 VMware vSphere 的 SnapCenter 外掛程式、 Astra 控制等、都提供 RESTful API 、您可以使用 Swagger UI 來探索。
+若要使用 Swagger UI 、請參閱下列 URL 。
+link:https://docs.netapp.com/us-en/ontap-automation/reference/api_reference.html#access-the-ontap-api-documentation-page["ONTAP - ++https://<management ip>/docs/api/++"]
+link:https://docs.netapp.com/us-en/active-iq-unified-manager/api-automation/concept_api_url_and_categories.html#accessing-the-online-api-documentation-page["Active IQ Unified Manager - ++https://<management ip>/docs/api/++"]
+ONTAP 工具 - 請依照 ONTAP 工具 vCenter 外掛程式「概觀」頁面上「資源」區段下的連結進行。使用 9.12 版時、格式為 + + https://<ONTAP 工具 IP > ： 8143/API/REST / swagger-UI.html++
+link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_access_rest_apis_using_the_swagger_api_web_page.html["SnapCenter Plug-in for VMware vSphere - ++https://<SCV_IP>:8144/api/swagger-ui/index.html++"]
+Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 API 文件下的連結。格式為 ++ https://<Astra Control <accountID> /++
+
+以下是一些可與 VMware Aria 整合的額外資源。
+link:https://github.com/NetApp-Automation/ONTAP_Tools_Datastore_Management["使用 ONTAP 工具 API 管理 vSphere 資料存放區的範例可閱讀的教戰手冊"]
+link:https://galaxy.ansible.com/netapp["適用於 Ansible 的 NetApp 模組"]
+link:https://supermarket.chef.io/cookbooks?q=netapp["NetApp 主廚食譜"]
+link:https://forge.puppet.com/modules/puppetlabs/netapp/readme["ONTAP Puppet 模組"]
+link:https://github.com/NetApp/terraform-provider-netapp-cloudmanager["BlueXP 的 Terraform 供應商"]
+link:https://pypi.org/project/netapp-ontap/["ONTAP Python 用戶端程式庫"]
+link:https://www.powershellgallery.com/packages/NetApp.ONTAP["適用於 ONTAP 的 PowerShell 工具套件"]
+link:https://services.cloud.netapp.com/developer-hub["BlueXP API 文件"]
+link:https://github.com/NetApp/netapp-astra-toolkits["Astra Control Python SDK"]
+link:https://github.com/NetApp/Verda["使用 Astra Control 執行應用程式一致資料保護的指令碼"]
+link:https://github.com/NetApp/netapp-dataops-toolkit["DataOps 工具套件"]
+link:https://github.com/NetApp-Automation/DRO-AWS["災難恢復協調器 - AWS"]
+link:https://github.com/NetApp-Automation/DRO-Azure["災難恢復協調器 - Azure"]
+link:https://github.com/NetApp-Automation/SnapCenter-Plug-in-for-VMware-vSphere["適用於 VMware vSphere 部署的 SnapCenter 外掛程式、含 Ansible"]
+link:https://docs.spot.io/api/["Spot API"]
+link:https://www.instaclustr.com/support/api-integrations/api-reference/provisioning-api/["Instaclustr Provisioning API"]
+link:https://www.instaclustr.com/support/api-integrations/api-reference/monitoring-api/["Instacluster Monitoring API"]
+
+VMware Aria 可協助管理員即時掌握其基礎架構、協助他們執行與營運相關的工作。VMware Aria Management Pack for NetApp FS/AFF 是適用於 VMware Aria Operations 的內嵌介面卡。這項整合可提供基礎架構的分析和最新資訊、協助您在問題發生時或可能更快發現問題。
+
+* link:https://www.vmware.com/products/aria.html["VMware Aria 產品頁面"]
+* link:https://docs.vmware.com/en/VMware-Aria-Operations-for-Integrations/4.2/Management-Pack-for-NetApp-FAS-AFF/GUID-9B9C2353-3975-403A-8803-EBF6CDB62D2C.html["適用於 NetApp FS/AFF 的 VMware Aria Operations Management Pack"]
+

@@ -1,0 +1,122 @@
+---
+section: vmware
+title: 使用 VMware 進行虛擬化
+url: "/vmware/index.html"
+entries:
+- title: VMware ONTAP 虛擬化技術
+  url: https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html
+- title: VMware Cloud Foundation
+  entries:
+  - title: Vcf 搭配 NetApp ASA 陣列
+    url: "/vmware/vmware_vcf_asa_overview.html"
+    entries:
+    - title: iSCSI 是管理網域的補充儲存設備
+      url: "/vmware/vmware_vcf_asa_supp_mgmt_iscsi.html"
+    - title: VVols 是工作負載網域的補充儲存設備
+      url: "/vmware/vmware_vcf_asa_supp_wkld_vvols.html"
+    - title: NVMe / TCP 是工作負載網域的補充儲存設備
+      url: "/vmware/vmware_vcf_asa_supp_wkld_nvme.html"
+    - title: 使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護工作負載網域
+      url: "/vmware/vmware_vcf_asa_scv_wkld.html"
+  - title: Vcf 搭配 NetApp AFF 陣列
+    url: "/vmware/vmware_vcf_aff_overview.html"
+    entries:
+    - title: NFS 是工作負載網域的主要儲存設備
+      url: "/vmware/vmware_vcf_aff_principal_nfs.html"
+    - title: NFS 和 vVols 是工作負載網域的補充儲存設備
+      url: "/vmware/vmware_vcf_aff_supp_wkld"
+- title: VMware vSphere Automation
+  url: "/vmware/vsphere_auto_introduction.html"
+  entries:
+  - title: 傳統區塊儲存資源配置
+    url: "/vmware/vsphere_ontap_auto_block.html"
+    entries:
+    - title: VMFS -光纖通道
+      url: "/vmware/vsphere_ontap_auto_block_fc.html"
+    - title: VMFS -乙太網路光纖通道
+      url: "/vmware/vsphere_ontap_auto_block_fcoe.html"
+    - title: VMFS - iSCSI
+      url: "/vmware/vsphere_ontap_auto_block_iscsi.html"
+    - title: VMFS - NVMe over Fabric
+      url: "/vmware/vsphere_ontap_auto_block_nvmeof.html"
+  - title: 傳統檔案儲存資源配置
+    url: "/vmware/vsphere_ontap_auto_file.html"
+    entries:
+    - title: NFS - v3
+      url: "/vmware/vsphere_ontap_auto_file_nfs.html"
+    - title: NFS - v4.1
+      url: "/vmware/vsphere_ontap_auto_file_nfs41.html"
+- title: 適用於公有雲的VMware
+  url: "/ehc/index.html"
+- title: VMware 混合式多雲端使用案例
+  entries:
+  - title: 使用案例總覽
+    url: "/ehc/ehc-use-cases.html"
+- title: 虛擬桌面
+  entries:
+  - title: 虛擬桌面服務（VDS）
+    entries:
+    - title: 採用NetApp虛擬桌面服務的混合雲VDI
+      url: "/vdi-vds/hcvdivds_hybrid_cloud_vdi_with_virtual_desktop_service.html"
+      entries:
+      - title: 使用案例
+        url: "/vdi-vds/hcvdivds_use_cases.html"
+      - title: NetApp虛擬桌面服務總覽
+        url: "/vdi-vds/hcvdivds_netapp_virtual_desktop_service_overview.html"
+      - title: 概述NetApp HCI
+        url: "/vdi-vds/hcvdivds_netapp_hci_overview.html"
+      - title: NVIDIA授權
+        url: "/vdi-vds/hcvdivds_nvidia_licensing.html"
+      - title: VDS 的部署
+        url: "/vdi-vds/hcvdivds_deployment.html"
+      - title: 混合雲環境
+        url: "/vdi-vds/hcvdivds_hybrid_cloud_environment.html"
+      - title: 使用登入VSI進行單一伺服器負載測試
+        url: "/vdi-vds/hcvdivds_single_server_load_test_with_login_vsi.html"
+      - title: 管理入口網站
+        url: "/vdi-vds/hcvdivds_management_portal.html"
+      - title: 使用者管理
+        url: "/vdi-vds/hcvdivds_user_management.html"
+      - title: 工作區管理
+        url: "/vdi-vds/hcvdivds_workspace_management.html"
+      - title: 應用程式管理
+        url: "/vdi-vds/hcvdivds_application_management.html"
+      - title: 虛擬桌面服務的功能ONTAP
+        url: "/vdi-vds/hcvdivds_why_ontap.html"
+      - title: 資料管理
+        url: "/vdi-vds/hcvdivds_data_management.html"
+      - title: 營運管理
+        url: "/vdi-vds/hcvdivds_operation_management.html"
+      - title: 工具與記錄
+        url: "/vdi-vds/hcvdivds_tools_and_logs.html"
+      - title: GPU考量
+        url: "/vdi-vds/hcvdivds_gpu_considerations.html"
+      - title: 業界解決方案
+        url: "/vdi-vds/hcvdivds_solutions_for_industry.html"
+      - title: 結論
+        url: "/vdi-vds/hcvdivds_conclusion.html"
+      - title: 何處可找到其他資訊
+        url: "/vdi-vds/hcvdivds_where_to_find_additional_information.html"
+  - title: VMware Horizon
+    entries:
+    - title: 使用VMware進行終端使用者運算（設計指南）
+      url: "/vmware/nva-1132-design.html"
+    - title: 使用VMware與NVIDIA GPU進行終端使用者運算（設計指南）
+      url: "/vmware/nva-1129-design.html"
+    - title: 使用VMware與NVIDIA GPU進行終端使用者運算（部署指南）
+      url: "/vmware/nva-1129-deploy.html"
+    - title: 使用VMware for 3D Graphics進行終端使用者運算
+      url: "/vmware/tr-4792.html"
+  - title: 解決方案FlexPod
+    url: "/vmware/flex-virtual-solutions.html"
+- title: NetApp All Flash SAN Array 搭配 VMware vSphere 8
+  url: "/vmware/vsphere_ontap_asa_overview.html"
+  entries:
+  - title: VMware vSphere適用的VMware工具ONTAP
+    url: "/vmware/vsphere_ontap_asa_otv.html"
+  - title: Cloud Insights
+    url: "/vmware/vsphere_ontap_asa_insights.html"
+- title: 示範與教學課程
+  entries:
+  - title: 影片
+    url: "/vmware/vsphere_demos_videos.html"

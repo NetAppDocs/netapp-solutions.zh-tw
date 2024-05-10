@@ -76,11 +76,11 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 .在Google Cloud上設定CVO、並將磁碟區複寫至CVO
 [%collapsible]
 ====
-第一步是在Cloud Volumes ONTAP Google Cloud上設定 (https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp-guest.html["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
+第一步是在 Google Cloud 上設定 Cloud Volumes ONTAP （link:gcp-guest.html["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
 
 image:dr-cvo-gcve-image2.png["錯誤：缺少圖形影像"]
 
-如需設定SnapCenter 不一致及複寫資料的逐步說明範例、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/aws-guest-dr-config-snapmirror.html["利用SnapCenter 功能進行複寫設定"]
+如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱 link:aws-guest-dr-solution-overview.html#config-snapmirror["利用SnapCenter 功能進行複寫設定"]
 
 .使用 SnapCenter 審查 SQL VM 保護
 video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
@@ -92,7 +92,7 @@ video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
 
 NetApp Cloud Volume Service for NFS Datastore 和 Cloud Volumes ONTAP for SQL 資料庫和記錄可部署至任何 VPC 、 GCVE 應與該 VPC 建立私有連線、以掛載 NFS 資料存放區、並讓 VM 連線至 iSCSI LUN 。
 
-若要設定GCVE/ SDDC、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp-setup.html["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
+若要設定GCVE/ SDDC、請參閱 link:gcp-setup.html["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
 
 正確設定好VMware和GCVETM之後Cloud Volumes ONTAP 、請開始設定Veeam、使用Veeam複寫功能、並利用SnapMirror將應用程式Volume複本複製到Cloud Volumes ONTAP VMware、將內部部署工作負載的恢復作業自動化至GCVETM（使用應用程式VMDK的VM和使用客體內建儲存設備的VM）。
 

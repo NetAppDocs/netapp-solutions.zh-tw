@@ -1,0 +1,209 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmware_vcf_asa_overview.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, san, nfs, vvol, vvols, array, ontap tools, otv, sddc, iscsi, fc, fibre channel, nvme 
+summary:  
+---
+= VMware Cloud Foundation 搭配 NetApp All Flash SAN 陣列
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+作者： Josh Powell
+
+
+
+== VMware Cloud Foundation 搭配 NetApp All Flash SAN 陣列
+
+VMware Cloud Foundation （ VCF ）是整合式軟體定義資料中心（ SDDC ）平台、可提供完整的軟體定義基礎架構堆疊、以便在混合雲環境中執行企業應用程式。它將運算、儲存、網路和管理功能整合到統一的平台中、在私有雲和公有雲之間提供一致的營運體驗。
+
+本文件提供 VMware Cloud Foundation 使用 NetApp All Flash SAN 陣列的儲存選項相關資訊。支援的儲存選項在部署 iSCSI 資料存放區做為管理網域的補充儲存設備、以及將 vVol （ iSCSI ）和 NVMe / TCP 資料存放區做為工作負載網域的補充資料存放區的特定指示中有所涵蓋。同時也涵蓋使用 SnapCenter for VMware vSphere 的虛擬機器和資料存放區資料保護。
+
+
+
+=== 使用案例
+
+本文件涵蓋的使用案例：
+
+* 適用於尋求在私有雲和公有雲之間統一環境的客戶。
+* 自動化解決方案、用於部署工作負載網域的虛擬基礎架構。
+* 可擴充的儲存解決方案是專為滿足不斷變化的需求而量身打造、即使不直接符合運算資源需求。
+* 使用適用於 VMware vSphere 的 ONTAP 工具、將補充儲存部署至管理和 VI 工作負載網域。
+* 使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VM 和資料存放區。
+
+
+
+
+=== 目標對象
+
+本解決方案適用於下列人員：
+
+* 解決方案架構設計師希望為 VMware 環境提供更具彈性的儲存選項、以便將 TCO 最大化。
+* 尋求 VCF 儲存選項的解決方案架構設計師、可為主要雲端供應商提供資料保護和災難恢復選項。
+* 儲存管理員需要關於如何使用主要儲存設備和補充儲存設備來設定 VCF 的特定指示。
+* 儲存管理員需要有關如何保護 ONTAP 儲存設備上的 VM 和資料存放區的特定指示。
+
+
+
+
+== 技術總覽
+
+VCF with NetApp ASA 解決方案包含下列主要元件：
+
+
+
+=== VMware Cloud Foundation
+
+VMware Cloud Foundation 將 SDDC Manager 、 vSphere 、 vSAN 、 NSX 和 VMware Aria Suite 等重要元件結合在一起、以建立軟體定義的資料中心、藉此延伸 VMware 的 vSphere Hypervisor 產品。
+
+VCF 解決方案同時支援原生 Kubernetes 和虛擬機器型工作負載。VMware vSphere 、 VMware vSAN 、 VMware NSS-T Data Center 和 VMware Aria Cloud Management 等重要服務是 VCF 套件不可或缺的元件。結合使用時、這些服務會建立軟體定義基礎架構、能夠有效管理運算、儲存、網路、安全性和雲端管理。
+
+Vcf 由單一管理網域和最多 24 個 VI 工作負載網域組成、每個網域代表一個應用程式就緒基礎架構單元。工作負載網域是由單一 vCenter 執行個體所管理的一或多個 vSphere 叢集所組成。
+
+image:vmware-vcf-aff-image02.png["Vcf 架構"]
+
+如需 VCF 架構與規劃的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-design/GUID-A550B597-463F-403F-BE9A-BFF3BECB9523.html["VMware Cloud Foundation 中的架構模型和工作負載網域類型"]。
+
+｛ nbsp ｝
+
+
+
+==== Vcf 儲存選項
+
+VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有 VI 工作負載網域可用的主要儲存選項和補充儲存選項。
+
+image:vmware-vcf-aff-image01.png["Vcf 儲存選項"]
+
+* 工作負載網域的主要儲存設備 *
+主要儲存設備是指在 SDDC Manager 中的設定程序中、任何類型的儲存設備都可以直接連線至 VI 工作負載網域。主要儲存設備是以 SDDC 管理程式部署、作為叢集建立協調的一部分、也是第一個為工作負載網域設定的資料存放區。它在光纖通道上包含 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。
+
+* 管理與工作負載網域的補充儲存設備 *
+補充儲存設備是一種儲存類型、可在建立叢集之後的任何時間新增至管理或工作負載網域。輔助儲存設備代表最廣泛的支援儲存選項、所有選項均支援 NetApp ASA 陣列。您可以針對大多數的儲存傳輸協定類型、使用適用於 VMware vSphere 的 ONTAP 工具來部署補充儲存設備。
+
+VMware Cloud Foundation 的其他文件資源：
+* link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]
+* link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-design/GUID-2156EC66-BBBB-4197-91AD-660315385D2E.html["VMware Cloud Foundation 支援的儲存類型"]
+* link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-admin/GUID-2C4653EB-5654-45CB-B072-2C2E29CB6C89.html["在 VMware Cloud Foundation 中管理儲存設備"]
+｛ nbsp ｝
+
+
+
+=== NetApp All Flash SAN 陣列
+
+NetApp All Flash SAN Array （ ASA ）是一款高效能儲存解決方案、專為滿足現代資料中心的嚴苛需求而設計。它結合 Flash 儲存設備的速度與可靠性、以及 NetApp 的進階資料管理功能、提供卓越的效能、擴充性與資料保護。
+
+ASA 系列產品由 A 系列和 C 系列機型組成。
+
+NetApp A 系列全 NVMe 快閃陣列專為高效能工作負載所設計、提供超低延遲和高恢復能力、適合關鍵任務應用程式使用。
+
+image::vmware-asa-image1.png[VMware ASA 影像 1.]
+
+C 系列 QLC 快閃陣列的目標是提供更高容量的使用案例、以混合式 Flash 的經濟效益提供 Flash 的速度。
+
+image::vmware-asa-image2.png[VMware ASA 影像 2.]
+
+如需詳細資訊、請參閱 https://www.netapp.com/data-storage/all-flash-san-storage-array["NetApp ASA 登陸頁面"]。
+｛ nbsp ｝
+
+
+
+==== 儲存傳輸協定支援
+
+ASA 支援所有標準 SAN 傳輸協定、包括 iSCSI 、光纖通道（ FC ）、乙太網路光纖通道（ FCoE ）和 NVMe over Fabric 。
+
+*ISCSI* - NetApp ASA 提供強大的 iSCSI 支援、可透過 IP 網路存取區塊層級的儲存裝置。它提供與 iSCSI 啟動器的無縫整合、可有效配置及管理 iSCSI LUN 。ONTAP 的進階功能、例如多重路徑、 CHAP 驗證和 ALUA 支援。
+
+如需 iSCSI 組態的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/san-config/configure-iscsi-san-hosts-ha-pairs-reference.html["SAN 組態參考文件"]。
+
+* 光纖通道 * - NetApp ASA 提供對光纖通道 (FC) 的全面支援，這是儲存區域網路 (SAN) 中常用的高速網路技術。ONTAP 可與 FC 基礎架構無縫整合、提供可靠且有效率的區塊層級儲存設備存取。它提供分區、多路徑和架構登入（ FLOGI ）等功能、可在 FC 環境中最佳化效能、增強安全性、並確保無縫連線。
+
+如需光纖通道組態的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/san-config/fc-config-concept.html["SAN 組態參考文件"]。
+
+* NVMe over Fabrics * ： NetApp ONTAP 和 ASA 支援 NVMe over Fabrics 。NVMe / FC 可透過光纖通道基礎架構使用 NVMe 儲存裝置、以及透過儲存 IP 網路使用 NVMe / TCP 。
+
+如需 NVMe 的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/nvme/support-limitations.html["NVMe 組態、支援和限制"]
+｛ nbsp ｝
+
+
+
+==== 主動式技術
+
+NetApp All Flash SAN Array 可透過兩個控制器提供雙主動式路徑、無需主機作業系統等待作用中路徑故障後再啟動替代路徑。這表示主機可以使用所有控制器上的所有可用路徑、無論系統是處於穩定狀態、還是正在進行控制器容錯移轉作業、都能確保使用中的路徑永遠存在。
+
+此外、 NetApp ASA 還提供獨特功能、可大幅提升 SAN 容錯移轉的速度。每個控制器都會持續將重要的 LUN 中繼資料複寫給合作夥伴。因此、如果合作夥伴突然故障、每位控制器都準備好接管資料服務職責。這種整備是可能的、因為控制器已經擁有必要的資訊、可以開始使用先前由故障控制器管理的磁碟機。
+
+使用雙主動式路徑時、計畫性和非計畫性的移轉都會有 2-3 秒的 IO 恢復時間。
+
+如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/85671-tr-4968.pdf["TR-4968 、 NetApp 全 SAS 陣列– NetApp ASA 的資料可用度與完整性"]。
+｛ nbsp ｝
+
+
+
+==== 儲存保證
+
+NetApp 為 NetApp All Flash SAN 陣列提供一組獨特的儲存保證。獨特的優點包括：
+
+* 儲存效率保證： * 透過儲存效率保證、在達到高效能的同時、將儲存成本降至最低。4 ： 1 適用於 SAN 工作負載。
+
+* 6 Nines （ 99.9999 % ）資料可用度保證： * 保證每年可修正超過 31 、 56 秒的非計畫性停機時間。
+
+* 勒索軟體恢復保證： * 在勒索軟體攻擊時保證資料恢復。
+
+請參閱 https://www.netapp.com/data-storage/all-flash-san-storage-array/["NetApp ASA 產品入口網站"] 以取得更多資訊。
+｛ nbsp ｝
+
+
+
+=== 適用於VMware vSphere的NetApp ONTAP 產品開發工具
+
+適用於 VMware vSphere 的 ONTAP 工具可讓管理員直接從 vSphere Client 內管理 NetApp 儲存設備。ONTAP 工具可讓您部署及管理資料存放區、以及配置 vVol 資料存放區。
+
+ONTAP 工具可將資料存放區對應至儲存功能設定檔、以決定一組儲存系統屬性。如此可建立具有特定屬性的資料存放區、例如儲存效能和 QoS 。
+
+ONTAP 工具也包含適用於 ONTAP 儲存系統的 * VMware vSphere API for Storage Aware （ VASA ） Provider* 、可用於佈建 VMware 虛擬磁碟區（ VVols ）資料存放區、建立及使用儲存功能設定檔、法規遵循驗證及效能監控。
+
+如需 NetApp ONTAP 工具的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["VMware vSphere文件的相關工具ONTAP"] 頁面。
+｛ nbsp ｝
+
+
+
+=== VMware vSphere的插件SnapCenter
+
+SnapCenter Plug-in for VMware vSphere （ SCV ）是 NetApp 提供的軟體解決方案、可為 VMware vSphere 環境提供全方位的資料保護。其設計旨在簡化及簡化保護及管理虛擬機器（ VM ）和資料存放區的程序。選擇控制閥使用儲存型快照和複寫至次要陣列、以滿足較低的恢復時間目標。
+
+SnapCenter Plug-in for VMware vSphere 在與 vSphere 用戶端整合的統一化介面中提供下列功能：
+
+* 原則型快照 * ： SnapCenter 可讓您定義原則、以便在 VMware vSphere 中建立及管理應用程式一致的虛擬機器（ VM ）快照。
+
+* 自動化 * ：根據定義的原則自動建立及管理快照、有助於確保一致且有效的資料保護。
+
+* 虛擬機器層級保護 * ：虛擬機器層級的精細保護功能、可有效管理及還原個別虛擬機器。
+
+* 儲存效率功能 * ：與 NetApp 儲存技術整合、可提供重複資料刪除和壓縮等儲存效率功能、以供快照使用、將儲存需求降至最低。
+
+SnapCenter 外掛程式可在 NetApp 儲存陣列上協調虛擬機器的停止、並搭配硬體型快照。SnapMirror 技術可用於將備份複本複寫到雲端中的次要儲存系統。
+
+如需詳細資訊、請參閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere["VMware vSphere文件的VMware外掛程式SnapCenter"]。
+
+BlueXP 整合可實現 3-2-1 備份策略、將資料複本延伸到雲端的物件儲存。
+
+如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪 link:../ehc/bxp-scv-hybrid-solution.html["適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原"]。
+
+
+
+== 解決方案總覽
+
+本文件所述的案例將示範如何使用 ONTAP 儲存系統做為管理和工作負載網域的補充儲存設備。此外、適用於 VMware vSphere 的 SnapCenter 外掛程式也可用來保護 VM 和資料存放區。
+
+本文件涵蓋的案例：
+
+* * 使用 ONTAP 工具在 VCF 管理網域 * 中部署 iSCSI 資料存放區。按一下 link:vmware_vcf_asa_supp_mgmt_iscsi.html["* 此處 *"] 部署步驟。
+* * 使用 ONTAP 工具在 VI 工作負載網域 * 中部署 vVols （ iSCSI ）資料存放區。按一下 link:vmware_vcf_asa_supp_wkld_vvols.html["* 此處 *"] 部署步驟。
+* * 設定 NVMe over TCP 資料存放區、以用於 VI 工作負載網域 * 。按一下 link:vmware_vcf_asa_supp_wkld_nvme.html["* 此處 *"] 部署步驟。
+* * 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VI 工作負載網域中的虛擬機器 * 。按一下 link:vmware_vcf_asa_scv_wkld.html["* 此處 *"] 部署步驟。
+

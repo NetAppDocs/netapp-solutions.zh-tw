@@ -1,0 +1,231 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmware_vcf_aff_principal_vvols.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary:  
+---
+= VVOL 資料存放區是 VI 工作負載網域的主要儲存設備
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+作者： Josh Powell 、 Ravi BCB
+
+
+
+== VVOL 資料存放區是 VI 工作負載網域的主要儲存設備
+
+
+
+=== 案例總覽
+
+在此案例中、我們將示範如何將 vVols 資料存放區設定為主要儲存區、以便在 VCF 中部署 VI 工作負載網域。VVols 容器必須在部署工作負載網域之前預先準備好。若要執行此 VMware vSphere 的 ONTAP 工具、請安裝在 VCF 管理網域中、並使用 Swagger API 工具來建立 VVols 容器。
+
+在適當情況下、我們會參考外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並僅涵蓋儲存組態部分的特定步驟。
+
+如需將 VVols 儲存設備與 VCF 搭配使用的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-admin/GUID-28A95C3D-1344-4579-A562-BEE5D07AAD2F.html["VVols Storage 搭配 VMware Cloud Foundation"]。
+
+如需在 VCF 模式中使用 ONTAP 工具的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/deploy/vmware_cloud_foundation_mode_deployment.html["VMware Cloud Foundation ONTAP 部署功能、適用於各種VMware工具"]。
+
+此案例涵蓋下列高層級步驟：
+
+* 驗證 ONTAP 儲存虛擬機器（ SVM ）的網路連線、以及是否存在邏輯介面（ LIF ）來傳輸 NFS 流量。
+* 建立匯出原則以允許 ESXi 主機存取 NFS Volume 。
+* 在 VCF 管理網域中部署適用於 VMware vSphere 的 ONTAP 工具（ VCF 模式）。
+* 使用 ONTAP 工具中的 swagger API 來新增 ONTAP 儲存系統。
+* 在 SDDC Manager 中建立 NFS 和 VMotion 流量的網路集區。
+* 在 VI 工作負載網域部署組態期間、指定要連線至 NFS Volume 的資訊。
+* 監控儲存驗證和工作負載網域部署。
+* 確認已建立 NFS 資料存放區。
+
+
+
+
+=== 先決條件
+
+此案例需要下列元件和組態：
+
+* NetApp AFF 儲存系統、其中儲存虛擬機器（ SVM ）已設定為允許 NFS 流量。
+* 邏輯介面（ LIF ）是在 IP 網路上建立、用於傳輸 NFS 流量、並與 SVM 相關聯。
+* Vcf 管理網域部署已完成、且 SDDC Manager 介面可供存取。
+* 四（ 4 ）部 ESXi 主機委託給 SDDC Manager 資源清冊。
+* 為此目的而建立的 VLAN 或網路區段上的 NFS 儲存流量保留的 IP 位址。
+* 適用於 VMware vSphere v9.13 的 ONTAP 工具可從下載 link:https://mysupport.netapp.com/site/["NetApp支援"] 網站。
+* 在 ONTAP 儲存系統上建立的 NFS 磁碟區、其容量足以容納 VVols 容器。
+
+
+
+NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線。這是在使用 NFS IP 位址新增任何其他 vmkernel 介面卡之前、先使用 ESXi 主機上的管理介面卡來完成。因此、必須確保管理網路可路由傳送至 NFS 伺服器、或 2 ）管理網路的 LIF 已新增至裝載 NFS 資料存放區 Volume 的 SVM 、以確保驗證能夠繼續進行。
+
+如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
+
+如需設定 VCF 的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]。
+
+
+
+=== 部署步驟
+
+將 vVols 資料存放區部署為主要儲存設備的 VI 工作負載網域、可分成兩個不同的群組。使用適用於 VMware vSphere 的 ONTAP 工具建立 VVols 容器的相關步驟、以及在 VCF SDDC Manager 中完成的步驟。
+
+
+
+==== 使用 ONTAP 工具建立 VVols 容器
+
+完成下列步驟、在 ONTAP 儲存系統上建立 VVols 容器。
+
+.部署適用於 VMware vSphere 的 ONTAP 工具
+[%collapsible]
+====
+VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。在此解決方案中、 OTV 部署在 VCF 模式、不會自動在 vCenter 登錄外掛程式、並提供 swagger API 介面來建立 vVols 容器。
+
+請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：
+
+. 從取得 ONTAP 工具 OVA 映像 link:https://mysupport.netapp.com/site/products/all/details/otv/downloads-tab["NetApp 支援網站"] 並下載至本機資料夾。
+. 登入 VCF 管理網域的 vCenter 應用裝置。
+. 在 vCenter 應用裝置介面上、以滑鼠右鍵按一下管理叢集、然後選取 * 部署 OVF 範本… *
++
+image:vmware-vcf-aff-image21.png["部署 OVF 範本 ..."]
+
++
+｛ nbsp ｝
+
+. 在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取上一步中下載的 ONTAP 工具 OVA 檔案。
++
+image:vmware-vcf-aff-image22.png["選取 OVA 檔案"]
+
++
+｛ nbsp ｝
+
+. 如需精靈的步驟 2 至 5 、請選取虛擬機器的名稱和資料夾、選取運算資源、檢閱詳細資料、然後接受授權合約。
+. 針對組態和磁碟檔案的儲存位置、選取 VCF Management Domain 叢集的 vSAN 資料存放區。
++
+image:vmware-vcf-aff-image23.png["選取 OVA 檔案"]
+
++
+｛ nbsp ｝
+
+. 在「選取網路」頁面上、選取用於管理流量的網路。
++
+image:vmware-vcf-aff-image24.png["選取網路"]
+
++
+｛ nbsp ｝
+
+. 在「自訂範本」頁面上、填寫所有必要資訊：
++
+** 用於管理 OTV 存取的密碼。
+** NTP 伺服器 IP 位址。
+** OTV 維護帳戶密碼。
+** OTV Derby DB 密碼。
+** 核取方塊以 * 啟用 VMware Cloud Foundation （ VCF ） * 。
+** vCenter 應用裝置的 FQDN 或 IP 位址、並提供 vCenter 的認證。
+** 提供必要的網路內容欄位。
++
+完成後、按一下 * 下一步 * 繼續。
+
++
+image:vmware-vcf-aff-image25.png["自訂 OTV 範本 1."]
+
++
+image:vmware-vcf-aff-image26.png["自訂 OTV 範本 2."]
+
++
+｛ nbsp ｝
+
+
+
+. 檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 OTV 應用裝置。
+
+
+====
+.從 Swagger UI 取得 VCF 應用裝置 API Token
+[%collapsible]
+====
+必須使用 Swagger-UI 完成多個步驟。第一個是取得 VCF 應用裝置 -API- 權杖。
+
+. 瀏覽至以存取 Swagger 使用者介面 https://otv_ip:8143/api/rest/swagger-ui.html[] 在 Web 瀏覽器中。
+. 向下捲動至 * 使用者驗證：使用者驗證的 API * 、然後選取 * 張貼 /2.0/VCF/ 使用者 / 登入 * 。
++
+image:vmware-vcf-aff-image27.png["POST /2.0/VCF/ 使用者 / 登入"]
+
+. 在 * 參數內容類型 * 下、將內容類型切換為 * 應用程式 /json* 。
+. 在 *vcfLoginRequest* 下，輸入 OTV 應用裝置的使用者名稱和密碼。
++
+image:vmware-vcf-aff-image28.png["輸入 OTV 使用者名稱和密碼"]
+
+. 按一下 * 試用！ * 按鈕、然後在 * 回應標頭 * 下複製 * 「授權」： * 文字字串。
++
+image:vmware-vcf-aff-image29.png["複製授權回應標頭"]
+
+
+
+====
+.取得 ONTAP 儲存系統的公開 SSL 憑證
+[%collapsible]
+====
+下一步是使用 Swagger UI 取得 ONTAP 儲存系統的公用 SSL 憑證。
+
+. 在 Swagger UI 中、找出 * 安全性：與憑證相關的 API * 、然後選取 * 取得 /3.0/security/certificates/ ｛ host ｝ / 伺服器憑證 * 。
++
+image:vmware-vcf-aff-image30.png["取得 /3.0/security/certificates/｛ host ｝ / 伺服器憑證"]
+
+. 在 *applier-API-token-token * 欄位中、貼上上上一步所取得的文字字串。
+. 在 * 主機 * 欄位中、輸入您要從中取得公用 SSL 憑證的 ONTAP 儲存系統 IP 位址。
++
+image:vmware-vcf-aff-image31.png["複製公共 SSL 憑證"]
+
+
+
+====
+.從 Swagger UI 新增儲存設備至 ONTAP 工具
+[%collapsible]
+====
+使用 VCF 應用裝置 API Token 和 ONTAP 公共 SSL 憑證、將 ONTAP 儲存系統新增至 OTV 。
+
+. 在 Swagger UI 中、捲動至「儲存系統：與儲存系統相關的 API 」、然後選取「 Post /3.0/Storage/叢 集」。
+. 在 appliance -API 權杖欄位中、填入在前一個步驟中取得的 VCF 權杖。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。
+. 在 * 控制器要求 * 文字方塊中、提供 ONTAP 儲存系統 IP 位址、使用者名稱、密碼、以及在前一步驟中取得的公用 SSL 憑證。
++
+image:vmware-vcf-aff-image32.png["提供新增儲存系統的資訊"]
+
+. 按一下 * 試用！ * 按鈕、將儲存系統新增至 OTV 。
+
+
+====
+.在 ONTAP 儲存設備上建立 VVols 容器
+[%collapsible]
+====
+下一步是在 ONTAP 儲存系統上建立 vVol 容器。請注意、此步驟需要已在 ONTAP 儲存系統上建立 NFS 磁碟區。請務必使用匯出原則、以便從將存取 NFS 的 ESXi 主機存取 NFS Volume 。請參閱上一個步驟、網址為：
+
+. 在 Swagger UI 中、捲動至 Container ： API Related to Container 、然後選取 Post /2.0/admin/containers 。
++
+image:vmware-vcf-aff-image33.png["/2.0/admin/containers"]
+
+. 在 *applier-API-token-token * 欄位中、填入在前一個步驟中取得的 VCF 標記。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。
+. 在「容器要求」方塊中、填寫下列必填欄位：
++
+** 「控制器 Ip 」： < ONTAP 管理IP 位址 >
+** 「 defaultScp 」： < 要與 VVOL 容器相關聯的儲存功能設定檔 >
+** FlexVols - 「 AggateName 」： < NFS 磁碟區所在的 ONTAP Aggregate >
+** FlexVols - 「 name 」： < NFS FlexVol 的名稱 >
+** 「名稱」 < VOL 容器名稱 >
+** 「 vserverName 」： ONTAP Storage SVM 託管 NFS FlexVol >
+
+
+
+
+image:vmware-vcf-aff-image34.png["VVOL 容器申請表"]
+
+4 按一下 * 試用！ * 以執行指示並建立 VVOL 容器。
+
+====
+
+
+==== 使用 vVols 部署 VI 工作負載網域作為主要儲存設備
+
+請在 SDDC Manager 中完成下列步驟、以將 VVols 作為主要儲存設備來部署 VI 工作負載網域。

@@ -1,0 +1,100 @@
+---
+sidebar: sidebar 
+permalink: vmware/vsphere_ontap_auto_file_nfs.html 
+keywords: vSphere, datastore, nfs, ONTAP tools, vlan, network interface, service policy, export policy 
+summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援NFS版本3資料存放區的步驟。 
+---
+= vSphere NFS資料存放區-版本3含ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+:scriptsdir: ./../scripts/
+:author: Suresh Thoppay, TME - Hybrid Cloud Solutions
+:ontap_version: ONTAP 9.8 or later
+:vsphere_version: vSphere 7.0 or later
+:includesdir: ./../
+:firstname: Suresh
+:authorinitials: STT
+:middlename: Thoppay,
+:lastname: TME - Hybrid Cloud Solutions
+:authors: Suresh Thoppay, TME - Hybrid Cloud Solutions
+
+
+
+
+== 關於這項工作
+
+建立NFS版本3資料存放區、並搭配ONTAP 使用不實的NAS儲存設備。
+
+如需自動化資源配置、請使用下列其中一個指令碼： <<PowerShell>>、 <<Ansible>>或 <<Terraform>>。
+
+
+
+== 您需要的一切
+
+* 管理vSphere環境與ONTAP 功能的基本技能。
+* 執行《支援資料》的不支援資料系統（FAS/AFF/CVO/ONTAP Select/Cloud Volume Service/Azure NetApp Files）ONTAP ONTAP
+* 資訊（SVM名稱、使用者ID、密碼）ONTAP
+* NFS的網路連接埠、SVM和LUN資訊ONTAP
++
+** link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-nfs-vaai/GUID-BBD301EF-496A-4974-B205-5F878E44BF59.html++["完整的NFS組態工作表"]
+
+
+* vCenter Server認證
+* vSphere 7.0或更新版本的vSphere主機資訊
+* NFS VMKernel介面卡IP資訊
+* 網路交換器
++
+** 搭配ONTAP 使用NetApp系統網路資料連接埠和連線的vSphere主機
+** 為NFS設定的VLAN
+** （選用）連結集合、設定ONTAP 用於連接至整套網路資料連接埠
+
+
+* VMware vSphere適用的VMware vSphere工具已部署、已設定且隨時可供使用ONTAP
+
+
+
+
+== 步驟
+
+* 檢查與的相容性 https://mysupport.netapp.com/matrix["互通性對照表工具IMT （不含）"]
++
+** link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-nfs-vaai/GUID-DA231492-F8D1-4E1B-A634-79BA906ECE76.html++["驗證是否支援NFS組態。"]
+
+
+* 完成下列ONTAP 的VMware及vSphere工作。
+
+
+
+
+== 執行任務ONTAP
+
+. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-cmpr-980/system__license__show.html++["驗ONTAP 證NFS的不實授權。"]
++
+.. 使用「系統授權show」命令、檢查是否列出NFS。
+.. 使用「license add -license code-Code < license code>」來新增授權。
+
+
+. link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.pow-nfs-cg/GUID-6D7A1BB1-C672-46EF-B3DC-08EBFDCE1CD5.html++["遵循NFS組態工作流程。"]
+
+
+
+
+== VMware vSphere工作
+
+link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-nfs-vaai/GUID-D78DD9CF-12F2-4C3C-AD3A-002E5D727411.html++["遵循vSphere的NFS用戶端組態工作流程。"]
+
+
+
+== 參考資料
+
+link:https://docs/netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html["vSphere資料存放區與傳輸協定功能：NFS"]
+
+
+
+== 接下來呢？
+
+完成這些工作之後、NFS資料存放區就可以開始耗用資源來配置虛擬機器。

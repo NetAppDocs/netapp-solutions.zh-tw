@@ -126,7 +126,7 @@ NetApp解決方案團隊已建立許多以Ansible為基礎的自動化工具套�
 
 === 設定Ansible控制器
 
-如果您尚未設定Ansible控制器、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html["NetApp解決方案自動化"^]，詳細說明如何設定Ansible控制器。
+如果您尚未設定Ansible控制器、請參閱 link:../automation/automation_introduction.html["NetApp解決方案自動化"^]，詳細說明如何設定Ansible控制器。
 
 
 
@@ -142,7 +142,7 @@ git clone https://github.com/NetApp-Automation/na_oracle19c_deploy.git
 
 === 使用您的組態執行工具組
 
-請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/databases/cli_automation.html#cli-deployment-oracle-19c-database["CLI部署Oracle 19c資料庫"^] 使用CLI執行方針。從Azure主控台建立資料庫Volume時、您可以忽略ONTAP 全域VARS檔案中的變數組態的部分、而非從CLI建立資料庫Volume。
+請參閱 link:cli_automation.html#cli-deployment-oracle-19c-database["CLI部署Oracle 19c資料庫"^] 使用CLI執行方針。從Azure主控台建立資料庫Volume時、您可以忽略ONTAP 全域VARS檔案中的變數組態的部分、而非從CLI建立資料庫Volume。
 
 
 NOTE: 此工具套件預設部署Oracle 19c搭配RU 19.8。只要稍微變更預設組態、就能輕鬆調整為其他任何修補程式層級。此外、預設的基礎資料庫作用中記錄檔也會部署到資料Volume中。如果您需要在記錄磁碟區上使用中的記錄檔、則應在初始部署之後重新放置。如有需要、請聯絡NetApp解決方案團隊尋求協助。

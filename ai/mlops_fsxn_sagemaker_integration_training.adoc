@@ -166,7 +166,7 @@ s3_client: boto3.client = boto3.resource(
 bucket = s3_client.Bucket(bucket_name)
 # --- End integrating SageMaker with FSXN ---
 ----
-若要從 SageMaker 中的 FSxN 讀取資料、會建立一個處理常式、使用 S3 傳輸協定指向 FSxN 儲存設備。如此可將 FSxN 視為私有 S3 儲存區。處理常式組態包括指定 FSxN SVM 的 IP 位址、貯體名稱和必要的認證。如需取得這些組態項目的完整說明、請參閱上的文件 link:https://docs.netapp.com/us-en/netapp-solutions/ai/mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。
+若要從 SageMaker 中的 FSxN 讀取資料、會建立一個處理常式、使用 S3 傳輸協定指向 FSxN 儲存設備。如此可將 FSxN 視為私有 S3 儲存區。處理常式組態包括指定 FSxN SVM 的 IP 位址、貯體名稱和必要的認證。如需取得這些組態項目的完整說明、請參閱上的文件 link:mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。
 
 在上述範例中、貯體物件用於產生 PyTorch 資料集物件。後續章節將進一步說明 DataSet 物件。
 

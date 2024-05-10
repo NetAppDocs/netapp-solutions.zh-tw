@@ -65,8 +65,8 @@ AWS S3可做為移轉儲存區域、用於資料庫移動和移轉。請參閱�
 
 首先、請在AWS FSx/EC2中建立CDB、並提供足夠的儲存空間來裝載要從內部部署移轉的PDF。多個內部部署的PDF可一次移轉一個。
 
-. 如果內部部署資料庫是部署在單一執行個體中、而非部署在多租戶PDB/CDB模式中、請依照中的指示進行 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["將單一非CDB執行個體轉換為多租戶CDB中的pdb"^] 將單一執行個體轉換為多租戶PDB/CDB。然後依照下一個步驟、將轉換後的pdb移轉至AWS FSx/EC2中的CDB。
-. 如果已在多租戶PDB/CDB模式中部署內部部署資料庫、請依照中的指示進行 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_migration.html#migrate-on-premises-oracle-databases-to-azure-with-pdb-relocation["透過重新配置pdb、將內部部署的Oracle資料庫移轉至雲端"^] 以執行移轉。
+. 如果內部部署資料庫是部署在單一執行個體中、而非部署在多租戶PDB/CDB模式中、請依照中的指示進行 link:azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["將單一非CDB執行個體轉換為多租戶CDB中的pdb"^] 將單一執行個體轉換為多租戶PDB/CDB。然後依照下一個步驟、將轉換後的pdb移轉至AWS FSx/EC2中的CDB。
+. 如果已在多租戶PDB/CDB模式中部署內部部署資料庫、請依照中的指示進行 link:azure_ora_nfile_migration.html#migrate-on-premises-oracle-databases-to-azure-with-pdb-relocation["透過重新配置pdb、將內部部署的Oracle資料庫移轉至雲端"^] 以執行移轉。
 
 
 下列影片示範如何使用最大可用度的pdb重新配置、將Oracle資料庫（pdb）移轉至FSx/EC2。

@@ -128,7 +128,7 @@ video::e479b91f-eacd-46bf-bfa1-b01200f0015a[panopto]
 . 在AWS EC2主控台、您必須部署兩個EC2 Linux執行個體、一個作為主要PostgreSQL資料庫伺服器、另一個作為待命DR站台。若要在主要和待命災難恢復站台提供運算備援、請將兩個額外的EC2 Linux執行個體部署為備用的PostgreSQL資料庫伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html["Linux執行個體使用指南"] 以取得更多資訊。
 . 從AWS EC2主控台、部署兩ONTAP 個FSX-還原HA叢集、以裝載PostgreSQL資料庫磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["為SfSX. ONTAP 檔案系統建立FSX"] 以取得逐步指示。
 . 建置CentOS Linux VM來裝載Ansible控制器。Ansible控制器可位於內部部署或AWS雲端。如果位於內部部署、則必須具備SSH連線、才能連線至VPC、EC2 Linux執行個體和FSX儲存叢集。
-. 請依照資源中「在RHEL/CentOS上設定Ansible Control Node以進行CLI部署」一節所述、設定Ansible控制器 link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"]。
+. 請依照資源中「在RHEL/CentOS上設定Ansible Control Node以進行CLI部署」一節所述、設定Ansible控制器 link:../automation/getting-started.html["NetApp解決方案自動化入門"]。
 . 從NetApp GitHub公開網站複製自動化工具套件複本。
 
 
@@ -386,4 +386,4 @@ link:https://aws.amazon.com/pm/ec2/?trk=36c6da98-7b20-48fa-8225-4784bced9843&sc_
 * NetApp解決方案自動化
 
 
-link:https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html["https://docs.netapp.com/us-en/netapp-solutions/automation/automation_introduction.html"^]
+link:../automation/automation_introduction.html["簡介"]

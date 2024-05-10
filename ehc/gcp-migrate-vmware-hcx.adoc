@@ -53,7 +53,7 @@ NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作�
 
 NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援票證取得、而且不需額外付費即可獲得支援。請參閱 https://cloud.google.com/blog/products/compute/whats-new-with-google-cloud-vmware-engine["此連結"^]
 
-* 使用現有的Google Cloud VMware Engine軟體定義資料中心（SDDC）、或使用此功能建立私有雲端 https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp-setup.html["NetApp連結"^] 或是這種情況 https://cloud.google.com/vmware-engine/docs/create-private-cloud["Google連結"^]。
+* 使用現有的Google Cloud VMware Engine軟體定義資料中心（SDDC）、或使用此功能建立私有雲端 link:gcp-setup.html["NetApp連結"^] 或是這種情況 https://cloud.google.com/vmware-engine/docs/create-private-cloud["Google連結"^]。
 * 若要從內部部署的VMware vSphere資料中心移轉VM及相關資料、需要從資料中心連線至SDDC環境。移轉工作負載之前、 https://cloud.google.com/vmware-engine/docs/networking/howto-connect-to-onpremises["設定Cloud VPN或Cloud Interconnect連線"^] 在內部部署環境與各自私有雲端之間。
 * 從內部部署VMware vCenter Server環境到Google Cloud VMware Engine私有雲的網路路徑、必須支援使用VMotion移轉VM。
 * 請確定所需的 https://ports.esp.vmware.com/home/VMware-HCX["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。

@@ -54,9 +54,9 @@ VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些�
 
 === 封包偵測/追蹤考量
 
-封包擷取可用於疑難排解網路問題或其他問題（例如NAS權限、LDAP連線等）、但也可惡意用來取得網路IP位址、MAC位址、使用者和群組名稱、以及端點使用的安全層級等資訊。由於Google Cloud網路、VPC和防火牆規則的設定方式、如果沒有使用者登入認證或、就很難取得不必要的網路封包存取權 link:<ncvs-gc-control-plane-architecture.html#jwt-tokens["JWT權杖"] 雲端執行個體。封包擷取只能在端點（例如虛擬機器（VM））上進行、而且只能在VPC內部的端點上進行、除非使用共享VPC和（或）外部網路通道/ IP轉送來明確允許外部流量進入端點。無法從用戶端外部窺探流量。
+封包擷取可用於疑難排解網路問題或其他問題（例如NAS權限、LDAP連線等）、但也可惡意用來取得網路IP位址、MAC位址、使用者和群組名稱、以及端點使用的安全層級等資訊。由於Google Cloud網路、VPC和防火牆規則的設定方式、如果沒有使用者登入認證或、就很難取得不必要的網路封包存取權 link:ncvs-gc-control-plane-architecture.html#jwt-tokens["JWT權杖"] 雲端執行個體。封包擷取只能在端點（例如虛擬機器（VM））上進行、而且只能在VPC內部的端點上進行、除非使用共享VPC和（或）外部網路通道/ IP轉送來明確允許外部流量進入端點。無法從用戶端外部窺探流量。
 
-使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 link:ncvs-gc-data-encryption-in-transit.html#smb-encryption["SMB加密"] 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#dns["DNS"] 和 link:cvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-queries["LDAP查詢"]。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。
+使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 link:ncvs-gc-data-encryption-in-transit.html#smb-encryption["SMB加密"] 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#dns["DNS"] 和 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-queries["LDAP查詢"]。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。
 
 image:ncvs-gc-image2.png["錯誤：缺少圖形影像"]
 

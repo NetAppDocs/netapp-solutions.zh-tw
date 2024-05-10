@@ -1,0 +1,550 @@
+---
+sidebar: sidebar 
+permalink: vmware/migrate-vms-to-ontap-datastore.html 
+keywords: netapp, vmware, ontap, datastore, migration, svmotion, hcx, xvmotion, vmotion, vvol, iscsi, nfs, nvme, fc, sso 
+summary:  
+---
+= 將 VM 移轉至 ONTAP 資料存放區
+:allow-uri-read: 
+
+
+
+
+== 將 VM 移轉至 ONTAP 資料存放區
+
+作者： Suresh ThopPay
+
+[role="lead"]
+VMware vSphere by Broadcom 支援 VMFS 、 NFS 和 vVol 資料存放區、以裝載虛擬機器。客戶可以選擇使用超融合式基礎架構或集中式共享儲存系統來建立這些資料存放區。客戶通常會看到託管 ONTAP 型儲存系統的價值、能夠提供虛擬機器的空間效率快照和複本、靈活選擇跨資料中心和雲端的各種部署模式、監控和警示工具的營運效率、安全性、治理和選擇性的法規遵循工具來檢查 VM 資料、 等等、
+
+ONTAP 資料存放區上的 VM 可以使用適用於 VMware vSphere 的 SnapCenter 外掛程式（ SCV ）加以保護。選擇控制閥可建立儲存型快照、也可複寫至遠端 ONTAP 儲存系統。可從主要或次要儲存系統執行還原。
+
+客戶可以靈活選擇 Cloud Insights 或 Aria 作業、或是同時選擇使用 ONTAP API 的兩種或其他協力廠商工具、以進行疑難排解、效能監控、報告和警示通知功能。
+
+客戶可以使用 ONTAP 工具 vCenter 外掛程式輕鬆配置資料存放區、或是將其 API 和 VM 移轉至 ONTAP 資料存放區、即使資料存放區已開機也沒問題。
+
+
+NOTE: 有些 VM 是透過外部管理工具部署、例如 Aria Automation 、 Tanzu （或其他 Kubernetes Flavors ）、通常取決於 VM 儲存原則。如果在同一 VM 儲存原則內的資料存放區之間移轉、對應用程式的影響應該會較小。請洽詢應用程式擁有者、以將這些 VM 正確移轉至新的資料存放區。推出 vSphere 8 https://core.vmware.com/resource/vsphere-vmotion-notifications["VMotion 通知"] 準備應用程式以執行 VMotion 。
+
+
+
+== 網路需求
+
+.使用 VMotion 移轉虛擬機器
+[%collapsible]
+====
+假設 ONTAP 資料存放區已具備雙儲存網路、可提供連線能力、容錯能力及效能提升。
+
+vSphere 主機的 VMKernel 介面也會處理跨 vSphere 主機的 VM 移轉。對於熱移轉（已開機的 VM ）、使用 VMKernel 介面搭配已啟用 VMotion 的服務、而對於冷移轉（已關閉電源的 VM ）、則會使用已啟用資源配置服務的 VMKernel 介面來移動資料。如果找不到有效的介面、它會使用管理介面來移動某些使用案例可能不需要的資料。
+
+image::migrate-vms-to-ontap-image02.png[已啟用服務的 VMkernel]
+
+當您編輯 VMKernel 介面時、以下是啟用所需服務的選項。
+
+image::migrate-vms-to-ontap-image01.png[VMkernel 服務選項]
+
+
+TIP: 確保至少有兩個高速主動上行鏈路 NIC 可供 VMotion 和 Provisioning VMkernel 介面使用的連接埠群組使用。
+
+====
+
+
+== VM 移轉案例
+
+無論 VM 的電源狀態為何、 VMotion 通常都會用於移轉 VM 。以下提供特定案例的其他考量與移轉程序。
+
+
+NOTE: 瞭解 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-0540DF43-9963-4AF9-A4DB-254414DC00DA.html["vSphere VMotion 的 VM 狀況與限制"] 繼續進行任何 VM 移轉選項之前。
+
+.從特定 vSphere 資料存放區移轉 VM
+[%collapsible]
+====
+請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
+
+. 使用 vSphere Web Client 、從儲存設備庫存中選取資料存放區、然後按一下 VM 索引標籤。
++
+image::migrate-vms-to-ontap-image03.png[特定資料存放區上的 VM]
+
+. 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
++
+image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+
+. 選擇僅變更儲存設備的選項、然後按一下「下一步」
++
+image::migrate-vms-to-ontap-image05.png[僅變更儲存設備]
+
+. 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
++
+image::migrate-vms-to-ontap-image06.png[符合 VM 儲存原則的資料存放區]
+
+. 檢閱並按一下「完成」。
++
+image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+
+
+
+若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific datastore
+$vm = Get-DataStore 'vSanDatastore' | Get-VM Har*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to Datastore specified by Policy
+$vm | Move-VM -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+====
+.在同一個 vSphere 叢集中移轉 VM
+[%collapsible]
+====
+請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
+
+. 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
++
+image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+
+. 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
++
+image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+
+. 選擇僅變更儲存設備的選項、然後按一下「下一步」
++
+image::migrate-vms-to-ontap-image05.png[僅變更儲存設備]
+
+. 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
++
+image::migrate-vms-to-ontap-image06.png[符合 VM 儲存原則的資料存放區]
+
+. 檢閱並按一下「完成」。
++
+image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+
+
+
+若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01' | Get-VM Aria*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to Datastore specified by Policy
+$vm | Move-VM -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+
+TIP: 當資料存放區叢集與全自動儲存 DRS （動態資源排程）搭配使用、且兩個（來源和目標）資料存放區類型相同（ VMS/NFS/VVol ）時、請在同一個儲存叢集中保留兩個資料存放區、並在來源上啟用維護模式、從來源資料存放區移轉 VM 。經驗將類似於如何處理運算主機以進行維護。
+
+====
+.跨多個 vSphere 叢集移轉 VM
+[%collapsible]
+====
+
+NOTE: 請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-03E7E5F9-06D9-463F-A64F-D4EC20DAF22E.html["CPU 相容性和 vSphere 增強型 VMotion 相容性"] 當來源和目標主機屬於不同的 CPU 系列或機型時。
+
+請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
+
+. 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
++
+image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+
+. 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
++
+image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+
+. 選擇選項以變更運算資源和儲存、然後按一下「下一步」
++
+image::migrate-vms-to-ontap-image09.png[同時變更運算和儲存設備]
+
+. 瀏覽並挑選適當的叢集進行移轉。
++
+image::migrate-vms-to-ontap-image12.png[選取目標叢集]
+
+. 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
++
+image::migrate-vms-to-ontap-image13.png[符合 VM 儲存原則的資料存放區]
+
+. 選擇 VM 資料夾以放置目標 VM 。
++
+image::migrate-vms-to-ontap-image14.png[目標 VM 資料夾選擇]
+
+. 選取目標連接埠群組。
++
+image::migrate-vms-to-ontap-image15.png[目標連接埠群組選擇]
+
+. 檢閱並按一下「完成」。
++
+image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+
+
+
+若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。
+
+[source, powershell]
+----
+#Authenticate to vCenter
+Connect-VIServer -server vcsa.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01' | Get-VM Aria*
+
+#Gather VM Disk info
+$vmdisk = $vm | Get-HardDisk
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'NetApp Storage'
+
+#set VM Storage Policy for VM config and its data disks.
+$vm, $vmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Migrate VMs to another cluster and Datastore specified by Policy
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster') -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy)
+
+#When Portgroup is specific to each cluster, replace the above command with
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster') -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy) -PortGroup (Get-VirtualPortGroup 'VLAN 101')
+
+#Ensure VM Storage Policy remains compliant.
+$vm, $vmdisk | Get-SPBMEntityConfiguration
+----
+====
+.在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM
+[#vmotion-same-sso%collapsible]
+====
+請遵循下列程序、將 VM 移轉至同一 vSphere Client UI 上列出的新 vCenter 伺服器。
+
+
+NOTE: 如需來源和目標 vCenter 版本等其他需求、請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-DAD0C40A-7F66-44CF-B6E8-43A0153ABE81.html["vSphere 說明 vCenter 伺服器執行個體之間的 VMotion 需求"]
+
+. 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
++
+image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+
+. 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
++
+image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+
+. 選擇選項以變更運算資源和儲存、然後按一下「下一步」
++
+image::migrate-vms-to-ontap-image09.png[同時變更運算和儲存設備]
+
+. 在目標 vCenter 伺服器中選取目標叢集。
++
+image::migrate-vms-to-ontap-image12.png[選取目標叢集]
+
+. 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
++
+image::migrate-vms-to-ontap-image13.png[符合 VM 儲存原則的資料存放區]
+
+. 選擇 VM 資料夾以放置目標 VM 。
++
+image::migrate-vms-to-ontap-image14.png[目標 VM 資料夾選擇]
+
+. 選取目標連接埠群組。
++
+image::migrate-vms-to-ontap-image15.png[目標連接埠群組選擇]
+
+. 檢閱移轉選項、然後按一下「完成」。
++
+image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+
+
+
+若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。
+
+[source, powershell]
+----
+#Authenticate to Source vCenter
+$sourcevc = Connect-VIServer -server vcsa01.sddc.netapp.local -force
+$targetvc = Connect-VIServer -server vcsa02.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'vcf-m01-cl01'  -server $sourcevc| Get-VM Win*
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'iSCSI' -server $targetvc
+
+#Migrate VMs to target vCenter
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster' -server $targetvc) -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy -server $targetvc) -PortGroup (Get-VirtualPortGroup 'VLAN 101' -server $targetvc)
+
+$targetvm = Get-Cluster 'Target Cluster' -server $targetvc | Get-VM Win*
+
+#Gather VM Disk info
+$targetvmdisk = $targetvm | Get-HardDisk
+
+#set VM Storage Policy for VM config and its data disks.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Ensure VM Storage Policy remains compliant.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
+----
+====
+.在不同 SSO 網域的 vCenter 伺服器之間移轉 VM
+[%collapsible]
+====
+
+NOTE: 此案例假設 vCenter 伺服器之間存在通訊。否則、請查看下方列出的跨資料中心位置案例。如需先決條件、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-1960B6A6-59CD-4B34-8FE5-42C19EE8422A.html["進階 Cross vCenter VMotion 的 vSphere 文件"]
+
+請遵循下列程序、使用 UI 將 VM 移轉至不同的 vCenter 伺服器。
+
+. 使用 vSphere Web Client 、選取來源 vCenter 伺服器、然後按一下 VM 索引標籤。
++
+image::migrate-vms-to-ontap-image10.png[來源 vCenter 上的 VM]
+
+. 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
++
+image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+
+. 選擇選項 Cross vCenter Server Export 、然後按一下 Next （下一步）
++
+image::migrate-vms-to-ontap-image11.png[跨 vCenter Server 匯出]
+
++
+
+TIP: VM 也可以從目標 vCenter 伺服器匯入。如需該程序、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-ED703E35-269C-48E0-A34D-CCBB26BFD93E.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
+
+. 提供 vCenter 認證詳細資料、然後按一下登入。
++
+image::migrate-vms-to-ontap-image23.png[vCenter 認證]
+
+. 確認並接受 vCenter 伺服器的 SSL 憑證指紋
++
+image::migrate-vms-to-ontap-image24.png[SSL 指紋]
+
+. 展開目標 vCenter 並選取目標運算叢集。
++
+image::migrate-vms-to-ontap-image25.png[選取目標運算叢集]
+
+. 根據 VM 儲存原則選取目標資料存放區。
++
+image::migrate-vms-to-ontap-image26.png[選取目標資料存放區]
+
+. 選取目標 VM 資料夾。
++
+image::migrate-vms-to-ontap-image27.png[選取目標 VM 資料夾]
+
+. 為每個網路介面卡對應選擇 VM 連接埠群組。
++
+image::migrate-vms-to-ontap-image28.png[選取目標連接埠群組]
+
+. 檢閱並按一下「完成」、即可在 vCenter 伺服器上啟動 VMotion 。
++
+image::migrate-vms-to-ontap-image29.png[跨 VMotion 操作審查]
+
+
+
+若要使用 PowerCLI 移轉 VM 、請參閱以下範例指令碼。
+
+[source, powershell]
+----
+#Authenticate to Source vCenter
+$sourcevc = Connect-VIServer -server vcsa01.sddc.netapp.local -force
+$targetvc = Connect-VIServer -server vcsa02.sddc.netapp.local -force
+
+# Get all VMs with filter applied for a specific cluster
+$vm = Get-Cluster 'Source Cluster'  -server $sourcevc| Get-VM Win*
+
+#Gather the desired Storage Policy to set for the VMs. Policy should be available with valid datastores.
+$storagepolicy = Get-SPBMStoragePolicy 'iSCSI' -server $targetvc
+
+#Migrate VMs to target vCenter
+$vm | Move-VM -Destination (Get-Cluster 'Target Cluster' -server $targetvc) -Datastore (Get-SPBMCompatibleStorage -StoragePolicy $storagepolicy -server $targetvc) -PortGroup (Get-VirtualPortGroup 'VLAN 101' -server $targetvc)
+
+$targetvm = Get-Cluster 'Target Cluster' -server $targetvc | Get-VM Win*
+
+#Gather VM Disk info
+$targetvmdisk = $targetvm | Get-HardDisk
+
+#set VM Storage Policy for VM config and its data disks.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration | Set-SPBMEntityConfiguration -StoragePolicy $storagepolicy
+
+#Ensure VM Storage Policy remains compliant.
+$targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
+----
+====
+.跨資料中心位置移轉 VM
+[%collapsible]
+====
+* 當第 2 層流量透過 NSX 聯盟或其他選項延伸至資料中心時、請遵循在 vCenter 伺服器之間移轉 VM 的程序。
+* HCx 提供各種功能 https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["移轉類型"] 包括跨資料中心的複寫輔助 VMotion 、可在不停機的情況下移動 VM 。
+* https://docs.vmware.com/en/Site-Recovery-Manager/index.html["Site Recovery Manager（SRM）"] 通常用於災難恢復、也常用於利用儲存陣列型複寫進行計畫性移轉。
+* 持續資料保護（ CDP ）產品的用途 https://core.vmware.com/resource/vmware-vsphere-apis-io-filtering-vaio#section1["適用於 IO （ VAIO ）的 vSphere API"] 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。
+* 也可以使用備份與還原產品。但通常會導致更長的 RTO 。
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 災難恢復即服務（ DRaaS ）"] 利用儲存陣列型複寫功能、將特定工作自動化、以便在目標站台上恢復 VM 。
+
+
+====
+.在混合雲環境中移轉 VM
+[%collapsible]
+====
+* https://docs.vmware.com/en/VMware-Cloud/services/vmware-cloud-gateway-administration/GUID-91C57891-4D61-4F4C-B580-74F3000B831D.html["設定混合式連結模式"] 並遵循的程序 link:#vmotion-same-sso["在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM"]
+* HCx 提供各種功能 https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["移轉類型"] 包括跨資料中心的複寫輔助 VMotion 、可在虛擬機器開機時移動虛擬機器。
++
+** 連結： ../EHC/aws-migrate-vmware-hcx.html [TR 4942 ：使用 VMware HCx] 將工作負載移轉至 FSX ONTAP 資料存放區
+** 連結： ../EHC/azure-migrate-vmware-hcx.html [TR-4940 ：使用 VMware HCX 將工作負載移轉至 Azure NetApp Files 資料存放區 - 快速入門指南 ]
+** 連結： ../EHC/gcp-migrate-vmware-hcx.html [ 使用 VMware HCX 將工作負載移轉至 Google Cloud 上的 NetApp Cloud Volume Service 資料存放區 VMware Engine - 快速入門指南 ]
+
+
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 災難恢復即服務（ DRaaS ）"] 利用儲存陣列型複寫功能、將特定工作自動化、以便在目標站台上恢復 VM 。
+* 使用支援的持續資料保護（ CDP ）產品 https://core.vmware.com/resource/vmware-vsphere-apis-io-filtering-vaio#section1["適用於 IO （ VAIO ）的 vSphere API"] 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。
+
+
+
+TIP: 當來源 VM 位於區塊 vVol 資料存放區上時、可以使用 SnapMirror 將其複寫至 Amazon FSX for NetApp ONTAP 或其他支援雲端供應商的 Cloud Volumes ONTAP （ CVO ）、並以 iSCSI Volume 的形式使用雲端原生 VM 。
+
+====
+
+
+== VM 範本移轉案例
+
+VM 範本可由 vCenter Server 或內容庫管理。VM 範本、 OVF 和 OVA 範本的發佈、其他類型的檔案都是透過將其發佈到本機內容庫來處理、而遠端內容庫則可訂閱此範本。
+
+* 儲存在 vCenter 庫存中的 VM 範本可轉換成 VM 、並使用 VM 移轉選項。
+* OVF 和 OVA 範本、可將儲存在內容庫中的其他類型檔案複製到其他內容庫。
+* 內容庫 VM 範本可裝載於任何資料存放區、並需要新增至新的內容庫。
+
+
+.移轉存放在資料存放區上的 VM 範本
+[%collapsible]
+====
+. 在 vSphere Web Client 中、在 VM and Templates 資料夾檢視下的 VM 範本上按一下滑鼠右鍵、然後選取選項以轉換為 VM 。
++
+image::migrate-vms-to-ontap-image16.png[將 VM 範本轉換成 VM]
+
+. 將其轉換為 VM 後、請遵循 VM 移轉選項。
+
+
+====
+.內容庫項目的複本
+[%collapsible]
+====
+. 在 vSphere Web Client 中、選取內容庫
++
+image::migrate-vms-to-ontap-image17.png[內容庫選擇]
+
+. 選取您要複製項目的內容庫
+. 在項目上按一下滑鼠右鍵、然後按一下複製項目。
++
+image::migrate-vms-to-ontap-image18.png[複製內容庫項目]
+
++
+
+WARNING: 如果使用動作功能表、請確定列出正確的目標物件以執行動作。
+
+. 選取目標內容庫、然後按一下「確定」。
++
+image::migrate-vms-to-ontap-image19.png[目標內容庫選擇]
+
+. 驗證項目是否可在目標內容庫上使用。
++
+image::migrate-vms-to-ontap-image20.png[複製項目驗證]
+
+
+
+以下是範例 PowerCLI 指令碼、可將內容庫項目從 CL01 複製到 CL02 。
+
+[source, powershell]
+----
+#Authenticate to vCenter Server(s)
+$sourcevc = Connect-VIServer -server 'vcenter01.domain' -force
+$targetvc = Connect-VIServer -server 'vcenter02.domain' -force
+
+#Copy content library items from source vCenter content library CL01 to target vCenter content library CL02.
+Get-ContentLibaryItem -ContentLibary (Get-ContentLibary 'CL01' -Server $sourcevc) | Where-Object { $_.ItemType -ne 'vm-template' } | Copy-ContentLibaryItem -ContentLibrary (Get-ContentLibary 'CL02' -Server $targetvc)
+----
+====
+.將 VM 新增為內容庫中的範本
+[%collapsible]
+====
+. 在 vSphere Web Client 中、選取虛擬機器、然後按一下滑鼠右鍵、選擇「在程式庫中複製為範本」
++
+image::migrate-vms-to-ontap-image21.png[在 libary 中以範本形式複製 VM]
+
++
+
+TIP: 如果在 libary 中選取要複製的 VM 範本、則只能將其儲存為 OVF 和 OVA 範本、而不能儲存為 VM 範本。
+
+. 確認已選取範本類型作為 VM 範本、然後依照回答精靈來完成作業。
++
+image::migrate-vms-to-ontap-image22.png[範本類型選擇]
+
++
+
+NOTE: 如需內容庫上 VM 範本的其他詳細資料、請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vm-administration/GUID-E9EAF7AC-1C08-441A-AB80-0BAA1EAF9F0A.html["vSphere VM 管理指南"]
+
+
+
+====
+
+
+== 使用案例
+
+.從第三方儲存系統（包括 vSAN ）移轉至 ONTAP 資料存放區。
+[%collapsible%open]
+====
+* 根據 ONTAP 資料存放區的佈建位置、從上方選擇 VM 移轉選項。
+
+
+====
+.從舊版移轉至最新版的 vSphere 。
+[%collapsible%open]
+====
+* 如果無法進行就地升級、則可建立新環境並使用上述移轉選項。
++
+
+TIP: 在跨 vCenter 移轉選項中、如果來源上沒有匯出選項、則從目標匯入。如需該程序、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-ED703E35-269C-48E0-A34D-CCBB26BFD93E.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
+
+
+
+====
+.移轉至 VCF 工作負載網域。
+[%collapsible%open]
+====
+* 將 VM 從每個 vSphere 叢集移轉至目標工作負載網域。
++
+
+NOTE: 若要允許與來源 vCenter 上其他叢集上的現有虛擬機器進行網路通訊、請將來源 vCenter vSphere 主機新增至傳輸區域、以延伸 NSX 區段、或使用邊緣上的 L2 橋接器、以允許 VLAN 中的 L2 通訊。請參閱的 NSX 文件 https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-0E28AC86-9A87-47D4-BE25-5E425DAF7585.html["設定用於橋接的 Edge VM"]
+
+
+
+====
+
+
+== 其他資源
+
+* https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-FE2B516E-7366-4978-B75C-64BF0AC676EB.html["vSphere 虛擬機器移轉"]
+* https://core.vmware.com/blog/whats-new-vsphere-8-vmotion["vSphere 8 for VMotion 的新功能"]
+* https://core.vmware.com/vmotion["vSphere VMotion 資源"]
+* https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-47F34658-FA46-4160-B2E0-4EAE722B43F0.html["NSX 聯盟中的 Tier-0 閘道組態"]
+* https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["HCx 4.8 使用者指南"]
+* https://docs.vmware.com/en/Site-Recovery-Manager/index.html["VMware Site Recovery Manager文件"]
+* https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["適用於 VMware 的 BlueXP 災難恢復"]
+

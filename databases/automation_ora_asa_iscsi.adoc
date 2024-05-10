@@ -142,7 +142,7 @@ image::automation_ora_asa_iscsi_archit.png[此映像提供 NetApp ASA 系統中�
 部署需要下列先決條件。
 
 . 假設 NetApp ASA 儲存陣列已安裝並設定完成。這包括 iSCSI 廣播網域、兩個控制器節點上的 LACP 介面群組 a0a 、兩個控制器節點上的 iSCSI VLAN 連接埠（ <iscsi-a-vlan-id> 、 <iscsi-b-vlan-id> ）。如果需要協助、以下連結提供詳細的逐步指示。 link:https://docs.netapp.com/us-en/ontap-systems/asa400/install-detailed-guide.html["詳細指南 - ASA A400"^]
-. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
+. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:../automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
 . 複製適用於 iSCSI 的 NetApp Oracle 部署自動化工具套件複本。
 +
 [source, cli]
@@ -496,7 +496,7 @@ image::automation_ora_asa_em_03.png[此映像可從 Oracle Enterprise Manager Ex
 
 [%collapsible]
 ====
-請參閱 TR-4979 link:https://docs.netapp.com/us-en/netapp-solutions/databases/aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
+請參閱 TR-4979 link:aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
 
 ====
 

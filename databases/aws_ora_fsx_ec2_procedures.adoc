@@ -225,7 +225,7 @@ git clone https://github.com/NetApp-Automation/na_rds_fsx_oranfs_config.git
 
 === 使用自動化工具套件執行自動化Oracle 19c部署
 
-請參閱這些詳細指示 link:https://docs.netapp.com/us-en/netapp-solutions/databases/cli_automation.html["CLI部署Oracle 19c資料庫"^] 以CLI自動化部署Oracle 19c。由於您使用SSH金鑰配對、而非主機存取驗證的密碼、因此執行方針的命令語法有小幅變更。下列清單為高階摘要：
+請參閱這些詳細指示 link:cli_automation.html["CLI部署Oracle 19c資料庫"^] 以CLI自動化部署Oracle 19c。由於您使用SSH金鑰配對、而非主機存取驗證的密碼、因此執行方針的命令語法有小幅變更。下列清單為高階摘要：
 
 . 依預設、EC2執行個體會使用SSH金鑰配對來進行存取驗證。從Ansible控制器自動化根目錄「/home/EC2-user/na_oracle19c_deploy」和「/home/EC2-user/na_RDS_FSx_oranfs_config」、複製在步驟中部署之Oracle主機的SSH金鑰「存取stkey.pem」。<<建立及連線至EC2執行個體、以裝載Oracle資料庫>>。」
 . 以EC2-user身分登入EC2執行個體DB主機、然後安裝python3程式庫。
@@ -480,7 +480,7 @@ image:aws_rds_custom_deploy_snp_08.PNG["錯誤：缺少圖形影像"]
 
 === 設定Oracle資料庫的備份原則
 
-請參閱本節 link:https://docs.netapp.com/us-en/netapp-solutions/databases/hybrid_dbops_snapcenter_getting_started_onprem.html#7-setup-database-backup-policy-in-snapcenter["設定資料庫備份原則SnapCenter"^] 以取得有關設定Oracle資料庫備份原則的詳細資訊。
+請參閱本節 link:hybrid_dbops_snapcenter_getting_started_onprem.html#7-setup-database-backup-policy-in-snapcenter["設定資料庫備份原則SnapCenter"^] 以取得有關設定Oracle資料庫備份原則的詳細資訊。
 
 一般而言、您需要建立完整快照Oracle資料庫備份的原則、以及Oracle僅歸檔記錄快照備份的原則。
 
@@ -493,7 +493,7 @@ NOTE: 您可以在備份原則中啟用Oracle歸檔記錄剪除、以控制記�
 
 使用者可自行設定使用者在中的資料庫備份SnapCenter 、並可個別設定或在資源群組中設定群組。備份時間間隔取決於RTO和RPO目標。NetApp建議您每隔幾小時執行一次完整資料庫備份、並以較高的頻率（例如10-15分鐘）歸檔記錄備份、以便快速恢復。
 
-請參閱的Oracle一節 link:https://docs.netapp.com/us-en/netapp-solutions/databases/hybrid_dbops_snapcenter_getting_started_onprem.html#8-implement-backup-policy-to-protect-database["實作備份原則以保護資料庫"^] 以取得實作一節所建立備份原則的詳細逐步程序 <<設定Oracle資料庫的備份原則>> 以及備份工作排程。
+請參閱的Oracle一節 link:hybrid_dbops_snapcenter_getting_started_onprem.html#8-implement-backup-policy-to-protect-database["實作備份原則以保護資料庫"^] 以取得實作一節所建立備份原則的詳細逐步程序 <<設定Oracle資料庫的備份原則>> 以及備份工作排程。
 
 下列映像提供設定為備份Oracle資料庫的資源群組範例。
 

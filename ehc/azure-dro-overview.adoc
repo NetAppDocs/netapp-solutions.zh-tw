@@ -50,7 +50,7 @@ NOTE: 不支援串聯和扇入及扇出拓撲。
 
 。 https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["Azure VMware解決方案"^] （ AVS ）是混合雲服務、可在 Microsoft Azure 公有雲中提供功能完整的 VMware SDDC 。AVS是第一方的解決方案、由Microsoft完全管理及支援、並由VMware驗證、使用Azure基礎架構。因此、客戶可取得 VMware ESXi 來進行運算虛擬化、 vSAN 用於超融合式儲存設備、而 NSX 則用於網路和安全性、同時還能充分利用 Microsoft Azure 的全球知名度、領先同級的資料中心設施、以及鄰近豐富的原生 Azure 服務與解決方案生態系統。Azure VMware解決方案SDDC與Azure NetApp Files VMware解決方案的結合、可提供最佳效能、並將網路延遲降至最低。
 
-若要在 Azure 上設定 AVS 私有雲、請遵循本中的步驟 https://docs.netapp.com/us-en/netapp-solutions/ehc/azure-setup.html["連結"^] 適用於 NetApp 文件及本文件 https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["連結"^] 適用於 Microsoft 文件。  以最小組態設定的導向照明環境可用於 DR 用途。  此設定僅包含支援關鍵應用程式的核心元件、而且在發生容錯移轉時、它可以橫向擴充和啟動更多主機來承受大量負載。
+若要在 Azure 上設定 AVS 私有雲、請遵循本中的步驟 link:azure-setup.html["連結"^] 適用於 NetApp 文件及本文件 https://learn.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["連結"^] 適用於 Microsoft 文件。  以最小組態設定的導向照明環境可用於 DR 用途。  此設定僅包含支援關鍵應用程式的核心元件、而且在發生容錯移轉時、它可以橫向擴充和啟動更多主機來承受大量負載。
 
 
 NOTE: 在初始版本中、 DRO 支援現有的 AVS SDDC 叢集。隨需建立SDDC將於即將推出的版本中提供。
@@ -340,7 +340,7 @@ https://learn.microsoft.com/en-us/azure/azure-vmware/introduction["https://learn
 
 * 在Azure上部署及設定虛擬化環境
 +
-https://docs.netapp.com/us-en/netapp-solutions/ehc/azure-setup.html["https://docs.netapp.com/us-en/netapp-solutions/ehc/azure-setup.html"^]
+link:azure-setup.html["在 Azure 上設定 AVS"]
 
 * 部署及設定 Azure VMware 解決方案
 +

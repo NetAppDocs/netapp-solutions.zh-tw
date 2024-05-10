@@ -144,7 +144,7 @@ image::automation_ora_anf_nfs_archit.png[此映像提供在 AWS 公有雲中使�
 部署需要下列先決條件。
 
 . Azure 帳戶已設定完成、您的 Azure 帳戶已建立必要的 vnet 和網路區段。
-. 從 Azure 雲端入口網站、將 Azure Linux VM 部署為 Oracle DB 伺服器。為 Oracle 資料庫建立 Azure NetApp Files 容量集區和資料庫磁碟區。啟用 VM SSH 私密 / 公開金鑰驗證、以利 azureuser 與 DB 伺服器之間的驗證。如需環境設定的詳細資訊、請參閱上一節的架構圖表。也請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_procedures.html["Azure VM和Azure NetApp Files 整套Oracle部署程序"^] 以取得詳細資訊。
+. 從 Azure 雲端入口網站、將 Azure Linux VM 部署為 Oracle DB 伺服器。為 Oracle 資料庫建立 Azure NetApp Files 容量集區和資料庫磁碟區。啟用 VM SSH 私密 / 公開金鑰驗證、以利 azureuser 與 DB 伺服器之間的驗證。如需環境設定的詳細資訊、請參閱上一節的架構圖表。也請參閱 link:azure_ora_nfile_procedures.html["Azure VM和Azure NetApp Files 整套Oracle部署程序"^] 以取得詳細資訊。
 +
 
 NOTE: 對於部署了本機磁碟備援的 Azure VM 、請確定您已在 VM 根磁碟中至少分配 128G 、以有足夠的空間來存放 Oracle 安裝檔案、並新增 OS 交換檔。相應地展開 /tmplv 和 /rontlv OS 分區。確保資料庫磁碟區命名遵循 VMNAME-u01 、 VMNAME-u02 和 VMNAME-u03 慣例。
@@ -160,7 +160,7 @@ sudo lvresize -r -L +20G /dev/mapper/rootvg-rootlv
 sudo lvresize -r -L +10G /dev/mapper/rootvg-tmplv
 ----
 . 從 Azure 雲端入口網站佈建 Windows 伺服器、以最新版本執行 NetApp SnapCenter UI 工具。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["安裝SnapCenter 此伺服器"^]
-. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中
+. 在安裝最新版 Ansible 和 Git 的情況下、將 Linux VM 配置為 Ansible 控制器節點。如需詳細資訊、請參閱下列連結： link:../automation/getting-started.html["NetApp解決方案自動化入門"^] 在第 - 節中
 `Setup the Ansible Control Node for CLI deployments on RHEL / CentOS` 或
 `Setup the Ansible Control Node for CLI deployments on Ubuntu / Debian`。
 +
@@ -587,7 +587,7 @@ image::automation_ora_anf_nfs_em_02.png[此映像可從 Oracle Enterprise Manage
 
 [%collapsible]
 ====
-Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正確的策略和自動化功能、可以順利完成程序、並將服務中斷和停機時間降至最低。請遵循此詳細指示 link:https://docs.netapp.com/us-en/netapp-solutions/databases/azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["資料庫從內部部署移轉至Azure雲端"^] 引導您的資料庫移轉過程。
+Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正確的策略和自動化功能、可以順利完成程序、並將服務中斷和停機時間降至最低。請遵循此詳細指示 link:azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["資料庫從內部部署移轉至Azure雲端"^] 引導您的資料庫移轉過程。
 
 ====
 
@@ -596,7 +596,7 @@ Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正�
 
 [%collapsible]
 ====
-NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracle 資料庫。請參閱 TR-4988 ： link:https://docs.netapp.com/us-en/netapp-solutions/databases/snapctr_ora_azure_anf.html["Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行"^] 以取得詳細資料。
+NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracle 資料庫。請參閱 TR-4988 ： link:snapctr_ora_azure_anf.html["Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行"^] 以取得詳細資料。
 
 ====
 
@@ -607,7 +607,7 @@ NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracl
 
 * Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行
 +
-link:https://docs.netapp.com/us-en/netapp-solutions/databases/snapctr_ora_azure_anf.html["Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行"^]
+link:snapctr_ora_azure_anf.html["Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行"^]
 
 * Azure NetApp Files
 +
