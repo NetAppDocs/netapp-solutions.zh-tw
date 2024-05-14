@@ -21324,7 +21324,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="be6fe459efc001de10bc54c09ce387ad" category="list-text"><block ref="be6fe459efc001de10bc54c09ce387ad" category="inline-link-macro-rx"></block></block>
   <block id="b8ec19ed03dcc61134bdcf876c5dcd90" category="inline-link-macro">VMware Sovereign Cloud 內容</block>
   <block id="756386595f4e22e2f55f7c5c67bbd3e8" category="list-text"><block ref="756386595f4e22e2f55f7c5c67bbd3e8" category="inline-link-macro-rx"></block></block>
-  <block id="9a0a1a75f723593e02d7f450163863f7" category="cell">虛擬化核心解決方案的集合、包括桌面虛擬化。  虛擬化登陸頁面提供內容特定「區塊」的熱門內容。  本主題涵蓋多個虛擬化選項。</block>
   <block id="60dcb67b7ea4032d2d3ac370465590f3" category="inline-link-macro">VMware 虛擬化內容</block>
   <block id="61801f99e64f83e465f8a1c0b1875d48" category="list-text"><block ref="61801f99e64f83e465f8a1c0b1875d48" category="inline-link-macro-rx"></block></block>
   <block id="8d0bcac2ce80dc6e8ca2dd3f3032710e" category="inline-link-macro">Hyper-V 虛擬化內容</block>
@@ -21374,8 +21373,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="2e38784de8a77ca333f2eea1e8ccfc09" category="list-text">即時移轉</block>
   <block id="a17b11045e4b23b762ee72c5912a4845" category="list-text">VM 網路</block>
   <block id="494eeb741723e2c166dc5864c7da1e64" category="list-text">管理網路</block>
-  <block id="019640bd37195c3fa629f150ff47984c" category="admonition">當 iSCSI 搭配專用 NIC 使用時、不建議使用任何群組解決方案、也不應使用 MPIO / DSM 。</block>
-  <block id="c9509efc0c270376cacf2e5d508de56b" category="admonition">Hyper-V 網路最佳實務做法也不建議在 Hyper-V 環境中使用 SMB 3.0 儲存網路的 NIC 群組。</block>
   <block id="f180c379a6f1a0b5dcca5ff6014edbcd" category="inline-link-macro">規劃 Windows Server 中的 Hyper-V 網路</block>
   <block id="8fbfe169f293b8ecf3190bff22f3fc8c" category="paragraph">如需其他資訊、請參閱 <block ref="3ec82e4f297a35125ca20e100b1bdbc6" category="inline-link-macro-rx"></block></block>
   <block id="61ed68ad4801d8e3bbe3785a0de57247" category="example-title">決定 Hyper-V 的儲存設計</block>
@@ -21385,9 +21382,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="b39d47dbcb48e2064ea0978dea0793ae" category="list-text">以持續可用的 SMB 3.0 共享區代管的 VM</block>
   <block id="be1d5dd432dd053b97f14401fc060813" category="list-text">在 iSCSI 或 FC 上執行的叢集共用磁碟區（ CSV ） LUN 上託管的 VM</block>
   <block id="b3be7b9bd65884dd3c61122c580d5ea1" category="list-text">來賓儲存設備、並將磁碟傳遞至來賓虛擬機器</block>
-  <block id="75bde67e182abd5af0f7de1a349b07c2" category="admonition">核心 ONTAP 功能、例如精簡配置、重複資料刪除、壓縮、資料壓縮、彈性複製、 無論平台或作業系統為何、快照和複寫都能在背景中順暢運作、為 Hyper-V 工作負載帶來顯著價值。這些功能的預設設定最適合 Windows Server 和 Hyper-V</block>
-  <block id="c851eea33c060696b2f94570b6f632ca" category="admonition">如果 VM 有多個路徑可供使用、且已安裝及設定多重路徑 I/O 功能、則可使用來賓啟動器在來賓 VM 上支援 MPIO 。</block>
-  <block id="59bd6e5fca75be51b3b87514e56542ca" category="admonition">支援所有主要的產業標準用戶端傳輸協定：NFS、SMB、FC、FCoE、iSCSI、ONTAP NVMe / FC和S3。不過、 Microsoft 不支援 NVMe / FC 和 NVMe / TCP 。</block>
   <block id="8b93b571befef32bf08f8af45ed91400" category="example-title">安裝 NetApp Windows iSCSI 主機公用程式</block>
   <block id="78518a961d9e03dcfd819491eb7ad0a1" category="inline-link-macro">安裝 Windows Unified Host Utilities 7.2 （或最新支援版本）</block>
   <block id="cd1ae0ed15ecb7d104b732cd2f82b508" category="paragraph">下節說明如何執行 NetApp Windows iSCSI 主機公用程式的自動安裝。如需安裝的詳細資訊、請參閱 <block ref="9e07196344ac4bf7027f7813a428444d" category="inline-link-macro-rx"></block></block>
@@ -21395,7 +21389,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="33b06bb1fa37569dc7a01eaa53e26408" category="list-text">下載 <block ref="bd88e54c97967935b96e14aa16aabb7e" category="inline-link-macro-rx"></block></block>
   <block id="b4d95ad96b0897c71eeee0bfa80c7af2" category="list-text">解除封鎖下載的檔案。</block>
   <block id="1989ae7738531d9b17d7c0914263aede" category="list-text">安裝主機公用程式。</block>
-  <block id="7c709afc02f0e338abc5808f4fb298b3" category="admonition">系統將在此過程中重新開機。</block>
   <block id="1e0fcaf68f9294004c38268eece4d44c" category="example-title">設定 Windows 主機 iSCSI 啟動器</block>
   <block id="57d6af2ec779e651a9849757e0cb0bda" category="paragraph">下列步驟說明如何設定內建的 Microsoft iSCSI 啟動器。</block>
   <block id="49f324e8c8088b1830fb33da851095f4" category="list-text">以滑鼠右鍵按一下工作列中的 PowerShell 圖示、然後選取「以系統管理員身分執行」、即可啟動 PowerShell 提示。</block>
@@ -21405,7 +21398,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="1a03a4a5c70a786eeee368cb94b9a138" category="list-text">將所有新宣告的裝置的預設負載平衡原則設為循環配置資源。</block>
   <block id="2fd6fc7fb0663c1f3bfbb8e4bf94fa4d" category="list-text">為每個控制器設定 iSCSI 目標。</block>
   <block id="6cdd9d5eb923ef8a2661dbcf05e57c30" category="list-text">將每個 iSCSI 網路的工作階段連線至每個目標。</block>
-  <block id="c548e032741ca7aee0d3950e1e90862b" category="admonition">新增多個工作階段（至少 5 到 8 個）、以提升效能並運用頻寬。</block>
   <block id="92523cffb9cb26673c17f09974c81b36" category="example-title">建立叢集</block>
   <block id="73fbe8c2232a4ddf138fca70521f5a59" category="paragraph">* 僅限一部伺服器 *</block>
   <block id="af9b0786125c33f1d3390c218943905e" category="list-text">以滑鼠右鍵按一下 PowerShell 圖示並選取、即可啟動具有管理權限的 PowerShell 提示<block ref="0e34cc2317170464eb45d215172eaabe" prefix=" " category="inline-code"></block>。</block>
@@ -21428,30 +21420,18 @@ NetApp 的 Mohan Acharya</block>
   <block id="1264cd7a8fe517f0d0715c15afc07b13" category="paragraph">如需仲裁與見證的詳細資訊、請參閱 <block ref="ddfc152337d2a4649319738d845df58f" category="inline-link-macro-rx"></block></block>
   <block id="003d2c656fda914e84cec867a3fd647a" category="list-text">從容錯移轉叢集管理程式執行叢集驗證精靈、以驗證部署。</block>
   <block id="ee96ae22c4cfac8305a0f85879eab48e" category="list-text">建立 CSV LUN 來儲存虛擬機器資料、並透過容錯移轉叢集管理程式中的角色來建立高可用度的虛擬機器。</block>
-  <block id="e904f68350b14b7c1db336b84d05a976" category="section-title">考量、功能和整合</block>
-  <block id="af46438aad5bc51face7b77dfc1e6d76" category="section-title">考量因素</block>
   <block id="221be0eaf74908d6c3ffe1c144192abe" category="paragraph">此步驟對於確定應用程式、服務和工作負載可在 Hyper-V 環境中有效運作至關重要。相容性檢查必須涵蓋作業系統版本、 Windows 伺服器版本、應用程式相依性、資料庫系統、以及現有環境中存在的任何特定組態或自訂。</block>
   <block id="61b56bd2f867b93992464bee3d949f55" category="example-title">適當調整儲存容量</block>
   <block id="27a7f2e14077a5e05d674eb571448aa7" category="paragraph">在部署工作負載或從現有 Hypervisor 移轉之前、請先確定工作負載的大小符合所需的效能。這可以透過收集每個個別 VM 的效能資料來輕鬆完成、這些資料會收集 CPU （已使用 / 已配置）、記憶體（已使用 / 已配置）、儲存（已配置 / 已使用）、網路處理量和延遲、以及讀取 / 寫入 IOPS 、處理量和區塊大小的集合。這些參數是成功部署及正確調整儲存陣列和工作負載主機大小的必要參數。</block>
-  <block id="c543a106615ed40a648c15d9efb95e56" category="admonition">為 Hyper-V 及相關工作負載調整儲存容量時、請規劃 IOPS 與容量。</block>
-  <block id="9da501a3efd788dc2b52177194f79e7d" category="admonition">對於 I/O 密集度較高的 VM 或需要大量資源和容量的 VM 、請將作業系統和資料磁碟區隔開。作業系統和應用程式二進位檔不常變更、而且可以接受磁碟區損毀的一致性。</block>
-  <block id="3c634dbda11b6900d02c3f55b7f0278a" category="admonition">相較於使用 VHD 、使用來賓連線儲存設備（也稱為來賓）來處理高效能資料磁碟。這也有助於簡化複製程序。</block>
   <block id="0f38f968d1c21416573fac3c66be1532" category="example-title">提升虛擬機器效能</block>
   <block id="6d02622589021b3f701d262a8d4930a7" category="paragraph">選擇適當數量的 RAM 和 vCPU 、以獲得最佳效能、並將多個磁碟附加到單一虛擬 SCSI 控制器。仍建議使用固定的 VHD 作為部署虛擬磁碟的主要選擇、而且不限制使用任何類型的 VHDX 虛擬磁碟。</block>
-  <block id="62d91aa86688476e63adb385c7d60b32" category="admonition">避免在無法使用的 Windows Server 上安裝不必要的角色。</block>
-  <block id="a7a0da0984cc491d16098c8bb2f91691" category="admonition">選擇第 2 代做為能夠從 SCSI 控制器載入 VM 的虛擬機器、並以 VMBus 和 VSP / VSC 架構為基礎、以達到開機層級、大幅提升整體 VM 效能。</block>
-  <block id="680bfa85711ecfb5af118a0aa7e79134" category="admonition">避免經常進行檢查點、因為它會對 VM 效能造成負面影響。</block>
   <block id="8eb321d9b6c4029e92ae09199aa16ed2" category="example-title">SMB3.0 設計與考量</block>
   <block id="e9d045d44881ac073d62a15dafa92384" category="paragraph">SMB 3.0 檔案共用可做為 Hyper-V 的共用儲存設備ONTAP 支援在 Hyper-V 的 SMB 共用上進行不中斷營運Hyper-V 可以使用 SMB 檔案共用來儲存虛擬機器檔案、例如組態、快照和虛擬硬碟（ VHD ）檔案。針對 Hyper-V 使用專屬的 ONTAP CIFS SVM for SMB3.0 型共用用於儲存虛擬機器檔案的磁碟區必須使用 NTFS 安全性樣式磁碟區建立。如果有 Hyper-V 主機和 NetApp 陣列可用、建議在 10GB 網路上進行連線。如果是 1GB 網路連線、 NetApp 建議您建立由多個 1GB 連接埠組成的介面群組。將服務 SMB 多通道的每個 NIC 連接到其專用 IP 子網路、以便每個子網路在用戶端和伺服器之間提供單一路徑。</block>
-  <block id="cfcd8a1222bb0bf0b4d014d50ec5fa18" category="paragraph">重點</block>
   <block id="bb1720136f385d53ca15015f66ba0624" category="list-text">在 ONTAP SVM 上啟用 SMB 多通道</block>
   <block id="627e7a17ce4baca0245ffff8f365d686" category="list-text">ONTAP CIFS SVM 在叢集中的每個節點上至少應有一個資料 LIF 。</block>
   <block id="d81499ca19ad7974a4ab17f135b7a250" category="list-text">使用的共用必須使用持續可用的內容集進行設定。</block>
   <block id="0b3f059d983fbe9e625db8019353b143" category="list-text">ONTAP One 現在已包含在每個 AFF （ A 系列和 C 系列）、 All SAN Array （ ASA ）和 FAS 系統上。因此不需要個別的授權。</block>
   <block id="b7bf010a00610310a824b92127f2f92c" category="list-text">若為共用的 VHD 、請使用來賓連線的 iSCSI LUN</block>
-  <block id="55ec71fc527496ca03712f644421ecf6" category="admonition">ODX 受支援、可在多種通訊協定之間運作。在檔案共用區與 iSCSI 或 FCP 附加 LUN 之間複製資料也會使用 ODX 。</block>
-  <block id="5d550ea25e684ee44f7369ffa51e228a" category="admonition">叢集中節點上的時間設定應相應設定。如果 NetApp CIFS 伺服器必須參與 Windows Active Directory （ AD ）網域、則應使用網路時間傳輸協定（ NTP ）。</block>
-  <block id="ff07d29e0f13d9054f3d642eb380ab2b" category="admonition">必須透過 CIFS 伺服器啟用大 MTU 值。較小的封包大小可能會導致效能降低。</block>
   <block id="936bb6462d7a25968a25b25924184dff" category="example-title">資源配置 SMB Volume</block>
   <block id="7ad914f3ffd2a3e9ae9a8371e37b424d" category="list-text">確認儲存虛擬機器（ SVM ）上已啟用必要的 CIFS 伺服器選項</block>
   <block id="64577da872a953c92b42392a3586e787" category="list-text">下列選項應設為 true ：啟用 SMB2 的 smb3 啟用複製卸載的 ShadowCopy-enabled is - 啟用多通道的 smb2-smb3-mtu</block>
@@ -21460,7 +21440,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="e10ac954197b2c1a368b1137cd780acf" category="list-text">在儲存虛擬機器（ SVM ）上建立 NTFS 資料磁碟區、然後設定持續可用的共享區、以搭配 Hyper-V 使用</block>
   <block id="0a9d27ac1aed49b9f3afad8c9a962876" category="inline-image-macro">NTFS 資料磁碟區設定的影像</block>
   <block id="9a25bee94e5544fe522fe9aaca229d87" category="paragraph"><block ref="9a25bee94e5544fe522fe9aaca229d87" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="d2f6f03f5c8d3b041213a61bf25a57f4" category="admonition">除非將組態中使用的磁碟區建立為 NTFS 安全樣式磁碟區、否則透過 SMB 執行 Hyper-V 的不中斷作業將無法正常運作。</block>
   <block id="008186dc4188ceba1f53419ce72db190" category="list-text">在共用上啟用持續可用的 NTFS 權限、並將其設定為包含完全控制的 Hyper-V 節點。</block>
   <block id="b57fbf7220d9800e7c49478c5725ab46" category="inline-image-macro">NTFS 權限設定的映像</block>
   <block id="0c3f936dc7cad25b4f32cf5282aba99e" category="paragraph"><block ref="0c3f936dc7cad25b4f32cf5282aba99e" category="inline-image-macro-rx" type="image"></block></block>
@@ -21473,14 +21452,12 @@ NetApp 的 Mohan Acharya</block>
   <block id="52ca238b6abae01716ece50e1f59b9fa" category="list-text">在主機上使用多重路徑（ MPIO ）來管理多重路徑。視需要建立更多路徑、以促進資料移動性作業、或是利用額外的 I/O 資源、但不要超過主機作業系統可支援的最大路徑數。</block>
   <block id="a76f6ba2dd24fa693990b2b3f83531a0" category="list-text">在存取 LUN 的主機上安裝主機公用程式套件。</block>
   <block id="89c0be1ea2eafac16cd78d8003f91455" category="list-text">建立至少 8 個磁碟區。</block>
-  <block id="0dd7a106101cd389337773da7a280642" category="admonition">每個磁碟區使用一個 LUN 、因此 LUN 與 CSV 的比例有 1 ： 1 對應。</block>
   <block id="1e704db41d570618bd723b41d0db395e" category="list-text">SVM 應在每個儲存控制器上、每個乙太網路或光纖通道架構都有一個 LIF 、以便使用 iSCSI 或光纖通道來提供資料。</block>
   <block id="6580e7ea6cb74c3cb7d22222ca9a8ee2" category="list-text">SVM 使用 FCP 或 iSCSI 提供資料、需要 SVM 管理介面。</block>
   <block id="4d456b011b59bb445f5a4b91cab69191" category="example-title">資源配置 iSCSI Volume</block>
   <block id="4fd7cd5ab6b6d569327d31c20d250b2d" category="paragraph">若要佈建 iSCSI Volume 、請確保符合下列先決條件。</block>
   <block id="a081912367b193c16759452a6e364538" category="list-text">儲存虛擬機器（ SVM ）應啟用 iSCSI 傳輸協定、並建立適當的邏輯介面（生命）。</block>
   <block id="cb4040af5851565d6010c0c8a497ac11" category="list-text">指定的 Aggregate 必須有足夠的可用空間來容納 LUN 。</block>
-  <block id="ca6088453830da22a298593a32c113f4" category="admonition">根據預設、ONTAP 由於使用選擇性LUN對應（SLM),所以LUN只能透過擁有LUN及其高可用度（HA）合作夥伴的節點路徑存取。</block>
   <block id="2520998fd6270ac8ba38efe4983ffcb1" category="list-text">如果 LUN 移至叢集中的另一個節點、請在每個節點上設定所有 iSCSI 生命體、以實現 LUN 的移動性。</block>
   <block id="4839d2f25cc35b249d5db15efa1afd75" category="paragraph">*步驟*</block>
   <block id="6f278b2209bad78f36b1dcfbefbefbdd" category="list-text">使用系統管理員並瀏覽至 LUN 視窗（ ONTAP CLI 可用於相同的作業）。</block>
@@ -21493,7 +21470,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="f6bdd0f5e9a5d030caefa9216952c36b" category="list-text">在 [ 啟動器對應 ] 頁面上按一下 [ 其他選項 ] ，然後按一下 [ 新增啟動器群組 ] ，在 [ 一般 ] 索引標籤上輸入必要的資訊，再在 [ 啟動器 ] 索引標籤上輸入主機的 iSCSI 啟動器節點名稱。</block>
   <block id="9a914bb8ffbcd6592870f709e17f142f" category="list-text">確認詳細資料、然後按一下「完成」以完成精靈。</block>
   <block id="6ec5253eb95eade2142f5a6e3cd555cc" category="paragraph">建立 LUN 後、請前往容錯移轉叢集管理程式。若要將磁碟新增至 CSV 、必須將磁碟新增至叢集的可用儲存群組（如果尚未新增）、然後將磁碟新增至叢集上的 CSV 。</block>
-  <block id="76e573dfc134f0a6fdd709b98c9db675" category="admonition">在容錯移轉叢集中、預設會啟用 CSV 功能。</block>
   <block id="2f94bee7d3f00adbe10ac0aeeeb5558f" category="paragraph">* 將磁碟新增至可用儲存設備： *</block>
   <block id="033d7fea547158014b7f4e10856391c7" category="list-text">在容錯移轉叢集管理程式的主控台樹狀目錄中、展開叢集名稱、然後展開儲存。</block>
   <block id="5a327b70c63a8edf7a8c9595dbe83247" category="list-text">以滑鼠右鍵按一下 [ 磁碟 ] ，然後選取 [ 新增磁碟 ] 。隨即出現清單、顯示可新增以用於容錯移轉叢集的磁碟。</block>
@@ -21517,8 +21493,6 @@ NetApp 的 Mohan Acharya</block>
   <block id="2bbc9c412ea326c7c4b75f70f1f7c090" category="list-text">虛擬機器即會建立。然後、容錯移轉叢集管理程式中的高可用度精靈會自動設定虛擬機器的高可用度。</block>
   <block id="810a364a5cbe3e85db418bb432567654" category="example-title">使用 ODX 功能快速配置虛擬磁碟</block>
   <block id="f6c9c4042fd912f10febed8f2e62828c" category="paragraph">ONTAP 的 ODX 功能可複製主要 VHDX 檔案、只需複製 ONTAP 儲存系統代管的主要 VHDX 檔案、即可製作主要 VHDX的 複本。由於啟用 ODX 的複本不會將任何資料放在網路線路上、因此複製程序會在 NetApp 儲存端執行、因此速度最多可快上六到八倍。快速資源配置的一般考量包括儲存在檔案共用上的主系統重新繪製映像、以及由 Hyper-V 主機啟動的一般複本程序。</block>
-  <block id="16c12045c7d38d1938f24da9bfb225a3" category="admonition">支援適用於SMB與SAN傳輸協定的ODX。ONTAP</block>
-  <block id="e45d13a1686f3f79462ded86e45580c7" category="admonition">若要利用 ODX 複本卸載傳遞與 Hyper-V 的使用案例、來賓作業系統必須支援 ODX 、來賓作業系統的磁碟必須是支援 ODX 的 SCSI 磁碟（ SMB 或 SAN ）。客體作業系統上的IDE磁碟不支援ODX傳遞。</block>
   <block id="1b75d86136a5cde892b315650fd5ea43" category="example-title">效能最佳化</block>
   <block id="8e58db38b1ebad0770b7c4e95ad6f2a5" category="paragraph">雖然每個 CSV 建議的虛擬機器數量是主觀的、但許多因素決定了可放置在每個 CSV 或 SMB 磁碟區上的最佳虛擬機器數量。雖然大多數系統管理員只考慮容量，但傳送至 VHD 的並行 I/O 數量是整體效能最重要的因素之一。控制效能的最簡單方法是調整每個 CSV 或共享區上放置的虛擬機器數量。如果並行虛擬機器 I/O 模式傳送太多流量給 CSV 或共享區、則磁碟佇列會填滿、並產生較高的延遲。</block>
   <block id="99d706de84a97e35a5139d8be63213a5" category="example-title">SMB Volume 和 CSV 規模調整</block>
@@ -21527,14 +21501,11 @@ NetApp 的 Mohan Acharya</block>
   <block id="7b1fa594a6041d90712d46c0d4678284" category="paragraph">在目前市場情況下、最常見的使用案例之一是移轉。客戶可以使用 VMM Fabric 或其他協力廠商移轉工具來移轉 VM 。這些工具會使用主機層級複本、將資料從來源平台移至目的地平台、視移轉範圍內的虛擬機器數量而定、可能會耗費大量時間。</block>
   <block id="c5ec87d08b5ce344b865d9b79e5fd2bf" category="paragraph">在這類案例中使用 ONTAP 、可比使用主機型移轉程序更快進行移轉。ONTAP 也能將 VM 從一個 Hypervisor 快速移轉至另一個 Hypervisor （在此案例中為 ESXi ）。任何大小的 VMDK 都可以在 NetApp 儲存設備上以秒為單位轉換為 VHD 。這就是我們的 PowerShell 方法：它利用 NetApp FlexClone ® 技術來快速轉換 VM 硬碟。它也會處理目標 VM 和目的地 VM 的建立和組態。</block>
   <block id="31b830b50f429f952469de8e883cc5dd" category="paragraph">此程序有助於將停機時間降至最低、並提高企業生產力。此外、它還能降低授權成本、限制及承諾單一廠商、提供更多選擇與靈活度。這對於想要最佳化 VM 授權成本並擴充 IT 預算的組織也很有幫助。</block>
-  <block id="b16e1b5d55c882f3939738e7b45b7829" category="inline-link-macro">附錄 A</block>
-  <block id="10f351cc85eb7f612b644c12e72d0c5f" category="paragraph">如需使用 FlexClone 和 PowerShell 移轉的其他資訊、請參閱 <block ref="a1ab9c5224bfd5686c36dc63148a94c5" category="inline-link-macro-rx"></block>。</block>
   <block id="abfeff4720284db820087b01232509b3" category="example-title">使用 NetApp 儲存快照還原</block>
   <block id="384dd1e76146b857b541ee95fbacdeb3" category="paragraph">備份 VM 並快速恢復或複製 VM 是 ONTAP 磁碟區的主要優勢之一。使用 Snapshot 複本快速複製 VM 的 FlexClone 複本、甚至是整個 CSV 磁碟區、而不會影響效能。如此一來、在複製正式作業資料磁碟區、並將其裝載於 QA 、移位和開發環境中時、就能處理正式作業資料、而不會有資料毀損的風險。FlexClone Volume 可用於製作正式作業資料的測試複本、而無需將複製資料所需的空間量增加一倍。</block>
   <block id="ad18db831308de2612c5fabaadeb35c7" category="paragraph">請記住、 Hyper-V 節點會為每個磁碟指派唯一的 ID 、並針對具有個別分割區（ MBR 或 GPT ）的磁碟區擷取快照、將會具有相同的唯一識別碼。MBR 使用磁碟簽章、 GPT 使用 GUID （全域唯一識別碼）。如果是獨立式 Hyper-V 主機、則可以輕鬆掛載 FlexClone Volume 、而不會發生任何衝突。這是因為獨立式 Hyper-V 伺服器可以自動偵測重複的磁碟 ID 、並在不需要使用者介入的情況下動態變更。此方法可用於在案例需要時複製 VHD 來恢復 VM 。</block>
   <block id="474e59171bd302f346959e41af4afd85" category="paragraph">雖然獨立式 Hyper-V 主機很簡單、但 Hyper-V 叢集的程序卻不同。恢復程序包括將 FlexClone 磁碟區對應至獨立 Hyper-V 主機、或使用磁碟區將 FlexClone 磁碟區對應至獨立的 Hyper-V 主機、以手動變更簽名（這很重要、因為磁碟 ID 衝突會導致磁碟無法上線）、完成後、 將 FlexClone Volume 對應至叢集。</block>
   <block id="519ee2b36bed7ddf58f511eab78de057" category="example-title">使用協力廠商解決方案進行備份與還原</block>
-  <block id="069cc8be21b82034e09dcbbae049dbac" category="admonition">本節使用 CommVault 、但這適用於其他第三方解決方案。</block>
   <block id="e721c17fd435406529588931eccb6f32" category="paragraph">藉助 ONTAP 快照， CommVault IntelliSnap ® 可創建基於硬件的快照
 Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行、或是針對 VM 群組或特定 VM 手動進行。IntelliSnap 可快速保護 Hyper-V 環境、將生產力虛擬化伺服器陣列的負載降至最低。IntelliSnap 技術與虛擬伺服器代理程式（ VSA ）的整合、可讓 NetApp ONTAP 陣列在幾分鐘內完成大量虛擬機器和資料儲存區的備份。精細的存取功能可從儲存設備的次層和完整的客體 .vhd 檔案、提供個別的檔案和資料夾還原功能。</block>
   <block id="c2e9681f688472e94c198413c88297c9" category="paragraph">在設定虛擬化環境之前、請先部署需要與陣列進行快照整合的適當代理程式。Microsoft Hyper-V 虛擬化環境需要下列代理程式：</block>
@@ -21581,7 +21552,6 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="bf319570e534d4c197a336605ba3eefd" category="list-text">在「 Add VM Group 」（新增 VM 群組）頁面上、選取要保護的虛擬機器（ Demograp 是在此案例中建立的 VM 群組）、然後啟用 IntelliSnap 選項、如下所示。</block>
   <block id="3e83620fb01d5b8ac17e15ecabcd396a" category="inline-image-macro">顯示要保護的 VM 選擇的影像</block>
   <block id="cfdd477b85831e5248f100a18d71ad0b" category="paragraph"><block ref="cfdd477b85831e5248f100a18d71ad0b" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="3292203dc124ade27cc85547d78fda52" category="admonition">在 VM 群組上啟用 IntelliSnap 時、 CommVault 會自動為主要（ Snap ）和備份複本建立排程原則。</block>
   <block id="53304475d79b614c8fb33c36590d429f" category="inline-link-macro">新增 Hypervisor</block>
   <block id="a1b6e96a070775fe5adb6d9205aba3bc" category="paragraph">如需設定陣列的詳細步驟、請參閱 <block ref="50b89c70bf10d84a27d3112125b71121" category="inline-link-macro-rx"></block>。</block>
   <block id="9df4173f1890320901407ac35f58abe3" category="paragraph">* 執行備份： *</block>
@@ -21592,7 +21562,6 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="69816b0ccf05ad17fd60c3a7cbb7fde1" category="list-text">一旦備份成功、還原點就會如畫面擷取所示。您可以從快照複本還原完整 VM 、並還原客體檔案和資料夾。</block>
   <block id="b3cfa7fdace2e8dd924cbc2b6f3f26ad" category="inline-image-macro">顯示備份還原點的影像</block>
   <block id="e8a0c0fd2ed60b53f71cb1536d2249c8" category="paragraph"><block ref="e8a0c0fd2ed60b53f71cb1536d2249c8" category="inline-image-macro-rx" type="image"></block></block>
-  <block id="55d859c1c853f988ec6c7fad9871822f" category="admonition">對於使用率高的關鍵虛擬機器、每個 CSV 可保留較少的虛擬機器</block>
   <block id="7383b644a02d9f97c9acd31f403906b4" category="paragraph">* 執行還原作業： *</block>
   <block id="5a3d3a9a8e7beb8a88563342207f6b25" category="paragraph">透過還原點還原完整 VM 、來賓檔案和資料夾、或虛擬磁碟檔案。</block>
   <block id="02e89648c33b53cf57d903e37fc2a800" category="list-text">從導覽窗格中、移至「保護」 &gt; 「虛擬化」、隨即出現「虛擬機器」頁面。</block>
@@ -21620,7 +21589,6 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="fc377d02ff3791ff796174444917dbf1" category="list-text">將 CSV 中的虛擬機器匯入 Hyper-V 管理程式、使其具有高可用度、然後將其新增至叢集。</block>
   <block id="d20fd00a38d0f3edb778483768f9a66c" category="list-text">開啟 VM 。</block>
   <block id="ffc073848a87fcf3a34c9fda7bf9c3f9" category="paragraph">ONTAP 是部署各種 IT 工作負載的最佳共享儲存基礎。ONTAP AFF 或 ASA 平台兼具彈性與可擴充性、適用於多種使用案例和應用程式。在其中啟用 Windows Server 2022 和 Hyper-V 是虛擬化解決方案的常見使用案例、如本文件所述。ONTAP 儲存設備及其相關功能的靈活度與擴充性、讓客戶從適當大小的儲存層開始、即可隨業務需求的演進而擴充及調整。在目前的市場情況下、 Hyper-V 提供完美的替代 Hypervisor 選項、可提供 VMware 提供的大部分功能。</block>
-  <block id="b8b3e70c4259b8de9ce6e43c4b52d9e0" category="section-title">附錄 A ：使用 FlexClone 和 PowerShell 移轉</block>
   <block id="fbdd5f58d93632fb384c0a0898a97931" category="example-title">PowerShell 指令碼</block>
   <block id="66d8599ea2faf95028f09b99b114f097" category="list-text">若要使用Ansible教戰手冊來部署Astra Control Center、您需要安裝Ansible的Ubuntu / RHEL機器。請依照程序進行 <block ref="b6a25313d3add7b9c486b9b125d5704f" category="inline-link-macro-rx"></block> 適用於 Ubuntu 和 RHEL 。</block>
   <block id="faa55b918830114ae52f5741cc83ca96" category="paragraph">雖然我們透過Jenkins工具展示了CI/CD工作流程、但這項概念可以輕鬆且有效率地推斷到不同的工具和策略。若要查看此使用案例、請觀看下方影片。</block>
@@ -21786,4 +21754,238 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="b2ed084fcecb6db65b12c65588a0a926" category="paragraph">Azure NetApp Files 是 Azure 原生、第一方、企業級、高效能檔案儲存服務。它提供 Volume 即服務、可讓您建立 NetApp 帳戶、容量集區和磁碟區。您也可以選擇服務和效能層級、並管理資料保護。您可以使用熟悉且仰賴內部部署的相同通訊協定和工具、來建立和管理高效能、高可用度和可擴充的檔案共用。如需 Azure NetApp Files 的詳細資訊、請按一下<block ref="fc5eaf030008b3907c3925b272228bba" category="inline-link-rx"></block>。</block>
   <block id="1215f8190533dfdf63d2224a6d88266f" category="section-title">Google Cloud NetApp Volumes</block>
   <block id="6a529e89f36a18cfaf22ebfd0be19ce9" category="paragraph">Google Cloud NetApp Volumes 是一項完全託管的雲端型資料儲存服務、可提供進階資料管理功能和高度擴充的效能。它可讓您將檔案型應用程式移至 Google Cloud 。它支援網路檔案系統（ NFSv3 和 NFSv4.1 ）和內建伺服器訊息區塊（ SMB ）通訊協定、因此您不需要重新架構應用程式、也能繼續為應用程式取得持續儲存。如需 Google Cloud NetApp Volumes P 的詳細資訊、請按一下<block ref="9ef49dd5917f54781359b5df82c18923" category="inline-link-rx"></block>。</block>
+  <block id="965ba9e1d5a7e5c56bc57c2caf6c20ca" category="cell">05/14/2024</block>
+  <block id="bce2635594b614a8b79723d4f2edb697" category="cell">新增使用 FSxN 內容將 VM 移轉至 Amazon EC2</block>
+  <block id="1429266c04b29bc91f63a0e7d9152038" category="doc">在 NetApp 儲存設備上部署 Microsoft Hyper-V ：資料保護</block>
+  <block id="ecb1ab954619032ccfb9e65cf23df2df" category="paragraph">資料保護是任何正式作業工作負載的主要租戶。  本節說明如何備份及還原 Hyper-V 虛擬機器。</block>
+  <block id="ec326757f284c0b86bcb6543289f0431" category="paragraph">* 注意 * ：本節使用 CommVault 、但這適用於其他第三方解決方案。</block>
+  <block id="1b1475d6a1fba2692b5c895a73488084" category="paragraph">* 先決條件 *</block>
+  <block id="e5ce8b0081f2c6290a4c2e3430c561ba" category="paragraph">* 注意 * ：在 VM 群組上啟用 IntelliSnap 時、 CommVault 會自動為主要（ Snap ）和備份複本建立排程原則。</block>
+  <block id="aeeedf47dcaaf8bbd8ea1ee7065b24f6" category="paragraph">* 附註 * ：對於關鍵且使用率高的虛擬機器、每個 CSV 可保留較少的虛擬機器</block>
+  <block id="e41c25cf986ee8856f89a2ad62f9e1eb" category="doc">在 NetApp 儲存設備上部署 Microsoft Hyper-V ：預先申請</block>
+  <block id="6af8b37387ee1bcda8e259f9dd40ede9" category="paragraph">* 注意 * ：當 iSCSI 搭配專用 NIC 使用時、不建議使用任何群組解決方案、也不應使用 MPIO / DSM 。</block>
+  <block id="064b43f1cfe4c9e4e46d24eb31bfba6f" category="paragraph">* 注意 * ： Hyper-V 網路最佳實務做法也不建議在 Hyper-V 環境中使用 NIC 群組功能來支援 SMB 3.0 儲存網路。</block>
+  <block id="5fa3cb686862c134ddd5d94e8c575fa8" category="paragraph">* 注意 * ：核心 ONTAP 功能、例如精簡配置、重複資料刪除、壓縮、資料壓縮、彈性複製、 無論平台或作業系統為何、快照和複寫都能在背景中順暢運作、為 Hyper-V 工作負載帶來顯著價值。這些功能的預設設定最適合 Windows Server 和 Hyper-V</block>
+  <block id="090804ed4cf35a6bf6bbd8633443b91a" category="paragraph">* 附註 * ：如果 VM 有多個路徑可用、且已安裝及設定多重路徑 I/O 功能、則可使用來賓啟動器在來賓 VM 上支援 MPIO 。</block>
+  <block id="24c7067b3db0961f8903a2c8b4f4c72b" category="paragraph">* 注意 * ： ONTAP 支援所有主要的業界標準用戶端通訊協定： NFS 、 SMB 、 FC 、 FCoE 、 iSCSI 、 NVMe / FC 和 S3 。不過、 Microsoft 不支援 NVMe / FC 和 NVMe / TCP 。</block>
+  <block id="bd0fc8e77a9a72d150812ed3e1210c77" category="paragraph">* 注意 * ：系統將在此過程中重新開機。</block>
+  <block id="89bedef3a7a5350d114792ef6cd9bbe3" category="paragraph">* 附註 * ：新增多個工作階段（最少 5-8 個）、以提升效能並運用頻寬。</block>
+  <block id="ae07ac918286698eb66b31d2632ca64e" category="doc">在 NetApp 儲存設備上部署 Microsoft Hyper-V ：移轉指令碼</block>
+  <block id="eb99b46705fe62d695e67d0ba1b373ea" category="paragraph">本節包含可用於使用 FlexClone 移轉的 PowerShell 指令碼。</block>
+  <block id="f1656497a9d1f686bb914cb8b7429a59" category="doc">在 NetApp 儲存設備上部署 Microsoft Hyper-V ：結論</block>
+  <block id="8a53d1dba0fea2b3a452323adbdd4e14" category="doc">在 NetApp 儲存設備上部署 Microsoft Hyper-V ：考量事項</block>
+  <block id="6f0b55e141a250c14ca1ce59c6eff632" category="paragraph">* 注意 * ：為 Hyper-V 及相關工作負載調整儲存容量時、規劃 IOPS 與容量。</block>
+  <block id="043ba47e9cde5d88565f3fb0d0909e8a" category="paragraph">* 注意 * ：對於 I/O 密集的較高 VM 或需要大量資源和容量的 VM 、請將作業系統和資料磁碟區隔開。作業系統和應用程式二進位檔不常變更、而且可以接受磁碟區損毀的一致性。</block>
+  <block id="28cc272b77e7f7b6559edc9b28df0df4" category="paragraph">* 注意 * ：使用來賓連線儲存設備（也稱為來賓作業系統）來處理高效能資料磁碟、而非使用 VHD 。這也有助於簡化複製程序。</block>
+  <block id="7613f5733989e6f69e2b63eaca712468" category="paragraph">* 附註 * ：避免在 Windows Server 上安裝不必要的角色、以免被使用。</block>
+  <block id="5e557d9f12268eac5289536bbbdc728e" category="paragraph">* 附註 * ：選擇第 2 代作為能夠從 SCSI 控制器載入 VM 的虛擬機器、並以 VMBus 和 VSP / VSC 架構為基礎、以達到開機層級、大幅提升整體 VM 效能。</block>
+  <block id="58eaa9112a0b269f973edc6174b98a0a" category="paragraph">* 注意 * ：避免經常進行檢查點、因為它會對 VM 效能造成負面影響。</block>
+  <block id="7d1ed02ecdaa732bc5295970cfc5a52a" category="paragraph">* 重點 *</block>
+  <block id="321825ad8844528e582c2ab18f1551c8" category="paragraph">* 附註 * ： ODX 支援、可跨通訊協定運作。在檔案共用區與 iSCSI 或 FCP 附加 LUN 之間複製資料也會使用 ODX 。</block>
+  <block id="10448830b37c2051ca5e7d96ec37e0c3" category="paragraph">* 附註 * ：叢集中節點上的時間設定應相應設定。如果 NetApp CIFS 伺服器必須參與 Windows Active Directory （ AD ）網域、則應使用網路時間傳輸協定（ NTP ）。</block>
+  <block id="496124523bd1825d6ae6d9f2cbf26872" category="paragraph">* 注意 * ：必須透過 CIFS 伺服器啟用大 MTU 值。較小的封包大小可能會導致效能降低。</block>
+  <block id="6064c3a8e4e983223428a7cb2c35fe43" category="paragraph">* 附註 * ：除非將組態中使用的磁碟區建立為 NTFS 安全型磁碟區、否則透過 SMB 執行 Hyper-V 的不中斷作業將無法正常運作。</block>
+  <block id="19bd278ffcf18a58b771d57dfbc78def" category="paragraph">* 附註 * ：每個磁碟區使用一個 LUN 、因此 LUN 與 CSV 的比例對應為 1 ： 1 。</block>
+  <block id="e7e4dba70460aa7e2f8f39f72d148b06" category="paragraph">* 注意 * ：根據預設、 ONTAP 使用選擇性 LUN 對應（ SLM), 只能透過擁有 LUN 的節點上的路徑及其高可用度（ HA ）合作夥伴來存取 LUN 。</block>
+  <block id="1f8423957cf11e3593f83d46c4aaf0eb" category="paragraph">* 注意 * ：在容錯移轉叢集中、預設會啟用 CSV 功能。</block>
+  <block id="ed0a0218dc872c75bcd7dee1ce942612" category="paragraph">* 注意 * ： ONTAP 支援 ODX 、適用於 SMB 與 SAN 傳輸協定。</block>
+  <block id="9946029b284bccc5c81c5e9680f192d8" category="paragraph">* 注意 * ：若要利用 ODX 複本卸載傳遞與 Hyper-V 的使用案例、來賓作業系統必須支援 ODX 、而且來賓作業系統的磁碟必須是支援 ODX 的 SCSI 磁碟（ SMB 或 SAN ）。客體作業系統上的IDE磁碟不支援ODX傳遞。</block>
+  <block id="448b56f1cad746aefd9f5d216bf4c674" category="paragraph">下列影片將虛擬機器從 VMware ESX 移轉至 Hyper-V 的程序虛擬化</block>
+  <block id="9b38effabd9e941b3543cac6ce668d80" category="video-title">從 ESX 到 Hyper-V 的零接觸移轉</block>
+  <block id="c8bc00401fee4eaee9299cc297969b43" category="inline-link-macro">用於移轉的 PowerShell 指令碼</block>
+  <block id="31bd896eb762537c701ab4f29b70533f" category="paragraph">如需使用 FlexClone 和 PowerShell 移轉的其他資訊、請參閱 <block ref="ba66df20168e1a3dc431a1d031c118e0" category="inline-link-macro-rx"></block>。</block>
+  <block id="0fcb9aed8dc485e2c6093c0adb21f6dd" category="summary">本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「移轉作業資料行動資料即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在適用於 ONTAP iSCSI LUN 的 FSX 上。</block>
+  <block id="50996a4476cf3e190d2f393b7cf1d761" category="doc">使用 FSxN 將 VM 移轉至 Amazon EC2 ：總覽</block>
+  <block id="fb47c4a453579eb613025c91c3aa454f" category="paragraph">企業組織正在加速移轉至 AWS 上的雲端運算解決方案、利用 Amazon Elastic Compute Cloud （ Amazon EC2 ）執行個體和 Amazon FSX for NetApp ONTAP （適用於 ONTAP 的 FSX ）等服務、將 IT 基礎架構現代化、節省成本並改善營運效率。這些 AWS 產品可讓移轉作業透過消費型定價模式、企業儲存功能、最佳化總持有成本（ TCO ）、提供靈活度和擴充性、以因應不斷演變的全球業務需求。</block>
+  <block id="e5b6213e41170e127d66a67c9669bb61" category="paragraph">對於深入投資 VMware vSphere 的企業而言、根據目前的市場情況、移轉至 AWS 是一項具成本效益的選項、提供獨特的商機。</block>
+  <block id="69a9d82b600a649fec8b680bc58a4306" category="paragraph">隨著這些組織移轉至 AWS 、他們想要善用雲端的敏捷度和成本效益、同時保留熟悉的功能集、尤其是儲存設備。在移轉工作負載或設定災難恢復解決方案時、以熟悉的儲存傳輸協定（尤其是 iSCSI ）來維持無縫作業、是非常重要的。</block>
+  <block id="e7f9468150e1718334eb5b400a2741f1" category="paragraph">使用 AWS 託管儲存服務 FSX for ONTAP 來保留企業儲存功能、也就是來自內部部署的任何第三方廠商儲存設備、企業可以在最大程度地減少中斷和最大化未來投資的同時、充分發揮 AWS 的威力。</block>
+  <block id="519048e2b0b70bf4c466e1b1453a8222" category="paragraph">本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「資料移動即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在適用於 ONTAP iSCSI LUN 的 FSX 上。</block>
+  <block id="062366e3146d16ad0ce420002a5efd8a" category="paragraph">VMware 客戶目前正尋求解決許多挑戰。這些組織希望：</block>
+  <block id="2ed6a59b187a2c1ffd9b293b4983bc61" category="list-text">運用企業儲存功能、例如精簡配置、儲存效率技術、零佔用空間的複本、整合式備份、區塊層級複寫、 和分層。這有助於從第 1 天起、在 AWS 上最佳化移轉工作和未來部署。</block>
+  <block id="96f8076330a5a8c975ce69d6d9ed768f" category="list-text">結合適用於 ONTAP 的 FSX 及其提供的成本最佳化功能、最佳化目前在使用 Amazon EC2 執行個體的 AWS 上的儲存部署。</block>
+  <block id="306b28c9717946faaa685b3423d52d11" category="list-text">透過適當調整 Amazon EC2 執行個體規模以符合所需的 IOPS 和處理量參數、降低使用 Amazon EC2 執行個體搭配區塊儲存解決方案的總擁有成本（ TCO ）。Amazon EC2 磁碟營運採用區塊儲存技術、可提供頻寬和 I/O 速率上限。適用於 ONTAP 的 FSX 檔案儲存設備使用網路頻寬。換句話說、適用於 ONTAP 的 FSX 沒有 VM 層級 I/O 限制。</block>
+  <block id="ce0cbf1a98c81c1c3cce2eb2a5320f35" category="section-title">技術元件總覽</block>
+  <block id="65747c63cc13ca4f00273318b9fcba61" category="section-title">適用於 ONTAP 概念的 FSX</block>
+  <block id="b8041e40d149ff16123e97456ea418e1" category="paragraph">Amazon FSX for NetApp ONTAP 是完全託管的 AWS 儲存服務、可在 AWS 上提供 NetApp ® ONTAP ® 檔案系統、以及所有熟悉的 ONTAP 資料管理功能、效能和 API 。其高效能儲存設備支援多種傳輸協定（ NFS 、 SMB 、 iSCSI ）、可為使用 Windows 、 Linux 和 macOS EC2 執行個體的工作負載提供單一服務。</block>
+  <block id="6f696145b127007117c2de4e3866cfbb" category="inline-link-macro">Amazon FSX for ONTAP 快速入門</block>
+  <block id="d9c8f3ba2e59106b419fb6c65ab38c30" category="paragraph">由於適用於 ONTAP 的 FSX 是 ONTAP 檔案系統、因此它提供許多熟悉的 NetApp 功能和服務、包括 SnapMirror ® 資料複寫技術、精簡複本和 NetApp Snapshot ™複本。透過資料分層來善用低成本的容量層、 ONTAP 的 FSX 具有彈性、幾乎可實現無限擴充。此外、利用 NetApp 的招牌儲存效率技術、它還能進一步降低 AWS 的儲存成本。如需詳細資訊、請參閱 <block ref="174e238eba513e5d3b50c66cc56fcad3" category="inline-link-macro-rx"></block>。</block>
+  <block id="6c202452e44c42e323204da2a3a3c24a" category="section-title">檔案系統</block>
+  <block id="f65b6f82b9216f734edbad34f83187ed" category="paragraph">適用於 ONTAP 的 FSX 的中央資源是其以固態硬碟（ SSD ）儲存設備為基礎的檔案系統。為 ONTAP 檔案系統配置 FSX 時、使用者會輸入所需的處理量和儲存容量、並選取檔案系統所在的 Amazon VPC 。</block>
+  <block id="7e3eeea5c292dedb4d170d525abe78e9" category="paragraph">使用者也可以選擇檔案系統的兩種內建高可用度部署模式：多可用度區域（ AZ ）或單一 AZ 部署。每個選項都提供其本身的耐用度與可用度等級、客戶可根據使用案例的營運持續性需求來選擇。多個 AZ 部署由雙節點組成、可在兩個 AZs 之間無縫複寫。成本最佳化的單一 AZ 部署選項可在兩個節點中、將檔案系統分成兩個不同的故障網域、這兩個網域都位於單一 AZ 內。
+儲存虛擬機器
+可透過稱為儲存虛擬機器（ SVM ）的邏輯儲存分割區、存取適用於 ONTAP 檔案系統的 FSX 中的資料。SVM 實際上是其本身的檔案伺服器、配備自己的資料和管理存取點。存取適用於 ONTAP 檔案系統的 FSX 上的 iSCSI LUN 時、 Amazon EC2 執行個體會使用 SVM 的 iSCSI 端點 IP 位址、直接與 SVM 介面。</block>
+  <block id="5fdffef49efa4766faad3a6b91c477de" category="paragraph">雖然在叢集中維護單一 SVM 是可行的、但在叢集中執行多個 SVM 的選項有廣泛的用途和優點。客戶可以考量其業務需求、包括工作負載隔離的需求、來決定要設定的 SVM 最佳數量。</block>
+  <block id="c6f01c78bfe0a0a495cb5d3ed77824a9" category="section-title">磁碟區</block>
+  <block id="1036bd7a5827b1973e21cf8168056d57" category="paragraph">適用於 ONTAP SVM 的 FSX 內的資料會儲存並組織在稱為 Volume 的結構中、這些結構會做為虛擬容器。可以使用單一或多個 LUN 來設定個別磁碟區。儲存在每個磁碟區的資料會消耗檔案系統中的儲存容量。然而、由於 ONTAP 的 FSX 會精簡配置磁碟區、因此磁碟區只會佔用儲存資料量的儲存容量。</block>
+  <block id="b95463ac71a866ecc249e5e49c08c64f" category="section-title">Cirrus 移轉雲端移轉作業概念</block>
+  <block id="ad8ab0d53f9480a2bb3f624fed48a207" category="inline-link-macro">關於 MigrateOps</block>
+  <block id="c4bffe81a939075e5bf73362f5e165d4" category="paragraph">CMC 是 Cirrus Data Solutions 、 Inc. 提供的可轉譯軟體即服務（ SaaS ）產品、可透過 AWS Marketplace 取得。MigrateOps 是 CMC 的「資料行動即程式碼」自動化功能、可讓您使用 YAML 中的簡單操作組態、以宣告方式大規模管理資料移動性作業。移轉作業組態可決定您要如何執行資料移動性工作。若要深入瞭解 MigrateOps 、請參閱 <block ref="94501eabfbeeafb8c0cb2b982812fece" category="inline-link-macro-rx"></block>。</block>
+  <block id="85e1dd801d9130166fb0282e47f529d8" category="paragraph">MigrateOps 採用自動化第一的方法、這是專為簡化整個流程而打造、確保雲端規模的企業資料移動性、而不會中斷營運。除了 CMC 提供的功能豐富的自動化功能之外、 MigrateOps 還會進一步新增其他通常由外部管理的自動化功能、例如：</block>
+  <block id="52becbcb98c0d555b23a7a76431fbb64" category="list-text">作業系統補救</block>
+  <block id="e3759e4ba19e08e576888052f550563c" category="list-text">應用程式轉換與核准排程</block>
+  <block id="c4600af1243a12159c8fe22b968f6ee2" category="list-text">零停機叢集移轉</block>
+  <block id="d56d4fdece536ae66c63e3055f5dd8d1" category="list-text">公有雲 / 私有雲平台整合</block>
+  <block id="c41fab88f6d5b65bd1cda79415272303" category="list-text">虛擬化平台整合</block>
+  <block id="2155e903e3386391a7b21991631a1818" category="list-text">企業儲存管理整合</block>
+  <block id="1a541746429bb27f8efcda384f9a0ad7" category="list-text">SAN （ iSCSI ）組態</block>
+  <block id="2e6ba56d831a4c530471e7daf95640b1" category="paragraph">在上述工作完全自動化的情況下、準備內部部署來源虛擬機器（例如新增 AWS 代理程式和工具）、建立目的地 FSX LUN 、在 AWS 目的地執行個體設定 iSCSI 和多重路徑 /MPIO 的所有繁瑣步驟、 只要在 YAML 檔案中指定參數、就能免除停止 / 啟動應用程式服務的所有工作。</block>
+  <block id="e132dc0b7588d861f0b4c9a798f205a9" category="paragraph">適用於 ONTAP 的 FSX 可提供資料 LUN 、並適當調整 Amazon EC2 執行個體類型的大小、同時提供組織先前在內部環境中擁有的所有功能。CMC 的「移轉作業」功能將用於自動化所有相關步驟、包括佈建對應的 iSCSI LUN 、使其成為可預測的宣告式作業。</block>
+  <block id="517eff2c520a6b23b906aa9ce1d5ca94" category="paragraph">* 附註 * ： CMC 需要在來源和目的地虛擬機器執行個體上安裝超精簡代理程式、才能確保從儲存來源儲存設備安全傳輸資料至適用於 ONTAP 的 FSX 。</block>
+  <block id="a51a207ad34d30beae5c1b95f75bf111" category="section-title">搭配 EC2 執行個體使用 Amazon FSX for NetApp ONTAP 的優點</block>
+  <block id="d7e4a945519fcedec8c207c8459993bf" category="paragraph">適用於 Amazon EC2 執行個體的 ONTAP 儲存設備的 FSX 可提供多項優點：</block>
+  <block id="d80d9047be54473fa3f4f8855eb6a257" category="list-text">高處理量及低延遲儲存設備、可為要求最嚴苛的工作負載提供一致的高效能</block>
+  <block id="d49237a59b5b3882557ffe80a423825a" category="list-text">智慧型 NVMe 快取可改善效能</block>
+  <block id="9d2c180f388a3ff07806b2063ee5c7d1" category="list-text">可調整的容量、處理量和 IOP 可即時變更、並可快速因應不斷變化的儲存需求</block>
+  <block id="6fc8614f9461f4f41eba970be66ae544" category="list-text">從內部部署 ONTAP 儲存設備到 AWS 的區塊型資料複寫</block>
+  <block id="8d882a3d231df0e1e139fc435f730d3d" category="list-text">多重傳輸協定存取功能、包括 iSCSI 、可廣泛用於內部部署的 VMware 部署</block>
+  <block id="78eea6fdbc2f700c6e4d28d0ae6ebf12" category="list-text">NetApp Snapshot ™技術和由 SnapMirror 協調的災難恢復功能可防止數據丟失並加快恢復速度</block>
+  <block id="d7c6feaed14dcf26381a05372090b55b" category="list-text">儲存效率功能可減少儲存佔用空間和成本、包括精簡配置、重複資料刪除、壓縮及壓縮</block>
+  <block id="df2da17dc92da340a0913e5aaa04c2e5" category="list-text">高效複寫可將建立備份所需的時間從數小時縮短為數分鐘、並將 RTO 最佳化</block>
+  <block id="3c93be7b8f25b828c965397d3c548372" category="list-text">使用 NetApp SnapCenter ® 進行檔案備份與還原的精細選項</block>
+  <block id="c34c66eb272df4b812b1bbfa2302615e" category="paragraph">將採用 FSX ONTAP 的 Amazon EC2 執行個體部署為 iSCSI 型儲存層、可提供高效能、關鍵任務資料管理功能、以及降低成本的儲存效率功能、協助您在 AWS 上進行部署。</block>
+  <block id="2aa1747cdf43ce170174c68a7637dd12" category="paragraph">執行 Flash Cache 、多個 iSCSI 工作階段、並運用 5% 的工作集大小、 FSX for ONTAP 可提供高達 350K 的 IOPS 、即使是最密集的工作負載、也能提供高效能等級。</block>
+  <block id="fa8271e38d5c3d7ee2aeff45690adb73" category="paragraph">由於只會針對適用於 ONTAP 的 FSX 套用網路頻寬限制、而非區塊儲存頻寬限制、因此使用者可以利用小型 Amazon EC2 執行個體類型、同時達到與大型執行個體類型相同的效能速率。使用這類小型執行個體類型也能降低運算成本、最佳化 TCO 。</block>
+  <block id="7b7d259c0a8e87960d568b98b048cab2" category="paragraph">FSX for ONTAP 服務多種傳輸協定的另一項優點、就是有助於標準化單一 AWS 儲存服務、以滿足各種現有資料和檔案服務需求。
+對於深入投資 VMware vSphere 的企業而言、根據目前的市場情況、移轉至 AWS 是一項具成本效益的選項、提供獨特的商機。</block>
+  <block id="df355776080842b786b3975a6597f448" category="doc">使用 FSxN ：部署指南將 VM 移轉至 Amazon EC2</block>
+  <block id="91232fec88908e81d6d302ea48cecb67" category="paragraph">本文說明此移轉解決方案的部署程序。</block>
+  <block id="d8faf64ef500850b54769a14da3103ac" category="section-title">為 ONTAP 和 Cirrus Data 設定 FSX 以進行移轉作業</block>
+  <block id="0b8da1f900b8f6a99bacab44f5d025b6" category="inline-link">逐步部署指南</block>
+  <block id="9268f5a20bb58a23937a5ec5c07615d4" category="paragraph">這<block ref="4986e4b758b46b9f6fa8c35ef3c776e9" category="inline-link-rx"></block> 說明如何將適用於 ONTAP Volume 的 FSX 新增至 VPC 。由於這些步驟是循序的、因此請務必依序涵蓋這些步驟。</block>
+  <block id="6b376ad30e15c3869a68d8302fccb576" category="paragraph">在本示範中、「 DRaaSDemo 」是所建立檔案系統的名稱。</block>
+  <block id="54021080400a50ee3862bf21d4d719eb" category="inline-image-macro">展示檔案系統使用者介面影像</block>
+  <block id="a4b3d732a0bcd058f1125dff4a309393" category="paragraph"><block ref="a4b3d732a0bcd058f1125dff4a309393" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ab22bb6aa101b715bff362fed00b1827" category="inline-link-macro">cloud.cirrusdata.com</block>
+  <block id="55337e35b18cadea2b07d11a3e97a5ea" category="inline-link-macro">建立新專案</block>
+  <block id="f5cb37a0593efdcf562732600324cf09" category="paragraph">一旦您的 AWS VPC 設定完成、並根據您的效能需求配置 FSX for ONTAP 、請登入 <block ref="d6dbf1ec6abac6bbf9444736d70e1ecc" category="inline-link-macro-rx"></block> 和 <block ref="0e1e169e433cfb2b09778034f226d8da" category="inline-link-macro-rx"></block> 或存取現有專案。</block>
+  <block id="5f29749c0ff832f35b699f1810714a25" category="inline-image-macro">Cirrus Data 專案使用者介面影像</block>
+  <block id="9d1df5664ddf59f4ef448e9a01023c3b" category="paragraph"><block ref="9d1df5664ddf59f4ef448e9a01023c3b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="99a319068f16a9af3fa689e28bb2603e" category="paragraph">在建立 MigationOps 的秘訣之前、應先將 AWS Cloud 新增為整合。CMC 內建與適用於 ONTAP 和 AWS 的 FSX 整合。適用於 ONTAP 的 FSX 整合提供下列自動化功能：</block>
+  <block id="1c48be427520a2fbc18949d9c7b779c1" category="paragraph">* 為 ONTAP 檔案系統準備 FSX ： *</block>
+  <block id="976fef93267ad82f69fca8a30e2e7399" category="list-text">建立符合來源磁碟區的新磁碟區和 LUN</block>
+  <block id="d169bcce25851e8a6cca387cf96febd4" category="paragraph">* 附註 * ： FSX for ONTAP FS 模式中的目的地磁碟是在「 Volume 」上建立的「 LUN 」、其容量足以容納 LUN 、加上合理的額外負荷、以利快照和中繼資料。CMC 自動化會處理所有這些詳細資料、以使用選用的使用者定義參數來建立適當的 Volume 和 LUN 。</block>
+  <block id="a4e5f93a15a33006f9b87dbb607df6b8" category="list-text">使用主機啟動器 IQN 建立主機實體（在 FSX 中稱為 iGroups ）</block>
+  <block id="32770fa4a1971114fc0cabe3292b6a10" category="list-text">使用對應將新建立的磁碟區對應至適當的主機實體</block>
+  <block id="abe18f9a51a2d999798e1670f579cba7" category="list-text">建立所有其他必要的組態</block>
+  <block id="d7d8af6e49367454c1fdd7f42a9a9d05" category="paragraph">* 準備用於 iSCSI 連線的正式主機： *</block>
+  <block id="7478cb8028388776b651200f1dd46767" category="list-text">如有必要、請安裝及設定 iSCSI 功能、並設定啟動器。</block>
+  <block id="56d92ee740defe447bf5ed876c2f22d8" category="list-text">如有必要、請使用適當的廠商識別碼來安裝及設定多重路徑（ Windows 適用的 MPIO ）。</block>
+  <block id="364983b1985a80bf3f5a0abe3ebe4665" category="list-text">根據廠商最佳實務做法（例如 Linux 上的 udev 設定）、視需要調整系統設定。</block>
+  <block id="b0e16e4d18c79e6b846b7f87470ae6ad" category="list-text">在 Windows 上建立及管理 iSCSI 連線、例如持續 / 喜愛的 iSCSI 目標。</block>
+  <block id="d562535c97a1329348d5160bc8c45de8" category="paragraph">若要設定適用於 ONTAP 和 AWS 的 FSX 的 CMC 整合、請執行下列步驟：</block>
+  <block id="58649e4d25b5c05e1968b1596f0d8b9c" category="list-text">登入 Cirrus Data Cloud 入口網站。</block>
+  <block id="ff7dbc20e83814123a8db88e98511ef0" category="list-text">前往您要啟用整合的專案。</block>
+  <block id="8627d139bde3686b469a80bfcd23760c" category="list-text">瀏覽至「整合」 -&gt; 「產品」。</block>
+  <block id="68ff6e190ce3ec8924ba59fa66a5fde4" category="list-text">捲動以尋找適用於 NetApp ONTAP 的 FSX 、然後按一下新增整合。</block>
+  <block id="f5c0f97cb2d96fe51e59fd9d3bd63ef8" category="inline-image-macro">Cirrus Data 「新增整合」使用者介面影像</block>
+  <block id="f1b9c3593f990fd0c49e01a7e9cb2c3e" category="paragraph"><block ref="f1b9c3593f990fd0c49e01a7e9cb2c3e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8ccd594c800d1a13288313fb53285ba7" category="list-text">提供描述性名稱（僅供顯示用途）並新增適當的認證。</block>
+  <block id="766af074a64cd9d7872c4fcb7f2b3172" category="paragraph"><block ref="766af074a64cd9d7872c4fcb7f2b3172" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="091880624ea38434c8603a76fdf110b3" category="list-text">建立整合之後、在建立新的移轉工作階段期間、請選取自動分配目的地 Volume 、以便在 ONTAP 的 FSX 上自動分配新的磁碟區。</block>
+  <block id="17e9edad6e87cb79bcf0ac69e7792e0e" category="paragraph">* 附註 * ：除非已啟用移轉「移轉至較小的磁碟區」、否則將以與來源磁碟區大小相同的大小建立新的 LUN 。</block>
+  <block id="d17eb1611329e489add4b1541d02ca9d" category="paragraph">* 注意 * ：如果主機實體（ iGroup ）尚未存在、將會建立新的實體。所有主機 iSCSI 啟動器 IQN 都會新增至該新主機實體。</block>
+  <block id="10b5e22e63ebfdf6bb7d4280985e54b2" category="paragraph">* 附註 * ：如果現有主機實體已存在任何 iSCSI 啟動器、則會重複使用該實體。</block>
+  <block id="bc1edadf428cdd92f9a949e6cfcc72b4" category="list-text">完成後、請依照畫面上的步驟、新增 AWS 的整合功能。</block>
+  <block id="80a094283487937a05b746a3f6458d8f" category="paragraph"><block ref="80a094283487937a05b746a3f6458d8f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="00530f67cf37a1baf0a45cb68f36e246" category="paragraph">* 注意 * ：將虛擬機器從內部部署儲存設備移轉至 AWS 時、會使用此整合功能、並搭配用於 ONTAP 整合的 FSX 。</block>
+  <block id="5a661fc308675b4482b2bf8a8559dbf3" category="paragraph">* 注意 * ：如果沒有直接輸出連線可移轉正式作業執行個體、請使用管理中繼與 Cirrus Data Cloud 通訊。</block>
+  <block id="6874944e146a2bcb9d055cb12be40c72" category="paragraph">新增整合功能後、現在正是向 Project 登錄主機的時候了。讓我們以範例案例來說明這點。</block>
+  <block id="fb032fe8aac02281d4bac14276a7e717" category="section-title">主機登錄案例</block>
+  <block id="235ebf0653ce237790052dc153548e6e" category="paragraph">位於內部部署資料中心內 vCenter 的來賓 VMware VM ：</block>
+  <block id="cbe2b7d6ae8bb2b53e705963d9634f57" category="list-text">Windows 2016 搭配 SQL Server 執行、內含三個 VMDK 、包括作業系統和資料磁碟。它正在執行作用中的資料庫。資料庫位於兩個 VMDK 所支援的資料磁碟區上。</block>
+  <block id="55d54e4bddff0c871af92d506a2184c4" category="paragraph">* 注意 * ：由於來源是 VMware 環境、而且使用 VMDK 、因此目前未在此來賓 VM 上設定 Windows iSCSI 啟動器軟體。若要透過 iSCSI 連線至目的地儲存設備、必須同時安裝和設定 iSCSI 和 MPIO 。在此過程中、 Cirrus Data Cloud 整合會自動執行此安裝。</block>
+  <block id="e43a43a113360392a2e110e0497c6616" category="paragraph">* 注意 * ：上一節中設定的整合功能可自動設定新的目的地儲存設備、包括建立新磁碟、設定主機實體及其 IQN 、甚至是修正 iSCSI 和多重路徑組態的應用程式 VM （主機）。</block>
+  <block id="d463798d5e59d98bee5476b8122e3423" category="inline-image-macro">要移轉的 VMware 虛擬機器影像</block>
+  <block id="88dbc16b79ef3b8ad39b8983e888fdc0" category="paragraph"><block ref="88dbc16b79ef3b8ad39b8983e888fdc0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cb10722156ca7b64d5a8e0252ef0daac" category="paragraph">本示範將會將應用程式 VMDK 從每個 VM 移轉至自動佈建和對應的 iSCSI Volume 、從適用於 ONTAP 的 FSX 移轉至該 Volume 。在這種情況下、作業系統 VMDK 將移轉至 Amazon EBS Volume 、因為 Amazon EC2 執行個體僅支援此 Amazon EBS 作為開機磁碟。</block>
+  <block id="3e823c48c9045f41195b6152938cb399" category="paragraph">* 備註 * ：此移轉方法的擴充因素是網路頻寬和連接內部部署至 AWS VPC 的管道。由於每個 VM 都設定了一對一主機工作階段、因此整體移轉效能取決於兩個因素：</block>
+  <block id="c028f6bc581d59bd552318f23e511d34" category="list-text">網路頻寬</block>
+  <block id="67257db6670085f2e4150b2dad5392ab" category="list-text">目標執行個體類型和 ENI 頻寬</block>
+  <block id="c40084b5b839dc0580444f7f86079bb5" category="paragraph">移轉步驟如下：</block>
+  <block id="eff4cf8bd09612eed7673c1876c73ba1" category="list-text">在指定用於移轉浪潮的每個主機（ Windows 和 Linux ）上安裝 CMC 代理程式。這可以透過執行單行安裝命令來執行。</block>
+  <block id="946fa189a4a2d448f1b1b48749680b74" category="paragraph">若要這麼做、請存取「資料移轉」 &gt; 「移轉主機」 &gt; 按一下「部署 Cirrus 移轉雲端」、然後按一下選擇「 Windows 」。</block>
+  <block id="f329a5d27a52183c143de834f6df730c" category="paragraph">然後複製<block ref="8b8188830f8b3fc0cd4692225ed68c1b" prefix=" " category="inline-code"></block> 命令至主機、並使用 PowerShell 執行。一旦代理程式部署成功、主機就會新增至「移轉主機」下的專案。</block>
+  <block id="6c5e30876bd86e2d363050c5b0882a50" category="inline-image-macro">Cirrus Data 安裝介面影像</block>
+  <block id="6b755119f590b175f3628f80818a7f2c" category="paragraph"><block ref="6b755119f590b175f3628f80818a7f2c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="041db0344bc70e09d055c61f6932dedb" category="inline-image-macro">Windows 安裝進度影像</block>
+  <block id="9437099ae70c173a195b8d15ce378707" category="paragraph"><block ref="9437099ae70c173a195b8d15ce378707" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="cfcd5146d6eff1a31a9181734f0c3239" category="list-text">為每部虛擬機器準備 YAML 。</block>
+  <block id="4d3dcd64ad2aab1a57d49dee45dfa990" category="paragraph">* 附註 * ：對於每個虛擬機器來說、建立 YAML 是非常重要的步驟、可為移轉工作指定必要的方法或藍圖。</block>
+  <block id="41729d076061e0e9ad9b6b9f2ed90b5f" category="paragraph">YAML 提供作業名稱、附註（說明）、以及處方名稱<block ref="a0795c4959074bfe9a6173271664e955" prefix=" " category="inline-code"></block>，主機名稱 <block ref="c616c43f754c6cffcedd86717c329d2c" prefix="(" category="inline-code"></block>）和整合名稱 <block ref="62d6344335a0c19be465045ae7615567" prefix="(" category="inline-code"></block>）以及來源和目的地組態。自訂指令碼可指定為轉換前後的動作。</block>
+  <block id="8cf0211ca31806eeecdaf03fd5a410ed" category="list-text">一旦 YAML 就位、請建立 MigrateOps 組態。若要這麼做、請前往「資料移轉」 &gt; 「移轉作業」、按一下「開始新作業」、然後以有效的 YAML 格式輸入組態。</block>
+  <block id="3ea74daee1cf08977377b59fb0bd50dc" category="list-text">按一下「建立作業」。</block>
+  <block id="2a2addc155bbb19acf9965d386839430" category="paragraph">* 注意 * ：為了達到平行處理、每個主機都必須指定並設定 YAML 檔案。</block>
+  <block id="e2ad36e05688ecd46c2fd2bef85e071e" category="list-text">除非<block ref="e1c73ea59a7807e6d2c50529d37afea1" prefix=" " category="inline-code"></block> 欄位是在組態中指定的、作業將會立即開始。</block>
+  <block id="a1c804f037234e4a7b6218ab85aa60f8" category="list-text">此作業現在將執行並繼續。您可以透過 Cirrus Data Cloud UI 監控進度、並提供詳細訊息。這些步驟會自動包含一般手動完成的工作、例如執行自動分配和建立移轉工作階段。</block>
+  <block id="dbf10d8ef9d376db041767dd331931c3" category="inline-image-macro">Cirrus Data 移轉進度影像</block>
+  <block id="da4465573a80874f4da1897ba54ac310" category="paragraph"><block ref="da4465573a80874f4da1897ba54ac310" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b4109af37510340df9dfcd064a9e5b74" category="paragraph">* 附註 * ：在主機對主機移轉期間、將會建立一個規則允許傳入 4996 連接埠的額外安全群組、以允許通訊所需的連接埠、並在同步完成後自動刪除。</block>
+  <block id="eff87cd8da2246ef613493473e977e5b" category="inline-image-macro">適用於 Cirrus Data 移轉的傳入規則影像</block>
+  <block id="9b66ad3ab141f208f69c01d372cb56a1" category="paragraph"><block ref="9b66ad3ab141f208f69c01d372cb56a1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="7a87217e66ebb4848f1ec6935b842310" category="list-text">雖然此移轉工作階段正在同步、但第 3 階段（轉換）的後續步驟會標示為「需要核准」。 在移轉作業方法中、關鍵任務（例如移轉移轉至伺服器）需要使用者核准、才能執行。專案操作員或系統管理員可以從 UI 核准這些工作。您也可以建立未來的核准時段。</block>
+  <block id="7dd43849415cab6c3b129e07ee18b986" category="inline-image-macro">Cirrus Data 移轉同步化的影像</block>
+  <block id="2820240dfd5c101921c1ac25edcb5823" category="paragraph"><block ref="2820240dfd5c101921c1ac25edcb5823" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="fb972e80f339882ff558563f49c6bceb" category="list-text">核准後、 MigrateOps 作業會繼續轉換。</block>
+  <block id="42ff6fcaaf79471cc3441f5f855a1541" category="list-text">稍後、作業將會完成。</block>
+  <block id="3f18b314895ecbea11fbb54307c014c6" category="inline-image-macro">完成 Cirrus Data 移轉的影像</block>
+  <block id="6a4507192910489118943c8dd05472f0" category="paragraph"><block ref="6a4507192910489118943c8dd05472f0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d7eb9a59e1baaa5436ccfc30574ba37f" category="paragraph">* 注意 * ：在 Cirrus Data cMotion ™技術的協助下、目的地儲存設備已隨時更新所有最新變更。因此、在獲得核准後、整個最終轉換程序將需要很短的時間（不到一分鐘）才能完成。</block>
+  <block id="34ce22599f572dccafc5147d1447d6fe" category="section-title">移轉後驗證</block>
+  <block id="3c810836c7f75c2d88fe151ac4f9d9d2" category="paragraph">讓我們來看看執行 Windows Server 作業系統的移轉 Amazon EC2 執行個體、以及下列已完成的步驟：</block>
+  <block id="55eb115b66daf9fbe2f03084cb1e645c" category="list-text">Windows SQL Services 現已啟動。</block>
+  <block id="7aeda700d02f89345f2d274aea4d19b0" category="list-text">資料庫恢復上線、並使用 iSCSI 多重路徑裝置的儲存設備。</block>
+  <block id="38ff310b12ccc644e5b779ead9aea91f" category="list-text">在移轉期間新增的所有新資料庫記錄都可以在新移轉的資料庫中找到。</block>
+  <block id="51a9f095bed2498f493b37fa9356aa92" category="list-text">舊儲存設備現在已離線。</block>
+  <block id="81f5f496591c4e7e7fc0a14b47f9215e" category="paragraph">* 附註 * ：只要按一下即可將資料移動性作業以程式碼形式提交、然後按一下以核准轉換程式、 VM 就能使用適用於 ONTAP 的 FSX 及其 iSCSI 功能、成功從內部部署的 VMware 移轉至 Amazon EC2 執行個體。</block>
+  <block id="9392c9bb1fdb98de7b36d986c4d74c0c" category="paragraph">* 注意 * ：由於 AWS API 限制、轉換後的 VM 會顯示為「 Ubuntu 」。 這完全是一個顯示問題、不會影響移轉執行個體的功能。即將推出的版本將解決此問題。</block>
+  <block id="bdd1e4aeb599f2a9588d0276841203f1" category="paragraph">* 附註 * ：移轉的 Amazon EC2 執行個體可以使用內部部署端使用的認證來存取。</block>
+  <block id="3cf0d5351b74854526b73d21611601eb" category="doc">使用 FSxN 將 VM 移轉至 Amazon EC2 ：架構和先決條件</block>
+  <block id="63ed8872b947ab07c127e150e641674c" category="paragraph">本文說明完成移轉的高階架構和部署先決條件。</block>
+  <block id="cba4d67a5f5a499b095d5fd97f6c9ce2" category="section-title">高階架構</block>
+  <block id="b362506921058feafda02b68436cc274" category="paragraph">下圖說明使用 CMC 移轉作業將 VMware 上的虛擬機器磁碟（ VMDK ）資料移轉至 AWS 的高階架構：</block>
+  <block id="306f6e390898844f335c5d4dfa7a99b2" category="inline-image-macro">使用 FSxN 架構圖表將 VM 移轉至 Amazon EC2</block>
+  <block id="ac25d8d7f60b0922fed74b78eaed0a69" category="paragraph"><block ref="ac25d8d7f60b0922fed74b78eaed0a69" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5d409c7f5286cdc39e1c3a65aed399dc" category="section-title">如何使用 Amazon EC2 和適用於 ONTAP iSCSI 的 FSX 將 VMware VM 移轉至 AWS</block>
+  <block id="3b8f17f436601dea07f27a941d49a0ec" category="paragraph">在開始逐步解說步驟之前、請確定符合下列先決條件：</block>
+  <block id="162548e88750d3401ced8b55e65d88b5" category="paragraph">* 在 AWS* 上</block>
+  <block id="f8b7bf44456e6d163f51c19662128ae9" category="list-text">AWS 帳戶。這包括子網路的權限、 VPC 設定、路由表、安全規則移轉、安全性群組、 以及其他網路需求、例如負載平衡。如同任何移轉作業、最大的努力和考量都應該納入網路。</block>
+  <block id="6c03f07b023d4c7177af5da5a44b9085" category="list-text">適當的 IAM 角色、可讓您同時為 ONTAP 和 Amazon EC2 執行個體配置 FSX 。</block>
+  <block id="f751a100d86105930a371b3a307613e1" category="list-text">允許路由表和安全性群組與適用於 ONTAP 的 FSX 通訊。</block>
+  <block id="541387f39f5167c3e2ea0d925db54fd5" category="list-text">將傳入規則新增至適當的安全群組（請參閱下方的詳細資料）、以便安全地將資料從內部部署資料中心傳輸至 AWS 。</block>
+  <block id="a2e0d5bd47df171513af63c6d791df4a" category="list-text">可解析公用網際網路網域名稱的有效 DNS 。</block>
+  <block id="f22a756cbfefbbb0d4f92f1c02afe1cb" category="list-text">檢查 DNS 解析是否正常運作、並可讓您解析主機名稱。</block>
+  <block id="b0c44543e057359cb6443994cef424e1" category="list-text">為了獲得最佳效能和適當調整規模、請使用來源環境的效能資料、以適當調整 ONTAP 儲存設備的 FSX 大小。</block>
+  <block id="7181122a18a9b9324cffa25189232803" category="list-text">每個 MigrateOps 工作階段都使用一個 EIP 、因此應增加 EIP 的配額、以實現更多平行處理。請記住、預設的 EIP 配額為 5 。</block>
+  <block id="ac59bb7b5dc7c1904398e45ba4a0b735" category="list-text">（如果移轉 Active Directory 型工作負載） Amazon EC2 上的 Windows Active Directory 網域。</block>
+  <block id="f6cf97cd6b4250c929e04cb50b07e0c2" category="paragraph">* 適用於 Cirrus 移轉雲端 *</block>
+  <block id="878edd51be6415fe2add4d20a662f1a7" category="list-text">位於的 Cirrus Data Cloud 帳戶 <block ref="d6dbf1ec6abac6bbf9444736d70e1ecc" category="inline-link-macro-rx"></block> 必須在使用 CMC 之前建立。必須允許透過 HTTPS 與 CDN 、 Cirrus Data 端點和軟體儲存庫進行外傳通訊。</block>
+  <block id="527f63c35c5f6daa67380e3be4a25ee3" category="list-text">允許透過 HTTPS 傳輸協定（連接埠 443 ）與 Cirrus Data Cloud 服務進行通訊（輸出）。</block>
+  <block id="8fb595569d708965e84fe81f04fd0994" category="list-text">若要由 CMC 專案管理主機、已部署的 CMC 軟體必須起始與 Cirrus Data Cloud 的單向輸出 TCP 連線。</block>
+  <block id="7de00e70130d7a461ca443f60799830c" category="list-text">允許 TCP 傳輸協定、連接埠 443 存取 portal-gateway.cloud.cirrusdata.com 、目前為 208.67.222.222 。</block>
+  <block id="41074481257c0ba8a822172d5d85512b" category="list-text">允許 HTTP POST 要求（透過 HTTPS 連線）具有二進位資料有效負載（應用程式 / 八位元組資料流）。這與檔案上傳類似。</block>
+  <block id="f180c49434ac07640dd3d4f982b6ecf4" category="list-text">確保您的 DNS （或透過 OS 主機檔案）可解析 portal-gateway.cloud.cirrusdata.com 。</block>
+  <block id="60c53babbfe85d2fa4777b72a31fb293" category="list-text">如果您有嚴格的規則禁止產品執行個體進行輸出連線、則可將 CMC 的「管理轉送」功能用於來自單一安全非正式作業主機的輸出 443 連線。</block>
+  <block id="84d0deafbd67a9ec8aec46e8b0182920" category="paragraph">* 注意 * ：從未將儲存資料傳送至 Cirrus Data Cloud 端點。只會傳送管理中繼資料、而且這可以選擇性地遮罩、因此不會包含實際主機名稱、磁碟區名稱、網路 IP 。</block>
+  <block id="03e8e2573c494cc6de413c8d9b62da3d" category="paragraph">為了將資料從內部部署儲存庫移轉至 AWS 、 MigrateOps 會自動管理主機對主機（ H2H ）連線。這些都是最佳化的單向 TCP 型網路連線、由 CMC 用來促進遠端移轉。這項程序具備持續壓縮與加密功能、可根據資料的性質、將流量減少最多八倍。</block>
+  <block id="f8ea467c2b5b6aaf40624946eb94a2e6" category="paragraph">* 注意 * ： CMC 的設計目的是在整個移轉階段中、沒有正式作業資料 / I/O 離開正式作業網路。因此、來源主機和目的地主機之間需要直接連線。</block>
+  <block id="abf1237b6d1a76b1bffb39b6f95eeef7" category="doc">使用 FSxN 將 VM 移轉至 Amazon EC2 ：其他可能性和結論</block>
+  <block id="edff700323fdc2f43ac97134c88c48a8" category="paragraph">本文重點介紹此移轉解決方案的其他可能性、並總結主題。</block>
+  <block id="3ec9ea526467f8281ca0005664162696" category="section-title">其他可能性</block>
+  <block id="5b181d0f3766b40514481e4e51cea67f" category="paragraph">同樣的方法也可以延伸、使用內部部署 VM 上的客體內儲存設備來移轉 VM 。作業系統 VMDK 可以使用 CMC 移轉、且可使用 SnapMirror 複寫客體內 iSCSI LUN 。此程序需要中斷鏡射並將 LUN 附加至新移轉的 Amazon EC2 執行個體、如下圖所示。</block>
+  <block id="c3a6990802a6955ebd6cca7f287bc636" category="inline-image-macro">顯示此移轉解決方案的其他可能性的影像</block>
+  <block id="c9022bef9ecc829a47fd9b89f653d125" category="paragraph"><block ref="c9022bef9ecc829a47fd9b89f653d125" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="ec7c5ac2ba438412ee92e9f5024f3a94" category="paragraph">本文件提供完整的逐步解說、說明如何使用 CMC 的「移轉作業」功能、將內部部署 VMware 儲存庫中儲存的資料、移轉至使用 Amazon EC2 執行個體的 AWS 、以及使用 ONTAP 的 FSX 。</block>
+  <block id="6e6a2caf37da0bf4bf6231f8f01474cd" category="paragraph">下列影片示範從開始到結束的移轉程序：</block>
+  <block id="fef683141b222caba3fb698448bce6d8" category="video-title">將 VMware VM 移轉至 Amazon EC2</block>
+  <block id="578b42af74156ed411bd42daf907901c" category="paragraph">若要查看 GUI 和基本的 Amazon EBS 到 FSX 以進行 ONTAP 本機移轉、請觀看這段五分鐘的示範影片：</block>
+  <block id="2670f5ec7a40353d700f21035e194a99" category="video-title">採用 Cirrus 移轉雲端技術、可大規模移轉至任何儲存設備</block>
+  <block id="8c1ed2db82a72779299d789196010de3" category="cell">虛擬化核心解決方案的集合、包括桌面虛擬化。  虛擬化登陸頁面提供內容特定「區塊」的熱門內容。  本主題涵蓋多個虛擬化選項。</block>
+  <block id="53444a8265b81b45ac71e185321903c3" category="sidebar">部署的先決條件</block>
+  <block id="2a97766213885f2b8d1ed5ba498b0049" category="sidebar">部署考量</block>
+  <block id="8384ed779009995633ce9838cf965ef9" category="sidebar">使用 FlexClone 和 PowerShell 移轉</block>
+  <block id="30badbd1a424590d610d91f00d2e112f" category="sidebar">使用 FSxN 將 VM 移轉至 EC2</block>
+  <block id="c9983e30a18bf4759d7569120b440889" category="sidebar">VM 移轉</block>
+  <block id="9b7690f68ef7f8291e75eaa5f838f316" category="sidebar">使用 FSxN 將 VM 移轉至 Amazon EC2</block>
+  <block id="276ce59868cad344f55fc6d7c6701309" category="sidebar">架構與先決條件</block>
 </blocks>

@@ -1,0 +1,167 @@
+---
+sidebar: sidebar 
+permalink: hyperv/hyperv-deploy-data-protection.html 
+keywords: hyperv, hyper-v, deploy, netapp, virtualization, data, protection 
+summary: 本解決方案提供在 NetApp 儲存設備上部署 Hyper-V 所需的步驟 
+---
+= 在 NetApp 儲存設備上部署 Microsoft Hyper-V ：資料保護
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+資料保護是任何正式作業工作負載的主要租戶。  本節說明如何備份及還原 Hyper-V 虛擬機器。
+
+
+
+== 使用 NetApp 儲存快照還原
+
+備份 VM 並快速恢復或複製 VM 是 ONTAP 磁碟區的主要優勢之一。使用 Snapshot 複本快速複製 VM 的 FlexClone 複本、甚至是整個 CSV 磁碟區、而不會影響效能。如此一來、在複製正式作業資料磁碟區、並將其裝載於 QA 、移位和開發環境中時、就能處理正式作業資料、而不會有資料毀損的風險。FlexClone Volume 可用於製作正式作業資料的測試複本、而無需將複製資料所需的空間量增加一倍。
+
+請記住、 Hyper-V 節點會為每個磁碟指派唯一的 ID 、並針對具有個別分割區（ MBR 或 GPT ）的磁碟區擷取快照、將會具有相同的唯一識別碼。MBR 使用磁碟簽章、 GPT 使用 GUID （全域唯一識別碼）。如果是獨立式 Hyper-V 主機、則可以輕鬆掛載 FlexClone Volume 、而不會發生任何衝突。這是因為獨立式 Hyper-V 伺服器可以自動偵測重複的磁碟 ID 、並在不需要使用者介入的情況下動態變更。此方法可用於在案例需要時複製 VHD 來恢復 VM 。
+
+雖然獨立式 Hyper-V 主機很簡單、但 Hyper-V 叢集的程序卻不同。恢復程序包括將 FlexClone 磁碟區對應至獨立 Hyper-V 主機、或使用磁碟區將 FlexClone 磁碟區對應至獨立的 Hyper-V 主機、以手動變更簽名（這很重要、因為磁碟 ID 衝突會導致磁碟無法上線）、完成後、 將 FlexClone Volume 對應至叢集。
+
+
+
+== 使用協力廠商解決方案進行備份與還原
+
+* 注意 * ：本節使用 CommVault 、但這適用於其他第三方解決方案。
+
+藉助 ONTAP 快照， CommVault IntelliSnap ® 可創建基於硬件的快照
+Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行、或是針對 VM 群組或特定 VM 手動進行。IntelliSnap 可快速保護 Hyper-V 環境、將生產力虛擬化伺服器陣列的負載降至最低。IntelliSnap 技術與虛擬伺服器代理程式（ VSA ）的整合、可讓 NetApp ONTAP 陣列在幾分鐘內完成大量虛擬機器和資料儲存區的備份。精細的存取功能可從儲存設備的次層和完整的客體 .vhd 檔案、提供個別的檔案和資料夾還原功能。
+
+在設定虛擬化環境之前、請先部署需要與陣列進行快照整合的適當代理程式。Microsoft Hyper-V 虛擬化環境需要下列代理程式：
+
+* MediaAgent
+* 虛擬伺服器代理程式（ VSA ）
+* VSS 硬體供應商（ Windows Server 2012 及更新的作業系統）
+
+
+* 使用陣列管理 * 設定 NetApp 陣列
+
+下列步驟說明如何在使用 ONTAP 陣列和 Hyper-V 的環境中設定 IntelliSnap 虛擬機器備份
+
+. 在「 CommCell Console 」的功能區上、按一下「 Storage 」（儲存）索引標籤、然後按一下「 Array Management 」（陣列管理）。
+. 此時將出現 Array Management （陣列管理）對話框。
+. 按一下「新增」
++
+此時將出現 Array Properties （陣列屬性）對話框。
+
++
+image:hyperv-deploy-image09.png["Array Properties （陣列屬性）對話框的圖像"]
+
+. 在「一般」索引標籤上、指定下列資訊：
+. 從 Snap Vendor （管理廠商）清單中、選取 NetApp （管理廠商）。
+. 在名稱方塊中、輸入主檔案伺服器的主機名稱、完整網域名稱（ FQDN ）或 TCP/IP 位址。
+. 在 Array Access Nodes （陣列存取節點）標籤上、選取 Available media agents （可用媒體代理）。
+. 在 Snap Configuration （快照組態）索引標籤上、根據您的需求設定 Snapshot Configuration Properties （快照組態內容）。
+. 按一下「確定」。
+. <Mandatory step> 完成後、也可以使用 detect 選項在 NetApp 儲存陣列上設定 SVM 、以自動偵測儲存虛擬機器（ SVM ）、然後選擇 SVM 、並使用 add 選項、將 SVM 新增至 CommServe 資料庫、做為陣列管理項目。
++
+image:hyperv-deploy-image10.png["將 SVM 設定為陣列管理項目的影像"]
+
+. 按一下「進階」（如下圖所示）、然後選取「啟用 IntelliSnap 」核取方塊。
++
+image:hyperv-deploy-image11.png["顯示啟用 IntelliSnap 選項的影像"]
+
+
+
+如需設定陣列的詳細步驟、請參閱 link:https://documentation.commvault.com/11.20/configuring_netapp_array_using_array_management.html["設定 NetApp 陣列"] 和 link:https://cvdocssaproduction.blob.core.windows.net/cvdocsproduction/2023e/expert/configuring_storage_virtual_machines_on_netapp_arrays.html["在 NetApp 陣列上設定儲存虛擬機器"]
+
+* 將 Hyper-V 新增為 Hypervisor *
+
+下一步是新增 Hyper-V Hypervisor 並新增 VM 群組。
+
+* 先決條件 *
+
+* Hypervisor 可以是 Hyper-V 叢集、叢集中的 Hyper-V 伺服器或獨立的 Hyper-V 伺服器。
+* 使用者必須屬於 Hyper-V Server 2012 及更新版本的 Hyper-V 管理員群組。對於 Hyper-V 叢集、使用者帳戶必須具有完整的叢集權限（讀取和完全控制）。
+* 識別要安裝虛擬伺服器代理程式（ VSA ）的一或多個節點、以建立備份與還原作業的存取節點（ VSA Proxy ）。若要探索 Hyper-V 伺服器、 CommServe 系統必須安裝 VSA 。
+* 若要針對 Hyper-V 2012 R2 使用變更的區塊追蹤、請選取 Hyper-V 叢集中的所有節點。
+
+
+下列步驟說明如何將 Hyper-V 新增為 Hypervisor 。
+
+. 核心設定完成後、在保護索引標籤上、按一下虛擬化磚。
+. 在「建立伺服器備份計畫」頁面上、輸入計畫的名稱、然後提供儲存、保留和備份排程的相關資訊。
+. 現在出現「新增 Hypervisor 」頁面 > 選擇廠商：選擇 Hyper-V （輸入 IP 位址或 FQDN 和使用者認證）
+. 若為 Hyper-V 伺服器、請按一下「探索節點」。填入「節點」欄位時、請選取一個或多個要安裝 Virtual Server Agent 的節點。
++
+image:hyperv-deploy-image12.png["顯示探索 Hyper-V 節點的映像"]
+
+. 按一下「下一步」和「儲存」。
++
+image:hyperv-deploy-image13.png["顯示上一步結果的影像"]
+
+. 在「 Add VM Group 」（新增 VM 群組）頁面上、選取要保護的虛擬機器（ Demograp 是在此案例中建立的 VM 群組）、然後啟用 IntelliSnap 選項、如下所示。
++
+image:hyperv-deploy-image14.png["顯示要保護的 VM 選擇的影像"]
+
++
+* 注意 * ：在 VM 群組上啟用 IntelliSnap 時、 CommVault 會自動為主要（ Snap ）和備份複本建立排程原則。
+
+. 按一下儲存。
+
+
+如需設定陣列的詳細步驟、請參閱 link:https://documentation.commvault.com/2023e/essential/guided_setup_for_hyper_v.html["新增 Hypervisor"]。
+
+* 執行備份： *
+
+. 從導覽窗格中、移至「保護」 > 「虛擬化」。此時將出現 [ 虛擬機器 ] 頁面。
+. 備份 VM 或 VM 群組。在此示範中、已選取 VM 群組。在 VM 群組的列中、按一下動作按鈕 ACTION_button 、然後選取備份。在此案例中、 nimplan 是與 Demograp 和 Demogra01 相關的計畫。
++
+image:hyperv-deploy-image15.png["顯示對話方塊的影像、可選取要備份的 VM"]
+
+. 一旦備份成功、還原點就會如畫面擷取所示。您可以從快照複本還原完整 VM 、並還原客體檔案和資料夾。
++
+image:hyperv-deploy-image16.png["顯示備份還原點的影像"]
+
++
+* 附註 * ：對於關鍵且使用率高的虛擬機器、每個 CSV 可保留較少的虛擬機器
+
+
+
+* 執行還原作業： *
+
+透過還原點還原完整 VM 、來賓檔案和資料夾、或虛擬磁碟檔案。
+
+. 從導覽窗格中、移至「保護」 > 「虛擬化」、隨即出現「虛擬機器」頁面。
+. 按一下 VM 群組索引標籤。
+. 此時將顯示 VM 群組頁面。
+. 在 VM Groups （ VM 群組）區域中、針對包含虛擬機器的 VM 群組按一下 Restore （還原）。
+. 此時會出現「選取還原類型」頁面。
++
+image:hyperv-deploy-image17.png["顯示備份還原類型的映像"]
+
+. 根據所選項目、選取來賓檔案或完整虛擬機器、然後觸發還原。
++
+image:hyperv-deploy-image18.png["顯示還原選項的映像"]
+
+
+
+如需所有支援還原選項的詳細步驟、請參閱 link:https://documentation.commvault.com/2023e/essential/restores_for_hyper_v.html["Hyper-V 的還原"]。
+
+
+
+== 進階 NetApp ONTAP 選項
+
+NetApp SnapMirror 可實現高效的站點到站點存儲複製，從而造成災難
+快速、可靠且可管理的恢復能力、以符合現今的全球企業需求。SnapMirror 可透過 LAN 和 WAN 高速複寫資料、為關鍵任務應用程式提供高資料可用度和快速恢復、並提供優異的重複資料刪除和網路壓縮功能。透過 NetApp SnapMirror 技術、災難恢復可以保護整個資料中心。磁碟區可以遞增備份到異地位置。SnapMirror 會像所需的 RPO 一樣頻繁地執行遞增的區塊型複寫。區塊層級的更新可降低頻寬和時間需求、並在 DR 站台維持資料一致性。
+
+重要步驟是建立整個資料集的一次性基準傳輸。這是執行遞增更新之前的必要條件。此作業包括在來源建立 Snapshot 複本、以及將其參照的所有資料區塊傳輸至目的地檔案系統。初始化完成後、可能會進行排程或手動觸發的更新。每個更新只會將新的和變更的區塊從來源傳輸到目的地檔案系統。此作業包括在來源 Volume 建立 Snapshot 複本、將其與基準複本進行比較、並僅將變更的區塊傳輸至目的地 Volume 。新複本會成為下一次更新的基礎複本。由於複寫是定期的、 SnapMirror 可以整合變更的區塊、並節省網路頻寬。對寫入處理量和寫入延遲的影響最小。
+
+完成下列步驟即可執行恢復：
+
+. 連線至次要站台上的儲存系統。
+. 打破 SnapMirror 關係。
+. 將 SnapMirror 磁碟區中的 LUN 對應到次要站台上 Hyper-V 伺服器的啟動器群組（ igroup ）。
+. 將 LUN 對應至 Hyper-V 叢集後、請將這些磁碟設為線上。
+. 使用容錯移轉叢集 PowerShell Cmdlet 、將磁碟新增至可用的儲存設備、並將其轉換為 CSV 。
+. 將 CSV 中的虛擬機器匯入 Hyper-V 管理程式、使其具有高可用度、然後將其新增至叢集。
+. 開啟 VM 。
+

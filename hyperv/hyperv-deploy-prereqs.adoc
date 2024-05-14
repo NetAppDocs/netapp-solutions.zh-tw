@@ -1,0 +1,230 @@
+---
+sidebar: sidebar 
+permalink: hyperv/hyperv-deploy-prereqs.html 
+keywords: hyperv, hyper-v, deploy, netapp, virtualization, prereqs, pre-requisites 
+summary: 本解決方案提供在 NetApp 儲存設備上部署 Hyper-V 所需的步驟 
+---
+= 在 NetApp 儲存設備上部署 Microsoft Hyper-V ：預先申請
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本主題提供使用 ONTAP 儲存系統設定及部署雙節點容錯移轉叢集和叢集式 Hyper-V 虛擬機器的步驟。
+
+
+
+== 部署程序的先決條件
+
+* 所有硬體都必須通過所執行 Windows Server 版本的認證、而且完整的容錯移轉叢集解決方案必須通過驗證組態精靈中的所有測試
+* Hyper-V 節點已加入網域控制器（建議）、而且彼此之間也有適當的連線能力。
+* 每個 Hyper-V 節點的設定都應該相同。
+* 在每部 Hyper-V 伺服器上設定網路介面卡和指定的虛擬交換器、用於管理、 iSCSI 、 SMB 、即時移轉的隔離流量。
+* 容錯移轉叢集功能會在每部 Hyper-V 伺服器上啟用。
+* SMB 共享區或 CSV 是用來儲存 VM 及其磁碟以用於 Hyper-V 叢集的共用儲存區。
+* 不同叢集之間不應共用儲存設備。針對每個叢集規劃一或多個 CSV/CIFS 共用。
+* 如果 SMB 共用是用作共用儲存設備、則必須設定 SMB 共用的權限、以授予叢集中所有 Hyper-V 節點的電腦帳戶存取權。
+
+
+如需詳細資訊、請參閱：
+
+* link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/system-requirements-for-hyper-v-on-windows#how-to-check-for-hyper-v-requirements["Windows Server 上 Hyper-V 的系統需求"]
+* link:https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj134244(v=ws.11)#step-1-prepare-to-validate-hardware-for-a-failover-cluster["驗證容錯移轉叢集的硬體"]
+* link:https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/jj863389(v=ws.11)["部署 Hyper-V 叢集"]
+
+
+
+
+=== 安裝 Windows 功能
+
+下列步驟說明如何安裝必要的 Windows Server 2022 功能。
+
+* 所有主機 *
+
+. 在所有指定節點上準備 Windows OS 2022 、並提供必要的更新和裝置驅動程式。
+. 使用安裝期間輸入的管理員密碼登入每個 Hyper-V 節點。
+. 在工作列中的 PowerShell 圖示上按一下滑鼠右鍵、然後選取、即可啟動 PowerShell 提示 `Run as Administrator`。
+. 新增 Hyper-V 、 MPIO 和叢集功能。
++
+[source, cli]
+----
+Add-WindowsFeature Hyper-V, Failover-Clustering, Multipath-IO `-IncludeManagementTools –Restart
+----
+
+
+
+
+=== 設定網路
+
+正確的網路規劃是達成容錯部署的關鍵。為每種流量設定不同的實體網路介面卡、是容錯移轉叢集的標準建議。透過新增虛擬網路介面卡、切換內嵌群組（ Set ）和 Hyper-V QoS 等功能、可在較少的實體介面卡上壓縮網路流量。以服務品質、備援和流量隔離為考量、設計網路組態。將 VLAN 等網路隔離技術與流量隔離技術搭配使用、可為流量和服務品質提供備援、以改善儲存流量效能並增加一致性。
+
+建議您使用多個邏輯和 / 或實體網路來分隔和隔離特定工作負載。典型的網路流量範例通常分為幾個區段、如下所示：
+
+* iSCSI 儲存網路。
+* CSV （叢集共享 Volume ）或心跳網路。
+* 即時移轉
+* VM 網路
+* 管理網路
+
+
+* 注意 * ：當 iSCSI 搭配專用 NIC 使用時、不建議使用任何群組解決方案、也不應使用 MPIO / DSM 。
+
+* 注意 * ： Hyper-V 網路最佳實務做法也不建議在 Hyper-V 環境中使用 NIC 群組功能來支援 SMB 3.0 儲存網路。
+
+如需其他資訊、請參閱 link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/plan/plan-hyper-v-networking-in-windows-server["規劃 Windows Server 中的 Hyper-V 網路"]
+
+
+
+=== 決定 Hyper-V 的儲存設計
+
+Hyper-V 支援 NAS （ SMB3.0 ）和區塊儲存（ iSCSI / FC ）作為虛擬機器的備份儲存設備。NetApp 支援 SMB3.0 、 iSCSI 和 FC 傳輸協定、可作為 VM 的原生儲存設備 - 使用 iSCSI / FC 和 SMB3 的叢集共用磁碟區（ CSV ）。對於需要直接存取儲存設備的工作負載、客戶也可以使用 SMB3 和 iSCSI 做為來賓連線儲存設備選項。ONTAP 提供靈活的選項、搭配統一化儲存設備（ All Flash Array ）、適用於需要混合傳輸協定存取和 SAN 最佳化儲存設備（ All SAN Array 、僅適用於 SAN 組態）的工作負載。
+
+SMB3 與 iSCSI / FC 的使用決定、是由目前現有的基礎架構所決定、 SMB3/iSCSI 可讓客戶使用現有的網路基礎架構。對於擁有現有 FC 基礎架構的客戶、可以利用該基礎架構、將儲存設備呈現為 FC 型叢集式共享磁碟區。
+
+* 注意： * 執行 ONTAP 軟體的 NetApp 儲存控制器可在 Hyper-V 環境中支援下列工作負載：
+
+* 以持續可用的 SMB 3.0 共享區代管的 VM
+* 在 iSCSI 或 FC 上執行的叢集共用磁碟區（ CSV ） LUN 上託管的 VM
+* 來賓儲存設備、並將磁碟傳遞至來賓虛擬機器
+
+
+* 注意 * ：核心 ONTAP 功能、例如精簡配置、重複資料刪除、壓縮、資料壓縮、彈性複製、 無論平台或作業系統為何、快照和複寫都能在背景中順暢運作、為 Hyper-V 工作負載帶來顯著價值。這些功能的預設設定最適合 Windows Server 和 Hyper-V
+
+* 附註 * ：如果 VM 有多個路徑可用、且已安裝及設定多重路徑 I/O 功能、則可使用來賓啟動器在來賓 VM 上支援 MPIO 。
+
+* 注意 * ： ONTAP 支援所有主要的業界標準用戶端通訊協定： NFS 、 SMB 、 FC 、 FCoE 、 iSCSI 、 NVMe / FC 和 S3 。不過、 Microsoft 不支援 NVMe / FC 和 NVMe / TCP 。
+
+
+
+=== 安裝 NetApp Windows iSCSI 主機公用程式
+
+下節說明如何執行 NetApp Windows iSCSI 主機公用程式的自動安裝。如需安裝的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap-sanhost/hu_wuhu_72.html["安裝 Windows Unified Host Utilities 7.2 （或最新支援版本）"]
+
+* 所有主機 *
+
+. 下載 link:https://mysupport.netapp.com/site/products/all/details/hostutilities/downloads-tab/download/61343/7.2["Windows iSCSI 主機公用程式"]
+. 解除封鎖下載的檔案。
++
+[source, cli]
+----
+Unblock-file ~\Downloads\netapp_windows_host_utilities_7.2_x64.msi
+----
+. 安裝主機公用程式。
++
+[source, cli]
+----
+~\Downloads\netapp_windows_host_utilities_7.2_x64.msi /qn "MULTIPATHING=1"
+----
+
+
+* 注意 * ：系統將在此過程中重新開機。
+
+
+
+=== 設定 Windows 主機 iSCSI 啟動器
+
+下列步驟說明如何設定內建的 Microsoft iSCSI 啟動器。
+
+* 所有主機 *
+
+. 以滑鼠右鍵按一下工作列中的 PowerShell 圖示、然後選取「以系統管理員身分執行」、即可啟動 PowerShell 提示。
+. 將 iSCSI 服務設定為自動啟動。
++
+[source, cli]
+----
+Set-Service -Name MSiSCSI -StartupType Automatic
+----
+. 啟動 iSCSI 服務。
++
+[source, cli]
+----
+Start-Service -Name MSiSCSI
+----
+. 設定 MPIO 以宣告任何 iSCSI 裝置。
++
+[source, cli]
+----
+Enable-MSDSMAutomaticClaim -BusType iSCSI
+----
+. 將所有新宣告的裝置的預設負載平衡原則設為循環配置資源。
++
+[source, cli]
+----
+Set-MSDSMGlobalDefaultLoadBalancePolicy -Policy RR 
+----
+. 為每個控制器設定 iSCSI 目標。
++
+[source, cli]
+----
+New-IscsiTargetPortal -TargetPortalAddress <<iscsia_lif01_ip>> -InitiatorPortalAddress <iscsia_ipaddress>
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsib_lif01_ip>> -InitiatorPortalAddress <iscsib_ipaddress
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsia_lif02_ip>> -InitiatorPortalAddress <iscsia_ipaddress>
+
+New-IscsiTargetPortal -TargetPortalAddress <<iscsib_lif02_ip>> -InitiatorPortalAddress <iscsib_ipaddress>
+----
+. 將每個 iSCSI 網路的工作階段連線至每個目標。
++
+[source, cli]
+----
+Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $true -InitiatorPo rtalAddress <iscsia_ipaddress>
+
+Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $true -InitiatorPo rtalAddress <iscsib_ipaddress>
+----
+
+
+* 附註 * ：新增多個工作階段（最少 5-8 個）、以提升效能並運用頻寬。
+
+
+
+=== 建立叢集
+
+* 僅限一部伺服器 *
+
+. 以滑鼠右鍵按一下 PowerShell 圖示並選取、即可啟動具有管理權限的 PowerShell 提示 `Run as Administrator``。
+. 建立新叢集。
++
+[source, cli]
+----
+New-Cluster -Name <cluster_name> -Node <hostnames> -NoStorage -StaticAddress <cluster_ip_address>
+----
++
+image:hyperv-deploy-image01.png["顯示叢集管理介面的影像"]
+
+. 選擇適當的叢集網路進行即時移轉。
+. 指定 CSV 網路。
++
+[source, cli]
+----
+(Get-ClusterNetwork -Name Cluster).Metric = 900
+----
+. 將叢集變更為使用仲裁磁碟。
++
+.. 以滑鼠右鍵按一下 PowerShell 圖示並選取「以系統管理員身分執行」、即可啟動具有系統管理權限的 PowerShell 提示。
++
+[source, cli]
+----
+start-ClusterGroup "Available Storage"| Move-ClusterGroup -Node $env:COMPUTERNAME
+----
+.. 在容錯移轉叢集管理程式中、選取 `Configure Cluster Quorum Settings`。
++
+image:hyperv-deploy-image02.png["設定叢集仲裁設定的影像"]
+
+.. 在「歡迎」頁面中按一下「下一步」。
+.. 選取仲裁見證、然後按一下「下一步」。
+.. 選取「設定磁碟見證」、然後按一下「下一步」。
+.. 從可用的儲存設備中選取 Disk W: 、然後按一下 Next （下一步）。
+.. 在確認頁面上按一下「下一步」、然後在摘要頁面上按一下「完成」。
++
+如需仲裁與見證的詳細資訊、請參閱 link:https://learn.microsoft.com/en-us/windows-server/failover-clustering/manage-cluster-quorum#general-recommendations-for-quorum-configuration["設定及管理仲裁"]
+
+
+
+. 從容錯移轉叢集管理程式執行叢集驗證精靈、以驗證部署。
+. 建立 CSV LUN 來儲存虛擬機器資料、並透過容錯移轉叢集管理程式中的角色來建立高可用度的虛擬機器。
+
