@@ -13,6 +13,7 @@ summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享
 :imagesdir: ./../media/
 
 
+[role="lead"]
 雖然Red Hat OpenShift和Astra Trident以NetApp ONTAP 支援、但在預設情況下並未隔離不同的工作負載、但它們提供多種功能、可用來設定多租戶。為了更深入瞭ONTAP 解如何在採用NetApp®技術的Astra Trident的Red Hat OpenShift叢集上設計多租戶解決方案、請讓我們參考一組需求範例、並概述相關的組態。
 
 假設某組織在Red Hat OpenShift叢集上執行兩項工作負載、這是兩個不同團隊正在進行的兩個專案的一部分。這些工作負載的資料位於PVCS上、由Astra Trident在NetApp ONTAP 的NAS後端動態配置。組織必須針對這兩項工作負載設計多租戶解決方案、並隔離用於這些專案的資源、以確保安全性和效能得以維持、主要著重於為這些應用程式提供服務的資料。

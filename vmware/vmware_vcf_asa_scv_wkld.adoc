@@ -14,6 +14,10 @@ summary:
 
 
 [role="lead"]
+在此案例中、我們將示範如何部署及使用 SnapCenter Plug-in for VMware vSphere （ SCV ）、在 VCF 工作負載網域上備份及還原 VM 和資料存放區。選擇控制閥採用 ONTAP 快照技術、可快速有效地備份主控 vSphere 資料存放區的 ONTAP 儲存磁碟區。SnapMirror 和 SnapVault 技術可用於在獨立的儲存系統上建立次要備份、並採用模仿原始 Volume 的保留原則、或獨立於原始 Volume 以長期保留。
+
+在此解決方案中、 iSCSI 是做為 VMFS 資料存放區的儲存傳輸協定。
+
 作者： Josh Powell
 
 
@@ -23,10 +27,6 @@ summary:
 
 
 === 案例總覽
-
-在此案例中、我們將示範如何部署及使用 SnapCenter Plug-in for VMware vSphere （ SCV ）、在 VCF 工作負載網域上備份及還原 VM 和資料存放區。選擇控制閥採用 ONTAP 快照技術、可快速有效地備份主控 vSphere 資料存放區的 ONTAP 儲存磁碟區。SnapMirror 和 SnapVault 技術可用於在獨立的儲存系統上建立次要備份、並採用模仿原始 Volume 的保留原則、或獨立於原始 Volume 以長期保留。
-
-在此解決方案中、 iSCSI 是做為 VMFS 資料存放區的儲存傳輸協定。
 
 此案例涵蓋下列高層級步驟：
 

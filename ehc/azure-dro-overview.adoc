@@ -14,13 +14,15 @@ summary:
 
 
 [role="lead"]
+在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。
+
 作者： NetApp 解決方案工程公司 Niyaz Mohamed
 
 
 
 == 總覽
 
-在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。
+透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。
 
 災難恢復協調器（ DRO ）（一種具有 UI 的指令碼化解決方案）可用於無縫恢復從一個 AVS SDDC 複製到另一個 AVS SDDC 的工作負載。DRO 會中斷複寫對等關係、然後將目的地磁碟區掛載為資料存放區、透過 VM 註冊至 AVS 、將其自動還原至 NSS-T 上的網路對應（包含在所有 AVS 私有雲中）。
 

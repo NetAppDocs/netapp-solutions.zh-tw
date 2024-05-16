@@ -20,7 +20,7 @@ summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持�
 
 == 存取控制
 
-* *共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用從SMB用戶端設定共用層級ACL https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html["MMC/電腦管理"^] 擁有Cloud Volumes Service 管理員權限的帳戶（請參閱一節） link:ncvs-gc-smb.html#accounts-with-local/builtin-administrator/backup-rights["「擁有本機/BUILTIN/系統管理員/備份權限的帳戶。」"]）。
+* *共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用 https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html[MMC/Computer 具有 Cloud Volumes Service 執行個體管理員權限的帳戶、從 SMB 用戶端設定共用層級 ACL （請參閱連結： ncvS-GC-smb.html#Accounts with local/BUILTIN/ 備份權限 [ 「 Accounts with local/BUILTIN/ backup rights 」）。
 * *檔案存取控制。*控制檔案或資料夾層級的權限、且永遠從NAS用戶端進行管理。NFS用戶端可以使用傳統模式位元（rwx）或NFSv4 ACL。SMB用戶端運用NTFS權限。
 
 

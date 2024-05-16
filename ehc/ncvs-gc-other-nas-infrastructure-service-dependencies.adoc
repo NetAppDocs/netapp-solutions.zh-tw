@@ -140,7 +140,7 @@ summary: 使用Cloud Volumes Service 適用於NAS共享的功能時、可能需�
 
 雖然LDAP繫結已加密、但LDAP查詢會使用通用LDAP連接埠389、以純文字形式透過線路傳送。這個廣為人知的連接埠目前無法在Cloud Volumes Service 更新過程中進行變更。因此、在網路中存取封包偵測功能的人可以看到使用者和群組名稱、數字ID和群組成員資格。
 
-不過、Google Cloud VM無法窺探其他VM的單點傳播流量。只有主動參與LDAP流量（亦即能夠連結）的VM、才能看到來自LDAP伺服器的流量。如需Cloud Volumes Service 更多有關資料包偵測功能的資訊、請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#packet-sniffing/trace-considerations["「封包偵測/追蹤考量。」"]
+不過、Google Cloud VM無法窺探其他VM的單點傳播流量。只有主動參與LDAP流量（亦即能夠連結）的VM、才能看到來自LDAP伺服器的流量。如需Cloud Volumes Service 更多有關資料包偵測功能的資訊、請參閱一節 link:ncvs-gc-cloud-volumes-service-architecture.html#packet-sniffing["「封包偵測/追蹤考量。」"]
 
 
 

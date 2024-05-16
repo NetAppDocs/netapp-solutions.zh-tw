@@ -13,14 +13,16 @@ summary: 災難恢復至雲端是一種彈性且具成本效益的方法、可�
 :imagesdir: ./../media/
 
 
+[role="lead"]
+災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可複寫至Cloud Volumes ONTAP Azure上執行的NetApp VMware。
+
 
 
 == 總覽
 
 作者：Ravi BCB和Niyazz Mohamed, NetApp
 
-災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可複寫至Cloud Volumes ONTAP Azure上執行的NetApp VMware。這涵蓋應用程式資料、但實際VM本身的情況如何。災難恢復應涵蓋所有相依元件、包括虛擬機器、VMDK、應用程式資料等。為達成此目標、SnapMirror與Jetstream一起可用來無縫恢復從內部部署複寫至Cloud Volumes ONTAP VMware的工作負載、同時使用vSAN儲存設備來執行VM VMDK。
-
+ This covers application data; however, what about the actual VMs themselves. Disaster recovery should cover all dependent components, including virtual machines, VMDKs, application data, and more. To accomplish this, SnapMirror along with Jetstream can be used to seamlessly recover workloads replicated from on-premises to Cloud Volumes ONTAP while using vSAN storage for VM VMDKs.
 本文件提供逐步的方法來設定及執行使用NetApp SnapMirror、Jetstream及Azure VMware解決方案（AVS）的災難恢復。
 
 image:dr-cvo-avs-image1.png["錯誤：缺少圖形影像"]

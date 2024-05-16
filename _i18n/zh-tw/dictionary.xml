@@ -5291,7 +5291,6 @@
   <block id="215de8162cb5ac909005881f92812fb0" category="list-text">*精簡配置。*此功能可在您需要時提供適當數量的儲存設備、免除過度配置磁碟區或未充分利用磁碟區所造成的容量消耗。</block>
   <block id="95f1b89c8e9c330fcfdc8ec84633bfe6" category="list-text">* Helix。*個別磁碟區的中繼資料儲存在中繼資料磁碟機上、並複寫到次要中繼資料磁碟機以供備援。</block>
   <block id="da9c9b2b4164632e569069fe1e7c53ee" category="admonition">元件是專為自動化而設計。所有的儲存功能都可透過API取得。這些API是UI用來控制系統的唯一方法。</block>
-  <block id="43288d8129021b1fe8b4bc6784e65b32" category="doc">特色：採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理</block>
   <block id="86c2cc4630e619e2c08c32f54e844297" category="section-title">在多個叢集上建立資源</block>
   <block id="bc2397695676d1a63e489d4c80c8cd91" category="paragraph">Kubernetes的進階叢集管理功能可讓使用者從主控台同時在一或多個託管叢集上建立資源。舉例來ONTAP 說、如果您在不同站台有OpenShift叢集、並以不同的NetApp支援叢集做為後盾、而且想要在兩個站台上配置PVc、您可以按一下頂端列上的（+）符號。然後選取您要在其中建立永久虛擬基礎虛擬基礎網路的叢集、貼上資源Yaml、然後按一下「Create（建立）」。</block>
   <block id="24800112d59462f8ea9ff03f5dd456a7" category="image-alt">建立資源</block>
@@ -5897,7 +5896,6 @@
   <block id="8a4d1acf8df9931b5c42b3253f943d79" category="list-text">接下來、從這個永久虛擬機器建立新的虛擬機器。瀏覽至「工作負載」&gt;「虛擬化」&gt;「虛擬機器」、然後按一下「建立」&gt;「使用Yaml」</block>
   <block id="91b9a57ab88a6942f692f9f393549f6e" category="list-text">在SPEC &gt;範本&gt; SPEC &gt; Volume區段中、指定從Snapshot而非從Container磁碟建立的新永久虛擬磁碟。請根據您的需求、提供新VM的所有其他詳細資料。</block>
   <block id="57dc3c96f32e4895e89eab4a248088f5" category="list-text">成功建立虛擬機器之後、請存取並確認新虛擬機器的狀態與虛擬機器的狀態相同、而在建立快照時、虛擬機器的永久虛擬機器是用來建立快照的。</block>
-  <block id="06fdae3f02fee5cbe172f1574564c925" category="doc">適用於Kubernetes的進階叢集管理：採用NetApp的Red Hat OpenShift</block>
   <block id="30c15b5a84f4fb26cd25b38dc787b22d" category="paragraph">隨著容器化應用程式從開發移轉至正式作業、許多組織需要多個Red Hat OpenShift叢集來支援該應用程式的測試與部署。因此、組織通常會在OpenShift叢集上裝載多個應用程式或工作負載。因此、每個組織最終都必須管理一組叢集、因此OpenShift系統管理員必須面對新增的挑戰、即在橫跨多個內部部署資料中心和公有雲的各種環境中、管理及維護多個叢集。為了因應這些挑戰、Red Hat推出適用於Kubernetes的進階叢集管理。</block>
   <block id="1cf7b9db4d7fe091bd1bbb685e5beea8" category="paragraph">適用於Kubernetes的Red Hat Advanced Cluster Management可讓您執行下列工作：</block>
   <block id="808c579683377aa7bd89b8e4d76ba220" category="list-text">跨資料中心和公有雲建立、匯入及管理多個叢集</block>
@@ -7419,9 +7417,7 @@
   <block id="6bb36803f4670824ff9ebdf665654829" category="cell">Enterprise Plus</block>
   <block id="d4f43ea12f3f521c93fb3dd4d93c428d" category="summary">本頁提供在ONTAP VMware vSphere環境中部署適用於VMFS資料存放區的NetApp支援NVMe / FC儲存設備的步驟。</block>
   <block id="9e433440cdaf3b61716784200e8abf6d" category="doc">vSphere VMFS資料存放區- ONTAP NVMe / FC搭配VMware</block>
-  <block id="bbe48fb854ea022537208eeeff822f91" category="section-title">關於這項工作</block>
   <block id="9367f3df6c8d54eba1da3cd9c5fa2776" category="paragraph">本節說明如何使用ONTAP NVMe/FC建立包含不含資料的VMFS資料存放區。</block>
-  <block id="1563a554e82b055714efd37bc6d1fdd6" category="paragraph">如需自動化資源配置、請使用下列其中一個指令碼： <block ref="a45ba722ee80832fb205d0588df91e01" category="inline-xref-macro-rx"></block>、 <block ref="d9559d06f0afa5b213d78afb48b783e7" category="inline-xref-macro-rx"></block>或 <block ref="e5e7d2f44064f3bfeddfdbea251f7835" category="inline-xref-macro-rx"></block>。</block>
   <block id="6ac65708de8f04eeb173ca99f3eb19fa" category="section-title">您需要的一切</block>
   <block id="6af0e7a38739ed6e2658342101a7b51e" category="list-text">管理vSphere環境與ONTAP VMware所需的基本技能。</block>
   <block id="7890464cdce93f078097395e27132775" category="inline-link-macro">對NVMe/FC的基本瞭解</block>
@@ -8286,7 +8282,6 @@
   <block id="33186704f78f73f32736a9ba7f8ddc85" category="inline-link">私有服務存取</block>
   <block id="5971da0242ce7b616ff2972978613cef" category="inline-link-macro">「租賃模式」</block>
   <block id="01760cb04e3a4a93404ab2c878b036db" category="inline-link-macro">「共享VPC」</block>
-  <block id="e70da8f06ec706ed45906f411481eda0" category="paragraph">在此架構中、租戶（請參閱一節 <block ref="0a088dd892133b6a77304655c2b8b829" category="inline-link-macro-rx"></block>）定義為Google Cloud專案、除非使用者明確連線、否則這些專案彼此之間完全隔離。租戶可利用Cloud Volumes Service 這個功能、將資料磁碟區、外部名稱服務及解決方案的其他重要部分、與其他租戶完全隔離在一起。由於此平台是透過VPC對等連接、因此隔離也適用於此平台。Cloud Volumes Service您Cloud Volumes Service 可以使用共享VPC、在多個專案之間共用一個支援區塊（請參閱一節） <block ref="c2426c8c5bcdce9adb82a8906c5a3478" category="inline-link-macro-rx"></block>）。您可以將存取控制套用至SMB共用和NFS匯出、以限制可以檢視或修改資料集的人員或內容。</block>
   <block id="35a0e1620a03f33da8739635aaa3b607" category="section-title">針對控制面板提供強大的身分識別管理功能</block>
   <block id="4504de40d15959838801111af31d224e" category="inline-link">身分識別存取管理（IAM）</block>
   <block id="d242c9a4fc4e118d87391841845ef44b" category="paragraph">在執行不完整組態的控制面板Cloud Volumes Service 中、使用管理身分識別管理<block ref="490163f8d94b8a8397824811fb91c5ec" category="inline-link-rx"></block>。IAM是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。所有組態都是透過Cloud Volumes Service 使用TLS 1.2加密的安全HTTPS傳輸來執行、而驗證則是使用JWT權杖來執行、以提高安全性。Google Console UI Cloud Volumes Service for the取消功能、可將使用者輸入內容轉譯為Cloud Volumes Service 使用者對功能不整的API呼叫。</block>
@@ -8309,14 +8304,11 @@
   <block id="e688fd1eb8866f914263d3493c30ccbb" category="inline-link-macro">「跨區域複寫」</block>
   <block id="c05431edaaaefc20b48a7cd96f110e5d" category="inline-link-macro">「傳輸中的資料加密」</block>
   <block id="48aa29a35d8e13e796333876f4ea9f62" category="inline-link-macro">「Google Cloud Network」</block>
-  <block id="31d64d3cd8b2a692701b32dd6a611c76" category="paragraph">加密閒置資料（請參閱一節 <block ref="ce3046d8bb0cfdf8a89295f31068c29b" category="inline-link-macro-rx"></block>）搭配NetApp Volume Encryption（NVE）和線上使用XTS-AES-256密碼 <block ref="9963d74c8d0d381d9818a5c550dd7163" category="inline-link-macro-rx"></block> 或NFS Kerberos 5p支援。瞭解跨區域複寫傳輸受到TLS 1.2加密保護、讓您高枕無憂（請參閱一節） <block ref="8b1fa1a1fab3125dbb820bfe80ca0428" category="inline-link-macro-rx"></block>）。此外、Google網路也提供加密通訊（請參閱一節 <block ref="051d363ef6081e123484b5da28bebf19" category="inline-link-macro-rx"></block>）提供額外的保護層、防範攻擊。如需傳輸加密的詳細資訊、請參閱一節 <block ref="0e3bb83173de6418179f08aaa25b48dd" category="inline-link-macro-rx"></block>。</block>
   <block id="db57ea7882be0cb73c78bf1ba25a6823" category="section-title">資料保護與備份</block>
   <block id="48b5832efbf50440742eee7bfd02733b" category="inline-link-macro">支援Cloud Volumes Service</block>
-  <block id="cdb185875636a141b69ddabde6df7040" category="paragraph">安全性不只是預防攻擊而已。這也與我們如何在攻擊發生時或發生時從攻擊中恢復有關。此策略包括資料保護與備份。提供在停電時複製到其他地區的方法（請參閱一節Cloud Volumes Service <block ref="8b1fa1a1fab3125dbb820bfe80ca0428" category="inline-link-macro-rx"></block>）或資料集受到勒索軟體攻擊的影響。也Cloud Volumes Service 可以使用、將資料非同步備份到非執行個體的位置 <block ref="92f2015a7a07a74ffc21a27b08fadbb0" category="inline-link-macro-rx"></block>。透過定期備份、降低安全事件的時間、節省成本、並使系統管理員感到焦慮。</block>
   <block id="3b0aab94fdc89c539c78fcbbf0190080" category="section-title">利用領先業界的Snapshot複本、快速緩解勒索軟體</block>
   <block id="e7d51c7f9901730a4f176b908516d9f0" category="inline-link-macro">「可永久保存的Snapshot複本」</block>
   <block id="613542b40dc5d23e9b7129726e6901e9" category="inline-link-macro">「服務營運」</block>
-  <block id="06646d879e1be0df7191f42262dc1293" category="paragraph">除了資料保護與備份、Cloud Volumes Service 支援不可變的Snapshot複本（請參閱一節） <block ref="46dfee0c3fc63af00a088b428ebe2c09" category="inline-link-macro-rx"></block>）允許從勒索軟體攻擊中恢復的磁碟區（請參閱一節 <block ref="f545e9c9b1aa4e21f947ee53ac36de63" category="inline-link-macro-rx"></block>）在發現問題的幾秒鐘內、並將中斷時間降至最低。恢復時間與影響取決於Snapshot排程、但您可以建立Snapshot複本、在勒索軟體攻擊中提供最少一小時的差異。Snapshot複本對效能和容量使用率的影響微乎其微、是保護資料集的低風險高報酬方法。</block>
   <block id="9b6e8c1f1a4d79991136cfd2b3fde77a" category="summary">支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。</block>
   <block id="d099e6eafff98e1042c1029849e2db1b" category="doc">建立Active Directory連線的考量事項</block>
   <block id="b092138563f7b68473c3bf2a6a23a434" category="inline-link">私有 Google 存取</block>
@@ -8458,7 +8450,6 @@
   <block id="738deb1a3cec2cc7d670e7de69d3a7c6" category="section-title">LDAP查詢</block>
   <block id="a204dba492103f34b09fe60e7ab98921" category="paragraph">雖然LDAP繫結已加密、但LDAP查詢會使用通用LDAP連接埠389、以純文字形式透過線路傳送。這個廣為人知的連接埠目前無法在Cloud Volumes Service 更新過程中進行變更。因此、在網路中存取封包偵測功能的人可以看到使用者和群組名稱、數字ID和群組成員資格。</block>
   <block id="d10f3c8108e06d8e622b7a6fb88adb08" category="inline-link-macro">「封包偵測/追蹤考量。」</block>
-  <block id="b046f19aab64225d509f228ccd32fb2c" category="paragraph">不過、Google Cloud VM無法窺探其他VM的單點傳播流量。只有主動參與LDAP流量（亦即能夠連結）的VM、才能看到來自LDAP伺服器的流量。如需Cloud Volumes Service 更多有關資料包偵測功能的資訊、請參閱一節 <block ref="e06a781bd551a4c8ed55a5dfd008a50c" category="inline-link-macro-rx"></block></block>
   <block id="d815e456141423f092087c21cd312f23" category="section-title">LDAP用戶端組態預設值</block>
   <block id="1c1b57ee3fb14f95067e88e579a44eec" category="paragraph">在Cloud Volumes Service 某個實例中啟用LDAP時、預設會以特定組態詳細資料建立LDAP用戶端組態。在某些情況下、選項可能不適用於Cloud Volumes Service 不支援的功能（不支援）、也可能無法設定。</block>
   <block id="cc2eacdb2cc579f99a0f4359e61ed258" category="cell">LDAP用戶端選項</block>
@@ -8570,9 +8561,6 @@
   <block id="9a5ba82ef925964774fad34d380585ce" category="inline-link">雙傳輸協定</block>
   <block id="afbf550dbb927e70d6e5e81aba4cf54e" category="paragraph">支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的存取權限Cloud Volumes Service <block ref="090248040bf8d7cbf59e0f5bcb2aeb23" category="inline-link-rx"></block>）。這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。</block>
   <block id="65bd83537129be15c8027ec94bec5bd3" category="section-title">存取控制</block>
-  <block id="b481dc764d87d694bd99e41051212b98" category="inline-link-macro">「擁有本機/BUILTIN/系統管理員/備份權限的帳戶。」</block>
-  <block id="4349221797619aa2539cd1d814d55cf3" category="inline-link">MMC/電腦管理</block>
-  <block id="ab67de3b2d37b16da324871c9cd7f96b" category="list-text">*共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用從SMB用戶端設定共用層級ACL<block ref="dbc4cec831b164bbb509e51caacd0209" category="inline-link-rx"></block> 擁有Cloud Volumes Service 管理員權限的帳戶（請參閱一節） <block ref="c9946e41ec7364b03516e2beacd1b339" category="inline-link-macro-rx"></block>）。</block>
   <block id="1020ac8238c0e64a401514745b8a3c6a" category="list-text">*檔案存取控制。*控制檔案或資料夾層級的權限、且永遠從NAS用戶端進行管理。NFS用戶端可以使用傳統模式位元（rwx）或NFSv4 ACL。SMB用戶端運用NTFS權限。</block>
   <block id="dcfd17a407b936210845de342300e631" category="paragraph">將資料提供給NFS和SMB的磁碟區存取控制權取決於使用中的傳輸協定。如需雙協定權限的相關資訊、請參閱「」一節<block ref="7251f6a3aba1b22d43e125a8c39f6f0a" category="inline-xref-macro-rx"></block>。」</block>
   <block id="20d918db09dacfd5fbfbaadfaede2f80" category="section-title">使用者對應</block>
@@ -8589,7 +8577,6 @@
   <block id="451abeb07875465ff669fc3bfc502564" category="summary">安全性、尤其是在基礎架構不受儲存管理員控制的雲端環境中、對於信任您的資料、以提供由雲端供應商提供的服務而言、是非常重要的。本文件概述NetApp Cloud Volumes Service 支援Google Cloud的安全功能。</block>
   <block id="85f174d487aef272a0a9ea0f980e4827" category="doc">TR-4918：安全性總覽- Google Cloud Volumes Service Cloud中的NetApp功能</block>
   <block id="09f7873d6f07efaef82aef2b95f42e0a" category="paragraph">Oliver Krause、Justin Parisi、NetApp</block>
-  <block id="1e06922fd676ae97f9dc69dbbfc93992" category="section-title">文件範圍</block>
   <block id="c2f1a37c5b3a149d2e79ad5a41c86139" category="inline-link">支援Google Cloud Cloud Volumes Service</block>
   <block id="c2197b5184a5af948e5dc6e6dcf6e5c3" category="paragraph">安全性、尤其是在基礎架構不受儲存管理員控制的雲端環境中、對於信任您的資料、以提供由雲端供應商提供的服務而言、是非常重要的。本文檔概述NetApp提供的安全產品<block ref="b29f7971c7793aea2bb4311fa5c38ee0" category="inline-link-rx"></block>。</block>
   <block id="f2b84afd0523a6df7547c404aa3647d8" category="section-title">目標對象</block>
@@ -9067,7 +9054,6 @@
   <block id="f122c057113b41c182d10fddf2a82817" category="list-text">當Windows使用者名稱要求存取Cloud Volumes Service 到此卷時、Cloud Volumes Service 功能區會使用Cloud Volumes Service 由管理員設定的方法尋找UNIX使用者名稱。</block>
   <block id="ac960a1b86a1625e4ff98dbb3feef120" category="list-text">如果已設定外部UNIX身分識別供應商（LDAP）、且Windows / UNIX使用者名稱相同、則Windows使用者名稱會將1：1對應至UNIX使用者名稱、而不需要任何額外的組態。啟用LDAP時、會使用Active Directory來裝載使用者和群組物件的UNIX屬性。</block>
   <block id="3c60aff1fcf4407fc40492eebac8e37b" category="inline-link-macro">「使用LDAP進行非對稱名稱對應」</block>
-  <block id="e4adb9d6d8d5650dfb0663dde5495dff" category="list-text">如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） <block ref="1cca6755f54a82023ec645e8be5d4c82" category="inline-link-macro-rx"></block>）。</block>
   <block id="5205bf34161159f00d7f28cb5e6e2a89" category="list-text">如果未使用LDAP、則Windows SMB使用者會對應至Cloud Volumes Service 預設的本地UNIX使用者、名稱為「pcuser" in fuse」。這表示在Windows中、對應到「pcuser'」的使用者所寫入的檔案、會在多重傳輸協定NAS環境中、將UNIX擁有權顯示為「pcuser'」。這裏的「pcuser」實際上是Linux環境中的「nobnobody」使用者（UID 65534）。</block>
   <block id="0ff58f508b02c651e0b4ee271b1792d9" category="paragraph">在僅使用SMB的部署中、「pcuser'」對應仍會發生、但這並不重要、因為Windows使用者和群組擁有權已正確顯示、而且不允許NFS存取SMB專屬磁碟區。此外、純SMB磁碟區在建立之後、不支援轉換成NFS或雙傳輸協定磁碟區。</block>
   <block id="9327392a148953617bfae88e7e46a666" category="paragraph">Windows利用Kerberos與Active Directory網域控制器進行使用者名稱驗證、這需要與Cloud Volumes Service AD DC交換使用者名稱/密碼、此區段是由實例外部的。當SMB用戶端使用「\伺服器名稱」的UNC路徑時、就會使用Kerberos驗證、下列情況為真：</block>
@@ -9223,7 +9209,6 @@
   <block id="ae7c4fcb353d520e8996acadf9c9c42f" category="cell">所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節）<block ref="6931acdfb95dc44f28af40d26d20d65c" category="inline-xref-macro-rx"></block>」）。</block>
   <block id="e00514b301b6206c1024de564d0d71fe" category="cell">用戶端工作階段安全性</block>
   <block id="b9e69cb6a219e02ada3e29b808558c45" category="inline-link-macro">「LDAP通道繫結。」</block>
-  <block id="d16466e25f07f41d5c768e32becc9751" category="cell">設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 <block ref="4bb24ef2f48443c7e6d43902d0f8498e" category="inline-link-macro-rx"></block>。</block>
   <block id="b4c17f5cf25d927d8fb7dbab5e1d84c5" category="cell">SMB2可啟用DC連線</block>
   <block id="31a7643648d0d4454c1fd8a860f1a12d" category="cell">使用SMB2進行DC連線。預設為啟用。</block>
   <block id="2cd88a3568a04efbfd46abb6cce9a411" category="cell">系統預設值</block>
@@ -10467,7 +10452,6 @@
   <block id="a20215628470de7f6faa691cc18c4971" category="paragraph"><block ref="a20215628470de7f6faa691cc18c4971" category="inline-image-macro-rx" type="image"></block></block>
   <block id="8f95900d5509fa4de2d1c7e9489f4dc6" category="summary">災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可複寫至Cloud Volumes ONTAP Azure上執行的NetApp VMware。</block>
   <block id="48b47eaa686f297ed741f5cb81de709d" category="paragraph">作者：Ravi BCB和Niyazz Mohamed, NetApp</block>
-  <block id="be93173f941fd10be0e9fddb606bd940" category="paragraph">災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可複寫至Cloud Volumes ONTAP Azure上執行的NetApp VMware。這涵蓋應用程式資料、但實際VM本身的情況如何。災難恢復應涵蓋所有相依元件、包括虛擬機器、VMDK、應用程式資料等。為達成此目標、SnapMirror與Jetstream一起可用來無縫恢復從內部部署複寫至Cloud Volumes ONTAP VMware的工作負載、同時使用vSAN儲存設備來執行VM VMDK。</block>
   <block id="b25b60af8de6f7256f832e93e5651972" category="paragraph">本文件提供逐步的方法來設定及執行使用NetApp SnapMirror、Jetstream及Azure VMware解決方案（AVS）的災難恢復。</block>
   <block id="8f0e380cfb4a39395f72ab50e67ea50e" category="paragraph"><block ref="8f0e380cfb4a39395f72ab50e67ea50e" category="inline-image-macro-rx" type="image"></block></block>
   <block id="72916c3a8dffc193957f3809a8b4acbf" category="paragraph">本文件著重於客體內儲存應用程式資料（也稱為來賓連線）、我們假設內部環境使用SnapCenter 的是應用程式一致的備份。</block>
@@ -11776,7 +11760,6 @@
   <block id="e78040a1599894c3db7423e479a1f7d1" category="summary">災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可以複寫到Cloud Volumes ONTAP 在Google Cloud上執行的NetApp VMware。</block>
   <block id="58997b61f0fc8812c9977a9dd3d181c5" category="doc">應用程式災難恢復：SnapCenter 利用功能不全Cloud Volumes ONTAP 、功能不全和Veeam複寫</block>
   <block id="0fa916b50826c2fab3e504331d6b8ad1" category="paragraph">作者：NetApp Suresh ThopPay</block>
-  <block id="366fe59477118cc36e7ef7936cc04771" category="paragraph">災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可以複寫到Cloud Volumes ONTAP 在Google Cloud上執行的NetApp VMware。這涵蓋應用程式資料、但實際VM本身的情況如何。災難恢復應涵蓋所有相依元件、包括虛擬機器、VMDK、應用程式資料等。為達成此目標、SnapMirror搭配Veeam可用來無縫恢復從內部部署複寫至Cloud Volumes ONTAP VMware的工作負載、同時將vSAN儲存設備用於VM VMDK。</block>
   <block id="93fb0db9f34ab708d4c3e5d233e4d97f" category="paragraph">本文件提供逐步方法、以設定及執行使用NetApp SnapMirror、Veeam及Google Cloud VMware Engine（GCVE）的災難恢復。</block>
   <block id="669129cbcdc854bf23fe7e672be9c44c" category="paragraph"><block ref="669129cbcdc854bf23fe7e672be9c44c" category="inline-image-macro-rx" type="image"></block></block>
   <block id="c611c3f34a5f506ad20f441b78810981" category="paragraph">若要在內部部署環境與Google Cloud網路之間建立連線、請使用專屬互連或Cloud VPN等連線選項。應根據內部部署的VLAN設計來建立區段。</block>
@@ -13776,7 +13759,6 @@
   <block id="ba083ee91407315383bac538162833ff" category="list-text">有興趣部署及管理部署至AWS FSX儲存設備的PostgreSQL執行個體的儲存管理員。</block>
   <block id="73ad058c671f3e1e105d92585f5ece7a" category="list-text">有興趣在AWS FSx/EC2中建立PostgreSQL環境的應用程式擁有者。</block>
   <block id="d17a638ff086388dc5bfbe98528ccfab" category="section-title">解決方案測試與驗證環境</block>
-  <block id="863fb5b3a3b3b63b57a387bab70de0a9" category="paragraph">此解決方案的測試與驗證作業是在AWS FSX和EC2環境中執行、而該環境可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="bfa420253f0a67626a51ce1fa045944c" category="image-alt">此映像提供PostgreSQL混合雲解決方案組織的詳細資訊、包括內部部署端和AWS站台。</block>
   <block id="34d0b9b49aa480630e91a3619ba7ffb2" category="section-title">硬體與軟體元件</block>
   <block id="a09dc18a1bff4fa8388afca4627d0911" category="cell">FSX ONTAP 支援儲存</block>
@@ -14208,8 +14190,6 @@
   <block id="dbdfae7d08a693255815e0890397b78f" category="list-text">使用可在一個叢集上配置的可執行個體AFF FlexGroup 。</block>
   <block id="6c2577e00543c33096c33e1b2e79742d" category="list-text">已在ONTAP SVM上啟用pNFS。</block>
   <block id="7fe5c7aaf126c7432ba86d9e145f59a4" category="list-text">此工作負載是透過處理量驅動程式觸發、其工作負載組態與Cloud Volumes ONTAP 執行動作時相同。請參閱「」一節<block ref="f628eac6c1ff8c1b0462e81ea7b2efc1" category="inline-xref-macro-rx"></block>」。工作負載使用3個複寫係數、表示NFS中保留了三個記錄區段複本。</block>
-  <block id="dfe2c8a29d6798ed2d2dae4af3b4e5e7" category="inline-xref">探索儲存限制</block>
-  <block id="c2a038ea3f35076598b99806cd90a3c5" category="list-text">最後、我們使用待處理項目來完成測量、以衡量消費者是否有能力掌握最新訊息。OMB會在測量開始時暫停使用者、藉此建構待處理項目。這會產生三個不同的階段：建立待處理項目（僅限生產商流量）、減少待處理項目（使用者負擔沉重的階段、消費者會在某個主題中趕上錯過的事件）、以及穩定狀態。請參閱「」一節<block ref="a2eee99fc052f067d68a9273d62093f1" category="inline-xref-macro-rx"></block>」以取得更多資訊。</block>
   <block id="158bb82f009332b2fe16aba7bebc0c15" category="section-title">穩定狀態效能</block>
   <block id="216824b7a5a0da585075bc35333402f6" category="paragraph">我們使用AFF OpenMessaging基準測試評估了《支援不支援的資料」、以提供類似Cloud Volumes ONTAP 於AWS中的《支援的資料、支援的資料、以及AWS中的DAS。所有效能值均代表生產商與消費者層級的Kafka叢集處理量。</block>
   <block id="34121e3b81b5330bbb499603af5609e6" category="paragraph">Conflent Kafka與AFF 《The》（《The》）的穩定狀態效能、使生產商與消費者的平均處理量均超過3.4GBps。這是卡夫卡叢集內超過340萬封訊息。透過將BrokerTopicMetrics的持續處理量以每秒位元組為單位視覺化、我們可以看到AFF 由VMware支援的卓越穩定狀態效能和流量。</block>
@@ -15501,7 +15481,6 @@
   <block id="8319a8c7a5b0b686057dbf3e7b4068f2" category="paragraph">如需裸機硬體和軟體需求的Anthos、請參閱<block ref="ee9c468e431b4e6c834acacee08b5282" category="inline-link-rx"></block> 頁面。</block>
   <block id="9b368ea783a99ed08472f5ee27e26dc9" category="paragraph">若要識別閘道位址以手動設定用戶端、請參閱<block ref="65651a617c871e663f36b036935811c9" category="inline-link-rx"></block>。</block>
   <block id="e88bacbfc81933567e64c9db4797fe2a" category="paragraph">作者： NetApp 解決方案工程公司 Niyaz Mohamed</block>
-  <block id="b9f6e76ebb09998e4efe8f7d8cdfc1a1" category="paragraph">在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。</block>
   <block id="6d3f247317af532e62e79af4e327e266" category="paragraph">災難恢復協調器（ DRO ）（一種具有 UI 的指令碼化解決方案）可用於無縫恢復從一個 AVS SDDC 複製到另一個 AVS SDDC 的工作負載。DRO 會中斷複寫對等關係、然後將目的地磁碟區掛載為資料存放區、透過 VM 註冊至 AVS 、將其自動還原至 NSS-T 上的網路對應（包含在所有 AVS 私有雲中）。</block>
   <block id="20e61ee0f35516bf40c8c03f94d14f55" category="paragraph"><block ref="20e61ee0f35516bf40c8c03f94d14f55" category="inline-image-macro-rx" type="image"></block></block>
   <block id="54c0031f2ddfceeed5c28d8d32afd359" category="section-title">先決條件和一般建議</block>
@@ -16159,7 +16138,6 @@
   <block id="ce3231fc55ffa9da7d06a7bf71808aaf" category="list-text">在 AWS 公有雲中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
   <block id="1fd08bfacb23a868822b5aa42dc89a45" category="list-text">管理部署至 AWS FSX ONTAP 儲存設備的 Oracle 資料庫的儲存管理員。</block>
   <block id="0ba3984693a0095424864d883f786d47" category="list-text">想要在 AWS FS3/EC2 環境中備份 Oracle 資料庫的應用程式擁有者。</block>
-  <block id="6aa71922f1bb725cfd6b590fdc90b3bc" category="paragraph">此解決方案的測試與驗證是在 AWS FSX ONTAP 和 EC2 環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="4d1cde643f467fc80a436e88c5524a5a" category="image-alt">此映像提供在 AWS 公有雲與 FSxN 中執行 Oracle VLDB 遞增合併實作的詳細圖片。</block>
   <block id="b9d28943555d6006f17f4fe05f964039" category="list-text">* 用於 RMAN 遞增合併的 Oracle VLDB 儲存配置。 * 在我們的測試與驗證中、用於 Oracle 遞增備份與合併的 NFS 磁碟區是從單一 FSX 檔案系統配置、其處理量為 4Gbps 、原始 SSD IOPS 為 160,000 、容量上限為 192TiB 。針對超過臨界值的部署、可將多個 FSX 檔案系統與多個 NFS 裝載點平行串聯、以提供更高的容量。</block>
   <block id="9d662dbb0e0bb83274ad069971f2189b" category="list-text">* 使用 RMAN 遞增合併的 Oracle 可恢復性。 * RMAN 遞增備份與合併通常會根據您的 RTO 和 RPO 目標、以使用者定義的頻率執行。如果主要資料儲存和 / 或歸檔記錄檔全部遺失、資料可能會遺失。Oracle 資料庫可從 FSX 資料庫備份映像複本還原至最後一個增量備份。為了將資料遺失降至最低、可在 FSX NFS 掛載點上設定 Oracle Flash 恢復區域、並將歸檔記錄備份至 FSX NFS 掛載及資料庫映像複本。</block>
@@ -16679,7 +16657,6 @@ Fsxadmin 是建立時適用於 NetApp ONTAP 檔案系統之 FSX 的預設管理�
   <block id="bd1e27892a57409e18119bb2e541f4b1" category="list-text">對在 Azure 中測試 Oracle 資料庫備份、還原和複製感興趣的解決方案架構設計師</block>
   <block id="42f6ca06d2c7da03707222828f8997d0" category="list-text">支援及管理 Azure NetApp Files 儲存設備的儲存管理員</block>
   <block id="94afe08a60e7f6e3a5a129eb73659899" category="list-text">擁有部署至 Azure NetApp Files 儲存設備和 Azure VM 之應用程式的應用程式擁有者</block>
-  <block id="3b29347d447c562ac8402016757938d0" category="paragraph">此解決方案的測試與驗證是在可能與最終部署環境不相符的實驗室環境中執行。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="55ee60e84e278b25241f6d746cda7b4c" category="cell">Azure NetApp Files 儲存設備</block>
   <block id="2b5527ea942b29b10a9a691160f3137b" category="cell">優質服務層級</block>
   <block id="d8e8e079bcd8fa97afc26513da9e1110" category="cell">自動 QoS 類型、以及 4 TB 儲存容量的測試</block>
@@ -17396,7 +17373,6 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="b39353bee738e1aa6f9140d1c72b84f9" category="summary">NetApp ® AI 功能可在 AI 管道中順暢地進行資料管理和資料移動、以進行訓練、重新訓練、微調、推斷及監控泛用 AI 模型。</block>
   <block id="36cc0281ec7abcd20091f5d39b995cc4" category="doc">推廣 AI 和 NetApp 價值</block>
   <block id="114811a570a451ce6b4fbec5b2967979" category="paragraph">作者： Sathish Thyagarajan 、 NetApp</block>
-  <block id="1db5bb1590f7c297fd0dbf5be34a5174" category="paragraph">對泛用人工智慧（ AI ）的需求、正推動產業的顛覆、增強商業創造力和產品創新。許多組織都在使用泛型 AI 來建置新產品功能、改善工程生產力、並以 AI 驅動的應用程式為原型、以提供更好的結果和消費者體驗。泛用 AI （例如推廣學前訓練的 Transformer （ GPT ））使用神經網路來建立新內容、例如文字、音訊和視訊等。鑑於大型語言模型（ LDM ）涉及極大規模的資料集、因此架構強大的 AI 基礎架構至關重要、因為它充分利用內部部署、混合式和多雲端部署選項的強大資料儲存功能、並降低與資料移動性相關的風險、 資料保護與治理、讓公司能夠先設計 AI 解決方案。本白皮書說明這些考量事項及對應的 NetApp ® AI 功能、可在 AI 資料傳輸管道中順暢地進行資料管理及資料移動、以進行訓練、再訓練、微調及推斷一般 AI 模型。</block>
   <block id="a573d92b77d430af7e424879baf78e94" category="section-title">執行摘要</block>
   <block id="1d28e988d29c4b73f397bf1301900174" category="paragraph">最近在 2022 年 11 月 GPT-3 推出的 ChatGPT 之後、針對使用者提示而產生文字、程式碼、影像、甚至是治療性蛋白質的新 AI 工具已獲得顯著的名聲。這表示使用者可以使用自然語言提出要求、 AI 將會解譯並產生文字、例如新聞文章或產品說明、這些文章或產品說明會反映使用者的要求、或是使用已訓練的現有資料演算法來產生程式碼、音樂、語音、視覺效果和 3D 資產。因此、在 AI 系統的設計中、像是穩定擴散、幻覺、快速工程和價值調整等詞句、都在迅速出現。這些自我監督或半監督的機器學習（ ML ）模式正透過雲端服務供應商和其他 AI 公司廠商、廣泛以預先訓練的基礎模式（ FM ）提供使用、這些模式正被各行各業的各種商業機構採用、用於各種下游的 NLP （自然語言處理）工作。如 McKinsey 等研究分析公司所宣稱：「通用 AI 對生產力的影響、可能會為全球經濟帶來數兆美元的價值。」 雖然公司正在重新想像 AI 是人類的思想合作夥伴、而 FMS 也在同時拓展業務和機構對於泛型 AI 的能力、但管理大量資料的機會仍會持續成長。本文件提供有關泛用 AI 的簡介資訊、以及與 NetApp 功能相關的設計概念、這些功能可為 NetApp 客戶帶來內部部署和混合式或多雲端環境的價值。</block>
   <block id="7b285a8cd7907bb777dc3cd704e164b9" category="paragraph">因此、客戶在 AI 環境中使用 NetApp 的 IT 環境有哪些？ * NetApp 協助企業組織因快速資料與雲端成長、多雲端管理、以及採用新一代技術（例如 AI ）而產生複雜度。NetApp 將各種功能整合到智慧型資料管理軟體和儲存基礎架構中、這些功能與針對 AI 工作負載最佳化的高效能相平衡。LMS 等泛型 AI 解決方案需要多次從儲存設備讀取及處理來源資料集、以加強智慧。NetApp 在邊緣對核心對雲端生態系統的資料移動性、資料治理和資料安全技術方面、一直是領導者、為企業客戶建置大規模 AI 解決方案提供服務。NetApp 擁有強大的合作夥伴網路、協助資料長、 AI 工程師、企業架構設計師和資料科學家設計可自由流動的資料傳輸管道、以供資料準備、資料保護、 以及 AI 模型訓練與推斷的策略性資料管理責任、將 AI/ML 生命週期的效能與擴充性最佳化。NetApp 資料技術與功能、例如用於深度學習資料傳輸管道的 NetApp ® ONTAP AI ® 、用於在儲存端點之間無縫且有效率地傳輸資料的 NetApp ® SnapMirror ® 、 NetApp ® FlexCache ® 可在資料流從批次移轉至即時時即時呈現、而資料工程則會在迅速完成時進行、為部署即時通用 AI 模型帶來價值。隨著各種類型的企業紛紛採用新的 AI 工具、他們將面臨資料挑戰、從邊緣到資料中心、再到需要可擴充、負責且可解釋的 AI 解決方案的雲端。身為混合雲和多雲端的資料管理機構、 NetApp 致力於打造合作夥伴和聯合解決方案網路、協助建構資料管線和資料湖的所有層面、以便進行泛用 AI 模型訓練（訓練前）、微調、情境式推斷和模式衰退監控 LLM 。</block>
@@ -17525,7 +17501,6 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="550c8c85ffce2de3188f9704c188de3c" category="list-text">對 AWS 雲端中的 Oracle Active Data Guard 組態感興趣的資料庫解決方案架構設計師。</block>
   <block id="e4efb5457095eb4b55bfc3c725c45bc6" category="list-text">管理支援 Oracle Data Guard 的 AWS FSX ONTAP 儲存設備的儲存管理員。</block>
   <block id="3b6ea806d7ca3ec3483737a2c6b96a47" category="list-text">喜歡在 AWS FSS/EC2 環境中站立 Oracle Data Guard 的應用程式擁有者。</block>
-  <block id="bc91f44d9c65e0ff00460fc3cbf1d4a7" category="paragraph">此解決方案的測試與驗證是在 AWS FSX ONTAP 和 EC2 實驗室環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="952689151ce0aec7f82b269a33a2d561" category="image-alt">此映像提供 AWS with FSxN 中 Oracle Data Guard 實作的詳細圖片。</block>
   <block id="2121dc715f8fee4210e0374eb562c84d" category="cell">三個 EC2 T2 大型 EC2 執行個體、一個做為主要 DB 伺服器、一個做為備用 DB 伺服器、第三個做為複製 DB 伺服器</block>
   <block id="ca8a675d4efb691e78dedc948041f3b6" category="section-title">Oracle Data Guard 組態、採用假設的紐約至洛杉磯 DR 設定</block>
@@ -17964,7 +17939,6 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="796c3d4a6179f628784371e4fb7fa9d9" category="list-text">資料庫解決方案架構設計師、希望在 AWS 雲端上的 VMC 中測試 Oracle 工作負載</block>
   <block id="cb94ba9e822edf8670a9aedebc0852c1" category="list-text">想要部署及管理部署至 AWS 上 VMC 的 Oracle 資料庫、並搭配 Amazon FSX ONTAP 的儲存管理員</block>
   <block id="b2777eda52c529f2b03fa9eced1c9680" category="list-text">想要在 AWS 雲端上的 VMC 中備份 Oracle 資料庫的應用程式擁有者</block>
-  <block id="d172135745ee569873f61bcd3531f83e" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、而在 AWS 上執行的 VMC 可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="968ee2170dde4e5744b413462ee41e35" category="cell">一個 FSX ONTAP HA 叢集位於與 VMC 相同的 VPC 和可用性區域</block>
   <block id="a19ad08a54b29b409555bf1681f098ee" category="cell">VMC SDDC 叢集</block>
   <block id="cad01e8ce0c8a902e41beab182a6fe81" category="cell">Amazon EC2 i3. 金屬單節點 / Intel Xeon E5-2686 CPU 、 36 核心 /512G RAM</block>
@@ -18164,7 +18138,6 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="489fc03d48bb97d0eaaf947d524863e3" category="list-text">想要在 NetApp ASA 系統中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
   <block id="48b96d37ce8b7763e19ce55ff6b38bbc" category="list-text">想要在 NetApp ASA 系統上部署及管理 Oracle 資料庫的儲存管理員。</block>
   <block id="4d9a01e17799c2443651952a5571e588" category="list-text">想要在 NetApp ASA 系統中備份 Oracle 資料庫的應用程式擁有者。</block>
-  <block id="0e9eaa00642412ade40b8fd3a255bf04" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、可能與最終部署環境不符。請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block> 以取得更多資訊。</block>
   <block id="50ca835c71c489ce33e359fe138d33a1" category="cell">NetApp ASA A400</block>
   <block id="4fec937db99b8a74dd5bef9285d0e4c0" category="cell">9.13.1P1 版</block>
   <block id="37f8b8f146367f24cfb85a152645d03f" category="cell">2 個 NS224 機櫃、 48 個 NVMe AFF 磁碟機、共 69.3 TiB 容量</block>
@@ -18258,23 +18231,6 @@ VMware ESXi 、 8.0.2 、 22380479</block>
   <block id="34784cc0fea6d2267df747c34d7e8553" category="cell">Trident 伺服器與用戶端及 Astra 控制備置程式 23.10.0</block>
   <block id="5e68558165679f67cdaeb12471891522" category="cell">Acc 23.10</block>
   <block id="d0b55d3b0b9d8025eb06e76618f6bf8a" category="inline-link-macro">在 Azure 上安裝 OpenShift 叢集</block>
-  <block id="335fb62e4da3aa69274963639828ffc9" category="paragraph">以下是一些其他文件以供參考：
-1. <block ref="299437d2dfff10029aa68548910ed14a" category="inline-link-macro-rx"></block>
-2. <block ref="7113f7690b69458a12c8968b2e7b5c94" category="inline-link-macro-rx"></block>
-3. <block ref="bf8803e28a55e6b11cf02bdf9ab03853" category="inline-link-macro-rx"></block>
-4. <block ref="0de84e35816fe2bf24a2d62358c71ec0" category="inline-link-macro-rx"></block>
-5. <block ref="c17964cf4aee883c1f79b2b18d5cf8c5" category="inline-link-macro-rx"></block>
-6. <block ref="c4a315706dd2011b5383e54e9b2917d4" category="inline-link-macro-rx"></block>
-7. <block ref="e1b08234af7069664eedc35420a1cc41" category="inline-link-macro-rx"></block>
-8. <block ref="97e9aa45cc61b723d7185c3008313d78" category="inline-link-macro-rx"></block>
-9. <block ref="ac3186bd76a04d061f68b4574a7220d5" category="inline-link-macro-rx"></block>
-10. <block ref="2f4df966d6adc25fd002d42aba0522c1" category="inline-link-macro-rx"></block>
-11. <block ref="c2f5b2c54b56c4b456371849b6825da6" category="inline-link-macro-rx"></block> - Verda （開放原始碼）擁有許多參考執行掛鉤、可用於熱門的雲端原生資料密集應用程式
-12. <block ref="b0fea8555edb70fb5a01c464b6a09cbb" category="inline-link-macro-rx"></block>
-13. <block ref="ca0553647614febb5dfa86b86874cf2f" category="inline-link-macro-rx"></block>
-14. <block ref="c869624abab2a4d09eb6e20d1fe18e5e" category="inline-link-macro-rx"></block>
-15. <block ref="b6d7b323dede2a4e24afaa7b9dd5984f" category="inline-link-macro-rx"></block>
-16. <block ref="30bef8c4d342eeb1d1f466a9ea23121d" category="inline-link-macro-rx"></block></block>
   <block id="7dd87b751ef68940a1312b47b05c1df8" category="doc">在 Azure 上部署及設定 Red Hat OpenShift Container 平台</block>
   <block id="c4889a04b87200a47c54bff050e1fe85" category="paragraph">本節說明如何在 Azure 中設定及管理 OpenShift 叢集、以及如何在其中部署有狀態應用程式的高階工作流程。它顯示在 Astra Trident / Astra 控制資源配置程式的協助下、 NetApp Cloud Volumes ONTAP 儲存設備的使用情形、以提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。</block>
   <block id="f83db3cc311fd924fcfeea65b9fb74a0" category="paragraph">下圖顯示部署在 Azure 上且使用 VPN 連線至資料中心的叢集。</block>
@@ -19336,7 +19292,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="86cc76cfb1ceaac3aaa0bace96f788de" category="list-text">在 Azure 公有雲中測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
   <block id="a92ab2bd86f06e76dca598f233e87f33" category="list-text">管理部署至容量集區儲存設備的 Oracle 資料庫的儲存管理員。</block>
   <block id="96ffa3242f6ce78c662078c986d2dd13" category="list-text">想要在 Azure 雲端環境中備份 Oracle 資料庫的應用程式擁有者。</block>
-  <block id="c9d052a026f163663b788c2146e65703" category="paragraph">此解決方案的測試與驗證是在 Microsoft anf 容量集區儲存設備和 Azure VM 運算環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="8ea96e516bccf9a47ca2d74131eb7519" category="inline-xref-macro-rx"></block>。</block>
   <block id="df5be9cce2556109a991648585423150" category="image-alt">此映像提供在 Azure 公有雲與 anf 中執行 Oracle VLDB 遞增合併實作的詳細圖片。</block>
   <block id="952ad133c322e6ea15c7668391a420d8" category="cell">ANF 儲存設備</block>
   <block id="85dec17e5aae8074e9cc2265ba72e4f3" category="cell">Microsoft 目前提供的版本</block>
@@ -21988,4 +21943,129 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="c9983e30a18bf4759d7569120b440889" category="sidebar">VM 移轉</block>
   <block id="9b7690f68ef7f8291e75eaa5f838f316" category="sidebar">使用 FSxN 將 VM 移轉至 Amazon EC2</block>
   <block id="276ce59868cad344f55fc6d7c6701309" category="sidebar">架構與先決條件</block>
+  <block id="5f8bb3c8dda2d3aead02890ea8c54e3e" category="paragraph">本節概述如何在 OpenShift 虛擬化中為 VM 建立隨選備份。</block>
+  <block id="0366cc0ad13ff79b1787f5d794b5a6ad" category="paragraph">本節詳細說明如何使用 Google Cloud Console 將應用程式部署至內部部署的 Antos GKE 叢集。</block>
+  <block id="716db73b9b512b81613a0539acfb2f78" category="paragraph">本節概述如何使用 Velero 在 OpenShift 虛擬化中刪除虛擬機器的備份與還原。</block>
+  <block id="d854e83c586f171ce5925c24dbc91644" category="paragraph">本節說明如何使用 Red Hat OpenShift Virtualization 在叢集之間移轉虛擬機器。</block>
+  <block id="6a8477e4438b5e9239f0df0ce6503edf" category="paragraph">本節概述 OpenShift API for Data Protection （ OADP ）操作員的安裝。</block>
+  <block id="0df0b9492f8a43bd74cc574fa9b018e2" category="paragraph">本節詳細說明如何使用 NetApp ONTAP 部署 Red Hat OpenShift 虛擬化。</block>
+  <block id="cb5a90af80107b22fd8d5c8ebe2ed939" category="doc">Kubernetes 進階叢集管理： Red Hat OpenShift with NetApp - 概述</block>
+  <block id="ccebd2b00b79fb903b47d4dd5898e280" category="paragraph">本節說明如何使用 Red Hat OpenShift Virtualization 建立虛擬機器。</block>
+  <block id="c360342251e97ba868145c15dd090ae2" category="paragraph">本節概述如何使用 NetApp FlexClone 技術來快速部署解決方案。</block>
+  <block id="f2d7546c64788094655ddf4ccd49d894" category="paragraph">本節說明如何使用 Red Hat OpenShift Virtualization 從 Snapshot 建立虛擬機器。</block>
+  <block id="adc9a3850ff097e16ba0d7af785cd748" category="paragraph">本節說明如何從備份還原虛擬機器。</block>
+  <block id="2edab6f378191e9c4bdd5225d7830871" category="paragraph">以下是在 Red Hat OpenShift with NetApp 上設定多租戶的必要條件。</block>
+  <block id="07cdcd1b6b38fb166c7ad633fa4f4dd2" category="paragraph">本節說明如何使用 Red Hat OpenShift Virtualization 複製虛擬機器。</block>
+  <block id="7a36196d5d2ad9629de93bc81a4eb554" category="paragraph">本節討論如何在 Red Hat OpenShift 虛擬化中使用 Cloud Insights 監控 VM 。</block>
+  <block id="fad73d4839dc21dc3d330b3940ed763f" category="paragraph">本節介紹 Red Hat OpenShift with NetApp 上 Kubernetes 的進階叢集管理功能。</block>
+  <block id="8983ac005474481fb644c025b3d507f8" category="paragraph">本節說明如何使用 Red Hat OpenShift 虛擬化移轉工具組、在叢集之間移轉虛擬機器。</block>
+  <block id="403b710b098ba49038f568764130b4f6" category="paragraph"><block ref="1de37c09602b46db5de57a946efe2768" category="inline-link-macro-rx"></block>
+-
+側邊列：側邊列
+永久連結： VMware/tr-4792.html
+關鍵字：設計、 HCI 、運算、 VMware 、雲端、 圖形、虛擬化
+摘要：「 TR-4792 提供在採用 NVIDIA 圖形處理單元（ GPU ）和虛擬化軟體的 VMware Horizon 環境中、將 NetApp HCI 615C 用於 3D 圖形工作負載的指引。」
+-</block>
+  <block id="43926c4aa8574b96d6891adb8ddf6ab9" category="paragraph">如需自動化資源配置、請使用下列指令碼： <block ref="d9559d06f0afa5b213d78afb48b783e7" category="inline-xref-macro-rx"></block>。</block>
+  <block id="115f63e379dcca74d5e673c7fd2c54fd" category="paragraph">本文概述使用 NetApp ONTAP AI 、 NetApp AI 控制平面、 NetApp 雲端 Volume 軟體和 Iguazio 資料科學平台的 MLRun 管道解決方案。</block>
+  <block id="65fe25204f25a29d6784b93a3361bbd8" category="paragraph">本節介紹 NetApp 的向量資料庫解決方案。</block>
+  <block id="42cb737e154e9abe53c3f800eae00d4e" category="paragraph">本節提供 NetApp 向量資料庫解決方案中所使用值的 YAML 代碼範例。</block>
+  <block id="0cbe53988249acb8210e165c8f9d4ff1" category="paragraph">本節說明如何使用 NetApp SnapCenter 為向量資料庫提供資料保護。</block>
+  <block id="9b8b54e216591264dff0a497e7d9c1e9" category="paragraph">本文提供使用 AWS 服務建置 MLOps 管線的指南、著重於自動化模型重新訓練、部署和成本最佳化。
+-</block>
+  <block id="34fc6f8c7d10337be1b911dd98627e40" category="paragraph">本節著重於採用 NVIDIA DGX 系統的 NetApp AIPod 架構。</block>
+  <block id="5be1af242b3a059180b8adbb0275281f" category="paragraph">本節提供使用 Helm 圖表部署 cnvrg 核心的詳細資訊。</block>
+  <block id="68c556245cb3c83cd3017c1b7a9a5ccf" category="paragraph">本文定義部署此解決方案時、必須符合的硬體需求。</block>
+  <block id="19988795e8f88dfff005718f72472b6c" category="paragraph">本節討論 NetApp 向量資料庫解決方案的部署程序。</block>
+  <block id="74daf850d113b04d315d8fa576eb9e77" category="paragraph">本節將介紹 NetApp AIPod 搭配 NVIDIA DGX 系統。</block>
+  <block id="d54433e43cda21e1ff5ab715c73883de" category="paragraph">本節提供 NVIDIA AI Enterprise with NetApp 和 VMware 的技術概觀。</block>
+  <block id="45b4ccfe4060d903229f2ce1dcae0219" category="paragraph">本節詳細說明 instaclustr 產品如何在 NetApp 的向量資料庫解決方案中、與 PostgreSQL 整合 pgvector 的功能。</block>
+  <block id="dd6e7b7440bcc10c6ef53c7b4be5ab7c" category="paragraph">本節提供適用於 ONTAP AI 的 Run:AI 解決方案概觀。</block>
+  <block id="6dbc3469d4924aa631238769172515d8" category="paragraph">對泛用人工智慧（ AI ）的需求、正推動產業的顛覆、增強商業創造力和產品創新。</block>
+  <block id="02fc1d171eeebe1bf3877101d6892e29" category="paragraph">許多組織都在使用泛型 AI 來建置新產品功能、改善工程生產力、並以 AI 驅動的應用程式為原型、以提供更好的結果和消費者體驗。泛用 AI （例如推廣學前訓練的 Transformer （ GPT ））使用神經網路來建立新內容、例如文字、音訊和視訊等。鑑於大型語言模型（ LDM ）涉及極大規模的資料集、因此架構強大的 AI 基礎架構至關重要、因為它充分利用內部部署、混合式和多雲端部署選項的強大資料儲存功能、並降低與資料移動性相關的風險、 資料保護與治理、讓公司能夠先設計 AI 解決方案。本白皮書說明這些考量事項及對應的 NetApp ® AI 功能、可在 AI 資料傳輸管道中順暢地進行資料管理及資料移動、以進行訓練、再訓練、微調及推斷一般 AI 模型。</block>
+  <block id="4c9ffff73cd2c66ec9f6be3cb2b21333" category="paragraph">本節著重於 NetApp 的 OpenSource MLOps 技術概覽。</block>
+  <block id="d2fb9fca0fa09d949a54ae42e337c891" category="paragraph">本節著重於 NetApp AIPod 搭配 NVIDIA DGX 系統的解決方案驗證與規模調整指南。</block>
+  <block id="4a6f6b145c2d627bc6b03f4b1e6dd96a" category="paragraph">本節討論 NetApp 向量資料庫解決方案的 milvus 叢集設定。</block>
+  <block id="5731e92f08ce44e04d7f534605496384" category="paragraph">本文示範如何在 Jupyter 筆記型電腦上定義持續的 Volume Claim 。</block>
+  <block id="8d5099e275cc435c14417dc8e6bd49aa" category="paragraph">本節提供用於準備向量資料庫資料的 Python 指令碼範例。</block>
+  <block id="599675cccffd45ab676aea932c3fdfbd" category="paragraph">本節包含一個 Python 指令碼範例、可用於驗證 NetApp 向量資料庫解決方案中的向量資料庫。</block>
+  <block id="3d54f838a52d103813954eb08a2f8e9b" category="paragraph">本文件將介紹 ONTAP AI 和 NVIDIA DGX 的對話式 AI 模型。</block>
+  <block id="7c3d91801a54614f755a9f2897ee42f3" category="paragraph">本節包含 NetApp AIPod 搭配 NVIDIA DGX 系統的其他資訊參考資料。</block>
+  <block id="4f50d45b7589f5ba7443aff7e641e0ce" category="paragraph">本節包含 NetApp 向量資料庫解決方案的 YAML 代碼範例。</block>
+  <block id="351df3cce379006f4ba6b903c32e39a0" category="paragraph">本節概述 NetApp 向量資料庫解決方案。</block>
+  <block id="c3d68fb38e0db372152f5a3a84fed148" category="paragraph">本節重點介紹 NetApp AIPod 搭配 NVIDIA DGX 系統的軟體元件。</block>
+  <block id="334e1c5c0681bc3d3d6b9321ff851f44" category="paragraph">本節重點說明在向量資料庫上執行的效能驗證。</block>
+  <block id="73877510aa37e2bcf501625512e358c3" category="paragraph">本節概述 NetApp 向量資料庫解決方案的需求。</block>
+  <block id="f0bbbdb43782a17fdb1b5541f4c2d25f" category="paragraph">本節提供 Domino Data Lab 和 NetApp 混合式多雲端 MLOps 的技術概觀。</block>
+  <block id="9d375ccb6b3af817f79c4f2d130c16f0" category="paragraph">本節提供使用 AWS SageMaker 將 FSxN 設定為私有 S3 貯體的指南。</block>
+  <block id="bbc61a47b16c59fd2b173e4a939950c0" category="paragraph">本文是使用 AWS FSx for NetApp ONTAP （ FSxN ）來訓練 SageMaker 中的 PyTorch 機型的教學課程、特別是針對輪胎品質分類專案。</block>
+  <block id="bb6e7da57bf9b9f451aff5682584af81" category="paragraph">本節涵蓋 NetApp AI 解決方案中向量資料庫的定義與使用。</block>
+  <block id="bd6e083031bf15817a67b63cc58a211c" category="paragraph">本節重點介紹 NetApp AIPod 搭配 NVIDIA DGX 系統的硬體元件。</block>
+  <block id="b4eb3fd5fa52ba6b8d0eac43bac21d6f" category="paragraph">本節結束 NetApp 的向量資料庫解決方案。</block>
+  <block id="853fb1f37b200090af8f730400a34971" category="paragraph">本節概述 NetApp 向量資料庫解決方案的使用案例。</block>
+  <block id="e3388d88fcd171fef34380121b8119f6" category="paragraph">本節將討論適用於 NetApp 的向量資料庫解決方案、搭配 Amazon FSxN 的 milvus 叢集設定。</block>
+  <block id="86e29a6d4e0a7a64c8112c7cec13c84f" category="paragraph">本節討論適用於 NetApp 的向量資料庫解決方案的災難恢復（災難恢復）與 SnapMirror 。</block>
+  <block id="bb58ec8ec1fa1b1ed0aed48ba069b683" category="paragraph">此解決方案提供 NetApp ASA 陣列中自動化 Oracle 部署與保護的概觀與詳細資料、以作為主要資料庫儲存設備、並以磁碟區管理程式的形式、在獨立重新啟動時設定 iSCSI 傳輸協定和 Oracle 資料庫。</block>
+  <block id="5d864181a518d8551d707a300d1fdaa0" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、可能與最終部署環境不符。請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block> 以取得更多資訊。</block>
+  <block id="182e6145515371c9597ab0106bf34ee9" category="paragraph">本解決方案提供使用 BlueXP 主控台的 NetApp SnapCenter SaaS 進行 Oracle 資料庫備份、還原、複製的概觀與詳細資料。</block>
+  <block id="8b610eaf828fa120f2c2b10c15be044b" category="paragraph">此解決方案的測試與驗證是在可能與最終部署環境不相符的實驗室環境中執行。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="622d3af9d0e348e827d4fbf78a6f0cdb" category="paragraph">此解決方案提供 Ansible 型自動化工具組、可將 Oracle 資料庫高可用度和災難恢復（ HA/DR ）與 AWS FSX ONTAP 做為 Oracle 資料庫儲存設備、並將 EC2 執行個體做為 AWS 中的運算執行個體進行設定。</block>
+  <block id="20b809a3f4824b521376cfc292ddd483" category="paragraph">此解決方案提供實用工具套件、可用於在 Azure 雲端的 ANF 上進行 Oracle 部署、以調整運算和儲存容量的規模。</block>
+  <block id="22260d0205fff2334c6db0210fe74e87" category="paragraph">此解決方案提供概觀與詳細資料、可快速恢復部署至 Azure VM 運算執行個體的 Oracle VLDB 、並在 Azure NetApp Files 容量集區上安裝 NFS 、以暫存透過 RMAN 不斷遞增合併的備用資料庫複本。</block>
+  <block id="a16384631c8a3c77092c08c44ebe3627" category="paragraph">此解決方案的測試與驗證是在 Microsoft anf 容量集區儲存設備和 Azure VM 運算環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="0f2184f93ef197858e7e8ff357370b7c" category="paragraph">此解決方案提供 Microsoft Azure NetApp Files 中自動化 Oracle 部署的概觀與詳細資料、做為具有 NFS 傳輸協定的主要資料庫儲存設備、而 Oracle 資料庫則部署為啟用 DNFS 的容器資料庫。</block>
+  <block id="1e2ef808c756fe2fc18593d9fa502fea" category="paragraph">本解決方案提供使用 AWS FSX ONTAP 做為備用站台的 Oracle 資料庫儲存設備來設定 Oracle Data Guard 的概述與詳細資料、以降低 AWS 中 Oracle Data Guard HA/DR 解決方案的授權與營運成本。</block>
+  <block id="63bec441d029d5ce44b5fda7d69153c0" category="paragraph">此解決方案的測試與驗證是在 AWS FSX ONTAP 和 EC2 實驗室環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="3bc3588fd9f44812f3a183ebc0fe8242" category="paragraph">本解決方案提供使用 Azure 雲端中 BlueXP 主控台的 NetApp SnapCenter SaaS 進行 Oracle 資料庫備份、還原、複製的概觀與詳細資料。</block>
+  <block id="b1e308947dfb7ac3f2701611b0393713" category="paragraph">此解決方案的測試與驗證作業是在AWS FSX和EC2環境中執行、而該環境可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="b997a984dad34493c1769c47b99c113b" category="paragraph">本解決方案提供 PostgreSQL 資料庫部署和 HA/DR 設定、容錯移轉、重新同步的概觀與詳細資料、這些資訊均以 FSX ONTAP 儲存產品內建的 NetApp SnapMirror 技術為基礎、並於 AWS 中提供 NetApp Ansible 自動化工具套件。</block>
+  <block id="86ed129fe60d52da62d64acc9e238f20" category="paragraph">此解決方案提供 Ansible 型自動化工具組、可透過最大可用度方法、使用 PDB 重新定位來移轉 Oracle 資料庫。移轉可以是內部部署和雲端的任何組合、做為來源或目標。</block>
+  <block id="7571a50993544bc3577cd4ec421ff507" category="paragraph">此解決方案提供 AWS FSX ONTAP 儲存設備中 Oracle 資料庫部署與保護的概觀與詳細資料、以及使用磁碟區管理程式在獨立重新啟動時設定 iSCSI 傳輸協定和 Oracle 資料庫的 EC2 運算執行個體。</block>
+  <block id="df9407de5223225c3f710a59541019c8" category="paragraph">本解決方案涵蓋使用 Amazon FSX for NetApp ONTAP 在 AWS EC2 上部署 SQL Server 。</block>
+  <block id="a04492f0064c628fae333a55f7d89e9a" category="paragraph">此解決方案提供在 AWS 中使用 FSX ONTAP 做為主要資料庫儲存設備的 VMware Cloud 中進行 Oracle 部署和保護的概觀和詳細資料、以及在獨立重新啟動時使用 asm 做為 Volume Manager 設定的 Oracle 資料庫。</block>
+  <block id="43b43702bc731c576655a9cbe9d3cb20" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、而在 AWS 上執行的 VMC 可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="f344dcb6783f656a2b1d73c6cdf6976f" category="paragraph">此解決方案提供 Microsoft Azure NetApp Files 中自動化 Oracle 部署的概觀與詳細資料、做為具有 NFS 傳輸協定的主要資料庫儲存設備、而 Oracle 資料庫則部署為啟用 DNFS 的容器資料庫。部署在 Azure 中的資料庫會使用 SnapCenter UI 工具來保護、以簡化資料庫管理。</block>
+  <block id="eb5fc38b852160a5fb5ad993b7a41efe" category="paragraph">此解決方案提供以 Terraform 為基礎的自動化工具組、用於配置 FSX ONTAP 叢集和 EC2 運算執行個體。</block>
+  <block id="25a771368cf645aad87c1626869055d5" category="paragraph">本解決方案提供 AWS FSX ONTAP 儲存設備中 Oracle 資料庫部署與保護的概觀與詳細資料、以及使用 asm 做為 Volume Manager 、在獨立重新啟動時設定 NFS 傳輸協定和 Oracle 資料庫的 EC2 運算執行個體。</block>
+  <block id="90b61454dbd3963570fab7ac262d84e2" category="paragraph">此解決方案提供概觀與詳細資料、可快速恢復並複製部署至 AWS EC2 運算執行個體的 Oracle VLDB 、並在 FSX ONTAP 上安裝 NFS 、以暫存待機資料檔案複本、並透過 RMAN 不斷遞增地合併。</block>
+  <block id="cdd33b3dc82dd5a7057c39b49fafec92" category="paragraph">此解決方案的測試與驗證是在 AWS FSX ONTAP 和 EC2 環境中執行、可能與最終部署環境不符。如需詳細資訊、請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="f49a4d1c30b33e65fdb2c76442c2dd16" category="paragraph">此解決方案提供 Amazon FSX ONTAP 中自動化 Oracle 部署與保護的概觀與詳細資料、以作為主要資料庫儲存設備、並以 Oracle asm 作為 Volume Manager 、在獨立重新啟動時設定 iSCSI 傳輸協定和 Oracle 資料庫。</block>
+  <block id="baf0abcbe7330fc1773b4f99d557c0d8" category="paragraph">深入瞭解AWS、VMC和FSX ONTAP 支援全球區域的相關資訊。</block>
+  <block id="fafae8ad861b26a9aa5e51d268709c44" category="admonition">NFS資料存放區可在同時ONTAP 提供兩項服務（VMC和FSX支援）的區域中使用。</block>
+  <block id="acf4e146765f4f312bb7b61acb7fab22" category="list-text">*共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用 https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html[MMC/Computer 具有 Cloud Volumes Service 執行個體管理員權限的帳戶、從 SMB 用戶端設定共用層級 ACL （請參閱連結： ncvS-GC-smb.html#Accounts with local/BUILTIN/ 備份權限 [ 「 Accounts with local/BUILTIN/ backup rights 」）。</block>
+  <block id="a9b9f3347225b9c406a25739d4c18077" category="paragraph">在此架構中、租戶（請參閱一節 <block ref="0a088dd892133b6a77304655c2b8b829" category="inline-link-macro-rx"></block>）定義為Google Cloud專案、除非使用者明確連線、否則這些專案彼此之間完全隔離。租戶可利用Cloud Volumes Service 這個功能、將資料磁碟區、外部名稱服務及解決方案的其他重要部分、與其他租戶完全隔離在一起。由於此平台是透過VPC對等連接、因此隔離也適用於此平台。Cloud Volumes Service您Cloud Volumes Service 可以使用共享VPC、在多個專案之間共用一個支援區塊（請參閱一節） <block ref="41bc6ef23231735d7fa55cf91d499f7e" category="inline-link-macro-rx"></block>）。您可以將存取控制套用至SMB共用和NFS匯出、以限制可以檢視或修改資料集的人員或內容。</block>
+  <block id="83634e7a7bcc6f370b23a94c7ac2bdd0" category="paragraph">加密閒置資料（請參閱一節 <block ref="ce3046d8bb0cfdf8a89295f31068c29b" category="inline-link-macro-rx"></block>）搭配NetApp Volume Encryption（NVE）和線上使用XTS-AES-256密碼 <block ref="0c11d2d72feb76d7840fd6339552dcf0" category="inline-link-macro-rx"></block> 或NFS Kerberos 5p支援。瞭解跨區域複寫傳輸會受到 TLS 1.2 加密的保護、讓您高枕無憂（請參閱連結： ncvs-GC 資訊安全考量事項與攻擊面。 html# 偵測、防範及減輕勒索軟體、惡意軟體和病毒 # 跨區域複寫 [ 「跨區域複寫」 ] ）。此外、Google網路也提供加密通訊（請參閱一節 <block ref="051d363ef6081e123484b5da28bebf19" category="inline-link-macro-rx"></block>）提供額外的保護層、防範攻擊。如需傳輸加密的詳細資訊、請參閱一節 <block ref="0e3bb83173de6418179f08aaa25b48dd" category="inline-link-macro-rx"></block>。</block>
+  <block id="9dd13b9df09de79d36a8b56583fb659e" category="paragraph">安全性不只是預防攻擊而已。這也與我們如何在攻擊發生時或發生時從攻擊中恢復有關。此策略包括資料保護與備份。提供在停電時複製到其他地區的方法（請參閱一節Cloud Volumes Service <block ref="ba05a6a8f10d709e827899da5254daa8" category="inline-link-macro-rx"></block>）或資料集受到勒索軟體攻擊的影響。也Cloud Volumes Service 可以使用、將資料非同步備份到非執行個體的位置 <block ref="32833fa278fd456c44fe0846e5ad5553" category="inline-link-macro-rx"></block>。透過定期備份、降低安全事件的時間、節省成本、並使系統管理員感到焦慮。</block>
+  <block id="96193061fe4b8fdb2a5998bc2fb7a675" category="paragraph">除了資料保護與備份、Cloud Volumes Service 支援不可變的Snapshot複本（請參閱一節） <block ref="7f60a1854b6ed9a5812433d1e154f461" category="inline-link-macro-rx"></block>）允許從勒索軟體攻擊中恢復的磁碟區（請參閱一節 <block ref="f545e9c9b1aa4e21f947ee53ac36de63" category="inline-link-macro-rx"></block>）在發現問題的幾秒鐘內、並將中斷時間降至最低。恢復時間與影響取決於Snapshot排程、但您可以建立Snapshot複本、在勒索軟體攻擊中提供最少一小時的差異。Snapshot複本對效能和容量使用率的影響微乎其微、是保護資料集的低風險高報酬方法。</block>
+  <block id="b2a0098aa06aaf37daca9ef6f8835134" category="paragraph">深入瞭解GCP、GCVE及CVS的全球區域支援。</block>
+  <block id="3c02e2bdd532ccfef3c9e12384907826" category="admonition">NFS資料存放區可在兩種服務（GCVG和CVS效能）均可用的區域中使用。</block>
+  <block id="3bd4760e6429ba9e40c79505d9f42ab2" category="paragraph">不過、Google Cloud VM無法窺探其他VM的單點傳播流量。只有主動參與LDAP流量（亦即能夠連結）的VM、才能看到來自LDAP伺服器的流量。如需Cloud Volumes Service 更多有關資料包偵測功能的資訊、請參閱一節 <block ref="157f111c3832c04132958ec2e7000e05" category="inline-link-macro-rx"></block></block>
+  <block id="db31baafef16d36fd9a150970dc0ab25" category="paragraph">本文件概述如何在 AWS 上使用 VMware Cloud 將 Amazon FSX for ONTAP 掛載為 NFS 資料存放區。</block>
+  <block id="4c0b0d811e97b17fb58be9977a30c6c1" category="paragraph">在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。</block>
+  <block id="b56b4f173e8bab4e505e898b88b84ea3" category="paragraph">透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。</block>
+  <block id="656b94b95418723e2acea6b86dc53e48" category="inline-link-macro">下一步：閒置資料加密。</block>
+  <block id="6ca1480f90da15333bae5670283ea19f" category="paragraph"><block ref="6ca1480f90da15333bae5670283ea19f" category="inline-link-macro-rx"></block></block>
+  <block id="3e6d6dfa1f3086211383a75c414950ca" category="list-text">如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） <block ref="5d945114220095bc07323c01a23cbb40" category="inline-link-macro-rx"></block>）。</block>
+  <block id="83961910616d858f03e9d8912282fc24" category="cell">設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 <block ref="ea57e0d9603b96fef04a602dda4c6bd5" category="inline-link-macro-rx"></block>。</block>
+  <block id="fd3e3d392130eb7a124156e546d78e9a" category="paragraph">這涵蓋應用程式資料、但實際VM本身的情況如何。災難恢復應涵蓋所有相依元件、包括虛擬機器、VMDK、應用程式資料等。為達成此目標、SnapMirror搭配Veeam可用來無縫恢復從內部部署複寫至Cloud Volumes ONTAP VMware的工作負載、同時將vSAN儲存設備用於VM VMDK。</block>
+  <block id="6167e2ab0cfead32a7f67ecd3956d0af" category="paragraph">深入瞭解Azure、AVS和ANF的全球區域支援。</block>
+  <block id="9cd0e5d5083359436f8e8a366b9d6e07" category="admonition">NFS資料存放區可在同時提供兩項服務（AVS和ANF）的區域中使用。</block>
+  <block id="ebbb3b98e35f1c17ff0edaa90c78bee7" category="list-text">最後、我們使用待處理項目來完成測量、以衡量消費者是否有能力掌握最新訊息。OMB會在測量開始時暫停使用者、藉此建構待處理項目。這會產生三個不同的階段：建立待處理項目（僅限生產商流量）、減少待處理項目（使用者負擔沉重的階段、消費者會在某個主題中趕上錯過的事件）、以及穩定狀態。請參閱「」一節<block ref="67d9096f7dc6dfc3943f178b4a30cff8" category="inline-xref-macro-rx"></block>」以取得更多資訊。</block>
+  <block id="2958dbcd62d37cb8d2dae92d4bd5ddaf" category="paragraph">以下是一些其他文件以供參考：</block>
+  <block id="299437d2dfff10029aa68548910ed14a" category="list-text"><block ref="299437d2dfff10029aa68548910ed14a" category="inline-link-macro-rx"></block></block>
+  <block id="7113f7690b69458a12c8968b2e7b5c94" category="list-text"><block ref="7113f7690b69458a12c8968b2e7b5c94" category="inline-link-macro-rx"></block></block>
+  <block id="bf8803e28a55e6b11cf02bdf9ab03853" category="list-text"><block ref="bf8803e28a55e6b11cf02bdf9ab03853" category="inline-link-macro-rx"></block></block>
+  <block id="0de84e35816fe2bf24a2d62358c71ec0" category="list-text"><block ref="0de84e35816fe2bf24a2d62358c71ec0" category="inline-link-macro-rx"></block></block>
+  <block id="c17964cf4aee883c1f79b2b18d5cf8c5" category="list-text"><block ref="c17964cf4aee883c1f79b2b18d5cf8c5" category="inline-link-macro-rx"></block></block>
+  <block id="c4a315706dd2011b5383e54e9b2917d4" category="list-text"><block ref="c4a315706dd2011b5383e54e9b2917d4" category="inline-link-macro-rx"></block></block>
+  <block id="e1b08234af7069664eedc35420a1cc41" category="list-text"><block ref="e1b08234af7069664eedc35420a1cc41" category="inline-link-macro-rx"></block></block>
+  <block id="97e9aa45cc61b723d7185c3008313d78" category="list-text"><block ref="97e9aa45cc61b723d7185c3008313d78" category="inline-link-macro-rx"></block></block>
+  <block id="ac3186bd76a04d061f68b4574a7220d5" category="list-text"><block ref="ac3186bd76a04d061f68b4574a7220d5" category="inline-link-macro-rx"></block></block>
+  <block id="2f4df966d6adc25fd002d42aba0522c1" category="list-text"><block ref="2f4df966d6adc25fd002d42aba0522c1" category="inline-link-macro-rx"></block></block>
+  <block id="c9201dcf5ef4e81010385777c2b0eefd" category="list-text"><block ref="c2f5b2c54b56c4b456371849b6825da6" category="inline-link-macro-rx"></block> - Verda （開放原始碼）擁有許多參考執行掛鉤、可用於熱門的雲端原生資料密集應用程式</block>
+  <block id="b0fea8555edb70fb5a01c464b6a09cbb" category="list-text"><block ref="b0fea8555edb70fb5a01c464b6a09cbb" category="inline-link-macro-rx"></block></block>
+  <block id="ca0553647614febb5dfa86b86874cf2f" category="list-text"><block ref="ca0553647614febb5dfa86b86874cf2f" category="inline-link-macro-rx"></block></block>
+  <block id="c869624abab2a4d09eb6e20d1fe18e5e" category="list-text"><block ref="c869624abab2a4d09eb6e20d1fe18e5e" category="inline-link-macro-rx"></block></block>
+  <block id="b6d7b323dede2a4e24afaa7b9dd5984f" category="list-text"><block ref="b6d7b323dede2a4e24afaa7b9dd5984f" category="inline-link-macro-rx"></block></block>
+  <block id="30bef8c4d342eeb1d1f466a9ea23121d" category="list-text"><block ref="30bef8c4d342eeb1d1f466a9ea23121d" category="inline-link-macro-rx"></block></block>
 </blocks>
