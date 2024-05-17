@@ -8765,7 +8765,6 @@
   <block id="3e7dfd7567a414307d5fe93ea83ce4f6" category="list-text">NFS作業類型可見（Fsinfo, access, GetAttr等）。</block>
   <block id="6b375be1f905197ba21c586647e973f4" category="list-text">輔助通訊協定（掛載、連接埠對應、NLM等）未加密-（請參閱匯出路徑、IP位址）</block>
   <block id="6de6f14759a24d6fcb16973384e01c00" category="list-text">安全性層級效能最差；krb5p必須加密/解密更多資料。</block>
-  <block id="abac32415b4bfbaf4765dec9d36149cd" category="paragraph">在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關NFS Kerberos如何顯示在封包擷取中的資訊、請參閱一節 <block ref="e06a781bd551a4c8ed55a5dfd008a50c" category="inline-link-macro-rx"></block></block>
   <block id="4780631a0451a6605045de3ace692cc6" category="list-text">Google Cloud文件Cloud Volumes Service</block>
   <block id="6e0173c8a46418c9ee6c916c7c275ef8" category="inline-link"><block ref="6e0173c8a46418c9ee6c916c7c275ef8" category="inline-link-rx"></block></block>
   <block id="8e65fc49f8ebbf3d9cc9651ce7940654" category="paragraph"><block ref="8e65fc49f8ebbf3d9cc9651ce7940654" category="inline-link-rx"></block></block>
@@ -21959,13 +21958,6 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="7a36196d5d2ad9629de93bc81a4eb554" category="paragraph">本節討論如何在 Red Hat OpenShift 虛擬化中使用 Cloud Insights 監控 VM 。</block>
   <block id="fad73d4839dc21dc3d330b3940ed763f" category="paragraph">本節介紹 Red Hat OpenShift with NetApp 上 Kubernetes 的進階叢集管理功能。</block>
   <block id="8983ac005474481fb644c025b3d507f8" category="paragraph">本節說明如何使用 Red Hat OpenShift 虛擬化移轉工具組、在叢集之間移轉虛擬機器。</block>
-  <block id="403b710b098ba49038f568764130b4f6" category="paragraph"><block ref="1de37c09602b46db5de57a946efe2768" category="inline-link-macro-rx"></block>
--
-側邊列：側邊列
-永久連結： VMware/tr-4792.html
-關鍵字：設計、 HCI 、運算、 VMware 、雲端、 圖形、虛擬化
-摘要：「 TR-4792 提供在採用 NVIDIA 圖形處理單元（ GPU ）和虛擬化軟體的 VMware Horizon 環境中、將 NetApp HCI 615C 用於 3D 圖形工作負載的指引。」
--</block>
   <block id="43926c4aa8574b96d6891adb8ddf6ab9" category="paragraph">如需自動化資源配置、請使用下列指令碼： <block ref="d9559d06f0afa5b213d78afb48b783e7" category="inline-xref-macro-rx"></block>。</block>
   <block id="115f63e379dcca74d5e673c7fd2c54fd" category="paragraph">本文概述使用 NetApp ONTAP AI 、 NetApp AI 控制平面、 NetApp 雲端 Volume 軟體和 Iguazio 資料科學平台的 MLRun 管道解決方案。</block>
   <block id="65fe25204f25a29d6784b93a3361bbd8" category="paragraph">本節介紹 NetApp 的向量資料庫解決方案。</block>
@@ -22043,8 +22035,6 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="db31baafef16d36fd9a150970dc0ab25" category="paragraph">本文件概述如何在 AWS 上使用 VMware Cloud 將 Amazon FSX for ONTAP 掛載為 NFS 資料存放區。</block>
   <block id="4c0b0d811e97b17fb58be9977a30c6c1" category="paragraph">在雲端區域之間使用區塊層級複寫進行災難恢復、是一種彈性且具成本效益的方法、可保護工作負載免受站台中斷和資料毀損事件（例如勒索軟體）的影響。</block>
   <block id="b56b4f173e8bab4e505e898b88b84ea3" category="paragraph">透過 Azure NetApp Files （ anf ）跨區域磁碟區複寫、在 Azure VMware 解決方案（ AVS ） SDDC 站台上執行的 VMware 工作負載、使用 Azure NetApp Files 磁碟區做為主要 AVS 站台上的 NFS 資料存放區、可複寫至目標恢復區域中的指定次要 AVS 站台。</block>
-  <block id="656b94b95418723e2acea6b86dc53e48" category="inline-link-macro">下一步：閒置資料加密。</block>
-  <block id="6ca1480f90da15333bae5670283ea19f" category="paragraph"><block ref="6ca1480f90da15333bae5670283ea19f" category="inline-link-macro-rx"></block></block>
   <block id="3e6d6dfa1f3086211383a75c414950ca" category="list-text">如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） <block ref="5d945114220095bc07323c01a23cbb40" category="inline-link-macro-rx"></block>）。</block>
   <block id="83961910616d858f03e9d8912282fc24" category="cell">設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 <block ref="ea57e0d9603b96fef04a602dda4c6bd5" category="inline-link-macro-rx"></block>。</block>
   <block id="fd3e3d392130eb7a124156e546d78e9a" category="paragraph">這涵蓋應用程式資料、但實際VM本身的情況如何。災難恢復應涵蓋所有相依元件、包括虛擬機器、VMDK、應用程式資料等。為達成此目標、SnapMirror搭配Veeam可用來無縫恢復從內部部署複寫至Cloud Volumes ONTAP VMware的工作負載、同時將vSAN儲存設備用於VM VMDK。</block>
@@ -22068,4 +22058,7 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="c869624abab2a4d09eb6e20d1fe18e5e" category="list-text"><block ref="c869624abab2a4d09eb6e20d1fe18e5e" category="inline-link-macro-rx"></block></block>
   <block id="b6d7b323dede2a4e24afaa7b9dd5984f" category="list-text"><block ref="b6d7b323dede2a4e24afaa7b9dd5984f" category="inline-link-macro-rx"></block></block>
   <block id="30bef8c4d342eeb1d1f466a9ea23121d" category="list-text"><block ref="30bef8c4d342eeb1d1f466a9ea23121d" category="inline-link-macro-rx"></block></block>
+  <block id="8b1fc9cc3a9bd71ba4bd5120729ec4fb" category="inline-link-macro">使用 Amazon EC2 和 Amazon FSX for NetApp ONTAP iSCSI 傳輸協定、將 VMware VM 移轉至 AWS</block>
+  <block id="5f4802621ef8e8f6c1f9683a384f1f67" category="list-text"><block ref="5f4802621ef8e8f6c1f9683a384f1f67" category="inline-link-macro-rx"></block></block>
+  <block id="243ac047c39c68289309f6f7c3be1a90" category="paragraph">在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關 NFS Kerberos 在封包擷取中的顯示方式資訊、請參閱連結： ncvs-GC 雲端 - Volume-service-architecture 。 html#Packet sniffing/trace 考量 [ 「封包探查 / 追蹤考量」 ] 一節。</block>
 </blocks>
