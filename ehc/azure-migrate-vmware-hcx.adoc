@@ -83,20 +83,22 @@ image:anfd-hcx-image1.png["此映像描述此解決方案所使用的高層架�
 . 登入Azure Portal並存取Azure VMware Solution私有雲。
 . 選取適當的私有雲並存取附加元件。您可以瀏覽至*管理>附加元件*來完成此作業。
 . 在「HCX工作負載行動性」區段中、按一下「*入門*」。
-
-
++
 image:anfd-hcx-image2.png["HCX工作負載行動力區段的快照。"]
 
 . 選取「*我同意條款與條件*」選項、然後按一下「*啟用與部署*」。
-
-
++
 
 NOTE: 預設部署為HCX Advanced。開啟支援要求以啟用Enterprise Edition。
 
++
 
 NOTE: 部署約需25至30分鐘。
 
++
 image:anfd-hcx-image3.png["完成HCX工作負載行動性部分的快照。"]
+
+
 
 ====
 .步驟2：在內部部署vCenter Server中部署安裝程式OVA
@@ -107,31 +109,31 @@ image:anfd-hcx-image3.png["完成HCX工作負載行動性部分的快照。"]
 若要在內部部署vCenter Server中下載並安裝HCX Connector、請完成下列步驟：
 
 . 從Azure入口網站、前往Azure VMware解決方案、選取私有雲、然後選取*管理>附加元件>使用HCX移轉*、然後複製HCX Cloud Manager入口網站、即可下載OVA檔案。
-
-
++
 
 NOTE: 使用預設的CloudAdmin使用者認證資料來存取HCX入口網站。
 
++
 image:anfd-hcx-image4.png["Azure入口網站的快照、可下載HCX OVA檔案。"]
 
 . 使用jumphost、以mailto：cloudadmin@vple.1[cloudadmin@vplore.erl]存取HCX入口網站之後、請瀏覽至*管理>系統更新*、然後按一下*要求下載連結*。
-
-
++
 
 NOTE: 下載或複製OVA連結、然後貼到瀏覽器中、開始下載VMware HCX Connector OVA檔案、以便部署在內部部署vCenter Server上。
 
++
 image:anfd-hcx-image5.png["錯誤：OVA下載連結的快照。"]
 
 . 下載OVA之後、請使用*部署OVF範本*選項、將其部署至內部部署的VMware vSphere環境。
-
-
++
 image:anfd-hcx-image6.png["錯誤：選取正確OVA範本的快照。"]
 
 . 輸入OVA部署的所有必要資訊、按一下*「下一步」*、然後按一下「*完成*」以部署VMware HCX連接器OVA。
-
-
++
 
 NOTE: 手動啟動虛擬應用裝置。
+
+
 
 如需逐步指示、請參閱 https://docs.vmware.com/en/VMware-HCX/services/user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["VMware HCX使用者指南"^]。
 
@@ -143,22 +145,20 @@ NOTE: 手動啟動虛擬應用裝置。
 
 . 從Azure入口網站、前往Azure VMware解決方案、選取私有雲、然後選取*管理>附加元件>使用HCX*移轉。
 . 在「*使用HCX金鑰與內部部署連線*」下、按一下「*新增*」、然後複製啟動金鑰。
-
-
++
 image:anfd-hcx-image7.png["新增HCX金鑰的快照。"]
 
++
 
 NOTE: 每個部署的內部部署HCX Connector都需要個別的金鑰。
 
-. 登入內部部署的VMware HCX Manager、網址為 https://hcxmanagerIP:9443["https://hcxmanagerIP:9443"^] 使用系統管理員認證。
-
-
+. 登入內部部署的VMware HCX Manager、網址為 `"https://hcxmanagerIP:9443"` 使用系統管理員認證。
++
 
 NOTE: 使用在OVA部署期間定義的密碼。
 
 . 在授權中、輸入從步驟3複製的金鑰、然後按一下「*啟動*」。
-
-
++
 
 NOTE: 內部部署的HCX Connector應可存取網際網路。
 
@@ -166,25 +166,25 @@ NOTE: 內部部署的HCX Connector應可存取網際網路。
 . 在*系統名稱*下、更新名稱、然後按一下*繼續*。
 . 按一下*是、繼續*。
 . 在「*連線您的VCenter*」下、提供vCenter Server的完整網域名稱（FQDN）或IP位址、以及適當的認證資料、然後按一下「*繼續*」。
-
-
++
 
 NOTE: 使用FQDN以避免稍後發生連線問題。
 
 . 在「*設定SSO/PSC *」下、提供平台服務控制器的FQDN或IP位址、然後按一下「*繼續*」。
-
-
++
 
 NOTE: 輸入VMware vCenter Server FQDN或IP位址。
 
 . 驗證輸入的資訊是否正確、然後按一下*重新啟動*。
 . 服務重新啟動後、vCenter Server會在顯示的頁面上顯示為綠色。vCenter Server和SSO都必須具有適當的組態參數、此參數應與上一頁相同。
-
-
++
 
 NOTE: 此程序大約需要10到20分鐘、而外掛程式則要新增至vCenter Server。
 
++
 image:anfd-hcx-image8.png["顯示完成程序的快照。"]
+
+
 
 ====
 .步驟4：將內部部署的VMware HCX Connector與Azure VMware解決方案HCX Cloud Manager配對
