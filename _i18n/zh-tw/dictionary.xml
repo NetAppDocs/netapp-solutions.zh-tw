@@ -22057,4 +22057,62 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
   <block id="c1856f13b6ce4dd1f710cf08138e0c51" category="paragraph">我們使用<block ref="0f17ea1334fb20ed83c3ab03268616d7" category="inline-link-rx"></block> 程式庫來源<block ref="22825786ea861b373c2a5fdda9f62d81" category="inline-link-rx"></block> 從Transformers（Bert）機型載入預先訓練的管線和雙向編碼器呈現、包括<block ref="1a3a0057856cc0bfa7cb2c9343eb2415" category="inline-link-rx"></block> 和<block ref="ac723dc3fc44f63057a74e935ae9db52" category="inline-link-rx"></block>、大規模地執行令牌化、命名實體辨識、模型訓練、擬合和情緒分析。Spark NLP是市面上唯一提供Bert、偉業、Elecra、XLNet、DisbilBit4等先進變壓器的開放原始碼NLP程式庫。 羅伯塔、DEBerta、XLM-羅伯塔、龍原、Elmo、 通用句子編碼器、Google T5、MarianMT和GPT2。此程式庫不僅可在Python和R中運作、也可在VM生態系統（Java、Scala和Kotlin）中大規模運作、只要將Apache Spark原生擴充即可。</block>
   <block id="da5f12c7703592cd87c6fcc0c3562a22" category="list-text"><block ref="da5f12c7703592cd87c6fcc0c3562a22" category="inline-link-macro-rx"></block></block>
   <block id="2a49c11f412e3027bc302e5faaeb9604" category="paragraph">本文件示範建立新 SVM 的程序、並指定 IP 位址資訊、以建立多個 NVMe / TCP 流量的生命週期。若要新增生命至現有 SVM 、請參閱 <block ref="ea8d663b2747339ef53e044e31dd9c10" category="inline-link-macro-rx"></block>。</block>
+  <block id="4ca202b495a0290fe77bbd07dd46251c" category="cell">06/05/2024</block>
+  <block id="c51bcfe943e07da3eb4d39a3966afcbe" category="cell">全新 TR-4992 ：簡化的自動化 NetApp C 系列 NFS 上的 Oracle 部署</block>
+  <block id="aa3338034e5f9917e68fbffbd38a9bde" category="summary">本解決方案提供 NetApp AFF C 系列中自動化 Oracle 部署的概觀與詳細資料、以做為採用 NFS 傳輸協定的主要資料庫儲存設備。Oracle 資料庫會部署為已啟用 DNFS 的容器資料庫。</block>
+  <block id="11f3eb227b0ca48a26b66d16bfe3ff21" category="doc">TR-4992 ：簡化的自動化 NetApp C 系列 NFS 上的 Oracle 部署</block>
+  <block id="4f790c1b28cfb8d37dc8b4d4bc135c13" category="paragraph">NetApp AFF C 系列是一種容量 Flash 儲存設備、可讓整合式儲存設備更容易存取 All Flash 、且價格實惠。對於許多第 1 層或第 2 層 Oracle 資料庫工作負載而言、這是足夠的效能考量。AFF C 系列系統採用 NetApp ONTAP ® 資料管理軟體、提供領先業界的效率、優異的靈活度、同級最佳的資料服務、以及雲端整合功能、協助您擴充 IT 基礎架構、簡化資料管理、並降低儲存成本與耗電量。</block>
+  <block id="e5a05a44ceadf873c0a817cdfcf109c3" category="paragraph">本文件說明如何使用 Ansible 自動化技術、透過 NFS 掛載、在 NetApp C 系列中簡化 Oracle 資料庫的部署。Oracle 資料庫會部署在已啟用 Oracle DNFS 傳輸協定的容器資料庫（ CDB ）和可插拔資料庫（ PDB ）組態中、以提升效能。此外、本解決方案還提供在 C 系列儲存控制器上使用 NFS 傳輸協定設定儲存網路和儲存虛擬機器（ SVM ）的最佳實務做法。此解決方案也包含使用 NetApp SnapCenter UI 工具進行快速 Oracle 資料庫備份、還原及複製的相關資訊。</block>
+  <block id="f0769fc3ef89fce80ed36eb7dcf99eda" category="list-text">在 NetApp C 系列儲存控制器上自動部署 Oracle Container 資料庫。</block>
+  <block id="8f0161a618bc32589831b9f8bf70f6db" category="list-text">使用 SnapCenter UI 工具在 C 系列上保護和複製 Oracle 資料庫。</block>
+  <block id="c9b1fa3fdccdd94576d677ff3ddce437" category="list-text">想要在 NetApp C 系列上部署 Oracle 的 DBA 。</block>
+  <block id="1e2c69e839117d54a65f89aa1060c538" category="list-text">想要在 NetApp C 系列上測試 Oracle 工作負載的資料庫解決方案架構設計師。</block>
+  <block id="8723f9a870d9a4198ce59cc711b5f4fa" category="list-text">想要在 NetApp C 系列上部署及管理 Oracle 資料庫的儲存管理員。</block>
+  <block id="c6eb7a53365fcf51f5713c3c85e14f49" category="list-text">想要在 NetApp C 系列上備份 Oracle 資料庫的應用程式擁有者。</block>
+  <block id="fb2c46c282239d9c1f284fea93c79a3b" category="cell">NetApp C 系列 C400</block>
+  <block id="e0843363fa72773de427718dd92c0fc0" category="cell">ONTAP 9.13.1P3 版</block>
+  <block id="32c395a2b06b9086d86d4dfe1bb80ffa" category="cell">兩個磁碟櫃 / 24 個磁碟、容量為 278 TiB</block>
+  <block id="643264b15909ae5e928729543d262592" category="cell">適用於 DB 伺服器的 VM</block>
+  <block id="60484db4cc2fdb040058f86b98997415" category="cell">4 個 vCPU 、 16GiB RAM</block>
+  <block id="e7ef03a019ea637cdf77b74e359ddc3d" category="cell">兩個 Linux VM 執行個體用於並行部署</block>
+  <block id="f5d8703c01271912567d6313da8dfc46" category="cell">VM for SnapCenter</block>
+  <block id="a7883280fee68e09e925d0887123d673" category="cell">一個 Windows VM 執行個體</block>
+  <block id="31d042536c6a7e341bd99c1fca5d1c46" category="cell">2022 DataCenter x64 Gen2</block>
+  <block id="3721fcf1dad7c5c271fac2eb4f6aae73" category="cell">/u01 、 /u02 、 /u03 NFS 裝載於 C400 磁碟區</block>
+  <block id="4373e4a9fb75a8ec4b82860cd3ca1909" category="list-text">* DNFS 組態。 * 使用 DNFS （自 Oracle 11g 起提供）、在 DB VM 上執行的 Oracle 資料庫可提供比原生 NFS 用戶端更多的 I/O 。依預設、自動化 Oracle 部署會在 NFSv3 上設定 DNFS 。</block>
+  <block id="ffcff30c73fd29ead74df7e471009447" category="list-text">* 在 C400 控制器配對上進行負載平衡。 * 將 Oracle 資料庫磁碟區平均放置在 C400 控制器節點上、以平衡工作負載。控制器 1 上的 DB1 、控制器 2 上的 DB2 等。將 DB 磁碟區掛載至其本機 LIF 位址。</block>
+  <block id="9b5267ed46c15534d45129b35cae0c9b" category="paragraph">以下各節提供自動化 Oracle 19c 部署的逐步程序、以及部署後 Oracle 資料庫保護和複製的資訊。</block>
+  <block id="5ab526c2d8a23c39c3d68b1080ca3e89" category="inline-link">詳細指南AFF - C400</block>
+  <block id="92b608ca9ce1795976c4a2bf228d2099" category="list-text">NetApp C 系列儲存控制器配對已安裝並設定為機架安裝、堆疊及最新版本的 ONTAP 作業系統。如有必要、請參閱本安裝指南：<block ref="e88d834ba7a3375860b38af3a1d379dd" category="inline-link-rx"></block></block>
+  <block id="9ed0a0ec8afe137ee719d175c28ddf02" category="list-text">將兩個 Linux VM 配置為 Oracle DB 伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。</block>
+  <block id="cfdfdf87e328d2403ba6f06ad54b7b47" category="paragraph">在 Ansible 控制器和資料庫 VM 之間啟用 ssh 公開 / 私密金鑰驗證。</block>
+  <block id="5df121953eda8c31a1747dc7be05ccd5" category="list-text">從 Ansible 控制器管理使用者主目錄中、複製 NetApp Oracle 部署自動化工具套件 for NFS 的複本。</block>
+  <block id="6ee479787e15beb58f7ac04e73265440" category="list-text">在 DB VM /tmp/archive 目錄上執行 Oracle 19c 安裝檔案、並具有 777 權限。</block>
+  <block id="3d3d0c1886de65e7e8cfba6499948bed" category="section-title">在適用於 Oracle 的 C 系列上設定 Networking 和 SVM</block>
+  <block id="93ce386a5a93aad444dfe4d874d861b3" category="paragraph">本節的部署指南示範在 C 系列控制器上使用 ONTAP 系統管理員 UI 、針對具有 NFS 傳輸協定的 Oracle 工作負載、設定網路和儲存虛擬機器（ SVM ）的最佳實務做法。</block>
+  <block id="e42382129810446d30b7f0e35e7ba6f2" category="list-text">登入 ONTAP 系統管理員、檢閱在初始 ONTAP 叢集安裝之後、已將廣播網域設定為正確指派給每個網域的乙太網路連接埠。一般而言、叢集應該有廣播網域、管理廣播網域、以及資料等工作負載的廣播網域。</block>
+  <block id="d1fa27de8d8338309cef73f4f051dfa1" category="image-alt">此影像提供 c 系列控制器組態的螢幕擷取畫面</block>
+  <block id="27272e370d688e62f1762f4ecfa62012" category="list-text">從「網路 - 乙太網路連接埠」、按一下<block ref="2a7ef566e4611d5e0d698db86ff278cf" prefix=" " category="inline-code"></block> 建立 LACP 連結集合群組連接埠 a0a 、可在集合群組連接埠的成員連接埠之間提供負載平衡和容錯移轉。共有 4 個資料連接埠： e0e 、 e0f 、 e0g 、 e0h 可在 C400 控制器上使用。</block>
+  <block id="6d0bcaf4fdfec037d3208a91ad3123bf" category="list-text">選取群組中的乙太網路連接埠、<block ref="4d6b33d75644552dcc843a5fd248e03f" prefix=" " category="inline-code"></block> 適用於模式、和<block ref="60aaf44d4b562252c04db7f98497e9aa" prefix=" " category="inline-code"></block> 適用於負載分配。</block>
+  <block id="0b27139ac86fb7bb1b7f301bd32f8905" category="list-text">驗證 LACP 連接埠 a0a 已建立和廣播網域<block ref="f6068daa29dbb05a7ead1e3b5a48bbee" prefix=" " category="inline-code"></block> 目前在 LACP 連接埠上運作。</block>
+  <block id="8b776a52e34291c3467b7d12cb3cf707" category="list-text">寄件者<block ref="9c20ed40366c2dc673b52748abbb3e86" prefix=" " category="inline-code"></block>、按一下<block ref="9881f82f0dd89588831f9d1682bd5492" prefix=" " category="inline-code"></block> 可在每個控制器節點上爲 NFS 協議上的 Oracle 工作負載添加 VLAN 。</block>
+  <block id="77524ec9652ad1c3885999303318b3dd" category="list-text">透過 ssh 從叢集管理 IP 登入 C 系列控制器、以驗證網路容錯移轉群組是否設定正確。ONTAP 會自動建立及管理容錯移轉群組。</block>
+  <block id="51be646d68b430236b17aabb10aedcb9" category="list-text">寄件者<block ref="c52ccdb94b7474376c104927d53c3fc8" prefix=" " category="inline-code"></block>，單擊 +Add （添加）以創建 Oracle 的 SVM 。</block>
+  <block id="d48e145ef1e843250dd732d196ff81d4" category="list-text">命名您的 Oracle SVM 、請檢查<block ref="d708b594e7e0a7aa1a646a9cd21f15b9" prefix=" " category="inline-code"></block> 和<block ref="9cefa5e8e8937e8e15a5f3684fe03d50" prefix=" " category="inline-code"></block>。</block>
+  <block id="2c148577c00c1a76fece9914b4688ad7" category="list-text">新增 NFS 匯出原則<block ref="7a1920d61156abc05a60135aefe8bc67" prefix=" " category="inline-code"></block> 規則。</block>
+  <block id="a0cdf45facf4fbfefd052d813dfab0f4" category="list-text">在中<block ref="d4e6248d7cc29f3bee70e788b0851aef" prefix=" " category="inline-code"></block>，在每個節點上填寫 NFS LIF 位址的 IP 位址。</block>
+  <block id="f17d25a0a013067c4d6fb8e7e9acd6cd" category="list-text">驗證 SVM for Oracle 已啟動 / 執行中、且 NFS 生命狀態為作用中。</block>
+  <block id="b087c50a3fa783cca91b82d2fb3098fc" category="list-text">寄件者<block ref="f479f39e9dfbfd094f968fbbb1351938" prefix=" " category="inline-code"></block> 索引標籤可新增 NFS Volume for Oracle 資料庫。</block>
+  <block id="8cee929dfc24fff28ebb05f7a1be1bc2" category="list-text">命名您的磁碟區、指派容量和效能等級。</block>
+  <block id="8d92a821034527d62c75eea067c9a5fe" category="list-text">在中<block ref="acfc4449202469cc3ef4bcbaffd6f5bc" prefix=" " category="inline-code"></block>，選擇從上一步建立的預設原則。取消核取<block ref="371536d7caaef32502ae7f42d2d07165" prefix=" " category="inline-code"></block> 因為我們偏好使用 SnapCenter 來建立應用程式一致的快照。</block>
+  <block id="2662721ab316ab57543a07b1669e77da" category="list-text">為每個 DB 伺服器建立三個 DB 磁碟區： SERVER_NAME_u01 - 二進位、 server_name_u02 - 資料、 server_name_u03 - 記錄。</block>
+  <block id="6dc4458eccb6a98c7ca05ff4abbfa962" category="admonition">DB Volume 命名慣例應嚴格遵循上述格式、以確保自動化功能正常運作。</block>
+  <block id="d97f7e118529cec7713e262bd2a5bdc4" category="paragraph">這將完成 Oracle 的 C 系列控制器組態。</block>
+  <block id="d6aab67e6d8a14ee71a66aabc8604134" category="paragraph">執行教戰手冊後、請登入 Oracle DB 伺服器 VM 、以驗證 Oracle 是否已安裝及設定、以及是否已成功建立容器資料庫。以下是資料庫 VM ora_01 或 ora_02 上的 Oracle 資料庫驗證範例。</block>
+  <block id="5f9a2385583887b50c78acc681e30f8e" category="paragraph">NetApp 建議使用 SnapCenter UI 工具來管理部署在 C 系列中的 Oracle 資料庫。請參閱 TR-4979 <block ref="7dfdde8eaf0a7ebc5020dbcf1cd85894" category="inline-link-macro-rx"></block> 區段<block ref="d372b360dda93a1ed98b047b474a8d14" prefix=" " category="inline-code"></block> 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、</block>
+  <block id="8ade3a35a3bf0557e08d932870f18d3c" category="inline-link-macro"><block ref="8ade3a35a3bf0557e08d932870f18d3c" category="inline-link-rx"></block></block>
+  <block id="6fcb2d3f55aeed812951dcfdcdc97d56" category="paragraph"><block ref="6fcb2d3f55aeed812951dcfdcdc97d56" category="inline-link-macro-rx"></block></block>
+  <block id="e11e0746e73787ce707ce03083984c7d" category="inline-link-macro"><block ref="e11e0746e73787ce707ce03083984c7d" category="inline-link-rx"></block></block>
+  <block id="6d9567a77964c24a91ff8fd09e0b7376" category="paragraph"><block ref="6d9567a77964c24a91ff8fd09e0b7376" category="inline-link-macro-rx"></block></block>
+  <block id="a2dbdc551f64fb11d4fa44270223db37" category="sidebar">NetApp C 系列搭配 NFS 的簡化自動化 Oracle 部署</block>
 </blocks>
