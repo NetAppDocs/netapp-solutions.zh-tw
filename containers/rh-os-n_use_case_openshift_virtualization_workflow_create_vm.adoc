@@ -22,23 +22,44 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 VM是有狀態的部署、需要磁碟區來裝載作業系統和資料。有了CNV、因為VM是以Pod形式執行、所以VM有NetApp ONTAP 透過Trident代管的PV作為後盾。這些磁碟區會附加為磁碟、並儲存整個檔案系統、包括VM的開機來源。
 
-image::redhat_openshift_image52.jpg[建立VM架構]
+image::redhat_openshift_image52.png[建立VM架構]
 
-若要在OpenShift叢集上建立虛擬機器、請完成下列步驟：
+若要在 OpenShift 叢集上快速建立虛擬機器、請完成下列步驟：
 
-. 瀏覽至工作負載>虛擬化>虛擬機器、然後按一下建立>使用精靈。
-. 選取所需的作業系統、然後按「Next（下一步）」。
-. 如果選取的作業系統未設定開機來源、則必須加以設定。針對開機來源、選取是要從URL或登錄匯入OS映像、然後提供對應的詳細資料。展開「進階」、然後選取「Trident備份的StorageClass」。然後按「Next（下一步）」
-+
-image::redhat_openshift_image53.JPG[建立VM的開機來源]
+. 瀏覽至虛擬化 > 虛擬機器、然後按一下建立。
+. 從範本中選取。
+. 選取可用開機來源的所需作業系統。
+. 核取「建立後啟動虛擬機器」核取方塊。
+. 按一下「快速建立虛擬機器」。
 
-. 如果選取的作業系統已設定開機來源、則可以跳過上一個步驟。
-. 在「Review and Create（檢閱與建立）」窗格中、選取您要在其中建立VM的專案、並提供VM詳細資料。請確定已選取要複製的開機來源、並使用指派給所選作業系統的適當永久磁碟從CD-ROM開機。
-+
-image::redhat_openshift_image54.JPG[建立VM]
 
-. 如果您要自訂虛擬機器、請按一下「自訂虛擬機器」、然後修改所需的參數。
+虛擬機器即會建立並啟動、並進入 * 執行中 * 狀態。它會使用預設儲存類別、自動為開機磁碟建立一個 PVC 和對應的 PV 。為了在未來能夠即時移轉 VM 、您必須確保用於磁碟的儲存類別可支援 rwx Volume 。這是即時移轉的必要條件。ONTAP NAS 和 ONTAP SAN （ iSCSI 和 NVMe / TCP 傳輸協定的 Volume emode 區塊）可支援使用各自儲存類別所建立之磁碟區的 rwx 存取模式。
+
+若要在叢集上設定 ONTAP-SAN 儲存類別、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["將 VM 從 VMware 移轉至 OpenShift 虛擬化的章節"]。
+
+
+NOTE: 您可以將 ONTAP NAS 或 iSCSI 設定為叢集的預設儲存類別。按一下快速建立虛擬機器將使用預設儲存類別、為 VM 的可開機根磁碟建立 PVC 和 PV 。如果您的預設儲存類別不是 ONTAP - NAS 或 ONTAP - SAN 、您可以選取磁碟的儲存類別、方法是選取「自訂虛擬機器」 > 「自訂虛擬機器參數」 > 「磁碟」、然後編輯磁碟以使用所需的儲存類別。
+
+在配置 VM 磁碟時、通常會偏好區塊存取模式、而非檔案系統。
+
+若要在選取作業系統範本之後自訂虛擬機器建立、請按一下「自訂虛擬機器」、而非「快速建立」。
+
+. 如果選定的作業系統已設定開機來源、您可以按一下 * 自訂虛擬機器參數 * 。
+. 如果選取的作業系統未設定開機來源、則必須加以設定。您可以查看中所示程序的詳細資料 link:https://docs.openshift.com/container-platform/4.14/virt/virtual_machines/creating_vms_custom/virt-creating-vms-from-custom-images-overview.html["文件"]。
+. 設定開機磁碟之後、您可以按一下 * 自訂虛擬機器參數 * 。
+. 您可以從此頁面上的標籤自訂 VM 。例如按一下 * 磁碟 * 標籤、然後按一下 * 新增磁碟 * 、將另一個磁碟新增至 VM 。
 . 按一下「Create Virtual Machine」（建立虛擬機器）以建立虛擬機器；這會使背景中的對應Pod旋轉。
 
 
-當從URL或登錄設定範本或作業系統的開機來源時、會在「openshift-virtualization作業系統映像」專案中建立一個PVc、並將KVM來賓映像下載至PVc。您必須確定範本PVCS有足夠的資源配置空間、以容納對應作業系統的KVM來賓映像。這些PVCS隨後會以rootdisks的形式複製並附加至虛擬機器、並在任何專案中使用各自的範本建立。
+
+NOTE: 當從 URL 或登錄為範本或作業系統設定開機來源時、它會在中建立一個 PVC `openshift-virtualization-os-images` 將 KVM 客體映像投影並下載至 PVC 。您必須確定範本PVCS有足夠的資源配置空間、以容納對應作業系統的KVM來賓映像。然後、這些 PVC 會在使用任何專案中的個別範本建立時、以 rootdisk 的形式複製並附加到虛擬機器上。
+
+image:rh-os-n_use_case_vm_create_1.png[""]
+
+image:rh-os-n_use_case_vm_create_2.png[""]
+
+image:rh-os-n_use_case_vm_create_3.png[""]
+
+image:rh-os-n_use_case_vm_create_4.png[""]
+
+image:rh-os-n_use_case_vm_create_5.png[""]

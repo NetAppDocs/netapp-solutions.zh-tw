@@ -29,7 +29,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 * Volume SnapshotClass可讓管理員為Volume Snapshot指定不同的屬性。它可讓您針對從相同磁碟區擷取的不同快照、擁有不同的屬性。
 
 
-image::redhat_openshift_image60.jpg[Snapshot架構中的VM]
+image::redhat_openshift_image60.png[Snapshot架構中的VM]
 
 若要建立VM的Snapshot、請完成下列步驟：
 
@@ -55,7 +55,7 @@ image::redhat_openshift_image62.JPG[建立Snapshot]
 +
 image::redhat_openshift_image63.JPG[將Snapshot還原至新的PVc]
 
-. 接下來、從這個永久虛擬機器建立新的虛擬機器。瀏覽至「工作負載」>「虛擬化」>「虛擬機器」、然後按一下「建立」>「使用Yaml」
+. 接下來、從這個永久虛擬機器建立新的虛擬機器。瀏覽至「虛擬化」 > 「虛擬機器」、然後按一下「建立」 > 「使用 YAML 」。
 . 在SPEC >範本> SPEC > Volume區段中、指定從Snapshot而非從Container磁碟建立的新永久虛擬磁碟。請根據您的需求、提供新VM的所有其他詳細資料。
 +
 [source, cli]

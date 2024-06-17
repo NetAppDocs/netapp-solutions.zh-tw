@@ -14,35 +14,31 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 
 [role="lead"]
-本節說明如何使用 Red Hat OpenShift Virtualization 在叢集之間移轉虛擬機器。
+本節說明如何在 OpenShift Virtualization 中在叢集中的節點之間移轉虛擬機器。
 
 
 
 == VM即時移轉
 
-即時移轉是將VM執行個體從OpenShift叢集中的某個節點移轉到另一個節點的程序、不會造成停機。若要在OpenShift叢集中執行即時移轉、VM必須繫結至具有共用ReadWriteMany存取模式的PVCS。Astra Trident後端在啟用ONTAP NFS傳輸協定的NetApp支援叢集上設定SVM、可支援對PVCS進行共用的ReadWriteMany存取。因此、從採用NFS的SVM上的Trident配置的StorageClass所要求的具有PVCS的VM、可以在不中斷的情況下進行移轉。
+即時移轉是將VM執行個體從OpenShift叢集中的某個節點移轉到另一個節點的程序、不會造成停機。若要在OpenShift叢集中執行即時移轉、VM必須繫結至具有共用ReadWriteMany存取模式的PVCS。Astra Trident 後端是使用 ONTAP NAS 驅動程式設定、支援檔案系統傳輸協定 NFS 和 SMB 的 rwx 存取模式。請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["請按這裡"]。Astra Trident 的後端是使用 ONTAP - SAN 驅動程式所設定、支援適用於 iSCSI 和 NVMe / TCP 傳輸協定區塊 Volume Mode 的 rwx 存取模式。請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["請按這裡"]。
 
-image::redhat_openshift_image55.jpg[VM即時移轉架構]
+因此、若要成功進行即時移轉、必須使用使用 ONTAP NAS 或 ONTAP SAN （ volumemode ：區塊）儲存類別的 PVCS 、以磁碟（開機磁碟和其他熱插拔磁碟）來配置 VM 。建立 PVC 後、 Trident 會在啟用 NFS 或 iSCSI 的 SVM 中建立 ONTAP Volume 。
 
-若要建立連結至具有共用ReadWriteMany存取權之PVCS的VM：
+image::redhat_openshift_image55.png[VM即時移轉架構]
 
-. 瀏覽至工作負載>虛擬化>虛擬機器、然後按一下建立>使用精靈。
-. 選取所需的作業系統、然後按「Next（下一步）」。讓我們假設所選的作業系統已經設定了開機來源。
-. 在「Review and Create（檢閱與建立）」窗格中、選取您要在其中建立VM的專案、並提供VM詳細資料。請確定已選取要複製的開機來源、並使用指派給所選作業系統的適當永久磁碟從CD-ROM開機。
-. 按一下[自訂虛擬機器]，然後按一下[儲存設備]
-. 按一下rootdisk旁的省略符號、並確定已選取使用Trident配置的儲存ageclasse。展開「進階」、然後選取「存取模式」的「共享存取（rwx）」。然後按一下「儲存」。
-+
-image::redhat_openshift_image56.JPG[讓磁碟機rwx可供存取]
+若要執行先前建立且處於執行狀態的 VM 即時移轉、請執行下列步驟：
 
-. 按一下「Review（檢閱）」並確認、然後按一下「Create Virtual Machine（建立虛
-
-
-若要將VM手動移轉至OpenShift叢集中的其他節點、請完成下列步驟。
-
-. 瀏覽至「工作負載」>「虛擬化」>「虛擬機器」。
-. 針對您要移轉的VM、按一下省略符號、然後按一下「移轉虛擬機器」。
-. 當訊息快顯以確認時、請按一下「移轉」。
+. 選取您要即時移轉的 VM 。
+. 按一下 * 組態 * 標籤。
+. 確保使用可支援 rwx 存取模式的儲存類別來建立 VM 的所有磁碟。
+. 按一下右角的 * 動作 * 、然後選取 * 移轉 * 。
+. 若要查看移轉進度、請前往左側功能表的虛擬化 > 概述、然後按一下 * 移轉 * 索引標籤。
+VM 的移轉將從 * 擱置 * 轉換為 * 排程 * 、轉換為 * 成功 *
 
 
 
 NOTE: 如果將設備策略設定為LiveMigrate、則當原始節點置於維護模式時、OpenShift叢集中的VM執行個體會自動移轉至其他節點。
+
+image::rh-os-n_use_case_vm_live_migrate_1[VM 即時移轉開始]
+
+image::rh-os-n_use_case_vm_live_migrate_2[VM 即時移轉成功]
