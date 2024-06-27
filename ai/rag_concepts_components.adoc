@@ -1,0 +1,225 @@
+---
+sidebar: sidebar 
+permalink: ai/rag_concepts_components.html 
+keywords: RAG, Retrieval Augmented Generation, NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NeMo, NIM, NIMS, Hybrid, Hybrid Cloud, Hybrid Multicloud, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+summary: 採用 NetApp 的企業版 - 概念與元件 
+---
+= 概念與元件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 推廣 AI
+
+AI 系統（例如泛用 AI ）的設計、是將無人監督或自我監督的機器學習套用至大型資料集。與傳統機器學習模型對特定資料集做出預測不同的是、泛用 AI 模型能夠根據使用者提示產生新內容、例如文字、程式碼、影像、視訊或音訊。因此、通用 AI 系統的功能也會根據所使用的資料形式或類型進行分類。這些可能是單一方式或多式模式。單一模式系統只會使用一種輸入類型（例如僅限文字或僅限映像）、而多式傳輸系統則可接受多種類型的輸入（例如文字、影像和音訊）、同時瞭解並產生不同形式的內容。從本質上講、泛用 AI 正在改變企業建立內容的方式、產生新的設計概念、並從現有資料中擷取價值。
+
+
+
+=== 大語言模型（ LLMM ）
+
+LMS 是針對大量資料預先訓練的深度學習模型、可辨識及產生文字、以及其他工作。LMS 最初是以語言為主的泛型 AI 子集、但隨著多式 LMS 持續出現、這類差異逐漸消失。LLM 中的基礎變壓器引進了 RNN 或 CNN 以外的全新網路架構。它有一組神經網路、由編碼器和解碼器組成、有助於從一系列文字中擷取意義、並瞭解文字之間的關係。LMS 可以回應自然的人類語言、並使用資料分析來回答非結構化問題。然而、 LMS 只能與它們所擷取的資料一樣可靠、因此容易產生幻覺、因為垃圾堆積的挑戰。如果 LMS 被誤用資訊、他們可能會產生不正確的輸出、以回應使用者的查詢、只是為了配合其建置的敘述。我們根據證據進行的研究顯示、 AI 工程師仰賴各種方法來對抗這些幻覺、其中一種方法是透過限制不準確結果的 guardrails 、另一種方法則是透過 RAG 等技術、利用內容相關的高品質資料來微調和傳輸學習內容。
+
+
+
+=== 擷取擴增產生（ RAG ）
+
+LMS 是針對大量資料進行訓練、但並未針對您的資料進行訓練。RAG 可將您的資料新增至 LLMs 已有存取權的資料、藉此解決此問題。RAG 可讓客戶運用 LLM 的強大功能、對資料進行訓練、藉此擷取資訊、並使用該資訊為泛用 AI 使用者提供相關資訊。RAG 是一種機器學習技術、一種架構方法、可協助減少幻覺、改善 LMS 的效率與可靠性、加速 AI 應用程式的開發、並加強企業搜尋體驗。
+
+
+
+=== Ragas
+
+現有的工具和架構可協助您建置 RAG 管線、但評估及量化您的管線效能可能會很困難。這就是 Ragas （ RAG 評估）的出現地點。Ragas 是協助您評估 RAG 管線的架構。Ragas 的目標是建立開放式標準、為開發人員提供工具和技術、以便在他們的 RAG 應用程式中運用持續學習。如需詳細資訊、請參閱 https://docs.ragas.io/en/stable/getstarted/index.html["開始使用 Ragas"^]
+
+
+
+== llama 3.
+
+中繼的 Llama 3 是僅限解碼器的變壓器機型、是一種開放存取的預先訓練過的大型語言模型（ LLM ）。Llama 3 受過超過 15 兆筆資料的訓練、是自然語言理解（ NLU ）的遊戲轉型器。它在內容相關的瞭解和複雜的工作（例如翻譯和對話產生）方面具有很大的優勢。llama 3 有兩種尺寸： 8B 用於高效部署和開發、 70B 用於大規模 AI 原生應用程式。客戶可透過 Vertex AI 在 Google Cloud 上部署 Llama 3 、透過 Azure AI Studio 在 Azure 上部署、並透過 Amazon Sagemaker 在 AWS 上部署 Llama 3 。
+
+在我們的驗證過程中、我們部署了 Meta 的 Llama 模型、搭配 NVIDIA Nemo ™微服務、並以 NVIDIA A100 GPU 加速 NVIDIA DGX 執行個體運算、以自訂和評估通用 AI 使用案例、同時支援內部部署應用程式的擷取擴增代（ RAG ）。
+
+
+
+== 開放原始碼架構
+
+以下有關開放原始碼技術的其他資訊可能與您的部署相關。
+
+
+
+=== LangChain
+
+LangChain 是一種開放原始碼整合架構、用於開發採用大型語言模式（ LRAM ）的應用程式。客戶可以有效率地建置 RAG 應用程式、因為它隨附於文件載入器、 VectorStores 和其他各種套件、讓開發人員能夠靈活地建置複雜的工作流程。他們也可以使用 LangSmith 檢查、監控及評估應用程式、以持續最佳化任何鏈路、並將其部署至使用 LangServe 的 REST API 。LangChain 為 RAG 應用程式的最佳實務做法進行編碼、並為建置 RAG 應用程式所需的各種元件提供標準介面。
+
+
+
+=== LlamaIndex
+
+LlamaIndex 是一個簡單靈活的資料架構、可將自訂資料來源連接至大型語言模型（ LLM ）型應用程式。它可讓您透過彈性的資料連接器、從 API 、資料庫、 PDF 等擷取資料。Llama 3 和 GPT-4 等 LMS 已預先接受大規模公共資料集的訓練、可立即提供令人難以置信的自然語言處理功能。但是、他們的公用程式受到限制、無法存取您自己的私有資料。LlamaIndex 提供廣受歡迎的 Python 和 TypeScript 程式庫、並在擷取增強型世代（ RAG ）技術方面領先業界。
+
+
+
+== NVIDIA Nemo Microservices
+
+NVIDIA Nemo 是端點對端平台、可建置及自訂企業級的泛用 AI 模型、可在雲端和資料中心的任何位置部署。Nemo 提供微服務、可大規模簡化泛化 AI 開發與部署程序、讓組織將 LMS 連接至企業資料來源。截至本文撰寫之時、 Nemo Microservices 可透過 NVIDIA 的早期存取方案取得。
+
+
+
+=== NVIDIA Nemo Inference Microservices （ NIMS ）
+
+NVIDIA NIMS 是 NVIDIA AI Enterprise 的一部分、為開發 AI 驅動的企業應用程式和在正式作業環境中部署 AI 模型提供了簡化的途徑。NIMS 是一種容器化推斷微服務、包括產業標準 API 、網域特定程式碼、最佳化推斷引擎和企業執行時間。
+
+
+
+=== NVIDIA Nemo Retriever.
+
+NVIDIA Nemo Retrievin 是 NVIDIA Nemo 架構的最新服務、可最佳化 RAG 的內嵌與擷取部分、以提供更高的準確度和更有效率的回應。NVIDIA Nemo Retrievor 是一項資訊擷取服務、可在內部部署或雲端部署。它為企業提供安全且簡化的途徑、將企業級的 RAG 功能整合至自訂的正式作業 AI 應用程式。
+
+
+
+== NVIDIA Enterprise RAG LLM 操作員
+
+NVIDIA Enterprise Retrieval 擴增產生（ RAG ）大語言模型（ LLM ）操作員可在 Kubernetes 中執行 RAG 管線所需的軟體元件和服務。它可讓營運者及早存取、以管理 RAG 管線的關鍵元件生命週期、例如 NVIDIA Inference Microservice 和 NVIDIA Nemo Retrievan Embedding Microservice 。如需詳細資訊、請參閱 https://docs.nvidia.com/ai-enterprise/rag-llm-operator/0.4.1/index.html["NVIDIA Enterprise RAG LLM 操作員"^]
+
+
+
+== 向量資料庫
+
+
+
+=== PostgreSQL ： pgvector
+
+由於其原生繫結適用於許多傳統的 ML 演算法（例如 XGBoost ）、因此使用 SQL 進行機器學習並不是 PostgreSQL 的新功能。最近、由於 pgvector 是向量相似性搜尋的開放原始碼延伸、 PostgreSQL 能夠儲存及搜尋 ML 產生的嵌入式資料、這項功能對使用 LMS 的 AI 使用案例和應用程式非常有用。
+
+我們驗證 NVIDIA Enterprise rag LLM 運算子時的預設範例管線會在 Pod 中啟動 pgvector 資料庫。查詢伺服器接著會連線至 pgvector 資料庫、以儲存及擷取內嵌資料。聊天機器人程式 Web 應用程式和查詢伺服器會與微服務和向量資料庫進行通訊、以回應使用者提示。
+
+
+
+=== Milvus
+
+Milvus 是提供 API 的多功能向量資料庫、與 MongoDB 非常類似、因為它支援多種資料類型、以及多向量化等功能、因此成為資料科學和機器學習的熱門選擇。它能夠儲存、索引及管理深度神經網路（ DNN ）和機器學習（ ML ）模式所產生的十多億種內嵌向量。客戶可以使用 Nvidia NIM 和 Nemo 微服務及 Milvus 作為向量資料庫來建置 RAG 應用程式。一旦成功部署 NVIDIA Nemo 容器來嵌入產生、就可以部署 Milvus 容器來儲存這些嵌入資料。如需向量資料庫和 NetApp 的詳細資訊、請參閱 https://docs.netapp.com/us-en/netapp-solutions/ai/vector-database-solution-with-netapp.html["參考架構： NetApp 的向量資料庫解決方案"^]。
+
+
+
+=== Apache Cassandra
+
+Apache Cassandra ® 是開放原始碼 NoSQL 、具有高度擴充性和高可用度的資料庫。它隨附向量搜尋功能、並支援向量資料類型和向量相似性搜尋功能、特別適用於涉及 LMS 和私有 RAG 管線的 AI 應用程式。
+
+NetApp Instaclustr 為 Apache Cassandra ® 提供完全託管的服務、可在雲端或內部部署中代管。它可讓 NetApp 客戶透過 Instaclustr 主控台或 Instaclstr 資源配置 API 、使用 C# 、 Node.js 、 AWS Private Link 和其他各種選項來配置 Apache Cassandra ® 叢集、並連線至叢集。
+
+此外、 NetApp ONTAP 也是在 Kubernetes 上執行的容器化 Apache Cassandra 叢集的持續儲存供應商。NetApp Astra Control 將 ONTAP 的資料管理效益無縫延伸至資料豐富的 Kubernetes 應用程式、例如 Apache Cassandra 。如需相關資訊、請參閱 https://cloud.netapp.com/hubfs/SB-4134-0321-DataStax-Cassandra-Guide%20(1).pdf["使用 NetApp Astra Control 和 ONTAP 儲存設備的 DataStax Enterprise 應用程式感知資料管理"^]
+
+
+
+=== NetApp 安裝
+
+Instaclustr 透過開放原始碼技術的 SaaS 平台支援資料基礎架構、協助組織大規模交付應用程式。想要在搜尋應用程式中內嵌語意理解的泛化 AI 開發人員、有許多選項可供選擇。適用於 Postgres 的 Instaclustr 支援 pgvectorextensions.Instaclustr for OpenSearch 支援向量搜尋、可根據輸入查詢及最近的鄰近功能來擷取相關文件。Instaclustr for Redis 可儲存向量資料、擷取向量、以及執行向量搜尋。如需詳細資訊、請參閱 https://www.instaclustr.com/platform/["NetApp 的 Instaclustr 平台"^]
+
+
+
+== NetApp BlueXP
+
+NetApp BlueXP 將所有 NetApp 的儲存與資料服務統一化為單一工具、讓您建置、保護及管理混合式多雲端資料資產。它為內部部署和雲端環境的儲存和資料服務提供統一的體驗、並透過 AIOps 的強大功能、提供靈活的使用參數和整合式保護功能、讓營運變得更簡單。
+
+
+
+== NetApp Cloud Insights
+
+NetApp Cloud Insights 解決方案是一套雲端基礎架構監控工具、可讓您清楚掌握完整的基礎架構。利用VMware、您可以監控、疑難排解及最佳化所有資源、包括公有雲和私有資料中心。Cloud InsightsCloud Insights 可從數百個收集器中、針對異質基礎架構和工作負載（包括 Kubernetes ）提供完整的基礎架構和應用程式堆疊可見度、全部集中在同一個位置。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/cloudinsights/index.html["我該怎麼辦Cloud Insights ？"^]
+
+
+
+== NetApp StorageGRID
+
+NetApp StorageGRID 是一套軟體定義的物件儲存套件、可在公有雲、私有雲和混合式多雲端環境中支援各種使用案例。StorageGRID 提供 Amazon S3 API 的原生支援、並提供領先業界的創新技術、例如自動化生命週期管理、可長期以符合成本效益的方式儲存、保護、保護及保留非結構化資料。
+
+
+
+== NetApp Spot
+
+Spot by NetApp 可自動化並最佳化 AWS 、 Azure 或 Google Cloud 中的雲端基礎架構、以最低的成本提供 SLA 支援的可用度和效能。Spot 使用機器學習和分析演算法、讓您能夠利用 Spot 容量來處理正式作業和關鍵任務工作負載。執行 GPU 型執行個體的客戶可從 Spot 獲益、並降低其運算成本。
+
+
+
+== NetApp ONTAP
+
+NetApp最新一代的儲存管理軟體、即支援企業將基礎架構現代化、並移轉至雲端就緒的資料中心。ONTAP利用領先業界的資料管理功能ONTAP 、無論資料位於何處、只要使用一組工具、即可管理及保護資料。您也可以自由地將資料移至任何需要的位置：邊緣、核心或雲端。支援眾多功能、可簡化資料管理、加速及保護關鍵資料、並在混合雲架構中提供新一代基礎架構功能。ONTAP
+
+
+
+=== 簡化資料管理
+
+資料管理對於企業IT營運和資料科學家而言至關重要、因此可將適當的資源用於AI應用程式和訓練AI/ML資料集。下列關於NetApp技術的其他資訊超出此驗證範圍、但可能會因您的部署而有所差異。
+
+包含下列功能的資料管理軟體、可簡化及簡化作業、並降低您的總營運成本：ONTAP
+
+* 即時資料精簡與擴充重複資料刪除技術。資料壓縮可減少儲存區塊內的空間浪費、重複資料刪除技術可大幅提升有效容量。這適用於本機儲存的資料、以及分層至雲端的資料。
+* 最低、最大及可調適的服務品質（AQO）。精細的服務品質（QoS）控制有助於維持高共享環境中關鍵應用程式的效能等級。
+* NetApp FabricPool自動將冷資料分層至公有和私有雲端儲存選項、包括Amazon Web Services（AWS）、Azure和NetApp StorageGRID 等儲存解決方案。如需FabricPool 更多有關資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/17239-tr4598pdf.pdf["TR-4598：FabricPool 最佳實務做法"^]。
+
+
+
+
+=== 加速並保護資料
+
+提供優異的效能與資料保護、並以下列方式擴充這些功能：ONTAP
+
+* 效能與較低的延遲。以最低的延遲提供最高的處理量。ONTAP
+* 資料保護：支援所有平台的通用管理功能、可提供內建的資料保護功能。ONTAP
+* NetApp Volume Encryption（NVE）。支援內建和外部金鑰管理、提供原生Volume層級的加密功能。ONTAP
+* 多租戶和多因素驗證。支援以最高安全等級共享基礎架構資源。ONTAP
+
+
+
+
+=== 符合未來需求的基礎架構
+
+下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP
+
+* 無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
+* 雲端連線：ONTAP 是最具雲端連線能力的儲存管理軟體、可在所有公有雲中選擇軟體定義儲存設備和雲端原生執行個體。
+* 與新興應用程式整合。利用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式提供企業級資料服務、例如自動駕駛車輛、智慧城市和產業4.0。ONTAP
+
+
+
+
+== Amazon FSX for NetApp ONTAP 產品
+
+Amazon FSX for NetApp ONTAP 是第一方、完全託管的 AWS 服務、可提供高度可靠、可擴充、高效能及功能豐富的檔案儲存設備、以 NetApp 熱門的 ONTAP 檔案系統為基礎。FSX for ONTAP VMware將NetApp檔案系統熟悉的功能、效能、功能和API作業、以及完全託管的AWS服務的敏捷度、擴充性和簡易性結合在一起。
+
+
+
+== Azure NetApp Files
+
+Azure NetApp Files 是 Azure 原生、第一方、企業級、高效能檔案儲存服務。它支援 SMB 、 NFS 和雙協定磁碟區、可用於下列使用案例：
+
+* 檔案共用：
+* 主目錄。
+* 資料庫。
+* 高效能運算。
+* 推廣 AI 。
+
+
+
+
+== Google Cloud NetApp Volumes
+
+Google Cloud NetApp Volumes 是一項完全託管的雲端型資料儲存服務、可提供進階資料管理功能和高度擴充的效能。NetApp 託管的資料可在預先檢視的工具組參考架構中、用於 Google 的 Vertex AI 平台的 RAG （擷取擴增代）作業。
+
+
+
+== NetApp Astra Trident
+
+Astra Trident 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務、以及 Google Cloud 上的 Cloud Volumes Service 。Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與 Kubernetes 原生整合。
+
+
+
+== Kubernetes
+
+Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes 可為容器化應用程式自動化部署、管理及擴充功能、是企業環境中最主要的容器協調作業平台。
