@@ -16,7 +16,7 @@ summary:
 [role="lead"]
 下圖說明提議的對話式AI系統架構。您可以透過語音訊號或文字輸入與系統互動。如果偵測到口頭輸入、則JARVIS AIN-AS服務（AIIaaS）會執行ASR、為對話管理程式產生文字。對話管理程式會記住對話狀態、將文字路由傳送至對應的服務、並將命令傳送至Fulfillment Engine。JARVIS NLP服務會輸入文字、辨識意向和實體、並將這些意向和實體插槽輸出回對話方塊管理程式、然後將「行動」傳送至Fulfillment Engine。Fulfillment Engine由第三方API或SQL資料庫組成、可回應使用者查詢。在收到Fulfillment Engine的結果之後、對話管理程式會將文字路由傳送至JARVIS TS IaaS、以產生終端使用者的音訊回應。我們可以將對話記錄歸檔、使用Intents和插槽註釋句子以進行Nemo訓練、讓NLP服務在更多使用者與系統互動時有所改善。
 
-image:cainvidia_image3.png["錯誤：缺少圖形影像"]
+image:cainvidia_image3.png[""]
 
 
 

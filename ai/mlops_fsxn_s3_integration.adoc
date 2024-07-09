@@ -42,11 +42,11 @@ NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
 
 . 開啟 AWS 主控台。在搜尋面板中、搜尋 SageMaker 、然後按一下服務 * Amazon SageMaker* 。
 +
-image:mlops_fsxn_s3_integration_0.png["錯誤：開啟 AWS 主控台"]
+image:mlops_fsxn_s3_integration_0.png["開啟 AWS 主控台"]
 
 . 開啟 [ 筆記本 ] 索引標籤下的 * 筆記本執行個體 * ，按一下橘色按鈕 * 建立筆記本執行個體 * 。
 +
-image:mlops_fsxn_s3_integration_1.png["錯誤： AWS SageMaker 筆記型電腦執行個體主控台"]
+image:mlops_fsxn_s3_integration_1.png["AWS SageMaker 筆記型電腦執行個體主控台"]
 
 . 在建立頁面中、
 輸入 * 筆記本執行個體名稱 *
@@ -54,7 +54,7 @@ image:mlops_fsxn_s3_integration_1.png["錯誤： AWS SageMaker 筆記型電腦�
 保留其他項目的預設值、然後選取 * VPC* 、 * 子網路 * 和 * 安全性群組 * 。（此 *VPC* 和 * 子網路 * 將於稍後用於建立 FSxN 檔案系統）
 按一下右下方的橘色按鈕 * 建立筆記本執行個體 * 。
 +
-image:mlops_fsxn_s3_integration_2.png["錯誤：建立筆記本執行個體"]
+image:mlops_fsxn_s3_integration_2.png["建立筆記本執行個體"]
 
 
 
@@ -64,47 +64,47 @@ image:mlops_fsxn_s3_integration_2.png["錯誤：建立筆記本執行個體"]
 
 . 開啟 AWS 主控台。在搜尋面板中、搜尋 FSX 並按一下服務 * fsx* 。
 +
-image:mlops_fsxn_s3_integration_3.png["錯誤： FSX 面板"]
+image:mlops_fsxn_s3_integration_3.png["FSX 面板"]
 
 . 按一下 * 建立檔案系統 * 。
 +
-image:mlops_fsxn_s3_integration_4.png["錯誤：建立檔案系統"]
+image:mlops_fsxn_s3_integration_4.png["建立檔案系統"]
 
 . 選擇第一張卡 *FSX for NetApp ONTAP * 、然後按一下 * 下一步 * 。
 +
-image:mlops_fsxn_s3_integration_5.png["錯誤：選擇檔案系統類型"]
+image:mlops_fsxn_s3_integration_5.png["選取檔案系統類型"]
 
 . 在詳細資料組態頁面中。
 +
 .. 選擇 * 標準 cre* 選項。
 +
-image:mlops_fsxn_s3_integration_6.png["錯誤：建立檔案系統面板"]
+image:mlops_fsxn_s3_integration_6.png["建立檔案系統面板"]
 
 .. 輸入 * 檔案系統名稱 * 和 * SSD 儲存容量 * 。
 +
-image:mlops_fsxn_s3_integration_7.png["錯誤：指定檔案系統詳細資料"]
+image:mlops_fsxn_s3_integration_7.png["指定檔案系統詳細資料"]
 
 .. 確保使用 *VPC* 和 * 子網 * 與 *SageMaker Notebook* 實例相同。
 +
-image:mlops_fsxn_s3_integration_8.png["錯誤：網路擴大機；安全組態"]
+image:mlops_fsxn_s3_integration_8.png["網路擴大機；安全組態"]
 
 .. 輸入 * 儲存虛擬機器 * 名稱、並 * 指定 SVM （儲存虛擬機器）的密碼 * 。
 +
-image:mlops_fsxn_s3_integration_9.png["錯誤：預設儲存虛擬機器組態"]
+image:mlops_fsxn_s3_integration_9.png["預設儲存虛擬機器組態"]
 
 .. 保留其他項目的預設值、然後按一下右下方的橘色按鈕 * 下一步 * 。
 +
-image:mlops_fsxn_s3_integration_10.png["錯誤：確認組態"]
+image:mlops_fsxn_s3_integration_10.png["確認組態"]
 
 .. 按一下檢閱頁面右下角的橘色按鈕 * 建立檔案系統 * 。
 +
-image:mlops_fsxn_s3_integration_11.png["錯誤：檢閱組態並確認建立"]
+image:mlops_fsxn_s3_integration_11.png["檢閱組態並確認建立"]
 
 
 
 . 增加 FSX 檔案系統可能需要大約 *20-40 分鐘 * 。
 +
-image:mlops_fsxn_s3_integration_12.png["錯誤：檢查 FSX 主控台"]
+image:mlops_fsxn_s3_integration_12.png["檢查 FSX 主控台"]
 
 
 
@@ -118,24 +118,24 @@ image:mlops_fsxn_s3_integration_12.png["錯誤：檢查 FSX 主控台"]
 
 . 開啟建立的 FSX 檔案系統。請確定狀態為 * 可用 * 。
 +
-image:mlops_fsxn_s3_integration_13.png["錯誤：等待後端建立"]
+image:mlops_fsxn_s3_integration_13.png["等待後端建立"]
 
 . 選擇 *Administration （管理） * 選項卡並保留 *Management Endpoint - IP address* 和 ONTAP 管理員用戶名 * 。
 +
-image:mlops_fsxn_s3_integration_14.png["錯誤：檔案系統詳細資料主控台"]
+image:mlops_fsxn_s3_integration_14.png["檔案系統詳細資料主控台"]
 
 . 開啟建立的 * SageMaker Notebook instance* 、然後按一下 * 開啟 JupyterLab* 。
 +
-image:mlops_fsxn_s3_integration_15.png["錯誤： AWS SageMaker 筆記型電腦執行個體主控台"]
+image:mlops_fsxn_s3_integration_15.png["AWS SageMaker 筆記型電腦執行個體主控台"]
 
 . 在 Jupyter Lab 頁面中，打開一個新的 * 終端 * 。
 +
-image:mlops_fsxn_s3_integration_16.png["錯誤： Jupyter Lab 歡迎頁面"]
+image:mlops_fsxn_s3_integration_16.png["Jupyter Lab 歡迎頁面"]
 
 . 輸入 ssh 命令 ssh <admin user name>@<ONTAP server IP> 以登入 FSxN ONTAP 檔案系統。（從步驟 2 擷取使用者名稱和 IP 位址）
 請使用建立 * 儲存虛擬機器 * 時所使用的密碼。
 +
-image:mlops_fsxn_s3_integration_17.png["錯誤： Jupyter Lab 終端機"]
+image:mlops_fsxn_s3_integration_17.png["Jupyter Lab 終端"]
 
 . 依照下列順序執行命令。
 我們使用 *fsxn-ONTAP* 作為 *FSxN Private S3 儲存區名稱 * 的名稱。
@@ -152,7 +152,7 @@ vserver object-store-server group create -name s3group -users s3user -policies F
 vserver object-store-server bucket create fsxn-ontap -vserver fsxn-svm-demo -type nas -nas-path /vol1
 ----
 +
-image:mlops_fsxn_s3_integration_18.png["錯誤： Jupyter Lab 終端輸出"]
+image:mlops_fsxn_s3_integration_18.png["Jupyter Lab 終端輸出"]
 
 . 執行下列命令以擷取 FSxN Private S3 的端點 IP 和認證。
 +
@@ -166,7 +166,7 @@ vserver object-store-server user show
 ----
 . 保留端點 IP 和認證、以供未來使用。
 +
-image:mlops_fsxn_s3_integration_19.png["錯誤： Jupyter Lab 終端機"]
+image:mlops_fsxn_s3_integration_19.png["Jupyter Lab 終端"]
 
 
 
@@ -176,7 +176,7 @@ image:mlops_fsxn_s3_integration_19.png["錯誤： Jupyter Lab 終端機"]
 
 . 在 SageMaker Notebook 執行個體中、建立新的 Jupyter 筆記本。
 +
-image:mlops_fsxn_s3_integration_20.png["錯誤：開啟新的 Jupyter 筆記型電腦"]
+image:mlops_fsxn_s3_integration_20.png["開啟新的 Jupyter 筆記型電腦"]
 
 . 使用下列程式碼做為解決方案的解決方案、將檔案上傳至 FSxN 私有 S3 儲存區。
 如需完整的程式碼範例、請參閱本筆記型電腦。

@@ -84,7 +84,7 @@ NOTE: SQL Server資料庫的檔案共用儲存設備應支援持續可用的內�
 * 無法在現有的SMB磁碟區上啟用持續可用的內容。若要轉換現有磁碟區以使用持續可用的共用區、請使用NetApp Snapshot技術。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/convert-smb-continuous-availability["將現有的SMB磁碟區轉換成使用持續可用度"^]。
 
 
-image:sql-srv-anf_image1.png["錯誤：缺少圖形影像"]
+image:sql-srv-anf_image1.png[""]
 
 
 
@@ -99,7 +99,7 @@ image:sql-srv-anf_image1.png["錯誤：缺少圖形影像"]
 
 如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^]。
 
-image:sql-srv-anf_image2.png["錯誤：缺少圖形影像"]
+image:sql-srv-anf_image2.png[""]
 
 
 
@@ -109,7 +109,7 @@ image:sql-srv-anf_image2.png["錯誤：缺少圖形影像"]
 
 為了展現效能、我們使用優質服務層級、針對某個磁碟區執行快速測試。在此測試中、磁碟區大小已從100GB即時增加至2TB、而不會中斷應用程式存取、也不會進行資料移轉。
 
-image:sql-srv-anf_image3.png["錯誤：缺少圖形影像"]
+image:sql-srv-anf_image3.png[""]
 
 以下是針對本白皮書所涵蓋的部署、執行HammerDB即時效能測試的另一個範例。在這項測試中、我們使用的是一個小型執行個體、其中包含八個vCPU、一個500GB Premium SSD和一個500GB SMB Azure NetApp Files 不支援磁碟區。HammerDB配置有80個倉庫和8個使用者。
 
@@ -117,7 +117,7 @@ image:sql-srv-anf_image3.png["錯誤：缺少圖形影像"]
 
 另一項測試是將32個vCPU和16TB Azure NetApp Files 的容量調整為較大的執行個體、以執行額外的測試。每分鐘交易量大幅增加、延遲一致1毫秒。HammerDB已設定80個倉儲和64個使用者進行此測試。
 
-image:sql-srv-anf_image4.png["錯誤：缺少圖形影像"]
+image:sql-srv-anf_image4.png[""]
 
 
 

@@ -28,7 +28,7 @@ summary:
 
 當所有工作都根據區段提交時 link:osrunai_testing_details_for_section_410.html["第4.10節的測試詳細資料"]、系統儀表板會顯示 `team-a`、 `team-b`和 `team-c` 所有 GPU 的數量都超過其預設配額。 `team-a` 與預設的軟配額（四個）相比、 GPU 的佔用量增加四個 GPU 、而 `team-b` 和 `team-c` 每個 GPU 所佔用的 GPU 數量比軟配額（兩個）多兩個。分配的配額過多GPU比例等於預設配額的比例。這是因為當多個團隊要求更多GPU、超過配額時、系統會使用預設配額作為優先順序的參考資料、並據此進行資源配置。當企業資料科學團隊積極參與AI模式的開發與正式作業時、這種自動負載平衡可提供公平性和優先順序。
 
-image:osrunai_image10.png["錯誤：缺少圖形影像"]
+image:osrunai_image10.png[""]
 
 此測試案例的結果顯示下列項目：
 
@@ -56,4 +56,4 @@ image:osrunai_image10.png["錯誤：缺少圖形影像"]
 |===
 下圖顯示各區段的「執行：AI分析」儀表板中、隨著時間推移、每個專案的GPU配置 link:osrunai_achieving_high_cluster_utilization_with_over-uota_gpu_allocation.html["透過過度配額GPU配置、實現高叢集使用率"]、 link:osrunai_basic_resource_allocation_fairness.html["基本資源配置公平性"]和 link:osrunai_over-quota_fairness.html["過度配額的公平性"]。圖中的每一行都會指出任何時間為特定資料科學團隊配置的GPU數量。我們可以看到、系統會根據提交的工作負載動態配置GPU。如此一來、當叢集中有可用的GPU時、團隊就能跳過配額、然後根據公平原則預先部署工作、最後才會達到四個團隊的穩定狀態。
 
-image:osrunai_image11.png["錯誤：缺少圖形影像"]
+image:osrunai_image11.png[""]

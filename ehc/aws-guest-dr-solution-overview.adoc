@@ -26,7 +26,7 @@ NetApp與VMware的整合歷史悠久、已有數萬家客戶選擇NetApp做為�
 
 在客體連線儲存設備中、客體VMDK會部署在VMware資源配置的資料存放區上、而應用程式資料則儲存在iSCSI或NFS上、並直接對應至VM。Oracle和MS SQL應用程式用於示範DR案例、如下圖所示。
 
-image:dr-vmc-aws-image1.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image1.png[""]
 
 
 
@@ -66,7 +66,7 @@ NOTE: 請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/ONTAPGuide.pdf
 
 . 在「支援系統管理程式」中ONTAP 、瀏覽至「網路總覽」頁面、並擷取「類型：叢集間」的IP位址、這些位址已設定為與安裝FSx的AWS VPC通訊。
 +
-image:dr-vmc-aws-image10.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image10.png[""]
 
 . 若要擷取FSX的叢集間IP位址、請登入CLI並執行下列命令：
 +
@@ -74,7 +74,7 @@ image:dr-vmc-aws-image10.png["錯誤：缺少圖形影像"]
 FSx-Dest::> network interface show -role intercluster
 ....
 +
-image:dr-vmc-aws-image11.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image11.png[""]
 
 
 
@@ -93,7 +93,7 @@ Confirm the passphrase:
 ....
 . 在來源叢集上、您可以使用ONTAP SysSystem Manager或CLI建立叢集對等關係。從「系統管理程式」中、瀏覽至「保護」>「總覽」、然後選取「對等叢集」ONTAP 。
 +
-image:dr-vmc-aws-image12.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image12.png[""]
 
 . 在對等叢集對話方塊中、填寫必要資訊：
 +
@@ -102,7 +102,7 @@ image:dr-vmc-aws-image12.png["錯誤：缺少圖形影像"]
 .. 輸入目的地FSX叢集的叢集間LIF IP位址。
 .. 按一下「初始化叢集對等」以完成程序。
 +
-image:dr-vmc-aws-image13.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image13.png[""]
 
 
 
@@ -112,7 +112,7 @@ image:dr-vmc-aws-image13.png["錯誤：缺少圖形影像"]
 FSx-Dest::> cluster peer show
 ....
 +
-image:dr-vmc-aws-image14.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image14.png[""]
 
 
 
@@ -130,7 +130,7 @@ FSx-Dest::> vserver peer create -vserver DestSVM -peer-vserver Backup -peer-clus
 . 從來源ONTAP 的物件叢集、接受與ONTAP SysSystem Manager或CLI的對等關係。
 . 從「支援系統管理程式」移至「保護」>「總覽」、然後在「儲存VM對等端點」下選取「對等儲存VM」ONTAP 。
 +
-image:dr-vmc-aws-image15.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image15.png[""]
 
 . 在對等儲存VM對話方塊中、填寫必填欄位：
 +
@@ -138,7 +138,7 @@ image:dr-vmc-aws-image15.png["錯誤：缺少圖形影像"]
 ** 目的地叢集
 ** 目的地儲存VM
 +
-image:dr-vmc-aws-image16.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image16.png[""]
 
 
 
@@ -158,7 +158,7 @@ NOTE: 在二線儲存設備上、這些標籤會符合與目的地Volume相關�
 
 以下範例顯示SnapMirror標籤、其存在於所有快照上、這些快照是作為每日備份SQL Server資料庫和記錄磁碟區的原則之一。
 
-image:dr-vmc-aws-image17.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image17.png[""]
 
 如需建立SnapCenter SQL Server資料庫的各項功能性原則的詳細資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["本文檔SnapCenter"^]。
 
@@ -240,15 +240,15 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 
 . 從左功能表中選取「Storage Systems（儲存系統）」、然後按一下「New（新增）」開始將儲存控制器新增SnapCenter 至VMware。
 +
-image:dr-vmc-aws-image18.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image18.png[""]
 
 . 在「Add Storage System（新增儲存系統）」對話方塊中、新增本機內部部署ONTAP 的元件叢集的管理IP位址、以及使用者名稱和密碼。然後按一下「提交」開始探索儲存系統。
 +
-image:dr-vmc-aws-image19.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image19.png[""]
 
 . 重複此程序、將FSX ONTAP 更新SnapCenter 為支援。在這種情況下、請選取「Add Storage System」（新增儲存系統）視窗底部的「More Options」（更多選項）、然後按一下「Secondary」（次要）核取方塊、將FSX系統指定為使用SnapMirror複本或我們的主要備份快照更新的次要儲存系統。
 +
-image:dr-vmc-aws-image20.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image20.png[""]
 
 
 
@@ -263,11 +263,11 @@ image:dr-vmc-aws-image20.png["錯誤：缺少圖形影像"]
 . 從左功能表中選取「hosts」、然後按一下「Add（新增）」、開始將儲存控制器新增SnapCenter 至VMware。
 . 在Add hosts（新增主機）視窗中、新增Host Type（主機類型）、Hostname（主機名稱）和主機系統認證。選取外掛程式類型。若為SQL Server、請選取Microsoft Windows和Microsoft SQL Server外掛程式。
 +
-image:dr-vmc-aws-image21.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image21.png[""]
 
 . 對於Oracle、請在「新增主機」對話方塊中填寫必填欄位、然後選取Oracle資料庫外掛程式的核取方塊。然後按一下「提交」開始探索程序、並將主機新增SnapCenter 至VMware。
 +
-image:dr-vmc-aws-image22.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image22.png[""]
 
 
 
@@ -279,7 +279,7 @@ image:dr-vmc-aws-image22.png["錯誤：缺少圖形影像"]
 
 您可以在SnapCenter 「功能性」（英語）的「設定」（Settings）區段中存取原則。
 
-image:dr-vmc-aws-image23.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image23.png[""]
 
 如需建立SQL Server備份原則的完整資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["本文檔SnapCenter"^]。
 
@@ -294,7 +294,7 @@ image:dr-vmc-aws-image23.png["錯誤：缺少圖形影像"]
 
 下圖顯示上述選項、以及它們在備份原則精靈中的外觀。
 
-image:dr-vmc-aws-image24.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image24.png[""]
 
 ====
 .建立SnapCenter 資源群組
@@ -306,7 +306,7 @@ image:dr-vmc-aws-image24.png["錯誤：缺少圖形影像"]
 . 在視窗頂端、選取要使用的資源類型（在此情況下是Microsoft SQL Server）、然後按一下「New Resource Group（新資源群組）」。
 
 
-image:dr-vmc-aws-image25.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image25.png[""]
 
 本《支援》文件涵蓋SnapCenter 建立SQL Server和Oracle資料庫資源群組的逐步詳細資料。
 
@@ -339,32 +339,32 @@ image:dr-vmc-aws-image25.png["錯誤：缺少圖形影像"]
 
 . 開啟Veeam主控台並登入。瀏覽至Storage Infrastructure、然後選取Add Storage。
 +
-image:dr-vmc-aws-image26.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image26.png[""]
 
 . 在「Add Storage（新增儲存設備）」精靈中、選取NetApp作為儲存設備廠商、然後選取Data ONTAP 「NetApp」。
 . 輸入管理IP位址、然後勾選NAS Filer方塊。按一下「下一步」
 +
-image:dr-vmc-aws-image27.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image27.png[""]
 
 . 新增您的認證資料以存取ONTAP 整個叢集。
 +
-image:dr-vmc-aws-image28.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image28.png[""]
 
 . 在NAS FilerTM頁面上、選擇所需的掃描傳輸協定、然後選取Next（下一步）。
 +
-image:dr-vmc-aws-image29.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image29.png[""]
 
 . 完成精靈的「Apply（套用）」和「Summary（摘要）」頁面、然後按一下「Finish（完成）」開始儲存探索程序。掃描完成後、ONTAP 即可將支援此功能的叢集與NAS檔案管理器一起新增為可用資源。
 +
-image:dr-vmc-aws-image30.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image30.png[""]
 
 . 使用新發現的NAS共用區建立備份儲存庫。從備份基礎架構選取備份儲存庫、然後按一下新增儲存庫功能表項目。
 +
-image:dr-vmc-aws-image31.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image31.png[""]
 
 . 請依照「新備份儲存庫精靈」中的所有步驟來建立儲存庫。如需建立Veeam備份儲存庫的詳細資訊、請參閱 https://www.veeam.com/documentation-guides-datasheets.html["Veeam文件"^]。
 +
-image:dr-vmc-aws-image32.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image32.png[""]
 
 
 
@@ -376,16 +376,16 @@ image:dr-vmc-aws-image32.png["錯誤：缺少圖形影像"]
 
 . 瀏覽至「備份基礎架構」>「備份儲存庫」。按一下新增儲存庫。
 +
-image:dr-vmc-aws-image33.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image33.png[""]
 
 . 在「新增備份儲存庫」精靈中、選取「物件儲存設備」、然後選取「Amazon S3」。這會啟動「新增物件儲存庫」精靈。
 +
-image:dr-vmc-aws-image34.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image34.png[""]
 
 . 提供物件儲存庫的名稱、然後按「Next（下一步）」。
 . 在下一節中、提供您的認證資料。您需要AWS存取金鑰和秘密金鑰。
 +
-image:dr-vmc-aws-image35.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image35.png[""]
 
 . Amazon組態載入後、請選擇您的資料中心、儲存庫和資料夾、然後按一下「Apply（套用）」。最後、按一下「完成」以關閉精靈。
 
@@ -398,17 +398,17 @@ image:dr-vmc-aws-image35.png["錯誤：缺少圖形影像"]
 
 . 從備份基礎架構選取橫向擴充儲存庫、然後按一下新增橫向擴充儲存庫功能表項目。
 +
-image:dr-vmc-aws-image37.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image37.png[""]
 
 . 在「新增橫向擴充備份儲存庫」中、提供SOBR名稱、然後按「下一步」。
 . 對於效能層、請選擇包含SMB共用的備份儲存庫、該SMB共用位於本機ONTAP 的資訊區叢集上。
 +
-image:dr-vmc-aws-image38.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image38.png[""]
 
 . 針對「放置原則」、請根據您的需求選擇「資料位置」或「效能」。選取「下一步」。
 . 在容量層方面、我們將SOBR延伸至Amazon S3物件儲存設備。為了進行災難恢復、請在建立備份後立即選取「複製備份到物件儲存設備」、以確保我們的次要備份能夠及時交付。
 +
-image:dr-vmc-aws-image39.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image39.png[""]
 
 . 最後、選取「Apply（套用）」和「Finish（完成）」以完成建立SOBR。
 
@@ -520,19 +520,19 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 
 . 請至SnapCenter https://<SnapCenter伺服器IP：8146/swagger/_存取《Seswagger API》網頁。
 +
-image:dr-vmc-aws-image40.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image40.png[""]
 
 . 展開「驗證」區段、然後按一下「試用」。
 +
-image:dr-vmc-aws-image41.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image41.png[""]
 
 . 在UserOperationConttext區域中、填入SnapCenter 「資訊」認證和角色、然後按一下「執行」。
 +
-image:dr-vmc-aws-image42.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image42.png[""]
 
 . 在下方的「回應」本文中、您可以看到權杖。執行備份程序時、請複製權杖文字以進行驗證。
 +
-image:dr-vmc-aws-image43.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image43.png[""]
 
 
 
@@ -544,11 +544,11 @@ image:dr-vmc-aws-image43.png["錯誤：缺少圖形影像"]
 
 . 按一下「Disaster Recovery（災難恢復）」區域即可展開。
 +
-image:dr-vmc-aws-image44.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image44.png[""]
 
 . 展開「/4.6/dissterrecovery /server/Backup」區段、然後按一下「Try it out（試用）」。
 +
-image:dr-vmc-aws-image45.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image45.png[""]
 
 . 在「SmDRBackup Request」區段中、新增正確的本機目標路徑、然後選取「執行」以開始SnapCenter 備份整個過程中的資料庫和組態。
 +
@@ -556,7 +556,7 @@ image:dr-vmc-aws-image45.png["錯誤：缺少圖形影像"]
 NOTE: 備份程序不允許直接備份到NFS或CIFS檔案共用區。
 
 +
-image:dr-vmc-aws-image46.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image46.png[""]
 
 
 
@@ -566,7 +566,7 @@ image:dr-vmc-aws-image46.png["錯誤：缺少圖形影像"]
 =====
 登入SnapCenter 功能以在開始資料庫還原程序時檢閱記錄檔。在「Monitor（監控）」區段下、您可以檢視SnapCenter 有關支援伺服器災難恢復備份的詳細資料。
 
-image:dr-vmc-aws-image47.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image47.png[""]
 
 =====
 .使用XCOPY公用程式將資料庫備份檔案複製到SMB共用區
@@ -619,19 +619,19 @@ xcopy c:\SC_Backups\SnapCenter_DR \\10.61.181.185\snapcenter_dr /O /X /E /H /K
 . 瀏覽至次要SnapCenter 版伺服器的Swagger API網頁、並依照先前的指示取得授權權杖。
 . 瀏覽至Swagger頁面的Disaster Recovery（災難恢復）區段、選取「/4.6/disasterrecovery / server/recovery」（/4.6/disasterrecovery /伺服器/還原）、然後按一下「Try it out（試用）」。
 +
-image:dr-vmc-aws-image48.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image48.png[""]
 
 . 貼上您的授權權杖、然後在「SmDRResterRequest」區段中、貼上備份名稱和次要SnapCenter 伺服器上的本機目錄。
 +
-image:dr-vmc-aws-image49.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image49.png[""]
 
 . 選取「執行」按鈕以開始還原程序。
 . 從功能區塊瀏覽至「監控」區段、以檢視還原工作的進度。SnapCenter
 +
-image:dr-vmc-aws-image50.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image50.png[""]
 
 +
-image:dr-vmc-aws-image51.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image51.png[""]
 
 . 若要從二線儲存設備啟用SQL Server還原、您必須將SnapCenter 此還原資料庫切換為「災難恢復」模式。這是以個別作業的形式執行、並在Swagger API網頁上啟動。
 +
@@ -640,7 +640,7 @@ image:dr-vmc-aws-image51.png["錯誤：缺少圖形影像"]
 .. 在SmSetDissterRecoverySettingsRequest區段中、將「EnablDisasterRecover」變更為「true」。
 .. 按一下「執行」以啟用SQL Server的災難恢復模式。
 +
-image:dr-vmc-aws-image52.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image52.png[""]
 
 +
 
@@ -664,23 +664,23 @@ NOTE: 請參閱其他程序的相關意見。
 
 . 移至「備份儲存庫」、然後按一下上方功能表中的「新增儲存庫」、以啟動「新增備份儲存庫」精靈。在精靈的第一頁、選取「物件儲存」作為備份儲存庫類型。
 +
-image:dr-vmc-aws-image53.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image53.png[""]
 
 . 選取「Amazon S3」作為「物件儲存類型」。
 +
-image:dr-vmc-aws-image54.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image54.png[""]
 
 . 從Amazon Cloud Storage Services清單中、選取Amazon S3。
 +
-image:dr-vmc-aws-image55.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image55.png[""]
 
 . 從下拉式清單中選取預先輸入的認證資料、或新增認證資料以存取雲端儲存資源。按一下「下一步」繼續。
 +
-image:dr-vmc-aws-image56.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image56.png[""]
 
 . 在「時段」頁面上、輸入資料中心、時段、資料夾及任何所需選項。按一下套用。
 +
-image:dr-vmc-aws-image57.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image57.png[""]
 
 . 最後、選取「完成」以完成程序並新增儲存庫。
 
@@ -693,15 +693,15 @@ image:dr-vmc-aws-image57.png["錯誤：缺少圖形影像"]
 
 . 從S3備份儲存庫選取匯入備份、以啟動匯入備份精靈。
 +
-image:dr-vmc-aws-image58.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image58.png[""]
 
 . 建立匯入的資料庫記錄之後、請在摘要畫面中選取「Next（下一步）」、然後選取「Finish（完成）」、開始匯入程序。
 +
-image:dr-vmc-aws-image59.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image59.png[""]
 
 . 匯入完成後、您可以將VM還原至VMware Cloud叢集。
 +
-image:dr-vmc-aws-image60.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image60.png[""]
 
 
 
@@ -713,30 +713,30 @@ image:dr-vmc-aws-image60.png["錯誤：缺少圖形影像"]
 
 . 在Veeam首頁中、選取包含匯入備份的物件儲存設備、選取要還原的VM、然後按一下滑鼠右鍵並選取「還原整個VM」。
 +
-image:dr-vmc-aws-image61.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image61.png[""]
 
 . 在完整VM還原精靈的第一頁、視需要修改要備份的VM、然後選取「Next（下一步）」。
 +
-image:dr-vmc-aws-image62.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image62.png[""]
 
 . 在「還原模式」頁面上、選取「還原至新位置」或「使用不同的設定」。
 +
-image:dr-vmc-aws-image63.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image63.png[""]
 
 . 在主機頁面上、選取要還原VM的目標ESXi主機或叢集。
 +
-image:dr-vmc-aws-image64.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image64.png[""]
 
 . 在「資料存放區」頁面上、選取組態檔和硬碟的目標資料存放區位置。
 +
-image:dr-vmc-aws-image65.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image65.png[""]
 
 . 在「網路」頁面上、將VM上的原始網路對應到新目標位置的網路。
 +
-image:dr-vmc-aws-image66.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image66.png[""]
 
 +
-image:dr-vmc-aws-image67.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image67.png[""]
 
 . 選取是否掃描還原的VM以尋找惡意軟體、檢閱摘要頁面、然後按一下「Finish（完成）」以開始還原。
 
@@ -802,22 +802,22 @@ FSx-Dest::> lun mapping create -vserver DestSVM -path LUNPath igroup igroupName
 . 開啟iSCSI啟動器內容公用程式、並清除「Discovery」（探索）、「Favorite Target」（最愛目標）和「Target」（目標）索引標籤上的舊連線設定。
 . 找到用於存取FSX執行個體/叢集上iSCSI邏輯介面的IP位址。這可在AWS主控台的Amazon FSX > ONTAP VMware Storage Virtual Machines下找到。
 +
-image:dr-vmc-aws-image68.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image68.png[""]
 
 . 在「Discovery（探索）」索引標籤中、按一下「Discover Portal（探索入口網站）」、然後輸入FSX iSCSI目標的IP位址。
 +
-image:dr-vmc-aws-image69.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image69.png[""]
 
 +
-image:dr-vmc-aws-image70.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image70.png[""]
 
 . 在「Target」（目標）索引標籤上、按一下「Connect」（連線）、選取「Enable Multi-Path（啟用多重路徑）」（若適用於您的組態）、然後按一下「OK（確定）」連線至
 +
-image:dr-vmc-aws-image71.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image71.png[""]
 
 . 開啟「電腦管理」公用程式、使磁碟上線。請確認它們保留的磁碟機代號與先前所保留的相同。
 +
-image:dr-vmc-aws-image72.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image72.png[""]
 
 
 
@@ -827,16 +827,16 @@ image:dr-vmc-aws-image72.png["錯誤：缺少圖形影像"]
 ====
 . 從SQL Server VM開啟Microsoft SQL Server Management Studio、然後選取附加以開始連線至資料庫的程序。
 +
-image:dr-vmc-aws-image73.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image73.png[""]
 
 . 按一下「Add（新增）」、然後瀏覽至包含SQL Server主要資料庫檔案的資料夾、選取該檔案、然後按一下「OK（確定）」。
 +
-image:dr-vmc-aws-image74.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image74.png[""]
 
 . 如果交易記錄位於不同的磁碟機上、請選擇包含交易記錄的資料夾。
 . 完成後、按一下「確定」以附加資料庫。
 +
-image:dr-vmc-aws-image75.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image75.png[""]
 
 
 
@@ -854,7 +854,7 @@ image:dr-vmc-aws-image75.png["錯誤：缺少圖形影像"]
 
 若要確認SnapCenter 此功能為災難恢復模式、請從SnapCenter Websweb用戶端瀏覽至「設定」。前往「Global Settings（全域設定）」索引標籤、然後按一下「Disaster Recovery（災難恢復）請確定已啟用「啟用災難恢復」核取方塊。
 
-image:dr-vmc-aws-image76.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image76.png[""]
 
 ====
 
@@ -880,7 +880,7 @@ image:dr-vmc-aws-image76.png["錯誤：缺少圖形影像"]
 FSx-Dest::> volume show -volume VolumeName*
 ....
 +
-image:dr-vmc-aws-image77.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image77.png[""]
 
 . 執行下列命令以中斷現有的SnapMirror關係。
 +
@@ -888,15 +888,15 @@ image:dr-vmc-aws-image77.png["錯誤：缺少圖形影像"]
 FSx-Dest::> snapmirror break -destination-path DestSVM:DestVolName
 ....
 +
-image:dr-vmc-aws-image78.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image78.png[""]
 
 . 更新Amazon FSX Web用戶端中的交會路徑：
 +
-image:dr-vmc-aws-image79.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image79.png[""]
 
 . 新增交會路徑名稱、然後按一下「Update（更新）」。從Oracle伺服器掛載NFS Volume時、請指定此交會路徑。
 +
-image:dr-vmc-aws-image80.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image80.png[""]
 
 
 
@@ -908,14 +908,14 @@ image:dr-vmc-aws-image80.png["錯誤：缺少圖形影像"]
 
 . 在Cloud Manager中、存取FSX叢集的Volume清單。
 +
-image:dr-vmc-aws-image81.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image81.png[""]
 
 . 從動作功能表中、選取Mount Command（掛載命令）以檢視及複製要在Oracle Linux伺服器上使用的掛載命令。
 +
-image:dr-vmc-aws-image82.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image82.png[""]
 
 +
-image:dr-vmc-aws-image83.png["錯誤：缺少圖形影像"]
+image:dr-vmc-aws-image83.png[""]
 
 . 將NFS檔案系統掛載至Oracle Linux Server。用於掛載NFS共用的目錄已存在於Oracle Linux主機上。
 . 在Oracle Linux伺服器上、使用mount命令掛載NFS磁碟區。

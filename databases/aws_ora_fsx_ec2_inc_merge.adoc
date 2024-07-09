@@ -161,7 +161,7 @@ vol create -volume ora_01_copy -aggregate aggr1 -size 100G -state online -type R
 ----
 . 或者、您也可以從 AWS FSX 主控台 UI 配置磁碟區、並提供下列選項：儲存效率 `Enabled`、安全風格 `Unix` 、 Snapshot 原則 `None`和儲存分層 `Snapshot Only` 如下所示。
 +
-image::aws_ora_fsx_ec2_vldb_vol.png[錯誤：缺少圖形影像]
+image::aws_ora_fsx_ec2_vldb_vol.png[AWS ora FSX EC2 VLDB vol]
 
 . 為 Oracle 資料庫建立自訂的快照原則、每日排程及 30 天保留。您應該根據快照頻率和保留時間來調整原則、以符合您的特定需求。
 +

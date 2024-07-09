@@ -25,15 +25,15 @@ summary: 使用 SnapCenter 的向量資料庫保護： NetApp 的向量資料庫
 
 . 設定用於執行 SnapCenter 命令的主機。
 +
-image:sc_host_setup.png["錯誤：缺少圖形影像"]
+image:sc_host_setup.png[""]
 
 . 安裝及設定儲存外掛程式。從新增的主機中、選取「更多選項」。瀏覽並從選取下載的儲存外掛程式 link:https://automationstore.netapp.com/snap-detail.shtml?packUuid=Storage&packVersion=1.0["NetApp Automation Store"]。安裝外掛程式並儲存組態。
 +
-image:sc_storage_plugin.png["錯誤：缺少圖形影像"]
+image:sc_storage_plugin.png[""]
 
 . 設定儲存系統和磁碟區：在「儲存系統」下新增儲存系統、然後選取 SVM （儲存虛擬機器）。在此範例中、我們選擇了「 Vs_NVIDIA 」。
 +
-image:sc_storage_system.png["錯誤：缺少圖形影像"]
+image:sc_storage_system.png[""]
 
 . 為向量資料庫建立資源、並納入備份原則和自訂快照名稱。
 +
@@ -41,7 +41,7 @@ image:sc_storage_system.png["錯誤：缺少圖形影像"]
 ** 在「儲存空間」區段中、選取與向量資料庫客戶資料和 Milvus 叢集資料相關的磁碟區。在我們的範例中、這些是「 vol1 」和「 vectordbpv 」。
 ** 建立向量資料庫保護原則、並使用原則保護向量資料庫資源。
 +
-image:sc_resource_vectordatabase.png["錯誤：缺少圖形影像"]
+image:sc_resource_vectordatabase.png[""]
 
 
 
@@ -102,7 +102,7 @@ root@node2:~#
 ----
 . 使用「 ilvusdb 」資源中的一致性群組（ CG ）快照來啟動備份
 +
-image:sc_backup_vector_database.png["錯誤：缺少圖形影像"]
+image:sc_backup_vector_database.png[""]
 
 . 為了測試備份功能、我們會在備份程序之後新增一個表格、或是從 NFS （ S3 NAS 儲存區）移除部分資料。
 +
@@ -134,7 +134,7 @@ root@node2:~#
 ----
 . 從先前的快照執行 S3 NAS 儲存區的完整還原。
 +
-image:sc_restore_vector_database.png["錯誤：缺少圖形影像"]
+image:sc_restore_vector_database.png[""]
 
 . 使用 Python 指令碼來驗證「 hell_milvus_netapp_sc_test 」和「 hell_milvus_netapp_sc_test2 」集合中的資料。
 +

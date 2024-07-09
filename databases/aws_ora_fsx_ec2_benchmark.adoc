@@ -33,7 +33,7 @@ keywords: HA, DR, database, Oracle, RDS, AWS, SnapCenter
 
 我們部署了EC2 M5執行個體、其中含有8vCPU、32G RAM和10Gps的網路頻寬。
 
-image:aws_ora_fsx_ec2_inst_10.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_inst_10.PNG[""]
 
 
 
@@ -48,7 +48,7 @@ image:aws_ora_fsx_ec2_inst_10.PNG["錯誤：缺少圖形影像"]
 
 我們保留兩份關鍵控制檔的複本、以提供備援功能。
 
-image:aws_ora_fsx_ec2_stor_15.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_stor_15.PNG[""]
 
 FSX檔案系統的IOPS容量設定為80、000、I/O處理量則為2GiBps。
 
@@ -60,7 +60,7 @@ FSX檔案系統的IOPS容量設定為80、000、I/O處理量則為2GiBps。
 
 資料庫部署為具有三個PDF的容器化資料庫。我們使用一個pdb執行個體進行效能測試。下圖顯示NFS掛載點上的Oracle儲存設備規模。
 
-image:aws_ora_fsx_ec2_inst_11.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_inst_11.PNG[""]
 
 
 
@@ -72,7 +72,7 @@ image:aws_ora_fsx_ec2_inst_11.PNG["錯誤：缺少圖形影像"]
 
 下列螢幕擷取畫面示範了來自Swingench Windows UI的工作負載設定檔和一般交易執行數據。
 
-image:aws_ora_fsx_ec2_swin_01.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_swin_01.PNG[""]
 
 如圖所示、交易層級在整個測試執行期間維持在相同層級。
 
@@ -88,17 +88,16 @@ image:aws_ora_fsx_ec2_swin_01.PNG["錯誤：缺少圖形影像"]
 
 我們會根據交易執行期間的並行使用者數量、記錄使用者交易量、使用者回應時間和Oracle等待次數。結果如下所示：
 
-image:aws_ora_fsx_ec2_swin_02.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_swin_02.PNG[""]
 
 這些結果顯示、我們可以持續增加使用者交易磁碟區、同時增加並行使用者的數量、同時維持一致低I/O延遲和使用者回應時間、這對於Oracle應用程式來說是適當的效能。
 
 當我們同時達到128位使用者時、I/O延遲和使用者回應時間開始稍微增加。這是因為EC2執行個體即將達到完整的伺服器容量、如下圖所示：
 
-image:aws_ora_fsx_ec2_swin_03.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_swin_03.PNG[""]
 
 同樣地、下圖也顯示了當時完成使用者交易磁碟區的對應FSXIOPS和處理量。
 
-image:aws_ora_fsx_ec2_swin_04.PNG["錯誤：缺少圖形影像"]
-image:aws_ora_fsx_ec2_swin_05.PNG["錯誤：缺少圖形影像"]
+image:aws_ora_fsx_ec2_swin_04.PNG[""] image:aws_ora_fsx_ec2_swin_05.PNG[""]
 
 當Oracle伺服器EC2執行個體成為限制因素時、我們並未達到以IOPS或處理量為單位的已配置FSX儲存容量。因此、您必須根據使用者應用程式層級的交易磁碟區、適當調整運算和儲存容量、如本節所示 link:aws_ora_fsx_ec2_factors.html["Oracle資料庫部署的考量因素。"]

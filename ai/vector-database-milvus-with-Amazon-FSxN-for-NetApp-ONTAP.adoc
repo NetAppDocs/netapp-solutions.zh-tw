@@ -18,14 +18,14 @@ summary: Milvus 搭配 Amazon FSxN for NetApp ONTAP - 適用於 NetApp 的向量
 
 
 
-=== Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性
+== Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性
 
 在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。
 
 在雲端中部署向量資料庫可提供多項重要效益、特別是對於需要處理高維度資料和執行相似度搜尋的應用程式。首先、雲端型部署提供擴充性、可輕鬆調整資源、以配合不斷成長的資料量和查詢負載。如此可確保資料庫能夠有效處理增加的需求、同時維持高效能。其次、雲端部署可提供高可用度和災難恢復、因為資料可在不同的地理位置上複寫、將資料遺失的風險降至最低、並確保即使發生非預期的事件、仍能持續提供服務。第三、它能提供成本效益、因為您只需支付所使用的資源、並可根據需求進行上下擴充、避免需要大量的硬體前期投資。最後、在雲端部署向量資料庫可加強協同作業、因為資料可以從任何地方存取和共享、有助於團隊工作和資料導向的決策。
 請檢查在此驗證中使用的 Milvus 獨立式與 Amazon FSxN for NetApp ONTAP 的架構。
 
-image:Amazon_fsxn_milvus.png["錯誤：缺少圖形影像"]
+image:Amazon_fsxn_milvus.png[""]
 
 . 建立 Amazon FSxN for NetApp ONTAP 執行個體、並記下 VPC 、 VPC 安全群組和子網路的詳細資料。建立 EC2 執行個體時、必須提供這項資訊。您可以在這裡找到更多詳細資料 - https://us-east-1.console.aws.amazon.com/fsx/home?region=us-east-1#file-system-create[]
 . 建立 EC2 執行個體、確保 VPC 、安全性群組和子網路與 Amazon FSxN for NetApp ONTAP 執行個體的相符。

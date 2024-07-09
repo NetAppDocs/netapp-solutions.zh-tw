@@ -65,7 +65,7 @@ VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作�
 
 下圖說明高層架構。
 
-image:fsx-hcx-image1.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image1.png[""]
 
 ====
 
@@ -87,7 +87,7 @@ image:fsx-hcx-image1.png["錯誤：缺少圖形影像"]
 NOTE: 完成此步驟最多需要25分鐘。
 
 +
-image:fsx-hcx-image2.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image2.png[""]
 
 . 部署完成後、確認vCenter Console中有可用的HCX Manager及其相關外掛程式、以驗證部署。
 . 建立適當的管理閘道防火牆、以開啟存取HCX Cloud Manager所需的連接埠。HCX Cloud Manager現在已可開始執行HCX作業。
@@ -102,7 +102,7 @@ image:fsx-hcx-image2.png["錯誤：缺少圖形影像"]
 . 從VMC主控台瀏覽至HCX儀表板、移至「Administration」（管理）、然後選取「Systems Update」（系統更新）索引標籤。按一下「Request a Download Link for the HCX Connector OVA image（申請HCX Connector OVA映像的下載連結
 . 下載HCX Connector之後、在內部部署的vCenter Server中部署OVA。以滑鼠右鍵按一下vSphere叢集、然後選取部署OVF範本選項。
 +
-image:fsx-hcx-image5.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image5.png[""]
 
 . 在「部署OVF範本」精靈中輸入必要資訊、按一下「下一步」、然後按一下「完成」以部署VMware HCX Connector OVA。
 . 手動開啟虛擬應用裝置電源。如需逐步指示、請前往 https://docs.vmware.com/en/VMware-HCX/services/user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["VMware HCX使用者指南"^]。
@@ -117,7 +117,7 @@ image:fsx-hcx-image5.png["錯誤：缺少圖形影像"]
 . 從VMware Cloud Console移至「Inventory（資源清冊）」、選取SDDC、然後按一下「View Details（檢視詳細資料）」。在「Add Ons（新增選項）」索引標籤的VMware HCX動態磚中、按一下「Open HCX（開啟HCX）」。
 . 在「啟用金鑰」索引標籤中、按一下「建立啟動金鑰」。選取「System Type（系統類型）」作為HCX Connector、然後按一下「Confirm（確認）」以產生金鑰。複製啟動金鑰。
 +
-image:fsx-hcx-image7.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image7.png[""]
 
 +
 
@@ -154,7 +154,7 @@ NOTE: 此程序大約需要10–20分鐘、而外掛程式則要新增至vCenter
 
 
 
-image:fsx-hcx-image8.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image8.png[""]
 
 ====
 .步驟4：將內部部署的VMware HCX Connector與VMC HCX Cloud Manager配對
@@ -162,21 +162,21 @@ image:fsx-hcx-image8.png["錯誤：缺少圖形影像"]
 ====
 . 若要在內部部署vCenter Server和VMC SDDC之間建立站台配對、請登入內部部署vCenter Server、然後存取HCX vSphere Web Client外掛程式。
 +
-image:fsx-hcx-image9.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image9.png[""]
 
 . 按一下「基礎架構」下的「新增站台配對」。若要驗證遠端站台、請輸入VMC HCX Cloud Manager URL或IP位址、以及CloudAdmin角色的認證資料。
 +
-image:fsx-hcx-image10.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image10.png[""]
 
 +
 
 NOTE: HCx資訊可從SDDC設定頁面擷取。
 
 +
-image:fsx-hcx-image11.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image11.png[""]
 
 +
-image:fsx-hcx-image12.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image12.png[""]
 
 . 若要啟動站台配對、請按一下「Connect（連線）」。
 +
@@ -201,7 +201,7 @@ NOTE: 運算設定檔包含部署互連虛擬應用裝置所需的運算、儲�
 如需詳細指示、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BBAC979E-8899-45AD-9E01-98A132CE146E.html["建立運算設定檔"^]。
 
 +
-image:fsx-hcx-image13.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image13.png[""]
 
 . 建立運算設定檔之後、選取「Multi-Site Service Mesh」（多站台服務網格）>「Network Profiles」（網路設定檔）>「Create Network Profile」（建立網路設定檔）、即可建立網路設定檔。
 . 網路設定檔會定義一系列IP位址和網路、以供HCX用於其虛擬應用裝置。
@@ -210,7 +210,7 @@ image:fsx-hcx-image13.png["錯誤：缺少圖形影像"]
 NOTE: 這需要兩個以上的IP位址。這些IP位址將從管理網路指派給虛擬應用裝置。
 
 +
-image:fsx-hcx-image14.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image14.png[""]
 
 +
 如需詳細指示、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-184FCA54-D0CB-4931-B0E8-A81CD6120C52.html["建立網路設定檔"^]。
@@ -224,7 +224,7 @@ NOTE: 如果您透過網際網路連線至SD-WAN、則必須在「網路與安�
 服務網格會建立本機和遠端運算和網路設定檔配對。
 
 +
-image:fsx-hcx-image15.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image15.png[""]
 
 +
 
@@ -232,11 +232,11 @@ NOTE: 此程序的一部分涉及部署HCX應用裝置、這些裝置將會自�
 
 . 選取來源和遠端運算設定檔、然後按一下「Continue（繼續）」。
 +
-image:fsx-hcx-image16.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image16.png[""]
 
 . 選取要啟動的服務、然後按一下「Continue（繼續）」。
 +
-image:fsx-hcx-image17.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image17.png[""]
 
 +
 
@@ -244,7 +244,7 @@ NOTE: 複寫輔助VMotion移轉、SRM整合及OS輔助移轉需要HCX Enterprise
 
 . 建立服務網格的名稱、然後按一下「完成」開始建立程序。完成部署約需30分鐘。設定好服務網格後、就會建立移轉工作負載VM所需的虛擬基礎架構和網路。
 +
-image:fsx-hcx-image18.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image18.png[""]
 
 
 
@@ -261,7 +261,7 @@ HCX-IX應用裝置使用行動代理程式服務來執行VMotion、Cold和Replic
 
 NOTE: HCX-IX應用裝置會將行動代理程式服務新增為vCenter Server中的主機物件。此物件上顯示的處理器、記憶體、儲存設備和網路資源、並不代表裝載IX應用裝置的實體Hypervisor實際使用量。
 
-image:fsx-hcx-image19.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image19.png[""]
 
 .VMware HCX vMotion
 [%collapsible]
@@ -273,15 +273,15 @@ NOTE: 網路擴充功能應已就緒（適用於連接VM的連接埠群組）、
 
 . 從內部部署vSphere用戶端移至「Inventory」、在要移轉的VM上按一下滑鼠右鍵、然後選取「HCX Actions」（HCX動作）>「移轉至HCX目標站台」。
 +
-image:fsx-hcx-image20.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image20.png[""]
 
 . 在移轉虛擬機器精靈中、選取遠端站台連線（目標VMC SDDC）。
 +
-image:fsx-hcx-image21.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image21.png[""]
 
 . 新增群組名稱、並在「Transfer and Placement（傳輸和放置）」下更新必填欄位（叢集、儲存設備和目的地網路）、然後按一下「Validate（驗證）」。
 +
-image:fsx-hcx-image22.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image22.png[""]
 
 . 驗證檢查完成後、按一下「Go（執行）」以啟動移轉。
 +
@@ -290,7 +290,7 @@ NOTE: VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及
 
 . 您可以從HCX >移轉儀表板監控VMotion的進度和完成。
 +
-image:fsx-hcx-image23.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image23.png[""]
 
 
 
@@ -302,11 +302,11 @@ image:fsx-hcx-image23.png["錯誤：缺少圖形影像"]
 
 下列快照顯示移轉設定檔為「複寫輔助vMotion」。
 
-image:fsx-hcx-image24.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image24.png[""]
 
 與少數VM的vMotion相比、複寫的持續時間可能會更長。使用RAV時、只能同步差異並納入記憶體內容。以下是移轉狀態的快照、顯示移轉的開始時間與每個VM的結束時間如何相同。
 
-image:fsx-hcx-image25.png["錯誤：缺少圖形影像"]
+image:fsx-hcx-image25.png[""]
 
 =====
 如需HCX移轉選項的其他資訊、以及如何使用HCX將工作負載從內部部署移轉至AWS上的VMware Cloud、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-14D48C15-3D75-485B-850F-C5FCB96B5637.html["VMware HCX使用者指南"^]。
