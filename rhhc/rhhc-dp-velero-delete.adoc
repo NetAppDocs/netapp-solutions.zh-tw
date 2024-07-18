@@ -1,0 +1,45 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-dp-velero-delete.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
+---
+= 使用 Velero 刪除備份和還原
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節概述如何使用 Velero 刪除 OpenShift Container 平台中的應用程式備份與還原。
+
+
+
+== 列出所有備份
+
+您可以使用 OC CLI 工具或 Velero CLI 工具列出所有的備份 CRS 。按照中的說明下載 Velero CLI link:https://velero.io/docs/v1.3.0/basic-install/#install-the-cli["Velero 文件"]。
+
+image::redhat_openshift_OADP_delete_image1.png[清單備份]
+
+
+
+== 刪除備份
+
+您可以使用 OC CLI 工具刪除備份 CR 、而無需刪除物件儲存資料。備份將從 CLI/Console 輸出中移除。不過、由於對應的備份不會從物件儲存區移除、因此會重新出現在 CLI/console 輸出中。
+
+image::redhat_openshift_OADP_delete_image2.png[刪除備份]
+
+** 如果您想刪除 Backup CR 及相關的物件儲存資料、可以使用 Velero CLI 工具來刪除。 **
+
+image::redhat_openshift_OADP_delete_image3.png[刪除備份及相關的物件儲存設備]
+
+
+
+== 刪除還原
+
+您可以使用 OC CLI 或 Velero CLI 刪除 Restore CR 物件
+
+image::redhat_openshift_OADP_delete_image4.png[刪除還原]

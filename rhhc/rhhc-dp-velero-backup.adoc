@@ -1,0 +1,77 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-dp-velero-backup.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
+---
+= 在 OpenShift Container Platform 中為應用程式建立隨選備份
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節概述如何在 OpenShift 虛擬化中為 VM 建立隨選備份。
+
+
+
+== 建立應用程式備份的步驟
+
+若要建立應用程式的隨需備份（應用程式的應用程式中繼資料和持續磁碟區）、請按一下「 ** 備份 ** 」標籤以建立備份自訂資源（ CR ）。我們提供範例 yaml 來建立備份 CR 。使用此 yaml 、將會備份應用程式及其在指定命名空間中的持續儲存設備。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/oadp-creating-backup-cr.html["文件"]。
+
+CSI 會建立指定命名空間中持續磁碟區和應用程式資源的快照。此快照將儲存在 yaml 中指定的備份位置。備份將保留在系統中 30 天、如 TTL 所指定。
+
+....
+spec:
+  csiSnapshotTimeout: 10m0s
+  defaultVolumesToFsBackup: false
+  includedNamespaces:
+    - postgresql ->namespace of the app
+  itemOperationTimeout: 4h0m0s
+  snapshotMoveData: false
+  storageLocation: velero-container-backup-ontap-1 -->this is the backupStorageLocation previously created when Velero is configured.
+  ttl: 720h0m0s
+....
+備份完成後、其階段會顯示為「已完成」。
+
+image::redhat_openshift_OADP_backup_image1.png[備份已完成]
+
+您可以在 S3 瀏覽器應用程式的協助下、在物件儲存區中檢查備份。備份路徑會顯示在已設定的貯體中、其前置名稱為（ Velero/ Container 示範備份）。您可以查看備份內容、包括應用程式的磁碟區快照、記錄和其他中繼資料。
+
+
+NOTE: 在 StorageGRID 中、您也可以使用租戶管理員提供的 S3 主控台來檢視備份物件。
+
+image::redhat_openshift_OADP_backup_image2.png[S3 中的備份物件]
+
+
+
+== 為應用程式建立排程備份
+
+若要根據排程建立備份、您需要建立排程 CR 。排程只是 Cron 運算式、可讓您指定建立備份的時間。建立排程 CR 的範例 yaml 如下所示。
+
+....
+apiVersion: velero.io/v1
+kind: Schedule
+metadata:
+  name: schedule1
+  namespace: openshift-adp
+spec:
+  schedule: 0 7 * * *
+  template:
+    includedNamespaces:
+      - postgresql
+    storageLocation: velero-container-backup-ontap-1
+....
+Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
+也會指定備份中要包含的命名空間、以及備份的儲存位置。因此、排程 CR 不是備份 CR 、而是用來在指定的時間和頻率建立備份。
+
+排程建立完成後、即會啟用。
+
+image::redhat_openshift_OADP_backup_image3.png[排程已建立]
+
+備份將根據此排程建立、並可從備份索引標籤檢視。
+
+image::redhat_openshift_OADP_backup_image4.png[排程備份已完成]

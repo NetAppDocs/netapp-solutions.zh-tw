@@ -1,0 +1,130 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-dp-velero-restore.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
+---
+= 從備份還原應用程式
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+本節說明如何從備份還原應用程式。
+
+
+
+== 先決條件
+
+若要從備份還原、請假設應用程式所在的命名空間遭到意外刪除。
+
+image::redhat_openshift_OADP_app_deleted_image1.png[應用程式已刪除]
+
+.還原至相同的命名空間
+[%collapsible]
+====
+若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
+
+image::redhat_openshift_OADP_restore_image1.jpg[建立還原 CR]
+
+....
+apiVersion: velero.io/v1
+kind: Restore
+apiVersion: velero.io/v1
+metadata:
+  name: restore
+  namespace: openshift-adp
+spec:
+  backupName: backup-postgresql-ontaps3
+  restorePVs: true
+....
+當階段顯示為已完成時、您可以看到應用程式已還原至拍攝快照時的狀態。應用程式會還原至相同的命名空間。
+
+image::redhat_openshift_OADP_restore_image2.jpg[還原已完成]
+
+image::redhat_openshift_OADP_restore_image2a.png[已還原至相同的命名空間]
+
+====
+.還原至不同的命名空間
+[%collapsible]
+====
+若要將應用程式還原至不同的命名空間、您可以在還原 CR 的 yaml 定義中提供名稱映射。
+
+以下範例 yaml 檔案會建立還原 CR 、將應用程式及其持續儲存設備從 PostgreSQL 命名空間還原至新的命名空間 PostgreSQL 還原。
+
+....
+apiVersion: velero.io/v1
+kind: Restore
+metadata:
+  name: restore-to-different-ns
+  namespace: openshift-adp
+spec:
+  backupName: backup-postgresql-ontaps3
+  restorePVs: true
+  includedNamespaces:
+  - postgresql
+  namespaceMapping:
+    postgresql: postgresql-restored
+....
+當階段顯示為已完成時、您可以看到應用程式已還原至拍攝快照時的狀態。應用程式會還原至 yaml 中指定的不同命名空間。
+
+image::redhat_openshift_OADP_restore_image3.png[還原已完成至新命名空間]
+
+====
+.還原至不同的儲存類別
+[%collapsible]
+====
+Velero 提供一般功能、可在還原期間透過指定 json 修補程式來修改資源。json 修補程式會在還原之前套用至資源。json 修補程式是在 configmap 中指定、組態對應則是在 restore 命令中參照。此功能可讓您使用不同的儲存類別進行還原。
+
+在以下範例中、應用程式在部署期間會使用 ONTAP NAS 做為其持續磁碟區的儲存類別。系統會建立名為 backup-PostgreSQL -ontaps3 的應用程式備份。
+
+image::redhat_openshift_OADP_restore_image4.png[使用 ONTAP NAS 的 VM]
+
+image::redhat_openshift_OADP_restore_image5.png[VM 備份 ONTAP-NAS]
+
+解除安裝應用程式、模擬應用程式遺失的情況。
+
+若要使用不同的儲存類別還原 VM 、例如 ONTAP NAS 生態儲存類別、您需要執行下列兩個步驟：
+
+** 步驟 1**
+
+在 openshift-adp 命名空間中建立組態對應（主控台）、如下所示：填寫如螢幕擷取畫面所示的詳細資料： SELECT 命名空間： openshift-adp 名稱： change-ontap-SC （可以是任何名稱）鍵： change-ontap-sc-config.yaml ：值：
+
+....
+version: v1
+resourceModifierRules:
+- conditions:
+     groupResource: persistentvolumeclaims
+     resourceNameRegex: "data-postgresql*"
+     namespaces:
+     - postgresql
+  patches:
+  - operation: replace
+    path: "/spec/storageClassName"
+    value: "ontap-nas-eco"
+....
+image::redhat_openshift_OADP_restore_image6.png[組態對應 UI]
+
+產生的組態對應物件應如下所示（ CLI ）：
+
+image::redhat_openshift_OADP_restore_image7.png[組態對應 CLI]
+
+建立還原時、此組態對應將套用資源修飾語規則。針對從 RHEL 開始的所有持續磁碟區宣告、將套用修補程式、將儲存類別名稱取代為 ONTAP NAS 生態。
+
+** 步驟 2**
+
+若要還原虛擬機器、請從 Velero CLI 使用下列命令：
+
+....
+
+#velero restore create restore1 --from-backup backup1 --resource-modifier-configmap change-storage-class-config -n openshift-adp
+....
+應用程式會在相同的命名空間中還原、並使用儲存類別 ONTAP-NAS-Eco 建立持續的 Volume 宣告。
+
+image::redhat_openshift_OADP_restore_image8.png[VM 恢復 ONTAP － NAS － Eco]
+
+====

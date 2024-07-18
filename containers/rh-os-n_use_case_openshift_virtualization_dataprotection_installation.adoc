@@ -81,13 +81,13 @@ image::redhat_openshift_OADP_install_image3.jpg[已安裝適用於 Data Protecti
 若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。適當命名機密。在下面的範例中、系統會建立一個內含 ONTAP S3 使用者認證的密碼、名稱為 ONTAP S3 認證。
 
 
-image::redhat_openshift_OADP_install_image4.jpg[S3 使用者認證的秘密]
+image::redhat_openshift_OADP_install_image4.png[S3 使用者認證的秘密]
 
-image::redhat_openshift_OADP_install_image5.jpg[建立 S3 使用者認證的秘密]
+image::redhat_openshift_OADP_install_image5.png[建立 S3 使用者認證的秘密]
 
 若要從 CLI 建立名為 sg-s3-creDcreDs 的秘密、您可以使用下列命令。
 
-image::redhat_openshift_OADP_install_image6.jpg[使用 CLI 為 S3 使用者認證建立秘密]
+image::redhat_openshift_OADP_install_image6.png[使用 CLI 為 S3 使用者認證建立秘密]
 
 * 接著、若要設定 Velero 、請從運算子下的功能表項目中選取已安裝的運算子、按一下 OADP 運算子、然後選取 DataProtectionApplication 索引標籤。
 
@@ -107,11 +107,11 @@ spec:
   backupLocations:
     - velero:
         config:
-          insecureSkipTLSVerify: 'true' ->use this for https communication with ONTAP S3
+          insecureSkipTLSVerify: 'false' ->use this for https communication with ONTAP S3
           profile: default
-          region: us-east
+          region: us-east-1
           s3ForcePathStyle: 'True' ->This allows use of IP in s3URL
-          s3Url: 'https://10.xx.xx.xx' ->Ensure TLS certificate for S3 is configured
+          s3Url: 'https://10.xx.xx.xx' ->LIF to access S3. Ensure TLS certificate for S3 is configured
         credential:
           key: cloud
           name: ontap-s3-credentials ->previously created secret

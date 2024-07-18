@@ -34,7 +34,11 @@ oc delete backup <backup_CR_name> -n <velero_namespace>
 ....
 velero backup delete <backup_CR_name> -n <velero_namespace>
 ....
-您也可以使用 Velero CLI 刪除 Restore CR
+
+
+== 刪除還原
+
+您可以使用 Velero CLI 刪除 Restore CR
 
 ....
 velero restore delete restore --namespace openshift-adp
