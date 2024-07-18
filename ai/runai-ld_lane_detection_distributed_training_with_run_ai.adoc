@@ -39,7 +39,7 @@ NetApp Snapshot已整合於訓練程式碼中、可擷取每個實驗的資料�
 .. 在「tandard_DS2_v2」大小新增名為「agentpool」的主要系統節點。使用預設的三個節點。
 .. 使用「Standard_NC6s_v3」資源池大小新增工作節點「gp池」。GPU節點至少使用三個節點。
 +
-image:runai-ld_image3.png[""]
+image::runai-ld_image3.png[Runai ld 影像 3.]
 
 +
 
@@ -66,7 +66,7 @@ kubectl get nodes
 NOTE: 如果這六個節點都已啟動並執行、則您的高效能叢集已準備就緒並連線至本機環境。
 
 +
-image:runai-ld_image4.png[""]
+image::runai-ld_image4.png[Runai ld Image4]
 
 
 
@@ -78,15 +78,15 @@ image:runai-ld_image4.png[""]
 
 . 瀏覽至Azure入口網站內的虛擬網路。尋找您新建立的虛擬網路。它應該有一個前置詞、例如：在此處看到的；按一下虛擬網路的名稱。
 +
-image:runai-ld_image5.png[""]
+image::runai-ld_image5.png[Runai ld 影像 5.]
 
 . 按一下子網路、然後從頂端工具列選取+子網路。
 +
-image:runai-ld_image6.png[""]
+image::runai-ld_image6.png[Runai ld 影像 6.]
 
 . 在子網路委派標題下、輸入名稱「anf.sn」、然後選取Microsoft.NetApp/volumes。請勿變更任何其他項目。按一下「確定」。
 +
-image:runai-ld_image7.png[""]
+image::runai-ld_image7.png[Runai ld 影像 7.]
 
 
 
@@ -295,7 +295,7 @@ kubectl get sc azurenetappfiles
 輸出應如下所示：
 
 +
-image:runai-ld_image8.png[""]
+image::runai-ld_image8.png[Runai ld 影像 8.]
 
 
 
@@ -332,7 +332,7 @@ kubectl create -f netapp-volume-snapshot-class.yaml
 輸出應如下所示：
 
 +
-image:runai-ld_image9.png[""]
+image::runai-ld_image9.png[Runai ld 影像 9.]
 
 . 使用下列命令檢查是否已建立Volume Snapshot複本類別：
 +
@@ -343,7 +343,7 @@ kubectl get volumesnapshotclass
 輸出應如下所示：
 
 +
-image:runai-ld_image10.png[""]
+image::runai-ld_image10.png[Runai ld 影像 10.]
 
 
 
@@ -356,7 +356,7 @@ image:runai-ld_image10.png[""]
 . https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI叢集於AKS上"^]。
 . 前往app.runai.ai、按一下「Create New Project（建立新專案）」、然後將其命名為「lane detection（線道偵測）它將在K8s叢集上建立命名空間、開頭為「Runai」、後面接著專案名稱。在這種情況下、建立的命名空間將會是Runae-lane偵測。
 +
-image:runai-ld_image11.png[""]
+image::runai-ld_image11.png[Runai ld image11.]
 
 . https://docs.run.ai/Administrator/Cluster-Setup/cluster-install/["安裝RUN：AI CLI"^]。
 . 在終端機上、使用下列命令將lane偵測設為預設執行：AI project：
@@ -368,7 +368,7 @@ image:runai-ld_image11.png[""]
 輸出應如下所示：
 
 +
-image:runai-ld_image12.png[""]
+image::runai-ld_image12.png[Runai ld 影像 12.]
 
 . 為專案命名空間（例如「lane detection」）建立ClusterRole和Cluster勞力 綁定、因此屬於「Runae-lane detection」命名空間的預設服務帳戶、在工作執行期間有權執行「volumesnapshot」作業：
 +
@@ -381,7 +381,7 @@ kubectl get namespaces
 輸出應如下所示：
 
 +
-image:runai-ld_image13.png[""]
+image::runai-ld_image13.png[Runai ld 影像 13.]
 
 
 
@@ -413,7 +413,7 @@ cd ./lane-detection-SCNN-horovod/data
 ....
 .. 修改「build」（建置）「image」（映像）「sh」（sh）Shell指令碼、並將Docker儲存庫變更為您的。例如、將「muneer7589」取代為您的泊塢視窗儲存庫名稱。您也可以變更泊塢視窗的影像名稱和標記（例如「下載tusimple」和「1.0」）：
 +
-image:runai-ld_image14.png[""]
+image::runai-ld_image14.png[Runai ld 影像 14.]
 
 .. 執行指令碼以建立泊塢視窗映像、並使用下列命令將其推送到泊塢視窗儲存庫：
 +
@@ -451,7 +451,7 @@ runai submit
 輸出應如下所示：
 
 +
-image:runai-ld_image15.png[""]
+image::runai-ld_image15.png[Runai ld 影像 15.]
 
 .. 列出提交的RUN：AI工作。
 +
@@ -459,7 +459,7 @@ image:runai-ld_image15.png[""]
 runai list jobs
 ....
 +
-image:runai-ld_image16.png[""]
+image::runai-ld_image16.png[Runai ld 影像 16.]
 
 .. 檢查提交的工作記錄。
 +
@@ -467,7 +467,7 @@ image:runai-ld_image16.png[""]
 runai logs download-tusimple-data -t 10
 ....
 +
-image:runai-ld_image17.png[""]
+image::runai-ld_image17.png[Runai ld 影像 17.]
 
 .. 列出所建立的「PVC'」。請使用這個「PVC'」命令進行下一步的訓練。
 +
@@ -478,11 +478,11 @@ kubectl get pvc | grep download-tusimple-data
 輸出應如下所示：
 
 +
-image:runai-ld_image18.png[""]
+image::runai-ld_image18.png[Runai ld 影像]
 
 .. 檢查執行中的工作：AI UI（或「app.run.ai`」）。
 +
-image:runai-ld_image19.png[""]
+image::runai-ld_image19.png[Runai ld image19.]
 
 
 
@@ -508,7 +508,7 @@ cd ./lane-detection-SCNN-horovod
 ....
 .. 修改「build」（建置）「image」（映像）「sh」（sh）Shell指令碼、並將泊塢視窗儲存庫變更為您的（例如、將「muneer7589」取代為您的泊塢視窗儲存庫名稱）。您也可以變更泊塢視窗的影像名稱和標記（例如「dist-lane detection」和「3.1」）。
 +
-image:runai-ld_image20.png[""]
+image::runai-ld_image20.png[Runai ld image20]
 
 .. 執行指令碼以建立泊塢視窗映像、然後推送至泊塢視窗儲存庫。
 +
@@ -527,7 +527,7 @@ chmod +x build_image.sh
 kubectl get pvc | grep download-tusimple-data
 ....
 +
-image:runai-ld_image21.png[""]
+image::runai-ld_image21.png[Runai ld image21.]
 
 .. 修補磁碟區、並將存取模式更新為ReadWriteMany（以下列命令取代Volume名稱）：
 +
@@ -602,7 +602,7 @@ runai submit-mpi
 輸出應如下所示：
 
 +
-image:runai-ld_image22.png[""]
+image::runai-ld_image22.png[Runai ld image22.]
 
 .. 列出已提交的工作。
 +
@@ -610,7 +610,7 @@ image:runai-ld_image22.png[""]
 runai list jobs
 ....
 +
-image:runai-ld_image23.png[""]
+image::runai-ld_image23.png[Runai ld image23.]
 
 .. 提交的工作記錄：
 +
@@ -618,14 +618,14 @@ image:runai-ld_image23.png[""]
 runai logs dist-lane-detection-training
 ....
 +
-image:runai-ld_image24.png[""]
+image::runai-ld_image24.png[Runai ld 影像 24]
 
 .. 請在RUN（執行）中檢查訓練工作：AI GUI（或app.runai.ai): RUN：AI儀表板）、如下圖所示。第一張圖詳細說明分配給分散式訓練工作的三個GPU、分別位於下列三個節點上、以及第二個RUN：AI工作：
 +
-image:runai-ld_image25.png[""]
+image::runai-ld_image25.png[Runai ld 影像]
 
 +
-image:runai-ld_image26.png[""]
+image::runai-ld_image26.png[Runai ld 影像 26.]
 
 .. 訓練完成後、請查看已建立並連結RUN：AI job.的NetApp Snapshot複本。
 +
@@ -633,7 +633,7 @@ image:runai-ld_image26.png[""]
 runai logs dist-lane-detection-training --tail 1
 ....
 +
-image:runai-ld_image27.png[""]
+image::runai-ld_image27.png[Runai ld image27]
 
 +
 ....
@@ -661,7 +661,7 @@ cd ./lane-detection-SCNN-horovod
 ....
 . 修改「REstore-snaphot-PVC.yaml」、並將「data來源」「名稱」欄位更新為您要從中還原資料的Snapshot複本。您也可以變更要將資料還原到的PVc名稱、例如「restore-tuSimple」。
 +
-image:runai-ld_image29.png[""]
+image::runai-ld_image29.png[Runai ld 影像]
 
 . 使用「REstore-snapshot -PVC.yaml」建立新的PVc。
 +
@@ -672,7 +672,7 @@ kubectl create -f restore-snapshot-pvc.yaml
 輸出應如下所示：
 
 +
-image:runai-ld_image30.png[""]
+image::runai-ld_image30.png[Runai ld 影像]
 
 . 如果您想要使用剛還原的資料進行訓練、則提交工作內容與之前相同；提交訓練工作時、只能以還原的「PVC_name」取代「PVC_name」、如下列命令所示：
 +
@@ -708,35 +708,35 @@ runai submit-mpi
 
 下圖說明1 GPU配置與記憶體使用率。
 
-image:runai-ld_image31.png[""]
+image::runai-ld_image31.png[Runai ld 影像]
 
 下圖說明單一節點GPU使用率。
 
-image:runai-ld_image32.png[""]
+image::runai-ld_image32.png[Runai ld image32.]
 
 下圖說明單一節點記憶體大小（16GB）。
 
-image:runai-ld_image33.png[""]
+image::runai-ld_image33.png[Runai ld image33.]
 
 下圖說明單一節點GPU數（1）。
 
-image:runai-ld_image34.png[""]
+image::runai-ld_image34.png[Runai ld image34.]
 
 下圖說明單一節點GPU配置（%）。
 
-image:runai-ld_image35.png[""]
+image::runai-ld_image35.png[Runai ld image35]
 
 下圖說明三個節點的三個GPU：GPU配置與記憶體。
 
-image:runai-ld_image36.png[""]
+image::runai-ld_image36.png[Runai ld 影像 36.]
 
 下圖說明三個節點使用率的三個GPU（%）。
 
-image:runai-ld_image37.png[""]
+image::runai-ld_image37.png[Runai ld 影像]
 
 下圖說明三個節點的三個GPU記憶體使用率（%）。
 
-image:runai-ld_image38.png[""]
+image::runai-ld_image38.png[Runai ld 影像 38.]
 
 
 
@@ -752,11 +752,11 @@ image:runai-ld_image38.png[""]
 
 . 在「Volumes（磁碟區）」頁面上、以滑鼠右鍵按一下您要變更其服務層級的磁碟區。選取變更資源池。
 +
-image:runai-ld_image39.png[""]
+image::runai-ld_image39.png[Runai ld image39]
 
 . 在「變更資源池」視窗中、選取您要將磁碟區移至的容量資源池。然後按一下「OK（確定）」。
 +
-image:runai-ld_image40.png[""]
+image::runai-ld_image40.png[Runai ld image40]
 
 
 

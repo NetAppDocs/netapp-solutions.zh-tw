@@ -28,7 +28,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
 下圖顯示虛擬機器從 VMware 移轉至 Red Hat OpenShift 虛擬化的高階檢視。
 
-image:rh-os-n_use_case_vm_migration_using_mtv.png[""]
+image::rh-os-n_use_case_vm_migration_using_mtv.png[使用 MTV 進行 RH OS n 使用案例 VM 移轉]
 
 
 
@@ -200,7 +200,7 @@ allowVolumeExpansion: true
 
 建立範例來源供應商：
 
-image:rh-os-n_use_case_vm_migration_source_provider.png[""]
+image::rh-os-n_use_case_vm_migration_source_provider.png[RH OS n 使用案例 VM 移轉來源供應商]
 
 
 NOTE: 虛擬化移轉工具套件（ MTV ）使用 VMware 虛擬磁碟開發套件（ VDDK ） SDK 來加速從 VMware vSphere 傳輸虛擬磁碟。因此、強烈建議您建立 VDDK 映像（雖然是選用的）。
@@ -223,11 +223,11 @@ NOTE: 虛擬化移轉工具套件（ MTV ）使用 VMware 虛擬磁碟開發套�
 一旦建立移轉計畫、計畫的狀態應該會顯示 * 就緒 * 、您現在應該可以 * 開始 * 計畫。
 
 
-image:rh-os-n_use_case_vm_migration_using_mtv_plan_ready.png[""]
+image::rh-os-n_use_case_vm_migration_using_mtv_plan_ready.png[使用已備妥 MTV 計畫的 RH OS n 使用案例 VM 移轉]
 
 按一下 * 「開始」 * 將會執行一系列步驟、以完成虛擬機器的移轉。
 
-image:rh-os-n_use_case_vm_migration_using_mtv_plan_complete.png[""]
+image::rh-os-n_use_case_vm_migration_using_mtv_plan_complete.png[使用案例 VM 移轉的 RH OS n 使用案例、使用 MTV 計畫完成]
 
 完成所有步驟後、您可以按一下左側導覽功能表 * 虛擬化 * 下的 * 虛擬機器 * 來查看移轉的虛擬機器。
 提供存取虛擬機器的指示 link:https://docs.openshift.com/container-platform/4.13/virt/virtual_machines/virt-accessing-vm-consoles.html["請按這裡"]。

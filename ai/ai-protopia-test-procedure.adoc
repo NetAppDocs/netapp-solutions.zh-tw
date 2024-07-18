@@ -77,29 +77,29 @@ To access workspace, navigate to http://192.168.0.152:32721
 ....
 . 使用「create jupyterlab」命令輸出中指定的URL存取JupyterLab工作區。資料目錄代表掛載到工作區的持續磁碟區。
 +
-image:ai-protopia-image3.png[""]
+image::ai-protopia-image3.png[AI 產品 3]
 
 . 開啟「DATA」目錄、然後上傳要執行提示的檔案。檔案上傳至資料目錄時、會自動儲存在掛載至工作區的持續磁碟區上。若要上傳檔案、請按一下「上傳檔案」圖示、如下圖所示。
 +
-image:ai-protopia-image4.png[""]
+image::ai-protopia-image4.png[AI 產品影像 4.]
 
 . 返回最上層目錄並建立新的筆記本。
 +
-image:ai-protopia-image5.png[""]
+image::ai-protopia-image5.png[AI 產品]
 
 . 在筆記本中加入推斷程式碼。下列範例顯示影像偵測使用案例的推斷代碼。
 +
-image:ai-protopia-image6.png[""]
+image::ai-protopia-image6.png[AI 產品 6]
 
 +
-image:ai-protopia-image7.png[""]
+image::ai-protopia-image7.png[AI 產品的發展 7.]
 
 . 將Protopia混淆新增至您的推斷程式碼。Protopia直接與客戶合作、提供特定使用案例的文件、並不在本技術報告的範圍之內。以下範例顯示新增Protopia混淆功能時、影像偵測使用案例的推斷程式碼。
 +
-image:ai-protopia-image8.png[""]
+image::ai-protopia-image8.png[AI 產品的發展 8.]
 
 +
-image:ai-protopia-image9.png[""]
+image::ai-protopia-image9.png[AI 產品 9.]
 
 
 
@@ -147,7 +147,7 @@ spec:
           medium: Memory
       containers:
       - name: inference
-        image: netapp-protopia-inference:latest
+        image:: netapp-protopia-inference:latest
         imagePullPolicy: IfNotPresent
         command: ["python3", "run-accuracy-measurement.py", "--dataset", "/data/netapp-face-detection/FDDB"]
         resources:
@@ -209,7 +209,7 @@ spec:
           medium: Memory
       containers:
       - name: inference
-        image: netapp-protopia-inference:latest
+        image:: netapp-protopia-inference:latest
         imagePullPolicy: IfNotPresent
         env:
         - name: ALPHA

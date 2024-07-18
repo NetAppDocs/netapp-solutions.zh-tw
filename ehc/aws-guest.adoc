@@ -50,22 +50,22 @@ NOTE: Amazon FSX for NetApp ONTAP 的VMware解決方案和AWS上的VMware Cloud�
 . 在「Select File System Type」（選取檔案系統類型）頁面上、選擇Amazon FSX for NetApp ONTAP 解決方案、然後選擇「Next」（下一步）。此時將顯示Create File System（創建文件系統）頁面。
 
 
-image:aws-fsx-guest-1.png[""]
+image::aws-fsx-guest-1.png[AWS FSX 客體 1]
 
 . 在「Networking（網路）」區段中、針對Virtual Private Cloud（VPC）選擇適當的VPC和偏好的子網路、以及路由表。在此情況下、會從下拉式清單中選取vmcfsx2.VPC。
 
 
-image:aws-fsx-guest-2.png[""]
+image::aws-fsx-guest-2.png[AWS FSX 客體 2]
 
 . 對於建立方法、請選擇「標準建立」。您也可以選擇「快速建立」、但本文件使用「標準建立」選項。
 
 
-image:aws-fsx-guest-3.png[""]
+image::aws-fsx-guest-3.png[AWS FSX 訪客 3.]
 
 . 在「Networking（網路）」區段中、針對Virtual Private Cloud（VPC）選擇適當的VPC和偏好的子網路、以及路由表。在此情況下、會從下拉式清單中選取vmcfsx2.VPC。
 
 
-image:aws-fsx-guest-4.png[""]
+image::aws-fsx-guest-4.png[AWS FSX 訪客 4.]
 
 
 NOTE: 在「Networking（網路）」區段中、針對Virtual Private Cloud（VPC）選擇適當的VPC和偏好的子網路、以及路由表。在此情況下、會從下拉式清單中選取vmcfsx2.VPC。
@@ -73,25 +73,27 @@ NOTE: 在「Networking（網路）」區段中、針對Virtual Private Cloud（V
 . 在「安全性與加密」區段中、針對加密金鑰選擇AWS金鑰管理服務（AWS KMS）加密金鑰、以保護檔案系統閒置的資料。在「檔案系統管理密碼」中、輸入fsxadmin使用者的安全密碼。
 
 
-image:aws-fsx-guest-5.png[""]
+image::aws-fsx-guest-5.png[AWS FSX 訪客 5.]
 
 . 在虛ONTAP 擬機器中、指定與vsadmin搭配使用的密碼、以便使用REST API或CLI來管理功能。如果未指定密碼、則可使用fsxadmin使用者來管理SVM。在Active Directory區段中、請務必將Active Directory加入SVM、以進行SMB共用資源的資源配置。在「預設儲存虛擬機器組態」區段中、提供此驗證中儲存設備的名稱、即使用自我管理的Active Directory網域來配置SMB共用。
 
 
-image:aws-fsx-guest-6.png[""]
+image::aws-fsx-guest-6.png[AWS FSX 訪客 6.]
 
 . 在「預設Volume組態」區段中、指定Volume名稱和大小。這是NFS Volume。若要提升儲存效率、請選擇「啟用」以開啟ONTAP 「不支援的儲存效率」功能（壓縮、重複資料刪除和壓縮）、或選擇「停用」以關閉這些功能。
 
 
-image:aws-fsx-guest-7.png[""]
+image::aws-fsx-guest-7.png[AWS FSX 客體 7]
 
 . 檢閱「Create File System（建立檔案系統）」頁面上顯示的檔案系統組態。
 . 按一下建立檔案系統。
 
 
-image:aws-fsx-guest-8.png[""]
-image:aws-fsx-guest-9.png[""]
-image:aws-fsx-guest-10.png[""]
+image::aws-fsx-guest-8.png[AWS FSX 訪客 8.]
+
+image::aws-fsx-guest-9.png[AWS FSX 訪客 9.]
+
+image::aws-fsx-guest-10.png[AWS FSX 客體 10]
 
 如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started.html["Amazon FSX for NetApp ONTAP 功能入門"]。
 
@@ -106,7 +108,7 @@ image:aws-fsx-guest-10.png[""]
 
 為了進行示範、本節會建立NFS磁碟區、以便輕鬆掛載於AWS上VMware雲端上執行的VM。nfsdemov01的建立方式如下所示：
 
-image:aws-fsx-guest-11.png[""]
+image::aws-fsx-guest-11.png[AWS FSX 客體 11]
 
 ====
 .在ONTAP Linux用戶端上掛載FSX*
@@ -124,12 +126,12 @@ image:aws-fsx-guest-11.png[""]
  sudo mount -t nfs nfsvers=4.1,198.19.254.239:/nfsdemovol01 /fsx/nfsdemovol01
 
 
-image:aws-fsx-guest-20.png[""]
+image::aws-fsx-guest-20.png[AWS FSX 客體 20]
 
 . 執行後、請執行df命令來驗證掛載。
 
 
-image:aws-fsx-guest-21.png[""]
+image::aws-fsx-guest-21.png[AWS FSX 客體 21]
 
 .在ONTAP Linux用戶端上掛載FSX*
 video::c3befe1b-4f32-4839-a031-b01200fb6d60[panopto]
@@ -147,25 +149,26 @@ video::c3befe1b-4f32-4839-a031-b01200fb6d60[panopto]
 
 NOTE: 若要在Amazon FSX主控台找到SVM的DNS名稱、請選擇「儲存虛擬機器」、選擇「SVM」、然後向下捲動至「端點」以尋找SMB DNS名稱。按一下「確定」。Amazon FSX檔案系統會出現在共用資料夾的清單中。
 
-image:aws-fsx-guest-22.png[""]
+image::aws-fsx-guest-22.png[AWS FSX 訪客 22.]
 
 . 在「共享資料夾」工具中、選擇左窗格中的「共享」、即可查看Amazon FSX檔案系統的作用中共用。
 
 
-image:aws-fsx-guest-23.png[""]
+image::aws-fsx-guest-23.png[AWS FSX 訪客 23.]
 
 . 現在請選擇新的共用區、然後完成「建立共用資料夾」精靈。
 
 
-image:aws-fsx-guest-24.png[""]
-image:aws-fsx-guest-25.png[""]
+image::aws-fsx-guest-24.png[AWS FSX 客體 24]
+
+image::aws-fsx-guest-25.png[AWS FSX 客體 25]
 
 若要深入瞭解如何在Amazon FSX檔案系統上建立及管理SMB共用區、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/create-smb-shares.html["建立SMB共用"]。
 
 . 連線到位後、即可附加SMB共用區並用於應用程式資料。若要完成此作業、請複製共用路徑、然後使用「對應網路磁碟機」選項、將磁碟區掛載到AWS SDDC上VMware Cloud上執行的VM上。
 
 
-image:aws-fsx-guest-26.png[""]
+image::aws-fsx-guest-26.png[AWS FSX 客體 26]
 
 ====
 .使用ONTAP iSCSI將FSX for NetApp的LUN連接至主機
@@ -252,7 +255,7 @@ vmcfsxval2svm
 
 NOTE: Windows主機必須與叢集中的每個節點建立iSCSI連線。原生DSM會選取最佳路徑。
 
-image:aws-fsx-guest-30.png[""]
+image::aws-fsx-guest-30.png[AWS FSX 客體 30]
 
 儲存虛擬機器（SVM）上的LUN會在Windows主機上顯示為磁碟。主機不會自動探索任何新增的磁碟。完成下列步驟、觸發手動重新掃描以探索磁碟：
 
@@ -262,7 +265,7 @@ image:aws-fsx-guest-30.png[""]
 . 按一下「行動」>「重新掃描磁碟」。
 
 
-image:aws-fsx-guest-31.png[""]
+image::aws-fsx-guest-31.png[AWS FSX 訪客 31]
 
 當Windows主機首次存取新LUN時、它沒有分割區或檔案系統。完成下列步驟、即可初始化LUN、並選擇性地使用檔案系統格式化LUN：
 
@@ -271,7 +274,7 @@ image:aws-fsx-guest-31.png[""]
 . 依照精靈中的指示進行。在此範例中、磁碟機F：已掛載。
 
 
-image:aws-fsx-guest-32.png[""]
+image::aws-fsx-guest-32.png[AWS FSX 客體 32]
 
 ====
 
@@ -303,72 +306,72 @@ NOTE: 使用 link:https://cloud.netapp.com/cvo-sizer["Szizer Cloud Volumes ONTAP
 . 登入NetApp Cloud Central；「Fabric View（架構檢視）」畫面隨即顯示。找到Cloud Volumes ONTAP 「解決方案」索引標籤、然後選取「前往Cloud Manager」。登入之後、便會顯示「畫版」畫面。
 
 
-image:aws-cvo-guest-1.png[""]
+image::aws-cvo-guest-1.png[AWS CVO 訪客 1]
 
 . 在Cloud Manager首頁上、按一下「Add a Working Environment（新增工作環境）」、然後選取AWS做為雲端和系統組態類型。
 
 
-image:aws-cvo-guest-2.png[""]
+image::aws-cvo-guest-2.png[AWS CVO 訪客 2]
 
 . 提供要建立的環境詳細資料、包括環境名稱和管理員認證資料。按一下「繼續」。
 
 
-image:aws-cvo-guest-3.png[""]
+image::aws-cvo-guest-3.png[AWS CVO 訪客 3.]
 
 . 選取 Cloud Volumes ONTAP 部署的附加服務、包括 BlueXP 分類、 BlueXP 備份與還原、以及 Cloud Insights 。按一下「繼續」。
 
 
-image:aws-cvo-guest-4.png[""]
+image::aws-cvo-guest-4.png[AWS CVO 訪客 4.]
 
 . 在「HA部署模型」頁面上、選擇「多可用度區域」組態。
 
 
-image:aws-cvo-guest-5.png[""]
+image::aws-cvo-guest-5.png[AWS CVO 訪客 5.]
 
 . 在「Region & VPC（地區與VPC）」頁面上、輸入網路資訊、然後按一下「Continue（繼續）」。
 
 
-image:aws-cvo-guest-6.png[""]
+image::aws-cvo-guest-6.png[AWS CVO 訪客 6.]
 
 . 在「連線能力與SSH驗證」頁面上、選擇HA配對與中介器的連線方法。
 
 
-image:aws-cvo-guest-7.png[""]
+image::aws-cvo-guest-7.png[AWS CVO 訪客 7]
 
 . 指定浮動IP位址、然後按一下「Continue（繼續）」。
 
 
-image:aws-cvo-guest-8.png[""]
+image::aws-cvo-guest-8.png[AWS CVO 訪客 8.]
 
 . 選取適當的路由表以納入通往浮動IP位址的路由、然後按一下「Continue（繼續）」。
 
 
-image:aws-cvo-guest-9.png[""]
+image::aws-cvo-guest-9.png[AWS CVO 訪客 9.]
 
 . 在「Data Encryption（資料加密）」頁面上、選擇「AWS託管加密」。
 
 
-image:aws-cvo-guest-10.png[""]
+image::aws-cvo-guest-10.png[AWS CVO 訪客 10.]
 
 . 選取使用許可選項：「隨用隨付」或「BYOL」以使用現有的授權。在此範例中、會使用隨用隨付選項。
 
 
-image:aws-cvo-guest-11.png[""]
+image::aws-cvo-guest-11.png[AWS CVO 訪客 11]
 
 . 根據要部署在AWS SDDC上VMware雲端上執行的VM上的工作負載類型、選擇幾個預先設定的套件。
 
 
-image:aws-cvo-guest-12.png[""]
+image::aws-cvo-guest-12.png[AWS CVO 訪客 12.]
 
 . 在「Review & Approve（檢閱與核准）」頁面上、檢閱並確認所做的選擇。若要建立Cloud Volumes ONTAP 此實例、請按一下「Go（執行）」。
 
 
-image:aws-cvo-guest-13.png[""]
+image::aws-cvo-guest-13.png[AWS CVO 訪客 13.]
 
 . 完成供應後、此功能會列在「畫版」頁面上的工作環境中。Cloud Volumes ONTAP
 
 
-image:aws-cvo-guest-14.png[""]
+image::aws-cvo-guest-14.png[AWS CVO 訪客 14.]
 
 ====
 .SMB Volume的其他組態
@@ -377,24 +380,25 @@ image:aws-cvo-guest-14.png[""]
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 
 
-image:aws-cvo-guest-20.png[""]
+image::aws-cvo-guest-20.png[AWS CVO 訪客 20]
 
 . 選取CVO執行個體以建立磁碟區、然後按一下Create Volume（建立磁碟區）選項。選擇適當的大小、然後由Cloud Manager選擇內含的Aggregate、或使用進階分配機制將其放置在特定的Aggregate上。在此示範中、SMB被選取為傳輸協定。
 
 
-image:aws-cvo-guest-21.png[""]
+image::aws-cvo-guest-21.png[AWS CVO 訪客 21]
 
 . 在配置磁碟區之後、磁碟區會出現在「Volumes（磁碟區）」窗格下方。由於CIFS共用區已配置完成、因此您應授予使用者或群組檔案和資料夾的權限、並確認這些使用者可以存取共用區並建立檔案。
 
 
-image:aws-cvo-guest-22.png[""]
+image::aws-cvo-guest-22.png[AWS CVO 訪客 22.]
 
 . 建立磁碟區之後、請使用mount命令、從AWS SDDC主機上VMware Cloud上執行的VM連線至共用區。
 . 複製下列路徑、然後使用「對應網路磁碟機」選項、將磁碟區掛載到AWS SDDC中VMware Cloud上執行的VM上。
 
 
-image:aws-cvo-guest-23.png[""]
-image:aws-cvo-guest-24.png[""]
+image::aws-cvo-guest-23.png[AWS CVO 訪客 23.]
+
+image::aws-cvo-guest-24.png[AWS CVO 訪客 24]
 
 ====
 .將LUN連接至主機
@@ -406,8 +410,9 @@ image:aws-cvo-guest-24.png[""]
 . 按一下「Add Volume（新增Volume）」>「New Volume（新Volume）」、選取「iSCSI（iSCSI）」、然後按一按一下「繼續」。
 
 
-image:aws-cvo-guest-30.png[""]
-image:aws-cvo-guest-31.png[""]
+image::aws-cvo-guest-30.png[AWS CVO 訪客（ 30 ）]
+
+image::aws-cvo-guest-31.png[AWS CVO 訪客 31]
 
 . 配置磁碟區之後、選取磁碟區、然後按一下「Target IQN」。若要複製iSCSI合格名稱（IQN）、請按一下複製。設定從主機到 LUN 的 iSCSI 連線。
 
@@ -424,7 +429,7 @@ image:aws-cvo-guest-31.png[""]
 
 NOTE: Windows主機必須與叢集中的每個節點建立iSCSI連線。原生DSM會選取最佳路徑。
 
-image:aws-cvo-guest-32.png[""]
+image::aws-cvo-guest-32.png[AWS CVO 來賓 32]
 
 SVM的LUN會顯示為Windows主機的磁碟。主機不會自動探索任何新增的磁碟。完成下列步驟、觸發手動重新掃描以探索磁碟：
 
@@ -434,7 +439,7 @@ SVM的LUN會顯示為Windows主機的磁碟。主機不會自動探索任何新�
 . 按一下「行動」>「重新掃描磁碟」。
 
 
-image:aws-cvo-guest-33.png[""]
+image::aws-cvo-guest-33.png[AWS CVO 訪客 33]
 
 當Windows主機首次存取新LUN時、它沒有分割區或檔案系統。初始化LUN；並可選擇完成下列步驟、以檔案系統格式化LUN：
 
@@ -443,7 +448,7 @@ image:aws-cvo-guest-33.png[""]
 . 依照精靈中的指示進行。在此範例中、磁碟機F：已掛載。
 
 
-image:aws-cvo-guest-34.png[""]
+image::aws-cvo-guest-34.png[AWS CVO 訪客 34.]
 
 在Linux用戶端上、確定iSCSI精靈正在執行。配置LUN之後、請參閱Linux套裝作業系統的iSCSI組態詳細指南。例如、可以找到Ubuntu iSCSI組態 link:https://ubuntu.com/server/docs/service-iscsi["請按這裡"]。若要驗證、請從Shell執行lsblk cmd。
 
@@ -463,7 +468,8 @@ image:aws-cvo-guest-34.png[""]
  sudo mount -t nfs nfsvers=4.1,172.16.0.2:/nfsdemovol01 /fsxcvotesting01/nfsdemovol01
 
 
-image:aws-cvo-guest-40.png[""]
-image:aws-cvo-guest-41.png[""]
+image::aws-cvo-guest-40.png[AWS CVO 訪客 40]
+
+image::aws-cvo-guest-41.png[AWS CVO 訪客 41.]
 
 ====

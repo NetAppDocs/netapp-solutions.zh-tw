@@ -89,14 +89,14 @@ VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提�
 . 登入 VCF 管理網域的 vCenter 應用裝置。
 . 在 vCenter 應用裝置介面上、以滑鼠右鍵按一下管理叢集、然後選取 * 部署 OVF 範本… *
 +
-image:vmware-vcf-aff-image21.png["部署 OVF 範本 ..."]
+image::vmware-vcf-aff-image21.png[部署 OVF 範本 ...]
 
 +
 ｛ nbsp ｝
 
 . 在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取上一步中下載的 ONTAP 工具 OVA 檔案。
 +
-image:vmware-vcf-aff-image22.png["選取 OVA 檔案"]
+image::vmware-vcf-aff-image22.png[選取 OVA 檔案]
 
 +
 ｛ nbsp ｝
@@ -104,14 +104,14 @@ image:vmware-vcf-aff-image22.png["選取 OVA 檔案"]
 . 如需精靈的步驟 2 至 5 、請選取虛擬機器的名稱和資料夾、選取運算資源、檢閱詳細資料、然後接受授權合約。
 . 針對組態和磁碟檔案的儲存位置、選取 VCF Management Domain 叢集的 vSAN 資料存放區。
 +
-image:vmware-vcf-aff-image23.png["選取 OVA 檔案"]
+image::vmware-vcf-aff-image23.png[選取 OVA 檔案]
 
 +
 ｛ nbsp ｝
 
 . 在「選取網路」頁面上、選取用於管理流量的網路。
 +
-image:vmware-vcf-aff-image24.png["選取網路"]
+image::vmware-vcf-aff-image24.png[選取網路]
 
 +
 ｛ nbsp ｝
@@ -129,10 +129,10 @@ image:vmware-vcf-aff-image24.png["選取網路"]
 完成後、按一下 * 下一步 * 繼續。
 
 +
-image:vmware-vcf-aff-image25.png["自訂 OTV 範本 1."]
+image::vmware-vcf-aff-image25.png[自訂 OTV 範本 1.]
 
 +
-image:vmware-vcf-aff-image26.png["自訂 OTV 範本 2."]
+image::vmware-vcf-aff-image26.png[自訂 OTV 範本 2.]
 
 +
 ｛ nbsp ｝
@@ -151,16 +151,16 @@ image:vmware-vcf-aff-image26.png["自訂 OTV 範本 2."]
 . 瀏覽至以存取 Swagger 使用者介面 https://otv_ip:8143/api/rest/swagger-ui.html[] 在 Web 瀏覽器中。
 . 向下捲動至 * 使用者驗證：使用者驗證的 API * 、然後選取 * 張貼 /2.0/VCF/ 使用者 / 登入 * 。
 +
-image:vmware-vcf-aff-image27.png["POST /2.0/VCF/ 使用者 / 登入"]
+image::vmware-vcf-aff-image27.png[POST /2.0/VCF/ 使用者 / 登入]
 
 . 在 * 參數內容類型 * 下、將內容類型切換為 * 應用程式 /json* 。
 . 在 *vcfLoginRequest* 下，輸入 OTV 應用裝置的使用者名稱和密碼。
 +
-image:vmware-vcf-aff-image28.png["輸入 OTV 使用者名稱和密碼"]
+image::vmware-vcf-aff-image28.png[輸入 OTV 使用者名稱和密碼]
 
 . 按一下 * 試用！ * 按鈕、然後在 * 回應標頭 * 下複製 * 「授權」： * 文字字串。
 +
-image:vmware-vcf-aff-image29.png["複製授權回應標頭"]
+image::vmware-vcf-aff-image29.png[複製授權回應標頭]
 
 
 
@@ -172,12 +172,12 @@ image:vmware-vcf-aff-image29.png["複製授權回應標頭"]
 
 . 在 Swagger UI 中、找出 * 安全性：與憑證相關的 API * 、然後選取 * 取得 /3.0/security/certificates/ ｛ host ｝ / 伺服器憑證 * 。
 +
-image:vmware-vcf-aff-image30.png["取得 /3.0/security/certificates/｛ host ｝ / 伺服器憑證"]
+image::vmware-vcf-aff-image30.png[取得 /3.0/security/certificates/｛ host ｝ / 伺服器憑證]
 
 . 在 *applier-API-token-token * 欄位中、貼上上上一步所取得的文字字串。
 . 在 * 主機 * 欄位中、輸入您要從中取得公用 SSL 憑證的 ONTAP 儲存系統 IP 位址。
 +
-image:vmware-vcf-aff-image31.png["複製公共 SSL 憑證"]
+image::vmware-vcf-aff-image31.png[複製公共 SSL 憑證]
 
 
 
@@ -191,7 +191,7 @@ image:vmware-vcf-aff-image31.png["複製公共 SSL 憑證"]
 . 在 appliance -API 權杖欄位中、填入在前一個步驟中取得的 VCF 權杖。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。
 . 在 * 控制器要求 * 文字方塊中、提供 ONTAP 儲存系統 IP 位址、使用者名稱、密碼、以及在前一步驟中取得的公用 SSL 憑證。
 +
-image:vmware-vcf-aff-image32.png["提供新增儲存系統的資訊"]
+image::vmware-vcf-aff-image32.png[提供新增儲存系統的資訊]
 
 . 按一下 * 試用！ * 按鈕、將儲存系統新增至 OTV 。
 
@@ -204,7 +204,7 @@ image:vmware-vcf-aff-image32.png["提供新增儲存系統的資訊"]
 
 . 在 Swagger UI 中、捲動至 Container ： API Related to Container 、然後選取 Post /2.0/admin/containers 。
 +
-image:vmware-vcf-aff-image33.png["/2.0/admin/containers"]
+image::vmware-vcf-aff-image33.png[/2.0/admin/containers]
 
 . 在 *applier-API-token-token * 欄位中、填入在前一個步驟中取得的 VCF 標記。請注意、權杖最終會過期、因此可能需要定期取得新的權杖。
 . 在「容器要求」方塊中、填寫下列必填欄位：
@@ -219,7 +219,7 @@ image:vmware-vcf-aff-image33.png["/2.0/admin/containers"]
 
 
 
-image:vmware-vcf-aff-image34.png["VVOL 容器申請表"]
+image::vmware-vcf-aff-image34.png[VVOL 容器申請表]
 
 4 按一下 * 試用！ * 以執行指示並建立 VVOL 容器。
 

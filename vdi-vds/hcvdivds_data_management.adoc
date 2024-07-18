@@ -22,7 +22,7 @@ summary: 在部署過程中、您可以選擇檔案服務方法來裝載使用�
 
 當使用者分散在全域命名空間內的多個站台時、全域檔案快取有助於減少經常存取資料的延遲。全域檔案快取部署可以使用資源配置集合和指令碼事件來自動化。全域檔案快取可在本機處理讀取和寫入快取、並在不同位置維護檔案鎖定。全域檔案快取可與任何SMB檔案伺服器搭配使用、Azure NetApp Files 包括
 
-image:hcvdivds_image13.png[""]
+image::hcvdivds_image13.png[hcvdivds image13.]
 
 全域檔案快取需要下列項目：
 
@@ -37,47 +37,47 @@ image:hcvdivds_image13.png[""]
 
 . 在「License Configuration」（授權組態）區段下、使用「Click here to complete the license activation」（按一下這裡完成授權啟動）連結然後註冊核心。
 +
-image:hcvdivds_image27.png[""]
+image::hcvdivds_image27.png[hcvdivds image27.]
 
 . 提供要用於全域檔案快取的服務帳戶。如需此帳戶的必要權限、請參閱 https://docs.netapp.com/us-en/occm/download_gfc_resources.html#download-required-resources["GFC文件"^]。
 +
-image:hcvdivds_image28.png[""]
+image::hcvdivds_image28.png[hcvdivds image28.]
 
 . 新增後端檔案伺服器、並提供檔案伺服器名稱或IP。
 +
-image:hcvdivds_image29.png[""]
+image::hcvdivds_image29.png[hcvdivds image29.]
 
 . 在邊緣、快取磁碟機必須有磁碟機代號D如果沒有、請使用diskpart.exe選取磁碟區並變更磁碟機代號。在授權伺服器註冊為Edge。
 +
-image:hcvdivds_image30.png[""]
+image::hcvdivds_image30.png[hcvdivds image30.]
 
 
 
 如果啟用核心自動組態、核心資訊會自動從授權管理伺服器擷取。
 
-image:hcvdivds_image31.png[""]
+image::hcvdivds_image31.png[hcvdivds image31.]
 
 在任何用戶端機器上、用來存取檔案伺服器上共用區的系統管理員都可以使用「UNC Path」（UNC路徑）、「\<edge server name>\FASTDATA」（主伺服器名稱）、「\」（後端檔案伺服器名稱）、以GFC邊緣存取該共用區。系統管理員可以在使用者登入指令碼或GPO中包含此路徑、以便在邊緣位置進行使用者磁碟機對應。
 
 為了讓全球的使用者擁有透明的存取權限、系統管理員可以設定Microsoft分散式檔案系統（DFS),並提供指向檔案伺服器共用和邊緣位置的連結。
 
-image:hcvdivds_image32.png[""]
+image::hcvdivds_image32.png[hcvdivds image32.]
 
 當使用者根據與站台相關聯的子網路、使用Active Directory認證登入時、則會由DFS用戶端使用適當的連結來存取資料。
 
-image:hcvdivds_image33.png[""]
+image::hcvdivds_image33.png[hcvdivds image33.]
 
 檔案圖示會視檔案是否快取而有所變更；未快取的檔案會在圖示左下角顯示灰色的X。邊緣位置的使用者存取檔案後、該檔案會快取、圖示會變更。
 
-image:hcvdivds_image34.png[""]
+image::hcvdivds_image34.png[hcvdivds image34.]
 
 當檔案開啟且另一個使用者嘗試從邊緣位置開啟相同的檔案時、系統會提示使用者下列選項：
 
-image:hcvdivds_image35.png[""]
+image::hcvdivds_image35.png[hcvdivds image35.]
 
 如果使用者選擇在原始複本可用時接收通知的選項、則會以下列方式通知使用者：
 
-image:hcvdivds_image36.png[""]
+image::hcvdivds_image36.png[hcvdivds image36.]
 
 如需詳細資訊、請參閱 https://www.youtube.com/watch?v=91LKb1qsLIM["Talon與Azure NetApp Files 《部署》影片"^]。
 
@@ -87,7 +87,7 @@ image:hcvdivds_image36.png[""]
 
 NetApp VDS可為Salesforce和Microsoft Office 365提供資料保護、包括Exchange、SharePoint和Microsoft OneDrive。下圖顯示NetApp VDS如何為這些資料服務提供SaaS備份。
 
-image:hcvdivds_image14.png[""]
+image::hcvdivds_image14.png[hcvdivds image14.]
 
 如需Microsoft Office 365資料保護的示範、請參閱 https://www.youtube.com/watch?v=MRPBSu8RaC0&ab_channel=NetApp["這段影片"^]。
 

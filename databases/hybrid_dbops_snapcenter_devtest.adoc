@@ -23,22 +23,22 @@ keywords: hybrid cloud, database, solutions, dev/test, workflow
 
 . 使用Oracle的資料庫管理使用者ID登入SnapCenter 支援功能。瀏覽至「Resources（資源）」索引標籤、其中顯示SnapCenter 受支援的Oracle資料庫。
 +
-image:snapctr_ora_clone_01.PNG[""]
+image::snapctr_ora_clone_01.PNG[snapctr ora clone 01]
 
 . 按一下備份拓撲的預期內部部署資料庫名稱和詳細檢視。如果已啟用次要複寫位置、則會顯示連結的鏡像備份。
 +
-image:snapctr_ora_clone_02.PNG[""]
+image::snapctr_ora_clone_02.PNG[snapctr ora clone 02]
 
 . 按一下鏡射備份、切換至鏡射備份檢視。接著會顯示次要鏡射備份。
 +
-image:snapctr_ora_clone_03.PNG[""]
+image::snapctr_ora_clone_03.PNG[snapctr ora clone 03]
 
 . 選擇要複製的鏡射二線資料庫備份複本、然後根據時間和系統變更編號或SCN來判斷恢復點。一般而言、還原點應拖曳完整的資料庫備份時間、或是要複製的SCN。在決定恢復點之後、必須掛載必要的記錄檔備份以供還原。記錄檔備份應掛載到要裝載複製資料庫的目標DB伺服器。
 +
-image:snapctr_ora_clone_04.PNG[""]
+image::snapctr_ora_clone_04.PNG[snapctr ora clone 04]
 
 +
-image:snapctr_ora_clone_05.PNG[""]
+image::snapctr_ora_clone_05.PNG[snapctr ora clone 05]
 
 +
 
@@ -46,42 +46,42 @@ NOTE: 如果已啟用記錄剪除功能、且恢復點已延伸到上次的記�
 
 . 反白顯示要複製的完整資料庫備份複本、然後按一下「Clone（複製）」按鈕以啟動資料庫複製工作流程。
 +
-image:snapctr_ora_clone_06.PNG[""]
+image::snapctr_ora_clone_06.PNG[snapctr ora clone 06]
 
 . 為完整的容器資料庫或CDB複製選擇適當的實體複製DB SID。
 +
-image:snapctr_ora_clone_07.PNG[""]
+image::snapctr_ora_clone_07.PNG[snapctr ora clone 07]
 
 . 選取雲端中的目標實體複製主機、然後由實體複製工作流程建立資料檔案、控制檔和重作記錄目錄。
 +
-image:snapctr_ora_clone_08.PNG[""]
+image::snapctr_ora_clone_08.PNG[snapctr ora clone 08]
 
 . 「無」認證名稱用於OS型驗證、這會使資料庫連接埠變得不相關。填寫目標實體複製資料庫伺服器中所設定的適當Oracle Home、Oracle OS User和Oracle OS Group。
 +
-image:snapctr_ora_clone_09.PNG[""]
+image::snapctr_ora_clone_09.PNG[snapctr ora clone 09]
 
 . 指定要在複製作業之前執行的指令碼。更重要的是、資料庫執行個體參數可在此調整或定義。
 +
-image:snapctr_ora_clone_10.PNG[""]
+image::snapctr_ora_clone_10.PNG[snapctr ora 複製 10.]
 
 . 依日期和時間或SCN指定恢復點。直到「取消」將資料庫恢復到可用的歸檔記錄為止。從掛載歸檔記錄磁碟區的目標主機指定外部歸檔記錄檔位置。如果目標伺服器Oracle擁有者與內部部署正式作業伺服器不同、請確認目標伺服器Oracle擁有者可讀取歸檔記錄目錄。
 +
-image:snapctr_ora_clone_11.PNG[""]
+image::snapctr_ora_clone_11.PNG[snapctr ora 複製 11.]
 
 +
-image:snapctr_ora_clone_12.PNG[""]
+image::snapctr_ora_clone_12.PNG[snapctr ora clone 12.]
 
 . 如有需要、請設定用於電子郵件通知的SMTP伺服器。
 +
-image:snapctr_ora_clone_13.PNG[""]
+image::snapctr_ora_clone_13.PNG[snapctr ora 複製 13.]
 
 . 複製摘要：
 +
-image:snapctr_ora_clone_14.PNG[""]
+image::snapctr_ora_clone_14.PNG[snapctr ora 複製 14.]
 
 . 您應該在複製後驗證、以確保複製的資料庫正常運作。有些額外的工作、例如啟動接聽程式或關閉資料庫記錄歸檔模式、可以在開發/測試資料庫上執行。
 +
-image:snapctr_ora_clone_15.PNG[""]
+image::snapctr_ora_clone_15.PNG[snapctr ora 複製 15.]
 
 
 
@@ -91,46 +91,46 @@ image:snapctr_ora_clone_15.PNG[""]
 
 . 使用SQL Server的資料庫管理使用者ID登入SnapCenter 支援功能。瀏覽至「Resources（資源）」索引標籤、其中顯示SnapCenter 受支援的SQL Server使用者資料庫、以及公有雲中的目標待命SQL執行個體。
 +
-image:snapctr_sql_clone_01.PNG[""]
+image::snapctr_sql_clone_01.PNG[snapctr SQL 複製 01]
 
 . 按一下所需的內部部署SQL Server使用者資料庫名稱、以取得備份拓撲和詳細檢視。如果已啟用次要複寫位置、則會顯示連結的鏡像備份。
 +
-image:snapctr_sql_clone_02.PNG[""]
+image::snapctr_sql_clone_02.PNG[snapctr SQL 複製 02]
 
 . 按一下鏡射備份、切換至鏡射備份檢視。接著會顯示次要鏡射備份。由於將SQL Server交易記錄備份到專用磁碟機以進行還原、因此此處僅顯示完整的資料庫備份。SnapCenter
 +
-image:snapctr_sql_clone_03.PNG[""]
+image::snapctr_sql_clone_03.PNG[snapctr SQL clone 03]
 
 . 選擇備份複本、然後按一下「Clone（複製）」按鈕以啟動「Clone from Backup（從備份複製）」工作流程。
 +
-image:snapctr_sql_clone_04_1.PNG[""]
+image::snapctr_sql_clone_04_1.PNG[snapctr SQL 複製 04 1.]
 
 +
-image:snapctr_sql_clone_04.PNG[""]
+image::snapctr_sql_clone_04.PNG[snapctr SQL 複製 04]
 
 . 選取雲端伺服器做為目標實體複製伺服器、複製執行個體名稱、以及複製資料庫名稱。選擇自動指派掛載點或使用者定義的掛載點路徑。
 +
-image:snapctr_sql_clone_05.PNG[""]
+image::snapctr_sql_clone_05.PNG[snapctr SQL 複製 05]
 
 . 根據記錄備份時間或特定日期與時間來判斷恢復點。
 +
-image:snapctr_sql_clone_06.PNG[""]
+image::snapctr_sql_clone_06.PNG[snapctr SQL 複製 06]
 
 . 指定在複製作業前後執行的選用指令碼。
 +
-image:snapctr_sql_clone_07.PNG[""]
+image::snapctr_sql_clone_07.PNG[snapctr SQL 複製 07]
 
 . 如果需要電子郵件通知、請設定一個SMTP伺服器。
 +
-image:snapctr_sql_clone_08.PNG[""]
+image::snapctr_sql_clone_08.PNG[snapctr SQL clone 08]
 
 . 複製摘要：
 +
-image:snapctr_sql_clone_09.PNG[""]
+image::snapctr_sql_clone_09.PNG[snapctr SQL clone 09]
 
 . 監控工作狀態、並驗證目標使用者資料庫是否已附加至雲端實體複製伺服器中的目標SQL執行個體。
 +
-image:snapctr_sql_clone_10.PNG[""]
+image::snapctr_sql_clone_10.PNG[snapctr SQL 複製 10.]
 
 
 

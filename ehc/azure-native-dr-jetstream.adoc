@@ -78,15 +78,15 @@ Jetstream DR軟體包含三個主要元件：「Jetstream DR管理伺服器虛�
 . 向MSA登錄vCenter伺服器。若要執行安裝、請完成下列詳細步驟：
 . 部署了Jetstream DR MSA並註冊vCenter Server之後、請使用vSphere Web Client存取Jetstream DR外掛程式。您可以瀏覽至「資料中心」>「設定」>「Jetstream DR」來完成此作業。
 +
-image:vmware-dr-image8.png[""]
+image::vmware-dr-image8.png[VMware DR image8.]
 
 . 在Jetstream DR介面中、選取適當的叢集。
 +
-image:vmware-dr-image9.png[""]
+image::vmware-dr-image9.png[VMware DR image9.]
 
 . 使用I/O篩選套件設定叢集。
 +
-image:vmware-dr-image10.png[""]
+image::vmware-dr-image10.png[VMware DR image10.]
 
 . 新增位於恢復站台的Azure Blob儲存設備。
 . 從「應用裝置」索引標籤部署DR虛擬應用裝置（DRVA）。
@@ -97,14 +97,14 @@ NOTE: DRVA可由CPt自動建立、但對於POC試用、我們建議手動設定�
 
 Jetstream DRVA是一種虛擬應用裝置、有助於在資料複寫程序中發揮關鍵功能。受保護的叢集必須至少包含一個DRVA、而且每個主機通常會設定一個DRVA。每個DRVA都能管理多個受保護的網域。
 
-image:vmware-dr-image11.png[""]
+image::vmware-dr-image11.png[VMware DR image11.]
 
 在此範例中、我們為80部虛擬機器建立了四部DRVA。
 
 . 使用VMDK從可用的資料存放區或獨立的共享iSCSI儲存集區、為每個DRVA建立複寫記錄磁碟區。
 . 從「受保護的網域」索引標籤、使用Azure Blob儲存站台、DRVA執行個體和複寫記錄的相關資訊、建立所需數量的受保護網域。受保護的網域會定義叢集中的特定VM或VM組、這些VM會一起受到保護、並指派容錯移轉/容錯回復作業的優先順序。
 +
-image:vmware-dr-image12.png[""]
+image::vmware-dr-image12.png[VMware DR image12.]
 
 . 選取您要保護的VM、並啟動受保護網域的VM保護。這會開始將資料複寫到指定的Blob Store。
 
@@ -115,7 +115,7 @@ NOTE: 確認受保護網域中的所有VM都使用相同的保護模式。
 
 NOTE: 回寫（VMDK）模式可提供更高的效能。
 
-image:vmware-dr-image13.png[""]
+image::vmware-dr-image13.png[VMware 災難恢復 13.]
 
 驗證複寫記錄磁碟區是否放置在高效能儲存設備上。
 
@@ -153,15 +153,15 @@ NOTE: Azure VMware解決方案中的預設CloudAdmin使用者沒有足夠權限�
 下列螢幕快照顯示使用DHCP型IP位址進行安裝。
 
 +
-image:vmware-dr-image14.png[""]
+image::vmware-dr-image14.png[VMware 災難恢復 14.]
 
 . 在安裝AVS的Jetstream DR完成後、請重新整理瀏覽器。若要存取Jetstream DR UI、請前往SDDC資料中心>組態> Jetstream DR。
 +
-image:vmware-dr-image15.png[""]
+image::vmware-dr-image15.png[VMware DR image15.]
 
 . 從Jetstream DR介面新增Azure Blob Storage帳戶、以保護內部部署叢集做為儲存站台、然後執行「掃描網域」選項。
 +
-image:vmware-dr-image16.png[""]
+image::vmware-dr-image16.png[VMware 災難恢復 16]
 
 . 匯入受保護的網域之後、請部署DRVA設備。在此範例中、會使用Jetstream DR UI從恢復站台手動啟動持續重新補充。
 +
@@ -171,7 +171,7 @@ NOTE: 您也可以使用已建立的CPT計畫來自動化這些步驟。
 . 使用可用的vSAN或ANF資料存放區建立複寫記錄磁碟區。
 . 匯入受保護的網域、並將恢復VA設定為使用ANF資料存放區來放置VM。
 +
-image:vmware-dr-image17.png[""]
+image::vmware-dr-image17.png[VMware DR image17.]
 
 +
 
@@ -179,7 +179,7 @@ NOTE: 請確定選取的區段已啟用DHCP、而且有足夠的IP可用。在�
 
 . 選取適當的容錯移轉選項（持續容錯移轉或容錯移轉）。在此範例中、會選取持續還原（持續容錯移轉）。
 +
-image:vmware-dr-image18.png[""]
+image::vmware-dr-image18.png[VMware DR image18.]
 
 
 
@@ -201,17 +201,17 @@ NOTE: 您可以使用CPt執行容錯移轉計畫、將VM從Azure Blob Storage恢
 NOTE: 在AVS中啟動受保護的VM後、容錯移轉（持續或標準還原）會自動恢復保護、而在Azure Blob Storage中、則會繼續將資料複寫到適當/原始的容器中。
 
 +
-image:vmware-dr-image19.png[""]
+image::vmware-dr-image19.png[VMware DR image19.]
 
 +
-image:vmware-dr-image20.png[""]
+image::vmware-dr-image20.png[VMware DR image20]
 
 +
 工作列會顯示容錯移轉活動的進度。
 
 . 當工作完成時、存取恢復的VM並維持正常營運。
 +
-image:vmware-dr-image21.png[""]
+image::vmware-dr-image21.png[VMware DR image21]
 
 +
 在主站台啟動並再次執行之後、即可執行容錯回復。恢復VM保護、並檢查資料一致性。
@@ -223,7 +223,7 @@ NOTE: 附註：Automation Toolkit提供的「恢復公用程式準備回復」�
 
 . 存取還原的內部部署環境、前往Jetstream DR UI、然後選取適當的受保護網域。受保護的站台準備好進行容錯回復之後、請在UI中選取「容錯回復」選項。
 +
-image:vmware-dr-image22.png[""]
+image::vmware-dr-image22.png[VMware DR image22.]
 
 
 
@@ -244,4 +244,4 @@ NOTE: 指定在恢復站台暫停VM並在受保護站台重新啟動之後的最
 
 針對AVS的Jetstream DR搭配Azure NetApp Files 支援功能資料存放區、可讓組織從可用時間點恢復、以便在需要時將工作負載恢復至功能性隔離的網路、藉此解決這些問題。恢復功能可讓應用程式彼此運作和通訊、但不會讓它們暴露在北南流量中、因此安全團隊可以安全地執行鑑識和其他必要的補救措施。
 
-image:vmware-dr-image23.png[""]
+image::vmware-dr-image23.png[VMware DR image23.]

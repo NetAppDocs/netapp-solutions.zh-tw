@@ -22,7 +22,7 @@ summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構
 
 此參考架構運用獨立的架構來進行運算叢集互連和儲存存取、並在運算節點之間提供 400GB / 秒 InfiniBand （ IB ）連線能力。下圖顯示 NetApp AIPod 搭配 DGX H100 系統的整體解決方案拓撲。
 
-NetApp AIPod 解決方案拓撲 _ image:aipod_nv_a900topo.png[""]
+NetApp AIPod 解決方案拓撲 _ 影像： aipod_nv_a900top.png []
 
 
 
@@ -52,7 +52,7 @@ NetApp AIPod 解決方案拓撲 _ image:aipod_nv_a900topo.png[""]
 
 管理 SVM 只需要單一 LIF 、裝載在每個控制器上設定的雙連接埠介面群組上。管理 SVM 上的其他 FlexGroup 磁碟區則是用來存放叢集管理產出工件、例如叢集節點映像、系統監控歷史資料、以及終端使用者主目錄。下圖顯示儲存系統的邏輯組態。
 
-NetApp A900 儲存叢集邏輯組態 _ image:aipod_nv_A900logical.png[""]
+NetApp A900 儲存叢集邏輯組態 _ 影像： aipod_nv_a900logical.png []
 
 
 

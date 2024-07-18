@@ -52,14 +52,14 @@ summary: 安裝在NetApp NFS上的儲存層Kafka叢集、是以AWS雲端效能�
 
 . 針對「樣片HA配對」、我們在每個儲存控制器的每個集合體上建立了兩個集合體、並有三個磁碟區Cloud Volumes ONTAP 。對於單Cloud Volumes ONTAP 一的實體節點、我們會在一個集合體中建立六個磁碟區。
 +
-image:kafka-nfs-image25.png["此影像描述aggr3和aggr22的屬性。"]
+image::kafka-nfs-image25.png[此影像描述aggr3和aggr22的屬性。]
 
 +
-image:kafka-nfs-image26.png["此影像描述aggr2的屬性。"]
+image::kafka-nfs-image26.png[此影像描述aggr2的屬性。]
 
 . 為了提升網路效能、我們同時為HA配對和單一節點啟用高速網路功能。
 +
-image:kafka-nfs-image27.png["此影像說明如何啟用高速網路。"]
+image::kafka-nfs-image27.png[此影像說明如何啟用高速網路。]
 
 . 我們注意到ONTAP 、由於不支援IOPS、Cloud Volumes ONTAP 所以我們將IOPS變更為2350、以供支援整個核心磁碟區使用。以47GB大小為基礎的根Volume磁碟Cloud Volumes ONTAP 。下列ONTAP 支援HA配對的支援功能使用下列支援功能、單一節點也適用相同的步驟。
 +
@@ -88,7 +88,7 @@ Scope: kafka_nfs_cvo_ha1-02
 kafka_nfs_cvo_ha1::*>
 ....
 +
-image:kafka-nfs-image28.png["此影像說明如何修改Volume內容。"]
+image::kafka-nfs-image28.png[此影像說明如何修改Volume內容。]
 
 
 
@@ -99,7 +99,7 @@ image:kafka-nfs-image28.png["此影像說明如何修改Volume內容。"]
 * * Storage。* Cloud Volumes ONTAP 我們使用HA配對的不二執行個體、在執行個體上掛載一個6TB GP3 AWS-EBS磁碟區。然後使用NFS掛載將磁碟區匯出至Kafka代理程式。
 
 
-image:kafka-nfs-image29.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
+image::kafka-nfs-image29.png[此圖說明以NAS為基礎的Kafka叢集架構。]
 
 
 
@@ -362,8 +362,8 @@ sudo bin/benchmark –drivers driver-kafka/kafka-throughput.yaml workloads/1-top
 
 這些處理量編號是針對指定的AWS組態所產生。為了達到更高的效能需求、可以進一步擴充和調整執行個體類型、以獲得更好的處理量。總處理量或總處理率是生產者和使用者速率的組合。
 
-image:kafka-nfs-image30.png["此處顯示四種不同的圖表。CVO-HA配對處理量驅動程式。CVO-HA配對同步驅動程式。CVO單一節點處理量驅動程式。CVO單節點同步驅動程式。"]
+image::kafka-nfs-image30.png[此處顯示四種不同的圖表。CVO-HA配對處理量驅動程式。CVO-HA配對同步驅動程式。CVO單一節點處理量驅動程式。CVO單節點同步驅動程式。]
 
 執行處理量或同步驅動程式基準測試時、請務必檢查儲存處理量。
 
-image:kafka-nfs-image31.png["此圖表顯示延遲、IOPS和處理量的效能。"]
+image::kafka-nfs-image31.png[此圖表顯示延遲、IOPS和處理量的效能。]

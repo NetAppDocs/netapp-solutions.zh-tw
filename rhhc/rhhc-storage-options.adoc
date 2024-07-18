@@ -18,17 +18,17 @@ summary:
 
 下圖說明各種後端 NetApp 儲存設備、可與使用 NetApp Astra Trident 的 OpenShift 叢集整合。
 
-image:a-w-n_astra_trident.png[""]
+image::a-w-n_astra_trident.png[A w n Astra Trident]
 
 ONTAP 儲存虛擬機器（ SVM ）提供安全的多租戶共享。單一 OpenShift 叢集可連線至單一 SVM 或多個 SVM 、甚至連至多個 ONTAP 叢集。儲存類別會根據參數或標籤來篩選後端儲存設備。儲存管理員會使用 Trident 後端組態來定義連接至儲存系統的參數。成功建立連線時、它會建立 Trident 後端、並填入儲存類別可篩選的資訊。
 
 以下顯示 storagecasser 與後端之間的關係。
 
-image:rhhc-storage-options-sc2ontap.png["儲存類別至 ONTAP 關係"]
+image::rhhc-storage-options-sc2ontap.png[儲存類別至 ONTAP 關係]
 
 應用程式擁有者使用儲存類別要求持續磁碟區。儲存類別會篩選後端儲存設備。Pod 與後端儲存設備之間的關係如下所示。
 
-image:rhhc_storage_opt_pod2vol.png["Pod 與 ONTAP Volume 的關係"]
+image::rhhc_storage_opt_pod2vol.png[Pod 與 ONTAP Volume 的關係]
 
 
 
@@ -58,8 +58,6 @@ image:rhhc_storage_opt_pod2vol.png["Pod 與 ONTAP Volume 的關係"]
 
 對於 VMware CSI 和 Astra Trident CSI 、 ONTAP 支援 nconnect 、工作階段主幹、 Kerberos 等、適用於 NFS 和多重路徑、 chap 驗證等區塊傳輸協定。
 
-在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS 效能準則"]。
-為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。
-image:rhhc_storage_options_fsxn_options.png["複寫多個 AZ 和單一 AZ"]
+在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需更多資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS 效能準則"]。為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。 影像： rhhc_store_options_fsxn_options.png[" 在 Multi-AZ 和 Single-AZ" 之間複寫 ]
 
 如需 FSX ONTAP 支援的 SVM 數量、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-svms.html#max-svms["管理 FSX ONTAP 儲存虛擬機器"]

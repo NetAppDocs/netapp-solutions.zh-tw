@@ -156,7 +156,7 @@ sys4m46.173s
 ....
 如下圖所示、資料與模型平行處理可改善資料處理及分散式TensorFlow模型的推斷速度。NFS中的資料位置產生的執行時間稍微好一點、因為工作流程瓶頸是下載預先訓練的模型。如果我們增加記錄資料集的大小、NFS的優勢就更明顯。
 
-image:apache-spark-image11.png["Spark NLP情緒分析端點對端點工作流程執行時間。"]
+image::apache-spark-image11.png[Spark NLP情緒分析端點對端點工作流程執行時間。]
 
 
 
@@ -232,7 +232,7 @@ sys  1m5.615s
 ....
 另有1.43倍的加速比、如下圖所示。因此、透過將NetApp All Flash儲存設備連線至叢集、客戶可享有Horovod Spark工作流程的快速資料傳輸與發佈優勢、相較於在單一節點上執行、可獲得7.55倍的加速比。
 
-image:apache-spark-image12.png["Horovod Spark Workflow執行時間。"]
+image::apache-spark-image12.png[Horovod Spark Workflow執行時間。]
 
 
 
@@ -350,4 +350,4 @@ test AUC 0.6337
 ....
 我們以類似先前使用案例的方式、比較Spark工作流程執行時間與位於不同位置的資料。下圖顯示Spark工作流程執行時間的深度學習CTR預測比較。
 
-image:apache-spark-image13.png["Spark工作流程執行時間的深度學習CTR預測比較。"]
+image::apache-spark-image13.png[Spark工作流程執行時間的深度學習CTR預測比較。]

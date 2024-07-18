@@ -59,7 +59,7 @@ summary: 既然有解決方法可解決使用Kafka進行NFS儲存時的不實重
 
 本測試案例中使用的基準測試工具為 https://openmessaging.cloud/["OpenMessaging"^] 架構。OpenMessaging不受廠商限制、不受語言限制；它提供金融、電子商務、物聯網和巨量資料等產業準則、有助於跨異質系統和平台開發訊息和串流應用程式。下圖說明OpenMessaging用戶端與Kafka叢集之間的互動。
 
-image:kafka-nfs-image8.png["此影像說明OpenMessaging用戶端與Kafka叢集之間的互動。"]
+image::kafka-nfs-image8.png[此影像說明OpenMessaging用戶端與Kafka叢集之間的互動。]
 
 * *運算*我們使用三節點的Kafka叢集、其中三節點的zookeeper集合體執行於專屬的伺服器上。每個代理商都有兩個NFSv4.1掛載點、透過專屬的LIF連接至NetApp CVO執行個體上的單一Volume。
 * *監控*我們使用兩個節點來搭配Prometheus-Grafana。為了產生工作負載、我們有一個獨立的三節點叢集、可產生和使用此Kafka叢集。
@@ -71,12 +71,12 @@ image:kafka-nfs-image8.png["此影像說明OpenMessaging用戶端與Kafka叢集�
 
 
 
-image:kafka-nfs-image9.png["此影像描述卡夫卡代理商所選擇的規格。"]
+image::kafka-nfs-image9.png[此影像描述卡夫卡代理商所選擇的規格。]
 
 * * OpenMessaging基準測試（OMB）工作負載組態。*提供下列規格。我們指定目標生產商比率、重點如下。
 
 
-image:kafka-nfs-image10.png["此影像描述OpenMessaging基準測試工作負載組態所選的規格。"]
+image::kafka-nfs-image10.png[此影像描述OpenMessaging基準測試工作負載組態所選的規格。]
 
 
 
@@ -113,15 +113,15 @@ sudo bin/benchmark --drivers driver-kafka/kafka-group-all.yaml workloads/1-topic
 * *以較高的產生率、CPU使用率會減少三倍*。*如預期、隨著生產率增加、CPU使用率會增加、因此CPU使用率會增加。不過、使用DAS的Kafka代理商的CPU使用率從較低的產品使用率的31 %增加到較高的產品使用率的70 %、增加39%。不過、有了NFS儲存後端、CPU使用率從26%增加到38%、增加12%。
 
 
-image:kafka-nfs-image11.png["此圖表描述DAS型叢集的行為。"]
+image::kafka-nfs-image11.png[此圖表描述DAS型叢集的行為。]
 
-image:kafka-nfs-image12.png["此圖表說明NFS型叢集的行為。"]
+image::kafka-nfs-image12.png[此圖表說明NFS型叢集的行為。]
 
 此外、在100、000則訊息中、DAS顯示的CPU使用率比NFS叢集高。
 
-image:kafka-nfs-image13.png["此圖顯示以DAS為基礎的叢集在100、000個訊息中的行為。"]
+image::kafka-nfs-image13.png[此圖顯示以DAS為基礎的叢集在100、000個訊息中的行為。]
 
-image:kafka-nfs-image14.png["此圖表描述NFS型叢集在100、000個訊息時的行為。"]
+image::kafka-nfs-image14.png[此圖表描述NFS型叢集在100、000個訊息時的行為。]
 
 
 
@@ -156,7 +156,7 @@ image:kafka-nfs-image14.png["此圖表描述NFS型叢集在100、000個訊息時
 |===
 下圖說明NAS型Kafka叢集的架構。
 
-image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
+image::kafka-nfs-image8.png[此圖說明以NAS為基礎的Kafka叢集架構。]
 
 * *運算。*三節點Kafka叢集、在專用伺服器上執行三節點zookeeper集合體。每個代理程式都有兩個NFS掛載點、可透過專屬LIF連接至NetApp CVO執行個體上的單一磁碟區。
 * *監控* Prometheus-Grafana組合的兩個節點。為了產生工作負載、我們使用獨立的三節點叢集、可產生並使用此Kafka叢集。
@@ -164,7 +164,7 @@ image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
 * * Broker組態。*此測試案例中的其中一個可設定元素是Kafka Broker。卡夫卡經紀公司選擇了下列規格。。 `replica.lag.time.mx.ms` 設定為高值、因為這會決定從ISR清單中取出特定節點的速度。當您在不良和健全的節點之間切換時，您不希望將該代理ID排除在ISR清單之外。
 
 
-image:kafka-nfs-image15.png["此影像顯示卡夫卡代理商所選擇的規格。"]
+image::kafka-nfs-image15.png[此影像顯示卡夫卡代理商所選擇的規格。]
 
 
 
@@ -182,7 +182,7 @@ image:kafka-nfs-image15.png["此影像顯示卡夫卡代理商所選擇的規格
 ** *基於EC2的叢集。*會對應一個Kafka Broker資料目錄 `/mnt/data-2` （下圖為叢集1的Broler-1 [left終端機]）。
 ** * NetApp NFS型叢集。*在NFS點上掛載Kafka Broker資料目錄 `/mnt/data` （下圖為叢集2的Broler-1 [右對講機]）。
 +
-image:kafka-nfs-image16.png["此影像顯示兩個終端機畫面。"]
+image::kafka-nfs-image16.png[此影像顯示兩個終端機畫面。]
 
 
 
@@ -215,11 +215,11 @@ Kafka代理商的恢復速度快了將近九倍。相較於使用Kafka叢集中�
 
 . 備份節點於08：55：53、730開始。
 +
-image:kafka-nfs-image17.png["此影像顯示DAS型叢集的記錄輸出。"]
+image::kafka-nfs-image17.png[此影像顯示DAS型叢集的記錄輸出。]
 
 . 資料重建程序於09：05：24、860結束。處理110 GB的資料大約需要10分鐘。
 +
-image:kafka-nfs-image18.png["此影像顯示DAS型叢集的記錄輸出。"]
+image::kafka-nfs-image18.png[此影像顯示DAS型叢集的記錄輸出。]
 
 
 
@@ -229,17 +229,17 @@ image:kafka-nfs-image18.png["此影像顯示DAS型叢集的記錄輸出。"]
 
 . 備份節點於09：39：17、213開始。下方會強調顯示開始記錄項目。
 +
-image:kafka-nfs-image19.png["此影像顯示NFS型叢集的記錄輸出。"]
+image::kafka-nfs-image19.png[此影像顯示NFS型叢集的記錄輸出。]
 
 . 資料重建程序於09：42：29、115結束。處理110 GB的資料大約需要3分鐘。
 +
-image:kafka-nfs-image20.png["此影像顯示NFS型叢集的記錄輸出。"]
+image::kafka-nfs-image20.png[此影像顯示NFS型叢集的記錄輸出。]
 
 +
 針對包含約1TB資料的代理商重複測試、DAS約需48分鐘、NFS約需3分鐘。結果如下圖所示。
 
 +
-image:kafka-nfs-image21.png["此圖表顯示代理程式還原所需的時間、視代理程式載入DAS型叢集或NFS型叢集的資料量而定。"]
+image::kafka-nfs-image21.png[此圖表顯示代理程式還原所需的時間、視代理程式載入DAS型叢集或NFS型叢集的資料量而定。]
 
 
 
@@ -275,7 +275,7 @@ image:kafka-nfs-image21.png["此圖表顯示代理程式還原所需的時間、
 |===
 下圖說明NAS型Kafka叢集的架構。
 
-image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
+image::kafka-nfs-image8.png[此圖說明以NAS為基礎的Kafka叢集架構。]
 
 * *運算*我們使用三節點的Kafka叢集、其中三節點的zookeeper集合體執行於專屬的伺服器上。每個代理商都有兩個NFS掛載點、可透過專屬LIF連接至NetApp CVO執行個體上的單一磁碟區。
 * *監控*我們使用兩個節點來搭配Prometheus-Grafana。為了產生工作負載、我們使用了一個獨立的三節點叢集、可以產生和使用這個Kafka叢集。
@@ -300,8 +300,8 @@ image:kafka-nfs-image8.png["此圖說明以NAS為基礎的Kafka叢集架構。"]
 
 對於使用OMB工具產生的資料、我們發現空間節約約33%、儲存效率比為1.70:1。如下圖所示、所產生資料所使用的邏輯空間為420.3GB、用於保存資料的實體空間為281.7GB。
 
-image:kafka-nfs-image22.png["此映像描述VMDisk的空間節約效益。"]
+image::kafka-nfs-image22.png[此映像描述VMDisk的空間節約效益。]
 
-image:kafka-nfs-image23.png["快照"]
+image::kafka-nfs-image23.png[快照]
 
-image:kafka-nfs-image24.png["快照"]
+image::kafka-nfs-image24.png[快照]

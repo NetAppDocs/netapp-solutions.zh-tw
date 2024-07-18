@@ -70,7 +70,7 @@ NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線
 
 . 從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 VM* 、然後按一下要用於 NFS 流量的 SVM 。在 * 概述 * 選項卡的 * 網絡 IP 接口 * 下，單擊 *NFS* 右側的數字。在清單中、確認列出所需的 LIF IP 位址。
 +
-image:vmware-vcf-aff-image03.png["驗證 SVM 的生命"]
+image::vmware-vcf-aff-image03.png[驗證 SVM 的生命]
 
 
 
@@ -99,21 +99,21 @@ NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線
 . 在 ONTAP 系統管理員中、按一下左側功能表中的 * 儲存 VMS* 、然後從清單中選取 SVM 。
 . 在 * 設定 * 索引標籤上、找到 * 匯出原則 * 、然後按一下箭頭以存取。
 +
-image:vmware-vcf-aff-image06.png["存取匯出原則"]
+image::vmware-vcf-aff-image06.png[存取匯出原則]
 
 +
 ｛ nbsp ｝
 
 . 在「 * 新增匯出原則 * 」視窗中新增原則名稱、按一下「 * 新增規則 * 」按鈕、然後按一下「 *+Add* 」按鈕、即可開始新增規則。
 +
-image:vmware-vcf-aff-image07.png["新的匯出原則"]
+image::vmware-vcf-aff-image07.png[新的匯出原則]
 
 +
 ｛ nbsp ｝
 
 . 填寫您要納入規則的 IP 位址、 IP 位址範圍或網路。取消勾選 *SMB/CIFS* 和 * FlexCache * 方塊、並在下方選擇存取詳細資料。選取 UNIX 方塊就足以讓 ESXi 主機存取。
 +
-image:vmware-vcf-aff-image08.png["儲存新規則"]
+image::vmware-vcf-aff-image08.png[儲存新規則]
 
 +
 
@@ -136,21 +136,21 @@ NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線
 
 . 從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 > 磁碟區 * 、然後按一下 *+Add* 以建立新的磁碟區。
 +
-image:vmware-vcf-aff-image09.png["新增磁碟區"]
+image::vmware-vcf-aff-image09.png[新增磁碟區]
 
 +
 ｛ nbsp ｝
 
 . 新增磁碟區名稱、填寫所需容量、並選擇要裝載該磁碟區的儲存 VM 。按一下 * 更多選項 * 繼續。
 +
-image:vmware-vcf-aff-image10.png["新增 Volume 詳細資料"]
+image::vmware-vcf-aff-image10.png[新增 Volume 詳細資料]
 
 +
 ｛ nbsp ｝
 
 . 在 [ 存取權限 ] 下，選取 [ 匯出原則 ] ，其中包含用於驗證 NFS 伺服器和 NFS 流量的 VCF 管理網路或 IP 位址和 NFS 網路 IP 位址。
 +
-image:vmware-vcf-aff-image11.png["新增 Volume 詳細資料"]
+image::vmware-vcf-aff-image11.png[新增 Volume 詳細資料]
 
 +
 +
@@ -171,14 +171,14 @@ NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線
 
 . 從 SDDC Manager 網路介面瀏覽至左側功能表中的 * 網路設定 * 、然後按一下 *+ 建立網路集區 * 按鈕。
 +
-image:vmware-vcf-aff-image04.png["建立網路集區"]
+image::vmware-vcf-aff-image04.png[建立網路集區]
 
 +
 ｛ nbsp ｝
 
 . 填寫網路集區的名稱、選取 NFS 核取方塊、然後填寫所有網路詳細資料。針對 VMotion 網路資訊重複此步驟。
 +
-image:vmware-vcf-aff-image05.png["網路集區組態"]
+image::vmware-vcf-aff-image05.png[網路集區組態]
 
 +
 ｛ nbsp ｝
@@ -196,21 +196,21 @@ image:vmware-vcf-aff-image05.png["網路集區組態"]
 
 . 從 SDDC Manager 介面瀏覽至左側功能表中的 * 主機 * 、然後按一下 * 佣金主機 * 按鈕。
 +
-image:vmware-vcf-aff-image16.png["啟動佣金主機"]
+image::vmware-vcf-aff-image16.png[啟動佣金主機]
 
 +
 ｛ nbsp ｝
 
 . 第一頁是必備的檢查清單。請勾選所有先決條件、並勾選所有核取方塊以繼續。
 +
-image:vmware-vcf-aff-image17.png["確認先決條件"]
+image::vmware-vcf-aff-image17.png[確認先決條件]
 
 +
 ｛ nbsp ｝
 
 . 在「 * 主機新增與驗證 * 」視窗中、填寫 * 主機 FQDN* 、 * 儲存類型 * 、包含用於工作負載網域的 VMotion 和 NFS 儲存 IP 位址的 * 網路集區 * 名稱、以及存取 ESXi 主機的認證。按一下 * 新增 * 、將主機新增至要驗證的主機群組。
 +
-image:vmware-vcf-aff-image18.png["主機新增與驗證視窗"]
+image::vmware-vcf-aff-image18.png[主機新增與驗證視窗]
 
 +
 ｛ nbsp ｝
@@ -218,14 +218,14 @@ image:vmware-vcf-aff-image18.png["主機新增與驗證視窗"]
 . 新增所有要驗證的主機之後、請按一下 * 驗證全部 * 按鈕繼續。
 . 假設所有主機均已通過驗證、請按一下 * 下一步 * 繼續。
 +
-image:vmware-vcf-aff-image19.png["全部驗證、然後按一下「下一步」"]
+image::vmware-vcf-aff-image19.png[全部驗證、然後按一下「下一步」]
 
 +
 ｛ nbsp ｝
 
 . 檢閱要委託的主機清單、然後按一下 * 佣金 * 按鈕以開始此程序。從 SDDC 管理程式的「工作」窗格監控委託程序。
 +
-image:vmware-vcf-aff-image20.png["全部驗證、然後按一下「下一步」"]
+image::vmware-vcf-aff-image20.png[全部驗證、然後按一下「下一步」]
 
 
 
@@ -239,7 +239,7 @@ image:vmware-vcf-aff-image20.png["全部驗證、然後按一下「下一步」"
 
 . 從 SDDC Manager Dashboard 按一下右上角的 * + Workload Domain* 、即可建立新的 Workload Domain 。
 +
-image:vmware-vcf-aff-image12.png["建立新的工作負載網域"]
+image::vmware-vcf-aff-image12.png[建立新的工作負載網域]
 
 +
 ｛ nbsp ｝
@@ -249,19 +249,18 @@ image:vmware-vcf-aff-image12.png["建立新的工作負載網域"]
 
 如需填寫 VI 組態精靈所需資訊的相關資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-admin/GUID-E64CEFDD-DCA2-4D19-B5C5-D8ABE66407B8.html#GUID-E64CEFDD-DCA2-4D19-B5C5-D8ABE66407B8["使用 SDDC Manager UI 部署 VI 工作負載網域"]。
 
-+
-image:vmware-vcf-aff-image13.png["VI 組態精靈"]
++ 影像：： vmware-vcf-a穎 -image13.png[VI 組態精靈 ]
 
 . 在「 NFS 儲存」區段中、填寫資料存放區名稱、 NFS 磁碟區的資料夾掛載點、以及 ONTAP NFS 儲存 VM LIF 的 IP 位址。
 +
-image:vmware-vcf-aff-image14.png["新增 NFS 儲存資訊"]
+image::vmware-vcf-aff-image14.png[新增 NFS 儲存資訊]
 
 +
 ｛ nbsp ｝
 
 . 在 VI 組態精靈中完成交換器組態和授權步驟、然後按一下 * 完成 * 以開始建立工作負載網域程序。
 +
-image:vmware-vcf-aff-image15.png["完成 VI 組態精靈"]
+image::vmware-vcf-aff-image15.png[完成 VI 組態精靈]
 
 +
 ｛ nbsp ｝

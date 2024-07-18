@@ -36,7 +36,7 @@ NetApp SnapCenter 解決方案支援工具使用角色型存取控制（RBAC）�
 . 瀏覽至「設定與使用者」下方的「存取」索引標籤、然後按一下「新增」以新增使用者。新的使用者ID會連結至步驟1中在Windows Active Directory中建立的管理員使用者。。視需要指派適當的角色給使用者。視情況指派資源給管理使用者。
 
 
-image:snapctr_admin_users.PNG[""]
+image::snapctr_admin_users.PNG[snapctr 管理使用者]
 
 
 
@@ -84,7 +84,7 @@ NOTE: 在嘗試在SnapCenter 雲端DB伺服器執行個體上安裝時、請先�
 
 瀏覽至「設定」>「全域設定」。選取Hypervisor設定下的「VM有iSCSI直接附加磁碟或所有主機的NFS」、然後按一下「Update（更新）」。
 
-image:snapctr_vmware_global.PNG[""]
+image::snapctr_vmware_global.PNG[snapctr VMware 全球]
 
 
 
@@ -94,23 +94,23 @@ image:snapctr_vmware_global.PNG[""]
 . 按一下左側功能表中的「hosts（主機）」索引標籤、然後按一下「Add（新增）」以開啟「Add Host（新增主機）」工作流程。
 . 選擇Windows作為主機類型、主機名稱可以是主機名稱或IP位址。主機名稱必須從SnapCenter 該支援主機解析為正確的主機IP位址。選擇在步驟2中建立的主機認證資料。選擇Microsoft Windows和Microsoft SQL Server做為要安裝的外掛套件。
 +
-image:snapctr_add_windows_host_01.PNG[""]
+image::snapctr_add_windows_host_01.PNG[snapctr 新增 windows host 01]
 
 . 在Windows主機上安裝外掛程式之後、其整體狀態會顯示為「Configure log目錄」。
 +
-image:snapctr_add_windows_host_02.PNG[""]
+image::snapctr_add_windows_host_02.PNG[snapctr 新增 Windows 主機 02]
 
 . 按一下主機名稱以開啟SQL Server記錄目錄組態。
 +
-image:snapctr_add_windows_host_03.PNG[""]
+image::snapctr_add_windows_host_03.PNG[snapctr 新增 Windows 主機 03]
 
 . 按一下「設定記錄目錄」以開啟「設定SQL Server的外掛程式」。
 +
-image:snapctr_add_windows_host_04.PNG[""]
+image::snapctr_add_windows_host_04.PNG[snapctr 新增 Windows 主機 04]
 
 . 按一下「瀏覽SnapCenter 」以探索NetApp儲存設備、以便設定記錄目錄；使用此記錄目錄來彙總SQL Server交易記錄檔。然後按一下「儲存」。
 +
-image:snapctr_add_windows_host_05.PNG[""]
+image::snapctr_add_windows_host_05.PNG[snapctr 新增 Windows 主機 05]
 
 +
 
@@ -118,14 +118,14 @@ NOTE: 若要探索配置至資料庫主機的NetApp儲存設備、必須將儲�
 
 . 設定記錄目錄之後、Windows主機外掛程式的整體狀態會變更為執行中。
 +
-image:snapctr_add_windows_host_06.PNG[""]
+image::snapctr_add_windows_host_06.PNG[snapctr 新增 Windows 主機 06]
 
 . 若要將主機指派給資料庫管理使用者ID、請瀏覽至「Settings and Users（設定與使用者）」下的「Access（存取）」索引標籤、按一下資料庫管理使用者ID（在我們的案例中是主機需要指派的sqldba）、然後按一下「Save（儲存）」完成主機資源指派。
 +
-image:snapctr_add_windows_host_07.PNG[""]
+image::snapctr_add_windows_host_07.PNG[snapctr 新增 Windows 主機 07]
 
 +
-image:snapctr_add_windows_host_08.PNG[""]
+image::snapctr_add_windows_host_08.PNG[snapctr 新增 Windows 主機 08]
 
 
 
@@ -137,26 +137,26 @@ image:snapctr_add_windows_host_08.PNG[""]
 . 按一下左側功能表中的「主機」索引標籤、然後按一下「新增」以開啟「新增主機」工作流程。
 . 選擇Linux作為主機類型。主機名稱可以是主機名稱或IP位址。不過、主機名稱必須解析、才能從SnapCenter 功能主機修正主機IP位址。選擇在步驟2中建立的主機認證。主機認證資料需要Sudo權限。將Oracle資料庫核取為要安裝的外掛程式、安裝Oracle和Linux主機外掛程式。
 +
-image:snapctr_add_linux_host_01.PNG[""]
+image::snapctr_add_linux_host_01.PNG[snapctr 新增 Linux 主機 01]
 
 . 按一下「更多選項」、然後選取「跳過預先安裝檢查」。 系統會提示您確認跳過預先安裝檢查。按一下「Yes（是）」、然後按一
 +
-image:snapctr_add_linux_host_02.PNG[""]
+image::snapctr_add_linux_host_02.PNG[snapctr 新增 Linux 主機 02]
 
 . 按一下「提交」開始安裝外掛程式。系統會提示您確認指紋、如下所示。
 +
-image:snapctr_add_linux_host_03.PNG[""]
+image::snapctr_add_linux_host_03.PNG[snapctr 新增 Linux 主機 03]
 
 . 執行主機驗證和登錄、然後在Linux主機上安裝外掛程式。SnapCenter狀態會從「安裝外掛程式」變更為「執行中」。
 +
-image:snapctr_add_linux_host_04.PNG[""]
+image::snapctr_add_linux_host_04.PNG[snapctr 新增 Linux 主機 04]
 
 . 將新增的主機指派至適當的資料庫管理使用者ID（在我們的案例中為oradba）。
 +
-image:snapctr_add_linux_host_05.PNG[""]
+image::snapctr_add_linux_host_05.PNG[snapctr 新增 Linux 主機 05]
 
 +
-image:snapctr_add_linux_host_06.PNG[""]
+image::snapctr_add_linux_host_06.PNG[snapctr 新增 Linux 主機 06]
 
 
 
@@ -166,23 +166,23 @@ image:snapctr_add_linux_host_06.PNG[""]
 
 成功安裝外掛程式後、即可立即探索主機上的資料庫資源。按一下左側功能表中的「Resources（資源）」索引標籤。視資料庫平台的類型而定、有許多檢視可供使用、例如資料庫、資源群組等。如果未發現並顯示主機上的資源、您可能需要按一下「Refresh Resources（重新整理資源）」索引標籤。
 
-image:snapctr_resources_ora.PNG[""]
+image::snapctr_resources_ora.PNG[snapctr 資源 ora]
 
 初次探索資料庫時、整體狀態會顯示為「未受保護」。 上一個螢幕快照顯示Oracle資料庫尚未受到備份原則的保護。
 
 設定備份組態或原則並執行備份時、資料庫的整體狀態會顯示備份狀態為「備份成功」、以及上次備份的時間戳記。下列螢幕擷取畫面顯示SQL Server使用者資料庫的備份狀態。
 
-image:snapctr_resources_sql.PNG[""]
+image::snapctr_resources_sql.PNG[snapctr 資源 SQL]
 
 如果資料庫存取認證未正確設定、則紅色鎖定按鈕表示無法存取資料庫。例如、如果Windows認證沒有資料庫執行個體的Sysadmin存取權、則必須重新設定資料庫認證、才能解除鎖定紅色鎖定。
 
-image:snapctr_add_windows_host_09.PNG[""]
+image::snapctr_add_windows_host_09.PNG[snapctr 新增 Windows 主機 09]
 
-image:snapctr_add_windows_host_10.PNG[""]
+image::snapctr_add_windows_host_10.PNG[snapctr 新增 Windows 主機 10]
 
 在Windows層級或資料庫層級設定適當的認證之後、紅色鎖定就會消失、SQL Server類型資訊也會收集並檢閱。
 
-image:snapctr_add_windows_host_11.PNG[""]
+image::snapctr_add_windows_host_11.PNG[snapctr 新增 Windows 主機 11]
 
 
 
@@ -195,13 +195,13 @@ image:snapctr_add_windows_host_11.PNG[""]
 內部部署叢集：
 
 +
-image:snapctr_cluster_replication_01.PNG[""]
+image::snapctr_cluster_replication_01.PNG[snapctr 叢集複寫 01]
 
 +
 目標CVO叢集：
 
 +
-image:snapctr_cluster_replication_02.PNG[""]
+image::snapctr_cluster_replication_02.PNG[snapctr 叢集複寫 02]
 
 . 在設定叢集間生命體之後、您可以使用NetApp Cloud Manager中的拖放功能來設定叢集對等和磁碟區複寫。請參閱 link:hybrid_dbops_snapcenter_getting_started_aws.html#aws-public-cloud["入門指南- AWS公有雲"] 以取得詳細資料。
 +
@@ -209,19 +209,19 @@ image:snapctr_cluster_replication_02.PNG[""]
 
 . 登入ONTAP 《系統管理程式》。瀏覽至「叢集」>「設定」、然後按一下「對等叢集」、以設定叢集與雲端中CVO執行個體的對等關係。
 +
-image:snapctr_vol_snapmirror_00.PNG[""]
+image::snapctr_vol_snapmirror_00.PNG[snapctr vol SnapMirror 00]
 
 . 前往「Volumes（磁碟區）」索引標籤選取要複寫的資料庫磁碟區、然後按一下「Protect（保護）」。
 +
-image:snapctr_vol_snapmirror_01.PNG[""]
+image::snapctr_vol_snapmirror_01.PNG[Snapctr vol SnapMirror 01]
 
 . 將保護原則設為「非同步」。選取目的地叢集和儲存SVM。
 +
-image:snapctr_vol_snapmirror_02.PNG[""]
+image::snapctr_vol_snapmirror_02.PNG[snapctr vol SnapMirror 02]
 
 . 驗證來源與目標之間的磁碟區是否同步、以及複寫關係是否健全。
 +
-image:snapctr_vol_snapmirror_03.PNG[""]
+image::snapctr_vol_snapmirror_03.PNG[Snapctr vol SnapMirror 03]
 
 
 
@@ -232,15 +232,15 @@ image:snapctr_vol_snapmirror_03.PNG[""]
 . 使用具有SnapCenterAdmin權限的使用者ID登入SnapCenter 功能。
 . 按一下功能表中的「Storage System（儲存系統）」索引標籤、然後按一下「New（新增）」以新增裝載複寫目標資料庫Volume的CVO儲存SVM SnapCenter 。在Storage System（儲存系統）欄位中輸入叢集管理IP、然後輸入適當的使用者名稱和密碼。
 +
-image:snapctr_add_cvo_svm_01.PNG[""]
+image::snapctr_add_cvo_svm_01.PNG[snapctr 新增 CVO SVM 01]
 
 . 按一下「更多選項」以開啟其他儲存組態選項。在「Platform（平台）」欄位中、選取Cloud Volumes ONTAP 「效益」、選取「次要」、然後按一下「Save（儲存）」。
 +
-image:snapctr_add_cvo_svm_02.PNG[""]
+image::snapctr_add_cvo_svm_02.PNG[snapctr 新增 CVO SVM 02]
 
 . 如SnapCenter 所示、將儲存系統指派給不實的資料庫管理使用者ID <<3. SnapCenter 安裝支援主機外掛程式>>。
 +
-image:snapctr_add_cvo_svm_03.PNG[""]
+image::snapctr_add_cvo_svm_03.PNG[snapctr 新增 CVO SVM 03]
 
 
 
@@ -256,35 +256,35 @@ image:snapctr_add_cvo_svm_03.PNG[""]
 
 . 以SnapCenter 資料庫管理使用者ID登入功能表、按一下「設定」、然後按一下「原則」。
 +
-image:snapctr_ora_policy_data_01.PNG[""]
+image::snapctr_ora_policy_data_01.PNG[snapctr ora 原則資料 01]
 
 . 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
 +
-image:snapctr_ora_policy_data_02.PNG[""]
+image::snapctr_ora_policy_data_02.PNG[snapctr ora 原則資料 02]
 
 . 選取備份類型和排程頻率。
 +
-image:snapctr_ora_policy_data_03.PNG[""]
+image::snapctr_ora_policy_data_03.PNG[snapctr ora 原則資料 03]
 
 . 設定備份保留設定。這會定義要保留多少完整資料庫備份複本。
 +
-image:snapctr_ora_policy_data_04.PNG[""]
+image::snapctr_ora_policy_data_04.PNG[snapctr ora 原則資料 04]
 
 . 選取次要複寫選項、將本機主要快照備份推送至雲端的次要位置。
 +
-image:snapctr_ora_policy_data_05.PNG[""]
+image::snapctr_ora_policy_data_05.PNG[snapctr ora 原則資料 05]
 
 . 指定在備份執行前後執行的任何選用指令碼。
 +
-image:snapctr_ora_policy_data_06.PNG[""]
+image::snapctr_ora_policy_data_06.PNG[snapctr ora 原則資料 06]
 
 . 視需要執行備份驗證。
 +
-image:snapctr_ora_policy_data_07.PNG[""]
+image::snapctr_ora_policy_data_07.PNG[snapctr ora 原則資料 07]
 
 . 摘要：
 +
-image:snapctr_ora_policy_data_08.PNG[""]
+image::snapctr_ora_policy_data_08.PNG[snapctr ora 原則資料 08]
 
 
 
@@ -295,31 +295,31 @@ image:snapctr_ora_policy_data_08.PNG[""]
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」、然後按一下「原則」。
 . 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
 +
-image:snapctr_ora_policy_log_01.PNG[""]
+image::snapctr_ora_policy_log_01.PNG[snapctr ora 原則記錄 01]
 
 . 選取備份類型和排程頻率。
 +
-image:snapctr_ora_policy_log_02.PNG[""]
+image::snapctr_ora_policy_log_02.PNG[snapctr ora 原則記錄 02]
 
 . 設定記錄保留期間。
 +
-image:snapctr_ora_policy_log_03.PNG[""]
+image::snapctr_ora_policy_log_03.PNG[snapctr ora 原則記錄 03]
 
 . 啟用複寫至公有雲中的次要位置。
 +
-image:snapctr_ora_policy_log_04.PNG[""]
+image::snapctr_ora_policy_log_04.PNG[snapctr ora 原則記錄 04]
 
 . 指定在記錄備份前後執行的任何選用指令碼。
 +
-image:snapctr_ora_policy_log_05.PNG[""]
+image::snapctr_ora_policy_log_05.PNG[snapctr ora 原則記錄 05]
 
 . 指定任何備份驗證指令碼。
 +
-image:snapctr_ora_policy_log_06.PNG[""]
+image::snapctr_ora_policy_log_06.PNG[snapctr ora 原則記錄 06]
 
 . 摘要：
 +
-image:snapctr_ora_policy_log_07.PNG[""]
+image::snapctr_ora_policy_log_07.PNG[snapctr ora 原則記錄 07]
 
 
 
@@ -329,35 +329,35 @@ image:snapctr_ora_policy_log_07.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」、然後按一下「原則」。
 +
-image:snapctr_sql_policy_data_01.PNG[""]
+image::snapctr_sql_policy_data_01.PNG[snapctr SQL 原則資料 01]
 
 . 按一下「新增」以啟動新的備份原則建立工作流程、或選擇要修改的現有原則。
 +
-image:snapctr_sql_policy_data_02.PNG[""]
+image::snapctr_sql_policy_data_02.PNG[snapctr SQL 原則資料 02]
 
 . 定義備份選項和排程頻率。對於使用可用度群組設定的SQL Server、可以設定偏好的備份複本。
 +
-image:snapctr_sql_policy_data_03.PNG[""]
+image::snapctr_sql_policy_data_03.PNG[snapctr SQL 原則資料 03]
 
 . 設定備份保留期間。
 +
-image:snapctr_sql_policy_data_04.PNG[""]
+image::snapctr_sql_policy_data_04.PNG[snapctr SQL 原則資料 04]
 
 . 啟用備份複本複寫至雲端的次要位置。
 +
-image:snapctr_sql_policy_data_05.PNG[""]
+image::snapctr_sql_policy_data_05.PNG[snapctr SQL 原則資料 05]
 
 . 指定在備份工作之前或之後執行的任何選用指令碼。
 +
-image:snapctr_sql_policy_data_06.PNG[""]
+image::snapctr_sql_policy_data_06.PNG[snapctr SQL 原則資料 06]
 
 . 指定執行備份驗證的選項。
 +
-image:snapctr_sql_policy_data_07.PNG[""]
+image::snapctr_sql_policy_data_07.PNG[snapctr SQL 原則資料 07]
 
 . 摘要：
 +
-image:snapctr_sql_policy_data_08.PNG[""]
+image::snapctr_sql_policy_data_08.PNG[snapctr SQL 原則資料 08]
 
 
 
@@ -367,27 +367,27 @@ image:snapctr_sql_policy_data_08.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、按一下「設定」>「原則」、然後按一下「新增」以啟動新的原則建立工作流程。
 +
-image:snapctr_sql_policy_log_01.PNG[""]
+image::snapctr_sql_policy_log_01.PNG[snapctr SQL 原則記錄 01]
 
 . 定義記錄備份選項和排程頻率。對於使用可用度群組設定的SQL Server、可以設定偏好的備份複本。
 +
-image:snapctr_sql_policy_log_02.PNG[""]
+image::snapctr_sql_policy_log_02.PNG[snapctr SQL 原則記錄 02]
 
 . SQL Server資料備份原則會定義記錄備份保留；在此接受預設值。
 +
-image:snapctr_sql_policy_log_03.PNG[""]
+image::snapctr_sql_policy_log_03.PNG[snapctr SQL 原則記錄 03]
 
 . 在雲端中啟用次要的記錄備份複寫。
 +
-image:snapctr_sql_policy_log_04.PNG[""]
+image::snapctr_sql_policy_log_04.PNG[snapctr SQL 原則記錄 04]
 
 . 指定在備份工作之前或之後執行的任何選用指令碼。
 +
-image:snapctr_sql_policy_log_05.PNG[""]
+image::snapctr_sql_policy_log_05.PNG[snapctr SQL 原則記錄 05]
 
 . 摘要：
 +
-image:snapctr_sql_policy_log_06.PNG[""]
+image::snapctr_sql_policy_log_06.PNG[snapctr SQL 原則記錄 06]
 
 
 
@@ -403,35 +403,35 @@ image:snapctr_sql_policy_log_06.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」以啟動資源群組建立工作流程。
 +
-image:snapctr_ora_rgroup_full_01.PNG[""]
+image::snapctr_ora_rgroup_full_01.PNG[snapctr ora rgroup 完整版 01]
 
 . 提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式、並略過備援歸檔記錄目的地（如果已設定）。
 +
-image:snapctr_ora_rgroup_full_02.PNG[""]
+image::snapctr_ora_rgroup_full_02.PNG[snapctr ora rgroup 完整版 02]
 
 . 將資料庫資源新增至資源群組。
 +
-image:snapctr_ora_rgroup_full_03.PNG[""]
+image::snapctr_ora_rgroup_full_03.PNG[snapctr ora rgroup 完整版 03]
 
 . 從下拉式清單中選取第7節所建立的完整備份原則。
 +
-image:snapctr_ora_rgroup_full_04.PNG[""]
+image::snapctr_ora_rgroup_full_04.PNG[snapctr ora rgroup 完整版 04]
 
 . 按一下（+）號以設定所需的備份排程。
 +
-image:snapctr_ora_rgroup_full_05.PNG[""]
+image::snapctr_ora_rgroup_full_05.PNG[snapctr ora rgroup 完整版 05]
 
 . 按一下「Load Locators（載入定位器）」以載入來源和目的地Volume。
 +
-image:snapctr_ora_rgroup_full_06.PNG[""]
+image::snapctr_ora_rgroup_full_06.PNG[snapctr ora rgroup 完整版 06]
 
 . 如有需要、請設定用於電子郵件通知的SMTP伺服器。
 +
-image:snapctr_ora_rgroup_full_07.PNG[""]
+image::snapctr_ora_rgroup_full_07.PNG[snapctr ora rgroup 完整版 07]
 
 . 摘要：
 +
-image:snapctr_ora_rgroup_full_08.PNG[""]
+image::snapctr_ora_rgroup_full_08.PNG[snapctr ora rgroup 完整版 08]
 
 
 
@@ -441,35 +441,35 @@ image:snapctr_ora_rgroup_full_08.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」以啟動資源群組建立工作流程。
 +
-image:snapctr_ora_rgroup_log_01.PNG[""]
+image::snapctr_ora_rgroup_log_01.PNG[snapctr ora rgroup 日誌 01]
 
 . 提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式、並略過備援歸檔記錄目的地（如果已設定）。
 +
-image:snapctr_ora_rgroup_log_02.PNG[""]
+image::snapctr_ora_rgroup_log_02.PNG[snapctr ora rgroup 日誌 02]
 
 . 將資料庫資源新增至資源群組。
 +
-image:snapctr_ora_rgroup_log_03.PNG[""]
+image::snapctr_ora_rgroup_log_03.PNG[snapctr ora rgroup log 03]
 
 . 從下拉式清單中選取第7節中建立的記錄備份原則。
 +
-image:snapctr_ora_rgroup_log_04.PNG[""]
+image::snapctr_ora_rgroup_log_04.PNG[snapctr ora rgroup log 04]
 
 . 按一下（+）號以設定所需的備份排程。
 +
-image:snapctr_ora_rgroup_log_05.PNG[""]
+image::snapctr_ora_rgroup_log_05.PNG[snapctr ora rgroup log 05]
 
 . 如果已設定備份驗證、則會顯示於此處。
 +
-image:snapctr_ora_rgroup_log_06.PNG[""]
+image::snapctr_ora_rgroup_log_06.PNG[snapctr ora rgroup log 06]
 
 . 如有需要、請設定用於電子郵件通知的SMTP伺服器。
 +
-image:snapctr_ora_rgroup_log_07.PNG[""]
+image::snapctr_ora_rgroup_log_07.PNG[snapctr ora rgroup log 07]
 
 . 摘要：
 +
-image:snapctr_ora_rgroup_log_08.PNG[""]
+image::snapctr_ora_rgroup_log_08.PNG[snapctr ora rgroup log 08]
 
 
 
@@ -479,31 +479,31 @@ image:snapctr_ora_rgroup_log_08.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」來啟動資源群組建立工作流程。提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式。
 +
-image:snapctr_sql_rgroup_full_01.PNG[""]
+image::snapctr_sql_rgroup_full_01.PNG[snapctr SQL rgroup 完整版 01]
 
 . 選取要備份的資料庫資源。
 +
-image:snapctr_sql_rgroup_full_02.PNG[""]
+image::snapctr_sql_rgroup_full_02.PNG[snapctr SQL rgroup 完整版 02]
 
 . 選取在第7節中建立的完整SQL備份原則。
 +
-image:snapctr_sql_rgroup_full_03.PNG[""]
+image::snapctr_sql_rgroup_full_03.PNG[snapctr SQL rgroup 完整版 03]
 
 . 增加準確的備份時間和頻率。
 +
-image:snapctr_sql_rgroup_full_04.PNG[""]
+image::snapctr_sql_rgroup_full_04.PNG[snapctr SQL rgroup 完整版 04]
 
 . 如果要執行備份驗證、請選擇驗證伺服器進行次要備份。按一下「Load Locator（載入定位器）」以填入次要儲存位置。
 +
-image:snapctr_sql_rgroup_full_05.PNG[""]
+image::snapctr_sql_rgroup_full_05.PNG[snapctr SQL rgroup 完整版 05]
 
 . 如有需要、請設定用於電子郵件通知的SMTP伺服器。
 +
-image:snapctr_sql_rgroup_full_06.PNG[""]
+image::snapctr_sql_rgroup_full_06.PNG[snapctr SQL rgroup 完整版 06]
 
 . 摘要：
 +
-image:snapctr_sql_rgroup_full_07.PNG[""]
+image::snapctr_sql_rgroup_full_07.PNG[snapctr SQL rgroup 完整版 07]
 
 
 
@@ -513,31 +513,31 @@ image:snapctr_sql_rgroup_full_07.PNG[""]
 
 . 使用資料庫管理使用者ID登入SnapCenter 功能表、然後瀏覽至「資源」索引標籤。在「檢視」下拉式清單中、選擇「資料庫」或「資源群組」來啟動資源群組建立工作流程。提供資源群組的名稱和標記。您可以定義Snapshot複本的命名格式。
 +
-image:snapctr_sql_rgroup_log_01.PNG[""]
+image::snapctr_sql_rgroup_log_01.PNG[snapctr SQL rgroup 記錄 01]
 
 . 選取要備份的資料庫資源。
 +
-image:snapctr_sql_rgroup_log_02.PNG[""]
+image::snapctr_sql_rgroup_log_02.PNG[snapctr SQL rgroup 日誌 02]
 
 . 選取在第7節中建立的SQL記錄備份原則。
 +
-image:snapctr_sql_rgroup_log_03.PNG[""]
+image::snapctr_sql_rgroup_log_03.PNG[snapctr SQL rgroup 記錄 03]
 
 . 新增確切的備份時間和頻率。
 +
-image:snapctr_sql_rgroup_log_04.PNG[""]
+image::snapctr_sql_rgroup_log_04.PNG[snapctr SQL rgroup 記錄 04]
 
 . 如果要執行備份驗證、請選擇驗證伺服器進行次要備份。按一下「Load Locator（載入定位器）」以填入次要儲存位置。
 +
-image:snapctr_sql_rgroup_log_05.PNG[""]
+image::snapctr_sql_rgroup_log_05.PNG[snapctr SQL rgroup 記錄 05]
 
 . 如有需要、請設定用於電子郵件通知的SMTP伺服器。
 +
-image:snapctr_sql_rgroup_log_06.PNG[""]
+image::snapctr_sql_rgroup_log_06.PNG[snapctr SQL rgroup 記錄 06]
 
 . 摘要：
 +
-image:snapctr_sql_rgroup_log_07.PNG[""]
+image::snapctr_sql_rgroup_log_07.PNG[snapctr SQL rgroup 記錄 07]
 
 
 
@@ -547,10 +547,10 @@ image:snapctr_sql_rgroup_log_07.PNG[""]
 
 建立資料庫備份資源群組以保護資料庫資源之後、備份工作會根據預先定義的排程執行。檢查「監控」索引標籤下的工作執行狀態。
 
-image:snapctr_job_status_sql.PNG[""]
+image::snapctr_job_status_sql.PNG[snapctr 工作狀態 SQL]
 
 移至「資源」索引標籤、按一下資料庫名稱以檢視資料庫備份的詳細資料、然後在本機複本和鏡射複本之間切換、以驗證Snapshot備份是否已複寫到公有雲的次要位置。
 
-image:snapctr_job_status_ora.PNG[""]
+image::snapctr_job_status_ora.PNG[snapctr 工作狀態 ora]
 
 此時、雲端中的資料庫備份複本已準備好複製、以便在發生一線故障時執行開發/測試程序或進行災難恢復。

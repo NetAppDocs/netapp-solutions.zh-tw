@@ -37,11 +37,11 @@ NetApp建議採用下列儲存配置：
 
 * 對於NFS儲存設備、建議的Volume配置為三個Volume：一個用於Oracle二進位、一個用於Oracle資料、一個用於複製控制檔、另一個用於Oracle主動式記錄、歸檔記錄和控制檔。
 +
-image:aws_ora_fsx_ec2_stor_12.PNG[""]
+image::aws_ora_fsx_ec2_stor_12.PNG[AWS ora FSX EC2 STOR 12]
 
 * 對於iSCSI儲存設備、建議的Volume配置為三個Volume：一個用於Oracle二進位、一個用於Oracle資料、一個用於複製控制檔、另一個用於Oracle主動式記錄、歸檔記錄和控制檔。不過、理想情況下、每個資料和記錄磁碟區都應該包含四個LUN。LUN在HA叢集節點上的理想平衡。
 +
-image:aws_ora_fsx_ec2_stor_13.PNG[""]
+image::aws_ora_fsx_ec2_stor_13.PNG[AWS ora FSX EC2 stor 13.]
 
 * 在儲存IOPS和處理量方面、您可以選擇FSX儲存叢集的已配置IOPS和處理量臨界值、而且這些參數可在工作負載變更時即時調整。
 +
@@ -74,7 +74,7 @@ sysctl -a | grep tcp.*.slot_table
 ----
 * 下表提供Linux NFSv3（單一執行個體）的建議NFS掛載選項。
 +
-image:aws_ora_fsx_ec2_nfs_01.PNG[""]
+image::aws_ora_fsx_ec2_nfs_01.PNG[AWS ora FSX EC2 NFS 01]
 
 
 

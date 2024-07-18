@@ -74,7 +74,7 @@ Oracle資料庫Volume的處理量限制是由下列因素組合所決定：磁�
 
 下圖顯示如何計算Oracle資料庫Volume的處理量限制。
 
-image:db_ora_azure_anf_factors_01.PNG["此影像說明套用至三個容量層級的方程式、以判斷總處理量。"]
+image::db_ora_azure_anf_factors_01.PNG[此影像說明套用至三個容量層級的方程式、以判斷總處理量。]
 
 在範例1中、從容量集區中指派2 TiB配額的優質儲存層、會將處理量限制指派為128 MiBps（2TiB * 64MiBps）。無論容量集區大小或實際磁碟區使用量為何、都適用此案例。
 
@@ -90,11 +90,11 @@ NetApp建議採用下列儲存配置：
 
 * 對於小型資料庫、所有Oracle檔案都使用單一Volume配置。
 +
-image:db_ora_azure_anf_factors_02.PNG["此映像描述三個資料庫（DB1、DB2和DB3）、每個資料庫都包含資料檔案、重作記錄、歸檔記錄和控制檔案、全都位於單一容量集區內。"]
+image::db_ora_azure_anf_factors_02.PNG[此映像描述三個資料庫（DB1、DB2和DB3）、每個資料庫都包含資料檔案、重作記錄、歸檔記錄和控制檔案、全都位於單一容量集區內。]
 
 * 對於大型資料庫、建議的Volume配置是多個Volume：一個用於Oracle資料、一個用於複製控制檔、另一個用於Oracle作用中記錄、歸檔記錄和控制檔。NetApp強烈建議為Oracle二進位檔配置磁碟區、而非本機磁碟、以便將資料庫重新定位至新的主機、並快速還原。
 +
-image:db_ora_azure_anf_factors_03.PNG["此映像描述兩個資料庫、每個資料庫各有兩個磁碟區。第一個Volume包含資料檔案、而每個資料庫的第二個Volume則包含重作記錄、歸檔記錄和控制檔。全部位於單一容量集區內。"]
+image::db_ora_azure_anf_factors_03.PNG[此映像描述兩個資料庫、每個資料庫各有兩個磁碟區。第一個Volume包含資料檔案、而每個資料庫的第二個Volume則包含重作記錄、歸檔記錄和控制檔。全部位於單一容量集區內。]
 
 
 
@@ -108,7 +108,7 @@ Linux是最常見的作業系統、具備原生NFS功能。Oracle提供直接NFS
 
 下圖示範Azure NetApp Files Oracle DNFS的有關功能的Sob基準測試。
 
-image:db_ora_azure_anf_factors_04.PNG["此圖表可大幅證明DNFS可改善KNFS的DB連續檔案延遲（毫秒）。"]
+image::db_ora_azure_anf_factors_04.PNG[此圖表可大幅證明DNFS可改善KNFS的DB連續檔案延遲（毫秒）。]
 
 其他考量因素：
 
@@ -123,7 +123,7 @@ sysctl -a | grep tcp.*.slot_table
 ----
 * 下表針對單一Linux NFSv3執行個體提供建議的NFS掛載選項。
 +
-image:aws_ora_fsx_ec2_nfs_01.PNG["下表顯示下列檔案類型、控制檔、資料檔案、重作記錄、Oracle_Home、和Oracle_base。"]
+image::aws_ora_fsx_ec2_nfs_01.PNG[下表顯示下列檔案類型、控制檔、資料檔案、重作記錄、Oracle_Home、和Oracle_base。]
 
 
 

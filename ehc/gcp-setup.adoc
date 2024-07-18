@@ -34,7 +34,7 @@ summary:
 * 請確定CIDR範圍不會與任何內部部署或雲端子網路重疊。CIDR範圍必須為/27或更高。
 
 
-image:gcve-deploy-1.png[""]
+image::gcve-deploy-1.png[gcve 部署 1.]
 
 附註：建立私有雲端可能需要30分鐘到2小時的時間。
 
@@ -46,19 +46,19 @@ image:gcve-deploy-1.png[""]
 
 如此可確保Cloud Volumes ONTAP 執行了某些執行個體的VPC網路能夠與GCVR私有雲端通訊。若要這麼做、請遵循 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/quickstart["GCP文件"]。對於Cloud Volume Service、請Cloud Volumes Service 在租戶主機專案之間執行一次對等、以建立VMware Engine與VMware Infrastructure之間的連線。如需詳細步驟、請遵循此步驟 link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service["連結"]。
 
-image:gcve-access-1.png[""]
+image::gcve-access-1.png[gcve 存取 1.]
 
 使用CloudOwner@gve.estil使用者登入vCenter。若要存取認證資料、請前往VMware Engine入口網站、前往資源、然後選取適當的私有雲。在基本資訊區段中、按一下vCenter登入資訊（vCenter Server、HCX Manager）或NSX-T登入資訊（NSX Manager）的檢視連結。
 
-image:gcve-access-2.png[""]
+image::gcve-access-2.png[gcve 存取 2.]
 
 在Windows虛擬機器中、開啟瀏覽器並瀏覽至vCenter Web用戶端URL (`"https://10.0.16.6/"`）、並將管理員使用者名稱作為 CloudOwner@gve.本人 、然後貼上複製的密碼。同樣地、您也可以使用Web用戶端URL來存取NSxT-T Manager (`"https://10.0.16.11/"`）並使用管理員使用者名稱貼上複製的密碼、以建立新區段或修改現有的層閘道。
 
 若要從內部部署網路連線至VMware Engine私有雲、請善用雲端VPN或雲端互連來進行適當的連線、並確保所需的連接埠是開放的。如需詳細步驟、請遵循此步驟 link:https://ubuntu.com/server/docs/service-iscsi["連結"]。
 
-image:gcve-access-3.png[""]
+image::gcve-access-3.png[gcve 存取權限 3.]
 
-image:gcve-access-4.png[""]
+image::gcve-access-4.png[gcve 存取 4.]
 
 ====
 .將 NetApp Cloud Volume Service 補充資料存放區部署至 GCVE

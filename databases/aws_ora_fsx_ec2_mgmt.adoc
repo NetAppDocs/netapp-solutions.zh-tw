@@ -44,21 +44,21 @@ EC2/FSX Oracle資料庫會定期備份、時間間隔由使用者設定。使用
 
 . 登入SnapCenter 到這個功能表、然後按一下左側功能表中的「Resources（資源）」。從「檢視」下拉式清單中、變更為「資源群組」檢視。
 +
-image:aws_rds_custom_deploy_snp_10.PNG[""]
+image::aws_rds_custom_deploy_snp_10.PNG[AWS RDS 自訂部署 SNP 10]
 
 . 按一下完整備份資源名稱、然後按一下「立即備份」圖示以啟動附加的備份。
 +
-image:aws_rds_custom_deploy_snp_11.PNG[""]
+image::aws_rds_custom_deploy_snp_11.PNG[AWS RDS 自訂部署 SNP 11]
 
 . 按一下「備份」、然後確認備份以開始完整的資料庫備份。
 +
-image:aws_rds_custom_deploy_snp_12.PNG[""]
+image::aws_rds_custom_deploy_snp_12.PNG[AWS RDS 自訂部署 SNP 12]
 
 +
 從資料庫的「資源」檢視中、開啟「資料庫管理備份複本」頁面、確認一次性備份已成功完成。完整資料庫備份會建立兩個快照：一個用於資料磁碟區、另一個用於記錄磁碟區。
 
 +
-image:aws_rds_custom_deploy_snp_13.PNG[""]
+image::aws_rds_custom_deploy_snp_13.PNG[AWS RDS 自訂部署 SNP 13.]
 
 
 
@@ -70,21 +70,21 @@ image:aws_rds_custom_deploy_snp_13.PNG[""]
 
 . 登入SnapCenter 到「資源」UI、然後按一下左側功能表列中的「資源」索引標籤。從「檢視」下拉式清單中、變更為「資源群組」檢視。
 +
-image:aws_rds_custom_deploy_snp_10.PNG[""]
+image::aws_rds_custom_deploy_snp_10.PNG[AWS RDS 自訂部署 SNP 10]
 
 . 按一下記錄備份資源名稱、然後按一下「立即備份」圖示、針對歸檔記錄啟動附加的備份。
 +
-image:aws_rds_custom_deploy_snp_14.PNG[""]
+image::aws_rds_custom_deploy_snp_14.PNG[AWS RDS 自訂部署 SNP 14]
 
 . 按一下「備份」、然後確認備份以開始備份歸檔記錄。
 +
-image:aws_rds_custom_deploy_snp_15.PNG[""]
+image::aws_rds_custom_deploy_snp_15.PNG[AWS RDS 自訂部署 SNP 15]
 
 +
 從資料庫的資源檢視中、開啟「資料庫管理的備份複本」頁面、確認一次性歸檔記錄備份已成功完成。歸檔記錄備份會為記錄磁碟區建立一個快照。
 
 +
-image:aws_rds_custom_deploy_snp_16.PNG[""]
+image::aws_rds_custom_deploy_snp_16.PNG[AWS RDS 自訂部署 SNP 16]
 
 
 
@@ -96,23 +96,26 @@ SnapCenter型還原至某個時間點、會在同一個EC2執行個體主機上�
 
 . 從「資源」索引標籤>「資料庫」檢視中、按一下資料庫名稱以開啟資料庫備份。SnapCenter
 +
-image:aws_rds_custom_deploy_snp_17.PNG[""]
+image::aws_rds_custom_deploy_snp_17.PNG[AWS RDS 自訂部署 SNP 17]
 
 . 選取資料庫備份複本、以及所需的還原時間點。同時記下時間點對應的SCN編號。時間點還原可以使用時間或SCN來執行。
 +
-image:aws_rds_custom_deploy_snp_18.PNG[""]
+image::aws_rds_custom_deploy_snp_18.PNG[AWS RDS 自訂部署 SNP 18]
 
 . 反白顯示記錄磁碟區快照、然後按一下「Mount（掛載）」按鈕以掛載磁碟區。
 +
-image:aws_rds_custom_deploy_snp_19.PNG[""]
+image::aws_rds_custom_deploy_snp_19.PNG[AWS RDS 自訂部署 SNP 19]
 
 . 選擇要掛載記錄磁碟區的主要EC2執行個體。
 +
-image:aws_rds_custom_deploy_snp_20.PNG[""]
+image::aws_rds_custom_deploy_snp_20.PNG[AWS RDS 自訂部署 SNP 20]
 
 . 驗證掛載工作是否成功完成。此外、請檢查EC2執行個體主機、查看已掛載的記錄磁碟區以及掛載點路徑。
 +
-image:aws_rds_custom_deploy_snp_21_1.PNG[""] image:aws_rds_custom_deploy_snp_21_2.PNG[""]
+image::aws_rds_custom_deploy_snp_21_1.PNG[AWS RDS 自訂部署 SNP 21 1.]
+
++
+image::aws_rds_custom_deploy_snp_21_2.PNG[AWS RDS 自訂部署 SNP 21 2.]
 
 . 將歸檔記錄從掛載的記錄磁碟區複製到目前的歸檔記錄目錄。
 +
@@ -122,39 +125,39 @@ image:aws_rds_custom_deploy_snp_21_1.PNG[""] image:aws_rds_custom_deploy_snp_21_
 ----
 . 返回SnapCenter 「還原資源」索引標籤>「資料庫備份」頁面、反白顯示資料快照複本、然後按一下「還原」按鈕以啟動資料庫還原工作流程。
 +
-image:aws_rds_custom_deploy_snp_22.PNG[""]
+image::aws_rds_custom_deploy_snp_22.PNG[AWS RDS 自訂部署 SNP 22]
 
 . 核取「All Datafiles（所有資料檔案）」和「Change databases state if需求時變更資料庫狀態以進行還原與還原」、然後按「Next（下一步）」。
 +
-image:aws_rds_custom_deploy_snp_23.PNG[""]
+image::aws_rds_custom_deploy_snp_23.PNG[AWS RDS 自訂部署 SNP 23]
 
 . 使用SCN或Time選擇所需的恢復範圍。掛載的歸檔記錄不像步驟6所示複製到目前的記錄目錄、而是可在「指定外部歸檔記錄檔位置」中列出掛載的歸檔記錄路徑以供還原。
 +
-image:aws_rds_custom_deploy_snp_24_1.PNG[""]
+image::aws_rds_custom_deploy_snp_24_1.PNG[AWS RDS 自訂部署 SNP 241.]
 
 . 如有必要、請指定可執行的預先記錄。
 +
-image:aws_rds_custom_deploy_snp_25.PNG[""]
+image::aws_rds_custom_deploy_snp_25.PNG[AWS RDS 自訂部署 SNP 25]
 
 . 如有必要、請指定要執行的選用後指令碼。恢復後檢查開啟的資料庫。
 +
-image:aws_rds_custom_deploy_snp_26.PNG[""]
+image::aws_rds_custom_deploy_snp_26.PNG[AWS RDS 自訂部署 SNP 26]
 
 . 如果需要工作通知、請提供一個SMTP伺服器和電子郵件地址。
 +
-image:aws_rds_custom_deploy_snp_27.PNG[""]
+image::aws_rds_custom_deploy_snp_27.PNG[AWS RDS 自訂部署 SNP 27]
 
 . 還原工作摘要。按一下「完成」以啟動還原工作。
 +
-image:aws_rds_custom_deploy_snp_28.PNG[""]
+image::aws_rds_custom_deploy_snp_28.PNG[AWS RDS 自訂部署 SNP 28]
 
 . 驗SnapCenter 證從還原。
 +
-image:aws_rds_custom_deploy_snp_29_1.PNG[""]
+image::aws_rds_custom_deploy_snp_29_1.PNG[AWS RDS 自訂部署 SNP 291.]
 
 . 從EC2執行個體主機驗證還原。
 +
-image:aws_rds_custom_deploy_snp_29_2.PNG[""]
+image::aws_rds_custom_deploy_snp_29_2.PNG[AWS RDS 自訂部署 SNP 29 2.]
 
 . 若要卸載還原記錄磁碟區、請反轉步驟4中的步驟。
 
@@ -167,53 +170,56 @@ image:aws_rds_custom_deploy_snp_29_2.PNG[""]
 
 . 使用完整的備份資源群組、從SnapCenter 支援部取得主資料庫的完整快照備份。
 +
-image:aws_rds_custom_deploy_replica_02.PNG[""]
+image::aws_rds_custom_deploy_replica_02.PNG[AWS RDS 自訂部署複本 02]
 
 . 從「資源」索引標籤>「資料庫」檢視中、開啟要從中建立複本之主要資料庫的「資料庫備份管理」頁面。SnapCenter
 +
-image:aws_rds_custom_deploy_replica_04.PNG[""]
+image::aws_rds_custom_deploy_replica_04.PNG[AWS RDS 自訂部署複本 04]
 
 . 將步驟4中拍攝的記錄磁碟區快照掛載到備用EC2執行個體主機。
 +
-image:aws_rds_custom_deploy_replica_13.PNG[""] image:aws_rds_custom_deploy_replica_14.PNG[""]
+image::aws_rds_custom_deploy_replica_13.PNG[AWS RDS 自訂部署複本 13.]
+
++
+image::aws_rds_custom_deploy_replica_14.PNG[AWS RDS 自訂部署複本 14]
 
 . 反白顯示要複本複本複本的快照複本、然後按一下「Clone（複製）」按鈕以開始複製程序。
 +
-image:aws_rds_custom_deploy_replica_05.PNG[""]
+image::aws_rds_custom_deploy_replica_05.PNG[AWS RDS 自訂部署複本 05]
 
 . 變更複本複本名稱、使其不同於主要資料庫名稱。按一下「下一步」
 +
-image:aws_rds_custom_deploy_replica_06.PNG[""]
+image::aws_rds_custom_deploy_replica_06.PNG[AWS RDS 自訂部署複本 06]
 
 . 將實體複本主機變更為備用EC2主機、接受預設命名、然後按「Next（下一步）」。
 +
-image:aws_rds_custom_deploy_replica_07.PNG[""]
+image::aws_rds_custom_deploy_replica_07.PNG[AWS RDS 自訂部署複本 07]
 
 . 變更Oracle主選項設定、使其符合針對目標Oracle伺服器主機所設定的設定、然後按「Next（下一步）」。
 +
-image:aws_rds_custom_deploy_replica_08.PNG[""]
+image::aws_rds_custom_deploy_replica_08.PNG[AWS RDS 自訂部署複本 08]
 
 . 使用時間或SCN與掛載的歸檔記錄路徑來指定還原點。
 +
-image:aws_rds_custom_deploy_replica_15.PNG[""]
+image::aws_rds_custom_deploy_replica_15.PNG[AWS RDS 自訂部署複本 15]
 
 . 如有需要、請傳送SMTP電子郵件 設定。
 +
-image:aws_rds_custom_deploy_replica_11.PNG[""]
+image::aws_rds_custom_deploy_replica_11.PNG[AWS RDS 自訂部署複本 11]
 
 . 複製工作摘要、然後按一下「Finish（完成）」以啟動複製工作。
 +
-image:aws_rds_custom_deploy_replica_12.PNG[""]
+image::aws_rds_custom_deploy_replica_12.PNG[AWS RDS 自訂部署複本 12]
 
 . 檢閱複本工作記錄、以驗證複本複本複本複本複本。
 +
-image:aws_rds_custom_deploy_replica_17.PNG[""]
+image::aws_rds_custom_deploy_replica_17.PNG[AWS RDS 自訂部署複本 17]
 
 +
 複製的資料庫SnapCenter 會立即登錄在
 
 +
-image:aws_rds_custom_deploy_replica_18.PNG[""]
+image::aws_rds_custom_deploy_replica_18.PNG[AWS RDS 自訂部署複本 18]
 
 . 關閉Oracle歸檔記錄模式。以Oracle使用者身分登入EC2執行個體、然後執行下列命令：
 +

@@ -165,7 +165,7 @@ git clone https://github.com/NetApp-Automation/na_aws_fsx_ec2_deploy.git
 ....
 . 在 AWS 上的 VMware SDDC 中建置虛擬機器、以裝載要部署在 VMC 中的 Oracle 環境。在我們的示範中、我們建置了兩個 Linux VM 做為 Oracle DB 伺服器、一個 Windows 伺服器做為 SnapCenter 伺服器、以及一個選用的 Linux 伺服器做為 Ansible 控制器、以便在需要時進行自動化 Oracle 安裝或組態。以下是實驗室環境的快照、供解決方案驗證之用。
 +
-image:aws_ora_fsx_vmc_vm_08.png["顯示 VMC SDDC 測試環境的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_vm_08.png[顯示 VMC SDDC 測試環境的螢幕擷取畫面。]
 
 . 此外、 NetApp 也提供數個自動化工具套件、可在適用的情況下執行 Oracle 部署和組態。請參閱 link:index.html["資料庫自動化工具套件"^] 以取得更多資訊。
 
@@ -1488,23 +1488,23 @@ NOTE: 如果 Windows 伺服器部署在網域環境中、請將網域使用者�
 . 以安裝使用者身分透過 HTTPS 連接埠 8846 登入 SnapCenter UI 、以設定 SnapCenter for Oracle 。
 . 更新 `Hypervisor Settings` 在全域設定中。
 +
-image:aws_ora_fsx_vmc_snapctr_01.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_01.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 建立 Oracle 資料庫備份原則。理想情況下、請建立個別的歸檔記錄備份原則、以允許更頻繁的備份間隔、在發生故障時將資料遺失降至最低。
 +
-image:aws_ora_fsx_vmc_snapctr_02.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_02.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 新增資料庫伺服器 `Credential` 用於 SnapCenter 存取 DB VM 。認證應在 Linux VM 上擁有 Sudo 權限、或在 Windows VM 上擁有系統管理員權限。
 +
-image:aws_ora_fsx_vmc_snapctr_03.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_03.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 將 FSX ONTAP 儲存叢集新增至 `Storage Systems` 使用叢集管理 IP 並透過 fsxadmin 使用者 ID 驗證。
 +
-image:aws_ora_fsx_vmc_snapctr_04.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_04.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 將 VMC 中的 Oracle 資料庫 VM 新增至 `Hosts` 使用在上一步 6 中建立的伺服器認證。
 +
-image:aws_ora_fsx_vmc_snapctr_05.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_05.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 
 
@@ -1522,27 +1522,27 @@ NOTE: 請確定 SnapCenter 伺服器名稱可以解析為 DB VM 的 IP 位址、
 
 . 從 `Resources` 索引標籤中的任何資料庫都會在 VM 新增至 SnapCenter 之後自動探索。一開始、資料庫狀態會顯示為 `Not protected`。
 +
-image:aws_ora_fsx_vmc_snapctr_06.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_06.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 建立資源群組、以邏輯群組（例如 DB VM 等）備份資料庫 在此範例中、我們建立了一個 ora_02_data 群組、為 VM ora_02 上的所有資料庫進行完整線上資料庫備份。資源群組 ora_02_log 僅在 VM 上執行歸檔記錄的備份。建立資源群組也會定義執行備份的排程。
 +
-image:aws_ora_fsx_vmc_snapctr_07.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_07.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 您也可以按一下、手動觸發資源群組備份 `Back up Now` 並使用資源群組中定義的原則執行備份。
 +
-image:aws_ora_fsx_vmc_snapctr_08.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_08.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 可在監控備份工作 `Monitor` 按一下執行中工作的索引標籤。
 +
-image:aws_ora_fsx_vmc_snapctr_09.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_09.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 成功備份後、資料庫狀態會顯示工作狀態和最近的備份時間。
 +
-image:aws_ora_fsx_vmc_snapctr_10.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_10.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 按一下資料庫以檢閱每個資料庫的備份集。
 +
-image:aws_ora_fsx_vmc_snapctr_11.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_11.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 
 
@@ -1651,39 +1651,39 @@ ORA-00942: table or view does not exist
 ....
 . 從上次步驟建立的備份集、記下記錄備份的 SCN 編號。按一下 `Restore` 啟動還原復原工作流程。
 +
-image:aws_ora_fsx_vmc_snapctr_12.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_12.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 選擇還原範圍。
 +
-image:aws_ora_fsx_vmc_snapctr_13.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_13.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 從上次完整資料庫備份中、選擇直到記錄 SCN 為止的還原範圍。
 +
-image:aws_ora_fsx_vmc_snapctr_14.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_14.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 指定要執行的任何選用預先指令碼。
 +
-image:aws_ora_fsx_vmc_snapctr_15.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_15.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 指定要執行的任何選擇性指令碼後置作業。
 +
-image:aws_ora_fsx_vmc_snapctr_16.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_16.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 視需要傳送工作報告。
 +
-image:aws_ora_fsx_vmc_snapctr_17.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_17.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 檢閱摘要、然後按一下 `Finish` 以啟動還原與還原。
 +
-image:aws_ora_fsx_vmc_snapctr_18.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_18.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 從 Oracle 重新啟動網格控制項、我們觀察到 cdb3 正在還原、而恢復 cdb4 已上線且可供使用。
 +
-image:aws_ora_fsx_vmc_snapctr_19.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_19.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 寄件者 `Monitor` 索引標籤、開啟工作以檢閱詳細資料。
 +
-image:aws_ora_fsx_vmc_snapctr_20.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_20.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 從 DB VM ora_02 、驗證在成功還原之後、刪除的資料表是否已恢復。
 +
@@ -1754,39 +1754,39 @@ SQL>
 
 . 開啟資料庫 cdb3 備份清單。從您選擇的資料備份中、按一下 `Clone` 啟動資料庫複製工作流程的按鈕。
 +
-image:aws_ora_fsx_vmc_snapctr_21.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_21.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 命名複製資料庫的 SID 。
 +
-image:aws_ora_fsx_vmc_snapctr_22.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_22.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 在 VMC 中選取 VM 作為目標資料庫主機。應已在主機上安裝並設定相同的 Oracle 版本。
 +
-image:aws_ora_fsx_vmc_snapctr_23.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_23.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 在目標主機上選取適當的 Oracle_Home 、使用者和群組。將認證設為預設值。
 +
-image:aws_ora_fsx_vmc_snapctr_24.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_24.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 變更複製資料庫參數、以符合複製資料庫的組態或資源需求。
 +
-image:aws_ora_fsx_vmc_snapctr_25.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_25.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 選擇恢復範圍。 `Until Cancel` 在備份集中恢復到最後一個可用日誌文件的克隆。
 +
-image:aws_ora_fsx_vmc_snapctr_26.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_26.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 檢閱摘要並啟動複製工作。
 +
-image:aws_ora_fsx_vmc_snapctr_27.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_27.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 從監控複製工作的執行 `Monitor` 索引標籤。
 +
-image:aws_ora_fsx_vmc_snapctr_28.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_28.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 複製的資料庫會立即在 SnapCenter 中登錄。
 +
-image:aws_ora_fsx_vmc_snapctr_29.png["顯示 SnapCenter 組態的螢幕擷取畫面。"]
+image::aws_ora_fsx_vmc_snapctr_29.png[顯示 SnapCenter 組態的螢幕擷取畫面。]
 
 . 從 DB VM ora_02 中、複製的資料庫也會在 Oracle 重新啟動網格控制項中登錄、而刪除的測試表格則會在複製的資料庫 cdb3tst 中復原、如下所示。
 +

@@ -64,7 +64,7 @@ VCF 解決方案同時支援原生 Kubernetes 和虛擬機器型工作負載。V
 
 Vcf 由單一管理網域和最多 24 個 VI 工作負載網域組成、每個網域代表一個應用程式就緒基礎架構單元。工作負載網域是由單一 vCenter 執行個體所管理的一或多個 vSphere 叢集所組成。
 
-image:vmware-vcf-aff-image02.png["Vcf 架構"]
+image::vmware-vcf-aff-image02.png[Vcf 架構]
 
 如需 VCF 架構與規劃的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-design/GUID-A550B597-463F-403F-BE9A-BFF3BECB9523.html["VMware Cloud Foundation 中的架構模型和工作負載網域類型"]。
 
@@ -76,7 +76,7 @@ image:vmware-vcf-aff-image02.png["Vcf 架構"]
 
 VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有適用於 VI 工作負載網域的主要儲存選項和補充儲存選項。
 
-image:vmware-vcf-aff-image01.png["Vcf 儲存選項"]
+image::vmware-vcf-aff-image01.png[Vcf 儲存選項]
 
 * 工作負載網域的主要儲存設備 *
 Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設定程序中直接連線至 VI Workload Domain 。主要儲存設備是第一個為工作負載網域設定的資料存放區、其中包括位於光纖通道上的 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。

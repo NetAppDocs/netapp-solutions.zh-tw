@@ -24,7 +24,7 @@ summary: 本節將說明從本認證中學到的經驗教訓。
 
 下圖顯示根據「length、key、Value」擷取和擷取S3物件。
 
-image:confluent-kafka-image11.png[""]
+image::confluent-kafka-image11.png[Confluent Kafka 影像 11.]
 
 * * Kafka調校。*若要提升階層式儲存設備的效能、您可以增加TierFetcherNumThreades和TierArchiverNum執行 緒。一般而言、您想要增加TierFetcherNum執行 緒、以符合實體CPU核心數量、並將TierArchiverNum執行 緒增加到CPU核心數量的一半。例如、在伺服器內容中、如果您的機器有八個實體核心、請將confucere.Tier .etcher。num.thread = 8和puceter.Tier。archiver.nm.thread = 4。
 * *主題刪除的時間間隔。*刪除主題時、不會立即開始刪除物件儲存區中的記錄區段檔案。相反地、在刪除這些檔案之前、會有一個預設值為3小時的時間間隔。您可以修改組態confluent.tier.topic.delete.check.interval.ms來變更此時間間隔的值。如果您刪除主題或叢集、也可以手動刪除個別儲存區中的物件。

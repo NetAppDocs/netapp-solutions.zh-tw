@@ -39,7 +39,7 @@ summary: 在此案例中、客戶擁有大型內部部署Hadoop儲存庫、並�
 
 下圖顯示原始Hadoop原生備份解決方案。
 
-image:hdcs-sh-image5.png[""]
+image::hdcs-sh-image5.png[hdcs sh image5.]
 
 正式作業資料會透過中繼備份叢集保護至磁帶：
 
@@ -73,7 +73,7 @@ image:hdcs-sh-image5.png[""]
 
 在解決方案 A 中、備份 Hadoop 叢集會將次要備份傳送至 NetApp NFS 儲存系統、免除磁帶需求、如下圖所示。
 
-image:hdcs-sh-image6.png[""]
+image::hdcs-sh-image6.png[hdcs sh image6.]
 
 解決方案A的詳細工作包括：
 
@@ -118,7 +118,7 @@ NOTE: Hadoop資料可透過SnapMirror技術、保護至雲端及災難恢復位�
 
 解決方案 B 會將 NFS Volume 新增至正式作業的 Hadoop 叢集、這樣就不需要備份 Hadoop 叢集、如下圖所示。
 
-image:hdcs-sh-image7.png[""]
+image::hdcs-sh-image7.png[hdcs sh image7.]
 
 解決方案B的詳細工作包括：
 
@@ -145,7 +145,7 @@ Hadoop 原生 `hadoop distcp` 命令可保護從正式作業叢集 HDFS 到 NFS 
 
 在解決方案C中、NetApp SAN磁碟區會直接配置給HDFS儲存設備的Hadoop正式作業叢集、如下圖所示。
 
-image:hdcs-sh-image8.png[""]
+image::hdcs-sh-image8.png[hdcs sh image8.]
 
 解決方案C的詳細步驟包括：
 

@@ -44,45 +44,45 @@ NOTE: 使用 link:https://cloud.netapp.com/cvo-sizer["Szizer Cloud Volumes ONTAP
 
 . 登入NetApp Cloud Central：「Fabric View（架構檢視）」畫面隨即顯示。找到Cloud Volumes ONTAP 「解決方案」索引標籤、然後選取「前往Cloud Manager」。登入之後、便會顯示「畫版」畫面。
 +
-image:gcve-cvo-guest-1.png[""]
+image::gcve-cvo-guest-1.png[gcve CVO 客體 1]
 
 . 在Cloud Manager的「CanvasTM」索引標籤上、按一下「Add a Working Environment（新增工作環境）」、然後選取「Google Cloud Platform（Google Cloud Platform）」做為雲端和系統組態類型。然後按「Next（下一步）」。
 +
-image:gcve-cvo-guest-2.png[""]
+image::gcve-cvo-guest-2.png[gcve CVO 訪客 2]
 
 . 提供要建立的環境詳細資料、包括環境名稱和管理員認證資料。完成後、按一下「Continue（繼續）」。
 +
-image:gcve-cvo-guest-3.png[""]
+image::gcve-cvo-guest-3.png[gcve CVO 訪客 3.]
 
 . 選取或取消選取Cloud Volumes ONTAP 適用於不支援的部署附加服務、包括Data Sense & Compliance或Backup to Cloud。然後按一下「Continue（繼續）」。
 +
 提示：停用附加服務時、會顯示驗證快顯訊息。在CVO部署之後、可新增/移除附加服務、如果不需要、請考慮取消選取附加服務、以避免成本。
 
 +
-image:gcve-cvo-guest-4.png[""]
+image::gcve-cvo-guest-4.png[gcve CVO 訪客 4.]
 
 . 選取位置、選擇防火牆原則、然後選取核取方塊以確認網路連線至Google Cloud儲存設備。
 +
-image:gcve-cvo-guest-5.png[""]
+image::gcve-cvo-guest-5.png[gcve CVO 訪客 5.]
 
 . 選取使用許可選項：「隨用隨付」或「BYOL」以使用現有的授權。在此範例中、會使用Freemium選項。然後按一下「Continue（繼續）」。
 +
-image:gcve-cvo-guest-6.png[""]
+image::gcve-cvo-guest-6.png[gcve CVO 客體 6]
 
 . 根據將部署在AWS SDDC上VMware雲端上的VM上的工作負載類型、選擇幾個預先設定的套件。
 +
 提示：按ONTAP 一下「Change Configuration（變更組態）」、將滑鼠移到方塊上以取得詳細資料、或自訂CVO元件和版本。
 
 +
-image:gcve-cvo-guest-7.png[""]
+image::gcve-cvo-guest-7.png[Gcve CVO 訪客 7]
 
 . 在「Review & Approve（檢閱與核准）」頁面上、檢閱並確認所做的選擇。若要建立Cloud Volumes ONTAP 此實例、請按一下「Go（執行）」。
 +
-image:gcve-cvo-guest-8.png[""]
+image::gcve-cvo-guest-8.png[gcve CVO 訪客 8.]
 
 . 完成供應後、此功能會列在「畫版」頁面上的工作環境中。Cloud Volumes ONTAP
 +
-image:gcve-cvo-guest-9.png[""]
+image::gcve-cvo-guest-9.png[gcve CVO 訪客 9.]
 
 
 
@@ -95,32 +95,32 @@ image:gcve-cvo-guest-9.png[""]
 提示：按一下「Menu（功能表）」圖示（o）、選取「Advanced（進階）」以顯示更多選項、然後選取「CIFS setup（CIFS設定）」。
 
 +
-image:gcve-cvo-guest-10.png[""]
+image::gcve-cvo-guest-10.png[gcve CVO 訪客 10]
 
 . 建立SMB Volume是一項簡單的程序。在畫版中、按兩下Cloud Volumes ONTAP 執行作業的環境以建立及管理磁碟區、然後按一下「Create Volume（建立磁碟區）」選項。選擇適當的大小、然後由Cloud Manager選擇內含的Aggregate、或使用進階分配機制將其放置在特定的Aggregate上。在此示範中、CIFS/SMB被選取為傳輸協定。
 +
-image:gcve-cvo-guest-11.png[""]
+image::gcve-cvo-guest-11.png[gcve CVO 訪客 11]
 
 . 在配置磁碟區之後、該磁碟區會出現在「Volumes（磁碟區）」窗格下方。由於CIFS共用區已配置完成、因此請授予使用者或群組檔案和資料夾的權限、並確認這些使用者可以存取共用區並建立檔案。如果從內部部署環境複寫磁碟區、則不需要執行此步驟、因為檔案和資料夾權限都會保留為SnapMirror複寫的一部分。
 +
 提示：按一下Volume功能表（o）以顯示其選項。
 
 +
-image:gcve-cvo-guest-12.png[""]
+image::gcve-cvo-guest-12.png[gcve CVO 訪客 12.]
 
 . 建立磁碟區之後、請使用mount命令顯示磁碟區連線指示、然後從Google Cloud VMware Engine上的VM連線至共用區。
 +
-image:gcve-cvo-guest-13.png[""]
+image::gcve-cvo-guest-13.png[gcve CVO 訪客 13.]
 
 . 複製下列路徑、然後使用「對應網路磁碟機」選項、在Google Cloud VMware Engine上執行的VM上掛載磁碟區。
 +
-image:gcve-cvo-guest-14.png[""]
+image::gcve-cvo-guest-14.png[gcve CVO 訪客 14.]
 
 +
 一旦完成對應、就能輕鬆存取、並據此設定NTFS權限。
 
 +
-image:gcve-cvo-guest-15.png[""]
+image::gcve-cvo-guest-15.png[Gcve CVO 訪客 15]
 
 
 
@@ -133,8 +133,10 @@ image:gcve-cvo-guest-15.png[""]
 . 在「畫版」頁面上、按兩下Cloud Volumes ONTAP 「功能不全」環境以建立及管理Volume。
 . 按一下「Add Volume（新增Volume）」>「New Volume（新Volume）」、然後選取「iSCSI（iSCSI）」、按一下「繼續」。
 +
-image:gcve-cvo-guest-16.png[""]
-image:gcve-cvo-guest-17.png[""]
+image::gcve-cvo-guest-16.png[gcve CVO 客體 16]
+
++
+image::gcve-cvo-guest-17.png[gcve CVO 訪客 17.]
 
 . 配置磁碟區後、選取Volume（Volume）功能表（o）、然後按一下Target IQN。若要複製iSCSI合格名稱（IQN）、請按一下複製。設定從主機到 LUN 的 iSCSI 連線。
 
@@ -151,7 +153,7 @@ image:gcve-cvo-guest-17.png[""]
 NOTE: Windows主機必須與叢集中的每個節點建立iSCSI連線。原生DSM會選取最佳路徑。
 
 +
-image:gcve-cvo-guest-18.png[""]
+image::gcve-cvo-guest-18.png[Gcve CVO 訪客 18]
 
 +
 儲存虛擬機器（SVM）上的LUN會在Windows主機上顯示為磁碟。主機不會自動探索任何新增的磁碟。完成下列步驟、觸發手動重新掃描以探索磁碟：
@@ -162,7 +164,7 @@ image:gcve-cvo-guest-18.png[""]
 .. 按一下「磁碟管理」。
 .. 按一下「行動」>「重新掃描磁碟」。
 +
-image:gcve-cvo-guest-19.png[""]
+image::gcve-cvo-guest-19.png[Gcve CVO 訪客 19]
 
 +
 當Windows主機首次存取新LUN時、它沒有分割區或檔案系統。初始化LUN；並可選擇完成下列步驟、以檔案系統格式化LUN：
@@ -174,12 +176,13 @@ image:gcve-cvo-guest-19.png[""]
 
 
 
-image:gcve-cvo-guest-20.png[""]
+image::gcve-cvo-guest-20.png[gcve CVO 訪客 20]
 
 在Linux用戶端上、確定iSCSI精靈正在執行。配置LUN後、請參閱此處的詳細指南、瞭解如何使用Ubuntu進行iSCSI組態設定。若要驗證、請從Shell執行lsblk cmd。
 
-image:gcve-cvo-guest-21.png[""]
-image:gcve-cvo-guest-22.png[""]
+image::gcve-cvo-guest-21.png[gcve CVO 客體 21]
+
+image::gcve-cvo-guest-22.png[Gcve CVO 訪客 22.]
 
 ====
 .在Cloud Volumes ONTAP Linux用戶端上掛載不只是NFS磁碟區
@@ -192,11 +195,11 @@ image:gcve-cvo-guest-22.png[""]
 . 按一下「Volumes（磁碟區）」索引標籤中的「Create New Volume
 . 在「Create New Volume」（建立新磁碟區）頁面上、選取一個磁碟區類型：
 +
-image:gcve-cvo-guest-23.png[""]
+image::gcve-cvo-guest-23.png[gcve CVO 訪客 23]
 
 . 在「Volumes（磁碟區）」索引標籤中、將滑鼠游標放在磁碟區上、選取功能表圖示（o）、然後按一下「Mount Command（掛載命令）」。
 +
-image:gcve-cvo-guest-24.png[""]
+image::gcve-cvo-guest-24.png[Gcve CVO 訪客 24]
 
 . 按一下複製。
 . 連線至指定的Linux執行個體。
@@ -205,14 +208,16 @@ image:gcve-cvo-guest-24.png[""]
 +
  $ sudo mkdir /cvogcvetst
 +
-image:gcve-cvo-guest-25.png[""]
+image::gcve-cvo-guest-25.png[Gcve CVO 訪客 25]
 
 . 將Cloud Volumes ONTAP 流通NFS磁碟區掛載到上一步建立的目錄。
 +
  sudo mount 10.0.6.251:/cvogcvenfsvol01 /cvogcvetst
 +
-image:gcve-cvo-guest-26.png[""]
-image:gcve-cvo-guest-27.png[""]
+image::gcve-cvo-guest-26.png[Gcve CVO 訪客 26]
+
++
+image::gcve-cvo-guest-27.png[gcve CVO 訪客 27.]
 
 
 
@@ -246,49 +251,49 @@ Cloud Volume Service和Google Cloud VMware Engine私有雲必須位於相同的�
 
 . 從Google雲端主控台的合作夥伴解決方案存取Cloud Volumes。
 +
-image:gcve-cvs-guest-1.png[""]
+image::gcve-cvs-guest-1.png[gcve CVS guest 1]
 
 . 在Cloud Volumes主控台中、前往Volumes（磁碟區）頁面、然後按一下Create（建立）。
 +
-image:gcve-cvs-guest-2.png[""]
+image::gcve-cvs-guest-2.png[gcve CVS guest 2]
 
 . 在「Create File System」（建立檔案系統）頁面上、指定計費機制所需的磁碟區名稱和計費標籤。
 +
-image:gcve-cvs-guest-3.png[""]
+image::gcve-cvs-guest-3.png[gcve CVS guest 3]
 
 . 選取適當的服務。若為GCVE/、請根據應用程式工作負載需求、選擇CVs-Performance和所需的服務層級、以改善延遲並提高效能。
 +
-image:gcve-cvs-guest-4.png[""]
+image::gcve-cvs-guest-4.png[gcve CVS guest 4.]
 
 . 為Volume和Volume路徑指定Google Cloud區域（該專案中所有雲端磁碟區的Volume路徑必須是唯一的）
 +
-image:gcve-cvs-guest-5.png[""]
+image::gcve-cvs-guest-5.png[gcve CVS guest 5.]
 
 . 選取磁碟區的效能等級。
 +
-image:gcve-cvs-guest-6.png[""]
+image::gcve-cvs-guest-6.png[gcve CVS guest 6]
 
 . 指定磁碟區的大小和傳輸協定類型。在此測試中、使用NFSv3。
 +
-image:gcve-cvs-guest-7.png[""]
+image::gcve-cvs-guest-7.png[gcve CVS guest 7]
 
 . 在此步驟中、選取可存取磁碟區的VPC網路。確保VPC對等作業已就緒。
 +
 提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟Cloud Shell工作階段、執行適當的命令、讓您的VPC與Cloud Volumes Service 效能提升者對等。如果您決定事先準備VPC對等、請參閱這些指示。
 
 +
-image:gcve-cvs-guest-8.png[""]
+image::gcve-cvs-guest-8.png[gcve CVS guest 8.]
 
 . 新增適當的規則來管理匯出原則規則、然後選取對應NFS版本的核取方塊。
 +
 附註：除非新增匯出原則、否則無法存取NFS磁碟區。
 
 +
-image:gcve-cvs-guest-9.png[""]
+image::gcve-cvs-guest-9.png[gcve CVS guest 9]
 
 . 按一下「儲存」以建立磁碟區。
 +
-image:gcve-cvs-guest-10.png[""]
+image::gcve-cvs-guest-10.png[gcve CVS guest 10]
 
 
 
@@ -323,14 +328,16 @@ image:gcve-cvs-guest-10.png[""]
 +
  sudo mkdir /nimCVSNFSol01
 +
-image:gcve-cvs-guest-20.png[""]
+image::gcve-cvs-guest-20.png[gcve CVS guest 20]
 
 . 使用適當的命令掛載磁碟區。實驗室命令範例如下：
 +
  sudo mount -t nfs -o rw,hard,rsize=65536,wsize=65536,vers=3,tcp 10.53.0.4:/nimCVSNFSol01 /nimCVSNFSol01
 +
-image:gcve-cvs-guest-21.png[""]
-image:gcve-cvs-guest-22.png[""]
+image::gcve-cvs-guest-21.png[gcve CVS guest 21]
+
++
+image::gcve-cvs-guest-22.png[gcve CVS guest 虛擬機 22.]
 
 
 
@@ -340,41 +347,41 @@ image:gcve-cvs-guest-22.png[""]
 ====
 對於SMB磁碟區、請確定在建立SMB磁碟區之前已設定Active Directory連線。
 
-image:gcve-cvs-guest-30.png[""]
+image::gcve-cvs-guest-30.png[gcve CVS guest 虛擬機 30]
 
 一旦AD連線就位、請以所需的服務層級建立磁碟區。除了選取適當的傳輸協定之外、步驟就像建立NFS Volume一樣。
 
 . 在Cloud Volumes主控台中、前往Volumes（磁碟區）頁面、然後按一下Create（建立）。
 . 在「Create File System」（建立檔案系統）頁面上、指定計費機制所需的磁碟區名稱和計費標籤。
 +
-image:gcve-cvs-guest-31.png[""]
+image::gcve-cvs-guest-31.png[gcve CVS guest 31]
 
 . 選取適當的服務。若為GCVE/、請根據工作負載需求選擇CVs-Performance和所需的服務層級、以改善延遲並提高效能。
 +
-image:gcve-cvs-guest-32.png[""]
+image::gcve-cvs-guest-32.png[gcve CVS guest 32]
 
 . 為Volume和Volume路徑指定Google Cloud區域（該專案中所有雲端磁碟區的Volume路徑必須是唯一的）
 +
-image:gcve-cvs-guest-33.png[""]
+image::gcve-cvs-guest-33.png[gcve CVS guest 虛擬機 33.]
 
 . 選取磁碟區的效能等級。
 +
-image:gcve-cvs-guest-34.png[""]
+image::gcve-cvs-guest-34.png[gcve CVS guest 34]
 
 . 指定磁碟區的大小和傳輸協定類型。在此測試中、使用SMB。
 +
-image:gcve-cvs-guest-35.png[""]
+image::gcve-cvs-guest-35.png[gcve CVS guest 35]
 
 . 在此步驟中、選取可存取磁碟區的VPC網路。確保VPC對等作業已就緒。
 +
 提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟Cloud Shell工作階段、執行適當的命令、讓您的VPC與Cloud Volumes Service 效能提升者對等。如果您決定事先準備VPC對等、請參閱這些資訊 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en["說明"]。
 
 +
-image:gcve-cvs-guest-36.png[""]
+image::gcve-cvs-guest-36.png[gcve CVS guest 虛擬機 36.]
 
 . 按一下「儲存」以建立磁碟區。
 +
-image:gcve-cvs-guest-37.png[""]
+image::gcve-cvs-guest-37.png[gcve CVS guest 37]
 
 
 
@@ -395,14 +402,14 @@ image:gcve-cvs-guest-37.png[""]
 +
  \\nimsmb-3830.nimgcveval.com\nimCVSMBvol01
 +
-image:gcve-cvs-guest-38.png[""]
+image::gcve-cvs-guest-38.png[gcve CVS guest 38.]
 
 +
 若要在每次登入電腦時連線、請選取登入時重新連線核取方塊。
 
 . 按一下「完成」。
 +
-image:gcve-cvs-guest-39.png[""]
+image::gcve-cvs-guest-39.png[gcve CVS guest 39]
 
 
 

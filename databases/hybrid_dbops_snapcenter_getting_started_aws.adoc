@@ -50,31 +50,31 @@ NOTE: 部署Cloud Manager和Cloud Volumes ONTAP NetApp有許多方法；這種�
 
 . 瀏覽至 https://cloud.netapp.com/cloud-manager["NetApp Cloud Central"^] 並登入或註冊。
 +
-image:cloud_central_login_page.PNG[""]
+image::cloud_central_login_page.PNG[Cloud Central 登入頁面]
 
 . 登入之後、您應該會被帶到Canvas.
 +
-image:cloud_central_canvas_page.PNG[""]
+image::cloud_central_canvas_page.PNG[雲端中央畫布頁面]
 
 . 按一下「Add Working Environment」（新增工作環境）、然後在Cloud Volumes ONTAP AWS中選擇「您也可以在此選擇要部署單一節點系統或高可用度配對。我選擇部署高可用度配對。
 +
-image:cloud_central_add_we.PNG[""]
+image::cloud_central_add_we.PNG[Cloud Central 讓我們更添價值]
 
 . 如果尚未建立連接器、則會出現快顯視窗、要求您建立連接器。
 +
-image:cloud_central_add_conn_1.PNG[""]
+image::cloud_central_add_conn_1.PNG[Cloud Central 新增 conn 1.]
 
 . 按一下「讓我們開始」、然後選擇「AWS」。
 +
-image:cloud_central_add_conn_3.PNG[""]
+image::cloud_central_add_conn_3.PNG[Cloud Central 新增 conn 3.]
 
 . 輸入您的秘密金鑰和存取金鑰。請確定您的使用者擁有上所述的正確權限 https://mysupport.netapp.com/site/info/cloud-manager-policies["NetApp原則頁面"^]。
 +
-image:cloud_central_add_conn_4.PNG[""]
+image::cloud_central_add_conn_4.PNG[Cloud Central 新增 conn 4.]
 
 . 為連接器命名、並使用預先定義的角色、如所述 https://mysupport.netapp.com/site/info/cloud-manager-policies["NetApp原則頁面"^] 或請Cloud Manager為您建立角色。
 +
-image:cloud_central_add_conn_5.PNG[""]
+image::cloud_central_add_conn_5.PNG[Cloud Central 新增 conn 5.]
 
 . 提供部署連接器所需的網路資訊。確認已啟用傳出網際網路存取：
 +
@@ -82,25 +82,25 @@ image:cloud_central_add_conn_5.PNG[""]
 .. 為連接器提供可處理的Proxy
 .. 透過網際網路閘道將連接器分配給公共網際網路
 +
-image:cloud_central_add_conn_6.PNG[""]
+image::cloud_central_add_conn_6.PNG[Cloud Central 新增 conn 6.]
 
 
 
 . 提供安全群組或建立新的安全群組、以透過SSH、HTTP和HTTPS與連接器進行通訊。我已啟用從IP位址存取連接器的功能。
 +
-image:cloud_central_add_conn_7.PNG[""]
+image::cloud_central_add_conn_7.PNG[Cloud Central 新增連接器 7.]
 
 . 檢閱摘要頁面上的資訊、然後按一下「新增」以部署連接器。
 +
-image:cloud_central_add_conn_8.PNG[""]
+image::cloud_central_add_conn_8.PNG[Cloud Central 新增連接器 8.]
 
 . 連接器現在使用雲端形成堆疊進行部署。您可以從Cloud Manager或透過AWS監控其進度。
 +
-image:cloud_central_add_conn_9.PNG[""]
+image::cloud_central_add_conn_9.PNG[Cloud Central 新增 conn 9.]
 
 . 部署完成後、會顯示成功頁面。
 +
-image:cloud_central_add_conn_10.PNG[""]
+image::cloud_central_add_conn_10.PNG[Cloud Central 新增 conn 10.]
 
 
 
@@ -110,39 +110,39 @@ image:cloud_central_add_conn_10.PNG[""]
 
 . 根據您的需求選擇AWS和部署類型。
 +
-image:cloud_central_add_we_1.PNG[""]
+image::cloud_central_add_we_1.PNG[Cloud Central 新增了我們 1]
 
 . 如果尚未指派訂閱、且您想要與PAYGO一起購買、請選擇「編輯認證」。
 +
-image:cloud_central_add_we_2.PNG[""]
+image::cloud_central_add_we_2.PNG[Cloud Central 新增了我們 2]
 
 . 選擇「新增訂閱」。
 +
-image:cloud_central_add_we_3.PNG[""]
+image::cloud_central_add_we_3.PNG[Cloud Central 新增了我們 3]
 
 . 選擇您要訂閱的合約類型。我選擇了隨用隨付。
 +
-image:cloud_central_add_we_4.PNG[""]
+image::cloud_central_add_we_4.PNG[Cloud Central 新增了我們 4]
 
 . 您會重新導向至AWS、請選擇「Continue（繼續）」以訂閱。
 +
-image:cloud_central_add_we_5.PNG[""]
+image::cloud_central_add_we_5.PNG[Cloud Central 新增了我們 5]
 
 . 訂閱之後、您將被重新導向回NetApp Cloud Central。如果您已訂閱但未重新導向、請選擇「按一下此處」連結。
 +
-image:cloud_central_add_we_6.PNG[""]
+image::cloud_central_add_we_6.PNG[Cloud Central 新增了我們 6.]
 
 . 您會重新導向至Cloud Central、在其中必須為訂閱命名、並將其指派給Cloud Central帳戶。
 +
-image:cloud_central_add_we_7.PNG[""]
+image::cloud_central_add_we_7.PNG[Cloud Central 新增了我們 7]
 
 . 成功時、會出現核取標記頁面。瀏覽返回Cloud Manager索引標籤。
 +
-image:cloud_central_add_we_8.PNG[""]
+image::cloud_central_add_we_8.PNG[Cloud Central 新增了我們 8.]
 
 . 訂購內容現在會顯示在Cloud Central中。按一下「套用」繼續。
 +
-image:cloud_central_add_we_9.PNG[""]
+image::cloud_central_add_we_9.PNG[Cloud Central 新增了我們 9]
 
 . 輸入工作環境詳細資料、例如：
 +
@@ -150,25 +150,25 @@ image:cloud_central_add_we_9.PNG[""]
 .. 叢集密碼
 .. AWS標籤（選用）
 +
-image:cloud_central_add_we_10.PNG[""]
+image::cloud_central_add_we_10.PNG[Cloud Central 新增 10 項]
 
 
 
 . 選擇您要部署的其他服務。若要深入瞭解這些服務、請造訪 https://cloud.netapp.com["NetApp Cloud首頁"^]。
 +
-image:cloud_central_add_we_11.PNG[""]
+image::cloud_central_add_we_11.PNG[Cloud Central 新增 11 項]
 
 . 選擇是部署在多個可用度區域（重新設定三個子網路的組權、每個子網路位於不同的AZ）、還是部署單一可用度區域。我選擇了多個AZs。
 +
-image:cloud_central_add_we_12.PNG[""]
+image::cloud_central_add_we_12.PNG[Cloud Central 新增了我們 12]
 
 . 為要部署的叢集選擇區域、VPC和安全性群組。在本節中、您也可以指派每個節點（和中介）的可用度區域、以及它們所佔用的子網路。
 +
-image:cloud_central_add_we_13.PNG[""]
+image::cloud_central_add_we_13.PNG[Cloud Central 新增 13 項]
 
 . 選擇節點和中介器的連線方法。
 +
-image:cloud_central_add_we_14.PNG[""]
+image::cloud_central_add_we_14.PNG[Cloud Central 新增了我們 14]
 
 
 
@@ -177,47 +177,47 @@ TIP: 中介者需要與AWS API通訊。只要在部署了中介EC2執行個體�
 
 . 浮動IP位址可用來存取Cloud Volumes ONTAP 各種使用的IP位址、包括叢集管理和資料服務IP。這些位址必須是網路中無法路由傳送的位址、而且必須新增至AWS環境中的路由表。在容錯移轉期間、必須啟用一致的HA配對IP位址。如需浮動IP位址的詳細資訊、請參閱 https://docs.netapp.com/us-en/occm/reference_networking_aws.html#requirements-for-ha-pairs-in-multiple-azs["NetApp雲端文件"^]。
 +
-image:cloud_central_add_we_15.PNG[""]
+image::cloud_central_add_we_15.PNG[Cloud Central 新增了我們 15]
 
 . 選取要新增浮動IP位址的路由表。這些路由表可供用戶端用來與Cloud Volumes ONTAP 無法分享的資料。
 +
-image:cloud_central_add_we_16.PNG[""]
+image::cloud_central_add_we_16.PNG[Cloud Central 新增了我們 16]
 
 . 選擇是啟用AWS託管加密、還是啟用AWS KMS來加密ONTAP 支援的支援、以加密整個過程中的所有資料磁碟。
 +
-image:cloud_central_add_we_17.PNG[""]
+image::cloud_central_add_we_17.PNG[Cloud Central 新增了我們 17]
 
 . 選擇您的授權模式。如果您不知道該選擇哪一項、請聯絡您的NetApp代表。
 +
-image:cloud_central_add_we_18.PNG[""]
+image::cloud_central_add_we_18.PNG[Cloud Central 新增了我們 18]
 
 . 選取最適合您使用案例的組態。這與「必要條件」頁面所涵蓋的規模調整考量有關。
 +
-image:cloud_central_add_we_19.PNG[""]
+image::cloud_central_add_we_19.PNG[Cloud Central 新增了我們 19]
 
 . 也可以建立Volume。這是不必要的、因為後續步驟使用SnapMirror、為我們建立磁碟區。
 +
-image:cloud_central_add_we_20.PNG[""]
+image::cloud_central_add_we_20.PNG[Cloud Central 新增了 20 個]
 
 . 請檢閱所做的選擇、並勾選方塊、確認您瞭解Cloud Manager已將資源部署到AWS環境。準備好後、按一下「Go（執行）
 +
-image:cloud_central_add_we_21.PNG[""]
+image::cloud_central_add_we_21.PNG[Cloud Central 新增了我們 21]
 
 . 現在、即可開始部署程序。Cloud Volumes ONTAPCloud Manager使用AWS API和雲端形成堆疊來部署Cloud Volumes ONTAP 功能。然後將系統設定為符合您的規格、讓您立即使用隨裝即用的系統。此程序的時間取決於所做的選擇。
 +
-image:cloud_central_add_we_22.PNG[""]
+image::cloud_central_add_we_22.PNG[Cloud Central 新增了我們 22]
 
 . 您可以瀏覽至時間軸來監控進度。
 +
-image:cloud_central_add_we_23.PNG[""]
+image::cloud_central_add_we_23.PNG[Cloud Central 新增了我們 23]
 
 . 時間軸可稽核Cloud Manager中執行的所有動作。您可以檢視Cloud Manager在設定AWS和ONTAP 支援叢集期間所發出的所有API呼叫。這也可有效用來疑難排解您所面臨的任何問題。
 +
-image:cloud_central_add_we_24.PNG[""]
+image::cloud_central_add_we_24.PNG[Cloud Central 新增了我們 24]
 
 . 部署完成後、CVO叢集會顯示在目前容量的畫版上。目前狀態下的整個叢集已經過完整設定、可提供真正的隨裝即用體驗。ONTAP
 +
-image:cloud_central_add_we_25.PNG[""]
+image::cloud_central_add_we_25.PNG[Cloud Central 新增了我們 25]
 
 
 
@@ -231,62 +231,62 @@ image:cloud_central_add_we_25.PNG[""]
 
 . 按一下來源ONTAP 支援系統（內部部署）、然後將其拖放到目的地、選取「Replication（複製）」>「Enable（啟用）」、或選取「Replication（複製）」>「Menu（功能表）」>「Replicate（複製）」。
 +
-image:cloud_central_replication_1.png[""]
+image::cloud_central_replication_1.png[雲端中央複寫 1.]
 
 +
 選取「啟用」。
 
 +
-image:cloud_central_replication_2.png[""]
+image::cloud_central_replication_2.png[雲端中央複寫 2.]
 
 +
 或選項。
 
 +
-image:cloud_central_replication_3.png[""]
+image::cloud_central_replication_3.png[雲端中央複寫 3.]
 
 +
 複寫：
 
 +
-image:cloud_central_replication_4.png[""]
+image::cloud_central_replication_4.png[雲端中央複寫 4.]
 
 . 如果您沒有拖放、請選擇要複寫的目的地叢集。
 +
-image:cloud_central_replication_5.png[""]
+image::cloud_central_replication_5.png[雲端中央複寫 5.]
 
 . 選擇您要複寫的磁碟區。我們複寫了資料和所有記錄磁碟區。
 +
-image:cloud_central_replication_6.png[""]
+image::cloud_central_replication_6.png[雲端中央複寫 6.]
 
 . 選擇目的地磁碟類型和分層原則。對於災難恢復、我們建議使用SSD做為磁碟類型、並維持資料分層。資料分層將鏡射資料分層儲存至低成本的物件儲存設備、並節省您在本機磁碟上的成本。當您中斷關係或複製磁碟區時、資料會使用快速的本機儲存設備。
 +
-image:cloud_central_replication_7.png[""]
+image::cloud_central_replication_7.png[雲端中央複寫 7.]
 
 . 選擇目的地Volume名稱：我們選擇了「[SOUR資料_ Volume名稱]_DR。
 +
-image:cloud_central_replication_8.png[""]
+image::cloud_central_replication_8.png[雲端中央複寫 8.]
 
 . 選取複寫的最大傳輸率。這可讓您在連線至雲端（例如VPN）的頻寬過低時、節省頻寬。
 +
-image:cloud_central_replication_9.png[""]
+image::cloud_central_replication_9.png[雲端中央複寫 9.]
 
 . 定義複寫原則。我們選擇了鏡射、它會將最新的資料集複寫到目的地Volume中。您也可以根據需求選擇不同的原則。
 +
-image:cloud_central_replication_10.png[""]
+image::cloud_central_replication_10.png[雲端中央複寫 10.]
 
 . 選擇觸發複寫的排程。NetApp建議針對資料磁碟區設定「每日」排程、並針對記錄磁碟區設定「每小時」排程、不過可根據需求加以變更。
 +
-image:cloud_central_replication_11.png[""]
+image::cloud_central_replication_11.png[雲端中央複寫 11.]
 
 . 檢閱輸入的資訊、按一下「Go（執行）」以觸發叢集對等端點和SVM對等端點（如果這是您第一次在兩個叢集之間複寫）、然後實作並初始化SnapMirror關係。
 +
-image:cloud_central_replication_12.png[""]
+image::cloud_central_replication_12.png[雲端中央複寫 12.]
 
 . 繼續執行資料磁碟區和記錄磁碟區的此程序。
 . 若要檢查所有關係、請瀏覽至Cloud Manager中的「Replication（複寫）」索引標籤。您可在此管理關係、並查看其狀態。
 +
-image:cloud_central_replication_13.png[""]
+image::cloud_central_replication_13.png[雲端中央複寫 13.]
 
 . 複寫完所有磁碟區之後、您會處於穩定狀態、準備好繼續進行災難恢復和開發/測試工作流程。
 

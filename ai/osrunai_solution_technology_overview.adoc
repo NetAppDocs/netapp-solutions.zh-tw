@@ -16,7 +16,7 @@ summary:
 [role="lead"]
 此解決方案是以一AFF 部NetApp Efora800系統、兩部DGX-1伺服器、以及兩部Cisco Nexus 3232C 100Gbe-switches來實作。每部DGX-1伺服器均連接至Nexus交換器、並具有四個100GbE連線、可透過融合式乙太網路（RoCE）使用遠端直接記憶體存取（RDMA）進行GPU間通訊。NFS儲存存取的傳統IP通訊也會發生在這些連結上。每個儲存控制器都使用四個100GbE連結連接至網路交換器。下圖顯示ONTAP 本技術報告中針對所有測試案例所使用的AI解決方案架構。
 
-image:osrunai_image2.png[""]
+image::osrunai_image2.png[osrunai 影像 2.]
 
 
 

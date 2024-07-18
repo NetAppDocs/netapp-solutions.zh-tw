@@ -199,7 +199,7 @@ Amazon FSX ONTAP for VMware可為各種運算類型提供多重傳輸協定支�
 ====
 VMware虛擬環境包含ESXi主機、VMware vCenter Server、NSX網路及其他元件的授權、如下圖所示。所有的授權都是不同的、因此瞭解基礎元件如何使用可用的授權容量是很重要的。
 
-image:dr-vmc-aws-image2.png[""]
+image::dr-vmc-aws-image2.png[DR vmc AWS 影像 2.]
 
 .ESXi主機
 [%collapsible]
@@ -493,7 +493,7 @@ NOTE: 如果未在預設閘道上建立IPSec VPN通道、則必須在路由表�
 
 下圖說明典型的VPN連線選項。
 
-image:dr-vmc-aws-image3.png[""]
+image::dr-vmc-aws-image3.png[DR vmc AWS 影像 3.]
 
 =====
 .直接連線
@@ -505,7 +505,7 @@ Direct Connect提供AWS網路的專屬連結。專用連線使用1Gbps、10Gbps�
 
 下圖說明Direct Connect介面選項。
 
-image:dr-vmc-aws-image4.png[""]
+image::dr-vmc-aws-image4.png[DR vmc AWS Image4]
 
 =====
 .傳輸閘道
@@ -529,7 +529,7 @@ VMware Cloud SDDC可部署在單一可用度區域、就像是單一資料中心
 
 若要將資料傳輸成本降至最低、請將VMware Cloud SDDC和AWS執行個體或服務保留在相同的可用度區域。比較適合搭配可用度區域ID、而非名稱、因為AWS會提供帳戶專屬的AZ訂單清單、以分散可用度區域的負載。例如、某個帳戶（US-EAST -1a）可能指向AZ ID 1、而另一個帳戶（US-EAST 1c）可能指向AZ ID 1。可用度區域ID可透過多種方式擷取。在下列範例中、我們從VPC子網路擷取AZ ID。
 
-image:dr-vmc-aws-image5.png[""]
+image::dr-vmc-aws-image5.png[DR vmc AWS 影像 5.]
 
 在VMware Cloud SDDC中、網路是以NSX管理、處理北南流量上行鏈路連接埠的邊際閘道（層級0路由器）則是連接至AWS VPC。運算閘道和管理閘道（第1層路由器）可處理東西部流量。如果邊緣的上行鏈路連接埠使用量很大、您可以建立流量群組、以便與特定的主機IP或子網路建立關聯。建立流量群組會建立額外的邊緣節點來分隔流量。請檢查 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-networking-security/GUID-306D3EDC-F94E-4216-B306-413905A4A784.html["VMware文件"^] 使用多邊緣設定所需的vSphere主機數量下限。
 
@@ -540,7 +540,7 @@ image:dr-vmc-aws-image5.png[""]
 
 下圖說明主機VMKernel資訊範例。
 
-image:dr-vmc-aws-image6.png[""]
+image::dr-vmc-aws-image6.png[DR vmc AWS 影像 6.]
 
 =====
 .已配置的儲存網路（iSCSI、NFS）
@@ -573,7 +573,7 @@ NetApp AFF 之所以能提供高效能儲存基礎架構、是因為它具備靈
 
 下圖說明VMware儲存選項。
 
-image:dr-vmc-aws-image7.png[""]
+image::dr-vmc-aws-image7.png[DR vmc AWS 影像 7.]
 
 將支援iSCSI和NFS的來賓連線儲存設備用於我們的應用程式VM。ONTAP我們使用下列儲存傳輸協定來處理應用程式資料：
 
@@ -622,7 +622,7 @@ FSX for ONTAP Sfor Sfor Sfor FSfor是應用程式資料的二線儲存設備、�
 
 下圖說明我們的FSX ONTAP 支援環境。
 
-image:dr-vmc-aws-image8.png[""]
+image::dr-vmc-aws-image8.png[DR vmc AWS 影像 8.]
 
 =====
 .已建立網路介面
@@ -657,7 +657,7 @@ VMware vSphere可在資料中心和所有主要雲端供應商之間提供虛擬
 ====
 我們在AWS上部署了SDDC、其中有兩台主機、提供足夠的資源來執行從主要站台還原的虛擬機器。
 
-image:dr-vmc-aws-image9.png[""]
+image::dr-vmc-aws-image9.png[DR vmc AWS 影像 9.]
 
 ====
 

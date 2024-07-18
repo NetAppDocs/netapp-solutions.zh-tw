@@ -58,18 +58,24 @@ NOTE: 客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功
 
 . 使用現有或新建立的VMware認證資料登入VMware Cloud Console。
 +
-image:aws-config-1.png[""]
+image::aws-config-1.png[AWS 組態 1]
 
 . 設定AWS區域、部署和主機類型、以及SDDC名稱：
 +
-image:aws-config-2.png[""]
+image::aws-config-2.png[AWS 組態 2.]
 
 . 連線至所需的AWS帳戶、然後執行AWS Cloud formation堆疊。
 +
-image:aws-config-3.png[""]
-image:aws-config-4.png[""]
-image:aws-config-5.png[""]
-image:aws-config-6.png[""]
+image::aws-config-3.png[AWS 組態 3.]
+
++
+image::aws-config-4.png[AWS 組態 4.]
+
++
+image::aws-config-5.png[AWS 組態 5.]
+
++
+image::aws-config-6.png[AWS 組態 6.]
 
 +
 
@@ -77,25 +83,25 @@ NOTE: 此驗證使用單一主機組態。
 
 . 選取所需的AWS VPC、以連接VMC環境。
 +
-image:aws-config-7.png[""]
+image::aws-config-7.png[AWS 組態 7.]
 
 . 設定VMC管理子網路；此子網路包含vCenter、NSX等VMC託管服務。請勿選擇與任何其他需要連線至SDDC環境的網路重疊的位址空間。最後、請遵循以下所述的CIDR大小建議。
 +
-image:aws-config-8.png[""]
+image::aws-config-8.png[AWS 組態 8.]
 
 . 檢閱並確認SDDC組態、然後按一下「部署SDDC」。
 +
-image:aws-config-9.png[""]
+image::aws-config-9.png[AWS 組態 9.]
 
 +
 部署程序通常需要約兩小時才能完成。
 
 +
-image:aws-config-10.png[""]
+image::aws-config-10.png[AWS 組態 10]
 
 . 完成後、SDDC即可開始使用。
 +
-image:aws-config-11.png[""]
+image::aws-config-11.png[AWS 組態 11.]
 
 
 
@@ -110,34 +116,42 @@ image:aws-config-11.png[""]
 
 . 完成VMware Cloud部署並連線至AWS VPC後、您必須將Amazon FSX for NetApp ONTAP 支援部署至新的VPC、而非原始連線的VPC（請參閱下方螢幕快照）。如果FSX（NFS和SMB浮動IP）部署在連線的VPC上、則無法存取。請記住Cloud Volumes ONTAP 、像是支援的iSCSI端點、在連線的VPC上運作正常。
 +
-image:aws-connect-fsx-1.png[""]
+image::aws-connect-fsx-1.png[AWS 連線 FSX 1]
 
 . 在同一個地區部署額外的VPC、然後將Amazon FSX for NetApp ONTAP 支援VPC部署到新的VPC。
 +
 在VMware Cloud主控台中設定SDDC群組、可提供連線至部署FSx的新VPC所需的網路組態選項。在步驟3中、確認已勾選「為您的群組設定VMware Transit Connect將會產生每個附件和資料傳輸的費用」、然後選擇「建立群組」。此程序可能需要幾分鐘的時間才能完成。
 
 +
-image:aws-connect-fsx-2.png[""]
-image:aws-connect-fsx-3.png[""]
-image:aws-connect-fsx-4.png[""]
+image::aws-connect-fsx-2.png[AWS 連線 FSX 2]
+
++
+image::aws-connect-fsx-3.png[AWS 連線 FSX 3.]
+
++
+image::aws-connect-fsx-4.png[AWS 連線 FSX 4.]
 
 . 將新建立的VPC附加至剛建立的SDDC群組。選取「外部VPC」索引標籤、然後遵循 link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-A3D03968-350E-4A34-A53E-C0097F5F26A9.html["連接外部VPC的說明"] 給群組。此程序可能需要10至15分鐘才能完成。
 +
-image:aws-connect-fsx-5.png[""]
-image:aws-connect-fsx-6.png[""]
+image::aws-connect-fsx-5.png[AWS 連線 FSX 5.]
+
++
+image::aws-connect-fsx-6.png[AWS 連線 FSX 6.]
 
 . 在外部VPC程序中、系統會透過AWS主控台、透過資源存取管理程式提示您移至新的共用資源。共享資源是 link:https://aws.amazon.com/transit-gateway["AWS Transit閘道"] 由VMware Transit Connect管理。
 +
-image:aws-connect-fsx-7.png[""]
-image:aws-connect-fsx-8.png[""]
+image::aws-connect-fsx-7.png[AWS 連線 FSX 7]
+
++
+image::aws-connect-fsx-8.png[AWS 連線 FSX 8.]
 
 . 建立Transit Gateway附件。
 +
-image:aws-connect-fsx-9.png[""]
+image::aws-connect-fsx-9.png[AWS 連線 FSX 9.]
 
 . 回到VMC主控台、接受VPC附件。完成此程序大約需要10分鐘。
 +
-image:aws-connect-fsx-10.png[""]
+image::aws-connect-fsx-10.png[AWS 連線 FSX 10]
 
 . 在「外部VPC」索引標籤中、按一下「路由」欄中的編輯圖示、然後新增下列必要路由：
 +
@@ -145,17 +159,17 @@ image:aws-connect-fsx-10.png[""]
 ** 適用於靜態的浮動IP範圍路由Cloud Volumes ONTAP （若適用）。
 ** 新建立外部VPC位址空間的路由。
 +
-image:aws-connect-fsx-11.png[""]
+image::aws-connect-fsx-11.png[AWS 連線 FSX 11]
 
 
 
 . 最後、允許雙向流量 link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-DE330202-D63D-408A-AECF-7CDC6ADF7EAC.html["防火牆規則"] 以存取FSx/CVO。請依照下列步驟操作 link:https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-DE330202-D63D-408A-AECF-7CDC6ADF7EAC.html["詳細步驟"] 適用於SDDC工作負載連線的運算閘道防火牆規則。
 +
-image:aws-connect-fsx-12.png[""]
+image::aws-connect-fsx-12.png[AWS 連線 FSX 12]
 
 . 為管理和運算閘道設定防火牆群組之後、即可存取vCenter、如下所示：
 +
-image:aws-connect-fsx-13.png[""]
+image::aws-connect-fsx-13.png[AWS 連接 FSX 13.]
 
 
 

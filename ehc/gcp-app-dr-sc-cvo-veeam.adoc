@@ -26,7 +26,7 @@ summary: 災難恢復至雲端是一種彈性且具成本效益的方法、可�
 
 本文件提供逐步方法、以設定及執行使用NetApp SnapMirror、Veeam及Google Cloud VMware Engine（GCVE）的災難恢復。
 
-image:dr-cvo-gcve-image1.png[""]
+image::dr-cvo-gcve-image1.png[DR CVO gcve 影像 1]
 
 
 
@@ -76,7 +76,7 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 ====
 第一步是在 Google Cloud 上設定 Cloud Volumes ONTAP （link:gcp-guest.html#gcp-cvo["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
 
-image:dr-cvo-gcve-image2.png[""]
+image::dr-cvo-gcve-image2.png[DR CVO gcve 影像 2.]
 
 如需設定 SnapCenter 和複寫資料的逐步說明範例、請參閱 link:aws-guest-dr-solution-overview.html#config-snapmirror["利用SnapCenter 功能進行複寫設定"]
 

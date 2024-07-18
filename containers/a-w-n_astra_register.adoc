@@ -22,7 +22,7 @@ keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astr
 
 . 第一步是將OpenShift叢集新增至Astra控制中心、並加以管理。移至「叢集」、按一下「新增叢集」、上傳OpenShift叢集的「kubeconfig」檔案、然後按一下「選取儲存設備」。
 +
-image:redhat_openshift_image91.jpg["Astra Control Center會建立叢集"]
+image::redhat_openshift_image91.jpg[Astra Control Center會建立叢集]
 
 +
 
@@ -30,11 +30,11 @@ NOTE: 可以產生Kbeconfig檔案、以使用者名稱和密碼或權杖進行�
 
 . Astra Control Center會偵測合格的儲存類別。現在、請在NetApp ONTAP 上選擇使用Trident（以SVM為後盾）來配置Volume的方式、然後按一下「Review（檢閱）」。在下一個窗格中、確認詳細資料、然後按一下「Add Cluster（新增叢集）」。
 +
-image:redhat_openshift_image92.jpg["Astra Control Center可建立叢集選取的儲存設備"]
+image::redhat_openshift_image92.jpg[Astra Control Center可建立叢集選取的儲存設備]
 
 . 如步驟1所述、登錄兩個OpenShift叢集。新增時、叢集會移至「Discovering」（探索）狀態、而Astra Control Center則會檢查並安裝必要的代理程式。叢集狀態會在成功登錄之後變更為執行中。
 +
-image:redhat_openshift_image93.jpg["Astra Control Center叢集可供使用"]
+image::redhat_openshift_image93.jpg[Astra Control Center叢集可供使用]
 
 +
 
@@ -42,18 +42,18 @@ NOTE: 所有由Astra Control Center管理的Red Hat OpenShift叢集、都應該�
 
 . 將ONTAP 支援的物件叢集匯入為儲存資源、以由Astra Control Center作為後端管理。當OpenShift叢集新增至Astra且已設定儲存設備時、它會自動探索ONTAP 並檢查以儲存設備為後盾的不支援該叢集、但不會將其匯入要管理的Astra Control Center。
 +
-image:redhat_openshift_image94.jpg["Astra Control Center後端探索"]
+image::redhat_openshift_image94.jpg[Astra Control Center後端探索]
 
 . 若要匯入ONTAP 物件叢集、請前往後端、按一下下拉式清單、然後選取ONTAP 要管理之物件叢集旁的「Manage（管理）」。輸入ONTAP 「物件叢集認證」、按一下「檢閱資訊」、然後按一下「匯入儲存設備後端」。
 +
-image:redhat_openshift_image95.jpg["Astra Control Center建立後端"]
+image::redhat_openshift_image95.jpg[Astra Control Center建立後端]
 
 . 新增後端之後、狀態會變更為「可用」。這些後端現在有OpenShift叢集中持續磁碟區的相關資訊、ONTAP 以及在整個系統上對應的磁碟區。
 +
-image:redhat_openshift_image96.jpg["Astra Control Center後端可用"]
+image::redhat_openshift_image96.jpg[Astra Control Center後端可用]
 
 . 若要使用Astra Control Center跨OpenShift叢集進行備份與還原、您必須配置支援S3傳輸協定的物件儲存桶。目前支援ONTAP 的選項包括不支援的S3、StorageGRID 不支援的功能、以及AWS S3。為了進行此安裝、我們將設定AWS S3儲存區。移至「Bucket」、按一下「Add Bucket」、然後選取「通用S3」。輸入S3儲存區的詳細資料及存取憑證、按一下「將此儲存區設為雲端的預設儲存區」核取方塊、然後按一下「新增」。
 +
-image:redhat_openshift_image97.jpg["Astra Control Center可建立鏟斗"]
+image::redhat_openshift_image97.jpg[Astra Control Center可建立鏟斗]
 
 

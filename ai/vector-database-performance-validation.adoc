@@ -56,7 +56,7 @@ summary: 向量資料庫效能驗證： NetApp 的向量資料庫解決方案
 我們在採用 vectorDB-Bench 的 mivus 獨立叢集上進行了下列效能驗證。
 milvus 獨立叢集的網路和伺服器連線能力如下。
 
-image:perf_mivus_standalone.png[""]
+image::perf_mivus_standalone.png[Perf mivus 獨立式]
 
 在本節中、我們分享了測試 Milvus 獨立式資料庫的觀察結果和結果。
 。	我們選擇 DiskANN 作為這些測試的索引類型。
@@ -98,7 +98,7 @@ image:perf_mivus_standalone.png[""]
 |===
 vectorDB-bench 結果如下。
 
-image:vector_db_result_standalone.png[""]
+image::vector_db_result_standalone.png[獨立式向量資料庫結果]
 
 從獨立式 Milvus 執行個體的效能驗證來看、目前的設定顯然不足以支援容量為 1536 的 500 萬向量資料集。我們已確定儲存設備擁有足夠的資源、並不構成系統的瓶頸。
 
@@ -110,18 +110,20 @@ image:vector_db_result_standalone.png[""]
 
 VMware vSphere 和 Kubernetes 部署的詳細資料將在下列各節中說明。
 
-image:milvus_vmware_perf.png[""] image:milvus_cluster_perf.png[""]
+image::milvus_vmware_perf.png[milvus VMware perf]
+
+image::milvus_cluster_perf.png[milvus 叢集效能]
 
 在本節中、我們會介紹測試 Milvus 資料庫的觀察結果和結果。
 * 使用的索引類型為 DiskANN 。
 * 下表提供獨立部署與叢集部署之間的比較、以 1536 的維度處理 500 萬個向量。我們觀察到、叢集部署中的資料擷取和插入後最佳化所需時間較短。與獨立安裝相比、叢集部署中查詢延遲的第 99 百分位數減少了六倍。
 * 雖然叢集部署中的每秒查詢數（ QPS ）速率較高、但並未達到所需的層級。
 
-image:milvus_standalone_cluster_perf.png[""]
+image::milvus_standalone_cluster_perf.png[milvus 獨立叢集效能]
 
 下圖提供各種儲存指標的檢視、包括儲存叢集延遲和 IOPS 總計（每秒輸入 / 輸出作業數）。
 
-image:storagecluster_latency_iops_milcus.png[""]
+image::storagecluster_latency_iops_milcus.png[storaguster 延遲 IOPS 核心]
 
 下節將說明主要的儲存效能指標。
 
@@ -165,7 +167,7 @@ image:storagecluster_latency_iops_milcus.png[""]
 我們使用 VectorDB-Bench 在 PostgreSQL （ pgvec托 .RS ）上執行下列動作：
 PostgreSQL （特別是 pgveco.RS ）的網路和伺服器連線詳細資料如下：
 
-image:pgvecto_perf_network_connectivity.png[""]
+image::pgvecto_perf_network_connectivity.png[pgvecto perf 網路連線]
 
 在本節中、我們分享了測試 PostgreSQL 資料庫的觀察結果、特別是使用 pgveco.RS 。
 * 我們選擇 HNSW 作為這些測試的索引類型、因為在測試時、 DiskANN 無法用於 pgveco.RS 。
@@ -174,16 +176,16 @@ image:pgvecto_perf_network_connectivity.png[""]
 
 下圖提供各種儲存指標的檢視、包括儲存叢集延遲總計 IOPS （每秒輸入 / 輸出作業數）。
 
-image:pgvecto_storage_iops_latency.png[""]
+image::pgvecto_storage_iops_latency.png[pgvecto 儲存 IOPS 延遲]
 
  The following section presents the key storage performance metrics.
-image:pgvecto_storage_perf_metrics.png[""]
+image::pgvecto_storage_perf_metrics.png[pgvecto 儲存效能指標]
 
 
 
 === 向量 DB Bench 上的 milvus 與 postgres 效能比較
 
-image:perf_comp_milvus_postgres.png[""]
+image::perf_comp_milvus_postgres.png[Perf comp milvus postgres]
 
 根據我們使用 VectorDBBench 對 Milvus 和 PostgreSQL 的效能驗證、我們觀察到下列事項：
 

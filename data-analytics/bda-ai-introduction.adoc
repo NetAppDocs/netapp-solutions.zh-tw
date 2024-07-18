@@ -46,7 +46,7 @@ NetApp就地分析模組（NIPAM）是Hadoop叢集存取NFS資料的驅動程式
 
 Hadoop分散式複製（DistCp）是一種分散式複製工具、用於大型叢集間和叢集內的處理工作。此工具使用MapReduce進行資料發佈、錯誤處理及報告。它會展開檔案和目錄清單、並輸入它們來對應工作、以便從來源清單複製資料。下圖顯示HDFS和非HDFS的DistCp作業。
 
-image:bda-ai-image1.png[""]
+image::bda-ai-image1.png[BDA AI 影像 1.]
 
 Hadoop DistCp可在兩個HDFS系統之間移動資料、而無需使用額外的驅動程式。NetApp為非HDFS系統提供驅動程式。對於NFS目的地、NIPAM提供驅動程式、可複製Hadoop DistCp在複製資料時用於與NFS目的地通訊的資料。
 
@@ -62,7 +62,7 @@ NetApp Cloud Volumes Service 解決方案是雲端原生檔案服務、效能極
 
 NetApp XCP是用戶端軟體、可快速且可靠地進行NetApp與NetApp之間的資料移轉。此工具旨在將大量非結構化NAS資料從任何NAS系統複製到NetApp儲存控制器。XCP移轉工具使用多核心、多通道I/O串流引擎、可平行處理許多要求、例如資料移轉、檔案或目錄清單、以及空間報告。這是預設的NetApp資料移轉工具。您可以使用XCP將資料從Hadoop叢集和HPC複製到NetApp NFS儲存設備。下圖顯示使用XCP從Hadoop和HPC叢集傳輸到NetApp NFS磁碟區的資料。
 
-image:bda-ai-image2.png[""]
+image::bda-ai-image2.png[BDA AI 影像 2.]
 
 
 

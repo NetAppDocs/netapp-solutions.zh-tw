@@ -147,15 +147,15 @@ NOTE: 對於任務關鍵型應用程式（例如SQL Server）、即使是最短�
 . 開啟Amazon FSX主控台、網址為 https://console.aws.amazon.com/fsx/[]
 . 使用ONTAP 「建立方法」下的「標準建立」選項、為NetApp的SfxX檔案系統建立Amazon FSX。這可讓您定義FSxadmin和vsadmin認證資料。
 +
-image:sql-awsec2-image1.png[""]
+image::sql-awsec2-image1.png[SQL awsec2 影像 1.]
 
 . 指定fsxadmin的密碼。
 +
-image:sql-awsec2-image2.png[""]
+image::sql-awsec2-image2.png[SQL awsec2 影像 2.]
 
 . 指定SVM的密碼。
 +
-image:sql-awsec2-image3.png[""]
+image::sql-awsec2-image3.png[SQL awsec2 影像 3.]
 
 . 依照中所列的步驟建立Volume https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-volumes.html["在FSX上建立適用於NetApp ONTAP 的Volume"^]。
 +
@@ -193,7 +193,7 @@ Set-Service -Name msiscsi -StartupType Automatic
 Get-InitiatorPort | select NodeAddress
 ....
 +
-image:sql-awsec2-image4.png[""]
+image::sql-awsec2-image4.png[SQL awsec2 Image4.]
 
 . 使用推桿連線至儲存虛擬機器（SVM）、然後建立iGroup。
 +
@@ -206,7 +206,7 @@ igroup create -igroup igrp_ws2019sql1 -protocol iscsi -ostype windows -initiator
 lun create -path /vol/vol_awssqlprod01_data/lun_awssqlprod01_data -size 700GB -ostype windows_2008 -space-allocation enabled lun create -path /vol/vol_awssqlprod01_log/lun_awssqlprod01_log -size 100GB -ostype windows_2008 -space-allocation enabled
 ....
 +
-image:sql-awsec2-image5.png[""]
+image::sql-awsec2-image5.png[SQL awsec2 影像 5.]
 
 . 若要使I/O與作業系統分割配置一致、請使用windows_2008做為建議的LUN類型。請參閱 https://docs.netapp.com/us-en/ontap/san-admin/io-misalignments-properly-aligned-luns-concept.html["請按這裡"^] 以取得更多資訊。
 . 使用下列SSH命令將igroup對應至您剛建立的LUN。
@@ -216,21 +216,21 @@ lun show
 lun map -path /vol/vol_awssqlprod01_data/lun_awssqlprod01_data -igroup igrp_awssqlprod01lun map -path /vol/vol_awssqlprod01_log/lun_awssqlprod01_log -igroup igrp_awssqlprod01
 ....
 +
-image:sql-awsec2-image6.png[""]
+image::sql-awsec2-image6.png[SQL awsec2 影像 6.]
 
 . 對於使用Windows容錯移轉叢集的共用磁碟、請執行SSH命令、將相同的LUN對應至屬於所有參與Windows容錯移轉叢集之伺服器的igroup。
 . 使用iSCSI目標將Windows Server連線至SVM。從AWS入口網站尋找目標IP位址。
 +
-image:sql-awsec2-image7.png[""]
+image::sql-awsec2-image7.png[SQL awsec2 影像 7.]
 
 . 從「伺服器管理員」和「工具」功能表中、選取iSCSI啟動器。選取探索索引標籤、然後選取探索入口網站。從上一步提供iSCSI IP位址、然後選取進階。從本機介面卡選取Microsoft iSCSI啟動器。從啟動器IP選取伺服器的IP。然後選取「確定」關閉所有視窗。
 +
-image:sql-awsec2-image8.png[""]
+image::sql-awsec2-image8.png[SQL awsec2 影像 8.]
 
 . 針對SVM的第二個iSCSI IP重複步驟12。
 . 選取*「目標*」索引標籤、選取*「連線*」、然後選取*「啟用多重路徑*」。
 +
-image:sql-awsec2-image9.png[""]
+image::sql-awsec2-image9.png[SQL awsec2 影像 9.]
 
 . 為獲得最佳效能、請新增更多工作階段；NetApp建議建立五個iSCSI工作階段。選取*內容*>*新增工作階段**進階*、然後重複步驟12。
 +
@@ -239,7 +239,7 @@ $TargetPortals = ('10.2.1.167', '10.2.2.12')
 foreach ($TargetPortal in $TargetPortals) {New-IscsiTargetPortal -TargetPortalAddress $TargetPortal}
 ....
 +
-image:sql-awsec2-image10.png[""]
+image::sql-awsec2-image10.png[SQL awsec2 影像 10.]
 
 
 
@@ -259,7 +259,7 @@ Connect-IscsiTarget -IsMultipathEnabled $true -NodeAddress $target.NodeAddress -
 }
 ....
 +
-image:sql-awsec2-image11.png[""]
+image::sql-awsec2-image11.png[SQL awsec2 影像 11.]
 
 .. 使用下列PowerShell命令初始化磁碟。
 +
@@ -268,7 +268,7 @@ $disks = Get-Disk | where PartitionStyle -eq raw
 foreach ($disk in $disks) {Initialize-Disk $disk.Number}
 ....
 +
-image:sql-awsec2-image12.png[""]
+image::sql-awsec2-image12.png[SQL awsec2 影像 12.]
 
 .. 使用PowerShell執行「Create Partition, and Format Disk」命令。
 +
@@ -350,7 +350,7 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 ====
 下圖說明使用SnapCenter 還原進行備份時、建立Microsoft SQL Server資料庫儲存配置的一些考量。
 
-image:sql-awsec2-image13.png[""]
+image::sql-awsec2-image13.png[SQL awsec2 影像 13.]
 
 * 最佳實務做法 *
 
@@ -383,15 +383,15 @@ NOTE: 當您建立新資料庫時、Microsoft建議您為資料和記錄指定�
 
 . 若要設定認證資料、請選取*設定*>*新增*、然後輸入認證資訊。
 +
-image:sql-awsec2-image14.png[""]
+image::sql-awsec2-image14.png[SQL awsec2 影像 14.]
 
 . 選擇「Storage Systems」（儲存系統）>「New」（新增）、然後選擇「提供適當的FSXfor ONTAP the Sfe storage information」（提供適當的FSX以供顯示）
 +
-image:sql-awsec2-image15.png[""]
+image::sql-awsec2-image15.png[SQL awsec2 影像 15.]
 
 . 選取*主機*>*新增*以新增主機、然後提供主機資訊。自動安裝Windows和SQL Server外掛程式SnapCenter 。此程序可能需要一些時間。
 +
-image:sql-awsec2-image16.png[""]
+image::sql-awsec2-image16.png[SQL awsec2 影像 16.]
 
 
 
@@ -409,13 +409,13 @@ NOTE: 使用主機記錄目錄來儲存交易記錄備份資料SnapCenter 。這
 * 不含Tempdb資料庫的系統資料庫備份
 * 10%的LUN負荷空間將主機記錄目錄放置在專用的磁碟區或LUN上。主機記錄目錄中的資料量取決於備份的大小和保留備份的天數。
 +
-image:sql-awsec2-image17.png[""]
+image::sql-awsec2-image17.png[SQL awsec2 影像 17.]
 
 +
 如果已配置LUN、您可以選取掛載點來代表主機記錄目錄。
 
 +
-image:sql-awsec2-image18.png[""]
+image::sql-awsec2-image18.png[SQL awsec2 影像 18.]
 
 
 
@@ -435,23 +435,23 @@ image:sql-awsec2-image18.png[""]
 +
 .. 選擇* Resources（資源）*、然後從左上角的下拉式功能表中選取* Microsoft SQL Server *。選擇*重新整理資源*。
 +
-image:sql-awsec2-image19.png[""]
+image::sql-awsec2-image19.png[SQL awsec2 影像 19.]
 
 .. 選擇要備份的資料庫、然後選取 * 下一步 * 和（ ** ）、以在尚未建立原則的情況下新增原則。遵循*新的SQL Server備份原則*來建立新原則。
 +
-image:sql-awsec2-image20.png[""]
+image::sql-awsec2-image20.png[SQL awsec2 影像 20.]
 
 .. 必要時選取驗證伺服器。此伺服器SnapCenter 是在建立完整備份後執行DBCC CHECKDB的伺服器。按*下一步*以取得通知、然後選取*摘要*以檢閱。檢閱後、按一下*完成*。
 +
-image:sql-awsec2-image21.png[""]
+image::sql-awsec2-image21.png[SQL awsec2 影像 21.]
 
 .. 按一下*立即備份*以測試備份。在快顯視窗中、選取*備份*。
 +
-image:sql-awsec2-image22.png[""]
+image::sql-awsec2-image22.png[SQL awsec2 影像 22.]
 
 .. 選取*監控*以驗證備份是否已完成。
 +
-image:sql-awsec2-image23.png[""]
+image::sql-awsec2-image23.png[SQL awsec2 影像 23.]
 
 
 
@@ -473,13 +473,13 @@ image:sql-awsec2-image23.png[""]
 
 . 選取「資源」、然後選取您要還原的資料庫。
 +
-image:sql-awsec2-image24.png[""]
+image::sql-awsec2-image24.png[SQL awsec2 影像 24.]
 
 . 選取需要還原資料庫的備份名稱、然後選取「還原」。
 . 請遵循*還原*快顯視窗來還原資料庫。
 . 選取*監控*以驗證還原程序是否成功。
 +
-image:sql-awsec2-image25.png[""]
+image::sql-awsec2-image25.png[SQL awsec2 影像]
 
 
 
@@ -550,12 +550,12 @@ NetApp也建議您將資料庫數量分組、而非為每個資料庫或執行�
 . 選取「資源」、然後選取您要複製的資料庫。
 . 選取您要複製的備份名稱、然後選取「Clone（複製）」。
 +
-image:sql-awsec2-image26.png[""]
+image::sql-awsec2-image26.png[SQL awsec2 影像 26.]
 
 . 依照從備份複製的指示、在EC2和執行個體名稱上提供新的SQL Server執行個體、以完成複製程序。
 . 選取「監控」以確定複製已完成。
 +
-image:sql-awsec2-image27.png[""]
+image::sql-awsec2-image27.png[SQL awsec2 影像 27.]
 
 
 

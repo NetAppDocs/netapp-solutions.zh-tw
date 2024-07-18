@@ -194,7 +194,7 @@ Get-IscsiTarget | Connect-IscsiTarget -IsPersistent $true -IsMultipathEnabled $t
 New-Cluster -Name <cluster_name> -Node <hostnames> -NoStorage -StaticAddress <cluster_ip_address>
 ----
 +
-image:hyperv-deploy-image01.png["顯示叢集管理介面的影像"]
+image::hyperv-deploy-image01.png[顯示叢集管理介面的影像]
 
 . 選擇適當的叢集網路進行即時移轉。
 . 指定 CSV 網路。
@@ -213,7 +213,7 @@ start-ClusterGroup "Available Storage"| Move-ClusterGroup -Node $env:COMPUTERNAM
 ----
 .. 在容錯移轉叢集管理程式中、選取 `Configure Cluster Quorum Settings`。
 +
-image:hyperv-deploy-image02.png["設定叢集仲裁設定的影像"]
+image::hyperv-deploy-image02.png[設定叢集仲裁設定的影像]
 
 .. 在「歡迎」頁面中按一下「下一步」。
 .. 選取仲裁見證、然後按一下「下一步」。

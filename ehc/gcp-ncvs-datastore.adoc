@@ -25,7 +25,7 @@ summary: 客戶可以使用 NetApp Cloud Volume Service 的 NFS 補充資料存�
 需要在 Google Cloud VMware Engine （ GCVE ）環境中增加儲存容量的客戶、可以使用 NetApp Cloud Volume Service 來裝載作為補充 NFS 資料存放區。
 在 NetApp Cloud Volume Service 上儲存資料可讓客戶在不同地區之間複寫資料、以防止萬用磁碟機發生災難。
 
-image:gcp_ncvs_ds01.png["GCVE 上的 NetApp Cloud Volume Service NFS 資料存放區"]
+image::gcp_ncvs_ds01.png[GCVE 上的 NetApp Cloud Volume Service NFS 資料存放區]
 
 
 
@@ -42,9 +42,7 @@ link:https://docs.netapp.com/us-en/cloud-manager-cloud-volumes-service-gcp/task-
 .將 CVS Volume 標記為不可刪除的
 [%collapsible]
 ====
-為了避免在 VM 執行時意外刪除 Volume 、請確保將該 Volume 標示為不可刪除、如下面的螢幕快照所示。
-image:gcp_ncvs_ds02.png["NetApp CVS 不可刪除選項"]
-如需詳細資訊、請參閱 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes#creating_an_nfs_volume["正在建立 NFS Volume"] 文件。
+為了避免在 VM 執行時意外刪除 Volume 、請確保將該 Volume 標示為不可刪除、如下面的螢幕快照所示。 影像：： GCP_ncvs_ds02.png[NetApp CVS 不可刪除選項 ] 如需詳細資訊、請參閱 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes#creating_an_nfs_volume["正在建立 NFS Volume"] 文件。
 
 ====
 .確保 NetApp CVS 租戶 VPC 存在 GCVE 上的私有連線。

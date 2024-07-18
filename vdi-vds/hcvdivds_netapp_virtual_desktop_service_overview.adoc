@@ -28,7 +28,7 @@ Microsoft僅針對Azure上的Windows Virtual Desktop環境提供Windows 10上的
 
 下圖顯示範例部署拓撲。
 
-image:hcvdivds_image1.png[""]
+image::hcvdivds_image1.png[hcvdivds image1.]
 
 每個部署都與作用中目錄網域相關聯、並為用戶端提供工作區和應用程式的存取入口點。具有多個Active Directory網域的服務供應商或企業通常會有更多部署。橫跨多個區域的單一Active Directory網域通常具有單一部署與多個站台。
 
@@ -36,19 +36,19 @@ image:hcvdivds_image1.png[""]
 
 每個部署都有自己的平台服務、包括Cloud Workspace Manager（REST API端點）、HTML 5閘道（從VDS管理入口網站連線至VM）、RDS閘道（用戶端存取點）和網域控制器。下圖說明RDS實作的VDS控制面板架構。
 
-image:hcvdivds_image2.png[""]
+image::hcvdivds_image2.png[hcvdivds image2.]
 
 對於RDS實作、NetApp VDS可透過Windows和瀏覽器輕鬆存取、使用可自訂以包含客戶標誌和影像的用戶端軟體。根據使用者認證資料、它可讓使用者存取核准的工作區和應用程式。不需要設定閘道詳細資料。
 
 下圖顯示NetApp VDS用戶端。
 
-image:hcvdivds_image3.png[""]
+image::hcvdivds_image3.png[hcvdivds 影像 3.]
 
 在Azure WVD實作中、Microsoft會處理用戶端的存取入口點、並可由Microsoft WVD用戶端使用、此用戶端原生可供各種作業系統使用。也可從網路型入口網站存取。用戶端軟體的組態必須由群組原則物件（GPO）或客戶偏好的其他方式來處理。
 
 下圖說明Azure WVD實作的VDS控制面板架構。
 
-image:hcvdivds_image4.png[""]
+image::hcvdivds_image4.png[hcvdivds Image4]
 
 除了部署及設定所需元件之外、NetApp VDS也能處理使用者管理、應用程式管理、資源擴充及最佳化等問題。
 

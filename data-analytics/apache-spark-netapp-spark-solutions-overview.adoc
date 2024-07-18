@@ -18,7 +18,7 @@ NetApp有三種儲存產品組合：FAS/AFF、E系列和Cloud Volumes ONTAP VMwa
 
 採用NetApp技術的資料架構整合了資料管理服務與應用程式（建置區塊）、可用於資料存取、控制、保護及安全性、如下圖所示。
 
-image:apache-spark-image4.png["Data Fabric提供資料管理服務與應用程式。"]
+image::apache-spark-image4.png[Data Fabric提供資料管理服務與應用程式。]
 
 上圖中的建置區塊包括：
 
@@ -31,16 +31,16 @@ image:apache-spark-image4.png["Data Fabric提供資料管理服務與應用程�
 
 下圖說明採用NetApp儲存設備的Spark解決方案。
 
-image:apache-spark-image5.png["運用NetApp儲存設備激發解決方案的火花。"]
+image::apache-spark-image5.png[運用NetApp儲存設備激發解決方案的火花。]
 
 利用NetApp NFS直接存取傳輸協定、利用現有正式作業資料存取就地分析、以及AI、ML和DL工作流程。ONTAP可用於Hadoop節點的正式作業資料會匯出、以執行就地分析和AI、ML和DL工作。您可以透過NetApp NFS直接存取或不使用、存取Hadoop節點中的資料以進行處理。在Spark搭配獨立式或「線」叢集管理程式、您可以使用「」來設定NFS磁碟區<file:///<target_volume>`[]。我們已驗證三個使用案例、並使用不同的資料集。這些驗證的詳細資料請參閱「測試結果」一節。 （XEF）
 
 下圖說明NetApp Apache Spark/Hadoop儲存設備定位。
 
-image:apache-spark-image7.png["NetApp Apache Spark/Hadoop儲存定位。"]
+image::apache-spark-image7.png[NetApp Apache Spark/Hadoop儲存定位。]
 
 我們找出E系列Spark解決方案的獨特功能、AFF/FAS ONTAP 電火花解決方案和StorageGRID VMware Spark解決方案、並執行詳細的驗證與測試。根據我們的觀察結果、NetApp建議採用E系列解決方案來進行全新的現場安裝和新的可擴充部署、以及AFF/FAS解決方案、以便使用現有NFS資料進行就地分析、AI、ML和DL工作負載、StorageGRID 並在需要物件儲存時、針對AI、ML和DL進行Sfor AI、以及現代化資料分析。
 
-image:apache-spark-image9.png["推薦的適用於Spark的NetApp解決方案。"]
+image::apache-spark-image9.png[推薦的適用於Spark的NetApp解決方案。]
 
 資料湖是以原生形式儲存大型資料集的儲存庫、可用於分析、AI、ML和DL工作。我們為E系列、AFF/FAS和StorageGRID VMware SG6060 Spark解決方案打造資料湖儲存庫。E系列系統可讓HDFS存取Hadoop Spark叢集、而現有的正式作業資料則是透過NFS直接存取傳輸協定存取Hadoop叢集。對於位於物件儲存設備中的資料集、NetApp StorageGRID 支援S3和S3a安全存取。

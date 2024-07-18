@@ -53,7 +53,7 @@ Hyper-V備份可以根據 Hyper-V Hypervisor 或 VM 群組的組態自動進行�
 此時將出現 Array Properties （陣列屬性）對話框。
 
 +
-image:hyperv-deploy-image09.png["Array Properties （陣列屬性）對話框的圖像"]
+image::hyperv-deploy-image09.png[Array Properties （陣列屬性）對話框的圖像]
 
 . 在「一般」索引標籤上、指定下列資訊：
 . 從 Snap Vendor （管理廠商）清單中、選取 NetApp （管理廠商）。
@@ -63,11 +63,11 @@ image:hyperv-deploy-image09.png["Array Properties （陣列屬性）對話框的
 . 按一下「確定」。
 . <Mandatory step> 完成後、也可以使用 detect 選項在 NetApp 儲存陣列上設定 SVM 、以自動偵測儲存虛擬機器（ SVM ）、然後選擇 SVM 、並使用 add 選項、將 SVM 新增至 CommServe 資料庫、做為陣列管理項目。
 +
-image:hyperv-deploy-image10.png["將 SVM 設定為陣列管理項目的影像"]
+image::hyperv-deploy-image10.png[將 SVM 設定為陣列管理項目的影像]
 
 . 按一下「進階」（如下圖所示）、然後選取「啟用 IntelliSnap 」核取方塊。
 +
-image:hyperv-deploy-image11.png["顯示啟用 IntelliSnap 選項的影像"]
+image::hyperv-deploy-image11.png[顯示啟用 IntelliSnap 選項的影像]
 
 
 
@@ -92,15 +92,15 @@ image:hyperv-deploy-image11.png["顯示啟用 IntelliSnap 選項的影像"]
 . 現在出現「新增 Hypervisor 」頁面 > 選擇廠商：選擇 Hyper-V （輸入 IP 位址或 FQDN 和使用者認證）
 . 若為 Hyper-V 伺服器、請按一下「探索節點」。填入「節點」欄位時、請選取一個或多個要安裝 Virtual Server Agent 的節點。
 +
-image:hyperv-deploy-image12.png["顯示探索 Hyper-V 節點的映像"]
+image::hyperv-deploy-image12.png[顯示探索 Hyper-V 節點的映像]
 
 . 按一下「下一步」和「儲存」。
 +
-image:hyperv-deploy-image13.png["顯示上一步結果的影像"]
+image::hyperv-deploy-image13.png[顯示上一步結果的影像]
 
 . 在「 Add VM Group 」（新增 VM 群組）頁面上、選取要保護的虛擬機器（ Demograp 是在此案例中建立的 VM 群組）、然後啟用 IntelliSnap 選項、如下所示。
 +
-image:hyperv-deploy-image14.png["顯示要保護的 VM 選擇的影像"]
+image::hyperv-deploy-image14.png[顯示要保護的 VM 選擇的影像]
 
 +
 * 注意 * ：在 VM 群組上啟用 IntelliSnap 時、 CommVault 會自動為主要（ Snap ）和備份複本建立排程原則。
@@ -115,11 +115,11 @@ image:hyperv-deploy-image14.png["顯示要保護的 VM 選擇的影像"]
 . 從導覽窗格中、移至「保護」 > 「虛擬化」。此時將出現 [ 虛擬機器 ] 頁面。
 . 備份 VM 或 VM 群組。在此示範中、已選取 VM 群組。在 VM 群組的列中、按一下動作按鈕 ACTION_button 、然後選取備份。在此案例中、 nimplan 是與 Demograp 和 Demogra01 相關的計畫。
 +
-image:hyperv-deploy-image15.png["顯示對話方塊的影像、可選取要備份的 VM"]
+image::hyperv-deploy-image15.png[顯示對話方塊的影像、可選取要備份的 VM]
 
 . 一旦備份成功、還原點就會如畫面擷取所示。您可以從快照複本還原完整 VM 、並還原客體檔案和資料夾。
 +
-image:hyperv-deploy-image16.png["顯示備份還原點的影像"]
+image::hyperv-deploy-image16.png[顯示備份還原點的影像]
 
 +
 * 附註 * ：對於關鍵且使用率高的虛擬機器、每個 CSV 可保留較少的虛擬機器
@@ -136,11 +136,11 @@ image:hyperv-deploy-image16.png["顯示備份還原點的影像"]
 . 在 VM Groups （ VM 群組）區域中、針對包含虛擬機器的 VM 群組按一下 Restore （還原）。
 . 此時會出現「選取還原類型」頁面。
 +
-image:hyperv-deploy-image17.png["顯示備份還原類型的映像"]
+image::hyperv-deploy-image17.png[顯示備份還原類型的映像]
 
 . 根據所選項目、選取來賓檔案或完整虛擬機器、然後觸發還原。
 +
-image:hyperv-deploy-image18.png["顯示還原選項的映像"]
+image::hyperv-deploy-image18.png[顯示還原選項的映像]
 
 
 
