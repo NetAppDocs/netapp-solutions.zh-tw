@@ -20421,110 +20421,6 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="2beda258ff23e5518f73297a56a48cff" category="sidebar">採用 NetApp EF 系列的 NVIDIA SuperPOD</block>
   <block id="75433d9fe655198100c7a515c909e53c" category="sidebar">NetApp AIPod 搭配 NVIDIA DGX SuperPOD</block>
   <block id="2df96ebc1fde1185462c2aa3cb96e5e5" category="sidebar">採用 NetApp EF 系列的 NVIDIA DGX SuperPOD</block>
-  <block id="8b8d78ae09b88ce318cbd7d3df490c71" category="summary">採用 NVIDIA Nemo 和 NetApp 的企業級 RAG - 簡介</block>
-  <block id="b4d234640c06b80be4b6d5b0da5f0db9" category="doc">使用 NetApp 擷取增強型新一代（ RAG ）</block>
-  <block id="a5ab535a4858ccdab6b7fa4f67994ac1" category="paragraph">Mike Oglesby、NetApp
-Sathish Thyagarajan 、 NetApp</block>
-  <block id="fc3aaa928b8603eb41b0b3dc01f519b3" category="paragraph">泛用 AI 正在改變企業搜尋體驗。它讓公司的資料使用者能夠探索位於任何地點、內部部署或公有雲的資料資產。開發人員是否使用泛化 AI 來產生程式碼來設計現代化的網路應用程式、 或者、為了使用真實的物理和動態資料來建立動畫、組織使用泛型 AI 和經過預先訓練的大型語言模型（ LLMS ）來建置轉型 AI 應用程式、設計新產品功能、提高工程生產力、並增加客戶體驗。</block>
-  <block id="1660d92b382a8da1077b19626560541c" category="paragraph">然而、單單是泛化 AI 和 LRAM 並不能保證商業價值。為了創造實質的業務影響、泛用 AI 必須運用精選資料來達成高品質的業務成果。因此、大型企業正轉向新興且重要的架構、稱為擷取擴增世代（ RAG ）。在這個解決方案中、我們為想要建置 RAG 管線的組織提供架構。此解決方案可透過私有雲端管道擷取內容相關資訊、協助您從私有資料中釋放價值。</block>
-  <block id="7186149eb5121810e960514af049fef3" category="summary">採用 NetApp 的企業 RAG ：利用 Nemo Retriever.Ingrest 現有的 NetApp 資料</block>
-  <block id="94656594bde6d2306cae74ee15b40f52" category="doc">使用 Nemo Retriever.A 擷取現有的 NetApp 資料</block>
-  <block id="57839fd849bc69f5f34a0333535b2e77" category="paragraph">Nemo Embedding 微服務是 NVIDIA Nemo Retrievore 的一部分、可用於將資料擷取至 RAG 向量儲存 / 知識庫。本節說明從現有 NetApp 資料來源擷取資料所需執行的工作。</block>
-  <block id="d17dafcd718a3e5ead412aff17738181" category="section-title">使用 NVIDIA 範例聊天室擷取資料</block>
-  <block id="752c4552c916a2d7a553ef08eb6eb78e" category="inline-link-macro">示範影片。</block>
-  <block id="dcac2ee61489ace044188c4f1d692958" category="paragraph">您可以使用 NVIDIA Enterprise rag LLM Operator 部署的範例聊天機器人程式 Web 應用程式來擷取現有檔案。本節概述使用聊天機器人程式 Web 應用程式擷取現有檔案的程序 <block ref="ef01a66b734b1206a65d20e953b60d85" category="inline-link-macro-rx"></block></block>
-  <block id="11acea10fb7918180eb5ab1554f6ec93" category="section-title">以程式設計方式擷取資料</block>
-  <block id="d30cab1dcf28fed0525fa4dea2b259d1" category="paragraph">您可以使用 NVIDIA Enterprise rag LLM 操作員部署的 RAG 查詢伺服器、以程式設計方式擷取大量資料。</block>
-  <block id="3fab0b9556a09f6c423beeedc729408a" category="paragraph">rag 查詢伺服器的 API 會透過 Kubernetes 服務自動曝光、如下列命令的輸出所示。</block>
-  <block id="3e33e7b29b62e9687be5335591f8e262" category="paragraph">依預設、服務類型為 ClusterIP 、因此 API 端點只能從 Kubernetes 叢集內部存取。您可以修改來變更服務類型<block ref="6cf954e9c02078d4494cc47bb95344a7" prefix=" " category="inline-code"></block> 掌舵管道組態中的欄位（例如 helmpipeline 應用程式 .yaml ）。</block>
-  <block id="f39909e449ffa70b1f36df95eae0083c" category="paragraph">API 伺服器 swagger 架構可從存取<block ref="ca2a06187662f2a6eca0d407873a381e" prefix=" " category="inline-code"></block>。</block>
-  <block id="bb8a4c8fed2c1795306675f0677a30c3" category="summary">採用 NetApp 的企業 RAG - Nemo 微服務總覽</block>
-  <block id="aed61ccf69c85ead28b700c3468efcbb" category="doc">NVIDIA Nemo Microservices with NetApp Overview</block>
-  <block id="b0e31a68547a78d825089120b6b27a80" category="paragraph">NVIDIA Nemo 是端點對端平台、可建置及自訂企業級的泛用 AI 模型、可在雲端和資料中心的任何位置部署。Nemo 提供微服務、可大規模簡化泛化 AI 開發與部署程序、讓組織將 LMS 連接至企業資料來源。</block>
-  <block id="ff3fea30fbe6ba72971a863205820417" category="paragraph">我們已將 NetApp 的智慧型資料基礎架構與 NVIDIA Nemo Microservices 配對、為企業中的 RAG 建立解決方案。此解決方案旨在作為整合至組織現有環境的完整 RAG 工作流程的基礎。</block>
-  <block id="3de0775c3f18ece7873f6a5b290a217a" category="image-alt">企業擷取擴增產生（ RAG ）</block>
-  <block id="3ba104b3b018d793716ed518b9074e6e" category="summary">採用 NetApp 的企業級架構</block>
-  <block id="1b93e79f74dc490f27232cfdba644f84" category="paragraph">企業部署包括三個主要元件：</block>
-  <block id="8a9a1795a27e7c425d6efbda9bda07a9" category="list-text">大型語言模式（ LLM ）</block>
-  <block id="f71cf7ed3e51ca8e35ad47194d6cf81b" category="list-text">向量儲存 / 知識庫</block>
-  <block id="df15285ac5ff23a8876c0628fc180bbe" category="list-text">私有來源資料</block>
-  <block id="97cd6e3d3a8af0c801a8890026b48381" category="section-title">採用 NetApp 技術的企業擷取擴增代（ RAG ）</block>
-  <block id="407dd027faf195967043591935dde29b" category="paragraph">此解決方案概述了在 NetApp 智慧型資料基礎架構上實作這些元件的選項、以便建置功能完整的 RAG 部署。本解決方案涵蓋下列選項：</block>
-  <block id="0c01d45d745ed415da9e92bceabf76e3" category="inline-link-macro">NVIDIA Nemo Microservices 搭配 NetApp</block>
-  <block id="5a81d2078d26a0630afa5161ee08d900" category="list-text"><block ref="5a81d2078d26a0630afa5161ee08d900" category="inline-link-macro-rx"></block></block>
-  <block id="0d1428b0bfe4c5ac8c438668a31f6243" category="summary">採用 NetApp 技術的企業雲端： RAG 知識庫資料保護</block>
-  <block id="fc1bd0062f47fce76f3c57d992c49e31" category="doc">RAG 知識庫資料保護</block>
-  <block id="47963491ccb326e13229368f66d47411" category="paragraph">隨著 RAG 應用程式成為重要組織工作流程的關鍵元件、保護向量儲存區 / 知識庫以支援這些 RAG 應用程式是非常重要的。備份向量資料庫並實作災難恢復工作流程、這點很重要、就像您對任何其他資料庫一樣。</block>
-  <block id="0d393a4fde8a7bde603874bc5c5e89b2" category="section-title">使用 NetApp 技術保護您的 Nemo RAG 知識庫</block>
-  <block id="92d0a1aef2134a70d5c0f0279dc22ec6" category="inline-link-macro">Snapshot複本</block>
-  <block id="4ec795aa60f8aa060117f10fc126d3b1" category="inline-link-macro">SnapMirror 災難恢復</block>
-  <block id="05d27063d429bafd0366094c1d9cfa87" category="inline-link-macro">NetApp 向量資料庫解決方案文件。</block>
-  <block id="9dc706e61d5c77e937034c99e50d0daa" category="paragraph">NetApp 技術、例如 <block ref="28c3c5a2e21a3950ba6f5018cf029447" category="inline-link-macro-rx"></block> 和 <block ref="fdefdac94ad7a799621cb213a2ab4116" category="inline-link-macro-rx"></block>、可用於保護您的向量儲存 / 知識庫。如需向量資料庫資料保護的詳細資訊、請參閱 <block ref="35907a8baf5a5ec6dec64deb28ee403e" category="inline-link-macro-rx"></block></block>
-  <block id="29913aede9adbe2a62b27b6f9d403818" category="summary">採用 NetApp 的企業級部署： Nemo 微服務部署</block>
-  <block id="4cc9a287ea2141c706a2e30d69f8b3de" category="doc">Nemo Microservices 部署</block>
-  <block id="02e225482b9004d203e6d7332d1d3e6a" category="inline-link-macro">NVIDIA Enterprise RAG LLM 操作員</block>
-  <block id="0b0e92e0ebf5d19c6e8dde3377121d56" category="paragraph">本節說明在 NetApp 儲存設備上部署 NVIDIA Nemo Microservices 時所需執行的工作。NVIDIA Nemo Microservices 將使用部署 <block ref="23b8d8dda804054aaf815e2b3a58ac09" category="inline-link-macro-rx"></block>。</block>
-  <block id="1ab395455d6eec5b7f9c7aa3b2633c96" category="inline-link-macro">RAG LLM 操作員文件。</block>
-  <block id="97ddd4b7963485b3fbadb153c7bb38fa" category="list-text">您已經有一個運作中的 Kubernetes 叢集、而且您正在執行 NVIDIA Enterprise rag LLM Operator 支援的 Kubernetes 版本。如需支援的 Kubernetes 版本清單、請參閱 <block ref="6468dd6f9a43ce7f4f715e8805c4337c" category="inline-link-macro-rx"></block> 這個 Kubernetes 叢集可以是內部部署或雲端環境。</block>
-  <block id="ab3e0fb52bf0097b7e144270f4d162b8" category="list-text">您的 Kubernetes 叢集至少包含三個由 NVIDIA Enterprise rag LLM Operator 支援的 GPU 。如需支援的 GPU 清單、請參閱 <block ref="6468dd6f9a43ce7f4f715e8805c4337c" category="inline-link-macro-rx"></block></block>
-  <block id="bc4c6f932c43a37e6bb224df4f86018a" category="list-text">您已在 Kubernetes 叢集中安裝並設定 NetApp Astra Trident 。如需 Astra Trident 的詳細資訊、請參閱 <block ref="2b8a155fc083396b96b18cee0ba5eab0" category="inline-link-macro-rx"></block>。此解決方案與 Trident 支援的任何 NetApp 實體儲存設備、軟體定義執行個體或雲端服務相容。</block>
-  <block id="ccb19f338f5bed6a9e7c7ae51200cb3c" category="section-title">使用 NVIDIA Enterprise RAG LLM Operator 部署 NVIDIA Nemo Microservices</block>
-  <block id="b7de979ac55de39c44f54800dc9363e0" category="list-text">如果 Kubernetes 叢集尚未安裝 NVIDIA GPU 操作員、請依照中所述的指示安裝 NVIDIA GPU 操作員 <block ref="290242b7432f725747a3cb15f2e8debb" category="inline-link-macro-rx"></block></block>
-  <block id="e4705ccd9fb8e891a6b2d25294588dc0" category="list-text">依照中所述的指示安裝 NVIDIA Enterprise RAG LLM 操作員 <block ref="fc6832f399da69a301c3214c0c4c47e8" category="inline-link-macro-rx"></block></block>
-  <block id="a8be5875b131497ad56e3e6bde9a7e99" category="list-text">依照中所述的指示、使用 NVIDIA Enterprise RAG LLM 操作員建立 RAG 管線 <block ref="3d5b276683ce4e7a3a7ccd195ed1d6fd" category="inline-link-macro-rx"></block></block>
-  <block id="bb774996e66e94f151e000432e49fc9a" category="list-text">指定 StorageClass 時、請務必指定使用 Astra Trident 的 StorageClass 。</block>
-  <block id="a41c99eb0f2f279081a70774ced4a74d" category="list-text">根據預設、 RAG 管道會部署新的 pgvector 資料庫、作為 RAG 部署的向量儲存 / 知識庫。如果您想改用現有的 pgvector 或 Milvus 執行個體、請遵循中所述的指示 <block ref="9f6101c710837846e1fee3b4dd5ee736" category="inline-link-macro-rx"></block> 如需使用 NetApp 執行向量資料庫的詳細資訊、請參閱 <block ref="35907a8baf5a5ec6dec64deb28ee403e" category="inline-link-macro-rx"></block></block>
-  <block id="299657c4e6594b5865e5219cd8982102" category="summary">採用 NetApp 的企業版 - 概念與元件</block>
-  <block id="b983edfcaa49085078e23816f60c720b" category="section-title">推廣 AI</block>
-  <block id="683a95f867fe897cba793cfdb4915497" category="paragraph">AI 系統（例如泛用 AI ）的設計、是將無人監督或自我監督的機器學習套用至大型資料集。與傳統機器學習模型對特定資料集做出預測不同的是、泛用 AI 模型能夠根據使用者提示產生新內容、例如文字、程式碼、影像、視訊或音訊。因此、通用 AI 系統的功能也會根據所使用的資料形式或類型進行分類。這些可能是單一方式或多式模式。單一模式系統只會使用一種輸入類型（例如僅限文字或僅限映像）、而多式傳輸系統則可接受多種類型的輸入（例如文字、影像和音訊）、同時瞭解並產生不同形式的內容。從本質上講、泛用 AI 正在改變企業建立內容的方式、產生新的設計概念、並從現有資料中擷取價值。</block>
-  <block id="9ef4472b02eb87bd9baf9dc335cf7fc5" category="section-title">大語言模型（ LLMM ）</block>
-  <block id="4ebbb0deffbe47ed8a796b47c9da748d" category="paragraph">LMS 是針對大量資料預先訓練的深度學習模型、可辨識及產生文字、以及其他工作。LMS 最初是以語言為主的泛型 AI 子集、但隨著多式 LMS 持續出現、這類差異逐漸消失。LLM 中的基礎變壓器引進了 RNN 或 CNN 以外的全新網路架構。它有一組神經網路、由編碼器和解碼器組成、有助於從一系列文字中擷取意義、並瞭解文字之間的關係。LMS 可以回應自然的人類語言、並使用資料分析來回答非結構化問題。然而、 LMS 只能與它們所擷取的資料一樣可靠、因此容易產生幻覺、因為垃圾堆積的挑戰。如果 LMS 被誤用資訊、他們可能會產生不正確的輸出、以回應使用者的查詢、只是為了配合其建置的敘述。我們根據證據進行的研究顯示、 AI 工程師仰賴各種方法來對抗這些幻覺、其中一種方法是透過限制不準確結果的 guardrails 、另一種方法則是透過 RAG 等技術、利用內容相關的高品質資料來微調和傳輸學習內容。</block>
-  <block id="cddb203dcbb6baa6c317a00e8b612dd3" category="section-title">擷取擴增產生（ RAG ）</block>
-  <block id="713ebc0bd921a2585073dacf241eca8f" category="paragraph">LMS 是針對大量資料進行訓練、但並未針對您的資料進行訓練。RAG 可將您的資料新增至 LLMs 已有存取權的資料、藉此解決此問題。RAG 可讓客戶運用 LLM 的強大功能、對資料進行訓練、藉此擷取資訊、並使用該資訊為泛用 AI 使用者提供相關資訊。RAG 是一種機器學習技術、一種架構方法、可協助減少幻覺、改善 LMS 的效率與可靠性、加速 AI 應用程式的開發、並加強企業搜尋體驗。</block>
-  <block id="b1999c0b68db3b28e7336ea0e30dcd52" category="section-title">Ragas</block>
-  <block id="f0a3232b26d0cc63aa6dc4e281da3a5f" category="inline-link">開始使用 Ragas</block>
-  <block id="542a81d4705d74d1d62cbf7a75550fdf" category="paragraph">現有的工具和架構可協助您建置 RAG 管線、但評估及量化您的管線效能可能會很困難。這就是 Ragas （ RAG 評估）的出現地點。Ragas 是協助您評估 RAG 管線的架構。Ragas 的目標是建立開放式標準、為開發人員提供工具和技術、以便在他們的 RAG 應用程式中運用持續學習。如需詳細資訊、請參閱<block ref="ec20f102c9be213e7dfe3b9130bfe867" category="inline-link-rx"></block></block>
-  <block id="0ea54264fbd1e02b89f6c524977781b4" category="section-title">llama 3.</block>
-  <block id="422105ad7065f5393490aaf95bd0d172" category="paragraph">中繼的 Llama 3 是僅限解碼器的變壓器機型、是一種開放存取的預先訓練過的大型語言模型（ LLM ）。Llama 3 受過超過 15 兆筆資料的訓練、是自然語言理解（ NLU ）的遊戲轉型器。它在內容相關的瞭解和複雜的工作（例如翻譯和對話產生）方面具有很大的優勢。llama 3 有兩種尺寸： 8B 用於高效部署和開發、 70B 用於大規模 AI 原生應用程式。客戶可透過 Vertex AI 在 Google Cloud 上部署 Llama 3 、透過 Azure AI Studio 在 Azure 上部署、並透過 Amazon Sagemaker 在 AWS 上部署 Llama 3 。</block>
-  <block id="92bea7d7fce6a0e80cc0cfdbf2ccdb6c" category="paragraph">在我們的驗證過程中、我們部署了 Meta 的 Llama 模型、搭配 NVIDIA Nemo ™微服務、並以 NVIDIA A100 GPU 加速 NVIDIA DGX 執行個體運算、以自訂和評估通用 AI 使用案例、同時支援內部部署應用程式的擷取擴增代（ RAG ）。</block>
-  <block id="de895317d0faa5501df01a239b451297" category="section-title">開放原始碼架構</block>
-  <block id="62d856ab0369e6d568b06a131457f3fb" category="paragraph">以下有關開放原始碼技術的其他資訊可能與您的部署相關。</block>
-  <block id="8de59538e5206b848891f2b0e1898dfb" category="section-title">LangChain</block>
-  <block id="18d71e3fce447f5c0596babb2641776a" category="paragraph">LangChain 是一種開放原始碼整合架構、用於開發採用大型語言模式（ LRAM ）的應用程式。客戶可以有效率地建置 RAG 應用程式、因為它隨附於文件載入器、 VectorStores 和其他各種套件、讓開發人員能夠靈活地建置複雜的工作流程。他們也可以使用 LangSmith 檢查、監控及評估應用程式、以持續最佳化任何鏈路、並將其部署至使用 LangServe 的 REST API 。LangChain 為 RAG 應用程式的最佳實務做法進行編碼、並為建置 RAG 應用程式所需的各種元件提供標準介面。</block>
-  <block id="89dd061bf2d39f455faefc9b5242eff7" category="section-title">LlamaIndex</block>
-  <block id="514d11db5b22ff6c7b900739f4f4b0fb" category="paragraph">LlamaIndex 是一個簡單靈活的資料架構、可將自訂資料來源連接至大型語言模型（ LLM ）型應用程式。它可讓您透過彈性的資料連接器、從 API 、資料庫、 PDF 等擷取資料。Llama 3 和 GPT-4 等 LMS 已預先接受大規模公共資料集的訓練、可立即提供令人難以置信的自然語言處理功能。但是、他們的公用程式受到限制、無法存取您自己的私有資料。LlamaIndex 提供廣受歡迎的 Python 和 TypeScript 程式庫、並在擷取增強型世代（ RAG ）技術方面領先業界。</block>
-  <block id="23c37d139730f8f73b80a66b061d5677" category="section-title">NVIDIA Nemo Microservices</block>
-  <block id="5346d16fe88b8ccfe79d0de3193ea4b8" category="paragraph">NVIDIA Nemo 是端點對端平台、可建置及自訂企業級的泛用 AI 模型、可在雲端和資料中心的任何位置部署。Nemo 提供微服務、可大規模簡化泛化 AI 開發與部署程序、讓組織將 LMS 連接至企業資料來源。截至本文撰寫之時、 Nemo Microservices 可透過 NVIDIA 的早期存取方案取得。</block>
-  <block id="2c60e321234045e1e77ce205253a84d4" category="section-title">NVIDIA Nemo Inference Microservices （ NIMS ）</block>
-  <block id="90356ac14d8176b99444d2c154259562" category="paragraph">NVIDIA NIMS 是 NVIDIA AI Enterprise 的一部分、為開發 AI 驅動的企業應用程式和在正式作業環境中部署 AI 模型提供了簡化的途徑。NIMS 是一種容器化推斷微服務、包括產業標準 API 、網域特定程式碼、最佳化推斷引擎和企業執行時間。</block>
-  <block id="dff05f944a3601407675a84ad9538999" category="section-title">NVIDIA Nemo Retriever.</block>
-  <block id="4e9700177c53651485285466eee28649" category="paragraph">NVIDIA Nemo Retrievin 是 NVIDIA Nemo 架構的最新服務、可最佳化 RAG 的內嵌與擷取部分、以提供更高的準確度和更有效率的回應。NVIDIA Nemo Retrievor 是一項資訊擷取服務、可在內部部署或雲端部署。它為企業提供安全且簡化的途徑、將企業級的 RAG 功能整合至自訂的正式作業 AI 應用程式。</block>
-  <block id="9cc672801897463a5f86f8b39248e742" category="paragraph">NVIDIA Enterprise Retrieval 擴增產生（ RAG ）大語言模型（ LLM ）操作員可在 Kubernetes 中執行 RAG 管線所需的軟體元件和服務。它可讓營運者及早存取、以管理 RAG 管線的關鍵元件生命週期、例如 NVIDIA Inference Microservice 和 NVIDIA Nemo Retrievan Embedding Microservice 。如需詳細資訊、請參閱<block ref="5db325f64896bdf1b5700fb1df02fb19" category="inline-link-rx"></block></block>
-  <block id="f424ad1d1acd89e14d6edbd2482c4af2" category="section-title">PostgreSQL ： pgvector</block>
-  <block id="29b733f31138820b9360b1fcdecf7be6" category="paragraph">由於其原生繫結適用於許多傳統的 ML 演算法（例如 XGBoost ）、因此使用 SQL 進行機器學習並不是 PostgreSQL 的新功能。最近、由於 pgvector 是向量相似性搜尋的開放原始碼延伸、 PostgreSQL 能夠儲存及搜尋 ML 產生的嵌入式資料、這項功能對使用 LMS 的 AI 使用案例和應用程式非常有用。</block>
-  <block id="f98528340bd22b412030cef62cadfe3b" category="paragraph">我們驗證 NVIDIA Enterprise rag LLM 運算子時的預設範例管線會在 Pod 中啟動 pgvector 資料庫。查詢伺服器接著會連線至 pgvector 資料庫、以儲存及擷取內嵌資料。聊天機器人程式 Web 應用程式和查詢伺服器會與微服務和向量資料庫進行通訊、以回應使用者提示。</block>
-  <block id="3257dec16164e4b421ccd0bc9f876bff" category="inline-link">參考架構： NetApp 的向量資料庫解決方案</block>
-  <block id="3d4946ff59de4c03860ca5b7af5d7019" category="paragraph">Milvus 是提供 API 的多功能向量資料庫、與 MongoDB 非常類似、因為它支援多種資料類型、以及多向量化等功能、因此成為資料科學和機器學習的熱門選擇。它能夠儲存、索引及管理深度神經網路（ DNN ）和機器學習（ ML ）模式所產生的十多億種內嵌向量。客戶可以使用 Nvidia NIM 和 Nemo 微服務及 Milvus 作為向量資料庫來建置 RAG 應用程式。一旦成功部署 NVIDIA Nemo 容器來嵌入產生、就可以部署 Milvus 容器來儲存這些嵌入資料。如需向量資料庫和 NetApp 的詳細資訊、請參閱<block ref="68cbf98bfc8b69b241906b82f1149053" category="inline-link-rx"></block>。</block>
-  <block id="b38d7ed57d79d1a85af1d3db093d0779" category="section-title">Apache Cassandra</block>
-  <block id="84cf8b459f4ed6b44a8a9e7a53ff91b5" category="paragraph">Apache Cassandra ® 是開放原始碼 NoSQL 、具有高度擴充性和高可用度的資料庫。它隨附向量搜尋功能、並支援向量資料類型和向量相似性搜尋功能、特別適用於涉及 LMS 和私有 RAG 管線的 AI 應用程式。</block>
-  <block id="8538dcf0cbc7480f47b73ac4c9642913" category="paragraph">NetApp Instaclustr 為 Apache Cassandra ® 提供完全託管的服務、可在雲端或內部部署中代管。它可讓 NetApp 客戶透過 Instaclustr 主控台或 Instaclstr 資源配置 API 、使用 C# 、 Node.js 、 AWS Private Link 和其他各種選項來配置 Apache Cassandra ® 叢集、並連線至叢集。</block>
-  <block id="2084aa9887fe8d03fc5f3ecb9bba3608" category="inline-link">使用 NetApp Astra Control 和 ONTAP 儲存設備的 DataStax Enterprise 應用程式感知資料管理</block>
-  <block id="ae63d344f3040ef26ddcd5198894a4b1" category="paragraph">此外、 NetApp ONTAP 也是在 Kubernetes 上執行的容器化 Apache Cassandra 叢集的持續儲存供應商。NetApp Astra Control 將 ONTAP 的資料管理效益無縫延伸至資料豐富的 Kubernetes 應用程式、例如 Apache Cassandra 。如需相關資訊、請參閱<block ref="fa57c82916f4f1bbabae10f612a11354" category="inline-link-rx"></block></block>
-  <block id="1abf6351a3f93d00bd8789a48d65d324" category="section-title">NetApp 安裝</block>
-  <block id="96413f281fad6d66f69392b1e1832150" category="inline-link">NetApp 的 Instaclustr 平台</block>
-  <block id="d35f01892642a5e43599b99776f6c189" category="paragraph">Instaclustr 透過開放原始碼技術的 SaaS 平台支援資料基礎架構、協助組織大規模交付應用程式。想要在搜尋應用程式中內嵌語意理解的泛化 AI 開發人員、有許多選項可供選擇。適用於 Postgres 的 Instaclustr 支援 pgvectorextensions.Instaclustr for OpenSearch 支援向量搜尋、可根據輸入查詢及最近的鄰近功能來擷取相關文件。Instaclustr for Redis 可儲存向量資料、擷取向量、以及執行向量搜尋。如需詳細資訊、請參閱<block ref="53e4d32f6a8eb81c96cab346c44cb910" category="inline-link-rx"></block></block>
-  <block id="3878e180796265243705a46f1494ad55" category="inline-link">我該怎麼辦Cloud Insights ？</block>
-  <block id="60047e7cfb1f106c7234a8ed296d7ad7" category="paragraph">NetApp Cloud Insights 解決方案是一套雲端基礎架構監控工具、可讓您清楚掌握完整的基礎架構。利用VMware、您可以監控、疑難排解及最佳化所有資源、包括公有雲和私有資料中心。Cloud InsightsCloud Insights 可從數百個收集器中、針對異質基礎架構和工作負載（包括 Kubernetes ）提供完整的基礎架構和應用程式堆疊可見度、全部集中在同一個位置。如需詳細資訊、請參閱<block ref="bb6ca35d8e41d975b995642aca0a010a" category="inline-link-rx"></block></block>
-  <block id="8727881150b0ace8b598a648cdfcd4e1" category="paragraph">NetApp StorageGRID 是一套軟體定義的物件儲存套件、可在公有雲、私有雲和混合式多雲端環境中支援各種使用案例。StorageGRID 提供 Amazon S3 API 的原生支援、並提供領先業界的創新技術、例如自動化生命週期管理、可長期以符合成本效益的方式儲存、保護、保護及保留非結構化資料。</block>
-  <block id="d1d107cea429958749b8a27b7870c11d" category="section-title">NetApp Spot</block>
-  <block id="73fe50d3cd6a6718e3f40d5abed6eec6" category="paragraph">Spot by NetApp 可自動化並最佳化 AWS 、 Azure 或 Google Cloud 中的雲端基礎架構、以最低的成本提供 SLA 支援的可用度和效能。Spot 使用機器學習和分析演算法、讓您能夠利用 Spot 容量來處理正式作業和關鍵任務工作負載。執行 GPU 型執行個體的客戶可從 Spot 獲益、並降低其運算成本。</block>
-  <block id="3ba173bffcbdd55e106647236c99f6e1" category="paragraph">Azure NetApp Files 是 Azure 原生、第一方、企業級、高效能檔案儲存服務。它支援 SMB 、 NFS 和雙協定磁碟區、可用於下列使用案例：</block>
-  <block id="58fc5644fc4daca15b7cb303e35279fe" category="list-text">檔案共用：</block>
-  <block id="eeb551199c890324dd00b68274da519b" category="list-text">主目錄。</block>
-  <block id="73b1c55c55a85a4f1cf2819f25b7f2fb" category="list-text">資料庫。</block>
-  <block id="77d9dbf05ddea8aac9b04c1eb2db879b" category="list-text">高效能運算。</block>
-  <block id="89bc644b3d1c7f51b35e00f252b158cd" category="list-text">推廣 AI 。</block>
-  <block id="cef73c12cf88f09afbccb973a85809f8" category="paragraph">Google Cloud NetApp Volumes 是一項完全託管的雲端型資料儲存服務、可提供進階資料管理功能和高度擴充的效能。NetApp 託管的資料可在預先檢視的工具組參考架構中、用於 Google 的 Vertex AI 平台的 RAG （擷取擴增代）作業。</block>
   <block id="bf9570f5efac22f4e7f19153e2c1edbf" category="sidebar">協調與管理</block>
   <block id="5459733c414323021d4e3e464ba9f4cd" category="paragraph">請依照下列指示、為 RedHat 或 CentOS 機器設定 Ansible 控制節點：包括：：：： _include/Automation 、 rhel_CentOS_setup.adoc []</block>
   <block id="6c5b2a64ca3bdd63614939b61e7896ba" category="paragraph">請依照下列指示、為 Ubuntu 或 Debian 機器設定您的 Ansible 控制節點：包括：：：：： include/Automation 、 Ubuntu _debian_setup.adoc []</block>
@@ -21906,4 +21802,42 @@ Sathish Thyagarajan 、 NetApp</block>
   <block id="00103632598f3b680908daba03454fc5" category="image-alt">XCP bp 影像 12.</block>
   <block id="ad1b016f24279fa76000b2037ccf4442" category="image-alt">XCP bp 影像 13.</block>
   <block id="8fc725d2a66bf0782bd15617012cca9c" category="image-alt">XCP bp 影像</block>
+  <block id="2ade687aee5459fc4b7cd7d8715c0654" category="summary">本文件從運算、網路和儲存的角度、提供虛擬化的概觀。</block>
+  <block id="94ae72aba3a16881bc58014e283fe452" category="doc">虛擬化快速簡介</block>
+  <block id="e2571a7c24781623a1dd6dc7400ce9fa" category="paragraph">虛擬化的普及已推動數十年的業務成果。從大型主機早期到目前儲存密集使用案例的時代、以及 AI 就緒系統的需求、虛擬化已成為每個客戶環境不可或缺的元件。</block>
+  <block id="ede888732cc8aa541c4ba5bce1844323" category="paragraph">傳統上、資料中心由實體伺服器、網路和儲存設備組成、每個都是專為特定工作所設計。這種方法造成資源封閉環境、而且通常使用率極低。虛擬化的核心是將實體資源與組織的需求和功能分離。這是透過建立三個主要基礎架構元件的虛擬呈現來達成的： * 網路 * 、 * 運算 * 和 * 儲存 * 。部署虛擬基礎架構可讓組織透過這些邏輯架構來提高基礎實體資源的使用率。</block>
+  <block id="1f12a28b15f701cd953e7a935416e0a5" category="image-alt">運算、網路和儲存的虛擬化元件圖表</block>
+  <block id="1906ef1f7c198aee2f556d783caaf64f" category="paragraph">虛擬化是一種透過自動化、原則導向的工作流程和擴充性、使整體都大於零件總和的情況。虛擬化技術可提升效率、靈活度、同時降低 IT 基礎架構的 TCO 、讓組織能夠在更大的範圍內最佳化技術資源。採用 NetApp 技術的虛擬基礎架構繼承了 ONTAP 的主要優點：</block>
+  <block id="36850604d9b71fc4c722f522ab2280da" category="list-text">運用領先業界的外掛程式和整合功能、提供資源配置、備份和資料保護</block>
+  <block id="1fdcdee06821671f9e918fe5d7acf3cb" category="list-text">企業級儲存效率</block>
+  <block id="ebe1d06f7376eba7cbf857b4db9f0018" category="list-text">支援多重傳輸協定、滿足不同的工作負載需求</block>
+  <block id="2ce58baf6d70b2d0a6b9a6558e23ba65" category="list-text">原則導向的儲存組態和調適性 QoS</block>
+  <block id="91e5bdab3537508d6bb406bedf36036e" category="list-text">透過單一儲存作業系統支援內部部署或公有雲等應用程式與工作負載</block>
+  <block id="d13da4d33a83fe04e620eb78f0e496f6" category="paragraph">若要深入瞭解 NetApp ONTAP 、請參閱下列內容：</block>
+  <block id="499f3c8052960af5484a2b194e35fdec" category="inline-link-macro">ONTAP ：領先業界的統一化儲存作業系統</block>
+  <block id="cb6ed5a9efdcb9c79adca16637ccd977" category="list-text"><block ref="cb6ed5a9efdcb9c79adca16637ccd977" category="inline-link-macro-rx"></block></block>
+  <block id="9336d21f4e8da96758a83d961145f928" category="section-title">網路虛擬化</block>
+  <block id="69e5e9d545ca6264278d7c0200aa6547" category="paragraph">網路虛擬化是指將實體網路元件（交換器、路由器、防火牆、介面等）抽象化為邏輯結構。這些邏輯架構可在基礎實體基礎架構之外運作、在用戶端、儲存設備和網路中的其他元件之間提供安全的通訊。網路虛擬化是營運業務的關鍵、因為它允許共用資源、同時允許根據原則限制網路流量。</block>
+  <block id="e1191c17667a5ca70240550a9c6e109b" category="paragraph">網路虛擬化可將多個實體網路結合成一個虛擬架構、或是將實體網路分割成獨立、獨立的虛擬網路。您可以建立及自訂多個網路、以符合特定的 IT 需求。網路虛擬化通常是指以太網路為基礎的使用案例、但在許多情況下、虛擬架構可根據交換器製造商的功能進行設定。無論是採用虛擬 LAN 或虛擬 SAN 、組織都能透過網路虛擬化來達到更高的作業效率和整體網路效能。</block>
+  <block id="b3db4968b1738b17638283f44a22b302" category="paragraph">如需網路虛擬化的詳細資訊、請參閱下列內容：</block>
+  <block id="dd39e253a832b8689397f8447eecc349" category="inline-link-macro">Cisco 虛擬網路</block>
+  <block id="ea260df6347da28db6990e71e06887e2" category="list-text"><block ref="ea260df6347da28db6990e71e06887e2" category="inline-link-macro-rx"></block></block>
+  <block id="b5c67a634efb4759fa985705999218ae" category="inline-link-macro">VMware 虛擬網路</block>
+  <block id="d52569bdfcdf97dc813bf26811692e76" category="list-text"><block ref="d52569bdfcdf97dc813bf26811692e76" category="inline-link-macro-rx"></block></block>
+  <block id="4588fbf43f094cf4d08df5681fd4491b" category="section-title">運算虛擬化</block>
+  <block id="de8ff5a3760655b5e7562598dcf73110" category="paragraph">運算或伺服器虛擬化可能是最知名的虛擬化形式。藉由運算虛擬化、 Hypervisor 可模擬實體伺服器的功能、讓營運團隊在單一實體節點上執行多個虛擬機器。透過運算虛擬化、可共享伺服器記憶體和 CPU 等資源。這種共享方式可將基礎資源過度訂閱、達到部署的工作負載和應用程式所能接受的程度。</block>
+  <block id="436010927ee609166376ae30164b1ae9" category="paragraph">透過運算虛擬化、每部虛擬機器都有自己的作業系統、並安裝應用程式和資源、彼此獨立運作。運算虛擬化的眾多優勢包括：提高伺服器使用率、降低硬體支出、使用 Hypervisor 的使用者介面（ UI ）簡化管理、以及改善災難恢復功能。此外、透過 Hypervisor 外掛程式、可設定儲存管理、備份和保護關係、進一步簡化作業工作。</block>
+  <block id="e9806d3206855c6f2814d2e06a0d4806" category="paragraph">如需運算虛擬化的詳細資訊、請參閱下列內容：</block>
+  <block id="e41da38fc3e2ad0eac6a134560937361" category="list-text"><block ref="e41da38fc3e2ad0eac6a134560937361" category="inline-link-macro-rx"></block></block>
+  <block id="e43cd874debfd073572f01422f980194" category="list-text"><block ref="e43cd874debfd073572f01422f980194" category="inline-link-macro-rx"></block></block>
+  <block id="bbc2d665b02dc421c5c756db4b973610" category="inline-link-macro">Microsoft Hyper-V</block>
+  <block id="01bfec005f01621a9d50b2c8120b6e14" category="list-text"><block ref="01bfec005f01621a9d50b2c8120b6e14" category="inline-link-macro-rx"></block></block>
+  <block id="fb621c5aa6aab28926f9514b56437546" category="section-title">儲存虛擬化</block>
+  <block id="cc9187259f2ceffada083dd8214d4b1f" category="paragraph">儲存虛擬化與網路和運算虛擬化非常類似、對於現代化的資料中心而言非常重要。NetApp ONTAP 透過儲存虛擬機器（ Storage Virtual Machines 、 SVM ）來協助儲存虛擬化、將資料提供給用戶端和主機。SVM 是邏輯實體、可讓儲存資源不受實體媒體限制。可根據工作負載類型、應用程式需求和組織群組來部署 SVM 以供存取。</block>
+  <block id="32bde2227863420b451a2d5d74dd5012" category="paragraph">有多種類型的 SVM 可協助執行資料存取、管理、叢集和系統層級的工作。Data SVM 透過一個或多個網路邏輯介面（生命體）、將資料從一個或多個磁碟區提供給用戶端和主機。這些磁碟區和生命體是邏輯結構、並透過對應至儲存集合體和實體或邏輯網路連接埠。這種邏輯資料存取功能可在維護案例或資源重新平衡時、讓磁碟區或生命體的移動性、就像運算虛擬機器一樣。</block>
+  <block id="662dc92895ba9c88a2c93584e9c4c155" category="paragraph">如需儲存虛擬化的詳細資訊、請參閱下列內容：</block>
+  <block id="cbbd017d53b55e3dd15ddf3efea3c191" category="inline-link-macro">ONTAP 儲存虛擬化概述</block>
+  <block id="749421dacfb7ee7b18a89b9c1b603eb5" category="list-text"><block ref="749421dacfb7ee7b18a89b9c1b603eb5" category="inline-link-macro-rx"></block></block>
+  <block id="5c8de6f894682fdb1786037b2040a26e" category="section-title">關閉</block>
+  <block id="098ed79118698312d23be3ccb1fd1f65" category="paragraph">此處說明的虛擬基礎架構元件：網路、運算和儲存設備提供與一般實體資源相同的功能、但透過軟體提供。透過實體資源分配虛擬資源、可加速實現價值所需的時間、並可進行原則導向的資源組態。將 ONTAP 與運算和網路虛擬化配對、可讓用戶端和主機透過軟體定義的虛擬基礎架構存取資源。</block>
 </blocks>
