@@ -1,0 +1,126 @@
+---
+sidebar: sidebar 
+permalink: rhhc/rhhc-dp-velero-migrate.html 
+keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
+---
+= 將應用程式從一個叢集移轉至另一個叢集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+[role="lead"]
+Velero 的備份與還原功能讓它成為在叢集之間移轉資料的寶貴工具。本節說明如何將應用程式從一個叢集移轉至另一個叢集、方法是在物件儲存區中建立應用程式的備份、然後將應用程式從同一個物件儲存區還原至另一個叢集。。
+
+.從第一個叢集備份
+[%collapsible]
+====
+** 叢集 1** 的先決條件
+
+* Astra Trident 必須安裝在叢集上。
+* 必須建立 Trident 後端和儲存類別。
+* 必須在叢集上安裝 OADP 運算子。
+* 應設定 DataProtectionApplication 。
+
+
+使用下列規格來設定 DataProtectionApplication 物件。
+
+....
+spec:
+  backupLocations:
+    - velero:
+        config:
+          insecureSkipTLSVerify: 'false'
+          profile: default
+          region: us-east-1
+          s3ForcePathStyle: 'true'
+          s3Url: 'https://10.61.181.161'
+        credential:
+          key: cloud
+          name: ontap-s3-credentials
+        default: true
+        objectStorage:
+          bucket: velero
+          caCert: <base-64 encoded tls certificate>
+          prefix: container-backup
+        provider: aws
+  configuration:
+    nodeAgent:
+      enable: true
+      uploaderType: kopia
+    velero:
+      defaultPlugins:
+        - csi
+        - openshift
+        - aws
+        - kubevirt
+....
+* 在叢集上建立應用程式、並備份此應用程式。例如、安裝 postgres 應用程式。
+
+
+image::redhat_openshift_OADP_migrate_image1.png[安裝 postgres 應用程式]
+
+* 備份 CR 使用下列規格：
+
+
+....
+spec:
+  csiSnapshotTimeout: 10m0s
+  defaultVolumesToFsBackup: false
+  includedNamespaces:
+    - postgresql
+  itemOperationTimeout: 4h0m0s
+  snapshotMoveData: true
+  storageLocation: velero-sample-1
+  ttl: 720h0m0s
+....
+image::redhat_openshift_OADP_migrate_image2.png[安裝 postgres 應用程式]
+
+您可以按一下「 ** 所有執行個體 ** 」標籤、查看正在建立的不同物件、並在不同的階段中移動、最後進入備份 ** 已完成 ** 階段。
+
+命名空間 PostgreSQL 中的資源備份將儲存在 OADP 規格的備份位置中指定的物件儲存位置（ ONTAP S3 ）中。
+
+====
+.還原至第二個叢集
+[%collapsible]
+====
+** 叢集 2 上的先決條件 **
+
+* Astra Trident 必須安裝在叢集 2 上。
+* PostgreSQL 應用程式不得已安裝在 PostgreSQL 命名空間中。
+* OADP 運算子必須安裝在叢集 2 上、而且備份儲存位置必須指向從第一個叢集儲存備份的相同物件儲存位置。
+* 備份 CR 必須可從第二個叢集看到。
+
+
+image::redhat_openshift_OADP_migrate_image3.png[Trident 已安裝]
+
+image::redhat_openshift_OADP_migrate_image4.png[尚未安裝的 Postgres]
+
+image::redhat_openshift_OADP_migrate_image5.png[已安裝叢集 2 上的 OADP]
+
+image::redhat_openshift_OADP_migrate_image6.png[指向相同物件存放區的備份儲存位置]
+
+從備份還原此叢集上的應用程式。使用下列 yaml 建立還原 CR 。
+
+....
+apiVersion: velero.io/v1
+kind: Restore
+apiVersion: velero.io/v1
+metadata:
+  name: restore
+  namespace: openshift-adp
+spec:
+  backupName: backup
+  restorePVs: true
+....
+還原完成後、您會看到 PostgreSQL 應用程式正在這個叢集上執行、並與 PVC 和對應的 PV 相關聯。應用程式的狀態與備份的狀態相同。
+
+image::redhat_openshift_OADP_migrate_image7.png[還原成功]
+
+image::redhat_openshift_OADP_migrate_image7.png[已移轉的 Postgres]
+
+====
