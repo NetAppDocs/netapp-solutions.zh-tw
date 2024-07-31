@@ -21869,4 +21869,204 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="3a23272a496763c7f752c56c20303caf" category="image-alt">已移轉的 Postgres</block>
   <block id="c98c318132403238c3f6444c6687d1c4" category="sidebar">移轉應用程式</block>
   <block id="06d2688772b44f073f44a2b7644b35f7" category="sidebar">使用協力廠商工具保護 VM 資料</block>
+  <block id="217e50ee48d3bba6e43c8c5618902e3e" category="cell">2024 年 7 月 31 日</block>
+  <block id="b39418d0ecfb19ff9350df6227a218c6" category="cell">全新 TR-4996 ： VCF 中的 Oracle SI 部署與保護（含 VVols ）</block>
+  <block id="ed7da1d98db2a5f56b9b51c80676689c" category="summary">本解決方案提供 VMware Cloud Foundation （ VCF ）中 Oracle 部署與保護的概觀與詳細資料、其中 vSphere Virtual Volumes （ vVols ）是單一執行個體（ SI ）組態中的主要資料庫儲存設備和 Oracle 資料庫。</block>
+  <block id="7771b3227f6011277af7c6f86381981f" category="doc">TR-4996 ： VCF 中的 Oracle SI 部署與保護（含 VVols ）</block>
+  <block id="63187ee661198eecd7fe25cff775a86a" category="paragraph">本解決方案提供 VMware Cloud Foundation （ VCF ）中 Oracle 部署與保護的概觀與詳細資料、其中 vSphere Virtual Volumes （ vVols ）是單一執行個體（ SI ）組態中的主要資料庫儲存設備和 Oracle 資料庫。</block>
+  <block id="ac91541ff82c6ee76b58150eca1250c7" category="paragraph">VMware vSphere 虛擬磁碟區（ vVols ）是一種 SAN/NAS 管理與整合架構、可將虛擬磁碟公開為原生儲存物件、並可在虛擬磁碟層級執行陣列型作業。換句話說、 vVols 讓 SAN/NAS 裝置能夠感知 VM 、並能以單一虛擬磁碟的精細度、以虛擬機器為中心的方法、充分發揮陣列型資料服務的效益。 VVols 可讓客戶充分運用目前儲存投資和移轉的獨特功能、而不會中斷營運模式、針對所有儲存類型的虛擬環境進行最佳化、以達到更簡單、更有效率的營運模式。</block>
+  <block id="54c64849cbb768c12543c38fa3342f0f" category="paragraph">本文件說明如何在 VMware Cloud Foundation 環境中部署及保護 Oracle 單一執行個體資料庫、並在 NetApp ONTAP 儲存叢集中使用 vVols 作為主要資料庫儲存設備。Oracle 資料庫的設定方式、如同部署在本機儲存系統的本機檔案系統中一樣。本技術報告著重於在 VCF 中建立 VVols 以進行 Oracle 部署的步驟。我們也會示範如何使用 NetApp SnapCenter UI 工具來備份、還原及複製 Oracle 資料庫、以供開發 / 測試、或是在 VCF 中使用其他使用案例來執行儲存效率高的資料庫作業。</block>
+  <block id="4c7d4a60b738b4714cddcc488009b210" category="list-text">在 VCF 中部署 Oracle SI 資料庫、並在 NetApp ONTAP AFF 上部署 vVols 資料存放區作為主要資料庫儲存設備</block>
+  <block id="eb3a7a665b2ee606d74bf7d4657d5f1e" category="list-text">使用 NetApp SnapCenter UI 工具、在 VCF 中使用 vVols 資料存放區進行 Oracle 資料庫備份與還原</block>
+  <block id="25f2a359e29ebc505f92bc2118d15bec" category="list-text">使用 NetApp SnapCenter UI 工具在 VCF 中使用 vVols 資料存放區複製用於開發 / 測試的 Oracle 資料庫、或其他使用案例</block>
+  <block id="3b17c15a96e90a03f424ba8ff84edda9" category="list-text">DBA 希望在 VCF 中部署 Oracle 、並在 NetApp ONTAP AFF 上部署 vVols 資料存放區作為主要資料庫儲存設備</block>
+  <block id="d349eb44120afd2a733ed0cca1af1bb6" category="list-text">資料庫解決方案架構設計師、想要在 VCF 中測試 NetApp ONTAP AFF 儲存設備上的 VVols 資料存放區中的 Oracle 工作負載</block>
+  <block id="1b7115ed74fb7546fe9b3aaf8e5001c8" category="list-text">想要部署及管理部署至 VCF 的 Oracle 資料庫、並在 NetApp ONTAP AFF 儲存設備上使用 vVols 資料存放區的儲存管理員</block>
+  <block id="ee657e8e58545003d830b6e8249dfef8" category="list-text">想要在 VCF 中使用 vVol 資料存放區備份 Oracle 資料庫的應用程式擁有者</block>
+  <block id="514383da7989f9a243a928e30fa946eb" category="paragraph">此解決方案的測試與驗證是在實驗室環境中執行、在 NetApp ONTAP AFF 儲存設備上使用 VCF 搭配 vVols 資料存放區、可能與最終部署環境不符。如需詳細資訊，請參閱一節 <block ref="a5cbf5f16a1fba6d9697a814ff593254" category="inline-xref-macro-rx"></block>。</block>
+  <block id="ad4ac6db8d9decf0eb775290a8c971cb" category="cell">NetApp ONTAP AFF A300</block>
+  <block id="e5de8dc14dd3942120c44d5982b5a825" category="cell">9.14.1P4 版</block>
+  <block id="0d4078e1e13a983e4de55aa01e5ad590" category="cell">DS224 機櫃含 24 個 NVMe 磁碟、總容量 35.2 TiB</block>
+  <block id="92950a7604605975794d500e05f4c7eb" category="cell">VMware vSphere 叢集</block>
+  <block id="6e22cffc6ebecbdd7f47bd5d00e45b99" category="cell">版本 8.02</block>
+  <block id="bc5d0a2c32203fc25813789555247ee7" category="cell">12 個 CPU x Intel （ R ） Xeon （ R ） Gold 5218 CPU @ 2.30GHz 、 8 個節點（ 4 個管理和 4 個工作負載網域）</block>
+  <block id="c6ab07ee1aab16fa0a20d509cdf7b072" category="cell">託管 Oracle DB 伺服器、部署 RedHat 訂閱以進行測試</block>
+  <block id="ceebe4fc3acd82fd3188cded15f1d864" category="cell">CentOS Linux 8.5.2111 版</block>
+  <block id="2d33ab49719ed91ddb197340eb32a2db" category="cell">代管 Ansible 控制器</block>
+  <block id="f7dc6582169de1adc76cc1bd4479d98f" category="cell">版本 6.0</block>
+  <block id="0a8382f1a17329bbc921d30dfa2a2515" category="cell">部署為 ova VM 至 vSphere 叢集</block>
+  <block id="a75e60f152424197f37afc9c5e9a5c2d" category="cell">適用於 VMware vSphere 的 ONTAP 工具</block>
+  <block id="117158dddb508cb9387d41bfdbfe579b" category="cell">版本 9.13</block>
+  <block id="5ce8d13929389b81584b3a78c447b524" category="cell">版本 Java-11-OpenJDK-11.0.23.0.9-3.el8.x86_64</block>
+  <block id="338b2420dac1e34d75bddea18c33a6ed" category="section-title">VCF 中的 Oracle 資料庫組態</block>
+  <block id="0db665f03cbb89d625759cc113d29320" category="cell">NTAP1 （ NTAP1_pdb1 、 NTAP1_pdb2 、 NTAP1_pdb3 ）</block>
+  <block id="847c86000821f4308a632844393be895" category="cell">NetApp ONTAP AFF A300 上的 VVols 資料存放區</block>
+  <block id="fdd523ab1355a652be7785ec356296ce" category="cell">NTAP2 （ NTAP2_pdb1 、 NTAP2_pdb2 、 NTAP2_pdb3 ）、 NTAP1CLN</block>
+  <block id="e833c850593670a5e6671378fcfddf3a" category="list-text">* vVols 到 ONTAP 叢集連線的傳輸協定。 *NFS 或 iSCSI 是很好的選擇。效能等級相當。在本解決方案示範中、我們使用 NFS 做為 vVols 連線至底線 ONTAP 儲存叢集的儲存傳輸協定。如果 VCF 基礎架構支援、則 NetApp ONTAP 上的 VVols 資料存放區也支援 FC/FCoE 、 NVMe / FC 通訊協定。</block>
+  <block id="038f6eed09324a5254381f8e80a54f3d" category="list-text">* vVols 資料存放區上的 Oracle 儲存配置。 *在我們的測試和驗證中、我們部署了三個 Vols 資料存放區、用於 Oracle 二進位檔案、 Oracle 資料和 Oracle 記錄檔。最好將不同類型的 Oracle 檔案分隔到資料存放區、以便輕鬆管理及執行資料庫備份、還原或複製。為大型資料庫建立專用的 vVols 、並針對具有類似 QoS 設定檔的小型資料庫或資料庫、共用 vVols 。 </block>
+  <block id="3ed99aa53a2f633957eb421708c54e40" category="list-text">* ONTAP 儲存驗證的認證。 *ONTAP 儲存叢集驗證只能使用 ONTAP 叢集層級認證、包括 SnapCenter 連線至 ONTAP 儲存叢集、或 ONTAP 工具連線至 ONTAP 儲存叢集。</block>
+  <block id="a6d88ee32eb46635dfd1330ee9c755dd" category="list-text">* 將儲存設備從 vVols 資料存放區配置至資料庫 VM 。 *一次只能從 vVols 資料存放區新增一個磁碟至資料庫 VM 。目前不支援同時從 vVols 資料存放區新增多個磁碟。  </block>
+  <block id="935faab0c1724a6292faa21145fa1f7a" category="list-text">* 資料庫保護 *NetApp 提供 SnapCenter 軟體套件、可透過使用者友好的 UI 介面進行資料庫備份、還原及複製。NetApp 建議實作這樣的管理工具、以快速（在一分鐘內）備份快照、快速（分鐘）資料庫還原及資料庫複製。</block>
+  <block id="3ff3605993898c98bf107a74c1104b5c" category="paragraph">以下各節提供在 VCF 中部署 Oracle 19c 的逐步程序、並在單一執行個體組態中、將 VVols 資料存放區放在 NetApp ONTAP 儲存設備上。</block>
+  <block id="a12fb51e6a26df58be980a0d67dc8ef0" category="list-text">已設定 VMware VCF 。有關如何創建 VCF 的信息或說明，請參閱 VMware 文檔 <block ref="59168b7ce3f6dbe18036b34793095689" category="inline-link-macro-rx"></block>。</block>
+  <block id="b6949bfe28e58311adf72973f39b19e4" category="list-text">在 VCF 工作負載網域中、為三個 Linux VM 、兩個 VM 用於 Oracle 資料庫、以及一個 VM 用於 Ansible 控制器。配置一部 Windows 伺服器 VM 以執行 NetApp SnapCenter 伺服器。有關爲自動 Oracle 數據庫部署設置 Ansible 控制器的信息，請參閱以下資源 <block ref="d1250df0700152003f00dbe5bac89608" category="inline-link-macro-rx"></block>。</block>
+  <block id="abef732dd483cfddd1aaa364ad7fef69" category="list-text">適用於 VMware vSphere 的 SnapCenter 外掛程式 6.0 版已部署在 VCF 中。有關插件部署，請參閱以下資源 <block ref="b0d40f86037388f17d222087e64d79a3" category="inline-link-macro-rx"></block>：。</block>
+  <block id="26ffc687a7267f96a389530199971cd1" category="inline-link-macro">適用於 VMware vSphere 的 ONTAP 工具文件</block>
+  <block id="70f233bf52a3a33941dc2ecd693f03ae" category="list-text">適用於 VMware vSphere 的 ONTAP 工具已部署在 VCF 中。請參閱下列資源以取得 VMware vSphere 部署的 ONTAP 工具： <block ref="124f85081ad68c1408c62c0c72a9a0d0" category="inline-link-macro-rx"></block></block>
+  <block id="ba5602a7d83e50db49caf0853dacb46a" category="section-title">建立儲存功能設定檔</block>
+  <block id="574f4871a7f478f5bcc72e03eef4a96f" category="paragraph">首先、為裝載 vVols 資料存放區的底線 ONTAP 儲存設備建立自訂儲存功能設定檔。</block>
+  <block id="ffb7e150691b98e078662c7a23f4adbe" category="list-text">從 vSphere 用戶端捷徑開啟 NetApp ONTAP 工具。確保 ONTAP 儲存叢集已新增至<block ref="5c6ab1284b6b7a5a7102854a969c99be" prefix=" " category="inline-code"></block> 、作為 ONTAP 工具部署的一部分。</block>
+  <block id="ce0f28375029ece59ae6afd04718446f" category="inline-image-macro">顯示自訂儲存功能設定檔組態的螢幕擷取畫面。</block>
+  <block id="5f8ba8657c042c4d9f6f7740686c841c" category="paragraph"><block ref="5b9f80c29b620bf58e5ed2a5d29006ed" category="inline-image-macro-rx" type="image"></block> <block ref="b228a446ea927eefc221ca999ed611df" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="93b2d42abda9af2775a45e3d82033a4c" category="list-text">按一下<block ref="5671a8cbfb87337b09f7c0b3f03c48ec" prefix=" " category="inline-code"></block> 以新增 Oracle 的自訂設定檔。命名設定檔並新增簡短說明。</block>
+  <block id="65ea7f5a1b773db97b0599252dc6ce2a" category="paragraph"><block ref="65ea7f5a1b773db97b0599252dc6ce2a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f7c1e70b93b043a558fd33a60b2b9a4f" category="list-text">選擇儲存控制器類別：效能、容量或混合式。</block>
+  <block id="3ec83ca4b2416c2566139223cf187018" category="paragraph"><block ref="3ec83ca4b2416c2566139223cf187018" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6208541b7c69092d9c6007ae118c5a02" category="list-text">選取傳輸協定。</block>
+  <block id="665ba1dffc47d22b149e515b215aa629" category="paragraph"><block ref="665ba1dffc47d22b149e515b215aa629" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="40b8327c5adffbb8fd939d1e60225518" category="list-text">視需要定義 QoS 原則。</block>
+  <block id="e77c0819dc094ffb099c56b9609b4522" category="paragraph"><block ref="e77c0819dc094ffb099c56b9609b4522" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f248abccd937c20eb587021d08cf5665" category="list-text">設定檔的其他儲存屬性。如果您想要加密功能、或是套用設定檔時可能會造成問題、請確定 NetApp 控制器已啟用加密功能。</block>
+  <block id="14fd25d551bdd0488519e54d4746cea1" category="paragraph"><block ref="14fd25d551bdd0488519e54d4746cea1" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d8259b9d166c6def0c94e28529b07408" category="list-text">檢閱摘要並完成儲存功能設定檔的建立。</block>
+  <block id="ee05b53a559e28e30b48fab2f470edc2" category="paragraph"><block ref="ee05b53a559e28e30b48fab2f470edc2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dff98535475eb3bdfc270946dfc29280" category="section-title">建立及設定 vVols 資料存放區</block>
+  <block id="08c0ac84a22cfe0e83d0056cdd1fa92c" category="paragraph">完成先決條件後、透過 vSphere 用戶端以管理員使用者身分登入 VCF 、導覽至工作負載網域。請勿使用內建的 VMware 儲存選項來建立 VVols 。請改用 NetApp ONTAP 工具來建立 vVols 。以下說明建立和設定 VVols 的程序。</block>
+  <block id="067d6c9f3530bf26b24a96375614a55b" category="list-text">VVols 建立工作流程可從 ONTAP 工具介面或 VCF 工作負載網域叢集觸發。</block>
+  <block id="d3e1d44cc16d5e3186aa6459e33c27e4" category="inline-image-macro">顯示 vVols 資料存放區組態的螢幕擷取畫面。</block>
+  <block id="5a1c0d819e1f351d407e912a595fb0bc" category="paragraph"><block ref="5a1c0d819e1f351d407e912a595fb0bc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c6ae8a9ea78f7380a3618d316c7f50bc" category="paragraph"><block ref="c6ae8a9ea78f7380a3618d316c7f50bc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5988bd65b90ceb685034d86d3495df44" category="list-text">填寫資料存放區的一般資訊、包括資源配置目的地、類型、名稱和傳輸協定。</block>
+  <block id="46aac037341a1bc4b8c56eb65d5f36cf" category="paragraph"><block ref="46aac037341a1bc4b8c56eb65d5f36cf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8eba6077a8d57ff41f9729a6edb1283e" category="list-text">選擇從上一步、和建立 vVols 的自訂儲存功能設定檔<block ref="f31303ddb8ada38aed08c2bb8f9d8e6c" prefix=" " category="inline-code"></block><block ref="541b6c1ab6b503c34fc7cd5ed7105896" prefix=" " category="inline-code"></block>。</block>
+  <block id="247127144b8215f9abc549adaf24f6ed" category="paragraph"><block ref="247127144b8215f9abc549adaf24f6ed" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f8639edb08078b0872af987ffcb3c41a" category="list-text">選擇<block ref="088758c5f1801338b7483d3a2cda15aa" prefix=" " category="inline-code"></block>、填寫磁碟區名稱和大小、然後按一下、<block ref="9eeb52badb613229884838847294b90d" prefix=" " category="inline-code"></block><block ref="47559fb833ff58321570e5e877b467f6" prefix=" " category="inline-code"></block> 移至摘要頁面。</block>
+  <block id="a36caf94459cf7534c7f012cdef45952" category="paragraph"><block ref="a36caf94459cf7534c7f012cdef45952" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1dbcab7480e5628accc586b51e7ae14a" category="admonition">您可以將多個磁碟區新增至 vVols 資料存放區、或跨 ONTAP 控制器節點跨 vVols 資料存放區磁碟區以提高效能。</block>
+  <block id="6879b520f65a093360e318970237ae41" category="list-text">按一下<block ref="a20ddccbb6f808ec42cd66323e6c6061" prefix=" " category="inline-code"></block> 以建立 Oracle 二進位的 vVols 資料存放區。</block>
+  <block id="c71f2df3a743b7214704759d668e5242" category="paragraph"><block ref="c71f2df3a743b7214704759d668e5242" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f623a471bae2cf02f80bfc265f6c3d5f" category="list-text">重複相同的程序、為 Oracle 資料和記錄建立 vVols 資料存放區。</block>
+  <block id="3bf988cf8b10a47295e1f0a4937d6c89" category="paragraph"><block ref="3bf988cf8b10a47295e1f0a4937d6c89" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c49449890c4bc83acd8f37c4b0c8c760" category="admonition">請注意、當複製 Oracle 資料庫時、會將額外的 VVols for Data 新增至 vVols 清單。</block>
+  <block id="53805fd039c130e4639961665f4d52c7" category="section-title">根據儲存功能設定檔建立 VM 儲存原則</block>
+  <block id="8597b3e29b3bfd1a6d11508383239d6f" category="paragraph">在將儲存設備從 vVols 資料存放區配置至資料庫 VM 之前、請根據從上一步建立的儲存功能設定檔、新增 VM 儲存原則。以下是程序。</block>
+  <block id="0cac31d91fd3c9b2951a23b3238222ba" category="list-text">在 vSphere 用戶端功能表中、開啟<block ref="618825ca73695fc2a237f6dcf99e5c27" prefix=" " category="inline-code"></block> 並反白顯示<block ref="9f1893d8db5ceaf62726d1a0aa228224" prefix=" " category="inline-code"></block>。按一下<block ref="686e697538050e4664636337cc3b834f" prefix=" " category="inline-code"></block> 以開啟<block ref="9f1893d8db5ceaf62726d1a0aa228224" prefix=" " category="inline-code"></block> 工作流程。</block>
+  <block id="9a6d57df0589e3632c8c0f69749dfbb0" category="inline-image-macro">顯示 VM 儲存原則組態的螢幕擷取畫面。</block>
+  <block id="23fff1b59bd8ced7c1561fb424757737" category="paragraph"><block ref="23fff1b59bd8ced7c1561fb424757737" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3c1b50b4d689fb35a32cefabc42b21c7" category="list-text">命名 VM 儲存原則。</block>
+  <block id="e71ee680eb16cfcd9e5aba4f1ce601f4" category="paragraph"><block ref="e71ee680eb16cfcd9e5aba4f1ce601f4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="19fbb3187befaa8e7ddf2ee168778b40" category="list-text">在<block ref="e06edd159cb29fd25e7a6b6ca07b5c45" prefix=" " category="inline-code"></block>中、檢查<block ref="e4cbdedd5072d1d5bf70b96942a75033" prefix=" " category="inline-code"></block></block>
+  <block id="697ba6f03a62707dce19bfce6a6eb7f2" category="paragraph"><block ref="697ba6f03a62707dce19bfce6a6eb7f2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d1fd9dc94d502a651207949123c63c43" category="list-text">對於 NetApp.Cluster.Data.ONTAP.VP.VVOL 規則<block ref="ae13e51f99f3be623a6d44d7439d9bb5" prefix=" " category="inline-code"></block>、請選取從上一步建立的自訂儲存容量設定檔。</block>
+  <block id="09a2e6ae862ebc13ff0f450002fe8b80" category="paragraph"><block ref="09a2e6ae862ebc13ff0f450002fe8b80" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8f6f104c16849aecc74ac68cf09c0c24" category="list-text">對於 NetApp.Cluster.Data.ONTAP.VP.VOL 規則<block ref="8c340dc334134096f68b880b42a8692c" prefix=" " category="inline-code"></block>、請選擇<block ref="b9f5c797ebbf55adccdd8539a65a0241" prefix=" " category="inline-code"></block> 是否不複寫 vVols 。</block>
+  <block id="2cc654c45c53cd3514167a3547325dc0" category="paragraph"><block ref="2cc654c45c53cd3514167a3547325dc0" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="37da436400640cf811c491c3a99d576c" category="list-text">儲存相容性頁面會顯示 VCF 環境中相容的 vVols 資料存放區。</block>
+  <block id="6b9b2ed83f16d43d7929b873f2f6662f" category="paragraph"><block ref="6b9b2ed83f16d43d7929b873f2f6662f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4a923ac6fb99ee5d0fc17211d1c3eec5" category="list-text">檢閱並完成以建立 VM 儲存原則。</block>
+  <block id="31382336c2b4b43d10fc249565e76b54" category="paragraph"><block ref="31382336c2b4b43d10fc249565e76b54" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="818749afba521c90e53181fd57b26e4f" category="list-text">驗證剛建立的 VM 儲存原則。</block>
+  <block id="2324a9c4065f220fd3949efa85ceaa08" category="paragraph"><block ref="2324a9c4065f220fd3949efa85ceaa08" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3d9aaa275a447e9d31c528981b4f80a9" category="section-title">從 vVols 資料存放區將磁碟分配給 DB VM 、並設定 DB 儲存設備</block>
+  <block id="0148fef951b21df8e50803feb861c17f" category="paragraph">從 vSphere 用戶端、編輯 VM 設定、將 vVols 資料存放區的三個磁碟新增至資料庫 VM 。然後、登入 VM 以格式化並掛載磁碟、以掛載 /u01 、 /u02 和 /u03 點。以下說明確切的步驟和工作。</block>
+  <block id="8a594a4062120343f6d1214b060c990e" category="list-text">將磁碟新增至 VM 以進行 Oracle 二進位儲存。</block>
+  <block id="bd7a11e9ebe1d463ea78c92b8e7ae29a" category="inline-image-macro">顯示 VM 儲存組態的螢幕擷取畫面。</block>
+  <block id="5e7034027c0b98719758707afc4777b6" category="paragraph"><block ref="5e7034027c0b98719758707afc4777b6" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f7b26f1b39d7f1134b617c758271388d" category="list-text">將磁碟新增至 VM 以儲存 Oracle 資料。</block>
+  <block id="86c2af552ea1dd2b8ce9e9705db0e1ca" category="paragraph"><block ref="86c2af552ea1dd2b8ce9e9705db0e1ca" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9688034f93bd59a451be614f54b3bd31" category="list-text">將磁碟新增至 VM 以儲存 Oracle 記錄。</block>
+  <block id="6f1daa8d6a5a7f37fde5c5dbf2960f16" category="paragraph"><block ref="6f1daa8d6a5a7f37fde5c5dbf2960f16" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="20494f43a704174a7c66937c434822c8" category="list-text">從 VM<block ref="21b14bb4c76726ee1f508919a7a313cc" prefix=" " category="inline-code"></block>中，<block ref="c9d7eedc8be4380c02106619824b8449" prefix=" " category="inline-code"></block>添加具有值的屬性<block ref="786ce2a862b7971f5d75434b768ebdbe" prefix=" " category="inline-code"></block><block ref="c0d83f0b82a6b30de8811e69e6d95c61" prefix=" " category="inline-code"></block>。VM 需要停機才能新增進階參數。設定此選項可讓 SnapCenter 精確識別您環境中的 vVol 。</block>
+  <block id="8fc315e8054c1f846e9415239e2f7c8e" category="paragraph"><block ref="8fc315e8054c1f846e9415239e2f7c8e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="665639cc3720d39b6e081d6894c32ad9" category="list-text">現在、請重新啟動 VM 。以管理員使用者的身分透過 ssh 登入 VM 、以檢閱新增的磁碟機。</block>
+  <block id="5c74da629f32767926f7ad7166336d3d" category="list-text">只要接受預設選項、就能將磁碟分割為主要和單一分割區。</block>
+  <block id="092b3ded0c71a57dc9e6c900236e8802" category="list-text">將分割磁碟格式化為 xfs 檔案系統。</block>
+  <block id="81529182dc2ad74d9f7dad30c6854f7a" category="list-text">將磁碟機掛載至 /u01 、 /u02 和 /u03 掛載點。</block>
+  <block id="5c14ee5bcebed05ca6f36737fa926611" category="list-text">將裝載點新增至 /etc/fstab 、以便在 VM 重新開機時掛載磁碟機。</block>
+  <block id="25f25999e7ae6cad40283a3ef624517a" category="section-title">在 VCF 中部署 Oracle 資料庫</block>
+  <block id="62faa4afd2a124411cf5f4884cc66e99" category="paragraph">建議您運用 NetApp 自動化工具套件、在 VCF 中使用 vVols 部署 Oracle 。有關在 xfs 文件系統上執行 Oracle 自動部署的詳細參考，請參閱 TR-4992 ： <block ref="d16fedc336069e9d6785250562f78c68" category="inline-link-macro-rx"></block>。雖然 TR-4992 涵蓋 NetApp C 系列與 NFS 的自動化 Oracle 部署、但如果繞過 NFS 檔案系統掛載至資料庫 VM 、則與 VCF 中的 Oracle 部署相同。我們只需略過特定標籤即可。以下是逐步程序。</block>
+  <block id="18221967648c6cef9becffedbdba6e84" category="list-text">以管理員使用者的身分透過 ssh 登入 Ansible 控制器 VM 、並複製一份適用於 NFS 上 Oracle 的自動化工具套件複本。</block>
+  <block id="1ac10c3f57c4a31176d5de142e164d21" category="list-text">將下列 Oracle 安裝檔案登入資料庫 VM 的 /tmp/archive 資料夾。資料夾應允許所有使用者以 777 權限存取。</block>
+  <block id="b5b23334cc5e9529e7b119f8d9fcfba0" category="list-text">根據 TR-4992 的本節中的說明，配置部署目標文件 - hosts 、全局變量文件 - vars/vars.yml 和本地 DB VM 變量文件 - host_vars/host_name.yml ： <block ref="e638563d255ae842e2c00881aa7e9185" category="inline-link-macro-rx"></block>。從本機 DB VM 變數檔案中註解 nfs_lif 變數。</block>
+  <block id="24171804df1cf0c75810555078f5363a" category="list-text">在 Ansible 控制器和資料庫 VM 之間設定 ssh 免持式驗證、這需要產生 ssh 金鑰配對、並將公開金鑰複製到資料庫 VM 管理使用者根目錄 .ssh 資料夾 authorized_keys 檔案。</block>
+  <block id="f04a957e840ec1a63abf180d46387d50" category="list-text">從 Ansible 控制器、複製的自動化工具套件主目錄 /home/admin/na_oracle_deploy _NF 、執行先決條件教戰手冊。</block>
+  <block id="6ae4f18884244011c1af48b055b81490" category="list-text">執行 Linux 組態教戰手冊。</block>
+  <block id="7bf1e8acde5c2dc40b02275ed5e2cc1d" category="list-text">執行 Oracle 部署教戰手冊。</block>
+  <block id="a7119acd29a953169996c6cd5828ae0e" category="list-text">您也可以選擇從單一教戰手冊執行上述所有教戰手冊。</block>
+  <block id="3380790c6b6607b8bdbb4dc491a193a6" category="list-text">登入 EM Express 以在成功執行教戰手冊後驗證 Oracle 。</block>
+  <block id="5afe58c129643433adc50a2af141f9f9" category="inline-image-macro">顯示 Oracle EM Express 組態的螢幕擷取畫面。</block>
+  <block id="1c04f20d675f7d8015401ff8bb09f92b" category="paragraph"><block ref="20609e3f0e516e319472d94df8904555" category="inline-image-macro-rx" type="image"></block> <block ref="1418dd89cc39d2d8c1a065a0a76e86c4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="17fa3d33636f0f23f65c8d49f2592f2a" category="list-text">您也可以執行銷毀教戰手冊、從 DB VM 移除資料庫。</block>
+  <block id="7a1924f25fed25748daead1d2d5b01e9" category="section-title">使用 SnapCenter 在 VCF 中進行 Oracle 備份、還原及複製</block>
+  <block id="9884c3c5b6856de90af08a8c26b025bd" category="paragraph">SnapCenter 第 6 版比第 5 版有許多功能增強功能、包括支援 VMware vVols 資料存放區。SnapCenter 仰賴資料庫 VM 上的主機端外掛程式來執行應用程式感知的資料保護管理活動。有關 NetApp SnapCenter Plug-in for Oracle 的詳細信息，請參閱本文檔 <block ref="7a6b1ddf3a0731d31936d6522df7c6ca" category="inline-link-macro-rx"></block>。以下提供在 VCF 中設定 SnapCenter 版本 6 以進行 Oracle 資料庫備份、還原及複製的高階步驟。</block>
+  <block id="db870e382c718288732e8cddc579b13c" category="list-text">從 NetApp 支援網站下載 SnapCenter 軟體的第 6 版： <block ref="3cca19c7256555824970f142627f53d3" category="inline-link-macro-rx"></block>。</block>
+  <block id="9535205879e21b3b44dc228f092b815c" category="list-text">以系統管理員身分登入託管 Windows VM 的 SnapCenter 。安裝 SnapCenter 6.0 的必要條件。</block>
+  <block id="14aae9a2299009444cb9a8fdd1043241" category="inline-image-macro">顯示 SnapCenter 6.0 必要條件的螢幕擷取畫面。</block>
+  <block id="329e0559e0ff375d76da7b2ec5051349" category="paragraph"><block ref="329e0559e0ff375d76da7b2ec5051349" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="8586c002ab45881c90190837b88451c2" category="list-text">作爲管理員，從安裝最新的 Java JDK <block ref="1a0bb7a886be273015991771cf1b1190" category="inline-link-macro-rx"></block>。</block>
+  <block id="873c1ffff3970b65dab9f01f031bac07" category="paragraph"><block ref="873c1ffff3970b65dab9f01f031bac07" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="212969042f73c7fab7539a4425462c46" category="list-text">如果您是新使用者、請檢閱<block ref="e0c4332e8c13be976552a059f106354f" prefix=" " category="inline-code"></block> 功能表以快速瞭解 SnapCenter 。</block>
+  <block id="cf8617e823e5d613ca1cbbca2003f336" category="paragraph"><block ref="cf8617e823e5d613ca1cbbca2003f336" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="85672e90c98085f57c2ae3c44917712f" category="paragraph"><block ref="85672e90c98085f57c2ae3c44917712f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dfed4c63c22e68017be86717e681a47d" category="list-text">使用叢集管理 IP 將 ONTAP 儲存叢集新增至<block ref="5c6ab1284b6b7a5a7102854a969c99be" prefix=" " category="inline-code"></block> 、並透過叢集管理使用者 ID 進行驗證。</block>
+  <block id="0ca7fc57e7ee91b28c2328255a267362" category="paragraph"><block ref="add13078eec5cbad72fc190e7c53b44c" category="inline-image-macro-rx" type="image"></block> <block ref="e35aed9f9d4e218deb47ecf2dc292045" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="b4368c5bff67fcdd30ed15befeb0bb5d" category="list-text">新增資料庫 VM 和 vSphere 外掛程式 VM<block ref="03bc142e6422dbb9b288ad2cabee08c7" prefix=" " category="inline-code"></block> 、以便 SnapCenter 存取 DB VM 和 vSphere 外掛程式 VM 。認證應該在 Linux VM 上擁有 Sudo 權限。您可以為虛擬機器的不同管理使用者 ID 建立不同的認證。</block>
+  <block id="5e17eda957603128db38ebd2ac85c948" category="paragraph"><block ref="5e17eda957603128db38ebd2ac85c948" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="59d5938e76d240d7dd6bc36a5b63bc74" category="list-text">在 VCF 中將 Oracle 資料庫 VM 新增至<block ref="8124579383e90243e4b06323d2b37f8d" prefix=" " category="inline-code"></block> 、並在上一步建立 DB VM 認證。</block>
+  <block id="13ed1a1d28080020cff957a6a19cbdb4" category="paragraph"><block ref="bcf2d2b9d1e4b2ea4a564934ed2b47e5" category="inline-image-macro-rx" type="image"></block> <block ref="1d78c58ecfae2a3e5bf326a4eb3b9426" category="inline-image-macro-rx" type="image"></block> <block ref="d9d7c839b5ab1ed111426cc0032985b4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="532bf73956152aae1e31d71a303110bb" category="list-text">同樣地、請將 NetApp VMware 外掛程式 VM 新增至<block ref="8124579383e90243e4b06323d2b37f8d" prefix=" " category="inline-code"></block> 、並在前一個步驟中建立 vSphere 外掛程式 VM 認證。</block>
+  <block id="81bfb64985c4b5753d14a675301697d7" category="paragraph"><block ref="c1f71beb19a9697d359c7cf755a074c5" category="inline-image-macro-rx" type="image"></block> <block ref="c5e59b945d462f512b221fab4a9d6ab2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="836e220077eef7f134a2eca3d11dd42a" category="list-text">最後、在 DB VM 上探索 Oracle 資料庫之後、請返回<block ref="f4f70727dc34561dfde1a3c529b6205c" prefix=" " category="inline-code"></block><block ref="9e476387322a5c250893cf9c5c4ce78c" prefix="-" category="inline-code"></block> 建立 Oracle 資料庫備份原則。理想情況下、請建立個別的歸檔記錄備份原則、以允許更頻繁的備份間隔、在發生故障時將資料遺失降至最低。</block>
+  <block id="b7807a41275760e1b78e468d71930135" category="paragraph"><block ref="b7807a41275760e1b78e468d71930135" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9042135e15b7d736f2926087cc1cbac4" category="admonition">請確定 SnapCenter 伺服器名稱可以解析為 DB VM 和 vSphere 外掛 VM 的 IP 位址。同樣地、 DB VM 名稱和 vSphere 外掛程式 VM 名稱也可以從 SnapCenter 伺服器解析為 IP 位址。</block>
+  <block id="f2f5ea20fbc62b491869c43a522dcf59" category="paragraph">相較於傳統的 RMAN 型方法、 SnapCenter 利用 ONTAP Volume Snapshot 來加快資料庫備份、還原或複製速度。當資料庫在快照之前處於 Oracle 備份模式時、快照的應用程式一致。</block>
+  <block id="79e20df40dc05e1037eba6d109dd384a" category="paragraph"><block ref="79e20df40dc05e1037eba6d109dd384a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d86fa67cb5a60379e561235b1bbcf1a2" category="list-text">按一下資料庫以啟動工作流程、以啟用資料庫的保護。</block>
+  <block id="c079f62c04e142d42eed7aaa19c1edd9" category="paragraph"><block ref="c079f62c04e142d42eed7aaa19c1edd9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0a32086592e3e98e202dec84f5352e6b" category="list-text">套用備份原則、視需要設定排程。</block>
+  <block id="a881d7b40bd2544e143a5ffd3b90266b" category="paragraph"><block ref="a881d7b40bd2544e143a5ffd3b90266b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d9550848b32d2fbf200fe1071ca3cfa4" category="list-text">如有必要、請設定備份工作通知。</block>
+  <block id="f48e09224cf0800e96461a1affd1cd43" category="paragraph"><block ref="f48e09224cf0800e96461a1affd1cd43" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5dad3646303c6a4e4f76cc956dddef68" category="list-text">檢閱摘要並完成以啟用資料庫保護。</block>
+  <block id="563484224391e52c21ca2de29a49d028" category="paragraph"><block ref="563484224391e52c21ca2de29a49d028" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="60b30cb13078f340c18a220e2cbe412f" category="list-text">按需備份工作可透過按一下來觸發<block ref="9af892ad254c844922acba8e89078d6d" prefix=" " category="inline-code"></block>。</block>
+  <block id="63a48ce6ee79127b4b0bf2f4cd13947e" category="paragraph"><block ref="409bb0e73ae61573dd12ec3b82f87b73" category="inline-image-macro-rx" type="image"></block> <block ref="3bc198a317000daf98af109d3078049c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4c3be4dc2013feff06f74360f3c27d06" category="paragraph"><block ref="4c3be4dc2013feff06f74360f3c27d06" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="812d6325185d3c54cc9fdb6993aa88d5" category="list-text">按一下資料庫、檢閱每個資料庫完成的備份集。</block>
+  <block id="4daf7ce1f96ae311d123196e7dee68c9" category="paragraph"><block ref="4daf7ce1f96ae311d123196e7dee68c9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4c978f8cd51a54f6f818224c07b37081" category="section-title">資料庫還原 / 還原</block>
+  <block id="2fa8dc10d20419afc3a60bdeb1b193be" category="paragraph">SnapCenter 從快照備份中為 Oracle 資料庫提供許多還原與還原選項。在此範例中、我們示範如何從較舊的快照備份還原、然後將資料庫轉送到最後一個可用的記錄檔。</block>
+  <block id="ac8a46d614401dc313c8dfdc41d3b6ad" category="list-text">首先、執行快照備份。然後建立測試表格、並在表格中插入一列、以驗證從快照映像復原的資料庫、然後再建立測試表格。</block>
+  <block id="4de3a9d50c6a6b2be148858c04496ca7" category="list-text">從 SnapCenter<block ref="ddcf50c29294d4414f3f7c1bbc892cb5" prefix=" " category="inline-code"></block> 索引標籤、開啟資料庫 NTAP1 備份拓撲頁面。在建立測試表之前、請反白顯示快照資料備份集。按一下<block ref="2bd339d85ee3b33e513359ce781b60cc" prefix=" " category="inline-code"></block> 以啟動還原復原工作流程。</block>
+  <block id="eb3eb9065c03e56376dbd8dea23b727c" category="paragraph"><block ref="eb3eb9065c03e56376dbd8dea23b727c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="20b922bf6eebee2c6cba59ad35c08dd5" category="paragraph"><block ref="20b922bf6eebee2c6cba59ad35c08dd5" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="4b2e47b0bb47c8052c2ba29b2a019287" category="list-text">選擇恢復範圍至<block ref="eeb41be937965dcb49c6d428805a16ba" prefix=" " category="inline-code"></block>。</block>
+  <block id="9caf33d150971c75036003aa251fe60a" category="paragraph"><block ref="9caf33d150971c75036003aa251fe60a" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e405aaf66719a0dff5100fb5b4e88290" category="paragraph"><block ref="e405aaf66719a0dff5100fb5b4e88290" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="af1581dd889b9e1ebc7a3b1c0c51b76e" category="paragraph"><block ref="af1581dd889b9e1ebc7a3b1c0c51b76e" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f9db43474b8f28fcaabfc0290f5a2323" category="paragraph"><block ref="f9db43474b8f28fcaabfc0290f5a2323" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0bd3e56aa4508b544aa009dfbe51b814" category="paragraph"><block ref="0bd3e56aa4508b544aa009dfbe51b814" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="3c456dbad942ca6a362faf0f52bab308" category="paragraph"><block ref="3c456dbad942ca6a362faf0f52bab308" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="0c199d70e7019bbaed298c974d51a440" category="list-text">從 DB VM ora_01 驗證資料庫的成功還原 / 還原是否已向前移轉至最新狀態、並已恢復測試表。</block>
+  <block id="e902731ca71b8d6f3fd85319cfab2a70" category="paragraph">在此範例中、最新的備份集是用於在不同的軟體安裝中、複製 DB VM ora_02 上的資料庫、以及在 VCF 中複製 Oracle_home 。</block>
+  <block id="11ca26aa1b6ef9aa055d3bbfa787304e" category="list-text">再次開啟資料庫 NTAP1 備份清單。選取最近的資料備份集、按一下<block ref="ff24590464659ee8cdec688128c35f89" prefix=" " category="inline-code"></block> 按鈕以啟動資料庫複製工作流程。</block>
+  <block id="6eca64ac5a70bc0866f0fcc7903f697b" category="paragraph"><block ref="6eca64ac5a70bc0866f0fcc7903f697b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="f35a938ca4be3f182a6bd37047a83198" category="paragraph"><block ref="f35a938ca4be3f182a6bd37047a83198" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="900b3b01b70ff3dfa061c370394c20d1" category="list-text">在 VCF 中選取 ora_02 作為目標資料庫複製主機。應已在主機上安裝並設定相同的 Oracle 資料庫軟體。</block>
+  <block id="8e65bd523170787dd7f65227f65954bf" category="paragraph"><block ref="8e65bd523170787dd7f65227f65954bf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="66090207553058305d836b680f846cca" category="paragraph"><block ref="66090207553058305d836b680f846cca" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="facd55edf242677ab9c6bd42674e871d" category="list-text">您可以變更複製資料庫參數、以符合複製資料庫的組態或資源需求。</block>
+  <block id="53a8b3558508dcbd3c51a1a1b341e894" category="paragraph"><block ref="53a8b3558508dcbd3c51a1a1b341e894" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1658b88c38f74d919ec28d5100272f91" category="paragraph"><block ref="1658b88c38f74d919ec28d5100272f91" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="41f4168f87d76a7a66089456e7311faa" category="paragraph"><block ref="41f4168f87d76a7a66089456e7311faa" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="46aefba3caa5d8637eeea9599bdf122d" category="paragraph"><block ref="46aefba3caa5d8637eeea9599bdf122d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="74d8d13339ed22f8c315968eee95b773" category="paragraph"><block ref="74d8d13339ed22f8c315968eee95b773" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="74c1617600b118b68903b6dbbc37362b" category="list-text">從 DB VM ora_02 驗證複製的資料庫、並查詢測試表格。</block>
+  <block id="d0caaae21ff57a6da3b954572e19d5fc" category="paragraph">這將完成在 VCF 中 SnapCenter 資料庫的備份、還原和複製示範。</block>
+  <block id="35e76d8007b778ea52cd0191d5ee85eb" category="inline-link-macro"><block ref="35e76d8007b778ea52cd0191d5ee85eb" category="inline-link-rx"></block></block>
+  <block id="1f17f6aa903970c3dd54090e0a72032a" category="paragraph"><block ref="1f17f6aa903970c3dd54090e0a72032a" category="inline-link-macro-rx"></block></block>
+  <block id="0ea07c4d6ae7a4a776aa9c64f76fafca" category="list-text">SnapCenter 軟體 6.0</block>
+  <block id="25f98198bfdb79ada56af7b1c6b93a30" category="inline-link-macro"><block ref="25f98198bfdb79ada56af7b1c6b93a30" category="inline-link-rx"></block></block>
+  <block id="be304928a6169b258c942fd969af51fa" category="paragraph"><block ref="be304928a6169b258c942fd969af51fa" category="inline-link-macro-rx"></block></block>
+  <block id="836cb906f52ed0e393be18cb078522a3" category="sidebar">使用 vVols 在 VCF 中部署及保護 Oracle SI</block>
 </blocks>
