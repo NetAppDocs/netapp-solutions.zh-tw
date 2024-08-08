@@ -103,10 +103,7 @@ summary: 本頁說明在NetApp ONTAP 知識庫儲存設備上部署Oracle資料�
 | NFS VLAN和ifgrp已建立 
 
 
-.6+| * Oracle伺服器* |  
-
-
-| RHEL 7/8 
+.5+| * Oracle伺服器* | RHEL 7/8 
 
 
 | Oracle Linux 7/8 
@@ -121,13 +118,16 @@ summary: 本頁說明在NetApp ONTAP 知識庫儲存設備上部署Oracle資料�
 | 在Oracle EC2執行個體上設定適當的交換空間、預設會以0交換部署部分EC2執行個體 
 
 
-.3+| * Cloud Manager/AWS* | AWS存取/秘密金鑰 
+.4+| * Cloud Manager/AWS* | AWS存取/秘密金鑰 
 
 
 | NetApp Cloud Manager客戶 
 
 
 | NetApp Cloud Manager更新Token 
+
+
+| 將來源叢集間的生命體新增至 AWS 安全性群組 
 |===
 --
 ====
@@ -137,7 +137,7 @@ summary: 本頁說明在NetApp ONTAP 知識庫儲存設備上部署Oracle資料�
 
 [role="tabbed-block"]
 ====
-.<strong>"Big ">內部部署</strong><Strong（高級）>|</Strong（高級）>
+.<strong class="big"> 技術 </strong>
 --
 這項自動化部署是以單一的可執行教戰手冊所設計、其中包含三個不同的角色。這些角色適用於ONTAP 支援功能、Linux和Oracle組態。下表說明哪些工作正在自動化。
 
