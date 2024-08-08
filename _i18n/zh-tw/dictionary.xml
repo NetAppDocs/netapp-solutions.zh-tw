@@ -1155,9 +1155,6 @@
   <block id="52134209a1824af49cd06b67ca3aedc7" category="list-text">使用資訊生命週期管理（ILM）規則、管理物件資料隨時間擺放的位置。這些規則可控制物件擷取後的資料處理方式、資料保護方式、資料儲存位置、以及資料儲存時間。</block>
   <block id="5c578eee23496659cea7dda27021c318" category="list-text">監控系統內的交易、效能和作業。</block>
   <block id="c91fcac1d7192250f9c73d72ad06e051" category="section-title">資訊生命週期管理原則</block>
-  <block id="a1d8b1b1990901cd5a97dd0f3dee2da9" category="inline-link-macro">ILM原則</block>
-  <block id="37e0a993cc0a3c5aacb623e412befc5b" category="inline-link-macro">ILM規則</block>
-  <block id="0beeefc6ac257658ea119788351ad268" category="paragraph">根據特定的效能和資料保護需求、支援靈活的資料管理原則、包括保留物件的複本複本、以及使用EC（銷毀編碼）配置（例如2+1和4+2）來儲存物件。StorageGRID隨著工作負載和需求隨時間變化、ILM原則也必須隨時間而改變、這是很常見的做法。修改ILM原則是一項核心功能、讓StorageGRID 客戶能夠快速輕鬆地因應瞬息萬變的環境。請檢查 <block ref="b2ddd4069e5288685e27e7989fb1a613" category="inline-link-macro-rx"></block> 和 <block ref="7593bc4c70a5537fc14593339f7e6540" category="inline-link-macro-rx"></block> 安裝於此。StorageGRID</block>
   <block id="9446a98ad14416153cc4d45ab8b531bf" category="section-title">效能</block>
   <block id="356760a65d5411f2c9f8647f90e50978" category="inline-link-macro">SG5712、SG5760、SG6060或SGF6024</block>
   <block id="2ec930774314e7709987603c82825f4b" category="paragraph">透過新增更多儲存節點（例如VM、裸機或特定用途的應用裝置）來擴充效能StorageGRID <block ref="585d6d5337b82c3c73a6c04b53fcdd23" category="inline-link-macro-rx"></block>。在我們的測試中、我們使用SGF6024應用裝置、以最小尺寸的三節點網格、超越Apache Kafka的關鍵效能要求。隨著客戶使用額外的代理商來擴充其Kafka叢集、他們可以新增更多儲存節點來提升效能和容量。</block>
@@ -17362,18 +17359,6 @@ NetApp MetroCluster 是高可用度和災難恢復解決方案、可在兩個地
   <block id="b1932ff070760d4f32c0a3701982558d" category="list-text">SnapMirror 可在混合雲和多站台環境中順暢地移動資料、隨時隨地提供所需的資料。</block>
   <block id="773a9689ba6682deeabffa6746d64105" category="section-title">解決方案驗證</block>
   <block id="364bed9cbf28e51b3a87b1cece482054" category="paragraph">此解決方案中的儲存組態已使用一系列使用開放原始碼工具 FIO 的綜合工作負載進行驗證。這些測試包括讀寫 I/O 模式、用於模擬 DGX 系統執行深度學習訓練工作所產生的儲存工作負載。儲存組態已通過驗證、使用雙插槽 CPU 伺服器叢集同時執行 FIO 工作負載、以模擬 DGX 系統叢集。每個用戶端都設定了先前所述的相同網路組態、並加入下列詳細資料。</block>
-  <block id="9b3cad043096c397b17339135694a7f4" category="paragraph">下列掛載選項用於此驗證：
-• ves=4.1 # 可讓 pNFS 平行存取多個儲存節點
-• proto=RDMA # 將傳輸通訊協定設定為 RDMA 、而非預設 TCP
-•連接埠 = 20049 # 指定 RDMA NFS 服務的正確連接埠
-• max_connect = 16 # 可讓 NFS 工作階段主幹來集合儲存連接埠頻寬
-•寫入 = 渴望 # 改善緩衝寫入的寫入效能
-• rsize=262144 、 wsize=262144 # 將 I/O 傳輸大小設為 256k</block>
-  <block id="517e9f0f1cdacee61fe40e1989d9171c" category="paragraph">此外、用戶端設定的 NFS max_Session_插 槽值為 1024 。在透過 RDMA 使用 NFS 測試解決方案時、儲存網路連接埠已設定為主動 / 被動連結。下列債券參數用於此驗證 -
-•模式 = 主動式備份 # 將連結設定為主動 / 被動模式
-• &lt;interface name&gt; 所有用戶端的 # 個主要介面都分散在交換器上
-• MII-monitor-interval = 100 # 指定 100ms 的監控時間間隔
-•容錯移轉 -Mac-policy=active # 指定主動鏈的 MAC 地址是綁定的 MAC 地址。這是在連結介面上正確操作 RDMA 所需的。</block>
   <block id="13e766ae456cff38288a10e042da1460" category="paragraph">儲存系統的設定方式如前所述、為兩對 A900 HA （ 4 個控制器）搭配兩個 NS224 磁碟櫃（每對 HA 連接 24 個 1.9TB NVMe 磁碟機）。如架構一節所述、所有控制器的儲存容量都是使用 FlexGroup 磁碟區進行組合、而來自所有用戶端的資料則分散在叢集中的所有控制器上。</block>
   <block id="9f68b039fbd3ecc8729ee9a4be7903ea" category="summary">NetApp AIPod 搭配 NVIDIA DGX 系統、是一種企業級的參考架構、以 NVIDIA BasePOD 為基礎、使用 NetApp ONTAP AFF 儲存系統、 NVIDIA 網路和 DGX 系統、實現深度學習和人工智慧。</block>
   <block id="c76b2a4135db1bf6b22445f907d31311" category="doc">NetApp AIPod 搭配 NVIDIA DGX 系統 - 簡介</block>
@@ -20584,7 +20569,6 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="17e2f5466e55a49ef6ee58d3adba62b7" category="paragraph">NetApp AI 解決方案產品組合 _ 影像： aipd_nv_Portfolio .png []</block>
   <block id="e5b7b7e1d79a737a77f4a0f5da90d88f" category="paragraph">_NVIDIA BaseCommand 解決方案 _ 影像：： aipd_nv_BaseCommand_new.png []</block>
   <block id="4c6fd908f1ec94db294ccf2c76842687" category="paragraph">_NVIDIA GPU Cloud _ 影像：： aipd_nv_ngc.png []</block>
-  <block id="d7098e98d2bd8d920243ffb06cd7590e" category="paragraph">NetApp 儲存系統大小調整指引 _ 影像： aipod_nv_dimizing_new.png []</block>
   <block id="b61cfa5a955ee35accca325c25713fdc" category="image-alt">AKS anf 影像 10.</block>
   <block id="a5d2321807e16d566f5e68334c28b90c" category="image-alt">AKS anf 影像 11.</block>
   <block id="941302b7ee508568c0fa72730c89af39" category="image-alt">AKS anf 影像 5.</block>
@@ -22070,4 +22054,29 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="cc36ca6e0e804cbe384af97fa6777784" category="paragraph">[.Underline] * 排程記錄複寫教戰手冊 *</block>
   <block id="2e5aaa84bafa09b7962d4388f8ea75f5" category="paragraph">* 設定並啟動工作範本 *</block>
   <block id="79e25855a129063cf2ce44e0ab92dbde" category="paragraph">[.Underline] * ONTAP 和 CVO 設定 *</block>
+  <block id="5c553fedff3f40a2af76bb0c410b404f" category="paragraph">此驗證使用下列掛載選項：</block>
+  <block id="cb8472643b1176f8340370ce5a0b204d" category="cell">ves=4.1</block>
+  <block id="893b3a13ba8b6b5a60094306461bc370" category="cell">啟用 pNFS 以平行存取多個儲存節點</block>
+  <block id="1df213ce94ed5cdef706c9350768f0c2" category="cell">proto=RDMA</block>
+  <block id="42cc89ba8e1299f3640ad771a94abfaa" category="cell">將傳輸通訊協定設定為 RDMA 、而非預設 TCP</block>
+  <block id="9b7b56ffe75ec2daff44ba8923725d27" category="cell">連接埠 = 20049</block>
+  <block id="52c223170500f2f347a266328f0c4216" category="cell">為 RDMA NFS 服務指定正確的連接埠</block>
+  <block id="5b75616cf8bcd004a7fb0c78bcf4cb1e" category="cell">max_connect = 16</block>
+  <block id="82264615e17e10dec975d19de56f7e01" category="cell">啟用 NFS 工作階段主幹以彙總儲存連接埠頻寬</block>
+  <block id="b0b79785aa490d51befbe60046fe59a6" category="cell">寫入 = 渴望</block>
+  <block id="27d6ebb9c804f9228e43f1362d2ad502" category="cell">改善緩衝寫入的寫入效能</block>
+  <block id="df2285a23b7de4affb43985a03a9b955" category="cell">rsize=262144、wsize=262144</block>
+  <block id="226cf9c18b16f30e1381d76500dcd2c3" category="cell">將 I/O 傳輸大小設為 256k</block>
+  <block id="1275e87e965ab2e83ee1a3d508393bb1" category="paragraph">此外、用戶端設定的 NFS max_Session_插 槽值為 1024 。在透過 RDMA 使用 NFS 測試解決方案時、儲存網路連接埠已設定為主動 / 被動連結。此驗證使用下列連結參數：</block>
+  <block id="dc2f1400a2999b58888391b52366d42d" category="cell">mode=active-backup</block>
+  <block id="ceafe9fbea6d2853c0ef101fde263114" category="cell">將連結設定為主動 / 被動模式</block>
+  <block id="0772e25cb688aaddbfcafe9a95042ae0" category="cell">primary = &lt;interface name&gt;</block>
+  <block id="126d68b093e92a0eeafa0ea632b5dee2" category="cell">所有用戶端的主要介面都分散在交換器上</block>
+  <block id="cbfd831ae9cd4bbc2c5955b278fc1464" category="cell">MII-monitor-interval = 100</block>
+  <block id="ef530a18c3e08c2e1454d98413c8995a" category="cell">指定 100ms 的監控時間間隔</block>
+  <block id="4a7a0a399fdd09cc77725d4bca22c5d2" category="cell">容錯移轉 -Mac-policy=active</block>
+  <block id="1cddea1ebc0f8a54ddb9d1b5d3701199" category="cell">指定主動鏈的 MAC 地址是綁定的 MAC 地址。這是在連結介面上正確操作 RDMA 所需的。</block>
+  <block id="d151e6348ab5291d10caeda2db802b75" category="paragraph">NetApp 儲存系統規模調整指南 _</block>
+  <block id="20c6453dcde0f8e13e1e4b09ace0f6ae" category="image-alt">aipod nv 調整新規模</block>
+  <block id="56ff642f7b7311c33d67d049e61b132d" category="paragraph">根據特定的效能和資料保護需求、支援靈活的資料管理原則、包括保留物件的複本複本、以及使用EC（銷毀編碼）配置（例如2+1和4+2）來儲存物件。StorageGRID隨著工作負載和需求隨時間變化、ILM原則也必須隨時間而改變、這是很常見的做法。修改ILM原則是一項核心功能、讓StorageGRID 客戶能夠快速輕鬆地因應瞬息萬變的環境。</block>
 </blocks>
