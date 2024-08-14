@@ -3950,9 +3950,6 @@
   <block id="f67824f4f94415299484432a092f76b1" category="section-title">NetApp SnapMirror資料複寫技術</block>
   <block id="553416a55e03cc49df61e631d17b8011" category="paragraph">NetApp SnapMirror軟體是一款具成本效益且易於使用的統一化複寫解決方案、適用於整個資料架構。它可透過LAN或WAN高速複寫資料。它可為各種應用程式提供高資料可用度及快速資料複寫、包括虛擬與傳統環境中的業務關鍵應用程式。當您將資料複寫到一或多個NetApp儲存系統、並持續更新次要資料時、資料會保持最新狀態、而且隨時可供使用。不需要外部複寫伺服器。請參閱下圖、瞭解運用SnapMirror技術的架構範例。</block>
   <block id="5a12ba5d186c9ffcce65438f531e7c47" category="paragraph">SnapMirror軟體透過ONTAP 網路僅傳送變更的區塊、充分發揮NetApp的效能。SnapMirror軟體也使用內建的網路壓縮功能來加速資料傳輸、並減少高達70%的網路頻寬使用率。有了SnapMirror技術、您可以利用單一精簡複寫資料串流來建立單一儲存庫、同時維護作用中鏡像和先前的時間點複本、最多可減少50%的網路流量。</block>
-  <block id="0e4fcaf78d0d4feda27a31ecb6944b58" category="paragraph">NetApp XCP是以用戶端為基礎的軟體、適用於任何對NetApp和NetApp對NetApp的資料移轉及檔案系統洞見。XCP的設計旨在利用所有可用的系統資源來處理大量資料集和高效能移轉、以擴充並達到最大效能。XCP可讓您利用產生報告的選項、全面掌握檔案系統。</block>
-  <block id="9a3914e340e4b09762f8231f9fd0ddaa" category="paragraph">NetApp XCP可在單一套件中取得、支援NFS和SMB傳輸協定。XCP包含適用於NFS資料集的Linux二進位檔、以及適用於SMB資料集的Windows執行檔。</block>
-  <block id="adc911d4d2f4e0008e765523cff39824" category="paragraph">NetApp XCP檔案分析是以主機為基礎的軟體、可偵測檔案共用、在檔案系統上執行掃描、並提供檔案分析儀表板。XCP檔案分析可與NetApp和非NetApp系統相容、並可在Linux或Windows主機上執行、以提供NFS和SMB匯出檔案系統的分析功能。</block>
   <block id="957e30f73566564bd8a99a6fac13e015" category="section-title">NetApp ONTAP FlexGroup 產品區</block>
   <block id="22bd32dacc144ffc2601e6685260b4c3" category="paragraph">訓練資料集可能是數十億個檔案的集合。檔案可以包含文字、音訊、視訊及其他形式的非結構化資料、這些資料必須儲存和處理才能並行讀取。儲存系統必須儲存大量的小型檔案、而且必須平行讀取這些檔案、才能執行連續和隨機I/O</block>
   <block id="6d7d8c1311f5ac7d2ed289e012822f78" category="paragraph">例如下圖所示、一個包含多個組成成員磁碟區的單一命名空間。FlexGroup從儲存管理員的觀點來看、FlexGroup 可管理一個不實的功能、就像NetApp FlexVol 的一套功能。將某個資料區中的檔案FlexGroup 分配給個別成員磁碟區、而不會跨磁碟區或節點進行等量分佈。這些功能可實現下列功能：</block>
@@ -4550,9 +4547,6 @@
   <block id="ed9cf33d84548b5953f8b042c72faef4" category="paragraph">請參閱一節 <block ref="2783e1454358e180d4e2876ef9492c64" category="inline-link-macro-rx"></block>、以討論後續的測試案例。</block>
   <block id="64d354dc5879cf570ce7b4ef676e75bd" category="cell">作業系統</block>
   <block id="68782f72ebeb2cac06f03226a6e941bb" category="cell">軟體元件</block>
-  <block id="47354877541923135499c38a6606138a" category="cell">2.0.1</block>
-  <block id="9ba69bd971d430b368ce3f0286c8e77c" category="cell">Apache Airflow Helm圖表</block>
-  <block id="ecfa741d55b7b1a85bd61a2307877c8c" category="cell">8.0.8</block>
   <block id="db5eb84117d06047c97c9a0191b5fffe" category="section-title">支援</block>
   <block id="b2e75bbfb9933bc21b7f875e8676641d" category="inline-link-macro">請聯絡NetApp</block>
   <block id="7c0ea3e86521674f72e056d148d4f2ce" category="paragraph">NetApp與Run：AI已在本技術報告中合作、展示NetApp ONTAP AI解決方案的獨特功能、並搭配Run:AI平台、以簡化AI工作負載的協調作業。上述步驟提供參考架構、可簡化資料管線和工作負載協調流程、以利深度學習。我們鼓勵想要實作這些解決方案的客戶聯絡NetApp、並聯絡Run：AI以取得更多資訊。</block>
@@ -14438,7 +14432,6 @@
   <block id="b94dad5a79b4605eb1c357e1088d3d57" category="section-title">不同 Kubernetes 環境之間的資料移轉</block>
   <block id="86c59e7ba36ae51135e600ddf9fb2bad" category="paragraph">ACC 支援各種 Kubernetes 口味、包括 Google Anthos 、 Red Hat OpenShift 、 Tanzu Kubernetes Grid 、 Rancher Kubernetes Engine 、上游 Kubernetes 、 等 如需其他詳細資料、請參閱 <block ref="0ceb66317efc123a6d617c493c18fdeb" category="inline-link-macro-rx"></block>。</block>
   <block id="a54acb3fa05f851f3ce9e93ed8a6fcee" category="paragraph">若要將應用程式從一個叢集移轉至另一個叢集、您可以使用下列 Acc 功能之一：</block>
-  <block id="6ce65fc39d3572cc5ced699e841dc354" category="paragraph">Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱<block ref="412a2c3f2a7af96a2a4f6a512ee2088e" category="inline-link-rx"></block>。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱<block ref="273f9b54e4f57ca19b4597f14d191196" category="inline-link-rx"></block>。</block>
   <block id="a4113bc79b3920d11274d7bf9cfafe10" category="paragraph"><block ref="a4113bc79b3920d11274d7bf9cfafe10" category="inline-link-rx"></block></block>
   <block id="4be8ecb3320915437222a84e9761bcec" category="paragraph">首先、您必須使用vGPU建立Ubuntu 20.04客體VM。若要使用vGPU建立Ubuntu 20.04客體VM、請遵循中的指示大綱 <block ref="2009ba36309e23fc0bb68cec4d4a3e0d" category="inline-link-macro-rx"></block>。</block>
   <block id="939ac3b79a18fc027a13bea0aeebcd3c" category="paragraph">接下來、您必須從NVIDIA NGC下載所需的AI或分析架構容器映像、以便在您的客體VM中使用。若要在客體VM內下載架構容器、請遵循中所述的指示 <block ref="7ea494a5b1819fa63a0ad0f42cf94b43" category="inline-link-macro-rx"></block>。</block>
@@ -15606,7 +15599,6 @@ Astra Control - 按一下使用者圖示並按一下 API Access 時、請依循 
   <block id="6b60cb834d58cfe9d8033ae023a4b412" category="paragraph">下圖顯示解決方案架構。有三大環境類別：雲端、核心和邊緣。每個類別都可以分散在不同的地理位置。例如、雲端的物件儲存區在不同區域的儲存區中、音訊檔案位於儲存區中、而核心則可能包含透過高速網路或 NetApp BlueXP 複製與同步連結的資料中心。邊緣節點表示個人人力代理商的日常工作平台、其中提供互動式儀表板工具和麥克風、可視覺化感受、並從與客戶的對話中收集音訊資料。</block>
   <block id="d1c4e340ccc4079839c03f573adcacc1" category="paragraph"><block ref="9f25cf06e22037e38bb7442b4d301b6c" category="inline-link-rx"></block> 是一項NetApp服務、可讓您在內部部署NFS或SMB檔案共用之間傳輸檔案至下列任一目標、以實現快速且安全的資料同步：</block>
   <block id="12e7ca219a6a247bae3aa00ea0454969" category="paragraph">BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步功能會根據預先定義的排程、持續同步資料、只移動資料量、將資料複寫所花費的時間與金錢減至最低。BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、易於設定與使用。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。您可以在 AWS 、 Azure 、 Google Cloud Platform 或內部部署中部署 BlueXP 複製和同步資料代理人。</block>
-  <block id="59c7b05142bcca22de50fe7efee7634e" category="paragraph">BlueXP 複製與同步是 NetApp 服務、可快速安全地同步資料。無論您需要在內部部署的 NFS 或 SMB 檔案共用、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 AWS S3 、 AWS EFS 、 Azure Blob 、 Google Cloud Storage 或 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。</block>
   <block id="7e333cc0e24ef7489559129fd944c91f" category="paragraph">資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步可在觸發更新時隨需同步資料、或根據預先定義的排程持續同步資料。不過、 BlueXP 複製與同步只會移動資料量、因此將用於資料複寫的時間與金錢降到最低。</block>
   <block id="22716a1c6493f7fb09f4caf2084ad23c" category="paragraph">BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使用極為簡單。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。BlueXP 複製與同步資料代理人可以部署在 AWS 、 Azure 、 Google Cloud Platform 或內部部署。</block>
   <block id="87b09f7f1171ffad02c2e837c629e216" category="paragraph"><block ref="9f25cf06e22037e38bb7442b4d301b6c" category="inline-link-rx"></block> 是一項NetApp服務、可快速且安全地同步資料。無論您需要在內部部署 NFS 或 SMB 檔案共用之間傳輸檔案、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 Amazon Simple Storage Service （ Amazon S3 ）、 Amazon Elastic File System （ Amazon EFS ）、 Azure Blob 、 Google Cloud Storage 、 或者 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步功能會根據預先定義的排程、持續同步資料、只移動資料量、因此資料複寫所花的時間和金錢將降至最低。BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使用極為簡單。BlueXP 複製與同步所觸發的資料傳輸是由資料代理人執行。您可以在 AWS 、 Azure 、 Google Cloud Platform 或內部部署中部署 BlueXP 複製和同步資料代理人。</block>
@@ -19376,16 +19368,12 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="a408a973f45f990bcd545653e35109ff" category="paragraph">。<block ref="d2f8e20a78f43c00804244e7ccbfa516" category="inline-link-rx"></block> 可搭配氣流一起使用。使用 NetApp DataOps Toolkit 搭配氣流、您可以將 NetApp 資料管理作業（例如建立快照和複本）整合到由氣流協調的自動化工作流程中。</block>
   <block id="b6cc356bf5062501529145b3a4643413" category="paragraph">請參閱<block ref="7c367129528d87aa1adf73a57a51aa4d" category="inline-link-rx"></block> NetApp DataOps Toolkit GitHub 儲存庫中的一節、詳細說明如何搭配氣流使用工具組。</block>
   <block id="95cd1b9d487589b619592ac7a94f1001" category="summary">開放原始碼 MLOps 搭配 NetApp - 架構</block>
-  <block id="bc0d43771a5e521dfc562e99af983c88" category="paragraph">此解決方案不取決於特定硬體。此解決方案可與Trident支援的任何NetApp實體儲存設備、軟體定義執行個體或雲端服務相容。範例包括 NetApp AFF 儲存系統、適用於 NetApp ONTAP 的 Amazon FSX 、 Azure NetApp Files 或 NetApp Cloud Volumes ONTAP 執行個體。此外、只要 Kubeflow 和 NetApp Astra Trident 支援使用的 Kubernetes 版本、即可在任何 Kubernetes 叢集上實作解決方案。如需Kubernetes支援版本的清單、請參閱<block ref="01b2e82a7080cdbeb934280240df876e" category="inline-link-rx"></block>。如需Trident支援的Kubernetes版本清單、請參閱<block ref="7e5b92b70f9fb8a6ea9680492953995f" category="inline-link-rx"></block>。如需驗證解決方案所用環境的詳細資訊、請參閱下表。</block>
   <block id="e0d8584ae6ed8fd534954ae8ed8755a3" category="inline-link-macro">deploykF</block>
-  <block id="ddd0629058f2fe605ef2ce7f054558c1" category="cell">1.7 、透過部署 <block ref="f36b6222867dc75589b32398e1411061" category="inline-link-macro-rx"></block> 0.1.1.</block>
   <block id="32b2e96c4f6d14da1df5b25db372de8f" category="cell">1.26</block>
   <block id="217af7d1776d22530d98be04d104fd49" category="cell">23.07</block>
-  <block id="631a1ca048c1446bc63201ba6a0d5d2f" category="paragraph">NetApp 不提供 Apache Airflow 、 Kubefflow 或 Kubernetes 的企業支援。如果您對完全支援的 MLOps 平台感興趣、 <block ref="103a4ac9affe57bb7edb7796bfdeb684" category="inline-link-macro-rx"></block> 關於 NetApp 與合作夥伴共同提供的完全支援的 MLOps 解決方案。</block>
   <block id="f12c45e1eac8241ea579d7123235dcbe" category="summary">NetApp 的開放原始碼 MLOps ： NetApp AIPod 部署的 Astra Trident 後端範例</block>
   <block id="47f07dc41d6652580eebc88ef9913aee" category="doc">NetApp AIPod 部署的 Astra Trident 後端範例</block>
   <block id="bf498d2b211c45a57e0eaa477b958b58" category="inline-link-macro">NetApp AIPod</block>
-  <block id="fa9aef0d1c656dabe112e808a529c069" category="paragraph">在您可以使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源之前、您必須先建立一個或多個 Trident Back用途 。下列範例代表在上部署此解決方案元件時、您可能會想要建立的不同類型的後端 <block ref="55a7aef237bed3fbd4c872b9ab2f2525" category="inline-link-macro-rx"></block>。如需後端的詳細資訊、請參閱 <block ref="2b8a155fc083396b96b18cee0ba5eab0" category="inline-link-macro-rx"></block>。</block>
   <block id="5bce19d939aea54f55df565bb07b573b" category="list-text">NetApp 建議您為 AIPod 建立啟用 FlexGroup 的 Trident Backend 。</block>
   <block id="987adc3703d1f7aeb77e70a3d25e35ca" category="paragraph">以下命令範例顯示為 AIPod 儲存虛擬機器（ SVM ）建立啟用 FlexGroup 的 Trident Backend 。此後端使用<block ref="844e84da8e822b4a33c4d8188da97937" prefix=" " category="inline-code"></block> 儲存驅動程式：支援兩種主要資料Volume類型：功能完善和功能完善。ONTAP FlexVol FlexGroup由於資料不多（本文所述的最大大小取決於特定部署）、因此不受支援。FlexVol另一方面、由於支援的資料量可線性擴充至20PB和4000億個檔案、因此單一命名空間可大幅簡化資料管理。FlexGroup因此FlexGroup 、對於仰賴大量資料的AI和ML工作負載而言、此功能是最佳選擇。</block>
   <block id="112efecf6dc8105639ea7e0b2a19f0e1" category="list-text">NetApp 也建議您建立啟用 FlexVol 的 Trident 後端。您可能想要使用 FlexVol Volume 來裝載持續應用程式、儲存結果、輸出、偵錯資訊等。如果您想要使用FlexVol 「資料不全」、您必須建立一個或多個FlexVol 啟用「功能不全」的「資料不全」後端。以下範例命令顯示建立單一啟用 FlexVol 的 Trident 後端。</block>
@@ -19414,18 +19402,14 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="7ba41dac79bc84ef4a806ce87fc4f97a" category="paragraph">請參閱<block ref="f0b3c05b3c22509c21d3296c77ee92d9" category="inline-link-rx"></block> 以取得更多資訊。</block>
   <block id="fdc02d1c80a87a40b5361ca1abf33964" category="summary">NetApp 的開放原始碼 MLOps ： NetApp AIPod 部署的 Kubernetes 儲存類範例</block>
   <block id="d25894e802e87270d1f6b560c3332055" category="doc">NetApp AIPod 部署的 Kubernetes StorageClasses 範例</block>
-  <block id="34d80de2b0eacd68ae1fe5ebe406f08e" category="paragraph">您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。下列範例代表您在上部署此解決方案元件時、可能會想要建立的不同類型 StorageClasses <block ref="55a7aef237bed3fbd4c872b9ab2f2525" category="inline-link-macro-rx"></block>。如需StorageClass的詳細資訊、請參閱 <block ref="2b8a155fc083396b96b18cee0ba5eab0" category="inline-link-macro-rx"></block>。</block>
   <block id="3f91a2c4d8ba66304e817a6c1c8d8086" category="inline-link-macro">NFS over RDMA</block>
   <block id="55a6a28f9683a4d94b435595baf958da" category="list-text">NetApp 建議為您在本節中建立的啟用 FlexGroup 的 Trident Backend 建立 StorageClass <block ref="4de496be201fe2e6f2e531c124448b74" category="inline-link-macro-rx"></block>步驟1.後面的命令範例顯示建立多個 StorageClasses 、這些儲存類別對應於本節所建立的兩個範例後端 <block ref="4de496be201fe2e6f2e531c124448b74" category="inline-link-macro-rx"></block>第 1 步 - 利用的步驟 <block ref="2f98f20aaeb2334cc6d03f1e60eea86f" category="inline-link-macro-rx"></block> 而不是。</block>
-  <block id="c07a9ca2de692cb8c35daed9f10dd85b" category="paragraph">附註：下列 StorageClasses 範例使用的傳輸大小上限為 262144 。若要使用此最大傳輸大小、您必須相應地在 ONTAP 系統上設定最大傳輸大小。請參閱 <block ref="26a3379d3e0cb48f6481615ab36d21ec" category="inline-link-macro-rx"></block> 以取得詳細資料。</block>
-  <block id="adeccc59588e0805fa9dd333f392e6d1" category="paragraph">注意：若要透過 RDMA 使用 NFS 、您必須在 ONTAP 系統上設定透過 RDMA 的 NFS 。如需詳細資訊、請參閱《 https://docs.netapp.com/us-en/ontap/nfs-rdma/[ONTAP 》文件。</block>
   <block id="602a8e075e5568ea4823ea77d93a76e1" category="paragraph">附註：在下列範例中、 StorageClass 定義檔案的 storagePool 欄位中未指定特定的後端。</block>
   <block id="62acbc5516251cee189bac7cc106b015" category="inline-link-macro">AIPod 部署的 Astra Trident 後端範例</block>
   <block id="cde65fa3950fb97130931fdab40fd818" category="list-text">NetApp也建議您建立與您在本節中建立的具有FlexVol功能的Trident後端相對應的StorageClass <block ref="6d1a5bf12938fae7cf1bae2a6e0c1378" category="inline-link-macro-rx"></block>步驟2：以下命令範例顯示建立FlexVol 單一StorageClass for the餐廳。</block>
   <block id="fc614170d6c05a82aef1df8658cdddbb" category="paragraph">附註：在下列範例中、 StorageClass 定義檔案的 storagePool 欄位中未指定特定的後端。當您使用 Kubernetes 來管理使用此 StorageClass 的磁碟區時、 Trident 會嘗試使用任何可用的後端<block ref="8321592ce24c8a122ecf26a63cfca407" prefix=" " category="inline-code"></block> 驅動程式：</block>
   <block id="6999319a5a39a9ca41436977f2cb8b8d" category="summary">開放原始碼 MLOps with NetApp - 技術概覽</block>
   <block id="f0ce8ef614fdf23fe30bc43ff89f53d3" category="paragraph">Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設計、現在由Cloud Native Computing Foundation（CNCF）維護。Kubernetes可將容器化應用程式的部署、管理及擴充功能自動化。近年來、Kubernetes已成為主要的容器協調平台。如需詳細資訊、請參閱<block ref="b99a36b6d7a8af9ad1172136115f0275" category="inline-link-rx"></block>。</block>
-  <block id="848e9aa6db82ee40216f6535427697b8" category="paragraph">。 <block ref="e1b71d44cb7c7cac57b187c39d01c5ce" category="inline-link-macro-rx"></block> 是一套 Python 型工具、可簡化開發 / 訓練工作區的管理、以及以高效能橫向擴充 NetApp 儲存設備為後盾的推斷伺服器。主要功能包括：</block>
   <block id="b96dbbd391395e38a8ba72ae75c21dc9" category="list-text">快速配置以高效能橫向擴充 NetApp 儲存設備為後盾的全新高容量工作區。</block>
   <block id="629509198041b5749e015afa6a9b2629" category="list-text">以近乎即時的方式複製高容量工作空間、以便進行實驗或快速迭代。</block>
   <block id="01f719401b5bc2f16f328b588b0bef97" category="list-text">近乎即時地儲存高容量工作區的快照、以供備份及 / 或追蹤 / 基準處理。</block>
@@ -19434,12 +19418,7 @@ Principal Storage 是指任何類型的儲存設備、可在 SDDC Manager 的設
   <block id="85643a5f7e2c08aee06468e5f827f120" category="paragraph">Katib 是 Kubernetes 原生的自動化機器學習（ AutoML ）專案。Katib 支援超參數調校、早期停止和神經架構搜尋（ NAS ）。Katib 是與機器學習（ ML ）架構不相關的專案。它可以調整以使用者選擇的任何語言寫入的應用程式超頻參數、並原生支援許多 ML 架構、例如 TensorFlow 、 MXNet 、 PyTorch 、 XGBoost 、 及其他。Katib 支援許多不同的 AutoML 演算法、例如 Bayesia 最佳化、 Parzen Estimators 樹、隨機搜尋、 Covariance Matrix Adaptation Evolution Strategy 、 Hyperband 、高效神經架構搜尋、差異化架構搜尋等。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱<block ref="5b959b0f3dbfc4557138b63a781b201c" category="inline-link-rx"></block>。</block>
   <block id="c6459218853a974bb2b38718e6db79ed" category="summary">本解決方案旨在示範幾種不同的開放原始碼工具和架構、這些工具和架構可整合至 MLOps 工作流程中。這些不同的工具和架構可以一起使用、也可以自行使用、視需求和使用案例而定。</block>
   <block id="eb1b19572557d2f13528a30754e9997a" category="doc">使用 NetApp 的開放原始碼 MLOps</block>
-  <block id="05ab57dca43916fc74d7802affe9265b" category="paragraph">Mike Oglesby、NetApp
-NetApp 的 Mohan Acharya</block>
-  <block id="7107eb79b94bd3c5651f8a6e75ef88a4" category="paragraph">各種規模的公司和組織、以及許多產業、紛紛轉向人工智慧（AI）、機器學習（ML）和深度學習（DL）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中獲得優勢。隨著企業組織增加AI、ML和DL的使用率、他們面臨許多挑戰、包括工作負載擴充性和資料可用度。本解決方案將 NetApp 資料管理功能與熱門的開放原始碼工具和架構配對、示範如何解決這些挑戰。</block>
   <block id="0b34fcae55a765c46410fb4116433e75" category="paragraph">本解決方案涵蓋下列工具 / 架構：</block>
-  <block id="38bc1999fe2f940195390b7ca8a1fb77" category="list-text"><block ref="38bc1999fe2f940195390b7ca8a1fb77" category="inline-link-macro-rx"></block></block>
-  <block id="0dd038edff0498be0e73ed25b044e9b4" category="list-text"><block ref="0dd038edff0498be0e73ed25b044e9b4" category="inline-link-macro-rx"></block></block>
   <block id="f8e6fa4a88901fdc129b3ce376463f53" category="summary">使用 NetApp 執行開放原始碼 MLOps - 執行同步分散式 AI 工作負載</block>
   <block id="3b1ef0ea9661ba5d2eeba15fab13cf00" category="summary">使用 NetApp 執行開放原始碼 MLOps - 執行單一節點 AI 工作負載</block>
   <block id="9e339bbe1fec0fc2a91b7c2f8dd9d7f7" category="paragraph">若要在Kubernetes叢集中執行單節點AI和ML工作、請從部署跳接主機執行下列工作。有了Trident、您就能快速輕鬆地建立資料磁碟區、讓Kubernetes工作負載能夠存取可能含有PB資料的資料。若要從Kubernetes Pod中存取此類資料磁碟區、只需在Pod定義中指定一個PVc即可。</block>
@@ -22080,4 +22059,120 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="90ce695bbcc395d9d5538cb54be705c8" category="cell">將來源叢集間的生命體新增至 AWS 安全性群組</block>
   <block id="26ab951a10e138e296eea82ff35d45ad" category="list-text">完成探索後、您將能夠檢視所有探索到的選擇控制閥設備中的資料存放區和虛擬機器。</block>
   <block id="43d1c62ee0e1fe63a447747b61afc1ca" category="image-alt">檢視可用資源</block>
+  <block id="29a3787ed3a0819e26047ff84d266a1f" category="paragraph"><block ref="831696295b5482aa91cb73a5d7431653" category="inline-link-macro-rx"></block> 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP ）（ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Azure NetApp Files 服務和 Google Cloud NetApp Volumes 。Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與 Kubernetes 原生整合。</block>
+  <block id="db7f413e96e248375d3fabd005ca4fee" category="paragraph">這 <block ref="c4bca757471e0afa8bcb4da8a5f5e802" category="inline-link-macro-rx"></block> 是一套以 Python 為基礎的工具、可簡化開發 / 訓練工作區的管理、以及以高效能橫向擴充 NetApp 儲存設備為後盾的推斷伺服器。主要功能包括：</block>
+  <block id="2ea401316bb56cd0dd460196fdb8bddc" category="paragraph">Jupyter 筆記本是類似 wiki 的文件、包含即時程式碼及說明文字。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。如需 Jupyter 筆記型電腦的詳細資訊、請參閱<block ref="412a2c3f2a7af96a2a4f6a512ee2088e" category="inline-link-rx"></block>。</block>
+  <block id="1ceb0a3b747e9e685e69bf855aa91001" category="paragraph">Jupyter 筆記型電腦伺服器是開放原始碼的網路應用程式、可讓使用者建立 Jupyter 筆記型電腦。</block>
+  <block id="6a1bd94b05289cc97fd96ec055920439" category="section-title">JupyterHub</block>
+  <block id="d837769caeb4d9edfd53e4a5a4b94fce" category="inline-link">JupyterHub 網站</block>
+  <block id="aa77da24b3b7d00c6c4b22044c64a028" category="paragraph">JupyterHub 是一種多使用者應用程式、可讓個別使用者配置及存取自己的 Jupyter 筆記型電腦伺服器。如需有關 JupyterHub 的詳細資訊、請參閱<block ref="8b235ac1daecf8d06ace248b8ac07b97" category="inline-link-rx"></block>。</block>
+  <block id="c8d3451e7307fb1b46769ec23ea7906a" category="section-title">MLflow</block>
+  <block id="891056fdef376263d6563716a06437cd" category="inline-link">MLflow 網站</block>
+  <block id="ea79d93ff06996ce8a177ec9a6f59b26" category="paragraph">MLflow 是熱門的開放原始碼 AI 生命週期管理平台。MLflow 的主要功能包括 AI / ML 實驗追蹤和 AI / ML 模型儲存庫。如需 MLflow 的詳細資訊、請參閱<block ref="7d5e77d7cbcfeeed8850444afe1d66af" category="inline-link-rx"></block>。</block>
+  <block id="7724cfbda1ff4c3052c280f6b4af599c" category="section-title">Kubeflow 筆記型電腦</block>
+  <block id="352ec4b0886cdd10b69d3efaa4071648" category="paragraph">Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。有關 Kubeflow 環境中 Jupyter 筆記本電腦的詳細信息，請參閱<block ref="273f9b54e4f57ca19b4597f14d191196" category="inline-link-rx"></block>。</block>
+  <block id="592d6ad3868437ff65a70353ab870f50" category="list-text">無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、而無需昂貴的資料移轉或中斷運作。</block>
+  <block id="7a97d0c96df506508eb759e293597129" category="paragraph"><block ref="c4152c5b1804294b9bc91a2fa3a92230" category="inline-link-macro-rx"></block> 是一項 NetApp 服務、可快速安全地同步資料。無論您需要在內部部署的 NFS 或 SMB 檔案共用、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 AWS S3 、 AWS EFS 、 Azure Blob 、 Google Cloud Storage 或 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。</block>
+  <block id="204b9ffafe28e07fef53f08e2924e621" category="paragraph"><block ref="8eb894646a418e33ca3d088f11e4914c" category="inline-link-macro-rx"></block> 是適用於任何對 NetApp 和 NetApp 對 NetApp 資料移轉和檔案系統洞見的用戶端型軟體。XCP的設計旨在利用所有可用的系統資源來處理大量資料集和高效能移轉、以擴充並達到最大效能。XCP可讓您利用產生報告的選項、全面掌握檔案系統。</block>
+  <block id="9b5d03606d5f2609a4b9a6f1ac626a8d" category="summary">開放原始碼 MLOps 搭配 NetApp 使用 - 將 NetApp DataOps Toolkit 搭配 JupyterHub 使用</block>
+  <block id="8fc5f752dfcb57cd9232177f28b14765" category="doc">使用 NetApp DataOps Toolkit 搭配 JupyterHub</block>
+  <block id="0162e970f8577425266cb5c97d21c2a7" category="paragraph"><block ref="6bc4513613cdc996b868b94d9e9ded69" category="inline-link-rx"></block>可與 JupyterHub 搭配使用。使用 NetApp DataOps Toolkit 搭配 JupyterHub 、終端使用者可以直接從 Jupyter 筆記型電腦建立工作區備份和 / 或資料集對模型的追蹤資料。</block>
+  <block id="8f08aaf2916d1654fc96af766c150251" category="paragraph">您必須先將適當權限授予 JupyterHub 的 Kubernetes 服務帳戶、才能搭配使用 DataOps 工具組與 JupyterHub 。JupyterHub 使用 JupyterHub Helm 圖表組態檔案中變數所指定的服務帳戶<block ref="b8c80a6db053e98d7341438c2eb0aea3" prefix=" " category="inline-code"></block> 。</block>
+  <block id="a815fb28e94390b627bc7915911578cf" category="section-title">為 DataOps Toolkit 建立叢集角色</block>
+  <block id="333372e6f3961af5df82304243a2d5ba" category="paragraph">首先、建立名為「 NetApp-dataops 」的叢集角色、其具有建立磁碟區快照所需的 Kubernetes API 權限。</block>
+  <block id="3805f69a30879fb016e5c3d0a85fab77" category="section-title">將叢集角色指派給筆記型電腦伺服器服務帳戶</block>
+  <block id="19506ab4aa03158eeea933145bd0471d" category="paragraph">建立角色繫結、將「 NetApp-dataops-snapshots 」叢集角色指派給適當命名空間中的適當服務帳戶。例如、如果您在 'jupytershub' 命名空間中安裝 JupyterHub 、並透過變數指定 'efault' 服務帳戶<block ref="b8c80a6db053e98d7341438c2eb0aea3" prefix=" " category="inline-code"></block> 、您可以在 'jupytershub' 命名空間中將 'NetApp-dataops-snapshots' 叢集角色指派給 'default' 服務帳戶、如下例所示。</block>
+  <block id="fe7233ebd9f644239a2437c55d3419e1" category="section-title">在 Jupyter Notebook 中建立 Volume Snapshot</block>
+  <block id="02dd051970bea675e5def458342cd6e3" category="paragraph">現在、 JupyterHub 使用者可以使用 NetApp DataOps Toolkit 、直接從 Jupyter 筆記型電腦中建立 Volume 快照、如下列範例所示。</block>
+  <block id="54009abc27d17e316e06ded2e89c4ba2" category="image-alt">aicp jhub dotk nb</block>
+  <block id="96c45c04b3ac68a45d249358d3c6760b" category="paragraph">您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。以下範例代表在上部署本解決方案元件時、您可能會想要建立的不同類型 StorageClasses <block ref="cc32efe8cd3064847cba028b6d5431fb" category="inline-link-macro-rx"></block>。如需 StorageClasses 的詳細資訊，以及其他平台 / 環境的 StorageClasses 等資訊，請參閱 <block ref="d243cca937364184efa824b0525b876a" category="inline-link-macro-rx"></block>。</block>
+  <block id="b1c0c18c267e82c16a2fb0fd855fea96" category="paragraph">附註：下列 StorageClasses 範例使用的傳輸大小上限為 262144 。若要使用此最大傳輸大小、您必須相應地在 ONTAP 系統上設定最大傳輸大小。如需詳細資訊、請參閱 <block ref="e88143f84eca8f5af17b24d59e272642" category="inline-link-macro-rx"></block> 。</block>
+  <block id="611c47063b50d4e29ff14b57ac5d1a76" category="paragraph">注意：若要透過 RDMA 使用 NFS 、您必須在 ONTAP 系統上設定透過 RDMA 的 NFS 。如需詳細資訊、請參閱 <block ref="299f3386ca6234337ede91409b59779f" category="inline-link-macro-rx"></block> 。</block>
+  <block id="4cdff711c1556a59f967422b42a85088" category="summary">NetApp 的開放原始碼 MLOps ： NetApp 與 MLflow 的資料組對模型追蹤能力</block>
+  <block id="96ea5f01f5435b957b4ccda05e9edc2a" category="doc">資料集對模型的追蹤性、可透過 NetApp 和 MLflow 進行</block>
+  <block id="49f4e58115751b6e777c0881bed17f7b" category="paragraph"><block ref="6bc4513613cdc996b868b94d9e9ded69" category="inline-link-rx"></block>可搭配 MLflow 的實驗追蹤功能使用、以實作資料集對模型或工作區對模型的追蹤。</block>
+  <block id="a6086bfa36daf4e19b000df54ab1dd1e" category="paragraph">若要實作資料集對模型或工作區對模型的可追蹤性、只需在訓練過程中使用 DataOps Toolkit 建立資料集或工作區 Volume 的快照、如下所示的程式碼片段範例所示。此程式碼會將資料磁碟區名稱和快照名稱儲存為與您登入 MLflow 實驗追蹤伺服器的特定訓練路跑相關的標籤。</block>
+  <block id="807dacaeab6225109224084d134524ef" category="paragraph">在您可以使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源之前、您必須先建立一個或多個 Trident Back用途 。下列範例代表在上部署此解決方案元件時、您可能會想要建立的不同類型的後端 <block ref="cc32efe8cd3064847cba028b6d5431fb" category="inline-link-macro-rx"></block>。如需有關後端的詳細資訊，以及其他平台 / 環境的後端，請參閱 <block ref="d243cca937364184efa824b0525b876a" category="inline-link-macro-rx"></block>。</block>
+  <block id="2848aeeab7813114ff8aadbe4ddb16b3" category="paragraph">此解決方案不取決於特定硬體。此解決方案與 NetApp Astra Trident 支援的任何 NetApp 實體儲存設備、軟體定義執行個體或雲端服務相容。範例包括 NetApp AFF 儲存系統、適用於 NetApp ONTAP 的 Amazon FSX 、 Azure NetApp Files 、 Google Cloud NetApp Volumes 或 NetApp Cloud Volumes ONTAP 執行個體。此外、只要 NetApp Astra Trident 和其他正在實作的解決方案元件支援使用的 Kubernetes 版本、即可在任何 Kubernetes 叢集上實作解決方案。如需 Trident 支援的 Kubernetes 版本清單，請參閱<block ref="7e5b92b70f9fb8a6ea9680492953995f" category="inline-link-rx"></block>。如需驗證此解決方案各種元件所用環境的詳細資訊、請參閱下表。</block>
+  <block id="f9004e284a207cf92c8642965dc258f6" category="section-title">Apache 氣流驗證環境</block>
+  <block id="78fd3ce4c7835c8336b8c4f52bbd8570" category="inline-link-macro">Apache Airflow Helm 圖表</block>
+  <block id="923fc06abfe0b856f72313cb88706558" category="cell">2.2.1 、透過 8.0.8 部署 <block ref="d1ea82e80be31e00d2b939c38f87e0a0" category="inline-link-macro-rx"></block></block>
+  <block id="836eb480bf66641d4fb44675e000d22b" category="cell">1.18</block>
+  <block id="d029b605d0129cdb050642645b32b1db" category="cell">21.01</block>
+  <block id="44ce1bc6a7380dccbb311f0fa6cd1972" category="section-title">JupyterHub 驗證環境</block>
+  <block id="263ec1d326c1f5a1bfd24b88cb972a38" category="inline-link-macro">JupyterHub Helm 圖表</block>
+  <block id="6af30397902bd26914df2ae5955c4be8" category="cell">4.1.5 、透過 3.3.7 部署 <block ref="26830a1e301761faef592d8e74481ce6" category="inline-link-macro-rx"></block></block>
+  <block id="c272116b61605b9462784a01f5899785" category="cell">1.29</block>
+  <block id="aa3652d1dedca9375b76c8e59797d756" category="section-title">MLflow 驗證環境</block>
+  <block id="04d257103d25b778df7089d6dbb0cb44" category="inline-link-macro">MLflow Helm 圖表</block>
+  <block id="4814bad32946214124af37f70a7bee91" category="cell">2.14.1 、透過 1.4.12 部署 <block ref="4baf34adb826df0481d498e42290114c" category="inline-link-macro-rx"></block></block>
+  <block id="6eeb675638e9c361028379b88415e2de" category="section-title">Kubeflow 驗證環境</block>
+  <block id="bb675cbb86ae4db4a1f3da16e57113cd" category="cell">1.7 、透過 0.1.1 部署 <block ref="f0761e2008489c964db22d8d03da0a67" category="inline-link-macro-rx"></block></block>
+  <block id="952c6ea6549ebf347f6aae3d6b029756" category="paragraph">NetApp 不支援 Apache Airflow 、 JupyterHub 、 MLflow 、 Kubefflow 或 Kubernetes 。如果您對完全支援的 MLOps 平台感興趣、 <block ref="15a32e54137b30751a17b6bf2b412f99" category="inline-link-macro-rx"></block> 請參閱 NetApp 與合作夥伴共同提供的完全支援的 MLOps 解決方案。</block>
+  <block id="aa27e598d8d01ff612acd83b47a13b21" category="paragraph">Mike Olglesby 、 NetApp Sufian Ahmad 、 NetApp Rick Huang 、 NetApp Mohan Acharya 、 NetApp</block>
+  <block id="36160a80da6291faa3ebc68ede194279" category="paragraph">各種規模和各行各業的公司和組織都在轉向人工智慧（ AI ）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中取得優勢。許多組織正轉向開放原始碼 MLOps 工具、以跟上業界快速創新的腳步。這些開放原始碼工具提供進階功能和先進功能、但通常不考慮資料可用度和資料安全性。遺憾的是、這表示高技術的資料科學家被迫花大量時間等待存取資料、或等待與資料相關的基本作業完成。透過將熱門的開放原始碼 MLOps 工具與 NetApp 的智慧型資料基礎架構配對、企業組織可以加速資料管線、進而加速 AI 方案。他們可以從資料中釋放價值、同時確保資料受到保護且安全無虞。此解決方案展示 NetApp 資料管理功能與多種熱門開放原始碼工具和架構的配對、以因應這些挑戰。</block>
+  <block id="ad3ca69dbfa62630ace9a188e93d1f45" category="paragraph">下列清單強調本解決方案所啟用的一些重要功能：</block>
+  <block id="e6ffdd80d6efdfae1a367b394ef6afdf" category="list-text">使用者可以快速佈建新的高容量資料磁碟區和開發工作區、並以高效能的橫向擴充 NetApp 儲存設備作為後盾。</block>
+  <block id="24f5e64e89b475fca21e0a2d5536aa48" category="list-text">使用者可以近乎即時地複製大容量資料磁碟區和開發工作區、以便進行實驗或快速重複。</block>
+  <block id="4657d40d11cf0257f60a599a2bc266b6" category="list-text">使用者可以近乎即時地儲存高容量資料磁碟區和開發工作區的快照、以便進行備份和 / 或追蹤 / 基準化。</block>
+  <block id="3e3d207c7705b0f7dc0142df9cc2790a" category="inline-link-macro">Jupyter 筆記型電腦</block>
+  <block id="d1a5554bae0723fdaf349b8047aa0d08" category="paragraph">典型的 MLOps 工作流程整合了開發工作區、通常採用實驗追蹤、自動化訓練管線、資料管線、以及推斷 / 部署的形式 <block ref="cd3acaabeea76372e8a706ccab36a6b8" category="inline-link-macro-rx"></block>。本解決方案強調數種不同的工具和架構、可單獨使用或搭配使用、以解決工作流程的不同層面。我們也會示範 NetApp 資料管理功能與這些工具的配對。此解決方案旨在提供建置區塊、讓組織能夠根據其使用案例和需求、建構自訂的 MLOps 工作流程。</block>
+  <block id="074cd5ab3a3581efcb92b990cd4ed3b6" category="list-text"><block ref="074cd5ab3a3581efcb92b990cd4ed3b6" category="inline-link-macro-rx"></block></block>
+  <block id="ac10ff0174545b18e3fd3b7ab41ebc08" category="list-text"><block ref="ac10ff0174545b18e3fd3b7ab41ebc08" category="inline-link-macro-rx"></block></block>
+  <block id="4275daa2701a7c7ad4c1c5df1088ada8" category="list-text"><block ref="4275daa2701a7c7ad4c1c5df1088ada8" category="inline-link-macro-rx"></block></block>
+  <block id="a0cf58c060e740cca7f48b1bb399e974" category="list-text"><block ref="a0cf58c060e740cca7f48b1bb399e974" category="inline-link-macro-rx"></block></block>
+  <block id="9717b9722e82e47dc4445d7ffc90b79d" category="paragraph">下表說明這些工具的一般部署模式、可分別部署或搭配使用。</block>
+  <block id="3f7626e711a1e660dae85d17fdc35882" category="list-text">搭配使用 JupyterHub 、 MLflow 和 Apache Airflow - JupyterHub for <block ref="cd3acaabeea76372e8a706ccab36a6b8" category="inline-link-macro-rx"></block>、 MLflow 進行實驗追蹤、 Apache Airflow 則可用於自動化訓練和資料管線。</block>
+  <block id="1dceee44b0bde0ef7364704241dced5a" category="list-text">結合使用 Kubeflow 和 Apache Airflow ： Kubefflow for <block ref="cd3acaabeea76372e8a706ccab36a6b8" category="inline-link-macro-rx"></block>、實驗追蹤、自動化訓練管道和推斷；以及 Apache 的資料管線氣流。</block>
+  <block id="aa815dfaf0c405504952ea2a361a2a3e" category="list-text">將 Kubeflow 部署為全方位的 MLOps 平台解決方案、用於進行 <block ref="cd3acaabeea76372e8a706ccab36a6b8" category="inline-link-macro-rx"></block>實驗追蹤、自動化訓練和資料管線、以及推斷。</block>
+  <block id="6ca687fb1fabca3bf671bc9bf39dbf27" category="summary">開放原始碼 MLOps 搭配 NetApp - JupyterHub 部署</block>
+  <block id="09d2043b79460eb224957589f59ab494" category="doc">JupyterHub 部署</block>
+  <block id="2ab6902fa61e1ea6912baf903a3b0bf1" category="paragraph">本節說明在 Kubernetes 叢集中部署 JupyterHub 時必須完成的工作。</block>
+  <block id="26e29fcdb4d615c34b7fedb3a0564f8f" category="admonition">可以在 Kubernetes 以外的平台上部署 JupyterHub 。在 Kubernetes 以外的平台上部署 JupyterHub 不在本解決方案的範圍之內。</block>
+  <block id="9fdfe5cf7298c46ae8e7d5678ba45dc9" category="list-text">您已在 Kubernetes 叢集中安裝並設定 NetApp Astra Trident 。如需 Astra Trident 的詳細資訊、請 <block ref="d243cca937364184efa824b0525b876a" category="inline-link-macro-rx"></block>參閱。</block>
+  <block id="2ac6b5f4951f689f17ae54334df0112f" category="paragraph">JupyterHub 是使用知名的 Kubernetes 套件管理員 Helm 來部署。在部署 JupyterHub 之前、您必須先在 Kubernetes 控制節點上安裝 Helm 。若要安裝 Helm 、請遵循<block ref="cf3f65305f288242c9d49061d26ec8ec" category="inline-link-rx"></block> 正式 Helm 文件中的。</block>
+  <block id="f003d4d21bc134cd64e5ed010d4661e0" category="paragraph">在部署 JupyterHub 之前、您必須在 Kubernetes 叢集中指定預設 StorageClass 。若要在叢集中指定預設 StorageClass 、請遵循一節中所述的指示 <block ref="b868c02e3d390c0001190527c8f4ba0b" category="inline-link-macro-rx"></block> 進行。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。</block>
+  <block id="771d8827304382e84db174fab916e726" category="section-title">部署 JupyterHub</block>
+  <block id="cca32ccd336a1d99e57fe4b732c1db03" category="paragraph">完成上述步驟之後、您現在可以開始部署 JupyterHub 。JupyterHub 部署需要下列步驟：</block>
+  <block id="02e6e3cd99fedc7e13d22d86bad5b831" category="section-title">設定 JupyterHub 部署</block>
+  <block id="ce95551547fa8ef240a593be5a20f5ee" category="paragraph">在部署之前、最好先針對您各自的環境最佳化 JupyterHub 部署。您可以建立一個 * 組態 .yaml* 檔案、並在部署期間使用 Helm 圖表加以運用。</block>
+  <block id="53db901aeed4328fe567404ccb21206d" category="paragraph">如需 * 組態 .yaml* 檔案的範例、請參閱 <block ref="8c152549701847c833121b3ad8e4af72" category="inline-link-rx"></block></block>
+  <block id="d4acad87b1acbfd617a3b4988bfb1864" category="admonition">在此 config.yaml 檔案中、您可以為 NetApp Trident StorageClass 設定 * （ singleuser.storage.動態 .storageClass)* 參數。這是將用於為個別使用者工作區佈建磁碟區的儲存類別。</block>
+  <block id="fc1be4924094aec74f37b59bbd957af8" category="section-title">新增共用磁碟區</block>
+  <block id="67e834a52ce0a7019fd9a1bec4bae36f" category="paragraph">如果您想要為所有 JupyterHub 使用者使用共用磁碟區、您可以據此調整您的 *config.yaml* 。例如、如果您有一個名為 jupytershub-shared 的共享 PersistentVolume Claim 、您可以在所有使用者 Pod 中以 /home/shared 的方式裝載它：</block>
+  <block id="a66a54102aa462ebdfe0146ca96eaf33" category="admonition">這是選擇性步驟、您可以根據需求調整這些參數。</block>
+  <block id="67c7fe5cd005737db341f115281a5f71" category="section-title">使用 Helm 圖表部署 JupyterHub</block>
+  <block id="54ad8b66fcd369a80298610d95ca37d9" category="paragraph">讓 Helm 瞭解 JupyterHub Helm 圖表儲存庫。</block>
+  <block id="f98aad3b24c5bab5b4737b8fad3a723f" category="paragraph">這應該會顯示如下輸出：</block>
+  <block id="4e29332ac1db944879502e11ab327960" category="paragraph">現在請從包含 config.yaml 的目錄中執行此命令、以安裝 config.yaml 所設定的圖表：</block>
+  <block id="be118fb1d0e987a9d25c71312374ffdf" category="admonition">在此範例中：</block>
+  <block id="750e13a1159e4f2b96ba2d8fadfb1aab" category="paragraph">&lt;helm-release-name&gt; 設為 my-jupyterhub 、即 JupyterHub 版本的名稱。&lt;k8s-namespace&gt; 設為 my-namespace 、即您要安裝 JupyterHub 的命名空間。--creame-namespace 旗標用於建立尚未存在的命名空間。--values 標誌指定 config.yaml 文件，該文件包含所需的配置選項。</block>
+  <block id="0873eec3dcb328f01cc596581047ae60" category="section-title">檢查部署</block>
+  <block id="5b252fe874ba4bfb32f7c039993801ab" category="paragraph">當步驟 2 執行時、您可以透過下列命令來查看正在建立的 Pod ：</block>
+  <block id="828e0f094cad198231ffd340f281e098" category="paragraph">等待集線器和 Proxy Pod 進入執行中狀態。</block>
+  <block id="4f8f16ff2582a84eb01cbef90f467393" category="section-title">存取 JupyterHub</block>
+  <block id="c7433009ea218afe4c1117491e4afccb" category="paragraph">找到我們可以用來存取 JupyterHub 的 IP 。執行下列命令、直到 proxy-public 服務的 exter-IP 可用為止、如範例輸出所示。</block>
+  <block id="7261a4593eb504b7857e5e4dd9a5459c" category="admonition">我們在 config.yaml 檔案中使用 NodePort 服務、您可以根據您的設定（例如負載平衡器）來調整環境。</block>
+  <block id="a5673ab624b33fdb767b6ec77b9901ca" category="paragraph">若要使用 JupyterHub 、請在瀏覽器中輸入 Proxy 公用服務的外部 IP 。</block>
+  <block id="8ec1b3ffcff14d3a7476fee4a3e80bbd" category="summary">開放原始碼 MLOps 搭配 NetApp - MLflow 部署</block>
+  <block id="1e24ddb7a6a8df2478eebd688cf1f1df" category="doc">MLflow 部署</block>
+  <block id="eba75f7702c8d580f100f5c6e819419a" category="paragraph">本節說明在 Kubernetes 叢集中部署 MLflow 時必須完成的工作。</block>
+  <block id="1988a9fc415911c1b6cb091f9672aa99" category="admonition">您可以在 Kubernetes 以外的平台上部署 MLflow 。在 Kubernetes 以外的平台上部署 MLflow 不屬於本解決方案的範圍。</block>
+  <block id="effe3b356a9db8beeafdbe3692a3df6b" category="paragraph">MLflow 是使用知名的 Kubernetes 套件管理程式 Helm 來部署。在部署 MLflow 之前、您必須先在 Kubernetes 控制節點上安裝 Helm 。若要安裝 Helm 、請遵循<block ref="cf3f65305f288242c9d49061d26ec8ec" category="inline-link-rx"></block> 正式 Helm 文件中的。</block>
+  <block id="20713f2f0579e63d452890c9bcdce0f5" category="paragraph">在部署 MLflow 之前、您必須在 Kubernetes 叢集中指定預設 StorageClass 。若要在叢集中指定預設 StorageClass 、請遵循一節中所述的指示 <block ref="b868c02e3d390c0001190527c8f4ba0b" category="inline-link-macro-rx"></block> 進行。如果您已在叢集內指定預設StorageClass、則可以跳過此步驟。</block>
+  <block id="6369a4aa768b1882566ceb106febe885" category="section-title">部署 MLflow</block>
+  <block id="4996360f41c2160eefec53bc938631c4" category="paragraph">一旦符合先決條件、您就可以使用船舵圖表開始進行 MLflow 部署。</block>
+  <block id="9b40c49f5b19b6b30c8e46c9a322cfa9" category="section-title">設定 MLflow Helm 圖表部署。</block>
+  <block id="54662ab0339cacf58980938d0d2997f6" category="paragraph">在使用 Helm 圖表部署 MLflow 之前、我們可以設定部署以使用 NetApp Trident 儲存類別、並使用 *config.yaml* 檔案變更其他參數以符合我們的需求。* 組態 .yaml* 檔案的範例可在以下網址找到：<block ref="3fb631fe4b90fe5302819c1b11e0f768" category="inline-link-rx"></block></block>
+  <block id="3ffd497fc5215b526be90b762ad3c730" category="admonition">您可以在 config.yaml 檔案中的 * global.defaultStorageClass* 參數下設定 Trident storageClass （例如 storageClass ：「 ontp-FlexVol 」）。</block>
+  <block id="b0e9e89059c66feb24d2bae1faade5b4" category="section-title">安裝 Helm 圖表</block>
+  <block id="e2de44bdf60d5282b2d1f5dce8ef9fb8" category="paragraph">使用下列命令、可以使用 MLflow 的自訂 * 組態 .yaml* 檔案來安裝 Helm 圖表：</block>
+  <block id="b8fe21ea18633e2ba5c911e2b6c64135" category="admonition">此命令會透過提供的 * config.yaml* 檔案、在自訂組態的 Kubernetes 叢集上部署 MLflow 。MLflow 會部署在指定的命名空間中、並透過 Kubernetes 為發行提供隨機版本名稱。</block>
+  <block id="fe92b5543c9bb0daa69543a737a9937a" category="paragraph">在完成 Helm 圖表的部署之後、您可以使用下列項目來檢查服務是否可供存取：</block>
+  <block id="5001194091e3ac05acb36e50188181cd" category="admonition">將 *jupyterhub* 替換爲部署期間使用的命名空間。</block>
+  <block id="624995aae5a71a1b6b698d125dfa593f" category="paragraph">您應該會看到下列服務：</block>
+  <block id="0727c036d98dcf728bf3678abc379532" category="admonition">我們編輯 config.yaml 檔案、使用 NodePort 服務存取連接埠 30002 上的 MLflow 。</block>
+  <block id="49ed0a1879305290bd3f5a83a6ebc4a2" category="section-title">存取 MLflow</block>
+  <block id="26d3848da8e43d9e68369a6adb8a24a5" category="paragraph">當所有與 MLflow 相關的服務都啟動並執行後、您就可以使用指定的 NodePort 或負載平衡器 IP 位址（例如）來存取它。<block ref="5730155f0021c6fc553086ce017a87bf" category="inline-link-rx"></block></block>
+  <block id="80bb08fb1b40876176f39de36cb7188e" category="sidebar">NetApp AIPod 搭配 NVIDIA</block>
 </blocks>

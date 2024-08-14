@@ -14,17 +14,17 @@ summary: NetApp 的開放原始碼 MLOps ： NetApp AIPod 部署的 Kubernetes �
 
 
 [role="lead"]
-您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。下列範例代表您在上部署此解決方案元件時、可能會想要建立的不同類型 StorageClasses link:https://docs.netapp.com/us-en/netapp-solutions/ai/aipod_nv_intro.html["NetApp AIPod"]。如需StorageClass的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident文件"]。
+您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。以下範例代表在上部署本解決方案元件時、您可能會想要建立的不同類型 StorageClasses link:https://docs.netapp.com/us-en/netapp-solutions/ai/aipod_nv_intro.html["NetApp AIPod"^]。如需 StorageClasses 的詳細資訊，以及其他平台 / 環境的 StorageClasses 等資訊，請參閱 link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident文件"^]。
 
 . NetApp 建議為您在本節中建立的啟用 FlexGroup 的 Trident Backend 建立 StorageClass link:aicp_example_trident_backends_for_ontap_ai_deployments.html["NetApp AIPod 部署的 Astra Trident 後端範例"]步驟1.後面的命令範例顯示建立多個 StorageClasses 、這些儲存類別對應於本節所建立的兩個範例後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["NetApp AIPod 部署的 Astra Trident 後端範例"]第 1 步 - 利用的步驟 link:https://docs.netapp.com/us-en/ontap/nfs-rdma/["NFS over RDMA"] 而不是。
 +
 因此當刪除對應的PersistentVolume Claim（PVc）時、不會刪除持續磁碟區、以下範例使用「回收原則」值「保留」。如需「回收政策」欄位的詳細資訊、請洽相關官員 https://kubernetes.io/docs/concepts/storage/storage-classes/["Kubernetes文件"^]。
 
 +
-附註：下列 StorageClasses 範例使用的傳輸大小上限為 262144 。若要使用此最大傳輸大小、您必須相應地在 ONTAP 系統上設定最大傳輸大小。請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-admin/nfsv3-nfsv4-performance-tcp-transfer-size-concept.html["本文檔 ONTAP"] 以取得詳細資料。
+附註：下列 StorageClasses 範例使用的傳輸大小上限為 262144 。若要使用此最大傳輸大小、您必須相應地在 ONTAP 系統上設定最大傳輸大小。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-admin/nfsv3-nfsv4-performance-tcp-transfer-size-concept.html["本文檔 ONTAP"^] 。
 
 +
-注意：若要透過 RDMA 使用 NFS 、您必須在 ONTAP 系統上設定透過 RDMA 的 NFS 。如需詳細資訊、請參閱《 https://docs.netapp.com/us-en/ontap/nfs-rdma/[ONTAP 》文件。
+注意：若要透過 RDMA 使用 NFS 、您必須在 ONTAP 系統上設定透過 RDMA 的 NFS 。如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-rdma/["本文檔 ONTAP"^] 。
 
 +
 附註：在下列範例中、 StorageClass 定義檔案的 storagePool 欄位中未指定特定的後端。

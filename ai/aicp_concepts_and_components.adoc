@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/aicp_concepts_and_components.html 
-keywords: Trident, DeepOps, ONTAP, FlexClone, containers, AI, Kubernetes, Kubeflow, Jupyter, Airflow 
+keywords: MLOps, Trident, ONTAP, containers, AI, Kubernetes, Kubeflow, Jupyter, Airflow, MLflow, JupyterHub 
 summary: 開放原始碼 MLOps with NetApp - 技術概覽 
 ---
 = 技術總覽
@@ -49,19 +49,55 @@ Kubernetes是開放原始碼的分散式容器協調平台、最初由Google設�
 
 == NetApp Astra Trident
 
-Astra Trident 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP （ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Element 軟體（ NetApp HCI 、 SolidFire ）、 Azure NetApp Files 服務、以及 Google Cloud 上的 Cloud Volumes Service 。Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與 Kubernetes 原生整合。
+link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident"^] 可在所有常見的 NetApp 儲存平台、公有雲或內部部署（包括 ONTAP ）（ AFF 、 FAS 、 Select 、 Cloud 、 Amazon FSX for NetApp ONTAP ）、 Azure NetApp Files 服務和 Google Cloud NetApp Volumes 。Astra Trident 是符合 Container Storage Interface （ CSI ）規範的動態儲存協調器、可與 Kubernetes 原生整合。
 
 
 
 == NetApp DataOps工具套件
 
-。 link:https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"] 是一套 Python 型工具、可簡化開發 / 訓練工作區的管理、以及以高效能橫向擴充 NetApp 儲存設備為後盾的推斷伺服器。主要功能包括：
+這 link:https://github.com/NetApp/netapp-dataops-toolkit["NetApp DataOps工具套件"^] 是一套以 Python 為基礎的工具、可簡化開發 / 訓練工作區的管理、以及以高效能橫向擴充 NetApp 儲存設備為後盾的推斷伺服器。主要功能包括：
 
 * 快速配置以高效能橫向擴充 NetApp 儲存設備為後盾的全新高容量工作區。
 * 以近乎即時的方式複製高容量工作空間、以便進行實驗或快速迭代。
 * 近乎即時地儲存高容量工作區的快照、以供備份及 / 或追蹤 / 基準處理。
 * 近乎即時地配置、複製及快照高容量、高效能的資料磁碟區。
 
+
+
+
+== Apache Airflow
+
+Apache Airflow是開放原始碼的工作流程管理平台、可針對複雜的企業工作流程、進行程式化的撰寫、排程及監控。它通常用於自動化ETL和資料管線工作流程、但不限於這些類型的工作流程。氣流專案是由Airbnb發起、但後來在業界廣受歡迎、現在由Apache Software Foundation贊助。氣流是以Python撰寫、氣流工作流程是透過Python指令碼建立、氣流是以「組態為程式碼」的原則設計。 許多企業氣流使用者現在都在Kubernetes上執行氣流。
+
+
+
+=== 定向Acyclic圖表（DAG）
+
+在氣流中、工作流程稱為「導向Acyclic Graphs（DAG）（導向型Acyclic Graphs（DAG））」。DAG是由依順序、平行或兩者組合執行的工作所組成、視DAG定義而定。氣流排程器會在一組工作人員上執行個別工作、並遵循DAG定義中指定的工作層級相依性。DAG是透過Python指令碼來定義和建立。
+
+
+
+== Jupyter筆記型電腦
+
+Jupyter 筆記本是類似 wiki 的文件、包含即時程式碼及說明文字。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。如需 Jupyter 筆記型電腦的詳細資訊、請參閱 http://www.jupyter.org/["Jupyter網站"^]。
+
+
+
+=== Jupyter筆記型電腦伺服器
+
+Jupyter 筆記型電腦伺服器是開放原始碼的網路應用程式、可讓使用者建立 Jupyter 筆記型電腦。
+
+
+
+== JupyterHub
+
+JupyterHub 是一種多使用者應用程式、可讓個別使用者配置及存取自己的 Jupyter 筆記型電腦伺服器。如需有關 JupyterHub 的詳細資訊、請參閱 https://jupyter.org/hub["JupyterHub 網站"^]。
+
+
+
+== MLflow
+
+MLflow 是熱門的開放原始碼 AI 生命週期管理平台。MLflow 的主要功能包括 AI / ML 實驗追蹤和 AI / ML 模型儲存庫。如需 MLflow 的詳細資訊、請參閱 https://www.mlflow.org/["MLflow 網站"^]。
 
 
 
@@ -77,27 +113,15 @@ Kubeflow Pipines是Kubeflow的重要元件。Kubeflow Pipines是定義及部署�
 
 
 
-=== Jupyter筆記型電腦伺服器
+=== Kubeflow 筆記型電腦
 
-Jupyter Notebook Server是開放原始碼的網路應用程式、可讓資料科學家建立名為Jupyter Notebooks的維基類文件、其中包含即時程式碼和描述性測試。Jupyter筆記型電腦在AI和ML社群中廣為使用、可用來記錄、儲存及分享AI和ML專案。Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。如需Jupyter筆記型電腦的詳細資訊、請參閱 http://www.jupyter.org/["Jupyter網站"^]。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/notebooks/overview/["官方Kubeflow文件"^]。
+Kubeflow簡化了Kubernetes上Jupyter筆記型電腦伺服器的資源配置與部署。有關 Kubeflow 環境中 Jupyter 筆記本電腦的詳細信息，請參閱 https://www.kubeflow.org/docs/components/notebooks/overview/["官方Kubeflow文件"^]。
 
 
 
 === Katib
 
 Katib 是 Kubernetes 原生的自動化機器學習（ AutoML ）專案。Katib 支援超參數調校、早期停止和神經架構搜尋（ NAS ）。Katib 是與機器學習（ ML ）架構不相關的專案。它可以調整以使用者選擇的任何語言寫入的應用程式超頻參數、並原生支援許多 ML 架構、例如 TensorFlow 、 MXNet 、 PyTorch 、 XGBoost 、 及其他。Katib 支援許多不同的 AutoML 演算法、例如 Bayesia 最佳化、 Parzen Estimators 樹、隨機搜尋、 Covariance Matrix Adaptation Evolution Strategy 、 Hyperband 、高效神經架構搜尋、差異化架構搜尋等。如需Kubeflow內容中Jupyter Notebooks的詳細資訊、請參閱 https://www.kubeflow.org/docs/components/katib/overview/["官方Kubeflow文件"^]。
-
-
-
-== Apache Airflow
-
-Apache Airflow是開放原始碼的工作流程管理平台、可針對複雜的企業工作流程、進行程式化的撰寫、排程及監控。它通常用於自動化ETL和資料管線工作流程、但不限於這些類型的工作流程。氣流專案是由Airbnb發起、但後來在業界廣受歡迎、現在由Apache Software Foundation贊助。氣流是以Python撰寫、氣流工作流程是透過Python指令碼建立、氣流是以「組態為程式碼」的原則設計。 許多企業氣流使用者現在都在Kubernetes上執行氣流。
-
-
-
-=== 定向Acyclic圖表（DAG）
-
-在氣流中、工作流程稱為「導向Acyclic Graphs（DAG）（導向型Acyclic Graphs（DAG））」。DAG是由依順序、平行或兩者組合執行的工作所組成、視DAG定義而定。氣流排程器會在一組工作人員上執行個別工作、並遵循DAG定義中指定的工作層級相依性。DAG是透過Python指令碼來定義和建立。
 
 
 
@@ -136,7 +160,7 @@ NetApp最新一代的儲存管理軟體、即支援企業將基礎架構現代�
 
 下列功能可協助滿足嚴苛且不斷變化的業務需求：ONTAP
 
-* 無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、例如NVMe和32GB FC、而不需進行昂貴的資料移轉或中斷運作。
+* 無縫擴充與不中斷營運。支援在不中斷營運的情況下、將容量新增至現有控制器和橫向擴充叢集。ONTAP客戶可以升級至最新技術、而無需昂貴的資料移轉或中斷運作。
 * 雲端連線：ONTAP 是最具雲端連線能力的儲存管理軟體、可在所有公有雲中選擇軟體定義儲存設備和雲端原生執行個體。
 * 與新興應用程式整合。利用支援現有企業應用程式的相同基礎架構、為新一代平台和應用程式提供企業級資料服務、例如自動駕駛車輛、智慧城市和產業4.0。ONTAP
 
@@ -173,7 +197,7 @@ SnapMirror軟體透過ONTAP 網路僅傳送變更的區塊、充分發揮NetApp�
 
 == NetApp BlueXP 複製與同步
 
-BlueXP 複製與同步是 NetApp 服務、可快速安全地同步資料。無論您需要在內部部署的 NFS 或 SMB 檔案共用、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 AWS S3 、 AWS EFS 、 Azure Blob 、 Google Cloud Storage 或 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。
+link:https://bluexp.netapp.com/cloud-sync-service["BlueXP 複製與同步"^] 是一項 NetApp 服務、可快速安全地同步資料。無論您需要在內部部署的 NFS 或 SMB 檔案共用、 NetApp StorageGRID 、 NetApp ONTAP S3 、 NetApp Cloud Volumes Service 、 Azure NetApp Files 、 AWS S3 、 AWS EFS 、 Azure Blob 、 Google Cloud Storage 或 IBM Cloud Object Storage 、 BlueXP 複製與同步功能可快速安全地將檔案移至所需的位置。
 
 資料傳輸完成後、即可在來源和目標上完全使用。BlueXP 複製與同步可在觸發更新時隨需同步資料、或根據預先定義的排程持續同步資料。不過、 BlueXP 複製與同步只會移動資料量、因此將用於資料複寫的時間與金錢降到最低。
 
@@ -183,11 +207,7 @@ BlueXP 複製與同步是一種軟體即服務（ SaaS ）工具、設定與使�
 
 == NetApp XCP
 
-NetApp XCP是以用戶端為基礎的軟體、適用於任何對NetApp和NetApp對NetApp的資料移轉及檔案系統洞見。XCP的設計旨在利用所有可用的系統資源來處理大量資料集和高效能移轉、以擴充並達到最大效能。XCP可讓您利用產生報告的選項、全面掌握檔案系統。
-
-NetApp XCP可在單一套件中取得、支援NFS和SMB傳輸協定。XCP包含適用於NFS資料集的Linux二進位檔、以及適用於SMB資料集的Windows執行檔。
-
-NetApp XCP檔案分析是以主機為基礎的軟體、可偵測檔案共用、在檔案系統上執行掃描、並提供檔案分析儀表板。XCP檔案分析可與NetApp和非NetApp系統相容、並可在Linux或Windows主機上執行、以提供NFS和SMB匯出檔案系統的分析功能。
+link:https://xcp.netapp.com/["NetApp XCP"^] 是適用於任何對 NetApp 和 NetApp 對 NetApp 資料移轉和檔案系統洞見的用戶端型軟體。XCP的設計旨在利用所有可用的系統資源來處理大量資料集和高效能移轉、以擴充並達到最大效能。XCP可讓您利用產生報告的選項、全面掌握檔案系統。
 
 
 

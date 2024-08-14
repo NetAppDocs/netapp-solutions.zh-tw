@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/aicp_introduction.html 
-keywords: tr-4798, tr4798, 4798, NetApp AI, Machine, Deep learning, introduction 
+keywords: tr-4798, tr4798, 4798, MLOps, Trident, ONTAP, containers, AI, Kubernetes, Kubeflow, Jupyter, Airflow, MLflow, JupyterHub 
 summary: 本解決方案旨在示範幾種不同的開放原始碼工具和架構、這些工具和架構可整合至 MLOps 工作流程中。這些不同的工具和架構可以一起使用、也可以自行使用、視需求和使用案例而定。 
 ---
 = 使用 NetApp 的開放原始碼 MLOps
@@ -13,18 +13,33 @@ summary: 本解決方案旨在示範幾種不同的開放原始碼工具和架�
 :imagesdir: ./../media/
 
 
-Mike Oglesby、NetApp
-NetApp 的 Mohan Acharya
+Mike Olglesby 、 NetApp Sufian Ahmad 、 NetApp Rick Huang 、 NetApp Mohan Acharya 、 NetApp
 
 [role="lead"]
-各種規模的公司和組織、以及許多產業、紛紛轉向人工智慧（AI）、機器學習（ML）和深度學習（DL）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中獲得優勢。隨著企業組織增加AI、ML和DL的使用率、他們面臨許多挑戰、包括工作負載擴充性和資料可用度。本解決方案將 NetApp 資料管理功能與熱門的開放原始碼工具和架構配對、示範如何解決這些挑戰。
+各種規模和各行各業的公司和組織都在轉向人工智慧（ AI ）、以解決實際問題、提供創新產品和服務、並在競爭日益激烈的市場中取得優勢。許多組織正轉向開放原始碼 MLOps 工具、以跟上業界快速創新的腳步。這些開放原始碼工具提供進階功能和先進功能、但通常不考慮資料可用度和資料安全性。遺憾的是、這表示高技術的資料科學家被迫花大量時間等待存取資料、或等待與資料相關的基本作業完成。透過將熱門的開放原始碼 MLOps 工具與 NetApp 的智慧型資料基礎架構配對、企業組織可以加速資料管線、進而加速 AI 方案。他們可以從資料中釋放價值、同時確保資料受到保護且安全無虞。此解決方案展示 NetApp 資料管理功能與多種熱門開放原始碼工具和架構的配對、以因應這些挑戰。
 
-本解決方案旨在示範幾種不同的開放原始碼工具和架構、這些工具和架構可整合至 MLOps 工作流程中。這些不同的工具和架構可以一起使用、也可以自行使用、視需求和使用案例而定。
+下列清單強調本解決方案所啟用的一些重要功能：
 
-本解決方案涵蓋下列工具 / 架構：
-
-* link:https://airflow.apache.org["Apache Airflow"]
-* link:https://www.kubeflow.org["Kubeflow"]
+* 使用者可以快速佈建新的高容量資料磁碟區和開發工作區、並以高效能的橫向擴充 NetApp 儲存設備作為後盾。
+* 使用者可以近乎即時地複製大容量資料磁碟區和開發工作區、以便進行實驗或快速重複。
+* 使用者可以近乎即時地儲存高容量資料磁碟區和開發工作區的快照、以便進行備份和 / 或追蹤 / 基準化。
 
 
 image::aicp_image1.png[aicp image1.]
+
+典型的 MLOps 工作流程整合了開發工作區、通常採用實驗追蹤、自動化訓練管線、資料管線、以及推斷 / 部署的形式 link:https://jupyter.org["Jupyter 筆記型電腦"^]。本解決方案強調數種不同的工具和架構、可單獨使用或搭配使用、以解決工作流程的不同層面。我們也會示範 NetApp 資料管理功能與這些工具的配對。此解決方案旨在提供建置區塊、讓組織能夠根據其使用案例和需求、建構自訂的 MLOps 工作流程。
+
+本解決方案涵蓋下列工具 / 架構：
+
+* link:https://airflow.apache.org["Apache Airflow"^]
+* link:https://jupyter.org/hub["JupyterHub"^]
+* link:https://www.kubeflow.org["Kubeflow"^]
+* link:https://www.mlflow.org["MLflow"^]
+
+
+下表說明這些工具的一般部署模式、可分別部署或搭配使用。
+
+* 搭配使用 JupyterHub 、 MLflow 和 Apache Airflow - JupyterHub for link:https://jupyter.org["Jupyter 筆記型電腦"^]、 MLflow 進行實驗追蹤、 Apache Airflow 則可用於自動化訓練和資料管線。
+* 結合使用 Kubeflow 和 Apache Airflow ： Kubefflow for link:https://jupyter.org["Jupyter 筆記型電腦"^]、實驗追蹤、自動化訓練管道和推斷；以及 Apache 的資料管線氣流。
+* 將 Kubeflow 部署為全方位的 MLOps 平台解決方案、用於進行 link:https://jupyter.org["Jupyter 筆記型電腦"^]實驗追蹤、自動化訓練和資料管線、以及推斷。
+
