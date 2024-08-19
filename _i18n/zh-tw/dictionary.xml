@@ -22175,4 +22175,113 @@ NVIDIA DGX SuperPOD ： NetApp EF600 和 BeeGFS
   <block id="26d3848da8e43d9e68369a6adb8a24a5" category="paragraph">當所有與 MLflow 相關的服務都啟動並執行後、您就可以使用指定的 NodePort 或負載平衡器 IP 位址（例如）來存取它。<block ref="5730155f0021c6fc553086ce017a87bf" category="inline-link-rx"></block></block>
   <block id="80bb08fb1b40876176f39de36cb7188e" category="sidebar">NetApp AIPod 搭配 NVIDIA</block>
   <block id="043774815e3806ded716086e0c8c3d03" category="paragraph">不過、如果您需要更多儲存容量或更快的網路速度、則應該使用 NetApp AFF A220 或 NetApp AFF A250 儲存系統。此外、NetApp EF280系統的最大容量為1.5PB、頻寬為10Gbps、也用於本解決方案驗證。如果您偏好更高頻寬的儲存容量、<block ref="ab4f2e0c1e56faa457a7a1f93253a647" category="inline-link-rx"></block> 可以使用。</block>
+  <block id="34fd97d0487efaacb8dc98024d287c11" category="doc">VMware vSphere Metro Storage Cluster 搭配 SnapMirror 主動式同步</block>
+  <block id="58486898b4fe52f80d7a134d74186a4c" category="inline-link-macro">VMware vSphere Metro儲存叢集（VMSC）</block>
+  <block id="64be9dc3192d85bf262f0fd8c72111ab" category="paragraph"><block ref="e62009d2c2685d27a0ddbcad228400cb" category="inline-link-macro-rx"></block> 是橫跨不同故障網域的延伸叢集解決方案、可在可用性區域或站台之間提供 * 工作負載移動性。* 避免停機 * 避免災難 * 快速恢復</block>
+  <block id="e4477dbdacf897f1fd6ddb6154724776" category="inline-link-macro">SnapMirror 主動式同步（ SM-AS ）</block>
+  <block id="d5fd89f78e809a516f541d8d812e7ad3" category="paragraph">本文件提供 VMSC 實作詳細資料、說明如何 <block ref="b19e84faca3d459410a7dfd95ee53089" category="inline-link-macro-rx"></block> 運用系統管理員和 ONTAP 工具。此外、它還說明如何透過複寫至第三個站台並使用 SnapCenter Plugin for VMware vSphere 來管理虛擬機器、以保護虛擬機器。</block>
+  <block id="716b3c806e9b7312a6121d2b1bb825d4" category="image-alt">採用 SnapMirror 主動式同步架構的 VMSC</block>
+  <block id="918d32b75f0ab883abba3a8dc0c3ae8d" category="inline-link-macro">互通性對照表工具</block>
+  <block id="da160308e3b4b4a80bf1b72b5bdbedb8" category="inline-link-macro">Hardware Universe</block>
+  <block id="515fd2ebe46e8157304f89248b32081d" category="paragraph">SnapMirror 主動式同步支援 ASA 、 AFF 和 FAS 儲存陣列。建議在兩個故障網域上使用相同類型（效能 / 容量模型）。目前僅支援 FC 和 iSCSI 等區塊傳輸協定。如需進一步的支援準則、請參閱 <block ref="0a02ba054dd64e9eaa32b9dc7efab2b1" category="inline-link-macro-rx"></block> 和 <block ref="6ec228dfe84ccdb5f038627d2fe43701" category="inline-link-macro-rx"></block></block>
+  <block id="f103bd91cb89830fea75f3163d4e0507" category="paragraph">VMSC 支援兩種不同的部署模式、分別稱為統一主機存取和非統一主機存取。在統一主機存取組態中、叢集上的每個主機都能存取兩個故障網域上的 LUN 。它通常用於同一個資料中心的不同可用性區域。</block>
+  <block id="d7334f3be2455925c79cffbea59bf0c6" category="inline-image-macro">VMSC 統一模式與非統一主機存取模式</block>
+  <block id="ef8027ef36249d7d86517ecee55a9092" category="paragraph"><block ref="ef8027ef36249d7d86517ecee55a9092" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="c86c97b6ed8c96d86db43caa5cdd42b0" category="paragraph">在非統一主機存取組態中、主機只能存取本機故障網域。它通常用於在故障網域中執行多條纜線的不同站台、而這些站台的選項是限制性的。</block>
+  <block id="b7c2a4e9e77a5067363b655db0166be8" category="admonition">在非統一主機存取模式中、 vSphere HA 會在其他故障網域中重新啟動 VM 。應用程式可用度將會因其設計而受到影響。非統一主機存取模式僅支援 ONTAP 9.15 以上版本。</block>
+  <block id="a1eb25267046ac19d0ea3b13584e4978" category="inline-link-macro">VMware vSphere 主機部署於每部主機的雙儲存架構（兩個 HBA 或雙 VLAN 用於 iSCSI ）</block>
+  <block id="7bfecff5de64fbdced15725730f57bdc" category="list-text"><block ref="273e208fa39dbee98649b0aa84d82835" category="inline-link-macro-rx"></block>。</block>
+  <block id="3b139a51f67a8ee244f1a3df373dd4d1" category="inline-link-macro">儲存陣列是透過資料連接埠的連結集合來部署（適用於 iSCSI ）</block>
+  <block id="f9bbff26a0766ed0e97f3a8efc66aec3" category="list-text"><block ref="9af1ad391201480ac4f7b26fe77631be" category="inline-link-macro-rx"></block>。</block>
+  <block id="0d20a986845bf59a4b372d98653bea19" category="inline-link-macro">儲存 VM 和生命都可用</block>
+  <block id="1cfa44d933a771af91723c94a75e913c" category="list-text"><block ref="1cfa44d933a771af91723c94a75e913c" category="inline-link-macro-rx"></block></block>
+  <block id="054e2b4fe6cda66efb08e77a403e8429" category="inline-link-macro">叢集間延遲往返時間必須少於 10 毫秒</block>
+  <block id="5c549f3d1b5920eb5699f3fd18f4ff5b" category="list-text"><block ref="dae019c6d50cf2c7aba3ae53719694d2" category="inline-link-macro-rx"></block>。</block>
+  <block id="a2bbe654598934679d75bfe153a6a5d3" category="inline-link-macro">ONTAP Mediator VM 部署在不同的故障網域上</block>
+  <block id="a8de517d5054abc35e72e60b9acdb768" category="list-text"><block ref="a8de517d5054abc35e72e60b9acdb768" category="inline-link-macro-rx"></block></block>
+  <block id="cf2ce31e52aaf9efea83f861f0a81de0" category="inline-link-macro">叢集對等關係已建立</block>
+  <block id="5ae138ed3e7910f4a6852440746b09d1" category="list-text"><block ref="5ae138ed3e7910f4a6852440746b09d1" category="inline-link-macro-rx"></block></block>
+  <block id="6e03f188a3f61f126e519dbff57c83bc" category="inline-link-macro">已建立 SVM 對等關係</block>
+  <block id="e393eaa9840812af50ebef3587ef024c" category="list-text"><block ref="e393eaa9840812af50ebef3587ef024c" category="inline-link-macro-rx"></block></block>
+  <block id="ce7a3224ca943e5cc221c005cc7e60c0" category="inline-link-macro">ONTAP Mediator 已登錄至 ONTAP 叢集</block>
+  <block id="eaee03aa41ec9df43533f5db5bb2ba44" category="list-text"><block ref="eaee03aa41ec9df43533f5db5bb2ba44" category="inline-link-macro-rx"></block></block>
+  <block id="5db0c98d55e94f756e266bdac15c576f" category="admonition">如果使用自我簽署的憑證、則可從中介 VM 上的 &lt;installation path&gt; / onta_m調解 器 / 伺服器組態 /ca.crt 擷取 CA 憑證。</block>
+  <block id="d440508ae7e609721b5110d7e039c2ef" category="section-title">使用 ONTAP 系統管理員 UI 進行 VMSC 非一致的主機存取。</block>
+  <block id="ea6c6e8d950e0162c04cb71e8d423b2c" category="paragraph">附註： ONTAP 工具 10.2 或更新版本可用於以非統一主機存取模式來配置延伸資料存放區、而無需切換多個使用者介面。如果不使用 ONTAP 工具、本節僅供參考。</block>
+  <block id="7a6ad0c2bdb056ce230af0c5b8cbbdd3" category="inline-image-macro">System Manager iSCSI 生命</block>
+  <block id="250278a75998669cfa62399b8146a731" category="list-text">記下本機故障網域儲存陣列的其中一個 iSCSI 資料 LIF IP 位址。 <block ref="7c733574c933248f50a0c7b1162bf912" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="40996682d513c35b0c4047998b3bdfbf" category="inline-image-macro">新增 iSCSI 伺服器以進行動態探索</block>
+  <block id="1f8f4b2d8241e66266b7f8b81525b97b" category="list-text">在 vSphere 主機 iSCSI 儲存適配器上、將該 iSCSI IP 新增至動態探索索引標籤下。 <block ref="aa747262873c391da497ccb912baff69" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="56aef556733a201b5e2a4e11e36db420" category="admonition">對於統一存取模式、需要提供來源和目標故障網域 iSCSI 資料 LIF 位址。</block>
+  <block id="f534d234c4800b321e87346242a41052" category="list-text">針對其他故障網域、在 vSphere 主機上重複上述步驟、在動態探索索引標籤上新增其本機 iSCSI 資料 LIF IP 。</block>
+  <block id="abb37f04bfa608971b2c1b6d32dbdcb5" category="inline-image-macro">iSCSI 連線資訊</block>
+  <block id="0b0f1ea722e32c77162bde7f673d22df" category="list-text">有了適當的網路連線能力、每個 vSphere 主機應該有四個 iSCSI 連線、每個儲存控制器應有兩個 iSCSI VMKernel NIC 和兩個 iSCSI 資料生命期。 <block ref="c51433da4a2f97d1851a78382468f872" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="72db752a6a36e9d60e7b38950bff5431" category="inline-image-macro">使用 AutomatedFailOverDuplex 建立 LUN</block>
+  <block id="e00ec01290945a6960558a816b7c80dc" category="list-text">使用 ONTAP 系統管理員建立 LUN 、使用複寫原則自動設定 SnapMirror 、挑選主機啟動器並設定主機鄰近度。 <block ref="3526e86b0946dcb6cbce67572cbda330" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="861e37935260a1cfc2aaed5161ab0638" category="inline-image-macro">SAN 啟動器群組</block>
+  <block id="643dee3d46a26957fa79eabb00f799a9" category="list-text">在其他容錯網域儲存陣列上、使用其 vSphere 主機啟動器建立 SAN 啟動器群組、並設定主機鄰近度。 <block ref="8ce910f9922ca4c75fbfed0da02f7acc" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="a95b052361af1fe2d309364f309ab46e" category="admonition">對於統一存取模式、可從來源故障網域複寫 igroup 。</block>
+  <block id="46492800838ddbb9130619bb75b86bd4" category="inline-image-macro">LUN 對應 ID</block>
+  <block id="61b2fd670835ca9005e021f1913b73a6" category="list-text">將複寫的 LUN 對應至與來源故障網域相同的對應 ID 。 <block ref="5e406d7c05a58aa8180f107a6f65197b" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="850388b805ee9d89fc11c4cec8ca9a14" category="inline-image-macro">重新掃描儲存設備</block>
+  <block id="c51ea56e6dafdb1292b8b9dc5c0e960e" category="list-text">在 vCenter 上、以滑鼠右鍵按一下 vSphere 叢集、然後選取重新掃描儲存選項。 <block ref="6930ef8ccf8c0ee83af38ebfb53ae8ca" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="73081ec2696dca86d95749186e402328" category="inline-image-macro">vSphere 主機上的 iSCSI 裝置清單</block>
+  <block id="770808abd03566255747a4c243b543c9" category="list-text">在叢集中的其中一部 vSphere 主機上、檢查新建立的裝置是否顯示資料存放區顯示為「未使用」。 <block ref="f0864d9d785550b719672d32b1de80c4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="03da7c8f83d089216b6def8eecb1d8e1" category="inline-image-macro">新資料存放區</block>
+  <block id="de6515e121b06c1d6a99f264db0ced98" category="list-text">在 vCenter 上、以滑鼠右鍵按一下 vSphere 叢集、然後選取新資料存放區選項。 <block ref="c00f2ed4d6bc3d40b166bcee20941ea9" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="39f8f32a044e4a51c1ba31542f7e6be5" category="inline-image-macro">在 iSCSI 裝置上建立資料存放區</block>
+  <block id="79e0884c477fa5dca0cd2d09df0c032c" category="list-text">在精靈上、請記得提供資料存放區名稱、並選擇具有適當容量和裝置 ID 的裝置。 <block ref="c4d7fdc0efb4415cfbcecba1c6b76a6d" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="9439be65684144698b143fbed4ebaac6" category="inline-image-macro">來源主機上的資料存放區</block>
+  <block id="fa0e2b543129f3ca636d26696b0fd84e" category="list-text">確認資料存放區已掛載於叢集上的所有主機上、橫跨兩個故障網域。 <block ref="4d299b16eb5c36c6f17ac715f962d1a2" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="5174ce06fd5746beeab9093873aefad7" category="inline-image-macro">目的地主機上的資料存放區</block>
+  <block id="7d2327e03be872e7b74c83cfebd089cf" category="paragraph"><block ref="7d2327e03be872e7b74c83cfebd089cf" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="bb670fd40e7ab2e78319915e8b44d490" category="admonition">以上螢幕擷取畫面顯示自從我們使用 AFF 之後、單一控制器上的 Active I/O 。對於 ASA 、它在所有路徑上都會有 Active IO 。</block>
+  <block id="604352c5ba1889965babef0c8158663e" category="inline-image-macro">CG 保護政策</block>
+  <block id="7e9ad0a86ea2653cfeaf3665a16fb998" category="list-text">新增其他資料存放區時、必須記得擴充現有的一致性群組、使其在 vSphere 叢集上保持一致。 <block ref="9ff0132d06a7ec05d04b497f57728e31" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="6f453aa15e5ff0b4eb721cdad8f17bef" category="section-title">使用 ONTAP 工具、 VMSC 統一化主機存取模式。</block>
+  <block id="04593b02a432541da827b2b6752834ba" category="inline-image-macro">已登錄至 vCenter 的 ONTAP 工具外掛程式</block>
+  <block id="1fdb2532315071a9680adbd6c0a72bcf" category="inline-link-macro">ONTAP 工具部署</block>
+  <block id="369b7f4a91b08a79d37197d5f45d696f" category="inline-link-macro">新增 vCenter 伺服器執行個體</block>
+  <block id="6d7b594b051b6822ae7376f5a2da174a" category="list-text">確保 NetApp ONTAP 工具已部署並登錄至 vCenter 。<block ref="af0eee35d19fec1ebd1909262ef4f2c6" category="inline-image-macro-rx" type="image"></block> 如果沒有、請遵循 <block ref="fbcc4e5529f469c2a6c695eaf0a2bc5e" category="inline-link-macro-rx"></block> 和 <block ref="d873b14c2c5cdecdf438a360ca036bf3" category="inline-link-macro-rx"></block></block>
+  <block id="3a54d0f2f8ac16a58ed8a452c0abaaef" category="inline-image-macro">已註冊的儲存設備後端</block>
+  <block id="354f1289739e8ece60bc2d74d64477eb" category="inline-link-macro">使用 vSphere 用戶端 UI 新增儲存後端</block>
+  <block id="5e2fb8ab7e1dfb677dfe3b8b955f48cf" category="list-text">確保 ONTAP 儲存系統已註冊至 ONTAP 工具。這包括故障網域儲存系統、以及第三個用於非同步遠端複寫的系統、可搭配適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VM 。<block ref="bc2cb41435e0b0c8dfc1f5ceab695828" category="inline-image-macro-rx" type="image"></block> 如果沒有、請遵循 <block ref="b59c00edbcac992082dcfa6c68f3b16c" category="inline-link-macro-rx"></block></block>
+  <block id="2ff8b29f2ba9fff19bb4ff78734fff7d" category="inline-image-macro">更新主機資料</block>
+  <block id="e181db3cbeda87f260358c64db781b1c" category="inline-link-macro">建立資料存放區</block>
+  <block id="596b8224963a68b1d311b08544b8141a" category="list-text">更新主機資料以與 ONTAP 工具同步、然後、 <block ref="0b13d42f0de3e7e83cc4165d9e12b307" category="inline-link-macro-rx"></block>。 <block ref="a85e00e2abc3cdd1d46f85dd55ba9831" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="20d3fb60a8e495c4395fb4efbcb157c0" category="list-text">若要啟用 SM-AS 、請在 vSphere 叢集上按一下滑鼠右鍵、然後在 NetApp ONTAP 工具上選取保護叢集（請參閱上述螢幕擷取畫面）</block>
+  <block id="af177368a8a7a1a5e11fc3ced1e77f66" category="inline-image-macro">保護叢集</block>
+  <block id="8224901e217bc4bcdca14a39e2bd117f" category="list-text">它會顯示該叢集的現有資料存放區、以及 SVM 詳細資料。預設 CG 名稱為 &lt;vSphere 叢集名稱 &lt;SVM name&gt; 。按一下「新增關係」按鈕。 <block ref="9969e373d6b4d5492d0f82f983fb31d8" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="1bd743276324af2fe3a5be030f2585d5" category="inline-image-macro">新增 SnapMirror 關係</block>
+  <block id="4881b10c8dcb57b7fed95ec00840634a" category="list-text">挑選目標 SVM 、並將原則設為 AutomatedFailOverDuplex for SM-as 。統一主機組態有切換開關。設定每個主機的距離。 <block ref="b9a59c6f5e70fff82ae6801d936a7ddb" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="589d6f8113bb29b207c6f70ce56409e3" category="inline-image-macro">新增關係</block>
+  <block id="393a5b83b30d94de659f675b5c414cbd" category="list-text">驗證主機效能資訊和其他詳細資料。如果需要、請使用非同步複寫原則、將另一個關係新增至第三個站台。然後按一下「保護」。<block ref="e58119c8ac449b5d67b23f048f33a5e0" category="inline-image-macro-rx" type="image"></block> 附註：如果計畫使用 SnapCenter Plug-in for VMware vSphere 6.0 、則必須在 Volume 層級設定複寫、而非在 Consistency Group 層級。</block>
+  <block id="40a6fd38a751b6f08cdcef3834ea7a2f" category="inline-image-macro">iSCSI 多重路徑資訊</block>
+  <block id="ae54fc27027d27a0bd753252b6d29812" category="list-text">透過統一主機存取、主機可以 iSCSI 連線到兩個故障網域儲存陣列。<block ref="4ae75cfe682cfa3b09db25c24c5c627a" category="inline-image-macro-rx" type="image"></block> 附註：上述螢幕擷取畫面來自 AFF 。如果是 ASA 、則使用中的 I/O 應位於所有具有適當網路連線的路徑中。</block>
+  <block id="d2492bcb0931b65a3f581f4c6d3cb6ce" category="inline-image-macro">Volume 保護狀態</block>
+  <block id="f9ebf24e63c12268553a14a08d4aa9e9" category="list-text">ONTAP 工具外掛程式也會指出磁碟區是否受到保護。 <block ref="8dc80456bc9bf7785a7057126639770f" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="e29140e3bf39cdec980098e775848097" category="inline-image-macro">主機叢集關係</block>
+  <block id="b8aac8f072ed4efb8dc7a1c3506c361e" category="list-text">如需更多詳細資料並更新主機鄰近資訊、可使用 ONTAP 工具下的主機叢集關係選項。 <block ref="e14370715f4edc42f7e2e806158d1f31" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="73a7b5e698fb4fe3a34d358d36f751d6" category="section-title">使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VM 。</block>
+  <block id="92d07b80b15b85305b3cae638ecf5e14" category="paragraph">適用於 VMware vSphere （ SCV ） 6.0 或更新版本的 SnapCenter 外掛程式支援 SnapMirror 主動式同步、也可搭配 SnapMirror Async 來複寫至第三個故障網域。</block>
+  <block id="f8b9c0522fa0f8e6c3a1afdf3ed9c467" category="inline-image-macro">三個站台拓撲</block>
+  <block id="bba92a390460e029d55235d609643c01" category="paragraph"><block ref="bba92a390460e029d55235d609643c01" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2ff7796d84d03de19015be7dbfa58e37" category="inline-image-macro">三個站台拓撲搭配非同步容錯移轉</block>
+  <block id="c5bd75145fcab223b499d9e95890f53c" category="paragraph"><block ref="c5bd75145fcab223b499d9e95890f53c" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="76253c184f3bf2e7a3b986dcc1d9dbd5" category="paragraph">支援的使用案例包括： * 使用 SnapMirror 主動式同步、從任一故障網域備份及還原 VM 或 Datastore 。* 從第三個故障網域還原資源。</block>
+  <block id="6aee63ca24aefba800af701527e19cb5" category="inline-image-macro">註冊儲存陣列</block>
+  <block id="09b0c696ef15fddb3d69ae4a1b726ae3" category="list-text">添加所有計劃在選擇控制閥中使用的 ONTAP 儲存系統。 <block ref="996d6c6e723b85524c599c55a1975416" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="aba2342f4c11084ef2aa3a569ac8125e" category="inline-image-macro">備份原則</block>
+  <block id="a85b899f51a8630636d20bd15bee2982" category="list-text">建立原則。請務必在備份後更新 SnapMirror 、檢查 SM-AS 、並在備份後更新 SnapVault 、以便將非同步複寫至第三個故障網域。 <block ref="69dae01d1f84348bfe140f5bfc9f6499" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="dd23acac46f17cbfd4d5541f8ee3c7a1" category="inline-image-macro">資源群組</block>
+  <block id="64cb18579a7a0d1468fed69b14782a40" category="list-text">建立資源群組、其中包含需要保護、與原則和排程相關聯的已設計項目。<block ref="0ca2ae76dc187a7df68bf45027593c64" category="inline-image-macro-rx" type="image"></block> 附註：以 _Recent 結尾的快照名稱不支援使用 SM-AS 。</block>
+  <block id="aa84c9af51ab8e51a21eaceee6300eab" category="inline-image-macro">SCV儀表板</block>
+  <block id="2bde70c0bea8a0bcf28585e485c008d7" category="inline-image-macro">資料存放區的資源備份資訊</block>
+  <block id="fccc429309a6737d81187f17bd624e63" category="inline-image-macro">VM 的資源備份資訊</block>
+  <block id="e5bf2469e4f70e994b3de20f27d234e7" category="list-text">備份是根據與資源群組相關的原則、在排程時間進行。您可以從儀表板工作監控器或這些資源的備份資訊來監控工作。 <block ref="657a0a3d61337ad802a8c7a7b7a81a06" category="inline-image-macro-rx" type="image"></block> <block ref="ce922a606ddec6dac25ffe867e0acfcb" category="inline-image-macro-rx" type="image"></block> <block ref="c8e6a76f1897b0987fb13fd85f3bd694" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="573f9a5ce80dcdd71118a9f93babcd1f" category="inline-image-macro">VM 還原位置選項</block>
+  <block id="c3684107dbff9d1d2f2a5131096b4b64" category="list-text">VM 可從主要故障網域上的 SVM 或從其中一個次要位置還原至相同或替代的 vCenter 。 <block ref="23048c8f8b3a7a007722276d9ee49601" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="d73d29fc15215ae568cfc4eb7a504537" category="inline-image-macro">資料存放區還原位置選項</block>
+  <block id="74ca3c695cd7675dfb0412209f2ef22f" category="list-text">資料存放區裝載作業也可使用類似選項。 <block ref="523db55def0a941e814c46c1f7e232c4" category="inline-image-macro-rx" type="image"></block></block>
+  <block id="2a4ea2aaa4acda87b1ce787b2f66a66c" category="paragraph">如需選擇控制閥的其他操作協助、請參閱 <block ref="d1ce1c1059b8df281300d28c6a9c8880" category="inline-link-macro-rx"></block></block>
 </blocks>
