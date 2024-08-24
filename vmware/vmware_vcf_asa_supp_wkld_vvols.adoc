@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-在此案例中、我們將示範如何部署及使用適用於 VMware vSphere （ OTV ）的 ONTAP 工具、為 VCF 工作負載網域設定 * vVols datastore* 。
+在此案例中、我們將示範如何部署及使用 ONTAP Tools for VMware vSphere 來為 VCF 工作負載網域設定 * vVols datastore* 。
 
 *ISCSI* 是 vVols 資料存放區的儲存傳輸協定。
 
@@ -213,16 +213,16 @@ image::vmware-vcf-asa-image34.png[檢閱 VMkernel 選擇]
 
 ==== 部署並使用 ONTAP 工具來設定儲存設備
 
-下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 vVols iSCSI 資料存放區、以及將管理 VM 移轉至新的資料存放區。
+下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 ONTAP 工具、建立 vVols iSCSI 資料存放區、以及將管理 VM 移轉至新的資料存放區。
 
-對於 VI 工作負載網域、 OTV 會安裝到 VCF 管理叢集、但會登錄到與 VI 工作負載網域相關聯的 vCenter 。
+對於 VI 工作負載網域、 ONTAP 工具會安裝到 VCF 管理叢集、但會登錄到與 VI 工作負載網域相關聯的 vCenter 。
 
 如需在多個 vCenter 環境中部署及使用 ONTAP 工具的其他資訊、請參閱 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/configure/concept_requirements_for_registering_vsc_in_multiple_vcenter_servers_environment.html["在多個 vCenter Server 環境中登錄 ONTAP 工具的需求"]。
 
 .部署適用於 VMware vSphere 的 ONTAP 工具
 [%collapsible]
 ====
-VMware vSphere （ OTV ）的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。
+適用於 VMware vSphere 的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。
 
 請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：
 
@@ -259,10 +259,10 @@ image::vmware-vcf-aff-image24.png[選取網路]
 
 . 在「自訂範本」頁面上、填寫所有必要資訊：
 +
-** 用於管理 OTV 存取的密碼。
+** 用於管理 ONTAP 工具存取的密碼。
 ** NTP 伺服器 IP 位址。
-** OTV 維護帳戶密碼。
-** OTV Derby DB 密碼。
+** ONTAP 工具維護帳戶密碼。
+** ONTAP 工具 Derby DB 密碼。
 ** 請勿勾選 * 啟用 VMware Cloud Foundation （ VCF ） * 的方塊。部署補充儲存設備不需要 vcf 模式。
 ** * VI 工作負載網域 * 的 vCenter 應用裝置 FQDN 或 IP 位址
 ** * VI 工作負載網域 * 的 vCenter 應用裝置認證
@@ -281,7 +281,7 @@ image::vmware-vcf-asa-image35.png[自訂 OTV 範本 2.]
 
 
 
-. 檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 OTV 應用裝置。
+. 檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 ONTAP 工具應用裝置。
 
 
 ====
@@ -295,7 +295,7 @@ image::vmware-asa-image6.png[NetApp ONTAP 工具]
 +
 ｛ nbsp ｝
 
-. 從 ONTAP 工具介面的 * 執行個體 * 下拉式功能表中、選取與要管理的工作負載網域相關聯的 OTV 執行個體。
+. 從 ONTAP 工具介面的 * 執行個體 * 下拉式功能表中、選取與要管理的工作負載網域相關聯的 ONTAP 工具執行個體。
 +
 image::vmware-vcf-asa-image36.png[選擇 OTV 執行個體]
 

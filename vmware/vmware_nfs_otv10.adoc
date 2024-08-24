@@ -1,0 +1,448 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmware_nfs_otv10.html 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc 
+summary:  
+---
+= 使用 ONTAP 工具 10 為 vSphere 8 設定 NFS 資料存放區
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./../media/
+
+
+
+
+== 使用 ONTAP 工具 10 為 vSphere 8 設定 NFS 資料存放區
+
+[role="lead"]
+適用於 VMware vSphere 10 的 ONTAP 工具具備新一代架構、可為 VASA Provider （支援 iSCSI 和 NFS vVols ）提供原生高可用度和擴充性。如此可簡化多個 VMware vCenter 伺服器和 ONTAP 叢集的管理。
+
+在此案例中、我們將示範如何部署及使用適用於 VMware vSphere 10 的 ONTAP 工具、以及如何設定適用於 vSphere 8 的 NFS 資料存放區。
+
+
+
+=== 解決方案總覽
+
+此案例涵蓋下列高層級步驟：
+
+* 使用邏輯介面（生命）來建立儲存虛擬機器（ SVM ）、以進行 NFS 流量。
+* 在 vSphere 8 叢集上為 NFS 網路建立分散式連接埠群組。
+* 在 vSphere 8 叢集中的 ESXi 主機上建立適用於 NFS 的 vmkernel 介面卡。
+* 部署 ONTAP 工具 10 並向 vSphere 8 叢集註冊。
+* 在 vSphere 8 叢集上建立新的 NFS 資料存放區。
+
+
+
+
+=== 架構
+
+下圖顯示適用於 VMware vSphere 10 實作的 ONTAP 工具架構元件。
+
+image::vmware-nfs-otv10-image29.png[otv10 架構]
+
+
+
+=== 先決條件
+
+此解決方案需要下列元件和組態：
+
+* ONTAP AFF 儲存系統、乙太網路交換器上的實體資料連接埠專用於儲存流量。
+* vSphere 8 叢集部署已完成、 vSphere 用戶端可存取。
+* ONTAP Tools for VMware vSphere 10 OVA 範本已從 NetApp 支援網站下載。
+
+
+NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、網路介面卡和主機系統提供容錯能力。根據架構需求、使用單一子網路或多個子網路來部署 NFS 是很常見的做法。
+
+請參閱 https://core.vmware.com/resource/best-practices-running-nfs-vmware-vsphere["使用 VMware vSphere 執行 NFS 的最佳實務做法"] 如需 VMware vSphere 的詳細資訊、請參閱。
+
+如需搭配 VMware vSphere 使用 ONTAP 的網路指南、請參閱 https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["網路組態 - NFS"] NetApp 企業應用程式文件的一節。
+
+ https://www.netapp.com/support-and-training/documentation/ontap-tools-for-vmware-vsphere-documentation/["適用於 VMware vSphere 的 ONTAP 工具文件資源"]您可以找到完整的 ONTAP 工具 10 個資源。
+
+
+
+=== 部署步驟
+
+若要部署 ONTAP 工具 10 並使用它在 VCF 管理網域上建立 NFS 資料存放區、請完成下列步驟：
+
+
+
+==== 在 ONTAP 儲存系統上建立 SVM 和生命
+
+下列步驟是在 ONTAP 系統管理員中執行。
+
+.建立儲存 VM 和生命
+[%collapsible]
+====
+請完成下列步驟、為 NFS 流量建立 SVM 和多個生命期。
+
+. 從 ONTAP 系統管理員瀏覽至左側功能表中的 * 儲存 VM* 、然後按一下 *+ Add* 開始。
++
+image::vmware-vcf-asa-image01.png[按一下 + 新增以開始建立 SVM]
+
++
+｛ nbsp ｝
+
+. 在 * 新增儲存 VM* 精靈中、為 SVM 提供 * 名稱 * 、選取 * IP 空間 * 、然後在 * 存取傳輸協定 * 下、按一下 *SMB/CIFS 、 NFS 、 S2* 標籤、並勾選 * 啟用 NFS* 方塊。
++
+image::vmware-vcf-aff-image35.png[新增儲存 VM 精靈 - 啟用 NFS]
+
++
+
+TIP: 不需要勾選此處的 * 允許 NFS 用戶端存取 * 按鈕、因為 VMware vSphere 的 ONTAP 工具將用於自動化資料存放區部署程序。這包括為 ESXi 主機提供用戶端存取。&#160 ；
+
+. 在 * 網路介面 * 區段中、填寫第一個 LIF 的 * IP 位址 * 、 * 子網路遮罩 * 和 * 廣播網域和連接埠 * 。對於後續的生命、核取方塊可以啟用、以便在所有剩餘的生命中使用一般設定、或使用個別的設定。
++
+image::vmware-vcf-aff-image36.png[填寫網路資訊以取得生命]
+
++
+｛ nbsp ｝
+
+. 選擇是否啟用 Storage VM Administration 帳戶（適用於多租戶環境）、然後按一下 * Save* 以建立 SVM 。
++
+image::vmware-vcf-asa-image04.png[啟用 SVM 帳戶並完成]
+
+
+
+====
+
+
+==== 在 ESXi 主機上設定 NFS 網路
+
+以下步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行的。在此案例中、正在使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中是通用的。
+
+.為 NFS 流量建立分散式連接埠群組
+[%collapsible]
+====
+完成下列步驟、為網路建立新的分散式連接埠群組、以傳輸 NFS 流量：
+
+. 從 vSphere 用戶端瀏覽至工作負載網域的 * 清查 > 網路 * 。瀏覽至現有的分散式交換器、然後選擇建立 * 新的分散式連接埠群組 ... * 的動作。
++
+image::vmware-nfs-otv10-image01.png[選擇以建立新的連接埠群組]
+
++
+｛ nbsp ｝
+
+. 在 * 新增分散式連接埠群組 * 精靈中、填入新連接埠群組的名稱、然後按一下 * 下一步 * 繼續。
+. 在「 * 組態設定 * 」頁面上、填寫所有設定。如果使用 VLAN 、請務必提供正確的 VLAN ID 。按一下 * 下一步 * 繼續。
++
+image::vmware-vcf-asa-image23.png[填寫 VLAN ID]
+
++
+｛ nbsp ｝
+
+. 在「 * 準備完成 * 」頁面上、檢閱變更、然後按一下「 * 完成 * 」來建立新的分散式連接埠群組。
+. 建立連接埠群組之後、請瀏覽至連接埠群組、然後選取「 * 編輯設定 ... * 」動作。
++
+image::vmware-vcf-aff-image37.png[DPG - 編輯設定]
+
++
+｛ nbsp ｝
+
+. 在 * 分散式連接埠群組 - 編輯設定 * 頁面上、瀏覽左方功能表中的 * 成組和容錯移轉 * 。確保 Uplinks 位於 *Active 上行鏈路 * 區域中、以啟用用於 NFS 流量的群組。將任何未使用的上行鏈路向下移至 * 未使用的上行鏈路 * 。
++
+image::vmware-nfs-otv10-image02.png[DPG - 團隊上行鏈路]
+
++
+｛ nbsp ｝
+
+. 對叢集中的每個 ESXi 主機重複此程序。
+
+
+====
+.在每個 ESXi 主機上建立 VMkernel 介面卡
+[%collapsible]
+====
+在工作負載網域中的每個 ESXi 主機上重複此程序。
+
+. 從 vSphere 用戶端導覽至工作負載網域清查中的其中一個 ESXi 主機。從 * 組態 * 標籤中選取 * VMkernel 介面卡 * 、然後按一下 * 新增網路 ... * 開始。
++
+image::vmware-nfs-otv10-image03.png[開始新增網路精靈]
+
++
+｛ nbsp ｝
+
+. 在 *Select connection type* （選擇連接類型 * ）窗口中選擇 *VMkernel Network Adapter* （ VMkernel 網絡適配器 * ），然後單擊 *Next* （下一步）繼續。
++
+image::vmware-vcf-asa-image08.png[選擇 [VMkernel 網路介面卡 ]]
+
++
+｛ nbsp ｝
+
+. 在「 * 選取目標裝置 * 」頁面上、選擇先前建立的 NFS 分散式連接埠群組之一。
++
+image::vmware-nfs-otv10-image04.png[選擇目標連接埠群組]
+
++
+｛ nbsp ｝
+
+. 在「 * 連接埠內容 * 」頁面上保留預設值（無啟用的服務）、然後按一下「 * 下一步 * 」繼續。
+. 在 *IPv4 settings* 頁面上，填寫 *IP 地址 * 、 * 子網掩碼 * ，並提供新的網關 IP 地址（僅在需要時）。按一下 * 下一步 * 繼續。
++
+image::vmware-nfs-otv10-image05.png[VMkernel IPv4 設定]
+
++
+｛ nbsp ｝
+
+. 在「 * 準備完成 * 」頁面上檢閱您的選擇、然後按一下「 * 完成 * 」來建立 VMkernel 介面卡。
++
+image::vmware-nfs-otv10-image06.png[檢閱 VMkernel 選擇]
+
+
+
+====
+
+
+==== 部署並使用 ONTAP 工具 10 來設定儲存設備
+
+以下步驟是使用 vSphere 用戶端在 vSphere 8 叢集上執行、包括部署 OTV 、設定 ONTAP 工具管理員、以及建立 vVols NFS 資料存放區。
+
+有關部署和使用適用於 VMware vSphere 10 的 ONTAP 工具的完整文檔 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/prepare-deployment.html["準備部署適用於 VMware vSphere 的 ONTAP 工具"]，請參閱。
+
+.部署適用於 VMware vSphere 10 的 ONTAP 工具
+[%collapsible]
+====
+適用於 VMware vSphere 10 的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。ONTAP 工具 10 採用全新的全球管理入口網站、可管理多個 vCenter 伺服器和 ONTAP 儲存設備後端的連線。
+
+
+NOTE: 在非 HA 部署案例中、需要三個可用的 IP 位址。一個 IP 位址會分配給負載平衡器、另一個 IP 位址分配給 Kubernetes 控制平面、另一個 IP 位址則分配給節點。在 HA 部署中、除了最初的三個節點之外、第二個和第三個節點還需要兩個額外的 IP 位址。在指派之前、主機名稱應與 DNS 中的 IP 位址相關聯。所有五個 IP 位址都必須位於同一個 VLAN 上、這是為部署所選的。
+
+請完成下列步驟、以部署適用於 VMware vSphere 的 ONTAP 工具：
+
+. 從取得 ONTAP 工具 OVA 映像link:https://mysupport.netapp.com/site/products/all/details/otv10/downloads-tab["NetApp 支援網站"]、然後下載至本機資料夾。
+. 登入 vSphere 8 叢集的 vCenter 應用裝置。
+. 在 vCenter 應用裝置介面上、以滑鼠右鍵按一下管理叢集、然後選取 * 部署 OVF 範本… *
++
+image::vmware-nfs-otv10-image07.png[部署 OVF 範本 ...]
+
++
+｛ nbsp ｝
+
+. 在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取上一步中下載的 ONTAP 工具 OVA 檔案。
++
+image::vmware-vcf-aff-image22.png[選取 OVA 檔案]
+
++
+｛ nbsp ｝
+
+. 如需精靈的步驟 2 至 5 、請選取虛擬機器的名稱和資料夾、選取運算資源、檢閱詳細資料、然後接受授權合約。
+. 針對組態和磁碟檔案的儲存位置、選取本機資料存放區或 vSAN 資料存放區。
++
+image::vmware-nfs-otv10-image08.png[選取 OVA 檔案]
+
++
+｛ nbsp ｝
+
+. 在「選取網路」頁面上、選取用於管理流量的網路。
++
+image::vmware-nfs-otv10-image09.png[選取網路]
+
++
+｛ nbsp ｝
+
+. 在「組態」頁面上、選取要使用的部署組態。在此案例中、使用簡易部署方法。
++
+
+NOTE: ONTAP 工具 10 具備多種部署組態、包括使用多個節點的高可用度部署。有關所有部署組態的文件，請參閱 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/prepare-deployment.html["準備部署適用於 VMware vSphere 的 ONTAP 工具"]。
+
++
+image::vmware-nfs-otv10-image10.png[選取網路]
+
++
+｛ nbsp ｝
+
+. 在「自訂範本」頁面上、填寫所有必要資訊：
++
+** 用於在 vCenter Server 中登錄 VASA 提供者和 SRA 的應用程式使用者名稱。
+** 啟用 ASUP 以獲得自動化支援。
+** ASUP Proxy URL （如果需要）。
+** 系統管理員使用者名稱和密碼。
+** NTP 伺服器。
+** 維護使用者密碼、可從主控台存取管理功能。
+** 負載平衡器 IP 。
+** K8s 控制平面的虛擬 IP 。
+** 主要 VM 以選取目前的 VM 作為主要 VM （適用於 HA 組態）。
+** VM 的主機名稱
+** 提供必要的網路內容欄位。
++
+按一下 * 下一步 * 繼續。
+
++
+image::vmware-nfs-otv10-image11.png[自訂 OTV 範本 1.]
+
++
+image::vmware-nfs-otv10-image12.png[自訂 OTV 範本 2.]
+
++
+｛ nbsp ｝
+
+
+
+. 檢閱「準備完成」頁面上的所有資訊、然後按一下「完成」以開始部署 ONTAP 工具應用裝置。
+
+
+====
+.將儲存後端和 vCenter Server 連線至 ONTAP 工具 10 。
+[%collapsible]
+====
+ONTAP 工具管理員用於設定 ONTAP 工具 10 的全域設定。
+
+.  https://loadBalanceIP:8443/virtualization/ui/[]在網頁瀏覽器中瀏覽至、然後使用部署期間提供的管理認證登入、即可存取 ONTAP 工具管理員。
++
+image::vmware-nfs-otv10-image13.png[ONTAP 工具管理程式]
+
++
+｛ nbsp ｝
+
+. 在 * 入門 * 頁面上、按一下 * 移至儲存設備後端 * 。
++
+image::vmware-nfs-otv10-image14.png[快速入門]
+
++
+｛ nbsp ｝
+
+. 在 * 儲存設備後端 * 頁面上、按一下 * 新增 * 以填寫要使用 ONTAP 工具 10 註冊的 ONTAP 儲存系統認證。
++
+image::vmware-nfs-otv10-image15.png[新增儲存後端]
+
++
+｛ nbsp ｝
+
+. 在 * 新增儲存後端 * 方塊中、填寫 ONTAP 儲存系統的認證。
++
+image::vmware-nfs-otv10-image16.png[新增儲存後端]
+
++
+｛ nbsp ｝
+
+. 在左側功能表中、按一下 * vCenters * 、然後按 * 新增 * 、以填寫 vCenter 伺服器的認證資料、以便使用 ONTAP 工具 10 進行登錄。
++
+image::vmware-nfs-otv10-image17.png[新增 vCenter 伺服器]
+
++
+｛ nbsp ｝
+
+. 在 * 新增 vCenter * 方塊中、填寫 ONTAP 儲存系統的認證。
++
+image::vmware-nfs-otv10-image18.png[新增儲存設備認證]
+
++
+｛ nbsp ｝
+
+. 從新探索到的 vCenter 伺服器的垂直三點功能表中、選取 * 關聯儲存後端 * 。
++
+image::vmware-nfs-otv10-image19.png[建立儲存後端的關聯]
+
++
+｛ nbsp ｝
+
+. 在 * 關聯儲存後端 * 方塊中、選取與 vCenter 伺服器相關聯的 ONTAP 儲存系統、然後按一下 * 關聯 * 以完成此動作。
++
+image::vmware-nfs-otv10-image20.png[選擇要關聯的儲存系統]
+
++
+｛ nbsp ｝
+
+. 若要驗證安裝、請登入 vSphere 用戶端、然後從左側功能表中選取 * NetApp ONTAP tools* 。
++
+image::vmware-nfs-otv10-image21.png[存取 ONTAP 工具外掛程式]
+
++
+｛ nbsp ｝
+
+. 從 ONTAP 工具儀表板、您應該會看到儲存後端與 vCenter Server 相關聯。
++
+image::vmware-nfs-otv10-image22.png[ONTAP 工具儀表板]
+
++
+｛ nbsp ｝
+
+
+
+====
+.使用 ONTAP 工具 10 建立 NFS 資料存放區
+[%collapsible]
+====
+請完成下列步驟、使用 ONTAP 工具 10 部署在 NFS 上執行的 ONTAP 資料存放區。
+
+. 在 vSphere 用戶端中、瀏覽至儲存設備詳細目錄。從 * 動作 * 功能表中、選取 * NetApp ONTAP 工具 > 建立資料存放區 * 。
++
+image::vmware-nfs-otv10-image23.png[ONTAP 工具 - 建立資料存放區]
+
++
+｛ nbsp ｝
+
+. 在 Create Datastore （建立資料存放區）精靈的 * Type* （類型 * ）頁面上、按一下 NFS （ NFS ）選項按鈕、然後按 * Next* （下一步）繼續。
++
+image::vmware-nfs-otv10-image24.png[選取資料存放區類型]
+
++
+｛ nbsp ｝
+
+. 在「 * 名稱和傳輸協定 * 」頁面上、填寫資料存放區的名稱、大小和傳輸協定。按一下 * 下一步 * 繼續。
++
+image::vmware-nfs-otv10-image25.png[選取資料存放區類型]
+
++
+｛ nbsp ｝
+
+. 在 * Storage* 頁面上、為該 Volume 選取平台（依類型篩選儲存系統）和儲存 VM 。您也可以選擇自訂匯出原則。按一下 * 下一步 * 繼續。
++
+image::vmware-nfs-otv10-image26.png[儲存頁面]
+
++
+｛ nbsp ｝
+
+. 在「 * 儲存屬性 * 」頁面上、選取要使用的儲存集合體、並選擇性地選取進階選項、例如空間保留和服務品質。按一下 * 下一步 * 繼續。
++
+image::vmware-nfs-otv10-image27.png[儲存屬性頁面]
+
++
+｛ nbsp ｝
+
+. 最後、請檢閱 * 摘要 * 、然後按一下完成、開始建立 NFS 資料存放區。
++
+image::vmware-nfs-otv10-image28.png[檢視摘要和完成]
+
+
+
+====
+.使用 ONTAP 工具調整 NFS 資料存放區大小 10.
+[%collapsible]
+====
+請完成下列步驟、使用 ONTAP 工具 10 調整現有 NFS 資料存放區的大小。
+
+. 在 vSphere 用戶端中、瀏覽至儲存設備詳細目錄。從 * 動作 * 功能表中、選取 * NetApp ONTAP 工具 > 調整資料存放區大小 * 。
++
+image::vmware-nfs-otv10-image30.png[選取調整資料存放區大小]
+
++
+｛ nbsp ｝
+
+. 在 * 調整資料存放區大小 * 精靈中、以 GB 填入資料存放區的新大小、然後按一下 * 調整大小 * 以繼續。
++
+image::vmware-nfs-otv10-image31.png[調整資料存放區大小精靈]
+
++
+｛ nbsp ｝
+
+. 在 *Recent Tasks* 窗格中監控調整工作大小的進度。
++
+image::vmware-nfs-otv10-image32.png[最近工作窗格]
+
++
+｛ nbsp ｝
+
+
+
+====
+
+
+=== 其他資訊
+
+如需 ONTAP Tools for VMware vSphere 10 資源的完整清單 https://www.netapp.com/support-and-training/documentation/ontap-tools-for-vmware-vsphere-documentation/["適用於 VMware vSphere 的 ONTAP 工具文件資源"]、請參閱。
+
+如需設定 ONTAP 儲存系統的詳細資訊link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/["ONTAP 10 說明文件"]、請參閱中心。
