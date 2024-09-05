@@ -20,11 +20,7 @@ summary:
 
 
 
-== VVOL 資料存放區是 VI 工作負載網域的主要儲存設備
-
-
-
-=== 案例總覽
+== 案例總覽
 
 在適當情況下、我們會參考外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並僅涵蓋儲存組態部分的特定步驟。
 
@@ -46,7 +42,7 @@ summary:
 
 
 
-=== 先決條件
+== 先決條件
 
 此案例需要下列元件和組態：
 
@@ -68,13 +64,13 @@ NOTE: 部署 VI 工作負載網域時、 VCF 會驗證與 NFS 伺服器的連線
 
 
 
-=== 部署步驟
+== 部署步驟
 
 將 vVols 資料存放區部署為主要儲存設備的 VI 工作負載網域、可分成兩個不同的群組。使用適用於 VMware vSphere 的 ONTAP 工具建立 VVols 容器的相關步驟、以及在 VCF SDDC Manager 中完成的步驟。
 
 
 
-==== 使用 ONTAP 工具建立 VVols 容器
+=== 使用 ONTAP 工具建立 VVols 容器
 
 完成下列步驟、在 ONTAP 儲存系統上建立 VVols 容器。
 
@@ -226,6 +222,6 @@ image::vmware-vcf-aff-image34.png[VVOL 容器申請表]
 ====
 
 
-==== 使用 vVols 部署 VI 工作負載網域作為主要儲存設備
+=== 使用 vVols 部署 VI 工作負載網域作為主要儲存設備
 
 請在 SDDC Manager 中完成下列步驟、以將 VVols 作為主要儲存設備來部署 VI 工作負載網域。

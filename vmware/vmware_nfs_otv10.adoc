@@ -13,10 +13,6 @@ summary:
 :imagesdir: ./../media/
 
 
-
-
-== 使用 ONTAP 工具 10 為 vSphere 8 設定 NFS 資料存放區
-
 [role="lead"]
 適用於 VMware vSphere 10 的 ONTAP 工具具備新一代架構、可為 VASA Provider （支援 iSCSI 和 NFS vVols ）提供原生高可用度和擴充性。如此可簡化多個 VMware vCenter 伺服器和 ONTAP 叢集的管理。
 
@@ -24,7 +20,7 @@ summary:
 
 
 
-=== 解決方案總覽
+== 解決方案總覽
 
 此案例涵蓋下列高層級步驟：
 
@@ -37,7 +33,7 @@ summary:
 
 
 
-=== 架構
+== 架構
 
 下圖顯示適用於 VMware vSphere 10 實作的 ONTAP 工具架構元件。
 
@@ -45,7 +41,7 @@ image::vmware-nfs-otv10-image29.png[otv10 架構]
 
 
 
-=== 先決條件
+== 先決條件
 
 此解決方案需要下列元件和組態：
 
@@ -64,13 +60,13 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 
 
 
-=== 部署步驟
+== 部署步驟
 
 若要部署 ONTAP 工具 10 並使用它在 VCF 管理網域上建立 NFS 資料存放區、請完成下列步驟：
 
 
 
-==== 在 ONTAP 儲存系統上建立 SVM 和生命
+=== 在 ONTAP 儲存系統上建立 SVM 和生命
 
 下列步驟是在 ONTAP 系統管理員中執行。
 
@@ -110,7 +106,7 @@ image::vmware-vcf-asa-image04.png[啟用 SVM 帳戶並完成]
 ====
 
 
-==== 在 ESXi 主機上設定 NFS 網路
+=== 在 ESXi 主機上設定 NFS 網路
 
 以下步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行的。在此案例中、正在使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中是通用的。
 
@@ -196,7 +192,7 @@ image::vmware-nfs-otv10-image06.png[檢閱 VMkernel 選擇]
 ====
 
 
-==== 部署並使用 ONTAP 工具 10 來設定儲存設備
+=== 部署並使用 ONTAP 工具 10 來設定儲存設備
 
 以下步驟是使用 vSphere 用戶端在 vSphere 8 叢集上執行、包括部署 OTV 、設定 ONTAP 工具管理員、以及建立 vVols NFS 資料存放區。
 
@@ -441,7 +437,7 @@ image::vmware-nfs-otv10-image32.png[最近工作窗格]
 ====
 
 
-=== 其他資訊
+== 其他資訊
 
 如需 ONTAP Tools for VMware vSphere 10 資源的完整清單 https://www.netapp.com/support-and-training/documentation/ontap-tools-for-vmware-vsphere-documentation/["適用於 VMware vSphere 的 ONTAP 工具文件資源"]、請參閱。
 

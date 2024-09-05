@@ -13,10 +13,6 @@ summary:
 :imagesdir: ./../media/
 
 
-
-
-== 使用 VMware Site Recovery Manager 進行 NFS 資料存放區的災難恢復
-
 [role="lead"]
 VMware vSphere 10 的 ONTAP 工具與站台複寫介面卡（ SRA ）搭配使用、可為災難恢復工作帶來重大價值。ONTAP 工具 10 提供強大的儲存功能、包括 VASA 供應商的原生高可用度和擴充性、可支援 iSCSI 和 NFS vVols 。如此可確保資料可用度、並簡化多個 VMware vCenter 伺服器和 ONTAP 叢集的管理。透過將 SRA 搭配 VMware Site Recovery Manager 使用、組織可以在站台之間實現虛擬機器和資料的無縫複寫和容錯移轉、進而實現高效率的災難恢復程序。工具與 ONTAP A 的結合、讓企業能夠在發生無法預見的事件或災難時、保護關鍵工作負載、將停機時間降至最低、並維持業務持續運作。
 
@@ -28,7 +24,7 @@ SRA與SRM搭配使用、可管理傳統VMFS與NFS資料存放區的正式作業�
 
 
 
-=== 案例總覽
+== 案例總覽
 
 此案例涵蓋下列高層級步驟：
 
@@ -42,7 +38,7 @@ SRA與SRM搭配使用、可管理傳統VMFS與NFS資料存放區的正式作業�
 
 
 
-=== 架構
+== 架構
 
 下圖顯示典型的 VMware Site Recovery 架構、其中包含適用於 VMware vSphere 10 的 ONTAP 工具、並以 3 節點高可用度組態進行設定。
 
@@ -52,7 +48,7 @@ image::vmware-nfs-srm-image05.png[設定應用裝置]
 
 
 
-=== 先決條件
+== 先決條件
 
 此案例需要下列元件和組態：
 
@@ -76,13 +72,13 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 
 
 
-=== 部署步驟
+== 部署步驟
 
 以下各節概述使用 ONTAP 儲存系統實作及測試 VMware Site Recovery Manager 組態的部署步驟。
 
 
 
-==== 在 ONTAP 儲存系統之間建立 SnapMirror 關係
+=== 在 ONTAP 儲存系統之間建立 SnapMirror 關係
 
 必須在來源和目的地 ONTAP 儲存系統之間建立 SnapMirror 關係、才能保護資料存放區磁碟區。
 
@@ -92,7 +88,7 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 
 
 
-==== 設定 SRM 應用裝置
+=== 設定 SRM 應用裝置
 
 完成下列步驟以設定 SRM 應用裝置和 SRA 介面卡。
 
@@ -101,7 +97,7 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 ====
 主要站台和次要站台都必須完成下列步驟。
 
-. 在網頁瀏覽器中 https://<SRM_appliance_IP>:5480[]、瀏覽並登入。按一下 * 設定設備 * 即可開始使用。
+. 在網頁瀏覽器中 https://<SRM_appliance_IP>:5480*[]、瀏覽並登入。按一下 * 設定設備 * 即可開始使用。
 +
 image::vmware-nfs-srm-image01.png[設定應用裝置]
 
@@ -146,7 +142,7 @@ image::vmware-nfs-srm-image04.png[新增 SRM 介面卡]
 ====
 
 
-==== 設定 SRM 的站台恢復
+=== 設定 SRM 的站台恢復
 
 完成下列步驟以設定站台配對、建立保護群組、
 
@@ -328,7 +324,7 @@ image::vmware-nfs-srm-image26.png[測試網路]
 ====
 
 
-=== 使用 SRM 進行災難恢復作業
+== 使用 SRM 進行災難恢復作業
 
 在本節中、將涵蓋使用 SRM 進行災難恢復的各種功能、包括測試容錯移轉、執行容錯移轉、執行重新保護和容錯回復。
 
@@ -394,7 +390,7 @@ image::vmware-nfs-srm-image32.png[Filover 完成]
 
 
 
-=== 其他資訊
+== 其他資訊
 
 如需將 ONTAP 儲存設備與 VMware SRM 搭配使用的 NetApp 文件、請參閱 https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-overview.html#why-use-ontap-with-srm["VMware Site Recovery Manager 搭配 ONTAP"]
 

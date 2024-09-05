@@ -11,15 +11,6 @@ summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援iSCSI VMF
 :icons: font
 :linkattrs: 
 :imagesdir: ./../media/
-:scriptsdir: ./../scripts/
-:author: Suresh Thoppay, TME - Hybrid Cloud Solutions
-:ontap_version: ONTAP 9.8 or later
-:vsphere_version: vSphere 7.0 or later
-:firstname: Suresh
-:authorinitials: STT
-:middlename: Thoppay,
-:lastname: TME - Hybrid Cloud Solutions
-:authors: Suresh Thoppay, TME - Hybrid Cloud Solutions
 
 
 [role="lead"]
@@ -32,14 +23,14 @@ summary: 本頁提供在ONTAP VMware vSphere環境中部署NetApp支援iSCSI VMF
 == 您需要的一切
 
 * 管理vSphere環境與ONTAP VMware所需的基本技能。
-* 執行 ONTAP 9.8 或更新版本的 ONTAP 儲存系統（ FAS/AFF/CVO/ONTAP Select/ASA ）
+* 執行｛ONTAP_version｝的支援系統（FAS/AFF/CVO/ONTAP Select/ASA）ONTAP
 * 資訊（SVM名稱、使用者ID和密碼）ONTAP
 * iSCSI的網路連接埠、SVM和LUN資訊ONTAP
 * link:++https://docs.netapp.com/ontap-9/topic/com.netapp.doc.exp-iscsi-esx-cpg/GUID-429C4DDD-5EC0-4DBD-8EA8-76082AB7ADEC.html++["完整的iSCSI組態工作表"]
 * vCenter Server認證
 * vSphere主機資訊
 +
-** vSphere 7.0 或更新版本
+** ｛vSphere_version｝
 
 
 * iSCSI VMKernel 介面卡 IP 資訊

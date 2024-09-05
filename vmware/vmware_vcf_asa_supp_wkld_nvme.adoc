@@ -20,11 +20,7 @@ summary:
 
 
 
-== 為 VCF 工作負載網域設定 NVMe / TCP 補充儲存設備
-
-
-
-=== 案例總覽
+== 案例總覽
 
 此案例涵蓋下列高層級步驟：
 
@@ -37,7 +33,7 @@ summary:
 
 
 
-=== 先決條件
+== 先決條件
 
 此案例需要下列元件和組態：
 
@@ -58,13 +54,13 @@ image::vmware-vcf-asa-image74.png[NVMe TCP 網路設計]
 
 
 
-=== 部署步驟
+== 部署步驟
 
 若要使用 NVMe / TCP 在 VCF 工作負載網域上建立 VMFS 資料存放區、請完成下列步驟。
 
 
 
-==== 在 ONTAP 儲存系統上建立 SVM 、 Lifs 和 NVMe 命名空間
+=== 在 ONTAP 儲存系統上建立 SVM 、 Lifs 和 NVMe 命名空間
 
 下列步驟是在 ONTAP 系統管理員中執行。
 
@@ -144,7 +140,7 @@ image::vmware-vcf-asa-image93.png[按一下「 + 新增」以建立 NVMe 命名�
 ====
 
 
-==== 在 ESXi 主機上設定網路和 NVMe 軟體介面卡
+=== 在 ESXi 主機上設定網路和 NVMe 軟體介面卡
 
 下列步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行。在此案例中、我們使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中都是通用的。
 
@@ -334,7 +330,7 @@ image::vmware-vcf-asa-image107.png[連線至資料存放區的主機]
 ====
 
 
-=== 其他資訊
+== 其他資訊
 
 如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
 

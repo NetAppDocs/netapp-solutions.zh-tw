@@ -22,11 +22,7 @@ summary:
 
 
 
-== 使用 ONTAP 工具來設定 VCF 工作負載網域的補充儲存（ NFS 和 VVols ）
-
-
-
-=== 案例總覽
+== 案例總覽
 
 此案例涵蓋下列高層級步驟：
 
@@ -40,7 +36,7 @@ summary:
 
 
 
-=== 先決條件
+== 先決條件
 
 此案例需要下列元件和組態：
 
@@ -59,13 +55,13 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 
 
 
-=== 部署步驟
+== 部署步驟
 
 若要部署 ONTAP 工具、並使用它在 VCF 管理網域上建立 VVols 和 NFS 資料存放區、請完成下列步驟：
 
 
 
-==== 在 ONTAP 儲存系統上建立 SVM 和生命
+=== 在 ONTAP 儲存系統上建立 SVM 和生命
 
 下列步驟是在 ONTAP 系統管理員中執行。
 
@@ -192,7 +188,7 @@ image::vmware-vcf-aff-image41.png[檢閱 VMkernel 選擇]
 ====
 
 
-==== 部署並使用 ONTAP 工具來設定儲存設備
+=== 部署並使用 ONTAP 工具來設定儲存設備
 
 下列步驟是使用 vSphere 用戶端在 VCF 管理網域叢集上執行、包括部署 OTV 、建立 vVols NFS 資料存放區、以及將管理 VM 移轉至新的資料存放區。
 
@@ -373,7 +369,7 @@ image::vmware-vcf-aff-image49.png[摘要頁面]
 ====
 
 
-=== 其他資訊
+== 其他資訊
 
 如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
 
