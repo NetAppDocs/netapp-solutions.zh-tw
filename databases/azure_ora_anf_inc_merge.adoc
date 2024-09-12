@@ -55,7 +55,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 === 架構
 
-image::azure_ora_anf_vldb_architecture.png[此映像提供在 Azure 公有雲與 anf 中執行 Oracle VLDB 遞增合併實作的詳細圖片。]
+image:azure_ora_anf_vldb_architecture.png["此映像提供在 Azure 公有雲與 anf 中執行 Oracle VLDB 遞增合併實作的詳細圖片。"]
 
 
 
@@ -139,27 +139,27 @@ NOTE: 請確定您已在 Azure VM 根 Volume 中至少分配 128G 、以便有�
 
 . 首先、從 Azure 入口網站主控台、瀏覽至用於暫存 Oracle VLDB 映像複本的 anf 容量集區。
 +
-image::azure_ora_anf_vldb_vol_01.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_01.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 從所選容量集區 - `database`、按一下 `Volumes` 然後、 `Add volume` 啟動附加 Volume 工作流程。
 +
-image::azure_ora_anf_vldb_vol_02.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_02.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 填寫 `Volume name`、 `Quota`、 `Virtual network`和 `Delegated subnet` 以移至 `Protocol` 頁面。
 +
-image::azure_ora_anf_vldb_vol_03.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_03.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 記下檔案路徑、輸入允許的用戶端 CIDR 範圍、然後啟用 `Root Access` 適用於 Volume 。
 +
-image::azure_ora_anf_vldb_vol_04.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_04.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 視需要新增Volume標記。
 +
-image::azure_ora_anf_vldb_vol_05.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_05.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 檢閱並建立磁碟區。
 +
-image::azure_ora_anf_vldb_vol_06.png[此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面]
+image:azure_ora_anf_vldb_vol_06.png["此映像使用 Azure 入口網站主控台提供無磁碟區資源配置畫面"]
 
 . 以具有 Sudo 權限的使用者身分登入主要 Oracle VLDB 伺服器、並掛載從 anf 儲存設備匯出的 NFS 磁碟區。視需要變更為您的 ANF NFS 伺服器 IP 位址和檔案路徑。您可以從 anf Volume 主控台頁面擷取 anf NFS 伺服器 IP 位址。
 +

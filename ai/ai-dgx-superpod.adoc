@@ -5,14 +5,18 @@ keywords: netapp, aipod, nvidia, dgx superpod, ai solution, design
 summary: 此 NetApp 認證架構說明採用 NetApp ® BeeGFS 建置模塊的 NVIDIA DGX SuperPOD 設計。此解決方案是完整堆疊的資料中心平台、通過 NVIDIA 專屬驗收叢集的驗證。 
 ---
 = NVIDIA DGX SuperPOD with NetApp - 設計指南
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
 
 
+[role="lead"]
+此 NetApp 認證架構說明採用 NetApp ® BeeGFS 建置模塊的 NVIDIA DGX SuperPOD 設計。此解決方案是完整堆疊的資料中心平台、通過 NVIDIA 專屬驗收叢集的驗證。
 
-
-== NVIDIA DGX SuperPOD with NetApp - 設計指南
-
-image::NVIDIAlogo.png[200]
+image:NVIDIAlogo.png["200,200"]
 
 NetApp 的 Amine Bennani 、 David Arnette 和 Sathish Thyagarajan
 
@@ -51,7 +55,7 @@ NetApp EF600 全快閃陣列是 NVIDIA DGX SuperPOD 的基礎、客戶可獲得�
 
 _ 解決方案的高階檢視 _
 
-image::EF_SuperPOD_HighLevel.png[EF SuperPOD 高階]
+image:EF_SuperPOD_HighLevel.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 * NetApp BeeGFS 建置區塊包含兩個 NetApp EF600 陣列和兩個 x86 伺服器：
 +
@@ -65,7 +69,7 @@ image::EF_SuperPOD_HighLevel.png[EF SuperPOD 高階]
 
 NetApp BeeGFS 建置區塊 _
 
-image::EF_SuperPOD_buildingblock.png[EF SuperPOD 建置區塊]
+image:EF_SuperPOD_buildingblock.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 

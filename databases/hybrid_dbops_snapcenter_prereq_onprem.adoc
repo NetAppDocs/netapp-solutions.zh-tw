@@ -40,26 +40,26 @@ NetApp SnapCenter 支援工具是Windows型應用程式、通常可在Windows網
 
 透過NFS或iSCSI直接將儲存LUN連接至客體VM、以處理虛擬化資料庫工作負載、通常比透過VMDK配置的儲存設備提供更好的效能。NetApp建議將大型SQL Server資料庫的儲存配置放在LUN上、如下圖所示。
 
-image::storage_layout_sqlsvr_large.PNG[儲存配置 sqlsvr 大]
+image:storage_layout_sqlsvr_large.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 下圖顯示NetApp建議的LUN上小型或中型SQL Server資料庫儲存配置。
 
-image::storage_layout_sqlsvr_smallmedium.PNG[儲存配置 sqlsvr fallmedium]
+image:storage_layout_sqlsvr_smallmedium.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 記錄目錄專門用於SnapCenter 執行交易記錄彙總以進行資料庫恢復。對於超大型資料庫、可將多個LUN分配給一個磁碟區、以獲得更好的效能。
 
 對於Oracle資料庫工作負載、SnapCenter 支援ONTAP 以實體或虛擬裝置掛載到主機上的支援不受支援的資料庫環境。您可以根據環境的重要性、將整個資料庫裝載在單一或多個儲存裝置上。一般而言、客戶會將專用儲存設備上的資料檔案與所有其他檔案（例如控制檔、重作檔案和歸檔記錄檔）隔離。這有助於系統管理員在ONTAP 數秒到數分鐘內、使用SnapRestore Snapshot技術快速還原（僅需一個檔案即可還原）或複製大型關鍵資料庫（PB規模）。
 
-image::storage_layout_oracle_typical.PNG[Oracle 典型儲存配置]
+image:storage_layout_oracle_typical.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 對於對延遲敏感的關鍵任務工作負載、應將專用儲存磁碟區部署至不同類型的Oracle檔案、以達到最佳的延遲。對於大型資料庫、應將每個磁碟區的多個LUN（NetApp建議最多八個）分配給資料檔案。
 
-image::storage_layout_oracle_dedicated.PNG[Oracle Dedicated 儲存配置]
+image:storage_layout_oracle_dedicated.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 對於較小的Oracle資料庫、SnapCenter 支援共享儲存配置、您可以在同一個儲存磁碟區或LUN上裝載多個資料庫或資料庫的一部分。例如、您可以裝載+data ASM磁碟群組或Volume群組上所有資料庫的資料檔案。其餘的檔案（重作、歸檔記錄和控制檔）可裝載在另一個專用磁碟群組或磁碟區群組（LVM）上。此類部署案例如下所示。
 
-image::storage_layout_oracle_shared.PNG[Oracle 共享的儲存配置]
+image:storage_layout_oracle_shared.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 為了方便重新配置Oracle資料庫、Oracle二進位檔應安裝在一般備份原則所包含的個別LUN上。如此可確保在資料庫重新配置至新伺服器主機時、Oracle堆疊可啟動以進行還原、而不會因為Oracle二進位不同步而發生任何潛在問題。
 

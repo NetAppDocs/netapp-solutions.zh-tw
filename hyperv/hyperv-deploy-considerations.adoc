@@ -68,18 +68,18 @@ SMB 3.0 檔案共用可做為 Hyper-V 的共用儲存設備ONTAP 支援在 Hyper
 . 確認儲存虛擬機器（ SVM ）上已啟用必要的 CIFS 伺服器選項
 . 下列選項應設為 true ：啟用 SMB2 的 smb3 啟用複製卸載的 ShadowCopy-enabled is - 啟用多通道的 smb2-smb3-mtu
 +
-image::hyperv-deploy-image03.png[SMB colume 設定的影像]
+image:hyperv-deploy-image03.png["SMB colume 設定的影像"]
 
 . 在儲存虛擬機器（ SVM ）上建立 NTFS 資料磁碟區、然後設定持續可用的共享區、以搭配 Hyper-V 使用
 +
-image::hyperv-deploy-image04.png[NTFS 資料磁碟區設定的影像]
+image:hyperv-deploy-image04.png["NTFS 資料磁碟區設定的影像"]
 
 +
 * 附註 * ：除非將組態中使用的磁碟區建立為 NTFS 安全型磁碟區、否則透過 SMB 執行 Hyper-V 的不中斷作業將無法正常運作。
 
 . 在共用上啟用持續可用的 NTFS 權限、並將其設定為包含完全控制的 Hyper-V 節點。
 +
-image::hyperv-deploy-image05.png[NTFS 權限設定的映像]
+image:hyperv-deploy-image05.png["NTFS 權限設定的映像"]
 
 
 
@@ -127,7 +127,7 @@ image::hyperv-deploy-image05.png[NTFS 權限設定的映像]
 . 瀏覽並選擇要在其中建立 LUN 的指定 SVM 、並顯示 Create LUN Wizard （建立 LUN 精靈）。
 . 在「一般內容」頁面上、針對包含 Hyper-V 虛擬機器虛擬硬碟（ VHD ）的 LUN 選取 Hyper-V 。
 +
-image::hyperv-deploy-image06.png[Hyper-V LUN 建立的「一般內容」頁面影像]
+image:hyperv-deploy-image06.png["Hyper-V LUN 建立的「一般內容」頁面影像"]
 
 . 在 LUN Container 頁面上、選擇現有的 FlexVol Volume 、否則將建立新的 Volume 。
 . 在 [ 啟動器對應 ] 頁面上按一下 [ 其他選項 ] ，然後按一下 [ 新增啟動器群組 ] ，在 [ 一般 ] 索引標籤上輸入必要的資訊，再在 [ 啟動器 ] 索引標籤上輸入主機的 iSCSI 啟動器節點名稱。
@@ -146,7 +146,7 @@ image::hyperv-deploy-image06.png[Hyper-V LUN 建立的「一般內容」頁面�
 . 磁碟現在已指派給可用的儲存群組。
 . 完成後、請選取剛指派給可用儲存設備的磁碟、以滑鼠右鍵按一下選取項目、然後選取新增至叢集共用磁碟區。
 +
-image::hyperv-deploy-image07.png[新增至叢集共享磁碟區介面影像]
+image:hyperv-deploy-image07.png["新增至叢集共享磁碟區介面影像"]
 
 . 磁碟現在已指派給叢集中的叢集共用 Volume 群組。磁碟會以編號的磁碟區（掛載點）形式、顯示在 %SystemDrive%ClusterStorage 資料夾下。這些磁碟區會出現在 CSVFS 檔案系統中。
 

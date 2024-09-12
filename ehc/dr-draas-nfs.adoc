@@ -22,7 +22,7 @@ summary: 本文件本節說明 BlueXP  DRaaS 的組態、以便為內部部署�
 
 BlueXP  災難恢復利用 ONTAP 的 FlexClone 技術，從災難恢復站點上一次複製的 Snapshot 中創建 NFS 數據存儲的空間效率高的副本。完成災難恢復測試之後、客戶可以輕鬆刪除測試環境、而不會影響實際複製的正式作業資源。如果是實際的容錯移轉、 BlueXP  災難恢復服務會協調所有必要步驟、只要按幾下滑鼠、就能自動在指定的災難恢復站台上啟動受保護的虛擬機器。服務也會反轉與主要站台的 SnapMirror 關係、並視需要將任何變更從次要站台複寫到主要站台、以進行容錯回復作業。相較於其他知名的替代方案、這些功能的成本只有一小部分。
 
-image::dr-draas-nfs-image1.png[DR DRaaS NFS 影像 1]
+image:dr-draas-nfs-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -34,7 +34,7 @@ image::dr-draas-nfs-image1.png[DR DRaaS NFS 影像 1]
 . 從 BlueXP  左側導覽中、選取保護 > 災難恢復。
 . BlueXP  災難恢復儀表板即會出現。
 +
-image::dr-draas-nfs-image2.png[DR DRaaS NFS 影像 2.]
+image:dr-draas-nfs-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -54,7 +54,7 @@ image::dr-draas-nfs-image2.png[DR DRaaS NFS 影像 2.]
 
 NOTE: NetApp 建議您在目的地站台或第三站台部署 BlueXP  連接器、以便 BlueXP  連接器能夠透過網路與來源和目的地資源進行通訊。
 
-image::dr-draas-nfs-image3.png[DR DRaaS NFS 影像 3.]
+image:dr-draas-nfs-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -64,17 +64,17 @@ image::dr-draas-nfs-image3.png[DR DRaaS NFS 影像 3.]
 
 開啟 BlueXP  主控台、從左側導覽中選取 * 保護 > 災難恢復 * 。選取 * 探索 vCenter 伺服器 * 或使用上方功能表、選取 * 站台 > 新增 > 新增 vCenter * 。
 
-image::dr-draas-nfs-image4.png[DR DRaaS NFS Image4]
+image:dr-draas-nfs-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 新增下列平台：
 
 * * 資料來源 * 。內部部署 vCenter 。
 +
-image::dr-draas-nfs-image5.png[DR DRaaS NFS 影像 5.]
+image:dr-draas-nfs-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 * * 目的地 * 。VMC SDDC vCenter 。
 +
-image::dr-draas-nfs-image6.png[DR DRaaS NFS 影像 6.]
+image:dr-draas-nfs-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -97,14 +97,14 @@ NOTE: 如果已透過 CLI 或系統管理員為磁碟區設定 SnapMirror 關係
 
 建立 SnapMirror 複寫的程序對於任何指定的應用程式都維持不變。程序可以是手動或自動化。最簡單的方法是利用 BlueXP  來設定 SnapMirror 複寫、方法是將環境中的來源 ONTAP 系統簡單地拖放到目的地上、以觸發引導完成其餘程序的精靈。
 
-image::dr-draas-nfs-image7.png[DR DRaaS NFS 影像 7.]
+image:dr-draas-nfs-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如果符合下列兩項條件、 BlueXP  DRaaS 也可以自動化相同的資料：
 
 * 來源叢集和目的地叢集之間有對等關係。
 * 來源 SVM 和目的地 SVM 有對等關係。
 +
-image::dr-draas-nfs-image8.png[DR DRaaS NFS 影像 8.]
+image:dr-draas-nfs-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -117,36 +117,36 @@ NOTE: 如果已透過 CLI 為磁碟區設定 SnapMirror 關係、 BlueXP  DRaaS
 
 新增來源和目的地站台之後、 BlueXP  災難恢復會執行自動深度探索、並顯示 VM 及相關的中繼資料。BlueXP  災難恢復也會自動偵測虛擬機器所使用的網路和連接埠群組、並填入這些群組。
 
-image::dr-draas-nfs-image9.png[DR DRaaS NFS 影像 9.]
+image:dr-draas-nfs-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 新增站台之後、 VM 就可以分組到資源群組中。BlueXP  災難恢復資源群組可讓您將一組相關的 VM 分組為邏輯群組、其中包含可在恢復時執行的開機順序和開機延遲。若要開始建立資源群組、請瀏覽至 * 資源群組 * 、然後按一下 * 建立新資源群組 * 。
 
-image::dr-draas-nfs-image10.png[DR DRaaS NFS 影像 10.]
+image:dr-draas-nfs-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-draas-nfs-image11.png[DR DRaaS NFS 影像 11.]
+image:dr-draas-nfs-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 您也可以在建立複寫計畫時建立資源群組。
 
 您可以使用簡單的拖放機制、在建立資源群組期間定義或修改 VM 的開機順序。
 
-image::dr-draas-nfs-image12.png[DR DRaaS NFS 影像 12.]
+image:dr-draas-nfs-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 建立資源群組之後、下一步是建立執行藍圖或計畫、以便在發生災難時恢復虛擬機器和應用程式。如先決條件所述、可事先設定 SnapMirror 複寫、或使用建立複寫計畫時指定的 RPO 和保留計數來設定 DRaaS 。
 
-image::dr-draas-nfs-image13.png[DR DRaaS NFS 影像 13.]
+image:dr-draas-nfs-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-draas-nfs-image14.png[DR DRaaS NFS 影像 14.]
+image:dr-draas-nfs-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 從下拉式選單中選取來源和目的地 vCenter 平台、然後挑選要納入計畫的資源群組、以及如何還原和開啟應用程式、以及如何對應叢集和網路、以設定複寫計畫。若要定義恢復計畫、請瀏覽至 * 複寫計畫 * 標籤、然後按一下 * 新增計畫 * 。
 
 首先、選取來源 vCenter 、然後選取目的地 vCenter 。
 
-image::dr-draas-nfs-image15.png[DR DRaaS NFS 影像 15.]
+image:dr-draas-nfs-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 下一步是選取現有的資源群組。如果未建立任何資源群組、則精靈會協助根據還原目標將所需的虛擬機器分組（基本上是建立功能性資源群組）。這也有助於定義應用程式虛擬機器還原的操作順序。
 
-image::dr-draas-nfs-image16.png[DR DRaaS NFS 影像 16.]
+image:dr-draas-nfs-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 資源群組可讓您使用拖放功能來設定開機順序。它可用來輕鬆修改 VM 在恢復過程中開機的順序。
@@ -156,33 +156,33 @@ NOTE: 資源群組中的每個虛擬機器都會根據順序依序啟動。同�
 
 以下螢幕擷取畫面顯示如果未事先建立資源群組、則可根據組織需求篩選虛擬機器或特定資料存放區的選項。
 
-image::dr-draas-nfs-image17.png[DR DRaaS NFS 影像 17.]
+image:dr-draas-nfs-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 選取資源群組後、請建立容錯移轉對應。在此步驟中、指定來源環境中的資源如何對應到目的地。這包括運算資源、虛擬網路。IP 自訂、指令碼前後、開機延遲、應用程式一致性等。如需詳細資訊link:https://docs.netapp.com/us-en/bluexp-disaster-recovery/use/drplan-create.html#select-applications-to-replicate-and-assign-resource-groups["建立複寫計畫"]、請參閱。
 
-image::dr-draas-nfs-image18.png[DR DRaaS NFS 影像 18.]
+image:dr-draas-nfs-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 根據預設、測試和容錯移轉作業會使用相同的對應參數。若要為測試環境設定不同的對應、請在取消勾選核取方塊後、選取測試對應選項、如下所示：
 
-image::dr-draas-nfs-image19.png[DR DRaaS NFS 影像 19.]
+image:dr-draas-nfs-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 資源對應完成後、請按一下「下一步」。
 
-image::dr-draas-nfs-image20.png[DR DRaaS NFS 影像 20]
+image:dr-draas-nfs-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 選取週期類型。簡單來說、請選取移轉（使用容錯移轉進行一次移轉）或循環持續複寫選項。在此逐步解說中、會選取「複寫」選項。
 
-image::dr-draas-nfs-image21.png[DR DRaaS NFS 影像 21.]
+image:dr-draas-nfs-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 完成後、請檢閱建立的對應、然後按一下 * 新增計畫 * 。
 
 
 NOTE: 不同磁碟區和 SVM 的 VM 可以納入複寫計畫中。BlueXP  災難恢復會根據 VM 的放置（無論是位於同一磁碟區或同一 SVM 內的獨立磁碟區、在不同 SVM 上分隔磁碟區）而建立一致性群組快照。
 
-image::dr-draas-nfs-image22.png[DR DRaaS NFS 影像 22.]
+image:dr-draas-nfs-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-draas-nfs-image23.png[DR DRaaS NFS 影像 23.]
+image:dr-draas-nfs-image23.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 BlueXP  DRaaS 包含下列工作流程：
 
@@ -198,11 +198,11 @@ BlueXP  DRaaS 包含下列工作流程：
 
 BlueXP  DRaaS 中的測試容錯移轉是一種作業程序、可讓 VMware 管理員在不中斷正式作業環境的情況下、完全驗證其還原計畫。
 
-image::dr-draas-nfs-image24.png[DR DRaaS NFS 影像 24.]
+image:dr-draas-nfs-image24.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 BlueXP  DRaaS 整合了將快照選為測試容錯移轉作業的選用功能。此功能可讓 VMware 管理員驗證環境中最近所做的任何變更、是否都會複寫到目的地站台、因此在測試期間會出現。這些變更包括 VM 客體作業系統的修補程式
 
-image::dr-draas-nfs-image25.png[DR DRaaS NFS 影像 25]
+image:dr-draas-nfs-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 當 VMware 管理員執行測試容錯移轉作業時、 BlueXP  DRaaS 會自動執行下列工作：
 
@@ -214,7 +214,7 @@ image::dr-draas-nfs-image25.png[DR DRaaS NFS 影像 25]
 * 執行已儲存在複寫計畫中的任何自訂命令。
 * 依複寫計畫中定義的順序開啟虛擬機器電源。
 +
-image::dr-draas-nfs-image26.png[DR DRaaS NFS 影像 26.]
+image:dr-draas-nfs-image26.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -224,7 +224,7 @@ image::dr-draas-nfs-image26.png[DR DRaaS NFS 影像 26.]
 
 在複寫計畫測試完成、 VMware 管理員回應清理提示後、就會執行清理容錯移轉測試作業。
 
-image::dr-draas-nfs-image27.png[DR DRaaS NFS 影像 27.]
+image:dr-draas-nfs-image27.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 此動作會將虛擬機器（ VM ）和複寫計畫的狀態重設為就緒狀態。
 
@@ -240,7 +240,7 @@ image::dr-draas-nfs-image27.png[DR DRaaS NFS 影像 27.]
 
 BlueXP  DRaaS 有兩種方法可執行真正的容錯移轉：規劃移轉和容錯移轉。第一種方法是規劃移轉、將 VM 關機和儲存複寫同步整合到程序中、以恢復或有效地將 VM 移到目的地站台。計畫性移轉需要存取來源站台。第二種方法是容錯移轉、這是一種計畫性 / 非計畫性的容錯移轉、可從上次能夠完成的儲存複寫間隔、在目的地站台上還原 VM 。根據解決方案中設計的 RPO 、災難恢復案例中可能會有部分資料遺失。
 
-image::dr-draas-nfs-image28.png[DR DRaaS NFS 影像 28.]
+image:dr-draas-nfs-image28.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 當 VMware 管理員執行容錯移轉作業時、 BlueXP  DRaaS 會自動執行下列工作：
 
@@ -252,7 +252,7 @@ image::dr-draas-nfs-image28.png[DR DRaaS NFS 影像 28.]
 * 依複寫計畫中定義的順序開啟虛擬機器電源。
 
 
-image::dr-draas-nfs-image29.png[DR DRaaS NFS 影像 29.]
+image:dr-draas-nfs-image29.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -260,7 +260,7 @@ image::dr-draas-nfs-image29.png[DR DRaaS NFS 影像 29.]
 
 容錯回復是一種選擇性的程序、可在恢復後還原來源和目的地站台的原始組態。
 
-image::dr-draas-nfs-image30.png[DR DRaaS NFS 影像 30]
+image:dr-draas-nfs-image30.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 VMware 管理員可以在準備好將服務還原至原始來源站台時、設定並執行容錯回復程序。
 
@@ -280,14 +280,14 @@ VMware 管理員可以在準備好將服務還原至原始來源站台時、設�
 
 從 BlueXP  或 ONTAP CLI 、您可以監控適當資料存放區磁碟區的複寫健全狀況狀態、並可透過工作監控來追蹤容錯移轉或測試容錯移轉的狀態。
 
-image::dr-draas-nfs-image31.png[DR DRaaS NFS 影像 31.]
+image:dr-draas-nfs-image31.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 如果某個工作目前正在進行或排入佇列中、而您想要停止該工作、則有一個選項可以取消該工作。
 
 透過 BlueXP  災難恢復儀表板、您可以安心地評估災難恢復站台和複寫計畫的狀態。如此一來、系統管理員就能迅速識別健全、中斷連線或降級的站台和計畫。
 
-image::dr-draas-nfs-image32.png[DR DRaaS NFS 影像 32.]
+image:dr-draas-nfs-image32.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 這是一套功能強大的解決方案、可處理量身打造且自訂的災難恢復計畫。當發生災難並決定啟動 DR 站台時、只要按一下按鈕、就能依照計畫進行容錯移轉或容錯移轉。
 

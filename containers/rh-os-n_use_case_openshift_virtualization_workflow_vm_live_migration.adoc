@@ -24,7 +24,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 因此、若要成功進行即時移轉、必須使用使用 ONTAP NAS 或 ONTAP SAN （ volumemode ：區塊）儲存類別的 PVCS 、以磁碟（開機磁碟和其他熱插拔磁碟）來配置 VM 。建立 PVC 後、 Trident 會在啟用 NFS 或 iSCSI 的 SVM 中建立 ONTAP Volume 。
 
-image::redhat_openshift_image55.png[VM即時移轉架構]
+image:redhat_openshift_image55.png["VM即時移轉架構"]
 
 若要執行先前建立且處於執行狀態的 VM 即時移轉、請執行下列步驟：
 
@@ -40,6 +40,6 @@ VM 的移轉將從 * 擱置 * 轉換為 * 排程 * 、轉換為 * 成功 *
 
 NOTE: 如果將設備策略設定為LiveMigrate、則當原始節點置於維護模式時、OpenShift叢集中的VM執行個體會自動移轉至其他節點。
 
-image::rh-os-n_use_case_vm_live_migrate_1.png[VM 即時移轉開始]
+image:rh-os-n_use_case_vm_live_migrate_1.png["VM 即時移轉開始"]
 
-image::rh-os-n_use_case_vm_live_migrate_2.png[VM 即時移轉成功]
+image:rh-os-n_use_case_vm_live_migrate_2.png["VM 即時移轉成功"]

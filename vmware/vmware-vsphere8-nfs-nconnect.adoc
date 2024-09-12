@@ -40,7 +40,7 @@ nconnect 的用途是在 vSphere 主機上、為每個 NFS 資料存放區提供
 
 為了解決 NFS 資料存放區單一連線的效能限制、會裝載額外的資料存放區、或新增額外的主機來增加連線。
 
-image::vmware-vsphere8-nfs-wo-nconnect.png[不含 nconnect 功能的 NFS 資料存放區]
+image:vmware-vsphere8-nfs-wo-nconnect.png["不含 nconnect 功能的 NFS 資料存放區"]
 
 
 
@@ -48,7 +48,7 @@ image::vmware-vsphere8-nfs-wo-nconnect.png[不含 nconnect 功能的 NFS 資料�
 
 一旦使用 ONTAP 工具或其他選項建立 NFS 資料存放區、就可以使用 vSphere CLI 、 PowerCLI 、政府工具或其他 API 選項來修改每個 NFS 資料存放區的連線數量。為了避免效能問題和 VMotion 、請將屬於 vSphere 叢集一部分的所有 vSphere 主機上的 NFS 資料存放區的連線數量保持不變。
 
-image::vmware-vsphere8-nfs-nconnect.png[啟用 nconnect 功能的 NFS 資料存放區]
+image:vmware-vsphere8-nfs-nconnect.png["啟用 nconnect 功能的 NFS 資料存放區"]
 
 
 

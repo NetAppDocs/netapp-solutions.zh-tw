@@ -67,7 +67,7 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 * 如果在沒有網際網路存取的 VPC 中部署解決方案、則會設定適用於 AWS SSM 、 FSX 和 SES 的 VPC 端點、以允許 Lambda 透過 AWS 內部網路存取這些服務。
 
 
-image::fsxn-monitoring-resizing-architecture.png[此映像描述此解決方案所使用的高層架構。]
+image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案所使用的高層架構。"]
 
 ====
 
@@ -99,7 +99,7 @@ git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 . 瀏覽至 AWS 主控台 > * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。
 . 進入貯體後、按一下 * 上傳 * > * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Utilities.zip* 。
 +
-image::fsxn-monitoring-resizing-s3-upload-zip-files.png[此影像描述上傳 zip 檔案的 S3 視窗]
+image:fsxn-monitoring-resizing-s3-upload-zip-files.png["此影像描述上傳 zip 檔案的 S3 視窗"]
 
 
 
@@ -116,7 +116,7 @@ image::fsxn-monitoring-resizing-s3-upload-zip-files.png[此影像描述上傳 zi
 NOTE: 如果 SES SMTP 設定已就緒、請跳過此步驟。
 
 +
-image::fsxn-monitoring-resizing-ses-smtp-creds-addition.png[此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗]
+image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗"]
 
 
 
@@ -133,7 +133,7 @@ Specify template: Upload a template file
 Choose file: Browse to the cloned GitHub repo and select fsxn-monitoring-solution.yaml
 ----
 +
-image::fsxn-monitoring-resizing-create-cft-1.png[此影像描述 AWS CloudFor何處 建立堆疊視窗]
+image:fsxn-monitoring-resizing-create-cft-1.png["此影像描述 AWS CloudFor何處 建立堆疊視窗"]
 
 +
 按一下「下一步」
@@ -144,24 +144,24 @@ image::fsxn-monitoring-resizing-create-cft-1.png[此影像描述 AWS CloudFor何
 NOTE: 如果「 VPC 是否可存取網際網路？」 設為 False 、則需要「 AWS SES 的 SMTP 使用者名稱」和「 AWS SES 的 SMTP 密碼」。否則、它們可能會留為空白。
 
 +
-image::fsxn-monitoring-resizing-cft-stack-details-1.png[此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗]
+image:fsxn-monitoring-resizing-cft-stack-details-1.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
 
 +
-image::fsxn-monitoring-resizing-cft-stack-details-2.png[此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗]
+image:fsxn-monitoring-resizing-cft-stack-details-2.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
 
 +
-image::fsxn-monitoring-resizing-cft-stack-details-3.png[此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗]
+image:fsxn-monitoring-resizing-cft-stack-details-3.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
 
 +
-image::fsxn-monitoring-resizing-cft-stack-details-4.png[此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗]
+image:fsxn-monitoring-resizing-cft-stack-details-4.png["此影像說明 AWS CloudForFor何處 可查看「資料堆疊詳細資料」視窗"]
 
 . 一旦 CloudForgation 部署開始、「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求他們授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。
 . 一旦完成 CloudForgation 堆疊部署、如果有任何警告 / 通知、系統會傳送電子郵件給收件者電子郵件 ID 、其中會附上通知詳細資料。
 +
-image::fsxn-monitoring-resizing-email-1.png[此影像描述通知可用時收到的電子郵件通知]
+image:fsxn-monitoring-resizing-email-1.png["此影像描述通知可用時收到的電子郵件通知"]
 
 +
-image::fsxn-monitoring-resizing-email-2.png[此影像描述通知可用時收到的電子郵件通知]
+image:fsxn-monitoring-resizing-email-2.png["此影像描述通知可用時收到的電子郵件通知"]
 
 
 
@@ -193,7 +193,7 @@ git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 . 瀏覽至 AWS Console （ AWS 主控台） > * AWS Simple Email Service （ SES ） * > SMTP Settings （ SMTP 設定）、然後按一下 * Create SMTP 全權證書 * （建立 SMTP 認證）
 . 輸入 IAM 使用者名稱或保留預設值、然後按一下「建立」。儲存使用者名稱和密碼以供進一步使用。
 +
-image::fsxn-monitoring-resizing-ses-smtp-creds-addition.png[此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗]
+image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS SES 下的 Create SMTP Credentials （建立 SMTP 認證）視窗"]
 
 
 
@@ -215,7 +215,7 @@ Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
 按一下「*建立參數*」。
 針對要監控的所有 ONTAP 檔案系統、重複上述步驟。
 
-image::fsxn-monitoring-resizing-ssm-parameter.png[此影像說明AWS主控台上的「建立SSM參數」視窗。]
+image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
 
 如果部署的解決方案沒有網際網路存取、請執行相同的步驟來儲存 SMTP 使用者名稱和 SMTP 密碼。否則、請跳過新增這 2 個參數。
 
@@ -234,7 +234,7 @@ Email address: <Enter an email address to be used for sending resizing notificat
 
 「寄件者電子郵件 ID 」中提及的電子郵件 ID 將會收到一封電子郵件、要求擁有者授權使用 AWS SES 的電子郵件地址。按一下連結以驗證電子郵件地址。
 
-image::fsxn-monitoring-resizing-ses.png[此影像說明AWS主控台的SES身分識別建立視窗。]
+image:fsxn-monitoring-resizing-ses.png["此影像說明AWS主控台的SES身分識別建立視窗。"]
 
 ====
 .步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）
@@ -259,10 +259,10 @@ Policy: <Either choose Full access or set your own custom policy>
 按一下「建立端點」。
 
 +
-image::fsxn-monitoring-resizing-vpc-endpoint-create-1.png[此影像說明 VPC 端點建立視窗]
+image:fsxn-monitoring-resizing-vpc-endpoint-create-1.png["此影像說明 VPC 端點建立視窗"]
 
 +
-image::fsxn-monitoring-resizing-vpc-endpoint-create-2.png[此影像說明 VPC 端點建立視窗]
+image:fsxn-monitoring-resizing-vpc-endpoint-create-2.png["此影像說明 VPC 端點建立視窗"]
 
 . 依照相同程序建立 SES 和 SSM VPC 端點。所有參數均與上述相同、但服務將 <region> 分別對應於 *com.amazonaws.smtp* 和 <region> 。 SSM* 。
 
@@ -290,26 +290,26 @@ Advanced Settings:
 按一下「*建立功能*」。
 
 +
-image::fsxn-monitoring-resizing-lambda-creation-1.png[此影像描述AWS主控台的Lambda建立視窗。]
+image:fsxn-monitoring-resizing-lambda-creation-1.png["此影像描述AWS主控台的Lambda建立視窗。"]
 
 +
-image::fsxn-monitoring-resizing-lambda-creation-2.png[此影像描述AWS主控台的Lambda建立視窗。]
+image:fsxn-monitoring-resizing-lambda-creation-2.png["此影像描述AWS主控台的Lambda建立視窗。"]
 
 . 瀏覽至新建立的 Lambda 功能 > 向下捲動至 * Layers* 區段、然後按一下 * 新增圖層 * 。
 +
-image::fsxn-monitoring-resizing-add-layer-button.png[此影像說明AWS Lambda功能主控台的「新增階層」按鈕。]
+image:fsxn-monitoring-resizing-add-layer-button.png["此影像說明AWS Lambda功能主控台的「新增階層」按鈕。"]
 
 . 按一下「* Layer SOURGE*」下的「*建立新的圖層*」
 . 建立 Layer 並上傳 * Utilities.zip* 檔案。選擇* Python 3.9*作為相容的執行時間、然後按一下*「Create*」。
 +
-image::fsxn-monitoring-resizing-create-layer-paramiko.png[此影像說明AWS主控台的Create New Layer（建立新的層）視窗。]
+image:fsxn-monitoring-resizing-create-layer-paramiko.png["此影像說明AWS主控台的Create New Layer（建立新的層）視窗。"]
 
 . 返回 AWS Lambda 函數 > * 新增圖層 * > * 自訂圖層 * 、然後新增公用程式圖層。
 +
-image::fsxn-monitoring-resizing-add-layer-window.png[此影像描述AWS Lambda功能主控台的新增層視窗。]
+image:fsxn-monitoring-resizing-add-layer-window.png["此影像描述AWS Lambda功能主控台的新增層視窗。"]
 
 +
-image::fsxn-monitoring-resizing-layers-added.png[此影像說明AWS Lambda功能主控台上新增的圖層。]
+image:fsxn-monitoring-resizing-layers-added.png["此影像說明AWS Lambda功能主控台上新增的圖層。"]
 
 . 瀏覽至Lambda函數的*組態*索引標籤、然後按一下「*一般組態*」下的*編輯*。將超時更改爲 *5 分鐘 * ，然後單擊 * 保存 * 。
 . 瀏覽至Lambda功能的*權限*索引標籤、然後按一下指派的角色。在角色的權限索引標籤中、按一下*新增權限*>*建立內嵌原則*。
@@ -374,7 +374,7 @@ image::fsxn-monitoring-resizing-layers-added.png[此影像說明AWS Lambda功能
 | *收件人電子郵件* | 字串 | （必填）輸入您要接收警示通知的電子郵件ID。 
 |===
 +
-image::fsxn-monitoring-resizing-lambda-code.png[此影像描述AWS Lambda功能主控台上的Lambda程式碼。]
+image:fsxn-monitoring-resizing-lambda-code.png["此影像描述AWS Lambda功能主控台上的Lambda程式碼。"]
 
 . 按一下 * 測試 * 、建立含有空白 JSON 物件的測試事件、然後按一下 * 叫用 * 來檢查指令碼是否正常執行、以執行測試。
 . 測試成功後、請瀏覽至*組態*>*觸發程序*>*新增觸發程序*。
@@ -391,7 +391,7 @@ Schedule expression: <Use "rate(1 day)" if you want the function to run daily or
 按一下「新增」。
 
 +
-image::fsxn-monitoring-resizing-eventbridge.png[此影像描述AWS Lambda功能主控台的事件橋接建立視窗。]
+image:fsxn-monitoring-resizing-eventbridge.png["此影像描述AWS Lambda功能主控台的事件橋接建立視窗。"]
 
 
 

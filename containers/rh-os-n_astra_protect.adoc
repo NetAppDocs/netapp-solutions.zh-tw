@@ -24,12 +24,12 @@ keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astr
 
 . 若要擷取應用程式的快照、請瀏覽至「應用程式」>「受管理的」索引標籤、然後按一下您要製作Snapshot複本的應用程式。按一下應用程式名稱旁的下拉式功能表、然後按一下「Snapshot（快照）」。
 +
-image::redhat_openshift_image130.jpg[Astra Control Center快照按鈕]
+image:redhat_openshift_image130.jpg["Astra Control Center快照按鈕"]
 
 . 輸入快照詳細資料、按一下「下一步」、然後按一下「Snapshot（快照）」。建立快照大約需要一分鐘、快照成功建立之後、狀態就會變成可用。
 
 
-image::redhat_openshift_image131.jpg[Astra Control Center會建立快照]
+image:redhat_openshift_image131.jpg["Astra Control Center會建立快照"]
 
 
 
@@ -46,12 +46,12 @@ ONTAP::> export-policy rule modify -policyname default -ruleindex 1 -anon 65534 
 ----
 . 若要在Astra Control Center中建立受管理應用程式的備份、請瀏覽至「應用程式」>「受管理的」索引標籤、然後按一下您要備份的應用程式。按一下應用程式名稱旁的下拉式功能表、然後按一下備份。
 +
-image::redhat_openshift_image132.jpg[Astra Control Center備份按鈕]
+image:redhat_openshift_image132.jpg["Astra Control Center備份按鈕"]
 
 . 輸入備份詳細資料、選取要保留備份檔案的物件儲存區、按一下「Next（下一步）」、然後在檢閱詳細資料之後、按一下「Backup（備份）」。視應用程式和資料的大小而定、備份可能需要數分鐘的時間、備份成功完成後、備份狀態就會變成可用狀態。
 
 
-image::redhat_openshift_image133.jpg[Astra Control Center建立備份]
+image:redhat_openshift_image133.jpg["Astra Control Center建立備份"]
 
 
 
@@ -61,20 +61,20 @@ image::redhat_openshift_image133.jpg[Astra Control Center建立備份]
 
 . 若要還原應用程式、請瀏覽至「應用程式」>「受管理的」索引標籤、然後按一下有問題的應用程式。按一下應用程式名稱旁的下拉式功能表、然後按一下「還原」。
 +
-image::redhat_openshift_image134.jpg[Astra Control Center複製按鈕]
+image:redhat_openshift_image134.jpg["Astra Control Center複製按鈕"]
 
 . 輸入還原命名空間的名稱、選取您要還原的叢集、然後選擇是要從現有的快照或應用程式備份還原命名空間。按一下「下一步」
 +
-image::redhat_openshift_image135.jpg[Astra Control Center還原]
+image:redhat_openshift_image135.jpg["Astra Control Center還原"]
 
 . 在檢閱窗格中、輸入「重新儲存」、並在檢閱詳細資料後按一下「還原」。
 +
-image::redhat_openshift_image136.jpg[Astra Control Center還原審查]
+image:redhat_openshift_image136.jpg["Astra Control Center還原審查"]
 
 . 新應用程式會在Astra Control Center還原所選叢集上的應用程式時、進入還原狀態。Astra安裝並偵測應用程式的所有資源之後、應用程式會進入可用狀態。
 
 
-image::redhat_openshift_image137.jpg[Astra Control Center發現新的應用程式]
+image:redhat_openshift_image137.jpg["Astra Control Center發現新的應用程式"]
 
 
 
@@ -84,14 +84,14 @@ image::redhat_openshift_image137.jpg[Astra Control Center發現新的應用程�
 
 . 若要複製應用程式、請瀏覽至「應用程式」>「受管理」索引標籤、然後按一下有問題的應用程式。按一下應用程式名稱旁的下拉式功能表、然後按一下Clone（複製）。
 +
-image::redhat_openshift_image138.jpg[Astra Control Center複製按鈕]
+image:redhat_openshift_image138.jpg["Astra Control Center複製按鈕"]
 
 . 輸入新命名空間的詳細資料、選取要複製到的叢集、然後選擇是否要從現有的快照或備份複製、或是從應用程式的目前狀態複製。檢閱詳細資料後、按一下「下一步」、然後按一下「檢閱窗格上的Clone（複製）」。
 +
-image::redhat_openshift_image139.jpg[Astra Control Center還原]
+image:redhat_openshift_image139.jpg["Astra Control Center還原"]
 
 . 當Astra Control Center在所選叢集上建立應用程式時、新的應用程式會進入「Discovering（探索）」狀態。Astra安裝並偵測應用程式的所有資源之後、應用程式會進入可用狀態。
 +
-image::redhat_openshift_image140.jpg[Astra Control Center發現新的應用程式]
+image:redhat_openshift_image140.jpg["Astra Control Center發現新的應用程式"]
 
 

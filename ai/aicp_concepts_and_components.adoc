@@ -37,7 +37,7 @@ AI是一項電腦科學訓練、訓練電腦模擬人類思維的認知功能。
 
 容器也能直接透過應用程式、有效封裝應用程式相依性、執行時間等項目。最常用的容器包裝格式是Docker容器。以Docker Container格式容器化的應用程式、可在任何能夠執行Docker Container的機器上執行。即使應用程式的相依性並不存在於機器上、也一樣、因為所有相依性都封裝在容器本身。如需詳細資訊、請參閱 https://www.docker.com["Docker網站"^]。
 
-image::aicp_image2.png[aicp 影像 2.]
+image:aicp_image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -175,7 +175,7 @@ Snapshot複本的效率歸功於核心ONTAP 的不穩定儲存虛擬化技術WAF
 
 您可以使用Snapshot複本來還原個別檔案或LUN、或還原磁碟區的完整內容。此功能可將Snapshot複本中的指標資訊與磁碟上的資料進行比較、以重建遺失或損壞的物件、而不會造成停機或重大效能成本。ONTAP
 
-image::aicp_image4.png[aicp Image4.]
+image:aicp_image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -183,7 +183,7 @@ image::aicp_image4.png[aicp Image4.]
 
 NetApp FlexClone技術會參考Snapshot中繼資料、以建立磁碟區的可寫入時間點複本。複本會與父實體共用資料區塊、除非中繼資料需要的資料、否則不會佔用任何儲存空間、直到將變更寫入複本為止、如下圖所示。在傳統複本需要數分鐘甚至數小時才能建立的地方、FlexClone軟體可讓您幾乎即時複製最大的資料集。這使得它非常適合您需要多個相同資料集複本（例如開發工作區）或資料集暫存複本（針對正式作業資料集測試應用程式）的情況。
 
-image::aicp_image5.png[aicp 影像 5.]
+image:aicp_image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -222,4 +222,4 @@ link:https://xcp.netapp.com/["NetApp XCP"^] 是適用於任何對 NetApp 和 Net
 * 它們支援跨CPU、節點、集合體及組成FlexVol 的等量資料磁碟區、在NAS工作負載中進行平行化作業。
 
 
-image::aicp_image7.png[aicp 影像 7.]
+image:aicp_image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]

@@ -20,7 +20,7 @@ keywords: architecture, Oracle RDS, RDS, FSx ONTAP, FSx, AWS, Oracle, HA, DR
 
 另一方面、FSXVolume上的Oracle資料庫儲存設備則是透過AWS FSX主控台或CLI進行部署。Oracle二進位、資料或記錄磁碟區隨後會出現在EC2執行個體Linux主機上、並加以掛載。根據所採用的基礎儲存傳輸協定、每個資料或記錄磁碟區都可以配置多個LUN。
 
-image::aws_ora_fsx_ec2_arch.PNG[此映像描述了一個架構圖表範例、包括主要HA叢集（待命HA叢集）、管理節點、以及相關的連線節點。]
+image:aws_ora_fsx_ec2_arch.png["此映像描述了一個架構圖表範例、包括主要HA叢集（待命HA叢集）、管理節點、以及相關的連線節點。"]
 
 FSXX儲存叢集的設計具有雙重備援、因此主儲存叢集和待命儲存叢集都部署在兩個不同的可用性區域中。資料庫磁碟區會以使用者可設定的時間間隔、從主要FSX叢集複寫到備用FSX叢集、以供所有Oracle二進位、資料和記錄磁碟區使用。
 

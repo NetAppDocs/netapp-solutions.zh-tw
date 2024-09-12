@@ -116,7 +116,7 @@ $az ad sp create-for-rbac --name ""
 $tridentctl create backend -f anf-backend.json -n trident
 ....
 +
-image::aks-anf_image8.png[AKS anf 影像 8.]
+image:aks-anf_image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 建立儲存類別。Kubernetes使用者透過PVCS來配置磁碟區、這些PVCS會依名稱指定儲存類別。指示K8s建立儲存類別「azurenetappfiless」、以參照上一步建立的Trident後端。
 . 建立Yaml（「anf-storage - class.yaml」）檔案、以供儲存類別和複製。
@@ -138,4 +138,4 @@ kubectl get sc azurenetappfiles
 ....
 
 
-image::aks-anf_image9.png[AKS anf 影像 9.]
+image:aks-anf_image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]

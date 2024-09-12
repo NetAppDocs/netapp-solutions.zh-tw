@@ -62,19 +62,19 @@ NOTE: 您可以在專屬硬體、雲端或內部部署的虛擬應用裝置上�
 . 登入F5 BIG-IP系統、瀏覽至iApps >「套件管理Lx」、然後按一下「匯入」。
 . 按一下"選擇檔案"並選取下載的AS3 RPM檔案、按一下"確定"、然後按一下"上傳"。
 +
-image::redhat_openshift_image109.jpg[iApps上傳]
+image:redhat_openshift_image109.jpg["iApps上傳"]
 
 . 確認已成功安裝AS3擴充功能。
 +
-image::redhat_openshift_image110.jpg[AS3安裝驗證]
+image:redhat_openshift_image110.jpg["AS3安裝驗證"]
 
 . 接下來、設定OpenShift與BIG-IP系統之間通訊所需的資源。首先在OpenShift和Big IP伺服器之間建立通道、方法是在適用於OpenShift SDN的Big IP系統上建立VXLAN通道介面。瀏覽至「Network（網路）」>「Tunnels（通道）」>「Profiles（設定檔）」、按一下「Create（建立）」、然後將「Parent Profile（父設定檔）」設定為VXLAN、「輸入設定檔的名稱、然後按一下「完成」。
 +
-image::redhat_openshift_image111.jpg[建立VXLAN設定檔]
+image:redhat_openshift_image111.jpg["建立VXLAN設定檔"]
 
 . 瀏覽至「網路」>「通道」>「通道清單」、按一下「建立」、然後輸入通道的名稱和本機IP位址。選取在上一個步驟中建立的通道設定檔、然後按一下「完成」。
 +
-image::redhat_openshift_image112.jpg[建立VXLAN通道]
+image:redhat_openshift_image112.jpg["建立VXLAN通道"]
 
 . 以叢集管理權限登入Red Hat OpenShift叢集。
 . 在OpenShift上為F5 BIG-IP伺服器建立主機子網路、將子網路從OpenShift叢集延伸至F5 BIG-IP伺服器。下載主機子網路Yaml定義。
@@ -132,11 +132,11 @@ ocp-vmw-nszws-worker-wtgfw   ocp-vmw-nszws-worker-wtgfw   10.63.172.17    10.128
 ----
 . 在OpenShift VXLAN上建立一個自有IP、並在OpenShift的主機子網路範圍中建立對應於F5 BIG-IP伺服器的IP。登入F5 BIG-IP系統、瀏覽至「網路」>「自助IP」、然後按一下「建立」。從為F5 BIG-IP主機子網路建立的叢集IP子網路輸入IP、選取VXLAN通道、然後輸入其他詳細資料。然後按一下「完成」。
 +
-image::redhat_openshift_image113.jpg[為VXLAN建立自我IP]
+image:redhat_openshift_image113.jpg["為VXLAN建立自我IP"]
 
 . 在要設定並搭配CI使用的F5 BIG-IP系統中建立分割區。瀏覽至「系統」>「使用者」>「分割清單」、按一下「建立」、然後輸入詳細資料。然後按一下「完成」。
 +
-image::redhat_openshift_image114.jpg[建立BIG-IP分割區]
+image:redhat_openshift_image114.jpg["建立BIG-IP分割區"]
 
 +
 
@@ -164,24 +164,24 @@ customresourcedefinition.apiextensions.k8s.io/ingresslinks.cis.f5.com created
 ----
 . 瀏覽至「運算子」>「作業系統集線器」、搜尋關鍵字F5、然後按一下「F5 Container Ingress Service」方塊。
 +
-image::redhat_openshift_image115.jpg[在作業系統集線器中的5個CI]
+image:redhat_openshift_image115.jpg["在作業系統集線器中的5個CI"]
 
 . 閱讀操作員資訊、然後按一下「Install（安裝）」。
 +
-image::redhat_openshift_image116.jpg[在作業系統集線器中的「F5 CI資訊」方塊]
+image:redhat_openshift_image116.jpg["在作業系統集線器中的「F5 CI資訊」方塊"]
 
 . 在「Install（安裝）」操作員畫面上、保留所有預設參數、然後按一下「Install（安裝）」。
 +
-image::redhat_openshift_image117.jpg[安裝F5 CI操作員]
+image:redhat_openshift_image117.jpg["安裝F5 CI操作員"]
 
 . 安裝操作員需要一段時間。
 +
-image::redhat_openshift_image118.jpg[5 CI操作員安裝進度]
+image:redhat_openshift_image118.jpg["5 CI操作員安裝進度"]
 
 . 安裝操作員之後、會顯示安裝成功訊息。
 . 瀏覽至「運算子」>「安裝的運算子」、按一下「F5 Container Ingress Service」、然後按一下「F5BigIprcr」方塊下方的「Create Instance（建立執行個體）」。
 +
-image::redhat_openshift_image119.jpg[建立F5BigIprvr]
+image:redhat_openshift_image119.jpg["建立F5BigIprvr"]
 
 . 按一下「Yaml View（Yaml檢視）」、然後在更新必要的參數後貼上下列內容。
 +
@@ -225,7 +225,7 @@ spec:
 ----
 . 貼上此內容之後、按一下「建立」。這會在K資料庫 系統命名空間中安裝CI Pod。
 +
-image::redhat_openshift_image120.jpg[驗證F5 CI Pod]
+image:redhat_openshift_image120.jpg["驗證F5 CI Pod"]
 
 +
 
@@ -325,7 +325,7 @@ spec:
         - --log-level=DEBUG
         command:
         - /app/bin/f5-ipam-controller
-        image:: registry.connect.redhat.com/f5networks/f5-ipam-controller:latest
+        image: registry.connect.redhat.com/f5networks/f5-ipam-controller:latest
         imagePullPolicy: IfNotPresent
         name: f5-ipam-controller
       dnsPolicy: ClusterFirst
@@ -461,6 +461,6 @@ f5-demo-test-57c46f6f98-cl2m8   1/1     Running   0          27s
 ----
 . 檢查OpenShift中是否針對負載平衡器類型的服務、在Big IP系統中建立對應的虛擬伺服器。瀏覽至本機流量>虛擬伺服器>虛擬伺服器清單。
 +
-image::redhat_openshift_image121.jpg[驗證為對應的服務類型負載平衡器建立BIG-IP虛擬伺服器]
+image:redhat_openshift_image121.jpg["驗證為對應的服務類型負載平衡器建立BIG-IP虛擬伺服器"]
 
 

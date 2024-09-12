@@ -54,7 +54,7 @@ NetApp SnapCenter 流通軟體是易於使用的企業平台、可安全地協�
 
 === 架構
 
-image::automation_ora_anf_nfs_archit.png[此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。]
+image:automation_ora_anf_nfs_archit.png["此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。"]
 
 
 
@@ -204,58 +204,43 @@ video::960fb370-c6e0-4406-b6d5-b110014130e8[panopto,width=360]
 . 從 SnapCenter Windows 伺服器、從 NetApp 支援網站 下載並安裝最新版本（目前為 5.0 ）的 SnapCenter 安裝執行檔： link:https://mysupport.netapp.com/site/["NetApp | 支援"^]。
 . 安裝 SnapCenter 伺服器之後、請啟動瀏覽器、透過連接埠 8146 使用 Windows 本機管理員使用者或網域使用者認證登入 SnapCenter 。
 +
-image::snapctr_ora_azure_anf_setup_01.png[此影像提供 SnapCenter 伺服器的登入畫面]
+image:snapctr_ora_azure_anf_setup_01.png["此影像提供 SnapCenter 伺服器的登入畫面"]
 
 . 檢閱 `Get Started` 線上功能表。
 +
-image::snapctr_ora_azure_anf_setup_02.png[此影像提供 SnapCenter 伺服器的線上功能表]
+image:snapctr_ora_azure_anf_setup_02.png["此影像提供 SnapCenter 伺服器的線上功能表"]
 
 . 在中 `Settings-Global Settings`、檢查 `Hypervisor Settings` 然後按一下「更新」。
 +
-image::snapctr_ora_azure_anf_setup_03.png[此映像提供 SnapCenter 伺服器的 Hypervisor 設定]
+image:snapctr_ora_azure_anf_setup_03.png["此映像提供 SnapCenter 伺服器的 Hypervisor 設定"]
 
 . 如有需要、請調整 `Session Timeout` 將 SnapCenter UI 設定為所需的時間間隔。
 +
-image::snapctr_ora_azure_anf_setup_04.png[此映像為 SnapCenter 伺服器提供工作階段逾時]
+image:snapctr_ora_azure_anf_setup_04.png["此映像為 SnapCenter 伺服器提供工作階段逾時"]
 
 . 視需要新增其他使用者至 SnapCenter 。
 +
-image::snapctr_ora_azure_anf_setup_06.png[此映像提供 SnapCenter 伺服器的設定 - 使用者和存取權]
+image:snapctr_ora_azure_anf_setup_06.png["此映像提供 SnapCenter 伺服器的設定 - 使用者和存取權"]
 
 . 。 `Roles` 索引標籤列出可指派給不同 SnapCenter 使用者的內建角色。自訂角色也可由具有所需權限的管理員使用者建立。
 +
-image::snapctr_ora_azure_anf_setup_07.png[此映像提供 SnapCenter 伺服器的角色]
+image:snapctr_ora_azure_anf_setup_07.png["此映像提供 SnapCenter 伺服器的角色"]
 
 . 寄件者 `Settings-Credential`、為 SnapCenter 管理目標建立認證。在本示範使用案例中、他們是 Linux 使用者、可登入 Azure VM 、並使用 ANF 認證來存取容量集區。
 +
-image::snapctr_ora_azure_anf_setup_08.png[此映像提供 SnapCenter 伺服器的認證]
-
-+
-image::snapctr_ora_azure_anf_setup_09.png[此映像提供 SnapCenter 伺服器的認證]
-
-+
-image::snapctr_ora_azure_anf_setup_10.png[此映像提供 SnapCenter 伺服器的認證]
+image:snapctr_ora_azure_anf_setup_08.png["此映像提供 SnapCenter 伺服器的認證"] image:snapctr_ora_azure_anf_setup_09.png["此映像提供 SnapCenter 伺服器的認證"] image:snapctr_ora_azure_anf_setup_10.png["此映像提供 SnapCenter 伺服器的認證"]
 
 . 寄件者 `Storage Systems` 索引標籤、請新增 `Azure NetApp Files` 使用上述建立的認證。
 +
-image::snapctr_ora_azure_anf_setup_11.png[此映像提供 Azure NetApp Files for SnapCenter 伺服器]
-
-+
-image::snapctr_ora_azure_anf_setup_12.png[此映像提供 Azure NetApp Files for SnapCenter 伺服器]
+image:snapctr_ora_azure_anf_setup_11.png["此映像提供 Azure NetApp Files for SnapCenter 伺服器"] image:snapctr_ora_azure_anf_setup_12.png["此映像提供 Azure NetApp Files for SnapCenter 伺服器"]
 
 . 寄件者 `Hosts` 索引標籤中、新增 Azure DB VM 、可在 Linux 上安裝適用於 Oracle 的 SnapCenter 外掛程式。
 +
-image::snapctr_ora_azure_anf_setup_13.png[此映像可為 SnapCenter 伺服器提供主機]
-
-+
-image::snapctr_ora_azure_anf_setup_14.png[此映像可為 SnapCenter 伺服器提供主機]
-
-+
-image::snapctr_ora_azure_anf_setup_15.png[此映像可為 SnapCenter 伺服器提供主機]
+image:snapctr_ora_azure_anf_setup_13.png["此映像可為 SnapCenter 伺服器提供主機"] image:snapctr_ora_azure_anf_setup_14.png["此映像可為 SnapCenter 伺服器提供主機"] image:snapctr_ora_azure_anf_setup_15.png["此映像可為 SnapCenter 伺服器提供主機"]
 
 . 在 DB 伺服器 VM 上安裝主機外掛程式後、會自動探索主機上的資料庫、並在中顯示 `Resources` 索引標籤。返回 `Settings-Polices`，請為完整的 Oracle 資料庫線上備份和僅歸檔記錄備份建立備份原則。請參閱本文件 link:https://docs.netapp.com/us-en/snapcenter/protect-sco/task_create_backup_policies_for_oracle_database.html["為Oracle資料庫建立備份原則"^] 以取得詳細的逐步程序。
 +
-image::snapctr_ora_azure_anf_setup_05.png[此映像提供 SnapCenter 伺服器的設定原則]
+image:snapctr_ora_azure_anf_setup_05.png["此映像提供 SnapCenter 伺服器的設定原則"]
 
 
 
@@ -270,57 +255,51 @@ NetApp 快照備份會建立資料庫磁碟區的時間點映像、以便在系�
 
 . 瀏覽至 `Resources` 索引標籤、列出在資料庫 VM 上安裝 SnapCenter 外掛程式後所探索到的資料庫。一開始 `Overall Status` 資料庫的顯示方式為 `Not protected`。
 +
-image::snapctr_ora_azure_anf_bkup_01.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_01.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 按一下 `View` 下拉式清單可變更為 `Resource Group`。按一下 `Add` 登入右側以新增資源群組。
 +
-image::snapctr_ora_azure_anf_bkup_02.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_02.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 命名資源群組、標記及任何自訂命名。
 +
-image::snapctr_ora_azure_anf_bkup_03.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_03.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 新增資源至 `Resource Group`。將類似資源分組可簡化大型環境中的資料庫管理。
 +
-image::snapctr_ora_azure_anf_bkup_04.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_04.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 選取備份原則、然後按一下下方的「 + 」號來設定排程 `Configure Schedules`。
 +
-image::snapctr_ora_azure_anf_bkup_05.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
-
-+
-image::snapctr_ora_azure_anf_bkup_06.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_05.png["此映像可為 SnapCenter 伺服器提供資料庫備份"] image:snapctr_ora_azure_anf_bkup_06.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 如果原則中未設定備份驗證、請保持驗證頁面不變。
 +
-image::snapctr_ora_azure_anf_bkup_07.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_07.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 為了以電子郵件傳送備份報告和通知、環境中需要 SMTP 郵件伺服器。如果沒有設定郵件伺服器、請將其留黑。
 +
-image::snapctr_ora_azure_anf_bkup_08.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_08.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 新資源群組摘要。
 +
-image::snapctr_ora_azure_anf_bkup_09.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_09.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 重複上述程序、使用對應的備份原則建立僅限資料庫歸檔記錄檔的備份。
 +
-image::snapctr_ora_azure_anf_bkup_10_1.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_10_1.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 按一下資源群組以顯示其中包含的資源。除了排程的備份工作外、按一下即可觸發一次性備份 `Backup Now`。
 +
-image::snapctr_ora_azure_anf_bkup_10.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
-
-+
-image::snapctr_ora_azure_anf_bkup_11.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_10.png["此映像可為 SnapCenter 伺服器提供資料庫備份"] image:snapctr_ora_azure_anf_bkup_11.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 按一下執行中的工作以開啟監控視窗、讓操作員能夠即時追蹤工作進度。
 +
-image::snapctr_ora_azure_anf_bkup_12.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_12.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 . 成功完成備份工作後、資料庫拓撲下方會出現快照備份集。完整的資料庫備份集包含資料庫資料磁碟區的快照、以及資料庫記錄磁碟區的快照。純記錄備份僅包含資料庫記錄磁碟區的快照。
 +
-image::snapctr_ora_azure_anf_bkup_13.png[此映像可為 SnapCenter 伺服器提供資料庫備份]
+image:snapctr_ora_azure_anf_bkup_13.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
 
 
 
@@ -335,35 +314,35 @@ image::snapctr_ora_azure_anf_bkup_13.png[此映像可為 SnapCenter 伺服器提
 
 . 寄件者 `Resources` 索引標籤、開啟資料庫 `Primary Backup(s)` 頁面。選擇資料庫資料 Volume 的快照、然後按一下 `Restore` 啟動資料庫恢復工作流程的按鈕。如果您想要透過 Oracle SCN 或時間戳記執行恢復、請記下備份集中的 SCN 編號或時間戳記。
 +
-image::snapctr_ora_azure_anf_restore_01.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_01.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 選取 `Restore Scope`。對於容器資料庫、 SnapCenter 可靈活執行完整的容器資料庫（所有資料檔案）、可插入的資料庫或資料表空間層級還原。
 +
-image::snapctr_ora_azure_anf_restore_02.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_02.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 選取 `Recovery Scope`。 `All logs` 表示將所有可用的歸檔記錄套用至備份集中。也可使用 SCN 或時間戳記的時間點還原。
 +
-image::snapctr_ora_azure_anf_restore_03.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_03.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 。 `PreOps` 允許在還原 / 還原作業之前、針對資料庫執行指令碼。
 +
-image::snapctr_ora_azure_anf_restore_04.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_04.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 。 `PostOps` 可在還原 / 還原作業後、針對資料庫執行指令碼。
 +
-image::snapctr_ora_azure_anf_restore_05.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_05.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 如有需要、可透過電子郵件通知。
 +
-image::snapctr_ora_azure_anf_restore_06.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_06.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 還原工作摘要
 +
-image::snapctr_ora_azure_anf_restore_07.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_07.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 按一下「執行中的工作」以開啟 `Job Details` 視窗。您也可以從開啟和檢視工作狀態 `Monitor` 索引標籤。
 +
-image::snapctr_ora_azure_anf_restore_08.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_restore_08.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 
 
@@ -378,43 +357,43 @@ image::snapctr_ora_azure_anf_restore_08.png[此映像可為 SnapCenter 伺服器
 
 . 寄件者 `Resources` 索引標籤、開啟資料庫 `Primary Backup(s)` 頁面。選擇資料庫資料 Volume 的快照、然後按一下 `clone` 啟動資料庫複製工作流程的按鈕。
 +
-image::snapctr_ora_azure_anf_clone_01.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_01.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 命名複製資料庫的 SID 。或者、對於容器資料庫、您也可以在 PDB 層級上執行複製作業。
 +
-image::snapctr_ora_azure_anf_clone_02.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_02.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 選取要放置複製資料庫複本的 DB 伺服器。除非您想要以不同的名稱命名、否則請保留預設檔案位置。
 +
-image::snapctr_ora_azure_anf_clone_03.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_03.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 原始資料庫中的 Oracle 軟體堆疊應已安裝並設定在 Clone DB 主機上。保留預設認證、但變更 `Oracle Home Settings` 以符合複製 DB 主機上的設定。
 +
-image::snapctr_ora_azure_anf_clone_04.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_04.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 。 `PreOps` 允許在複製作業之前執行指令碼。資料庫參數可調整以符合與正式作業資料庫（例如 SGA 降低目標）相較的複製資料庫需求。
 +
-image::snapctr_ora_azure_anf_clone_05.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_05.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 。 `PostOps` 允許在複製作業後對資料庫執行指令碼。複製資料庫還原可以是 SCN 、時間戳記型、或直到取消為止（將資料庫復原至備份集中的最後一個封存記錄檔）。
 +
-image::snapctr_ora_azure_anf_clone_06.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_06.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 如有需要、可透過電子郵件通知。
 +
-image::snapctr_ora_azure_anf_clone_07.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_07.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 複製工作摘要。
 +
-image::snapctr_ora_azure_anf_clone_08.png[此映像提供 SnapCenter 伺服器的資料庫複製]
+image:snapctr_ora_azure_anf_clone_08.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
 
 . 按一下「執行中的工作」以開啟 `Job Details` 視窗。您也可以從開啟和檢視工作狀態 `Monitor` 索引標籤。
 +
-image::snapctr_ora_azure_anf_clone_09.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_clone_09.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 複製的資料庫會立即向 SnapCenter 登錄。
 +
-image::snapctr_ora_azure_anf_clone_10.png[此映像可為 SnapCenter 伺服器提供資料庫還原]
+image:snapctr_ora_azure_anf_clone_10.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
 
 . 驗證資料庫伺服器主機上的複製資料庫。對於複製的開發資料庫、應關閉資料庫歸檔模式。
 +

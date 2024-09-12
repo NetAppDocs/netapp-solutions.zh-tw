@@ -1,0 +1,47 @@
+---
+sidebar: sidebar 
+keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP, hardening 
+permalink: /cyber-vault/ontap-cyber-vault-interoperability.html 
+summary: 網路資料保險箱互通性 
+---
+= 網路資料保險箱互通性
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+ONTAP 硬體和軟體可用於建立網路資料保險箱組態。
+
+
+
+== ONTAP 硬體建議
+
+所有 ONTAP 統一化實體陣列均可用於網路資料保險箱實作。
+
+* FAS 混合式儲存設備提供最具成本效益的解決方案。
+* AFF C 系列提供最有效率的耗電量和密度。
+* AFF A 系列是效能最高的平台、提供最佳 RTO 。隨著我們最近發表的最新 AFF A 系列、此平台將提供最佳的儲存效率、而不會影響效能。
+
+
+
+
+== ONTAP 軟體建議
+
+從 ONTAP 9 。 14.1 開始、您可以在 SnapMirror 關係的 SnapMirror 原則中指定特定 SnapMirror 標籤的保留期間、以便在規則中指定的保留期間內、保留從來源到目的地磁碟區的複寫 Snapshot 複本。如果未指定保留期間、則會使用目的地 Volume 的預設保留期間。
+
+從 ONTAP 9 。 13.1 開始、您可以在執行磁碟區複製建立作業時、建立 FlexClone 、並將 SnapLock 類型選項設為「非 SnapLock 」、並將 Snapshot 複本指定為「父快照」、以即時還原 SnapLock 資料保險箱關係目的地 SnapLock 磁碟區上的鎖定 Snapshot 複本。深入瞭解 link:../../ontap/volumes/create-flexclone-task.html?q=volume+clone["使用 SnapLock 類型建立 FlexClone Volume"^]。
+
+
+
+== 組態MetroCluster
+
+對於部分組態、您應該注意下列事項：MetroCluster
+
+* 您只能在SnapVault 同步來源的SVM之間建立「不支援」關係、而不能在同步來源SVM和同步目的地SVM之間建立「不支援」關係。
+* 您可以從SnapVault 同步來源SVM上的磁碟區、建立從資料服務SVM到資料服務SVM的不一樣關係。
+* 您可以從SnapVault 資料服務SVM上的磁碟區、建立一個從同步來源SVM上DP磁碟區的不同步關係。
+

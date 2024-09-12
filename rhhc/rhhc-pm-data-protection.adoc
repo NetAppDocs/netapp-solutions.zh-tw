@@ -97,7 +97,7 @@ video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto]
 
 此命令會提供如下所示的輸出。使用登入叢集 `oc login` 輸出中提供的命令。
 
-image::rhhc-rosa-cluster-admin-create.png[Rhhc ROSA 叢集管理建立]
+image:rhhc-rosa-cluster-admin-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 您也可以使用權杖登入叢集。如果您在建立叢集時已建立管理員使用者、則可以使用管理員使用者認證、從 Red Hat OpenShift 混合雲主控台登入叢集。然後按一下右上角顯示登入使用者名稱的、即可取得 `oc login` 命令列的命令（權杖登入）。
@@ -114,17 +114,15 @@ NOTE: 您也可以使用權杖登入叢集。如果您在建立叢集時已建�
 
 在 ROSA 叢集上安裝 Astra Trident （最新版本）。若要這麼做、您可以遵循所提供的任何一個程序 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。若要從叢集主控台使用 helm 來安裝 Trident 、請先建立名為 Trident 的專案。
 
-image::rhhc-trident-project-create.png[Rhhc trident 專案建立]
+image:rhhc-trident-project-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 然後從「開發人員」檢視中建立 Helm 圖表儲存庫。供 URL 欄位使用 `'https://netapp.github.io/trident-helm-chart'`。然後為 Trident 運算子建立 helm 版本。
 
-image::rhhc-helm-repo-create.png[建立 Rhhc helm repo]
-
-image::rhhc-helm-release-create.png[Rhhc helm 版本建立]
+image:rhhc-helm-repo-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] image:rhhc-helm-release-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 返回主控台的「管理員」檢視、然後在 Trident 專案中選取「群組」、以確認所有 Trident 群組都在執行中。
 
-image::rhhc-trident-installed.png[已安裝 Rhhc trident]
+image:rhhc-trident-installed.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -135,7 +133,7 @@ image::rhhc-trident-installed.png[已安裝 Rhhc trident]
 
 NOTE: 您可以使用命令列來建立物件、或使用混合雲主控台的 yaml 檔案來建立物件。
 
-image::rhhc-fsx-details.png[Rhhc FSX 詳細資料]
+image:rhhc-fsx-details.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ** Trident 後端組態 **
 
@@ -192,13 +190,13 @@ deletionPolicy: Delete
 ----
 發出下列命令、確認已建立後端、儲存類別和 Trident -snapshotClass 物件。
 
-image::rhhc-tbc-sc-verify.png[Rhhc tbc SC 驗證]
+image:rhhc-tbc-sc-verify.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 此時、您需要進行的重要修改是將 ONTAP NAS 設定為預設儲存類別、而非 GP3 、以便您稍後部署的 PostgreSQL 應用程式可以使用預設儲存類別。在叢集的 Openshift 主控台中、選取 Storage （儲存設備）下的 StorageClasses （儲存設備類別）。將目前預設類別的註釋編輯為假、並將 ONTAP NAS 儲存類別的標註 storagecasse.Kubernetes.IO/is 預設類別設定為 true 。
 
-image::rhhc-change-default-sc.png[Rhhc 變更預設 SC]
+image:rhhc-change-default-sc.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::rhhc-default-sc.png[Rhhc 預設 SC]
+image:rhhc-default-sc.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -208,22 +206,22 @@ image::rhhc-default-sc.png[Rhhc 預設 SC]
 
 `helm install postgresql bitnami/postgresql -n postgresql --create-namespace`
 
-image::rhhc-postgres-install.png[Rhhc postgres 安裝]
+image:rhhc-postgres-install.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
-NOTE: 如果您沒有看到應用程式 Pod 正在執行、則可能會因為安全內容限制而導致錯誤。 影像： rhhc-cc-error.png [] 使用命令輸出中的 uid 編輯物件中的和欄位、以修正錯誤 `runAsUser` `fsGroup` `statefuleset.apps/postgresql` `oc get project` 、如下所示。 影像： rhhc-scc-fix.png[]
+NOTE: 如果您沒有看到應用程式 Pod 正在執行、則可能會因為安全內容限制而導致錯誤。image:rhhc-scc-error.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] `runAsUser` `fsGroup` `statefuleset.apps/postgresql`使用 `oc get project`命令輸出中的 uid 編輯物件中的和欄位、以修正錯誤、如下所示。image:rhhc-scc-fix.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 PostgreSQL 應用程式應執行、並使用 Amazon FSX 支援的持續磁碟區來儲存 NetApp ONTAP 。
 
-image::rhhc-postgres-running.png[Rhhc postgres 正在執行]
+image:rhhc-postgres-running.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::rhhc-postgres-pvc.png[Rhhc postgres PVC]
+image:rhhc-postgres-pvc.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
 ==== **6.建立資料庫並新增記錄 **
 
-image::rhhc-postgres-db-create.png[Rhhc postgres db create]
+image:rhhc-postgres-db-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -231,11 +229,11 @@ image::rhhc-postgres-db-create.png[Rhhc postgres db create]
 
 登入 ACS 。選取叢集、然後按一下新增。選取「其他」、然後上傳或貼上 Kupleconfig 檔案。
 
-image::rhhc-acs-add-1.png[Rhhc ACS 新增 1]
+image:rhhc-acs-add-1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 按一下 * 下一步 * 、然後選取 ONTAP NAS 作為 ACS 的預設儲存類別。按一下 * 下一步 * 、檢閱詳細資料和 * 新增 * 叢集。
 
-image::rhhc-acs-add-2.png[Rhhc ACS 新增 2]
+image:rhhc-acs-add-2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -243,7 +241,7 @@ image::rhhc-acs-add-2.png[Rhhc ACS 新增 2]
 
 在 ACS 中定義 PostgreSQL 應用程式。從登陸頁面、選取 * 應用程式 * 、 * 定義 * 、然後填寫適當的詳細資料。按幾次 * 下一步 * 、檢閱詳細資料、然後按一下 * 定義 * 。應用程式隨即新增至 ACS 。
 
-image::rhhc-acs-add-2.png[Rhhc ACS 新增 2]
+image:rhhc-acs-add-2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -253,9 +251,9 @@ image::rhhc-acs-add-2.png[Rhhc ACS 新增 2]
 
 只要按一下 * 建立 SnapShot * 、提供名稱、檢閱詳細資料、然後按一下 * Snapshot * 、即可建立隨選快照。作業完成後、快照狀態會變更為「健全」。
 
-image::rhhc-snapshot-create.png[建立 Rhhc 快照]
+image:rhhc-snapshot-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::rhhc-snapshot-on-demand.png[Rhhc 快照隨需提供]
+image:rhhc-snapshot-on-demand.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -263,7 +261,7 @@ image::rhhc-snapshot-on-demand.png[Rhhc 快照隨需提供]
 
 重新登入 PostgreSQL 、列出可用的資料庫、刪除您先前建立的資料庫、然後再次列出、以確保資料庫已刪除。
 
-image::rhhc-postgres-db-delete.png[Rhhc postgres db 刪除]
+image:rhhc-postgres-db-delete.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -271,11 +269,11 @@ image::rhhc-postgres-db-delete.png[Rhhc postgres db 刪除]
 
 若要從快照還原應用程式、請前往 ACS UI 登陸頁面、選取應用程式、然後選取還原。您需要選擇要還原的快照或備份。（通常、您會根據已設定的原則建立多個）。在接下來的幾個畫面中做出適當的選擇、然後按一下 * 還原 * 。應用程式狀態會在從快照還原後、從還原移至可用狀態。
 
-image::rhhc-app-restore-1.png[Rhhc 應用程式還原 1.]
+image:rhhc-app-restore-1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::rhhc-app-restore-2.png[Rhhc 應用程式還原 2.]
+image:rhhc-app-restore-2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::rhhc-app-restore-3.png[Rhhc 應用程式還原 3.]
+image:rhhc-app-restore-3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -283,4 +281,4 @@ image::rhhc-app-restore-3.png[Rhhc 應用程式還原 3.]
 
 登入 PostgreSQL 用戶端、您現在應該會在先前的表格中看到表格和記錄。  就是這樣。只要按一下按鈕、您的應用程式就會還原至先前的狀態。這就是我們利用 Astra Control 為客戶打造的簡單方式。
 
-image::rhhc-app-restore-verify.png[Rhhc 應用程式還原驗證]
+image:rhhc-app-restore-verify.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]

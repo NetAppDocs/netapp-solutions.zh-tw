@@ -20,7 +20,7 @@ summary: 本文件本節說明 BlueXP  DRaaS 的組態、以便為內部部署�
 
 使用整合至 NetApp BlueXP  主控台的 BlueXP  災難恢復服務、客戶可以探索內部部署的 VMware vCenter 與 ONTAP 儲存設備、建立資源群組、建立災難恢復計畫、將其與資源群組建立關聯、以及測試或執行容錯移轉和容錯回復。SnapMirror 提供儲存層級的區塊複寫功能、可讓兩個站台以遞增變更的方式保持最新狀態、因此 RPO 最長可達 5 分鐘。您也可以將災難恢復程序模擬為一般動作、而不會影響正式作業和複寫的資料存放區、或產生額外的儲存成本。BlueXP  災難恢復利用 ONTAP 的 FlexClone 技術，從災難恢復站點上的上次複製快照中創建一個空間效率極高的 VMFS 數據存儲副本。災難恢復測試完成後、客戶只需刪除測試環境、就能完全不影響實際複製的正式作業資源。當實際容錯移轉需要（計畫性或非計畫性）時、只要按幾下滑鼠、 BlueXP  災難恢復服務就會協調所有必要步驟、以便自動在指定的災難恢復站台上啟動受保護的虛擬機器。服務也會反轉與主要站台的 SnapMirror 關係、並視需要將任何變更從次要複寫至主要、以進行容錯回復作業。相較於其他知名的替代方案、所有這些都只需花費一小部分的成本即可達成。
 
-image::dr-draas-vmfs-image0.png[DR DRaaS VMFS 影像 0]
+image:dr-draas-vmfs-image0.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -33,7 +33,7 @@ image::dr-draas-vmfs-image0.png[DR DRaaS VMFS 影像 0]
 . BlueXP  災難恢復儀表板即會出現。
 
 
-image:dr-draas-vmfs-image1.png[""]
+image:dr-draas-vmfs-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 在設定災難恢復計畫之前、請確保符合下列先決條件：
 
@@ -49,7 +49,7 @@ image:dr-draas-vmfs-image1.png[""]
 
 NOTE: NetApp 建議在災難恢復站台或第三站台部署 BlueXP  Connector 、以便 BlueXP  Connector 能在實際中斷或自然災害期間透過網路與來源和目的地資源進行通訊。
 
-image:dr-draas-vmfs-image2.png[""]
+image:dr-draas-vmfs-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 在撰寫本文檔時，對內部部署到內部部署 VMFS 資料存放區的支援已在技術預覽中。此功能同時支援 FC 和 iSCSI 傳輸協定型 VMFS 資料存放區。
@@ -63,19 +63,19 @@ NOTE: 在撰寫本文檔時，對內部部署到內部部署 VMFS 資料存放�
 
 NOTE: 確保 ONTAP 儲存系統已新增至畫布內的工作環境。開啟 BlueXP  主控台、從左側導覽中選取 * 保護 > 災難恢復 * 。選取 * 探索 vCenter 伺服器 * 或使用上方功能表、選取 * 站台 > 新增 > 新增 vCenter * 。
 
-image:dr-draas-vmfs-image3.png[""]
+image:dr-draas-vmfs-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 新增下列平台：
 
 * * 資料來源 * 。內部部署 vCenter 。
 
 
-image:dr-draas-vmfs-image4.png[""]
+image:dr-draas-vmfs-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 * * 目的地 * 。VMC SDDC vCenter 。
 
 
-image:dr-draas-vmfs-image5.png[""]
+image:dr-draas-vmfs-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 一旦新增 vCenter 、就會觸發自動探索。
 
@@ -95,7 +95,7 @@ SnapMirror 使用 ONTAP 快照來管理資料從一個位置傳輸到另一個�
 
 建立 SnapMirror 複寫的程序對於任何指定的應用程式都維持不變。程序可以是手動或自動化。最簡單的方法是利用 BlueXP  來設定 SnapMirror 複寫、方法是將環境中的來源 ONTAP 系統簡單地拖放到目的地上、以觸發引導完成其餘程序的精靈。
 
-image:dr-draas-vmfs-image6.png[""]
+image:dr-draas-vmfs-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如果符合下列兩項條件、 BlueXP  DRaaS 也可以自動化相同的資料：
 
@@ -103,7 +103,7 @@ image:dr-draas-vmfs-image6.png[""]
 * 來源 SVM 和目的地 SVM 有對等關係。
 
 
-image:dr-draas-vmfs-image7.png[""]
+image:dr-draas-vmfs-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 如果已透過 CLI 為磁碟區設定 SnapMirror 關係、 BlueXP  DRaaS 會擷取關係、並繼續執行其餘的工作流程作業。
@@ -117,34 +117,34 @@ NOTE: 除了上述方法之外、也可以透過 ONTAP CLI 或系統管理員建
 
 新增來源和目的地站台之後、 BlueXP  災難恢復會執行自動深度探索、並顯示 VM 及相關的中繼資料。BlueXP  災難恢復也會自動偵測虛擬機器所使用的網路和連接埠群組、並填入這些群組。
 
-image:dr-draas-vmfs-image8.png[""]
+image:dr-draas-vmfs-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 新增站台之後、 VM 就可以分組到資源群組中。BlueXP  災難恢復資源群組可讓您將一組相關的 VM 分組為邏輯群組、其中包含可在恢復時執行的開機順序和開機延遲。若要開始建立資源群組、請瀏覽至 * 資源群組 * 、然後按一下 * 建立新資源群組 * 。
 
-image:dr-draas-vmfs-image9.png[""]
+image:dr-draas-vmfs-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 您也可以在建立複寫計畫時建立資源群組。
 
 您可以使用簡單的拖放機制、在建立資源群組期間定義或修改 VM 的開機順序。
 
-image:dr-draas-vmfs-image10.png[""]
+image:dr-draas-vmfs-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 建立資源群組之後、下一步是建立執行藍圖或計畫、以便在發生災難時恢復虛擬機器和應用程式。如先決條件所述、可事先設定 SnapMirror 複寫、或使用建立複寫計畫時指定的 RPO 和保留計數來設定 DRaaS 。
 
-image:dr-draas-vmfs-image11.png[""]
+image:dr-draas-vmfs-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image:dr-draas-vmfs-image12.png[""]
+image:dr-draas-vmfs-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 從下拉式選單中選取來源和目的地 vCenter 平台、然後挑選要納入計畫的資源群組、以及如何還原和開啟應用程式、以及如何對應叢集和網路、以設定複寫計畫。若要定義恢復計畫、請瀏覽至 * 複寫計畫 * 標籤、然後按一下 * 新增計畫 * 。
 
 首先、選取來源 vCenter 、然後選取目的地 vCenter 。
 
-image:dr-draas-vmfs-image13.png[""]
+image:dr-draas-vmfs-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 下一步是選取現有的資源群組。如果未建立任何資源群組、則精靈會協助根據還原目標將所需的虛擬機器分組（基本上是建立功能性資源群組）。這也有助於定義應用程式虛擬機器還原的操作順序。
 
-image:dr-draas-vmfs-image14.png[""]
+image:dr-draas-vmfs-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 資源群組可讓您使用拖放功能來設定開機順序。它可用來輕鬆修改 VM 在恢復過程中開機的順序。
@@ -154,38 +154,38 @@ NOTE: 資源群組中的每個虛擬機器都會根據順序依序啟動。同�
 
 以下螢幕擷取畫面顯示如果未事先建立資源群組、則可根據組織需求篩選虛擬機器或特定資料存放區的選項。
 
-image:dr-draas-vmfs-image15.png[""]
+image:dr-draas-vmfs-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 選取資源群組後、請建立容錯移轉對應。在此步驟中、指定來源環境中的資源如何對應到目的地。這包括運算資源、虛擬網路。IP 自訂、指令碼前後、開機延遲、應用程式一致性等。如需詳細資訊link:https://docs.netapp.com/us-en/bluexp-disaster-recovery/use/drplan-create.html#map-source-resources-to-the-target["建立複寫計畫"]、請參閱。
 
-image:dr-draas-vmfs-image16.png[""]
+image:dr-draas-vmfs-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 根據預設、測試和容錯移轉作業會使用相同的對應參數。若要為測試環境套用不同的對應、請在取消勾選核取方塊後、選取測試對應選項、如下所示：
 
-image:dr-draas-vmfs-image17.png[""]
+image:dr-draas-vmfs-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 資源對應完成後、請按一下「下一步」。
 
-image:dr-draas-vmfs-image18.png[""]
+image:dr-draas-vmfs-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 選取週期類型。簡單來說、請選取移轉（使用容錯移轉進行一次移轉）或循環持續複寫選項。在此逐步解說中、會選取「複寫」選項。
 
-image:dr-draas-vmfs-image19.png[""]
+image:dr-draas-vmfs-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 完成後、請檢閱建立的對應、然後按一下「新增計畫」。
 
-image:dr-draas-vmfs-image20.png[""]
+image:dr-draas-vmfs-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image:dr-draas-vmfs-image21.png[""]
+image:dr-draas-vmfs-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 建立複寫計畫之後、您可以根據需求來執行容錯移轉、方法是選取容錯移轉選項、測試容錯移轉選項或移轉選項。BlueXP  災難恢復可確保每 30 分鐘按照計畫執行一次複寫程序。在容錯移轉和測試容錯移轉選項期間、您可以使用最新的 SnapMirror Snapshot 複本、也可以從時間點 Snapshot 複本（根據 SnapMirror 的保留原則）選取特定的 Snapshot 複本。如果發生勒索軟體等毀損事件、則時間點選項非常有幫助、因為最近的複本已經遭到入侵或加密。BlueXP  災難恢復顯示所有可用的恢復點。
 
-image:dr-draas-vmfs-image22.png[""]
+image:dr-draas-vmfs-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 若要使用複寫計畫中指定的組態觸發容錯移轉或測試容錯移轉、請按一下 * 容錯移轉 * 或 * 測試容錯移轉 * 。
 
-image:dr-draas-vmfs-image23.png[""]
+image:dr-draas-vmfs-image23.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -199,13 +199,13 @@ NOTE: 測試容錯移轉作業會在目的地 ONTAP 儲存系統上建立複製�
 
 NOTE: 執行測試恢復作業不會影響 SnapMirror 複寫。
 
-image:dr-draas-vmfs-image24.png[""]
+image:dr-draas-vmfs-image24.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 在此過程中、 BlueXP  災難恢復不會對應原始目標 Volume 。而是從選取的快照建立新的 FlexClone Volume 、並將作為 FlexClone 磁碟區備份的暫存資料存放區對應至 ESXi 主機。
 
-image:dr-draas-vmfs-image25.png[""]
+image:dr-draas-vmfs-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image:dr-draas-vmfs-image26.png[""]
+image:dr-draas-vmfs-image26.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 當測試容錯移轉作業完成時、可使用 * 「清理容錯移轉測試」 * 來觸發清理作業。在這項作業期間、 BlueXP  災難恢復會破壞作業中使用的 FlexClone Volume 。
 
@@ -217,17 +217,17 @@ image:dr-draas-vmfs-image26.png[""]
 . 開啟虛擬機器電源
 
 
-image:dr-draas-vmfs-image27.png[""]
+image:dr-draas-vmfs-image27.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 主站台一旦啟動並執行、 BlueXP  災難恢復就會啟用 SnapMirror 的反向重新同步、並啟用容錯回復、只要按一下按鈕即可再次執行。
 
-image:dr-draas-vmfs-image28.png[""]
+image:dr-draas-vmfs-image28.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如果選擇了移轉選項、則會將其視為計畫性的容錯移轉事件。在這種情況下、會觸發額外步驟、以關閉來源站台上的虛擬機器。其餘步驟仍與容錯移轉事件相同。
 
 從 BlueXP  或 ONTAP CLI 、您可以監控適當資料存放區磁碟區的複寫健全狀況狀態、並可透過工作監控來追蹤容錯移轉或測試容錯移轉的狀態。
 
-image:dr-draas-vmfs-image29.png[""]
+image:dr-draas-vmfs-image29.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 這是一套功能強大的解決方案、可處理量身打造且自訂的災難恢復計畫。當發生災難並決定啟動 DR 站台時、只要按一下按鈕、就能依照計畫進行容錯移轉或容錯移轉。
 

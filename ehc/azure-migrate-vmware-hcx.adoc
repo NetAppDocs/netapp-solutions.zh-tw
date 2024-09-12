@@ -66,7 +66,7 @@ NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援�
 ====
 為了進行測試、此驗證所使用的內部部署實驗室環境是透過站台對站台VPN連線、因此可內部部署連線至Azure VMware解決方案。
 
-image::anfd-hcx-image1.png[此映像描述此解決方案所使用的高層架構。]
+image:anfd-hcx-image1.png["此映像描述此解決方案所使用的高層架構。"]
 
 ====
 
@@ -84,7 +84,7 @@ image::anfd-hcx-image1.png[此映像描述此解決方案所使用的高層架�
 . 選取適當的私有雲並存取附加元件。您可以瀏覽至*管理>附加元件*來完成此作業。
 . 在「HCX工作負載行動性」區段中、按一下「*入門*」。
 +
-image::anfd-hcx-image2.png[HCX工作負載行動力區段的快照。]
+image:anfd-hcx-image2.png["HCX工作負載行動力區段的快照。"]
 
 . 選取「*我同意條款與條件*」選項、然後按一下「*啟用與部署*」。
 +
@@ -96,7 +96,7 @@ NOTE: 預設部署為HCX Advanced。開啟支援要求以啟用Enterprise Editio
 NOTE: 部署約需25至30分鐘。
 
 +
-image::anfd-hcx-image3.png[完成HCX工作負載行動性部分的快照。]
+image:anfd-hcx-image3.png["完成HCX工作負載行動性部分的快照。"]
 
 
 
@@ -114,7 +114,7 @@ image::anfd-hcx-image3.png[完成HCX工作負載行動性部分的快照。]
 NOTE: 使用預設的CloudAdmin使用者認證資料來存取HCX入口網站。
 
 +
-image::anfd-hcx-image4.png[Azure入口網站的快照、可下載HCX OVA檔案。]
+image:anfd-hcx-image4.png["Azure入口網站的快照、可下載HCX OVA檔案。"]
 
 . 使用jumphost、以mailto：cloudadmin@vple.1[cloudadmin@vplore.erl]存取HCX入口網站之後、請瀏覽至*管理>系統更新*、然後按一下*要求下載連結*。
 +
@@ -122,11 +122,11 @@ image::anfd-hcx-image4.png[Azure入口網站的快照、可下載HCX OVA檔案�
 NOTE: 下載或複製OVA連結、然後貼到瀏覽器中、開始下載VMware HCX Connector OVA檔案、以便部署在內部部署vCenter Server上。
 
 +
-image::anfd-hcx-image5.png[OVA 下載連結的螢幕擷取畫面。]
+image:anfd-hcx-image5.png["OVA 下載連結的螢幕擷取畫面。"]
 
 . 下載OVA之後、請使用*部署OVF範本*選項、將其部署至內部部署的VMware vSphere環境。
 +
-image::anfd-hcx-image6.png[螢幕擷取畫面可選取正確的 OVA 範本。]
+image:anfd-hcx-image6.png["螢幕擷取畫面可選取正確的 OVA 範本。"]
 
 . 輸入OVA部署的所有必要資訊、按一下*「下一步」*、然後按一下「*完成*」以部署VMware HCX連接器OVA。
 +
@@ -146,7 +146,7 @@ NOTE: 手動啟動虛擬應用裝置。
 . 從Azure入口網站、前往Azure VMware解決方案、選取私有雲、然後選取*管理>附加元件>使用HCX*移轉。
 . 在「*使用HCX金鑰與內部部署連線*」下、按一下「*新增*」、然後複製啟動金鑰。
 +
-image::anfd-hcx-image7.png[新增HCX金鑰的快照。]
+image:anfd-hcx-image7.png["新增HCX金鑰的快照。"]
 
 +
 
@@ -182,7 +182,7 @@ NOTE: 輸入VMware vCenter Server FQDN或IP位址。
 NOTE: 此程序大約需要10到20分鐘、而外掛程式則要新增至vCenter Server。
 
 +
-image::anfd-hcx-image8.png[顯示完成程序的快照。]
+image:anfd-hcx-image8.png["顯示完成程序的快照。"]
 
 
 
@@ -195,7 +195,7 @@ image::anfd-hcx-image8.png[顯示完成程序的快照。]
 . 若要在內部部署的vCenter環境與Azure VMware Solution SDDC之間建立站台配對、請登入內部部署的vCenter Server、然後存取新的HCX vSphere Web Client外掛程式。
 
 
-image::anfd-hcx-image9.png[HCX vSphere Web Client外掛程式的快照。]
+image:anfd-hcx-image9.png["HCX vSphere Web Client外掛程式的快照。"]
 
 . 按一下「基礎架構」下的「*新增站台配對*」。
 
@@ -203,7 +203,7 @@ image::anfd-hcx-image9.png[HCX vSphere Web Client外掛程式的快照。]
 
 NOTE: 輸入Azure VMware Solution HCX Cloud Manager URL或IP位址、以及CloudAdmin角色存取私有雲端的認證資料。
 
-image::anfd-hcx-image10.png[CloudAdmin角色的快照URL或IP位址和認證。]
+image:anfd-hcx-image10.png["CloudAdmin角色的快照URL或IP位址和認證。"]
 
 . 按一下「*連線*」。
 
@@ -214,7 +214,7 @@ NOTE: VMware HCX Connector必須能夠透過連接埠443路由傳送至HCX Cloud
 . 建立配對之後、即可在HCX儀表板上取得新設定的站台配對。
 
 
-image::anfd-hcx-image11.png[HCX儀表板上已完成程序的快照。]
+image:anfd-hcx-image11.png["HCX儀表板上已完成程序的快照。"]
 
 ====
 .步驟5：設定網路設定檔、運算設定檔和服務網格
@@ -228,7 +228,7 @@ VMware HCX互連服務應用裝置可透過網際網路提供複寫及vMotion型
 
 NOTE: 運算設定檔定義部署參數、包括部署的應用裝置、以及HCX服務可存取的VMware資料中心部分。
 
-image::anfd-hcx-image12.png[vSphere用戶端互連頁面的快照。]
+image:anfd-hcx-image12.png["vSphere用戶端互連頁面的快照。"]
 
 . 建立運算設定檔之後、選取*多站台服務網格>網路設定檔>建立網路設定檔*、即可建立網路設定檔。
 
@@ -238,7 +238,7 @@ image::anfd-hcx-image12.png[vSphere用戶端互連頁面的快照。]
 
 NOTE: 此步驟需要兩個以上的IP位址。這些IP位址會從管理網路指派給互連設備。
 
-image::anfd-hcx-image13.png[將IP位址新增至vSphere用戶端互連頁面的快照。]
+image:anfd-hcx-image13.png["將IP位址新增至vSphere用戶端互連頁面的快照。"]
 
 . 目前、運算和網路設定檔已成功建立。
 . 選取「*互連*」選項中的「*服務網格*」索引標籤、然後選取內部部署和Azure SDDC站台、即可建立服務網格。
@@ -248,12 +248,12 @@ image::anfd-hcx-image13.png[將IP位址新增至vSphere用戶端互連頁面的�
 
 NOTE: 在此程序中、會在來源和目標站台上部署並自動設定HCX應用裝置、以建立安全的傳輸架構。
 
-image::anfd-hcx-image14.png[vSphere用戶端互連頁面上的服務網格索引標籤快照。]
+image:anfd-hcx-image14.png["vSphere用戶端互連頁面上的服務網格索引標籤快照。"]
 
 . 這是組態的最後一步。完成部署需要將近30分鐘的時間。設定好服務網格後、環境就能準備好、成功建立IPsec通道來移轉工作負載VM。
 
 
-image::anfd-hcx-image15.png[vSphere用戶端互連頁面上完成程序的快照。]
+image:anfd-hcx-image15.png["vSphere用戶端互連頁面上完成程序的快照。"]
 
 ====
 .步驟6：移轉工作負載
@@ -272,19 +272,19 @@ image::anfd-hcx-image15.png[vSphere用戶端互連頁面上完成程序的快照
 . 存取*服務>移轉*下的*移轉*索引標籤。
 
 
-image::anfd-hcx-image16.png[vSphere用戶端移轉區段的快照。]
+image:anfd-hcx-image16.png["vSphere用戶端移轉區段的快照。"]
 
 . 在*遠端站台連線*下、選取遠端站台連線、然後選取來源和目的地。在此範例中、目的地是Azure VMware解決方案SDDC HCX端點。
 . 按一下*選取要移轉的VM *。這會提供所有內部部署VM的清單。根據MATCH：Value運算式選取VM、然後按一下* Add*。
 . 在*傳輸與放置*區段中、更新必要欄位（*叢集*、*儲存*、*目的地*和*網路*）、包括移轉設定檔、然後按一下*驗證*。
 
 
-image::anfd-hcx-image17.png[vSphere用戶端「傳輸與放置」區段的快照。]
+image:anfd-hcx-image17.png["vSphere用戶端「傳輸與放置」區段的快照。"]
 
 . 驗證檢查完成後、按一下「*執行*」以啟動移轉。
 
 
-image::anfd-hcx-image18.png[移轉初始化的快照。]
+image:anfd-hcx-image18.png["移轉初始化的快照。"]
 
 
 NOTE: 在此移轉期間、Azure NetApp Files 會在目標vCenter內的指定支援資料存放區上建立一個預留位置磁碟、以便將來源VM磁碟的資料複寫到預留位置磁碟。觸發HGR以與目標進行完整同步、並在基準完成後、根據恢復點目標（RPO）週期執行遞增同步。完成完整/遞增同步後、除非設定特定排程、否則系統會自動觸發切換。
@@ -292,7 +292,7 @@ NOTE: 在此移轉期間、Azure NetApp Files 會在目標vCenter內的指定支
 . 移轉完成後、請存取目的地SDDC vCenter以驗證相同項目。
 
 
-image::anfd-hcx-image19.png[Anfd HCx 影像 19.]
+image:anfd-hcx-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如需各種移轉選項的其他詳細資訊、以及如何使用HCX將工作負載從內部部署移轉至Azure VMware解決方案、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-14D48C15-3D75-485B-850F-C5FCB96B5637.html["VMware HCX使用者指南"^]。
 
@@ -302,7 +302,7 @@ image::anfd-hcx-image19.png[Anfd HCx 影像 19.]
 video::255640f5-4dff-438c-8d50-b01200f017d1[panopto]
 以下是HCX vMotion選項的快照。
 
-image::anfd-hcx-image20.png[Anfd HCx 影像 20.]
+image:anfd-hcx-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 若要深入瞭解此程序、歡迎觀看下列影片：
 

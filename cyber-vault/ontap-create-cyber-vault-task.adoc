@@ -1,0 +1,71 @@
+---
+sidebar: sidebar 
+keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP 
+permalink: /cyber-vault/ontap-create-cyber-vault-task.html 
+summary: 本頁所包含的步驟有助於建立 ONTAP 型網路資料保險箱解決方案 
+---
+= 使用 ONTAP 建立網路資料保險箱
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+以下步驟將協助使用 ONTAP 建立網路資料保險箱。
+
+.開始之前
+* 來源叢集必須執行 ONTAP 9 或更新版本。
+* 來源與目的地集合體必須為64位元。
+* 來源與目的地磁碟區必須在具有連接程序的SVM的連接叢集中建立。如需更多資訊、請參閱 link:../../ontap-sm-classic/peering/index.html["叢集對等"^]。
+* 如果停用Volume自動擴充、則目的地Volume上的可用空間必須至少比來源Volume上的已用空間多出5%。
+
+
+.關於這項工作
+下圖顯示初始化 SnapLock Compliance 資料保險箱關係的程序 :
+
+image::ontap-cyber-vault-air-gap.png[使用 NetApp ONTAP 的航空網路資料保險箱]
+
+.步驟
+. 識別目的地陣列、使其成為網路資料保險箱、以接收無線網路資料。
+. 在目的地陣列上，準備網路資料保險箱、link:../../ontap/system-admin/install-license-task.html["安裝 ONTAP One 授權"^]、link:../../ontap/snaplock/initialize-complianceclock-task.html["初始化法規遵循時鐘"^]和（如果您使用早於 9.10.1 的 ONTAP 版本link:../../ontap/snaplock/create-snaplock-aggregate-task.html["建立 SnapLock Compliance Aggregate"^]）。
+. 在目的地陣列上、建立 DP 類型的 SnapLock Compliance 目的地 Volume ：
++
+`volume create -vserver SVM_name -volume volume_name -aggregate aggregate_name -snaplock-type compliance|enterprise -type DP -size size`
+
+. 從ONTAP 版本S59.10.1開始、SnapLock 相同的集合體上可以存在不含SnapLock的不含SnapLock磁碟區；因此SnapLock 、如果您使用ONTAP 的是版本S59.10.1、則不再需要建立個別的不含SnapLock的集合體。您可以使用 Volume `-snaplock-type` 選項來指定 Compliance 類型。在早於 ONTAP 9 。 10.1 的 ONTAP 版本中、 SnapLock 模式的 Compliance 是從 Aggregate 繼承而來。不支援具有版本彈性的目的地Volume。目的地Volume的語言設定必須符合來源Volume的語言設定。
++
+下列命令會 `dstvolB` `SVM2`在 Aggregate 上建立一個名為的 2 GB SnapLock Compliance 磁碟區 `node01_aggr`：
+
++
+`cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -snaplock-type compliance -type DP -size 2GG`
+
+. 在目的地叢集上，若要建立 air落差 ，請設定預設保留期間link:../../ontap/snaplock/set-default-retention-period-task.html["設定預設保留期間"^]，如所述。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值最初設定為 SnapLock Compliance 磁碟區的最少 0 年和最長 30 年。每個NetApp Snapshot複本一開始就會提交此預設保留期間。必須變更預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。如需更多資訊、請參閱 link:../../ontap/snaplock/set-retention-period-task.html["設定保留時間總覽"^]。
+. link:../../ontap/data-protection/create-replication-relationship-task.html["建立新的複寫關係"^]在非 SnapLock 來源和您在步驟 3 中建立的新 SnapLock 目的地之間。
++
+此範例使用 XDPDefault 原則、建立與目的地 SnapLock Volume dstvolB 的新 SnapMirror 關係、以每小時排程標示每日和每週的 Snapshot 複本來保存快照：
+
++
+`cluster2::> snapmirror create -source-path SVM1:srcvolA -destination-path SVM2:dstvolB -vserver SVM2 -policy XDPDefault -schedule hourly`
+
++
+link:../../ontap/data-protection/create-custom-replication-policy-concept.html["建立自訂複寫原則"^]或link:../../ontap/data-protection/create-replication-job-schedule-task.html["自訂排程"^]如果可用的預設值不適用。
+
+. 在目的地SVM上、初始化SnapVault 步驟5中建立的S動動學 關係：
++
+`snapmirror initialize -destination-path destination_path`
+
+. 下列命令可初始化SVM1上的來源Volume srcvolA與SVM2上的目的地Volume dstvolB之間的關係：
++
+`cluster2::> snapmirror initialize -destination-path SVM2:dstvolB`
+
+. 在關係初始化及閒置之後、請在目的地上使用 snapshot show 命令、確認已套用至複寫 Snapshot 複本的 SnapLock 到期時間。
++
+此範例列出磁碟區 dstvolB 上具有 SnapMirror 標籤和 SnapLock 到期日的 Snapshot 複本：
+
++
+`cluster2::> snapshot show -vserver SVM2 -volume dstvolB -fields snapmirror-label, snaplock-expiry-time`
+
+

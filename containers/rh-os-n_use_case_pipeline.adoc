@@ -24,12 +24,12 @@ summary: 本節提供與Jenkins部署持續整合及持續交付或部署管線�
 
 . 建立名為Jenkins的新專案。
 +
-image::redhat_openshift_image15.jpeg[RedHat openshift image15.]
+image:redhat_openshift_image15.jpeg["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在此範例中、我們部署Jenkins搭配持續儲存設備。若要支援Jenkins建置、請建立永久虛擬基礎架構。瀏覽至「儲存設備」>「持續磁碟區宣告」、然後按一下「建立持續磁碟區宣告」。選取建立的儲存類別、確定「持續Volume宣告名稱」為Jenkins、選取適當的大小和存取模式、然後按一下「建立」。
 
 
-image::redhat_openshift_image16.png[RedHat openshift image16.]
+image:redhat_openshift_image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -39,54 +39,54 @@ image::redhat_openshift_image16.png[RedHat openshift image16.]
 
 . 在左上角、將角色從「管理員」變更為「開發人員」。按一下「+新增」、然後從「目錄」中選取。在「依關鍵字篩選」列中、搜尋Jenkins。選取Jenkins Service with Persistent Storage。
 +
-image::redhat_openshift_image17.png[RedHat openshift image17.]
+image:redhat_openshift_image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 按一下「實體化範本」。
 +
-image::redhat_openshift_image18.png[RedHat openshift image18.]
+image:redhat_openshift_image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 根據預設、會填入Jenkins應用程式的詳細資料。根據您的需求修改參數、然後按一下「Create（建立）」。此程序可建立所有必要資源、以支援OpenShift上的Jenkins。
 +
-image::redhat_openshift_image19.jpeg[RedHat openshift image19.]
+image:redhat_openshift_image19.jpeg["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . Jenkins Pod約需10至12分鐘才能進入就緒狀態。
 +
-image::redhat_openshift_image20.png[RedHat openshift image20]
+image:redhat_openshift_image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 建立Pod之後、請瀏覽至「Networking」（網路）>「Routes」（路由）。若要開啟Jenkins網頁、請按一下Jenkins路由提供的URL。
 +
-image::redhat_openshift_image21.png[RedHat openshift image21.]
+image:redhat_openshift_image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 由於在建立Jenkins應用程式時使用OpenShift Oauth、請按一下「使用OpenShift登入」。
 +
-image::redhat_openshift_image22.jpeg[RedHat openshift image22.]
+image:redhat_openshift_image22.jpeg["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 授權Jenkins服務帳戶存取OpenShift使用者。
 +
-image::redhat_openshift_image23.jpeg[RedHat openshift image23.]
+image:redhat_openshift_image23.jpeg["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 隨即顯示Jenkins歡迎頁面。因為我們使用的是墨文建置、所以請先完成墨文安裝。瀏覽至「Manage Jenkins（管理Jenkins）」>「Global Tool Configuration（全域工具組態）」、然後按一下「Men（新增）」子標題中的「Add Maven（新增輸入您選擇的名稱、並確定已選取「自動安裝」選項。按一下儲存。
 +
-image::redhat_openshift_image24.png[RedHat openshift image24.]
+image:redhat_openshift_image24.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 您現在可以建立管道來示範CI/CD工作流程。在首頁上、按一下左側功能表中的「Create New Jobs（建立新工作）」或「New item（新項目）」。
 +
-image::redhat_openshift_image25.jpeg[RedHat openshift image25]
+image:redhat_openshift_image25.jpeg["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「Create item（建立項目）」頁面上、輸入您選擇的名稱、選取「Pipeline（管道）」、然後按一下「OK（確定）」。
 +
-image::redhat_openshift_image26.png[RedHat openshift image26.]
+image:redhat_openshift_image26.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選取Pipeline（管道）索引標籤。從「試用範例管道」下拉式功能表中、選取「Github + Maven」。程式碼會自動填入。按一下儲存。
 +
-image::redhat_openshift_image27.png[RedHat openshift image27]
+image:redhat_openshift_image27.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 按一下「立即建置」、即可在準備、建置和測試階段觸發開發。完成整個建置程序並顯示建置結果可能需要幾分鐘的時間。
 +
-image::redhat_openshift_image28.png[RedHat openshift image28.]
+image:redhat_openshift_image28.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 只要有任何程式碼變更、就能重新建置管線、修補新版軟體、實現持續整合與持續交付。按一下「近期變更」以追蹤先前版本的變更。
 +
-image::redhat_openshift_image29.png[RedHat openshift image29.]
+image:redhat_openshift_image29.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 

@@ -57,7 +57,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 === 架構
 
-image::aws_ora_fsx_ec2_vldb_architecture.png[此映像提供在 AWS 公有雲與 FSxN 中執行 Oracle VLDB 遞增合併實作的詳細圖片。]
+image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲與 FSxN 中執行 Oracle VLDB 遞增合併實作的詳細圖片。"]
 
 
 
@@ -161,7 +161,7 @@ vol create -volume ora_01_copy -aggregate aggr1 -size 100G -state online -type R
 ----
 . 或者、您也可以從 AWS FSX 主控台 UI 配置磁碟區、並提供下列選項：儲存效率 `Enabled`、安全風格 `Unix` 、 Snapshot 原則 `None`和儲存分層 `Snapshot Only` 如下所示。
 +
-image::aws_ora_fsx_ec2_vldb_vol.png[AWS ora FSX EC2 VLDB vol]
+image:aws_ora_fsx_ec2_vldb_vol.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 為 Oracle 資料庫建立自訂的快照原則、每日排程及 30 天保留。您應該根據快照頻率和保留時間來調整原則、以符合您的特定需求。
 +

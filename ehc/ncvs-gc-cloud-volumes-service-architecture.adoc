@@ -18,7 +18,7 @@ summary: 以類似其他Google Cloud原生服務的方式、例如CloudSQL、Goo
 
 下圖、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture?hl=en_US["架構區段"^] 在本文件中Cloud Volumes Service 、顯示了高階檢視。
 
-image::ncvs-gc-image1.png[Ncvs GC image1]
+image:ncvs-gc-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 虛線上方的部分顯示服務的控制面、控制磁碟區生命週期。虛線下方的部分顯示資料平面。左藍色方塊描繪使用者VPC（服務消費者）、右藍色方塊則是NetApp提供的服務製造商。兩者都透過VPC對等連接。
 
@@ -58,16 +58,16 @@ VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些�
 
 使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 link:ncvs-gc-data-encryption-in-transit.html#smb-encryption["SMB加密"] 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#dns["DNS"] 和 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-queries["LDAP查詢"]。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。
 
-image::ncvs-gc-image2.png[Ncvs GC 影像 2.]
+image:ncvs-gc-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: unixUserPassword是由LDAP查詢、不會以純文字傳送、而是以Salted雜湊傳送。根據預設、Windows LDAP不會填入unixUserPassword欄位。只有當您需要利用Windows LDAP透過LDAP互動登入用戶端時、才需要此欄位。不支援互動式LDAP登入執行個體。Cloud Volumes Service
 
 下圖顯示NFS Kerberos對話擷取的封包擷取、位於透過AUTH_SYS擷取NFS的旁邊。請注意、追蹤中的可用資訊在兩者之間有何差異、以及啟用飛行中加密如何為NAS流量提供更高的整體安全性。
 
-image::ncvs-gc-image3.png[Ncvs GC 影像 3.]
+image:ncvs-gc-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::ncvs-gc-image4.png[Ncvs GC Image4]
+image:ncvs-gc-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 

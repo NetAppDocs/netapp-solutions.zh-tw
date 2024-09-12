@@ -21,19 +21,19 @@ GPU通常用於圖形視覺化（呈現）、方法是執行重複的運算計�
 
 NOTE: NVA系列隨附NVIDIA授權。
 
-image::hcvdivds_image37.png[hcvdivds image37.]
+image:hcvdivds_image37.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 H615C GPU搭配NetApp HCI 使用包含三個NVIDIA Tesla T4卡。每個NVIDIA Tesla T4卡都有一個巡迴顯示GPU、配備16GB的GDDR6記憶體。在VMware vSphere環境中使用時、虛擬機器可以共用GPU、每個VM都有專屬的框架緩衝記憶體。利用位於《不穩定的H615C」上的GPU提供光跡追蹤NetApp HCI 功能、以產生真實影像、包括光反射。請注意、您必須擁有NVIDIA授權伺服器、並取得GPU功能的授權。
 
-image::hcvdivds_image38.png[hcvdivds image38.]
+image:hcvdivds_image38.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 若要使用GPU、您必須安裝適當的驅動程式、該驅動程式可從NVIDIA授權入口網站下載。在Azure環境中、NVIDIA驅動程式可做為GPU驅動程式擴充。接下來、必須更新下列螢幕快照中的群組原則、才能使用GPU硬體進行遠端桌面服務工作階段。您應該優先設定H.264圖形模式、並啟用編碼器功能。
 
-image::hcvdivds_image39.png[hcvdivds image39.]
+image:hcvdivds_image39.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 使用工作管理員或在執行WebGL範例時使用nvidia-smi CLI來驗證GPU效能監控。請確定GPU、記憶體和編碼器資源已耗用。
 
-image::hcvdivds_image40.png[hcvdivds image40]
+image:hcvdivds_image40.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 為了確保虛擬機器已透過NetApp HCI Virtual Desktop Service部署至VMware View H615C、請使用vCenter叢集資源定義一個具有H615C主機的站台。VM範本必須附加所需的vGPU設定檔。
 

@@ -55,7 +55,7 @@ SnapCenter 服務是傳統 SnapCenter 資料庫管理 UI 工具的 SaaS 版本�
 
 === 架構
 
-image::snapctr_svcs_azure_architect.png[此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原的詳細圖片、包括它所管理的 UI 、連接器和資源。]
+image:snapctr_svcs_azure_architect.png["此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原的詳細圖片、包括它所管理的 UI 、連接器和資源。"]
 
 此映像提供 BlueXP 主控台內應用程式的 BlueXP 備份與還原詳細圖片、包括 UI 、連接器及其管理的資源。
 
@@ -153,43 +153,43 @@ video::48adf2d8-3f5e-4ab3-b25c-b04a014635ac[panopto]
 ====
 . 登入 BlueXP 主控台。
 +
-image::snapctr_svcs_connector_02-canvas.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_02-canvas.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * Connector* 下拉式箭頭和 * 新增 Connector* 以啟動 Connector 資源配置工作流程。
 +
-image::snapctr_svcs_connector_03-addc.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_03-addc.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇您的雲端供應商（在此案例中為 * Microsoft Azure * ）。
 +
-image::snapctr_svcs_connector_04-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_04-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 如果您已在 Azure 帳戶中設定 * 權限 * 、 * 驗證 * 和 * 網路 * 步驟、請略過這些步驟。否則、您必須先設定這些項目、才能繼續。您也可以從這裡擷取上一節所參照之 Azure 原則的權限 "<<開始準備 BlueXP>>。」
 +
-image::snapctr_svcs_connector_05-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_05-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * 跳至部署 * 以設定您的連接器 * 虛擬機器驗證 * 。新增您在加入 BlueXP 準備連接器作業系統驗證期間、在 Azure 資源群組中建立的 SSH 金鑰配對。
 +
-image::snapctr_svcs_connector_06-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_06-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 提供連接器執行個體的名稱、選取 * 建立 * 並接受 * 詳細資料 * 下的預設 * 角色名稱 * 、然後選擇 Azure 帳戶的訂閱。
 +
-image::snapctr_svcs_connector_07-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_07-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 使用適當的 * vnet* 、 * 子網路 * 來設定網路連線、並停用 * 公用 IP* 、但請確保連接器能在您的 Azure 環境中存取網際網路。
 +
-image::snapctr_svcs_connector_08-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_08-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 為允許 HTTP 、 HTTPS 和 SSH 存取的連接器設定 * 安全性群組 * 。
 +
-image::snapctr_svcs_connector_09-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_09-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱摘要頁面、然後按一下 * 新增 * 以開始建立連接器。完成部署通常需要 10 分鐘。完成後、連接器執行個體 VM 就會出現在 Azure 入口網站中。
 +
-image::snapctr_svcs_connector_10-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_10-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 部署連接器之後、新建立的連接器會出現在 * Connector* 下拉式清單下。
 +
-image::snapctr_svcs_connector_11-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_11-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 
@@ -202,18 +202,18 @@ image::snapctr_svcs_connector_11-azure.png[GUI 中顯示此步驟的螢幕擷取
 ====
 . 按一下 BlueXP 主控台右上角的設定圖示以開啟 * 帳戶認證 * 頁面、按一下 * 新增認證 * 以啟動認證組態工作流程。
 +
-image::snapctr_svcs_credential_01-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_credential_01-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇認證位置為 - * Microsoft Azure - BlueXP* 。
 +
-image::snapctr_svcs_credential_02-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_credential_02-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 使用適當的 * 用戶端機密 * 、 * 用戶端 ID* 和 * 租戶 ID* 來定義 Azure 認證、這些資訊應在先前的 BlueXP 登入程序中收集。
 +
-image::snapctr_svcs_credential_03-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_credential_03-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 審查與 * 新增 * 。 影像： snapctr_svcs_centical_04-azure.png ["GUI 中顯示此步驟的螢幕擷取畫面。 ]
-. 您可能還需要將 * Marketplace Subscription* 與認證建立關聯。 影像： snapctr_svcs_centical_05-azure.png ["GUI 中顯示此步驟的螢幕擷取畫面。 ]
+. 審查與 * 新增 * 。image:snapctr_svcs_credential_04-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
+. 您可能還需要將 * Marketplace Subscription* 與認證建立關聯。image:snapctr_svcs_credential_05-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 ====
@@ -227,54 +227,51 @@ image::snapctr_svcs_credential_03-azure.png[GUI 中顯示此步驟的螢幕擷�
 
 . 回到 Canvas 頁面、從 * My Working Environment* 按一下 * 新增工作環境 * 、探索部署在 Azure 中的 Azure NetApp Files 。
 +
-image::snapctr_svcs_connector_11-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_connector_11-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇 * Microsoft Azure * 作為位置、然後按一下 * Discover * （探索 * ）。
 +
-image::snapctr_svcs_setup_02-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_02-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 名稱 * 工作環境 * 並選擇 * 認證名稱 * （在上一節中建立）、然後按一下 * 繼續 * 。
 +
-image::snapctr_svcs_setup_03-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_03-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . BlueXP 主控台會返回 * 我的工作環境 * 、而從 Azure 探索到的 Azure NetApp Files 現在會出現在 * 畫布 * 上。
 +
-image::snapctr_svcs_setup_04-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_04-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 按一下 * Azure NetApp Files 工作環境 * 圖示、然後按一下 * 輸入工作環境 * 、即可檢視部署在 Azure NetApp Files 儲存設備中的 Oracle 資料庫磁碟區。
 +
-image::snapctr_svcs_setup_05-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_05-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 從主控台的左側側欄中、將滑鼠移到保護圖示上、然後按一下 * 保護 * > * 應用程式 * 、即可開啟應用程式啟動頁面。按一下「*探索應用程式*」。
 +
-image::snapctr_svcs_setup_09-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_09-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選取 * 雲端原生 * 作為應用程式來源類型。
 +
-image::snapctr_svcs_setup_10-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_10-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇 * Oracle* 作為應用程式類型、按一下 * 下一步 * 以開啟主機詳細資料頁面。
 +
-image::snapctr_svcs_setup_13-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_13-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選取 * 使用 SSH* 並提供 Oracle Azure VM 詳細資料、例如 * IP 位址 * 、 * 連接器 * 、 Azure VM 管理 * 使用者名稱 * 、例如 azureuser 。按一下 * 新增 SSH 私密金鑰 * 、將您用來部署 Oracle Azure VM 的 SSH 金鑰配對貼上。系統也會提示您確認指紋。
 +
-image::snapctr_svcs_setup_15-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
-
-+
-image::snapctr_svcs_setup_16-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_15-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"] image:snapctr_svcs_setup_16-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 移至下一個 * 組態 * 頁面、在 Oracle Azure VM 上設定更多存取權。
 +
-image::snapctr_svcs_setup_17-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_17-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱並按一下 * 探索應用程式 * 、在 Oracle Azure VM 上安裝外掛程式、並在一個步驟中探索 VM 上的 Oracle 資料庫。
 +
-image::snapctr_svcs_setup_18-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_18-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . Azure VM 上探索到的 Oracle 資料庫會新增至 * Applications* 、 * Applications* 頁面則會列出環境中的主機數和 Oracle 資料庫數。資料庫 * 保護狀態 * 一開始會顯示為 * 未受保護 * 。
 +
-image::snapctr_svcs_setup_19-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_setup_19-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 
@@ -313,27 +310,27 @@ tmpfs                      1.6G     0  1.6G   0% /run/user/1000
 ....
 . 若要保護資料庫、請按一下資料庫 * 保護狀態 * 旁的三個點、然後按一下 * 指派原則 * 、以檢視可套用至 Oracle 資料庫的預設預先載入或使用者定義資料庫保護原則。在 * 設定 * - * 原則 * 下、您可以選擇使用自訂備份頻率和備份資料保留時間來建立自己的原則。
 +
-image::snapctr_svcs_bkup_01-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_01-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 當您對原則組態感到滿意時、您可以 * 指派 * 您選擇的原則來保護資料庫。
 +
-image::snapctr_svcs_bkup_02-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_02-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 套用原則之後、資料庫保護狀態會變更為 * 受保護 * 、並加上綠色核取記號。BlueXP 會根據定義的排程執行快照備份。此外、 * 隨選備份 * 可從三點下拉式功能表取得、如下所示。
 +
-image::snapctr_svcs_bkup_03-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_03-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 從 * 工作監控 * 標籤、您可以檢視備份工作詳細資料。我們的測試結果顯示、備份 Oracle 資料庫大約需要 4 分鐘的時間、大約 1.6 TiB 。
 +
-image::snapctr_svcs_bkup_04-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_04-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 從三點下拉式功能表 * 檢視詳細資料 * 、您可以檢視從快照備份建立的備份集。
 +
-image::snapctr_svcs_bkup_05-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_05-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 資料庫備份詳細資料包括 * 備份名稱 * 、 * 備份類型 * 、 * SCN* 、 * RMAN Catalog* 及 * 備份時間 * 。備份集分別包含應用程式一致的資料磁碟區快照和記錄磁碟區快照。記錄 Volume 快照會在資料庫資料 Volume 快照之後立即執行。如果您在備份清單中尋找特定備份、可以套用篩選器。
 +
-image::snapctr_svcs_bkup_06-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_bkup_06-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 
@@ -346,27 +343,27 @@ image::snapctr_svcs_bkup_06-azure.png[GUI 中顯示此步驟的螢幕擷取畫�
 ====
 . 若要進行資料庫還原、請按一下 * 應用程式 * 中要還原之特定資料庫的三點下拉式功能表、然後按一下 * 還原 * 以啟動資料庫還原與還原工作流程。
 +
-image::snapctr_svcs_restore_01-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_01-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 依時間戳記選擇您的 * 還原點 * 。清單中的每個時間戳記代表可用的資料庫備份集。
 +
-image::snapctr_svcs_restore_02-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_02-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 選擇您的 * 還原位置 * 至 * 原始位置 * 、即可就地還原及還原 Oracle 資料庫。
 +
-image::snapctr_svcs_restore_03-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_03-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 定義您的 * 還原範圍 * 和 * 恢復範圍 * 。「所有記錄」代表完整的最新還原、包括目前的記錄。
 +
-image::snapctr_svcs_restore_04-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_04-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 檢閱並 * 還原 * 以開始資料庫還原與還原。
 +
-image::snapctr_svcs_restore_05-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_05-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 . 在 * 工作監控 * 標籤中、我們觀察到執行最新的完整資料庫還原與還原需要 2 分鐘的時間。
 +
-image::snapctr_svcs_restore_06-azure.png[GUI 中顯示此步驟的螢幕擷取畫面。]
+image:snapctr_svcs_restore_06-azure.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
 
 
@@ -384,35 +381,35 @@ NOTE: 請確定您的 Azure NetApp 檔案儲存設備有足夠的容量、可容
 
 . 按一下要在 * 應用程式 * 中複製之特定資料庫的三點下拉式功能表、然後按一下 * 還原 * 以啟動複製工作流程。
 +
-image::snapctr_svcs_restore_01-azure.png[snapctr svcs restore 01 azure]
+image:snapctr_svcs_restore_01-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選取 * 還原點 * 、然後核取 * 還原至其他位置 * 。
 +
-image::snapctr_svcs_clone_01-azure.png[snapctr svcs clone 01 azure]
+image:snapctr_svcs_clone_01-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在下一個 * 組態 * 頁面中、設定替代的 * 主機 * 、新資料庫 * SID* 和 * Oracle Home* 、如同在其他 Azure VM 上所設定。
 +
-image::snapctr_svcs_clone_02-azure.png[snapctr svcs clone 02 azure]
+image:snapctr_svcs_clone_02-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 檢閱 * 一般 * 頁面會顯示複製資料庫的詳細資料、例如 SID 、替代主機、資料檔案位置、恢復範圍等
 +
-image::snapctr_svcs_clone_03-azure.png[snapctr svcs clone 03 azure]
+image:snapctr_svcs_clone_03-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 檢閱 * 資料庫參數 * 頁面會顯示複製資料庫組態的詳細資料、以及一些資料庫參數設定。
 +
-image::snapctr_svcs_clone_04-azure.png[snapctr svcs clone 04 azure]
+image:snapctr_svcs_clone_04-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 從 * 工作監控 * 標籤監控複製工作狀態、我們觀察到複製 1.6 TiB Oracle 資料庫需要 8 分鐘。
 +
-image::snapctr_svcs_clone_05-azure.png[snapctr svcs clone 05 azure]
+image:snapctr_svcs_clone_05-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 驗證 BlueXP * Applications* 頁面中顯示複製資料庫的複製資料庫已立即登錄 BlueXP 。
 +
-image::snapctr_svcs_clone_06-azure.png[snapctr svcs clone 06 azure]
+image:snapctr_svcs_clone_06-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 驗證 Oracle Azure VM 上顯示複製資料庫依預期執行的複製資料庫。
 +
-image::snapctr_svcs_clone_07-azure.png[snapctr svcs clone 07 azure]
+image:snapctr_svcs_clone_07-azure.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 

@@ -73,9 +73,7 @@ NOTE: 設定備份時 `azacsnap.json` 組態檔、將所有資料磁碟區（包
 
 前往Azure入口網站> Azure NetApp Files / Volume、檢查快照是否已成功建立。
 
-image::db_ora_azure_anf_snap_01.PNG[此螢幕擷取畫面顯示快照清單中的兩個檔案。]
-
-image::db_ora_azure_anf_snap_02.PNG[此螢幕快照顯示快照清單中的八個檔案。]
+image:db_ora_azure_anf_snap_01.png["此螢幕擷取畫面顯示快照清單中的兩個檔案。"] image:db_ora_azure_anf_snap_02.png["此螢幕快照顯示快照清單中的八個檔案。"]
 
 
 
@@ -167,19 +165,19 @@ Version 19.8.0.0.0
 ----
 . 從「支援資料」儀表板、將記錄磁碟區還原至上次可用的快照Azure NetApp Files 。選擇*恢復磁碟區*。
 +
-image::db_ora_azure_anf_restore_01.PNG[此螢幕快照顯示Anf儀表板中磁碟區的快照還原方法。]
+image:db_ora_azure_anf_restore_01.png["此螢幕快照顯示Anf儀表板中磁碟區的快照還原方法。"]
 
 . 確認「恢復Volume」（恢復Volume）、然後按一下「*恢復*」以完成磁碟區還原至最新的可用備份。
 +
-image::db_ora_azure_anf_restore_02.PNG[「確定要這麼做？」快照還原頁面。]
+image:db_ora_azure_anf_restore_02.png["「確定要這麼做？」快照還原頁面。"]
 
 . 對資料磁碟區重複相同的步驟、並確定備份包含要恢復的資料表。
 +
-image::db_ora_azure_anf_restore_03.PNG[此螢幕快照顯示Anf儀表板中資料磁碟區的快照還原方法。]
+image:db_ora_azure_anf_restore_03.png["此螢幕快照顯示Anf儀表板中資料磁碟區的快照還原方法。"]
 
 . 再次確認磁碟區還原、然後按一下「還原」。
 +
-image::db_ora_azure_anf_restore_04.PNG[「確定要這麼做？」資料磁碟區快照還原頁面。]
+image:db_ora_azure_anf_restore_04.png["「確定要這麼做？」資料磁碟區快照還原頁面。"]
 
 . 如果您有多個控制檔複本、請重新同步控制檔、並以可用的最新複本取代舊控制檔。
 +

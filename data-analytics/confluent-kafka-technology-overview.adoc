@@ -32,7 +32,7 @@ NetApp StorageGRID 產品是高效能且具成本效益的物件儲存平台。�
 
 透過瀏覽器型的圖形介面StorageGRID 、您可以在StorageGRID 單一窗口中、設定、管理及監控分散於全球各地的整個系統。
 
-image::confluent-kafka-image4.png[Confluent Kafka Image4.]
+image:confluent-kafka-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 您可以使用StorageGRID 「資訊網管理程式」介面執行下列工作：
 
@@ -74,7 +74,7 @@ image::confluent-kafka-image4.png[Confluent Kafka Image4.]
 
 Apache Kafka是以Java和Scala寫入串流處理的軟體匯流排架構實作。它旨在提供統一化、高處理量、低延遲的平台、以處理即時資料饋送。卡夫卡可連線至外部系統、以便透過Kafka Connect匯出及匯入資料、並提供Kafka串流處理程式庫、即Java串流處理程式庫。Kafka使用以TCP為基礎的二進位傳輸協定、針對效率最佳化、並仰賴「訊息集」抽象化、將訊息自然地分組在一起、以降低網路往返的成本。如此一來、就能進行更大的連續磁碟作業、較大的網路封包和鄰近的記憶體區塊、進而讓Kafka將一串爆發性的隨機訊息寫入串流變成線性寫入。下圖說明Apache Kafka的基本資料流程。
 
-image::confluent-kafka-image5.png[Confluent Kafka 影像 5.]
+image:confluent-kafka-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 Kafka儲存的關鍵價值訊息來自於任意數量的稱為「生產商」的程序。資料可分割成不同主題中的不同分割區。在磁碟分割內、訊息會依照偏移量（訊息在磁碟分割內的位置）嚴格排序、並與時間戳記一起索引及儲存。其他稱為「使用者」的程序也可以從分割區讀取訊息。對於串流處理、Kafka提供的STREAMS API可讓您寫入Java應用程式、以使用Kafka的資料、並將結果寫回Kafka。Apache Kafka也可搭配外部串流處理系統使用、例如Apache Apex、Apache Flink、Apache Spark、Apache Storm及Apache NiFI。
 
@@ -128,7 +128,7 @@ Conflent Platform可讓您專注於從資料中獲取商業價值、而非擔心
 
 下圖顯示ConnFluent Kafka平台元件。
 
-image::confluent-kafka-image6.png[Confluent Kafka 影像 6.]
+image:confluent-kafka-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 

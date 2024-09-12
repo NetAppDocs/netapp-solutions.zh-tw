@@ -18,7 +18,7 @@ summary: 內部部署時、我們使用NetApp AFF 的VMware RC20a儲存控制器
 
 我們使用Conflent Kafka 6.2.0來評估AFF 《The》。叢集具備八個代理節點和三個zookeeper節點。為了進行效能測試、我們使用了五個OMB工作節點。
 
-image::kafka-nfs-image32.png[Kafka NFS 影像 32.]
+image:kafka-nfs-image32.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -121,11 +121,11 @@ sudo bin/benchmark --drivers driver-kafka/kafka-throughput.yaml workloads/1-topi
 
 Conflent Kafka與AFF 《The》（《The》）的穩定狀態效能、使生產商與消費者的平均處理量均超過3.4GBps。這是卡夫卡叢集內超過340萬封訊息。透過將BrokerTopicMetrics的持續處理量以每秒位元組為單位視覺化、我們可以看到AFF 由VMware支援的卓越穩定狀態效能和流量。
 
-image::kafka-nfs-image33.png[此圖表顯示代理網路處理量。]
+image:kafka-nfs-image33.png["此圖表顯示代理網路處理量。"]
 
 這與每個主題所傳送訊息的檢視非常一致。下圖提供每個主題的詳細資料。在測試的組態中、我們在四個主題中、每個主題都看到將近900k個訊息。
 
-image::kafka-nfs-image34.png[此圖表顯示代理網路處理量。]
+image:kafka-nfs-image34.png["此圖表顯示代理網路處理量。"]
 
 
 
@@ -137,7 +137,7 @@ image::kafka-nfs-image34.png[此圖表顯示代理網路處理量。]
 
 在這項測量的純生產商部分期間、我們看到高尖峰處理量、使A900效能的極限推升（當其他代理商資源不飽和、無法為生產商和消費者流量提供服務時）。
 
-image::kafka-nfs-image35.png[Kafka NFS 影像]
+image:kafka-nfs-image35.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 我們將此測量的訊息大小增加至16k、以限制每個訊息的開銷、並將NFS掛載點的儲存處理量最大化。

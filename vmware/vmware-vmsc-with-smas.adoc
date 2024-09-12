@@ -18,7 +18,7 @@ link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware_vmsc_overview.ht
 
 本文件提供 VMSC 實作詳細資料、說明如何 link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync["SnapMirror 主動式同步（ SM-AS ）"] 運用系統管理員和 ONTAP 工具。此外、它還說明如何透過複寫至第三個站台並使用 SnapCenter Plugin for VMware vSphere 來管理虛擬機器、以保護虛擬機器。
 
-image::vmware-vmsc-with-smas-image01.png[採用 SnapMirror 主動式同步架構的 VMSC]
+image:vmware-vmsc-with-smas-image01.png["採用 SnapMirror 主動式同步架構的 VMSC"]
 
 SnapMirror 主動式同步支援 ASA 、 AFF 和 FAS 儲存陣列。建議在兩個故障網域上使用相同類型（效能 / 容量模型）。目前僅支援 FC 和 iSCSI 等區塊傳輸協定。如需進一步的支援準則、請參閱 link:https://imt.netapp.com/matrix/["互通性對照表工具"] 和 link:https://hwu.netapp.com/["Hardware Universe"]
 

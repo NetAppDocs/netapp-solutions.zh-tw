@@ -40,7 +40,7 @@ summary: 此使用案例與負責為客戶的Big Data分析資料提供多雲端
 
 此影像說明資料保護與多雲端連線解決方案。
 
-image::hdcs-sh-image12.png[hdcs sh image12.]
+image:hdcs-sh-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如上圖所示、感應器的資料會透過Kafka串流並擷取至AWS Spark叢集。資料儲存在NPS中的NFS共用區、NPS位於Equinix資料中心內的雲端供應商外部。由於 NetApp NPS 分別透過直接連線和快速路由連線連線至 Amazon AWS 和 Microsoft Azure 、因此客戶可以從 Amazon 和 AWS 分析叢集存取 NFS 資料。這種方法可解決跨多個大型擴充系統進行雲端分析的問題。
 

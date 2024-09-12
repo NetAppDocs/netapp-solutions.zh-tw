@@ -18,7 +18,7 @@ summary:
 
 下圖說明在 AWS 上部署的 ROSA 叢集、並使用 FSxN 作為後端儲存設備。
 
-image::rhhc-rosa-with-fsxn.png[使用 fsxn 的 Rhhc Rosa]
+image:rhhc-rosa-with-fsxn.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Astra Trident 與 FSxN 整合。在 AWS 中部署 ROSA 叢集和 FSxN 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
@@ -52,7 +52,7 @@ video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto]
 
 NOTE: OpenShift GitOps 可用於在所有託管叢集使用 ApplicationSet 登錄 ArgoCD 時、將 Astra Trident CSI 部署至這些叢集。
 
-image::rhhc-trident-helm.png[Rhhc 三角掌舵]
+image:rhhc-trident-helm.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
 .使用 Trident 建立後端和儲存類別（適用於 FSxN ）
@@ -62,7 +62,7 @@ image::rhhc-trident-helm.png[Rhhc 三角掌舵]
 * 從 OpenShift Console 將為 FsxN 建立的儲存類別設為 Trident CSI 作為預設值。請參閱以下螢幕擷取畫面：
 
 
-image::rhhc-default-storage-class.png[Rhhc 預設儲存類別]
+image:rhhc-default-storage-class.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
 .使用 OpenShift GitOps （ Argo CD ）部署應用程式

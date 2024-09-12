@@ -34,7 +34,7 @@ Snapshot 複本和備份都能保護下列資料類型： - ** 代表應用程�
 
 === 使用 Acc 設定 Snapshot
 
-image::rhhc-onprem-dp-snap.png[Astra Control Center Snapshot 檢視]
+image:rhhc-onprem-dp-snap.png["Astra Control Center Snapshot 檢視"]
 
 
 
@@ -48,7 +48,7 @@ image::rhhc-onprem-dp-snap.png[Astra Control Center Snapshot 檢視]
 
 主動定速控制系統會從儲存備份的 S3 儲存區還原應用程式。
 
-image::rhhc-onprem-dp-br.png[Astra Control Center Restore 選項]
+image:rhhc-onprem-dp-br.png["Astra Control Center Restore 選項"]
 
 
 
@@ -64,7 +64,7 @@ https://github.com/NetApp/Verda["NetApp Verda GitHub專案"] 提供常用雲端�
 
 == Redis 應用程式快照前的執行掛鉤範例。
 
-image::rhhc-onprem-dp-br-hook.png[Astra Control Center 執行掛鉤]
+image:rhhc-onprem-dp-br-hook.png["Astra Control Center 執行掛鉤"]
 
 
 
@@ -81,7 +81,7 @@ NOTE: 請注意、複寫與備份移至 S3 並從 S3 執行還原的備份與還
 
 === SnapMirror 搭配 Acc
 
-image::rhhc-onprem-dp-rep.png[Astra Control Center 複寫]
+image:rhhc-onprem-dp-rep.png["Astra Control Center 複寫"]
 
 
 NOTE: SAN 經濟型和 NAS 經濟型儲存驅動程式不支援複寫功能。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#astra-trident-requirements["請按這裡"] 以取得更多詳細資料。
@@ -104,7 +104,7 @@ video::0cec0c90-4c6f-4018-9e4f-b09700eefb3a[panopto,width=360]
 
 MetroCluster 解決方案需要第 2 層網路擴充功能、或從兩個故障網域存取相同的網路位址。一旦 MetroCluster 組態就緒、應用程式擁有者就能清楚瞭解解決方案、因為 MetroCluster SVM 中的所有磁碟區都受到保護、並享有 SyncMirror （零 RPO ）的優勢。
 
-image::rhhc-onprem-dp-bc.png[使用 MetroCluster 的營運不中斷解決方案]
+image:rhhc-onprem-dp-bc.png["使用 MetroCluster 的營運不中斷解決方案"]
 
 
 TIP: 對於 Trident 後端組態（ TBC ）、使用 MetroCluster 組態時、請勿指定 dataLIF 和 SVM 。指定用於管理 LIF 的 SVM 管理 IP 、並使用 vsadmin 角色認證。

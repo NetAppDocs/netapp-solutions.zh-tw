@@ -44,7 +44,7 @@ keywords: AWS, Oracle, RDS, HA, DR, database
 
 如架構圖所示、對於Oracle高可用度組態、您必須在一個區域中啟用至少四個可用度區域。多個可用度區域也可位於不同區域、以符合災難恢復所需的距離。
 
-image::aws_ora_fsx_ec2_inst_01.PNG[AWS ora FSX EC2 第 01 部分]
+image:aws_ora_fsx_ec2_inst_01.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -65,38 +65,35 @@ image::aws_ora_fsx_ec2_inst_01.PNG[AWS ora FSX EC2 第 01 部分]
 
 . 在EC2儀表板中、按一下黃色的「Launch Instance」（啟動執行個體）按鈕、即可啟動EC2執行個體部署工作流程。
 +
-image::aws_ora_fsx_ec2_inst_02.PNG[AWS ora FSX EC2 第 02 部分]
+image:aws_ora_fsx_ec2_inst_02.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟1中、選取「Red Hat Enterprise Linux 8（HVM）、SSD Volume Type - Ami-0b0af3577fe5e3532（64位元x86）/ Ami-01fc429821bf1f4b4（64位元ARM orbit）」。
 +
-image::aws_ora_fsx_ec2_inst_03.PNG[AWS ora FSX EC2 in 03]
+image:aws_ora_fsx_ec2_inst_03.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟2中、根據Oracle資料庫工作負載、選取具有適當CPU和記憶體配置的m5執行個體類型。按一下「Next：Configure Instance Details（下一步：設定執行個體詳細資料）
 +
-image::aws_ora_fsx_ec2_inst_04.PNG[AWS ora FSX EC2 、 04.]
+image:aws_ora_fsx_ec2_inst_04.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟3中、選擇應放置執行個體的VPC和子網路、並啟用公有IP指派。按一下「下一步：新增儲存設備」。
 +
-image::aws_ora_fsx_ec2_inst_05.PNG[AWS ora FSX EC2 、 2005 年]
+image:aws_ora_fsx_ec2_inst_05.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟4中、為根磁碟分配足夠的空間。您可能需要新增交換空間。根據預設、EC2執行個體指派零交換空間、這不是執行Oracle的最佳選擇。
 +
-image::aws_ora_fsx_ec2_inst_06.PNG[AWS ora FSX EC2 、 2006 年]
+image:aws_ora_fsx_ec2_inst_06.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟5中、視需要新增執行個體識別標記。
 +
-image::aws_ora_fsx_ec2_inst_07.PNG[AWS ora FSX EC2 、 2007 年]
+image:aws_ora_fsx_ec2_inst_07.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟6中、選取現有的安全性群組、或為執行個體建立具有所需傳入和傳出原則的新安全性群組。
 +
-image::aws_ora_fsx_ec2_inst_08.PNG[AWS ora FSX EC2 、 2008 年]
+image:aws_ora_fsx_ec2_inst_08.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在步驟7中、檢閱執行個體組態摘要、然後按一下「啟動」以開始執行個體部署。系統會提示您建立金鑰配對、或選取金鑰配對以存取執行個體。
 +
-image::aws_ora_fsx_ec2_inst_09.PNG[AWS ora FSX EC2 、 2009 年]
-
-+
-image::aws_ora_fsx_ec2_inst_09_1.PNG[AWS ora FSX EC2 、 2009 年 1 月]
+image:aws_ora_fsx_ec2_inst_09.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] image:aws_ora_fsx_ec2_inst_09_1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 使用SSH金鑰配對登入EC2執行個體。視需要變更金鑰名稱和執行個體IP位址。
 +
@@ -129,7 +126,7 @@ EC2執行個體部署會為作業系統配置EBS根Volume。FSX for ONTAP the FS
 * 備份與維護：停用自動每日備份；資料庫儲存備份是透過SnapCenter 循環排程來執行。
 * 從SVM詳細資料頁面擷取SVM管理IP位址以及特定於傳輸協定的存取位址。FSX組態自動化所需。
 +
-image::aws_rds_custom_deploy_fsx_01.PNG[AWS RDS 自訂部署 FSX 01]
+image:aws_rds_custom_deploy_fsx_01.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -137,35 +134,35 @@ image::aws_rds_custom_deploy_fsx_01.PNG[AWS RDS 自訂部署 FSX 01]
 
 . 從FSX主 控台、按一下Create File System（建立檔案系統）以啟動FSXProvision工作流程。
 +
-image::aws_ora_fsx_ec2_stor_01.PNG[AWS ora FSX EC2 STOR 01]
+image:aws_ora_fsx_ec2_stor_01.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選擇Amazon FSX for NetApp ONTAP 。然後按「Next（下一步）」
 +
-image::aws_ora_fsx_ec2_stor_02.PNG[AWS ora FSX EC2 stor 02]
+image:aws_ora_fsx_ec2_stor_02.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選取「Standard Create（標準建立）」、然後在「File System Details（檔案系統詳細資料）」中命名您的檔案系統、「Multi-AZ HA（多AZ HA）」根據您的資料庫工作負載、選擇自動或使用者自行配置的IOPS、最高可達80、000個SSD IOPS。FSX儲存設備在後端提供高達2TiB NVMe快取、可提供更高的測量IOPS。
 +
-image::aws_ora_fsx_ec2_stor_03.PNG[AWS ora FSX EC2 STOR 03]
+image:aws_ora_fsx_ec2_stor_03.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「網路與安全性」區段中、選取VPC、安全性群組和子網路。應在部署FSX之前建立這些項目。根據FSX叢集（主要或待命）的角色、將FSX儲存節點置於適當的區域中。
 +
-image::aws_ora_fsx_ec2_stor_04.PNG[AWS ora FSX EC2 STOR 04]
+image:aws_ora_fsx_ec2_stor_04.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「Security & Encryption（安全與加密）」區段中、接受預設值、然後輸入fsxadmin密碼。
 +
-image::aws_ora_fsx_ec2_stor_05.PNG[AWS ora FSX EC2 stor 05]
+image:aws_ora_fsx_ec2_stor_05.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 輸入SVM名稱和vsadmin密碼。
 +
-image::aws_ora_fsx_ec2_stor_06.PNG[AWS ora FSX EC2 stor 06]
+image:aws_ora_fsx_ec2_stor_06.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 將Volume組態保留空白、此時您不需要建立Volume。
 +
-image::aws_ora_fsx_ec2_stor_07.PNG[AWS ora FSX EC2 stor 07]
+image:aws_ora_fsx_ec2_stor_07.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 檢閱「Summary（摘要）」頁面、然後按一下「Create File System（建立檔案系統）」以完成FSX檔案系統配置。
 +
-image::aws_ora_fsx_ec2_stor_08.PNG[AWS ora FSX EC2 stor 08]
+image:aws_ora_fsx_ec2_stor_08.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -189,11 +186,7 @@ image::aws_ora_fsx_ec2_stor_08.PNG[AWS ora FSX EC2 stor 08]
 
 從AWS FSX主控台、您可以建立三個用於Oracle資料庫檔案儲存的磁碟區：一個用於Oracle二進位、一個用於Oracle資料、一個用於Oracle記錄。請確定Volume命名符合Oracle主機名稱（定義於自動化工具套件的hosts檔案）、以便正確識別。在此範例中、我們使用db1做為EC2 Oracle主機名稱、而非EC2執行個體的一般IP位址型主機名稱。
 
-image::aws_ora_fsx_ec2_stor_09.PNG[AWS ora FSX EC2 STOR 09]
-
-image::aws_ora_fsx_ec2_stor_10.PNG[AWS ora FSX EC2 stor 10]
-
-image::aws_ora_fsx_ec2_stor_11.PNG[AWS ora FSX EC2 stor 11.]
+image:aws_ora_fsx_ec2_stor_09.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] image:aws_ora_fsx_ec2_stor_10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] image:aws_ora_fsx_ec2_stor_11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: FSX主控台目前不支援建立iSCSI LUN。對於Oracle的iSCSI LUN部署、磁碟區和LUN可以使用ONTAP NetApp Automation Toolkit for Oracle來建立。
@@ -289,7 +282,7 @@ vserver peer create -vserver primary_vserver_name -peer-vserver standby_vserver_
 ----
 . 確認叢集和Vserver服務已正確設定。
 +
-image::aws_ora_fsx_ec2_stor_14.PNG[AWS ora FSX EC2 stor 14]
+image:aws_ora_fsx_ec2_stor_14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在備用FSX叢集為主要FSX叢集的每個來源Volume建立目標NFS Volume。請視您的環境而適當地取代磁碟區名稱。
 +
@@ -422,16 +415,16 @@ NOTE: 將Oracle二進位檔從主叢集複寫到備用叢集、可能會影響Or
 
 . 自動SnapCenter 安裝完成後、SnapCenter 以管理使用者身分登入安裝SnapCenter 了該伺服器的Windows主機。
 +
-image::aws_rds_custom_deploy_snp_01.PNG[AWS RDS 自訂部署 SNP 01]
+image:aws_rds_custom_deploy_snp_01.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在左側功能表中、按一下「設定」、然後按一下「認證」和「新增」、以新增EC2使用者認證、以利SnapCenter 安裝程式。
 +
-image::aws_rds_custom_deploy_snp_02.PNG[AWS RDS 自訂部署 SNP 02]
+image:aws_rds_custom_deploy_snp_02.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在EC2執行個體主機上編輯「/etc/ssh / ssshd_config」檔案、以重設EC2使用者密碼並啟用密碼SSH驗證。
 . 確認已選取「使用Sudo權限」核取方塊。您只要在上一步中重設EC2使用者密碼即可。
 +
-image::aws_rds_custom_deploy_snp_03.PNG[AWS RDS 自訂部署 SNP 03]
+image:aws_rds_custom_deploy_snp_03.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 將SnapCenter 支援服務器名稱和IP位址新增至EC2執行個體主機檔案、以進行名稱解析。
 +
@@ -451,31 +444,31 @@ image::aws_rds_custom_deploy_snp_03.PNG[AWS RDS 自訂部署 SNP 03]
 ----
 . 在左側功能表中、選取主機>託管主機、然後按一下新增、將EC2執行個體主機新增SnapCenter 至支援中心。
 +
-image::aws_rds_custom_deploy_snp_04.PNG[AWS RDS 自訂部署 SNP 04]
+image:aws_rds_custom_deploy_snp_04.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 檢查Oracle資料庫、然後在提交之前、按一下「More Options（更多選項）」。
 
 +
-image::aws_rds_custom_deploy_snp_05.PNG[AWS RDS 自訂部署 SNP 05]
+image:aws_rds_custom_deploy_snp_05.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 核取「跳過預先安裝檢查」。確認略過預先安裝檢查、然後按一下「儲存後提交」。
 
 +
-image::aws_rds_custom_deploy_snp_06.PNG[AWS RDS 自訂部署 SNP 06]
+image:aws_rds_custom_deploy_snp_06.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 系統會提示您確認指紋、然後按一下「確認並提交」。
 
 +
-image::aws_rds_custom_deploy_snp_07.PNG[AWS RDS 自訂部署 SNP 07]
+image:aws_rds_custom_deploy_snp_07.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 成功完成外掛程式組態之後、託管主機的整體狀態會顯示為執行中。
 
 +
-image::aws_rds_custom_deploy_snp_08.PNG[AWS RDS 自訂部署 SNP 08]
+image:aws_rds_custom_deploy_snp_08.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -500,4 +493,4 @@ NOTE: 您可以在備份原則中啟用Oracle歸檔記錄剪除、以控制記�
 
 下列映像提供設定為備份Oracle資料庫的資源群組範例。
 
-image::aws_rds_custom_deploy_snp_09.PNG[AWS RDS 自訂部署 SNP 09]
+image:aws_rds_custom_deploy_snp_09.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]

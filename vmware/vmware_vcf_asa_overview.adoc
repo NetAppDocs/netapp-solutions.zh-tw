@@ -61,7 +61,7 @@ VCF 解決方案同時支援原生 Kubernetes 和虛擬機器型工作負載。V
 
 Vcf 由單一管理網域和最多 24 個 VI 工作負載網域組成、每個網域代表一個應用程式就緒基礎架構單元。工作負載網域是由單一 vCenter 執行個體所管理的一或多個 vSphere 叢集所組成。
 
-image::vmware-vcf-aff-image02.png[Vcf 架構]
+image:vmware-vcf-aff-image02.png["Vcf 架構"]
 
 如需 VCF 架構與規劃的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-design/GUID-A550B597-463F-403F-BE9A-BFF3BECB9523.html["VMware Cloud Foundation 中的架構模型和工作負載網域類型"]。
 
@@ -73,7 +73,7 @@ image::vmware-vcf-aff-image02.png[Vcf 架構]
 
 VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有 VI 工作負載網域可用的主要儲存選項和補充儲存選項。
 
-image::vmware-vcf-aff-image01.png[Vcf 儲存選項]
+image:vmware-vcf-aff-image01.png["Vcf 儲存選項"]
 
 * 工作負載網域的主要儲存設備 *
 主要儲存設備是指在 SDDC Manager 中的設定程序中、任何類型的儲存設備都可以直接連線至 VI 工作負載網域。主要儲存設備是以 SDDC 管理程式部署、作為叢集建立協調的一部分、也是第一個為工作負載網域設定的資料存放區。它在光纖通道上包含 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。
@@ -97,11 +97,11 @@ ASA 系列產品由 A 系列和 C 系列機型組成。
 
 NetApp A 系列全 NVMe 快閃陣列專為高效能工作負載所設計、提供超低延遲和高恢復能力、適合關鍵任務應用程式使用。
 
-image::vmware-asa-image1.png[VMware ASA 影像 1.]
+image:vmware-asa-image1.png["寬度 =800"]
 
 C 系列 QLC 快閃陣列的目標是提供更高容量的使用案例、以混合式 Flash 的經濟效益提供 Flash 的速度。
 
-image::vmware-asa-image2.png[VMware ASA 影像 2.]
+image:vmware-asa-image2.png["寬度 =800"]
 
 如需詳細資訊、請參閱 https://www.netapp.com/data-storage/all-flash-san-storage-array["NetApp ASA 登陸頁面"]。
 ｛ nbsp ｝

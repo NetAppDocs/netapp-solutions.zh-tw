@@ -41,7 +41,7 @@ NOTE: 請聯絡Azure與NetApp解決方案架構設計師、以規劃及調整儲
 
 從高層面來看、此架構說明如何在內部部署環境和Azure之間實現混合雲連線和應用程式可攜性。同時也說明Azure NetApp Files 如何使用VMware作為補充NFS資料存放區、以及將其作為來賓虛擬機器的客體內儲存選項、以供Azure VMware解決方案代管。
 
-image::vmware-dr-image1.png[VMware DR image1.]
+image:vmware-dr-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -151,12 +151,12 @@ az extension add --name vmware
 . 登入Azure Portal並存取Azure NetApp Files 功能。使用Azure NetApp Files 「AZ供應商登錄」、命名空間Microsoft.NetApp–wait命令來驗證對該服務的存取權、並登錄Azure NetApp Files 該資源供應商。註冊後、請建立NetApp帳戶。請參閱此 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-create-netapp-account["連結"^] 以取得詳細步驟。
 
 
-image::vmware-dr-image2.png[VMware DR image2.]
+image:vmware-dr-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 建立NetApp帳戶之後、請設定容量資源池、並設定所需的服務層級和大小。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-set-up-capacity-pool["連結"^]。
 
 
-image::vmware-dr-image3.png[VMware 災難恢復 3.]
+image:vmware-dr-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 |===
 | 值得記住的重點 
@@ -172,7 +172,7 @@ image::vmware-dr-image3.png[VMware 災難恢復 3.]
 . 使用容量集區刀鋒下的Volume刀鋒、為資料存放區新增NFS磁碟區。
 
 
-image::vmware-dr-image4.png[VMware DR Image4]
+image:vmware-dr-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如需瞭Azure NetApp Files 解根據大小或配額的功能、請參閱 link:https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-performance-considerations["效能考量Azure NetApp Files"^]。
 
@@ -212,7 +212,7 @@ C：\Users\Niyaz>AZ VMware資料存放區清單- resource-group anfavsval2 -叢�
 . 建立必要的連線之後、磁碟區就會以資料存放區的形式掛載。
 
 
-image::vmware-dr-image5.png[VMware 災難恢復 5.]
+image:vmware-dr-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
 
@@ -226,7 +226,7 @@ image::vmware-dr-image5.png[VMware 災難恢復 5.]
 * 容量集區的服務品質（QoS）類型（自動或手動）
 
 
-image::vmware-dr-image6.png[VMware 災難恢復 6.]
+image:vmware-dr-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^]。
 
@@ -319,7 +319,7 @@ NOTE: 使用ANF資料存放區時、「Restore to New Volume」（還原至新�
 
 NOTE: 利用Snapshot快照技術、備份與還原的速度非常快。Azure NetApp Files
 
-image::vmware-dr-image7.png[VMware DR image7.]
+image:vmware-dr-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 =====
 .利用Azure NetApp Files VMware解決方案進行災難恢復、提供VMware vCenter災難恢復

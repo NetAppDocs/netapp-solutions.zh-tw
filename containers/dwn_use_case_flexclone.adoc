@@ -28,7 +28,7 @@ summary: 使用FlexClone技術快速部署
 
 NetApp FlexClone技術是可寫入的時間點Snapshot型NetApp FlexVol 產品複本。這些資源幾乎會立即配置、包含來源磁碟區的所有資料、而且在新磁碟區中的資料開始從來源轉移之前、不會佔用額外的儲存空間。當多個資料複本可用於接移目的、而儲存系統的資源有限、無法配置這些磁碟區時、通常會在開發或範本型環境中使用這些資料複本。相較於必須多次複製資料以節省大量儲存空間與時間的傳統儲存系統、NetApp FlexClone技術可加速儲存相關工作。
 
-image::Astra-DevOps-UC3-FlexClone.png[FlexClone映像]
+image:Astra-DevOps-UC3-FlexClone.png["FlexClone映像"]
 
 若要深入瞭解NetApp FlexClone技術、請造訪網頁： https://docs.netapp.com/us-en/ontap/concepts/flexclone-volumes-files-luns-concept.html["NetApp文件"]。
 
@@ -49,7 +49,7 @@ image::Astra-DevOps-UC3-FlexClone.png[FlexClone映像]
 
 在此使用案例中、我們會將類似下列工作流程的內容視覺化：
 
-image::Astra-DevOps-UC3-Workflow.png[工作流程映像]
+image:Astra-DevOps-UC3-Workflow.png["工作流程映像"]
 
 . 使用者執行Ansible教戰手冊、以建立新的接移環境。
 . Ansible使用URI-API模組呼叫Astra Control來執行複製作業。
@@ -70,7 +70,7 @@ NOTE: 這兩種程序都可以自動化。
 
 此處提供的使用案例取決於您想要複製的特定環境或應用程式是否有黃金範本。在我們的環境中、我們建立了三個範本、一個用於WordPress部署、一個用於Magento部署、另一個用於Jenkins CI/CD環境、以及我們標題為DevTools的Gitea。
 
-image::Astra-DevOps-UC3-Templates.png[範本映像]
+image:Astra-DevOps-UC3-Templates.png["範本映像"]
 
 每個環境都由NetApp Astra控制管理、其中持續的Volume目前儲存在NetApp ONTAP 的NetApp解決方案儲存系統上、並採用NetApp Astra Trident提供的NFS後端。
 
@@ -98,7 +98,7 @@ astra_control_api_token: "xxxxx"
 NOTE: 您需要填寫的全域環境值可在「API存取」功能表下的NetApp Astra Control中的使用者設定檔圖示下找到。
 
 +
-image::Astra-DevOps-UC3-APIAccess.png[API存取映像]
+image:Astra-DevOps-UC3-APIAccess.png["API存取映像"]
 
 . 完成全域變數之後、您可以選擇要複製的特定應用程式值。若要將devtoolS環境複製到名為「Alan devtools/」的個人環境、您可以執行下列動作：
 +
@@ -127,7 +127,7 @@ NOTE: 撰寫的方針書必須由root使用者執行、或是由能夠透過Sudo
 
 . 當實戰手冊完成執行時、複製的應用程式會顯示為Astra Control Center主控台可用的應用程式。
 +
-image::Astra-DevOps-UC3-ClonedApp.png[複製的應用程式映像]
+image:Astra-DevOps-UC3-ClonedApp.png["複製的應用程式映像"]
 
 . 然後使用者可以登入部署應用程式的Kubernetes環境、驗證應用程式是否有新的IP位址公開、然後開始開發工作。
 

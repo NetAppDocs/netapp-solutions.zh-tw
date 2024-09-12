@@ -22,12 +22,12 @@ keywords: NetApp Astra Control, Astra Control Center, Application, Trident, Astr
 
 . 第一步是將Tanzu Kubernetes叢集新增至Astra Control Center並加以管理。移至「叢集」、然後按一下「新增叢集」、上傳Tanzu Kubernetes叢集的Kubeconfig檔案、然後按一下「選取儲存設備」。
 +
-image::vtwn_image09.jpg[Astra Control Center會建立叢集]
+image:vtwn_image09.jpg["Astra Control Center會建立叢集"]
 
 . Astra Control Center會偵測合格的儲存類別。現在、請在NetApp ONTAP 上選擇使用Trident（以SVM為後盾）來配置Volume的方式、然後按一下「Review（檢閱）」。在下一個窗格中、確認詳細資料、然後按一下「Add Cluster（新增叢集）」。
 . 新增叢集時、它會移至「Discovering」（探索）狀態、而Astra Control Center則會檢查叢集並安裝必要的代理程式。成功登錄後、叢集狀態會變更為「正常」。
 +
-image::vtwn_image10.jpg[Astra Control Center叢集可供使用]
+image:vtwn_image10.jpg["Astra Control Center叢集可供使用"]
 
 +
 
@@ -35,18 +35,18 @@ NOTE: 所有由Astra Control Center管理的Tanzu Kubernetes叢集、都應該�
 
 . 將ONTAP 支援的物件叢集匯入為儲存資源、以由Astra Control Center作為後端管理。當Tanzu Kubernetes叢集新增至Astra並設定儲存機時、它會自動探索ONTAP 及檢查以儲存機為後盾的叢集、但不會將其匯入Astra Control Center進行管理。
 +
-image::vtwn_image11.jpg[Astra Control Center後端探索]
+image:vtwn_image11.jpg["Astra Control Center後端探索"]
 
 . 若要匯入ONTAP 物件叢集、請瀏覽至後端、按一下下拉式清單、然後選取ONTAP 要管理之物件叢集旁的「Manage（管理）」。輸入ONTAP 「物件叢集認證」、按一下「檢閱資訊」、然後按一下「匯入儲存設備後端」。
 +
-image::vtwn_image12.jpg[Astra Control Center建立後端]
+image:vtwn_image12.jpg["Astra Control Center建立後端"]
 
 . 新增後端之後、狀態會變更為「可用」。這些後端現在有關於Tanzu Kubernetes叢集中持續磁碟區的資訊、ONTAP 以及有關該系統上相對應磁碟區的資訊。
 +
-image::vtwn_image13.jpg[Astra Control Center後端可用]
+image:vtwn_image13.jpg["Astra Control Center後端可用"]
 
 . 若要使用Astra Control Center跨Tanzu Kubernetes叢集進行備份與還原、您必須配置支援S3傳輸協定的物件儲存桶。目前支援的選項包括ONTAP 不支援的S3、StorageGRID 不支援的功能、AWS S3和Microsoft Azure Blob儲存設備。為了進行此安裝、我們將設定AWS S3儲存區。移至「Bucket」、按一下「Add Bucket」、然後選取「通用S3」。輸入S3儲存區的詳細資料和認證資料以進行存取、按一下「將此儲存區設為雲端的預設儲存區」核取方塊、然後按一下「新增」。
 +
-image::vtwn_image14.jpg[Astra Control Center可建立鏟斗]
+image:vtwn_image14.jpg["Astra Control Center可建立鏟斗"]
 
 

@@ -26,7 +26,7 @@ DevOps工作流程最常見的用途之一是持續整合與持續部署（CI/CD
 
 在此使用案例中、我們將深入探討一條促銷到正式作業的傳輸途徑、這條途徑會部署新版本的應用程式：先進入接移環境、然後進入正式作業環境。此範例同樣適用於主要公有雲、也適用於內部部署環境。雖然我們展示了某個應用程式版本的部署、但管道也可搭配其他策略使用、例如藍色/綠色或金卡部署。在CI/CD管道中、我們將建立完整的應用程式備份來保護應用程式。對正式作業應用程式及其資料、狀態和組態的應用程式感知備份、對於許多DevOps工作流程而言、都很實用。
 
-image::dwn_image1.jpg[採用NetApp Astra使用案例1架構的DevOps]
+image:dwn_image1.jpg["採用NetApp Astra使用案例1架構的DevOps"]
 
 用於驗證此使用案例的應用程式為 https://magento.com/["Magento"^]這是一種電子商務解決方案、具備網路型前端、搜尋與分析功能的Elasticsearch執行個體、以及追蹤所有購物庫存與交易詳細資料的MariaDB資料庫。此容器化應用程式安裝於Red Hat OpenShift叢集。應用程式中的每個Pod都使用持續磁碟區來儲存資料。NetApp Astra Trident會自動建立持續性磁碟區、這是Container Storage Interface相容的Kubernetes儲存協調程式、可在NetApp儲存系統上配置儲存設備。此外、為了利用Astra Control Center的應用程式保護功能、相關應用程式是由Astra Control管理、Astra Control隨後用於觸發應用程式備份、以儲存應用程式狀態及持續磁碟區中的資料。我們使用 https://github.com/NetApp/netapp-astra-toolkits["NetApp Astra Control Python SDK"^] 將觸發應用程式備份的程序自動化、然後將其導入CI/CD傳輸途徑。此管道是使用稱為的熱門CI/CD工具來建立和執行 [https://www.jenkins.io/["Jenkins"^]]將建置、保護及部署應用程式的流程自動化。
 
@@ -87,7 +87,7 @@ magento-mariadb-0                                        1/1     Running   0    
 . 在正式作業環境中、按一下Magento應用程式的省略符號（「magent-prod」）、然後按一下「Manage（管理）」。
 . Magento應用程式現在由Astra Control Center管理。Astra Control支援的所有作業都可在應用程式上執行。也請記下應用程式的版本。
 +
-image::dwn_image2.jpg[升級前請檢查Magento版本]
+image:dwn_image2.jpg["升級前請檢查Magento版本"]
 
 . 在接移環境（「magento接移」）中重複管理Magento應用程式的步驟。
 
@@ -102,7 +102,7 @@ image::dwn_image2.jpg[升級前請檢查Magento版本]
 . 瀏覽至「管理Jenkins」>「管理認證」、然後按一下適當的網域。
 . 按一下「Add Credentials（新增認證）」、然後將「種類」設為「使用者名稱」、並將「範圍」設為輸入認證的使用者名稱、密碼和ID、然後按一下「OK（確定）」。
 +
-image::dwn_image8.jpg[建立認證資料]
+image:dwn_image8.jpg["建立認證資料"]
 
 . 對其他兩個認證重複相同的程序。
 . 返回儀表板、按一下「New item（新項目）」建立管道、然後按一下「Pipeline（管道）」。
@@ -130,27 +130,27 @@ MAGENTO_MARIADB_ROOT_CREDS = credentials('magento-mariadb-root-cred')
 ----
 . 按一下「立即建置」。管道會開始執行、並逐步完成各個步驟。應用程式映像會先建置並上傳至Container登錄。
 +
-image::dwn_image3.jpg[管道進度]
+image:dwn_image3.jpg["管道進度"]
 
 . 應用程式備份是透過Astra Control啟動。
 +
-image::dwn_image4.jpg[備份已啟動]
+image:dwn_image4.jpg["備份已啟動"]
 
 . 備份階段成功完成後、請從Astra Control Center驗證備份。
 +
-image::dwn_image5.jpg[備份成功]
+image:dwn_image5.jpg["備份成功"]
 
 . 然後將新版本的應用程式部署至接移環境。
 +
-image::dwn_image6.jpg[已啟動接移部署]
+image:dwn_image6.jpg["已啟動接移部署"]
 
 . 完成此步驟之後、程式會等待使用者核准正式作業部署。在此階段、假設QA團隊執行一些手動測試並核准正式作業。然後、您可以按一下「核准」、將新版本的應用程式部署到正式作業環境。
 +
-image::dwn_image7.jpg[正在等待促銷]
+image:dwn_image7.jpg["正在等待促銷"]
 
 . 確認正式作業應用程式也已升級至所需的版本。
 +
-image::dwn_image11.jpg[Prod應用程式已升級]
+image:dwn_image11.jpg["Prod應用程式已升級"]
 
 
 

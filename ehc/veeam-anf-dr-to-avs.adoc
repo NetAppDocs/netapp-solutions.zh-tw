@@ -38,7 +38,7 @@ Veeam 備份與複寫是適用於虛擬環境的備份與複寫應用程式。�
 
 Veeam Backup & Replication 中的複寫程序是由工作所驅動、這表示複寫是透過設定複寫工作來執行。發生災難事件時、可觸發容錯移轉、藉由容錯移轉至複本來恢復 VM 。執行容錯移轉時、複寫的 VM 會接管原始 VM 的角色。容錯移轉可以執行至複本的最新狀態、或是任何已知的還原點。如此一來、就能視需要進行勒索軟體恢復或隔離測試。Veeam 備份與複寫提供多種選項來處理不同的災難恢復案例。
 
-image::dr-veeam-anf-image1.png[Dr Veeam anf image1]
+image:dr-veeam-anf-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -88,41 +88,41 @@ Veeam 備份與複寫利用 VMware vSphere 快照功能 / 在複寫期間、 Vee
 * 如果 Azure VMware 解決方案 SDDC 上的區段與內部部署站台網路不相符、請選取「網路重新對應（適用於具有不同網路的 AVS SDDC 站台）」核取方塊。
 ** 如果內部生產站台的 IP 定址方案與目標 AVS 站台的配置不同、請選取複本重新 IP （適用於具有不同 IP 定址方案的 DR 站台）核取方塊。
 +
-image::dr-veeam-anf-image2.png[Dr Veeam anf image2.]
+image:dr-veeam-anf-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
 . 在「 * 虛擬 * 機器 * 」步驟中、選取要複寫到連接至 Azure VMware 解決方案 SDDC 的 Azure NetApp Files 資料存放區的虛擬機器。虛擬機器可放置在 vSAN 上、以填滿可用的 vSAN 資料存放區容量。在試驗性光叢集中、 3 節點叢集的可用容量將會受到限制。其餘資料可輕鬆置於 Azure NetApp Files 資料存放區、以便恢復 VM 、並可擴充叢集以符合 CPU/ 記憶體需求。按一下 * 新增 * 、然後在 * 新增物件 * 視窗中選取必要的 VM 或 VM 容器、然後按一下 * 新增 * 。單擊 * 下一步 * 。
 +
-image::dr-veeam-anf-image3.png[Dr Veeam anf 影像 3.]
+image:dr-veeam-anf-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 之後、請將目的地選取為 Azure VMware 解決方案 SDDC 叢集 / 主機、以及適當的資源集區、 VM 資料夾、以及適用於 VM 複本的 ONTAP 資料存放區的 FSX 。然後單擊*下一步*。
 +
-image::dr-veeam-anf-image4.png[Dr Veeam anf Image4]
+image:dr-veeam-anf-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在下一個步驟中、視需要在來源和目的地虛擬網路之間建立對應。
 +
-image::dr-veeam-anf-image5.png[Dr Veeam anf 影像 5.]
+image:dr-veeam-anf-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在 * 工作設定 * 步驟中、指定將儲存 VM 複本中繼資料、保留原則等的備份儲存庫。
 . 在 *Data Transfer* 步驟中更新 *Source* 和 *Target* 代理服務器，並保留 *Automatic* 選擇（默認）並保持 *Direct* 選項，然後單擊 *Next* （下一步）。
 . 在 * 來賓處理 * 步驟中、視需要選取 * 啟用應用程式感知處理 * 選項。單擊 * 下一步 * 。
 +
-image::dr-veeam-anf-image6.png[Dr Veeam anf 影像 6.]
+image:dr-veeam-anf-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選擇複寫排程以定期執行複寫工作。
 +
-image::dr-veeam-anf-image7.png[Dr Veeam anf image7.]
+image:dr-veeam-anf-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在精靈的 * 摘要 * 步驟中、檢閱複寫工作的詳細資料。若要在精靈關閉後立即啟動工作、請選取 * 按一下「完成」時執行工作 * 核取方塊、否則請取消選取核取方塊。然後按一下 * 完成 * 以關閉精靈。
 +
-image::dr-veeam-anf-image8.png[Dr Veeam anf image8.]
+image:dr-veeam-anf-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
 複寫工作啟動後、會在目的地 AVS SDDC 叢集 / 主機上填入具有指定尾碼的 VM 。
 
-image::dr-veeam-anf-image9.png[Dr Veeam anf image9.]
+image:dr-veeam-anf-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如需 Veeam 複寫的其他資訊、請參閱 link:https://helpcenter.veeam.com/docs/backup/vsphere/replication_process.html?ver=120["複寫的運作方式"]
 
@@ -147,15 +147,15 @@ NOTE: 在容錯移轉過程中、來源 VM 將不會關閉
 
 . 在主畫面上。在複本節點上按一下滑鼠右鍵、然後選取容錯移轉計畫 > 容錯移轉計畫 > VMware vSphere 。
 +
-image::dr-veeam-anf-image10.png[Veeam anf 醫生影像 10.]
+image:dr-veeam-anf-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 接著提供計畫的名稱和說明。可視需要新增容錯移轉前後指令碼。例如、在啟動複寫的虛擬機器之前、請先執行指令碼來關閉虛擬機器。
 +
-image::dr-veeam-anf-image11.png[Veeam anf 醫生 11.]
+image:dr-veeam-anf-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 將 VM 新增至計畫、並修改 VM 開機順序和開機延遲、以符合應用程式相依性。
 +
-image::dr-veeam-anf-image12.png[Veeam anf 醫生 12]
+image:dr-veeam-anf-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -172,17 +172,17 @@ NOTE: 請確定已建立網路區段、以避免容錯移轉期間發生 IP 衝�
 
 若要開始進行容錯移轉計畫、只要按一下 * 容錯移轉計畫 * 索引標籤、然後在容錯移轉計畫上按一下滑鼠右鍵即可。選擇 ** 開始 * 。這會使用最新的 VM 複本還原點進行容錯移轉。若要容錯移轉至虛擬機器複本的特定還原點、請選取 * 開始至 * 。
 
-image::dr-veeam-anf-image13.png[Veeam anf 醫生 13.]
+image:dr-veeam-anf-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-veeam-anf-image14.png[Veeam anf 醫生]
+image:dr-veeam-anf-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 VM 複本的狀態會從「 Ready （就緒）」變更為「 Failover （容錯移轉）」、而 VM 會從目的地 Azure VMware Solution （ AVS ） SDDC 叢集 / 主機啟動。
 
-image::dr-veeam-anf-image15.png[Veeam anf 醫生 15]
+image:dr-veeam-anf-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 容錯移轉完成後、 VM 的狀態會變更為「容錯移轉」。
 
-image::dr-veeam-anf-image16.png[Veeam anf 醫生]
+image:dr-veeam-anf-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: Veeam 備份與複寫會停止來源 VM 的所有複寫活動、直到其複本回到「就緒」狀態為止。
@@ -207,23 +207,23 @@ NOTE: 當您執行容錯回復時、變更只會傳輸但不會發佈。選擇 *
 
 在本示範中、選擇了「容錯回復至正式作業」。在精靈的「目的地」步驟中選取容錯回復至原始 VM 、並啟用「還原後開啟 VM 」核取方塊。
 
-image::dr-veeam-anf-image17.png[Veeam anf 醫生]
+image:dr-veeam-anf-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-veeam-anf-image18.png[Veeam anf 醫生]
+image:dr-veeam-anf-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-veeam-anf-image19.png[Veeam anf 醫生]
+image:dr-veeam-anf-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::dr-veeam-anf-image20.png[Veeam anf 醫生 20]
+image:dr-veeam-anf-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 容錯回復認可是完成容錯回復作業的方法之一。提交容錯回復時、會確認傳送至容錯回復的 VM （正式作業 VM ）所做的變更、均如預期運作。提交作業完成後、 Veeam 備份與複寫會恢復正式作業 VM 的複寫活動。
 
 如需容錯回復程序的詳細資訊、請參閱的 Veeam 文件 link:https://helpcenter.veeam.com/docs/backup/vsphere/failover_failback.html?ver=120["容錯移轉和容錯回復以進行複寫"]。
 
-image::dr-veeam-anf-image21.png[Veeam anf 醫生]
+image:dr-veeam-anf-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 在容錯回復至正式作業後、虛擬機器都會還原回原始正式作業站台。
 
-image::dr-veeam-anf-image22.png[Veeam anf 醫生]
+image:dr-veeam-anf-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
 

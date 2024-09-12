@@ -18,7 +18,7 @@ summary:
 
 讓我們來看看上述功能如何與 VMware 合作、以保護和恢復資料、防範勒索軟體。為了保護 vSphere 和來賓 VM 免於遭受攻擊、必須採取多項措施、包括分割、針對端點使用 EDR/XDR/SIEM 、安裝安全更新、並遵守適當的強化準則。位於資料存放區上的每個虛擬機器也會裝載標準作業系統。確保已安裝企業伺服器反惡意軟體產品套件、並定期更新這些套件、這是多層勒索軟體保護策略的重要元件。此外、在資料存放區的 NFS 磁碟區上啟用自主勒索軟體保護（ ARP ）。ARP 利用內建的內建 ML 來查看 Volume 工作負載活動和資料 Entropy 、以自動偵測勒索軟體。ARP 可透過 ONTAP 內建管理介面或系統管理員進行設定、並以每個磁碟區為基礎啟用。
 
-image::nfs-arp-image1.png[NFS arp image1.]
+image:nfs-arp-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 有了目前在技術預覽中的全新 NetApp ARP/AI 、就不需要學習模式。反之、它可以利用 AI 驅動的勒索軟體偵測功能、直接進入主動模式。
@@ -28,7 +28,7 @@ NOTE: 使用 ONTAP One 、所有這些功能集都完全免費。存取 NetApp �
 
 一旦進入作用中模式、系統就會開始尋找可能是勒索軟體的異常 Volume 活動。如果偵測到異常活動、系統會立即執行自動 Snapshot 複本、以盡可能接近檔案感染的還原點。當新的副檔名新增至加密的磁碟區或檔案的副檔名遭到修改時、 ARP 可以偵測位於虛擬機器外部的 NFS 磁碟區上 VM 特定副檔名的變更。
 
-image::nfs-arp-image2.png[NFS arp image2.]
+image:nfs-arp-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如果勒索軟體攻擊的目標是虛擬機器（ VM ）、並在虛擬機器之外變更檔案、則如果虛擬機器的預設 Entropy （例如、 .txt 、 .docx 或 .mp4 檔案）較低、進階勒索軟體保護（ ARP ）仍會偵測到威脅。雖然在這種情況下 ARP 會建立保護性快照、但它不會產生威脅警示、因為 VM 外部的副檔名並未遭到竄改。在這種情況下、最初的防禦層會識別異常狀況、不過 ARP 有助於根據 Entropy 建立快照。
 
@@ -36,11 +36,11 @@ image::nfs-arp-image2.png[NFS arp image2.]
 
 從檔案移轉到備份資料、勒索軟體攻擊現在越來越以備份和快照恢復點為目標、嘗試在開始加密檔案之前先刪除這些點。不過、使用 ONTAP 、您可以在主要或次要系統上使用建立防竄改快照link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["NetApp Snapshot ™複本鎖定"]、以防止發生這種情況。
 
-image::nfs-arp-image3.png[NFS arp image3.]
+image:nfs-arp-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 勒索軟體攻擊者或惡意系統管理員無法刪除或變更這些 Snapshot 複本、因此即使在攻擊之後也能使用這些複本。如果資料存放區或特定虛擬機器受到影響、 SnapCenter 可在數秒內恢復虛擬機器資料、將組織的停機時間降至最低。
 
-image::nfs-arp-image4.png[NFS arp Image4]
+image:nfs-arp-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 以上說明 ONTAP 儲存如何在現有技術中新增額外的層級、以強化環境的未來性。
 
@@ -50,25 +50,25 @@ image::nfs-arp-image4.png[NFS arp Image4]
 
 在此範例中、 NFS 資料存放區「 src_nfs_DS04 」使用 BlueXP  勒索軟體保護來保護。
 
-image::nfs-arp-image5.png[NFS arp image5.]
+image:nfs-arp-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::nfs-arp-image6.png[NFS arp image6.]
+image:nfs-arp-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 如需設定 BlueXP  勒索軟體保護的詳細資訊、請參閱link:https://docs.netapp.com/us-en/bluexp-ransomware-protection/rp-start-setup.html["設定 BlueXP  勒索軟體保護"]和link:https://docs.netapp.com/us-en/bluexp-ransomware-protection/rp-use-settings.html#add-amazon-web-services-as-a-backup-destination["設定 BlueXP 勒索軟體保護設定"]。
 
 現在是以範例來說明這點的時候了。在此逐步解說中、資料存放區「 src-nfs_DS04 」會受到影響。
 
-image::nfs-arp-image7.png[NFS arp image7.]
+image:nfs-arp-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ARP 在偵測到時立即觸發磁碟區上的快照。
 
-image::nfs-arp-image8.png[NFS arp image8.]
+image:nfs-arp-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::nfs-arp-image9.png[NFS arp image9.]
+image:nfs-arp-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 鑑識分析完成後、即可利用 SnapCenter 或 BlueXP  勒索軟體保護、快速無縫地完成還原。使用 SnapCenter 、前往受影響的虛擬機器、並選取適當的快照進行還原。
 
-image::nfs-arp-image10.png[NFS arp image10.]
+image:nfs-arp-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 本節探討 BlueXP  勒索軟體保護如何協調從加密 VM 檔案的勒索軟體事件中恢復的工作。
 
@@ -78,11 +78,11 @@ NOTE: 如果 VM 是由 SnapCenter 管理、 BlueXP  勒索軟體保護會使用
 . 存取 BlueXP  勒索軟體保護、 BlueXP  勒索軟體保護儀表板上會出現警示。
 . 按一下警示以檢閱該特定磁碟區上產生警示的事件
 +
-image::nfs-arp-image11.png[NFS arp image11.]
+image:nfs-arp-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選取「 Mark Restore Need 」（標示需要還原）、將勒索軟體事件標示為準備好進行恢復（在事件失效之後）
 +
-image::nfs-arp-image12.png[NFS arp image12.]
+image:nfs-arp-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 
@@ -90,19 +90,19 @@ NOTE: 如果事件證實為誤報、則可解除警示。
 
 . 移至 Recovery （恢復）索引標籤並檢閱 Recovery （恢復）頁面中的工作負載資訊、然後選取處於「 Restore 所需」（還原所需）狀態的資料存放區磁碟區、然後選取 Restore （還原）。
 +
-image::nfs-arp-image13.png[NFS arp image13.]
+image:nfs-arp-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在這種情況下、還原範圍是「依 VM 」（對於 VM 的 SnapCenter 、還原範圍是「依 VM 」）
 +
-image::nfs-arp-image14.png[NFS arp image14.]
+image:nfs-arp-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選擇還原資料所使用的還原點、然後選取目的地、再按一下還原。
 +
-image::nfs-arp-image15.png[NFS arp image15.]
+image:nfs-arp-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 從上方功能表中、選取恢復以檢閱恢復頁面上的工作負載、其中作業狀態會在狀態之間移動。還原完成後、 VM 檔案會還原、如下所示。
 +
-image::nfs-arp-image16.png[NFS arp image16.]
+image:nfs-arp-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 

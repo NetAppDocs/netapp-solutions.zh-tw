@@ -48,7 +48,7 @@ NOTE: TCO 估算工具只能由 NetApp 現場團隊和合作夥伴存取。與 N
 
 以下是 TCO 估算工具的螢幕擷取畫面。
 
-image::vmfs-deploy-image1.png[VMFS 部署影像 1]
+image:vmfs-deploy-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -58,9 +58,9 @@ image::vmfs-deploy-image1.png[VMFS 部署影像 1]
 
 以下是 Cloud Insights 的螢幕擷取畫面。
 
-image::vmfs-deploy-image2.png[VMFS 部署影像 2.]
+image:vmfs-deploy-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::vmfs-deploy-image3.png[VMFS 部署影像 3.]
+image:vmfs-deploy-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 定期進行評估、找出使用率偏低的資源、增加虛擬機器密度、並在 VMware 叢集內提高使用率、以控制與新訂閱授權相關的不斷攀升成本。考慮將新伺服器購買的每個 CPU 核心數量減至 16 個、以配合 VMware 授權模式的變更。
@@ -100,26 +100,26 @@ NOTE: 部署需要三個 IP 位址：負載平衡器需要一個 IP 位址、 Ku
 NOTE: 此逐步解說使用簡易部署選項。
 
 +
-image::vmfs-deploy-image4.png[VMFS 部署 Image4]
+image:vmfs-deploy-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選擇資料存放區以部署 OVA 、以及來源和目的地網路。完成後、請選取「下一步」。
 . 現在正是自訂範本 > 系統組態視窗的時候。
 +
-image::vmfs-deploy-image5.png[VMFS 部署影像 5.]
+image:vmfs-deploy-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
-image::vmfs-deploy-image6.png[VMFS 部署影像 6.]
+image:vmfs-deploy-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
-image::vmfs-deploy-image7.png[VMFS 部署影像 7.]
+image:vmfs-deploy-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
 安裝成功之後、 Web 主控台會顯示 VMware vSphere 的 ONTAP 工具狀態。
 
-image::vmfs-deploy-image8.png[VMFS 部署影像 8.]
+image:vmfs-deploy-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::vmfs-deploy-image9.png[VMFS 部署影像 9.]
+image:vmfs-deploy-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 資料存放區建立精靈支援 VMFS 、 NFS 和 vVols 資料存放區的資源配置。
@@ -129,27 +129,27 @@ NOTE: 資料存放區建立精靈支援 VMFS 、 NFS 和 vVols 資料存放區�
 . 使用登入 vSphere 用戶端 https://vcenterip/ui[]
 . 以滑鼠右鍵按一下主機或主機叢集或資料存放區、然後選取 NetApp ONTAP tools> Create Datastore 。
 +
-image::vmfs-deploy-image10.png[VMFS 部署影像 10.]
+image:vmfs-deploy-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在 Type （類型）窗格中、在 Datastore Type （資料存放區類型）中選取 VMFS 。
 +
-image::vmfs-deploy-image11.png[VMFS 部署影像 11.]
+image:vmfs-deploy-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在 Name and Protocol （名稱和傳輸協定）窗格中、輸入資料存放區名稱、大小和傳輸協定資訊。如果您要將此資料存放區新增至、請在窗格的「進階選項」區段中選取資料存放區叢集。
 +
-image::vmfs-deploy-image12.png[VMFS 部署影像 12.]
+image:vmfs-deploy-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在 Storage （儲存）窗格中選取 Platform and storage VM （平台和儲存 VM ）。在窗格的「進階選項」區段中提供自訂啟動器群組名稱（選用）。您可以為資料存放區選擇現有的 igroup 、也可以使用自訂名稱建立新的 igroup 。
 +
-image::vmfs-deploy-image13.png[VMFS 部署影像 13.]
+image:vmfs-deploy-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 從儲存屬性窗格中、從下拉式功能表中選取 Aggregate 。在「進階選項」區段中、視需要選取空間保留、磁碟區選項和啟用 QoS 選項。
 +
-image::vmfs-deploy-image14.png[VMFS 部署影像 14.]
+image:vmfs-deploy-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 檢閱摘要窗格中的資料存放區詳細資料、然後按一下完成。VMFS 資料存放區會建立並掛載於所有主機上。
 +
-image::vmfs-deploy-image15.png[VMFS 部署影像 15.]
+image:vmfs-deploy-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -168,7 +168,7 @@ VAAI 原元用於例行 vSphere 作業、例如建立、複製、移轉、啟動
 * 空間回收
 
 
-image::vmfs-deploy-image16.png[VMFS 部署影像 16.]
+image:vmfs-deploy-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 確保已透過 ESX 進階組態選項啟用 HardwareAcceleratedMove 。
@@ -176,12 +176,12 @@ NOTE: 確保已透過 ESX 進階組態選項啟用 HardwareAcceleratedMove 。
 
 NOTE: 確保 LUN 已啟用「空間分配」。如果未啟用、請啟用選項並重新掃描所有 HBA 。
 
-image::vmfs-deploy-image17.png[VMFS 部署影像 17.]
+image:vmfs-deploy-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 NOTE: 這些值可透過適用於 VMware vSphere 的 ONTAP 工具輕鬆設定。從概觀儀表板移至 ESXi 主機相容性卡、然後選取套用建議的設定選項。在「套用建議的主機設定」視窗中、選取主機、然後按一下「下一步」以套用 NetApp 建議的主機設定。
 
-image::vmfs-deploy-image18.png[VMFS 部署影像 18.]
+image:vmfs-deploy-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 檢視的詳細指南link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-settings.html["建議的ESXi主機和其他ONTAP 功能設定"]。
 
@@ -191,7 +191,7 @@ image::vmfs-deploy-image18.png[VMFS 部署影像 18.]
 
 在 VMFS 資料存放區上有效率地備份虛擬機器、並快速恢復虛擬機器、是 ONTAP for vSphere 的主要優勢之一。NetApp SnapCenter ® 軟體與 vCenter 整合、可為 VM 提供各種備份與還原功能。它可為 VM 、資料存放區和 VMDK 提供快速、節省空間、一致當機且 VM 一致的備份與還原作業。它也能搭配 SnapCenter Server 使用 SnapCenter 應用程式專屬外掛程式、在 VMware 環境中支援應用程式型備份與還原作業。利用 Snapshot 複本可快速複製 VM 或資料存放區、而不會對效能造成任何影響、並使用 NetApp SnapMirror ® 或 NetApp SnapVault ® 技術提供長期的異地資料保護。
 
-image::vmfs-deploy-image19.png[VMFS 部署影像 19.]
+image:vmfs-deploy-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 工作流程很簡單。新增主要儲存系統和 SVM （如果需要 SnapMirror / SnapVault 、則新增次要）。
 
@@ -223,11 +223,11 @@ image::vmfs-deploy-image19.png[VMFS 部署影像 19.]
 . 等待 OVF 匯入和部署工作完成。
 . SnapCenter Plug-in for VMware 成功部署之後、就會在 vCenter 中登錄。您也可以存取「管理」 > 「用戶端外掛程式」來驗證
 +
-image::vmfs-deploy-image20.png[VMFS 部署影像 20]
+image:vmfs-deploy-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 若要存取外掛程式、請導覽至 vCenter 網頁用戶端頁面的左側邊標、然後選取 SnapCenter Plug-in for VMware 。
 +
-image::vmfs-deploy-image21.png[VMFS 部署影像 21.]
+image:vmfs-deploy-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -248,10 +248,10 @@ image::vmfs-deploy-image21.png[VMFS 部署影像 21.]
 . 選取新增以新增「儲存」詳細資料。
 . 使用認證作為驗證方法、輸入使用者名稱及其密碼、然後按一下新增以儲存設定。
 +
-image::vmfs-deploy-image22.png[VMFS 部署影像 22.]
+image:vmfs-deploy-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
-image::vmfs-deploy-image23.png[VMFS 部署影像 23.]
+image:vmfs-deploy-image23.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -266,7 +266,7 @@ image::vmfs-deploy-image23.png[VMFS 部署影像 23.]
 . 在 SnapCenter Plug-in for VMware 的左導覽窗格中、按一下原則。
 . 在「原則」頁面上、按一下「建立」以啟動精靈。
 +
-image::vmfs-deploy-image24.png[VMFS 部署影像 24.]
+image:vmfs-deploy-image24.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「新增備份原則」頁面上、輸入原則名稱。
 . 指定保留、頻率設定和複寫。
@@ -279,7 +279,7 @@ NOTE: 若要將 Snapshot 複製複本複寫到鏡像或資料保險箱次要儲�
 NOTE: 若要啟用 VM 一致的備份、必須安裝並執行 VMware 工具。如果選中 VM Consistency （ VM 一致性）複選框，則虛擬機將首先處於停機狀態，然後 VMware 將執行 VM 一致的快照（不包括內存），然後 SnapCenter Plug-in for VMware 將執行其備份操作，然後恢復 VM 操作。
 
 +
-image::vmfs-deploy-image25.png[VMFS 部署影像 25]
+image:vmfs-deploy-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 建立原則後、下一步是建立資源群組、以定義應備份的適當 iSCSI 資料存放區和 VM 。建立資源群組之後、現在是觸發備份的時候了。
@@ -300,24 +300,24 @@ image::vmfs-deploy-image25.png[VMFS 部署影像 25]
 另一個建立資源群組的選項是分別選取個別 VM 或資料存放區並建立資源群組。
 
 +
-image::vmfs-deploy-image26.png[VMFS 部署影像 26.]
+image:vmfs-deploy-image26.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「資源」頁面上、選取範圍（虛擬機器或資料存放區）和資料中心。
 +
-image::vmfs-deploy-image27.png[VMFS 部署影像 27.]
+image:vmfs-deploy-image27.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「跨距磁碟」頁面上、為跨多個資料存放區具有多個 VMDK 的虛擬機器選取選項
 . 下一步是建立備份原則的關聯。選取現有原則或建立新的備份原則。
 . 在「排程」頁面上、為每個選取的原則設定備份排程。
 +
-image::vmfs-deploy-image28.png[VMFS 部署影像 28]
+image:vmfs-deploy-image28.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 完成適當的選擇後、按一下「完成」。
 +
 這將會建立新的資源群組、並新增至資源群組清單。
 
 +
-image::vmfs-deploy-image29.png[VMFS 部署影像 29.]
+image:vmfs-deploy-image29.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -329,12 +329,12 @@ image::vmfs-deploy-image29.png[VMFS 部署影像 29.]
 
 . 在 vCenter 網頁用戶端頁面的左側導覽中、選取 SnapCenter Plug-in for VMware > 資源群組、然後選取指定的資源群組。選取立即執行以開始臨機操作備份。
 +
-image::vmfs-deploy-image30.png[VMFS 部署影像]
+image:vmfs-deploy-image30.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 如果資源群組已設定多個原則、請在「立即備份」對話方塊中選取備份作業的原則。
 . 選取確定以啟動備份。
 +
-image::vmfs-deploy-image31.png[VMFS 部署影像 31]
+image:vmfs-deploy-image31.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 如需更多詳細資料、請選取視窗底部或儀表板工作監控器上的「近期工作」、以監控作業進度。
@@ -350,23 +350,23 @@ SnapCenter Plug-in for VMware 可將虛擬機器（ VM ）還原至 vCenter 。�
 . 在 VMware vSphere Web Client GUI 中、選取工具列中的功能表。選取清查、然後選取虛擬機器和範本。
 . 在左側導覽中、選取虛擬機器、然後選取設定索引標籤、在 SnapCenter Plug-in for VMware 下選取備份。按一下需要還原虛擬機器的備份工作。
 +
-image::vmfs-deploy-image32.png[VMFS 部署影像 32.]
+image:vmfs-deploy-image32.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 選取需要從備份還原的 VM 。
 +
-image::vmfs-deploy-image33.png[VMFS 部署影像 33.]
+image:vmfs-deploy-image33.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「選取範圍」頁面上、在「還原範圍」欄位中選取「整個虛擬機器」、然後選取「還原位置」、然後輸入要掛載備份的目的地 ESXi 資訊。如果需要在還原作業之後開啟 VM 、請啟用「重新啟動 VM 」核取方塊。
 +
-image::vmfs-deploy-image34.png[VMFS 部署影像 34.]
+image:vmfs-deploy-image34.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 在「選取位置」頁面上、選取主要位置的位置。
 +
-image::vmfs-deploy-image35.png[VMFS 部署影像 35]
+image:vmfs-deploy-image35.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 . 檢閱「摘要」頁面、然後選取「完成」。
 +
-image::vmfs-deploy-image36.png[VMFS 部署影像 36.]
+image:vmfs-deploy-image36.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 +
 選取畫面底部的「近期工作」、以監控作業進度。
@@ -378,7 +378,7 @@ NOTE: 雖然 VM 已還原、但不會自動新增至先前的資源群組。因�
 
 現在、如果刪除原始虛擬機器、會發生什麼情況。SnapCenter Plug-in for VMware 是一項簡單的工作。可從資料存放區層級執行已刪除虛擬機器的還原作業。移至個別的資料存放區 > 組態 > 備份、然後選取刪除的虛擬機器、然後選取還原。
 
-image::vmfs-deploy-image37.png[VMFS 部署影像 37]
+image:vmfs-deploy-image37.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 總結來說、使用 ONTAP ASA 儲存設備來最佳化 VMware 部署的 TCO 時、請將適用於 VMware 的 SnapCenter 外掛程式作為備份 VM 的簡單且有效率的方法。它可讓您以無縫且快速的方式備份及還原 VM 、因為快照備份需要幾秒鐘的時間才能完成。
 
@@ -386,7 +386,7 @@ image::vmfs-deploy-image37.png[VMFS 部署影像 37]
 
 為了降低儲存成本、 FabricPool 磁碟區分層可自動將資料用於快照複本移至成本較低的儲存層。Snapshot 複本通常使用超過 10% 的已分配儲存設備。雖然這些時間點複本對資料保護和災難恢復非常重要、但卻很少使用、也無法有效使用高效能儲存設備。透過 FabricPool 的「僅限 Snapshot 」原則、您可以輕鬆釋放高效能儲存設備上的空間。啟用此原則時、作用中檔案系統未使用之磁碟區中的非作用中快照複本區塊會移至物件層、讀取後、 Snapshot 複本會移至本端層、以恢復 VM 或整個資料存放區。此物件層可以是私有雲（例如 NetApp StorageGRID ）或公有雲（例如 AWS 或 Azure ）的形式。
 
-image::vmfs-deploy-image38.png[VMFS 部署影像 38.]
+image:vmfs-deploy-image38.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 檢視的詳細指南link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-overview.html["VMware vSphere 搭配 ONTAP"]。
 
@@ -398,7 +398,7 @@ image::vmfs-deploy-image38.png[VMFS 部署影像 38.]
 
 勒索軟體攻擊在開始加密檔案之前、會嘗試刪除備份和快照恢復點、以越來越多的攻擊目標為目標。不過、使用 ONTAP link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["NetApp Snapshot ™複本鎖定"]、您可以在 ONTAP 中的主要或次要系統上建立防竄改快照、以避免發生這種情況。勒索軟體攻擊者或惡意系統管理員無法刪除或變更這些 Snapshot 複本、因此即使在攻擊之後也能使用這些複本。您可以在數秒內恢復虛擬機資料、將組織的停機時間降至最低。此外、您可以靈活選擇適合組織的 Snapshot 排程和鎖定時間。
 
-image::vmfs-deploy-image39.png[VMFS 部署影像 39.]
+image:vmfs-deploy-image39.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 新增多層式方法時、也有原生內建的 ONTAP 解決方案、可保護未經授權刪除備份 Snapshot 複本。它稱為多重管理驗證或 MAV 、可在 ONTAP 9 。 11.1 及更新版本中取得。理想的方法是針對 MAV 特定作業使用查詢。
 

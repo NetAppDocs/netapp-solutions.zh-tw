@@ -22,14 +22,14 @@ summary: Red Hat OpenShift Container Application Data Protection with NetApp ONT
 
 若要從備份還原、請假設應用程式所在的命名空間遭到意外刪除。
 
-image::redhat_openshift_OADP_app_deleted_image1.png[應用程式已刪除]
+image:redhat_openshift_OADP_app_deleted_image1.png["應用程式已刪除"]
 
 .還原至相同的命名空間
 [%collapsible]
 ====
 若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
 
-image::redhat_openshift_OADP_restore_image1.jpg[建立還原 CR]
+image:redhat_openshift_OADP_restore_image1.jpg["建立還原 CR"]
 
 ....
 apiVersion: velero.io/v1
@@ -44,9 +44,7 @@ spec:
 ....
 當階段顯示為已完成時、您可以看到應用程式已還原至拍攝快照時的狀態。應用程式會還原至相同的命名空間。
 
-image::redhat_openshift_OADP_restore_image2.jpg[還原已完成]
-
-image::redhat_openshift_OADP_restore_image2a.png[已還原至相同的命名空間]
+image:redhat_openshift_OADP_restore_image2.jpg["還原已完成"] image:redhat_openshift_OADP_restore_image2a.png["已還原至相同的命名空間"]
 
 ====
 .還原至不同的命名空間
@@ -72,7 +70,7 @@ spec:
 ....
 當階段顯示為已完成時、您可以看到應用程式已還原至拍攝快照時的狀態。應用程式會還原至 yaml 中指定的不同命名空間。
 
-image::redhat_openshift_OADP_restore_image3.png[還原已完成至新命名空間]
+image:redhat_openshift_OADP_restore_image3.png["還原已完成至新命名空間"]
 
 ====
 .還原至不同的儲存類別
@@ -82,9 +80,9 @@ Velero 提供一般功能、可在還原期間透過指定 json 修補程式來�
 
 在以下範例中、應用程式在部署期間會使用 ONTAP NAS 做為其持續磁碟區的儲存類別。系統會建立名為 backup-PostgreSQL -ontaps3 的應用程式備份。
 
-image::redhat_openshift_OADP_restore_image4.png[使用 ONTAP NAS 的 VM]
+image:redhat_openshift_OADP_restore_image4.png["使用 ONTAP NAS 的 VM"]
 
-image::redhat_openshift_OADP_restore_image5.png[VM 備份 ONTAP-NAS]
+image:redhat_openshift_OADP_restore_image5.png["VM 備份 ONTAP-NAS"]
 
 解除安裝應用程式、模擬應用程式遺失的情況。
 
@@ -107,11 +105,11 @@ resourceModifierRules:
     path: "/spec/storageClassName"
     value: "ontap-nas-eco"
 ....
-image::redhat_openshift_OADP_restore_image6.png[組態對應 UI]
+image:redhat_openshift_OADP_restore_image6.png["組態對應 UI"]
 
 產生的組態對應物件應如下所示（ CLI ）：
 
-image::redhat_openshift_OADP_restore_image7.png[組態對應 CLI]
+image:redhat_openshift_OADP_restore_image7.png["組態對應 CLI"]
 
 建立還原時、此組態對應將套用資源修飾語規則。針對從 RHEL 開始的所有持續磁碟區宣告、將套用修補程式、將儲存類別名稱取代為 ONTAP NAS 生態。
 
@@ -125,6 +123,6 @@ image::redhat_openshift_OADP_restore_image7.png[組態對應 CLI]
 ....
 應用程式會在相同的命名空間中還原、並使用儲存類別 ONTAP-NAS-Eco 建立持續的 Volume 宣告。
 
-image::redhat_openshift_OADP_restore_image8.png[VM 恢復 ONTAP － NAS － Eco]
+image:redhat_openshift_OADP_restore_image8.png["VM 恢復 ONTAP － NAS － Eco"]
 
 ====

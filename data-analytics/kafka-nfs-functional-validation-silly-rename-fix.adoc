@@ -43,7 +43,7 @@ summary: 在功能驗證方面、我們發現裝有NFSv3儲存設備掛載的Kaf
 |===
 下圖顯示此解決方案的架構組態。
 
-image::kafka-nfs-image1.png[此映像顯示AWS拓撲、其中包含三個子網路、分別具有監控者swarm、Kafka叢集和CVO執行個體的VPC。]
+image:kafka-nfs-image1.png["此映像顯示AWS拓撲、其中包含三個子網路、分別具有監控者swarm、Kafka叢集和CVO執行個體的VPC。"]
 
 
 
@@ -78,13 +78,13 @@ aws-shantanclastrecall-aws::*> volume create -vserver kafka_svm -volume kafka_fg
 叢集1：
 
 +
-image::kafka-nfs-image2.png[此螢幕快照顯示在叢集1上建立的示範主題。]
+image:kafka-nfs-image2.png["此螢幕快照顯示在叢集1上建立的示範主題。"]
 
 +
 叢集2：
 
 +
-image::kafka-nfs-image3.png[此螢幕快照顯示在叢集2上建立的示範主題。]
+image:kafka-nfs-image3.png["此螢幕快照顯示在叢集2上建立的示範主題。"]
 
 . 資料已載入這兩個叢集的新建立主題。這是使用預設Kafka套件隨附的生產商perf-test工具組來完成：
 +
@@ -99,7 +99,7 @@ image::kafka-nfs-image3.png[此螢幕快照顯示在叢集2上建立的示範主
 下一個快照會顯示兩個叢集上的代理程式健全狀況檢查是否成功：
 
 +
-image::kafka-nfs-image4.png[此螢幕快照顯示兩家代理商成功進行健全狀況檢查的讀出結果。]
+image:kafka-nfs-image4.png["此螢幕快照顯示兩家代理商成功進行健全狀況檢查的讀出結果。"]
 
 
 
@@ -120,7 +120,7 @@ kafka-reassign-partitions --bootstrap-server=172.30.0.198:9092,172.30.0.163:9092
 
 . 重新指派完成幾分鐘後、代理商的另一項健全狀況檢查顯示、使用NFSv3儲存磁碟區的叢集發生錯誤的重新命名問題、並已當機、而使用NetApp ONTAP NFSv4.1儲存磁碟區的叢集1則可在不中斷營運的情況下繼續進行修正作業。
 +
-image::kafka-nfs-image5.png[此螢幕擷取畫面顯示當機代理程式的輸出。]
+image:kafka-nfs-image5.png["此螢幕擷取畫面顯示當機代理程式的輸出。"]
 
 +
 ** 叢集1-Broler-1處於作用中狀態。
@@ -129,12 +129,12 @@ image::kafka-nfs-image5.png[此螢幕擷取畫面顯示當機代理程式的輸�
 
 . 查看Kafka記錄目錄後、很明顯、使用NetApp ONTAP 支援NFSv3的叢集1儲存磁碟區搭配修復程式時、會有乾淨的分割區指派、而使用一般NFSv3儲存設備的叢集2則不會因為錯誤的重新命名問題而導致當機。下圖顯示叢集2的分割區重新平衡、導致NFSv3儲存設備發生不實的重新命名問題。
 +
-image::kafka-nfs-image6.png[此快照顯示叢集2當機的記錄輸出。]
+image:kafka-nfs-image6.png["此快照顯示叢集2當機的記錄輸出。"]
 
 +
 下圖顯示使用NetApp NFSv4.1儲存設備重新平衡叢集1的乾淨分割區。
 
 +
-image::kafka-nfs-image7.png[此螢幕快照顯示成功指派叢集1的乾淨分割區的記錄輸出、然而]
+image:kafka-nfs-image7.png["此螢幕快照顯示成功指派叢集1的乾淨分割區的記錄輸出、然而"]
 
 

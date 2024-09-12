@@ -46,7 +46,7 @@ n_streams = 8 # Performance optimization
 ....
 在我們的高層叢集中、會顯示下列狀態：
 
-image::aks-anf_image12.png[Aaks anf 影像 12.]
+image:aks-anf_image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 請注意、dask採用的是閒置執行模式：dask並不是立即執行處理程式碼、而是建立直接執行的Acyclic圖表（DAG）。DAG包含一組工作及其互動、每位員工都需要執行這些工作。此配置表示在使用者指示dask以某種方式執行工作之前、工作不會執行。有了dask、您有三個主要選項：
 

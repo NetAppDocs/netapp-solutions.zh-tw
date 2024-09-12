@@ -101,30 +101,27 @@ NOTE: 對於與此工具組儲存庫中的內容產生及 / 或共用任何衍�
 ====
 . 開啟 HTML 剖析器 AWR 模組。
 +
-image::db_sizing_ora_parser_01.png[此映像提供 HTML 剖析器畫面以供 Oracle 調整規模]
+image:db_sizing_ora_parser_01.png["此映像提供 HTML 剖析器畫面以供 Oracle 調整規模"]
 
 . 檢查輸出格式為 .csv 、然後按一下 `Upload files` 上傳 AWR 報告。剖析器會傳回 HTML 頁面、其中包含表格摘要、以及 output.csv 檔案 `Download` 資料夾。
 +
-image::db_sizing_ora_parser_02.png[此映像提供 HTML 剖析器畫面以供 Oracle 調整規模]
+image:db_sizing_ora_parser_02.png["此映像提供 HTML 剖析器畫面以供 Oracle 調整規模"]
 
 . 開啟 Excel 範本檔案、然後將 csv 內容複製到欄 A 和儲存格 1 、以產生 DB 伺服器規模資訊。
 +
-image::db_sizing_ora_parser_03_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
+image:db_sizing_ora_parser_03_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"]
 
 . 反白欄 A 和欄位 1 和 2 、然後按一下 `Data`然後 `Text to Columns` 開啟文字精靈。選擇 `Delimited`然後 `Next` 移至下一個畫面。
 +
-image::db_sizing_ora_parser_04_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
+image:db_sizing_ora_parser_04_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"]
 
 . 檢查 `Other`、然後輸入「 = 」為 `Delimiters`。按一下 `Next` 移至下一個畫面。
 +
-image::db_sizing_ora_parser_05_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
+image:db_sizing_ora_parser_05_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"]
 
 . 按一下 `Finish` 可將字串轉換成可讀的欄格式。注意： VM 和 anf 大小調整欄位已填入從 Oracle AWR 報告中擷取的資料。
 +
-image::db_sizing_ora_parser_06_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
-
-+
-image::db_sizing_ora_parser_07_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
+image:db_sizing_ora_parser_06_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"] image:db_sizing_ora_parser_07_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"]
 
 . 在 sqlplus 中執行 scriptora_db_data_size.SQL 、 ora_db_logs_size.SQL 作為 DBA 、以擷取現有 Oracle 資料庫資料大小和封存記錄大小、並顯示保留天數視窗。
 +
@@ -167,7 +164,7 @@ NOTE: 使用上述指令碼擷取的資料庫大小資訊、是所有實體資�
 
 . 將結果輸入 Excel 檔案以完成大小調整指引輸出。
 +
-image::db_sizing_ora_parser_08_anf.png[此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模]
+image:db_sizing_ora_parser_08_anf.png["此影像提供 Excel 範本的螢幕擷取畫面、以供 Oracle 調整規模"]
 
 . ANF 使用三層服務層級（ Standard 、 Premium 、 Ultra ）來管理資料庫 Volume 處理量限制。請參閱 link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/azure-netapp-files-service-levels["服務層級Azure NetApp Files"^] 以取得詳細資料。根據規模調整指引輸出、選擇能提供處理量以滿足資料庫要求的 ANF 服務層級。
 

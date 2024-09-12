@@ -1,0 +1,32 @@
+---
+sidebar: sidebar 
+keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP, hardening 
+permalink: /cyber-vault/ontap-cyber-vault-sizing.html 
+summary: 協助規模調整 ONTAP 網路資料保險箱的指南 
+---
+= 使用 ONTAP 調整網路資料保險箱規模
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+設定網路資料保險箱的規模需要瞭解在指定的恢復時間目標（ RTO ）中需要還原多少資料。許多因素會影響適當設計適當規模的網路資料保險箱解決方案。
+
+
+
+== 規模考量
+
+. 什麼是來源平台模型（ FAS v AFF A 系列 v AFF C 系列）？
+. 來源與網路資料保險箱之間的頻寬和延遲為何？
+. 檔案大小和檔案數量有多大？
+. 您的恢復時間目標為何？
+. 您需要在 RTO 內恢復多少資料？
+. 網路資料保險箱會擷取多少 SnapMirror 扇入關係？
+. 是否會同時進行單一或多個還原？
+. 這些多重恢復是否會發生在同一主要系統上？
+. SnapMirror 是否會在從資料保險箱恢復期間複寫到資料保險箱中 ?
+

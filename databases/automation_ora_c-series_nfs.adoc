@@ -54,7 +54,7 @@ NetApp AFF C 系列是一種容量 Flash 儲存設備、可讓整合式儲存設
 
 === 架構
 
-image::automation_ora_c-series_nfs_archit.png[此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。]
+image:automation_ora_c-series_nfs_archit.png["此映像提供在 AWS 公有雲中使用 iSCSI 和 ASM 的 Oracle 部署組態的詳細圖片。"]
 
 
 
@@ -182,32 +182,23 @@ installer_archives:
 
 . 登入 ONTAP 系統管理員、檢閱在初始 ONTAP 叢集安裝之後、已將廣播網域設定為正確指派給每個網域的乙太網路連接埠。一般而言、叢集應該有廣播網域、管理廣播網域、以及資料等工作負載的廣播網域。
 +
-image::automation_ora_c-series_nfs_net_01.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_net_01.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 從「網路 - 乙太網路連接埠」、按一下 `Link Aggregate Group` 建立 LACP 連結集合群組連接埠 a0a 、可在集合群組連接埠的成員連接埠之間提供負載平衡和容錯移轉。共有 4 個資料連接埠： e0e 、 e0f 、 e0g 、 e0h 可在 C400 控制器上使用。
 +
-image::automation_ora_c-series_nfs_net_02.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_net_02.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 選取群組中的乙太網路連接埠、 `LACP` 適用於模式、和 `Port` 適用於負載分配。
 +
-image::automation_ora_c-series_nfs_net_03.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_net_03.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 驗證 LACP 連接埠 a0a 已建立和廣播網域 `Data` 目前在 LACP 連接埠上運作。
 +
-image::automation_ora_c-series_nfs_net_04.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
-
-+
-image::automation_ora_c-series_nfs_net_05.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_net_04.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"] image:automation_ora_c-series_nfs_net_05.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 寄件者 `Ethernet Ports`、按一下 `VLAN` 可在每個控制器節點上爲 NFS 協議上的 Oracle 工作負載添加 VLAN 。
 +
-image::automation_ora_c-series_nfs_net_06.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
-
-+
-image::automation_ora_c-series_nfs_net_07.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
-
-+
-image::automation_ora_c-series_nfs_net_08.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_net_06.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"] image:automation_ora_c-series_nfs_net_07.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"] image:automation_ora_c-series_nfs_net_08.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 透過 ssh 從叢集管理 IP 登入 C 系列控制器、以驗證網路容錯移轉群組是否設定正確。ONTAP 會自動建立及管理容錯移轉群組。
 +
@@ -238,42 +229,39 @@ HCG-NetApp-C400-E9U9
 ....
 . 寄件者 `STORAGE - Storage VMs`，單擊 +Add （添加）以創建 Oracle 的 SVM 。
 +
-image::automation_ora_c-series_nfs_svm_01.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_svm_01.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 命名您的 Oracle SVM 、請檢查 `Enable NFS` 和 `Allow NFS client access`。
 +
-image::automation_ora_c-series_nfs_svm_02.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_svm_02.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 新增 NFS 匯出原則 `Default` 規則。
 +
-image::automation_ora_c-series_nfs_svm_03.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_svm_03.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 在中 `NETWORK INTERFACE`，在每個節點上填寫 NFS LIF 位址的 IP 位址。
 +
-image::automation_ora_c-series_nfs_svm_04.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_svm_04.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 驗證 SVM for Oracle 已啟動 / 執行中、且 NFS 生命狀態為作用中。
 +
-image::automation_ora_c-series_nfs_svm_05.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
-
-+
-image::automation_ora_c-series_nfs_svm_06.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_svm_05.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"] image:automation_ora_c-series_nfs_svm_06.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 寄件者 `STORAGE-Volumes` 索引標籤可新增 NFS Volume for Oracle 資料庫。
 +
-image::automation_ora_c-series_nfs_vol_01.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_vol_01.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 命名您的磁碟區、指派容量和效能等級。
 +
-image::automation_ora_c-series_nfs_vol_02.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_vol_02.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 在中 `Access Permission`，選擇從上一步建立的預設原則。取消核取 `Enable Snapshot Copies` 因為我們偏好使用 SnapCenter 來建立應用程式一致的快照。
 +
-image::automation_ora_c-series_nfs_vol_03.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_vol_03.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 . 為每個 DB 伺服器建立三個 DB 磁碟區： SERVER_NAME_u01 - 二進位、 server_name_u02 - 資料、 server_name_u03 - 記錄。
 +
-image::automation_ora_c-series_nfs_vol_04.png[此影像提供 c 系列控制器組態的螢幕擷取畫面]
+image:automation_ora_c-series_nfs_vol_04.png["此影像提供 c 系列控制器組態的螢幕擷取畫面"]
 
 +
 
@@ -665,13 +653,7 @@ DIRNAME
 ....
 . 登入 Oracle Enterprise Manager Express 以驗證資料庫。
 +
-image::automation_ora_c-series_nfs_em_01.png[此映像提供 Oracle Enterprise Manager Express 的登入畫面]
-
-+
-image::automation_ora_c-series_nfs_em_02.png[此映像可從 Oracle Enterprise Manager Express 提供容器資料庫檢視]
-
-+
-image::automation_ora_c-series_nfs_em_03.png[此映像可從 Oracle Enterprise Manager Express 提供容器資料庫檢視]
+image:automation_ora_c-series_nfs_em_01.png["此映像提供 Oracle Enterprise Manager Express 的登入畫面"] image:automation_ora_c-series_nfs_em_02.png["此映像可從 Oracle Enterprise Manager Express 提供容器資料庫檢視"] image:automation_ora_c-series_nfs_em_03.png["此映像可從 Oracle Enterprise Manager Express 提供容器資料庫檢視"]
 
 
 

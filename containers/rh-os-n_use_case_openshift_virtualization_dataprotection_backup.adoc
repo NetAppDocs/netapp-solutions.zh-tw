@@ -40,14 +40,14 @@ spec:
 ....
 備份完成後、其階段會顯示為「已完成」。
 
-image::redhat_openshift_OADP_backup_image1.jpg[備份已完成]
+image:redhat_openshift_OADP_backup_image1.jpg["備份已完成"]
 
 您可以在 S3 瀏覽器應用程式的協助下、在物件儲存區中檢查備份。備份路徑會顯示在已設定的貯體中、其前置名稱為（ Velero/ demobackup ）。您可以查看備份內容、包括虛擬機器的磁碟區快照、記錄和其他中繼資料。
 
 
 NOTE: 在 StorageGRID 中、您也可以使用租戶管理員提供的 S3 主控台來檢視備份物件。
 
-image::redhat_openshift_OADP_backup_image2.jpg[S3 中的備份物件]
+image:redhat_openshift_OADP_backup_image2.jpg["S3 中的備份物件"]
 
 
 
@@ -77,8 +77,8 @@ Cron 運算式 0 7 * * * 表示備份將於每天 7 ： 00 建立。
 
 排程建立完成後、即會啟用。
 
-image::redhat_openshift_OADP_backup_image3.jpg[排程已建立]
+image:redhat_openshift_OADP_backup_image3.jpg["排程已建立"]
 
 備份將根據此排程建立、並可從備份索引標籤檢視。
 
-image::redhat_openshift_OADP_backup_image4.jpg[排程已建立]
+image:redhat_openshift_OADP_backup_image4.jpg["排程已建立"]

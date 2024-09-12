@@ -53,7 +53,7 @@ summary:
 
 TIP: 除了將選擇控制閥備份複製到次要儲存設備之外、您也可以使用 NetApp BlueXP 備份和 VM 恢復功能、將資料的異地複本複製到三（ 3 ）家領先雲端供應商中的其中一家物件儲存設備。如需詳細資訊、請參閱解決方案 link:../ehc/bxp-scv-hybrid-solution.html["適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原"]。
 
-image::vmware-vcf-asa-image108.png[3-2-1 備份策略]
+image:vmware-vcf-asa-image108.png["3-2-1 備份策略"]
 
 
 
@@ -77,14 +77,14 @@ SnapCenter 外掛程式裝載於 VCF 管理網域、但已登錄至 vCenter 的 
 . 從 NetApp 支援網站 下載區下載 OVA 檔案、以供選擇控制閥部署 link:https://mysupport.netapp.com/site/products/all/details/scv/downloads-tab["* 此處 *"]。
 . 從管理網域 vCenter Client 中、選取「 * 部署 OVF 範本 ... * 」。
 +
-image::vmware-vcf-asa-image46.png[部署 OVF 範本 ...]
+image:vmware-vcf-asa-image46.png["部署 OVF 範本 ..."]
 
 +
 ｛ nbsp ｝
 
 . 在 * 部署 OVF Template* 精靈中、按一下 * 本機檔案 * 選項按鈕、然後選取以上傳先前下載的 OVF 範本。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image47.png[選取 OVF 範本]
+image:vmware-vcf-asa-image47.png["選取 OVF 範本"]
 
 +
 ｛ nbsp ｝
@@ -94,14 +94,14 @@ image::vmware-vcf-asa-image47.png[選取 OVF 範本]
 . 檢閱 * 審查詳細資料 * 頁面上有關 OVF 範本的資訊、並同意 * 授權合約 * 頁面上的授權條款。
 . 在「 * 選取儲存設備 * 」頁面上、選擇要安裝 VM 的資料存放區、然後選取 * 虛擬磁碟格式 * 和 * VM 儲存原則 * 。在本解決方案中、 VM 將安裝在 ONTAP 儲存系統上的 iSCSI VMFS 資料存放區上、如同先前在本文件的另一節中所部署。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image48.png[選取 OVF 範本]
+image:vmware-vcf-asa-image48.png["選取 OVF 範本"]
 
 +
 ｛ nbsp ｝
 
 . 在「 * 選取網路 * 」頁面上、選取能夠與工作負載網域 vCenter 應用裝置以及主要和次要 ONTAP 儲存系統進行通訊的管理網路。
 +
-image::vmware-vcf-asa-image49.png[選取管理網路]
+image:vmware-vcf-asa-image49.png["選取管理網路"]
 
 +
 ｛ nbsp ｝
@@ -117,13 +117,13 @@ image::vmware-vcf-asa-image49.png[選取管理網路]
 按一下 * 下一步 * 繼續。
 
 +
-image::vmware-vcf-asa-image50.png[選取管理網路]
+image:vmware-vcf-asa-image50.png["選取管理網路"]
 
 +
-image::vmware-vcf-asa-image51.png[選取管理網路]
+image:vmware-vcf-asa-image51.png["選取管理網路"]
 
 +
-image::vmware-vcf-asa-image52.png[選取管理網路]
+image:vmware-vcf-asa-image52.png["選取管理網路"]
 
 +
 ｛ nbsp ｝
@@ -141,28 +141,28 @@ image::vmware-vcf-asa-image52.png[選取管理網路]
 
 . 您可以從 vSphere Client 的主功能表存取選擇控制閥。
 +
-image::vmware-vcf-asa-image53.png[開啟 SnapCenter 外掛程式]
+image:vmware-vcf-asa-image53.png["開啟 SnapCenter 外掛程式"]
 
 +
 ｛ nbsp ｝
 
 . 在選擇控制閥 UI 介面頂端、選取與要保護的 vSphere 叢集相符的正確選擇控制閥執行個體。
 +
-image::vmware-vcf-asa-image54.png[選取正確的執行個體]
+image:vmware-vcf-asa-image54.png["選取正確的執行個體"]
 
 +
 ｛ nbsp ｝
 
 . 瀏覽左側功能表中的 * 儲存系統 * 、然後按一下 * 新增 * 開始使用。
 +
-image::vmware-vcf-asa-image55.png[新增儲存系統]
+image:vmware-vcf-asa-image55.png["新增儲存系統"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 新增儲存系統 * 表單上、填寫要新增的 ONTAP 儲存系統的 IP 位址和認證、然後按一下 * 新增 * 以完成此動作。
 +
-image::vmware-vcf-asa-image56.png[提供儲存系統認證]
+image:vmware-vcf-asa-image56.png["提供儲存系統認證"]
 
 +
 ｛ nbsp ｝
@@ -180,7 +180,7 @@ image::vmware-vcf-asa-image56.png[提供儲存系統認證]
 
 . 從左側菜單中選擇 *Policis* ，然後單擊 *Create* 開始。
 +
-image::vmware-vcf-asa-image57.png[建立新原則]
+image:vmware-vcf-asa-image57.png["建立新原則"]
 
 +
 ｛ nbsp ｝
@@ -200,7 +200,7 @@ TIP: SnapMirror 和 SnapVault 複寫類似、因為它們都使用 ONTAP SnapMir
 選擇任何其他進階選項、然後按一下 * 新增 * 以建立原則。
 
 +
-image::vmware-vcf-asa-image58.png[填寫原則詳細資料]
+image:vmware-vcf-asa-image58.png["填寫原則詳細資料"]
 
 
 
@@ -214,7 +214,7 @@ image::vmware-vcf-asa-image58.png[填寫原則詳細資料]
 
 . 從左側功能表中選取 * 資源群組 * 、然後按一下 * 建立 * 開始。
 +
-image::vmware-vcf-asa-image59.png[建立新的資源群組]
+image:vmware-vcf-asa-image59.png["建立新的資源群組"]
 
 +
 ｛ nbsp ｝
@@ -226,49 +226,49 @@ image::vmware-vcf-asa-image59.png[建立新的資源群組]
 TIP: 即使只選取特定 VM 、整個資料存放區也會一律備份。這是因為 ONTAP 會擷取主控資料存放區的磁碟區快照。不過請注意、只選取特定的 VM 進行備份、就會限制只還原到那些 VM 的能力。
 
 +
-image::vmware-vcf-asa-image60.png[選取要備份的資源]
+image:vmware-vcf-asa-image60.png["選取要備份的資源"]
 
 +
 ｛ nbsp ｝
 
 . 在「 * 擴充磁碟 * 」頁面上、選取選項、以瞭解如何使用跨多個資料存放區的 VMDK 來處理 VM 。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image61.png[選取跨距資料存放區選項]
+image:vmware-vcf-asa-image61.png["選取跨距資料存放區選項"]
 
 +
 ｛ nbsp ｝
 
 . 在「 * 原則 * 」頁面上、選取先前建立的原則或將用於此資源群組的多個原則。  按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image62.png[選取原則]
+image:vmware-vcf-asa-image62.png["選取原則"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 排程 * 頁面上、設定一天中的週期和時間、以確定備份的執行時間。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image63.png[選取排程]
+image:vmware-vcf-asa-image63.png["選取排程"]
 
 +
 ｛ nbsp ｝
 
 . 最後檢閱 * 摘要 * 、然後按一下 * 完成 * 以建立資源群組。
 +
-image::vmware-vcf-asa-image64.png[檢閱摘要並建立資源群組]
+image:vmware-vcf-asa-image64.png["檢閱摘要並建立資源群組"]
 
 +
 ｛ nbsp ｝
 
 . 建立資源群組後、按一下「 * 立即執行 * 」按鈕以執行第一個備份。
 +
-image::vmware-vcf-asa-image65.png[檢閱摘要並建立資源群組]
+image:vmware-vcf-asa-image65.png["檢閱摘要並建立資源群組"]
 
 +
 ｛ nbsp ｝
 
 . 瀏覽至 * 儀表板 * 、並在 * 最近工作活動 * 下按一下 * 工作 ID * 旁的數字、以開啟工作監控器並檢視執行中工作的進度。
 +
-image::vmware-vcf-asa-image66.png[檢視備份工作進度]
+image:vmware-vcf-asa-image66.png["檢視備份工作進度"]
 
 
 
@@ -298,21 +298,21 @@ vVol VM 中的 VMDK 可還原至原始資料存放區。
 
 . 瀏覽至要在 vSphere 用戶端中還原的 VM 、按一下滑鼠右鍵、然後瀏覽至 * SnapCenter Plug-in for VMware vSphere * 。  從子功能表中選取 * 還原 * 。
 +
-image::vmware-vcf-asa-image67.png[選取以還原 VM]
+image:vmware-vcf-asa-image67.png["選取以還原 VM"]
 
 +
 
 TIP: 另一種方法是瀏覽至清查中的資料存放區、然後在 * 組態 * 索引標籤下、前往 * SnapCenter Plug-in for VMware vSphere > Backups* 。從所選的備份中、選取要還原的 VM 。
 
 +
-image::vmware-vcf-asa-image68.png[從資料存放區導覽備份]
+image:vmware-vcf-asa-image68.png["從資料存放區導覽備份"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 還原 * 精靈中、選取要使用的備份。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image69.png[選取要使用的備份]
+image:vmware-vcf-asa-image69.png["選取要使用的備份"]
 
 +
 ｛ nbsp ｝
@@ -329,7 +329,7 @@ image::vmware-vcf-asa-image69.png[選取要使用的備份]
 *** * 還原後的 VM 名稱 *
 *** * 選擇資料存放區： *
 +
-image::vmware-vcf-asa-image70.png[選取還原範圍選項]
+image:vmware-vcf-asa-image70.png["選取還原範圍選項"]
 
 +
 ｛ nbsp ｝
@@ -343,21 +343,21 @@ image::vmware-vcf-asa-image70.png[選取還原範圍選項]
 
 . 在 * 選取位置 * 頁面上、選擇從主要或次要 ONTAP 儲存系統還原 VM 。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image71.png[選擇儲存位置]
+image:vmware-vcf-asa-image71.png["選擇儲存位置"]
 
 +
 ｛ nbsp ｝
 
 . 最後、請檢閱 * 摘要 * 、然後按一下 * 完成 * 以開始還原工作。
 +
-image::vmware-vcf-asa-image72.png[按一下「完成」以開始還原工作]
+image:vmware-vcf-asa-image72.png["按一下「完成」以開始還原工作"]
 
 +
 ｛ nbsp ｝
 
 . 還原工作進度可從 vSphere Client 的「最近工作」窗格和選擇控制閥的工作監控器進行監控。
 +
-image::vmware-vcf-asa-image73.png[監控還原工作]
+image:vmware-vcf-asa-image73.png["監控還原工作"]
 
 
 
@@ -371,21 +371,21 @@ ONTAP 工具可將 VMDK 完整還原至原始位置、或將 VMDK 作為新磁�
 
 . 在 vSphere Client 導覽至虛擬機器、然後從 * 動作 * 功能表中、選取 * SnapCenter Plug-in for VMware vSphere > Attach Virtual Disk （ s ） * 。
 +
-image::vmware-vcf-asa-image80.png[選取附加虛擬磁碟]
+image:vmware-vcf-asa-image80.png["選取附加虛擬磁碟"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 附加虛擬磁碟 * 精靈中、選取要使用的備份執行個體和要附加的特定 VMDK 。
 +
-image::vmware-vcf-asa-image81.png[選取附加虛擬磁碟設定]
+image:vmware-vcf-asa-image81.png["選取附加虛擬磁碟設定"]
 
 +
 
 TIP: 篩選選項可用於尋找備份、以及顯示主要與次要儲存系統的備份。
 
 +
-image::vmware-vcf-asa-image82.png[附加虛擬磁碟篩選器]
+image:vmware-vcf-asa-image82.png["附加虛擬磁碟篩選器"]
 
 +
 ｛ nbsp ｝
@@ -393,7 +393,7 @@ image::vmware-vcf-asa-image82.png[附加虛擬磁碟篩選器]
 . 選取所有選項後、按一下 * 附加 * 按鈕以開始還原程序、並將 VMDK 附加到主機。
 . 完成附加程序後、即可從主機系統的作業系統存取磁碟。在這種情況下、選擇控制閥將磁碟及其 NTFS 檔案系統附加至 Windows SQL Server 的 E ：磁碟機、檔案系統上的 SQL 資料庫檔案則可透過檔案總管存取。
 +
-image::vmware-vcf-asa-image83.png[存取 Windows 檔案系統]
+image:vmware-vcf-asa-image83.png["存取 Windows 檔案系統"]
 
 
 
@@ -409,19 +409,19 @@ ONTAP 工具可在 Windows 伺服器作業系統上、從 VMDK 還原來賓檔�
 
 . 第一步是建立「以身分執行」認證、以提供對 Windows 主機系統的存取。在 vSphere Client 中瀏覽至 CSV 外掛介面、然後按一下主功能表中的 * 來賓檔案還原 * 。
 +
-image::vmware-vcf-asa-image84.png[開啟來賓檔案還原]
+image:vmware-vcf-asa-image84.png["開啟來賓檔案還原"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 以認證身分執行 * 下、按一下 * + * 圖示以開啟 * 以認證身分執行 * 視窗。
-. 填寫認證記錄的名稱、 Windows 系統的管理員使用者名稱和密碼、然後按一下 * 選取 VM* 按鈕、以選取要用於還原的選用 Proxy VM 。 影像：： vmware-vcf-as-image85.png[ 以認證身分執行 ]
+. 填寫認證記錄的名稱、 Windows 系統的管理員使用者名稱和密碼、然後按一下 * 選取 VM* 按鈕、以選取要用於還原的選用 Proxy VM 。image:vmware-vcf-asa-image85.png["以認證身分執行視窗"]
 +
 ｛ nbsp ｝
 
 . 在 Proxy VM 頁面上、提供虛擬機器的名稱、並依 ESXi 主機或名稱進行搜尋、以找出該虛擬機器。選取後、按一下 * 儲存 * 。
 +
-image::vmware-vcf-asa-image86.png[在 Proxy VM 頁面上找到 VM]
+image:vmware-vcf-asa-image86.png["在 Proxy VM 頁面上找到 VM"]
 
 +
 ｛ nbsp ｝
@@ -429,21 +429,21 @@ image::vmware-vcf-asa-image86.png[在 Proxy VM 頁面上找到 VM]
 . 在「 * 以認證身分執行 * 」視窗中再次按一下「 * 儲存 * 」以完成記錄的儲存。
 . 接著、瀏覽至庫存中的 VM 。從 * 動作 * 功能表、或在虛擬機器上按一下滑鼠右鍵、選取 * SnapCenter Plug-in for VMware vSphere > 來賓檔案還原 * 。
 +
-image::vmware-vcf-asa-image87.png[開啟來賓檔案還原精靈]
+image:vmware-vcf-asa-image87.png["開啟來賓檔案還原精靈"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 來賓檔案還原 * 精靈的 * 還原範圍 * 頁面上、選取要還原的備份、特定的 VMDK 、以及還原 VMDK 的位置（主要或次要）。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image88.png[客體檔案還原範圍]
+image:vmware-vcf-asa-image88.png["客體檔案還原範圍"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 來賓詳細資料 * 頁面上、選取以使用 * 來賓 VM* 或 * 使用 GUEST 檔案還原 Proxy VM* 進行還原。此外、如有需要、請在此填寫電子郵件通知設定。按一下 * 下一步 * 繼續。
 +
-image::vmware-vcf-asa-image89.png[客體檔案詳細資料]
+image:vmware-vcf-asa-image89.png["客體檔案詳細資料"]
 
 +
 ｛ nbsp ｝
@@ -451,17 +451,17 @@ image::vmware-vcf-asa-image89.png[客體檔案詳細資料]
 . 最後、請檢閱 * 摘要 * 頁面、然後按一下 * 完成 * 以開始來賓檔案系統還原工作階段。
 . 返回 SnapCenter 外掛程式介面、再次瀏覽至 * 來賓檔案還原 * 、並在 * 來賓工作階段監視 * 下檢視執行中的工作階段。按一下 * 瀏覽檔案 * 下的圖示以繼續。
 +
-image::vmware-vcf-asa-image90.png[來賓工作階段監視器]
+image:vmware-vcf-asa-image90.png["來賓工作階段監視器"]
 
 +
 ｛ nbsp ｝
 
 . 在 * 來賓檔案瀏覽 * 精靈中、選取要還原的資料夾或檔案、以及要還原的檔案系統位置。最後、按一下 * 還原 * 以開始 * 還原 * 程序。
 +
-image::vmware-vcf-asa-image91.png[來賓檔案瀏覽 1.]
+image:vmware-vcf-asa-image91.png["來賓檔案瀏覽 1."]
 
 +
-image::vmware-vcf-asa-image92.png[來賓檔案瀏覽 2.]
+image:vmware-vcf-asa-image92.png["來賓檔案瀏覽 2."]
 
 +
 ｛ nbsp ｝

@@ -42,11 +42,11 @@ NOTE: 如果您想在 VM 處於執行中狀態時備份 VM 、則必須在該虛
 . 前往叢集的運算子中樞、然後選取 Red Hat OADP 運算子。在「安裝」頁面中、使用所有預設選項、然後按一下「安裝」。在下一頁中、再次使用所有預設值、然後按一下「安裝」。OADP 運算子將安裝在命名空間 openshift-adp 中。
 
 
-image::redhat_openshift_OADP_install_image1.jpg[OpenShift API 、用於在 Operator Hub 中保護資料]
+image:redhat_openshift_OADP_install_image1.jpg["OpenShift API 、用於在 Operator Hub 中保護資料"]
 
-image::redhat_openshift_OADP_install_image2.jpg[OpenShift API 適用於 Data Protection Operator 安裝]
+image:redhat_openshift_OADP_install_image2.jpg["OpenShift API 適用於 Data Protection Operator 安裝"]
 
-image::redhat_openshift_OADP_install_image3.jpg[已安裝適用於 Data Protection Operator 的 OpenShift API]
+image:redhat_openshift_OADP_install_image3.jpg["已安裝適用於 Data Protection Operator 的 OpenShift API"]
 
 
 
@@ -81,22 +81,22 @@ image::redhat_openshift_OADP_install_image3.jpg[已安裝適用於 Data Protecti
 若要從網路主控台建立秘密、請選取「秘密」、然後按一下「金鑰 / 價值秘密」。提供認證名稱、金鑰和值的值、如圖所示。請務必使用 S3 使用者的存取金鑰 ID 和秘密存取金鑰。適當命名機密。在下面的範例中、系統會建立一個內含 ONTAP S3 使用者認證的密碼、名稱為 ONTAP S3 認證。
 
 
-image::redhat_openshift_OADP_install_image4.png[S3 使用者認證的秘密]
+image:redhat_openshift_OADP_install_image4.png["S3 使用者認證的秘密"]
 
-image::redhat_openshift_OADP_install_image5.png[建立 S3 使用者認證的秘密]
+image:redhat_openshift_OADP_install_image5.png["建立 S3 使用者認證的秘密"]
 
 若要從 CLI 建立名為 sg-s3-creDcreDs 的秘密、您可以使用下列命令。
 
-image::redhat_openshift_OADP_install_image6.png[使用 CLI 為 S3 使用者認證建立秘密]
+image:redhat_openshift_OADP_install_image6.png["使用 CLI 為 S3 使用者認證建立秘密"]
 
 * 接著、若要設定 Velero 、請從運算子下的功能表項目中選取已安裝的運算子、按一下 OADP 運算子、然後選取 DataProtectionApplication 索引標籤。
 
 
-image::redhat_openshift_OADP_install_image7.jpg[DataProtectionApplication]
+image:redhat_openshift_OADP_install_image7.jpg["DataProtectionApplication"]
 
 按一下「建立 DataProtectionApplication 」。在表單檢視中、提供 DataProtection 應用程式的名稱或使用預設名稱。
 
-image::redhat_openshift_OADP_install_image8.jpg[建立 DataProtectionApplication]
+image:redhat_openshift_OADP_install_image8.jpg["建立 DataProtectionApplication"]
 
 現在請前往 YAML 檢視並取代規格資訊、如以下 yaml 檔案範例所示。
 
@@ -180,7 +180,7 @@ ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設�
 **Velero.IO/csi － volumesnapshot-class=true** 如下所示。
 
 
-image::redhat_openshift_OADP_install_image9.jpg[Trident Snapshot 類別標籤]
+image:redhat_openshift_OADP_install_image9.jpg["Trident Snapshot 類別標籤"]
 
 確保即使刪除了 Volume Snapshot 物件、快照仍可持續存在。您可以將 * 刪除原則 * 設定為保留來完成此作業。否則、刪除命名空間將會完全遺失其中備份的所有 PVC 。
 
@@ -192,12 +192,12 @@ metadata:
 driver: csi.trident.netapp.io
 deletionPolicy: Retain
 ....
-image::redhat_openshift_OADP_install_image10.jpg[應將 VolumeSnapshotClass 刪除原則設定為保留]
+image:redhat_openshift_OADP_install_image10.jpg["應將 VolumeSnapshotClass 刪除原則設定為保留"]
 
 確保已建立 DataProtectionApplication 、且其狀態為：已調整。
 
-image::redhat_openshift_OADP_install_image11.jpg[DataProtectionApplication 物件即會建立]
+image:redhat_openshift_OADP_install_image11.jpg["DataProtectionApplication 物件即會建立"]
 
 OADP 操作員將建立對應的 BackupStorageLocation 。這將在建立備份時使用。
 
-image::redhat_openshift_OADP_install_image12.jpg[已建立 BackupStorageLocation]
+image:redhat_openshift_OADP_install_image12.jpg["已建立 BackupStorageLocation"]

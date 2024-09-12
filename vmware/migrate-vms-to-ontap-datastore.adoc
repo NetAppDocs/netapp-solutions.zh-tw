@@ -38,11 +38,11 @@ NOTE: 有些 VM 是透過外部管理工具部署、例如 Aria Automation 、 T
 
 vSphere 主機的 VMKernel 介面也會處理跨 vSphere 主機的 VM 移轉。對於熱移轉（已開機的 VM ）、使用 VMKernel 介面搭配已啟用 VMotion 的服務、而對於冷移轉（已關閉電源的 VM ）、則會使用已啟用資源配置服務的 VMKernel 介面來移動資料。如果找不到有效的介面、它會使用管理介面來移動某些使用案例可能不需要的資料。
 
-image::migrate-vms-to-ontap-image02.png[已啟用服務的 VMkernel]
+image:migrate-vms-to-ontap-image02.png["已啟用服務的 VMkernel"]
 
 當您編輯 VMKernel 介面時、以下是啟用所需服務的選項。
 
-image::migrate-vms-to-ontap-image01.png[VMkernel 服務選項]
+image:migrate-vms-to-ontap-image01.png["VMkernel 服務選項"]
 
 
 TIP: 確保至少有兩個高速主動上行鏈路 NIC 可供 VMotion 和 Provisioning VMkernel 介面使用的連接埠群組使用。
@@ -64,23 +64,23 @@ NOTE: 瞭解 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-
 
 . 使用 vSphere Web Client 、從儲存設備庫存中選取資料存放區、然後按一下 VM 索引標籤。
 +
-image::migrate-vms-to-ontap-image03.png[特定資料存放區上的 VM]
+image:migrate-vms-to-ontap-image03.png["特定資料存放區上的 VM"]
 
 . 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
 +
-image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+image:migrate-vms-to-ontap-image04.png["要移轉的 VM"]
 
 . 選擇僅變更儲存設備的選項、然後按一下「下一步」
 +
-image::migrate-vms-to-ontap-image05.png[僅變更儲存設備]
+image:migrate-vms-to-ontap-image05.png["僅變更儲存設備"]
 
 . 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
 +
-image::migrate-vms-to-ontap-image06.png[符合 VM 儲存原則的資料存放區]
+image:migrate-vms-to-ontap-image06.png["符合 VM 儲存原則的資料存放區"]
 
 . 檢閱並按一下「完成」。
 +
-image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+image:migrate-vms-to-ontap-image07.png["儲存設備移轉審查"]
 
 
 
@@ -117,23 +117,23 @@ $vm, $vmdisk | Get-SPBMEntityConfiguration
 
 . 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
 +
-image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+image:migrate-vms-to-ontap-image08.png["特定叢集上的 VM"]
 
 . 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
 +
-image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+image:migrate-vms-to-ontap-image04.png["要移轉的 VM"]
 
 . 選擇僅變更儲存設備的選項、然後按一下「下一步」
 +
-image::migrate-vms-to-ontap-image05.png[僅變更儲存設備]
+image:migrate-vms-to-ontap-image05.png["僅變更儲存設備"]
 
 . 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
 +
-image::migrate-vms-to-ontap-image06.png[符合 VM 儲存原則的資料存放區]
+image:migrate-vms-to-ontap-image06.png["符合 VM 儲存原則的資料存放區"]
 
 . 檢閱並按一下「完成」。
 +
-image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+image:migrate-vms-to-ontap-image07.png["儲存設備移轉審查"]
 
 
 
@@ -176,35 +176,35 @@ NOTE: 請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-es
 
 . 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
 +
-image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+image:migrate-vms-to-ontap-image08.png["特定叢集上的 VM"]
 
 . 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
 +
-image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+image:migrate-vms-to-ontap-image04.png["要移轉的 VM"]
 
 . 選擇選項以變更運算資源和儲存、然後按一下「下一步」
 +
-image::migrate-vms-to-ontap-image09.png[同時變更運算和儲存設備]
+image:migrate-vms-to-ontap-image09.png["同時變更運算和儲存設備"]
 
 . 瀏覽並挑選適當的叢集進行移轉。
 +
-image::migrate-vms-to-ontap-image12.png[選取目標叢集]
+image:migrate-vms-to-ontap-image12.png["選取目標叢集"]
 
 . 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
 +
-image::migrate-vms-to-ontap-image13.png[符合 VM 儲存原則的資料存放區]
+image:migrate-vms-to-ontap-image13.png["符合 VM 儲存原則的資料存放區"]
 
 . 選擇 VM 資料夾以放置目標 VM 。
 +
-image::migrate-vms-to-ontap-image14.png[目標 VM 資料夾選擇]
+image:migrate-vms-to-ontap-image14.png["目標 VM 資料夾選擇"]
 
 . 選取目標連接埠群組。
 +
-image::migrate-vms-to-ontap-image15.png[目標連接埠群組選擇]
+image:migrate-vms-to-ontap-image15.png["目標連接埠群組選擇"]
 
 . 檢閱並按一下「完成」。
 +
-image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+image:migrate-vms-to-ontap-image07.png["儲存設備移轉審查"]
 
 
 
@@ -247,35 +247,35 @@ NOTE: 如需來源和目標 vCenter 版本等其他需求、請參閱 https://do
 
 . 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
 +
-image::migrate-vms-to-ontap-image08.png[特定叢集上的 VM]
+image:migrate-vms-to-ontap-image08.png["特定叢集上的 VM"]
 
 . 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
 +
-image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+image:migrate-vms-to-ontap-image04.png["要移轉的 VM"]
 
 . 選擇選項以變更運算資源和儲存、然後按一下「下一步」
 +
-image::migrate-vms-to-ontap-image09.png[同時變更運算和儲存設備]
+image:migrate-vms-to-ontap-image09.png["同時變更運算和儲存設備"]
 
 . 在目標 vCenter 伺服器中選取目標叢集。
 +
-image::migrate-vms-to-ontap-image12.png[選取目標叢集]
+image:migrate-vms-to-ontap-image12.png["選取目標叢集"]
 
 . 選取所需的 VM 儲存原則、然後選擇相容的資料存放區。按一下「下一步」
 +
-image::migrate-vms-to-ontap-image13.png[符合 VM 儲存原則的資料存放區]
+image:migrate-vms-to-ontap-image13.png["符合 VM 儲存原則的資料存放區"]
 
 . 選擇 VM 資料夾以放置目標 VM 。
 +
-image::migrate-vms-to-ontap-image14.png[目標 VM 資料夾選擇]
+image:migrate-vms-to-ontap-image14.png["目標 VM 資料夾選擇"]
 
 . 選取目標連接埠群組。
 +
-image::migrate-vms-to-ontap-image15.png[目標連接埠群組選擇]
+image:migrate-vms-to-ontap-image15.png["目標連接埠群組選擇"]
 
 . 檢閱移轉選項、然後按一下「完成」。
 +
-image::migrate-vms-to-ontap-image07.png[儲存設備移轉審查]
+image:migrate-vms-to-ontap-image07.png["儲存設備移轉審查"]
 
 
 
@@ -318,15 +318,15 @@ NOTE: 此案例假設 vCenter 伺服器之間存在通訊。否則、請查看�
 
 . 使用 vSphere Web Client 、選取來源 vCenter 伺服器、然後按一下 VM 索引標籤。
 +
-image::migrate-vms-to-ontap-image10.png[來源 vCenter 上的 VM]
+image:migrate-vms-to-ontap-image10.png["來源 vCenter 上的 VM"]
 
 . 選取需要移轉的虛擬機器、然後按一下滑鼠右鍵以選取移轉選項。
 +
-image::migrate-vms-to-ontap-image04.png[要移轉的 VM]
+image:migrate-vms-to-ontap-image04.png["要移轉的 VM"]
 
 . 選擇選項 Cross vCenter Server Export 、然後按一下 Next （下一步）
 +
-image::migrate-vms-to-ontap-image11.png[跨 vCenter Server 匯出]
+image:migrate-vms-to-ontap-image11.png["跨 vCenter Server 匯出"]
 
 +
 
@@ -334,31 +334,31 @@ TIP: VM 也可以從目標 vCenter 伺服器匯入。如需該程序、請檢查
 
 . 提供 vCenter 認證詳細資料、然後按一下登入。
 +
-image::migrate-vms-to-ontap-image23.png[vCenter 認證]
+image:migrate-vms-to-ontap-image23.png["vCenter 認證"]
 
 . 確認並接受 vCenter 伺服器的 SSL 憑證指紋
 +
-image::migrate-vms-to-ontap-image24.png[SSL 指紋]
+image:migrate-vms-to-ontap-image24.png["SSL 指紋"]
 
 . 展開目標 vCenter 並選取目標運算叢集。
 +
-image::migrate-vms-to-ontap-image25.png[選取目標運算叢集]
+image:migrate-vms-to-ontap-image25.png["選取目標運算叢集"]
 
 . 根據 VM 儲存原則選取目標資料存放區。
 +
-image::migrate-vms-to-ontap-image26.png[選取目標資料存放區]
+image:migrate-vms-to-ontap-image26.png["選取目標資料存放區"]
 
 . 選取目標 VM 資料夾。
 +
-image::migrate-vms-to-ontap-image27.png[選取目標 VM 資料夾]
+image:migrate-vms-to-ontap-image27.png["選取目標 VM 資料夾"]
 
 . 為每個網路介面卡對應選擇 VM 連接埠群組。
 +
-image::migrate-vms-to-ontap-image28.png[選取目標連接埠群組]
+image:migrate-vms-to-ontap-image28.png["選取目標連接埠群組"]
 
 . 檢閱並按一下「完成」、即可在 vCenter 伺服器上啟動 VMotion 。
 +
-image::migrate-vms-to-ontap-image29.png[跨 VMotion 操作審查]
+image:migrate-vms-to-ontap-image29.png["跨 VMotion 操作審查"]
 
 
 
@@ -438,7 +438,7 @@ VM 範本可由 vCenter Server 或內容庫管理。VM 範本、 OVF 和 OVA 範
 ====
 . 在 vSphere Web Client 中、在 VM and Templates 資料夾檢視下的 VM 範本上按一下滑鼠右鍵、然後選取選項以轉換為 VM 。
 +
-image::migrate-vms-to-ontap-image16.png[將 VM 範本轉換成 VM]
+image:migrate-vms-to-ontap-image16.png["將 VM 範本轉換成 VM"]
 
 . 將其轉換為 VM 後、請遵循 VM 移轉選項。
 
@@ -449,12 +449,12 @@ image::migrate-vms-to-ontap-image16.png[將 VM 範本轉換成 VM]
 ====
 . 在 vSphere Web Client 中、選取內容庫
 +
-image::migrate-vms-to-ontap-image17.png[內容庫選擇]
+image:migrate-vms-to-ontap-image17.png["內容庫選擇"]
 
 . 選取您要複製項目的內容庫
 . 在項目上按一下滑鼠右鍵、然後按一下複製項目。
 +
-image::migrate-vms-to-ontap-image18.png[複製內容庫項目]
+image:migrate-vms-to-ontap-image18.png["複製內容庫項目"]
 
 +
 
@@ -462,11 +462,11 @@ WARNING: 如果使用動作功能表、請確定列出正確的目標物件以�
 
 . 選取目標內容庫、然後按一下「確定」。
 +
-image::migrate-vms-to-ontap-image19.png[目標內容庫選擇]
+image:migrate-vms-to-ontap-image19.png["目標內容庫選擇"]
 
 . 驗證項目是否可在目標內容庫上使用。
 +
-image::migrate-vms-to-ontap-image20.png[複製項目驗證]
+image:migrate-vms-to-ontap-image20.png["複製項目驗證"]
 
 
 
@@ -487,7 +487,7 @@ Get-ContentLibaryItem -ContentLibary (Get-ContentLibary 'CL01' -Server $sourcevc
 ====
 . 在 vSphere Web Client 中、選取虛擬機器、然後按一下滑鼠右鍵、選擇「在程式庫中複製為範本」
 +
-image::migrate-vms-to-ontap-image21.png[在 libary 中以範本形式複製 VM]
+image:migrate-vms-to-ontap-image21.png["在 libary 中以範本形式複製 VM"]
 
 +
 
@@ -495,7 +495,7 @@ TIP: 如果在 libary 中選取要複製的 VM 範本、則只能將其儲存為
 
 . 確認已選取範本類型作為 VM 範本、然後依照回答精靈來完成作業。
 +
-image::migrate-vms-to-ontap-image22.png[範本類型選擇]
+image:migrate-vms-to-ontap-image22.png["範本類型選擇"]
 
 +
 

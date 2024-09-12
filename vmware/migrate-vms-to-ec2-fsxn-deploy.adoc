@@ -24,11 +24,11 @@ summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「�
 
 在本示範中、「 DRaaSDemo 」是所建立檔案系統的名稱。
 
-image::migrate-ec2-fsxn-image02.png[展示檔案系統使用者介面影像]
+image:migrate-ec2-fsxn-image02.png["展示檔案系統使用者介面影像"]
 
 一旦您的 AWS VPC 設定完成、並根據您的效能需求配置 FSX for ONTAP 、請登入 link:http://cloud.cirrusdata.com/["cloud.cirrusdata.com"] 和 link:https://customer.cirrusdata.com/cdc/kb/articles/get-started-with-cirrus-data-cloud-4eDqjIxQpg["建立新專案"] 或存取現有專案。
 
-image::migrate-ec2-fsxn-image03.png[Cirrus Data 專案使用者介面影像]
+image:migrate-ec2-fsxn-image03.png["Cirrus Data 專案使用者介面影像"]
 
 在建立 MigationOps 的秘訣之前、應先將 AWS Cloud 新增為整合。CMC 內建與適用於 ONTAP 和 AWS 的 FSX 整合。適用於 ONTAP 的 FSX 整合提供下列自動化功能：
 
@@ -59,11 +59,11 @@ image::migrate-ec2-fsxn-image03.png[Cirrus Data 專案使用者介面影像]
 . 瀏覽至「整合」 -> 「產品」。
 . 捲動以尋找適用於 NetApp ONTAP 的 FSX 、然後按一下新增整合。
 +
-image::migrate-ec2-fsxn-image04.png[Cirrus Data 「新增整合」使用者介面影像]
+image:migrate-ec2-fsxn-image04.png["Cirrus Data 「新增整合」使用者介面影像"]
 
 . 提供描述性名稱（僅供顯示用途）並新增適當的認證。
 +
-image::migrate-ec2-fsxn-image05.png[Cirrus Data 「新增整合」使用者介面影像]
+image:migrate-ec2-fsxn-image05.png["Cirrus Data 「新增整合」使用者介面影像"]
 
 . 建立整合之後、在建立新的移轉工作階段期間、請選取自動分配目的地 Volume 、以便在 ONTAP 的 FSX 上自動分配新的磁碟區。
 +
@@ -77,7 +77,7 @@ image::migrate-ec2-fsxn-image05.png[Cirrus Data 「新增整合」使用者介�
 
 . 完成後、請依照畫面上的步驟、新增 AWS 的整合功能。
 +
-image::migrate-ec2-fsxn-image06.png[Cirrus Data 「新增整合」使用者介面影像]
+image:migrate-ec2-fsxn-image06.png["Cirrus Data 「新增整合」使用者介面影像"]
 
 +
 * 注意 * ：將虛擬機器從內部部署儲存設備移轉至 AWS 時、會使用此整合功能、並搭配用於 ONTAP 整合的 FSX 。
@@ -102,7 +102,7 @@ image::migrate-ec2-fsxn-image06.png[Cirrus Data 「新增整合」使用者介�
 
 * 注意 * ：上一節中設定的整合功能可自動設定新的目的地儲存設備、包括建立新磁碟、設定主機實體及其 IQN 、甚至是修正 iSCSI 和多重路徑組態的應用程式 VM （主機）。
 
-image::migrate-ec2-fsxn-image07.png[要移轉的 VMware 虛擬機器影像]
+image:migrate-ec2-fsxn-image07.png["要移轉的 VMware 虛擬機器影像"]
 
 本示範將會將應用程式 VMDK 從每個 VM 移轉至自動佈建和對應的 iSCSI Volume 、從適用於 ONTAP 的 FSX 移轉至該 Volume 。在這種情況下、作業系統 VMDK 將移轉至 Amazon EBS Volume 、因為 Amazon EC2 執行個體僅支援此 Amazon EBS 作為開機磁碟。
 
@@ -122,10 +122,10 @@ image::migrate-ec2-fsxn-image07.png[要移轉的 VMware 虛擬機器影像]
 然後複製 `iex` 命令至主機、並使用 PowerShell 執行。一旦代理程式部署成功、主機就會新增至「移轉主機」下的專案。
 
 +
-image::migrate-ec2-fsxn-image08.png[Cirrus Data 安裝介面影像]
+image:migrate-ec2-fsxn-image08.png["Cirrus Data 安裝介面影像"]
 
 +
-image::migrate-ec2-fsxn-image09.png[Windows 安裝進度影像]
+image:migrate-ec2-fsxn-image09.png["Windows 安裝進度影像"]
 
 . 為每部虛擬機器準備 YAML 。
 +
@@ -209,22 +209,22 @@ operations:
 . 除非 `scheduled_start_time` 欄位是在組態中指定的、作業將會立即開始。
 . 此作業現在將執行並繼續。您可以透過 Cirrus Data Cloud UI 監控進度、並提供詳細訊息。這些步驟會自動包含一般手動完成的工作、例如執行自動分配和建立移轉工作階段。
 +
-image::migrate-ec2-fsxn-image10.png[Cirrus Data 移轉進度影像]
+image:migrate-ec2-fsxn-image10.png["Cirrus Data 移轉進度影像"]
 
 +
 * 附註 * ：在主機對主機移轉期間、將會建立一個規則允許傳入 4996 連接埠的額外安全群組、以允許通訊所需的連接埠、並在同步完成後自動刪除。
 
 +
-image::migrate-ec2-fsxn-image11.png[適用於 Cirrus Data 移轉的傳入規則影像]
+image:migrate-ec2-fsxn-image11.png["適用於 Cirrus Data 移轉的傳入規則影像"]
 
 . 雖然此移轉工作階段正在同步、但第 3 階段（轉換）的後續步驟會標示為「需要核准」。 在移轉作業方法中、關鍵任務（例如移轉移轉至伺服器）需要使用者核准、才能執行。專案操作員或系統管理員可以從 UI 核准這些工作。您也可以建立未來的核准時段。
 +
-image::migrate-ec2-fsxn-image12.png[Cirrus Data 移轉同步化的影像]
+image:migrate-ec2-fsxn-image12.png["Cirrus Data 移轉同步化的影像"]
 
 . 核准後、 MigrateOps 作業會繼續轉換。
 . 稍後、作業將會完成。
 +
-image::migrate-ec2-fsxn-image13.png[完成 Cirrus Data 移轉的影像]
+image:migrate-ec2-fsxn-image13.png["完成 Cirrus Data 移轉的影像"]
 
 +
 * 注意 * ：在 Cirrus Data cMotion ™技術的協助下、目的地儲存設備已隨時更新所有最新變更。因此、在獲得核准後、整個最終轉換程序將需要很短的時間（不到一分鐘）才能完成。

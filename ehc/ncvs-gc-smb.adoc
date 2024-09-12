@@ -45,7 +45,7 @@ NOTE: 若要建立PTr項目、Cloud Volumes Service DNS伺服器上必須存在�
 
 在Active Directory中、這些是Cloud Volumes Service產生的SPN項目：
 
-image::ncvs-gc-image6.png[Ncvs GC 影像 6.]
+image:ncvs-gc-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 這是DNS轉送/反轉查詢結果：
 
@@ -71,7 +71,7 @@ Address:  10. xxx.0. x
 
 如果您想要為SMB共用路徑建立別名、可以利用DNS中稱為「CNAME-」記錄的名稱。例如、如果您想要使用名稱「\CIFS」來存取共享區、而不是「\CVS東- 433d.cvsdemo.local」、但仍想要使用Kerberos驗證、DNS中的一種命名為「CNAME」、指向現有的A/AAAA記錄、以及新增至現有機器帳戶的其他SPN-s、則可提供Kerberos存取。
 
-image::ncvs-gc-image7.png[Ncvs GC 影像 7.]
+image:ncvs-gc-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 這是在新增CNAME:
 
@@ -85,11 +85,11 @@ Aliases:  cifs.cvsdemo.local
 ....
 這是新增SPN後產生的SPN查詢：
 
-image::ncvs-gc-image8.png[Ncvs GC 影像 8.]
+image:ncvs-gc-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 在封包擷取中、我們可以使用與CNAMA相關的SPN來查看工作階段設定要求。
 
-image::ncvs-gc-image9.png[Ncvs GC 影像 9.]
+image:ncvs-gc-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -148,9 +148,9 @@ NTFS權限由Windows SMB用戶端控制。
 
 例如、如果使用者只能讀取Cloud Volumes Service 對此實體磁碟區檔案ACL的存取權、則即使共用ACL設定為「擁有完全控制權的所有人」、仍無法存取建立檔案和資料夾、如下圖所示。
 
-image::ncvs-gc-image10.png[Ncvs GC 影像 10.]
+image:ncvs-gc-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::ncvs-gc-image11.png[Ncvs GC 影像 11.]
+image:ncvs-gc-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 若要獲得最佳的安全性結果、請執行下列步驟：
 
@@ -172,7 +172,7 @@ image::ncvs-gc-image11.png[Ncvs GC 影像 11.]
 * *使Snapshot目錄可見（同時適用於CVs-Performance和CVs-SW）。*此選項控制SMB用戶端是否可以存取SMB共用區（「\伺服器\共用\~snapshot」和/或「舊版」索引標籤）中的Snapshot目錄。未核取預設設定、這表示磁碟區預設為隱藏及不允許存取「~snapshot」目錄、而且磁碟區的「舊版」索引標籤不會顯示Snapshot複本。
 
 
-image::ncvs-gc-image12.png[Ncvs GC 影像 12.]
+image:ncvs-gc-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 基於安全理由、效能理由（將這些資料夾隱藏在AV掃描之外）或偏好、可能需要從終端使用者處隱藏Snapshot複本。由於「支援快照」是唯讀的、因此即使這些快照可見、終端使用者仍無法刪除或修改Snapshot目錄中的檔案。Cloud Volumes Service應用Snapshot複本時、檔案或資料夾的檔案權限。如果檔案或資料夾的權限在Snapshot複本之間變更、則變更也會套用至Snapshot目錄中的檔案或資料夾。使用者和群組可以根據權限存取這些檔案或資料夾。雖然無法刪除或修改Snapshot目錄中的檔案、但仍可將檔案或資料夾從Snapshot目錄中複製出來。
 
@@ -202,11 +202,11 @@ IPC$共用區不含共用ACL、無法修改、嚴格用於RPC呼叫和 https://d
 
 當您將使用者新增至「安全性權限使用者」時、系統會將SeSecurityPrivilege賦予使用者、這在某些應用程式使用案例（例如）中很有用 https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["SMB共用上的SQL Server"^]。
 
-image::ncvs-gc-image13.png[Ncvs GC 影像 13.]
+image:ncvs-gc-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 您可以Cloud Volumes Service 透過具有適當權限的MMC檢視本地的群組成員資格。下圖顯示使用Cloud Volumes Service 者已透過使用此功能新增的使用者。
 
-image::ncvs-gc-image14.png[Ncvs GC 影像 14.]
+image:ncvs-gc-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 下表顯示預設BUILTIN群組清單、以及預設新增的使用者/群組。
 
@@ -232,9 +232,9 @@ image::ncvs-gc-image14.png[Ncvs GC 影像 14.]
 
 您可以在MMC視窗中檢視本機使用者和群組（及群組成員）、但無法從這個主控台新增或刪除物件或變更群組成員資格。根據預設、Cloud Volumes Service 只有Domain Admins群組和Administrator會新增至功能區的BUILTIN\Administrator群組。目前您無法修改此項目。
 
-image::ncvs-gc-image15.png[Ncvs GC 影像 15.]
+image:ncvs-gc-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::ncvs-gc-image16.png[Ncvs GC 影像 16.]
+image:ncvs-gc-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -250,9 +250,9 @@ SMB存取Cloud Volumes Service 功能可連線至電腦管理MMC、讓您檢視�
 
 請記住、每個地區只允許一個Active Directory連線。
 
-image::ncvs-gc-image17.png[Ncvs GC 影像 17.]
+image:ncvs-gc-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-image::ncvs-gc-image18.png[Ncvs GC 影像 18.]
+image:ncvs-gc-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 下表顯示MMC支援/不支援的功能清單。
 
