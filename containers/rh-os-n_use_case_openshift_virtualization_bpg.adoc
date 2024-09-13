@@ -1,0 +1,202 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_bpg.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: Red Hat OpenShift 虛擬化中虛擬機器的最佳實務建議 
+---
+= Red Hat OpenShift 虛擬化中虛擬機器的最佳實務建議
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+作者： Banu Sundhar 、 NetApp
+
+[role="lead"]
+本節說明部署新 VM 或從 VMware 環境將現有 VM 匯入 OpenShift Container Platform 的 OpenShift 虛擬化時、應考慮的不同因素。
+
+
+
+== VM效能
+
+在 OpenShift 虛擬化中建立新 VM 時、您需要考量將在 VM 上執行之工作負載的存取模式和效能（ IOP 和處理量）需求。這將影響 OpenShift Container 平台中 OpenShift 虛擬化平台上所需執行的 VM 數量、以及 VM 磁碟所需的儲存類型。
+
+您要為 VM 磁碟選擇的儲存類型會受到下列因素影響：
+
+* 存取工作負載資料所需的傳輸協定存取
+* 您需要的存取模式（ rwo 與 rwx ）
+* 工作負載所需的效能特性
+
+
+如需詳細資訊、請參閱儲存組態一節。
+
+
+
+== VM 工作負載的高可用度
+
+OpenShift 虛擬化支援虛擬機器的即時移轉。即時移轉可讓執行中的虛擬機器執行個體（ VMI ）移至另一個節點、而不會中斷工作負載。移轉有助於在叢集升級期間順暢轉換、或是在需要排空節點以進行維護或組態變更的任何時間進行移轉。即時移轉需要使用提供 ReadWriteMany （ rwx ）存取模式的共用儲存解決方案。VM 磁碟應以提供 rwx 存取模式的儲存選項作為備份。OpenShift 虛擬化會檢查 VMI 是否為 ** 可即時移轉 ** 、如果是、則將 ** 設備策略 ** 設為 ** LiveMigrate** 。如需詳細資訊、請參閱 link:https://docs.openshift.com/container-platform/latest/virt/live_migration/virt-about-live-migration.html["關於 Red Hat 文件中的即時移轉一節"] 。
+
+請務必使用支援 **rwx** 存取模式的驅動程式。如需哪些驅動程式支援 rwx 存取模式的詳細資訊、請參閱儲存組態一節。
+
+
+
+== 儲存組態
+
+Trident CSI 資源配置程式提供數種驅動程式（ NAS 、 NAS 經濟型、 FlexGroup 、 SAN 和 SAN 經濟型）、以 NetApp 儲存選項作為後盾來配置儲存設備。** 使用的傳輸協定： ** * NAS 驅動程式使用 NAS 傳輸協定（ NFS 和 SMB ） * SAN 驅動程式使用 iSCSI 或 NVMe / TCP 傳輸協定
+
+以下內容可協助您根據工作負載需求和儲存使用率、決定儲存組態的需求。
+
+* NAS 驅動程式會在一個 FlexVolume 上建立一個持續磁碟區（ PV ）。
+* NAS 經濟型驅動程式會在共用 FlexVolume 的 qtree 上建立一個 PV 。（每 200 部 PV 可配置一個 FlexVolume 、可在 50 至 300 部之間配置）
+* FlexGroup 驅動程式會在單一 FlexGroup 上建立一個 PV
+* SAN 驅動程式會在專用 FlexVolume 上的 LUN 上建立一個 PV
+* SAN 經濟型驅動程式在共享 FlexVolume 上的 LUN 上建立一個 PV （每 100 個 PV 一個 FlexVolume 、可設定在 50 到 200 之間）
+
+
+下圖說明了這一點。
+
+image::redhat_openshift_bpg_image1.png[驅動程式]
+
+此外、驅動程式支援的存取模式也會有所不同。
+
+支援 ONTAP NAS 驅動程式
+
+* 檔案系統存取和 rwo 、 ROX 、 rwx 、 RPW 存取模式。
+
+
+ONTAP SAN 驅動程式支援原始區塊和檔案系統模式。
+
+* 在原始區塊模式中、它可以支援 rwo 、 ROX 、 rwx 、 RWOP- 存取模式。
+* 在檔案系統模式中、只允許使用 rwo 、 RWOP- 存取模式。
+
+
+OpenShift 虛擬化 VM 的即時移轉需要磁碟具備 rwx 存取模式。因此、在原始區塊 Volume 模式中選擇 NAS 驅動程式或 SAN 驅動程式、以建立由 ONTAP 支援的 PVCS 和 PV 、這一點很重要。
+
+
+
+== ** 儲存組態最佳實務做法 **
+
+
+
+=== ** 專用儲存虛擬機器（ SVM ） **
+
+儲存虛擬機器（SVM）可隔離ONTAP 及管理各個客戶在一個系統上的區隔。將 SVM 專用於 OpenShift 容器和 OpenShift 虛擬化 VM 、即可委派 Privileges 、並可套用最佳實務做法來限制資源使用量。
+
+
+
+=== ** 限制 SVM** 上的最大磁碟區數
+
+若要避免Trident佔用儲存系統上的所有可用磁碟區、您應該在SVM上設定限制。您可以從命令列執行此動作：
+
+[source, cli]
+----
+vserver modify -vserver <svm_name> -max-volumes <num_of_volumes>
+----
+最大磁碟區值是在 ONTAP 叢集中所有節點上、而非個別 ONTAP 節點上、配置的總磁碟區。因此ONTAP 、您可能會遇到一些情況、例如、某個叢集節點的資源配置量可能遠高於或低於其他節點。為避免這種情況發生、請確定叢集中每個節點的集合體數量相等、已指派給 Trident 所使用的 SVM 。
+
+
+
+=== ** 限制由 Trident 建立的最大磁碟區大小 **
+
+您可以在 ONTAP 中針對每個 SVM 設定最大磁碟區大小限制：
+
+. 使用 vserver create 命令建立 SVM 、並設定儲存限制：
+
+
+[source, cli]
+----
+vserver create -vserver vserver_name -aggregate aggregate_name -rootvolume root_volume_name -rootvolume-security-style {unix|ntfs|mixed} -storage-limit value
+----
+. 若要修改現有 SVM 的儲存限制：
++
+[source, cli]
+----
+vserver modify -vserver vserver_name -storage-limit value -storage-limit-threshold-alert percentage
+----
+
+
+
+NOTE: 儲存限制無法針對任何 SVM 進行設定、這些 SVM 包含資料保護磁碟區、 SnapMirror 關係中的磁碟區、或是 MetroCluster 組態中的磁碟區。
+
+除了控制儲存陣列的磁碟區大小、您也應該善用Kubernetes功能。
+
+. 若要設定可由 Trident 建立的磁碟區大小上限、請使用 backend.json 定義中的 **limitVolume Size** 參數。
+. 若要設定用作 ONTAP SAN 經濟型和 ONTAP NAS 經濟型驅動程式集區的 FlexVols 最大大小、請使用 backend.json 定義中的 **limitVolumePoolSize** 參數。
+
+
+
+
+=== ** 使用 SVM QoS 原則 **
+
+將服務品質（ QoS ）原則套用至 SVM 、以限制 Trident 佈建磁碟區所消耗的 IOPS 數量。這有助於防止使用 Trident 資源配置儲存設備的工作負載影響 Trident SVM 以外的工作負載。
+
+ONTAP QoS 原則群組可為磁碟區提供 QoS 選項、並讓使用者定義一或多個工作負載的處理量上限。如需 QoS 原則群組的詳細資訊、請參閱link:https://docs.netapp.com/us-en/ontap-cli/index.html["Sof 9.15 QoS命令ONTAP"]
+
+
+
+=== ** 限制儲存資源存取 Kubernetes 叢集成員 **
+
+** 使用命名空間 ** 限制對 Trident 所建立的 NFS 磁碟區和 iSCSI LUN 的存取、是 Kubernetes 部署安全狀態的關鍵元件。這樣做可防止非Kubernetes叢集一部分的主機存取磁碟區、並可能意外修改資料。
+
+此外、容器中的程序也可以存取掛載到主機的儲存設備、但不適用於容器。使用命名空間為資源提供邏輯邊界可避免此問題。不過、
+
+請務必瞭解命名空間是Kubernetes中資源的邏輯邊界。因此、務必確保在適當時使用命名空間來提供分隔。不過、特權容器的主機層級權限遠高於正常權限。因此、請使用停用此功能link:https://kubernetes.io/docs/concepts/policy/pod-security-policy/["Pod安全性原則"]。
+
+** 對於具有專用基礎架構節點或其他無法排程使用者應用程式的節點的 OpenShift 部署、請使用專屬匯出原則 ** 、使用個別匯出原則來進一步限制儲存資源的存取。這包括為部署至這些基礎架構節點的服務（例如OpenShift Metrics和記錄服務）、以及部署至非基礎架構節點的標準應用程式建立匯出原則。
+
+Trident 可以自動建立及管理匯出原則。如此一來、Trident就能限制對Kubernetes叢集中節點所配置之磁碟區的存取、並簡化節點的新增/刪除作業。
+
+但是、如果您選擇手動建立匯出原則、請在其中填入一個或多個處理每個節點存取要求的匯出規則。
+
+** 停用應用程式 SVM** 的裝置裝載部署至 Kubernetes 叢集的 Pod 可針對資料 LIF 發出 showmount -e 命令、並接收可用的裝載清單、包括無法存取的裝載。若要避免這種情況、請使用下列 CLI 停用 showmount 功能：
+
+[source, cli]
+----
+vserver nfs modify -vserver <svm_name> -showmount disabled
+----
+
+NOTE: 如需儲存組態和 Trident 使用的最佳實務做法的其他詳細資訊、請參閱link:https://docs.netapp.com/us-en/trident/["Trident文件"]
+
+
+
+== ** OpenShift 虛擬化 - 調校與擴充指南 **
+
+Red Hat 已記錄在案link:https://docs.openshift.com/container-platform/latest/scalability_and_performance/recommended-performance-scale-practices/recommended-control-plane-practices.html["OpenShift 叢集擴充建議與限制"]。
+
+此外，他們還記錄了link:https://access.redhat.com/articles/6994974]["OpenShift 虛擬化調校指南"]和link:https://access.redhat.com/articles/6571671["OpenShift 虛擬化 4.x 支援的限制"]。
+
+
+NOTE: 若要存取上述內容、需要主動訂閱 Red Hat 。
+
+調校指南包含許多調校參數的相關資訊、包括：
+
+* 調整參數以一次或大量建立多個 VM
+* VM 即時移轉
+* link:https://docs.openshift.com/container-platform/latest/virt/vm_networking/virt-dedicated-network-live-migration.htm["設定用於即時移轉的專用網路"]
+* 加入工作負載類型、以自訂 VM 範本
+
+
+支援的限制記錄了在 OpenShift 上執行 VM 時、測試的物件上限
+
+** 虛擬機器最大值包括 **
+
+* 每個 VM 的最大虛擬 CPU 數
+* 每個 VM 的最大和最小記憶體
+* 每個 VM 的最大單一磁碟大小
+* 每個 VM 的最大熱插拔磁碟數
+
+
+** 主機最大數量、包括 ** * 同步即時移轉（每個節點和每個叢集）
+
+** 叢集最大數量包括 ** * 定義的虛擬機器數量上限
+
+
+
+=== ** 從 VMware 環境移轉 VM **
+
+如需從 VMware 環境移轉 VM 的詳細資訊、請參閱link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["工作流程 gt; Red Hat OpenShift NetApp ONTAP 虛擬化"]
+
+如果您要在同一個移轉計畫中、從 ESXi 主機移轉超過 10 個 VM 、則必須增加主機的 NFC 服務記憶體。否則、移轉將會失敗、因為 NFC 服務記憶體限制為 10 個平行連線。如需其他詳細資料、請參閱 Red Hat 文件：連結： https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.6/html/installing_and_using_the_migration_toolkit_for_virtualization/prerequisites_mtv#increasing-nfc-memory-vmware-host_mtv[Increasing ESXi 主機的 NFC 服務記憶體 ]
