@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP, hardening 
-permalink: /cyber-vault/ontap-cyber-vault-interoperability.html 
+permalink: cyber-vault/ontap-cyber-vault-interoperability.html 
 summary: 網路資料保險箱互通性 
 ---
 = 網路資料保險箱互通性
@@ -33,7 +33,7 @@ ONTAP 硬體和軟體可用於建立網路資料保險箱組態。
 
 從 ONTAP 9 。 14.1 開始、您可以在 SnapMirror 關係的 SnapMirror 原則中指定特定 SnapMirror 標籤的保留期間、以便在規則中指定的保留期間內、保留從來源到目的地磁碟區的複寫 Snapshot 複本。如果未指定保留期間、則會使用目的地 Volume 的預設保留期間。
 
-從 ONTAP 9 。 13.1 開始、您可以在執行磁碟區複製建立作業時、建立 FlexClone 、並將 SnapLock 類型選項設為「非 SnapLock 」、並將 Snapshot 複本指定為「父快照」、以即時還原 SnapLock 資料保險箱關係目的地 SnapLock 磁碟區上的鎖定 Snapshot 複本。深入瞭解 link:../../ontap/volumes/create-flexclone-task.html?q=volume+clone["使用 SnapLock 類型建立 FlexClone Volume"^]。
+從 ONTAP 9 。 13.1 開始、您可以在執行磁碟區複製建立作業時、建立 FlexClone 、並將 SnapLock 類型選項設為「非 SnapLock 」、並將 Snapshot 複本指定為「父快照」、以即時還原 SnapLock 資料保險箱關係目的地 SnapLock 磁碟區上的鎖定 Snapshot 複本。深入瞭解 link:https://docs.netapp.com/us-en/ontap/volumes/create-flexclone-task.html?q=volume+clone["使用 SnapLock 類型建立 FlexClone Volume"^]。
 
 
 
