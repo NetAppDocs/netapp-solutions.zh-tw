@@ -16,7 +16,7 @@ summary: Red Hat OpenShift 虛擬化中虛擬機器的最佳實務建議
 作者： Banu Sundhar 、 NetApp
 
 [role="lead"]
-本節說明部署新 VM 或從 VMware 環境將現有 VM 匯入 OpenShift Container Platform 的 OpenShift 虛擬化時、應考慮的不同因素。
+本節說明部署新 VM 或將現有 VM 從 VMware vSphere 匯入 OpenShift Container Platform 的 OpenShift Virtualization 時、應考慮的不同因素。
 
 
 
@@ -31,7 +31,7 @@ summary: Red Hat OpenShift 虛擬化中虛擬機器的最佳實務建議
 * 工作負載所需的效能特性
 
 
-如需詳細資訊、請參閱儲存組態一節。
+如需詳細資訊、請參閱下方的儲存組態一節。
 
 
 
@@ -39,21 +39,23 @@ summary: Red Hat OpenShift 虛擬化中虛擬機器的最佳實務建議
 
 OpenShift 虛擬化支援虛擬機器的即時移轉。即時移轉可讓執行中的虛擬機器執行個體（ VMI ）移至另一個節點、而不會中斷工作負載。移轉有助於在叢集升級期間順暢轉換、或是在需要排空節點以進行維護或組態變更的任何時間進行移轉。即時移轉需要使用提供 ReadWriteMany （ rwx ）存取模式的共用儲存解決方案。VM 磁碟應以提供 rwx 存取模式的儲存選項作為備份。OpenShift 虛擬化會檢查 VMI 是否為 ** 可即時移轉 ** 、如果是、則將 ** 設備策略 ** 設為 ** LiveMigrate** 。如需詳細資訊、請參閱 link:https://docs.openshift.com/container-platform/latest/virt/live_migration/virt-about-live-migration.html["關於 Red Hat 文件中的即時移轉一節"] 。
 
-請務必使用支援 **rwx** 存取模式的驅動程式。如需哪些驅動程式支援 rwx 存取模式的詳細資訊、請參閱儲存組態一節。
+請務必使用支援 **rwx** 存取模式的驅動程式。如需哪些 ONTAP 驅動程式支援 rwx 存取模式的詳細資訊、請參閱下方的儲存組態一節。
 
 
 
 == 儲存組態
 
-Trident CSI 資源配置程式提供數種驅動程式（ NAS 、 NAS 經濟型、 FlexGroup 、 SAN 和 SAN 經濟型）、以 NetApp 儲存選項作為後盾來配置儲存設備。** 使用的傳輸協定： ** * NAS 驅動程式使用 NAS 傳輸協定（ NFS 和 SMB ） * SAN 驅動程式使用 iSCSI 或 NVMe / TCP 傳輸協定
+Trident CSI 資源配置程式提供數種驅動程式（ NAS 、 NAS 經濟型、 FlexGroup 、 SAN 和 SAN 經濟型）、以 NetApp 儲存選項作為後盾來配置儲存設備。
+
+** 使用的傳輸協定： ** * NAS 驅動程式使用 NAS 傳輸協定（ NFS 和 SMB ） * SAN 驅動程式使用 iSCSI 或 NVMe / TCP 傳輸協定
 
 以下內容可協助您根據工作負載需求和儲存使用率、決定儲存組態的需求。
 
-* NAS 驅動程式會在一個 FlexVolume 上建立一個持續磁碟區（ PV ）。
-* NAS 經濟型驅動程式會在共用 FlexVolume 的 qtree 上建立一個 PV 。（每 200 部 PV 可配置一個 FlexVolume 、可在 50 至 300 部之間配置）
-* FlexGroup 驅動程式會在單一 FlexGroup 上建立一個 PV
+* **NASA** 驅動程式會在一個 FlexVolume 上建立一個持續磁碟區（ PV ）。
+* ** NAS 經濟型 ** 驅動程式在共用 FlexVolume 的 qtree 上建立一個 PV 。（每 200 部 PV 可配置一個 FlexVolume 、可在 50 至 300 部之間配置）
+* FlexGroup * 驅動程式會在單一 FlexGroup 上建立一個 PV
 * SAN 驅動程式會在專用 FlexVolume 上的 LUN 上建立一個 PV
-* SAN 經濟型驅動程式在共享 FlexVolume 上的 LUN 上建立一個 PV （每 100 個 PV 一個 FlexVolume 、可設定在 50 到 200 之間）
+* ** SAN 經濟型 ** 驅動程式在共享 FlexVolume 上的 LUN 上建立一個 PV （每 100 個 PV 一個 FlexVolume 可設定為 50 到 200 個）
 
 
 下圖說明了這一點。
@@ -62,12 +64,12 @@ image::redhat_openshift_bpg_image1.png[驅動程式]
 
 此外、驅動程式支援的存取模式也會有所不同。
 
-支援 ONTAP NAS 驅動程式
+** ONTAP NAS 驅動程式支援 **
 
 * 檔案系統存取和 rwo 、 ROX 、 rwx 、 RPW 存取模式。
 
 
-ONTAP SAN 驅動程式支援原始區塊和檔案系統模式。
+** ONTAP SAN 驅動程式支援原始區塊和檔案系統模式 **
 
 * 在原始區塊模式中、它可以支援 rwo 、 ROX 、 rwx 、 RWOP- 存取模式。
 * 在檔案系統模式中、只允許使用 rwo 、 RWOP- 存取模式。
@@ -197,6 +199,37 @@ NOTE: 若要存取上述內容、需要主動訂閱 Red Hat 。
 
 === ** 從 VMware 環境移轉 VM **
 
-如需從 VMware 環境移轉 VM 的詳細資訊、請參閱link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["工作流程 gt; Red Hat OpenShift NetApp ONTAP 虛擬化"]
+OpenShift 虛擬化移轉工具套件是 Red Hat 提供的營運商、可從 OpenShift Container Platform 的 OperatorHub 取得。此工具可用於從 vSphere 、 Red Hat 虛擬化、 OpenStack 和 OpenShift 虛擬化移轉 VM 。
 
-如果您要在同一個移轉計畫中、從 ESXi 主機移轉超過 10 個 VM 、則必須增加主機的 NFC 服務記憶體。否則、移轉將會失敗、因為 NFC 服務記憶體限制為 10 個平行連線。如需其他詳細資料、請參閱 Red Hat 文件：連結： https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.6/html/installing_and_using_the_migration_toolkit_for_virtualization/prerequisites_mtv#increasing-nfc-memory-vmware-host_mtv[Increasing ESXi 主機的 NFC 服務記憶體 ]
+如需從 vSphere 移轉 VM 的詳細資訊、請參閱link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["工作流程 gt; Red Hat OpenShift NetApp ONTAP 虛擬化"]
+
+您可以從 CLI 或從移轉 Web 主控台設定各種參數的限制。以下提供部分範例
+
+. 並行虛擬機器移轉上限可設定可同時移轉的虛擬機器數量上限。預設值為 20 部虛擬機器。
+. 預先複製時間間隔（分鐘）控制在開始暖移轉之前、要求新快照的時間間隔。預設值為60分鐘。
+. Snapshot 輪詢時間間隔（秒）決定系統在 oVirt 暖移轉期間檢查快照建立或移除狀態的頻率。預設值為 10 秒。
+
+
+如果您要在同一個移轉計畫中、從 ESXi 主機移轉超過 10 個 VM 、則必須增加主機的 NFC 服務記憶體。否則、移轉將會失敗、因為 NFC 服務記憶體限制為 10 個平行連線。如需其他詳細資料、請參閱 Red Hat 說明文件：link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/2.6/html/installing_and_using_the_migration_toolkit_for_virtualization/prerequisites_mtv#increasing-nfc-memory-vmware-host_mtv["增加 ESXi 主機的 NFC 服務記憶體"]
+
+以下是使用移轉工具套件進行虛擬化、從 vSphere 中的同一主機成功平行移轉 10 個 VM 到 OpenShift 虛擬化。
+
+** 同一 ESXi 主機上的 VM **
+
+image::redhat_openshift_bpg_image2-a.png[VM 位於同一主機上]
+
+** 首先會針對從 VMware** 移轉 10 個虛擬機器建立計畫
+
+image::redhat_openshift_bpg_image2.png[移轉計畫]
+
+** 移轉計畫已開始執行 **
+
+image::redhat_openshift_bpg_image3.png[移轉計畫執行]
+
+** 全部 10 個 VM 都已成功移轉 **
+
+image::redhat_openshift_bpg_image4.png[移轉計畫成功]
+
+** 所有 10 個 VM 都處於 OpenShift Virtualization 中的執行狀態 **
+
+image::redhat_openshift_bpg_image5.png[移轉的 VM 執行中]
