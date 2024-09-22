@@ -1,0 +1,75 @@
+---
+sidebar: sidebar 
+permalink: cyber-vault/ontap-cyber-vault-powershell-script.html 
+keywords: Cyber vault, powershell, script, configuration, validation, hardening 
+summary: 這是 NetApp ONTAP 解決方案、用於設定、強化及驗證 ONTAP 型網路資料保險箱 
+---
+= 設定、分析、 cron 指令碼
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media
+
+
+[role="lead"]
+NetApp 已建立單一指令碼、可下載及用於設定、驗證及排程網路資料保險箱關係。
+
+
+
+== 此指令碼的功能
+
+* 叢集對等
+* SVM 對等關係
+* DP Volume 建立
+* SnapMirror 關係與初始化
+* 強化網路資料保險箱使用的 ONTAP 系統
+* 根據傳輸排程來關閉及恢復關係
+* 定期驗證安全性設定、並產生顯示任何異常的報告
+
+
+
+
+== 如何使用此指令碼
+
+下載指令碼並使用指令碼、只要遵循下列步驟即可：
+
+* 以系統管理員身分啟動 Windows PowerShell 。
+* 瀏覽至包含指令碼的目錄。
+* 使用 `.\`語法和必要參數來執行指令碼
+
+
+
+NOTE: 請確保輸入所有資訊。在第一次執行（設定模式）時、系統會要求提供正式作業和新網路資料保險箱系統的認證。之後、它會建立 SVM 對等關係（如果不存在）、磁碟區和系統之間的 SnapMirror 、並將其初始化。
+
+
+NOTE: cron 模式可用於排程資料傳輸的休眠和恢復。
+
+
+
+== 操作模式
+
+自動化指令碼提供 3 種執行模式： `configure`、 `analyze`和 `cron`。
+
+[source, powershell]
+----
+if($SCRIPT_MODE -eq "configure") {
+        configure
+    } elseif ($SCRIPT_MODE -eq "analyze") {
+        analyze
+    } elseif ($SCRIPT_MODE -eq "cron") {
+        runCron
+    }
+----
+* 組態 - 執行驗證檢查、並將系統設定為無線。
+* 分析 - 自動監控和報告功能、可將資訊傳送給監控群組、以確保組態不會發生異常和可疑活動。
+* cron ：為了啟用中斷連線的基礎架構、 cron 模式會自動停用 LIF 並停止傳輸關係。
+
+
+視系統效能和資料量而定、傳輸這些選定磁碟區中的資料需要時間。
+
+[source, powershell]
+----
+./script.ps1 -SOURCE_ONTAP_CLUSTER_MGMT_IP "172.21.166.157" -SOURCE_ONTAP_CLUSTER_NAME "NTAP915_Src" -SOURCE_VSERVER "svm_NFS" -SOURCE_VOLUME_NAME "Src_RP_Vol01" -DESTINATION_ONTAP_CLUSTER_MGMT_IP "172.21.166.159" -DESTINATION_ONTAP_CLUSTER_NAME "NTAP915_Destn" -DESTINATION_VSERVER "svm_nim_nfs" -DESTINATION_AGGREGATE_NAME "NTAP915_Destn_01_VM_DISK_1" -DESTINATION_VOLUME_NAME "Dst_RP_Vol01_Vault" -DESTINATION_VOLUME_SIZE "5g" -SNAPLOCK_MIN_RETENTION "15minutes" -SNAPLOCK_MAX_RETENTION "30minutes" -SNAPMIRROR_PROTECTION_POLICY "XDPDefault" -SNAPMIRROR_SCHEDULE "5min" -DESTINATION_CLUSTER_USERNAME "admin" -DESTINATION_CLUSTER_PASSWORD "PASSWORD123"
+----

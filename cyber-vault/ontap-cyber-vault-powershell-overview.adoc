@@ -1,0 +1,91 @@
+---
+sidebar: sidebar 
+permalink: cyber-vault/ontap-cyber-vault-powershell-overview.html 
+keywords: Cyber vault, powershell, script, configuration, validation, hardening 
+summary: 這是 NetApp ONTAP 解決方案、用於設定、強化及驗證 ONTAP 型網路資料保險箱 
+---
+= 使用 PowerShell 的 ONTAP 網路資料保險箱總覽
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media
+
+
+[role="lead"]
+在現今的數位環境中、保護組織的重要資料資產不只是最佳實務做法、更是企業的當務之急。網路威脅正以前所未有的速度進化、而傳統的資料保護措施已不再足以保護敏感資訊的安全。這就是網路資料保險箱的誕生所在。 NetApp 最先進的 ONTAP 型解決方案結合了先進的通風技術與強大的資料保護措施、可建立無法滲透的網路威脅屏障。網路資料保險箱利用安全強化技術隔離最寶貴的資料、將攻擊面降到最低、讓最關鍵的資料保持機密、完整無缺、並在需要時隨時可用。
+
+網路資料保險箱是一種安全的儲存設備、包含多層保護、例如防火牆、網路和儲存設備。這些元件可保護關鍵業務營運所需的重要恢復資料。根據資料保險箱原則、網路資料保險箱的元件會定期與重要的正式作業資料同步、但否則將無法存取。這種隔離且中斷連線的設定可確保在網路攻擊危及正式作業環境的情況下、可從網路資料保險箱輕鬆進行可靠且最終的還原。
+
+NetApp 可設定網路、停用生命體、更新防火牆規則、以及將系統與外部網路和網際網路隔離、輕鬆建立網路資料保險箱的空空缺。這種穩健的方法可有效中斷系統與外部網路和網際網路的連線、提供無與倫比的保護、防範遠端網路攻擊和未經授權的存取嘗試、使系統免受網路型威脅和入侵。
+
+將此功能與 SnapLock Compliance 保護相結合、即使是 ONTAP 管理員或 NetApp 支援人員也無法修改或刪除資料。SnapLock 會定期根據 SEC 和 FINRA 法規進行稽核、確保資料恢復能力符合銀行業嚴格的 WORM 和資料保留法規。NetApp 是唯一經過 NSA CSfC 驗證、可用來儲存機密資料的企業儲存設備。
+
+image:ontap-cyber-vault-logical-air-gap.png["Air G捆綁 ONTAP 網路保存庫、內含不可變和不可磨滅的 SnapLock 複本"]
+
+本文件說明 NetApp 的網路儲存庫在內部部署 ONTAP 儲存設備的自動組態、以及另一個指定的 ONTAP 儲存設備、其中包含不可變快照、可增加額外的保護層、避免網路攻擊不斷增加、以利快速恢復。作爲此架構的一部分，將根據 ONTAP 最佳實踐應用整個配置。最後一節說明如何在發生攻擊時執行恢復。
+
+
+NOTE: 同樣的解決方案也適用於使用適用於 ONTAP 的 FSX 在 AWS 中建立指定的網路資料保險箱。
+
+
+
+== 建立 ONTAP 網路資料保險箱的高階步驟
+
+* 建立對等關係
++
+** 使用 ONTAP 儲存設備的正式作業站台會與指定的網路資料保險箱 ONTAP 儲存設備進行對等連接
+
+
+* 建立 SnapLock Compliance Volume
+* 設定 SnapMirror 關係和規則以設定標籤
++
+** 已設定 SnapMirror 關係和適當的排程
+
+
+* 在初始化 SnapMirror （資料保險箱）傳輸之前設定保留
++
+** 保留鎖定會套用到複製的資料、進一步防止資料遭到內部人員或資料故障的影響。使用此選項時、資料將無法在保留期間到期之前刪除
+** 組織可以根據需求、將這些資料保留數週 / 月
+
+
+* 根據標籤初始化 SnapMirror 關係
++
+** 根據 SnapMirror 排程、進行初始植入和永久遞增傳輸
+** SnapLock Compliance 可保護資料（不可變且無法磨滅）、而且資料可用於恢復
+
+
+* 實作嚴格的資料傳輸控制
++
+** 網路資料保險箱會在有限的一段期間內解除鎖定、並會與資料保險箱中的資料同步。傳輸完成後、連線會中斷連線、關閉並再次鎖定
+
+
+* 快速恢復
++
+** 如果主要資料在正式作業站台中受到影響、則網路資料保險箱中的資料會安全地還原至原始正式作業環境或其他選擇的環境
+
+
+
+
+image:ontap-cyber-vault-air-gap.png["建立 ONTAP 網路資料保險箱的高階步驟"]
+
+
+
+== 解決方案元件
+
+在來源叢集和目的地叢集上執行 9.15.1 的 NetApp ONTAP 。
+
+ONTAP One ： NetApp ONTAP 的 All-In-One 授權。
+
+ONTAP One 授權所使用的功能：
+
+* 符合法規SnapLock
+* SnapMirror
+* 多管理員驗證
+* ONTAP 公開的所有強化功能
+* 為網路資料保險箱提供獨立的 RBAC 認證
+
+
+
+NOTE: 所有 ONTAP 統一化實體陣列都可用於網路資料保險箱、但 AFF C 系列容量型 Flash 系統和 FAS 混合式 Flash 系統是最具成本效益的理想平台。請參閱link:./ontap-cyber-vault-sizing.html["ONTAP 網路資料保險箱規模調整"]以取得尺寸指南。

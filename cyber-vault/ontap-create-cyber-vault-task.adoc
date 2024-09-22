@@ -26,10 +26,10 @@ summary: 本頁所包含的步驟有助於建立 ONTAP 型網路資料保險箱�
 .關於這項工作
 下圖顯示初始化 SnapLock Compliance 資料保險箱關係的程序 :
 
-image::ontap-cyber-vault-air-gap.png[使用 NetApp ONTAP 的航空網路資料保險箱]
+image:ontap-cyber-vault-air-gap.png["使用 NetApp ONTAP 的航空網路資料保險箱"]
 
 .步驟
-. 識別目的地陣列、使其成為網路資料保險箱、以接收無線網路資料。
+. 識別目的地陣列、使其成為網路資料保險箱、以接收無線傳輸的資料。
 . 在目的地陣列上，準備網路資料保險箱、link:https://docs.netapp.com/us-en/ontap/system-admin/install-license-task.html["安裝 ONTAP One 授權"^]、link:https://docs.netapp.com/us-en/ontap/snaplock/initialize-complianceclock-task.html["初始化法規遵循時鐘"^]和（如果您使用早於 9.10.1 的 ONTAP 版本link:https://docs.netapp.com/us-en/ontap/snaplock/create-snaplock-aggregate-task.html["建立 SnapLock Compliance Aggregate"^]）。
 . 在目的地陣列上、建立 DP 類型的 SnapLock Compliance 目的地 Volume ：
 +
@@ -42,7 +42,7 @@ image::ontap-cyber-vault-air-gap.png[使用 NetApp ONTAP 的航空網路資料�
 +
 `cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -snaplock-type compliance -type DP -size 2GG`
 
-. 在目的地叢集上，若要建立 air落差 ，請設定預設保留期間link:https://docs.netapp.com/us-en/ontap/snaplock/set-default-retention-period-task.html["設定預設保留期間"^]，如所述。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值最初設定為 SnapLock Compliance 磁碟區的最少 0 年和最長 30 年。每個NetApp Snapshot複本一開始就會提交此預設保留期間。必須變更預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。如需更多資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/snaplock/set-retention-period-task.html["設定保留時間總覽"^]。
+. 在目的地叢集上，若要建立氣隙，請設定預設保留期間link:https://docs.netapp.com/us-en/ontap/snaplock/set-default-retention-period-task.html["設定預設保留期間"^]，如所述。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值最初設定為 SnapLock Compliance 磁碟區的最少 0 年和最長 30 年。每個NetApp Snapshot複本一開始就會提交此預設保留期間。必須變更預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。如需更多資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/snaplock/set-retention-period-task.html["設定保留時間總覽"^]。
 . link:https://docs.netapp.com/us-en/ontap/data-protection/create-replication-relationship-task.html["建立新的複寫關係"^]在非 SnapLock 來源和您在步驟 3 中建立的新 SnapLock 目的地之間。
 +
 此範例使用 XDPDefault 原則、建立與目的地 SnapLock Volume dstvolB 的新 SnapMirror 關係、以每小時排程標示每日和每週的 Snapshot 複本來保存快照：

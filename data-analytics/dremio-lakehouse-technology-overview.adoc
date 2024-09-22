@@ -1,0 +1,73 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/dremio-lakehouse-technology-overview.html 
+keywords: storagegrid, apache, dremio, lakehouse, 
+summary: 本節說明本解決方案所使用的技術。 
+---
+= 技術需求
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+下列硬體和軟體組態已用於本文件中所執行的驗證。這些組態可作為協助您設定環境的準則、但請注意、具體元件可能會因個別客戶需求而異。
+
+
+
+=== 硬體需求
+
+|===
+| 硬體 | 詳細資料 
+
+
+| NetApp AFF 儲存陣列 HA 配對  a| 
+* A800
+* ONTAP 9.14.1.
+* 48 x 3.49TB SSD - NVM
+* 兩個 S3 工作箱： Dremio 中繼資料和客戶資料。
+
+
+
+
+| 4 x Fujitsu PRIMERGY RX2540 M4  a| 
+* 64 個 CPU
+* Intel ® Xeon ® 黃金級 6142 CPU @ 2.60GHz
+* 256 GM 實體記憶體
+* 1 個 100GbE 網路連接埠
+
+
+
+
+| 網路  a| 
+* 100 GbE
+
+
+
+
+| StorageGRID | * 1 x SG100 、 3 x SGF6024 * 3 x 24 x 7.68TB * 兩個 S3 鏟斗： Dremio 中繼資料和客戶資料。 
+|===
+
+
+=== 軟體需求
+
+|===
+| 軟體 | 詳細資料 
+
+
+| 夢中  a| 
+* 版本 - 25.0.3-202405170357270647-d2042e1b
+* Enterprise Edition
+
+
+
+
+| 內部部署  a| 
+* 5 節點 Dremio 叢集
+* 1 位主要協調員和 4 位執行者
+
+
+|===

@@ -5,8 +5,24 @@ url: "/ai/index.html"
 entries:
 - title: AI融合式基礎架構
   entries:
+  - title: NVA-1173 NetApp AIPod 搭配 NVIDIA DGX 系統
+    url: "/ai/aipod_nv_intro.html"
+    entries:
+    - title: 簡介
+      url: "/ai/aipod_nv_intro.html"
+    - title: 硬體元件
+      url: "/ai/aipod_nv_hw_components.html"
+    - title: 軟體元件
+      url: "/ai/aipod_nv_sw_components.html"
+    - title: 架構
+      url: "/ai/aipod_nv_architecture.html"
+    - title: 部署詳細資料範例
+      url: "/ai/aipod_nv_deployment.html"
+    - title: 驗證與規模調整指南
+      url: "/ai/aipod_nv_validation_sizing.html"
+    - title: 結論與其他資訊
+      url: "/ai/aipod_nv_conclusion_add_info.html"
   - title: 採用AFF Lenovo ThinkSystem SR670 V2的NetApp R4A400適用於AI和ML機型訓練
-    pdf-filename: 採用AFF Lenovo ThinkSystem SR670 V2的NetApp R4A400適用於AI和ML機型訓練
     entries:
     - title: 簡介
       url: "/ai/a400-thinksystem-introduction.html"
@@ -24,34 +40,6 @@ entries:
       url: "/ai/a400-thinksystem-architecture-adjustments.html"
     - title: 結論
       url: "/ai/a400-thinksystem-conclusion.html"
-  - title: NetApp AIPod 搭配 NVIDIA
-    pdf-filename: NetApp AIPod 搭配 NVIDIA
-    entries:
-    - title: 總覽
-      url: "/ai/ontap-ai-overview.html"
-    - title: NetApp AIPod 搭配 NVIDIA DGX 系統
-      url: "/ai/aipod_nv_intro.html"
-      entries:
-      - title: 簡介
-        url: "/ai/aipod_nv_intro.html"
-      - title: 硬體元件
-        url: "/ai/aipod_nv_hw_components.html"
-      - title: 軟體元件
-        url: "/ai/aipod_nv_sw_components.html"
-      - title: 架構
-        url: "/ai/aipod_nv_architecture.html"
-      - title: 驗證與規模調整指南
-        url: "/ai/aipod_nv_validation_sizing.html"
-      - title: 結論與其他資訊
-        url: "/ai/aipod_nv_conclusion_add_info.html"
-    - title: 採用NVIDIA DGX A100系統設計指南的AI ONTAP
-      url: "/ai/nva-1151-design.html"
-    - title: 採用NVIDIA DGX A100系統的AI部署指南ONTAP
-      url: "/ai/nva-1151-deploy.html"
-    - title: 採用NVIDIA DGX A100系統與Mellanox Spectrum乙太網路交換器設計指南的AI ONTAP
-      url: "/ai/nva-1153-design.html"
-    - title: 採用NVIDIA DGX A100系統和Mellanox Spectrum Ethernet交換器的AI部署指南ONTAP
-      url: "/ai/nva-1153-deploy.html"
   - title: 採用NVIDIA的EF系列AI
     url: "/ai/ef-series-ai-overview.html"
     entries:
@@ -62,7 +50,7 @@ entries:
     - title: EF系列AI搭配NVIDIA DGX A100系統與BeeGFS部署
       url: "/ai/nva-1156-deploy.html"
     - title: BeeGFS with NetApp E系列部署指南
-      url: "/ai/tr-4755.hmtl"
+      url: "/ai/tr-4755.html"
   - title: BeeGFS搭配NetApp E系列參考架構
     url: "/ai/tr-4782.html"
   - title: 部署IBM Spectrum scale搭配NetApp E系列儲存設備

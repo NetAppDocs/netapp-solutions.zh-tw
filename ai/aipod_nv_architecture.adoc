@@ -4,7 +4,7 @@ permalink: ai/aipod_nv_architecture.html
 keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVIDIA BasePOD, NVIDIA DGX 
 summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構 
 ---
-= NetApp AIPod 搭配 NVIDIA DGX 系統 - 解決方案架構
+= NVA-1173 NetApp AIPod 搭配 NVIDIA DGX H100 系統 - 解決方案架構
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,45 +18,41 @@ summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構
 
 
 
-== 搭載 DGX H100 系統的 NetApp AI Pod
+== NetApp AIPod 搭配 DGX 系統
 
 此參考架構運用獨立的架構來進行運算叢集互連和儲存存取、並在運算節點之間提供 400GB / 秒 InfiniBand （ IB ）連線能力。下圖顯示 NetApp AIPod 搭配 DGX H100 系統的整體解決方案拓撲。
 
 NetApp AIPod 解決方案拓撲 _
 
-image:aipod_nv_a900topo.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+image:aipod_nv_A90_topo.png["錯誤：缺少圖形影像"]
 
 
 
-== 網路組態
+== 網路設計
 
 在此組態中、運算叢集架構使用一對 QM9700 400GB / 秒 IB 交換器、這些交換器會連接在一起以獲得高可用度。每個 DGX H100 系統都使用八個連線連接至交換器、其中偶數連接埠連接至一台交換器、而奇數連接埠則連接至另一台交換器。
 
-對於儲存系統存取、頻內管理和用戶端存取、會使用一對 SN4600 乙太網路交換器。交換器是透過交換器間的連結連接、並設定多個 VLAN 來隔離各種流量類型。對於較大型的部署、可將乙太網路擴充至葉脊組態、為脊椎交換器新增額外的交換器配對、並視需要新增額外的葉片。
+對於儲存系統存取、頻內管理和用戶端存取、會使用一對 SN4600 乙太網路交換器。交換器是透過交換器間的連結連接、並設定多個 VLAN 來隔離各種流量類型。在特定 VLAN 之間啟用基本 L3 路由、可在同一台交換器的用戶端和儲存介面之間、以及在交換器之間啟用多條路徑、以實現高可用度。對於較大型的部署、可將乙太網路擴充至葉脊組態、為脊椎交換器新增額外的交換器配對、並視需要新增額外的葉片。
 
-除了運算互連和高速乙太網路之外、所有實體裝置也會連線至一或多個 SN2201 乙太網路交換器、以進行頻外管理。  如需 DGX H100 系統連線的詳細資訊、請參閱 link:https://nvdam.widen.net/s/nfnjflmzlj/nvidia-dgx-basepod-reference-architecture["NVIDIA BasePOD 文件"]。
+除了運算互連和高速乙太網路之外、所有實體裝置也會連線至一或多個 SN2201 乙太網路交換器、以進行頻外管理。link:ai/aipod_nv_deployment.html["部署詳細資料"]如需網路組態的詳細資訊、請參閱頁面。
 
 
 
-== 用於儲存存取的用戶端組態
+== DGX H100 系統的儲存存取總覽
 
 每個 DGX H100 系統均配置兩個雙連接埠 ConnectX-7 介面卡、用於管理和儲存流量、而此解決方案則將每個介面卡上的兩個連接埠連接到同一個交換器。接著、每個卡的一個連接埠會設定為 LACP MLAG 連結、每個交換器都有一個連接埠、而用於頻內管理、用戶端存取和使用者層級儲存存取的 VLAN 則會裝載在此連結上。
 
-每張卡上的另一個連接埠用於連線至 AFF A900 儲存系統、並可用於數種組態、視工作負載需求而定。對於使用 NFS over RDMA 來支援 NVIDIA Magnum IO GPUDirect 儲存設備的組態、連接埠會設定為主動 / 被動連結、因為任何其他類型的連結都不支援 RDMA 。對於不需要 RDMA 的部署、儲存介面也可以設定為 LACP 繫結、以提供高可用度和額外頻寬。無論是否使用 RDMA 、用戶端都可以使用 NFS v4.1 pNFS 和工作階段主幹來掛載儲存系統、以便平行存取叢集中的所有儲存節點。
+每張卡上的另一個連接埠用於連線至 AFF A90 儲存系統、並可用於數種組態、視工作負載需求而定。對於使用 NFS over RDMA 來支援 NVIDIA Magnum IO GPUDirect 儲存設備的組態、連接埠會個別用於不同 VLAN 中的 IP 位址。對於不需要 RDMA 的部署、儲存介面也可以設定為 LACP 繫結、以提供高可用度和額外頻寬。無論是否使用 RDMA 、用戶端都可以使用 NFS v4.1 pNFS 和工作階段主幹來掛載儲存系統、以便平行存取叢集中的所有儲存節點。link:ai/aipod_nv_deployment.html["部署詳細資料"]如需用戶端組態的詳細資訊、請參閱頁面。
+
+如需 DGX H100 系統連線的詳細資訊link:https://nvdam.widen.net/s/nfnjflmzlj/nvidia-dgx-basepod-reference-architecture["NVIDIA BasePOD 文件"]、請參閱。
 
 
 
-== 儲存系統組態
+== 儲存系統設計
 
-每個 AFF A900 儲存系統都使用每個控制器的四個 100 GbE 連接埠進行連線。每個控制器的兩個連接埠用於從 DGX 系統存取工作負載資料、每個控制器的兩個連接埠則設定為 LACP 介面群組、以支援從管理平面伺服器存取叢集管理成品和使用者主目錄。儲存系統的所有資料存取都是透過 NFS 提供、其中儲存虛擬機器（ SVM ）專用於 AI 工作負載存取、另有專用於叢集管理用途的獨立 SVM 。
+每個 AFF A90 儲存系統都使用每個控制器的六個 200 GbE 連接埠進行連線。每個控制器有四個連接埠用於從 DGX 系統存取工作負載資料、每個控制器有兩個連接埠則設定為 LACP 介面群組、以支援從管理層伺服器存取叢集管理成品和使用者主目錄。儲存系統的所有資料存取都是透過 NFS 提供、其中儲存虛擬機器（ SVM ）專用於 AI 工作負載存取、另有專用於叢集管理用途的獨立 SVM 。
 
-工作負載 SVM 總共配置了八個邏輯介面（生命）、每個實體連接埠上有兩個生命。此組態可提供最大頻寬、以及將每個 LIF 容錯移轉到同一個控制器上的另一個連接埠的方法、以便在網路故障時、兩個控制器都能保持作用中。此組態也支援 NFS over RDMA 以啟用 GPUDirect 儲存存取。儲存容量是以單一大型 FlexGroup 磁碟區的形式配置、該磁碟區橫跨叢集中的所有儲存控制器、每個控制器上有 16 個組成磁碟區。此 FlexGroup 可從 SVM 上的任何生命體存取、透過使用 NFSv4.1 搭配 pNFS 和工作階段主幹、用戶端可與 SVM 中的每個 LIF 建立連線、讓每個儲存節點的本機資料能夠平行存取、大幅提升效能。工作負載 SVM 和每個資料 LIF 也設定為用於 RDMA 傳輸協定存取。如需 ONTAP RDMA 組態的詳細資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-rdma/index.html["本文檔 ONTAP"]。
-
-管理 SVM 只需要單一 LIF 、裝載在每個控制器上設定的雙連接埠介面群組上。管理 SVM 上的其他 FlexGroup 磁碟區則是用來存放叢集管理產出工件、例如叢集節點映像、系統監控歷史資料、以及終端使用者主目錄。下圖顯示儲存系統的邏輯組態。
-
-NetApp A900 儲存叢集邏輯組態 _
-
-image:aipod_nv_A900logical.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+link:ai/aipod_nv_deployment.html["部署詳細資料"]如需儲存系統組態的詳細資訊、請參閱頁面。
 
 
 

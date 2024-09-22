@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-overview.html 
+keywords: proxmox ve, kvm, qemu, lxc, vm 
+summary:  
+---
+= Proxmox 虛擬環境概觀
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Proxmox Virtual Environment 是一款開放原始碼類型 1 Hypervisor （安裝在裸機伺服器上）、以 Debian Linux 為基礎。它可以裝載虛擬機器（ VM ）和 Linux 容器（ LXC ）。
+
+
+
+== 總覽
+
+Proxmox Virtual Environment （ VE ）可在同一部主機上同時支援完整的 VM 和容器型虛擬化。以核心為基礎的虛擬機器（ KVM ）和快速模擬器（ QEMU ）可用於完整虛擬機器虛擬化。QEMU 是開放原始碼機器模擬器和虛擬化程式、使用 KVM 核心模組直接在主機 CPU 上執行來賓程式碼。Linux Container （ LXC ）可讓容器像 VM 一樣進行管理、並在重新開機期間提供資料保存。
+
+image:proxmox-overview-image01.png["在 Proxmox 主機上執行 VM 和 LXC"]
+
+RESTful API 可用於自動化工作。如需 API 呼叫的相關資訊、請參閱link:https://pve.proxmox.com/pve-docs/api-viewer/index.html["Proxmox VE API 檢視器"]
+
+
+
+== 叢集管理
+
+您可以在連接埠 8006 的 Proxmox VE 節點上使用網路型管理入口網站。節點集合可以一起組成叢集。Proxmox VE 組態 `/etc/pve`是在叢集的所有節點之間共用的。Proxmox VE 使用link:https://pve.proxmox.com/wiki/Cluster_Manager["電暈器同步叢集引擎"]來管理叢集。管理入口網站可從叢集的任何節點存取。
+
+image:proxmox-overview-image02.png["管理介面"]
+
+叢集可讓虛擬機器和容器在其他節點上受到監控、並在主控節點故障時重新啟動。VM 和容器必須設定為高可用度（ HA ）。虛擬機器和容器可透過建立群組、在特定主機子集上裝載。VM 或容器是託管在優先順序最高的主機上。如需詳細資訊、請參閱link:https://pve.proxmox.com/wiki/High_Availability["HA 管理程式"]
+
+image:proxmox-overview-image03.png["HA 群組優先順序"]
+
+驗證選項包括 Linux PAM 、 Proxmox VE PAM 、 LDAP 、 Microsoft AD 或 OpenID 。權限可透過角色和資源集區的使用來指派、資源集區是資源的集合。如需其他詳細資料、請參閱link:https://pve.proxmox.com/pve-docs/chapter-pveum.html["Proxmox 使用者管理"]
+
+
+TIP: LDAP/Microsoft AD 的連線認證可能會以純文字儲存、並儲存在需要受主機檔案系統保護的檔案中。
+
+
+
+== 運算
+
+虛擬機器的 CPU 選項包括 CPU 核心和插槽數（以指定 vCPU 數目）、選擇 NUMA 的選項、定義關聯性、設定限制和 CPU 類型。
+
+image:proxmox-overview-image11.png["VM CPU 選項"]
+
+如需 CPU 類型及其對即時移轉的影響指引、請參閱link:https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_cpu["Proxmox VE 文件的 QEMU/KVM 虛擬機器一節"]
+
+下列螢幕擷取畫面會顯示適用於 LXC 容器影像的 CPU 選項。
+
+image:proxmox-overview-image12.png["lxc CPU 選項"]
+
+VM 和 LXC 可以指定記憶體大小。對於 VM 、虛擬機器可使用「對準」功能。如需詳細資訊、請參閱link:https://pve.proxmox.com/pve-docs/chapter-qm.html#qm_memory["Proxmox VE 文件的 QEMU/KVM 虛擬機器一節"]
+
+
+
+== 儲存設備
+
+虛擬機器由組態檔、 `/etc/pve/qemu-server/<vm id>.conf`和虛擬磁碟元件組成。支援的虛擬磁碟格式為原始、 qcow2 和 VMDK 。QCOW2 可在各種儲存類型上提供精簡配置和快照功能。
+
+image:proxmox-overview-image04.png["VM 磁碟格式"]
+
+您可以選擇將 iSCSI LUN 以原始裝置形式呈現給 VM 。
+
+lxc 也有自己的組態檔、 `/etc/pve/lxc/<container id>.conf`和容器磁碟元件。資料磁碟區可從支援的儲存類型掛載。
+
+image:proxmox-overview-image05.png["容器額外裝載"]
+
+支援的儲存類型包括本機磁碟、 NAS （ SMB 和 NFS ）、以及 SAN （ FC 、 iSCSI 、 NVMe 等）。如需詳細資訊、請參閱link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html["Proxmox VE 儲存設備"]
+
+每個儲存磁碟區都設定了允許的內容類型。NAS 磁碟區支援所有內容類型、而 SAN 支援僅限於 VM 和 Container 映像。
+
+
+NOTE: 目錄儲存類型也支援所有內容類型。SMB 連線認證會以純文字儲存、只有 root 可以存取。
+
+image:proxmox-overview-image06.png["NAS 的內容類型"]
+
+image:proxmox-overview-image07.png["SAN 的內容類型"]
+
+若要從 Broadcom vSphere 環境匯入 VM 、 vSphere 主機也可作為儲存裝置隨附。
+
+
+
+== 網路
+
+Proxmox VE 支援原生 Linux 網路功能、例如 Linux 橋接器或 Open vSwitch 、以實作軟體定義網路（ SDN ）。主機上的乙太網路介面可以結合在一起、以提供備援和高可用度。如需其他選項、請參閱link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#_choosing_a_network_configuration["Proxmox VE 文件"]
+
+image:proxmox-overview-image08.png["連結的網路"]
+
+來賓網路可在叢集層級進行設定、並將變更推送至成員主機。使用區域、 VNets 和子網路來管理分隔。link:https://pve.proxmox.com/pve-docs/chapter-pvesdn.html["區域"]定義簡單、 VLAN 、 VLAN 堆疊、 VXLAN 、 EVPN 等網路類型
+
+根據區域類型、網路的行為會有所不同、並提供特定功能、優點和限制。
+
+SDN 的使用案例範圍從每個個別節點上的隔離私有網路、到不同位置上多個 PVE 叢集之間的複雜重疊網路。
+
+在叢集範圍的資料中心 SDN 管理介面中設定 vnet 後、即可在每個節點上的本機上、將其作為通用 Linux 橋接器、指派給 VM 和 Container 。
+
+建立 VM 時、使用者可以選擇要連線的 Linux 橋接器。建立 VM 之後、可以加入其他介面。
+
+image:proxmox-overview-image13.png["VM 網路選擇"]
+
+以下是資料中心層級的 vnet 資訊。
+
+image:proxmox-overview-image14.png["資料中心的 vnet 資訊"]
+
+
+
+== 監控
+
+大多數物件（例如資料中心、主機、 VM 、容器、儲存設備等）的摘要頁面會提供詳細資料、並包含一些效能指標。下列螢幕擷取畫面顯示主機的摘要頁面、並包含已安裝套件的相關資訊。
+
+image:proxmox-overview-image09.png["主機套件檢視"]
+
+主機、來賓、儲存設備等的統計資料可推送到外部的 Graphite 或 Xinuxdb 資料庫。如需詳細資訊、請 link:https://pve.proxmox.com/pve-docs/chapter-sysadmin.html#external_metric_server["Proxmox VE 文件"]參閱。
+
+
+
+== 資料保護
+
+Proxmox VE 提供備份選項、可將 VM 和 Container 還原至設定用於備份內容的儲存設備。可以使用 vzdump 工具從 UI 或 CLI 啟動備份、也可以排程備份。如需更多詳細資料、請 link:https://pve.proxmox.com/pve-docs/chapter-vzdump.html["Proxmox VE 文件的備份與還原部分"]參閱。
+
+image:proxmox-overview-image10.png["Proxmox VE 備份儲存內容"]
+
+備份內容必須儲存在異地、以防止來源站台的任何災難備援。
+
+Veeam 新增對版本 12.2 的 Proxmox VE 的支援。如此可將 VM 備份從 vSphere 還原至 Proxmox VE 主機。

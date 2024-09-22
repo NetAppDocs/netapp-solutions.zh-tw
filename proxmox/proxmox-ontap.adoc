@@ -1,0 +1,408 @@
+---
+sidebar: sidebar 
+permalink: proxmox/proxmox-ontap.html 
+keywords: netapp, proxmox, proxmox ve, all-flash, nfs, iscsi, ontap, storage, aff 
+summary: Proxmox Virtual Environment （ VE ）中的共享儲存設備可縮短 VM 即時移轉的時間、並可在整個環境中建立更好的備份目標和一致的範本。ONTAP 儲存設備可滿足 Proxmox VE 主機環境的需求、也能滿足來賓檔案、區塊和物件儲存需求。 
+---
+= 採用 ONTAP 的 Proxmox VE
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+Proxmox Virtual Environment （ VE ）中的共享儲存設備可縮短 VM 即時移轉的時間、並可在整個環境中建立更好的備份目標和一致的範本。ONTAP 儲存設備可滿足 Proxmox VE 主機環境的需求、也能滿足來賓檔案、區塊和物件儲存需求。
+
+Proxmox VE 主機需要將 FC 、乙太網路或其他支援的介面連接到交換器、並與 ONTAP 邏輯介面進行通訊。
+
+
+
+== 高階 ONTAP 功能
+
+* 通用功能 *
+
+* 橫向擴充叢集
+* 安全驗證和 RBAC 支援
+* 零信任多重管理支援
+* 安全的多租戶共享
+* 使用 SnapMirror 複寫資料。
+* 使用 Snapshot 的時間點複本。
+* 節省空間的複本。
+* 儲存效率功能、例如重複資料刪除、壓縮等
+* Trident CSI 支援 Kubernetes
+* SnapLock
+* 防止竄改的Snapshot複本鎖定
+* 加密支援
+* FabricPool 將冷資料分層儲存至物件儲存區。
+* BlueXP  與 CloudInsights 整合。
+* Microsoft 卸載資料傳輸（ ODX ）
+
+
+* NAS *
+
+* FlexGroup Volume 是橫向擴充的 NAS 容器、可提供高效能、以及負載分配和擴充性。
+* FlexCache 可將資料以全域方式散佈、同時仍提供本機讀取和寫入資料的存取權。
+* 多重傳輸協定支援可透過 SMB 和 NFS 存取相同的資料。
+* NFS nConnect 允許每個 TCP 連線有多個 TCP 工作階段、以提高網路處理量。如此可提高現代伺服器上可用的高速 NIC 的使用率。
+* NFS 工作階段主幹可提高資料傳輸速度、高可用度及容錯能力。
+* SMB 多通道提供更快的資料傳輸速度、高可用度和容錯能力。
+* 與 Active directory/LDAP 整合以取得檔案權限。
+* 透過 TLS 與 NFS 進行安全連線。
+* NFS Kerberos 支援。
+* NFS over RDMA 。
+* Windows 與 Unix 身分識別之間的名稱對應。
+* 自主勒索軟體保護。
+* 檔案系統分析：
+
+
+* SAN*
+
+* 透過 SnapMirror 主動式同步、在故障網域之間延伸叢集。
+* ASA 機型提供主動 / 主動式多重路徑和快速路徑容錯移轉。
+* 支援 FC 、 iSCSI 、 NVMe 等傳輸協定。
+* 支援 iSCSI CHAP 相互驗證。
+* 選擇性 LUN 對應和 PortSet 。
+
+
+
+
+== ONTAP 支援的 Proxmox VE 儲存類型
+
+NAS 傳輸協定（ NFS/SMB ）支援 Proxmox VE 的所有內容類型、通常在資料中心層級設定一次。來賓 VM 可以在 NAS 儲存設備上使用原始、 qcow2 或 VMDK 類型的磁碟。ONTAP 快照可顯示、以存取用戶端資料的時間點複本。SAN 傳輸協定（ FC/iSCSI/NVMe of ）的區塊儲存設備通常是以每個主機為基礎進行設定、並僅限於 Proxmox VE 支援的 VM 磁碟和 Container Image 內容類型。來賓 VM 和 Container 會將區塊儲存當成原始裝置使用。
+
+[cols="25% 15% 15% 15% 15% 15%"]
+|===
+| 內容類型 | NFS | SMB/CIFS | FC | iSCSI | NVMe 
+
+
+| 備份 | 是的 | 是的  a| 
+否 ^1^
+ a| 
+否 ^1^
+ a| 
+否 ^1^
+
+
+
+| VM 磁碟 | 是的 | 是的  a| 
+是：2^
+ a| 
+是：2^
+ a| 
+是：2^
+
+
+
+| CT Volume | 是的 | 是的  a| 
+是：2^
+ a| 
+是：2^
+ a| 
+是：2^
+
+
+
+| ISO 映像 | 是的 | 是的  a| 
+否 ^1^
+ a| 
+否 ^1^
+ a| 
+否 ^1^
+
+
+
+| CT 範本 | 是的 | 是的  a| 
+否 ^1^
+ a| 
+否 ^1^
+ a| 
+否 ^1^
+
+
+
+| 片段 | 是的 | 是的  a| 
+否 ^1^
+ a| 
+否 ^1^
+ a| 
+否 ^1^
+
+|===
+* 備註： * 1 ：需要叢集檔案系統來建立共用資料夾、並使用目錄儲存類型。2 - 使用 LVM 儲存類型。
+
+
+
+== SMB/CIFS 儲存設備
+
+若要使用 SMB/CIFS 檔案共用、儲存管理員必須執行某些工作、而虛擬化管理員可以使用 Proxmox VE UI 或從 Shell 掛載共用。SMB 多通道可提供容錯能力、並提升效能。如需詳細資訊、請參閱link:https://www.netapp.com/pdf.html?item=/media/17136-tr4740.pdf["TR4740 - SMB 3.0 多通道"]
+
+
+NOTE: 密碼將儲存為純文字檔、且只能由 root 使用者存取。請參閱 link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html#storage_cifs["Proxmox VE 文件"]。
+
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+如果是 ONTAP 新手、請使用系統管理員介面來完成這些工作、以獲得更好的體驗。
+
+. 確保已為 SMB 啟用 SVM 。link:https://docs.netapp.com/us-en/ontap/smb-config/configure-access-svm-task.html["部分9文件ONTAP"]如需詳細資訊、請參閱。
+. 每個控制器至少有兩個生命。請依照上述連結中的步驟進行。以下是本解決方案中使用的生命的螢幕擷取畫面、供您參考。
++
+image:proxmox-ontap-image01.png["NAS 介面詳細資料"]
+
+. 使用 Active Directory 或工作群組型驗證。請依照上述連結中的步驟進行。
++
+image:proxmox-ontap-image02.png["加入網域資訊"]
+
+. 建立 Volume 。請記得勾選在叢集上散佈資料以使用 FlexGroup 的選項。
++
+image:proxmox-ontap-image23.png["FlexGroup 選項"]
+
+. 建立 SMB 共用並調整權限。link:https://docs.netapp.com/us-en/ontap/smb-config/configure-client-access-shared-storage-concept.html["部分9文件ONTAP"]如需詳細資訊、請參閱。
++
+image:proxmox-ontap-image03.png["SMB 共享資訊"]
+
+. 將 SMB 伺服器、共用名稱和認證提供給虛擬化管理員、讓他們完成工作。
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 收集 SMB 伺服器、共用名稱和認證、以用於共用驗證。
+. 請確定在不同的 VLAN 中至少設定兩個介面（以提供容錯能力）、且 NIC 支援 RSS 。
+. 如果使用管理 UI `https:<proxmox-node>:8006`、請按一下資料中心、選取儲存設備、按一下新增、然後選取 SMB/CIFS 。
++
+image:proxmox-ontap-image04.png["SMB 儲存導覽"]
+
+. 請填寫詳細資料、並自動填入共享區名稱。確定已選取所有內容。按一下「新增」
++
+image:proxmox-ontap-image05.png["增加 SMB 儲存設備"]
+
+. 若要啟用多通道選項、請前往叢集上任何一個節點的 Shell 、然後輸入 pvesm set pvesmb01 --options channel,max_channes=4
++
+image:proxmox-ontap-image06.png["多通道設定"]
+
+. 以下是 /etc/PVE/storage.cfg 中有關上述工作的內容。
++
+image:proxmox-ontap-image07.png["SMB 的儲存組態檔案"]
+
+
+
+====
+
+
+== NFS儲存設備
+
+ONTAP 支援 Proxmox VE 支援的所有 NFS 版本。為了提供容錯能力和效能增強link:https://docs.netapp.com/us-en/ontap/nfs-trunking/index.html["工作階段主幹"]功能、請務必使用。若要使用工作階段主幹、至少需要 NFS v4.1 。
+
+如果是 ONTAP 新手、請使用系統管理員介面來完成這些工作、以獲得更好的體驗。
+
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 確保 SVM 已啟用 NFS 。請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-config/verify-protocol-enabled-svm-task.html["部分9文件ONTAP"]
+. 每個控制器至少有兩個生命。請依照上述連結中的步驟進行。以下是實驗室使用的生命畫面、供您參考。
++
+image:proxmox-ontap-image01.png["NAS 介面詳細資料"]
+
+. 建立或更新 NFS 匯出原則、以存取 Proxmox VE 主機 IP 位址或子網路。請參閱link:https://docs.netapp.com/us-en/ontap/nfs-config/create-export-policy-task.html["匯出原則建立"]和link:https://docs.netapp.com/us-en/ontap/nfs-config/add-rule-export-policy-task.html["新增規則至匯出原則"]。
+. link:https://docs.netapp.com/us-en/ontap/nfs-config/create-volume-task.html["建立Volume"]。請記得勾選在叢集上散佈資料以使用 FlexGroup 的選項。
++
+image:proxmox-ontap-image23.png["FlexGroup 選項"]
+
+. link:https://docs.netapp.com/us-en/ontap/nfs-config/associate-export-policy-flexvol-task.html["將匯出原則指派給 Volume"]
++
+image:proxmox-ontap-image08.png["NFS Volume 資訊"]
+
+. 通知虛擬化管理員 NFS Volume 已就緒。
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 請確定在不同的 VLAN 中至少設定兩個介面（以提供容錯能力）。使用 NIC 連結。
+. 如果使用管理 UI `https:<proxmox-node>:8006`、請按一下資料中心、選取儲存、按一下新增、然後選取 NFS 。
++
+image:proxmox-ontap-image09.png["NFS 儲存導覽"]
+
+. 填寫詳細資料、在提供伺服器資訊之後、 NFS 匯出應會填入清單並從清單中挑選。請記得選擇內容選項。
++
+image:proxmox-ontap-image10.png["NFS 儲存設備新增"]
+
+. 對於工作階段主幹、在每個 Proxmox VE 主機上、更新 /etc/fstab 檔案、以使用不同的 lif 位址、以及 max_connect 和 NFS 版本選項來掛載相同的 NFS 匯出。
++
+image:proxmox-ontap-image11.png["工作階段主幹的 Fstab 項目"]
+
+. 以下是 /etc/PVE/storage.cfg for NFS 中的內容。
++
+image:proxmox-ontap-image12.png["NFS 的儲存組態檔案"]
+
+
+
+====
+
+
+== 使用 iSCSI 的 LVM
+
+若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
+
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 請確定已在各自的乙太網路 NIC 上設定兩個 Linux 橋接器（最好是在不同的 VLAN 上）。
+. 確保所有 Proxmox VE 主機上都安裝了多重路徑工具。確保它在開機時啟動。
++
+[source, shell]
+----
+apt list | grep multipath-tools
+# If need to install, execute the following line.
+apt-get install multipath-tools
+systemctl enable multipathd
+----
+. 為所有 Proxmox VE 主機收集 iSCSI 主機 iqn 、並將其提供給儲存管理員。
++
+[source, shell]
+----
+cat /etc/iscsi/initiator.name
+----
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+如果是 ONTAP 新手、請使用系統管理員以獲得更好的體驗。
+
+. 確保啟用 iSCSI 傳輸協定的 SVM 可用。追蹤link:https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["部分9文件ONTAP"]
+. 每個控制器有兩個專用於 iSCSI 的生命。
++
+image:proxmox-ontap-image13.png["iSCSI 介面詳細資料"]
+
+. 建立 igroup 並填入主機 iSCSI 啟動器。
+. 在 SVM 上建立具有所需大小的 LUN 、並呈現在上述步驟中建立的 igroup 。
++
+image:proxmox-ontap-image14.png["iSCSI LUN 詳細資料"]
+
+. 通知虛擬化管理員 LUN 已建立。
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 移至管理 UI `https:<proxmox node>:8006`、按一下資料中心、選取儲存設備、按一下新增、然後選取 iSCSI 。
++
+image:proxmox-ontap-image15.png["iSCSI 儲存設備導覽"]
+
+. 提供儲存 ID 名稱。當沒有通訊問題時、 ONTAP 的 iSCSI LIF 位址應該能夠選擇目標。由於我們的意圖是不直接提供 LUN 對來賓 VM 的存取、因此請取消勾選。
++
+image:proxmox-ontap-image16.png["iSCSI 儲存類型建立"]
+
+. 現在、請按一下「新增」、然後選取「 LVM 」。
++
+image:proxmox-ontap-image17.png["LVM 儲存導覽"]
+
+. 提供儲存 ID 名稱、挑選符合我們在上述步驟中建立的 iSCSI 儲存設備的基礎儲存設備。選擇基礎磁碟區的 LUN 。提供 Volume 群組名稱。確定已選取「共享」。
++
+image:proxmox-ontap-image18.png["建立 LVM 儲存設備"]
+
+. 以下是使用 iSCSI Volume 的 LVM 儲存組態檔範例。
++
+image:proxmox-ontap-image19.png["LVM iSCSI 組態"]
+
+
+
+====
+
+
+=== 含 NVMe / TCP 的 LVM
+
+若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
+
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 請確定已設定兩個 Linux 橋接器、每個橋接器都有自己的乙太網路裝置（最好是在不同的 VLAN 上）。
+. 在叢集上的每個 Proxmox 主機上、執行下列命令以收集主機啟動器資訊。
++
+[source, shell]
+----
+nvme show-hostnqn
+----
+. 將收集的主機 nqn 資訊提供給儲存管理員、並要求所需大小的 NVMe 命名空間。
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+如果是 ONTAP 新手、請使用系統管理員以獲得更好的體驗。
+
+. 確保 SVM 可在啟用 NVMe 傳輸協定的情況下使用。請參閱。link:https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html["ONTAP 9 上的 NVMe 工作文件"]
+. 建立 NVMe 命名空間。
++
+image:proxmox-ontap-image20.png["NVMe 命名空間建立"]
+
+. 建立子系統並指派主機 nqns （如果使用 CLI ）。請點選上述參考連結。
+. 通知虛擬化管理員已建立 NVMe 命名空間。
+
+
+====
+.<strong> 的 Admin </strong>
+[%collapsible]
+====
+. 在叢集中的每個 Proxmox VE 主機上瀏覽至 Shell 、然後建立 /etc/nve/dining.conf 檔案、並更新您環境的特定內容。
++
+[source, shell]
+----
+root@pxmox01:~# cat /etc/nvme/discovery.conf
+# Used for extracting default parameters for discovery
+#
+# Example:
+# --transport=<trtype> --traddr=<traddr> --trsvcid=<trsvcid> --host-traddr=<host-traddr> --host-iface=<host-iface>
+
+-t tcp -l 1800 -a 172.21.118.153
+-t tcp -l 1800 -a 172.21.118.154
+-t tcp -l 1800 -a 172.21.119.153
+-t tcp -l 1800 -a 172.21.119.154
+----
+. 登入 NVMe 子系統
++
+[source, shell]
+----
+nvme connect-all
+----
+. 檢查並收集裝置詳細資料。
++
+[source, shell]
+----
+nvme list
+nvme netapp ontapdevices
+nvme list-subsys
+lsblk -l
+----
+. 建立Volume群組
++
+[source, shell]
+----
+vgcreate pvens02 /dev/mapper/<device id>
+----
+. 移至管理 UI `https:<proxmox node>:8006`、按一下資料中心、選取儲存設備、按一下新增、然後選取 LVM 。
++
+image:proxmox-ontap-image17.png["LVM 儲存導覽"]
+
+. 提供儲存 ID 名稱、選擇現有的 Volume 群組、然後選擇剛用 CLI 建立的 Volume 群組。請記得勾選「共享」選項。
++
+image:proxmox-ontap-image21.png["現有 vg 上的 LVM"]
+
+. 以下是使用 NVMe / TCP 的 LVM 儲存組態檔範例
++
+image:proxmox-ontap-image22.png["NVMe TCP 組態上的 LVM"]
+
+
+
+====

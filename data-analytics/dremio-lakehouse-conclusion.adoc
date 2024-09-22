@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: data-analytics/dremio-lakehouse-conclusion.html 
+keywords: conclusion 
+summary: 本文件提供搭配 NetApp 儲存設備使用 Dremio 的最佳實務準則、包括 TPCDS 認證測試、調校及客戶使用說明詳細資料。 
+---
+= 結論
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+最後、本技術報告提供與 Dremio 搭配使用的 q Hybrid 冰山 Lakehouse 的完整部署詳細資料、以及 NetApp 儲存控制器的各種資料來源、包括 ONTAP S3 、 NAS 和 StorageGRID 。部署程序已成功執行、並使用 TPC-DS 基準測試工具、在不同的資料來源中執行 99 個 SQL 查詢。本報告也探討了 NetApp 中的客戶使用案例、展現 Dremio 在滿足各種業務需求方面的靈活度與效率。此外、我們也針對涉及汽車零件銷售客戶的特定使用案例進行了審查、重點說明運用 Dremio 進行資料分析和深入分析的實際應用和效益。
+
+總的來說、本文件是瞭解 Dremio 與 NetApp 儲存控制器的部署與使用的寶貴資源、展示其在不同產業中推動資料導向決策與最佳化的能力與潛力。
+
+
+
+== 何處可找到其他資訊
+
+若要深入瞭解本文所述資訊、請檢閱下列文件和 / 或網站：
+
+* zookeeper 安裝
++
+https://medium.com/@ahmetfurkandemir/distributed-hadoop-cluster-1-spark-with-all-dependincies-03c8ec616166[]
+
+* 夢中
++
+https://docs.dremio.com/current/get-started/cluster-deployments/deployment-models/standalone/standalone-tarball/[]
+
+* 使用 StorageGRID 設定 Dremio
++
+https://docs.netapp.com/us-en/storagegrid-enable/tools-apps-guides/configure-dremio-storagegrid.html#configure-dremio-data-source[]
+
+* NetApp 使用案例
++
+https://www.dremio.com/customers/netapp/[]
+
+

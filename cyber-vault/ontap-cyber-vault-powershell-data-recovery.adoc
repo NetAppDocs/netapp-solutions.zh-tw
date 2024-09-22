@@ -1,0 +1,29 @@
+---
+sidebar: sidebar 
+permalink: cyber-vault/ontap-cyber-vault-powershell-data-recovery.html 
+keywords: Cyber vault, powershell, script, configuration, validation, hardening 
+summary: 這是 NetApp ONTAP 解決方案、用於設定、強化及驗證 ONTAP 型網路資料保險箱 
+---
+= ONTAP 網路資料保險箱資料恢復
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media
+
+
+[role="lead"]
+如果資料在正式作業資料中心遭到銷毀、則可將網路資料保險箱中的資料安全地還原至所選環境。與實體空拍解決方案不同的是、空中綁定的 ONTAP 網路資料保險箱是使用原生 ONTAP 功能（例如 SnapLock Compliance 和 SnapMirror ）打造而成。如此一來、恢復程序既快速又容易執行。
+
+萬一發生勒索軟體攻擊且需要從網路資料保險箱中恢復、則只要使用網路資料保險箱中的快照複本來還原加密資料、就能輕鬆又簡單地進行還原。
+
+image:ontap-cyber-vault-data-recovery.png["還原關係"]
+
+如果要求提供更快速的方法、以便在必要時將資料恢復上線、以便快速驗證、隔離及分析資料以進行還原。使用 FlexClone 時、若將 SnapLock 類型選項設為非 SnapLock 類型、即可輕鬆達成此目標。
+
+
+NOTE: 從 ONTAP 9 。 13.1 開始、只要建立 FlexClone 、並將 SnapLock 類型選項設為「 SnapLock 」、即可立即還原 SnapLock 資料保險箱關係目的地 SnapLock 磁碟區上的鎖定 Snapshot 複本。執行 Volume Clone 建立作業時、請將 Snapshot 複本指定為「父快照」。有關使用 SnapLock 類型建立 FlexClone Volume 的更多資訊link:https://docs.netapp.com/us-en/ontap/volumes/create-flexclone-task.html?q=volume+clone["請按這裡。"]
+
+
+NOTE: 從網路資料保險箱執行恢復程序、可確保建立適當的步驟、以連線至網路資料保險箱並擷取資料。在網路攻擊事件期間、規劃和測試程序對於任何恢復都是不可或缺的。

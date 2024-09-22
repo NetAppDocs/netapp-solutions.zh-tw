@@ -1,0 +1,393 @@
+---
+sidebar: sidebar 
+permalink: ai/aipod_nv_deployment.html 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, NVIDIA AI Enterprise, NVIDIA BasePOD, NVIDIA DGX 
+summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 部署 
+---
+= NVA-1173 NetApp AIPod 搭配 NVIDIA DGX 系統 - 部署詳細資料
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節說明驗證此解決方案時所使用的部署詳細資料。所使用的 IP 位址是範例、應根據部署環境進行修改。如需實作此組態時所使用之特定命令的詳細資訊、請參閱適當的產品文件。
+
+下圖顯示 1 個 DGX H100 系統和 1 個 HA AFF A90 控制器配對的詳細網路和連線資訊。以下各節中的部署指南是根據此圖表中的詳細資料而定。
+
+NetApp AIPod 網路組態 _
+
+image:aipod_nv_a90_netdetail.png["錯誤：缺少圖形影像"]
+
+下表顯示最多 16 個 DGX 系統和 2 個 AFF A90 HA 配對的佈線範例。
+
+|===
+| 交換器與連接埠 | 裝置 | 裝置連接埠 
+
+
+| Switch1 連接埠 1-16 | DGX-H100-01 至 -16 | enp170s0f0np0 、 SLOT1 連接埠 1 
+
+
+| Switch1 連接埠 17-32 | DGX-H100-01 至 -16 | enp170s0f1np1 、 SLOT1 連接埠 2 
+
+
+| Switch1 連接埠 33-36 | AFF A90-01 到 -04 | 連接埠 e6a 
+
+
+| Switch1 連接埠 37-40 | AFF A90-01 到 -04 | 連接埠 e11a 
+
+
+| Switch1 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 e8a 
+
+
+| Switch1 連接埠 57-64 | ISL 到交換器 2 | 連接埠 57-64 
+
+
+|  |  |  
+
+
+| Switch2 連接埠 1-16 | DGX-H100-01 至 -16 | enp41s0f0np0 、插槽 2 連接埠 1 
+
+
+| Switch2 連接埠 17-32 | DGX-H100-01 至 -16 | enp41s0f1np1 、插槽 2 連接埠 2 
+
+
+| Switch2 連接埠 33-36 | AFF A90-01 到 -04 | 連接埠 e6b. 
+
+
+| Switch2 連接埠 37-40 | AFF A90-01 到 -04 | 連接埠 e11b. 
+
+
+| Switch2 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 e8b. 
+
+
+| Switch2 連接埠 57-64 | ISL 到交換器 1 | 連接埠 57-64 
+|===
+下表顯示此驗證所使用之各種元件的軟體版本。
+
+|===
+| 裝置 | 軟體版本 
+
+
+| NVIDIA SN4600交換器 | Cumulus Linux v5.9.1 
+
+
+| NVIDIA DGX 系統 | DGX OS 6.2.1 版（ Ubuntu 22.04 LTS ） 
+
+
+| Mellanox OFED | 24.01 
+
+
+| NetApp AFF 產品系列A90 | NetApp ONTAP 9.14.1 
+|===
+
+
+== 儲存網路組態
+
+本節概述乙太網路儲存網路組態的主要詳細資料。如需設定 InfiniBand 運算網路的相關資訊，請參閱link:https://nvdam.widen.net/s/nfnjflmzlj/nvidia-dgx-basepod-reference-architecture["NVIDIA BasePOD 文件"]。如需更多關於交換器組態link:https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-59/["NVIDIA Cumulus Linux 文件"]的詳細資訊、請參閱。
+
+下面概述了用於配置 SN4600 交換機的基本步驟。此程序假設纜線和基本交換器設定（管理 IP 位址、授權等）已完成。
+
+. 設定交換器之間的 ISL 連結、以啟用多連結集合體（ MLAG ）和容錯移轉流量
++
+** 這項驗證使用 8 個連結、為測試中的儲存組態提供足夠的頻寬
+** 如需啟用 MLAG 的特定指示、請參閱 Cumulus Linux 文件。
+
+
+. 為兩台交換器上的每對用戶端連接埠和儲存連接埠設定 LACP MLAG
++
+** DGX-H100-01 （ enp170s0f1np1 和 enp41s0f1np1 ）、 DGX-H100-02 等各交換器的連接埠 swp17 （ bond1-16 ）
+** 每個交換器上的連接埠 swp41 適用於 AFF A90-01 （ e8a 和 e8b ）、連接埠 swp42 適用於 AFF A90-02 等（ bond17-20 ）
+** NV Set 介面 bondX bond 成員 swpX
+** NV Set 介面 bondx bond MLAG id X
+
+
+. 將所有連接埠和 MLAG 連結新增至預設橋接網域
++
+** NV 設定 int swp1-1633-40 橋接網域 br_default
+** NV 設定 int bond1-20 橋接網域 br_default
+
+
+. 在每台交換器上啟用 roce
++
+** NV 設定無損模式
+
+
+. 設定 VLANs - 2 用於用戶端連接埠、 2 用於儲存連接埠、 1 用於管理、 1 用於 L3 交換器至交換器
++
+** 交換器 1-
++
+*** 當用戶端 NIC 發生故障時、用於 L3 交換器的 VLAN 3 交換器路由
+*** 每個 DGX 系統上儲存連接埠 1 的 VLAN 101 （ enp170s0f0np0 、 SLOT1 連接埠 1 ）
+*** 每個 AFF A90 儲存控制器上連接埠 e6a 和 e11a 的 VLAN 102
+*** 使用 MLAG 介面管理每個 DGX 系統和儲存控制器的 VLAN 301
+
+
+** 交換器 2-
++
+*** 當用戶端 NIC 發生故障時、用於 L3 交換器的 VLAN 3 交換器路由
+*** VLAN 201 用於每個 DGX 系統上的儲存連接埠 2 （ enp41s0f0np0 、 slot2 連接埠 1 ）
+*** 每個 AFF A90 儲存控制器上的 VLAN 202 連接埠 e6b 和 e11b
+*** 使用 MLAG 介面管理每個 DGX 系統和儲存控制器的 VLAN 301
+
+
+
+
+. 視情況將實體連接埠指派給每個 VLAN 、例如用戶端 VLAN 中的用戶端連接埠、以及儲存 VLAN 中的儲存連接埠
++
+** NV 設定 int <swpX> 橋接網域 br_default 存取 <vlan id>
+** MLAG 連接埠應保留為主幹連接埠、以視需要在連結的介面上啟用多個 VLAN 。
+
+
+. 在每個 VLAN 上設定交換器虛擬介面（ SVI ）、以做為閘道並啟用 L3 路由
++
+** 交換器 1-
++
+*** NV 設定 int VLAN3 IP 位址 100.127.0/31
+*** NV 設定 int vlan101 IP 位址 100.127.101.1/24
+*** NV 設定 int vlan102 IP 位址 100.127.102.1/24
+
+
+** 交換器 2-
++
+*** NV 設定 int VLAN3 IP 位址 100.127.0.0.1/31
+*** NV 設定 int vlan201 IP 位址 100.127.201.1/24
+*** NV 設定 int vlan202 IP 位址 100.127.202.1/24
+
+
+
+
+. 建立靜態路由
++
+** 靜態路由會自動為同一台交換器上的子網路建立
+** 當用戶端連結故障時、交換器到交換器的路由需要額外的靜態路由
++
+*** 交換器 1-
++
+**** NV 將 VRF 預設路由器靜態設為 100.127.128.0/17 、透過 100.127.0.1
+
+
+*** 交換器 2-
++
+**** NV 將 VRF 預設路由器靜態設定為 100127.0/17 、透過 1000.127.0.0
+
+
+
+
+
+
+
+
+
+
+== 儲存系統組態
+
+本節說明此解決方案 A90 儲存系統組態的重要詳細資料。如需 ONTAP 系統組態的詳細資訊、請參閱 [ ONTAP 說明文件 ] 。下圖顯示儲存系統的邏輯組態。
+
+NetApp A90 儲存叢集邏輯組態 _
+
+image:aipod_nv_a90_logical.png["錯誤：缺少圖形影像"]
+
+以下概述設定儲存系統的基本步驟。此程序假設已完成基本儲存叢集安裝。
+
+. 在每個控制器上設定 1 個 Aggregate 、所有可用分割區減 1 個備援磁碟區
++
+** Aggr create -node <node> -Aggregate <node> 資料 a01 -diskcount <47>
+
+
+. 在每個控制器上設定 ifgrps
++
+** NET 連接埠 ifgrp create -node <node> -ifgrp A1A -mode imody_lacp -distr-function 連接埠
+** net 連接埠 ifgrp add-port -node <node> -ifgrp <ifgrp> -ports <node> ： e8a 、 <node> ： e8b
+
+
+. 在每個控制器上的 ifgrp 上設定管理 VLAN 連接埠
++
+** net port VLAN create -node AFF － a90-01 - 連接埠 A1A -vlan-id 31
+** net port VLAN create -node AFF － a90-02 － port A1A － vlan － id 31
+** net port VLAN create -node AFF － a90-03 － port A1A － vlan － id 31
+** net port VLAN create -node AFF － a90-04 － port A1A － vlan-id 31
+
+
+. 建立廣播網域
++
+** 廣播網域 create -broadcast-domain VLAN21 -MTU 9000 連接埠 AFF a90-01:e6a 、 AFF AFF a90-01:e11a 、 AFF a90-02:e6a 、 AFF a90-02:e11a 、 AFF a90-03:e6a 、 AFF a90-03:e11a 、 AFF a90-04-e04-e90:e11a
+** 廣播網域 create -broadcast-domain VLAN22 -MTU 9000 連接埠 aaa穎 90-01:e6b 、 AFF AFF a90-01 ： e11b 、 AFF a90-02 ： e6b 、 AFF a90-02 ： e11b 、 AFF a90-03 ： e6b 、 AFF a90-03 ： e11b 、 AFF a90-04-e90
+** 廣播網域 create -broadcast-domain vlan31 -MTU 9000 連接埠 AFF a90-01 ： A1A-31 、 AFF a90-02 ： A1A-31 、 AFF a90-03 ： A1A-31 、 AFF a90-04 ： A1A-31
+
+
+. 建立管理 SVM *
+. 設定管理 SVM
++
+** 建立 LIF
++
+*** net int create -vserver baspoe-mgmt -lif vlan31-01 -home-node-a90-01 AFF -home-port A1A-31 -address 192.168.31.X -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+
+
+** 建立 FlexGroup Volume -
++
+*** Vol create -vserver baspoe-mgmt -volume home -size 10T -aute-Provision -as FlexGroup -jite-path /home
+*** Vol create -vserver baspoe-mgmt -volume cm -size 10T -aute-Provence-as FlexGroup -jite-path /cm
+
+
+** 建立匯出原則
++
+*** 匯出原則規則 create -vserver baspoe-mgmt -policy default -client-match 192.168.31.0/24 -rorule sys -rwrule sys -Superuser sys
+
+
+
+
+. 建立資料 SVM *
+. 設定資料 SVM
++
+** 設定 SVM 以支援 RDMA
++
+*** vserver modify -vserver baspoe-data -RDMA 已啟用
+
+
+** 建立生命
++
+*** net int create -vserver baspoe-data -lif c1-6a-lif1 -home-node AFF － a90-01 -home-port e6a -address 100.127.102.101 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-6a-lif2 -home-node AFF － a90-01 -home-port e6a -address 100.127.102.102 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-6B-lif1 -home-node-a90-01 AFF -home-port e6b -address 100.127.202.101 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-6B-lif2 -home-node-a90-01 -home-port AFF e6b -address 100.127.202.102 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-11a-lif1 -home-node-a90-01 -home-port AFF e11a -address 100.127.102.103 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-11a-lif2 -home-node-a90-01 -home-port AFF e11a -address 100.127.102.104 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-11b-lif1 -home-node-a90-01 AFF -home-port e11b -address 100.127.202.103 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c1-11b-lif2 -home-node-a90-01 -home-port AFF e11b -address 100.127.202.104 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-6a-lif1 -home-node-a90-02 AFF -home-port e6a -address 100.127.102.105 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-6a-lif2 -home-node-a90-02 AFF -home-port e6a -address 100.127.102.106 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-6B-lif1 -home-node-a90-02 AFF -home-port e6b -address 100.127.202.105 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-6B-lif2 -home-node-a90-02 AFF -home-port e6b -address 100.127.202.106 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11a-lif1 -home-node-a90-02 AFF -home-port e11a -address 100.127.102.107 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11a-lif2 -home-node-a90-02 AFF -home-port e11a -address 100.127.102.108 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11b-lif1 -home-node-a90-02 AFF -home-port e11b -address 100.127.202.107 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11b-lif2 -home-node-a90-02 AFF -home-port e11b -address 100.127.202.108 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+
+
+
+
+. 設定 RDMA 存取的生命
++
+** 對於使用 ONTAP 9 ． 15.1 的部署、實體資訊的 Roce QoS 組態需要 ONTAP CLI 中無法使用的 OS 層級命令。如需連接埠組態的協助、請聯絡 NetApp 支援部門以取得 ROCE 支援。NFS over RDMA 功能完全沒有問題
+** 從 ONTAP 9 。 16.1 開始、實體介面會自動設定適當的設定、以支援端點對端點的設備。
+** net int modify -vserver baspoed-data -lif * -rdma-protocols roce
+
+
+. 在資料 SVM 上設定 NFS 參數
++
+** NFS modify -vserver baspox-data -v4.1 已啟用 -v4.1-pNFS 已啟用 -v4.1-trunking -tcp-max-transfer-size 262144
+
+
+. 建立 FlexGroup Volume -
++
+** Vol create -vserver baspode-data -volume data -size 100T -auto-Provision -as FlexGroup -jite-path /data
+
+
+. 建立匯出原則
++
+** 匯出原則規則 create -vserver baspoe-data -policy default -client-match 100.127.101.0/24 -rorule sys -rwRule sys -Superuser sys
+** 匯出原則規則 create -vserver baspoe-data -policy default -client-match 100.127.201.0/24 -rorule sys -rwRule sys -Superuser sys
+
+
+. 建立航線
++
+** Route add -vserver baspo_data -destination 100.127.0/17 - gateway 100.127.102.1 metric 20
+** Route add -vserver baspo_data -destination 100.127.0/17 - 閘道 100.127.202.1 metric 30
+** Route add -vserver baspo_data -destination 100.127.128.0/17 - 閘道 100.127.202.1 metric 20
+** Route add -vserver baspo_data -destination 100.127.128.0/17 - 閘道 100.127.102.1 metric 30
+
+
+
+
+
+
+=== 用於存取 ROCE 儲存設備的 DGX H100 組態
+
+本節說明 DGX H100 系統組態的重要詳細資料。其中許多組態項目可包含在部署至 DGX 系統的 OS 映像中、或在開機時由 Base Command Manager 實作。此處列出這些項目以供參考、如需在 BCM 中設定節點和軟體映像link:https://docs.nvidia.com/base-command-manager/index.html#overview["BCM 文件"]的詳細資訊、請參閱。
+
+. 安裝其他套件
++
+** IPMItool
+** python3-pip
+
+
+. 安裝 Python 套件
++
+** 輔助子
+** matplotlib
+
+
+. 在套件安裝後重新設定 dpkg
++
+** dpkg --configure -a
+
+
+. 安裝 MOFED
+. 設定效能調校的 mst 值
++
+** mstconfig -y -d <aa:00.0,29:00.0> set advanced_pci_settings=1 NUM_OF_VFS=0 MAX_ACC_Out_read=44
+
+
+. 修改設定後重設介面卡
++
+** mlxfwreset -d <aa:00.0,29:00.0> -y 重設
+
+
+. 在 PCI 裝置上設定 MaxReadReq
++
+** setpci -s <aa:00.0,29:00.0> 68.W=5957
+
+
+. 設定 RX 和 TX 環狀緩衝區大小
++
+** Ethtool -G <enp170s0f0np0,enp41s0f0np0> Rx 8192 Tx 8192
+
+
+. 使用 mlnx_QoS 設定 PFC 和 DSCP
++
+** mlnx_qos -i <enp170s0f0np0,enp41s0f0np0> --fc 0 、 0 、 0 、 0 、 -trust = dscp --cable_len=3
+
+
+. 將 ToS 設為在網路連接埠上傳輸流量
++
+** ECHO 106 > /sys/class/InfiniBand / <mlx5_7,mlx5_1> / tc/1/tra流量 類別
+
+
+. 在適當的子網路上、使用 IP 位址設定每個儲存 NIC
++
+** 100 、 127.101.0/24 適用於儲存 NIC 1
+** 100100127.201.0/24 適用於儲存 NIC 2
+
+
+. 設定 LACP 繫結的頻內網路連接埠（ enp170s0f1np1 、 enp41s0f1np1 ）
+. 為通往每個儲存子網路的主要和次要路徑設定靜態路由
++
+** 新增路由– net 100.127.0/17 GW 100.127.101.1 公制 20
+** 新增路由– net 100.127.0/17 GW 100.127.201.1 公制 30
+** 新增路由– net 100.127.128.0/17 GW 100.127.201.1 公制 20
+** 新增路由– net 100.127.128.0/17 GW 100.127.101.1 公制 30
+
+
+. 裝載 /home Volume
++
+** 掛載 -o ves=3 、 nconnect =16 、 rsize=262144 、 wsize=262144 192.168.31.X ： /home /home
+
+
+. 裝載 / 資料磁碟區
++
+** 下列掛載選項是在安裝資料 Volume 時使用的 -
++
+*** ves=4.1# 可讓 pNFS 平行存取多個儲存節點
+*** proto=RDMA # 會將傳輸通訊協定設定為 RDMA 、而非預設 TCP
+*** max_connect = 16# 可讓 NFS 工作階段主幹聚合儲存連接埠頻寬
+*** 寫入 = 熱切 # 可改善緩衝寫入的寫入效能
+*** rsize=262144 、 wsize=262144 # 將 I/O 傳輸大小設為 256k
+
+
+
+
+

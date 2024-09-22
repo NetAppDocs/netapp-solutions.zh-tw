@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: ai/aicp_example_notebooks_and_pipelines.html 
+keywords: Jupyter Notebook, MLFlow, NetApp DataOps Toolkit, LLM, 
+summary: 在 Jupyter Hub 上使用 MLFlow 微調大型語言模型 
+---
+= 先決條件
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節說明使用 Jupyter Hub 微調 MLFlow 大型語言模型（ LLM ）的步驟。這是一個範例、旨在展示結合 NetApp 儲存設備和 NetApp 智慧型資料基礎架構的訓練工作、以供客戶使用、例如擷取擴增產生（ RAG ）。
+
+
+
+== 先決條件
+
+本節概述使用 jupyter Hub 微調語言模型的先決條件。為達此目的 , 假設您已安裝相關的程式庫和套件來訓練或微調模型。本範例中使用的部分程式庫包括但不限於： - 變壓器 - peft （參數效率微調） - 加速這些程式庫屬於 HuggingFace 。其他程式庫包括 matplotlib 、 SciPy 、 Einops 等。
+
+您也可以透過 HuggingFace 存取基本機型及其重量。您可以在上找到可用機型 https://huggingface.co/models["HuggingFace"]的清單。
+
+最後、您也需要存取 Jupyter Hub 帳戶、並提供適當的儲存空間。建議您存取 GPU 伺服器（以滿足較高的運算需求）。
+
+此微調範例的靈感來自於一系列由開發的筆記型電腦指南與範例 https://github.com/brevdev/notebooks["BrevDev 團隊"]。
+
+
+
+== 資料載入與實驗設定
+
+將所有資料（文件和文字）儲存在與筆記本相同的共用資料夾中、以便輕鬆擷取。將文件轉換成 .json 格式、以供 Data Processing 和訓練之用。
+
+資料處理完畢後、請確定 GPU 有足夠的 RAM 、可載入模型及資料。在此範例中、我們使用 NVIDIA Tesla T4 GPU 搭配 16GB RAM 、以微調 Microsoft 的 https://huggingface.co/microsoft/phi-2["PHI 2"] 27 億個大小參數。根據您使用的模型和資料量、您可能需要更多的 RAM/ 額外 GPU 、才能建置分散式訓練設定。
+
+image:tesla-t4.png["本範例使用的 GPU 規格"]
+
+在此範例中 https://huggingface.co/docs/diffusers/main/en/training/lora["Lora"]、我們會運用資源來確保模型符合資源限制。如果運算不是限制、則可以執行完整的微調。
+
+
+
+== 成果與未來工作
+
+下表顯示在 NetApp 解決方案資料集（內部解決方案工程部落格 / 文章）上接受訓練的 Phi 2 的訓練遺失和相關驗證遺失。如觀察到的、驗證損失會隨著時間增加而減少、同時也會減少訓練損失。
+
+image:phi2-results.png["PHI 2 的訓練遺失和驗證遺失"]
+
+用於評估微調語言模型的幾個範例提示如下 - * 1 。說明將 NetApp FlexGroup Volume 用於 AI 訓練資料集的優點。 *
+
+對此提示的回應如下：「 NetApp FlexGroup Volumes 在用於 AI 訓練資料集時提供多項優點、包括： - * 擴充性 * ： FlexGroup Volume 可水平擴充、以容納 AI 訓練所需的大量資料和運算資源。這樣組織就能在大型資料集上訓練模型、而無需擔心資源限制。-* 資料一致性 * ： FlexGroup Volume 可為所有資料提供單一命名空間、確保叢集中多個節點的資料一致性。如此可確保資料在不同節點之間永遠可用且一致、這對於需要從多個來源存取資料的 AI 應用程式而言是非常重要的。* 效能 * ： FlexGroup 磁碟區已針對高效能儲存進行最佳化、因此非常適合儲存 AI 訓練所需的大型資料集。Volume 的效能特性包括低延遲、高處理量和高可用度、確保在訓練期間能快速可靠地存取資料。* 安全 * ： FlexGroup 磁碟區提供內建的安全功能、例如加密、存取控制和資料保護、確保機密資料在整個生命週期內都受到保護。這對於處理敏感資料（例如個人資訊或財務資料）的 AI 應用程式而言特別重要。整體而言、 NetApp FlexGroup Volume 提供可擴充、安全且高效能的解決方案、可用於儲存及管理 AI 訓練資料集。」
+
+*2.ONTAP 9 提供哪些優點和功能？提供具體的執行個體。 *
+
+對此提示的回應如下：「 ONTAP 9 提供下列優點與功能： - * 高效能 * 、每個節點的處理量高達 1 TB/s 、可在節點與儲存磁碟區之間傳輸資料。- * 高可用度 * 、在多個節點上提供 99.999% 的正常運作時間和高可用度。-* 擴充性 * 、可透過新增更多節點或增加每個節點上的磁碟數量來水平擴充。* 靈活度 * 、可根據工作負載需求、使用不同類型的儲存磁碟區、例如 SSD 、 HDD 或 NVMe 磁碟機。* 安全 * ，能夠實作各種安全性原則，例如加密、存取控制及稽核，以保護叢集中的資料與資源。支援 * 重複資料刪除、壓縮及複寫 * 等進階功能、以最佳化效能、並降低儲存及傳輸大量資料的成本。」
+
+這些回應顯示、經過微調的模型、與基礎模型相比、其所訓練的資料集內容更豐富、並獲得更相關的輸出。
+
+此範例旨在顯示、仍可針對使用少量電腦資源的自訂 / 專屬資料、進行語言模型訓練。未來的工作包括利用更大型的 GPU 設定（ GPU 的分散式系統網路）、針對整個組織的資料、訓練更大型的語言模型（順序大於 10B 參數）。
+
+link:mlrun_configure_working_environment.adoc["下一步： ML Run 工作環境"]

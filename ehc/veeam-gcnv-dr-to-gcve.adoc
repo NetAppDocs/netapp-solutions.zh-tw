@@ -1,0 +1,425 @@
+---
+sidebar: sidebar 
+permalink: ehc/veeam-gcnv-dr-to-gcve.html 
+keywords: disaster recovery, avs, google cloud, gcp, gcve, gcnv, google cloud netapp volumes, netapp volumes, dr, veeam, replication 
+summary:  
+---
+= 使用 Veeam Replication 和 Google Cloud NetApp Volumes 資料存放區、將災難恢復至 Google Cloud VMware Engine
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+對於危機時期的企業而言、全面的災難恢復計畫是至關重要的。許多組織運用雲端運算來執行日常營運和災難恢復。這種主動式方法可減少或消除昂貴的業務中斷。
+
+本文說明如何使用 Veeam 備份與複寫功能、為內部部署的 VMware VM 設定災難恢復、並將其與 Google Cloud NetApp Volumes （ NetApp Volumes ）搭配使用 Google Cloud VMware Engine （ GCVE ）。
+
+
+
+== 總覽
+
+Google Cloud NetApp Volumes 是 Google 和 NetApp 提供的儲存服務、可用於 Google Cloud 。NetApp Volumes 服務提供高效能 NFS/SMB 儲存設備。VMware 認證的 NetApp Volumes NFS 儲存設備可作為 GCVE 中 ESXi 主機的外部資料存放區使用。使用者必須在其 GCVE 私有雲和 NetApp Volumes 專案之間建立對等連線。區域內的儲存存取不會產生網路費用。使用者可以在 Google Cloud 主控台中建立 NetApp Volumes Volume 、並在將磁碟區裝載為 ESXi 主機的資料存放區之前、啟用刪除保護。
+
+NetApp Volumes 型 NFS 資料存放區可用於從內部部署複寫資料、使用任何可提供 VM 複寫功能的驗證協力廠商解決方案。藉由新增 NetApp Volumes 資料存放區、它可實現成本最佳化的部署、而非建置以 Google Cloud VMware Engine （ GCVE ）為基礎的 SDDC 、並搭配大量 ESXi 主機來容納儲存設備。這種方法稱為「試驗燈叢集」。試驗性光叢集是最小的 GCVE 主機組態（ 3 個 GCVE ESXi 主機）、以及 NetApp Volumes 資料存放區容量、可讓您根據容量需求進行自動擴充。
+
+其目標是維持具成本效益的基礎架構、只需使用核心元件即可管理容錯移轉。當發生容錯移轉時、試驗性光叢集可以擴充並新增更多的 GCVE 主機。一旦容錯移轉解決且恢復正常作業、試驗性光叢集就能縮減規模、回到低成本的作業模式。
+
+
+
+== 本文檔的用途
+
+本文說明如何搭配 Veeam 備份與複寫使用 Google Cloud NetApp Volumes 資料存放區、以使用 Veeam VM 複寫軟體功能、為內部部署的 VMware VM 設定災難恢復至 GCVE 。
+
+Veeam 備份與複寫是適用於虛擬環境的備份與複寫應用程式。複寫虛擬機器時、 Veeam 備份與複寫會在目標 GCVE SDDC 叢集上、以原生 VMware vSphere 格式建立 VM 的精確複本。Veeam 備份與複寫會將複本與原始 VM 保持同步。複寫可提供最佳的恢復時間目標（ RTO ）、因為災難恢復站台上有已掛載的 VM 複本處於就緒啟動狀態。
+
+這種複寫機制可確保工作負載在發生災難事件時、能在 GCVE 中快速啟動。Veeam 備份與複寫軟體也能最佳化流量傳輸、以便透過 WAN 進行複寫、並降低連線速度。此外、它也會篩選出重複的資料區塊、零資料區塊、交換檔案和「排除的 VM 來賓作業系統檔案」。軟體也會壓縮複本流量。為了避免複寫工作佔用整個網路頻寬、可使用 WAN 加速器和網路節流規則。
+
+Veeam Backup & Replication 中的複寫程序是由工作所驅動、這表示複寫是透過設定複寫工作來執行。發生災難事件時、可觸發容錯移轉、藉由容錯移轉至複本來恢復 VM 。執行容錯移轉時、複寫的 VM 會接管原始 VM 的角色。容錯移轉可以執行至複本的最新狀態、或是任何已知的正常還原點。如此一來、就能視需要進行勒索軟體恢復或隔離測試。Veeam 備份與複寫提供多種選項來處理不同的災難恢復案例。
+
+
+
+== 解決方案總覽
+
+本解決方案涵蓋下列高階步驟：
+
+. 使用 Google Cloud NetApp Volumes 建立 NFS Volume
+. 遵循 GCP 程序、從 NetApp Volumes NFS Volume 建立 GCVE 資料存放區。
+. 設定複寫工作、以使用 Veeam 備份與複寫建立 VM 複本。
+. 建立容錯移轉計畫並執行容錯移轉。
+. 災難事件完成且主站台正常運作後、切換回正式作業的 VM 。
+
+
+
+NOTE: 在 NetApp Volumes 中建立磁碟區時、僅支援 NFS v3 作為 GCVE 資料存放區使用。
+
+有關將 NetApp Volumes NFS Volume 用作 GCVE 的資料存放區的詳細資訊 https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-datastores-gcve["使用 NFS Volume 做為由 Google Cloud NetApp Volumes 代管的 vSphere 資料存放區"]、請參閱。
+
+
+
+== 架構
+
+下圖顯示本文件所示解決方案的架構。建議的最佳實務做法是在內部站台和 GCVE SDDC 中都有 Veeam 備份與複寫伺服器。備份與還原是由內部部署的 Veeam 伺服器執行及管理、複寫是由 GCVE SDDC 中的 Veeam 伺服器管理。當主資料中心發生故障時、此架構可提供最高的可用度。
+
+image::dr-veeam-gcnv-image01.png[架構圖]
+
+
+
+== 將 Veeam 複寫至 GCVE 和 NetApp Volumes 資料存放區的先決條件
+
+此解決方案需要下列元件和組態：
+
+. NetApp Volumes 有一個可用的儲存池、其可用容量足以容納要建立的 NFS 磁碟區。
+. Veeam 備份與複寫軟體是在內部環境中執行、並具備適當的網路連線能力。
+. 確保 Veeam 備份與複寫備份 VM 已連線至來源叢集和目標 GCVE SDDC 叢集。
+. 確保 Veeam 備份與複寫備份 VM 已連接至來源和目標 GCVE 叢集上的 Veeam Proxy 伺服器 VM 。
+. 備份伺服器必須能夠解析簡短名稱、並連線至來源和目標 vCenter 。
+
+
+使用者必須使用 VMware 引擎雲端主控台 UI 中的 VPC 網路對等或私有連線頁面、在其 GCVE 私有雲和 NetApp Volumes 專案之間建立對等連線。
+
+
+NOTE: 將 GCVE vCenter 伺服器新增至 Veeam 備份與複寫清查時、 Veeam 需要具有提升 Privileges 的 GCVE 解決方案使用者帳戶。如需更多資訊 https://cloud.google.com/vmware-engine/docs/private-clouds/classic-console/howto-elevate-privilege["提升 VMware Engine Privileges"]、請參閱 Google Cloud Platform （ GCP ）文件、。
+
+如需其他資訊 https://helpcenter.veeam.com/docs/backup/vsphere/replica_limitations.html?ver=120["考量與限制"]、請參閱 Veeam 備份與複寫文件中的。
+
+
+
+== 部署步驟
+
+以下各節概述使用 Google Cloud NetApp Volumes 建立及掛載 NFS 資料存放區的部署步驟、並使用 Veeam 備份與複寫在內部部署資料中心與 Google Cloud VMware Engine 之間實作完整的災難恢復解決方案。
+
+
+
+=== 為 GCVE 建立 NetApp Volumes NFS Volume 和資料存放區
+
+如 https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-datastores-gcve["使用 NFS Volume 做為由 Google Cloud NetApp Volumes 代管的 vSphere 資料存放區"]需如何將 Google Cloud NetApp Volumes 做為 GCVE 資料存放區的總覽、請參閱。
+
+請完成下列步驟、使用 NetApp Volumes 為 GCVE 建立及使用 NFS 資料存放區：
+
+.建立 NetApp Volumes NFS Volume
+[%collapsible]
+====
+Google Cloud NetApp Volumes 可從 Google Cloud Platform （ GCP ）主控台存取。
+
+ https://cloud.google.com/netapp/volumes/docs/configure-and-use/volumes/create-volume["建立Volume"]如需此步驟的詳細資訊、請參閱 Google Cloud NetApp Volumes 文件中的。
+
+. 在網頁瀏覽器中、瀏覽 https://console.cloud.google.com/[]並登入 GCP 主控台。搜尋 * NetApp Volumes * 以開始使用。
+. 在 * NetApp Volumes * 管理介面中、按一下 * Create* 開始建立 NFS Volume 。
++
+image::dr-veeam-gcnv-image02.png[建立 Volume]
+
++
+｛ nbsp ｝
+
+. 在 * 建立 Volume * 精靈中、填寫所有必要資訊：
++
+** Volume 的名稱。
+** 要在其中建立磁碟區的儲存池。
+** 掛載 NFS Volume 時使用的共用名稱。
+** 以 GiB 表示的 Volume 容量。
+** 要使用的儲存傳輸協定。
+** 勾選 * 當用戶端連線時阻止刪除磁碟區 * （ GCVE 以資料存放區掛載時需要）方塊。
+** 存取 Volume 的匯出規則。這是 NFS 網路上 ESXi 介面卡的 IP 位址。
+** 用於使用本機快照保護磁碟區的快照排程。
+** 您也可以選擇備份磁碟區和 / 或建立磁碟區的標籤。
++
+
+NOTE: 在 NetApp Volumes 中建立磁碟區時、僅支援 NFS v3 作為 GCVE 資料存放區使用。
+
++
+image::dr-veeam-gcnv-image03.png[建立 Volume]
+
++
+｛ nbsp ｝
+
++
+image::dr-veeam-gcnv-image04.png[建立 Volume]
+
++
+｛ nbsp ｝ 按一下 * 建立 * 以完成建立體積。
+
+
+
+. 建立磁碟區後、即可從磁碟區的內容頁面檢視掛載磁碟區所需的 NFS 匯出路徑。
++
+image::dr-veeam-gcnv-image05.png[Volume 內容]
+
+
+
+====
+.在 GCVE 中掛載 NFS 資料存放區
+[%collapsible]
+====
+在撰寫本文時、在 GCVE 中掛載資料存放區的程序需要開啟 GCP 支援服務單、才能將磁碟區掛載為 NFS 資料存放區。
+
+如需詳細資訊、請參閱 https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-datastores-gcve["使用 NFS Volume 做為由 Google Cloud NetApp Volumes 代管的 vSphere 資料存放區"] 。
+
+====
+
+
+=== 將 VM 複寫到 GCVE 並執行容錯移轉計畫和容錯回復
+
+.將 VM 複寫到 GCVE 中的 NFS 資料存放區
+[%collapsible]
+====
+Veeam 備份與複寫會在複寫期間利用 VMware vSphere 快照功能、 Veeam 備份與複寫會要求 VMware vSphere 建立 VM 快照。VM 快照是 VM 的時間點複本、其中包含虛擬磁碟、系統狀態、組態和中繼資料。Veeam 備份與複寫會使用快照做為複寫資料來源。
+
+若要複寫 VM 、請完成下列步驟：
+
+. 開啟 Veeam 備份與複寫主控台。
+. 在 * 主頁 * 選項卡上，單擊 * 複製作業 > 虛擬機 ...*
++
+image::dr-veeam-gcnv-image06.png[建立 VM 複寫工作]
+
++
+｛ nbsp ｝
+
+. 在 * 新複寫工作 * 精靈的 * 名稱 * 頁面上、指定工作名稱並選取適當的進階控制核取方塊。
++
+** 如果內部部署和 GCP 之間的連線頻寬有限、請選取複本植入核取方塊。
+** 如果 GCVE SDDC 上的區段與內部部署站台網路的區段不符、請選取「網路重新對應（適用於具有不同網路的 GCVE SDDC 站台）」核取方塊。
+** 如果內部生產站台的 IP 定址方案與目標 GCVE 站台的配置不同、請選取複本重新 IP （適用於具有不同 IP 定址方案的 DR 站台）核取方塊。
++
+image::dr-veeam-gcnv-image07.png[名稱頁面]
+
++
+｛ nbsp ｝
+
+
+
+. 在「 * 虛擬機器 * 」頁面上、選取要複寫到連接至 GCVE SDDC 的 NetApp Volumes 資料存放區的 VM 。按一下 * 新增 * 、然後在 * 新增物件 * 視窗中選取必要的 VM 或 VM 容器、然後按一下 * 新增 * 。單擊 * 下一步 * 。
++
+
+NOTE: 虛擬機器可放置在 vSAN 上、以填滿可用的 vSAN 資料存放區容量。在試驗性光叢集中、 3 節點 vSAN 叢集的可用容量將會受到限制。其餘的資料可輕鬆放在 Google Cloud NetApp Volumes 資料存放區、以便恢復 VM 、並可在稍後擴充叢集以符合 CPU/ 記憶體需求。
+
++
+image::dr-veeam-gcnv-image08.png[選取要複寫的 VM]
+
++
+｛ nbsp ｝
+
+. 在 * 目的地 * 頁面上、選取目的地作為 GCVE SDDC 叢集 / 主機、以及 VM 複本的適當資源集區、 VM 資料夾和 GCNV 資料存放區。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image09.png[選取目的地詳細資料]
+
++
+｛ nbsp ｝
+
+. 在 * 網路 * 頁面上、視需要在來源和目標虛擬網路之間建立對應。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image10.png[網路對應]
+
++
+｛ nbsp ｝
+
+. 在 *re-IP* 頁面上、按一下 * 新增 ... * 按鈕以新增重新 IP 規則。填寫來源和目標 VM IP 範圍、以指定在容錯移轉時套用至來源 VM 的網路。使用星號來指定該八位元組的位址範圍。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image11.png[Re-IP 頁面]
+
++
+｛ nbsp ｝
+
+. 在「 * 工作設定 * 」頁面上、指定要儲存 VM 複本中繼資料的備份儲存庫、保留原則、然後選取底部的「 * 進階 ... * 」按鈕、以取得其他工作設定。單擊 * 下一步 * 繼續。
+. 在 * 資料傳輸 * 上、選取位於來源和目標站台的 Proxy 伺服器、並保持選取「直接」選項。如果已設定、也可以在此選取 WAN 加速器。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image12.png[資料傳輸]
+
++
+｛ nbsp ｝
+
+. 在 * 來賓處理 * 頁面上、勾選 * 視需要啟用應用程式感知處理 * 的方塊、然後選取 * 來賓作業系統認證 * 。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image13.png[客體處理]
+
++
+｛ nbsp ｝
+
+. 在 * 排程 * 頁面上、定義複寫工作執行的時間和頻率。單擊 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image14.png[排程頁面]
+
++
+｛ nbsp ｝
+
+. 最後、請檢閱 * 摘要 * 頁面上的工作設定。勾選「 * 按一下「完成 * 」時執行工作」方塊、然後按一下「 * 完成 * 」以完成複寫工作的建立。
+. 執行後、即可在工作狀態視窗中檢視複寫工作。
++
+image::dr-veeam-gcnv-image15.png[工作狀態視窗]
+
++
+如需 Veeam 複寫的其他資訊、請參閱link:https://helpcenter.veeam.com/docs/backup/vsphere/replication_process.html?ver=120["複寫的運作方式"]
+
+
+
+====
+.建立容錯移轉計畫
+[%collapsible]
+====
+當初始複寫或植入完成時、請建立容錯移轉計畫。容錯移轉計畫有助於自動逐一或以群組的方式、為相關的 VM 執行容錯移轉。容錯移轉計畫是 VM 處理順序的藍圖、包括開機延遲。容錯移轉計畫也有助於確保關鍵相關 VM 已經在執行中。
+
+完成初始複寫或植入後、建立容錯移轉計畫。此計畫可做為策略藍圖、以個別或群組的形式協調相關 VM 的容錯移轉作業。它定義了 VM 的處理順序、納入必要的開機延遲、並確保關鍵的相關 VM 在其他 VM 之前運作正常。透過實作結構完善的容錯移轉計畫、組織可以簡化災難恢復程序、將停機時間降至最低、並在容錯移轉事件期間維持系統的完整性。
+
+建立計畫時、 Veeam 備份與複寫會自動識別並使用最新的還原點來啟動 VM 複本。
+
+
+NOTE: 只有在初始複寫完成且 VM 複本處於就緒狀態時、才能建立容錯移轉計畫。
+
+
+NOTE: 執行容錯移轉計畫時可同時啟動的虛擬機器數量上限為 10 個。
+
+
+NOTE: 在容錯移轉過程中、來源 VM 將不會關閉。
+
+若要建立 * 容錯移轉計畫 * 、請完成下列步驟：
+
+. 在 * 主畫面 * 上、按一下 * 還原 * 區段中的 * 容錯移轉計畫 * 按鈕。在下拉式清單中、選取 * VMware vSphere ... *
++
+image::dr-veeam-gcnv-image16.png[建立容錯移轉計畫]
+
++
+｛ nbsp ｝
+
+. 在 * 新容錯移轉計劃 * 精靈的 * 一般 * 頁面上、提供計畫的名稱和說明。可視需要新增容錯移轉前後指令碼。例如、在啟動複寫的虛擬機器之前、請先執行指令碼來關閉虛擬機器。
++
+image::dr-veeam-gcnv-image17.png[一般頁面]
+
++
+｛ nbsp ｝
+
+. 在 * 虛擬機器 * 頁面上、按一下按鈕以 * 新增虛擬機器 * 、然後選取 * 從複本 ... * 。選擇 VM 作為容錯移轉計畫的一部分、然後修改 VM 開機順序及任何必要的開機延遲、以符合應用程式相依性。
++
+image::dr-veeam-gcnv-image18.png[虛擬機器頁面]
+
++
+｛ nbsp ｝
+
++
+image::dr-veeam-gcnv-image19.png[開機順序和延遲]
+
++
+｛ nbsp ｝
+
++
+按一下 * 套用 * 以繼續。
+
+. 最後檢閱所有的容錯移轉計畫設定、然後按一下 * 完成 * 來建立容錯移轉計畫。
+
+
+如需建立複寫工作的其他資訊，請參閱link:https://helpcenter.veeam.com/docs/backup/vsphere/replica_job.html?ver=120["建立複寫工作"]。
+
+====
+.執行容錯移轉計畫
+[%collapsible]
+====
+在容錯移轉期間、正式作業站台中的來源 VM 會切換到災難恢復站台上的複本。在程序中、 Veeam 備份與複寫會將 VM 複本還原至所需的還原點、並將所有 I/O 活動從來源 VM 傳輸至複本。複本不僅適用於實際災難、也適用於模擬災難恢復訓練。在容錯移轉模擬中、來源 VM 會繼續執行。完成必要測試後、容錯移轉即可復原、並將作業恢復正常。
+
+
+NOTE: 請確定已建立網路區段、以避免容錯移轉期間發生 IP 衝突。
+
+完成下列步驟以開始進行容錯移轉計畫：
+
+. 若要開始使用、請在 * 首頁 * 檢視中、按一下左側功能表中的 * 複本 > 容錯移轉計畫 * 、然後按一下 * 開始 * 按鈕。或者、您也可以使用 * 開始到 ... * 按鈕來容錯移轉到先前的還原點。
++
+image::dr-veeam-gcnv-image20.png[啟動容錯移轉計畫]
+
++
+｛ nbsp ｝
+
+. 在 * 執行容錯移轉計畫 * 視窗中監控容錯移轉的進度。
++
+image::dr-veeam-gcnv-image21.png[監控容錯移轉進度]
+
++
+｛ nbsp ｝
+
+
+
+
+NOTE: Veeam 備份與複寫會停止來源 VM 的所有複寫活動、直到其複本回到「就緒」狀態為止。
+
+如需容錯移轉計畫的詳細資訊、請參閱 link:https://helpcenter.veeam.com/docs/backup/vsphere/failover_plan.html?ver=120["容錯移轉計畫"]。
+
+====
+.容錯回復至正式作業站台
+[%collapsible]
+====
+執行容錯移轉是一項中間步驟、需要根據需求完成。選項包括：
+
+* * 容錯回復至正式作業 * ：還原至原始 VM 、並將複本作用中期間所做的所有修改同步回原始 VM 。
+
+
+
+NOTE: 在容錯回復期間、變更會傳輸、但不會立即套用。驗證原始虛擬機器的功能後、請選取 * 提交容錯回復 * 。或者、如果原始 VM 出現非預期的行為、請選擇 * 復原容錯回復 * 以還原至 VM 複本。
+
+* * 復原容錯移轉 * ：還原至原始 VM 、放棄在其作業期間對 VM 複本所做的所有變更。
+* * 永久容錯移轉 * ：從原始 VM 永久切換至複本、將複本建立為新的主要 VM 、以供後續作業使用。
+
+
+在此案例中、已選取「容錯回復至正式作業」選項。
+
+請完成下列步驟、以執行線上網站的容錯回復：
+
+. 從 * 主目錄 * 檢視中、按一下左側功能表中的 * 複本 > Active* 。選取要納入的 VM 、然後按一下上方功能表中的 * 故障恢復至正式作業 * 按鈕。
++
+image::dr-veeam-gcnv-image22.png[啟動容錯回復]
+
++
+｛ nbsp ｝
+
+. 在 *Failback* （故障恢復）嚮導的 *Replica* 頁面上，選擇要包含在故障恢復作業中的副本。
+. 在 * 目的地 * 頁面上、選取 * 容錯回復至原始虛擬機器 * 、然後按一下 * 下一步 * 繼續。
++
+image::dr-veeam-gcnv-image23.png[容錯回復至原始 VM]
+
++
+｛ nbsp ｝
+
+. 在 *Failback Mode* 頁面上、選擇 * Auto* 以儘快啟動容錯回復。
++
+image::dr-veeam-gcnv-image24.png[容錯回復模式]
+
++
+｛ nbsp ｝
+
+. 在 * Summary （摘要） * 頁面上，選擇是否在還原後 * 啓動目標 VM ，然後單擊 Finish （完成）啓動故障恢復作業。
++
+image::dr-veeam-gcnv-image25.png[容錯回復工作摘要]
+
++
+｛ nbsp ｝
+
+
+
+容錯回復認可可完成容錯回復作業、確認變更已成功整合至正式作業 VM 。Veeam 備份與複寫一經認可、就會針對還原的正式作業 VM 恢復正常的複寫活動。這會將還原的複本狀態從 _Failback_ 變更為 _Ready_.
+
+. 若要提交容錯回復、請瀏覽至 * 複本 > Active* 、選取要提交的 VM 、按一下滑鼠右鍵、然後選取 * 認可容錯回復 * 。
++
+image::dr-veeam-gcnv-image26.png[提交容錯回復]
+
++
+｛ nbsp ｝
+
++
+image::dr-veeam-gcnv-image27.png[認可容錯回復成功]
+
++
+｛ nbsp ｝ 在容錯回復至正式作業後、虛擬機器都會還原回原始正式作業站台。
+
+
+
+如需容錯回復程序的詳細資訊、請參閱的 Veeam 文件 link:https://helpcenter.veeam.com/docs/backup/vsphere/failover_failback.html?ver=120["容錯移轉和容錯回復以進行複寫"]。
+
+====
+
+
+== 結論
+
+Google Cloud NetApp Volumes 資料存放區功能可讓 Veeam 和其他通過驗證的協力廠商工具提供具成本效益的災難恢復（ DR ）解決方案。透過使用試驗性光叢集、而非大型專用叢集來進行 VM 複本、組織可以大幅降低成本。此方法可提供量身打造的災難恢復策略、運用現有的內部備份解決方案來進行雲端型災難恢復、免除額外的內部部署資料中心需求。發生災難時、只要按一下滑鼠就能啟動容錯移轉、或設定為自動進行、以確保業務持續運作、並將停機時間降至最低。
+
+若要深入瞭解此程序、歡迎觀看詳細的逐步解說影片。
+
+video::b2fb8597-c3fe-49e2-8a84-b1f10118db6d[panopto,width=Video walkthrough of the solution]
