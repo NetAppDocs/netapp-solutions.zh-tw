@@ -261,9 +261,9 @@ image:aipod_nv_a90_logical.png["錯誤：缺少圖形影像"]
 *** net int create -vserver baspoe-data -lif c2-6a-lif1 -home-node-a90-02 AFF -home-port e6a -address 100.127.102.105 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
 *** net int create -vserver baspoe-data -lif c2-6a-lif2 -home-node-a90-02 AFF -home-port e6a -address 100.127.102.106 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
 *** net int create -vserver baspoe-data -lif c2-6B-lif1 -home-node-a90-02 AFF -home-port e6b -address 100.127.202.105 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
-*** net int create -vserver baspoe-data -lif c2-6B-lif2 -home-node-a90-02 AFF -home-port e6b -address 100.127.202.106 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
-*** net int create -vserver baspoe-data -lif c2-11a-lif1 -home-node-a90-02 AFF -home-port e11a -address 100.127.102.107 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
-*** net int create -vserver baspoe-data -lif c2-11a-lif2 -home-node-a90-02 AFF -home-port e11a -address 100.127.102.108 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-6B-lif2 -home-node-a90-02 -home-port AFF e6b -address 100.127.202.106 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11a-lif1 -home-node-a90-02 -home-port AFF e11a -address 100.127.102.107 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
+*** net int create -vserver baspoe-data -lif c2-11a-lif2 -home-node-a90-02 -home-port AFF e11a -address 100.127.102.108 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
 *** net int create -vserver baspoe-data -lif c2-11b-lif1 -home-node-a90-02 AFF -home-port e11b -address 100.127.202.107 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
 *** net int create -vserver baspoe-data -lif c2-11b-lif2 -home-node-a90-02 AFF -home-port e11b -address 100.127.202.108 -netmask 255 ． 255 ． 255 ． 255 ． 255 ． 255 ． 0
 

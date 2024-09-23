@@ -42,7 +42,7 @@ Transformers（Bert）的雙向編碼器表示法是NLP的一種以變壓器為�
 
 == Horovod分散式訓練
 
-MapReduce相關效能的核心Hadoop驗證是透過TeraGen、TeraSort、TeraValidate和DFSIO（讀寫）來執行。TeraGen 和 TeraSort 驗證結果會在 http://www.netapp.com/us/media/tr-3969.pdf[] E 系列和 AFF 的「儲存分層」（ xref ）一節中顯示。
+MapReduce相關效能的核心Hadoop驗證是透過TeraGen、TeraSort、TeraValidate和DFSIO（讀寫）來執行。TeraGen 和 TeraSort 驗證結果會在 https://www.netapp.com/pdf.html?item=/media/16420-tr-3969pdf.pdf[] E 系列和 AFF 的「儲存分層」（ xref ）一節中顯示。
 
 根據客戶的要求、我們認為透過Spark進行的分散式訓練是各種使用案例中最重要的一項。在本文中、我們使用了 https://horovod.readthedocs.io/en/stable/spark_include.html["Hovorod on Spark"^] 使用NetApp All Flash FAS （AFF VMware）儲存控制器Azure NetApp Files 、VMware®及StorageGRID VMware®來驗證NetApp內部部署、雲端原生及混合雲解決方案的Spark效能。
 
