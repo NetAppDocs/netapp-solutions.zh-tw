@@ -1,6 +1,6 @@
 ---
 sidebar: sidebar 
-permalink: ai/aicp_example_mlflow_workflows_overview.html 
+permalink: ai/aicp_example_mlflow_workflows_overview_update.html 
 keywords: AI, control plane, MLOps, MLflow 
 summary: NetApp 的開放原始碼 MLOps ： NetApp 與 MLflow 的資料組對模型追蹤能力 
 ---
@@ -113,7 +113,7 @@ mlflow.set_tracking_uri("<your_tracking_server_uri>>:<port>>")
 ----
 上述程式碼片段會將快照 ID 記錄到 MLflow 實驗追蹤伺服器、可用來追蹤回溯到用於訓練模型的特定資料集和模型。這可讓您追蹤回溯至用於訓練模型的特定資料集和模型、以及用於預先處理資料的特定程式碼、標記輸入檔案、載入 tokenizer 和模型、編碼、產生和解碼文字、儲存模型、微調模型、使用 link:https://www.nltk.org/api/nltk.lm.api.html["NLTK"^] Perplexity 分數評估模型、以及記錄超流程和 MLflow 參數。例如、下圖顯示不同實驗執行的 sci 套件學習模型平均平方誤差（ MSE ）：
 
-image::aicp_mlrun-mlflow_sklearn-MLmodels_MSEs.png[aicp mlrun mlflow skLearn MLodel MSE]
+image::aicp_mlrun-mlflow_sklearn-MLmodels_MSEs.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 資料分析、業務單位擁有者和高階主管都能直接瞭解並推斷在您的特定限制、設定、期間和其他情況下、哪種模式的效能最佳。如需更多有關如何預先處理、標記化、載入、編碼、產生、解碼、儲存、微調及評估模型的詳細資訊、請參閱 `dotk-mlflow` `netapp_dataops.k8s`儲存庫中的套裝 Python 範例。
 
@@ -132,7 +132,7 @@ image::aicp_mlrun-mlflow_sklearn-MLmodels_MSEs.png[aicp mlrun mlflow skLearn MLo
 
 結果link:https://mlflow.org/docs/latest/model-registry.html#deploy-and-organize-models["MLflow 中的模型登錄"^]將包含下列隨機樹系模型、版本和標記：
 
-image::aicp_mlrun-mlflow_sklearn_modelRegistry_sk-learn-random-forest-reg-model_versions.png[aicp mlrun mlflow skLearn modelRegistry SK 學習隨機樹系 reg 模型版本]
+image::aicp_mlrun-mlflow_sklearn_modelRegistry_sk-learn-random-forest-reg-model_versions.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 若要透過 Kubernetes 將模型部署至推斷伺服器、只需執行下列 Jupyter Notebook 即可。請注意、在此範例中 `dotk-mlflow`、我們不使用套件、而是修改隨機樹系回歸模型架構、以將初始模型中的平均平方錯誤（ MSE ）降至最低、因此在我們的模型登錄中建立此類模型的多個版本。
 
@@ -194,22 +194,22 @@ Created version '3' of model 'sk-learn-random-forest-reg-model'.
 ....
 在模型登錄中、儲存所需的模型、版本和標記之後、您可以追蹤回溯至用於訓練模型的特定資料集、模型和程式碼、以及用於處理資料的特定程式碼、載入 tokenizer 和模型、編碼、產生和解碼文字、儲存模型、微調模型、使用 Jupterlog `snapshot_id`'s and your chosen metrics to MLflow by choosing the corerct experiment under `mlrun` 目前使用中的資料夾、 Jupteryk 資料夾和 hupterylog 資料夾等資料夾中的超快取資料夾、資料夾中的超快取參數評估模型。
 
-image::aicp_jhub_mlrun-experiments.png[aicp jhub mlrun 實驗]
+image::aicp_jhub_mlrun-experiments.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 同樣地、對於我們 `phi-2_finetuned_model`透過 GPU 或 vGPU 使用 `torch`程式庫計算量化權重的產品、我們可以檢查下列中間成品、以實現整個工作流程的效能最佳化、擴充性（處理量 /SLA 保有權）和成本降低：
 
-image::aicp_jhub_mlrun-torch_artifacts.png[aicp jhub mlrun 手電筒假影]
+image::aicp_jhub_mlrun-torch_artifacts.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 對於使用 Scikit 學習和 MLflow 執行的單一實驗、下圖顯示產生的成品、 `conda`環境、 `MLmodel`檔案和 `MLmodel`目錄：
 
-image::aicp_jhub_mlrun-mlflow_sklearn-MLmodel.png[aicp jhub mlrun mlflow skLearn MLmodel]
+image::aicp_jhub_mlrun-mlflow_sklearn-MLmodel.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 客戶可以指定標籤、例如「預設」、「階段」、「程序」、「瓶頸」、以組織不同的 AI 工作流程執行功能、記錄其最新結果、或設定 `contributors`以追蹤資料科學團隊開發人員的進度。如果是預設標籤「」、則表示您已儲存的 `mlflow.log-model.history`、、 `mlflow.runName`、 `mlflow.source.type`和 `mlflow.source.name` `mlflow.user` JupyterHub 目前使用中的檔案導覽標籤：
 
-image::aicp_jhub_mlrun-mlflow-tags.png[aicp jhub mlrun mlflow 標記]
+image::aicp_jhub_mlrun-mlflow-tags.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 最後、使用者擁有自己指定的 Jupyter Workspace 、該工作區已經過版本管理、並儲存在 Kubernetes 叢集中的持續磁碟區宣告（ PVC ）中。下圖顯示 Jupyter Workspace （包含 `netapp_dataops.k8s` Python 套件）及成功建立的結果 `VolumeSnapshot`：
 
-image::aicp_jhub_dotk_nb_cvs_usrWsVol.png[aicp jhub dotk NB CVS usrWsVol]
+image::aicp_jhub_dotk_nb_cvs_usrWsVol.png[此圖顯示輸入 / 輸出對話方塊或表示寫入內容]
 
 我們採用業界公認的 Snapshot ® 和其他技術來確保企業級的資料保護、移動和高效壓縮。如需其他 AI 使用案例、請參閱link:https://docs.netapp.com/us-en/netapp-solutions/ai/aipod_nv_intro.html["NetApp AIPod"^]文件。
