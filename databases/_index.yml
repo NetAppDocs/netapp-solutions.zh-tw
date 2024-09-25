@@ -4,14 +4,10 @@ indexpage:
   summary: NetApp企業資料庫解決方案是一套策略與技術功能、可在主要企業資料庫中展現NetApp儲存設備的功能。
   lead: NetApp企業資料庫解決方案是一套策略與技術功能、可在主要企業資料庫中展現NetApp儲存設備的功能。
   tiles:
-  - title: Oracle
+  - title: Oracle for AWS / FSX ONTAP
     links:
     - title: AWS EC2 中的 Oracle HA 搭配 Pacemaker 叢集和 FSX ONTAP
       url: "/aws_ora_ha_pacemaker.html"
-    - title: 快速恢復 Oracle VLDB 、並在無基礎上增加合併功能
-      url: "/azure_ora_anf_inc_merge.html"
-    - title: Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署
-      url: "/automation_ora_anf_nfs.html"
     - title: 透過 iSCSI 在 Amazon FSX ONTAP 上進行簡化的自動化 Oracle 部署
       url: "/automation_ora_aws-fsx_iscsi.html"
     - title: 在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上使用簡化的自我管理 Oracle
@@ -24,9 +20,15 @@ indexpage:
       url: "/aws_ora_fsx_ec2_nfs_asm.html"
     - title: 搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護
       url: "/aws_ora_fsx_ec2_iscsi_asm.html"
+  - title: Oracle for Azure / anf
+    links:
+    - title: 快速恢復 Oracle VLDB 、並在無基礎上增加合併功能
+      url: "/azure_ora_anf_inc_merge.html"
+    - title: Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署
+      url: "/automation_ora_anf_nfs.html"
     - title: Oracle資料庫部署Azure NetApp Files 與保護功能
       url: "/azure_ora_nfile_usecase.html"
-  - title: SQL Server
+  - title: 適用於雲端供應商的 SQL Server
     links:
     - title: AWS FSX for ONTAP 上的 Microsoft SQL Server 備份與還原
       url: "/sqlsb-backup-restore-aws-fsxn.html"
@@ -34,6 +36,8 @@ indexpage:
       url: "/sql-aws-ec2.html"
     - title: SQL Server on Azure NetApp Files
       url: "/sql-srv-anf_overview.html"
+  - title: 內部部署 SQL Server
+    links:
     - title: SAP搭配Microsoft SQL Server、在Windows上使用叢集Data ONTAP 式功能
       url: https://www.netapp.com/pdf.html?item=/media/16865-tr-4467pdf.pdf
     - title: 現代化Microsoft SQL Server
