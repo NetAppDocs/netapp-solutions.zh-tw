@@ -148,7 +148,7 @@ image:vcf_ora_si_vvols_architecture.png["此映像提供在 AWS 公有雲中使�
 部署需要下列先決條件。
 
 . 已設定 VMware VCF 。有關如何創建 VCF 的信息或說明，請參閱 VMware 文檔 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"^]。
-. 在 VCF 工作負載網域中、為三個 Linux VM 、兩個 VM 用於 Oracle 資料庫、以及一個 VM 用於 Ansible 控制器。配置一部 Windows 伺服器 VM 以執行 NetApp SnapCenter 伺服器。有關爲自動 Oracle 數據庫部署設置 Ansible 控制器的信息，請參閱以下資源 link:https://docs.netapp.com/us-en/netapp-solutions/automation/getting-started.html["NetApp解決方案自動化入門"^]。
+. 在 VCF 工作負載網域中、為三個 Linux VM 、兩個 VM 用於 Oracle 資料庫、以及一個 VM 用於 Ansible 控制器。配置一部 Windows 伺服器 VM 以執行 NetApp SnapCenter 伺服器。有關爲自動 Oracle 數據庫部署設置 Ansible 控制器的信息，請參閱以下資源 link:../automation/getting-started.html["NetApp解決方案自動化入門"^]。
 . 適用於 VMware vSphere 的 SnapCenter 外掛程式 6.0 版已部署在 VCF 中。有關插件部署，請參閱以下資源 link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["VMware vSphere文件的VMware外掛程式SnapCenter"^]：。
 . 適用於 VMware vSphere 的 ONTAP 工具已部署在 VCF 中。請參閱下列資源以取得 VMware vSphere 部署的 ONTAP 工具： link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["適用於 VMware vSphere 的 ONTAP 工具文件"^]
 
@@ -434,7 +434,7 @@ UUID=aff942c4-b224-4b62-807d-6a5c22f7b623 /boot                   xfs     defaul
 
 [%collapsible]
 ====
-建議您運用 NetApp 自動化工具套件、在 VCF 中使用 vVols 部署 Oracle 。有關在 xfs 文件系統上執行 Oracle 自動部署的詳細參考，請參閱 TR-4992 ： link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_c-series_nfs.html["NetApp C 系列搭配 NFS 的簡化自動化 Oracle 部署"^]。雖然 TR-4992 涵蓋 NetApp C 系列與 NFS 的自動化 Oracle 部署、但如果繞過 NFS 檔案系統掛載至資料庫 VM 、則與 VCF 中的 Oracle 部署相同。我們只需略過特定標籤即可。以下是逐步程序。
+建議您運用 NetApp 自動化工具套件、在 VCF 中使用 vVols 部署 Oracle 。有關在 xfs 文件系統上執行 Oracle 自動部署的詳細參考，請參閱 TR-4992 ： link:automation_ora_c-series_nfs.html["NetApp C 系列搭配 NFS 的簡化自動化 Oracle 部署"^]。雖然 TR-4992 涵蓋 NetApp C 系列與 NFS 的自動化 Oracle 部署、但如果繞過 NFS 檔案系統掛載至資料庫 VM 、則與 VCF 中的 Oracle 部署相同。我們只需略過特定標籤即可。以下是逐步程序。
 
 . 以管理員使用者的身分透過 ssh 登入 Ansible 控制器 VM 、並複製一份適用於 NFS 上 Oracle 的自動化工具套件複本。
 +
@@ -449,7 +449,7 @@ LINUX.X64_193000_db_home.zip
 p34765931_190000_Linux-x86-64.zip
 p6880880_190000_Linux-x86-64.zip
 ....
-. 根據 TR-4992 的本節中的說明，配置部署目標文件 - hosts 、全局變量文件 - vars/vars.yml 和本地 DB VM 變量文件 - host_vars/host_name.yml ： link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_c-series_nfs.html#parameter-files-configuration["參數檔組態"^]。從本機 DB VM 變數檔案中註解 nfs_lif 變數。
+. 根據 TR-4992 的本節中的說明，配置部署目標文件 - hosts 、全局變量文件 - vars/vars.yml 和本地 DB VM 變量文件 - host_vars/host_name.yml ： link:automation_ora_c-series_nfs.html#parameter-files-configuration["參數檔組態"^]。從本機 DB VM 變數檔案中註解 nfs_lif 變數。
 . 在 Ansible 控制器和資料庫 VM 之間設定 ssh 免持式驗證、這需要產生 ssh 金鑰配對、並將公開金鑰複製到資料庫 VM 管理使用者根目錄 .ssh 資料夾 authorized_keys 檔案。
 +
 [source, cli]
@@ -852,16 +852,7 @@ SQL>
 
 若要深入瞭解本文件所述資訊、請參閱下列文件及 / 或網站：
 
-* VMware Cloud Foundation
-+
-link:https://www.vmware.com/products/cloud-infrastructure/vmware-cloud-foundation["https://www.vmware.com/products/cloud-infrastructure/vmware-cloud-foundation"^]
-
-* NetApp企業資料庫解決方案
-+
-link:https://docs.netapp.com/us-en/netapp-solutions/databases/index.html["https://docs.netapp.com/us-en/netapp-solutions/databases/index.html"^]
-
-* SnapCenter 軟體 6.0
-+
-link:https://docs.netapp.com/us-en/snapcenter/concept/concept_snapcenter_overview.html["https://docs.netapp.com/us-en/snapcenter/concept/concept_snapcenter_overview.html"^]
-
+* link:https://www.vmware.com/products/cloud-infrastructure/vmware-cloud-foundation["VMware Cloud Foundation"^]
+* link:index.html["NetApp企業資料庫解決方案"^]
+* link:https://docs.netapp.com/us-en/snapcenter/concept/concept_snapcenter_overview.html["SnapCenter 軟體 6.0"^]
 

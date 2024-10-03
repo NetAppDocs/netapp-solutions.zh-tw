@@ -382,7 +382,7 @@ image:vmfs-deploy-image37.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 總結來說、使用 ONTAP ASA 儲存設備來最佳化 VMware 部署的 TCO 時、請將適用於 VMware 的 SnapCenter 外掛程式作為備份 VM 的簡單且有效率的方法。它可讓您以無縫且快速的方式備份及還原 VM 、因為快照備份需要幾秒鐘的時間才能完成。
 
-請link:https://docs.netapp.com/us-en/netapp-solutions/ehc/bxp-scv-hybrid-solution.html#restoring-virtual-machines-in-the-case-of-data-loss["解決方案指南"]參閱和link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_get_started_overview.html["產品文件"]以瞭解 SnapCenter 組態、備份、從主要或次要儲存系統還原、甚至是從儲存在物件儲存設備上的備份進行長期保留。
+請link:../ehc/bxp-scv-hybrid-solution.html#restoring-virtual-machines-in-the-case-of-data-loss["解決方案指南"]參閱和link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_get_started_overview.html["產品文件"]以瞭解 SnapCenter 組態、備份、從主要或次要儲存系統還原、甚至是從儲存在物件儲存設備上的備份進行長期保留。
 
 為了降低儲存成本、 FabricPool 磁碟區分層可自動將資料用於快照複本移至成本較低的儲存層。Snapshot 複本通常使用超過 10% 的已分配儲存設備。雖然這些時間點複本對資料保護和災難恢復非常重要、但卻很少使用、也無法有效使用高效能儲存設備。透過 FabricPool 的「僅限 Snapshot 」原則、您可以輕鬆釋放高效能儲存設備上的空間。啟用此原則時、作用中檔案系統未使用之磁碟區中的非作用中快照複本區塊會移至物件層、讀取後、 Snapshot 複本會移至本端層、以恢復 VM 或整個資料存放區。此物件層可以是私有雲（例如 NetApp StorageGRID ）或公有雲（例如 AWS 或 Azure ）的形式。
 
@@ -412,9 +412,9 @@ image:vmfs-deploy-image39.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 透過在每個超純量系統上整合由 NetApp 支援的單一伺服器服務、企業組織就能以簡單的移轉方法實現 vSphere 型雲端解決方案、無需重新建立平台、無需變更 IP 、也不需變更架構。此外、此最佳化可讓您擴充儲存設備佔用空間、同時將vSphere中所需的主機數量維持在最低、但不會變更可用的儲存階層架構、安全性或檔案。
 
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/aws-migrate-vmware-hcx.html["將工作負載移轉至適用於 ONTAP 資料存放區的 FSX"]。
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/azure-migrate-vmware-hcx.html["將工作負載移轉至 Azure NetApp Files 資料存放區"]。
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp-migrate-vmware-hcx.html["將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區"]。
+* 檢視的詳細指南link:../ehc/aws-migrate-vmware-hcx.html["將工作負載移轉至適用於 ONTAP 資料存放區的 FSX"]。
+* 檢視的詳細指南link:../ehc/azure-migrate-vmware-hcx.html["將工作負載移轉至 Azure NetApp Files 資料存放區"]。
+* 檢視的詳細指南link:../ehc/gcp-migrate-vmware-hcx.html["將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區"]。
 
 
 
@@ -433,9 +433,9 @@ image:vmfs-deploy-image39.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 對於想要在任何超純量上使用 VMware Cloud 做為災難恢復目標的客戶、 ONTAP 儲存設備的資料存放區（ Azure NetApp Files 、適用於 ONTAP 的 FSX 、 Google Cloud NetApp Volume ）可以使用任何經過驗證的第三方解決方案、提供 VM 複寫功能、從內部部署複寫資料。藉由新增 ONTAP 儲存設備的資料存放區、可在目的地上以較少的 ESXi 主機來實現成本最佳化的災難恢復。這也能在內部環境中取消部署次要站台、進而大幅節省成本。
 
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/veeam-fsxn-dr-to-vmc.html["ONTAP 資料存放區的 FSX 災難恢復"]。
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/azure-native-dr-jetstream.html["災難恢復至 Azure NetApp Files 資料存放區"]。
-* 檢視的詳細指南link:https://docs.netapp.com/us-en/netapp-solutions/ehc/gcp-app-dr-sc-cvs-veeam.html["災難恢復至 Google Cloud NetApp Volumes 資料存放區"]。
+* 檢視的詳細指南link:../ehc/veeam-fsxn-dr-to-vmc.html["ONTAP 資料存放區的 FSX 災難恢復"]。
+* 檢視的詳細指南link:../ehc/azure-native-dr-jetstream.html["災難恢復至 Azure NetApp Files 資料存放區"]。
+* 檢視的詳細指南link:../ehc/gcp-app-dr-sc-cvs-veeam.html["災難恢復至 Google Cloud NetApp Volumes 資料存放區"]。
 
 
 

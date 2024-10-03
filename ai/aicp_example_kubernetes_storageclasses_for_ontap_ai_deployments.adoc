@@ -14,7 +14,7 @@ summary: NetApp 的開放原始碼 MLOps ： NetApp AIPod 部署的 Kubernetes �
 
 
 [role="lead"]
-您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。以下範例代表在上部署本解決方案元件時、您可能會想要建立的不同類型 StorageClasses link:https://docs.netapp.com/us-en/netapp-solutions/ai/aipod_nv_intro.html["NetApp AIPod"^]。如需 StorageClasses 的詳細資訊，以及其他平台 / 環境的 StorageClasses 等資訊，請參閱 link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident文件"^]。
+您必須先建立一個或多個 Kubernetes StorageClasses 、才能使用 Astra Trident 在 Kubernetes 叢集中動態配置儲存資源。以下範例代表在上部署本解決方案元件時、您可能會想要建立的不同類型 StorageClasses link:aipod_nv_intro.html["NetApp AIPod"^]。如需 StorageClasses 的詳細資訊，以及其他平台 / 環境的 StorageClasses 等資訊，請參閱 link:https://docs.netapp.com/us-en/trident/index.html["Astra Trident文件"^]。
 
 . NetApp 建議為您在本節中建立的啟用 FlexGroup 的 Trident Backend 建立 StorageClass link:aicp_example_trident_backends_for_ontap_ai_deployments.html["NetApp AIPod 部署的 Astra Trident 後端範例"]步驟1.後面的命令範例顯示建立多個 StorageClasses 、這些儲存類別對應於本節所建立的兩個範例後端 link:aicp_example_trident_backends_for_ontap_ai_deployments.html["NetApp AIPod 部署的 Astra Trident 後端範例"]第 1 步 - 利用的步驟 link:https://docs.netapp.com/us-en/ontap/nfs-rdma/["NFS over RDMA"] 而不是。
 +

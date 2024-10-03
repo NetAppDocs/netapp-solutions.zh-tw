@@ -35,7 +35,7 @@ image:redhat_openshift_image52.png["建立VM架構"]
 
 虛擬機器即會建立並啟動、並進入 * 執行中 * 狀態。它會使用預設儲存類別、自動為開機磁碟建立一個 PVC 和對應的 PV 。為了在未來能夠即時移轉 VM 、您必須確保用於磁碟的儲存類別可支援 rwx Volume 。這是即時移轉的必要條件。ONTAP NAS 和 ONTAP SAN （ iSCSI 和 NVMe / TCP 傳輸協定的 Volume emode 區塊）可支援使用各自儲存類別所建立之磁碟區的 rwx 存取模式。
 
-若要在叢集上設定 ONTAP-SAN 儲存類別、請參閱 link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["將 VM 從 VMware 移轉至 OpenShift 虛擬化的章節"]。
+若要在叢集上設定 ONTAP SAN 儲存類別，請參閱link:rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["將 VM 從 VMware 移轉至 OpenShift 虛擬化的章節"]。
 
 
 NOTE: 您可以將 ONTAP NAS 或 iSCSI 設定為叢集的預設儲存類別。按一下快速建立虛擬機器將使用預設儲存類別、為 VM 的可開機根磁碟建立 PVC 和 PV 。如果您的預設儲存類別不是 ONTAP - NAS 或 ONTAP - SAN 、您可以選取磁碟的儲存類別、方法是選取「自訂虛擬機器」 > 「自訂虛擬機器參數」 > 「磁碟」、然後編輯磁碟以使用所需的儲存類別。
