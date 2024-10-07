@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_multitenancy_overview.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
 summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
 ---
 = 使用NetApp在Red Hat OpenShift上設定多租戶共享
@@ -28,4 +28,4 @@ summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享
 * 保護工作負載、避免資源爭用造成非預期的效能降級
 
 
-對於完全實現的多租戶OpenShift叢集、必須針對屬於不同資源桶的叢集資源設定配額和限制：運算、儲存、網路、安全性等。雖然我們涵蓋本解決方案中所有資源桶的某些層面、 我們將重點放在隔離和保護同一個Red Hat OpenShift叢集上多個工作負載所提供或使用的資料的最佳實務做法上、方法是在由Astra Trident以NetApp ONTAP S動地 配置的儲存資源上設定多租戶。
+對於完全實現的多租戶OpenShift叢集、必須針對屬於不同資源桶的叢集資源設定配額和限制：運算、儲存、網路、安全性等。雖然我們涵蓋本解決方案中所有資源桶的某些層面、但我們仍致力於在同一個 Red Hat OpenShift 叢集上針對由 Trident 動態配置的儲存資源 NetApp ONTAP 、設定多租戶共享、以隔離和保護多個工作負載所服務或使用的資料。

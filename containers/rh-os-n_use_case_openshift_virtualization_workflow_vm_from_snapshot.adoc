@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
 = 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
@@ -20,7 +20,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 == 從Snapshot建立VM
 
-有了Astra Trident和Red Hat OpenShift、使用者就能在IT資源配置的儲存類別上、對持續磁碟區進行快照。有了這項功能、使用者可以取得磁碟區的時間點複本、然後使用它來建立新的磁碟區、或將相同的磁碟區還原回先前的狀態。這可啟用或支援各種使用案例、從復原到複製到資料還原。
+使用 Trident 和 Red Hat OpenShift 、使用者可以在其所佈建的儲存類別上擷取持續磁碟區的快照。有了這項功能、使用者可以取得磁碟區的時間點複本、然後使用它來建立新的磁碟區、或將相同的磁碟區還原回先前的狀態。這可啟用或支援各種使用案例、從復原到複製到資料還原。
 
 對於OpenShift中的Snapshot作業、必須定義Volume SnapshotClass、Volume Snapshot和Volume SnapshotContent等資源。
 

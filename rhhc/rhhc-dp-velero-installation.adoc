@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: rhhc/rhhc-dp-velero-installation.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
 summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
 ---
 = 安裝 OpenShift API for Data Protection （ OADP ） Operator
@@ -21,9 +21,9 @@ summary: Red Hat OpenShift Container Application Data Protection with NetApp ONT
 == 先決條件
 
 * Red Hat OpenShift 叢集（高於 4.12 版）安裝在具有 RHCOS 工作節點的裸機基礎架構上
-* NetApp ONTAP 叢集與使用 Astra Trident 的叢集整合
+* 使用 Trident 與叢集整合的 NetApp ONTAP 叢集
 * Trident後端在ONTAP 叢集上設定SVM
-* OpenShift叢集上設定的StorageClass、其中Astra Trident為資源配置程式
+* 在 OpenShift 叢集上以 Trident 做為資源配置程式設定的 StorageClass
 * 在叢集上建立的 Trident Snapshot 類別
 * 叢集管理存取Red Hat OpenShift叢集
 * 管理員存取NetApp ONTAP 解決方案叢集
@@ -165,8 +165,7 @@ yaml 檔案中的 SPEC 區段應適當設定、以符合上述範例所述的下
 ** 備份位置 **
 ONTAP S3 或 StorageGRID S3 （憑證和 yaml 中顯示的其他資訊）會設定為 Velero 的預設備份位置。
 
-** 快照位置 **
-如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立一個 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用的是 Astra Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立了 Volume SnapShotClass CR 。
+** 快照位置 ** 如果您使用 Container Storage Interface （ CSI ）快照、則不需要指定快照位置、因為您將建立 Volume SnapshotClass CR 來登錄 CSI 驅動程式。在我們的範例中、您使用 Trident CSI 、而您先前已使用 Trident CSI 驅動程式建立 Volume SnapShotClass CR 。
 
 ** 啟用 CSI 外掛程式 **
 將 CSI 新增至 Velero 的 defaultPlugins 、以使用 CSI 快照備份持續磁碟區。

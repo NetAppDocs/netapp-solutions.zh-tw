@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-本節說明如何在 AWS 中設定和管理 OpenShift 叢集、以及在叢集上部署有狀態應用程式的高階工作流程。它顯示在 Astra Trident 協助下使用 NetApp Cloud Volumes ONTAP 儲存設備來提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+本節說明如何在 AWS 中設定和管理 OpenShift 叢集、以及在叢集上部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備在 Trident 協助下的使用情形、以提供永續性的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
 
 
 NOTE: 在 AWS 上部署 Red Hat OpenShift Container 平台叢集有多種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
@@ -54,7 +54,7 @@ TIP: 使用 ACM 建立叢集時、您可以在表單檢視中填入詳細資料�
 NOTE: 連接器也可以安裝在雲端環境中。請參閱 link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/concept-connectors.html["請按這裡"] 以取得更多資訊。
 
 ====
-.在 OCP 叢集中安裝 Astra Trident
+.在 OCP 叢集中安裝 Trident
 [%collapsible]
 ====
 * 使用 Helm 部署 Trident 操作員。請參閱指示 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html["請按這裡"]
@@ -69,7 +69,7 @@ NOTE: 連接器也可以安裝在雲端環境中。請參閱 link:https://docs.n
 
 ====
 .在多區域架構中使用 Trident 的 CSI 拓撲功能
-如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中配置工作負載的磁碟區、Astra Trident使用了csi拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"] 以取得更多詳細資料。
+如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
 
 
-NOTE: Kubernetes 支援兩種磁碟區繫結模式： - 當 **_Volume BindingMode_ 設為 _Immediate_** （預設）時、 Astra Trident 會在沒有任何拓撲感知的情況下建立磁碟區。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。- 當 **_Volume BindingMode_ 設定為 _WaitForFirstConsumer （客戶） ** 時、永久 Volume 的建立與繫結將延遲、直到排程並建立使用 PVC 的 Pod 為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。Astra Trident 儲存後端可根據可用性區域（可識別拓撲的後端）、選擇性地配置磁碟區。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。（可識別拓撲的 StorageClass ）請參閱 link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"] 以取得更多詳細資料。
+NOTE: Kubernetes 支援兩種磁碟區繫結模式： - 當 **_Volume BindingMode_ 設為 _Immediate_** （預設）時、 Trident 會建立磁碟區而不會感知任何拓撲。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。- 當 **_Volume BindingMode_ 設定為 _WaitForFirstConsumer （客戶） ** 時、永久 Volume 的建立與繫結將延遲、直到排程並建立使用 PVC 的 Pod 為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。Trident 儲存設備後端可根據可用性區域（可識別拓撲的後端）、選擇性地配置磁碟區。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。（可識別拓撲的 StorageClass ）如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。

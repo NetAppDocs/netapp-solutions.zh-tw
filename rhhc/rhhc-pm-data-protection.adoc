@@ -16,13 +16,13 @@ summary:
 [role="lead"]
 本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）叢集上管理 Red Hat OpenShift 的資料保護選項。Astra Control Service （ ACS ）提供簡單易用的圖形化使用者介面、可讓您新增叢集、定義在叢集上執行的應用程式、以及執行應用程式感知的資料管理活動。您也可以使用 API 來存取 ACS 功能、以自動化工作流程。
 
-驅動 Astra 控制（ ACS 或 ACC ）是 NetApp Astra Trident 。Astra Trident 整合了多種 Kubernetes 叢集類型、例如 Red Hat OpenShift 、 EKS 、 aks 、 SUSE Rancher 、 Anthos 等。 提供各種 NetApp ONTAP 儲存設備、例如 FAS / AFF 、 ONTAP Select 、 CVO 、 Google Cloud Volumes Service 、 Azure NetApp Files 和 Amazon FSX for NetApp ONTAP 。
+Astra Control （ ACS 或 ACC ）的供電為 NetApp Trident 。Trident 將多種類型的 Kubernetes 叢集（例如 Red Hat OpenShift 、 EKS 、 Os 、 SUSE Rancher 、 Anthos 等）與各種 NetApp ONTAP 儲存設備（例如 FAS / AFF 、 ONTAP Select 、 CVO 、 Google Cloud Volumes Service 、 Azure NetApp Files 和 Amazon FSX for NetApp ONTAP ）整合在一起。
 
 本節詳細說明使用 ACS 的下列資料保護選項：
 
 * 顯示在某個區域執行之 ROSA 應用程式的備份與還原、並還原至另一個區域的影片。
 * 顯示 ROSA 應用程式快照與還原的影片。
-* 安裝 ROSA 叢集 Amazon FSX for NetApp ONTAP 的逐步詳細資料、使用 NetApp Astra Trident 與儲存後端整合、在 ROSA 叢集上安裝 PostgreSQL 應用程式、使用 ACS 建立應用程式快照、並從其中還原應用程式。
+* 安裝 ROSA 叢集 Amazon FSX for NetApp ONTAP 的逐步詳細資料、使用 NetApp Trident 與儲存後端整合、在 ROSA 叢集上安裝 PostgreSQL 應用程式、使用 ACS 建立應用程式的快照、並從其中還原應用程式。
 * 一個部落格、顯示在使用 ACS 的 ONTAP 適用的 FSX 之 ROSA 叢集上、從 mysql 應用程式的快照建立及還原的逐步詳細資料。
 
 
@@ -75,7 +75,7 @@ video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto]
 
 . 建立管理員使用者並登入叢集。
 . 為叢集建立一個 kubeconfig 檔案。
-. 在叢集上安裝 Astra Trident 。
+. 在叢集上安裝 Trident 。
 . 使用 Trident CSI 資源管理程式建立後端、儲存類別和快照類別組態。
 . 在叢集上部署 PostgreSQL 應用程式。
 . 建立資料庫並新增記錄。
@@ -110,9 +110,9 @@ NOTE: 您也可以使用權杖登入叢集。如果您在建立叢集時已建�
 
 
 
-==== ** 3.在叢集上安裝 Astra Trident **
+==== **3.在叢集上安裝 Trident **
 
-在 ROSA 叢集上安裝 Astra Trident （最新版本）。若要這麼做、您可以遵循所提供的任何一個程序 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。若要從叢集主控台使用 helm 來安裝 Trident 、請先建立名為 Trident 的專案。
+在 ROSA 叢集上安裝 Trident （最新版本）。爲此，您可以按照給定的任何一個過程link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]進行操作。若要從叢集主控台使用 helm 來安裝 Trident 、請先建立名為 Trident 的專案。
 
 image:rhhc-trident-project-create.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 

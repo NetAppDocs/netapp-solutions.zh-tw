@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
 = 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
@@ -20,7 +20,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 == 虛擬機器複製
 
-支援Astra Trident的Volume csi複製功能、即可在OpenShift中複製現有VM。透過複製現有的PV、可以使用現有的PVc作為資料來源來建立新的PVc。建立新的永久虛擬基礎架構之後、它會做為獨立實體運作、而且不會與來源永久虛擬基礎架構有任何連結或相依關係。
+在 OpenShift 中複製現有 VM 是透過支援 Trident 的 Volume CSI 複製功能來達成的。透過複製現有的PV、可以使用現有的PVc作為資料來源來建立新的PVc。建立新的永久虛擬基礎架構之後、它會做為獨立實體運作、而且不會與來源永久虛擬基礎架構有任何連結或相依關係。
 
 image:redhat_openshift_image57.png["VM複製架構"]
 
@@ -41,7 +41,7 @@ OpenShift叢集中的VM可透過兩種方式複製：
 
 === 關閉來源VM
 
-關閉VM來複製現有VM是一項原生OpenShift功能、可透過Astra Trident的支援來實作。完成下列步驟以複製VM。
+透過關閉虛擬機器來複製現有的虛擬機器、是一項原生 OpenShift 功能、可在 Trident 支援下實作。完成下列步驟以複製VM。
 
 . 瀏覽至「工作負載」>「虛擬化」>「虛擬機器」、然後按一下您要複製的虛擬機器旁的省略符號。
 . 按一下「Clone Virtual Machine（複製虛擬機器）」、並提供新VM的詳細資料。

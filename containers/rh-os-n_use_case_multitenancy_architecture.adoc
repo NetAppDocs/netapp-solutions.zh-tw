@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_multitenancy_architecture.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, Multitenancy, Multi-tenancy 
 summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享 
 ---
 = 架構
@@ -14,13 +14,13 @@ summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享
 
 
 [role="lead"]
-雖然Red Hat OpenShift和Astra Trident以NetApp ONTAP 支援、但在預設情況下並未隔離不同的工作負載、但它們提供多種功能、可用來設定多租戶。為了更深入瞭ONTAP 解如何在採用NetApp®技術的Astra Trident的Red Hat OpenShift叢集上設計多租戶解決方案、請讓我們參考一組需求範例、並概述相關的組態。
+雖然 Red Hat OpenShift 和以 NetApp ONTAP 為後盾的 Trident 預設不會在工作負載之間提供隔離功能、但它們提供許多可用於設定多租戶的功能。為了更深入瞭解如何在具有 Trident 支援 NetApp ONTAP 的 Red Hat OpenShift 叢集上設計多租戶解決方案、請讓我們來思考一組需求的範例、並概述相關組態。
 
-假設某組織在Red Hat OpenShift叢集上執行兩項工作負載、這是兩個不同團隊正在進行的兩個專案的一部分。這些工作負載的資料位於PVCS上、由Astra Trident在NetApp ONTAP 的NAS後端動態配置。組織必須針對這兩項工作負載設計多租戶解決方案、並隔離用於這些專案的資源、以確保安全性和效能得以維持、主要著重於為這些應用程式提供服務的資料。
+假設某組織在Red Hat OpenShift叢集上執行兩項工作負載、這是兩個不同團隊正在進行的兩個專案的一部分。這些工作負載的資料位於 Trident 在 NetApp ONTAP NAS 後端上動態配置的 PVCS 上。組織必須針對這兩項工作負載設計多租戶解決方案、並隔離用於這些專案的資源、以確保安全性和效能得以維持、主要著重於為這些應用程式提供服務的資料。
 
-下圖說明Red Hat OpenShift叢集上的多租戶解決方案、其中Astra Trident以NetApp ONTAP 效益為後盾。
+下圖說明 Red Hat OpenShift 叢集上的多租戶解決方案、並以 NetApp ONTAP 為後盾的 Trident 。
 
-image:redhat_openshift_image40.jpg["Red Hat OpenShift叢集上的多租戶共享、具有由NetApp ONTAP 支援的Astra Trident"]
+image:redhat_openshift_image40.jpg["Red Hat OpenShift 叢集上的多租戶共享、 Trident 支援 NetApp ONTAP"]
 
 
 
@@ -28,7 +28,7 @@ image:redhat_openshift_image40.jpg["Red Hat OpenShift叢集上的多租戶共享
 
 . NetApp ONTAP 解決方案儲存叢集
 . Red Hat OpenShift叢集
-. Astra Trident
+. Trident
 
 
 
@@ -47,7 +47,7 @@ image:redhat_openshift_image40.jpg["Red Hat OpenShift叢集上的多租戶共享
 
 
 
-== Astra Trident
+== Trident
 
 在NetApp ONTAP 支援上建立不同專案的不同SVM之後、您必須將每個SVM對應到不同的Trident後端。Trident上的後端組態會將持續儲存設備分配給OpenShift叢集資源、而且需要將SVM的詳細資料對應至該資源。這至少應該是後端的傳輸協定驅動程式。您也可以選擇定義如何在儲存設備上配置磁碟區、以及設定磁碟區大小或集合體使用量等限制。如需有關Trident後端定義的詳細資料、請參閱 https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"^]。
 

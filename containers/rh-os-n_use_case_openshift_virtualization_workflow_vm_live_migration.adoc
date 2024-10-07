@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
 = 工作流程：Red Hat OpenShift虛擬化搭配NetApp ONTAP 功能
@@ -20,7 +20,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 == VM即時移轉
 
-即時移轉是將VM執行個體從OpenShift叢集中的某個節點移轉到另一個節點的程序、不會造成停機。若要在OpenShift叢集中執行即時移轉、VM必須繫結至具有共用ReadWriteMany存取模式的PVCS。Astra Trident 後端是使用 ONTAP NAS 驅動程式設定、支援檔案系統傳輸協定 NFS 和 SMB 的 rwx 存取模式。請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["請按這裡"]。Astra Trident 的後端是使用 ONTAP - SAN 驅動程式所設定、支援適用於 iSCSI 和 NVMe / TCP 傳輸協定區塊 Volume Mode 的 rwx 存取模式。請參閱文件 link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["請按這裡"]。
+即時移轉是將VM執行個體從OpenShift叢集中的某個節點移轉到另一個節點的程序、不會造成停機。若要在OpenShift叢集中執行即時移轉、VM必須繫結至具有共用ReadWriteMany存取模式的PVCS。使用 ONTAP NAS 驅動程式設定的 Trident 後端支援檔案系統傳輸協定 NFS 和 SMB 的 rwx 存取模式。請參閱說明文件link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["請按這裡"]。使用 ONTAP SAN 驅動程式設定的 Trident 後端支援適用於 iSCSI 和 NVMe / TCP 傳輸協定區塊 Volume 模式的 rwx 存取模式。請參閱說明文件link:https://docs.netapp.com/us-en/trident/trident-use/ontap-san.html["請按這裡"]。
 
 因此、若要成功進行即時移轉、必須使用使用 ONTAP NAS 或 ONTAP SAN （ volumemode ：區塊）儲存類別的 PVCS 、以磁碟（開機磁碟和其他熱插拔磁碟）來配置 VM 。建立 PVC 後、 Trident 會在啟用 NFS 或 iSCSI 的 SVM 中建立 ONTAP Volume 。
 

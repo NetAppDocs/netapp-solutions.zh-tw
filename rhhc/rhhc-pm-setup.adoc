@@ -14,14 +14,14 @@ summary:
 
 
 [role="lead"]
-本節說明在 AWS （ ROSA ）上設定託管 Red Hat OpenShift 叢集的高階工作流程。它顯示 Astra Trident 使用託管 FSx for NetApp ONTAP （ FSxN ）作為儲存後端、以提供持續的磁碟區。詳細說明如何使用 BlueXP 在 AWS 上部署 FSxN 。此外、我們也提供有關使用 BlueXP 和 OpenShift GitOps （ Argo CD ）在 ROSA 叢集上為有狀態的應用程式執行資料保護和移轉活動的詳細資訊。
+本節說明在 AWS （ ROSA ）上設定託管 Red Hat OpenShift 叢集的高階工作流程。它顯示 Trident 使用託管的 FSx for NetApp ONTAP （ FSxN ）作為儲存後端、以提供持續的磁碟區。詳細說明如何使用 BlueXP 在 AWS 上部署 FSxN 。此外、我們也提供有關使用 BlueXP 和 OpenShift GitOps （ Argo CD ）在 ROSA 叢集上為有狀態的應用程式執行資料保護和移轉活動的詳細資訊。
 
 下圖說明在 AWS 上部署的 ROSA 叢集、並使用 FSxN 作為後端儲存設備。
 
 image:rhhc-rosa-with-fsxn.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
-NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Astra Trident 與 FSxN 整合。在 AWS 中部署 ROSA 叢集和 FSxN 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
+NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Trident 與 FSxN 整合。在 AWS 中部署 ROSA 叢集和 FSxN 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
 
 設定程序可分為下列步驟：
 
@@ -47,10 +47,10 @@ NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行�
 * 使用 Helm 圖表在 ROSA 叢集上安裝 Trident 。Helm 圖表的 URL ： https://netapp.github.io/trident-helm-chart[]
 
 
-.將 FSxN 與 Astra Trident 整合至 ROSA 叢集
+.FSxN 與 Trident for ROSA 叢集整合
 video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto]
 
-NOTE: OpenShift GitOps 可用於在所有託管叢集使用 ApplicationSet 登錄 ArgoCD 時、將 Astra Trident CSI 部署至這些叢集。
+NOTE: OpenShift GitOps 可在所有託管叢集使用 ApplicationSet 註冊至 ArgoCD 時、將 Trident CSI 部署至這些叢集。
 
 image:rhhc-trident-helm.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 

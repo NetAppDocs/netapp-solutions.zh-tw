@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: containers/a-w-n_overview_trident.html 
-keywords: Trident, Astra Trident, Helm, Operator, iSCSI, NFS 
-summary: Astra Trident是完全受支援的開放原始碼儲存協調工具、適用於Container和Kubernetes配送、包括Anthos。 
+keywords: Trident, Trident, Helm, Operator, iSCSI, NFS 
+summary: Trident 是完全支援的開放原始碼儲存協調工具、適用於容器和 Kubernetes 配送、包括 Anthos 。 
 ---
-= Astra Trident總覽
+= Trident 總覽
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,27 +14,27 @@ summary: Astra Trident是完全受支援的開放原始碼儲存協調工具、�
 
 
 [role="lead"]
-Astra Trident是完全受支援的開放原始碼儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP ）、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
+Trident 是完全支援的開放原始碼儲存協調工具、適用於容器和 Kubernetes 配送、包括 Anthos 。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP ）、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
 
 系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型和QoS層級、以確保達到特定等級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。
 
 image:a-w-n_astra_trident.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。
+Trident 的開發週期很快、而且像 Kubernetes 一樣、每年發行四次。
 
-您可以找到最新版Astra Trident的文件 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
+有關最新版本 Trident 的文檔 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]，請參閱。Trident 版本已通過測試的支援對照表，可以找到 Kubernetes 發佈版本 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
 
 從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括在Trident安裝過程中部署的Pod自我修復。
 
 22.04版提供Helm圖表、方便Trident操作員的安裝。
 
-如需Astra Trident安裝詳細資料、請參閱 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。
+如需 Trident 安裝詳細資料、請參閱 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。
 
 
 
 == 建立儲存系統後端
 
-完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-1-create-a-backend["建立後端。"]
+完成 Trident 操作員安裝後、您必須為所使用的特定 NetApp 儲存平台設定後端。請依照下列連結繼續設定和組態 Trident 。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-1-create-a-backend["建立後端。"]
 
 
 

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: containers/vtwn_overview_trident.html 
-keywords: Trident, Astra Trident, Helm, Operator, iSCSI, NFS, Tanzu, VMware Tanzu with NetApp Trident 
-summary: Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。 
+keywords: Trident, Trident, Helm, Operator, iSCSI, NFS, Tanzu, VMware Tanzu with NetApp Trident 
+summary: Trident 是開放原始碼且完全支援的儲存協調工具、適用於容器和 Kubernetes 發佈套件、包括 VMware Tanzu 。 
 ---
-= Astra Trident總覽
+= Trident 總覽
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -15,18 +15,18 @@ summary: Astra Trident是開放原始碼且完全支援的儲存協調工具、�
 
 
 [role="lead"]
-Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。
+Trident 是開放原始碼且完全支援的儲存協調工具、適用於容器和 Kubernetes 發佈套件、包括 VMware Tanzu 。
 
 [role="normal"]
-Astra Trident是一款開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
+Trident 是開放原始碼、完全支援的儲存協調器、適用於 ｛ k8s_distribution_name ｝ 等容器和 Kubernetes 發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
 
 系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型或QoS層級、以保證特定層級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。
 
 image:redhat_openshift_image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。
+Trident 的開發週期很快、而且像 Kubernetes 一樣、每年發行四次。
 
-最新版的Astra Trident於2022年4月推出22.04版。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
+最新版的 Trident 是 2022 年 4 月發行的 22.04 版。Trident 版本已通過測試的支援對照表，可以找到 Kubernetes 發佈版本 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
 
 從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括自修復部署為Trident安裝一部分的Pod。
 
@@ -42,7 +42,7 @@ Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次
 ----
 [netapp-user@rhel7]$ export KUBECONFIG=~/tanzu-install/auth/kubeconfig
 ----
-. 新增NetApp Astra Trident Helm儲存庫。
+. 新增 NetApp Trident helm 儲存庫。
 +
 [listing]
 ----
@@ -65,13 +65,13 @@ Update Complete. ⎈Happy Helming!⎈
 ----
 [netapp-user@rhel7]$ kubetcl create ns trident
 ----
-. 利用Docker Hub認證資料建立秘密、下載Astra Trident影像。
+. 使用 DockerHub 認證建立秘密、以下載 Trident 映像。
 +
 [listing]
 ----
 [netapp-user@rhel7]$ kubectl create secret docker-registry docker-registry-cred --docker-server=docker.io --docker-username=netapp-solutions-tme --docker-password=xxxxxx -n trident
 ----
-. 對於由TKGS（含Tanzu的vSphere）或TKG管理的使用者或工作負載叢集、請完成下列程序以安裝Astra Trident：
+. 對於由 TKGS （ vSphere with Tanzu ）或 TKG 管理並部署管理叢集的使用者或工作負載叢集、請完成下列程序以安裝 Trident ：
 +
 .. 確認登入的使用者具有在Trident命名空間中建立服務帳戶的權限、且Trident命名空間中的服務帳戶具有建立Pod的權限。
 .. 執行下列helm命令、在建立的命名空間中安裝Trident運算子。
@@ -113,7 +113,7 @@ trident-operator-67c94c4768-xw978   1/1     Running   0               14m
 
 == 建立儲存系統後端
 
-完成Astra Trident操作員安裝之後、您必須為所使用的特定NetApp儲存平台設定後端。請依照下列連結繼續Astra Trident的設定與組態。
+完成 Trident 操作員安裝後、您必須為所使用的特定 NetApp 儲存平台設定後端。請遵循下列連結、繼續設定及設定 Trident 。
 
 * link:vtwn_trident_ontap_nfs.html["NetApp ONTAP 不適用於NFS"]
 * link:vtwn_trident_ontap_iscsi.html["NetApp ONTAP 支援iSCSI"]

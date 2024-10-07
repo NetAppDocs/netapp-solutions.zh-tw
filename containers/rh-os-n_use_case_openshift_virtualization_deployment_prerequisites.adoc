@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
 = 部署Red Hat OpenShift虛擬化技術搭配NetApp ONTAP 功能
@@ -24,9 +24,9 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 * OpenShift叢集必須透過安裝程式提供的基礎架構（IPI）進行安裝
 * 部署機器健全狀況檢查以維護VM的HA
 * NetApp ONTAP 的叢集
-* 安裝在OpenShift叢集上的Astra Trident
+* OpenShift 叢集上安裝的 Trident
 * Trident後端在ONTAP 叢集上設定SVM
-* OpenShift叢集上設定的StorageClass、其中Astra Trident為資源配置程式
+* 在 OpenShift 叢集上以 Trident 做為資源配置程式設定的 StorageClass
 * 叢集管理存取Red Hat OpenShift叢集
 * 管理員存取NetApp ONTAP 解決方案叢集
 * 安裝了tridentctl和occ工具並新增至$path的管理工作站

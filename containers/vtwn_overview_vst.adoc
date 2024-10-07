@@ -31,6 +31,6 @@ image:vtwn_image28.png["命名空間"]
 目前、搭配Tanzu和vSphere Pod的VMware vSphere僅支援本機vSphere SCSI驅動程式。這可讓系統管理員在vSphere用戶端中建立儲存原則、從目前可用做vSphere資料存放區的儲存目標中選取儲存原則。這些原則可用來建立容器化應用程式的持續磁碟區。
 
 
-NOTE: 雖然目前不支援NetApp Astra Trident SCSI驅動程式、因此無法直接連線至外部ONTAP 的VMware及Element儲存陣列、但這些NetApp儲存系統通常是用來支援vSphere環境的主要儲存設備、 此外、NetApp進階資料管理與儲存效率工具也能以這種方式使用。
+NOTE: 雖然目前不支援可直接連線至外部 ONTAP 和元素儲存陣列的 NetApp Trident CSI 驅動程式、但這些 NetApp 儲存系統通常是用來支援 vSphere 環境的主要儲存設備、而 NetApp 進階資料管理和儲存效率工具則可以此方式使用。
 
 如果您想深入瞭解含有Tanzu的VMware vSphere、請參閱文件 link:https://docs.vmware.com/en/VMware-vSphere/7.0/vmware-vsphere-with-tanzu/GUID-152BE7D2-E227-4DAA-B527-557B564D9718.html["請按這裡"^]。

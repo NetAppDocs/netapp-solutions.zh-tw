@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: rhhc/rhhc-dp-velero-solution.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero, app data protection, Containers 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero, app data protection, Containers 
 summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
 ---
 = OpenShift Container Platform 中的 Container Apps 資料保護使用 OpenShift API 保護資料（ OADP ）
@@ -16,9 +16,9 @@ summary: Red Hat OpenShift Container Application Data Protection with NetApp ONT
 作者： Banu Sundhar 、 NetApp
 
 [role="lead"]
-參考文件的本節提供使用 OpenShift API for Data Protection （ OADP ）與 NetApp ONTAP S3 或 NetApp StorageGRID S3 上的 Velero 建立 Container Apps 備份的詳細資料。使用 CSI Astra Trident Snapshot 建立命名空間範圍資源的備份、包括應用程式的持續磁碟區（ PV ）。
+參考文件的本節提供使用 OpenShift API for Data Protection （ OADP ）與 NetApp ONTAP S3 或 NetApp StorageGRID S3 上的 Velero 建立 Container Apps 備份的詳細資料。命名空間範圍資源的備份（包括應用程式的持續磁碟區（ PV ））是使用 CSI Trident 快照建立的。
 
-容器應用程式的持續儲存設備可以使用整合至 OpenShift 叢集的 ONTAP 儲存設備來備份 link:https://docs.netapp.com/us-en/trident/["Astra Trident CSI"]。在本節中、我們會使用 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["OpenShift API for Data Protection （ OADP ）"] 來執行應用程式的備份、包括將其資料磁碟區備份至
+容器應用程式的持續儲存設備可以使用整合至 OpenShift 叢集的 ONTAP 儲存設備來備份 link:https://docs.netapp.com/us-en/trident/["Trident CSI"]。在本節中、我們會使用 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["OpenShift API for Data Protection （ OADP ）"] 來執行應用程式的備份、包括將其資料磁碟區備份至
 
 * ONTAP 物件儲存
 * StorageGRID
@@ -41,11 +41,9 @@ OADP 1.3 可從 OpenShift 叢集 4.12 及更新版本的運算中心取得。它
 * OpenShift 叢集 4.14
 * Red Hat 提供的 OADP 運算子 1.13
 * 適用於 Linux 的 Velero CLI 1.13
-* Astra Trident 24.02
+* Trident 24.02
 * ONTAP 9.12.
 * 使用 helm 安裝 PostgreSQL 。
 
 
-link:https://docs.netapp.com/us-en/trident/["Astra Trident CSI"]
-link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["OpenShift API for Data Protection （ OADP ）"]
-link:https://velero.io/["Velero"]
+link:https://docs.netapp.com/us-en/trident/["Trident CSI"] link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/installing/installing-oadp-ocs.html["OpenShift API for Data Protection （ OADP ）"] link:https://velero.io/["Velero"]

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/dwn_use_case_flexclone.html 
-keywords: OpenShift, Kubernetes, Astra Control, Astra Trident, NetApp ONTAP, Cloning, FlexClones, Jenkins, Application 
+keywords: OpenShift, Kubernetes, Astra Control, Trident, NetApp ONTAP, Cloning, FlexClones, Jenkins, Application 
 summary: 使用FlexClone技術快速部署 
 ---
 = 利用NetApp FlexClone技術加速軟體開發
@@ -38,7 +38,7 @@ image:Astra-DevOps-UC3-FlexClone.png["FlexClone映像"]
 
 . 支援的Kubernetes Distribution、例如Red Hat OpenShift 4.6.8+、Rancher 2.5+或Kubernetes 1.19+。
 . NetApp Astra Control Center 21：12+。
-. NetApp ONTAP 的NetApp功能系統、其儲存後端是透過NetApp Astra Trident設定的。
+. NetApp ONTAP 系統、透過 NetApp Trident 設定儲存後端。
 . Ansible 2.9+。
 . 您想要在NetApp Astra Control中複製為託管應用程式的環境範本。
 
@@ -72,7 +72,7 @@ NOTE: 這兩種程序都可以自動化。
 
 image:Astra-DevOps-UC3-Templates.png["範本映像"]
 
-每個環境都由NetApp Astra控制管理、其中持續的Volume目前儲存在NetApp ONTAP 的NetApp解決方案儲存系統上、並採用NetApp Astra Trident提供的NFS後端。
+這些環境中的每個都是由 NetApp Astra 控制來管理、而持續磁碟區目前儲存在 NetApp ONTAP 儲存系統上、並由 NetApp Trident 提供 NFS 後端。
 
 
 

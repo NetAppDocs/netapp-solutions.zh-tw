@@ -25,12 +25,12 @@ NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資�
 
 如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
 
-Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。
+Trident 是開放原始碼且完全支援的儲存協調工具、適用於 ｛ k8s_distribution_name ｝ 等容器和 Kubernetes 發佈版本。
 
-如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 [role="normal"]
-NetApp擁有數個符合Astra Trident與Astra Control資格的儲存平台、可為容器化應用程式提供、保護及管理資料。
+NetApp 擁有多個符合 Trident 和 Astra Control 資格的儲存平台、可為容器化應用程式提供、保護及管理資料。
 
 image:redhat_openshift_image43.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -121,12 +121,12 @@ image:devops_with_netapp_image1.jpg["此圖顯示輸入 / 輸出對話方塊或�
 
 NetApp Astra Control提供豐富的儲存設備與應用程式感知資料管理服務、適用於採用NetApp資料保護技術的狀態式Kubernetes工作負載。Astra Control Service可支援雲端原生Kubernetes部署中的狀態工作負載。Astra Control Center可支援企業Kubernetes平台（例如｛k8s_distribution_name｝）內部部署中的狀態工作負載。如需詳細資訊、請參閱NetApp Astra Control網站 https://cloud.netapp.com/astra["請按這裡"]。
 
-NetApp Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+NetApp Trident 是開放原始碼且完全支援的儲存協調工具、適用於 ｛ k8s_distribution_name ｝ 等容器和 Kubernetes 發佈版本。有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 下列頁面提供更多有關已通過｛Solution _名稱｝解決方案中應用程式與持續儲存管理驗證的NetApp產品資訊：
 
 * link:{astra_control_overview_page_link}["NetApp Astra控制中心"]
-* link:{trident_overview_page_link}["NetApp Astra Trident"]
+* link:{trident_overview_page_link}["NetApp Trident"]
 
 
 [role="normal"]
@@ -134,9 +134,9 @@ NetApp Astra Control Center提供豐富的儲存設備與應用程式感知資�
 
 image:redhat_openshift_image44.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-NetApp Astra Control Center可安裝在｛k8s_distribution_name｝叢集上、該叢集已部署Astra Trident Storage Orchestrator、並已設定儲存類別和儲存後端、以供NetApp ONTAP orsname儲存系統使用。
+NetApp Astra 控制中心可安裝在 ｛ k8s_distribution_name ｝ 叢集上、該叢集已部署 Trident 儲存協調器、並以儲存類別和儲存後端設定至 NetApp ONTAP 儲存系統。
 
-如需Astra Trident的詳細資訊、請參閱 link:dwn_overview_trident.html["本文檔"^]。
+如需 Trident 的詳細資訊，請參閱link:dwn_overview_trident.html["本文檔"^]。
 
 在雲端連線的環境中、Astra Control Center會使用Cloud Insights 效益技術來提供進階監控和遙測功能。若缺乏Cloud Insights 一個不穩定的連線、則可透過開放式指標端點、將有限的監控和遙測（價值七天的指標）匯出至Kubernetes原生監控工具（Prometheus和Grafana）。
 
@@ -147,15 +147,15 @@ Astra Control Center 已完全整合至 NetApp AutoSupport 和 Active IQ 數位�
 若要深入瞭解Astra產品組合、請造訪 link:https://cloud.netapp.com/astra["Astra網站"^]。
 
 [role="normal"]
-Astra Trident是一款開放原始碼且完全支援的儲存協調工具、適用於｛k8s_Distribution_name｝等容器與Kubernetes發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
+Trident 是開放原始碼、完全支援的儲存協調器、適用於 ｛ k8s_distribution_name ｝ 等容器和 Kubernetes 發佈版本。Trident可搭配整個NetApp儲存產品組合（包括NetApp ONTAP 的整套和Element儲存系統）使用、也支援NFS和iSCSI連線。Trident可讓終端使用者從NetApp儲存系統配置及管理儲存設備、而無需儲存管理員介入、進而加速DevOps工作流程。
 
 系統管理員可根據專案需求和儲存系統模型來設定多個儲存後端、以啟用進階儲存功能、包括壓縮、特定磁碟類型或QoS層級、以保證特定層級的效能。定義後端後端之後、開發人員可在專案中使用這些後端來建立持續磁碟區宣告（PVCS）、並視需要將持續儲存附加至容器。
 
 image:redhat_openshift_image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-Astra Trident的開發週期很快、就像Kubernetes一樣、每年發行四次。
+Trident 的開發週期很快、而且像 Kubernetes 一樣、每年發行四次。
 
-最新版的Astra Trident於2022年4月推出22.04版。支援對照表、顯示哪些版本的Trident已通過測試、可找到Kubernetes經銷產品 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
+最新版的 Trident 是 2022 年 4 月發行的 22.04 版。Trident 版本已通過測試的支援對照表，可以找到 Kubernetes 發佈版本 https://docs.netapp.com/us-en/trident/trident-get-started/requirements.html#supported-frontends-orchestrators["請按這裡"]。
 
 從20.04版本開始、Trident設定由Trident操作員執行。營運者讓大規模部署變得更簡單、並提供額外支援、包括自修復部署為Trident安裝一部分的Pod。
 

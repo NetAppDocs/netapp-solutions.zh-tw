@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/a-w-n_solution_overview.html 
-keywords: NVA-1165, Anthos, GKE, Netapp, Astra Trident 
+keywords: NVA-1165, Anthos, GKE, Netapp, Trident 
 summary: 本參考文件提供Anthos with NetApp解決方案的部署驗證、部署於多個資料中心環境、並已通過NetApp與我們的工程合作夥伴的驗證。 
 ---
 = NVA-1165：Anthos與NetApp合作
@@ -16,7 +16,7 @@ summary: 本參考文件提供Anthos with NetApp解決方案的部署驗證、�
 NetApp的Banu Sundhar和Suresh Thoppan
 
 [role="lead"]
-本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。它也詳細說明如何使用Astra Trident儲存協調程式來管理持續儲存設備、藉此與NetApp儲存系統進行儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
+本參考文件提供NetApp與工程合作夥伴在多個資料中心環境中部署Anthos with NetApp解決方案時的部署驗證。此外、它也會使用 Trident Storage Orchestrator 來管理持續儲存設備、詳細說明與 NetApp 儲存系統的儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
 
 
 
@@ -26,7 +26,7 @@ Anthos with NetApp解決方案的架構旨在為具有下列使用案例的客�
 
 * 使用隨附的「bmctl」工具部署在裸機上、或使用VMware vSphere上的「gkectl」工具、即可輕鬆部署及管理Anthos環境。
 * 結合企業容器和虛擬化工作負載的強大威力、以及部署在vSphere上或裸機上的Anthos https://cloud.google.com/anthos/clusters/docs/bare-metal/1.9/how-to/vm-workloads["Kubevirt"^]。
-* 實際的組態與使用案例、突顯了Anthos在與NetApp儲存設備搭配使用時的功能、而Astra Trident則是Kubernetes的開放原始碼儲存協調工具。
+* 實際組態和使用案例強調了 Anthos 功能、與 NetApp 儲存設備搭配使用、以及 Kubernetes 的開放原始碼儲存協調器 Trident 。
 
 
 
@@ -72,9 +72,9 @@ NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲�
 
 === NetApp儲存整合
 
-Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Anthos。
+Trident 是一款開放原始碼且完全支援的儲存協調工具、適用於容器和 Kubernetes 配送、包括 Anthos 。
 
-如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 
 

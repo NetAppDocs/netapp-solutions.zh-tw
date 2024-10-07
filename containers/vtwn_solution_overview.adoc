@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/vtwn_solution_overview.html 
-keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Astra Trident, Astra Control, Astra 
+keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Trident, Astra Control, Astra 
 summary: 本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。 
 ---
 = NVA-1166：採用NetApp的VMware Tanzu
@@ -16,7 +16,7 @@ summary: 本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證
 NetApp公司Alan Cowles和NIKhil M Kulkarni
 
 [role="lead"]
-本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。同時也說明與NetApp儲存系統和Astra Trident儲存協調程式的儲存整合、以管理持續儲存設備、以及Astra控制中心、以便使用該持續儲存設備備份及複製狀態化應用程式。最後、文件提供解決方案整合與驗證的影片示範。
+本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。它也說明與 NetApp 儲存系統和 Trident 儲存協調器的儲存整合、以管理持續儲存設備、以及 Astra 控制中心、以便使用該持續儲存設備備份和複製有狀態的應用程式。最後、文件提供解決方案整合與驗證的影片示範。
 
 
 
@@ -69,7 +69,7 @@ VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已�
 * 允許使用Windows或Linux工作節點（Ubuntu / Photon）。
 * NSX T、HA Proxy、Avi網路或負載平衡器可用於控制面板。
 * TKG支援應用程式/資料平面的MetalLB。
-* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI。
+* 可以使用 vSphere CSI 以及 NetApp Trident 等第三方 CSI 。
 
 
 * VMware Tanzu Kubernetes Grid Service（TKGS）*
@@ -80,7 +80,7 @@ VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已�
 * 允許使用Windows或Linux工作節點（Ubuntu / Photon）。
 * NSX T、HA Proxy、Avi網路或負載平衡器可用於控制面板。
 * TKGS支援應用程式/資料平面的MetalLB。
-* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI。
+* 可以使用 vSphere CSI 以及 NetApp Trident 等第三方 CSI 。
 * 支援搭配Tanzu的vSphere Pod、可讓Pod直接在環境中啟用的ESXi主機上執行。
 
 
@@ -91,7 +91,7 @@ VMware Tanzu提供多種不同的功能、NetApp的解決方案工程團隊已�
 * 支援vSphere 6.7U3及AWS、Azure和GCP。
 * 透過精靈進行設定、以便輕鬆部署。
 * 在由Bosh管理的可控不可變虛擬機器中執行Tanzu。
-* 可以使用vSphere SI以及NetApp Astra Trident等第三方SI（部分條件適用）。
+* 可以使用 vSphere CSI 和 NetApp Trident 等第三方 CSI （適用部分條件）。
 
 
 * vSphere with Tanzu（vSphere Pod）*
@@ -120,9 +120,9 @@ NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感�
 
 如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
 
-Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括VMware Tanzu。
+Trident 是一款開放原始碼、完全支援的儲存協調工具、適用於容器和 Kubernetes 發佈套件、包括 VMware Tanzu 。
 
-如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 
 
@@ -140,7 +140,7 @@ Astra Trident是一款開放原始碼、完全支援的儲存協調工具、適�
 | NetApp Astra控制中心 | 應用程式感知資料管理 | 22.04 
 
 
-| NetApp Astra Trident | 儲存協調 | 22.04.0 
+| NetApp Trident | 儲存協調 | 22.04.0 
 
 
 | VMware Tanzu Kubernetes Grid | 容器協調 | 1.4以上 

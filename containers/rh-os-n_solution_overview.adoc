@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: containers/rh-os-n_solution_overview.html 
-keywords: NVA-1160, Red Hat, OpenShift, Netapp, Astra Trident 
-summary: 本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。 
+keywords: NVA-1160, Red Hat, OpenShift, Netapp, Trident 
+summary: 本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。此外、它也利用 Trident 儲存協調工具來管理持續儲存設備、詳細說明與 NetApp 儲存系統的儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。 
 ---
 = NVA-1160：採用NetApp的Red Hat OpenShift
 :hardbreaks:
@@ -16,7 +16,7 @@ summary: 本參考文件提供Red Hat OpenShift解決方案的部署驗證、此
 NetApp公司Alan Cowles和NIKhil M Kulkarni
 
 [role="lead"]
-本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。它也詳細說明了與NetApp儲存系統的儲存整合、運用Astra Trident儲存協調程式來管理持續儲存設備。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
+本參考文件提供Red Hat OpenShift解決方案的部署驗證、此解決方案是透過安裝程式佈建基礎架構（IPI）、部署於多種不同的資料中心環境、並已通過NetApp驗證。此外、它也利用 Trident 儲存協調工具來管理持續儲存設備、詳細說明與 NetApp 儲存系統的儲存整合。最後、我們會探索並記錄許多解決方案驗證和實際使用案例。
 
 
 
@@ -26,7 +26,7 @@ Red Hat OpenShift with NetApp解決方案的架構設計、可為下列使用案
 
 * 使用裸機、Red Hat OpenStack平台、Red Hat虛擬化及VMware vSphere上的IPI（安裝程式佈建基礎架構）、輕鬆部署及管理部署的Red Hat OpenShift。
 * 結合企業容器和虛擬化工作負載的強大功能、搭配幾乎部署在OSP、RHV或vSphere上的Red Hat OpenShift、或是以OpenShift虛擬化技術部署在裸機上。
-* 真正的組態與使用案例、強調Red Hat OpenShift的功能、適用於Kubernetes的開放原始碼儲存協調程式NetApp儲存設備和Astra Trident。
+* 實際組態和使用案例強調 Red Hat OpenShift 與 NetApp 儲存設備搭配使用的功能、以及 Kubernetes 的開放原始碼儲存協調器 Trident 。
 
 
 
@@ -76,9 +76,9 @@ NetApp Astra Control 為有狀態的 Kubernetes 工作負載提供豐富的儲�
 
 如需詳細資訊、請造訪NetApp Astra網站 https://docs.netapp.com/us-en/astra-family/["請按這裡"]。
 
-Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於容器和Kubernetes配送、包括Red Hat OpenShift。
+Trident 是一款開放原始碼且完全支援的儲存協調工具、適用於容器和 Kubernetes 配送、包括 Red Hat OpenShift 。
 
-如需詳細資訊、請造訪Astra Trident網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
+有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
 
 
 
@@ -105,7 +105,7 @@ Astra Trident是開放原始碼且完全支援的儲存協調工具、適用於�
 | NetApp Astra Control | 應用程式感知資料管理 | 21.12.60 、 23.04 、 23.07 、 23.10 、 24.02 
 
 
-| NetApp Astra Trident | 儲存協調 | 22.01.0 、 23.04 、 23.07 、 23.10 、 24.02 
+| NetApp Trident | 儲存協調 | 22.01.0 、 23.04 、 23.07 、 23.10 、 24.02 
 
 
 | Red Hat OpenShift | 容器協調 | 4.6 EUS 、 4.7 、 4.8 、 4.10 、 4.11 、 4.12 、 4.13 、 4.14 

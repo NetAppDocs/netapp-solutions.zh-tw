@@ -14,9 +14,9 @@ summary:
 
 
 [role="lead"]
-無論 Red Hat Open Shift 容器是在 VMware 上執行、或是在超大規模環境中執行、 NetApp Astra Trident 都可作為其支援的各種類型後端 NetApp 儲存設備的 CSI 資源配置程式。
+無論 Red Hat Open Shift 容器是在 VMware 上執行、或是在大型擴充器中執行、 NetApp Trident 都能做為支援各種類型後端 NetApp 儲存設備的 CSI 配置程式。
 
-下圖說明各種後端 NetApp 儲存設備、可與使用 NetApp Astra Trident 的 OpenShift 叢集整合。
+下圖說明可使用 NetApp Trident 與 OpenShift 叢集整合的各種後端 NetApp 儲存設備。
 
 image:a-w-n_astra_trident.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -34,7 +34,7 @@ image:rhhc_storage_opt_pod2vol.png["Pod 與 ONTAP Volume 的關係"]
 
 == Container Storage Interface （ CSI ）選項
 
-在 vSphere 環境中、客戶可以選擇 VMware CSI 驅動程式和 / 或 Astra Trident CSI 來與 ONTAP 整合。使用 VMware CSI 時、持續磁碟區會作為本機 SCSI 磁碟使用、而使用 Trident 時、則會與網路一起使用。由於 VMware CSI 不支援搭配 ONTAP 的 rwx 存取模式、因此如果需要 rwx 模式、應用程式需要使用 Trident CSI 。在 FC 型部署中、 VMware CSI 是首選、 SnapMirror Business Continuity （ SMBC ）可提供區域層級的高可用度。
+在 vSphere 環境中、客戶可以選擇 VMware CSI 驅動程式和 / 或 Trident CSI 來與 ONTAP 整合。使用 VMware CSI 時、持續磁碟區會作為本機 SCSI 磁碟使用、而使用 Trident 時、則會與網路一起使用。由於 VMware CSI 不支援搭配 ONTAP 的 rwx 存取模式、因此如果需要 rwx 模式、應用程式需要使用 Trident CSI 。在 FC 型部署中、 VMware CSI 是首選、 SnapMirror Business Continuity （ SMBC ）可提供區域層級的高可用度。
 
 
 
@@ -56,7 +56,7 @@ image:rhhc_storage_opt_pod2vol.png["Pod 與 ONTAP Volume 的關係"]
 * ONTAP-NAS-Flexgroup （專用大型 Volume ）
 
 
-對於 VMware CSI 和 Astra Trident CSI 、 ONTAP 支援 nconnect 、工作階段主幹、 Kerberos 等、適用於 NFS 和多重路徑、 chap 驗證等區塊傳輸協定。
+對於 VMware CSI 和 Trident CSI 、 ONTAP 支援 nconnect 、工作階段主幹、 Kerberos 等、適用於 NFS 和多重路徑、 chap 驗證等區塊傳輸協定。
 
 在 AWS 中、適用於 NetApp ONTAP （ FSxN ）的 FSx 可部署在單一可用性區域（ AZ ）或多個 AZ 中。對於需要高可用度的正式作業工作負載、多個 AZ 可提供區域層級的容錯能力、而且與單一 AZ 相比、 NVMe 讀取快取能力更佳。如需更多資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["AWS 效能準則"]。為了節省災難恢復站台的成本、可以使用單一 AZ FSX ONTAP 。image:rhhc_storage_options_fsxn_options.png["複寫多個 AZ 和單一 AZ"]
 

@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: rhhc/rhhc-dp-velero-migrate.html 
-keywords: OpenShift, OCP, Astra Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OADP operator, Openshift Data Protection Application operator, Velero 
 summary: Red Hat OpenShift Container Application Data Protection with NetApp ONTAP 
 ---
 = 將應用程式從一個叢集移轉至另一個叢集
@@ -21,7 +21,7 @@ Velero 的備份與還原功能讓它成為在叢集之間移轉資料的寶貴�
 ====
 ** 叢集 1** 的先決條件
 
-* Astra Trident 必須安裝在叢集上。
+* Trident 必須安裝在叢集上。
 * 必須建立 Trident 後端和儲存類別。
 * 必須在叢集上安裝 OADP 運算子。
 * 應設定 DataProtectionApplication 。
@@ -90,7 +90,7 @@ image:redhat_openshift_OADP_migrate_image2.png["安裝 postgres 應用程式"]
 ====
 ** 叢集 2 上的先決條件 **
 
-* Astra Trident 必須安裝在叢集 2 上。
+* Trident 必須安裝在叢集 2 上。
 * PostgreSQL 應用程式不得已安裝在 PostgreSQL 命名空間中。
 * OADP 運算子必須安裝在叢集 2 上、而且備份儲存位置必須指向從第一個叢集儲存備份的相同物件儲存位置。
 * 備份 CR 必須可從第二個叢集看到。

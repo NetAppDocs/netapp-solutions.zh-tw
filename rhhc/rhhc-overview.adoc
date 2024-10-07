@@ -52,7 +52,7 @@ image:rhhc-ontap-features.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 您可以使用 BlueXP 來建立和管理雲端儲存設備（例如 Cloud Volumes ONTAP 和 Azure NetApp Files ）、移動、保護和分析資料、以及控制許多內部部署和邊緣儲存設備。
 
-** NetApp Astra Trident * 是符合 CSI 標準的 Storage Orchestrator 、可快速輕鬆地使用由上述各種 NetApp 儲存選項作為後盾的持續儲存設備。這是由 NetApp 維護和支援的開放原始碼軟體。
+** NetApp Trident 是符合 CSI 標準的儲存協調工具、可讓您快速輕鬆地使用持續儲存設備、並提供上述各種 NetApp 儲存選項作為後盾。這是由 NetApp 維護和支援的開放原始碼軟體。
 
 image:rhhc-trident-features.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -63,4 +63,4 @@ NOTE: 應用程式資料除了包含使用者資料外、還包括 Kubernetes �
 
 ** NetApp Astra Control** 可作為完全託管和自我管理的軟體使用、可協調功能以提供健全的應用程式資料管理。請參閱 link:https://docs.netapp.com/us-en/astra-family/["Astra文件"] 如需 Astra 系列產品的詳細資訊、請參閱。
 
-本參考文件提供移轉與保護容器型應用程式的驗證、這些應用程式部署在 RedHat OpenShift Container 平台上、並使用 NetApp Astra Control Center 。此外、此解決方案還提供部署和使用 Red Hat Advanced Cluster Management （ ACM ）來管理容器平台的高階詳細資料。本文件也重點介紹使用 Astra Trident CSI 資源配置程式、將 NetApp 儲存設備與 Red Hat OpenShift 容器平台整合的詳細資料。Astra Control Center 部署在集線器叢集上、用於管理容器應用程式及其持續儲存生命週期。最後、它為 AWS （ ROSA ）中受管理 Red Hat OpenShift 叢集上的容器工作負載提供複寫和容錯移轉及容錯移轉解決方案、使用 Amazon FSx for NetApp ONTAP （ FSxN ）作為持續儲存設備。
+本參考文件提供移轉與保護容器型應用程式的驗證、這些應用程式部署在 RedHat OpenShift Container 平台上、並使用 NetApp Astra Control Center 。此外、此解決方案還提供部署和使用 Red Hat Advanced Cluster Management （ ACM ）來管理容器平台的高階詳細資料。本文件也重點介紹使用 Trident CSI 資源配置程式、將 NetApp 儲存設備與 Red Hat OpenShift 容器平台整合的詳細資料。Astra Control Center 部署在集線器叢集上、用於管理容器應用程式及其持續儲存生命週期。最後、它為 AWS （ ROSA ）中受管理 Red Hat OpenShift 叢集上的容器工作負載提供複寫和容錯移轉及容錯移轉解決方案、使用 Amazon FSx for NetApp ONTAP （ FSxN ）作為持續儲存設備。
