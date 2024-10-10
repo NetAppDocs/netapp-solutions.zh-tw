@@ -57,7 +57,7 @@ link:aws-guest-dr-solution-prereqs.html["災難恢復解決方案要求、預先
 在內部部署ONTAP 的SnapMirror系統與FSXSing之間建立SnapMirror關係時、必須執行下列步驟ONTAP ：
 
 
-NOTE: 請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/ONTAPGuide.pdf["FSX- ONTAP for Sfor Sfor Sfor - ONTAP 《用戶指南》"^] 如需建立SnapMirror與FSX關係的詳細資訊、
+NOTE: 如需建立與 FSX 的 SnapMirror 關係的詳細資訊、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/ONTAPGuide.pdf["FSX ONTAP – ONTAP 使用者指南"^]。
 
 .記錄來源與目的地叢集間邏輯介面
 [%collapsible]
@@ -289,7 +289,7 @@ image:dr-vmc-aws-image23.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 * 當您逐步完成原則建立精靈時、請特別注意「複寫」區段。在本節中、您將說明您要在備份程序中取得的次要SnapMirror複本類型。
 * 「建立本機Snapshot複本後再更新SnapMirror」設定是指當位於同一個叢集上的兩個儲存虛擬機器之間存在SnapMirror關係時、更新SnapMirror關係。
-* 「建立SnapVault 本機快照複本後更新功能」設定可用來更新兩個獨立叢集之間、內部部署ONTAP 的SnapMirror系統與Cloud Volumes ONTAP BIOS或FSxN之間存在的SnapMirror關係。
+* 「建立本機快照複本後更新 SnapVault 」設定用於更新兩個獨立叢集之間、內部部署 ONTAP 系統與 Cloud Volumes ONTAP 或 FSX ONTAP 之間的 SnapMirror 關係。
 
 
 下圖顯示上述選項、以及它們在備份原則精靈中的外觀。
@@ -872,7 +872,7 @@ image:dr-vmc-aws-image76.png["此圖顯示輸入 / 輸出對話方塊或表示�
 .設定FSXfor Oracle還原–中斷SnapMirror關係
 [%collapsible]
 ====
-若要讓Oracle伺服器能夠存取位於FSxN執行個體上的次要儲存磁碟區、您必須先中斷現有的SnapMirror關係。
+若要讓 Oracle 伺服器能夠存取位於 FSX ONTAP 執行個體上的次要儲存磁碟區、您必須先中斷現有的 SnapMirror 關係。
 
 . 登入FSX CLI之後、請執行下列命令、檢視依正確名稱篩選的磁碟區。
 +
@@ -938,9 +938,9 @@ NOTE: 若要讓NFS掛載在重新開機時持續執行、請編輯「/etc/stabs�
 
 === 容錯回復
 
-成功完成本解決方案所述的容錯移轉程序後、SnapCenter 即可恢復在AWS中執行的備份功能、而FSXfor ONTAP 效益現已被指定為主要儲存設備、且不存在與原始內部部署資料中心的SnapMirror關係。在內部部署恢復正常功能之後、您可以使用與本文件所述相同的程序、將資料鏡射回內部部署ONTAP 的更新儲存系統。
+成功完成本解決方案所述的容錯移轉程序後、 SnapCenter 和 Veeam 便會恢復在 AWS 中執行的備份功能、而 FSX ONTAP 現在則被指定為主要儲存設備、且與原始內部部署資料中心沒有現有的 SnapMirror 關係。在內部部署恢復正常功能之後、您可以使用與本文件所述相同的程序、將資料鏡射回內部部署ONTAP 的更新儲存系統。
 
-如本文件所述、您可以設定SnapCenter 將應用程式資料Volume從FSXfor ONTAP the Sfor the Sf8鏡射至ONTAP 內部部署的靜態儲存系統。同樣地、您也可以設定Veeam使用橫向擴充備份儲存庫、將備份複本複製到Amazon S3、以便駐留在內部部署資料中心的Veeam備份伺服器能夠存取這些備份。
+如本文件所述、您可以將 SnapCenter 設定為將應用程式資料 Volume 從 FSX ONTAP 鏡射至內部部署的 ONTAP 儲存系統。同樣地、您也可以設定Veeam使用橫向擴充備份儲存庫、將備份複本複製到Amazon S3、以便駐留在內部部署資料中心的Veeam備份伺服器能夠存取這些備份。
 
 容錯回復不在本文件的範圍之內、但容錯回復與此處概述的詳細程序幾乎沒有什麼不同。
 
@@ -950,7 +950,7 @@ NOTE: 若要讓NFS掛載在重新開機時持續執行、請編輯「/etc/stabs�
 
 本文件所述的使用案例著重於已獲證實的災難恢復技術、強調NetApp與VMware之間的整合。NetApp ONTAP 支援的資料鏡射技術已獲證實、可讓組織設計跨越內部部署和ONTAP 與頂尖雲端供應商共同使用的不實技術的災難恢復解決方案。
 
-FSX for ONTAP Sfor AWS是這樣的解決方案之一、可與SnapCenter 支援將SyncMirror 應用程式資料複製到雲端的功能不間斷地整合到功能上。Veeam備份與複寫是另一項廣為人知的技術、可與NetApp ONTAP 的VMware還原儲存系統完美整合、並提供容錯移轉至vSphere原生儲存設備的功能。
+AWS 上的 FSX ONTAP 是這樣的解決方案之一、可與 SnapCenter 和 SyncMirror 無縫整合、將應用程式資料複製到雲端。Veeam備份與複寫是另一項廣為人知的技術、可與NetApp ONTAP 的VMware還原儲存系統完美整合、並提供容錯移轉至vSphere原生儲存設備的功能。
 
 本解決方案提供使用來自ONTAP 代管SQL Server和Oracle應用程式資料之VMware系統的來賓連線儲存設備的災難恢復解決方案。利用SnapMirror提供易於管理的解決方案、可在支援應用程式的各個系統上保護應用程式磁碟區、並將其複製到位於雲端的FSX或CVO。SnapCenter ONTAP支援DR的解決方案可將所有應用程式資料容錯移轉至AWS上的VMware Cloud。SnapCenter
 

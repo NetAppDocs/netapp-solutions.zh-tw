@@ -75,7 +75,7 @@ summary: 資料可在 NFS 中取得、並可從 AWS SageMaker 從 S3 存取。
 
 若要在 BlueXP 中建立 Cloud Volumes ONTAP 執行個體、請完成下列步驟：
 
-. 建立新的工作環境、選取雲端供應商、然後選取 Cloud Volumes ONTAP 執行個體類型（例如單一 CVO 、 HA 或 Amazon FSxN for ONTAP ）。
+. 建立新的工作環境、選取雲端供應商、然後選取 Cloud Volumes ONTAP 執行個體類型（例如單一 CVO 、 HA 或 Amazon FSX ONTAP for ONTAP ）。
 . 提供 Cloud Volumes ONTAP 叢集名稱和認證等詳細資料。在此驗證中、我們建立了一個名為的 Cloud Volumes ONTAP 執行個體 `svm_sagemaker_cvo_sn1`。
 . 選取 Cloud Volumes ONTAP 所需的服務。在此驗證中、我們選擇僅監控、因此我們停用了 * 資料感知與法規遵循 * 和 * 備份至雲端服務 * 。
 . 在 * 位置與連線 * 區段中、選取 AWS 區域、 VPC 、子網路、安全性群組、 SSH 驗證方法、 以及密碼或金鑰配對。

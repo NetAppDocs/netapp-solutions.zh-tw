@@ -141,14 +141,14 @@ AWS上的VMware Cloud可將VMware企業級SDDC軟體導入AWS Cloud、並針對�
 如需AWS上VMware Cloud的詳細資訊、請參閱 https://docs.vmware.com/en/VMware-Cloud-on-AWS/index.html["此連結"^]。
 
 ====
-.Amazon FSX for NetApp ONTAP 產品
+.Amazon FSX ONTAP
 [%collapsible]
 ====
-Amazon FSX for NetApp ONTAP 的功能完整且完全受管理ONTAP 的功能完善的支援系統、可作為原生AWS服務。以NetApp ONTAP 支援為基礎、提供熟悉的功能、同時提供完整託管雲端服務的簡易性。
+Amazon FSX ONTAP 是功能完整且完全託管的 ONTAP 系統、可作為原生 AWS 服務使用。以NetApp ONTAP 支援為基礎、提供熟悉的功能、同時提供完整託管雲端服務的簡易性。
 
-Amazon FSX ONTAP for VMware可為各種運算類型提供多重傳輸協定支援、包括公有雲或內部部署的VMware。Amazon FSX for ONTAP the支援目前與訪客連線的使用案例、以及技術預覽中的NFS資料存放區、讓企業能夠從內部部署環境和雲端中、充分利用熟悉的功能。
+Amazon FSX ONTAP 為各種運算類型提供多重傳輸協定支援、包括公有雲或內部部署的 VMware 。Amazon FSX ONTAP 適用於目前的訪客連線使用案例、以及技術預覽中的 NFS 資料存放區、可讓企業從內部環境和雲端中、充分利用熟悉的功能。
 
-如需Amazon FSX for NetApp ONTAP 功能的詳細資訊、請參閱 https://aws.amazon.com/fsx/netapp-ontap/["此連結"]。
+如需 Amazon FSX ONTAP 的詳細資訊、請參閱 https://aws.amazon.com/fsx/netapp-ontap/["此連結"]。
 
 ====
 
@@ -188,7 +188,7 @@ Amazon FSX ONTAP for VMware可為各種運算類型提供多重傳輸協定支�
 
 * 內部部署VMware環境與ONTAP VMware
 * VMware Cloud環境
-* Amazon for FSX for ONTAP Sfor Sf供 檔案系統使用
+* Amazon for FSX ONTAP 檔案系統
 * 內部部署環境與AWS之間的連線能力
 * 為AWS VPC提供連線功能
 
@@ -319,7 +319,7 @@ NetApp ONTAP 功能授權是指系統管理員如何存取NetApp儲存設備內�
 
 
 =====
-.Amazon FSX for NetApp ONTAP 產品
+.Amazon FSX ONTAP
 [%collapsible]
 =====
 擁有AWS帳戶之後、您必須能夠執行下列工作：
@@ -440,7 +440,7 @@ NOTE: 如果您使用vCloud Director、請務必在基礎vCenter Server上開啟
 
 == 網路
 
-此解決方案需要內部部署ONTAP 的Sfcluster與AWS FSX for NetApp ONTAP 的整合叢集網路位址之間的成功通訊、才能執行NetApp SyncMirror 的支援作業。此外、Veeam備份伺服器必須能夠存取AWS S3儲存區。現有的VPN或Direct Connect連結不使用網際網路傳輸、可作為S3儲存區的私有連結。
+此解決方案需要從內部部署 ONTAP 叢集成功通訊至 AWS FSX ONTAP 互連叢集網路位址、才能執行 NetApp SyncMirror 作業。此外、Veeam備份伺服器必須能夠存取AWS S3儲存區。現有的VPN或Direct Connect連結不使用網際網路傳輸、可作為S3儲存區的私有連結。
 
 .內部部署
 [%collapsible]
@@ -484,7 +484,7 @@ LIF（邏輯介面）代表叢集中節點的網路存取點。如此一來、�
 .虛擬私有網路（VPN）
 [%collapsible]
 =====
-VPN（虛擬私有網路）通常用於建立安全的IPSec通道、並使用網際網路或私有MPLS網路。VPN易於設定、但缺乏可靠性（如果是以網際網路為基礎）和速度。端點可在AWS VPC或VMware Cloud SDDC終止。對於這套災難恢復解決方案、我們從ONTAP 內部部署網路建立了與AWS FSX for NetApp的連線能力。因此、它可以在AWS VPC（虛擬私有閘道或Transit閘道）終止、ONTAP 而FSX for NetApp
+VPN（虛擬私有網路）通常用於建立安全的IPSec通道、並使用網際網路或私有MPLS網路。VPN易於設定、但缺乏可靠性（如果是以網際網路為基礎）和速度。端點可在AWS VPC或VMware Cloud SDDC終止。針對這項災難恢復解決方案、我們從內部部署網路建立與 AWS FSX ONTAP 的連線。因此、它可以在連接 FSX ONTAP 的 AWS VPC （虛擬私有閘道或傳輸閘道）上終止。
 
 VPN設定可以是路由型或原則型的。透過路由型設定、端點會自動交換路由、設定會學習新建立子網路的路由。使用原則型設定時、您必須定義本機和遠端子網路、而且當新增子網路並允許其在IPSec通道中通訊時、您必須更新路由。
 
@@ -501,7 +501,7 @@ image:dr-vmc-aws-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 =====
 Direct Connect提供AWS網路的專屬連結。專用連線使用1Gbps、10Gbps或100Gbps乙太網路連接埠建立AWS連結。AWS Direct Connect合作夥伴使用自己與AWS之間預先建立的網路連結提供代管連線、可從50Mbps到10Gbps。依預設、流量未加密。不過、您可以使用選項來保護MAC或IPsec的流量。Macsec提供第2層加密、而IPsec則提供第3層加密。Macsec隱藏正在通訊的裝置、提供更好的安全性。
 
-客戶必須將路由器設備放在AWS Direct Connect位置。若要設定此設定、您可以與AWS合作夥伴網路（APN）合作。在該路由器和AWS路由器之間建立實體連線。若要在ONTAP VPC上存取FSX for NetApp Sfor NetApp、您必須擁有私有虛擬介面或從Direct Connect到VPC的傳輸虛擬介面。透過私有虛擬介面、Direct Connect to VPC連線擴充性受到限制。
+客戶必須將路由器設備放在AWS Direct Connect位置。若要設定此設定、您可以與AWS合作夥伴網路（APN）合作。在該路由器和AWS路由器之間建立實體連線。若要在 VPC 上啟用對 FSX ONTAP 的存取、您必須擁有私有虛擬介面或從直接連線到 VPC 的傳輸虛擬介面。透過私有虛擬介面、Direct Connect to VPC連線擴充性受到限制。
 
 下圖說明Direct Connect介面選項。
 
@@ -520,7 +520,7 @@ image:dr-vmc-aws-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 ====
 在雲端中、基礎網路基礎架構是由雲端服務供應商管理、而客戶則必須在AWS中管理VPC網路、子網路、路由表等。他們也必須在運算邊緣管理NSX網路區段。SDDC群組外部VPC和Transit Connect的路由。
 
-當連接ONTAP 至VMware Cloud的VPC上部署FSX for NetApp支援多AZ可用度時、iSCSI流量會收到必要的路由表更新、以便進行通訊。根據預設、ONTAP 在連線的VPC上、沒有可從VMware Cloud到FSX支援NFS/SMB子網路的路由可供多AZ部署。為了定義該路由、我們使用VMware Cloud SDDC群組（VMware託管的傳輸閘道）、在同一地區的VMware Cloud SDDC之間、以及外部VPC和其他傳輸閘道之間進行通訊。
+當在連接至 VMware Cloud 的 VPC 上部署具有多個 AZ 可用度的 FSX ONTAP 時、 iSCSI 流量會收到必要的路由表更新、以便進行通訊。根據預設、ONTAP 在連線的VPC上、沒有可從VMware Cloud到FSX支援NFS/SMB子網路的路由可供多AZ部署。為了定義該路由、我們使用VMware Cloud SDDC群組（VMware託管的傳輸閘道）、在同一地區的VMware Cloud SDDC之間、以及外部VPC和其他傳輸閘道之間進行通訊。
 
 
 NOTE: 使用傳輸閘道時會產生相關的資料傳輸成本。如需特定區域的成本詳細資料、請參閱 https://aws.amazon.com/transit-gateway/pricing/["此連結"^]。
@@ -611,12 +611,12 @@ image:dr-vmc-aws-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 ====
 此解決方案包含AWS上的VMware Cloud、可用來裝載還原為容錯移轉程序一部分的虛擬機器。截至本文撰寫時、VMware支援裝載VM和VMDK之資料存放區的vSAN儲存設備。
 
-FSX for ONTAP Sfor Sfor Sfor FSfor是應用程式資料的二線儲存設備、這些應用程式資料是使用SnapCenter 鏡射和SyncMirror 鏡射的。作為容錯移轉程序的一部分、FSXfor ONTAP Sfor the cluster會轉換為主要儲存設備、資料庫應用程式可恢復在FSX儲存 叢集上執行的正常功能。
+FSX ONTAP 是使用 SnapCenter 和 SyncMirror 鏡射之應用程式資料的次要儲存設備。作為容錯移轉程序的一部分、 FSX ONTAP 叢集會轉換為主要儲存設備、而資料庫應用程式可以恢復在 FSX 儲存叢集上執行的正常功能。
 
-.Amazon FSX for NetApp ONTAP 的功能
+.Amazon FSX ONTAP 設定
 [%collapsible]
 =====
-若要使用ONTAP Cloud Manager部署AWS FSX for NetApp解決方案、請依照中的指示操作 https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/start/task-getting-started-fsx.html["此連結"^]。
+若要使用 Cloud Manager 部署 AWS FSX ONTAP 、請遵循中的指示 https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/start/task-getting-started-fsx.html["此連結"^]。
 
 部署完FSX ONTAP 功能後、將內部部署ONTAP 的動作例項拖放到FSX ONTAP 支援區中、即可開始建立磁碟區的複寫設定。
 
@@ -628,7 +628,7 @@ image:dr-vmc-aws-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 .已建立網路介面
 [%collapsible]
 =====
-FSX for NetApp ONTAP Suse已預先設定網路介面、可用於iSCSI、NFS、SMB及叢集間網路。
+FSX ONTAP 已預先設定網路介面、可用於 iSCSI 、 NFS 、 SMB 和叢集間網路。
 
 =====
 .VM資料存放區儲存

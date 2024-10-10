@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/ddlnexus_access_data_hybrid.html 
-keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
 summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps ：可在不同環境中存取相同的資料 
 ---
 = 在不同環境中存取相同的資料
@@ -44,7 +44,7 @@ summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps ：可在
 === 在目的地環境中建立 FlexCache Volume
 
 
-NOTE: 如果目的地環境是內部部署的資料中心、您將在內部部署的 ONTAP 系統上建立 FlexCache Volume 。如果目的地環境是 AWS 、您將在 Amazon FSX for NetApp ONTAP 執行個體上建立 FlexCache Volume 。
+NOTE: 如果目的地環境是內部部署的資料中心、您將在內部部署的 ONTAP 系統上建立 FlexCache Volume 。如果目的地環境是 AWS 、您將在 Amazon FSX ONTAP 執行個體上建立 FlexCache Volume 。
 
 首先、您必須在目的地環境中建立 FlexCache Volume 。
 
@@ -55,7 +55,7 @@ NOTE: 如果目的地環境是內部部署的資料中心、您將在內部部�
 如果您想要將此程序自動化、可以使用 link:https://docs.netapp.com/us-en/bluexp-automation/["BlueXP API"]、 link:https://devnet.netapp.com/restapi.php["靜態API ONTAP"]或 link:https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html["ONTAP Ansible 系列"]。
 
 
-NOTE: Amazon FSX for NetApp ONTAP 不提供 System Manager 。
+NOTE: Amazon FSX ONTAP 不提供 System Manager 。
 
 
 
@@ -96,7 +96,7 @@ image:ddlnexus_image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 如果您想要將此程序自動化、可以使用 link:https://docs.netapp.com/us-en/bluexp-automation/["BlueXP API"]、 link:https://devnet.netapp.com/restapi.php["靜態API ONTAP"]或 link:https://docs.ansible.com/ansible/latest/collections/netapp/ontap/index.html["ONTAP Ansible 系列"]。
 
 
-NOTE: Amazon FSX for NetApp ONTAP 不提供 System Manager 。
+NOTE: Amazon FSX ONTAP 不提供 System Manager 。
 
 
 

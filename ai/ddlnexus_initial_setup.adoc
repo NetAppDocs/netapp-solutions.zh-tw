@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/ddlnexus_initial_setup.html 
-keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
 summary: 混合式多雲端 MLOps 搭配 Domino Data Lab 和 NetApp - 初始設定 
 ---
 = 初始設定
@@ -23,11 +23,11 @@ summary: 混合式多雲端 MLOps 搭配 Domino Data Lab 和 NetApp - 初始設�
 在您執行本節概述的步驟之前、我們假設您已執行下列工作：
 
 * 您已部署並設定內部部署的 NetApp ONTAP 儲存平台。如需詳細資訊、請參閱 link:https://www.netapp.com/support-and-training/documentation/["NetApp產品文件"]。
-* 您已在 AWS 中配置 Amazon FSX for NetApp ONTAP 執行個體。如需詳細資訊、請參閱 link:https://aws.amazon.com/fsx/netapp-ontap/["Amazon FSX for NetApp ONTAP 產品頁面"]。
+* 您已在 AWS 中配置 Amazon FSX ONTAP 執行個體。如需詳細資訊、請link:https://aws.amazon.com/fsx/netapp-ontap/["Amazon FSX ONTAP 產品頁面"]參閱。
 * 您已在內部部署資料中心內配置 Kubernetes 叢集。如需詳細資訊、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/b35e66/admin-guide/["Domino 管理指南"]。
 * 您已在 AWS 中佈建 Amazon EKS 叢集。如需詳細資訊、請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/b35e66/admin-guide/["Domino 管理指南"]。
 * 您已在內部部署的 Kubernetes 叢集中安裝 NetApp Trident 。此外、您已將此 Trident 執行個體設定為在資源配置和管理時、使用內部部署的 NetApp ONTAP 儲存平台。如需詳細資訊、請link:https://docs.netapp.com/us-en/trident/index.html["NetApp Trident文件"]參閱。
-* 您已在 Amazon EKS 叢集中安裝 NetApp Trident 。此外、您已將此 Trident 執行個體設定為在資源配置和管理儲存資源時、使用 Amazon FSX for NetApp ONTAP 執行個體。如需詳細資訊、請link:https://docs.netapp.com/us-en/trident/index.html["NetApp Trident文件"]參閱。
+* 您已在 Amazon EKS 叢集中安裝 NetApp Trident 。此外、您已將此 Trident 執行個體設定為在資源配置和管理時使用 Amazon FSX ONTAP 執行個體。如需詳細資訊、請link:https://docs.netapp.com/us-en/trident/index.html["NetApp Trident文件"]參閱。
 * 您必須在內部部署資料中心和 AWS 中的虛擬私有雲（ VPC ）之間建立雙向網路連線。如需實作此選項的詳細資訊、請參閱 link:https://docs.aws.amazon.com/vpc/latest/userguide/vpn-connections.html["Amazon 虛擬私有網路（ VPN ）文件"]。
 
 
@@ -41,7 +41,7 @@ summary: 混合式多雲端 MLOps 搭配 Domino Data Lab 和 NetApp - 初始設�
 NOTE: 請參閱 link:https://docs.dominodatalab.com/en/latest/admin_guide/7f4331/install-configuration-reference/#storage-classes["Domino 安裝組態參考指南"] 如需如何在 domino.yml 安裝組態檔案中指定共用儲存類別的詳細資訊、
 
 
-NOTE: link:https://www.netapp.com/media/79922-tr-4952.pdf["技術報告 TR-4952."] 逐步在 AWS 中部署 Domino 、搭配 Amazon FSX for NetApp ONTAP 、是疑難排解任何問題的實用參考資料。
+NOTE: link:https://www.netapp.com/media/79922-tr-4952.pdf["技術報告 TR-4952."]在 AWS 中使用 Amazon FSX ONTAP 逐步部署 Domino 、這可能是疑難排解任何問題的實用參考資料。
 
 
 

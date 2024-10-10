@@ -14,14 +14,14 @@ summary:
 
 
 [role="lead"]
-本節說明在 AWS （ ROSA ）上設定託管 Red Hat OpenShift 叢集的高階工作流程。它顯示 Trident 使用託管的 FSx for NetApp ONTAP （ FSxN ）作為儲存後端、以提供持續的磁碟區。詳細說明如何使用 BlueXP 在 AWS 上部署 FSxN 。此外、我們也提供有關使用 BlueXP 和 OpenShift GitOps （ Argo CD ）在 ROSA 叢集上為有狀態的應用程式執行資料保護和移轉活動的詳細資訊。
+本節說明在 AWS （ ROSA ）上設定託管 Red Hat OpenShift 叢集的高階工作流程。它顯示 Trident 使用託管的 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）作為儲存後端、以提供持續的磁碟區。詳細說明如何使用 BlueXP  在 AWS 上部署 FSX ONTAP 。此外、我們也提供有關使用 BlueXP 和 OpenShift GitOps （ Argo CD ）在 ROSA 叢集上為有狀態的應用程式執行資料保護和移轉活動的詳細資訊。
 
-下圖說明在 AWS 上部署的 ROSA 叢集、並使用 FSxN 作為後端儲存設備。
+下圖說明在 AWS 上部署的 ROSA 叢集、並使用 FSX ONTAP 做為後端儲存設備。
 
 image:rhhc-rosa-with-fsxn.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
-NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Trident 與 FSxN 整合。在 AWS 中部署 ROSA 叢集和 FSxN 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
+NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行驗證。每個 ROSA 叢集都使用 Trident 與 FSX ONTAP 整合。在 AWS 中部署 ROSA 叢集和 FSX ONTAP 有幾種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
 
 設定程序可分為下列步驟：
 
@@ -33,11 +33,11 @@ NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行�
 
 
 ====
-.安裝 FSxN
+.安裝 FSX ONTAP
 [%collapsible]
 ====
-* 在 BlueXP 的 VPC 上安裝 FSxN 。請參閱 link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"] 用於建立 BlueXP 帳戶和開始使用。請參閱 link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html["請按這裡"] 用於安裝 FSxN 。請參閱 link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"] 在 AWS 中建立連接器以管理 FSxN 。
-* 使用 AWS 部署 FSxN 。請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["請按這裡"] 使用 AWS 主控台進行部署。
+* 在 BlueXP  的 VPC 上安裝 FSX ONTAP 。請參閱link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"]建立 BlueXP  帳戶和開始使用。請參閱link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html["請按這裡"]以瞭解如何安裝 FSX ONTAP 。請參閱link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"]在 AWS 中建立連接器以管理 FSX ONTAP 。
+* 使用 AWS 部署 FSX ONTAP 。請參閱link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["請按這裡"]以瞭解如何使用 AWS 主控台進行部署。
 
 
 ====
@@ -47,7 +47,7 @@ NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行�
 * 使用 Helm 圖表在 ROSA 叢集上安裝 Trident 。Helm 圖表的 URL ： https://netapp.github.io/trident-helm-chart[]
 
 
-.FSxN 與 Trident for ROSA 叢集整合
+.將 FSX ONTAP 與適用於 ROSA 叢集的 Trident 整合
 video::621ae20d-7567-4bbf-809d-b01200fa7a68[panopto]
 
 NOTE: OpenShift GitOps 可在所有託管叢集使用 ApplicationSet 註冊至 ArgoCD 時、將 Trident CSI 部署至這些叢集。
@@ -55,7 +55,7 @@ NOTE: OpenShift GitOps 可在所有託管叢集使用 ApplicationSet 註冊至 A
 image:rhhc-trident-helm.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
-.使用 Trident 建立後端和儲存類別（適用於 FSxN ）
+.使用 Trident 建立後端和儲存類別（適用於 FSX ONTAP ）
 [%collapsible]
 ====
 * 請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html["請按這裡"] 如需建立後端和儲存類別的詳細資訊、

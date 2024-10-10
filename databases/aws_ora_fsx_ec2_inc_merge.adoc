@@ -57,7 +57,7 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 === 架構
 
-image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲與 FSxN 中執行 Oracle VLDB 遞增合併實作的詳細圖片。"]
+image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲中使用 FSX ONTAP 的 Oracle VLDB 遞增合併實作的詳細圖片。"]
 
 
 
@@ -100,7 +100,7 @@ image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲與
 * * 適用於其他使用案例的 NFS Volume FlexClone Oracle VLDB 映像複本。 * AWS FSX ONTAP FlexClone 提供可寫入的相同 NFS 資料 Volume 的共用複本。因此、即使 Oracle 資料庫已切換、它們仍可用於許多其他使用案例、同時仍能維持整備 Oracle VLDB 影像複本的完整性。如此可大幅減少 VLDB 儲存佔用空間、大幅節省儲存成本。NetApp 建議在資料庫從主要儲存設備切換至資料庫映像複本時、將 FlexClone 活動降至最低、以維持 Oracle 高效能。
 * * EC2 運算執行個體。 * 在這些測試與驗證中、我們使用 AWS EC2 T2.xlge 執行個體做為 Oracle 資料庫運算執行個體。NetApp 建議在正式作業部署中使用 M5 類型 EC2 執行個體作為 Oracle 的運算執行個體、因為它已針對資料庫工作負載最佳化。您必須根據實際工作負載需求、適當調整 EC2 執行個體的 vCPU 數量和 RAM 數量。
 * * FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。FSXHA叢集會以HA配對進行配置、並在一對主動-被動檔案系統中進行鏡射同步、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。
-* * FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。
+* * FSX 儲存叢集規模。 *Amazon FSX ONTAP 儲存檔案系統可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。
 * * DNFS 組態。 * DNFS 內建於 Oracle 核心、已知在 Oracle 部署至 NFS 儲存設備時、可大幅提升 Oracle 資料庫效能。DNFS 封裝為 Oracle 二進位檔案、但預設不會開啟。在 NFS 上進行任何 Oracle 資料庫部署時、都應開啟此功能。對於 VLDB 的多個 FSX 檔案系統部署、應正確設定不同 FSX NFS 檔案系統的 DNFS 多重路徑。
 
 
@@ -127,7 +127,7 @@ image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲與
 
 . 已設定AWS帳戶、並已在AWS帳戶中建立必要的VPC和網路區段。
 . 從 AWS EC2 主控台、您必須部署兩個 EC2 Linux 執行個體、一個做為主要 Oracle DB 伺服器、另一個可選的複製目標 DB 伺服器。如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html["Linux執行個體使用指南"^] 以取得更多資訊。
-. 從 AWS EC2 主控台、部署 Amazon FSX for ONTAP 儲存 HA 叢集、以裝載儲存 Oracle 資料庫待命映像複本的 NFS 磁碟區。如果您不熟悉FSX儲存設備的部署、請參閱文件 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["為SfSX. ONTAP 檔案系統建立FSX"^] 以取得逐步指示。
+. 從 AWS EC2 主控台、部署 Amazon FSX ONTAP 儲存 HA 叢集、以裝載儲存 Oracle 資料庫待命映像複本的 NFS 磁碟區。如果您不熟悉 FSX 儲存設備的部署、請參閱文件link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["建立 FSX ONTAP 檔案系統"^]中的逐步說明。
 . 您可以使用下列 Terraform 自動化工具組來執行步驟 2 和 3 、此工具組會建立名為的 EC2 執行個體 `ora_01` 以及名為的 FSX 檔案系統 `fsx_01`。請仔細檢閱指示內容、並在執行前變更變數以符合您的環境。您可以根據自己的部署需求輕鬆修改範本。
 +
 ....
@@ -218,7 +218,7 @@ mkdir /nfsfsxn/oracopy
 ----
 mkdir /nfsfsxn/archlog
 ----
-. 透過 sqlplus 登入 Oracle 資料庫、啟用區塊變更追蹤功能、以加快遞增備份速度、並將 Oracle Flash 恢復區域變更為 FSxN 裝載（如果目前位於主要儲存設備上）。這可讓 RMAN 預設控制檔 / spfile 自動備份和歸檔記錄備份到 FSxN NFS 裝載進行還原。
+. 透過 sqlplus 登入 Oracle 資料庫、啟用區塊變更追蹤功能、以加快遞增備份速度、並將 Oracle Flash 恢復區域變更為目前位於主要儲存設備上的 FSX ONTAP 裝載。這可讓 RMAN 預設控制檔 / spfile 自動備份和歸檔記錄備份至 FSX ONTAP NFS 裝載進行還原。
 +
 [source, cli]
 ----
@@ -924,7 +924,7 @@ SQL>
 
 [%collapsible]
 ====
-當主要儲存設備和 EC2 DB 執行個體主機同時遺失時、無法從原始伺服器執行還原。幸運的是、備援 FSxN NFS 檔案系統上仍有 Oracle 資料庫備份映像複本。您可以快速配置另一個相同的 EC2 DB 執行個體、並透過 NFS 輕鬆將 VLDB 的映像複本掛載到新的 EC2 DB 主機、以執行恢復。在本節中、我們將示範進行此操作的逐步程序。
+當主要儲存設備和 EC2 DB 執行個體主機同時遺失時、無法從原始伺服器執行還原。幸運的是、備援的 FSX ONTAP NFS 檔案系統上仍有 Oracle 資料庫備份映像複本。您可以快速配置另一個相同的 EC2 DB 執行個體、並透過 NFS 輕鬆將 VLDB 的映像複本掛載到新的 EC2 DB 主機、以執行恢復。在本節中、我們將示範進行此操作的逐步程序。
 
 . 插入一列以測試先前為 Oracle 資料庫還原所建立的表格、以進行替代主機驗證。
 +
@@ -955,7 +955,7 @@ SQL> alter session set container=db1_pdb1;
 Session altered.
 
 
-SQL> insert into test values(2, sysdate, 'test recovery on a new EC2 instance host with image copy on FSxN');
+SQL> insert into test values(2, sysdate, 'test recovery on a new EC2 instance host with image copy on FSx ONTAP');
 
 1 row created.
 
@@ -977,12 +977,12 @@ test oracle incremental merge switch to copy
 
          2
 30-MAY-23 05.23.11.000000 PM
-test recovery on a new EC2 instance host with image copy on FSxN
+test recovery on a new EC2 instance host with image copy on FSx ONTAP
 
 
 SQL>
 ....
-. 身為 Oracle 使用者、請執行 RMAN 遞增備份並合併、將交易排清為 FSxN NFS 裝載上的備份集。
+. 身為 Oracle 使用者、請執行 RMAN 遞增備份並合併、以清除在 FSX ONTAP NFS 掛載上設定的備份作業。
 +
 ....
 [oracle@ip-172-30-15-99 ~]$ rman target / nocatalog
@@ -1004,8 +1004,8 @@ RMAN> @rman_bkup_merge.cmd
 工具套件： link:https://github.com/NetApp-Automation/na_oracle19c_deploy["NA_oracle19c_deploy"^]
 文件： link:marketing_overview.html#awxtower-deployments["在ONTAP NFS上自動部署Oracle19c for Sfor"^]
 
-. 類似於主要 EC2 DB 執行個體主機 ora_01 （例如 oratab 、 oraInst.loc 和 Oracle 使用者 .bash_profile ）來設定 Oracle 環境。將這些檔案備份到 FSxN NFS 裝載點是很好的做法。
-. FSxN NFS 掛載上的 Oracle 資料庫備份映像複本儲存在涵蓋 AWS 可用區域的 FSx 叢集上、以提供備援、高可用度和高效能。NFS 檔案系統可輕鬆掛載至新伺服器、只要連線能力可達。下列程序會將 Oracle VLDB 備份的映像複本掛載到新版本的 EC2 DB 執行個體主機以進行還原。
+. 類似於主要 EC2 DB 執行個體主機 ora_01 （例如 oratab 、 oraInst.loc 和 Oracle 使用者 .bash_profile ）來設定 Oracle 環境。將這些檔案備份到 FSX ONTAP NFS 裝載點是很好的做法。
+. FSX ONTAP NFS 掛載上的 Oracle 資料庫備份映像複本儲存在涵蓋 AWS 可用區域的 FSX 叢集上、以提供備援、高可用度和高效能。NFS 檔案系統可輕鬆掛載至新伺服器、只要連線能力可達。下列程序會將 Oracle VLDB 備份的映像複本掛載到新版本的 EC2 DB 執行個體主機以進行還原。
 +
 身為 EC2 使用者、請建立裝載點。
 
@@ -1022,7 +1022,7 @@ sudo mkdir /nfsfsxn
 ----
 sudo mount 172.30.15.19:/ora_01_copy /nfsfsxn -o rw,bg,hard,vers=3,proto=tcp,timeo=600,rsize=262144,wsize=262144,nointr
 ----
-. 驗證 FSxN NFS 掛載點上的 Oracle 資料庫備份映像複本。
+. 驗證 FSX ONTAP NFS 掛載點上的 Oracle 資料庫備份映像複本。
 +
 ....
 [ec2-user@ip-172-30-15-124 ~]$ ls -ltr /nfsfsxn/oracopy
@@ -1097,7 +1097,7 @@ total 78940700
 -rw-r-----. 1 oracle 54331   11600384 May 30 17:54 bct_db1.ctf
 
 ....
-. 驗證 FSxN NFS 掛載上可用的 Oracle 歸檔記錄以進行恢復、並記下上次的記錄檔記錄順序編號。在這種情況下、它是 175 。我們的恢復點是記錄續期數 176 。
+. 驗證 FSX ONTAP NFS 掛載上可用的 Oracle 歸檔記錄以進行恢復、並記下最後一個記錄檔日誌續期編號。在這種情況下、是 175 。我們的恢復點是記錄續期數字 176 。
 +
 ....
  [ec2-user@ip-172-30-15-124 ~]$ ls -ltr /nfsfsxn/archlog/DB1/archivelog/2023_05_30
@@ -1142,7 +1142,7 @@ total 5714400
 
 ....
 . 身為 Oracle 使用者、將新 EC2 執行個體 DB 主機 ORA_02 上的 Oracle_home 變數設為目前 Oracle 安裝、將 Oracle_SID 設為主要 Oracle 執行個體 SID 。在這種情況下、它是 db1 。
-. 身為 Oracle 使用者、請在 $Oracle_home/DBS 目錄中建立通用的 Oracle 初始化檔案、並設定適當的管理目錄。最重要的是、擁有 Oracle `flash recovery area` 指向主要 Oracle VLDB 執行個體中定義的 FSxN NFS 裝載路徑。  `flash recovery area` 組態將在章節中示範 `Setup Oracle RMAN incremental merge to image copy on FSx`。將 Oracle 控制檔設定為 FSX ONTAP NFS 檔案系統。
+. 身為 Oracle 使用者、請在 $Oracle_home/DBS 目錄中建立通用的 Oracle 初始化檔案、並設定適當的管理目錄。最重要的是、 Oracle `flash recovery area` 指向主要 Oracle VLDB 執行個體中定義的 FSX ONTAP NFS 裝載路徑。 `flash recovery area`組態如一節所示 `Setup Oracle RMAN incremental merge to image copy on FSx`。將 Oracle 控制檔設定為 FSX ONTAP NFS 檔案系統。
 +
 [source, cli]
 ----
@@ -1640,13 +1640,13 @@ SQL> select * from test;
         ID DT                                                                          EVENT
 ---------- --------------------------------------------------------------------------- ----------------------------------------------------------------------------------------------------
          1 18-MAY-23 02.35.37.000000 PM                                                test oracle incremental merge switch to copy
-         2 30-MAY-23 05.23.11.000000 PM                                                test recovery on a new EC2 instance host with image copy on FSxN
+         2 30-MAY-23 05.23.11.000000 PM                                                test recovery on a new EC2 instance host with image copy on FSx ONTAP
 ....
 . 其他恢復後工作
 +
 ....
 
-Add FSxN NFS mount to fstab so that the NFS file system will be mounted when EC2 instance host rebooted.
+Add FSx ONTAP NFS mount to fstab so that the NFS file system will be mounted when EC2 instance host rebooted.
 
 As EC2 user, vi /etc/fstab and add following entry:
 
@@ -1657,7 +1657,7 @@ Update the Oracle init file from primary databse init file backup that is restor
 ....
 
 
-這樣就完成 Oracle VLDB 資料庫從 FSxN NFS 檔案系統上的備份映像複本還原至新的 EC2 DB 執行個體主機。
+如此可完成 Oracle VLDB 資料庫從 FSX ONTAP NFS 檔案系統上的備份映像複本還原至新的 EC2 DB 執行個體主機。
 
 ====
 
@@ -1671,7 +1671,7 @@ Update the Oracle init file from primary databse init file backup that is restor
 . 我們先將一列插入之前建立的同一個測試表。
 +
 ....
- SQL> insert into test values (3, sysdate, 'test clone on a new EC2 instance host with image copy on FSxN');
+ SQL> insert into test values (3, sysdate, 'test clone on a new EC2 instance host with image copy on FSx ONTAP');
 
 1 row created.
 
@@ -1689,7 +1689,7 @@ test oracle incremental merge switch to copy
 
          2
 30-MAY-23 05.23.11.000000 PM
-test recovery on a new EC2 instance host with image copy on FSxN
+test recovery on a new EC2 instance host with image copy on FSx ONTAP
 
         ID
 ----------
@@ -1700,7 +1700,7 @@ EVENT
 
          3
 05-JUN-23 03.19.46.000000 PM
-test clone on a new EC2 instance host with image copy on FSxN
+test clone on a new EC2 instance host with image copy on FSx ONTAP
 
 
 SQL>
@@ -2307,8 +2307,8 @@ SQL> select * from test;
         ID DT                                                                          EVENT
 ---------- --------------------------------------------------------------------------- ----------------------------------------------------------------
          1 18-MAY-23 02.35.37.000000 PM                                                test oracle incremental merge switch to copy
-         2 30-MAY-23 05.23.11.000000 PM                                                test recovery on a new EC2 instance host with image copy on FSxN
-         3 05-JUN-23 03.19.46.000000 PM                                                test clone on a new EC2 instance host with image copy on FSxN
+         2 30-MAY-23 05.23.11.000000 PM                                                test recovery on a new EC2 instance host with image copy on FSx ONTAP
+         3 05-JUN-23 03.19.46.000000 PM                                                test clone on a new EC2 instance host with image copy on FSx ONTAP
 
 SQL>
 
@@ -2477,7 +2477,7 @@ link:https://support.oracle.com/knowledge/Oracle%20Database%20Products/745798_1.
 +
 link:https://docs.oracle.com/en/database/oracle/oracle-database/19/bradv/getting-started-rman.html["https://docs.oracle.com/en/database/oracle/oracle-database/19/bradv/getting-started-rman.html"^]
 
-* Amazon FSX for NetApp ONTAP 產品
+* Amazon FSX ONTAP
 +
 link:https://aws.amazon.com/fsx/netapp-ontap/["https://aws.amazon.com/fsx/netapp-ontap/"^]
 

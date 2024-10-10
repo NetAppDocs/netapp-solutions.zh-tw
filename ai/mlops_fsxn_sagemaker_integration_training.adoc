@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: ai/mlops_fsxn_sagemaker_integration_training.html 
-keywords: FSxN, MLOps, NetApp ONTAP, SageMaker, AWS S3, Computer Vision, PyTorch 
-summary: 本文是使用 AWS FSx for NetApp ONTAP （ FSxN ）來訓練 SageMaker 中的 PyTorch 機型的教學課程、特別是針對輪胎品質分類專案。 
+keywords: FSx ONTAP, MLOps, NetApp ONTAP, SageMaker, AWS S3, Computer Vision, PyTorch 
+summary: 本文是使用 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）在 SageMaker 中訓練 PyTorch 機型的教學課程、特別是針對輪胎品質分類專案。 
 ---
-= 第 2 部分：運用 AWS FSx for NetApp ONTAP （ FSxN ）做為 SageMaker 模型訓練的資料來源
+= 第 2 部分：運用 AWS Amazon FSX for NetApp ONTAP （ FSX ONTAP ）做為 SageMaker 模型訓練的資料來源
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 本文是使用 AWS FSx for NetApp ONTAP （ FSxN ）來訓練 SageMake
 
 
 [role="lead"]
-本文是使用 AWS FSx for NetApp ONTAP （ FSxN ）來訓練 SageMaker 中的 PyTorch 機型的教學課程、特別是針對輪胎品質分類專案。
+本文是使用 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）來訓練 SageMaker 中的 PyTorch 機型的教學課程、特別是針對輪胎品質分類專案。
 
 * 作者： *
 NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
@@ -23,13 +23,13 @@ NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
 
 == 簡介
 
-本教學課程提供電腦視覺分類專案的實用範例、提供建置 ML 模型的實際經驗、這些模型將 FSxN 作為 SageMaker 環境中的資料來源。此專案著重於使用深層學習架構 PyTorch 、根據輪胎影像來分類輪胎品質。它強調使用 FSxN 做為 Amazon SageMaker 資料來源的機器學習模型開發。
+本教學課程提供電腦視覺分類專案的實用範例、提供建置 ML 模型的實際經驗、這些模型將 FSX ONTAP 作為 SageMaker 環境中的資料來源。此專案著重於使用深層學習架構 PyTorch 、根據輪胎影像來分類輪胎品質。它強調使用 FSX ONTAP 作為 Amazon SageMaker 資料來源的機器學習模型開發。
 
 
 
-== 什麼是 FSxN
+== 什麼是 FSX ONTAP
 
-Amazon FSX for NetApp ONTAP 確實是 AWS 提供的完全託管儲存解決方案。它利用 NetApp 的 ONTAP 檔案系統來提供可靠且高效能的儲存設備。支援 NFS 、 SMB 和 iSCSI 等傳輸協定、可從不同的運算執行個體和容器進行無縫存取。此服務旨在提供卓越的效能、確保快速且有效率的資料作業。它也提供高可用度和耐用度、確保資料保持可存取和保護的狀態。此外、 Amazon FSX for NetApp ONTAP 的儲存容量可擴充、可讓您根據自己的需求輕鬆調整。
+Amazon FSX ONTAP 確實是 AWS 提供的完全託管儲存解決方案。它利用 NetApp 的 ONTAP 檔案系統來提供可靠且高效能的儲存設備。支援 NFS 、 SMB 和 iSCSI 等傳輸協定、可從不同的運算執行個體和容器進行無縫存取。此服務旨在提供卓越的效能、確保快速且有效率的資料作業。它也提供高可用度和耐用度、確保資料保持可存取和保護的狀態。此外、 Amazon FSX ONTAP 的儲存容量可擴充、可讓您根據自己的需求輕鬆調整。
 
 
 
@@ -41,15 +41,15 @@ Amazon FSX for NetApp ONTAP 確實是 AWS 提供的完全託管儲存解決方�
 
 image:mlops_fsxn_sagemaker_integration_training_0.png["網路環境"]
 
-FSxN （ Amazon FSx for NetApp ONTAP ）是 AWS 儲存服務。其中包括在 NetApp ONTAP 系統上執行的檔案系統、以及連接到它的 AWS 託管系統虛擬機器（ SVM ）。在所提供的圖表中、 AWS 管理的 NetApp ONTAP 伺服器位於 VPC 之外。SVM 是 SageMaker 和 NetApp ONTAP 系統之間的中介、可接收來自 SageMaker 的作業要求、並將其轉送至基礎儲存設備。若要存取 FSxN 、 SageMaker 必須與 FSxN 部署位於同一個 VPC 內。此組態可確保 SageMaker 和 FSxN 之間的通訊和資料存取。
+FSX ONTAP （ Amazon FSX ONTAP ）是 AWS 儲存服務。其中包括在 NetApp ONTAP 系統上執行的檔案系統、以及連接到它的 AWS 託管系統虛擬機器（ SVM ）。在所提供的圖表中、 AWS 管理的 NetApp ONTAP 伺服器位於 VPC 之外。SVM 是 SageMaker 和 NetApp ONTAP 系統之間的中介、可接收來自 SageMaker 的作業要求、並將其轉送至基礎儲存設備。若要存取 FSX ONTAP 、 SageMaker 必須與 FSX ONTAP 部署位於同一個 VPC 內。此組態可確保 SageMaker 和 FSX ONTAP 之間的通訊和資料存取。
 
 
 
 === 資料存取
 
-在實際案例中、資料科學家通常會利用儲存在 FSxN 中的現有資料來建置機器學習模型。不過、為了進行示範、由於 FSxN 檔案系統在建立後一開始是空的、因此必須手動上傳訓練資料。這可以透過將 FSxN 當作 Volume 安裝到 SageMaker 來達成。檔案系統成功掛載後、您可以將資料集上傳至掛載位置、以便在 SageMaker 環境中訓練您的模型。此方法可讓您在與 SageMaker 合作進行模型開發與訓練時、善用 FSxN 的儲存容量與功能。
+在實際案例中、資料科學家通常會利用儲存在 FSX ONTAP 中的現有資料來建置機器學習模型。不過、為了展示目的、由於 FSX ONTAP 檔案系統在建立後一開始是空的、因此必須手動上傳訓練資料。將 FSX ONTAP 當作 Volume 安裝至 SageMaker 即可達成此目標。檔案系統成功掛載後、您可以將資料集上傳至掛載位置、以便在 SageMaker 環境中訓練您的模型。此方法可讓您在與 SageMaker 合作進行模型開發與訓練時、善用 FSX ONTAP 的儲存容量與功能。
 
-資料讀取程序包括將 FSxN 設定為私有 S3 儲存區。若要瞭解詳細的組態指示、請參閱 link:./mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]
+資料讀取程序包括將 FSX ONTAP 設定為私有 S3 儲存區。若要瞭解詳細的組態指示、請參閱link:./mlops_fsxn_s3_integration.html["第 1 部分：將 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]
 
 
 
@@ -57,7 +57,7 @@ FSxN （ Amazon FSx for NetApp ONTAP ）是 AWS 儲存服務。其中包括在 N
 
 image:mlops_fsxn_sagemaker_integration_training_1.png["訓練工作流程"]
 
-使用 FSxN 中的訓練資料在 SageMaker 中建立深度學習模型的工作流程、可歸納為三個主要步驟：資料載入程式定義、模型訓練和部署。在高層級、這些步驟是 MLOps 管道的基礎。不過、每個步驟都包含數個詳細的子步驟、以便全面實作。這些子步驟涵蓋各種工作、例如資料預先處理、資料集分割、模型組態、超參數調整、模型評估、 和模型部署。這些步驟可確保在 SageMaker 環境中、使用 FSxN 的訓練資料、建立及部署深度學習模型的完整且有效的程序。
+使用 FSX ONTAP 中的訓練資料在 SageMaker 中建立深度學習模型的工作流程、可歸納為三個主要步驟：資料 Loader 定義、模型訓練和部署。在高層級、這些步驟是 MLOps 管道的基礎。不過、每個步驟都包含數個詳細的子步驟、以便全面實作。這些子步驟涵蓋各種工作、例如資料預先處理、資料集分割、模型組態、超參數調整、模型評估、 和模型部署。這些步驟可確保在 SageMaker 環境中、使用來自 FSX ONTAP 的訓練資料、建立及部署深度學習模型的完整有效程序。
 
 
 
@@ -127,11 +127,11 @@ class FSxNImageDataset(torch.utils.data.Dataset):
             image = self.preprocess(image)
         return image, label
 ----
-此類別提供的功能可取得資料集中的記錄總數、並定義讀取每筆記錄資料的方法。在 *_getertis__* 函數中，代碼使用 boto3 S3 儲存區物件從 FSxN 擷取二進位資料。從 FSxN 存取資料的程式碼樣式類似於從 Amazon S3 讀取資料。隨後的說明將深入到私有 S3 物件 * 儲存庫 * 的建立程序。
+此類別提供的功能可取得資料集中的記錄總數、並定義讀取每筆記錄資料的方法。在 *__getertis__* 函數中，代碼使用 boto3 S3 儲存區物件從 FSX ONTAP 擷取二進位資料。從 FSX ONTAP 存取資料的程式碼樣式類似於從 Amazon S3 讀取資料。隨後的說明將深入到私有 S3 物件 * 儲存庫 * 的建立程序。
 
 
 
-==== FSxN 做為私有 S3 儲存庫
+==== 將 FSX ONTAP 做為私有 S3 儲存庫
 
 [source, python]
 ----
@@ -139,7 +139,7 @@ seed = 77                                                   # Random seed
 bucket_name = '<Your ONTAP bucket name>'                    # The bucket name in ONTAP
 aws_access_key_id = '<Your ONTAP bucket key id>'            # Please get this credential from ONTAP
 aws_secret_access_key = '<Your ONTAP bucket access key>'    # Please get this credential from ONTAP
-fsx_endpoint_ip = '<Your FSxN IP address>'                  # Please get this IP address from FSXN
+fsx_endpoint_ip = '<Your FSx ONTAP IP address>'                  # Please get this IP address from FSXN
 ----
 [source, python]
 ----
@@ -167,7 +167,7 @@ s3_client: boto3.client = boto3.resource(
 bucket = s3_client.Bucket(bucket_name)
 # --- End integrating SageMaker with FSXN ---
 ----
-若要從 SageMaker 中的 FSxN 讀取資料、會建立一個處理常式、使用 S3 傳輸協定指向 FSxN 儲存設備。如此可將 FSxN 視為私有 S3 儲存區。處理常式組態包括指定 FSxN SVM 的 IP 位址、貯體名稱和必要的認證。如需取得這些組態項目的完整說明、請參閱上的文件 link:mlops_fsxn_s3_integration.html["第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。
+若要從 SageMaker 中的 FSX ONTAP 讀取資料、會建立使用 S3 傳輸協定指向 FSX ONTAP 儲存設備的處理常式。如此可將 FSX ONTAP 視為私有 S3 儲存區。處理常式組態包括指定 FSX ONTAP SVM 的 IP 位址、貯體名稱和必要的認證。有關獲取這些配置項目的詳細說明，請參閱上的文檔link:mlops_fsxn_s3_integration.html["第 1 部分：將 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）整合為私有 S3 儲存區、並整合至 AWS SageMaker"]。
 
 在上述範例中、貯體物件用於產生 PyTorch 資料集物件。後續章節將進一步說明 DataSet 物件。
 

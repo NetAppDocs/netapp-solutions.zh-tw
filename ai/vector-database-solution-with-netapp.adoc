@@ -16,7 +16,7 @@ summary: 這是 NetApp 向量資料基礎解決方案的抽象頁面。
 NetApp 的 Kartheyan Nagalingam 和 Rodrigo Nascimento
 
 [role="lead"]
-本文件使用 NetApp 的儲存解決方案、徹底探索向量資料庫（例如 Milvus ）的部署與管理、以及 pgvecto 開放原始碼 PostgreSQL 延伸。其中詳述使用 NetApp ONTAP 和 StorageGRID 物件儲存設備的基礎架構準則、並驗證 AWS FSX for NetApp ONTAP 中的 Milvus 資料庫應用程式。本文件說明 NetApp 的檔案物件雙重性、以及其用於支援向量嵌入的向量資料庫和應用程式的公用程式。它強調 NetApp 企業管理產品 SnapCenter 的功能、可為向量資料庫提供備份與還原功能、確保資料完整性與可用度。本文件進一步深入探討 NetApp 的混合雲解決方案、討論其在內部部署和雲端環境中的資料複寫與保護角色。其中包括對 NetApp ONTAP 上向量資料庫效能驗證的深入見解、最後以兩個泛用 AI 的實際使用案例做為結論：使用 LLM 和 NetApp 內部 ChatAI 。本文檔是利用 NetApp 的儲存解決方案來管理向量資料庫的完整指南。
+本文件使用 NetApp 的儲存解決方案、徹底探索向量資料庫（例如 Milvus ）的部署與管理、以及 pgvecto 開放原始碼 PostgreSQL 延伸。其中詳述使用 NetApp ONTAP 和 StorageGRID 物件儲存設備的基礎架構準則、並驗證 AWS FSX ONTAP 中的 Milvus 資料庫應用程式。本文件說明 NetApp 的檔案物件雙重性、以及其用於支援向量嵌入的向量資料庫和應用程式的公用程式。它強調 NetApp 企業管理產品 SnapCenter 的功能、可為向量資料庫提供備份與還原功能、確保資料完整性與可用度。本文件進一步深入探討 NetApp 的混合雲解決方案、討論其在內部部署和雲端環境中的資料複寫與保護角色。其中包括對 NetApp ONTAP 上向量資料庫效能驗證的深入見解、最後以兩個泛用 AI 的實際使用案例做為結論：使用 LLM 和 NetApp 內部 ChatAI 。本文檔是利用 NetApp 的儲存解決方案來管理向量資料庫的完整指南。
 
 參考架構著重於下列項目：
 
@@ -28,7 +28,7 @@ NetApp 的 Kartheyan Nagalingam 和 Rodrigo Nascimento
 . link:./vector-database-solution-verification-overview.html["解決方案驗證總覽"]
 +
 ** link:./vector-database-milvus-cluster-setup.html["在內部部署使用 Kubernetes 進行 Milvus 叢集設定"]
-** link:./vector-database-milvus-with-Amazon-FSxN-for-NetApp-ONTAP.html["Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性"]
+** 連結： /vector-database-milvus-with -Amazon 、 FSX 、 ONTAP for NetApp 、 ONTAP 、 HTML[Milvus with Amazon FSX ONTAP for NetApp ONTAP –檔案和物件雙重性 ]
 ** link:./vector-database-protection-using-snapcenter.html["使用 NetApp SnapCenter 保護向量資料庫。"]
 ** link:./vector-database-disaster-recovery-using-netapp-snapmirror.html["使用 NetApp SnapMirror 進行災難恢復"]
 ** link:./vector-database-performance-validation.html["效能驗證"]

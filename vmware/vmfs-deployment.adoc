@@ -412,7 +412,7 @@ image:vmfs-deploy-image39.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 透過在每個超純量系統上整合由 NetApp 支援的單一伺服器服務、企業組織就能以簡單的移轉方法實現 vSphere 型雲端解決方案、無需重新建立平台、無需變更 IP 、也不需變更架構。此外、此最佳化可讓您擴充儲存設備佔用空間、同時將vSphere中所需的主機數量維持在最低、但不會變更可用的儲存階層架構、安全性或檔案。
 
-* 檢視的詳細指南link:../ehc/aws-migrate-vmware-hcx.html["將工作負載移轉至適用於 ONTAP 資料存放區的 FSX"]。
+* 檢視的詳細指南link:../ehc/aws-migrate-vmware-hcx.html["將工作負載移轉至 FSX ONTAP 資料存放區"]。
 * 檢視的詳細指南link:../ehc/azure-migrate-vmware-hcx.html["將工作負載移轉至 Azure NetApp Files 資料存放區"]。
 * 檢視的詳細指南link:../ehc/gcp-migrate-vmware-hcx.html["將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區"]。
 
@@ -431,9 +431,9 @@ image:vmfs-deploy-image39.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 === 在任何超純量的內部部署與 VMware Cloud 之間進行災難恢復
 
-對於想要在任何超純量上使用 VMware Cloud 做為災難恢復目標的客戶、 ONTAP 儲存設備的資料存放區（ Azure NetApp Files 、適用於 ONTAP 的 FSX 、 Google Cloud NetApp Volume ）可以使用任何經過驗證的第三方解決方案、提供 VM 複寫功能、從內部部署複寫資料。藉由新增 ONTAP 儲存設備的資料存放區、可在目的地上以較少的 ESXi 主機來實現成本最佳化的災難恢復。這也能在內部環境中取消部署次要站台、進而大幅節省成本。
+對於想要在任何超純量上使用 VMware Cloud 做為災難恢復目標的客戶、 ONTAP 儲存設備的資料存放區（ Azure NetApp Files 、 FSX ONTAP 、 Google Cloud NetApp Volume ）可以使用任何驗證的第三方解決方案、從內部部署複寫資料、提供 VM 複寫功能。藉由新增 ONTAP 儲存設備的資料存放區、可在目的地上以較少的 ESXi 主機來實現成本最佳化的災難恢復。這也能在內部環境中取消部署次要站台、進而大幅節省成本。
 
-* 檢視的詳細指南link:../ehc/veeam-fsxn-dr-to-vmc.html["ONTAP 資料存放區的 FSX 災難恢復"]。
+* 檢視的詳細指南link:../ehc/veeam-fsxn-dr-to-vmc.html["災難恢復至 FSX ONTAP 資料存放區"]。
 * 檢視的詳細指南link:../ehc/azure-native-dr-jetstream.html["災難恢復至 Azure NetApp Files 資料存放區"]。
 * 檢視的詳細指南link:../ehc/gcp-app-dr-sc-cvs-veeam.html["災難恢復至 Google Cloud NetApp Volumes 資料存放區"]。
 

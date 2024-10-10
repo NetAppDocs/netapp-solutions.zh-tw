@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: ehc/aws-vmc-veeam-fsx-solution.html 
-keywords: disaster recovery, vmc, vmware cloud, aws, amazon web services, nfs datastore, fsxn, fsx for ontap, fsx for netapp ontap, backup, restore, sql server, oracle 
+keywords: disaster recovery, vmc, vmware cloud, aws, amazon web services, nfs datastore, fsxn, FSx ONTAP, FSx ONTAP, backup, restore, sql server, oracle 
 summary:  
 ---
-= 在 VMware Cloud 中使用 Amazon FSX for ONTAP 進行 Veeam 備份與還原
+= 在 VMware Cloud 中使用 Amazon FSX ONTAP 進行 Veeam 備份與還原
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-Veeam 備份與複寫是有效且可靠的解決方案、可在 VMware Cloud 中保護資料。此解決方案展示了正確的設定和組態、可讓您使用 Veeam 備份和複寫來備份和還原位於 VMware Cloud 中適用於 ONTAP NFS 資料存放區的 FSX 上的應用程式 VM 。
+Veeam 備份與複寫是有效且可靠的解決方案、可在 VMware Cloud 中保護資料。此解決方案展示了正確的設定和組態、可讓您使用 Veeam 備份和複寫來備份和還原位於 VMware Cloud 中 FSX ONTAP NFS 資料存放區上的應用程式 VM 。
 
 作者： Josh Powell - NetApp 解決方案工程部
 
@@ -22,7 +22,7 @@ Veeam 備份與複寫是有效且可靠的解決方案、可在 VMware Cloud 中
 
 == 總覽
 
-VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存設備、而 FSX for NetApp ONTAP 則是安全的解決方案、適合需要儲存大量資料給雲端應用程式的客戶、可在 SDDC 叢集中的 ESXi 主機數量之外進行擴充。這項整合式 AWS 儲存服務提供高效率的儲存設備、具備所有傳統的 NetApp ONTAP 功能。
+VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存設備、而 FSX ONTAP 則是安全的解決方案、適合需要儲存大量資料給雲端應用程式的客戶、可在 SDDC 叢集中的 ESXi 主機數量之外進行擴充。這項整合式 AWS 儲存服務提供高效率的儲存設備、具備所有傳統的 NetApp ONTAP 功能。
 
 
 
@@ -30,16 +30,16 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 
 本解決方案可解決下列使用案例：
 
-* 使用適用於 NetApp ONTAP 的 FSX 作為備份儲存庫、備份及還原 VMC 中託管的 Windows 和 Linux 虛擬機器。
-* 使用適用於 NetApp ONTAP 的 FSX 作為備份儲存庫、備份及還原 Microsoft SQL Server 應用程式資料。
-* 使用適用於 NetApp ONTAP 的 FSX 作為備份儲存庫、備份及還原 Oracle 應用程式資料。
+* 使用 FSX ONTAP 做為備份儲存庫、備份及還原 VMC 中的 Windows 和 Linux 虛擬機器。
+* 使用 FSX ONTAP 做為備份儲存庫、備份及還原 Microsoft SQL Server 應用程式資料。
+* 使用 FSX ONTAP 做為備份儲存庫、備份及還原 Oracle 應用程式資料。
 
 
 
 
-=== 使用 Amazon FSX for ONTAP 的 NFS 資料存放區
+=== 使用 Amazon FSX ONTAP 的 NFS 資料存放區
 
-此解決方案中的所有虛擬機器都位於適用於 ONTAP 補充 NFS 資料存放區的 FSX 上。將 FSX for ONTAP 作為補充 NFS 資料存放區有幾項優點。例如、它可讓您：
+此解決方案中的所有虛擬機器都位於 FSX ONTAP 補充 NFS 資料存放區。使用 FSX ONTAP 做為補充 NFS 資料存放區有幾項優點。例如、它可讓您：
 
 * 在雲端中建立可擴充且高可用度的檔案系統、無需複雜的設定與管理。
 * 與現有的 VMware 環境整合、讓您使用熟悉的工具和程序來管理雲端資源。
@@ -49,10 +49,10 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 .解決方案部署總覽
 [%collapsible]
 ====
-此清單提供設定 Veeam 備份與複寫、使用適用於 ONTAP 的 FSX 作為備份儲存庫執行備份與還原工作、以及執行 SQL Server 、 Oracle VM 和資料庫還原所需的高階步驟：
+此清單提供設定 Veeam 備份與複寫、使用 FSX ONTAP 做為備份儲存庫執行備份與還原工作、以及執行 SQL Server 、 Oracle VM 和資料庫還原所需的高階步驟：
 
-. 為 ONTAP 檔案系統建立 FSX 、作為 Veeam 備份與複寫的 iSCSI 備份儲存庫。
-. 部署 Veeam Proxy 以分散備份工作負載、並裝載位於 ONTAP 適用的 FSX 上的 iSCSI 備份儲存庫。
+. 建立 FSX ONTAP 檔案系統、作為 Veeam 備份與複寫的 iSCSI 備份儲存庫。
+. 部署 Veeam Proxy 以分散備份工作負載、並裝載位於 FSX ONTAP 上的 iSCSI 備份儲存庫。
 . 設定 Veeam 備份工作來備份 SQL Server 、 Oracle 、 Linux 和 Windows 虛擬機器。
 . 還原 SQL Server 虛擬機器和個別資料庫。
 . 還原 Oracle 虛擬機器和個別資料庫。
@@ -62,22 +62,22 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 .先決條件
 [%collapsible]
 ====
-此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX for NetApp ONTAP 託管的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設已設定下列元件、可供使用：
+此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX ONTAP 主控的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設已設定下列元件、可供使用：
 
-. ONTAP 檔案系統的 FSX 、其中有一或多個 NFS 資料存放區連線至 VMware Cloud 。
+. FSX ONTAP 檔案系統、其中有一或多個 NFS 資料存放區連線至 VMware Cloud 。
 . 安裝了 Veeam 備份與複寫軟體的 Microsoft Windows Server VM 。
 +
 ** Veeam 備份與複寫伺服器已使用其 IP 位址或完整網域名稱來探索 vCenter 伺服器。
 
 
 . 在解決方案部署期間與 Veeam Backup Proxy 元件一起安裝的 Microsoft Windows Server VM 。
-. 內含 VMDK 的 Microsoft SQL Server VM 、以及位於 ONTAP NFS 資料存放區的 FSX 上的應用程式資料。對於此解決方案、我們在兩個獨立的 VMDK 上有兩個 SQL 資料庫。
+. 內含 VMDK 的 Microsoft SQL Server VM 、以及位於 FSX ONTAP NFS 資料存放區上的應用程式資料。對於此解決方案、我們在兩個獨立的 VMDK 上有兩個 SQL 資料庫。
 +
 ** 附註：最佳實務做法是將資料庫和交易記錄檔放在不同的磁碟機上、如此可改善效能和可靠性。部分原因是交易記錄會依序寫入、而資料庫檔案則是隨機寫入。
 
 
-. Oracle 資料庫 VM 搭配 VMDK 、以及位於 ONTAP NFS 資料存放區的 FSX 上的應用程式資料。
-. Linux 和 Windows 檔案伺服器 VM 、其中 VMDK 位於 ONTAP NFS 資料存放區的 FSX 上。
+. 具有 VMDK 的 Oracle 資料庫 VM 、以及位於 FSX ONTAP NFS 資料存放區上的應用程式資料。
+. Linux 和 Windows 檔案伺服器 VM 、其中 VMDK 位於 FSX ONTAP NFS 資料存放區。
 . Veeam 需要特定的 TCP 連接埠、才能在備份環境中的伺服器和元件之間進行通訊。在 Veeam 備份基礎架構元件上、系統會自動建立必要的防火牆規則。如需網路連接埠需求的完整清單、請參閱的「連接埠」一節 https://helpcenter.veeam.com/docs/backup/vsphere/used_ports.html?zoom_highlight=network+ports&ver=120["Veeam Backup and Replication User Guide for VMware vSphere"]。
 
 
@@ -93,16 +93,16 @@ image:aws-vmc-veeam-00.png["解決方案架構示意圖"]
 .硬體/軟體元件
 [%collapsible]
 ====
-此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX for NetApp ONTAP 託管的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設下列元件已設定好可供使用：
+此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX ONTAP 主控的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設下列元件已設定好可供使用：
 
-* Microsoft Windows VM 位於適用於 ONTAP NFS 資料存放區的 FSX 上
-* Linux （ CentOS ） VM 位於適用於 ONTAP NFS 資料存放區的 FSX 上
-* Microsoft SQL Server VM 位於適用於 ONTAP NFS 資料存放區的 FSX 上
+* Microsoft Windows VM 位於 FSX ONTAP NFS 資料存放區
+* 位於 FSX ONTAP NFS 資料存放區上的 Linux （ CentOS ） VM
+* Microsoft SQL Server VM 位於 FSX ONTAP NFS 資料存放區
 +
 ** 兩個資料庫分別託管在不同的 VMDK 上
 
 
-* Oracle VM 位於適用於 ONTAP NFS 資料存放區的 FSX 上
+* Oracle VM 位於 FSX ONTAP NFS 資料存放區
 
 
 ====
@@ -110,11 +110,11 @@ image:aws-vmc-veeam-00.png["解決方案架構示意圖"]
 
 == 解決方案部署
 
-在本解決方案中、我們提供詳細說明、說明如何使用 Veeam 備份與複寫軟體來部署及驗證解決方案、以在 AWS 上的 VMware Cloud SDDC 中執行 SQL Server 、 Oracle 、 Windows 和 Linux 檔案伺服器虛擬機器的備份與還原。此解決方案中的虛擬機器位於由 FSX for ONTAP 主控的補充 NFS 資料存放區。此外、 ONTAP 檔案系統的另一個 FSX 可用來裝載 iSCSI 磁碟區、以用於 Veeam 備份儲存庫。
+在本解決方案中、我們提供詳細說明、說明如何使用 Veeam 備份與複寫軟體來部署及驗證解決方案、以在 AWS 上的 VMware Cloud SDDC 中執行 SQL Server 、 Oracle 、 Windows 和 Linux 檔案伺服器虛擬機器的備份與還原。此解決方案中的虛擬機器位於由 FSX ONTAP 主控的輔助 NFS 資料存放區。此外、另有一個 FSX ONTAP 檔案系統可用來裝載 iSCSI 磁碟區、以用於 Veeam 備份儲存庫。
 
-我們將介紹用於 ONTAP 檔案系統建立的 FSX 、用於備份儲存庫的裝載 iSCSI 磁碟區、建立及執行備份工作、以及執行 VM 和資料庫還原。
+我們將介紹如何建立 FSX ONTAP 檔案系統、安裝 iSCSI 磁碟區作為備份儲存庫、建立及執行備份工作、以及執行 VM 和資料庫還原。
 
-如需適用於 NetApp ONTAP 的 FSX 詳細資訊、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["適用於 ONTAP 的 FSX 使用者指南"^]。
+如需有關 FSX ONTAP 的詳細資訊、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["FSX ONTAP 使用者指南"^]。
 
 如需 Veeam 備份與複寫的詳細資訊、請參閱 https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam說明中心技術文件"^] 網站。
 
@@ -182,22 +182,22 @@ image:aws-vmc-veeam-10.png["設定網路流量規則"]
 
 === 設定儲存與備份儲存庫
 
-主要 Veeam 備份伺服器和 Veeam Proxy 伺服器可以直接連線儲存設備的形式存取備份儲存庫。在本節中、我們將介紹如何為 ONTAP 檔案系統建立 FSX 、將 iSCSI LUN 掛載至 Veeam 伺服器、以及建立備份儲存庫。
+主要 Veeam 備份伺服器和 Veeam Proxy 伺服器可以直接連線儲存設備的形式存取備份儲存庫。在本節中、我們將介紹如何建立 FSX ONTAP 檔案系統、將 iSCSI LUN 掛載至 Veeam 伺服器、以及建立備份儲存庫。
 
-.為 ONTAP 檔案系統建立 FSX
+.建立 FSX ONTAP 檔案系統
 [%collapsible]
 ====
-為 ONTAP 檔案系統建立一個 FSX 、用於裝載 Veeam 備份儲存庫的 iSCSI 磁碟區。
+建立將用於裝載 Veeam 備份儲存庫 iSCSI 磁碟區的 FSX ONTAP 檔案系統。
 
 . 在 AWS 主控台、前往 FSX 、然後 * 建立檔案系統 *
 +
-image:aws-vmc-veeam-01.png["為 ONTAP 檔案系統建立 FSX"]
+image:aws-vmc-veeam-01.png["建立 FSX ONTAP 檔案系統"]
 
-. 選擇 * Amazon FSX for NetApp ONTAP * 、然後選擇 * Next* 繼續。
+. 選擇 * Amazon FSX ONTAP * 、然後選擇 * Next* 繼續。
 +
-image:aws-vmc-veeam-02.png["選擇 Amazon FSX for NetApp ONTAP"]
+image:aws-vmc-veeam-02.png["選取 Amazon FSX ONTAP"]
 
-. 填寫檔案系統名稱、部署類型、 SSD 儲存容量、以及 ONTAP 叢集的 FSX 所在的 VPC 。這必須是設定為與 VMware Cloud 中的虛擬機器網路通訊的 VPC 。按一下 * 下一步 * 。
+. 填寫檔案系統名稱、部署類型、 SSD 儲存容量、以及 FSX ONTAP 叢集所在的 VPC 。這必須是設定為與 VMware Cloud 中的虛擬機器網路通訊的 VPC 。按一下 * 下一步 * 。
 +
 image:aws-vmc-veeam-03.png["填寫檔案系統資訊"]
 
@@ -208,13 +208,13 @@ image:aws-vmc-veeam-03.png["填寫檔案系統資訊"]
 .設定及掛載 iSCSI LUN
 [%collapsible]
 ====
-在適用於 ONTAP 的 FSX 上建立和設定 iSCSI LUN 、並掛載至 Veeam 備份和 Proxy 伺服器。這些 LUN 稍後將用於建立 Veeam 備份儲存庫。
+在 FSX ONTAP 上建立及設定 iSCSI LUN 、然後掛載至 Veeam 備份與 Proxy 伺服器。這些 LUN 稍後將用於建立 Veeam 備份儲存庫。
 
 
-NOTE: 在適用於 ONTAP 的 FSX 上建立 iSCSI LUN 是一個多步驟程序。建立磁碟區的第一步可以在 Amazon FSX 主控台或 NetApp ONTAP CLI 中完成。
+NOTE: 在 FSX ONTAP 上建立 iSCSI LUN 是一個多步驟程序。建立磁碟區的第一步可以在 Amazon FSX 主控台或 NetApp ONTAP CLI 中完成。
 
 
-NOTE: 如需使用適用於 ONTAP 的 FSX 的詳細資訊、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["適用於 ONTAP 的 FSX 使用者指南"^]。
+NOTE: 如需使用 FSX ONTAP 的詳細資訊，請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["FSX ONTAP 使用者指南"^]。
 
 . 從 NetApp ONTAP CLI 使用下列命令建立初始磁碟區：
 +
@@ -449,7 +449,7 @@ image:aws-vmc-veeam-36.png["從清單中選取還原點"]
 
 VMware Cloud 是執行業務關鍵應用程式及儲存敏感資料的強大平台。對於仰賴 VMware Cloud 的企業而言、安全的資料保護解決方案是不可或缺的、可確保業務持續運作、並協助防範網路威脅和資料遺失。選擇可靠且健全的資料保護解決方案、企業就能確信關鍵資料安全無虞、不受任何影響。
 
-本文件中的使用案例著重於備受肯定的資料保護技術、強調 NetApp 、 VMware 和 Veeam 之間的整合。FSX for ONTAP 在 AWS 中支援做為 VMware Cloud 的補充 NFS 資料存放區、並用於所有虛擬機器和應用程式資料。Veeam 備份與複寫是一套全方位的資料保護解決方案、旨在協助企業改善、自動化及簡化備份與還原程序。Veeam 與 ONTAP 的 FSX 上託管的 iSCSI 備份目標磁碟區搭配使用、可為位於 VMware Cloud 的應用程式資料提供安全且易於管理的資料保護解決方案。
+本文件中的使用案例著重於備受肯定的資料保護技術、強調 NetApp 、 VMware 和 Veeam 之間的整合。FSX ONTAP 在 AWS 中支援做為 VMware Cloud 的補充 NFS 資料存放區、並用於所有虛擬機器和應用程式資料。Veeam 備份與複寫是一套全方位的資料保護解決方案、旨在協助企業改善、自動化及簡化備份與還原程序。Veeam 與 FSX ONTAP 上託管的 iSCSI 備份目標磁碟區搭配使用、可為位於 VMware Cloud 中的應用程式資料提供安全且易於管理的資料保護解決方案。
 
 
 
@@ -457,7 +457,7 @@ VMware Cloud 是執行業務關鍵應用程式及儲存敏感資料的強大平�
 
 若要深入瞭解本解決方案所提供的技術、請參閱下列其他資訊。
 
-* https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["適用於 ONTAP 的 FSX 使用者指南"^]
+* https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html["FSX ONTAP 使用者指南"^]
 * https://www.veeam.com/documentation-guides-datasheets.html?productId=8&version=product%3A8%2F221["Veeam說明中心技術文件"^]
 * https://www.veeam.com/kb2414["VMware Cloud on AWS 支援。考量與限制"]
 

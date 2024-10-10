@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ai/ddlnexus_expose_netapp_vols.html 
-keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx for NetApp ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
+keywords: NetApp AI, AI, Artificial Intelligence, ML, Machine Learning, NVIDIA, Hybrid, Hybrid Cloud, Hybrid Multicloud, Cloud, AWS, Amazon, Amazon Web Services, FSx ONTAP, FSx, NetApp ONTAP, FlexCache, SnapMirror, BlueXP 
 summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps - 將現有的 NetApp Volume 暴露於 Domino 中 
 ---
 = 將現有的 NetApp Volume 暴露於 Domino 中
@@ -39,7 +39,7 @@ summary: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps - 將現�
 === 在 Kubernetes 建立 PV 和 PVC
 
 
-NOTE: 對於內部部署磁碟區、請在內部部署的 Kubernetes 叢集中建立 PV 和 PVC 。對於 Amazon FSX for NetApp ONTAP Volume 、請在 Amazon EKS 中建立 PV 和 PVC 。
+NOTE: 對於內部部署磁碟區、請在內部部署的 Kubernetes 叢集中建立 PV 和 PVC 。對於 Amazon FSX ONTAP Volume 、請在 Amazon EKS 中建立 PV 和 PVC 。
 
 首先、您必須在 Kubernetes 叢集中建立持續性 Volume （ PV ）和持續性 Volume Claim （ PVC ）。若要建立 PV 和 PVC 、請使用 link:https://docs.dominodatalab.com/en/latest/admin_guide/4cdae9/set-up-kubernetes-pv-and-pvc/#_nfs_pvpvc_example["NFS PV/PVC 範例"] 從 Domino 管理指南更新值、以反映您的環境。請務必為指定正確的值 `namespace`、 `nfs.path`和 `nfs.server` 欄位。此外、我們建議您提供 PV 和 PVC 的唯一名稱、以代表儲存在對應 ONTAP NFS Volume 上的資料性質。例如、如果 Volume 包含製造瑕疵的影像、您可以將 PV 命名為 `pv-mfg-defect-images`和 PVC 、 `pvc-mfg-defect-images`。
 

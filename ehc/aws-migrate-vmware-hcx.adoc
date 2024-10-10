@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-Amazon Web Services（AWS）上的VMware Cloud（VMC）的常見使用案例、其補充NFS資料存放區位於Amazon FSX for NetApp ONTAP 的NetApp功能區上、就是移轉VMware工作負載。VMware HCX是首選選選項、提供多種移轉方法、可將內部部署虛擬機器（VM）及其資料（在任何VMware支援的資料存放區上執行）移至VMC資料存放區、其中包括FSXfor ONTAP VMware上的補充NFS資料存放區。
+Amazon Web Services （ AWS ）上的 VMware Cloud （ VMC ）的常見使用案例、其輔助 NFS 資料存放區位於 Amazon FSX ONTAP 上、是 VMware 工作負載的移轉。VMware HCX 是首選選選項、提供各種移轉方法、可將內部部署虛擬機器（ VM ）及其資料（在任何 VMware 支援的資料存放區上執行）移至 VMC 資料存放區、其中包括 FSX ONTAP 上的補充 NFS 資料存放區。
 
 作者：NetApp解決方案工程
 
@@ -54,7 +54,7 @@ VMware HCX主要是一個行動平台、其設計旨在簡化跨雲端的工作�
 . 請使用現有的VMC SDDC、或在這之後建立新的SDDC link:aws-setup.html["NetApp連結"^] 或是這種情況 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws.getting-started/GUID-EF198D55-03E3-44D1-AC48-6E2ABA31FF02.html["VMware連結"^]。
 . 從內部部署vCenter環境到VMC SDDC的網路路徑、必須使用vMotion來支援VM移轉。
 . 請確定所需的 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-A631101E-8564-4173-8442-1D294B731CEB.html["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。
-. FSx for ONTAP SforiNFS Volume應安裝為VMC SDDC的補充資料存放區。  若要將NFS資料存放區附加至適當的叢集、請遵循本文所述的步驟 link:aws-native-overview.html["NetApp連結"^] 或是這種情況 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-D55294A3-7C40-4AD8-80AA-B33A25769CCA.html["VMware連結"^]。
+. FSX ONTAP NFS 磁碟區應裝載為 VMC SDDC 中的補充資料存放區。若要將 NFS 資料存放區附加至適當的叢集，請遵循本或本 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-D55294A3-7C40-4AD8-80AA-B33A25769CCA.html["VMware連結"^]中所述的步驟link:aws-native-overview.html["NetApp連結"^]。
 
 
 ====
@@ -315,14 +315,14 @@ image:fsx-hcx-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 NOTE: VMware HCX VMotion需要100Mbps或更高的處理量能力。
 
 
-NOTE: 目標VMC FSX for ONTAP VMware資料存放區必須有足夠的空間來容納移轉作業。
+NOTE: 目標 VMC FSX ONTAP 資料存放區必須有足夠的空間來容納移轉作業。
 
 ====
 
 
 == 結論
 
-無論您是針對全雲端或混合雲、或是內部部署中任何類型/廠商儲存設備上的資料、Amazon FSx for NetApp ONTAP 支援HCX都能提供絕佳的選項來部署和移轉工作負載、同時將資料需求無縫接軌至應用程式層、進而降低TCO。無論使用案例為何、請選擇VMC搭配使用FSXfor ONTAP VMware資料存放區、以快速實現雲端效益、一致的基礎架構、以及跨內部部署和多個雲端的作業、工作負載的雙向可攜性、以及企業級容量和效能。使用VMware vSphere複寫、VMware vMotion或甚至是NFC-複本來連接儲存設備及移轉VM的程序與程序、都是相當熟悉的程序。
+無論您是以內部部署的任何類型 / 廠商儲存設備上的全雲端或混合雲和資料為目標、 Amazon FSX ONTAP 搭配 HCX 都能提供絕佳的選項來部署和移轉工作負載、同時將資料需求無縫移轉至應用程式層、進而降低 TCO 。無論使用案例為何、選擇 VMC 搭配 FSX ONTAP 資料存放區、即可快速實現雲端效益、一致的基礎架構、以及跨內部部署和多個雲端的作業、工作負載的雙向可攜性、以及企業級的容量和效能。使用VMware vSphere複寫、VMware vMotion或甚至是NFC-複本來連接儲存設備及移轉VM的程序與程序、都是相當熟悉的程序。
 
 
 
@@ -331,7 +331,7 @@ NOTE: 目標VMC FSX for ONTAP VMware資料存放區必須有足夠的空間來�
 本文件的重點包括：
 
 * 現在您可以將Amazon FSx ONTAP 支援資料存放區與VMC SDDC搭配使用。
-* 您可以輕鬆地將資料從任何內部部署資料中心移轉至使用FSXfor ONTAP VMware資料存放區執行的VMC
+* 您可以輕鬆地將資料從任何內部部署資料中心移轉至使用 FSX ONTAP 資料存放區執行的 VMC
 * 您可以輕鬆擴充和縮減FSX- ONTAP 支援資料存放區、以滿足移轉活動期間的容量和效能需求。
 
 
@@ -345,7 +345,7 @@ NOTE: 目標VMC FSX for ONTAP VMware資料存放區必須有足夠的空間來�
 +
 https://docs.vmware.com/en/VMware-Cloud-on-AWS/["https://docs.vmware.com/en/VMware-Cloud-on-AWS/"^]
 
-* Amazon FSX for NetApp ONTAP 的支援文件
+* Amazon FSX ONTAP 文件
 +
 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide["https://docs.aws.amazon.com/fsx/latest/ONTAPGuide"^]
 

@@ -54,7 +54,7 @@ Oracle Data Guard 可確保在主要資料庫和待命資料庫複寫組態中�
 
 === 架構
 
-image:aws_ora_fsx_data_guard_architecture.png["此映像提供 AWS with FSxN 中 Oracle Data Guard 實作的詳細圖片。"]
+image:aws_ora_fsx_data_guard_architecture.png["此映像提供使用 FSX ONTAP 在 AWS 中實作 Oracle Data Guard 的詳細圖片。"]
 
 
 
@@ -117,7 +117,7 @@ image:aws_ora_fsx_data_guard_architecture.png["此映像提供 AWS with FSxN 中
 * * 資料庫儲存管理。 * 為了簡化作業、 Oracle 建議您在 Oracle Data Guard 組態中設定 Oracle 自動儲存管理（ Oracle ASM ）和 Oracle 託管檔案（ OMF ）、以便在主要和待命資料庫上對稱地設定。
 * * EC2 運算執行個體。 * 在這些測試與驗證中、我們使用 AWS EC2 T2.xlge 執行個體做為 Oracle 資料庫運算執行個體。NetApp 建議在正式作業部署中使用 M5 類型 EC2 執行個體作為 Oracle 的運算執行個體、因為它已針對資料庫工作負載最佳化。您必須根據實際工作負載需求、適當調整 EC2 執行個體的 vCPU 數量和 RAM 數量。
 * * FSX儲存HA叢集單一或多區域部署。*在這些測試與驗證中、我們在單一AWS可用性區域中部署了FSXHA叢集。對於正式作業部署、NetApp建議在兩個不同的可用度區域中部署一組FSXHA配對。在 HA 配對中配置的 FSX 叢集、會同步鏡射在一對主動被動式檔案系統中、以提供儲存層級的備援。多區域部署可在單一 AWS 區域發生故障時、進一步提升高可用度。
-* * FSX 儲存叢集規模。 * 適用於 ONTAP 儲存檔案系統的 Amazon FSX 可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。
+* * FSX 儲存叢集規模。 *Amazon FSX ONTAP 儲存檔案系統可提供多達 160,000 個原始 SSD IOPS 、高達 4Gbps 的處理量、以及最高 192TiB 容量。不過、您可以根據部署時的實際需求、根據已配置的 IOPS 、處理量和儲存限制（最低 1,024 GiB ）來調整叢集大小。容量可即時動態調整、而不會影響應用程式可用度。
 
 
 
@@ -143,7 +143,7 @@ image:aws_ora_fsx_data_guard_architecture.png["此映像提供 AWS with FSxN 中
 
 . 已設定AWS帳戶、並已在AWS帳戶中建立必要的VPC和網路區段。
 . 從 AWS EC2 主控台、您至少需要部署三個 EC2 Linux 執行個體、一個做為主要 Oracle DB 執行個體、一個做為備用 Oracle DB 執行個體、以及一個複製目標 DB 執行個體來進行報告、開發和測試等 如需環境設定的詳細資訊、請參閱上一節的架構圖表。另請檢閱 AWS link:https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html["Linux執行個體使用指南"^] 以取得更多資訊。
-. 從 AWS EC2 主控台、部署 Amazon FSX for ONTAP 儲存 HA 叢集、以裝載儲存 Oracle 待命資料庫的 Oracle Volume 。如果您不熟悉FSX儲存設備的部署、請參閱文件 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["為SfSX. ONTAP 檔案系統建立FSX"^] 以取得逐步指示。
+. 從 AWS EC2 主控台、部署 Amazon FSX ONTAP 儲存 HA 叢集、以裝載儲存 Oracle 待命資料庫的 Oracle Volume 。如果您不熟悉 FSX 儲存設備的部署、請參閱文件link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/creating-file-systems.html["建立 FSX ONTAP 檔案系統"^]中的逐步說明。
 . 您可以使用下列 Terraform 自動化工具組來執行步驟 2 和 3 、此工具組會建立名為的 EC2 執行個體 `ora_01` 以及名為的 FSX 檔案系統 `fsx_01`。請仔細檢閱指示內容、並在執行前變更變數以符合您的環境。您可以根據自己的部署需求輕鬆修改範本。
 +
 [source, cli]
@@ -998,7 +998,7 @@ link:https://docs.oracle.com/en/database/oracle/oracle-database/19/sbydb/index.h
 +
 link:aws_ora_fsx_ec2_deploy_intro.html["簡介"]
 
-* Amazon FSX for NetApp ONTAP 產品
+* Amazon FSX ONTAP
 +
 link:https://aws.amazon.com/fsx/netapp-ontap/["https://aws.amazon.com/fsx/netapp-ontap/"^]
 

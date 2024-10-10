@@ -107,15 +107,15 @@ ssh -i ora-db1v2.pem ec2-user@54.80.114.77
 
 
 
-== 為ONTAP Oracle資料庫儲存設備配置FSXfor Sf還原 檔案系統
+== 為 Oracle 資料庫儲存設備配置 FSX ONTAP 檔案系統
 
-EC2執行個體部署會為作業系統配置EBS根Volume。FSX for ONTAP the FSfor the FSfor the FSfor the f2檔案系統提供Oracle資料庫儲存磁碟區、包括Oracle二進位、資料和記錄磁碟區。FSX儲存NFS磁碟區可從AWS FSX主控台或Oracle安裝進行資源配置、並可根據使用者在自動化參數檔中設定的方式、配置自動化功能來配置磁碟區。
+EC2執行個體部署會為作業系統配置EBS根Volume。FSX ONTAP 檔案系統提供 Oracle 資料庫儲存磁碟區、包括 Oracle 二進位、資料和記錄磁碟區。FSX儲存NFS磁碟區可從AWS FSX主控台或Oracle安裝進行資源配置、並可根據使用者在自動化參數檔中設定的方式、配置自動化功能來配置磁碟區。
 
 
 
-=== 為SfSX. ONTAP 檔案系統建立FSX
+=== 建立 FSX ONTAP 檔案系統
 
-請參閱本文件 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-file-systems.html["管理FSXfor ONTAP Sf1檔案系統"^] 用於建立FSXfor ONTAP Sf供 檔案系統使用。
+請參閱本文件 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-file-systems.html["管理 FSX ONTAP 檔案系統"^]以建立 FSX ONTAP 檔案系統。
 
 主要考量：
 
@@ -136,7 +136,7 @@ image:aws_rds_custom_deploy_fsx_01.png["此圖顯示輸入 / 輸出對話方塊�
 +
 image:aws_ora_fsx_ec2_stor_01.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 選擇Amazon FSX for NetApp ONTAP 。然後按「Next（下一步）」
+. 選取 Amazon FSX ONTAP 。然後按「Next（下一步）」
 +
 image:aws_ora_fsx_ec2_stor_02.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -170,7 +170,7 @@ image:aws_ora_fsx_ec2_stor_08.png["此圖顯示輸入 / 輸出對話方塊或表
 
 === 為Oracle資料庫配置資料庫Volume
 
-請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-volumes.html["管理FSXfor ONTAP Sfor SfVolumes -建立Volume"^] 以取得詳細資料。
+如需詳細資訊、請參閱 link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/managing-volumes.html["管理 FSX ONTAP Volume - 建立 Volume"^] 。
 
 主要考量：
 

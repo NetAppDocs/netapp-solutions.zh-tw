@@ -100,7 +100,7 @@ video::0cec0c90-4c6f-4018-9e4f-b09700eefb3a[panopto,width=360]
 
 我們的 ONTAP 硬體平台大多具備高可用度功能、可防止裝置故障、避免執行災難恢復。但為了防範火災或任何其他災難、並以零 RPO 和低 RTO 持續經營業務、通常會使用 MetroCluster 解決方案。
 
-目前擁有 ONTAP 系統的客戶可在提供區域層級災難恢復的距離限制內新增支援的 ONTAP 系統、以延伸至 MetroCluster 。Trident 、 CSI （ Container 儲存介面）支援 NetApp ONTAP 、包括 MetroCluster 組態、以及 Cloud Volumes ONTAP 、 Azure NetApp Files 、 AWS FSX for NetApp ONTAP 等其他選項。 Trident 提供五種 ONTAP 儲存驅動程式選項、所有選項均支援 MetroCluster 組態。如需 Trident 支援的 ONTAP 儲存驅動程式的其他詳細資訊、請參閱link:https://docs.netapp.com/us-en/trident/trident-concepts/ontap-drivers.html["請按這裡"]。
+目前擁有 ONTAP 系統的客戶可在提供區域層級災難恢復的距離限制內新增支援的 ONTAP 系統、以延伸至 MetroCluster 。Trident 、 CSI （ Container 儲存介面）支援 NetApp ONTAP 、包括 MetroCluster 組態、以及 Cloud Volumes ONTAP 、 Azure NetApp Files 、 AWS FSX ONTAP 等其他選項。 Trident 提供五種 ONTAP 儲存驅動程式選項、所有選項均支援 MetroCluster 組態。如需 Trident 支援的 ONTAP 儲存驅動程式的其他詳細資訊、請參閱link:https://docs.netapp.com/us-en/trident/trident-concepts/ontap-drivers.html["請按這裡"]。
 
 MetroCluster 解決方案需要第 2 層網路擴充功能、或從兩個故障網域存取相同的網路位址。一旦 MetroCluster 組態就緒、應用程式擁有者就能清楚瞭解解決方案、因為 MetroCluster SVM 中的所有磁碟區都受到保護、並享有 SyncMirror （零 RPO ）的優勢。
 

@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/migrate-vms-to-ec2-fsxn-deploy.html 
 keywords: netapp, vmware, amazon, ec2, fsxn, migration, iscsi, deploy 
-summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「移轉作業資料行動資料即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在適用於 ONTAP iSCSI LUN 的 FSX 上。 
+summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「移轉作業資料行動資料即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在 FSX ONTAP iSCSI LUN 上。 
 ---
-= 使用 FSxN ：部署指南將 VM 移轉至 Amazon EC2
+= 使用 Amazon FSX for ONTAP 將 VM 移轉至 Amazon EC2 ：部署指南
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -18,26 +18,26 @@ summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「�
 
 
 
-== 為 ONTAP 和 Cirrus Data 設定 FSX 以進行移轉作業
+== 為移轉作業設定 FSX ONTAP 和 Cirrus Data
 
-這 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["逐步部署指南"] 說明如何將適用於 ONTAP Volume 的 FSX 新增至 VPC 。由於這些步驟是循序的、因此請務必依序涵蓋這些步驟。
+這 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["逐步部署指南"]說明如何將 FSX ONTAP Volume 新增至 VPC 。由於這些步驟是循序的、因此請務必依序涵蓋這些步驟。
 
 在本示範中、「 DRaaSDemo 」是所建立檔案系統的名稱。
 
 image:migrate-ec2-fsxn-image02.png["展示檔案系統使用者介面影像"]
 
-一旦您的 AWS VPC 設定完成、並根據您的效能需求配置 FSX for ONTAP 、請登入 link:http://cloud.cirrusdata.com/["cloud.cirrusdata.com"] 和 link:https://customer.cirrusdata.com/cdc/kb/articles/get-started-with-cirrus-data-cloud-4eDqjIxQpg["建立新專案"] 或存取現有專案。
+一旦您的 AWS VPC 設定完成、並根據您的效能需求配置 FSX ONTAP 、請登入link:http://cloud.cirrusdata.com/["cloud.cirrusdata.com"]並link:https://customer.cirrusdata.com/cdc/kb/articles/get-started-with-cirrus-data-cloud-4eDqjIxQpg["建立新專案"]存取現有專案。
 
 image:migrate-ec2-fsxn-image03.png["Cirrus Data 專案使用者介面影像"]
 
-在建立 MigationOps 的秘訣之前、應先將 AWS Cloud 新增為整合。CMC 內建與適用於 ONTAP 和 AWS 的 FSX 整合。適用於 ONTAP 的 FSX 整合提供下列自動化功能：
+在建立 MigationOps 的秘訣之前、應先將 AWS Cloud 新增為整合。CMC 提供與 FSX ONTAP 和 AWS 的內建整合。FSX ONTAP 整合提供下列自動化功能：
 
-* 為 ONTAP 檔案系統準備 FSX ： *
+* 準備您的 FSX ONTAP 檔案系統： *
 
 * 建立符合來源磁碟區的新磁碟區和 LUN
 
 
-* 附註 * ： FSX for ONTAP FS 模式中的目的地磁碟是在「 Volume 」上建立的「 LUN 」、其容量足以容納 LUN 、加上合理的額外負荷、以利快照和中繼資料。CMC 自動化會處理所有這些詳細資料、以使用選用的使用者定義參數來建立適當的 Volume 和 LUN 。
+* 附註 * ： FSX ONTAP FS 模式中的目的地磁碟是在「 Volume 」上建立的「 LUN 」、其容量足以容納 LUN 、加上合理的額外負荷、以利加速快照和中繼資料。CMC 自動化會處理所有這些詳細資料、以使用選用的使用者定義參數來建立適當的 Volume 和 LUN 。
 
 * 使用主機啟動器 IQN 建立主機實體（在 FSX 中稱為 iGroups ）
 * 使用對應將新建立的磁碟區對應至適當的主機實體
@@ -52,12 +52,12 @@ image:migrate-ec2-fsxn-image03.png["Cirrus Data 專案使用者介面影像"]
 * 在 Windows 上建立及管理 iSCSI 連線、例如持續 / 喜愛的 iSCSI 目標。
 
 
-若要設定適用於 ONTAP 和 AWS 的 FSX 的 CMC 整合、請執行下列步驟：
+若要設定適用於 FSX ONTAP 和 AWS 的 CMC 整合、請執行下列步驟：
 
 . 登入 Cirrus Data Cloud 入口網站。
 . 前往您要啟用整合的專案。
 . 瀏覽至「整合」 -> 「產品」。
-. 捲動以尋找適用於 NetApp ONTAP 的 FSX 、然後按一下新增整合。
+. 捲動以尋找 FSX ONTAP 、然後按一下新增整合。
 +
 image:migrate-ec2-fsxn-image04.png["Cirrus Data 「新增整合」使用者介面影像"]
 
@@ -65,7 +65,7 @@ image:migrate-ec2-fsxn-image04.png["Cirrus Data 「新增整合」使用者介�
 +
 image:migrate-ec2-fsxn-image05.png["Cirrus Data 「新增整合」使用者介面影像"]
 
-. 建立整合之後、在建立新的移轉工作階段期間、請選取自動分配目的地 Volume 、以便在 ONTAP 的 FSX 上自動分配新的磁碟區。
+. 建立整合之後、在建立新的移轉工作階段期間、請選取自動分配目的地 Volume 、以便在 FSX ONTAP 上自動分配新的磁碟區。
 +
 * 附註 * ：除非已啟用移轉「移轉至較小的磁碟區」、否則將以與來源磁碟區大小相同的大小建立新的 LUN 。
 
@@ -80,7 +80,7 @@ image:migrate-ec2-fsxn-image05.png["Cirrus Data 「新增整合」使用者介�
 image:migrate-ec2-fsxn-image06.png["Cirrus Data 「新增整合」使用者介面影像"]
 
 +
-* 注意 * ：將虛擬機器從內部部署儲存設備移轉至 AWS 時、會使用此整合功能、並搭配用於 ONTAP 整合的 FSX 。
+* 附註 * ：將虛擬機器從內部部署儲存設備移轉至 AWS 時、會使用此整合功能、並與 FSX ONTAP 整合。
 
 +
 * 注意 * ：如果沒有直接輸出連線可移轉正式作業執行個體、請使用管理中繼與 Cirrus Data Cloud 通訊。
@@ -104,7 +104,7 @@ image:migrate-ec2-fsxn-image06.png["Cirrus Data 「新增整合」使用者介�
 
 image:migrate-ec2-fsxn-image07.png["要移轉的 VMware 虛擬機器影像"]
 
-本示範將會將應用程式 VMDK 從每個 VM 移轉至自動佈建和對應的 iSCSI Volume 、從適用於 ONTAP 的 FSX 移轉至該 Volume 。在這種情況下、作業系統 VMDK 將移轉至 Amazon EBS Volume 、因為 Amazon EC2 執行個體僅支援此 Amazon EBS 作為開機磁碟。
+本示範將會將應用程式 VMDK 從每個 VM 移轉至從 FSX ONTAP 自動佈建和對應的 iSCSI Volume 。在這種情況下、作業系統 VMDK 將移轉至 Amazon EBS Volume 、因為 Amazon EC2 執行個體僅支援此 Amazon EBS 作為開機磁碟。
 
 * 備註 * ：此移轉方法的擴充因素是網路頻寬和連接內部部署至 AWS VPC 的管道。由於每個 VM 都設定了一對一主機工作階段、因此整體移轉效能取決於兩個因素：
 
@@ -139,7 +139,7 @@ YAML 提供作業名稱、附註（說明）、以及處方名稱 `MIGRATEOPS_AW
 ----
 operations:
     -   name: Win2016 SQL server to AWS
-        notes: Migrate OS to AWS with EBS and Data to FSx for ONTAP
+        notes: Migrate OS to AWS with EBS and Data to FSx ONTAP
         recipe: MIGRATEOPS_AWS_COMPUTE
         config:
             system_name: Win2016-123
@@ -163,7 +163,7 @@ operations:
                             netapp:
                                 qos_policy_name: ""
                 migration:
-                    session_description: Migrate OS to AWS with EBS and Data to FSx for ONTAP
+                    session_description: Migrate OS to AWS with EBS and Data to FSx ONTAP
                     qos_level: MODERATE
                 cutover:
                     stop_applications:
@@ -243,7 +243,7 @@ image:migrate-ec2-fsxn-image13.png["完成 Cirrus Data 移轉的影像"]
 . 舊儲存設備現在已離線。
 
 
-* 附註 * ：只要按一下即可將資料移動性作業以程式碼形式提交、然後按一下以核准轉換程式、 VM 就能使用適用於 ONTAP 的 FSX 及其 iSCSI 功能、成功從內部部署的 VMware 移轉至 Amazon EC2 執行個體。
+* 附註 * ：只要按一下即可將資料移動性作業以程式碼形式提交、然後按一下以核准轉換程式、虛擬機器就能使用 FSX ONTAP 及其 iSCSI 功能、成功從內部部署的 VMware 移轉至 Amazon EC2 執行個體。
 
 * 注意 * ：由於 AWS API 限制、轉換後的 VM 會顯示為「 Ubuntu 」。 這完全是一個顯示問題、不會影響移轉執行個體的功能。即將推出的版本將解決此問題。
 

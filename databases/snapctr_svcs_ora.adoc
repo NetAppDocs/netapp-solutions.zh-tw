@@ -24,11 +24,11 @@ NetApp公司的Alleno Cao、Niyazz Mohamed
 
 SnapCenter 服務是傳統 SnapCenter 資料庫管理 UI 工具的 SaaS 版本、可透過 NetApp BlueXP 雲端管理主控台取得。它是 NetApp 雲端備份資料保護方案不可或缺的一部分、適用於在 NetApp 雲端儲存設備上執行的 Oracle 和 HANA 等資料庫。這項 SaaS 型服務可簡化傳統的 SnapCenter 獨立式伺服器部署作業、通常需要在 Windows 網域環境中運作的 Windows 伺服器。
 
-在本文件中、我們示範如何設定 SnapCenter 服務、以備份、還原及複製部署至 Amazon FSX 的 Oracle 資料庫、以供 ONTAP 儲存設備和 EC2 運算執行個體使用。SnapCenter 服務雖然設定和使用容易得多、但仍提供舊版 SnapCenter UI 工具所提供的重要功能。
+在本文件中、我們示範如何設定 SnapCenter 服務、以備份、還原及複製部署至 Amazon FSX ONTAP 儲存設備和 EC2 運算執行個體的 Oracle 資料庫。SnapCenter 服務雖然設定和使用容易得多、但仍提供舊版 SnapCenter UI 工具所提供的重要功能。
 
 本解決方案可解決下列使用案例：
 
-* 資料庫備份、搭配 Amazon FSX for ONTAP 所代管的 Oracle 資料庫快照
+* 在 Amazon FSX ONTAP 中代管 Oracle 資料庫的快照資料庫備份
 * 發生故障時的 Oracle 資料庫恢復
 * 針對開發 / 測試環境或其他使用案例、快速且具儲存效率的主要資料庫複製
 
@@ -39,10 +39,10 @@ SnapCenter 服務是傳統 SnapCenter 資料庫管理 UI 工具的 SaaS 版本�
 
 本解決方案適用於下列對象：
 
-* DBA 負責管理在 Amazon FSX 上執行的 Oracle 資料庫、以供 ONTAP 儲存設備使用
+* 管理在 Amazon FSX ONTAP 儲存設備上執行之 Oracle 資料庫的 DBA
 * 對測試公有 AWS 雲端中的 Oracle 資料庫備份、還原和複製感興趣的解決方案架構設計師
-* 支援及管理 Amazon FSX for ONTAP 儲存設備的儲存管理員
-* 擁有應用程式的應用程式擁有者、這些應用程式部署至 Amazon FSX 以進行 ONTAP 儲存
+* 支援及管理 Amazon FSX ONTAP 儲存設備的儲存管理員
+* 擁有部署至 Amazon FSX ONTAP 儲存設備之應用程式的應用程式擁有者
 
 
 
@@ -101,7 +101,7 @@ image:snapctr_svcs_architecture.png["此映像提供 BlueXP 主控台內應用�
 * * Connector 部署在與資料庫和 FSX 相同的 VPC 中。 * 盡可能將連接器部署在相同的 AWS VPC 中、以便連線至 FSX 儲存設備和 EC2 運算執行個體。
 * * 為 SnapCenter Connector 建立的 AWS IAM 原則。 * 詳細的 SnapCenter 服務文件中提供 JSON 格式的原則。當您使用 BlueXP 主控台啟動 Connector 部署時、系統也會提示您設定先決條件、並以 JSON 格式提供必要權限的詳細資料。原則應指派給擁有連接器的 AWS 使用者帳戶。
 * * AWS 帳戶存取金鑰和在 AWS 帳戶中建立的 SSH 金鑰配對。 * SSH 金鑰配對會指派給 EC2 使用者、用於登入連接器主機、然後將資料庫外掛程式部署到 EC2 DB 伺服器主機。存取金鑰可授予權限、以使用上述 IAM 原則來配置所需的連接器。
-* * 新增至 BlueXP 主控台設定的認證。 * 若要將 Amazon FSX for ONTAP 新增至 BlueXP 工作環境、請在 BlueXP 主控台設定中設定認證、以授予 BlueXP 存取 Amazon FSX for ONTAP 的權限。
+* * 新增至 BlueXP  主控台設定的認證。 *若要將 Amazon FSX ONTAP 新增至 BlueXP  工作環境、 BlueXP  主控台設定中會設定授予 BlueXP  存取 Amazon FSX ONTAP 權限的認證。
 * * 安裝在 EC2 資料庫執行個體主機上的 Java-11-OpenJDK 。 * SnapCenter 服務安裝需要 Java 版本 11 。在外掛程式部署嘗試之前、必須先將其安裝在應用程式主機上。
 
 
@@ -109,11 +109,11 @@ image:snapctr_svcs_architecture.png["此映像提供 BlueXP 主控台內應用�
 
 == 解決方案部署
 
-我們提供廣泛的 NetApp 文件、範圍更廣、可協助您保護雲端原生應用程式資料。本文件旨在提供逐步程序、以 BlueXP 主控台涵蓋 SnapCenter 服務部署、以保護部署至 Amazon FSX for ONTAP 和 EC2 運算執行個體的 Oracle 資料庫。本文件會填入更多一般指示中可能遺漏的特定詳細資料。
+我們提供廣泛的 NetApp 文件、範圍更廣、可協助您保護雲端原生應用程式資料。本文件旨在提供逐步程序、以 BlueXP  主控台涵蓋 SnapCenter 服務部署、以保護部署至 Amazon FSX ONTAP 和 EC2 運算執行個體的 Oracle 資料庫。本文件會填入更多一般指示中可能遺漏的特定詳細資料。
 
 若要開始使用、請完成下列步驟：
 
-* 請閱讀一般說明 link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-protect-cloud-app-data-to-cloud.html#architecture["保護雲端原生應用程式資料"^] 以及與 Oracle 和 Amazon FSX for ONTAP 相關的章節。
+* 請閱讀 Oracle 和 Amazon FSX ONTAP 的一般說明link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/concept-protect-cloud-app-data-to-cloud.html#architecture["保護雲端原生應用程式資料"^]和相關章節。
 * 觀看下列影片逐步解說。
 
 
@@ -128,9 +128,9 @@ video::4b0fd212-7641-46b8-9e55-b01200f9383a[panopto]
 部署需要下列先決條件。
 
 . EC2 執行個體上的主要 Oracle 資料庫伺服器、已完全部署並執行 Oracle 資料庫。
-. 在 AWS 中部署的 Amazon FSX for ONTAP 叢集、裝載上述資料庫磁碟區。
+. 在 AWS 中部署的 Amazon FSX ONTAP 叢集、裝載上述資料庫磁碟區。
 . EC2 執行個體上的選用資料庫伺服器、可用於測試將 Oracle 資料庫複製到替代主機的情形、以支援開發 / 測試工作負載、或是任何需要正式作業 Oracle 資料庫完整資料集的使用案例。
-. 如果您需要協助以符合上述先決條件、以便在 Amazon FSX for ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫、請參閱 link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^] 或白皮書 link:aws_ora_fsx_ec2_deploy_intro.html["在 EC2 和 FSX 最佳實務上部署 Oracle 資料庫"^]
+. 如果您需要協助以滿足上述在 Amazon FSX ONTAP 和 EC2 運算執行個體上部署 Oracle 資料庫的先決條件、請參閱link:aws_ora_fsx_ec2_iscsi_asm.html["搭配 iSCSI/ASM 的 AWS FSS/EC2 中的 Oracle 資料庫部署與保護"^]或白皮書link:aws_ora_fsx_ec2_deploy_intro.html["在 EC2 和 FSX 最佳實務上部署 Oracle 資料庫"^]
 
 
 ====
@@ -256,21 +256,21 @@ image:snapctr_svcs_setup_01.png["GUI 中顯示此步驟的螢幕擷取畫面。"
 
 image:snapctr_svcs_setup_02.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 按一下 * Amazon FSX for ONTAP * 旁的 * 探索現有 * 。
+. 按一下 * Amazon FSX ONTAP * 旁的 * 探索現有 * 。
 
 
 image:snapctr_svcs_setup_03.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 選取您在上一節中建立的 * 認證名稱 * 、以授予 BlueXP 管理 ONTAP 的 FSX 所需的權限。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。
+. 選取您在上一節中建立的 * 認證名稱 * 、以授予 BlueXP  管理 FSX ONTAP 所需的權限。如果您尚未新增認證、可以從 BlueXP 主控台右上角的 * 設定 * 功能表新增認證。
 +
 image:snapctr_svcs_setup_04.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 選擇部署 Amazon FSX for ONTAP 的 AWS 區域、選取裝載 Oracle 資料庫的 FSX 叢集、然後按一下「新增」。
+. 選擇部署 Amazon FSX ONTAP 的 AWS 區域、選取裝載 Oracle 資料庫的 FSX 叢集、然後按一下「新增」。
 
 
 image:snapctr_svcs_setup_05.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 探索到的 Amazon FSX for ONTAP 執行個體現在會出現在工作環境中。
+. 探索到的 Amazon FSX ONTAP 執行個體現在會出現在工作環境中。
 
 
 image:snapctr_svcs_setup_06.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
@@ -280,7 +280,7 @@ image:snapctr_svcs_setup_06.png["GUI 中顯示此步驟的螢幕擷取畫面。"
 
 image:snapctr_svcs_setup_07.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
 
-. 登入 Amazon FSX for ONTAP 之後、請檢閱您的資料庫儲存資訊（例如資料庫磁碟區）。
+. 登入 Amazon FSX ONTAP 之後、請檢閱您的資料庫儲存資訊（例如資料庫磁碟區）。
 
 
 image:snapctr_svcs_setup_08.png["GUI 中顯示此步驟的螢幕擷取畫面。"]
@@ -449,7 +449,7 @@ link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.htmll["https:
 
 link:https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html["https://docs.netapp.com/us-en/cloud-manager-backup-restore/index.html"^]
 
-* Amazon FSX for NetApp ONTAP 產品
+* Amazon FSX ONTAP
 
 
 link:https://aws.amazon.com/fsx/netapp-ontap/["https://aws.amazon.com/fsx/netapp-ontap/"^]

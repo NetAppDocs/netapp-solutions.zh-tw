@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: vmware/migrate-vms-to-ec2-fsxn-wrapup.html 
 keywords: netapp, vmware, amazon, ec2, fsxn, migration, iscsi, 
-summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「移轉作業資料行動資料即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在適用於 ONTAP iSCSI LUN 的 FSX 上。 
+summary: 本技術報告涵蓋如何使用 Cirrus 移轉雲端（ CMC ）的「移轉作業資料行動資料即程式碼」功能、將內部部署的 VMware vSphere VM 移轉至 Amazon EC2 執行個體、並將資料磁碟放在 FSX ONTAP iSCSI LUN 上。 
 ---
-= 使用 FSxN 將 VM 移轉至 Amazon EC2 ：其他可能性和結論
+= 使用 Amazon FSX for ONTAP 將 VM 移轉至 Amazon EC2 ：其他可能性和結論
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -28,13 +28,13 @@ image:migrate-ec2-fsxn-image13.png["顯示此移轉解決方案的其他可能�
 
 == 結論
 
-本文件提供完整的逐步解說、說明如何使用 CMC 的「移轉作業」功能、將內部部署 VMware 儲存庫中儲存的資料、移轉至使用 Amazon EC2 執行個體的 AWS 、以及使用 ONTAP 的 FSX 。
+本文件提供完整的逐步解說、說明如何使用 CMC 的「移轉作業」功能、將內部部署 VMware 儲存庫中儲存的資料、移轉至使用 Amazon EC2 執行個體和 FSX ONTAP 的 AWS 。
 
 下列影片示範從開始到結束的移轉程序：
 
 .將 VMware VM 移轉至 Amazon EC2
 video::317a0758-cba9-4bd8-a08b-b17000d88ae9[panopto]
-若要查看 GUI 和基本的 Amazon EBS 到 FSX 以進行 ONTAP 本機移轉、請觀看這段五分鐘的示範影片：
+若要查看 GUI 和基本 Amazon EBS 至 FSX ONTAP 本機移轉、請觀看這段五分鐘的示範影片：
 
 .採用 Cirrus 移轉雲端技術、可大規模移轉至任何儲存設備
 video::PeFNZxXeQAU[youtube]

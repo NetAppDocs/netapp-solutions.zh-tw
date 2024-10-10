@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: ai/vector-database-milvus-with-Amazon-FSxN-for-NetApp-ONTAP.html 
 keywords: vector database 
-summary: Milvus 搭配 Amazon FSxN for NetApp ONTAP - 適用於 NetApp 的向量資料庫解決方案 
+summary: 採用 Amazon FSX ONTAP for NetApp ONTAP 的 Milvus ：適用於 NetApp 的向量資料庫解決方案 
 ---
-= Milvus 搭配 Amazon FSxN for NetApp ONTAP - 檔案和物件雙重性
+= Milvus 搭配 Amazon FSX ONTAP for NetApp ONTAP - 檔案與物件雙重性
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,23 +14,22 @@ summary: Milvus 搭配 Amazon FSxN for NetApp ONTAP - 適用於 NetApp 的向量
 
 
 [role="lead"]
-本節將討論適用於 NetApp 的向量資料庫解決方案、搭配 Amazon FSxN 的 milvus 叢集設定。
+本節討論適用於 NetApp 的向量資料庫解決方案、搭配 Amazon FSX ONTAP 的 milvus 叢集設定。
 
 
 
-== Milvus 搭配 Amazon FSxN for NetApp ONTAP –檔案和物件雙重性
+== Milvus 搭配 Amazon FSX ONTAP for NetApp ONTAP –檔案和物件雙重性
 
-在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSxN for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。
+在本節中、為什麼我們需要在雲端中部署向量資料庫、以及在 Docker 容器內的 Amazon FSX ONTAP for NetApp ONTAP 中部署向量資料庫（ milvus 獨立式）的步驟。
 
-在雲端中部署向量資料庫可提供多項重要效益、特別是對於需要處理高維度資料和執行相似度搜尋的應用程式。首先、雲端型部署提供擴充性、可輕鬆調整資源、以配合不斷成長的資料量和查詢負載。如此可確保資料庫能夠有效處理增加的需求、同時維持高效能。其次、雲端部署可提供高可用度和災難恢復、因為資料可在不同的地理位置上複寫、將資料遺失的風險降至最低、並確保即使發生非預期的事件、仍能持續提供服務。第三、它能提供成本效益、因為您只需支付所使用的資源、並可根據需求進行上下擴充、避免需要大量的硬體前期投資。最後、在雲端部署向量資料庫可加強協同作業、因為資料可以從任何地方存取和共享、有助於團隊工作和資料導向的決策。
-請檢查在此驗證中使用的 Milvus 獨立式與 Amazon FSxN for NetApp ONTAP 的架構。
+在雲端中部署向量資料庫可提供多項重要效益、特別是對於需要處理高維度資料和執行相似度搜尋的應用程式。首先、雲端型部署提供擴充性、可輕鬆調整資源、以配合不斷成長的資料量和查詢負載。如此可確保資料庫能夠有效處理增加的需求、同時維持高效能。其次、雲端部署可提供高可用度和災難恢復、因為資料可在不同的地理位置上複寫、將資料遺失的風險降至最低、並確保即使發生非預期的事件、仍能持續提供服務。第三、它能提供成本效益、因為您只需支付所使用的資源、並可根據需求進行上下擴充、避免需要大量的硬體前期投資。最後、在雲端部署向量資料庫可加強協同作業、因為資料可以從任何地方存取和共享、有助於團隊工作和資料導向的決策。請查看在此驗證中使用的適用於 NetApp ONTAP 的 Amazon FSX ONTAP 的 Milvus 獨立式架構。
 
 image:Amazon_fsxn_milvus.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 建立 Amazon FSxN for NetApp ONTAP 執行個體、並記下 VPC 、 VPC 安全群組和子網路的詳細資料。建立 EC2 執行個體時、必須提供這項資訊。您可以在這裡找到更多詳細資料 - https://us-east-1.console.aws.amazon.com/fsx/home?region=us-east-1#file-system-create[]
-. 建立 EC2 執行個體、確保 VPC 、安全性群組和子網路與 Amazon FSxN for NetApp ONTAP 執行個體的相符。
+. 建立 Amazon FSX ONTAP for NetApp ONTAP 執行個體、並記下 VPC 、 VPC 安全群組和子網路的詳細資料。建立 EC2 執行個體時、必須提供這項資訊。您可以在這裡找到更多詳細資料 - https://us-east-1.console.aws.amazon.com/fsx/home?region=us-east-1#file-system-create[]
+. 建立 EC2 執行個體、確保 VPC 、安全性群組和子網路與 Amazon FSX ONTAP for NetApp ONTAP 執行個體的相符。
 . 使用命令 'apt-Get install NFS-common' 安裝 NFS-common' 、並使用 'Udo apt-Get update" 更新套件資訊。
-. 建立裝載資料夾、並在其中掛載 Amazon FSxN for NetApp ONTAP 。
+. 建立裝載資料夾、並在其中掛載 Amazon FSX ONTAP for NetApp ONTAP 。
 +
 ....
 ubuntu@ip-172-31-29-98:~$ mkdir /home/ubuntu/milvusvectordb
@@ -83,8 +82,8 @@ drwxr-xr-x 4 root root 4.0K Apr  4 20:21 minio
 drwxr-xr-x 5 root root 4.0K Apr  4 20:21 milvus
 ubuntu@ip-172-31-29-98:~$
 ----
-. 為了驗證向量資料庫的讀寫功能、以及它在 Amazon FSxN for NetApp ONTAP 中的資料、我們使用 Python Milvus SDK 和 PyMilvus 的範例程式。使用 'apt-Get install python3-numpy python3-pip' 安裝必要的套件、並使用 'pip3 install pymilvus' 安裝 PyMilvus 。
-. 驗證向量資料庫中 Amazon FSxN for NetApp ONTAP 的資料寫入和讀取作業。
+. 為了驗證向量資料庫的讀寫功能、以及它在 Amazon FSX ONTAP for NetApp ONTAP 中的資料、我們使用 Python Milvus SDK 和 PyMilvus 的範例程式。使用 'apt-Get install python3-numpy python3-pip' 安裝必要的套件、並使用 'pip3 install pymilvus' 安裝 PyMilvus 。
+. 驗證向量資料庫中 Amazon FSX ONTAP for NetApp ONTAP 的資料寫入和讀取作業。
 +
 [source, python]
 ----
@@ -195,6 +194,6 @@ volumes/minio/a-bucket/files/stats_log/448789845791611912/448789845791611913/448
 root@ip-172-31-29-98:~/pymilvus/examples#
 ----
 +
-本節有效說明客戶如何在 Docker 容器中部署及操作獨立的 Milvus 設定、並運用 Amazon 的 NetApp FSxN 來儲存 NetApp ONTAP 資料。這項設定可讓客戶運用向量資料庫的強大功能、在 Docker 容器的可擴充且有效率的環境中、處理高維度資料並執行複雜的查詢。透過為 NetApp ONTAP 執行個體建立 Amazon FSxN 並搭配 EC2 執行個體、客戶可以確保最佳的資源使用率和資料管理。成功驗證向量資料庫中 FSxN 的資料寫入與讀取作業、可讓客戶確保資料作業穩定可靠。此外、透過 S3 傳輸協定列出（讀取） AI 工作負載資料的能力、可增強資料存取能力。因此、這項全方位的程序可為客戶提供強大且有效率的解決方案、讓客戶運用 Amazon FSxN for NetApp ONTAP 的功能來管理大規模資料作業。
+本節有效說明客戶如何在 Docker 容器中部署及操作獨立的 Milvus 設定、並運用 Amazon 的 NetApp FSX ONTAP 來儲存 NetApp ONTAP 資料。這項設定可讓客戶運用向量資料庫的強大功能、在 Docker 容器的可擴充且有效率的環境中、處理高維度資料並執行複雜的查詢。透過建立 Amazon FSX ONTAP for NetApp ONTAP 執行個體並配對 EC2 執行個體、客戶可以確保最佳的資源使用率和資料管理。成功驗證向量資料庫中的 FSX ONTAP 資料寫入與讀取作業、讓客戶能夠確保可靠且一致的資料作業。此外、透過 S3 傳輸協定列出（讀取） AI 工作負載資料的能力、可增強資料存取能力。因此、這項全方位流程為客戶提供強大且有效率的解決方案、讓客戶能夠運用 Amazon 的 FSX ONTAP for NetApp ONTAP 的功能來管理大規模資料作業。
 
 

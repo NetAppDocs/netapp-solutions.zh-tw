@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: automation/fsxn_monitoring_resizing_automation.html 
-keywords: AWS, FSX, FSxN, automation, FSxN monitoring, FSxN automation, FSxN resizing, FSx for NetApp ONTAP monitoring, FSx for ONTAP monitoring 
-summary: 本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。 
+keywords: AWS, FSX, FSx ONTAP, automation, FSx ONTAP monitoring, FSx ONTAP automation, FSx ONTAP resizing, FSx ONTAP monitoring, FSx ONTAP monitoring 
+summary: 本頁說明監控 AWS FSX ONTAP 和根據臨界值自動調整大小的相關自動化功能。 
 ---
-= FSX- ONTAP 使用AWS Lambda功能進行資料監控和自動調整大小
+= 使用 AWS Lambda 功能進行 FSX ONTAP 監控和自動調整大小
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,15 +14,15 @@ summary: 本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關
 
 
 [role="lead"]
-本頁說明監控AWS FSxN及根據臨界值自動調整大小的相關自動化功能。
+本頁說明監控 AWS FSX ONTAP 和根據臨界值自動調整大小的相關自動化功能。
 
 
 
-== 總覽：透過ONTAP AWS Lambda功能監控及自動調整FSX的大小、以利執行功能
+== 概述：透過 AWS Lambda 功能監控和自動調整 FSX ONTAP 的大小
 
-適用於 ONTAP 的 FSX 是 AWS 上提供的第一方企業級雲端儲存服務、可提供以熱門 NetApp ONTAP 檔案系統為基礎的高可靠性、可擴充性、高效能及功能豐富的檔案儲存設備。
+FSX ONTAP 是 AWS 上提供的第一方企業級雲端儲存服務、可提供以熱門 NetApp ONTAP 檔案系統為基礎的高可靠性、可擴充性、高效能及功能豐富的檔案儲存設備。
 
-FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。  本文件提供逐步指南、協助您建立自動設定、定期監控適用於 ONTAP 的 FSX 、並在超過使用者指定的臨界值時通知及調整大小、並通知系統管理員調整大小活動。
+FSX ONTAP 提供無縫的部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。  本文件提供逐步指南、協助您建立自動設定、定期監控 FSX ONTAP 、並在超過使用者指定的臨界值時通知及調整大小、並通知系統管理員調整大小活動。
 
 .功能
 [%collapsible]
@@ -31,7 +31,7 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 
 * 監控能力：
 +
-** 使用FSX ONTAP 的整體儲存容量來實現功能性的提升
+** 使用 FSX ONTAP 的整體儲存容量
 ** 每個磁碟區的使用量（精簡配置/完整配置）
 ** 每個LUN的使用量（精簡配置/完整配置）
 
@@ -43,7 +43,7 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 * 能夠定期監控檢查
 * 能夠在存取或不存取網際網路的情況下使用解決方案
 * 能夠手動部署或使用 AWS CloudForgation Template
-* 能夠在單一 VPC 中監控多個適用於 ONTAP 檔案系統的 FSX
+* 能夠在單一 VPC 中監控多個 FSX ONTAP 檔案系統
 
 
 ====
@@ -52,16 +52,16 @@ FSX for ONTAP Sfor Efa提供無縫部署與管理體驗。無需具備任何儲�
 ====
 開始之前、請先確定符合下列先決條件：
 
-* 部署FSX ONTAP for Sfor Sf
-* 可連線至 ONTAP 的 FSX 的私有子網路
-* 已針對FSx ONTAP for Sf0設定「fsxadmin」密碼
+* 已部署 FSX ONTAP
+* 可連線至 FSX ONTAP 的私有子網路
+* 已為 FSX ONTAP 設定「 fsxadmin 」密碼
 
 
 ====
 .高階架構
 [%collapsible]
 ====
-* AWS Lambda功能會呼叫FSX以ONTAP 供擷取及更新儲存容量、Volume和LUN的大小。
+* AWS Lambda 功能會呼叫 FSX ONTAP 以擷取及更新儲存容量、磁碟區和 LUN 的大小。
 * 「 fsxadmin 」密碼會儲存為 AWS SSM 參數儲存區中的安全字串、以增加安全層級。
 * AWS SES（簡易電子郵件服務）用於在發生調整大小事件時通知終端使用者。
 * 如果在沒有網際網路存取的 VPC 中部署解決方案、則會設定適用於 AWS SSM 、 FSX 和 SES 的 VPC 端點、以允許 Lambda 透過 AWS 內部網路存取這些服務。
@@ -79,7 +79,7 @@ image:fsxn-monitoring-resizing-architecture.png["此映像描述此解決方案�
 === 自動化部署
 
 
-NOTE: 涵蓋 ONTAP 檔案系統的單一 FSX 。
+NOTE: 涵蓋單一 FSX ONTAP 檔案系統。
 
 請依照下列步驟完成本解決方案的自動化部署：
 
@@ -171,7 +171,7 @@ image:fsxn-monitoring-resizing-email-2.png["此影像描述通知可用時收到
 === 手動部署
 
 
-NOTE: 支援在單一 VPC 中監控多個適用於 ONTAP 檔案系統的 FSX 。
+NOTE: 支援在單一 VPC 中監控多個 FSX ONTAP 檔案系統。
 
 請依照下列步驟完成本解決方案的手動部署：
 
@@ -210,10 +210,9 @@ Tier: Standard
 Type: SecureString
 KMS key source: My current account
   KMS Key ID: <Use the default one selected>
-Value: <Enter the password for "fsxadmin" user configured on FSx for ONTAP>
+Value: <Enter the password for "fsxadmin" user configured on FSx ONTAP>
 ----
-按一下「*建立參數*」。
-針對要監控的所有 ONTAP 檔案系統、重複上述步驟。
+按一下「*建立參數*」。針對要監控的所有 FSX ONTAP 檔案系統、重複上述步驟。
 
 image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上的「建立SSM參數」視窗。"]
 
@@ -271,7 +270,7 @@ image:fsxn-monitoring-resizing-vpc-endpoint-create-2.png["此影像說明 VPC �
 .步驟 6 ：建立及設定 AWS Lambda 功能
 [%collapsible]
 ====
-. 瀏覽至 AWS Console （ AWS 主控台） > * AWS Lambda* > * Functions * （函數 * ）、然後在與 ONTAP 的 FSX 相同的區域中按一下 * Create Funct職能 * （建立函數 * ）
+. 瀏覽至 AWS Console （ AWS 主控台） > * AWS Lambda* > * Functions * （ * 功能 * ）、然後在與 FSX ONTAP 相同的區域中按一下 * Create Funct職能 * （建立功能 * ）
 . 使用預設的*從頭開始作者*並更新下列欄位：
 +
 [listing]
@@ -282,7 +281,7 @@ Architecture: x86_64
 Permissions: Select "Create a new role with basic Lambda permissions"
 Advanced Settings:
   Enable VPC: Checked
-    VPC: <Choose either the same VPC as FSx for ONTAP or a VPC that can access both FSx for ONTAP and the internet via a private subnet>
+    VPC: <Choose either the same VPC as FSx ONTAP or a VPC that can access both FSx ONTAP and the internet via a private subnet>
     Subnets: <Choose 2 private subnets that have NAT gateway attached pointing to public subnets with internet gateway and subnets that have internet access>
     Security Group: <Choose a Security Group>
 ----
@@ -328,17 +327,16 @@ image:fsxn-monitoring-resizing-layers-added.png["此影像說明AWS Lambda功能
 | *名稱* | *類型* | *說明* 
 
 
-| * fsxList* | 清單 | （必填）所有要監控 ONTAP 檔案系統的 FSX 清單。
-在清單中加入所有檔案系統、以進行監控和自動調整大小。 
+| * fsxList* | 清單 | （必填）要監控的所有 FSX ONTAP 檔案系統清單。在清單中加入所有檔案系統、以進行監控和自動調整大小。 
 
 
-| * fsxMgmtIp* | 字串 | （必填）從ONTAP AWS上的FSX for Ef0主控台輸入「管理端點- IP位址」。 
+| * fsxMgmtIp* | 字串 | （必填）從 AWS 上的 FSX ONTAP 主控台輸入「管理端點 - IP 位址」。 
 
 
-| * fsxId* | 字串 | （必填）從AWS上的FSX for ONTAP EWSF主控台輸入「檔案系統ID」。 
+| * fsxId* | 字串 | （必填）從 AWS 上的 FSX ONTAP 主控台輸入「檔案系統 ID 」。 
 
 
-| *使用者名稱* | 字串 | （必填）從ONTAP AWS上的FSX for EWSF輸入FSX for Sfor the ONTAP Sfor the ONTAP Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the Sfor the 
+| *使用者名稱* | 字串 | （必填）從 AWS 上的 FSX ONTAP 主控台輸入 FSX ONTAP 「 ONTAP 管理員使用者名稱」。 
 
 
 | *重新調整大小臨界值* | 整數 | （必填）輸入0-100之間的臨界值百分比。此臨界值將用於測量儲存容量、磁碟區和LUN使用量、當超過此臨界值的任何增加使用量百分比時、將會發生調整大小活動。 
@@ -400,4 +398,4 @@ image:fsxn-monitoring-resizing-eventbridge.png["此影像描述AWS Lambda功能�
 
 == 結論
 
-透過提供的解決方案、您可以輕鬆設定監控解決方案、定期監控適用於 ONTAP 儲存設備的 FSX 、根據使用者指定的臨界值調整大小、並提供警示機制。如此一來、使用和監控FSX for ONTAP Sf-sfess的程序就能讓系統管理員專注於業務關鍵活動、而儲存設備則會在需要時自動成長。
+透過提供的解決方案、您可以輕鬆設定監控解決方案、定期監控 FSX ONTAP 儲存設備、根據使用者指定的臨界值調整大小、並提供警示機制。如此一來、使用和監控 FSX ONTAP 的程序就能順暢無縫地讓管理員專注於業務關鍵活動、而儲存設備則可在必要時自動成長。

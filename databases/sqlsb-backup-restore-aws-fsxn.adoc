@@ -4,7 +4,7 @@ permalink: databases/sqlsb-backup-restore-aws-fsxn.html
 keywords: SQL server, SQL, backup, recover, AWS, aws, sql 
 summary:  
 ---
-= TR-4951 ： AWS FSX for ONTAP 上的 Microsoft SQL Server 備份與還原
+= TR-4951 ： AWS FSX ONTAP 上的 Microsoft SQL Server 備份與還原
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -16,7 +16,7 @@ summary:
 作者： Niyaz Mohammed 、 Carine Ngwekwe - NetApp 解決方案工程
 
 [role="lead"]
-本文件涵蓋在 AWS FSX for ONTAP with SnapCenter 上執行 Microsoft SQL Server 備份與還原所需的步驟。其中包括下列資訊：
+本文件涵蓋在 AWS FSX ONTAP with SnapCenter 上執行 Microsoft SQL Server 備份與還原所需的步驟。其中包括下列資訊：
 
 * NetApp SnapCenter 組態
 * 支援備份作業SnapCenter
@@ -32,7 +32,7 @@ summary:
 必須執行下列步驟來設定 SnapCenter 和保護 Microsoft SQL Server 資源。以下各節將詳細說明下列每個步驟。
 
 . 為 SQL Server 備份與還原使用者設定 Sysadmin 認證。
-. 設定儲存設定。提供 Amazon Web Services （ AWS ）管理認證、以從 SnapCenter 存取適用於 NetApp ONTAP 儲存虛擬機器（ SVM ）的 Amazon FSX 。
+. 設定儲存設定。提供 Amazon Web Services （ AWS ）管理認證、以從 SnapCenter 存取 Amazon FSX ONTAP 儲存虛擬機器（ SVM ）。
 . 將 SQL Server 主機新增至 SnapCenter 。部署並安裝所需的 SnapCenter 外掛程式。
 . 設定原則。定義備份作業類型、保留及選用的 Snapshot 備份複寫。
 . 設定及保護 Microsoft SQL Server 資料庫。
@@ -72,7 +72,7 @@ image:sqlsb-aws-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 +
 image:sqlsb-aws-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 提供 * 適用於 ONTAP 管理 * 端點的 FSX 。
+. 提供 *FSX ONTAP 管理 * 端點。
 +
 image:sqlsb-aws-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -107,7 +107,7 @@ image:sqlsb-aws-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 image:sqlsb-aws-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 安裝完成後、請前往 * 資源 * 標籤、確認 ONTAP iSCSI 磁碟區的所有 FSX 是否都存在。
+. 安裝完成後、請前往 * 資源 * 標籤、確認是否存在所有的 FSX ONTAP iSCSI 磁碟區。
 +
 image:sqlsb-aws-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 

@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: ai/mlops_fsxn_s3_integration.html 
-keywords: FSxN, MLOps, NetApp ONTAP, SageMaker, AWS S3 
-summary: 此貼文提供使用 AWS SageMaker 將 FSxN 設定為私有 S3 儲存區的指南。 
+keywords: FSx ONTAP, MLOps, NetApp ONTAP, SageMaker, AWS S3 
+summary: 本文章提供使用 AWS SageMaker 將 FSX ONTAP 設定為私有 S3 儲存區的指南。 
 ---
-= 第 1 部分：將 AWS FSx for NetApp ONTAP （ FSxN ）整合為私有 S3 儲存區、並整合至 AWS SageMaker
+= 第 1 部分：將 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）整合為私有 S3 儲存區、並整合至 AWS SageMaker
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 此貼文提供使用 AWS SageMaker 將 FSxN 設定為私有 S3 儲存�
 
 
 [role="lead"]
-本節提供使用 AWS SageMaker 將 FSxN 設定為私有 S3 貯體的指南。
+本節提供使用 AWS SageMaker 將 FSX ONTAP 設定為私有 S3 貯體的指南。
 
 * 作者： *
 NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
@@ -23,9 +23,9 @@ NetApp 資深資料與應用科學家 Jian Jian （ Ken ）
 
 == 簡介
 
-以 SageMaker 為例、本頁提供將 FSxN 設定為私有 S3 儲存區的指引。
+以 SageMaker 為例、本頁提供將 FSX ONTAP 設定為私有 S3 儲存區的指引。
 
-如需 FSxN 的詳細資訊、請參閱本簡報（link:http://youtube.com/watch?v=mFN13R6JuUk["視訊連結"]）
+如需有關 FSX ONTAP 的詳細資訊、請參閱本簡報（link:http://youtube.com/watch?v=mFN13R6JuUk["視訊連結"]）
 
 
 
@@ -47,11 +47,7 @@ image:mlops_fsxn_s3_integration_0.png["開啟 AWS 主控台"]
 +
 image:mlops_fsxn_s3_integration_1.png["AWS SageMaker 筆記型電腦執行個體主控台"]
 
-. 在建立頁面中、
-輸入 * 筆記本執行個體名稱 *
-展開 *Network* 面板
-保留其他項目的預設值、然後選取 * VPC* 、 * 子網路 * 和 * 安全性群組 * 。（此 *VPC* 和 * 子網路 * 將於稍後用於建立 FSxN 檔案系統）
-按一下右下方的橘色按鈕 * 建立筆記本執行個體 * 。
+. 在 " 創建 " 頁面中，輸入 * 筆記本實例名稱 * 展開 *Network* 面板保留其他項的默認值，然後選擇 *VPC* 、 * 子網 * 和 * 安全組 * 。（此 * VPC* 和 * 子網路 * 將於稍後用於建立 FSX ONTAP 檔案系統）按一下右下方的橘色按鈕 * 建立筆記型電腦執行個體 * 。
 +
 image:mlops_fsxn_s3_integration_2.png["建立筆記本執行個體"]
 
@@ -59,7 +55,7 @@ image:mlops_fsxn_s3_integration_2.png["建立筆記本執行個體"]
 
 
 
-==== 建立 FSxN 檔案系統
+==== 建立 FSX ONTAP 檔案系統
 
 . 開啟 AWS 主控台。在搜尋面板中、搜尋 FSX 並按一下服務 * fsx* 。
 +
@@ -69,7 +65,7 @@ image:mlops_fsxn_s3_integration_3.png["FSX 面板"]
 +
 image:mlops_fsxn_s3_integration_4.png["建立檔案系統"]
 
-. 選擇第一張卡 *FSX for NetApp ONTAP * 、然後按一下 * 下一步 * 。
+. 選擇第一張卡 * FSX ONTAP * 、然後按一下 * 下一步 * 。
 +
 image:mlops_fsxn_s3_integration_5.png["選取檔案系統類型"]
 
@@ -131,14 +127,11 @@ image:mlops_fsxn_s3_integration_15.png["AWS SageMaker 筆記型電腦執行個�
 +
 image:mlops_fsxn_s3_integration_16.png["Jupyter Lab 歡迎頁面"]
 
-. 輸入 ssh 命令 ssh <admin user name>@<ONTAP server IP> 以登入 FSxN ONTAP 檔案系統。（從步驟 2 擷取使用者名稱和 IP 位址）
-請使用建立 * 儲存虛擬機器 * 時所使用的密碼。
+. 輸入 ssh 命令 ssh < 管理使用者名稱 >@< ONTAP 伺服器 IP> 以登入 FSX ONTAP 檔案系統。（從步驟 2 擷取使用者名稱和 IP 位址）請使用建立 * 儲存虛擬機器 * 時所使用的密碼。
 +
 image:mlops_fsxn_s3_integration_17.png["Jupyter Lab 終端"]
 
-. 依照下列順序執行命令。
-我們使用 *fsxn-ONTAP* 作為 *FSxN Private S3 儲存區名稱 * 的名稱。
-請將 * 儲存虛擬機器名稱 * 用於 * 虛擬伺服器 * 引數。
+. 依照下列順序執行命令。我們使用 * ONTAP * 作為 * FSX ONTAP Private S3 儲存區名稱 * 的名稱。請將 * 儲存虛擬機器名稱 * 用於 * 虛擬伺服器 * 引數。
 +
 [source, bash]
 ----
@@ -153,7 +146,7 @@ vserver object-store-server bucket create fsxn-ontap -vserver fsxn-svm-demo -typ
 +
 image:mlops_fsxn_s3_integration_18.png["Jupyter Lab 終端輸出"]
 
-. 執行下列命令以擷取 FSxN Private S3 的端點 IP 和認證。
+. 執行下列命令以擷取 FSX ONTAP Private S3 的端點 IP 和認證。
 +
 [source, bash]
 ----
@@ -177,9 +170,7 @@ image:mlops_fsxn_s3_integration_19.png["Jupyter Lab 終端"]
 +
 image:mlops_fsxn_s3_integration_20.png["開啟新的 Jupyter 筆記型電腦"]
 
-. 使用下列程式碼做為解決方案的解決方案、將檔案上傳至 FSxN 私有 S3 儲存區。
-如需完整的程式碼範例、請參閱本筆記型電腦。
-link:https://nbviewer.jupyter.org/github/NetAppDocs/netapp-solutions/blob/main/media/mlops_fsxn_s3_integration_0.ipynb["fsxn_demo.ipynb"]
+. 使用下列程式碼做為解決方案的參考、將檔案上傳至 FSX ONTAP Private S3 儲存庫。如需完整的程式碼範例、請參閱本筆記型電腦。link:https://nbviewer.jupyter.org/github/NetAppDocs/netapp-solutions/blob/main/media/mlops_fsxn_s3_integration_0.ipynb["fsxn_demo.ipynb"]
 +
 [source, python]
 ----
@@ -189,7 +180,7 @@ seed: int = 77                                              # Random seed
 bucket_name: str = 'fsxn-ontap'                             # The bucket name in ONTAP
 aws_access_key_id = '<Your ONTAP bucket key id>'            # Please get this credential from ONTAP
 aws_secret_access_key = '<Your ONTAP bucket access key>'    # Please get this credential from ONTAP
-fsx_endpoint_ip: str = '<Your FSxN IP address>'             # Please get this IP address from FSXN
+fsx_endpoint_ip: str = '<Your FSx ONTAP IP address>'        # Please get this IP address from FSx ONTAP
 # -------- Manual configurations --------
 
 # Workaround
@@ -198,17 +189,17 @@ fsx_endpoint_ip: str = '<Your FSxN IP address>'             # Please get this IP
 !sudo mount -t nfs $fsx_endpoint_ip:/vol1 /home/ec2-user/SageMaker/vol1
 !sudo chmod 777 /home/ec2-user/SageMaker/vol1
 
-## Authentication for FSxN as a Private S3 Bucket
+## Authentication for FSx ONTAP as a Private S3 Bucket
 !aws configure set aws_access_key_id $aws_access_key_id
 !aws configure set aws_secret_access_key $aws_secret_access_key
 
-## Upload file to the FSxN Private S3 Bucket
+## Upload file to the FSx ONTAP Private S3 Bucket
 %%capture
 local_file_path: str = <Your local file path>
 
 !aws s3 cp --endpoint-url http://$fsx_endpoint_ip /home/ec2-user/SageMaker/$local_file_path  s3://$bucket_name/$local_file_path
 
-# Read data from FSxN Private S3 bucket
+# Read data from FSx ONTAP Private S3 bucket
 ## Initialize a s3 resource client
 import boto3
 
@@ -239,13 +230,13 @@ binary_data = bucket.Object(data.filename).get()['Body']
 ----
 
 
-FSxN 與 SageMaker 執行個體之間的整合到此結束。
+這就結束了 FSX ONTAP 與 SageMaker 執行個體之間的整合。
 
 
 
 == 實用的除錯檢查清單
 
-* 確保 SageMaker 筆記型電腦執行個體和 FSxN 檔案系統位於同一個 VPC 中。
+* 請確定 SageMaker 筆記型電腦執行個體和 FSX ONTAP 檔案系統位於同一個 VPC 中。
 * 請記得在 ONTAP 上執行 *set dev* 命令、將權限等級設為 *dev* 。
 
 
@@ -253,14 +244,14 @@ FSxN 與 SageMaker 執行個體之間的整合到此結束。
 
 == 常見問題集（從 2023 年 9 月 27 日起）
 
-問：為什麼在上傳檔案至 FSxN 時、我會收到錯誤「 * An error occurred （ NotImplemented ） when calling the CreateMultipartUpload operation: The S3 command you requested is not Implemplate* 」（ * 發生錯誤（未實作））？
+問：為什麼在將檔案上傳至 FSX ONTAP 時、我在呼叫 CreateMultpartUpload 作業時收到錯誤「 * 發生錯誤（未實作）：您要求的 S3 命令未實作 * 」？
 
-答：作為私有 S3 儲存區、 FSxN 支援上傳高達 100MB 的檔案。使用 S3 傳輸協定時、大於 100MB 的檔案會分成 100MB 的區塊、並會呼叫「 CreateMultpartUpload 」功能。不過、 FSxN Private S3 目前的實作並不支援此功能。
+答：作為私有 S3 儲存區、 FSX ONTAP 支援上傳高達 100MB 的檔案。使用 S3 傳輸協定時、大於 100MB 的檔案會分成 100MB 的區塊、並會呼叫「 CreateMultpartUpload 」功能。不過、目前的 FSX ONTAP Private S3 實作不支援此功能。
 
-問：為什麼在將檔案上傳至 FSxN 時、我在呼叫 PuttObject 作業時收到錯誤「 * 發生錯誤（ AccessDenied ）」（ * 發生錯誤（ AccessDenied ））？
+問：為什麼在將檔案上傳至 FSX ONTAP 時、我在呼叫 PuttObject 作業時收到錯誤「 * 發生錯誤（ AccessDenied ）：存取遭拒 * 」？
 
-答：若要從 SageMaker 筆記型電腦執行個體存取 FSxN 私有 S3 儲存區、請將 AWS 認證切換至 FSxN 認證。不過、若要授予執行個體寫入權限、則需要一種因應措施解決方案、其中包括掛載儲存區、並執行「 chmod 」 Shell 命令來變更權限。
+答：若要從 SageMaker 筆記型電腦執行個體存取 FSX ONTAP Private S3 儲存區、請將 AWS 認證切換至 FSX ONTAP 認證。不過、若要授予執行個體寫入權限、則需要一種因應措施解決方案、其中包括掛載儲存區、並執行「 chmod 」 Shell 命令來變更權限。
 
-問：如何將 FSxN 私有 S3 儲存區與其他 SageMaker ML 服務整合？
+問：如何將 FSX ONTAP Private S3 儲存區與其他 SageMaker ML 服務整合？
 
-答：很抱歉、 SageMaker 服務 SDK 無法提供方法來指定私有 S3 儲存區的端點。因此、 FSxN S3 與 SageMaker 服務不相容、例如 Sagemaker Data Wrangler 、 Sagemaker 、 SIGemaker 、 Sagemaker Glue 、 Sagemaker Athena 、 Sagemaker AutoML 、 及其他。
+答：很抱歉、 SageMaker 服務 SDK 無法提供方法來指定私有 S3 儲存區的端點。因此、 FSX ONTAP S3 與 SageMaker 服務不相容、例如 Sagemaker Data Wrangler 、 Sagemaker 、 Sagemaker 、 Sagemaker Glue 、 Sagemaker Athena 、 Sagemaker AutoML 等。

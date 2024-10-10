@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: rhhc/rhhc-pm-data-protection.html 
-keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMWare, provider managed storage, ONTAP, AWS FSxN, Astra Control Service 
+keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMWare, provider managed storage, ONTAP, AWS FSx ONTAP, Astra Control Service 
 summary:  
 ---
 = 資料保護
@@ -16,14 +16,14 @@ summary:
 [role="lead"]
 本頁顯示使用 Astra Control Service 在 AWS （ ROSA ）叢集上管理 Red Hat OpenShift 的資料保護選項。Astra Control Service （ ACS ）提供簡單易用的圖形化使用者介面、可讓您新增叢集、定義在叢集上執行的應用程式、以及執行應用程式感知的資料管理活動。您也可以使用 API 來存取 ACS 功能、以自動化工作流程。
 
-Astra Control （ ACS 或 ACC ）的供電為 NetApp Trident 。Trident 將多種類型的 Kubernetes 叢集（例如 Red Hat OpenShift 、 EKS 、 Os 、 SUSE Rancher 、 Anthos 等）與各種 NetApp ONTAP 儲存設備（例如 FAS / AFF 、 ONTAP Select 、 CVO 、 Google Cloud Volumes Service 、 Azure NetApp Files 和 Amazon FSX for NetApp ONTAP ）整合在一起。
+Astra Control （ ACS 或 ACC ）的供電為 NetApp Trident 。Trident 將多種類型的 Kubernetes 叢集（例如 Red Hat OpenShift 、 EKS 、 Os 、 SUSE Rancher 、 Anthos 等）與各種不同類型的 NetApp ONTAP 儲存設備（例如 FAS / AFF 、 ONTAP Select 、 CVO 、 Google Cloud Volumes Service 、 Azure NetApp Files 和 Amazon FSX ONTAP ）整合在一起。
 
 本節詳細說明使用 ACS 的下列資料保護選項：
 
 * 顯示在某個區域執行之 ROSA 應用程式的備份與還原、並還原至另一個區域的影片。
 * 顯示 ROSA 應用程式快照與還原的影片。
-* 安裝 ROSA 叢集 Amazon FSX for NetApp ONTAP 的逐步詳細資料、使用 NetApp Trident 與儲存後端整合、在 ROSA 叢集上安裝 PostgreSQL 應用程式、使用 ACS 建立應用程式的快照、並從其中還原應用程式。
-* 一個部落格、顯示在使用 ACS 的 ONTAP 適用的 FSX 之 ROSA 叢集上、從 mysql 應用程式的快照建立及還原的逐步詳細資料。
+* 安裝 ROSA 叢集 Amazon FSX ONTAP 的逐步詳細資料、使用 NetApp Trident 與儲存後端整合、在 ROSA 叢集上安裝 PostgreSQL 應用程式、使用 ACS 建立應用程式快照、並從其中還原應用程式。
+* 一個部落格、顯示在使用 ACS 的 FSX ONTAP 的 ROSA 叢集上、從 mysql 應用程式的快照建立和還原的逐步詳細資料。
 
 
 
@@ -40,7 +40,7 @@ video::01dd455e-7f5a-421c-b501-b01200fa91fd[panopto]
 
 下列影片顯示在拍攝 ROSA 應用程式的快照、並在之後從快照還原。
 
-.使用 Amazon FSX 進行 NetApp ONTAP 儲存的 AWS （ ROSA ）叢集上 Red Hat OpenShift 服務上的應用程式快照 / 還原
+.使用 Amazon FSX ONTAP 儲存設備的 AWS （ ROSA ）叢集上 Red Hat OpenShift 服務上的應用程式快照 / 還原
 video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto]
 
 
@@ -65,7 +65,7 @@ video::36ecf505-5d1d-4e99-a6f8-b11c00341793[panopto]
 * link:https://console.redhat.com/openshift/downloads["OpenShift CLI"]（ OC ）
 * 具備子網路和適當閘道和路由的 VPC
 * link:https://docs.openshift.com/rosa/rosa_install_access_delete_clusters/rosa_getting_started_iam/rosa-installing-rosa.html["已安裝 ROSA 叢集"] 進入 VPC
-* link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["Amazon FSX for NetApp ONTAP 產品"] 在同一個 VPC 中建立
+* link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["Amazon FSX ONTAP"]在同一個 VPC 中建立
 * 從存取 ROSA 叢集 link:https://console.redhat.com/openshift/overview["OpenShift 混合雲主控台"]
 
 
@@ -128,7 +128,7 @@ image:rhhc-trident-installed.png["此圖顯示輸入 / 輸出對話方塊或表�
 
 ==== **4.使用 Trident CSI 資源管理程式 ** 建立後端、儲存類別和快照類別組態
 
-請使用下方顯示的 yaml 檔案來建立 Trident 後端物件、儲存類別物件和 Volumesnapshot 物件。請務必在後端組態 yaml 中、為您所建立的 NetApp ONTAP 檔案系統提供 Amazon FSX 的認證、以及檔案系統的管理 LIF 和 Vserver 名稱。若要取得這些詳細資料、請前往 Amazon FSX 的 AWS 主控台並選取檔案系統、然後瀏覽至管理索引標籤。此外、按一下更新以設定的密碼 `fsxadmin` 使用者：
+請使用下方顯示的 yaml 檔案來建立 Trident 後端物件、儲存類別物件和 Volumesnapshot 物件。請務必在後端的組態 yaml 中、為您建立的 Amazon FSX ONTAP 檔案系統、管理 LIF 及檔案系統的 vserver 名稱提供認證。若要取得這些詳細資料、請前往 Amazon FSX 的 AWS 主控台並選取檔案系統、然後瀏覽至管理索引標籤。此外、請按一下「更新」以設定使用者的密碼 `fsxadmin`。
 
 
 NOTE: 您可以使用命令列來建立物件、或使用混合雲主控台的 yaml 檔案來建立物件。
@@ -211,7 +211,7 @@ image:rhhc-postgres-install.png["此圖顯示輸入 / 輸出對話方塊或表�
 
 NOTE: 如果您沒有看到應用程式 Pod 正在執行、則可能會因為安全內容限制而導致錯誤。image:rhhc-scc-error.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"] `runAsUser` `fsGroup` `statefuleset.apps/postgresql`使用 `oc get project`命令輸出中的 uid 編輯物件中的和欄位、以修正錯誤、如下所示。image:rhhc-scc-fix.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-PostgreSQL 應用程式應執行、並使用 Amazon FSX 支援的持續磁碟區來儲存 NetApp ONTAP 。
+PostgreSQL 應用程式應執行並使用以 Amazon FSX ONTAP 儲存設備為後盾的持續磁碟區。
 
 image:rhhc-postgres-running.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 

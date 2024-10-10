@@ -14,23 +14,23 @@ summary:
 
 
 [role="lead"]
-當VMware Cloud準備就緒並連線至AWS VPC之後、您必須將Amazon FSXfor NetApp ONTAP 支援部署至新指定的VPC、而非原始連線或現有的預設VPC。
+在 VMware Cloud 就緒並連線至 AWS VPC 之後、您必須將 Amazon FSX ONTAP 部署至新指定的 VPC 、而非原始連線或現有的預設 VPC 。
 
-若要開始、請在SDDC所在的相同地區和可用度區域部署額外的VPC、然後將Amazon FSx for NetApp ONTAP 支援部署到新的VPC。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-6B20CA3B-ABCD-4939-9176-BCEA44473C2B.html["在VMware Cloud中設定SDDC群組"^] 主控台可啟用連線至新指定VPC所需的網路組態選項、以便ONTAP 部署FSXfor Sfor。
-
-
-NOTE: 在ONTAP AWS SDDC上部署FSx for VMware與VMware Cloud相同的可用區域。
+若要開始、請在 SDDC 所在的相同區域和可用性區域部署額外的 VPC 、然後將 Amazon FSX ONTAP 部署到新的 VPC 。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-6B20CA3B-ABCD-4939-9176-BCEA44473C2B.html["在VMware Cloud中設定SDDC群組"^]主控台可啟用連線至將部署 FSX ONTAP 的新指定 VPC 所需的網路組態選項。
 
 
-NOTE: 您無法在ONTAP 連線的VPC上部署FSXfor Sfor。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。
+NOTE: 在 AWS SDDC 上、將 FSX ONTAP 部署在與 VMware Cloud 相同的可用區域。
 
-.步驟1：在ONTAP 新的指定VPC中建立Amazon FSX for Sf0
+
+NOTE: 您無法在連線的 VPC 中部署 FSX ONTAP 。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。
+
+.步驟 1 ：在新的指定 VPC 中建立 Amazon FSX ONTAP
 [%collapsible]
 ====
-若要建立及掛載Amazon FSX for NetApp ONTAP Sfor NetApp Sfor文件系統、請完成下列步驟：
+若要建立並掛載 Amazon FSX ONTAP 檔案系統、請完成下列步驟：
 
 . 在「https://console.aws.amazon.com/fsx/`」開啟Amazon FSX主控台、然後選擇「*建立檔案系統*」來啟動「*建立檔案系統*」精靈。
-. 在「Select File System Type」（選取檔案系統類型）頁面上、選取「* Amazon FSX for NetApp ONTAP 」（*適用於NetApp的Amazon FSx*）、然後按一下「* Next*」（此時將顯示「*建立檔案系統*」頁面。
+. 在「選取檔案系統類型」頁面上、選取 * Amazon FSX ONTAP * 、然後按一下 * 下一步 * 。此時將顯示「*建立檔案系統*」頁面。
 +
 image:fsx-nfs-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -52,7 +52,7 @@ NOTE: 請確定這是新的指定VPC、而非連接的VPC。
 
 +
 
-NOTE: 根據預設ONTAP 、FSX for Sf0使用198.19.0/16做為檔案系統的預設端點IP位址範圍。確保端點IP位址範圍不會與AWS SDDC、相關VPC子網路和內部部署基礎架構上的VMC衝突。如果您不確定、請使用無衝突的無重疊範圍。
+NOTE: 根據預設、 FSX ONTAP 使用 198.19.0/16 做為檔案系統的預設端點 IP 位址範圍。確保端點IP位址範圍不會與AWS SDDC、相關VPC子網路和內部部署基礎架構上的VMC衝突。如果您不確定、請使用無衝突的無重疊範圍。
 
 +
 image:fsx-nfs-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
@@ -146,7 +146,7 @@ NOTE: 重複上述步驟、根據容量和效能需求、建立更多儲存虛�
 
 
 
-若要深入瞭解Amazon FSX ONTAP 的效能、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["Amazon FSX提供NetApp ONTAP 的效能"^]。
+若要瞭解 Amazon FSX ONTAP 效能、請參閱 https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["Amazon FSX ONTAP 效能"^]。
 
 ====
 .步驟2：建立SDDC群組
@@ -177,7 +177,7 @@ image:fsx-nfs-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 . 按一下*新增帳戶*。
 +
-.. 提供用來配置FSX以供ONTAP 參考檔案系統的AWS帳戶。
+.. 提供用來配置 FSX ONTAP 檔案系統的 AWS 帳戶。
 .. 按一下「 * 新增 * 」。
 
 
@@ -201,7 +201,7 @@ image:fsx-nfs-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 [%collapsible]
 ====
 . 在AWS主控台中、前往VPC服務頁面、然後瀏覽至用於配置FSX檔案系統的VPC。您可在此處按一下右側導覽窗格上的* Transit Gateway附件*、以建立傳輸閘道附件。
-. 在「* VPC附件*」下、確認已勾選「DNS支援」、然後選取ONTAP 部署FSX for Sf1的VPC。
+. 在 * VPC 附件 * 下、確定已勾選 DNS 支援、並選取要部署 FSX ONTAP 的 VPC 。
 +
 image:fsx-nfs-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -222,7 +222,7 @@ NOTE: 此選項可能需要幾分鐘的時間才會出現。
 
 . 然後在* Routes *（*路由*）列的* Extern外部VPC*（*外部VPC*）標籤中、按一下* Add Routes（*新增路由*）選項、並新增所需的路由：
 +
-** 適用於NetApp ONTAP 的Amazon FSX的浮動IP範圍路由。
+** Amazon FSX ONTAP 浮動 IP 範圍的路由。
 ** 新建立外部VPC位址空間的路由。
 +
 image:fsx-nfs-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
@@ -254,7 +254,7 @@ image:fsx-nfs-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 +
 
-NOTE: 確認VPC（FSXfor ONTAP Sf2所在位置）路由表已更新、以避免連線問題。
+NOTE: 確認 VPC （ FSX ONTAP 所在位置）路由表已更新、以避免連線問題。
 
 +
 

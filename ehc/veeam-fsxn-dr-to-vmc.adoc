@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: ehc/veeam-fsxn-dr-to-vmc.html 
-keywords: disaster recovery, vmc, vmware cloud, aws, amazon web services, fsxn, fsx for ontap, fsx for netapp ontap, disaster recovery, dr, veeam, replication 
+keywords: disaster recovery, vmc, vmware cloud, aws, amazon web services, fsxn, FSx ONTAP, FSx ONTAP, disaster recovery, dr, veeam, replication 
 summary:  
 ---
-= 使用 Veeam Replication 和 FSX for ONTAP 在 AWS 上進行災難恢復至 VMware Cloud
+= 在 AWS 上使用 Veeam Replication 和 FSX ONTAP 進行災難恢復至 VMware Cloud
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-Amazon FSx for NetApp ONTAP 與 AWS 上的 VMware Cloud 整合、是以 NetApp ONTAP 檔案系統為基礎的 AWS 託管外部 NFS 資料存放區、可附加至 SDDC 中的叢集。它為客戶提供靈活、高效能的虛擬化儲存基礎架構、可在運算資源之外進行擴充。
+Amazon FSx ONTAP 與 VMware Cloud on AWS 整合是以 NetApp 的 ONTAP 檔案系統為基礎的 AWS 託管外部 NFS 資料存放區、可附加至 SDDC 中的叢集。它為客戶提供靈活、高效能的虛擬化儲存基礎架構、可在運算資源之外進行擴充。
 
 作者： Niyaz Mohamed - NetApp 解決方案工程
 
@@ -22,15 +22,15 @@ Amazon FSx for NetApp ONTAP 與 AWS 上的 VMware Cloud 整合、是以 NetApp O
 
 == 總覽
 
-對於那些希望使用 VMware Cloud on AWS SDDC 做為災難恢復目標的客戶、 ONTAP 資料存放區的 FSX 可用於使用任何驗證的協力廠商解決方案、提供 VM 複寫功能、從內部部署複寫資料。透過新增適用於 ONTAP 資料存放區的 FSX 、相較於在 AWS SDDC 上建置 VMware 雲端、它將可實現成本最佳化的部署、並提供大量的 ESXi 主機以容納儲存設備。
+對於那些想要使用 VMware Cloud on AWS SDDC 做為災難恢復目標的客戶、可使用 FSX ONTAP 資料存放區、使用任何驗證的第三方解決方案來提供 VM 複寫功能、從內部部署複寫資料。透過新增 FSX ONTAP 資料存放區、相較於在 AWS SDDC 上建置 VMware 雲端、它將可實現成本最佳化的部署、並提供大量 ESXi 主機以容納儲存設備。
 
-此方法也可協助客戶在 VMC 中使用試驗性光叢集、以及將 ONTAP 資料存放區的 FSX 來裝載 VM 複本。同樣的程序也可透過正常容錯移轉複寫計畫、以作為移轉選項延伸至 VMware Cloud on AWS 。
+此方法也可協助客戶在 VMC 中使用試驗性光叢集、以及使用 FSX ONTAP 資料存放區來裝載 VM 複本。同樣的程序也可透過正常容錯移轉複寫計畫、以作為移轉選項延伸至 VMware Cloud on AWS 。
 
 
 
 == 問題陳述
 
-本文件說明如何使用適用於 ONTAP 資料存放區和 Veeam 備份與複寫的 FSX 、以使用 VM 複寫功能、為內部部署的 VMware VM 設定災難恢復至 VMware Cloud on AWS 。
+本文件說明如何使用 FSX ONTAP 資料存放區和 Veeam 備份與複寫、使用 VM 複寫功能、為內部部署的 VMware VM 設定災難恢復至 VMware Cloud on AWS 。
 
 Veeam 備份與複寫功能可在現場及遠端複寫災難恢復（ DR ）。複寫虛擬機器時、 Veeam 備份與複寫會在 AWS SDDC 叢集上的目標 VMware Cloud 上、以原生 VMware vSphere 格式建立 VM 的精確複本、並使複本與原始 VM 保持同步。
 
@@ -51,7 +51,7 @@ image:dr-veeam-fsx-image1.png["使用 Veeam Replication 和適用於 VMC 的 FSX
 === 高階步驟
 
 . Veeam 備份與複寫軟體是在內部環境中執行、並具備適當的網路連線能力。
-. 在 AWS 上設定 VMware Cloud 、請參閱 VMware Cloud Tech Zone 文章 link:https://vmc.techzone.vmware.com/fsx-guide["VMware Cloud on AWS 與 Amazon FSX for NetApp ONTAP 部署指南整合"] 若要部署、請在 AWS SDDC 上設定 VMware Cloud 、將 ONTAP 的 FSx 設定為 NFS 資料存放區。（以最小組態設定的試行環境可用於 DR 用途。發生事件時、 VM 會容錯移轉至此叢集、並可新增其他節點）。
+. 在 AWS 上設定 VMware Cloud 、請參閱 VMware Cloud Tech Zone 文章link:https://vmc.techzone.vmware.com/fsx-guide["VMware Cloud on AWS 與 Amazon FSX ONTAP 部署指南整合"]、以在 AWS SDDC 上部署和設定 VMware Cloud 、並將 FSx ONTAP 設定為 NFS 資料存放區。（以最小組態設定的試行環境可用於 DR 用途。發生事件時、 VM 會容錯移轉至此叢集、並可新增其他節點）。
 . 設定複寫工作、以使用 Veeam 備份與複寫建立 VM 複本。
 . 建立容錯移轉計畫並執行容錯移轉。
 . 災難事件完成且主站台正常運作後、切換回正式作業的 VM 。
@@ -59,11 +59,11 @@ image:dr-veeam-fsx-image1.png["使用 Veeam Replication 和適用於 VMC 的 FSX
 
 
 
-=== Veeam VM 複寫至 VMC 和 ONTAP 資料存放區的 FSX 的先決條件
+=== Veeam VM 複寫至 VMC 和 FSX ONTAP 資料存放區的先決條件
 
 . 確保 Veeam 備份與複寫備份虛擬機器已連線至來源 vCenter 、以及 AWS SDDC 叢集上的目標 VMware 雲端。
 . 備份伺服器必須能夠解析簡短名稱、並連線至來源和目標 vCenter 。
-. ONTAP 資料存放區的目標 FSX 必須有足夠的可用空間來儲存複寫 VM 的 VMDK
+. 目標 FSX ONTAP 資料存放區必須有足夠的可用空間來儲存複寫 VM 的 VMDK
 
 
 如需其他資訊、請參閱涵蓋的「考量與限制」 link:https://helpcenter.veeam.com/docs/backup/vsphere/replica_limitations.html?ver=120["請按這裡"]。
@@ -91,11 +91,11 @@ image:dr-veeam-fsx-image2.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 
 
-. 在 * 虛擬機器 * 步驟中、選取需要複寫至 FSX 的 VM 、以將 ONTAP 資料存放區附加至 AWS SDDC 上的 VMware Cloud 。虛擬機器可放置在 vSAN 上、以填滿可用的 vSAN 資料存放區容量。在試驗性光叢集中、 3 節點叢集的可用容量將會受到限制。其餘資料可複寫至 ONTAP 資料存放區的 FSX 。按一下 * 新增 * 、然後在 * 新增物件 * 視窗中選取必要的 VM 或 VM 容器、然後按一下 * 新增 * 。單擊 * 下一步 * 。
+. 在 * 虛擬機器 * 步驟中、選取需要複寫到連接至 AWS SDDC 上 VMware Cloud 的 FSX ONTAP 資料存放區的 VM 。虛擬機器可放置在 vSAN 上、以填滿可用的 vSAN 資料存放區容量。在試驗性光叢集中、 3 節點叢集的可用容量將會受到限制。其餘資料可複寫至 FSX ONTAP 資料存放區。按一下 * 新增 * 、然後在 * 新增物件 * 視窗中選取必要的 VM 或 VM 容器、然後按一下 * 新增 * 。單擊 * 下一步 * 。
 +
 image:dr-veeam-fsx-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 之後、將目的地選取為 AWS SDDC 叢集 / 主機上的 VMware Cloud 、以及 VM 複本適用的資源集區、 VM 資料夾和 ONTAP 資料存放區的 FSX 。然後按一下 * 下一步 * 。
+. 之後、將目的地選取為 AWS SDDC 叢集 / 主機上的 VMware Cloud 、以及 VM 複本適用的資源集區、 VM 資料夾和 FSX ONTAP 資料存放區。然後按一下 * 下一步 * 。
 +
 image:dr-veeam-fsx-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -221,7 +221,7 @@ image:dr-veeam-fsx-image19.png["此圖顯示輸入 / 輸出對話方塊或表示
 
 == 結論
 
-ONTAP 資料存放區功能的 FSX 可讓 Veeam 或任何經過驗證的協力廠商工具、使用 Pilot Light 叢集提供低成本的 DR 解決方案、而無需在叢集中直立放置大量主機、只需容納 VM 複本即可。這是一套強大的解決方案、可處理量身打造的自訂災難恢復計畫、並可重複使用內部現有的備份產品以滿足災難恢復需求、進而透過內部部署的災難恢復資料中心、實現雲端型災難恢復。當發生災難時、只要按一下按鈕、即可依照計畫進行容錯移轉或容錯移轉、並決定啟動 DR 站台。
+FSX ONTAP 資料存放區功能可讓 Veeam 或任何經過驗證的協力廠商工具、使用 Pilot Light 叢集提供低成本的 DR 解決方案、而且不會為了容納 VM 複本而在叢集中放置大量主機。這是一套強大的解決方案、可處理量身打造的自訂災難恢復計畫、並可重複使用內部現有的備份產品以滿足災難恢復需求、進而透過內部部署的災難恢復資料中心、實現雲端型災難恢復。當發生災難時、只要按一下按鈕、即可依照計畫進行容錯移轉或容錯移轉、並決定啟動 DR 站台。
 
 若要深入瞭解此程序、歡迎觀看詳細的逐步解說影片。
 
