@@ -156,94 +156,89 @@ entries:
         url: "/containers/rh-os-n_use_case_multitenancy_overview.html"
       - title: 架構
         url: "/containers/rh-os-n_use_case_multitenancy_architecture.html"
-      - title: 組態
-        entries:
-        - title: 總覽
-          url: "/containers/rh-os-n_use_case_multitenancy_configuration.html"
-        - title: 先決條件
-          url: "/containers/rh-os-n_use_case_multitenancy_configuration_prerequisites.html"
-        - title: 叢集管理員工作
-          url: "/containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html"
-        - title: 儲存管理員工作
-          url: "/containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html"
-        - title: 驗證
-          url: "/containers/rh-os-n_use_case_multitenancy_validation.html"
-        - title: 擴充
-          url: "/containers/rh-os-n_use_case_multitenancy_scaling.html"
-    - title: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+      - title: 組態概觀
+        url: "/containers/rh-os-n_use_case_multitenancy_configuration.html"
+      - title: 組態先決條件
+        url: "/containers/rh-os-n_use_case_multitenancy_configuration_prerequisites.html"
+      - title: 叢集管理員工作
+        url: "/containers/rh-os-n_use_case_multitenancy_cluster_admin_tasks.html"
+      - title: 儲存管理員工作
+        url: "/containers/rh-os-n_use_case_multitenancy_storage_admin_tasks.html"
+      - title: 驗證
+        url: "/containers/rh-os-n_use_case_multitenancy_validation.html"
+      - title: 擴充
+        url: "/containers/rh-os-n_use_case_multitenancy_scaling.html"
+  - title: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
+    entries:
+    - title: 總覽
+      url: "/containers/rh-os-n_use_case_advanced_cluster_management_overview.html"
+    - title: 部署
       entries:
-      - title: 總覽
-        url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
-      - title: 部署 OpenShift 虛擬化
-        entries:
-        - title: 先決條件
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
-        - title: 透過營運者部署
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment.html"
-        - title: 工作流程
-          entries:
-          - title: 建立VM
-            url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_create_vm.html"
-          - title: VM即時移轉
-            url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html"
-          - title: 虛擬機器複製
-            url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html"
-          - title: 從Snapshot建立VM
-            url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html"
-          - title: 將 VM 從 VMware 移轉至 OpenShift 虛擬化
-            url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html"
-      - title: 使用協力廠商工具保護 VM 資料
-        entries:
-        - title: 總覽
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_overview.html"
-        - title: OADP 安裝
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_installation.html"
-        - title: 備份
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_backup.html"
-        - title: 還原
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_restore.html"
-        - title: 刪除備份與還原
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_delete.html"
-      - title: 使用 Cloud Insights 監控
-        entries:
-        - title: 總覽
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_overview.html"
-        - title: 與 Cloud Insights 整合
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_integration.html"
-        - title: 監控功能範例
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_samples.html"
-      - title: 最佳實務建議
-        entries:
-        - title: 最佳實務做法指南
-          url: "/containers/rh-os-n_use_case_openshift_virtualization_bpg.html"
-    - title: 採用NetApp的Red Hat OpenShift上的Kubernetes進階叢集管理
-      entries:
-      - title: 總覽
-        url: "/containers/rh-os-n_use_case_advanced_cluster_management_overview.html"
-      - title: 部署
-        entries:
-        - title: 先決條件
-          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html"
-        - title: 透過營運者部署
-          url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html"
-        - title: 功能
-          entries:
-          - title: 叢集生命週期管理
-            url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_cluster_lcm.html"
-          - title: 應用程式生命週期管理
-            url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_application_lcm.html"
-          - title: 治理與風險
-            url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_governance_risk.html"
-          - title: 觀察能力
-            url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_observability.html"
-          - title: 建立資源
-            url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_create_resources.html"
+      - title: 先決條件
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment_prerequisites.html"
+      - title: 透過營運者部署
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_deployment.html"
+      - title: 叢集生命週期管理
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_cluster_lcm.html"
+      - title: 應用程式生命週期管理
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_application_lcm.html"
+      - title: 治理與風險
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_governance_risk.html"
+      - title: 觀察能力
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_observability.html"
+      - title: 建立資源
+        url: "/containers/rh-os-n_use_case_advanced_cluster_management_features_create_resources.html"
   - title: 使用協力廠商工具保護資料
     url: "/containers/rh-os-n_velero.html"
   - title: 影片/示範
     url: "/containers/rh-os-n_videos_and_demos.html"
   - title: 其他資訊
     url: "/containers/rh-os-n_additional_information.html"
+- title: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+  pdf-filename: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
+  entries:
+  - title: 總覽
+    url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
+  - title: 部署 OpenShift 虛擬化
+    entries:
+    - title: 先決條件
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
+    - title: 透過營運者部署
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment.html"
+    - title: 工作流程
+      entries:
+      - title: 建立VM
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_create_vm.html"
+      - title: VM即時移轉
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_live_migration.html"
+      - title: 虛擬機器複製
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_clone_vm.html"
+      - title: 從Snapshot建立VM
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html"
+      - title: 將 VM 從 VMware 移轉至 OpenShift 虛擬化
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html"
+  - title: 使用協力廠商工具保護 VM 資料
+    entries:
+    - title: 總覽
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_overview.html"
+    - title: OADP 安裝
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_installation.html"
+    - title: 備份
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_backup.html"
+    - title: 還原
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_restore.html"
+    - title: 刪除備份與還原
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_dataprotection_delete.html"
+  - title: 使用 Cloud Insights 監控
+    entries:
+    - title: 總覽
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_overview.html"
+    - title: 與 Cloud Insights 整合
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_integration.html"
+    - title: 監控功能範例
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_samples.html"
+    - title: 最佳實務做法指南
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_bpg.html"
 - title: VMware Tanzu與NetApp合作
   pdf-filename: VMware Tanzu與NetApp合作
   entries:
