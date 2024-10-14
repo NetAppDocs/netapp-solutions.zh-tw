@@ -1,0 +1,494 @@
+---
+sidebar: sidebar 
+permalink: databases/snapctr_psql_ontap.html 
+keywords: Database, PostgreSQL, ONTAP, backup, recovery, clone, SnapCenter 
+summary: 本解決方案提供 PostgreSQL 資料庫備份、還原及複製的概觀與詳細資料、可透過 NetApp SnapCenter 資料庫管理 UI 工具、在公有雲或內部部署的 ONTAP 儲存設備上進行。 
+---
+= TR-5000 ：使用 SnapCenter 在 ONTAP 上進行 PostgreSQL 資料庫備份、還原及複製
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+NetApp公司的Alleno Cao、Niyazz Mohamed
+
+[role="lead"]
+本解決方案提供 PostgreSQL 資料庫備份、還原及複製的概觀與詳細資料、可透過 NetApp SnapCenter 資料庫管理 UI 工具、在公有雲或內部部署的 ONTAP 儲存設備上進行。
+
+
+
+== 目的
+
+NetApp SnapCenter 流通軟體是易於使用的企業平台、可安全地協調及管理應用程式、資料庫及檔案系統之間的資料保護。它可將這些工作卸載給應用程式擁有者、而不犧牲在儲存系統上監督及管理活動的能力、進而簡化備份、還原及複製生命週期管理。藉由運用儲存型資料管理功能、可提升效能與可用度、並縮短測試與開發時間。
+
+在本文件中、我們使用非常方便使用的 SnapCenter UI 工具、在公有雲或內部部署的 NetApp ONTAP 儲存設備上展示 PostgreSQL 資料庫保護與管理功能。
+
+本解決方案可解決下列使用案例：
+
+* 部署在公有雲或內部部署的 NetApp ONTAP 儲存設備上的 PostgreSQL 資料庫備份與還原。
+* 管理 PostgreSQL 資料庫快照和複製複本、以加速應用程式開發並改善資料生命週期管理。
+
+
+
+
+== 目標對象
+
+本解決方案適用於下列人員：
+
+* DBA 希望在 NetApp ONTAP 儲存設備上部署 PostgreSQL 資料庫。
+* 資料庫解決方案架構設計師、想要在 NetApp ONTAP 儲存設備上測試 PostgreSQL 工作負載。
+* 想要在 NetApp ONTAP 儲存設備上部署及管理 PostgreSQL 資料庫的儲存管理員。
+* 想要在 NetApp ONTAP 儲存設備上備份 PostgreSQL 資料庫的應用程式擁有者。
+
+
+
+
+== 解決方案測試與驗證環境
+
+此解決方案的測試與驗證是在實驗室環境中執行、可能與最終部署環境不符。請參閱一節 <<部署考量的關鍵因素>> 以取得更多資訊。
+
+
+
+=== 架構
+
+image:snapctr_psql_brc_architecture.png["此映像提供使用 SnapCenter 的 PostgreSQL 備份、還原及複製的詳細圖片。"]
+
+
+
+=== 硬體與軟體元件
+
+[cols="33%, 33%, 33%"]
+|===
+
+
+3+| *硬體* 
+
+
+| NetApp AFF 解決方案-A220 | 9.12.1P2 版 | 磁碟櫃 DS224-12 、 IOM12E 模組、 24 個磁碟 / 12 TiB 容量 
+
+
+| VMware vSphere 叢集 | 版本 6.7 | 4 個 NetApp HCI H410C 運算 ESXi 節點 
+
+
+3+| *軟體* 
+
+
+| RedHat Linux | RHEL Linux 8.6 （ LVM ） - x64 Gen2 | 已部署RedHat訂閱以進行測試 
+
+
+| Windows伺服器 | 2022 DataCenter ； AE HotPatch - x64 Gen2 | 託管 SnapCenter 伺服器 
+
+
+| PostgreSQL資料庫 | 版本 14.13 | 使用 HammerDB tpcc 架構填入 PostgreSQL DB 叢集 
+
+
+| 伺服器SnapCenter | 版本 6.0 | 工作群組部署 
+
+
+| 開啟 JDK | 版本 Java-11-OpenJDK | DB VM 上的 SnapCenter 外掛程式需求 
+
+
+| NFS | 3.0版 | 將資料分開、並記錄到不同的裝載點 
+
+
+| Ansible | 核心 2 ． 2 | Python 3.6.8 
+|===
+
+
+=== 實驗室環境中的 PostgreSQL 資料庫組態
+
+[cols="33%, 33%, 33%"]
+|===
+
+
+3+|  
+
+
+| *伺服器* | *資料庫* | * 資料庫儲存 * 
+
+
+| psql01 | 主要資料庫伺服器 | /PGDATA 、 /pglogs NFS 磁碟區裝載於 ONTAP 儲存設備上 
+
+
+| psql02 | 複製資料庫伺服器 | /PGDAAT_clone 、 /pglogs_clone NFS 精簡複製磁碟區裝載於 ONTAP 儲存設備上 
+|===
+
+
+=== 部署考量的關鍵因素
+
+* * SnapCenter 部署。 * SnapCenter 可以部署在 Windows 網域或工作群組環境中。對於網域型部署、網域使用者帳戶應為網域系統管理員帳戶、或是網域使用者屬於 SnapCenter 主機服務器上本機系統管理員的群組。
+* * 名稱解析。 * SnapCenter 伺服器需要將名稱解析為每個受管理目標資料庫伺服器主機的 IP 位址。每個目標資料庫伺服器主機都必須將 SnapCenter 伺服器名稱解析為 IP 位址。如果 DNS 伺服器無法使用、請將命名新增至本機主機檔案以進行解析。
+* * 資源群組組組態。 * SnapCenter 中的資源群組是類似資源的邏輯群組、可一起備份。因此、它能簡化並減少大型資料庫環境中的備份工作數量。
+* * 獨立的完整資料庫和歸檔記錄備份。 * 完整資料庫備份包括資料磁碟區和記錄磁碟區一致的群組快照。頻繁的完整資料庫快照可提高儲存使用率、但可改善 RTO 。另一個替代方案是較不常備份完整資料庫快照和更頻繁的歸檔記錄備份、這不僅會減少儲存需求、也會改善 RPO 、但可能會延長 RTO 。設定備份方案時、請考量您的 RTO 和 RPO 目標。磁碟區上的快照備份數量也有限制（ 1023 ）。
+* * 權限委派 * 。 * 利用 SnapCenter UI 內建的角色型存取控制、視需要將權限委派給應用程式和資料庫團隊。
+
+
+
+
+== 解決方案部署
+
+以下各節提供在公有雲或內部部署的 NetApp ONTAP 儲存設備上進行 SnapCenter 部署、組態和 PostgreSQL 資料庫備份、還原和複製的逐步程序。
+
+
+
+=== 部署的先決條件
+
+[%collapsible]
+====
+. 部署需要在 ONTAP 儲存設備上執行兩個現有的 PostgreSQL 資料庫、一個做為主要 DB 伺服器、另一個做為複製 DB 伺服器。如需 ONTAP 上 PostgreSQL 資料庫部署的參考資料、link:aws_postgres_fsx_ec2_hadr.html["AWS FS3/EC2 中的自動化 PostgreSQL 高可用度部署和災難恢復"^]請參閱 TR-4956 ：、尋找主要執行個體的 PostgreSQL 自動化部署教戰手冊。
+. 佈建 Windows 伺服器以使用最新版本執行 NetApp SnapCenter UI 工具。有關詳細信息，請參閱以下鏈接link:https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["安裝SnapCenter 此伺服器"^]：。
+
+
+====
+
+
+=== SnapCenter 安裝與設定
+
+[%collapsible]
+====
+我們建議您先上線link:https://docs.netapp.com/us-en/snapcenter/index.html["軟件文檔SnapCenter"^]、再繼續 SnapCenter 安裝與組態：。以下是 ONTAP 上 SnapCenter 軟體安裝與設定步驟的高階摘要。
+
+. 從 SnapCenter Windows 伺服器下載並安裝最新的 Java JDK link:https://www.java.com/en/["取得適用於桌面應用程式的 Java"^]。關閉 Windows 防火牆。
+. 從 SnapCenter Windows 伺服器下載並安裝或更新 SnapCenter 6.0 Windows 必要條件： PowerShell - PowerShell-7.4.3-win-x64.msi 和 .Net 主機代管套件 - dotnet-hosting-8.0.6-win 。
+. 從 SnapCenter Windows 伺服器、從 NetApp 支援網站下載並安裝最新版本（目前為 6.0 ）的 SnapCenter 安裝執行檔：link:https://mysupport.netapp.com/site/["NetApp | 支援"^]。
+. 從資料庫 DB VM 中、為系統管理員使用者啟用 ssh 無密碼驗證、並在不使用密碼的情況下啟用 `admin` Sudo Privileges 。
+. 從資料庫 DB VM 停止及停用 Linux 防火牆精靈。安裝 Java-11-OpenJDK 。
+. 從 SnapCenter Windows 伺服器啟動瀏覽器、透過連接埠 8146 、以 Windows 本機系統管理員使用者或網域使用者認證登入 SnapCenter 。
++
+image:snapctr_ora_azure_anf_setup_01.png["此影像提供 SnapCenter 伺服器的登入畫面"]
+
+. 檢閱 `Get Started` 線上功能表。
++
+image:snapctr_ora_azure_anf_setup_02.png["此影像提供 SnapCenter 伺服器的線上功能表"]
+
+. 在中 `Settings-Global Settings`、檢查 `Hypervisor Settings` 然後按一下「更新」。
++
+image:snapctr_ora_azure_anf_setup_03.png["此映像提供 SnapCenter 伺服器的 Hypervisor 設定"]
+
+. 如有需要、請調整 `Session Timeout` 將 SnapCenter UI 設定為所需的時間間隔。
++
+image:snapctr_ora_azure_anf_setup_04.png["此映像為 SnapCenter 伺服器提供工作階段逾時"]
+
+. 視需要新增其他使用者至 SnapCenter 。
++
+image:snapctr_ora_azure_anf_setup_06.png["此映像提供 SnapCenter 伺服器的設定 - 使用者和存取權"]
+
+. 。 `Roles` 索引標籤列出可指派給不同 SnapCenter 使用者的內建角色。自訂角色也可由具有所需權限的管理員使用者建立。
++
+image:snapctr_ora_azure_anf_setup_07.png["此映像提供 SnapCenter 伺服器的角色"]
+
+. 從 `Settings-Credential`建立 SnapCenter 管理目標的認證。在本示範使用案例中、他們是 Linux 使用者管理員、可登入 DB 伺服器 VM 、以及用於 PostgreSQL 存取的 postgres 認證。
++
+image:snapctr_psql_setup_host_01.png["此映像提供 SnapCenter 伺服器的認證"]
+
++
+
+NOTE: 建立認證之前、請先重設 PostgreSQL 使用者的 postgres 密碼。
+
+. 從 `Storage Systems`索引標籤中、使用 ONTAP 叢集管理認證新增 `ONTAP cluster`。對於 Azure NetApp Files 、您需要建立特定的認證來進行容量集區存取。
++
+image:snapctr_psql_setup_ontap_01.png["此映像提供 Azure NetApp Files for SnapCenter 伺服器"] image:snapctr_psql_setup_ontap_02.png["此映像提供 Azure NetApp Files for SnapCenter 伺服器"]
+
+. 從 `Hosts`索引標籤新增 PostgreSQL DB VM 、此 VM 會在 Linux 上安裝適用於 PostgreSQL 的 SnapCenter 外掛程式。
++
+image:snapctr_psql_setup_host_02.png["此映像可為 SnapCenter 伺服器提供主機"] image:snapctr_psql_setup_host_03.png["此映像可為 SnapCenter 伺服器提供主機"] image:snapctr_psql_setup_host_05.png["此映像可為 SnapCenter 伺服器提供主機"]
+
+. 在 DB 伺服器 VM 上安裝主機外掛程式後、主機上的資料庫會自動探索、並顯示在索引標籤中 `Resources`。
++
+image:snapctr_psql_bkup_01.png["此映像提供 SnapCenter 伺服器的設定原則"]
+
+
+
+====
+
+
+=== 資料庫備份
+
+[%collapsible]
+====
+初始自動探索的 PostgreSQL 叢集在其叢集名稱旁顯示紅色鎖定。必須使用上一節 SnapCenter 設定期間建立的 PostgreSQL 資料庫認證來解除鎖定。接著、您需要建立並套用備份原則來保護資料庫。最後、手動或由排程器執行備份、以建立快照備份。下一節說明逐步程序。
+
+* 解除鎖定 PostgreSQL 叢集。
++
+.. 瀏覽至 `Resources`索引標籤、其中列出在資料庫 VM 上安裝 SnapCenter 外掛程式後所探索到的 PostgreSQL 叢集。最初，它被鎖定， `Overall Status`數據庫羣集的顯示爲 `Not protected`。
++
+image:snapctr_psql_bkup_01.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 按一下叢集名稱、然後 `Configure Credentials`開啟認證組態頁面。
++
+image:snapctr_psql_bkup_02.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 選擇 `postgres`在先前 SnapCenter 設定期間建立的認證。
++
+image:snapctr_psql_bkup_03.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 一旦套用認證、叢集就會解除鎖定。
++
+image:snapctr_psql_bkup_04.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+
+
+* 建立 PostgreSQL 備份原則。
++
+.. 瀏覽至 `Setting` - `Polices` 然後按一下 `New`以建立備份原則。
++
+image:snapctr_psql_bkup_06.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 命名備份原則。
++
+image:snapctr_psql_bkup_07.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 選擇儲存類型。大多數情況下、預設的備份設定都應該是正常的。
++
+image:snapctr_psql_bkup_08.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 定義備份頻率和快照保留。
++
+image:snapctr_psql_bkup_09.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 如果資料庫磁碟區已複寫到次要位置、則可選取次要複寫選項。
++
+image:snapctr_psql_bkup_10.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 檢閱摘要並 `Finish`建立備份原則。
++
+image:snapctr_psql_bkup_11.png["此映像可為 SnapCenter 伺服器提供資料庫備份"] image:snapctr_psql_bkup_12.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+
+
+* 套用備份原則以保護 PostgreSQL 資料庫。
++
+.. 返回 `Resource`索引標籤、按一下叢集名稱以啟動 PostgreSQL 叢集保護工作流程。
++
+image:snapctr_psql_bkup_05.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 接受默認值 `Application Settings`。此頁面上的許多選項不適用於自動探索的目標。
++
+image:snapctr_psql_bkup_13.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 套用剛建立的備份原則。視需要新增備份排程。
++
+image:snapctr_psql_bkup_14.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 如果需要備份通知、請提供電子郵件設定。
++
+image:snapctr_psql_bkup_15.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 檢閱摘要並 `Finish`實作備份原則。現在 PostgreSQL 叢集受到保護。
++
+image:snapctr_psql_bkup_16.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 備份會根據備份排程或叢集備份拓撲執行、按一下 `Backup Now`即可啟動手動隨選備份。
++
+image:snapctr_psql_bkup_17_1.png["此映像可為 SnapCenter 伺服器提供資料庫備份"] image:snapctr_psql_bkup_17.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+.. 從索引標籤監控備份工作 `Monitor`。備份大型資料庫通常需要幾分鐘的時間、而在我們的測試案例中、備份資料庫磁碟區的時間約為 4 分鐘、接近 1TB 。
++
+image:snapctr_psql_bkup_19.png["此映像可為 SnapCenter 伺服器提供資料庫備份"]
+
+
+
+
+
+====
+
+
+=== 資料庫恢復
+
+[%collapsible]
+====
+在此資料庫還原示範中、我們展示 PostgreSQL 資料庫叢集的時間點還原功能。首先、使用 SnapCenter 在 ONTAP 儲存設備上建立資料庫磁碟區的快照備份。然後、登入資料庫、建立測試表格、記下時間戳記、然後放下測試表格。現在開始從備份恢復到建立測試表以恢復丟棄的資料表時的時間戳記。以下內容擷取 PostgreSQL 資料庫時間點還原的工作流程詳細資料、並以 SnapCenter UI 進行驗證。
+
+. 以使用者身分登入 PostgreSQL `postgres` 。建立測試表、然後丟棄。
++
+....
+postgres=# \dt
+Did not find any relations.
+
+
+postgres=# create table test (id integer, dt timestamp, event varchar(100));
+CREATE TABLE
+postgres=# \dt
+        List of relations
+ Schema | Name | Type  |  Owner
+--------+------+-------+----------
+ public | test | table | postgres
+(1 row)
+
+postgres=# insert into test values (1, now(), 'test PostgreSQL point in time recovery with SnapCenter');
+INSERT 0 1
+
+postgres=# select * from test;
+ id |             dt             |                         event
+----+----------------------------+--------------------------------------------------------
+  1 | 2024-10-08 17:55:41.657728 | test PostgreSQL point in time recovery with SnapCenter
+(1 row)
+
+postgres=# drop table test;
+DROP TABLE
+postgres=# \dt
+Did not find any relations.
+
+postgres=# select current_time;
+    current_time
+--------------------
+ 17:59:20.984144+00
+
+....
+. 從 `Resources`索引標籤開啟資料庫備份頁面。選取要還原的快照備份。然後、按一下 `Restore`按鈕以啟動資料庫恢復工作流程。請注意執行時間點還原時的備份時間戳記。
++
+image:snapctr_psql_restore_01.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 選擇。 `Restore scope`目前、完整資源只是一個選項。
++
+image:snapctr_psql_restore_02.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 對於 `Recovery Scope`、請選擇 `Recover to point in time`並輸入復原的累計時間戳記。
++
+image:snapctr_psql_restore_03.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+.  `PreOps`允許在還原 / 還原作業之前、針對資料庫執行指令碼、或只是將其保留為黑色。
++
+image:snapctr_psql_restore_04.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+.  `PostOps`可在還原 / 還原作業後、針對資料庫執行指令碼、或只是將其保留為黑色。
++
+image:snapctr_psql_restore_05.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 如有需要、可透過電子郵件通知。
++
+image:snapctr_psql_restore_06.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 檢閱工作摘要並 `Finish`開始還原工作。
++
+image:snapctr_psql_restore_07.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 按一下「執行中的工作」以開啟 `Job Details` 視窗。您也可以從開啟和檢視工作狀態 `Monitor` 索引標籤。
++
+image:snapctr_psql_restore_08.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 以使用者身分登入 PostgreSQL `postgres` 、並驗證測試表是否已恢復。
++
+....
+
+[postgres@psql01 ~]$ psql
+psql (14.13)
+Type "help" for help.
+
+postgres=# \dt
+        List of relations
+ Schema | Name | Type  |  Owner
+--------+------+-------+----------
+ public | test | table | postgres
+(1 row)
+
+postgres=# select * from test;
+ id |             dt             |                         event
+----+----------------------------+--------------------------------------------------------
+  1 | 2024-10-08 17:55:41.657728 | test PostgreSQL point in time recovery with SnapCenter
+(1 row)
+
+postgres=# select now();
+              now
+-------------------------------
+ 2024-10-08 18:22:33.767208+00
+(1 row)
+
+
+....
+
+
+====
+
+
+=== 資料庫複製
+
+[%collapsible]
+====
+透過 SnapCenter 複製 PostgreSQL 資料庫叢集、可從來源資料庫資料 Volume 的快照備份建立新的精簡複製磁碟區。更重要的是、相較於其他方法、製作正式作業資料庫的複本以支援開發或測試的速度很快（幾分鐘）、而且效率很高。因此、它能大幅降低儲存成本、並改善資料庫應用程式的生命週期管理。下節說明使用 SnapCenter UI 複製 PostgreSQL 資料庫的工作流程。
+
+. 驗證複製程序。同樣地、請在測試表格中插入一列。然後執行備份以擷取測試資料。
++
+....
+postgres=# insert into test values (2, now(), 'test PostgreSQL clone to a different DB server host');
+INSERT 0 1
+postgres=# select * from test;
+ id |             dt             |                        event
+----+----------------------------+-----------------------------------------------------
+  2 | 2024-10-11 20:15:04.252868 | test PostgreSQL clone to a different DB server host
+(1 row)
+
+....
+. 從 `Resources`索引標籤開啟資料庫叢集備份頁面。選擇包含測試資料的資料庫備份快照。然後、按一下 `clone`按鈕以啟動資料庫複製工作流程。
++
+image:snapctr_psql_clone_01.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
+
+. 選取來源 DB 伺服器以外的其他 DB 伺服器主機。在目標主機上選擇未使用的 TCP 連接埠 543x 。
++
+image:snapctr_psql_clone_02.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
+
+. 輸入任何要在複製作業之前或之後執行的指令碼。
++
+image:snapctr_psql_clone_03.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
+
+. 如有需要、可透過電子郵件通知。
++
+image:snapctr_psql_clone_04.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
+
+. 檢閱摘要並 `Finish`啟動複製程序。
++
+image:snapctr_psql_clone_05.png["此映像提供 SnapCenter 伺服器的資料庫複製"]
+
+. 按一下「執行中的工作」以開啟 `Job Details` 視窗。您也可以從開啟和檢視工作狀態 `Monitor` 索引標籤。
++
+image:snapctr_psql_clone_06.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 複製的資料庫會立即向 SnapCenter 登錄。
++
+image:snapctr_psql_clone_07.png["此映像可為 SnapCenter 伺服器提供資料庫還原"]
+
+. 驗證目標 DB 伺服器主機上的複製資料庫叢集。
++
+....
+
+[postgres@psql01 ~]$ psql -d postgres -h 10.61.186.7 -U postgres -p 5433
+Password for user postgres:
+psql (14.13)
+Type "help" for help.
+
+postgres=# select * from test;
+ id |             dt             |                        event
+----+----------------------------+-----------------------------------------------------
+  2 | 2024-10-11 20:15:04.252868 | test PostgreSQL clone to a different DB server host
+(1 row)
+
+postgres=# select pg_read_file('/etc/hostname') as hostname;
+ hostname
+----------
+ psql02  +
+
+(1 row)
+
+
+....
+
+
+====
+
+
+== 何處可找到其他資訊
+
+若要深入瞭解本文件所述資訊、請參閱下列文件及 / 或網站：
+
+* 軟件文檔SnapCenter
++
+link:https://docs.netapp.com/us-en/snapcenter/index.html["https://docs.netapp.com/us-en/snapcenter/index.html"^]
+
+* TR-4956：AWS FSx/EC2中的自動化PostgreSQL高可用度部署與災難恢復
++
+link:https://docs.netapp.com/us-en/netapp-solutions/databases/aws_postgres_fsx_ec2_hadr.html["TR-4956：AWS FSx/EC2中的自動化PostgreSQL高可用度部署與災難恢復"^]
+
+
