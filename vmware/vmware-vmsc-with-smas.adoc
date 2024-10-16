@@ -88,7 +88,7 @@ NOTE: 以上螢幕擷取畫面顯示自從我們使用 AFF 之後、單一控制
 
 == 使用 ONTAP 工具、 VMSC 統一化主機存取模式。
 
-. 確保 NetApp ONTAP 工具已部署並登錄至 vCenter 。image:vmware-vmsc-with-smas-image15.png["已登錄至 vCenter 的 ONTAP 工具外掛程式"] 如果沒有、請遵循 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/prepare-deployment.html#preparing-for-deployment["ONTAP 工具部署"] 和 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["新增 vCenter 伺服器執行個體"]
+. 確保 NetApp ONTAP 工具已部署並登錄至 vCenter 。image:vmware-vmsc-with-smas-image15.png["已登錄至 vCenter 的 ONTAP 工具外掛程式"] 如果沒有、請遵循 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["ONTAP 工具部署"] 和 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["新增 vCenter 伺服器執行個體"]
 . 確保 ONTAP 儲存系統已註冊至 ONTAP 工具。這包括故障網域儲存系統、以及第三個用於非同步遠端複寫的系統、可搭配適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VM 。image:vmware-vmsc-with-smas-image16.png["已註冊的儲存設備後端"] 如果沒有、請遵循 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html#add-storage-backend-using-vsphere-client-ui["使用 vSphere 用戶端 UI 新增儲存後端"]
 . 更新主機資料以與 ONTAP 工具同步、然後、 link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html#create-a-vmfs-datastore["建立資料存放區"]。 image:vmware-vmsc-with-smas-image17.png["更新主機資料"]
 . 若要啟用 SM-AS 、請在 vSphere 叢集上按一下滑鼠右鍵、然後在 NetApp ONTAP 工具上選取保護叢集（請參閱上述螢幕擷取畫面）
