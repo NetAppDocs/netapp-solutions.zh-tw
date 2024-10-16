@@ -34,22 +34,22 @@ Trident 的開發週期很快、而且像 Kubernetes 一樣、每年發行四次
 
 == 建立儲存系統後端
 
-完成 Trident 操作員安裝後、您必須為所使用的特定 NetApp 儲存平台設定後端。請依照下列連結繼續設定和組態 Trident 。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-1-create-a-backend["建立後端。"]
+完成 Trident 操作員安裝後、您必須為所使用的特定 NetApp 儲存平台設定後端。請依照下列連結繼續設定和組態 Trident 。link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["建立後端。"]
 
 
 
 == 建立儲存類別
 
-建立後端後端之後、您必須建立Kubernetes使用者要指定何時需要磁碟區的儲存類別。Kubernetes使用者透過持續磁碟區宣告（PVCS）來配置磁碟區、這些永久磁碟區宣告會依名稱來指定儲存類別。請按下列連結建立儲存類別。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-2-create-a-storage-class["建立儲存類別"]
+建立後端後端之後、您必須建立Kubernetes使用者要指定何時需要磁碟區的儲存類別。Kubernetes使用者透過持續磁碟區宣告（PVCS）來配置磁碟區、這些永久磁碟區宣告會依名稱來指定儲存類別。請依照下列連結建立儲存類別。link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["建立儲存類別"]
 
 
 
 == 動態資源配置磁碟區
 
-您必須使用儲存類別建立Kubernetes持續磁碟區宣告（PVc）物件、以動態資源配置磁碟區。請依照下列連結建立一個PVc物件。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-3-provision-your-first-volume["建立一個PVC"]
+您必須使用儲存類別建立Kubernetes持續磁碟區宣告（PVc）物件、以動態資源配置磁碟區。請依照下列連結建立 PVC 物件。link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html["建立一個PVC"]
 
 
 
 == 使用Volume
 
-上述步驟中所配置的磁碟區可由應用程式在pod中掛載磁碟區來使用。以下連結顯示一個範例。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html#step-4-mount-the-volumes-in-a-pod["將磁碟區掛載到Pod中"]
+應用程式可透過在 Pod 中裝載 Volume 來使用上述步驟中配置的 Volume 。以下連結顯示範例。 link:https://docs.netapp.com/us-en/trident/trident-use/vol-provision.html#sample-manifests["將磁碟區掛載到Pod中"]
