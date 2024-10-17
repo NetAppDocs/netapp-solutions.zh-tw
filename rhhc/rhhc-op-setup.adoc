@@ -37,10 +37,10 @@ image:rhhc-on-premises.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 .在 VMware vSphere （ Hub 叢集）上部署及設定 OpenShift Container Platform 叢集
 [%collapsible]
 ====
-請參閱的說明 link:https://access.redhat.com/documentation/en-us/assisted_installer_for_openshift_container_platform/2022/html/assisted_installer_for_openshift_container_platform/installing-on-vsphere#doc-wrapper/["輔助部署"] 部署 OCP 叢集的方法。
+請參閱部署 OCP 叢集的方法說明link:https://docs.openshift.com/container-platform/4.17/installing/installing_vsphere/installing-vsphere-assisted-installer.html["輔助部署"]。
 
 
-TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供給安裝程式。如果需要、這些金鑰將用於登入主節點和工作節點。- 從輔助安裝程式下載安裝程式。此程式用於開機您在 VMware vSphere 環境中為主節點和工作節點所建立的 VM 。虛擬機器應具備最低的 CPU 、記憶體和硬碟需求。（請參閱上的 VM create 命令 link:https://access.redhat.com/documentation/en-us/assisted_installer_for_openshift_container_platform/2022/html/assisted_installer_for_openshift_container_platform/installing-on-vsphere#doc-wrapper/["這"] 主節點和提供此資訊的工作節點頁面）：應在所有 VM 上啟用磁碟 UUID 。- 至少為主節點建立 3 個節點、為工作者建立 3 個節點。- 安裝程式發現這些項目後、請開啟 VMware vSphere 整合切換按鈕。
+TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供給安裝程式。如果需要、這些金鑰將用於登入主節點和工作節點。- 從輔助安裝程式下載安裝程式。此程式用於開機您在 VMware vSphere 環境中為主節點和工作節點所建立的 VM 。虛擬機器應具備最低的 CPU 、記憶體和硬碟需求。（請參閱第頁上提供此資訊的主節點和工作節點的 VM create 命令link:https://docs.redhat.com/en/documentation/assisted_installer_for_openshift_container_platform/2024/html/installing_openshift_container_platform_with_the_assisted_installer/installing-on-vsphere["這"]） - 應在所有 VM 上啟用磁碟 UUID 。- 至少為主節點建立 3 個節點、為工作者建立 3 個節點。- 安裝程式發現這些項目後、請開啟 VMware vSphere 整合切換按鈕。
 
 ====
 .在 Hub 叢集上安裝進階叢集管理
@@ -81,7 +81,7 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 * 請參閱說明 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["請按這裡"]。
 * 爲 ONTAP － NAS 創建一個存儲後端。
 * 為 ONTAP-NAS 建立儲存類別。
-* 請參閱指示 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-postdeployment.html["請按這裡"]。
+* 請參閱說明link:https://docs.netapp.com/us-en/trident/trident-use/create-stor-class.html["請按這裡"]。
 
 
 ====
