@@ -26,24 +26,16 @@ NOTE: 此解決方案已在 AWS 的兩個 VPC 中使用兩個 ROSA 叢集進行�
 設定程序可分為下列步驟：
 
 .安裝 ROSA 叢集
-[%collapsible]
-====
 * 建立兩台 VPC 、並設定 VPC 之間的 VPC 對等連線。
 * 請參閱 link:https://docs.openshift.com/rosa/welcome/index.html["請按這裡"] 以取得安裝 ROSA 叢集的指示。
 
 
-====
 .安裝 FSX ONTAP
-[%collapsible]
-====
 * 在 BlueXP  的 VPC 上安裝 FSX ONTAP 。請參閱link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"]建立 BlueXP  帳戶和開始使用。請參閱link:https://docs.netapp.com/us-en/cloud-manager-fsx-ontap/index.html["請按這裡"]以瞭解如何安裝 FSX ONTAP 。請參閱link:https://docs.netapp.com/us-en/cloud-manager-setup-admin/index.html["請按這裡"]在 AWS 中建立連接器以管理 FSX ONTAP 。
 * 使用 AWS 部署 FSX ONTAP 。請參閱link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/getting-started-step1.html["請按這裡"]以瞭解如何使用 AWS 主控台進行部署。
 
 
-====
 .在 ROSA 叢集上安裝 Trident （使用 Helm 圖表）
-[%collapsible]
-====
 * 使用 Helm 圖表在 ROSA 叢集上安裝 Trident 。請參閱文件連結： https://docs 。 NetApp 。 Trident Trident ：開始使用 /Kubernetes-deploy-helm.html [ 此處 ] 。
 
 
@@ -54,20 +46,14 @@ NOTE: OpenShift GitOps 可在所有託管叢集使用 ApplicationSet 註冊至 A
 
 image:rhhc-trident-helm.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-====
 .使用 Trident 建立後端和儲存類別（適用於 FSX ONTAP ）
-[%collapsible]
-====
 * 如需建立後端和儲存類別的詳細資訊、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"]。
 * 從 OpenShift Console 將為 FsxN 建立的儲存類別設為 Trident CSI 作為預設值。請參閱以下螢幕擷取畫面：
 
 
 image:rhhc-default-storage-class.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-====
 .使用 OpenShift GitOps （ Argo CD ）部署應用程式
-[%collapsible]
-====
 * 在叢集上安裝 OpenShift GitOps 運算子。請參閱指示 link:https://docs.openshift.com/container-platform/4.10/cicd/gitops/installing-openshift-gitops.html["請按這裡"]。
 * 為叢集設定新的 Argo CD 執行個體。請參閱指示 link:https://docs.openshift.com/container-platform/4.10/cicd/gitops/setting-up-argocd-instance.html["請按這裡"]。
 
@@ -75,5 +61,3 @@ image:rhhc-default-storage-class.png["此圖顯示輸入 / 輸出對話方塊或
 開啟 Argo CD 的主控台、然後部署應用程式。例如、您可以使用 Argo CD 搭配 Helm 圖表來部署 Jenkins 應用程式。建立應用程式時、會提供下列詳細資料：專案：預設叢集：'https://kubernetes.default.svc'[]（不含引號）命名空間： Jenkins The URL for the Helm Chart ：（不含引號）'https://charts.bitnami.com/bitnami'[]
 
 船舵參數： global.storageClass ： fsxn-NAS
-
-====

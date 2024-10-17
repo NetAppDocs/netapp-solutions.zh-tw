@@ -4,16 +4,16 @@ permalink: rhhc/rhhc-sm-gcp-setup.html
 keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP, Google Cloud Platform, Google Cloud, GCP 
 summary:  
 ---
-= 在 GCP 上部署和設定 Red Hat OpenShift Container 平台
+= 在 Google Cloud 上部署及設定 Red Hat OpenShift Container Platform
 :allow-uri-read: 
 
 
 
 
-== 在 GCP 上部署和設定 Red Hat OpenShift Container 平台
+== 在 Google Cloud 上部署及設定 Red Hat OpenShift Container Platform
 
 [role="lead"]
-本節說明如何在 GCP 中設定和管理 OpenShift 叢集、以及在叢集上部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備在 Trident 協助下的使用情形、以提供永續性的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+本節說明如何在 GCP 中設定和管理 OpenShift 叢集、以及在叢集上部署有狀態應用程式的高階工作流程。它顯示在 Trident 協助下使用 Google Cloud NetApp Volumes 和 NetApp Cloud Volumes ONTAP 儲存設備來提供持續的磁碟區。
 
 下圖顯示了在 GCP 上部署並使用 VPN 連線至資料中心的叢集。
 
@@ -24,9 +24,7 @@ NOTE: 在 GCP 中部署 Red Hat OpenShift Container 平台叢集有多種方法�
 
 設定程序可分為下列步驟：
 
-.從 CLI 在 GCP 上安裝 OCP 叢集。
-[%collapsible]
-====
+.從 CLI 在 GCP 上安裝 OCP 叢集
 * 請確定您已符合上述所有先決條件 link:https://docs.openshift.com/container-platform/4.13/installing/installing_gcp/installing-gcp-default.html["請按這裡"]。
 * 針對內部部署與 GCP 之間的 VPN 連線、我們建立並設定了 pfSense VM 。如需相關指示、請參閱 https://docs.netgate.com/pfsense/en/latest/recipes/ipsec-s2s-psk.html["請按這裡"]。
 +
@@ -49,34 +47,28 @@ NOTE: 在 GCP 中部署 Red Hat OpenShift Container 平台叢集有多種方法�
 
 
 
-====
-.使用 BlueXP 在 GCP 中部署 Cloud Volumes ONTAP 。
-[%collapsible]
-====
+.部署 Google Cloud NetApp Volumes
+* Google Cloud NetApp Volumes 可以新增至您的專案link:https://cloud.google.com/netapp/volumes/docs/discover/overview["請按這裡"]、如所述。
+
+
+.使用 BlueXP  在 GCP 中部署 Cloud Volumes ONTAP
 * 在 Google Cloud 中安裝 Connector 。請參閱指示 https://docs.netapp.com/us-en/bluexp-setup-admin/task-install-connector-google-bluexp-gcloud.html["請按這裡"]。
 * 使用 Connector 在 Google Cloud 中部署 CVO 執行個體。請參閱此處的指示。 https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-getting-started-gcp.html[]
 
 
-====
 .在 GCP 的 OCP 叢集中安裝 Trident
-[%collapsible]
-====
 * 如圖所示，部署 Trident 有許多方法 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請按這裡"]。
 * 對於此項目， Trident 是通過按照說明手動部署 Trident 操作員來安裝 https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["請按這裡"]的。
 * 建立後端和儲存類別。請參閱說明link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"]。
 
 
-====
-.將 GCP 上的 OCP 叢集新增至 Astra Control Center 。
-[%collapsible]
-====
+.將 GCP 上的 OCP 叢集新增至 Astra Control Center
 * 使用叢集角色建立獨立的 KubeConfig 檔案、其中包含 Astra Control 管理叢集所需的最低權限。您可以找到相關指示
 link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#create-a-cluster-role-kubeconfig["請按這裡"]。
 * 依照指示將叢集新增至 Astra Control Center
 link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster["請按這裡"]
 
 
-====
 .在多區域架構中使用 Trident 的 CSI 拓撲功能
 如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
 
