@@ -48,7 +48,7 @@ NOTE: 網路資料保險箱叢集可以與來源資料位於相同或不同的�
 
 
 
-NOTE: 預設保留為「設為最小」。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值最初設定為 SnapLock Compliance 磁碟區的最少 0 年和最長 30 年。每個NetApp Snapshot複本一開始就會提交此預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。
+NOTE: 預設保留為「設為最小」。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值一開始設定為 0 年以上、最長 100 年（從 ONTAP 9 開始）。對於較早的 ONTAP 版本、 SnapLock Compliance 磁碟區的值為 0 - 70 。）每個NetApp Snapshot複本一開始就會提交此預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。如需更多資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/snaplock/set-retention-period-task.html["設定保留時間總覽"^]。
 
 以上包含手動步驟。安全專家建議將程序自動化、以避免手動管理造成重大錯誤。以下程式碼片段可完全自動化 SnapLock Compliance 的先決條件和組態、並可初始化時鐘。
 
