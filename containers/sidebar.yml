@@ -65,6 +65,8 @@ entries:
       url: "/containers/rh-os-n_openshift_RHV.html"
     - title: VMware vSphere上的OpenShift
       url: "/containers/rh-os-n_openshift_VMW.html"
+    - title: AWS 上的 OpenShift
+      url: "/containers/rh-os-n_openshift_AWS_ROSA.html"
   - title: NetApp儲存系統總覽
     entries:
     - title: 總覽
@@ -164,7 +166,7 @@ entries:
   entries:
   - title: 總覽
     url: "/containers/rh-os-n_use_case_openshift_virtualization_overview.html"
-  - title: 部署 OpenShift 虛擬化
+  - title: 內部部署的 OpenShift 虛擬化
     entries:
     - title: 先決條件
       url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_prerequisites.html"
@@ -182,6 +184,18 @@ entries:
         url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_from_snapshot.html"
       - title: 將 VM 從 VMware 移轉至 OpenShift 虛擬化
         url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html"
+  - title: ROSA 上的 OpenShift 虛擬化
+    entries:
+    - title: 先決條件
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_rosa_prerequisites.html"
+    - title: 初始設定
+      url: "/containers/rh-os-n_use_case_openshift_virtualization_deployment_rosa_initial_setup.html"
+    - title: 工作流程
+      entries:
+      - title: 重新啟動 VM
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_rosa_restart_vm.html"
+      - title: VM即時移轉
+        url: "/containers/rh-os-n_use_case_openshift_virtualization_workflow_rosa_vm_live_migration.html"
   - title: 使用協力廠商工具保護 VM 資料
     entries:
     - title: 總覽
@@ -204,6 +218,20 @@ entries:
       url: "/containers/rh-os-n_use_case_openshift_virtualization_ci_samples.html"
     - title: 最佳實務做法指南
       url: "/containers/rh-os-n_use_case_openshift_virtualization_bpg.html"
+- title: AWS 上的 Red Hat OpenShift 服務搭配 NetApp ONTAP
+  entries:
+  - title: 總覽
+    url: "/containers/rh-os-n_use_case_rosa_solution_overview.html"
+  - title: 先決條件
+    url: "/containers/rh-os-n_use_case_rosa_solution_prerequisites.html"
+  - title: 初始設定
+    url: "/containers/rh-os-n_use_case_rosa_solution_initial_setup.html"
+  - title: 工作流程
+    entries:
+    - title: 建立Snapshot
+      url: "/containers/rh-os-n_use_case_rosa_solution_snapshot_app.html"
+    - title: 從 Snapshot 複製
+      url: "/containers/rh-os-n_use_case_rosa_solution_clone_from_snapshot.html"
 - title: VMware Tanzu與NetApp合作
   pdf-filename: VMware Tanzu與NetApp合作
   entries:

@@ -1,0 +1,89 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_deployment_rosa_initial_setup.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, ROSA, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: ROSA 上的 Red Hat OpenShift 虛擬化 
+---
+= 初始設定
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節說明如何將預設儲存類別設定為 Trident - CSI 、以及將預設的 Volume SnapshotClass 設定為 FSX Volume Snapshot 類別。然後、它會示範如何從範本建立 VM 、然後使用來賓認證連線並登入。
+
+確保預設儲存類別設定為 Trident CSIimage:redhat_openshift_ocpv_rosa_image1.png["OCP-v 預設儲存等級"]
+
+確保預設的 Volume SnapShotClasses 已如圖所示設定image:redhat_openshift_ocpv_rosa_image2.png["OCP-v 預設 Volume Snapshot 類別"]
+
+如果未設定預設值、您可以從主控台或命令列進行設定
+
+[source]
+----
+$ oc patch storageclass trident-csi -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
+----
+[source]
+----
+$ oc patch VolumeSnapshotClasses fsx-snapclass -p '{"metadata": {"annotations": {"snapshot.storage.kubernetes.io/is-default-class": "true"}}}'
+----
+
+
+= 從範本建立 VM
+
+使用 Web 主控台從範本建立 VM 。從 AWS 主控台的 RedHat OpenShiftService 建立虛擬機器。叢集上有可用於建立 VM 的範本。在下方的螢幕擷取畫面中、我們從清單中選擇 Fedora VM 。命名 VM 、然後按一下「 ** 自訂虛擬機器 ** 」。選擇「 ** 磁碟」 ** 標籤、然後按一下「 ** 新增磁碟」 ** 。最好將磁碟名稱變更為有意義的名稱、確定已為儲存類別選取 ** Trident - CSI ** 。按一下「 ** 儲存 ** 」。按一下「 ** 建立虛擬機器 ** 」
+
+幾分鐘後、虛擬機器處於執行中狀態image:redhat_openshift_ocpv_rosa_image3.png["OCP-v 從範本建立 VM"]
+
+image:redhat_openshift_ocpv_rosa_image4.png["可用的 OCP-v 範本來源"]
+
+image:redhat_openshift_ocpv_rosa_image5.png["OCP-v 自訂 VM"]
+
+image:redhat_openshift_ocpv_rosa_image6.png["OCP-v Disks 標籤"]
+
+image:redhat_openshift_ocpv_rosa_image7.png["OCP-v 新增磁碟"]
+
+image:redhat_openshift_ocpv_rosa_image8.png["OCP-v VM 正在執行"]
+
+
+
+= 檢閱為虛擬機器建立的所有物件
+
+儲存磁碟。image:redhat_openshift_ocpv_rosa_image9.png["OCP-v 儲存磁碟"]
+
+VM 的檔案系統會顯示分割區、檔案系統類型和掛載點。image:redhat_openshift_ocpv_rosa_image10.png["OCP-v 檔案系統"]
+
+為 VM 建立 2 個 PVC 、一個從開機磁碟建立、另一個用於熱插拔磁碟。image:redhat_openshift_ocpv_rosa_image11.png["OCP-v VM PVCS"]
+
+開機磁碟的 PVC 顯示存取模式為 ReadWriteMany 、儲存類別為 Trident CSI 。image:redhat_openshift_ocpv_rosa_image12.png["OCP-v VM 開機磁碟 PVC"]
+
+同樣地、熱插拔磁碟的 PVC 會顯示存取模式為 ReadWriteMany 、而儲存類別則為 Trident CSI 。image:redhat_openshift_ocpv_rosa_image13.png["OCP-v VM 熱插拔磁碟 PVC"]
+
+在下面的螢幕擷取畫面中、我們可以看到 VM 的 Pod 狀態為「執行中」。image:redhat_openshift_ocpv_rosa_image14.png["OCP-v VM 正在執行"]
+
+此處我們可以看到與 VM Pod 相關聯的兩個 Volume 、以及與 VM Pod 相關聯的 2 個 PVC 。image:redhat_openshift_ocpv_rosa_image15.png["OCP-v VM PVCS 和 PVs"]
+
+
+
+= 連線至 VM
+
+按一下「開啟網路主控台」按鈕、然後使用訪客認證登入image:redhat_openshift_ocpv_rosa_image16.png["OCP-v VM 連線"]
+
+image:redhat_openshift_ocpv_rosa_image17.png["OCP-v 登入"]
+
+發出下列命令
+
+[source]
+----
+$ df (to display information about the disk space usage on a file system).
+----
+[source]
+----
+$ dd if=/dev/urandom of=random.dat bs=1M count=10240 (to create a file called random.dat in the home dir and fill it with random data).
+----
+磁碟中填滿 11 GB 的資料。image:redhat_openshift_ocpv_rosa_image18.png["OCP-v VM 填滿磁碟"]
+
+使用 vi 建立範例文字檔、供我們測試使用。image:redhat_openshift_ocpv_rosa_image19.png["OCP-v 會建立檔案"]

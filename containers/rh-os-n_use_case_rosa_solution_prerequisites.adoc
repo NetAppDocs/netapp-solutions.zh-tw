@@ -1,0 +1,33 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_rosa_solution_prerequisites.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift Service on AWS, 
+summary: AWS 上的 Red Hat OpenShift 服務搭配 NetApp ONTAP 
+---
+= AWS 上的 Red Hat OpenShift 服務搭配 NetApp ONTAP
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+
+
+= 先決條件
+
+* link:https://signin.aws.amazon.com/signin?redirect_uri=https://portal.aws.amazon.com/billing/signup/resume&client_id=signup["AWS帳戶"]
+* link:https://console.redhat.com/["Red Hat 帳戶"]
+* IAM 使用者link:https://www.rosaworkshop.io/rosa/1-account_setup/["具有適當權限"]可建立及存取 ROSA 叢集
+* link:https://aws.amazon.com/cli/["AWS CLI"]
+* link:https://console.redhat.com/openshift/downloads["ROSA CLI"]
+* link:https://console.redhat.com/openshift/downloads["OpenShift 命令列介面"]（ OC ）
+* 船舵 3.link:https://docs.aws.amazon.com/eks/latest/userguide/helm.html["文件"]
+* link:https://docs.openshift.com/rosa/rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html["HCP ROSA 叢集"]
+* link:https://console.redhat.com/openshift/overview["存取 Red Hat OpenShift Web 主控台"]
+
+
+此圖顯示部署在多個 AZs 中的 ROSA 叢集。ROSA 叢集的主節點、基礎架構節點位於 Red Hat 的 VPC 中、而工作節點則位於客戶帳戶的 VPC 中。我們將在同一部 VPC 中建立適用於 ONTAP 檔案系統的 FSX 、並在 ROSA 叢集中安裝 Trident 驅動程式、讓此 VPC 的所有子網路都能連線至檔案系統。
+
+image:redhat_openshift_container_rosa_image1.png["ROSA 架構"]
