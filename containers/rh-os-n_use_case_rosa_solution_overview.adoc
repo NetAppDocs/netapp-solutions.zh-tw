@@ -13,5 +13,240 @@ summary: AWS 上的 Red Hat OpenShift 服務搭配 NetApp ONTAP
 :imagesdir: ../media/
 
 
-[role="lead"]
+
+
+== 總覽
+
 在本節中、我們將說明如何將適用於 ONTAP 的 FSX 作為在 ROSA 上執行之應用程式的持續儲存層。它將顯示在 ROSA 叢集上安裝 NetApp Trident CSI 驅動程式、為 ONTAP 檔案系統提供 FSX 、以及部署可設定狀態的應用程式範例。它也會顯示備份及還原應用程式資料的策略。有了這套整合式解決方案、您就能建立共享儲存架構、輕鬆地在各個 AZs 之間擴充、簡化擴充、保護及還原資料的程序、並使用 Trident CSI 驅動程式。
+
+
+
+== 先決條件
+
+* link:https://signin.aws.amazon.com/signin?redirect_uri=https://portal.aws.amazon.com/billing/signup/resume&client_id=signup["AWS帳戶"]
+* link:https://console.redhat.com/["Red Hat 帳戶"]
+* IAM 使用者link:https://www.rosaworkshop.io/rosa/1-account_setup/["具有適當權限"]可建立及存取 ROSA 叢集
+* link:https://aws.amazon.com/cli/["AWS CLI"]
+* link:https://console.redhat.com/openshift/downloads["ROSA CLI"]
+* link:https://console.redhat.com/openshift/downloads["OpenShift 命令列介面"]（ OC ）
+* 船舵 3.link:https://docs.aws.amazon.com/eks/latest/userguide/helm.html["文件"]
+* link:https://docs.openshift.com/rosa/rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html["HCP ROSA 叢集"]
+* link:https://console.redhat.com/openshift/overview["存取 Red Hat OpenShift Web 主控台"]
+
+
+此圖顯示部署在多個 AZs 中的 ROSA 叢集。ROSA 叢集的主節點、基礎架構節點位於 Red Hat 的 VPC 中、而工作節點則位於客戶帳戶的 VPC 中。我們將在同一部 VPC 中建立適用於 ONTAP 檔案系統的 FSX 、並在 ROSA 叢集中安裝 Trident 驅動程式、讓此 VPC 的所有子網路都能連線至檔案系統。
+
+image:redhat_openshift_container_rosa_image1.png["ROSA 架構"]
+
+
+
+== 初始設定
+
+**1.為 NetApp ONTAP * 配置 FSX
+
+在與 ROSA 叢集相同的 VPC 中、為 NetApp ONTAP 建立多 AZ FSX 。有幾種方法可以做到這一點。我們將提供使用 CloudForgation Stack 建立 FSxN 的詳細資料
+
+** 完整複製 GitHub 儲存庫 **
+
+[source]
+----
+$ git clone https://github.com/aws-samples/rosa-fsx-netapp-ontap.git
+----
+** b 。執行 CloudForomation Stack** 執行下列命令、將參數值取代為您自己的值：
+
+[source]
+----
+$ cd rosa-fsx-netapp-ontap/fsx
+----
+[source]
+----
+$ aws cloudformation create-stack \
+  --stack-name ROSA-FSXONTAP \
+  --template-body file://./FSxONTAP.yaml \
+  --region <region-name> \
+  --parameters \
+  ParameterKey=Subnet1ID,ParameterValue=[subnet1_ID] \
+  ParameterKey=Subnet2ID,ParameterValue=[subnet2_ID] \
+  ParameterKey=myVpc,ParameterValue=[VPC_ID] \
+ParameterKey=FSxONTAPRouteTable,ParameterValue=[routetable1_ID,routetable2_ID] \
+  ParameterKey=FileSystemName,ParameterValue=ROSA-myFSxONTAP \
+  ParameterKey=ThroughputCapacity,ParameterValue=1024 \
+  ParameterKey=FSxAllowedCIDR,ParameterValue=[your_allowed_CIDR] \
+  ParameterKey=FsxAdminPassword,ParameterValue=[Define Admin password] \
+  ParameterKey=SvmAdminPassword,ParameterValue=[Define SVM password] \
+  --capabilities CAPABILITY_NAMED_IAM
+----
+其中： region-name ：與部署 ROSA 叢集的區域相同 subnet1_ID ： FSxN 子網路偏好的子網路 ID 2_ID ： FSxN VPC_ID 的待命子網路 ID ：部署 ROSA 叢集的 VPC ID routetable1_ID 、 routetable2_ID ：允許使用 CIDR 子網路 ONTAP 存取的路由表 ID 。您可以使用 0.0.0.0/0 或任何適當的 CIDR 來允許所有流量存取適用於 ONTAP 的特定 FSX 連接埠。定義管理員密碼：登入 FSxN 的密碼定義 SVM 密碼：登入將要建立的 SVM 的密碼。
+
+確認您的檔案系統和儲存虛擬機器（ SVM ）已使用 Amazon FSX 主控台建立、如下所示：
+
+image:redhat_openshift_container_rosa_image2.png["FSxN 已建立"]
+
+**2. 安裝及設定 ROSA 叢集的 Trident CSI 驅動程式 **
+
+a. 新增 Trident Helm 儲存庫 **
+
+[source]
+----
+$ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
+----
+** b 。使用 helm** 安裝 Trident
+
+[source]
+----
+$ helm install trident netapp-trident/trident-operator --version 100.2406.0 --create-namespace --namespace trident
+----
+
+NOTE: 視您安裝的版本而定、需要在所示命令中變更版本參數。請參閱link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html["文件"]以取得正確的版本編號。有關安裝 Trident link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["文件"]的其他方法，請參閱 Trident 。
+
+**c. 驗證所有 Trident Pod 是否都處於運行狀態 **
+
+image:redhat_openshift_container_rosa_image3.png["Trident Pod 正在執行"]
+
+**3.將 Trident CSI 後端設定為使用適用於 ONTAP 的 FSX （ ONTAP NAS ） **
+
+Trident 後端組態會告訴 Trident 如何與儲存系統通訊（在此案例中為 ONTAP 的 FSX ）。為了建立後端、我們會提供要連線的儲存虛擬機器認證、以及叢集管理和 NFS 資料介面。我們將使用link:https://docs.netapp.com/us-en/trident/trident-use/ontap-nas.html["ONTAP-NAS驅動程式"]在 FSX 檔案系統中配置儲存磁碟區。
+
+**a.首先、使用下列 yaml** 建立 SVM 認證的機密
+
+[source]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-fsx-ontap-nas-secret
+  namespace: trident
+type: Opaque
+stringData:
+  username: vsadmin
+  password: <value provided for Define SVM password as a parameter to the Cloud Formation Stack>
+----
+
+NOTE: 您也可以從 AWS Secrets Manager 擷取為 FSxN 建立的 SVM 密碼、如下所示。
+
+image:redhat_openshift_container_rosa_image4.png["AWS Secrets Manager"]
+
+image:redhat_openshift_container_rosa_image5.png["擷取秘密"]
+
+** b.Next ：使用下列命令將 SVM 認證的機密新增至 ROSA 叢集 **
+
+[source]
+----
+$ oc apply -f svm_secret.yaml
+----
+您可以使用下列命令來驗證是否已將機密新增至 Trident 命名空間
+
+[source]
+----
+$ oc get secrets -n trident |grep backend-fsx-ontap-nas-secret
+----
+image:redhat_openshift_container_rosa_image6.png["已套用秘密"]
+
+** c.接下來、為此建立後端物件 ** 、移至複製 Git 儲存庫的 **FSX** 目錄。開啟檔案 ONTAP NAS 。 yaml 。將以下內容替換爲： **managementLIF** 和管理 DNS 名稱 **dataLIF** ，用 Amazon FSX SVM 的 NFS DNS 名稱和使用 SVM 名稱的 **SVM** 。使用下列命令建立後端物件。
+
+使用下列命令建立後端物件。
+
+[source]
+----
+$ oc apply -f backend-ontap-nas.yaml
+----
+
+NOTE: 您可以從 Amazon FSX 主控台取得管理 DNS 名稱、 NFS DNS 名稱和 SVM 名稱、如下面的螢幕擷取畫面所示
+
+image:redhat_openshift_container_rosa_image7.png["獲得生命"]
+
+** d.現在、請執行下列命令、確認已建立後端物件、且 Phase 顯示「界限」和「狀態」為「成功」 **
+
+image:redhat_openshift_container_rosa_image8.png["建立後端"]
+
+**4.建立儲存類別 ** 現在 Trident 後端已設定好、您可以建立 Kubernetes 儲存類別以使用後端。儲存類別是可供叢集使用的資源物件。它說明並分類您可以申請應用程式的儲存類型。
+
+**a.檢閱 FSX 資料夾中的檔案 storage class-csi － nas ． yaml 。 **
+
+[source]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: trident-csi
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-nas"
+  fsType: "ext4"
+allowVolumeExpansion: True
+reclaimPolicy: Retain
+----
+** b.在 ROSA 叢集中建立儲存類別、並確認已建立 Trident CSI 儲存類別。 **
+
+image:redhat_openshift_container_rosa_image9.png["建立後端"]
+
+這將完成 Trident CSI 驅動程式的安裝、以及其與適用於 ONTAP 檔案系統之 FSX 的連線。現在您可以使用適用於 ONTAP 的 FSX 上的檔案磁碟區、在 ROSA 上部署 PostgreSQL 狀態應用程式範例。
+
+** c.確認沒有使用 Trident 儲存類別建立的 PVCs 和 PVs 。 **
+
+image:redhat_openshift_container_rosa_image10.png["沒有使用 Trident 的 PVC"]
+
+** d.確認應用程式可以使用 Trident CSI 建立 PV 。 **
+
+使用在 **fsx** 文件夾中提供的 Trident ． yaml 文件創建 PVC 。
+
+[source]
+----
+pvc-trident.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: basic
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: trident-csi
+----
+ You can issue the following commands to create a pvc and verify that it has been created.
+image:redhat_openshift_container_rosa_image11.png["使用 Trident 建立測試 PVC"]
+
+**5.部署 PostgreSQL 有狀態應用程式的範例 **
+
+**a.使用 helm 來安裝 PostgreSQL *
+
+[source]
+----
+$ helm install postgresql bitnami/postgresql -n postgresql --create-namespace
+----
+image:redhat_openshift_container_rosa_image12.png["安裝 PostgreSQL"]
+
+** b.確認應用程式 Pod 正在執行、並為應用程式建立了 PVC 和 PV 。 **
+
+image:redhat_openshift_container_rosa_image13.png["PostgreSQL Pod"]
+
+image:redhat_openshift_container_rosa_image14.png["PostgreSQL PVC"]
+
+image:redhat_openshift_container_rosa_image15.png["PostgreSQL PV"]
+
+** c.部署 PostgreSQL 用戶端 **
+
+** 使用下列命令取得安裝的 PostgreSQL 伺服器密碼。 **
+
+[source]
+----
+$ export POSTGRES_PASSWORD=$(kubectl get secret --namespace postgresql postgresql -o jsoata.postgres-password}" | base64 -d)
+----
+** 使用下列命令來執行 PostgreSQL 用戶端、並使用 password** 連線至伺服器
+
+[source]
+----
+$ kubectl run postgresql-client --rm --tty -i --restart='Never' --namespace postgresql --image docker.io/bitnami/postgresql:16.2.0-debian-11-r1 --env="PGPASSWORD=$POSTGRES_PASSWORD" \
+> --command -- psql --host postgresql -U postgres -d postgres -p 5432
+----
+image:redhat_openshift_container_rosa_image16.png["PostgreSQL 用戶端"]
+
+** d.建立資料庫和資料表。為表格建立架構、並將 2 列資料插入表格。 **
+
+image:redhat_openshift_container_rosa_image17.png["PostgreSQL 表格、架構、資料列"]
+
+image:redhat_openshift_container_rosa_image18.png["PostgreSQL row1"]
+
+image:redhat_openshift_container_rosa_image19.png["PostgreSQL 列 2"]

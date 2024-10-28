@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_rosa_workflows.html 
+keywords: OpenShift, OCP, Trident, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, ROSA, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization 
+summary: ROSA 上的 Red Hat OpenShift 虛擬化 
+---
+= 工作流程
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+
+
+== VM 重新啟動
+
+在本節中、我們將執行 VM 重新啟動、然後檢查磁碟內容。
+
+按一下重新啟動按鈕。image:redhat_openshift_ocpv_rosa_image20.png["OCP-v VM 重新啟動"]
+
+VM 會回到執行狀態、檔案系統中的檔案系統、 PVC 和檔案完全相同image:redhat_openshift_ocpv_rosa_image21.png["OCP-v VM 重新啟動檔案系統"]
+
+image:redhat_openshift_ocpv_rosa_image22.png["OCP-v VM 重新啟動磁碟"]
+
+image:redhat_openshift_ocpv_rosa_image23.png["OCP-v VM 重新啟動檔案"]
+
+
+
+== VM 即時移轉
+
+在本節中、我們將執行 VM 即時移轉、然後檢查磁碟內容。即時移轉是指將執行中的虛擬機器（ VM ）從一部實體主機移至另一部主機、而不會中斷正常作業或造成任何停機、或對終端使用者造成其他不良影響的程序。即時移轉被視為虛擬化的重要步驟。它可讓整個 VM 透過執行中的作業系統（ OS ）、記憶體、儲存設備及網路連線功能、從目前節點移至目的地。以下將說明如何從目前節點即時移轉至新節點。
+
+記下正在執行 VM 的節點image:redhat_openshift_ocpv_rosa_image24.png["OCP-v VM 目前節點"]
+
+按一下 3 個點、然後選取移轉image:redhat_openshift_ocpv_rosa_image25.png["OCP-v VM 即時移轉"]
+
+在「總覽」頁面上、您可以看到移轉已成功、且狀態已變更為「成功」。image:redhat_openshift_ocpv_rosa_image26.png["OCP-v VM 移轉成功"]
+
+即時移轉完成後、虛擬機器現在位於不同的節點上。image:redhat_openshift_ocpv_rosa_image27.png["不同節點上的 OCP-v VM"]
+
+開啟 Web 主控台並檢視磁碟內容。它仍有我們先前在線上即時移轉之前建立的 2 個檔案。image:redhat_openshift_ocpv_rosa_image28.png["OCP-v VM 在執行即時移轉之後會有相同的檔案 1"] image:redhat_openshift_ocpv_rosa_image29.png["OCP-v VM 在執行即時移轉後會有相同的檔案 2"]
+
+新節點上的 VM 儲存設備仍顯示相同的磁碟image:redhat_openshift_ocpv_rosa_image30.png["OCP-v VM 在線上即時移轉之後、使用相同的磁碟"]
+
+此外、 PVC 也是一樣的。image:redhat_openshift_ocpv_rosa_image31.png["OCP-v VM 在線上即時移轉之後會出現相同的 PVCS"]
+
+與 VM Pod 相關聯的磁碟區也與之前相同（ 2 個 PVC ）。image:redhat_openshift_ocpv_rosa_image32.png["OCP-v VM 在線上即時移轉之後會出現相同的 PVCS"]
+
+
+
+== 示範影片
+
+.透過適用於 NetApp ONTAP 的 Amazon FSX 、在 ROSA 上以 OpenShift 虛擬化技術即時移轉虛擬機器
+video::4b3ef03d-7d65-4637-9dab-b21301371d7d[panopto,width=360]
+有關 Red Hat OpenShift 和 OpenShift 虛擬化解決方案的更多影片link:https://docs.netapp.com/us-en/netapp-solutions/containers/rh-os-n_videos_and_demos.html["請按這裡"]、請參閱。
