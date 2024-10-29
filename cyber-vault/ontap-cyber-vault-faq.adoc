@@ -1,0 +1,137 @@
+---
+sidebar: sidebar 
+keywords: Cyber vault, cybervault, cyber-vault, data protection, security, ransomware, ONTAP, FAQ 
+permalink: cyber-vault/ontap-cyber-vault-faq.html 
+summary: 本文件包含 NetApp ONTAP 網路資料保險箱解決方案的常見問題集。 
+---
+= 網路保存庫常見問題集
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本常見問題集適用於 NetApp 客戶與合作夥伴。它會回答有關 NetApp 的 ONTAP 網路資料保險箱參考架構的常見問題。
+
+
+
+== 什麼是 NetApp 網路資料保險箱？
+
+網路資料保險箱是一種特定的資料保護技術、涉及將資料儲存在獨立於主要 IT 基礎架構的隔離環境中。
+
+網路資料保險箱是一種「空拍」、不可變、難以磨滅的資料儲存庫、可抵禦影響主要資料（例如惡意軟體、勒索軟體或內部威脅）的威脅。使用不可變的 NetApp ONTAP Snapshot 複本、就能實現網路資料保險箱、並能用 NetApp SnapLock Compliance 製作不變的資料。在 SnapLock Compliance 保護下、資料無法修改或刪除、甚至無法由 ONTAP 管理員或 NetApp 支援人員修改或刪除。
+
+使用傳統方法進行氣載備份、需要創造空間、並將主要媒體和次要媒體實體分離。網路資料保險箱的氣墊包括在標準資料存取網路之外使用獨立的資料複寫網路、將 Snapshot 複本複寫到無法刪除的目的地。
+
+除了無線網路之外、其他步驟包括在不需要時停用網路資料保險箱上的所有資料存取和複寫通訊協定。這可防止目的地站台的資料存取或資料竊取。使用 SnapLock Compliance 時、不需要實體隔離。SnapLock Compliance 可保護您的資料保險箱、時間點、唯讀的 Snapshot 複本、進而快速恢復資料、不受刪除和不可變的影響。
+
+
+
+== NetApp 的網路儲存庫方法
+
+NetApp 網路資料保險箱採用 SnapLock 技術、為組織提供全方位且靈活的解決方案、以保護最重要的資料資產。藉由運用 ONTAP 的強化技術、 NetApp 可讓您建立安全、無線且隔離的網路資料保險箱、免於不斷演變的網路威脅。透過 NetApp 、您可以確保資料的機密性、完整性和可用度、同時維持儲存基礎架構的敏捷度和效率。
+
+適用於網路資料保險箱的 NetApp 參考架構主要特色包括：
+
+* 安全、隔離的儲存基礎架構（例如、無線搭乘的儲存系統）
+* 資料的備份複本不可改變、也不可改變
+* 嚴格且獨立的存取控制、多重系統管理員驗證和多重因素驗證
+* 快速資料還原功能
+
+
+
+
+== 網路保存庫常見問題集
+
+.網路保存庫是否為 NetApp 產品？
+[%collapsible%open]
+====
+否、「網路資料保險箱」是整個產業的名詞。NetApp 建立了參考架構、讓客戶輕鬆建置自己的網路資料保險箱、並運用數十項 ONTAP 安全功能來協助保護資料免受網路威脅。如需詳細資訊link:https://docs.netapp.com/us-en/netapp-solutions/cyber-vault/ontap-cyber-vault-overview.html["ONTAP 文件網站"^]、請參閱。
+
+====
+.NetApp 的網路資料保險箱是否只是 LockVault 或 SnapVault 的另一個名稱？
+[%collapsible%open]
+====
+LockVault 是 Data ONTAP 7-Mode 的一項功能、目前的 ONTAP 版本並未提供。
+
+SnapVault 是一項傳統詞彙、代表 SnapMirror 的資料保險箱原則現在已完成了哪些工作。此原則可讓目的地保留不同數量的 Snapshot 複本、而非來源 Volume 。
+
+網路資料保險箱使用 SnapMirror 搭配資料保險箱原則、而 SnapLock Compliance 則共同建立不可改變且不可磨滅的資料複本。
+
+====
+.網路資料保險箱、 FAS 、容量快閃或效能快閃記憶體可以使用哪種 NetApp 硬體？
+[%collapsible%open]
+====
+此網路虛擬化參考架構適用於整個 ONTAP 硬體產品組合。客戶可以使用 AFF A 系列、 AFF C 系列或 FAS 平台做為資料保險箱。Flash 型平台可提供最快的恢復時間、而磁碟型平台則可提供最具成本效益的解決方案。視需要恢復多少資料、以及是否同時進行多項恢復而定、使用磁碟型系統（ FAS ）可能需要數天到數週的時間才能完成。請洽詢 NetApp 或合作夥伴代表、以適當調整網路資料保險箱解決方案的規模、以符合業務需求。
+
+====
+.我可以使用 Cloud Volumes ONTAP 做為網路資料保險箱來源嗎？
+[%collapsible%open]
+====
+是的、但是使用 CVO 作為來源、需要將資料複寫到內部網路資料保險箱目的地、因為 SnapLock Compliance 是 ONTAP 網路資料保險箱的必要條件。從以大型擴充器為基礎的 CVO 執行個體進行資料複寫、可能會產生輸出費用。
+
+====
+.我可以將 Cloud Volumes ONTAP 用作網路資料保險箱目的地嗎？
+[%collapsible%open]
+====
+網路資料保險箱架構仰賴 ONTAP 的 SnapLock Compliance 技術、專為內部部署所設計。我們正在調查雲端型網路資料保險箱架構、以供未來發佈。
+
+====
+.我可以使用 ONTAP Select 做為網路資料保險箱來源嗎？
+[%collapsible%open]
+====
+是的、 ONTAP Select 可做為內部硬體型網路資料保險箱目的地的來源。
+
+====
+.我可以將 ONTAP Select 用作網路資料保險箱目的地嗎？
+[%collapsible%open]
+====
+否、 ONTAP Select 不應作為網路資料保險箱目的地、因為它無法使用 SnapLock Compliance 。
+
+====
+.NetApp 的網路資料保險箱是否僅使用 SnapMirror ？
+[%collapsible%open]
+====
+否、 NetApp 網路資料保險箱架構運用許多 ONTAP 功能、建立安全、隔離、無線傳輸且強化的資料複本。如需使用哪些其他技術的詳細資訊、請參閱下一個問題。
+
+====
+.是否有其他技術或組態用於網路資料保險箱？
+[%collapsible%open]
+====
+NetApp 網路資料保險箱的基礎是 SnapMirror 和 SnapLock Compliance 、但使用防竄改快照複本、多因素驗證（ MFA ）、多重管理驗證、角色型存取控制、以及遠端和本機稽核記錄等額外 ONTAP 功能、可改善資料的安全性。
+
+====
+.什麼讓 ONTAP Snapshot 複本比其他網路資料保險箱的快照複本更好？
+[%collapsible%open]
+====
+ONTAP Snapshot 複本預設為不可變的複本、可透過 SnapLock Compliance 進行不變的複本。即使 NetApp 支援也無法刪除 SnapLock Snapshot 複本。更好的問題是、 NetApp 網路資料保險箱比業界其他網路資料保險箱更好。首先、 ONTAP 是全球最安全的儲存設備、並已取得 CSfC 驗證、可在硬體和軟體層儲存機密和機密資料。如需詳細資訊link:https://www.netapp.com/esg/trust-center/compliance/CSfC-Program/["CSfC 可在此找到"^]、請參閱。此外、 ONTAP 也可在儲存層進行無線傳輸、而網路資料保險箱系統則可控制複寫、以便在網路資料保險箱網路中建立無線網路。
+
+====
+.網路資料保險箱的來源磁碟區是否可以是啟用 ONTAP Fabric Pool 的磁碟區（階層式磁碟區至 ONTAP S3 或 StorageGRID ）？
+[%collapsible%open]
+====
+否、無論使用的原則為何、都無法將 Fabric Pool 來源 Volume 複寫到 SnapLock Compliance 目的地。
+
+====
+.NetApp 網路資料保險箱是否在不同的 ONTAP 個人或設定檔上執行？
+[%collapsible%open]
+====
+否、這是參考架構。客戶可以使用link:ontap-create-cyber-vault-task.html["參考架構"]並建置網路資料保險箱、也可以使用link:ontap-cyber-vault-powershell-overview.html["建立、強化及驗證的 PowerShell 指令碼"]網路資料保險箱。
+
+====
+.我可以在網路資料保險箱中開啟 NFS 、 SMB 和 S3 等資料傳輸協定嗎？
+[%collapsible%open]
+====
+根據預設、網路資料保險箱上的資料傳輸協定應停用、以確保安全無虞。不過、您可以在網路資料保險箱上啟用資料傳輸協定、以便存取資料以進行恢復、或在需要時進行恢復。這項作業應暫時進行、並在恢復完成後停用。
+
+====
+.您是否可以將現有的 SnapVault 環境轉換為網路資料保險箱、或是需要重新將所有資料重新植入？
+[%collapsible%open]
+====
+是的。您可以採用 SnapMirror 目的地系統（使用資料保險箱原則）、停用資料傳輸協定、強化每個系統link:https://docs.netapp.com/us-en/ontap/ontap-security-hardening/security-hardening-overview.html["ONTAP 強化指南"^]、將其隔離為安全位置、並遵循參考架構中的其他程序、使其成為網路資料保險箱、而無需重新封裝目的地。
+
+====
+* 還有其他問題嗎？ *請寄送電子郵件至 mailto ： NetApp ． NetApp ． com^,Cyber Vaultings.com 、我想進一步瞭解： ] 回答您的問題！我們會回答您的問題、並將您的問題新增至常見問題集。
