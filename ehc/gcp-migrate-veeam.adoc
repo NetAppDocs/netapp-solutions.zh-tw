@@ -1,10 +1,10 @@
 ---
 sidebar: sidebar 
 permalink: ehc/gcp-migrate-veeam.html 
-keywords: gcp, gcve, cvs, migrate , dr, disaster recovery, veeam, replication, proxy, re-ip 
-summary: 目前使用 Veeam 保護資料需求的客戶、會繼續使用該解決方案將工作負載移轉至 GCVE 、並享有 NetApp Cloud Volume Service NFS 資料存放區的優點。 
+keywords: gcp, gcve, gcnv, migrate , dr, disaster recovery, veeam, replication, proxy, re-ip 
+summary: 目前使用 Veeam 進行資料保護需求的客戶，會繼續使用該解決方案將工作負載移轉至 GCVE ，並享有 Google Cloud NetApp Volumes NFS 資料存放區的優點。 
 ---
-= VM 移轉至 Google Cloud 上的 NetApp 雲端 Volume Service NFS 資料存放區使用 Veeam 複寫功能的 VMware 引擎
+= VM 移轉至 Google Cloud NetApp Volumes Google Cloud 上的 NFS 資料存放區使用 Veeam 複寫功能的 VMware Engine
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary: 目前使用 Veeam 保護資料需求的客戶、會繼續使用該解�
 
 
 [role="lead"]
-目前使用 Veeam 保護資料需求的客戶、會繼續使用該解決方案將工作負載移轉至 GCVE 、並享有 NetApp Cloud Volume Service NFS 資料存放區的優點。
+目前使用 Veeam 進行資料保護需求的客戶，會繼續使用該解決方案將工作負載移轉至 GCVE ，並享有 Google Cloud NetApp Volumes NFS 資料存放區的優點。
 
 
 
@@ -24,7 +24,7 @@ summary: 目前使用 Veeam 保護資料需求的客戶、會繼續使用該解�
 
 在 VMware vSphere 上執行的 VM 工作負載可透過 Veeam Replication 功能移轉至 Google Cloud VMware Engine （ GCVE ）。
 
-本文件提供逐步設定及執行 VM 移轉的方法、使用 NetApp Cloud Volume Service 、 Veeam 及 Google Cloud VMware Engine （ GCVE ）。
+本文件提供逐步的方法，可設定及執行使用 Google Cloud NetApp Volumes ， Veeam 及 Google Cloud VMware Engine （ GCVE ）的 VM 移轉。
 
 image:gcp_migration_veeam_01.png["Veeam VM 複寫架構"]
 
@@ -46,7 +46,7 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 
 === 解決方案部署總覽
 
-. 請確定 NetApp Cloud Volume Service 的 NFS 資料存放區已裝載於 GCVE vCenter 。
+. 請確定 Google Cloud NetApp Volumes 的 NFS 資料存放區已裝載於 GCVE vCenter 。
 . 確保 Veeam Backup Recovery 已部署在現有的 VMware vSphere 環境中
 . 建立複寫工作、開始將虛擬機器複寫至 Google Cloud VMware Engine 執行個體。
 . 執行 Veeam 複寫工作的容錯移轉。
@@ -59,10 +59,9 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 
 
 
-==== 請確定 NetApp Cloud Volume Service 的 NFS 資料存放區已裝載於 GCVE vCenter
+==== 請確定 Google Cloud NetApp Volumes 的 NFS 資料存放區已裝載於 GCVE vCenter
 
-登入 GCVE vCenter 、確保 NFS 資料存放區有足夠的可用空間。
-如果沒有、請參閱 link:gcp-ncvs-datastore.html["將 NetApp CVS 掛載為 GCVE 上的 NFS 資料存放區"]
+登入 GCVE vCenter 、確保 NFS 資料存放區有足夠的可用空間。如果沒有，請參閱link:gcp-ncvs-datastore.html["將 NetApp Volume 掛載為 GCVE 上的 NFS 資料存放區"]
 
 
 

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-considerations-creating-active-directory-connections.html 
 keywords: active directory, credentials, permissions, smb machine accounts, region, backup users, security privilege, 
-summary: 支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。 
+summary: Google Cloud NetApp Volumes 可讓您將 Google Cloud NetApp Volumes 執行個體連線至外部 Active Directory 伺服器，以便進行 SMB 和 UNIX 使用者的身分識別管理。若要在 Google Cloud NetApp Volumes 中使用 SMB ，必須建立 Active Directory 連線。 
 ---
 = 建立Active Directory連線的考量事項
 :hardbreaks:
@@ -14,26 +14,26 @@ summary: 支援將您的實例連接至外部Active Directory伺服器、以便�
 
 
 [role="lead"]
-支援將您的實例連接至外部Active Directory伺服器、以便同時為SMB和UNIX使用者進行身分識別管理。Cloud Volumes Service Cloud Volumes Service建立Active Directory連線是Cloud Volumes Service 在支援功能方面使用SMB的必要條件。
+Google Cloud NetApp Volumes 可讓您將 Google Cloud NetApp Volumes 執行個體連線至外部 Active Directory 伺服器，以便進行 SMB 和 UNIX 使用者的身分識別管理。若要在 Google Cloud NetApp Volumes 中使用 SMB ，必須建立 Active Directory 連線。
 
 此設定提供多種選項、需要考量安全性。外部Active Directory伺服器可以是內部部署執行個體或原生雲端。如果您使用的是內部部署的Active Directory伺服器，請勿將網域暴露給外部網路（例如使用DMZ或外部IP位址）。而是使用安全的私有通道或VPN、單向樹系信任或內部部署網路專用的網路連線 https://cloud.google.com/vpc/docs/private-google-access["私有 Google 存取"^]。如需詳細資訊、請參閱Google Cloud文件 https://cloud.google.com/managed-microsoft-ad/docs/best-practices["在Google Cloud中使用Active Directory的最佳實務做法"^]。
 
 
-NOTE: CVS軟體要求Active Directory伺服器位於同一個地區。如果嘗試在CVs-SW中連線至其他地區、嘗試就會失敗。使用CVs-SW時、請務必建立包含Active Directory DC的Active Directory網站、然後在Cloud Volumes Service 其中指定站台、以避免跨區域DC連線嘗試。
+NOTE: NetApp Volume-SW 需要 Active Directory 伺服器位於同一個區域。如果在 NetApp Volume-SW 中嘗試將 DC 連線至其他區域，則嘗試失敗。使用 NetApp Volume-SW 時，請務必建立包含 Active Directory DC 的 Active Directory 站台，然後在 Google Cloud NetApp Volumes 中指定站台，以避免跨區域 DC 連線嘗試。
 
 
 
 == Active Directory認證
 
-啟用SMB或LDAP for NFS時Cloud Volumes Service 、支援使用者可與Active Directory控制器互動、以建立機器帳戶物件來進行驗證。這與Windows SMB用戶端加入網域的方式並不不同、而且需要對Active Directory中的組織單位（OU）擁有相同的存取權限。
+啟用 SMB 或 LDAP for NFS 時， Google Cloud NetApp Volumes 會與 Active Directory 控制器互動，以建立用於驗證的機器帳戶物件。這與Windows SMB用戶端加入網域的方式並不不同、而且需要對Active Directory中的組織單位（OU）擁有相同的存取權限。
 
-在許多情況下、安全性群組不允許在Cloud Volumes Service 外部伺服器上使用Windows系統管理員帳戶、例如在某些情況下、Windows系統管理員使用者會完全停用、這是安全性最佳實務做法。
+在許多情況下，安全性群組不允許在外部伺服器（例如 Google Cloud NetApp Volumes ）上使用 Windows 系統管理員帳戶。在某些情況下、Windows系統管理員使用者會完全停用、這是安全性最佳實務做法。
 
 
 
 === 建立SMB機器帳戶所需的權限
 
-若要新增Cloud Volumes Service 物件至Active Directory、則該帳戶具有網域的管理權限或擁有 https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects["委派權限以建立及修改機器帳戶物件"^] 需要指定的OU。您可以透過Active Directory中的委派控制精靈來執行此作業、方法是建立自訂工作、讓使用者以提供下列存取權限來存取電腦物件的建立/刪除：
+若要將 Google Cloud NetApp Volumes 機器物件新增至 Active Directory ，則需要具有網域管理權限或必須具有指定 OU 的帳戶 https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/delegating-administration-by-using-ou-objects["委派權限以建立及修改機器帳戶物件"^]。您可以透過Active Directory中的委派控制精靈來執行此作業、方法是建立自訂工作、讓使用者以提供下列存取權限來存取電腦物件的建立/刪除：
 
 * 讀取/寫入
 * 建立/刪除所有子物件
@@ -52,32 +52,32 @@ NOTE: 傳遞至Active Directory網域的使用者名稱和密碼會在機器帳�
 
 。 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["Active Directory連線詳細資料"^] 提供欄位給系統管理員、以提供機器帳戶放置的特定Active Directory架構資訊、例如：
 
-* * Active Directory連線類型。*用於指定區域中的Active Directory連線是用於Cloud Volumes Service 供應各種類型的SView或CVS效能服務的磁碟區。如果現有連線的設定不正確、使用或編輯時可能無法正常運作。
+* * Active Directory 連線類型 *用於指定區域中的 Active Directory 連線是否用於 Google Cloud NetApp Volumes 或 NetApp Volume-Performance 服務類型的 Volume 。如果現有連線的設定不正確、使用或編輯時可能無法正常運作。
 * *網域。* Active Directory網域名稱。
-* *站台。*將Active Directory伺服器限制為特定站台、以確保安全性和效能 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-active-directory-connections["考量"^]。當多個Active Directory伺服器橫跨多個區域時、這是必要的、因為Cloud Volumes Service 目前不支援將Active Directory驗證要求允許在Cloud Volumes Service 不同於此執行個體的區域內執行Active Directory伺服器。（例如、Active Directory網域控制器所在的區域僅支援CVs-Performance、但您想要在CVs-SW執行個體中使用SMB共用區）。
+* * 網站 *將 Active Directory 伺服器限制在特定站台上，以確保安全性和效能 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-active-directory-connections["考量"^]。當多個 Active Directory 伺服器跨越多個區域時，這是必要的，因為 Google Cloud NetApp Volumes 目前不支援將 Active Directory 驗證要求傳送至與 Google Cloud NetApp Volumes 執行個體不同區域的 Active Directory 伺服器。（例如， Active Directory 網域控制器位於僅支援 NetApp Volumes - Performance 的區域，但您希望在 NetApp Volumes - SW 執行個體中擁有 SMB 共用。）
 * * DNS伺服器。* DNS伺服器、用於名稱查詢。
-* * NetBios名稱（選用）。*如果需要、則為伺服器的NetBios名稱。這是使用Active Directory連線建立新機器帳戶時所使用的功能。例如、如果將NetBios名稱設為CVs-East、則機器帳戶名稱將為CVs-East-{12334}。請參閱一節 link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["如何在Active Directory中顯示此功能Cloud Volumes Service"] 以取得更多資訊。
+* * NetBIOS 名稱（選用）。 *如果需要，伺服器的 NetBIOS 名稱。這是使用Active Directory連線建立新機器帳戶時所使用的功能。例如，如果 NetBios 名稱設為 NetApp Volumes East ，則機器帳戶名稱將為 NetApp Volumes East - ｛ 1234 ｝ 。如需詳細資訊，請參閱一節link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["Google Cloud NetApp Volumes 在 Active Directory 中的顯示方式"]。
 * *組織單位（OU）。*建立電腦帳戶的特定OU。如果您要將機器帳戶的控制權委派給使用者至特定OU、這很有用。
-* * AES Encryption。*您也可以勾選或取消勾選「啟用AD驗證的AES加密」核取方塊。啟用AES加密以進行Active Directory驗證、可在Cloud Volumes Service 使用者和群組查詢期間、提供額外的安全性、以利執行功能以進行通訊。啟用此選項之前、請先洽詢您的網域管理員、確認Active Directory網域控制器支援AES驗證。
+* * AES 加密 *您也可以核取或取消核取「啟用 AD 驗證的 AES 加密」核取方塊。啟用 Active Directory 驗證的 AES 加密可在使用者和群組查詢期間，為 Google Cloud NetApp Volumes 提供額外的安全性，以進行 Active Directory 通訊。啟用此選項之前、請先洽詢您的網域管理員、確認Active Directory網域控制器支援AES驗證。
 
 
 
-NOTE: 根據預設、大部分的Windows伺服器不會停用較弱的密碼（例如：Des或RC4-HMAC）、但如果您選擇停用較弱的密碼、請確認Cloud Volumes Service 已設定「更新Active Directory」連線以啟用AES。否則會發生驗證失敗。啟用AES加密並不會停用較弱的密碼、而是將AES密碼的支援新增至Cloud Volumes Service 該SMB機器帳戶。
+NOTE: 根據預設，大多數 Windows 伺服器不會停用較弱的加密方式（例如 DES 或 RC4-HMAC ），但如果您選擇停用較弱的加密方式，請確認 Google Cloud NetApp Volumes Active Directory 連線已設定為啟用 AES 。否則會發生驗證失敗。啟用 AES 加密並不會停用較弱的密碼，而是將 AES 密碼支援新增至 Google Cloud NetApp Volumes SMB 機器帳戶。
 
 
 
 == Kerberos領域詳細資料
 
-此選項不適用於SMB伺服器。而是在設定NFS Kerberos for Cloud Volumes Service the Sing系統時使用。填入這些詳細資料時、NFS Kerberos領域會設定（類似於Linux上的krb5..conf檔案）、並在Cloud Volumes Service 建立實體磁碟區時指定NFS Kerberos時使用、因為Active Directory連線會做為NFS Kerberos發佈中心（kdc）。
+此選項不適用於SMB伺服器。而是在為 Google Cloud NetApp Volumes 系統設定 NFS Kerberos 時使用。填入這些詳細資料後，就會設定 NFS Kerberos 領域（類似於 Linux 上的 krb5.conf 檔案），並在建立 Google Cloud NetApp Volumes Volume 時指定 NFS Kerberos 時使用，因為 Active Directory 連線會做為 NFS Kerberos 發佈中心（ KDC ）。
 
 
-NOTE: 非Windows KDC目前不支援Cloud Volumes Service 搭配使用。
+NOTE: 非 Windows 的 KDC 目前不支援搭配 Google Cloud NetApp Volumes 使用。
 
 
 
 == 區域
 
-區域可讓您指定Active Directory連線所在的位置。此區域必須與Cloud Volumes Service 《非洲地理區：
+區域可讓您指定Active Directory連線所在的位置。此區域必須與 Google Cloud NetApp Volumes Volume 相同。
 
 * *本機NFS使用者搭配LDAP.*本節中、也有允許本機NFS使用者搭配LDAP的選項。如果您想要將UNIX使用者群組成員資格支援延伸到NFS（延伸群組）的16群組限制之外、則必須取消選取此選項。不過、使用延伸群組時、需要設定用於UNIX身分識別的LDAP伺服器。如果您沒有LDAP伺服器、請取消選取此選項。如果您有LDAP伺服器、而且想要使用本機UNIX使用者（例如root）、請選取此選項。
 
@@ -86,7 +86,7 @@ NOTE: 非Windows KDC目前不支援Cloud Volumes Service 搭配使用。
 
 == 備份使用者
 
-此選項可讓您指定對Cloud Volumes Service 該Windows Volume具有備份權限的Windows使用者。某些應用程式必須具備備份權限（SeBackup權限）、才能在NAS磁碟區中正確備份及還原資料。此使用者擁有大量的磁碟區資料存取權限、因此您應該考慮 https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/audit-audit-the-use-of-backup-and-restore-privilege["啟用該使用者存取的稽核"^]。啟用後、稽核事件會顯示在「事件檢視器」>「Windows記錄」>「安全性」中。
+此選項可讓您指定具有 Google Cloud NetApp Volumes Volume 備份權限的 Windows 使用者。某些應用程式必須具備備份權限（SeBackup權限）、才能在NAS磁碟區中正確備份及還原資料。此使用者擁有高層級的磁碟區資料存取權，因此您應該考慮 https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/audit-audit-the-use-of-backup-and-restore-privilege["啟用該使用者存取的稽核"^]。啟用後、稽核事件會顯示在「事件檢視器」>「Windows記錄」>「安全性」中。
 
 image:ncvs-gc-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -94,27 +94,27 @@ image:ncvs-gc-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 == 安全性權限使用者
 
-此選項可讓您指定Windows使用者、這些使用者具有Cloud Volumes Service 對此功能進行安全性修改的權限。某些應用程式需要安全性權限（SeSecurityPrivilege） (https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["例如SQL Server"^]）在安裝期間正確設定權限。管理安全性記錄時需要此權限。雖然此權限不如SeBackup權限強大、但NetApp建議您使用 https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-audit-privilege-use["稽核使用者存取權限"^] 如果需要、請使用此權限層級。
+此選項可讓您指定具有 Google Cloud NetApp Volumes Volume 安全修改權限的 Windows 使用者。安全性 Privileges (SeSecurityPrivilege) 是某些應用程式(https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["例如SQL Server"^]在安裝期間正確設定權限的必要條件。管理安全性記錄時需要此權限。雖然此權限並未像 SeBackupPrivilege 一樣強大，但 NetApp 仍會視需要建議 https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/basic-audit-privilege-use["稽核使用者存取權限"^]使用此權限等級。
 
 如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4672["指派給新登入的特殊權限"^]。
 
 
 
-== 如何在Active Directory中顯示此功能Cloud Volumes Service
+== Google Cloud NetApp Volumes 在 Active Directory 中的顯示方式
 
-在Active Directory中顯示為一般機器帳戶物件。Cloud Volumes Service命名慣例如下。
+Google Cloud NetApp Volumes 會在 Active Directory 中顯示為正常的機器帳戶物件。命名慣例如下。
 
 * CIFS/SMB和NFS Kerberos會建立個別的機器帳戶物件。
 * 啟用LDAP的NFS會在Active Directory中建立機器帳戶、以進行Kerberos LDAP繫結。
 * 具有LDAP的雙傳輸協定磁碟區會共用CIFS/SMB機器帳戶、以供LDAP和SMB使用。
 * CIFS/SMB機器帳戶的機器帳戶命名慣例為：名稱-1234（隨機四位數ID、加上連字號、加上<10個字元名稱）。您可以使用Active Directory連線上的[NetBios名稱]設定來定義名稱（請參閱「」一節）<<Active Directory連線詳細資料>>」）。
 * NFS Kerberos使用NFS-name-1234作為 命名慣例（最多15個字元）。如果使用超過15個字元、則名稱為nfs -截短名稱-1234.
-* 僅NFS的CVS效能執行個體若啟用LDAP、則會建立SMB機器帳戶、以與CIFS/SMB執行個體相同的命名慣例來繫結至LDAP伺服器。
+* 啟用 LDAP 的純 NFS NetApp Volumes 效能執行個體會建立 SMB 機器帳戶，以與 CIFS/SMB 執行個體具有相同命名慣例，以繫結至 LDAP 伺服器。
 * 建立SMB機器帳戶時、預設的隱藏管理共用區（請參閱一節 link:ncvs-gc-smb.html#default-hidden-shares["「預設隱藏共用」"]）也會建立（c$、admin$、ipc$）、但這些共用區並未指派ACL、因此無法存取。
-* 依預設、機器帳戶物件會放置在CN=電腦中、但您可以在必要時指定不同的OU。請參閱「」一節<<建立SMB機器帳戶所需的權限>>」、以瞭解新增/移除Cloud Volumes Service 機器帳戶物件所需的存取權限。
+* 依預設、機器帳戶物件會放置在CN=電腦中、但您可以在必要時指定不同的OU。如需新增 / 移除 Google Cloud NetApp Volume 機器帳戶物件所需的存取權限資訊，請參閱「」一節<<建立SMB機器帳戶所需的權限>>。
 
 
-當將SMB機器帳戶新增至Active Directory時Cloud Volumes Service 、會填入下列欄位：
+當 Google Cloud NetApp Volumes 將 SMB 機器帳戶新增至 Active Directory 時，會填入下列欄位：
 
 * （使用指定的SMB伺服器名稱）
 * dnsHostName（含SMBserver.domain.com）
@@ -149,4 +149,4 @@ image:ncvs-gc-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 |===
 若要啟用SMB機器帳戶的AES加密、請在建立Active Directory連線時按一下「啟用AD驗證的AES加密」。
 
-若要啟用NFS Kerberos的AES加密、 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes["請參閱Cloud Volumes Service 《》文件"^]。
+若要啟用 NFS Kerberos 的 AES 加密，請 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes["請參閱 Google Cloud NetApp Volumes 文件"^]執行。

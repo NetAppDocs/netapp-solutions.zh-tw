@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-firewall.html 
 keywords: tcp, nfs, smb share, kerberos, active directory, dns 
-summary: 可公開多個TCP連接埠以服務NFS和SMB共用。Cloud Volumes Service 
+summary: Google Cloud NetApp Volumes 會公開多個 TCP 連接埠，以提供 NFS 和 SMB 共用。 
 ---
 = 防火牆
 :hardbreaks:
@@ -14,7 +14,7 @@ summary: 可公開多個TCP連接埠以服務NFS和SMB共用。Cloud Volumes Ser
 
 
 [role="lead"]
-可公開多個TCP連接埠以服務NFS和SMB共用：Cloud Volumes Service
+Google Cloud NetApp Volumes 會公開多個 TCP 連接埠，以提供 NFS 和 SMB 共用服務：
 
 * https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["NFS存取所需的連接埠"^]
 * https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["SMB存取所需的連接埠"^]
@@ -22,6 +22,6 @@ summary: 可公開多個TCP連接埠以服務NFS和SMB共用。Cloud Volumes Ser
 
 此外、SMB、含LDAP的NFS（包括Kerberos）及雙傳輸協定組態、都需要存取Windows Active Directory網域。Active Directory連線必須是 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes?hl=en_US["已設定"^] 以每個區域為基礎。Active Directory網域控制器（DC）是使用來識別 https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04["DNS型DC探索"^] 使用指定的DNS伺服器。系統會使用任何傳回的DC。指定Active Directory站台可限制合格的DC清單。
 
-使用分配給的CIDR範圍內的IP位址、即可將其移出Cloud Volumes Service `gcloud compute address` 命令的同時 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en_US["登入Cloud Volumes Service 時"^]。您可以使用此CIDR做為來源位址、為Active Directory網域控制器設定傳入防火牆。
+Google Cloud NetApp Volumes 的 IP 位址來自於使用命令分配的 CIDR 範圍 `gcloud compute address`，而時間 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en_US["加入 Google Cloud NetApp Volumes"^]為。您可以使用此CIDR做為來源位址、為Active Directory網域控制器設定傳入防火牆。
 
-Active Directory網域控制器必須具備 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["請依照Cloud Volumes Service 此處所述、將連接埠公開給這些開發署"^]。
+Active Directory 網域控制站必須 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["如本文所述，將連接埠公開給 Google Cloud NetApp Volumes CIDR"^]。

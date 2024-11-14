@@ -2,9 +2,9 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-cloud-volumes-service-architecture.html 
 keywords: tenancy model, shared vpcs, service controls, packet sniffing, trace considerations 
-summary: 以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和檔案儲存庫Cloud Volumes Service 、使用Google psa來提供服務。 
+summary: Google Cloud NetApp Volumes 以類似其他 Google Cloud 原生服務的方式，例如 CloudSQL ， Google Cloud VMware Engine （ GCVE ）和 Filestore ，使用 Google PSA 來提供服務。 
 ---
-= 架構Cloud Volumes Service
+= Google Cloud NetApp Volumes 架構
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,9 +14,9 @@ summary: 以類似其他Google Cloud原生服務的方式、例如CloudSQL、Goo
 
 
 [role="lead"]
-以類似其他Google Cloud原生服務的方式、例如CloudSQL、Google Cloud VMware Engine（GCVE）和Filestore Cloud Volumes Service 、即用功能 https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["Google PSA"^] 以提供服務。在PSAA中、服務是建置於服務製造商專案內、此專案使用的 https://cloud.google.com/vpc/docs/vpc-peering?hl=en_US["VPC網路對等關係"^] 連線至服務使用者。服務製造商由NetApp提供及營運、服務消費者是客戶專案中的VPC、負責託管想要存取Cloud Volumes Service VMware檔案共享的客戶。
+Google Cloud NetApp Volumes 以類似其他 Google Cloud 原生服務的方式，例如 CloudSQL ， Google Cloud VMware Engine （ GCVE ）和 Filestore ，用來 https://cloud.google.com/vpc/docs/private-services-access?hl=en_US["Google PSA"^]提供服務。在 PSA 中，服務是在服務製造商專案內建，用於 https://cloud.google.com/vpc/docs/vpc-peering?hl=en_US["VPC網路對等關係"^]連線至服務使用者。服務製造商由 NetApp 提供及營運，服務消費者是客戶專案中的 VPC ，託管想要存取 Google Cloud NetApp Volumes 檔案共用的用戶端。
 
-下圖、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture?hl=en_US["架構區段"^] 在本文件中Cloud Volumes Service 、顯示了高階檢視。
+下圖是 Google Cloud NetApp Volumes 文件的參考 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture?hl=en_US["架構區段"^]資料，顯示高階檢視。
 
 image:ncvs-gc-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -26,15 +26,15 @@ image:ncvs-gc-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 == 租賃模式
 
-在本例中、個別專案被視為獨特的租戶。Cloud Volumes Service這表示每個專案都會執行對磁碟區、Snapshot複本等的操作。換句話說、所有磁碟區都屬於在其中建立的專案、而且根據預設、只有該專案能管理及存取其中的資料。這被視為服務的控制面板檢視。
+在 Google Cloud NetApp Volumes 中，個別專案被視為唯一租戶。這表示每個專案都會執行對磁碟區、Snapshot複本等的操作。換句話說、所有磁碟區都屬於在其中建立的專案、而且根據預設、只有該專案能管理及存取其中的資料。這被視為服務的控制面板檢視。
 
 
 
 === 共享VPC
 
-在資料平面檢視中Cloud Volumes Service 、無法連接至共享的VPC。您可以在託管專案或連接至共享VPC的其中一個服務專案中建立磁碟區。連接至該共享VPC的所有專案（主機或服務）都能到達網路層（TCP/IP）的磁碟區。由於在共享VPC上具有網路連線能力的所有用戶端都可能透過NAS傳輸協定存取資料、因此必須使用個別Volume上的存取控制（例如使用者/群組存取控制清單（ACL）和NFS匯出的主機名稱/ IP位址）來控制誰可以存取資料。
+在資料平面檢視中， Google Cloud NetApp Volumes 可以連線至共享的 VPC 。您可以在託管專案或連接至共享VPC的其中一個服務專案中建立磁碟區。連接至該共享VPC的所有專案（主機或服務）都能到達網路層（TCP/IP）的磁碟區。由於在共享VPC上具有網路連線能力的所有用戶端都可能透過NAS傳輸協定存取資料、因此必須使用個別Volume上的存取控制（例如使用者/群組存取控制清單（ACL）和NFS匯出的主機名稱/ IP位址）來控制誰可以存取資料。
 
-每個客戶專案最多可連接Cloud Volumes Service 到五部VPC。在控制面板上、專案可讓您管理所有建立的磁碟區、無論這些磁碟區連接到哪個VPC。在資料層面上、VPC彼此隔離、而且每個磁碟區只能連接至一個VPC。
+您可以將 Google Cloud NetApp Volumes 連線至每個客戶專案最多五台 VPC 。在控制面板上、專案可讓您管理所有建立的磁碟區、無論這些磁碟區連接到哪個VPC。在資料層面上、VPC彼此隔離、而且每個磁碟區只能連接至一個VPC。
 
 個別磁碟區的存取是由特定傳輸協定（NFS/SMB）存取控制機制所控制。
 
@@ -46,9 +46,9 @@ image:ncvs-gc-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些服務已連接至網際網路、可在全球各地存取。這些服務可透過使用者身分識別提供存取控制、但無法限制來自哪些網路位置要求。VPC服務控制功能引進限制存取已定義網路的功能、藉此彌補這項落差。
 
-此資料平面並未連線至外部網際網路、而是連線至具有明確定義網路邊界（周邊）的私有VPC。Cloud Volumes Service在該網路中、每個磁碟區都使用特定於傳輸協定的存取控制。任何外部網路連線都是由Google Cloud專案管理員明確建立。然而、控制面板並未提供與資料面板相同的保護、任何人只要擁有有效的認證資料（ https://datatracker.ietf.org/doc/html/rfc7519["JWT權杖"^]）。
+Google Cloud NetApp Volumes 資料層面並未連線至外部網際網路，而是連線至具有明確網路界限（周邊）的私有 VPC 。在該網路中、每個磁碟區都使用特定於傳輸協定的存取控制。任何外部網路連線都是由Google Cloud專案管理員明確建立。但是，控制面板並未提供與資料平面相同的保護，任何人都可以從任何擁有有效認證的地方存取（ https://datatracker.ietf.org/doc/html/rfc7519["JWT權杖"^]）。
 
-簡而言之Cloud Volumes Service 、不需要支援VPC服務控制、也不明確使用VPC服務控制、即可透過資料中心提供網路存取控制功能。
+簡言之， Google Cloud NetApp Volumes 資料層面提供網路存取控制功能，無需支援 VPC 服務控制，也不明確使用 VPC 服務控制。
 
 
 
@@ -56,12 +56,12 @@ VPC服務控管機制建立了Google Cloud服務周邊的存取控制、這些�
 
 封包擷取可用於疑難排解網路問題或其他問題（例如NAS權限、LDAP連線等）、但也可惡意用來取得網路IP位址、MAC位址、使用者和群組名稱、以及端點使用的安全層級等資訊。由於Google Cloud網路、VPC和防火牆規則的設定方式、如果沒有使用者登入認證或、就很難取得不必要的網路封包存取權 link:ncvs-gc-control-plane-architecture.html#jwt-tokens["JWT權杖"] 雲端執行個體。封包擷取只能在端點（例如虛擬機器（VM））上進行、而且只能在VPC內部的端點上進行、除非使用共享VPC和（或）外部網路通道/ IP轉送來明確允許外部流量進入端點。無法從用戶端外部窺探流量。
 
-使用共享VPC時、會使用NFS Kerberos和/或進行傳輸中加密 link:ncvs-gc-data-encryption-in-transit.html#smb-encryption["SMB加密"] 可以遮罩從追蹤中收集到的大部分資訊。不過、有些流量仍會以純文字形式傳送、例如 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#dns["DNS"] 和 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-queries["LDAP查詢"]。下圖顯示從Cloud Volumes Service 來源於指令集的純文字LDAP查詢擷取的封包、以及可能公開的識別資訊。目前支援透過SSL加密或LDAP的Cloud Volumes Service LDAP查詢不支援。CVS效能支援LDAP簽署（若Active Directory要求）。CVS軟體不支援LDAP簽署。
+使用共享的 VPC 時，使用 NFS Kerberos 進行傳輸中的加密和 / 或link:ncvs-gc-data-encryption-in-transit.html#smb-encryption["SMB加密"]會遮罩從追蹤中收集到的大部分資訊。但是，某些流量仍以純文字傳送link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-queries["LDAP查詢"]，例如link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#dns["DNS"]和。下圖顯示來自 Google Cloud NetApp Volumes 的純文字 LDAP 查詢所擷取的封包，以及所揭露的潛在識別資訊。Google Cloud NetApp Volume 中的 LDAP 查詢目前不支援加密或 LDAP over SSL 。NetApp Volumes 效能支援 LDAP 簽署（如果 Active Directory 要求）。NetApp Volume-SW 不支援 LDAP 簽署。
 
 image:ncvs-gc-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
-NOTE: unixUserPassword是由LDAP查詢、不會以純文字傳送、而是以Salted雜湊傳送。根據預設、Windows LDAP不會填入unixUserPassword欄位。只有當您需要利用Windows LDAP透過LDAP互動登入用戶端時、才需要此欄位。不支援互動式LDAP登入執行個體。Cloud Volumes Service
+NOTE: unixUserPassword是由LDAP查詢、不會以純文字傳送、而是以Salted雜湊傳送。根據預設、Windows LDAP不會填入unixUserPassword欄位。只有當您需要利用Windows LDAP透過LDAP互動登入用戶端時、才需要此欄位。Google Cloud NetApp Volumes 不支援對執行個體進行互動式 LDAP 登入。
 
 下圖顯示NFS Kerberos對話擷取的封包擷取、位於透過AUTH_SYS擷取NFS的旁邊。請注意、追蹤中的可用資訊在兩者之間有何差異、以及啟用飛行中加密如何為NAS流量提供更高的整體安全性。
 

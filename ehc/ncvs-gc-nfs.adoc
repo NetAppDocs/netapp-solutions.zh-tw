@@ -16,15 +16,15 @@ summary: NFS是一種分散式檔案系統傳輸協定、是在Request for Comme
 [role="lead"]
 NFS是一種分散式檔案系統傳輸協定、是在Request for Comments（RFC）中定義的開放式IETF標準、可讓任何人實作該傳輸協定。
 
-透過匯出可供用戶端或一組用戶端存取的路徑、將位於此功能的Volume Cloud Volumes Service 共享給NFS用戶端。掛載這些匯出的權限是由匯出原則和規則所定義、Cloud Volumes Service 這些原則和規則可由資訊管理員設定。
+透過匯出用戶端或用戶端集可存取的路徑， Google Cloud NetApp Volumes 中的 Volume 會共享給 NFS 用戶端。裝載這些匯出的權限是由匯出原則和規則所定義，這些原則和規則可由 Google Cloud NetApp Volumes 管理員設定。
 
-NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業NAS環境。以下各節涵蓋Cloud Volumes Service 支援的NFS和特定安全功能、以及如何實作這些功能。
+NetApp NFS實作被視為傳輸協定的黃金標準、可用於無數的企業NAS環境。下列各節涵蓋 Google Cloud NetApp Volumes 中可用的 NFS 和特定安全功能，以及這些功能的實作方式。
 
 
 
 == 預設的本機UNIX使用者和群組
 
-包含多個預設UNIX使用者和群組、可提供各種基本功能。Cloud Volumes Service這些使用者和群組目前無法修改或刪除。目前無法將新的本機使用者和群組新增Cloud Volumes Service 至無法更新的功能。外部LDAP名稱服務必須提供預設使用者和群組以外的UNIX使用者和群組。
+Google Cloud NetApp Volumes 包含數個預設 UNIX 使用者和群組，可提供各種基本功能。這些使用者和群組目前無法修改或刪除。新的本機使用者和群組目前無法新增至 Google Cloud NetApp Volumes 。外部LDAP名稱服務必須提供預設使用者和群組以外的UNIX使用者和群組。
 
 下表顯示預設使用者和群組及其對應的數字ID。NetApp建議不要在LDAP或重新使用這些數字ID的本機用戶端上建立新的使用者或群組。
 
@@ -52,30 +52,30 @@ NOTE: 使用NFSv4.1時、root使用者在NFS用戶端上執行列出命令的目
 
 == root使用者
 
-在Linux中、root帳戶可以存取Linux型檔案系統中的所有命令、檔案和資料夾。由於此帳戶的強大功能、安全性最佳實務做法通常會要求root使用者停用或限制某種方式。在NFS匯出中、root使用者對檔案和資料夾的控制能力、可Cloud Volumes Service 透過匯出原則和規則、以及稱為root squash的概念、在整個過程中加以控制。
+在Linux中、root帳戶可以存取Linux型檔案系統中的所有命令、檔案和資料夾。由於此帳戶的強大功能、安全性最佳實務做法通常會要求root使用者停用或限制某種方式。在 NFS 匯出中，根使用者對檔案和資料夾的能力可透過匯出原則和規則，以及稱為 root squash 的概念，在 Google Cloud NetApp Volumes 中加以控制。
 
-root使用者之間的衝突可確保存取NFS掛載的root使用者被擠到匿名的數字使用者65534（請參閱「」一節）<<匿名使用者>>」）、目前僅適用於使用CVS效能的情況、方法是在建立匯出原則規則期間選取「Off」（關閉）進行root存取。如果root使用者被擠到匿名使用者、就無法再執行chown或 https://en.wikipedia.org/wiki/Setuid["setuid/setgid命令（sticky位元）"^] 在NFS掛載的檔案或資料夾上、root使用者建立的檔案或資料夾會將anon UID顯示為擁有者/群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制root使用者的檔案和資料夾權限存取、請考慮使用具有NTFS ACL的磁碟區、建立名為「root」的Windows使用者、並將所需權限套用至檔案或資料夾。
+根分段可確保存取 NFS 掛載的根使用者會被分段給匿名數字使用者 65534 （請參閱「」一節<<匿名使用者>>），而且目前只有在使用 Volumes （ NetApp Volumes ）時才能使用，方法是在建立匯出原則規則時選取 Off （關閉）進行根存取。如果根使用者被浪費給匿名使用者，則該使用者將無法再在 NFS 掛載中執行 chown 或 https://en.wikipedia.org/wiki/Setuid["setuid/setgid命令（sticky位元）"^]檔案或資料夾，而由 root 使用者建立的檔案或資料夾會將 anon UID 顯示為擁有者 / 群組。此外、NFSv4 ACL無法由root使用者修改。不過、root使用者仍可存取不具有明確權限的chmod和刪除檔案。如果您想限制對 root 使用者檔案和資料夾權限的存取，請考慮使用具有 NTFS ACL 的磁碟區，建立名為的 Windows 使用者， `root`並將所需的權限套用至檔案或資料夾。
 
 
 
 == 匿名使用者
 
-匿名（anon）使用者ID會指定對應至用戶端要求的UNIX使用者ID或使用者名稱、而該用戶端要求沒有有效的NFS認證。使用root使用者時、這可能包括root使用者。Anon的Cloud Volumes Service 使用者是65534。
+匿名（anon）使用者ID會指定對應至用戶端要求的UNIX使用者ID或使用者名稱、而該用戶端要求沒有有效的NFS認證。使用root使用者時、這可能包括root使用者。Google Cloud NetApp Volumes 中的 anon 使用者為 65534 人。
 
-此UID通常與Linux環境中的使用者名稱「nobnob」或「nfsnobn」相關聯。也使用65534作為本機UNIX使用者的pcuser'（請參閱「Cloud Volumes Service<<預設的本機UNIX使用者和群組>>」）、這也是Windows到UNIX名稱對應的預設後援使用者、但LDAP中找不到有效的相符UNIX使用者。
+此 UID 通常與使用者名稱或 `nfsnobody` Linux 環境相關聯 `nobody`。Google Cloud NetApp Volumes 也會使用 65534 做為本機 UNIX 使用者的 pcuser （請參閱「」一節<<預設的本機UNIX使用者和群組>>），這也是 Windows 與 UNIX 名稱對應的預設回退使用者，如果 LDAP 中找不到有效的相符 UNIX 使用者。
 
-由於Linux使用者名稱與Cloud Volumes Service 適用於UID 65534的使用者名稱不同、因此使用NFSv4.1時對應至65534的使用者名稱字串可能不相符。因此、您可能會在某些檔案和資料夾上看到「無人」的使用者身分。請參閱「」一節<<NFSv4.1和nobody使用者/群組>>」以取得此問題的相關資訊及解決方法。
+由於 Linux 和 Google Cloud NetApp Volumes for UID 65534 的使用者名稱差異，因此對應至 65534 的使用者名稱字串可能會在使用 NFSv4.1 時不相符。因此，您可能會在某些檔案和資料夾上看到 `nobody`使用者身分。請參閱「」一節<<NFSv4.1和nobody使用者/群組>>，以取得有關此問題及解決方法的資訊。
 
 
 
 == 存取控制/匯出
 
-NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型匯出原則規則來控制。定義主機IP、主機名稱、子網路、網路群組或網域、以允許存取掛載NFS共用區、以及允許存取主機的層級。匯出原則規則組態選項取決於Cloud Volumes Service 哪些方面。
+NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型匯出原則規則來控制。定義主機IP、主機名稱、子網路、網路群組或網域、以允許存取掛載NFS共用區、以及允許存取主機的層級。匯出原則規則組態選項取決於 Google Cloud NetApp Volumes 層級。
 
-對於CVS軟體、下列選項可用於匯出原則組態：
+對於 NetApp Volume-SW ，匯出原則組態可使用下列選項：
 
 * *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
-* * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」來控制對EXPE/CVs-Performance的存取層級、提供下列選項：
+* * RO/RW 存取規則。 *選取讀取 / 寫入或唯讀以控制匯出的存取層級。 NetApp Volumes 效能提供下列選項：
 * *用戶端相符*以逗號分隔的IP位址清單、以逗號分隔的主機名稱、子網路、網路群組、網域名稱清單。
 * * RO/RW存取規則。*選取「讀取/寫入」或「唯讀」以控制匯出的存取層級。
 * *根存取權（開啟/關閉）。*設定根分區（請參閱「<<root使用者>>」的詳細資料）。
@@ -87,27 +87,27 @@ NFS裝載的初始匯出/共用存取是透過匯出原則中包含的主機型�
 
 == 變更擁有權（chown）和變更群組（chgrp）
 
-NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾上執行chown / chgrp。其他使用者也會看到「不允許操作」錯誤、即使是他們自己擁有的檔案也一樣。如果您使用root quash（如一節中所述）<<root使用者>>」）時、root會被擠到非root使用者、且不允許存取chown和chgrp。目前在不允許非root使用者使用chown和chgrp的因應措施Cloud Volumes Service 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。
+Google Cloud NetApp Volumes 上的 NFS 僅允許 root 使用者在檔案和資料夾上執行 chown/chgrp 。其他使用者也會看到 `Operation not permitted`錯誤，即使是他們擁有的檔案也一樣。如果您使用 root squash （如「」一節所述<<root使用者>>），則根目錄會被佔用給非 root 使用者，因此不允許存取 chown 和 chgrp 。Google Cloud NetApp Volumes 目前沒有任何因應措施可讓非 root 使用者使用 chown 和 chgrp 。如果需要變更擁有權、請考慮使用雙傳輸協定磁碟區、並將安全樣式設定為NTFS、以便從Windows端控制權限。
 
 
 
 == 權限管理
 
-支援兩種模式位元（例如rwx的644、777等）和NFSv4.1 ACL、以控制使用UNIX安全型態之磁碟區在NFS用戶端上的權限。Cloud Volumes Service標準權限管理用於這些項目（例如、chmod、chown或nfs4_setfacl）、並可與任何支援這些項目的Linux用戶端搭配使用。
+Google Cloud NetApp Volumes 同時支援模式位元（例如 rwx 的 644 ， 777 等）和 NFSv4.1 ACL ，以控制使用 UNIX 安全樣式之磁碟區的 NFS 用戶端權限。標準權限管理用於這些項目（例如、chmod、chown或nfs4_setfacl）、並可與任何支援這些項目的Linux用戶端搭配使用。
 
-此外、當使用設為NTFS的雙傳輸協定磁碟區時、NFS用戶端可以利用Cloud Volumes Service 指向Windows使用者的名稱對應功能來解析NTFS權限。這需要LDAP連線Cloud Volumes Service 至才能提供數字ID對使用者名稱的轉譯、因為Cloud Volumes Service 需要有效的UNIX使用者名稱才能正確對應至Windows使用者名稱。
+此外，當使用設定為 NTFS 的雙傳輸協定磁碟區時， NFS 用戶端可以利用 Google Cloud NetApp 磁碟區名稱對應至 Windows 使用者，然後使用這些名稱來解析 NTFS 權限。這需要 LDAP 連線至 Google Cloud NetApp Volumes 才能提供數字 ID 至使用者名稱的翻譯，因為 Google Cloud NetApp Volumes 需要有效的 UNIX 使用者名稱才能正確對應至 Windows 使用者名稱。
 
 
 
 === 為NFSv3提供精細的ACL
 
-模式位元權限僅涵蓋語義中的擁有者、群組及其他所有人、這表示基本NFSv3沒有精細的使用者存取控制。由於不支援POSIX ACL、也不支援擴充屬性（例如chatr）、因此使用NFSv3時、只有在下列情況下才能使用精細的ACL：Cloud Volumes Service
+模式位元權限僅涵蓋語義中的擁有者、群組及其他所有人、這表示基本NFSv3沒有精細的使用者存取控制。Google Cloud NetApp Volumes 不支援 POSIX ACL ，也不支援延伸屬性（例如 chattr ），因此只有在下列使用 NFSv3 的情況下才可能使用精細 ACL ：
 
 * NTFS安全型磁碟區（需要CIFS伺服器）、具有有效的UNIX至Windows使用者對應。
 * 使用管理用戶端掛載NFSv4.1套用NFSv4.1 ACL以套用ACL。
 
 
-這兩種方法都需要LDAP連線才能進行UNIX身分識別管理、並填入有效的UNIX使用者和群組資訊（請參閱一節 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap["「LDAP」"]）和僅適用於CVS效能執行個體。若要將NTFS安全型磁碟區搭配NFS使用、您必須使用雙傳輸協定（SMB和NFSv3）或雙傳輸協定（SMB和NFSv4.1）、即使沒有建立SMB連線。若要在NFSv3掛載中使用NFSv4.1 ACL、您必須選取「兩者（NFSv3/NFSv4.1）」作為傳輸協定類型。
+這兩種方法都需要 LDAP 連線以進行 UNIX 身分識別管理，並填入有效的 UNIX 使用者和群組資訊（請參閱一節link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap["「LDAP」"]），且僅適用於 NetApp Volume-Performance 執行個體。若要將NTFS安全型磁碟區搭配NFS使用、您必須使用雙傳輸協定（SMB和NFSv3）或雙傳輸協定（SMB和NFSv4.1）、即使沒有建立SMB連線。若要將 NFSv4.1 ACL 與 NFSv3 掛載搭配使用，您必須選取 `Both (NFSv3/NFSv4.1)`作為傳輸協定類型。
 
 一般UNIX模式位元在權限方面的精細度與NTFS或NFSv4.x ACL所提供的精細度不同。下表比較NFSv3模式位元與NFSv4.1 ACL之間的權限精細度。如需NFSv4.1 ACL的相關資訊、請參閱 https://linux.die.net/man/5/nfs4_acl["nfs4_ACL - NFSv4存取控制清單"^]。
 
@@ -137,22 +137,22 @@ NFS on Cloud Volumes Service 支援僅允許root使用者在檔案和資料夾�
 |===
 最後、根據RPC封包限制、NFS群組成員資格（NFSv3和NFSv4.x）的AUTH_SYS預設上限為16。NFS Kerberos最多可提供32個群組、NFSv4 ACL則可透過精細的使用者和群組ACL（每個ACE最多可容納1024個項目）來移除限制。
 
-此外Cloud Volumes Service 、支援範圍更廣泛、最多可將支援的群組數量擴充至32個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此項目的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes?hl=en_US["建立及管理NFS磁碟區"^] 在Google文件中。
+此外， Google Cloud NetApp Volumes 提供延伸群組支援，可將支援的群組上限擴充至 32 個。這需要LDAP連線至包含有效UNIX使用者和群組身分識別的LDAP伺服器。如需設定此功能的詳細資訊，請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-nfs-volumes?hl=en_US["建立及管理NFS磁碟區"^] Google 文件中的。
 
 
 
 == NFSv3使用者與群組ID
 
-NFSv3使用者和群組ID會以數字ID而非名稱的形式出現在線路上。使用NFSv3時、由於UNIX安全型磁碟區只使用模式位元、因此無法針對這些數字ID進行使用者名稱解析。Cloud Volumes Service當NFSv4.1 ACL存在時、即使使用NFSv3、仍需要數字ID查詢和/或名稱字串查詢、才能正確解析ACL。使用NTFS安全型磁碟區時Cloud Volumes Service 、必須先將數字ID解析為有效的UNIX使用者、然後對應至有效的Windows使用者以協商存取權限。
+NFSv3使用者和群組ID會以數字ID而非名稱的形式出現在線路上。Google Cloud NetApp Volumes 使用 NFSv3 時，這些數字 ID 的使用者名稱解析不適用，而 UNIX 安全樣式的 Volume 則只使用模式位元。當NFSv4.1 ACL存在時、即使使用NFSv3、仍需要數字ID查詢和/或名稱字串查詢、才能正確解析ACL。使用 NTFS 安全樣式磁碟區時， Google Cloud NetApp Volumes 必須將數字 ID 解析為有效的 UNIX 使用者，然後對應至有效的 Windows 使用者以交涉存取權限。
 
 
 
 === NFSv3使用者與群組ID的安全性限制
 
-使用NFSv3時、用戶端和伺服器永遠不需要確認使用者使用數字ID進行讀取或寫入、這只是隱含信任而已。如此一來、只要偽造任何數字ID、檔案系統就會遭受潛在的資料外洩。為了避免這類安全漏洞、Cloud Volumes Service 我們提供一些選項供大家選擇。
+使用NFSv3時、用戶端和伺服器永遠不需要確認使用者使用數字ID進行讀取或寫入、這只是隱含信任而已。如此一來、只要偽造任何數字ID、檔案系統就會遭受潛在的資料外洩。為了避免這類安全漏洞， Google Cloud NetApp Volumes 有幾個選項可供選擇。
 
-* 實作Kerberos for NFS會強制使用者使用使用者名稱和密碼或Keytab檔案進行驗證、以取得Kerberos票證、以便存取掛載。Kerberos適用於CVS效能執行個體、僅適用於NFSv4.1。
-* 限制匯出原則規則中的主機清單、會限制NFSv3用戶端存取Cloud Volumes Service 該卷的權限。
+* 實作Kerberos for NFS會強制使用者使用使用者名稱和密碼或Keytab檔案進行驗證、以取得Kerberos票證、以便存取掛載。Kerberos 僅適用於 NetApp Volumes 效能執行個體，且僅適用於 NFSv4.1 。
+* 限制匯出原則規則中的主機清單，會限制哪些 NFSv3 用戶端可以存取 Google Cloud NetApp Volumes Volume 。
 * 使用雙傳輸協定磁碟區並將NTFS ACL套用至磁碟區、會強制NFSv3用戶端將數字ID解析為有效的UNIX使用者名稱、以便正確驗證以存取裝載。這需要啟用LDAP並設定UNIX使用者和群組身分識別。
 * 浪費root使用者的力量可限制root使用者對NFS掛載所造成的損害、但並不會完全消除風險。如需詳細資訊、請參閱「」一節<<root使用者>>。」
 
@@ -183,13 +183,13 @@ NFSv4.1提供比NFSv3更高的安全性與可靠性、原因如下：
 
 === NFSv4.1 ACL
 
-支援NFSv4.x ACL、相較於一般的POSIX式權限、可提供明顯的優勢、例如：Cloud Volumes Service
+Google Cloud NetApp Volumes 支援 NFSv4.x ACL ，相較於一般 POSIX 樣式的權限，這項功能可提供明顯的優勢，例如：
 
 * 精細控制使用者對檔案和目錄的存取
 * 更好的NFS安全性
 * 改善與CIFS/SMB的互通性
 * 使用AUTH_SYS安全性移除每位使用者16個群組的NFS限制
-* ACL不需要群組ID（GID）解析、因此能有效移除GID限制NFSv4.1 ACL、而非Cloud Volumes Service 從無法更新的NFS用戶端控制。若要使用NFSv4.1 ACL、請確定用戶端的軟體版本支援這些ACL、並已安裝適當的NFS公用程式。
+* ACL 不需使用群組 ID （ GID ）解析，因此可有效移除 NFS 用戶端控制的 GID 限制 NFSv4.1 ACL ，而非 Google Cloud NetApp Volume 。若要使用NFSv4.1 ACL、請確定用戶端的軟體版本支援這些ACL、並已安裝適當的NFS公用程式。
 
 
 
@@ -208,9 +208,9 @@ NFSv4 ACL與Windows檔案層級ACL（NTFS ACL）不同、但具有類似的功�
 * *存取控制項目（ACE）。*清單中的權限項目。
 
 
-當用戶端在設定作業期間、在檔案上設定NFSv4.1 ACL時、Cloud Volumes Service 會將物件上的ACL設定為由任何現有的ACL取代。如果檔案上沒有ACL、則檔案的模式權限會從Owner@、group @和任何人@計算。如果檔案上有任何現有的SUID/SGID/便利貼位元、則不會受到影響。
+當用戶端在 setattr 作業期間針對檔案設定 NFSv4.1 ACL 時， Google Cloud NetApp Volumes 會在物件上設定該 ACL ，取代任何現有的 ACL 。如果檔案上沒有ACL、則檔案的模式權限會從Owner@、group @和任何人@計算。如果檔案上有任何現有的SUID/SGID/便利貼位元、則不會受到影響。
 
-當用戶端在GetAttr作業期間取得檔案的NFSv4.1 ACL時、Cloud Volumes Service 會讀取與物件相關聯的NFSv4.1 ACL、建構ACE清單、並將清單傳回用戶端。如果檔案具有NT ACL或模式位元、則會從模式位元建構ACL並傳回用戶端。
+當用戶端在 GetAttr 作業過程中取得檔案的 NFSv4.1 ACL 時， Google Cloud NetApp Volumes 會讀取與物件相關的 NFSv4.1 ACL ，建構 ACE 清單，並將清單傳回用戶端。如果檔案具有NT ACL或模式位元、則會從模式位元建構ACL並傳回用戶端。
 
 如果ACL中存在拒絕的ACE、則會拒絕存取；如果存在允許的ACE、則會授予存取權。不過、如果ACL中沒有任何ACE、也會拒絕存取。
 
@@ -244,7 +244,7 @@ NFSv4.1 ACL權限使用一系列大小寫字母值（例如「raptncy」）來�
 
 http://linux.die.net/man/5/nfs4_acl["NFSv4 ACL可提供ACL繼承功能"^]。ACL繼承意味著在使用NFSv4.1 ACL集的物件下建立的檔案或資料夾、可以根據的組態來繼承ACL http://linux.die.net/man/5/nfs4_acl["ACL繼承旗標"^]。
 
-https://man7.org/linux/man-pages/man2/umask.2.html["umask"^] 用於控制在目錄中建立檔案和資料夾的權限等級、而無需系統管理員互動。根據預設Cloud Volumes Service 、支援使用者使用支援功能來覆寫繼承的ACL、這是預期的行為 https://datatracker.ietf.org/doc/html/rfc5661["RFC 5661"^]。
+https://man7.org/linux/man-pages/man2/umask.2.html["umask"^]用於控制在目錄中建立檔案和資料夾的權限等級，而無需管理員互動。根據預設， Google Cloud NetApp Volumes 允許 umask 覆寫繼承的 ACL ，這是預期的行為 https://datatracker.ietf.org/doc/html/rfc5661["RFC 5661"^]。
 
 
 
@@ -305,20 +305,20 @@ D::EVERYONE@:waDTC
 
 === NFSv4.1 ID網域對應相依性
 
-NFSv4.1利用ID網域對應邏輯做為安全層、協助驗證嘗試存取NFSv4.1掛載的使用者確實是他們宣稱的對象。在這些情況下、來自NFSv4.1用戶端的使用者名稱和群組名稱會附加名稱字串、並傳送至Cloud Volumes Service 該實例。如果該使用者名稱/群組名稱和ID字串組合不相符、則使用者和（或）群組會被擠到用戶端上「/etc/idmapd.conf」檔案中指定的預設nober使用者。
+NFSv4.1利用ID網域對應邏輯做為安全層、協助驗證嘗試存取NFSv4.1掛載的使用者確實是他們宣稱的對象。在這些情況下，來自 NFSv4.1 用戶端的使用者名稱和群組名稱會附加名稱字串，並將其傳送至 Google Cloud NetApp Volumes 執行個體。如果該使用者名稱 / 群組名稱和 ID 字串組合不相符，則使用者和 / 或群組會被分成用戶端檔案中指定的預設無人使用者 `/etc/idmapd.conf`。
 
-此ID字串是適當遵循權限的必要條件、尤其是使用NFSv4.1 ACL和/或Kerberos時。因此、需要使用名稱服務伺服器相依性（例如LDAP伺服器）來確保用戶端之間的一致性、Cloud Volumes Service 以及使用者和群組名稱身分識別解析是否正確。
+此ID字串是適當遵循權限的必要條件、尤其是使用NFSv4.1 ACL和/或Kerberos時。因此，必須具備名稱服務伺服器相依性，例如 LDAP 伺服器，才能確保用戶端和 Google Cloud NetApp Volume 之間的一致性，以正確解析使用者和群組名稱身分。
 
-使用靜態預設ID網域名稱值「defaultv4iddomain.com」Cloud Volumes Service 。NFS用戶端的ID網域名稱設定預設為DNS網域名稱、但您可以在「/etc/idmapd.conf」中手動調整ID網域名稱。
+Google Cloud NetApp Volumes 使用靜態預設 ID 網域名稱值 `defaultv4iddomain.com`。NFS 用戶端的 ID 網域名稱設定預設為 DNS 網域名稱，但您可以在中手動調整 ID 網域名稱 `/etc/idmapd.conf`。
 
-如果在Cloud Volumes Service 支援功能中啟用LDAP、Cloud Volumes Service 則當NFS ID網域在DNS中變更為搜尋網域所設定的項目時、不需要修改用戶端、除非他們使用不同的DNS網域搜尋名稱。
+如果在 Google Cloud NetApp Volumes 中啟用 LDAP ，則 Google Cloud NetApp Volumes 會自動將 NFS ID 網域變更為 DNS 中的搜尋網域設定，除非用戶端使用不同的 DNS 網域搜尋名稱，否則不需要修改這些網域。
 
-當能夠解析本機檔案或LDAP中的使用者名稱或群組名稱時、會使用網域字串、而非相符的網域ID則會對nobnobody進行儲存。Cloud Volumes Service如果Cloud Volumes Service 無法在本機檔案或LDAP中找到使用者名稱或群組名稱、則會使用數字ID值、NFS用戶端會正確解析名稱（這與NFSv3行為類似）。
+當 Google Cloud NetApp Volumes 能夠解析本機檔案或 LDAP 中的使用者名稱或群組名稱時，會使用網域字串，而不相符的網域 ID 會佔用給任何人。如果 Google Cloud NetApp Volumes 在本機檔案或 LDAP 中找不到使用者名稱或群組名稱，則會使用數值 ID 值，且 NFS 用戶端會正確解析名稱（類似 NFSv3 行為）。
 
-在不變更用戶端的NFSv4.1 ID網域以符合Cloud Volumes Service 使用的功能的情況下、您會看到下列行為：
+如果不變更用戶端的 NFSv4.1 ID 網域以符合 Google Cloud NetApp Volumes Volume 所使用的內容，您會看到下列行為：
 
-* UNIX使用者和群組的本機項目Cloud Volumes Service （例如root、如本機UNIX使用者和群組所定義）會被浪費在nobnobody值。
-* 如果Cloud Volumes Service DNS網域不同於NFS用戶端和Cloud Volumes Service 更新、則UNIX使用者和在LDAP中有項目的群組（如果將Sfuse設定為使用LDAP）會被浪費給任何人。
+* 在 Google Cloud NetApp Volumes （例如 root ，在本機 UNIX 使用者和群組中定義）中有本機項目的 UNIX 使用者和群組會被浪費到 nobody 值。
+* 如果 NFS 用戶端和 Google Cloud NetApp Volume 之間的 DNS 網域不同，則會將具有 LDAP 項目的 UNIX 使用者和群組（如果 Google Cloud NetApp Volumes 設定為使用 LDAP ）浪費給任何人。
 * 沒有本機項目或LDAP項目的UNIX使用者和群組會使用數字ID值、並解析為NFS用戶端上指定的名稱。如果用戶端上不存在名稱、則只會顯示數字ID。
 
 
@@ -350,11 +350,11 @@ drwxrwxrwx 7 root   root         4096 Feb  3 12:06 ..
 
 === Kerberos相依性
 
-如果您打算使用Kerberos搭配NFS、Cloud Volumes Service 則必須搭配下列功能搭配使用才能使用：
+如果您計畫搭配 NFS 使用 Kerberos ，則必須搭配 Google Cloud NetApp Volumes 使用下列項目：
 
 * 適用於Kerberos Distribution Center服務（Kdc）的Active Directory網域
-* Active Directory網域中的使用者和群組屬性會填入UNIX資訊以供LDAP功能使用（Cloud Volumes Service 在列舉NFS Kerberos時、需要使用者的SPN-UNIX使用者對應才能正常運作）。
-* LDAP已在Cloud Volumes Service 實例上啟用
+* Active Directory 網域中的使用者和群組屬性會填入 UNIX 資訊以供 LDAP 功能使用（ Google Cloud NetApp Volumes 中的 NFS Kerberos 需要使用者 SPN 至 UNIX 使用者對應才能獲得適當的功能）。
+* 在 Google Cloud NetApp Volumes 執行個體上啟用 LDAP
 * DNS服務的Active Directory網域
 
 
@@ -405,20 +405,20 @@ uid=65534(nfsnobody) gid=65534(nfsnobody) groups=65534(nfsnobody)
 
 當您在檔案清單中看到使用者和（或）群組的「nobnoby」時、這通常表示NFSv4.1中的某些項目設定錯誤。區分大小寫的功能可在此處發揮。
 
-例如、如果user1@CVSDEM.LOSLL（uid、1234、gid、1234）正在存取匯出、Cloud Volumes Service 則必須找到user1@CVSDEM.LOSLL（uid、gid、1234）。如果Cloud Volumes Service 使用者在支援資料的範本中是USER1@CVSDEMO.在許多情況下、您可以在用戶端的訊息檔案中看到下列內容：
+例如，如果 user1@CVSDEMO.LOTLL （ uid 1234 ， gid 1234 ）正在存取匯出，則 Google Cloud NetApp Volumes 必須能夠找到 user1@CVSDEMO.LOTML （ uid 1234 ， gid 1234 ）。如果 Google Cloud NetApp Volumes 中的使用者是 USER1@CVSDEMO.LOTIT ，則它將不相符（大寫使用者 1 與小寫使用者 1 ）。在許多情況下、您可以在用戶端的訊息檔案中看到下列內容：
 
 ....
 May 19 13:14:29 centos7 nfsidmap[17481]: nss_getpwnam: name 'root@defaultv4iddomain.com' does not map into domain 'CVSDEMO.LOCAL'
 May 19 13:15:05 centos7 nfsidmap[17534]: nss_getpwnam: name 'nobody' does not map into domain 'CVSDEMO.LOCAL'
 ....
-用戶端和伺服器必須都同意使用者確實是他們聲稱的對象、因此您必須檢查下列項目、以確保用戶端看到的使用者擁有Cloud Volumes Service 與此使用者相同的資訊。
+用戶端和伺服器都必須同意使用者確實是他們所宣稱的身分，因此您必須檢查下列事項，以確保用戶端所看到的使用者擁有與 Google Cloud NetApp Volumes 所看到的使用者相同的資訊。
 
-* * NFSv4.x ID網域。*用戶端：「idmapd.conf」檔案；Cloud Volumes Service 使用「defaultv4iddomain.com」、無法手動變更。如果將LDAP搭配NFSv4.1使用、Cloud Volumes Service 則將ID網域變更為DNS搜尋網域所使用的網域、與AD網域相同。
-* *使用者名稱和數字ID。*這會決定用戶端尋找使用者名稱的位置、並運用名稱服務交換器組態：用戶端：「nsswitch.conf」和（或）本機密碼和群組檔案；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。
-* *群組名稱和數字ID。*這會決定用戶端尋找群組名稱的位置、並運用名稱服務交換器組態（用戶端：「nsswitch.conf」和/或本機密碼和群組檔案）；Cloud Volumes Service 不允許對此進行修改、但會在啟用時自動將LDAP新增至組態。
+* * NFSv4.x ID 網域 *用戶端： `idmapd.conf`檔案； Google Cloud NetApp Volumes 使用 `defaultv4iddomain.com`且無法手動變更。如果將 LDAP 搭配 NFSv4.1 使用， Google Cloud NetApp Volumes 會將 ID 網域變更為 DNS 搜尋網域所使用的網域，該網域與 AD 網域相同。
+* * 使用者名稱和數字 ID 。 *這會決定用戶端尋找使用者名稱的位置，並利用名稱服務交換器組態（用戶端：和 / 或本機密碼和群組檔案） `nsswitch.conf`； Google Cloud NetApp Volumes 不允許修改此設定，但會在啟用 LDAP 時自動將其新增至組態。
+* * 群組名稱和數字 ID 。 *這會決定用戶端尋找群組名稱的位置，並利用名稱服務交換器組態（用戶端：和 / 或本機密碼和群組檔案） `nsswitch.conf`； Google Cloud NetApp Volumes 不允許修改此設定，但會在啟用時自動將 LDAP 新增至組態。
 
 
-在幾乎所有的情況Cloud Volumes Service 下、如果您在用戶端的使用者和群組清單中看到「nobnoby」、問題在於使用者或群組名稱網域ID轉譯功能會在更新到NFS用戶端之間進行。若要避免這種情況發生、請使用LDAP來解決用戶端和Cloud Volumes Service 客戶端之間的使用者和群組資訊。
+在幾乎所有情況下，如果您在用戶端的使用者和群組清單中看到 `nobody`，問題是 Google Cloud NetApp Volumes 和 NFS 用戶端之間的使用者或群組名稱網域 ID 轉譯。為了避免發生這種情況，請使用 LDAP 來解析用戶端與 Google Cloud NetApp Volume 之間的使用者和群組資訊。
 
 
 
@@ -428,7 +428,7 @@ May 19 13:15:05 centos7 nfsidmap[17534]: nss_getpwnam: name 'nobody' does not ma
 
 除了使用「/var/log/Messages」來找出NFSv4 ID的問題、您也可以使用 https://man7.org/linux/man-pages/man5/nfsidmap.5.html["nfsidmap -l"^] NFS用戶端上的命令、可檢視哪些使用者名稱已正確對應至NFSv4網域。
 
-例如、此命令會在用戶端找到使用者之後輸出、Cloud Volumes Service 並由用戶端存取NFSv4.x掛載：
+例如，這是在用戶端和 Google Cloud NetApp Volumes 存取 NFSv4.x 掛載後的命令輸出：
 
 ....
 # nfsidmap -l

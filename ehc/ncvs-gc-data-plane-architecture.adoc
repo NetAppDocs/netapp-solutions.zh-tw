@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-data-plane-architecture.html 
 keywords: cloud volumes service, google cloud, service networking, vpc peering 
-summary: 適用於Google Cloud的解決方案運用Google Cloud私有服務存取架構。Cloud Volumes Service在此架構中、使用者可以連線Cloud Volumes Service 到這個功能。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。 
+summary: Google Cloud NetApp Volumes for Google Cloud 利用 Google Cloud 私有服務存取架構。在此架構中，使用者可以連線至 Google Cloud NetApp Volumes 。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。 
 ---
 = 資料平面架構
 :hardbreaks:
@@ -14,22 +14,22 @@ summary: 適用於Google Cloud的解決方案運用Google Cloud私有服務存�
 
 
 [role="lead"]
-適用於Google Cloud的解決方案運用Google Cloud Cloud Volumes Service https://cloud.google.com/vpc/docs/configure-private-services-access["私有服務存取"^] 架構。在此架構中、使用者可以連線Cloud Volumes Service 到這個功能。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。
+Google Cloud NetApp Volumes for Google Cloud 運用 Google Cloud https://cloud.google.com/vpc/docs/configure-private-services-access["私有服務存取"^] 架構。在此架構中，使用者可以連線至 Google Cloud NetApp Volumes 。此架構使用服務網路和VPC對等架構、如同其他Google Cloud服務、確保租戶之間完全隔離。
 
-如需Cloud Volumes Service Google Cloud的架構總覽、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture["架構Cloud Volumes Service"^]。
+如需 Google Cloud NetApp Volumes for Google Cloud 的架構總覽，請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/architecture["Google Cloud NetApp Volumes 架構"^]。
 
-使用者VPC（獨立式或共享）會在Cloud Volumes Service 託管的代管租戶專案中連接至VPC、以裝載這些磁碟區。
+使用者 VPC （獨立式或共享式）會在 Google Cloud NetApp Volumes 託管租戶專案中連接至 VPC ，而這類租戶專案裝載這些 Volume 。
 
 image:ncvs-gc-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-上圖顯示一個專案（中間是CVS消費者專案）、其中三個VPC網路連接Cloud Volumes Service 到多個運算引擎VM（GCE1-7）共用磁碟區：
+上圖顯示一個專案（中間是 NetApp Volumes 消費者專案），其中三個 VPC 網路連線至 Google Cloud NetApp Volumes 和多個 Compute Engine VM （ GCE1-7 ）共用磁碟區：
 
 * VPC1允許GCE1存取磁碟區A和B
 * VPC2可讓GCE2和GCE4存取Volume C
-* 第三個VPC網路是共享的VPC、與兩個服務專案共用。它可讓GCE3、GCE4、GCE5和GCE6存取Volume D和E共享VPC網路僅支援CVS效能服務類型的磁碟區。
+* 第三個VPC網路是共享的VPC、與兩個服務專案共用。它可讓 GCE3 ， GCE4 ， GCE5 和 GCE6 存取 Volume D 和 E 。共享 VPC 網路僅支援 NetApp Volume-Performance 服務類型的 Volume 。
 
 
 
 NOTE: GCE7無法存取任何Volume。
 
-資料可在傳輸中（使用Kerberos和/或SMB加密）加密、Cloud Volumes Service 也可在支援中加密。
+資料可在傳輸中（使用 Kerberos 和 / 或 SMB 加密）和 Google Cloud NetApp Volumes 中的閒置時加密。

@@ -16,58 +16,58 @@ summary: SMB是由Microsoft開發的網路檔案共用傳輸協定、可透過�
 [role="lead"]
 https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/hh831795(v=ws.11)["中小企業"^] 是由Microsoft開發的網路檔案共用傳輸協定、可透過乙太網路為多個SMB用戶端提供集中式使用者/群組驗證、權限、鎖定及檔案共用。檔案和資料夾會以共用的方式呈現給用戶端、您可以設定各種共用內容、並透過共用層級權限來提供存取控制。SMB可以呈現給任何支援該傳輸協定的用戶端、包括Windows、Apple和Linux用戶端。
 
-支援SMB 2.1和3.x版的傳輸協定。Cloud Volumes Service
+Google Cloud NetApp Volumes 支援 SMB 2.1 和 3.x 版的通訊協定。
 
 
 
 == 存取控制/SMB共用區
 
-* 當Windows使用者名稱要求存取Cloud Volumes Service 到此卷時、Cloud Volumes Service 功能區會使用Cloud Volumes Service 由管理員設定的方法尋找UNIX使用者名稱。
+* 當 Windows 使用者名稱要求存取 Google Cloud NetApp Volumes Volume 時， Google Cloud NetApp Volumes 會使用 Google Cloud NetApp Volumes 管理員所設定的方法來尋找 UNIX 使用者名稱。
 * 如果已設定外部UNIX身分識別供應商（LDAP）、且Windows / UNIX使用者名稱相同、則Windows使用者名稱會將1：1對應至UNIX使用者名稱、而不需要任何額外的組態。啟用LDAP時、會使用Active Directory來裝載使用者和群組物件的UNIX屬性。
-* 如果Windows名稱和UNIX名稱不一致、則必須將LDAP設定為允許Cloud Volumes Service 使用LDAP名稱對應組態（請參閱一節） link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#using-ldap-for-asymmetric-name-mapping["「使用LDAP進行非對稱名稱對應」"]）。
-* 如果未使用LDAP、則Windows SMB使用者會對應至Cloud Volumes Service 預設的本地UNIX使用者、名稱為「pcuser" in fuse」。這表示在Windows中、對應到「pcuser'」的使用者所寫入的檔案、會在多重傳輸協定NAS環境中、將UNIX擁有權顯示為「pcuser'」。這裏的「pcuser」實際上是Linux環境中的「nobnobody」使用者（UID 65534）。
+* 如果 Windows 名稱和 UNIX 名稱不完全相符，則必須將 LDAP 設定為允許 Google Cloud NetApp Volume 使用 LDAP 名稱對應組態（請參閱一節link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#using-ldap-for-asymmetric-name-mapping["「使用LDAP進行非對稱名稱對應」"]）。
+* 如果未使用 LDAP ，則 Windows SMB 使用者會對應至在 Google Cloud NetApp Volumes 中命名的預設 UNIX 使用者 `pcuser`。這表示使用者在 Windows 中寫入的檔案會對應到 `pcuser`多重傳輸協定 NAS 環境中的顯示 UNIX 擁有權 `pcuser`。 `pcuser`以下是 Linux 環境中的有效 `nobody`使用者（ UID 65534 ）。
 
 
 在僅使用SMB的部署中、「pcuser'」對應仍會發生、但這並不重要、因為Windows使用者和群組擁有權已正確顯示、而且不允許NFS存取SMB專屬磁碟區。此外、純SMB磁碟區在建立之後、不支援轉換成NFS或雙傳輸協定磁碟區。
 
-Windows利用Kerberos與Active Directory網域控制器進行使用者名稱驗證、這需要與Cloud Volumes Service AD DC交換使用者名稱/密碼、此區段是由實例外部的。當SMB用戶端使用「\伺服器名稱」的UNC路徑時、就會使用Kerberos驗證、下列情況為真：
+Windows 利用 Kerberos 與 Active Directory 網域控制器進行使用者名稱驗證，這需要與 AD DC 交換使用者名稱 / 密碼，而 AD DC 是 Google Cloud NetApp Volumes 執行個體的外部。當 SMB 用戶端使用 UNC 路徑時，會使用 Kerberos 驗證 `\\SERVERNAME`，且下列情況為真：
 
 * 伺服器名稱存在DNS A/Aaaa項目
 * 伺服器名稱具有SMB / CIFS存取的有效SPN
 
 
-建立一個支援功能的SMB Volume時、會依區段中的定義建立機器帳戶名稱Cloud Volumes Service link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["「Cloud Volumes Service 如何在Active Directory中顯示此功能。」"] 該機器帳戶名稱也會成為SMB共用存取路徑、因為Cloud Volumes Service 它利用動態DNS（DDNS）在DNS中建立必要的A/AAAA和PTr項目、以及在機器帳戶主體上建立必要的SPN-s項目。
+建立 Google Cloud NetApp Volumes SMB Volume 時，機器帳戶名稱會依照章節中的定義建立，link:ncvs-gc-considerations-creating-active-directory-connections.html#how-cloud-volumes-service-shows-up-in-active-directory["「 Google Cloud NetApp Volume 在 Active Directory 中的顯示方式。」"]機器帳戶名稱也會成為 SMB 共用存取路徑，因為 Google Cloud NetApp Volumes 會利用動態 DNS （ DDNS ）在 DNS 中建立必要的 A/AAAA 和 PTR 項目，以及機器帳戶主體上必要的 SPN 項目。
 
 
-NOTE: 若要建立PTr項目、Cloud Volumes Service DNS伺服器上必須存在適用於此實例IP位址的反向對應區域。
+NOTE: 若要建立 PTR 項目， DNS 伺服器上必須存在 Google Cloud NetApp Volumes 執行個體 IP 位址的反向對應區域。
 
-例如Cloud Volumes Service 、此Sesvvolume使用下列的UNC共用路徑：「\cs-east- 433d.cvsdemo.local'」。
+例如，此 Google Cloud NetApp Volumes Volume 使用下列 UNC 共用路徑 `\\cvs-east- 433d.cvsdemo.local`：。
 
-在Active Directory中、這些是Cloud Volumes Service產生的SPN項目：
+在 Active Directory 中，以下是 Google Cloud NetApp Volumes 產生的 SPN 項目：
 
 image:ncvs-gc-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 這是DNS轉送/反轉查詢結果：
 
 ....
-PS C:\> nslookup CVS-EAST-433D
+PS C:\> nslookup NetApp Volumes-EAST-433D
 Server:  activedirectory. region. lab. internal
 Address:  10. xx.0. xx
-Name:    CVS-EAST-433D.cvsdemo.local
+Name:    NetApp Volumes-EAST-433D.cvsdemo.local
 Address:  10. xxx.0. x
 PS C:\> nslookup 10. xxx.0. x
 Server:  activedirectory.region.lab.internal
 Address:  10.xx.0.xx
-Name:    CVS-EAST-433D.CVSDEMO.LOCAL
+Name:    NetApp Volumes-EAST-433D.CVSDEMO.LOCAL
 Address:  10. xxx.0. x
 ....
-或者、啟用Cloud Volumes Service /要求SMB加密以利執行更多存取控制、以利執行支援。如果其中一個端點不支援SMB加密、則不允許存取。
+您也可以在 Google Cloud NetApp Volumes 中啟用 / 要求 SMB 共用的 SMB 加密，以套用更多存取控制。如果其中一個端點不支援SMB加密、則不允許存取。
 
 
 
 === 使用SMB名稱別名
 
-在某些情況下、終端使用者可能會擔心安全問題、因為他們知道Cloud Volumes Service 使用中的機器帳戶名稱以供使用。在其他情況下、您可能只想提供更簡單的存取路徑給終端使用者。在這些情況下、您可以建立SMB別名。
+在某些情況下，使用者可能會擔心安全問題，因為他們知道 Google Cloud NetApp Volumes 使用的機器帳戶名稱。在其他情況下、您可能只想提供更簡單的存取路徑給終端使用者。在這些情況下、您可以建立SMB別名。
 
 如果您想要為SMB共用路徑建立別名、可以利用DNS中稱為「CNAME-」記錄的名稱。例如、如果您想要使用名稱「\CIFS」來存取共享區、而不是「\CVS東- 433d.cvsdemo.local」、但仍想要使用Kerberos驗證、DNS中的一種命名為「CNAME」、指向現有的A/AAAA記錄、以及新增至現有機器帳戶的其他SPN-s、則可提供Kerberos存取。
 
@@ -79,7 +79,7 @@ image:ncvs-gc-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 PS C:\> nslookup cifs
 Server:  ok-activedirectory.us-east4-a.c.cv-solution-architect-lab.internal
 Address:  10. xx.0. xx
-Name:    CVS-EAST-433D.cvsdemo.local
+Name:    NetApp Volumes-EAST-433D.cvsdemo.local
 Address:  10. xxx.0. x
 Aliases:  cifs.cvsdemo.local
 ....
@@ -95,7 +95,7 @@ image:ncvs-gc-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 === SMB驗證的語言
 
-支援下列項目Cloud Volumes Service https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/8df1a501-ce4e-4287-8848-5f1d4733e280["方言"^] SMB驗證：
+Google Cloud NetApp Volumes 支援下列 https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb2/8df1a501-ce4e-4287-8848-5f1d4733e280["方言"^] SMB 驗證：
 
 * LM
 * NTLM
@@ -105,7 +105,7 @@ image:ncvs-gc-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 SMB共用存取的Kerberos驗證是您可以使用的最安全驗證層級。啟用AES和SMB加密後、安全層級會進一步提升。
 
-支援LM和NTLM驗證的向下相容性。Cloud Volumes Service當Kerberos設定錯誤時（例如建立SMB別名時）、共用存取會回復到較弱的驗證方法（例如：NTLMv2）。由於這些機制較不安全、因此在某些Active Directory環境中會停用這些機制。如果停用較弱的驗證方法、但未正確設定Kerberos、則共用存取會失敗、因為沒有有效的驗證方法可以還原。
+Google Cloud NetApp Volumes 也支援 LM 和 NTLM 驗證的回溯相容性。當Kerberos設定錯誤時（例如建立SMB別名時）、共用存取會回復到較弱的驗證方法（例如：NTLMv2）。由於這些機制較不安全、因此在某些Active Directory環境中會停用這些機制。如果停用較弱的驗證方法、但未正確設定Kerberos、則共用存取會失敗、因為沒有有效的驗證方法可以還原。
 
 如需在Active Directory中設定/檢視支援的驗證層級的相關資訊、請參閱 https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/network-security-lan-manager-authentication-level["網路安全性：LAN Manager驗證層級"^]。
 
@@ -142,11 +142,11 @@ NTFS權限由Windows SMB用戶端控制。
 
 共用權限比NTFS權限更為一般（唯讀/變更/完全控制）、並控制SMB共用的初始項目、類似於NFS匯出原則規則的運作方式。
 
-雖然NFS匯出原則規則可透過主機型資訊（例如IP位址或主機名稱）來控制存取、但SMB共用權限可以使用共用ACL中的使用者和群組ACE來控制存取。您可以從Windows用戶端或Cloud Volumes Service 從功能區管理UI設定共用ACL。
+雖然NFS匯出原則規則可透過主機型資訊（例如IP位址或主機名稱）來控制存取、但SMB共用權限可以使用共用ACL中的使用者和群組ACE來控制存取。您可以從 Windows 用戶端或 Google Cloud NetApp Volumes 管理 UI 設定共用 ACL 。
 
 根據預設、共用ACL和初始Volume ACL包括「完全控制的每個人」。檔案ACL應該變更、但共用權限會被共用區中物件的檔案權限所取代。
 
-例如、如果使用者只能讀取Cloud Volumes Service 對此實體磁碟區檔案ACL的存取權、則即使共用ACL設定為「擁有完全控制權的所有人」、仍無法存取建立檔案和資料夾、如下圖所示。
+例如，如果只允許使用者讀取 Google Cloud NetApp Volumes Volume 檔案 ACL ，則即使共用 ACL 設定為「具有完全控制權的所有人」，他們仍無法存取建立檔案和資料夾，如下圖所示。
 
 image:ncvs-gc-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -165,46 +165,46 @@ image:ncvs-gc-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 == SMB共享安全功能
 
-當您第一次在Cloud Volumes Service 支援SMB存取的情況下建立Volume時、系統會提供一系列的選項來保護該Volume。
+當您第一次在 Google Cloud NetApp Volumes 中建立具有 SMB 存取權的 Volume 時，會出現一系列選項來保護該 Volume 的安全。
 
-這些選項中的部分取決於Cloud Volumes Service 「樣層」（「效能」或「軟體」）、選項包括：
+這些選項中的部分取決於 Google Cloud NetApp Volumes （效能或軟體）層級，選項包括：
 
-* *使Snapshot目錄可見（同時適用於CVs-Performance和CVs-SW）。*此選項控制SMB用戶端是否可以存取SMB共用區（「\伺服器\共用\~snapshot」和/或「舊版」索引標籤）中的Snapshot目錄。未核取預設設定、這表示磁碟區預設為隱藏及不允許存取「~snapshot」目錄、而且磁碟區的「舊版」索引標籤不會顯示Snapshot複本。
+* * 使快照目錄可見（適用於 NetApp Volumes - Performance 和 NetApp Volumes - SW ）。 *此選項可控制 SMB 用戶端是否可以存取 SMB 共用和 / 或舊版索引標籤中的 Snapshot 目錄(`\\server\share\~snapshot`）。不會核取預設設定，這表示磁碟區預設為隱藏和禁止存取目錄，而且磁碟 `~snapshot`區的「舊版」索引標籤中不會顯示 Snapshot 複本。
 
 
 image:ncvs-gc-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-基於安全理由、效能理由（將這些資料夾隱藏在AV掃描之外）或偏好、可能需要從終端使用者處隱藏Snapshot複本。由於「支援快照」是唯讀的、因此即使這些快照可見、終端使用者仍無法刪除或修改Snapshot目錄中的檔案。Cloud Volumes Service應用Snapshot複本時、檔案或資料夾的檔案權限。如果檔案或資料夾的權限在Snapshot複本之間變更、則變更也會套用至Snapshot目錄中的檔案或資料夾。使用者和群組可以根據權限存取這些檔案或資料夾。雖然無法刪除或修改Snapshot目錄中的檔案、但仍可將檔案或資料夾從Snapshot目錄中複製出來。
+基於安全理由、效能理由（將這些資料夾隱藏在AV掃描之外）或偏好、可能需要從終端使用者處隱藏Snapshot複本。Google Cloud NetApp Volume Snapshot 是唯讀的，因此即使這些 Snapshot 可見，終端使用者也無法刪除或修改 Snapshot 目錄中的檔案。應用Snapshot複本時、檔案或資料夾的檔案權限。如果檔案或資料夾的權限在Snapshot複本之間變更、則變更也會套用至Snapshot目錄中的檔案或資料夾。使用者和群組可以根據權限存取這些檔案或資料夾。雖然無法刪除或修改Snapshot目錄中的檔案、但仍可將檔案或資料夾從Snapshot目錄中複製出來。
 
-* *啟用SMB加密（同時適用於CVs-Performance和CVs-SW）。* SMB加密預設為停用（未核取）。核取此方塊可啟用SMB加密、這表示SMB用戶端與伺服器之間的流量會在傳輸中加密、並以議定的最高支援加密層級進行加密。支援高達AES-256的SMB加密。Cloud Volumes Service啟用SMB加密確實會造成效能損失、而您的SMB用戶端可能會或可能不會察覺到這種情況、範圍大致介於10-20%之間。NetApp強烈建議測試、以瞭解效能損失是否可接受。
-* *隱藏SMB共用區（同時適用於CVS效能和CVS軟體）。*設定此選項會隱藏SMB共用路徑、使其無法正常瀏覽。這表示不知道共用路徑的用戶端在存取預設的UNC路徑（例如：「\CVS SMB」）時、無法看到共用區。核取此核取方塊時、只有明確知道SMB共用路徑或由群組原則物件定義共用路徑的用戶端才能存取該路徑（透過混淆來確保安全）。
-* *啟用存取型列舉（ABE）（僅限CVs-SW）。*這類似於隱藏SMB共用區、但共用區或檔案只會隱藏在沒有存取物件權限的使用者或群組中。例如、如果不允許Windows使用者「Joe」透過權限至少讀取存取權、則Windows使用者「Joe」根本看不到SMB共用區或檔案。此功能預設為停用、您可以選取核取方塊來啟用此功能。如需ABE的詳細資訊、請參閱NetApp知識庫文章 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_does_Access_Based_Enumeration_(ABE)_work["存取型列舉（ABE）如何運作？"^]
-* *啟用持續可用的（CA）共用支援（僅限CVS效能）。* https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_are_SMB_Continuously_Available_(CA)_Shares["持續可用的SMB共用"^] 透過在Cloud Volumes Service 整個節點之間複寫鎖定狀態、將容錯移轉事件期間的應用程式中斷降至最低。這不是一項安全功能、但確實能提供更好的整體恢復能力。目前、此功能僅支援SQL Server和FSLogix應用程式。
+* * 啟用 SMB 加密（適用於 NetApp Volumes - Performance 和 NetApp Volumes - SW ）。 *SMB 加密在 SMB 共用上預設為停用（取消核取）。核取此方塊可啟用SMB加密、這表示SMB用戶端與伺服器之間的流量會在傳輸中加密、並以議定的最高支援加密層級進行加密。Google Cloud NetApp Volumes 可為 SMB 支援最高 AES-256 加密。啟用SMB加密確實會造成效能損失、而您的SMB用戶端可能會或可能不會察覺到這種情況、範圍大致介於10-20%之間。NetApp強烈建議測試、以瞭解效能損失是否可接受。
+* * 隱藏 SMB 共用（適用於 NetApp Volumes - 效能和 NetApp Volumes - 軟體）。 *設定此選項會隱藏 SMB 共用路徑，使其無法正常瀏覽。這表示不知道共用路徑的用戶端在存取預設的 UNC 路徑（例如）時，看不到共用 `\\NetApp Volumes-SMB`。核取此核取方塊時、只有明確知道SMB共用路徑或由群組原則物件定義共用路徑的用戶端才能存取該路徑（透過混淆來確保安全）。
+* * 啟用存取型列舉（ ABE ）（僅限 NetApp Volumes - SW ） *這與隱藏 SMB 共用類似，除了共用或檔案僅對沒有存取物件權限的使用者或群組隱藏。例如，如果不允許 Windows 使用者 `joe`至少透過權限進行讀取存取，則 Windows 使用者 `joe`根本看不到 SMB 共用或檔案。此功能預設為停用、您可以選取核取方塊來啟用此功能。如需 ABE 的詳細資訊，請參閱 NetApp 知識庫文件 https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/How_does_Access_Based_Enumeration_(ABE)_work["存取型列舉（ABE）如何運作？"^]
+* * 啟用持續可用（ CA ）共享支援（僅限 NetApp Volumes - Performance ）。 * 透過在 Google Cloud NetApp Volumes https://kb.netapp.com/Advice_and_Troubleshooting/Data_Storage_Software/ONTAP_OS/What_are_SMB_Continuously_Available_(CA)_Shares["持續可用的SMB共用"^] 後端系統中的節點之間複寫鎖定狀態，可將容錯移轉事件期間的應用程式中斷情形降至最低。這不是一項安全功能、但確實能提供更好的整體恢復能力。目前、此功能僅支援SQL Server和FSLogix應用程式。
 
 
 
 
 == 預設隱藏共用
 
-當SMB伺服器是以Cloud Volumes Service 支援功能建立時、就會出現這種情況 https://library.netapp.com/ecmdocs/ECMP1366834/html/GUID-5B56B12D-219C-4E23-B3F8-1CB1C4F619CE.html["隱藏的管理共用"^] （使用$命名慣例）、這是在資料Volume SMB共用區之外建立的。其中包括C$（命名空間存取）和IPC$（共用具名管道、用於程式之間的通訊、例如用於Microsoft管理主控台（MMC）存取的遠端程序呼叫（RPC）））。
+在 Google Cloud NetApp Volumes 中建立 SMB 伺服器時， https://library.netapp.com/ecmdocs/ECMP1366834/html/GUID-5B56B12D-219C-4E23-B3F8-1CB1C4F619CE.html["隱藏的管理共用"^]除了資料 Volume SMB 共用之外，還會建立（使用 $ 命名慣例）。其中包括C$（命名空間存取）和IPC$（共用具名管道、用於程式之間的通訊、例如用於Microsoft管理主控台（MMC）存取的遠端程序呼叫（RPC）））。
 
 IPC$共用區不含共用ACL、無法修改、嚴格用於RPC呼叫和 https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/inter-process-communication-share-null-session["Windows預設不允許匿名存取這些共用"^]。
 
-依預設、C$共用可讓BUILTIN/系統管理員存取、但Cloud Volumes Service 由於能夠存取C$共用區、因此無法檢視Cloud Volumes Service 所有安裝於此的磁碟區、因此無法存取共享ACL。因此、嘗試瀏覽至「\SERVER\C$」失敗。
+依預設， C$ 共用允許 BUILTIN/ 系統管理員存取，但 Google Cloud NetApp Volumes 自動化會移除共用 ACL ，不允許任何人存取，因為存取 C$ 共用可讓您在 Google Cloud NetApp Volumes 檔案系統中看到所有掛載的 Volume 。因此，嘗試導覽 `\\SERVER\C$`失敗。
 
 
 
 == 具有本機/BUILTIN/系統管理員/備份權限的帳戶
 
-由於本機群組（例如BUILTIN\Administrator）會套用存取權限給選取的網域使用者和群組、因此、支援SMB伺服器的功能與一般Windows SMB伺服器類似。Cloud Volumes Service
+Google Cloud NetApp Volumes SMB 伺服器的功能與一般 Windows SMB 伺服器類似，因為有一些本機群組（例如 BUILTIN\Administrators ）會將存取權限套用至特定的網域使用者和群組。
 
-當您指定要新增至備份使用者的使用者時、該使用者會新增至Cloud Volumes Service 使用該Active Directory連線的執行個體中BUILTIN\Backup Operators群組、然後取得 https://docs.microsoft.com/en-us/windows-hardware/drivers/ifs/privileges["SeBackup權限和Se恢復 權限"^]。
+當您指定要新增至備份使用者時，使用者會新增至 Google Cloud NetApp Volumes 執行個體中使用該 Active Directory 連線的 BUILTIN\Backup Operators 群組，然後取得 https://docs.microsoft.com/en-us/windows-hardware/drivers/ifs/privileges["SeBackup權限和Se恢復 權限"^]。
 
 當您將使用者新增至「安全性權限使用者」時、系統會將SeSecurityPrivilege賦予使用者、這在某些應用程式使用案例（例如）中很有用 https://docs.netapp.com/us-en/ontap/smb-hyper-v-sql/add-sesecurityprivilege-user-account-task.html["SMB共用上的SQL Server"^]。
 
 image:ncvs-gc-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-您可以Cloud Volumes Service 透過具有適當權限的MMC檢視本地的群組成員資格。下圖顯示使用Cloud Volumes Service 者已透過使用此功能新增的使用者。
+您可以使用適當的 Privileges ，透過 MMC 檢視 Google Cloud NetApp Volumes 本機群組成員資格。下圖顯示已使用 Google Cloud NetApp Volumes 主控台新增的使用者。
 
 image:ncvs-gc-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -228,9 +228,9 @@ image:ncvs-gc-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 | 內建\網域使用者 | 網域\網域使用者 
 |===
-*群組成員資格是由Cloud Volumes Service 不實Active Directory連線組態所控制。
+* 在 Google Cloud NetApp Volumes Active Directory 連線組態中控制群組成員資格。
 
-您可以在MMC視窗中檢視本機使用者和群組（及群組成員）、但無法從這個主控台新增或刪除物件或變更群組成員資格。根據預設、Cloud Volumes Service 只有Domain Admins群組和Administrator會新增至功能區的BUILTIN\Administrator群組。目前您無法修改此項目。
+您可以在MMC視窗中檢視本機使用者和群組（及群組成員）、但無法從這個主控台新增或刪除物件或變更群組成員資格。根據預設，只有 Domain Admins 群組和 Administrator 會新增至 Google Cloud NetApp Volumes 中的 BUILTIN\Administrators 群組。目前您無法修改此項目。
 
 image:ncvs-gc-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -240,13 +240,13 @@ image:ncvs-gc-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 == MMC/電腦管理存取
 
-SMB存取Cloud Volumes Service 功能可連線至電腦管理MMC、讓您檢視共用區、管理共用ACL、以及檢視/管理SMB工作階段和開啟檔案。
+Google Cloud NetApp Volumes 中的 SMB 存取功能可連線至電腦管理 MMC ，讓您檢視共用區，管理共用 ACL ，以及檢視 / 管理 SMB 工作階段和開啟檔案。
 
-若要使用MMC來檢視Cloud Volumes Service SMB共用區和Sessions、目前登入的使用者必須是網域管理員。其他使用者可以從MMC檢視或管理SMB伺服器、並在嘗試檢視Cloud Volumes Service 有關Sisb執行個體的共用或工作階段時、收到「您沒有權限」對話方塊。
+若要使用 MMC 在 Google Cloud NetApp Volumes 中檢視 SMB 共用和工作階段，目前登入的使用者必須是網域管理員。其他使用者可以從 MMC 檢視或管理 SMB 伺服器，並在嘗試檢視 Google Cloud NetApp Volumes SMB 執行個體上的共用或工作階段時，收到「您沒有權限」對話方塊。
 
-若要連線至SMB伺服器、請開啟「電腦管理」、在「電腦管理」上按一下滑鼠右鍵、然後選取「連線至其他電腦」。這會開啟「Select Computer（選取電腦）」對話方塊、您可以在其中輸入SMB伺服器名稱（可在Cloud Volumes Service 《支援資料》資料冊中找到）。
+若要連線至SMB伺服器、請開啟「電腦管理」、在「電腦管理」上按一下滑鼠右鍵、然後選取「連線至其他電腦」。這會開啟「 Select Computer 」（選取電腦）對話方塊，您可以在其中輸入 SMB 伺服器名稱（可在 Google Cloud NetApp Volumes Volume 資訊中找到）。
 
-當您檢視具有適當權限的SMB共用時、Cloud Volumes Service 您會看到共享Active Directory連線的所有可用共享區。若要控制這種行為、請在Cloud Volumes Service 現象區執行個體上設定隱藏SMB共用選項。
+當您以適當的權限檢視 SMB 共用時，您會在共用 Active Directory 連線的 Google Cloud NetApp Volumes 執行個體中看到所有可用的共用。若要控制此行為，請在 Google Cloud NetApp Volumes Volume 執行個體上設定隱藏 SMB 共用選項。
 
 請記住、每個地區只允許一個Active Directory連線。
 
@@ -284,21 +284,21 @@ image:ncvs-gc-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 == SMB伺服器安全性資訊
 
-本產品的SMB伺服器Cloud Volumes Service 使用一系列選項來定義SMB連線的安全性原則、包括Kerberos時鐘偏移、票證存留期、加密等。
+Google Cloud NetApp Volumes 中的 SMB 伺服器使用一系列選項來定義 SMB 連線的安全性原則，包括 Kerberos 時鐘偏差，票證期限，加密等。
 
-下表列出這些選項、其功能、預設組態、以及是否可以使用Cloud Volumes Service 更新。部分選項不適用於Cloud Volumes Service 此功能。
+下表列出這些選項，選項，預設組態，以及是否可以使用 Google Cloud NetApp Volumes 進行修改。某些選項不適用於 Google Cloud NetApp Volumes 。
 
 |===
 | 安全選項 | 它的作用 | 預設值 | 可以改變嗎？ 
 
 
-| Kerberos時鐘最大偏差（分鐘） | 最大Cloud Volumes Service 程度地縮短了在各個領域控制器之間的時間偏差。如果時間偏移超過5分鐘、Kerberos驗證就會失敗。這會設為Active Directory預設值。 | 5. | 否 
+| Kerberos時鐘最大偏差（分鐘） | Google Cloud NetApp Volume 與網域控制器之間的最大時間偏差。如果時間偏移超過5分鐘、Kerberos驗證就會失敗。這會設為Active Directory預設值。 | 5. | 否 
 
 
-| Kerberos票證壽命（小時） | Kerberos票證在要求續約之前保持有效的最長時間。如果在10小時之前沒有續約、您必須取得新的通知單。系統會自動執行這些續約作業。Cloud Volumes Service10小時為Active Directory預設值。 | 10. | 否 
+| Kerberos票證壽命（小時） | Kerberos票證在要求續約之前保持有效的最長時間。如果在10小時之前沒有續約、您必須取得新的通知單。Google Cloud NetApp Volumes 會自動執行這些續約。10小時為Active Directory預設值。 | 10. | 否 
 
 
-| Kerberos票證續約上限（天） | 在需要新授權要求之前、可以續約Kerberos票證的最大天數。自動更新SMB連線的問題單。Cloud Volumes ServiceActive Directory預設值為七天。 | 7. | 否 
+| Kerberos票證續約上限（天） | 在需要新授權要求之前、可以續約Kerberos票證的最大天數。Google Cloud NetApp Volumes 會自動更新 SMB 連線的問題單。Active Directory預設值為七天。 | 7. | 否 
 
 
 | Kerberos Kdc連線逾時（秒） | Kdc連線逾時前的秒數。 | 3. | 否 
@@ -307,10 +307,10 @@ image:ncvs-gc-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 | 需要簽署傳入的SMB流量 | 設定為需要SMB流量的簽署。如果設為true、則不支援簽署的用戶端會失敗連線。 | 錯 |  
 
 
-| 本機使用者帳戶需要密碼複雜度 | 用於本機SMB使用者的密碼。由於不支援建立本機使用者、因此此選項不適用於支援。Cloud Volumes Service Cloud Volumes Service | 是的 | 否 
+| 本機使用者帳戶需要密碼複雜度 | 用於本機SMB使用者的密碼。Google Cloud NetApp Volumes 不支援建立本機使用者，因此此選項不適用於 Google Cloud NetApp Volumes 。 | 是的 | 否 
 
 
-| Active Directory LDAP連線使用start_tls | 用於啟用Active Directory LDAP的啟動TLS連線。目前不支援啟用此功能。Cloud Volumes Service | 錯 | 否 
+| Active Directory LDAP連線使用start_tls | 用於啟用Active Directory LDAP的啟動TLS連線。Google Cloud NetApp Volumes 目前不支援啟用此功能。 | 錯 | 否 
 
 
 | 為啟用Kerberos的AES-128和AES-256加密 | 這會控制AES加密是否用於Active Directory連線、並在建立/修改Active Directory連線時、使用「啟用Active Directory驗證的AES加密」選項加以控制。 | 錯 | 是的 
@@ -319,20 +319,20 @@ image:ncvs-gc-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 | LM相容層級 | Active Directory連線所支援的驗證語言層級。請參閱「」一節<<SMB驗證的語言>>」以取得更多資訊。 | vLMvb-krb | 否 
 
 
-| 傳入CIFS流量需要SMB加密 | 所有共用都需要SMB加密。這不是Cloud Volumes Service 由靜止使用；而是根據每個磁碟區設定加密（請參閱「」一節）<<SMB共享安全功能>>」）。 | 錯 | 否 
+| 傳入CIFS流量需要SMB加密 | 所有共用都需要SMB加密。Google Cloud NetApp Volumes 不會使用此功能，而是以每個 Volume 為基礎設定加密（請參閱「」一節<<SMB共享安全功能>>）。 | 錯 | 否 
 
 
-| 用戶端工作階段安全性 | 設定LDAP通訊的簽署和/或密封。目前未在Cloud Volumes Service 不必要的情況下設定、但未來版本可能需要此功能來解決此問題。因Windows修補程式而導致的LDAP驗證問題補救措施將在一節中說明 link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-channel-binding["「LDAP通道繫結。」"]。 | 無 | 否 
+| 用戶端工作階段安全性 | 設定LDAP通訊的簽署和/或密封。目前 Google Cloud NetApp Volumes 並未設定此功能，但未來版本可能需要此功能來解決此問題。因 Windows 修補程式而導致 LDAP 驗證問題的補救措施link:ncvs-gc-other-nas-infrastructure-service-dependencies.html#ldap-channel-binding["「LDAP通道繫結。」"]，請參閱一節。 | 無 | 否 
 
 
 | SMB2可啟用DC連線 | 使用SMB2進行DC連線。預設為啟用。 | 系統預設值 | 否 
 
 
-| LDAP轉介追蹤 | 使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。目前不支援此功能Cloud Volumes Service 。 | 錯 | 否 
+| LDAP轉介追蹤 | 使用多個LDAP伺服器時、如果第一個伺服器中找不到項目、參照追蹤功能可讓用戶端參照清單中的其他LDAP伺服器。Google Cloud NetApp Volumes 目前不支援此功能。 | 錯 | 否 
 
 
-| 使用LDAPS進行安全的Active Directory連線 | 啟用LDAP over SSL。目前不受Cloud Volumes Service 支援。 | 錯 | 否 
+| 使用LDAPS進行安全的Active Directory連線 | 啟用LDAP over SSL。Google Cloud NetApp Volumes 目前不支援。 | 錯 | 否 
 
 
-| DC連線需要加密 | 需要加密才能成功建立DC連線。在功能不完整的情況下、預設為停用Cloud Volumes Service 。 | 錯 | 否 
+| DC連線需要加密 | 需要加密才能成功建立DC連線。在 Google Cloud NetApp Volumes 中預設為停用。 | 錯 | 否 
 |===

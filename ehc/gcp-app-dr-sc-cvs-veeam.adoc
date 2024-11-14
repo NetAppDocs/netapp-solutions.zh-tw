@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ehc/gcp-app-dr-sc-cvs-veeam.html 
-keywords: gcp, gcve, snapcenter, cvo, cvs, iscsi, guest connect, dr, disaster recovery 
+keywords: gcp, gcve, snapcenter, cvo, gcnv, iscsi, guest connect, dr, disaster recovery 
 summary: 災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可以複寫到Cloud Volumes ONTAP 在Google Cloud上執行的NetApp VMware。 
 ---
 = 使用 NetApp SnapCenter 和 Veeam 複寫、實現應用程式一致的災難恢復
@@ -92,7 +92,7 @@ video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
 ====
 部署SDDC時、需要考量的兩個重要因素是GCVE解決方案中SDDC叢集的大小、以及SDDC持續運作的時間。這兩項災難恢復解決方案的關鍵考量、有助於降低整體營運成本。SDDC可只有三部主機、在全規模部署中、一直到多主機叢集為止。
 
-NetApp Cloud Volume Service for NFS Datastore 和 Cloud Volumes ONTAP for SQL 資料庫和記錄可部署至任何 VPC 、 GCVE 應與該 VPC 建立私有連線、以掛載 NFS 資料存放區、並讓 VM 連線至 iSCSI LUN 。
+Google Cloud NetApp Volumes for NFS Datastore 和 Cloud Volumes ONTAP for SQL 資料庫和記錄可部署至任何 VPC ， GCVE 應與該 VPC 建立私有連線，以掛載 NFS 資料存放區，並讓 VM 連線至 iSCSI LUN 。
 
 若要設定GCVE/ SDDC、請參閱 link:gcp-setup.html["在Google Cloud Platform（GCP）上部署及設定虛擬化環境"^]。先決條件是確認駐留在GCVM主機上的來賓VM能夠在Cloud Volumes ONTAP 建立連線之後、從支援中心取用資料。
 

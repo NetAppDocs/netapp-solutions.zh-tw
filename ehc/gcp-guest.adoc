@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-GCP支援客戶連線的NetApp儲存設備Cloud Volumes ONTAP 搭配使用NetApp功能（CVO）或Cloud Volumes Service 使用支援功能（CVS）。
+GCP 支援來賓連線的 NetApp 儲存設備，包括 Cloud Volumes ONTAP （ CVO ）或 Google Cloud NetApp Volumes （ NetApp Volumes ）。
 
 
 
@@ -216,27 +216,27 @@ image:gcve-cvo-guest-26.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 ====
 
 
-== CVS（CVS）Cloud Volumes Service
+== Google Cloud NetApp Volumes （ NetApp Volumes ）
 
-Cloud Volumes Services（CVS）是一套完整的資料服務產品組合、可提供進階雲端解決方案。Cloud Volumes Services支援主要雲端供應商的多種檔案存取傳輸協定（NFS和SMB支援）。
+Google Cloud NetApp Volumes （ NetApp Volumes ）是完整的資料服務產品組合，可提供進階雲端解決方案。NetApp Volumes 支援主要雲端供應商的多種檔案存取傳輸協定（ NFS 和 SMB 支援）。
 
 其他優點與功能包括：使用Snapshot保護資料與還原；在內部部署或雲端上複寫、同步及移轉資料目的地的特殊功能；以及在專屬Flash儲存系統層級上提供一致的高效能。
 
 
 
-=== 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
+=== Google Cloud NetApp Volumes （ NetApp Volumes ）做為來賓連線儲存設備
 
-.使用Cloud Volumes Service VMware Engine設定功能
+.使用 VMware Engine 設定 NetApp Volume
 [%collapsible]
 ====
-可從VMware Engine環境中建立的VM掛載支援資源。Cloud Volumes Service由於Cloud Volumes Service 支援SMB和NFS傳輸協定、因此也可以在Linux用戶端上掛載磁碟區並對應至Windows用戶端。只需簡單的步驟即可設定各個資料區。Cloud Volumes Service
+Google Cloud NetApp Volumes 共享區可從 VMware Engine 環境中建立的虛擬機器掛載。這些磁碟區也可以掛載到 Linux 用戶端，並在 Windows 用戶端上對應，因為 Google Cloud NetApp Volumes 支援 SMB 和 NFS 傳輸協定。Google Cloud NetApp Volumes Volume 可透過簡單的步驟進行設定。
 
-Cloud Volume Service和Google Cloud VMware Engine私有雲必須位於相同的地區。
+Google Cloud NetApp Volumes 和 Google Cloud VMware Engine 私有雲必須位於同一個區域。
 
-若要Cloud Volumes Service 從Google Cloud Marketplace購買、啟用及設定NetApp for Google Cloud的NetApp解決方案、請依照下列詳細說明操作 link:https://cloud.google.com/vmware-engine/docs/quickstart-prerequisites["指南"]。
+若要從 Google Cloud Marketplace 購買，啟用及設定 Google Cloud NetApp Volumes for Google Cloud ，請遵循以下詳細說明link:https://cloud.google.com/vmware-engine/docs/quickstart-prerequisites["指南"]。
 
 ====
-.建立CVS NFS磁碟區至GCVG私有雲
+.建立 NetApp Volumes NFS Volume 至 GCVE 私有雲
 [%collapsible]
 ====
 若要建立及掛載NFS磁碟區、請完成下列步驟：
@@ -253,7 +253,7 @@ image:gcve-cvs-guest-2.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 +
 image:gcve-cvs-guest-3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 選取適當的服務。若為GCVE/、請根據應用程式工作負載需求、選擇CVs-Performance和所需的服務層級、以改善延遲並提高效能。
+. 選取適當的服務。對於 GCVE ，請根據應用程式工作負載需求，選擇 NetApp Volumes - Performance 和所需的服務層級，以改善延遲並提高效能。
 +
 image:gcve-cvs-guest-4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -271,7 +271,7 @@ image:gcve-cvs-guest-7.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 . 在此步驟中、選取可存取磁碟區的VPC網路。確保VPC對等作業已就緒。
 +
-提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟Cloud Shell工作階段、執行適當的命令、讓您的VPC與Cloud Volumes Service 效能提升者對等。如果您決定事先準備VPC對等、請參閱這些指示。
+提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟 Cloud Shell 工作階段，並執行適當命令，與 Google Cloud NetApp Volumes 製作人員對等使用 VPC 。如果您決定事先準備VPC對等、請參閱這些指示。
 
 +
 image:gcve-cvs-guest-8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
@@ -345,7 +345,7 @@ image:gcve-cvs-guest-30.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 +
 image:gcve-cvs-guest-31.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-. 選取適當的服務。若為GCVE/、請根據工作負載需求選擇CVs-Performance和所需的服務層級、以改善延遲並提高效能。
+. 選取適當的服務。對於 GCVE ，請選擇 NetApp Volumes - 效能和所需的服務層級，以根據工作負載需求改善延遲和提高效能。
 +
 image:gcve-cvs-guest-32.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -363,7 +363,7 @@ image:gcve-cvs-guest-35.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 . 在此步驟中、選取可存取磁碟區的VPC網路。確保VPC對等作業已就緒。
 +
-提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟Cloud Shell工作階段、執行適當的命令、讓您的VPC與Cloud Volumes Service 效能提升者對等。如果您決定事先準備VPC對等、請參閱這些資訊 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en["說明"]。
+提示：如果VPC對等處理尚未完成、則會顯示快顯按鈕、引導您完成對等處理命令。開啟 Cloud Shell 工作階段，並執行適當命令，與 Google Cloud NetApp Volumes 製作人員對等使用 VPC 。如果您決定事先準備好 VPC 對等關係，請參閱以下內容link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/setting-up-private-services-access?hl=en["說明"]。
 
 +
 image:gcve-cvs-guest-36.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-architecture_overview.html 
 keywords: architecture overview, control plane, data plane 
-summary: 信任雲端解決方案的一部分是瞭解架構及其安全性。本節說明Cloud Volumes Service Google中的各個環節、以協助您減輕資料安全的潛在疑慮、並指出可能需要採取額外組態步驟才能獲得最安全部署的領域。 
+summary: 信任雲端解決方案的一部分是瞭解架構及其安全性。本節說明 Google Cloud NetApp Volumes 架構的不同層面，以協助減輕資料安全性的潛在疑慮，並指出可能需要額外組態步驟才能獲得最安全部署的領域。 
 ---
 = 總覽
 :hardbreaks:
@@ -14,20 +14,20 @@ summary: 信任雲端解決方案的一部分是瞭解架構及其安全性。�
 
 
 [role="lead"]
-信任雲端解決方案的一部分是瞭解架構及其安全性。本節說明Cloud Volumes Service Google中的各個環節、以協助您減輕資料安全的潛在疑慮、並指出可能需要採取額外組態步驟才能獲得最安全部署的領域。
+信任雲端解決方案的一部分是瞭解架構及其安全性。本節說明 Google Cloud NetApp Volumes 架構的不同層面，以協助減輕資料安全性的潛在疑慮，並指出可能需要額外組態步驟才能獲得最安全部署的領域。
 
-整體的架構Cloud Volumes Service 可以分為兩個主要元件：控制面板和資料面板。
+Google Cloud NetApp Volumes 的一般架構可分為兩個主要元件：控制平面和資料平面。
 
 
 
 == 控制面
 
-在這個過程中、由NetApp原生自動化軟體的管理員負責管理後端基礎架構。Cloud Volumes Service Cloud Volumes Service此架構對終端使用者完全透明、包括網路、儲存硬體、軟體更新等、有助於為Cloud Volumes Service 諸如更新的雲端解決方案提供價值。
+Google Cloud NetApp Volumes 的控制面板是由 Google Cloud NetApp Volumes 管理員和 NetApp 原生自動化軟體所管理的後端基礎架構。此層面對終端使用者完全透明，包括網路連線，儲存硬體，軟體更新等，有助於為雲端駐留解決方案（例如 Google Cloud NetApp Volumes ）提供價值。
 
 
 
 == 資料平面
 
-在資料架構Cloud Volumes Service 中、資料層面包括實際的資料量和Cloud Volumes Service 整體的支援（例如存取控制、Kerberos驗證等）。資料平面完全由Cloud Volumes Service 最終使用者和使用者控制。
+Google Cloud NetApp Volumes 中的資料層面包括實際資料量和整體 Google Cloud NetApp Volume 組態（例如存取控制， Kerberos 驗證等）。資料層完全由 Google Cloud NetApp Volumes 平台的終端使用者和消費者控制。
 
-每個平面的安全與管理方式各有不同。以下各節涵蓋這些差異、從Cloud Volumes Service 架構概述開始。
+每個平面的安全與管理方式各有不同。以下各節將從 Google Cloud NetApp Volumes 架構總覽開始說明這些差異。

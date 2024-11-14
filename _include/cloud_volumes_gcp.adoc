@@ -304,10 +304,10 @@ GCP上HA配對中NetApp CVO執行個體的Terraform變數。
 | * GCP_CVO_GCP_Volume _Size_unit* | 字串 | （選用）['GB'或'TB']。預設值為「TB」。 
 |===
 --
-.CVS Volume
+.NetApp Volume Volume
 --
-.Terraform組態檔案、可在GCP上部署NetApp CVS Volume
-本節包含各種Terraform組態檔案、可在GCP（Google Cloud Platform）上部署/設定NetApp CVS（Cloud Volumes Services）Volume。
+.用於在 GCP 上部署 NetApp Volume Volume 的 Terraform 組態檔案
+本節包含各種 Terraform 組態檔案，可在 GCP （ Google Cloud Platform ）上部署 / 設定 NetApp Volumes （ Google Cloud NetApp Volumes ） Volume 。
 
 Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs[]
 
@@ -361,25 +361,25 @@ Terraform文件： https://registry.terraform.io/providers/NetApp/netapp-gcp/lat
     terraform destroy
 ----
 .收件者：
-"CVS Volume（CVS Volume）"
+`NetApp Volumes Volume`
 
-NetApp GCP CVS Volume的Terraform變數。
+NetApp GCP NetApp Volumes Volume 的 Terraform 變數。
 
 [cols="20%, 10%, 70%"]
 |===
 | *名稱* | *類型* | *說明* 
 
 
-| * GCP_CVs_name* | 字串 | （必填）NetApp CVS Volume的名稱。 
+| * GCP_CVs_name* | 字串 | （必填） NetApp Volumes Volume 的名稱。 
 
 
-| * GCP_CVs_PROPON_ID* | 字串 | （必填）要建立CVS Volume的GCP專案ID。 
+| * GCP_CVs_PROPON_ID* | 字串 | （必填）將建立 NetApp Volume Volume 的 GCP 專案 ID 。 
 
 
-| * GCP_CVs_GCP_service_account_path* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在GCP中建立CVS Volume。 
+| * GCP_CVs_GCP_service_account_path* | 字串 | （必填）用於GCP授權的service_account Json檔案本機路徑。此服務帳戶用於在 GCP 中建立 NetApp Volume 。 
 
 
-| * GCP_CVs_region* | 字串 | （必填）要建立CVS Volume的GCP區域。 
+| * GCP_CVs_region* | 字串 | （必填）要建立 NetApp Volume 的 GCP 區域。 
 
 
 | * GCP_CVs_network* | 字串 | （必要）磁碟區的網路VPC。 

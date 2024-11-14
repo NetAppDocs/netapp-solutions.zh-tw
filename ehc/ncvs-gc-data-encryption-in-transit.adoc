@@ -20,11 +20,11 @@ summary: 傳輸中的資料可在NAS傳輸協定層加密、Google Cloud網路�
 
 == Google Cloud網路
 
-Google Cloud會加密網路層級的流量、如所述 https://cloud.google.com/security/encryption-in-transit["傳輸中加密"^] 在Google文件中。如「Cloud Volumes Services Architecture」一節所述、Cloud Volumes Service NetApp控制的PSAPa生產商專案將提供此功能。
+Google Cloud 會依照 Google 文件中所述，加密網路層級的流量 https://cloud.google.com/security/encryption-in-transit["傳輸中加密"^]。如「 Google Cloud NetApp Volumes 架構」一節所述， Google Cloud NetApp Volumes 是由 NetApp 控制的 PSA 製作人員專案所提供。
 
-在CVs-SW的情況下、生產商租戶會執行Google VM來提供服務。Google Cloud Volumes Service 會自動加密使用者VM和不支援的VM之間的流量。
+如果是 NetApp Volume-SW ，則製作租戶會執行 Google VM 以提供服務。Google 會自動加密使用者 VM 與 Google Cloud NetApp Volumes VM 之間的流量。
 
-雖然CVS效能的資料路徑在網路層上並未完全加密、但NetApp與Google仍使用這種組合 https://1.ieee802.org/security/802-1ae/["IEEE 802.1AE加密（MAC安全）"^]、 https://datatracker.ietf.org/doc/html/rfc2003["封裝"^] （資料加密）和實體受限的網路、以保護Cloud Volumes Service 資料在整個過程中在整個過程中在靜止CVS效能服務類型和Google Cloud之間傳輸。
+雖然 NetApp Volumes 效能的資料路徑在網路層上並未完全加密，但 NetApp 和 Google 會使用組合， https://datatracker.ietf.org/doc/html/rfc2003["封裝"^]（資料加密）和 https://1.ieee802.org/security/802-1ae/["IEEE 802.1AE加密（MAC安全）"^]實體受限的網路來保護在 Google Cloud NetApp Volumes NetApp Volumes - Performance 服務類型和 Google Cloud 之間傳輸的資料。
 
 
 
@@ -40,15 +40,15 @@ https://docs.microsoft.com/en-us/windows-server/storage/file-server/smb-security
 
 啟用SMB加密時、不支援加密的用戶端將無法存取共用區。
 
-支援RC4-HMAC、AES-122-CTS-HMA-SHA1和AES-256-CTS-HMA-SHA1安全密碼、以進行SMB加密。Cloud Volumes ServiceSMB會交涉至伺服器支援的最高加密類型。
+Google Cloud NetApp Volumes 支援用於 SMB 加密的 RC4-HMAC ， AES-124-CTS-HMAC-SHA1 和 AES-256-CTS-HMAC-SHA1 安全密碼。SMB會交涉至伺服器支援的最高加密類型。
 
 
 
 === NFSv4.1 Kerberos
 
-對於NFSv4.1、CVS效能提供如所述的Kerberos驗證 https://datatracker.ietf.org/doc/html/rfc7530["RFC7530"^]。您可以針對每個磁碟區啟用Kerberos。
+對於 NFSv4.1 ， NetApp Volume-Performance 提供 Kerberos 驗證，如中所述。您可以根據 https://datatracker.ietf.org/doc/html/rfc7530["RFC7530"^]每個磁碟區來啟用 Kerberos 。
 
-Kerberos目前最強大的加密類型是AES-256-CTS-HMA-SHA1。NetApp Cloud Volumes Service 支援AES-256-CTS-HMA-SHA1、AES-123-CTS-HMA-SHA1、DES3和DES for NFS。它也支援CIFS/SMB流量的ARCFOUR-HMAC（RC4）、但不支援NFS。
+Kerberos目前最強大的加密類型是AES-256-CTS-HMA-SHA1。Google Cloud NetApp Volumes 支援 AES-256-CTS-HMAC-SHA1 ， AES-126-CTS-HMAC-SHA1 ， DES3 和 NFS 的 DES 。它也支援CIFS/SMB流量的ARCFOUR-HMAC（RC4）、但不支援NFS。
 
 Kerberos為NFS裝載提供三種不同的安全性層級、可讓您選擇Kerberos安全性的強度。
 
@@ -125,4 +125,4 @@ sec=krb5p uses Kerberos V5 for user authentication, integrity checking, and encr
 
 
 |===
-在VMware中、已設定的Active Directory伺服器會做為Kerberos伺服器和LDAP伺服器（從RFC2307相容架構查詢使用者身分）Cloud Volumes Service 。不支援其他Kerberos或LDAP伺服器。NetApp強烈建議您使用LDAP進行Cloud Volumes Service 身分識別管理。如需有關 NFS Kerberos 在封包擷取中的顯示方式資訊、請參閱連結： ncvs-GC 雲端 - Volume-service-architecture 。 html#Packet sniffing/trace 考量 [ 「封包探查 / 追蹤考量」 ] 一節。
+在 Google Cloud NetApp Volumes 中，已設定的 Active Directory 伺服器會用作 Kerberos 伺服器和 LDAP 伺服器（以從與 RFC2307 相容的架構中查詢使用者身分識別）。不支援其他Kerberos或LDAP伺服器。NetApp 強烈建議您在 Google Cloud NetApp Volumes 中使用 LDAP 進行身分識別管理。如需有關 NFS Kerberos 在封包擷取中的顯示方式資訊、請參閱連結： ncvs-GC 雲端 - Volume-service-architecture 。 html#Packet sniffing/trace 考量 [ 「封包探查 / 追蹤考量」 ] 一節。

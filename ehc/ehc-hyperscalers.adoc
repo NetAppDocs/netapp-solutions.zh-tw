@@ -76,7 +76,7 @@ NOTE: 客體內儲存設備是唯一支援的連線Cloud Volumes ONTAP 至Azure 
 本節說明如何設定及管理GCVE,並搭配可用的選項來連接NetApp儲存設備。
 
 
-NOTE: 客體內儲存設備是唯一支援的方法、可將Cloud Volumes ONTAP 「效益」和「雲端Volume服務」連線至GCVE.
+NOTE: 來賓儲存設備是唯一支援的將 Cloud Volumes ONTAP 和 Google Cloud NetApp Volumes 連線至 GCVE 的方法。
 
 設定程序可分為下列步驟：
 
@@ -127,13 +127,13 @@ Azure以下列組態支援NetApp儲存設備：
 Google Cloud支援下列組態的NetApp儲存設備：
 
 * 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
-* 以客體連線儲存設備的形式提供資訊（CVS）Cloud Volumes Service
-* 作爲NFS補充資料存放區的CVS Cloud Volumes Service
+* Google Cloud NetApp Volumes （ NetApp Volumes ）做為來賓連線儲存設備
+* Google Cloud NetApp Volumes （ NetApp Volumes ）做為補充 NFS 資料存放區
 
 
-檢視詳細資訊 link:gcp-guest.html["GCVE的來賓連線儲存選項"]。
+查看詳細信息link:gcp-guest.html["GCVE的來賓連線儲存選項"]。查看詳細信息link:gcp-ncvs-datastore.html["GCVE的補充NFS資料存放區選項"]。
 
-深入瞭解 link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["NetApp Cloud Volumes Service 支援Google Cloud VMware Engine的資料儲存區（NetApp部落格）"^] 或 link:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["如何使用NetApp CVS做為Google Cloud VMware Engine的資料存放區（Google部落格）"^]
+深入瞭解link:https://www.netapp.com/blog/cloud-volumes-service-google-cloud-vmware-engine/["Google Cloud NetApp Volumes 資料存放區支援 Google Cloud VMware Engine （ NetApp 部落格）"^]或link:https://cloud.google.com/blog/products/compute/how-to-use-netapp-cvs-as-datastores-with-vmware-engine["如何使用 Google Cloud NetApp Volumes 做為 Google Cloud VMware Engine 的資料存放區（ Google 部落格）"^]
 
 --
 ====

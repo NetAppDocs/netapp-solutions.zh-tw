@@ -62,7 +62,7 @@ NOTE: SDDC私有雲和NetApp Cloud Volumes共置可提供最佳效能、並將�
 
 對於計畫裝載儲存密集工作負載並在任何雲端代管VMware解決方案上橫向擴充的客戶、預設的超融合式基礎架構要求擴充時必須同時使用運算與儲存資源。
 
-透過與 NetApp Cloud Volumes 整合、例如 Azure NetApp Files 、 Amazon FSX ONTAP 、 Cloud Volumes ONTAP （三大大型超大型超大型超大型應用程式皆有提供）和 Cloud Volumes Service for Google Cloud 、客戶現在可以選擇個別擴充儲存設備、而且只需視需要將運算節點新增至 SDDC 叢集。
+透過與 NetApp Cloud Volumes 整合，例如 Azure NetApp Files ， Amazon FSX ONTAP ， Cloud Volumes ONTAP （三大大型超大型超大型應用程式皆有提供）和 Google Cloud NetApp Volumes for Google Cloud ，客戶現在可以選擇個別擴充儲存設備，而且只需視需要將運算節點新增至 SDDC 叢集。
 
 
 
@@ -74,7 +74,7 @@ NOTE: SDDC私有雲和NetApp Cloud Volumes共置可提供最佳效能、並將�
 * 輕鬆達到叢集主機上建置的vSAN儲存容量限制。使用NetApp Cloud Volumes將儲存設備擴充至裝載作用中資料集、或將層級較低的資料擴充至持續儲存設備。
 
 
-Azure NetApp Files 、 Amazon FSX ONTAP 、 Cloud Volumes ONTAP （三大大型超大型超大型應用程序均提供）及 Cloud Volumes Service for Google Cloud 均可搭配來賓 VM 使用。這種混合式儲存架構是由vSAN資料存放區所組成、其中包含客體作業系統和應用程式二進位資料。應用程式資料是透過來賓型 iSCSI 啟動器或 NFS/SMB 裝載、分別與 Amazon FSX ONTAP 、 Cloud Volume ONTAP 、 Azure NetApp Files 和 Cloud Volumes Service for Google Cloud 直接通訊、連接至 VM 。此組態可讓您輕鬆克服vSAN儲存容量所帶來的挑戰、可用空間取決於所使用的閒置空間和儲存原則。
+Azure NetApp Files ， Amazon FSX ONTAP ， Cloud Volumes ONTAP （三大大型超大型超大型應用程序均提供）和 Google Cloud NetApp Volumes for Google Cloud 均可搭配來賓 VM 使用。這種混合式儲存架構是由vSAN資料存放區所組成、其中包含客體作業系統和應用程式二進位資料。應用程式資料是透過來賓型 iSCSI 啟動器或 NFS/SMB 裝載，分別與 Amazon FSX ONTAP ， Cloud Volume ONTAP ， Azure NetApp Files 和 Google Cloud NetApp Volumes for Google Cloud 直接通訊，連接至 VM 。此組態可讓您輕鬆克服vSAN儲存容量所帶來的挑戰、可用空間取決於所使用的閒置空間和儲存原則。
 
 讓我們來考慮在AWS上的VMware Cloud上使用三節點SDDC叢集：
 
@@ -103,7 +103,7 @@ NOTE: 在寫入本文檔時、來賓儲存設備是唯一可用的選項。  隨
 === 值得記住的重點
 
 * 在混合式儲存模式中、將層級1或高優先順序的工作負載放在vSAN資料存放區上、以因應任何特定的延遲需求、因為它們是主機本身的一部分、而且位於鄰近範圍內。針對可接受交易延遲的任何工作負載VM、使用來賓機制。
-* 使用 NetApp SnapMirror ® 技術、將工作負載資料從內部部署 ONTAP 系統複寫到 Cloud Volumes ONTAP 或 Amazon FSX ONTAP 、以便使用區塊層級機制輕鬆移轉。這不適用於Azure NetApp Files 「不適用於」和「Cloud Volumes服務」。若要將資料移轉至 Azure NetApp Files 或雲端 Volume Services 、請根據使用的檔案傳輸協定、使用 NetApp XCP 、 BlueXP 複製與同步、 rysnc 或 Robocopy 。
+* 使用 NetApp SnapMirror ® 技術、將工作負載資料從內部部署 ONTAP 系統複寫到 Cloud Volumes ONTAP 或 Amazon FSX ONTAP 、以便使用區塊層級機制輕鬆移轉。這不適用於 Azure NetApp Files 和 Google Cloud NetApp Volumes 。若要將資料移轉至 Azure NetApp Files 或 Google Cloud NetApp Volume ，請根據所使用的檔案傳輸協定，使用 NetApp XCP ， BlueXP  複製與同步， rysnc 或 Robocopy 。
 * 測試顯示、從個別SDDC存取儲存設備時、會有2至4毫秒的額外延遲。在對應儲存設備時、請將額外延遲因素納入應用程式需求。
 * 若要在測試容錯移轉和實際容錯移轉期間掛載與來賓連線的儲存設備、請確認iSCSI啟動器已重新設定、SMB共用的DNS已更新、而且Fstab中的NFS掛載點已更新。
 * 請確定已在VM內部正確設定來賓Microsoft多重路徑I/O（MPIO）、防火牆及磁碟逾時登錄設定。
@@ -144,6 +144,6 @@ NOTE: 請與NetApp解決方案架構設計師及各自的超大規模雲端架�
 
 == 詳細架構
 
-從高層面來看、此架構（如下圖所示）涵蓋如何使用NetApp Cloud Volumes ONTAP 解決方案、Cloud Volumes Service 以供Google Cloud使用的支援、以及Azure NetApp Files 以客戶儲存選項形式、在多家雲端供應商之間實現混合式多雲連線和應用程式可攜性。
+從高階觀點來看，此架構（如下圖所示）涵蓋如何在多個雲端供應商之間，使用 NetApp Cloud Volumes ONTAP ， Google Cloud NetApp Volumes for Google Cloud 和 Azure NetApp Files 作為額外的來賓儲存選項，實現混合式多雲端連線和應用程式可攜性。
 
 image:ehc-architecture.png["企業混合雲架構"]

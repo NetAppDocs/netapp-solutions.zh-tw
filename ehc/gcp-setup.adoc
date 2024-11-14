@@ -25,7 +25,7 @@ summary:
 ====
 若要在GCP上設定GCVE環境、請登入GCP主控台、然後存取VMware Engine入口網站。
 
-按一下「New Private Cloud」（新私有雲端）按鈕、然後輸入所需的GCVM私有雲端組態。在「位置」上、請務必在部署CVS/CVO的相同地區/區域中部署私有雲端、以確保最佳效能和最低延遲。
+按一下「New Private Cloud」（新私有雲端）按鈕、然後輸入所需的GCVM私有雲端組態。在「位置」上，請務必在部署 NetApp Volumes/CVO 的相同地區 / 區域部署私有雲，以確保最佳效能和最低延遲。
 
 先決條件：
 
@@ -44,7 +44,7 @@ image:gcve-deploy-1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入�
 ====
 一旦私有雲端資源配置完成、請設定私有雲端存取、以實現高處理量和低延遲的資料路徑連線。
 
-如此可確保Cloud Volumes ONTAP 執行了某些執行個體的VPC網路能夠與GCVR私有雲端通訊。若要這麼做、請遵循 link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/quickstart["GCP文件"]。對於Cloud Volume Service、請Cloud Volumes Service 在租戶主機專案之間執行一次對等、以建立VMware Engine與VMware Infrastructure之間的連線。如需詳細步驟、請遵循此步驟 link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service["連結"]。
+如此可確保Cloud Volumes ONTAP 執行了某些執行個體的VPC網路能夠與GCVR私有雲端通訊。若要這麼做，請遵循link:https://cloud.google.com/architecture/partners/netapp-cloud-volumes/quickstart["GCP文件"]。對於雲端 Volume Service ，請在租戶主機專案之間執行一次性對等關係，在 VMware Engine 和 Google Cloud NetApp Volumes 之間建立連線。如需詳細步驟link:https://cloud.google.com/vmware-engine/docs/vmware-ecosystem/howto-cloud-volumes-service["連結"]，請遵循此。
 
 image:gcve-access-1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -61,9 +61,9 @@ image:gcve-access-3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入�
 image:gcve-access-4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 ====
-.將 NetApp Cloud Volume Service 補充資料存放區部署至 GCVE
+.將 Google Cloud NetApp Volumes 補充資料存放區部署至 GCVE
 [%collapsible]
 ====
-請參閱 link:gcp-ncvs-datastore.html["使用 NetApp CVS 將補充 NFS 資料存放區部署至 GCVE 的程序"]
+請參閱link:gcp-ncvs-datastore.html["將 NetApp Volume 的補充 NFS 資料存放區部署至 GCVE 的程序"]
 
 ====

@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-dual-protocol-multiprotocol.html 
 keywords: access control, user mapping, permission model 
-summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的雙傳輸協定存取權限。Cloud Volumes Service這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。 
+summary: Google Cloud NetApp Volumes 可將相同的資料集同時共享給 SMB 和 NFS 用戶端，同時維持適當的雙傳輸協定存取權限。這是透過協調傳輸協定之間的身分識別對應，以及使用集中式後端 LDAP 伺服器，將 UNIX 身分識別提供給 Google Cloud NetApp Volumes 來達成的。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。 
 ---
 = 雙傳輸協定/多傳輸協定
 :hardbreaks:
@@ -14,13 +14,13 @@ summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持�
 
 
 [role="lead"]
-支援將相同的資料集共享給SMB和NFS用戶端、同時維持適當的存取權限Cloud Volumes Service (https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["雙傳輸協定"^]）。這是透過協調不同傳輸協定之間的身分識別對應、以及使用集中式後端LDAP伺服器、將UNIX身分識別提供Cloud Volumes Service 給支援中心來完成。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。
+Google Cloud NetApp Volumes 可將相同的資料集同時共享給 SMB 和 NFS 用戶端(https://cloud.google.com/architecture/partners/netapp-cloud-volumes/managing-dual-protocol-access["雙傳輸協定"^]，同時維持適當的存取權限）。這是透過協調傳輸協定之間的身分識別對應，以及使用集中式後端 LDAP 伺服器，將 UNIX 身分識別提供給 Google Cloud NetApp Volumes 來達成的。您可以使用Windows Active Directory為Windows和UNIX使用者提供方便使用的功能。
 
 
 
 == 存取控制
 
-* *共享存取控制。*決定哪些用戶端和（或）使用者和群組可以存取NAS共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS匯出是從Cloud Volumes Service 整個過程中管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用 https://library.netapp.com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html[MMC/Computer 具有 Cloud Volumes Service 執行個體管理員權限的帳戶、從 SMB 用戶端設定共用層級 ACL （請參閱連結： ncvS-GC-smb.html#Accounts with local/BUILTIN/ 備份權限 [ 「 Accounts with local/BUILTIN/ backup rights 」）。
+* * 共用存取控制。 *判斷哪些用戶端和 / 或使用者和群組可以存取 NAS 共用區。對於NFS、匯出原則和規則會控制用戶端對匯出的存取。NFS 匯出是從 Google Cloud NetApp Volumes 執行個體進行管理。SMB使用CIFS/SMB共用和共用ACL、在使用者和群組層級提供更精細的控制。您只能使用 https://library ， NetApp ， com/ecmdocs/ECMP1401220/html/GUID-C1772CDF-8AEE-422B-AB87-CFCB7E50FF94.html[MMC/Computer Management ^] 帳戶，以具有 Google Cloud NetApp Volumes 執行個體管理員權限的帳戶，設定 SMB 用戶端的共用層級 ACL （請參閱連結：具有 BUILIN-TIN-TIM#smb 管理員權限）。
 * *檔案存取控制。*控制檔案或資料夾層級的權限、且永遠從NAS用戶端進行管理。NFS用戶端可以使用傳統模式位元（rwx）或NFSv4 ACL。SMB用戶端運用NTFS權限。
 
 
@@ -30,11 +30,11 @@ summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持�
 
 == 使用者對應
 
-當用戶端存取Volume時Cloud Volumes Service 、嘗試將傳入的使用者對應至相反方向的有效使用者。這是確定跨傳輸協定適當存取的必要條件、並確保要求存取的使用者確實是他們聲稱的對象。
+當用戶端存取 Volume 時， Google Cloud NetApp Volumes 會嘗試以相反方向將傳入的使用者對應至有效的使用者。這是確定跨傳輸協定適當存取的必要條件、並確保要求存取的使用者確實是他們聲稱的對象。
 
-例如、如果名為「Joe」的Windows使用者嘗試透過SMB存取具有UNIX權限的Volume、Cloud Volumes Service 則會執行搜尋、尋找名為「Joe」的對應UNIX使用者。如果存在、則以Windows使用者「Joe」的身分寫入SMB共用區的檔案會顯示為來自NFS用戶端的UNIX使用者「Joe」。
+例如，如果名為的 Windows 使用者 `joe`透過 SMB 嘗試存取具有 UNIX 權限的 Volume ，則 Google Cloud NetApp Volumes 會執行搜尋，以尋找對應的 UNIX 使用者名稱 `joe`。如果存在一個檔案，則以 Windows 使用者身分寫入 SMB 共用的檔案 `joe`會顯示為來自 NFS 用戶端的 UNIX 使用者 `joe`。
 
-或者、如果名為「Joe」的UNIX使用者嘗試以Cloud Volumes Service Windows權限存取某個Windows Volume、則UNIX使用者必須能夠對應至有效的Windows使用者。否則、將拒絕存取磁碟區。
+或者，如果名為的 UNIX 使用者 `joe`嘗試存取具有 Windows 權限的 Google Cloud NetApp Volumes Volume ，則 UNIX 使用者必須能夠對應至有效的 Windows 使用者。否則、將拒絕存取磁碟區。
 
 目前、只有Active Directory支援使用LDAP進行外部UNIX身分識別管理。如需設定此服務存取權的詳細資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/creating-smb-volumes["建立AD連線"^]。
 
@@ -42,10 +42,10 @@ summary: 支援將相同的資料集共享給SMB和NFS用戶端、同時維持�
 
 == 權限模式
 
-使用雙傳輸協定設定時Cloud Volumes Service 、利用磁碟區的安全樣式來判斷ACL的類型。這些安全型態是根據所指定的NAS傳輸協定來設定、或是在建立Cloud Volumes Service 完實體磁碟區時選擇使用雙傳輸協定。
+使用雙協定設定時， Google Cloud NetApp Volumes 會利用 Volume 的安全樣式來判斷 ACL 的類型。這些安全樣式是根據指定的 NAS 傳輸協定而設定，如果是雙傳輸協定，則是在建立 Google Cloud NetApp Volume Volume 時所做的選擇。
 
-* 如果您只使用NFS、Cloud Volumes Service 則Sfelles Volume會使用UNIX權限。
-* 如果您只使用SMB、Cloud Volumes Service 則支援使用NTFS權限的功能。
+* 如果您只使用 NFS ，則 Google Cloud NetApp Volumes Volume 會使用 UNIX 權限。
+* 如果您只使用 SMB ， Google Cloud NetApp Volumes 磁碟區會使用 NTFS 權限。
 
 
 如果要建立雙傳輸協定磁碟區、您可以在建立磁碟區時選擇ACL樣式。這項決定應以所需的權限管理為基礎。如果使用者管理來自Windows / SMB用戶端的權限、請選取NTFS。如果您的使用者偏好使用NFS用戶端和chmod/chown、請使用UNIX安全性樣式。

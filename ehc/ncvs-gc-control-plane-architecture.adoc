@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: ehc/ncvs-gc-control-plane-architecture.html 
 keywords: identity, access, management, authorization, permission, service accounts, cloud volumes service api, jwt tokens 
-summary: 所有的功能都是透過API來執行。Cloud Volumes Service整合至GCP雲端主控台的BIOS管理也會使用此功能的Cloud Volumes Service Cloud Volumes Service 
+summary: Google Cloud NetApp Volume 的所有管理動作都是透過 API 來完成。整合至 GCP 雲端主控台的 Google Cloud NetApp Volume 管理功能也使用 Google Cloud NetApp Volumes API 。 
 ---
 = 控制面板架構
 :hardbreaks:
@@ -14,23 +14,23 @@ summary: 所有的功能都是透過API來執行。Cloud Volumes Service整合�
 
 
 [role="lead"]
-所有的功能都是透過API來執行。Cloud Volumes Service整合至GCP雲端主控台的BIOS管理也會使用此功能的Cloud Volumes Service Cloud Volumes Service
+Google Cloud NetApp Volume 的所有管理動作都是透過 API 來完成。整合至 GCP 雲端主控台的 Google Cloud NetApp Volume 管理功能也使用 Google Cloud NetApp Volumes API 。
 
 
 
 == 身分識別與存取管理
 
-身分識別與存取管理 (https://cloud.google.com/iam/docs/overview["IAM"^]）是一項標準服務、可讓您控制Google Cloud專案執行個體的驗證（登入）和授權（權限）。Google IAM提供完整的權限授權與移除稽核追蹤。目前Cloud Volumes Service 無法提供控制面板稽核。
+身分識別與存取管理(https://cloud.google.com/iam/docs/overview["IAM"^]（ Identity and Access Management ）是一項標準服務，可讓您控制 Google Cloud 專案執行個體的驗證（登入）和授權（權限）。Google IAM提供完整的權限授權與移除稽核追蹤。目前 Google Cloud NetApp Volumes 不提供控制層稽核。
 
 
 
 === 授權/權限總覽
 
-IAM提供Cloud Volumes Service 內建的精細權限來執行功能。您可以找到 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["請在此填寫詳細權限清單"^]。
+IAM 提供 Google Cloud NetApp Volumes 的內建精細權限。您可以找到 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/security-considerations?hl=en_US["請在此填寫詳細權限清單"^]。
 
 IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「netappcloudVolumes.viewer」。這些角色可指派給特定使用者或服務帳戶。
 
-指派適當的角色和權限、讓IAM使用者能夠管理Cloud Volumes Service 功能。
+指派適當的角色和權限，以允許 IAM 使用者管理 Google Cloud NetApp Volume 。
 
 使用精細權限的範例包括：
 
@@ -43,7 +43,7 @@ IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「ne
 
 === 服務帳戶
 
-透過Cloud Volumes Service 指令碼或進行功能不均的API呼叫 https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs["Terraform"^]、您必須建立角色為「角色/netappcloudVolumes.admin」的服務帳戶。您可以使用此服務帳戶、以Cloud Volumes Service 兩種不同的方式產生驗證申請表API要求所需的JWT權杖：
+若要透過指令碼或呼叫 Google Cloud NetApp Volumes API ， https://registry.terraform.io/providers/NetApp/netapp-gcp/latest/docs["Terraform"^]您必須建立具有此角色的服務帳戶 `roles/netappcloudvolumes.admin`。您可以使用此服務帳戶，以兩種不同方式產生驗證 Google Cloud NetApp Volumes API 要求所需的 JWT Token ：
 
 * 產生Json金鑰、並使用Google API從其衍生JWT權杖。這是最簡單的方法、但需要手動管理機密（Json金鑰）。
 * 使用 https://cloud.google.com/iam/docs/impersonating-service-accounts["服務帳戶模擬"^] 使用角色/iam.serviceAccountTokenCreator`。程式碼（指令碼、Terraform等）會與一起執行 https://google.aip.dev/auth/4110["應用程式預設認證"^] 並模擬服務帳戶以取得其權限。這種方法反映了Google的最佳安全實務做法。
@@ -53,9 +53,9 @@ IAM也提供兩種預先定義的角色：「netappcloudVolumes.admin」和「ne
 
 
 
-== 部分API Cloud Volumes Service
+== Google Cloud NetApp Volumes API
 
-利用HTTPS（TLSv1.2）作為基礎網路傳輸、藉此使用REST型API。Cloud Volumes Service您可以找到最新的API定義 https://cloudvolumesgcp-api.netapp.com/swagger.json["請按這裡"^] 以及如何使用API的相關資訊、請參閱 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Google雲端文件中的Cloud Volumes API"^]。
+Google Cloud NetApp Volumes API 使用 REST 型 API ，使用 HTTPS （ TLSv1.2 ）做為基礎網路傳輸。您可以在中找到有關如何使用 API 的最新 API 定義 https://cloudvolumesgcp-api.netapp.com/swagger.json["請按這裡"^]和資訊 https://cloud.google.com/architecture/partners/netapp-cloud-volumes/api?hl=en_US["Google雲端文件中的Cloud Volumes API"^]。
 
 API端點由NetApp使用標準HTTPS（TLSv1.2）功能來操作及保護。
 
