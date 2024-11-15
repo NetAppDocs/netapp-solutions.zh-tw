@@ -34,7 +34,7 @@ Spark NLP是單一的統一化解決方案、適用於所有NLP工作與需求�
 
 Transformers（Bert）的雙向編碼器表示法是NLP的一種以變壓器為基礎的機器學習技術。它推廣了預先訓練和微調的概念。Bert的變壓器架構源自機器翻譯、這種機器的長期相依性模型比經常性的神經網路（RNN）型語言模型更好。此外、它也引進了「遮罩語言模型（MLM）」工作、其中隨機遮罩了15%的所有權杖、模型會預測這些權杖、實現真正的雙向性。
 
-由於該網域的專業語言和缺乏標記資料、因此財務情緒分析是一項挑戰。 https://nlp.johnsnowlabs.com/2021/11/03/bert_sequence_classifier_finbert_en.html["FinBit"^]是一種以訓練前的Bert為基礎的語言模式、已在網域上進行調整 https://trec.nist.gov/data/reuters/reuters.html["Reuters TRC2"^]、財務資料集、並以標記資料進行微調（ https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10["金融市場銀行"^]）。研究人員以財務術語從新聞文章中擷取4、500個句子。接著有16位具有財務背景的專家和碩士學生將句子標示為正面、中立和負面。我們建立了端點對端點的Spark工作流程、以分析2016至2020年前十大NASDAQ公司的營收客服記錄、使用FinBitt和其他兩個預先訓練的管道（.. https://nlp.johnsnowlabs.com/2021/11/11/classifierdl_bertwiki_finance_sentiment_pipeline_en.html["金融新聞的情緒分析"^]、 https://nlp.johnsnowlabs.com/2020/03/19/explain_document_dl.html["說明DL文件"^]）來自Spark NLP。
+由於該網域的專業語言和缺乏標記資料、因此財務情緒分析是一項挑戰。FinBERT 是一種以預先訓練過的 Bert 為基礎的語言模式，適用於網域 https://trec.nist.gov/data/reuters/reuters.html["Reuters TRC2"^]，財務實體，並以標記的資料（）進行微調， https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10["金融市場銀行"^]以進行金融情緒分類。研究人員以財務術語從新聞文章中擷取4、500個句子。接著有16位具有財務背景的專家和碩士學生將句子標示為正面、中立和負面。我們建立了端點對端 Spark 工作流程，使用 FinBERT 和兩個預先訓練的管道，分析 2016 至 2020 年 NASDAQ 公司前 10 名盈利通話記錄的情緒 https://nlp.johnsnowlabs.com/2020/03/19/explain_document_dl.html["說明DL文件"^]。
 
 適用於Spark NLP的基礎深度學習引擎是TensorFlow、這是一套端點對端點開放原始碼平台、可用於機器學習、可輕鬆建構模型、隨處進行強大的ML正式作業、以及進行強大的研究實驗。因此、在Spark「線叢集」模式下執行管線時、我們基本上是在叢集上執行分散式TensorFlow、並在單一主節點和多個工作節點之間執行資料和模型平行化、以及網路附加儲存設備。
 
@@ -73,7 +73,7 @@ Web等級建議系統的資料大多是分離式且明確的、導致功能探�
 
 深度神經網路（DNN）承諾能夠擷取功能之間非常複雜的互動。然而、相較於DCN、它需要的參數幾乎多出一個順序、無法明確形成交叉功能、也可能無法有效瞭解某些類型的功能互動。跨網路的記憶體效率極高、而且易於實作。共同訓練交叉和DNN元件、有效擷取預測性功能互動、並在Criteo CTR資料集上提供最先進的效能。
 
-一種新的DCN模式從內嵌和堆疊層開始、接著是跨網路和平行的深度網路。接著是最後的組合層、將兩個網路的輸出結合在一起。您的輸入資料可以是具有稀少和密集功能的向量。在Spark、兩者兼具 https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.ml.linalg.SparseVector.html["ML"^] 和 https://spark.apache.org/docs/3.1.1/api/python/reference/api/pyspark.mllib.linalg.SparseVector.html["mlLib"^] 程式庫包含「parseVector」類型。因此、使用者必須區分兩者、並在呼叫各自的功能和方法時務必留意。在CTR預測等網路規模的建議系統中、輸入內容大多是明確的功能、例如「country=USA」（國家/地區=美國）。這類功能通常編碼為單一熱向量、例如「[0、1、0、…]」。單一熱編碼（OHT）搭配「parseVector」（parseVector）、在處理真實世界的資料集時非常實用、因為這些資料集的詞彙不斷變化且不斷成長。我們在中修改了範例 https://github.com/shenweichen/DeepCTR["DeepCTR"^] 為了處理大型詞彙、在我們的DCN嵌入與堆疊層中建立嵌入式向量。
+一種新的DCN模式從內嵌和堆疊層開始、接著是跨網路和平行的深度網路。接著是最後的組合層、將兩個網路的輸出結合在一起。您的輸入資料可以是具有稀少和密集功能的向量。在 Spark 中，程式庫包含類型 `SparseVector`。因此、使用者必須區分兩者、並在呼叫各自的功能和方法時務必留意。在網路規模的建議系統（例如 CTR 預測）中，輸入大多是分類功能 `‘country=usa’`，例如。這些功能通常編碼為單一熱向量，例如 `‘[0,1,0, …]’`。在處理具有不斷變化和不斷增長的詞彙表的真實世界資料集時，使用的單一熱編碼（ OTE ） `SparseVector`非常實用。我們修改了中的範例 https://github.com/shenweichen/DeepCTR["DeepCTR"^]，以處理大型詞彙，在我們的 DCN 內嵌與堆疊層中建立內嵌向量。
 
 。 https://www.kaggle.com/competitions/criteo-display-ad-challenge/data["Criteo展示廣告資料集"^] 預測廣告點擊率。它有13個整數特徵和26個分類特徵、其中每個類別都有高基數。對於此資料集而言、由於輸入大小較大、記錄遺失的效能提升實際上相當可觀。對於大型使用者群而言、預測準確度略有改善、可能導致公司營收大幅增加。資料集包含7天內11GB的使用者記錄、相當於約4、100萬筆記錄。我們使用Spark的「datFrame.隨機 分割（）功能」來隨機分割訓練（80%）、交叉驗證（10%）及其餘10%的資料以供測試。
 
@@ -85,7 +85,7 @@ Web等級建議系統的資料大多是分離式且明確的、導致功能探�
 * * Hyperparameters.*我們會根據在隱藏圖層數、隱藏圖層大小、初始學習率及跨圖層數上的網格搜尋結果來報告結果。隱藏的圖層數量介於2到5之間、隱藏的圖層大小介於32到1024之間。對於DCN、跨層的數量從1到6。初始學習率從0.0001調至0.001、增量為0.0001。所有實驗都會在訓練步驟150、000之前提早停止、之後就開始過度調整。
 
 
-除了新增的新一代會議管理系統、我們也測試了其他熱門的深度學習模式、以利進行CTR預測、包括 https://www.ijcai.org/proceedings/2017/0239.pdf["DeepFM"^]、 https://arxiv.org/pdf/1803.05170.pdf["深層FM"^]、 https://arxiv.org/abs/1810.11921["自動整型"^]和 https://arxiv.org/abs/2008.13535["新一代的"^]。
+除了 DCN 之外，我們還針對 CTR 預測測試了其他常用的深度學習模型，包括 https://www.ijcai.org/proceedings/2017/0239.pdf["DeepFM"^]， https://arxiv.org/abs/1810.11921["自動整型"^]和 https://arxiv.org/abs/2008.13535["新一代的"^]。
 
 
 
