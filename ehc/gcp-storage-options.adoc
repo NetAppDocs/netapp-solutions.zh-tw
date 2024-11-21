@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: ehc/gcp-storage-options.html 
+keywords: gcp, gcve, gcnv, nfs, supplemental, datastore, vcenter, vmware, cvo, storage, options 
+summary: NetApp 儲存設備可附加至 Google 雲端虛擬化引擎，做為來賓連線或補充儲存設備。 
+---
+= Google Cloud VMware Engine ：使用 NetApp 儲存設備的選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp 儲存設備可附加至 Google 雲端虛擬化引擎，做為來賓連線或補充儲存設備。
+
+
+
+== Google Cloud NetApp Volumes （ NetApp Volumes ）做為補充 NFS 資料存放區
+
+需要 Google Cloud VMware Engine （ GCVE ）環境額外儲存容量的客戶，可以使用 Google Cloud NetApp Volumes 來裝載作為補充 NFS 資料存放區。將資料儲存在 Google Cloud NetApp Volumes 上，可讓客戶在不同區域之間進行複寫，以防止萬用磁碟機。
+
+如需更多資訊、請造訪link:gcp-ncvs-datastore.html["Google Cloud NetApp Volumes （ NetApp Volumes ）做為補充 NFS 資料存放區"]
+
+
+
+== NetApp CVO 做為來賓連線儲存設備
+
+NetApp以NetApp的整套儲存軟體為基礎、是領先業界的雲端資料管理解決方案、原生可在Amazon Web Services（AWS）、Microsoft Azure和Google Cloud Platform（GCP）上使用。Cloud Volumes ONTAP ONTAP
+
+這是ONTAP 由軟體定義的版本、會消耗雲端原生儲存設備、讓您在雲端和內部環境中擁有相同的儲存軟體、減少重新訓練IT人員以全新方法管理資料的需求。
+
+CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端和移回、將混合式雲端整合在一起、所有這些都是透過單一窗格管理主控台NetApp Cloud Manager進行管理。
+
+根據設計， CVO 提供極致效能和進階資料管理功能，即使是雲端最嚴苛的應用程式也能滿足需求。
+
+如需更多資訊、請造訪link:gcp-guest.html#gcp-cvo["NetApp CVO 做為來賓連線儲存設備"]
+
+
+
+== Google Cloud NetApp Volumes （ NetApp Volumes ）做為來賓連線儲存設備
+
+Google Cloud NetApp Volumes 共享區可從 VMware Engine 環境中建立的虛擬機器掛載。這些磁碟區也可以掛載到 Linux 用戶端，並在 Windows 用戶端上對應，因為 Google Cloud NetApp Volumes 支援 SMB 和 NFS 傳輸協定。Google Cloud NetApp Volumes Volume 可透過簡單的步驟進行設定。
+
+Google Cloud NetApp Volumes 和 Google Cloud VMware Engine 私有雲必須位於同一個區域。
+
+如需更多資訊、請造訪link:gcp-guest.html#gcnv["Google Cloud NetApp Volumes （ NetApp Volumes ）做為來賓連線儲存設備"]

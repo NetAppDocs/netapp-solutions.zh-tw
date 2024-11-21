@@ -1,0 +1,59 @@
+---
+sidebar: sidebar 
+permalink: ehc/azure-storage-options.html 
+keywords: azure, netapp, anf, storage, options, nfs, supplemental, cvo 
+summary: NetApp 儲存設備可附加至 Azure VMware 服務，做為來賓連線或補充儲存設備。 
+---
+= Azure 虛擬化服務：使用 NetApp 儲存設備的選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp 儲存設備可附加至 Azure VMware 服務，做為來賓連線或補充儲存設備。
+
+
+
+== 作爲NFS補充資料存放區的能力（ANF Azure NetApp Files ）
+
+ESXi版本3在內部部署部署中引進NFS資料存放區支援、大幅擴充vSphere的儲存功能。
+
+在NFS上執行vSphere是內部部署虛擬化的廣泛採用選項、因為它提供強大的效能與穩定性。如果您在內部部署資料中心擁有大量的網路附加儲存設備（NAS）、則應考慮在Azure中部署Azure VMware解決方案SDDC與Azure NetApp檔案資料存放區、以克服容量與效能方面的挑戰。
+
+以領先業界的高可用度NetApp解決方案資料管理軟體為基礎。Azure NetApp Files ONTAPMicrosoft Azure服務分為三類：基礎、主流及專業。支援的硬體已部署在許多地區、屬於專業類別。Azure NetApp FilesAzure NetApp Files 內建高可用度（ HA ）功能，可保護您的資料不受大多數中斷運作的影響，並提供領先業界的服務等級協定，運作時間達 99.99% 。
+
+如需更多關於 ANF 做為 NFS 補充資料存放區的資訊，請造訪：
+
+* link:azure-native-overview.html["ANF做為補充NFS資料存放區：總覽"]
+* link:azure-native-nfs-datastore-option.html["Azure中的補充NFS資料存放區選項"]
+
+
+
+
+== 以客體連線儲存設備的形式提供Azure NetApp Files
+
+Azure NetApp Files 將企業級資料管理與儲存功能帶入 Azure ，讓您輕鬆管理工作負載與應用程式。將工作負載移轉至雲端、然後在不犧牲效能的情況下執行。
+
+Azure NetApp Files 可消除障礙，讓您將所有檔案型應用程式移至雲端。第一次、您不需要重新建構應用程式、也能在不複雜的情況下、持續為應用程式提供儲存設備。
+
+由於此服務是透過Microsoft Azure Portal提供、因此使用者在Microsoft企業協議中享有完整的託管服務。由Microsoft管理的世界級支援、讓您完全安心。此單一解決方案可讓您快速輕鬆地新增多重傳輸協定工作負載。您可以建置及部署Windows和Linux檔案型應用程式、即使是舊有環境也沒問題。
+
+如需更多資訊link:azure-guest.html#anf["ANF做為來賓連線儲存設備"]，請造訪。
+
+
+
+== 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+
+Cloud Volumes ONTAP （ CVO ）是領先業界的雲端資料管理解決方案，以 NetApp 的 ONTAP 儲存軟體為基礎，可在 Amazon Web Services （ AWS ）， Microsoft Azure 和 Google Cloud Platform （ GCP ）上原生取得。
+
+這是ONTAP 由軟體定義的版本、會消耗雲端原生儲存設備、讓您在雲端和內部環境中擁有相同的儲存軟體、減少重新訓練IT人員以全新方法管理資料的需求。
+
+CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端和移回、將混合式雲端整合在一起、所有這些都是透過單一窗格管理主控台NetApp Cloud Manager進行管理。
+
+根據設計、CVO提供極致效能和進階資料管理功能、即使是雲端最嚴苛的應用程式、也能輕鬆滿足需求
+
+如需更多資訊link:azure-guest.html#azure-cvo["CVO做為來賓連線儲存設備"]，請造訪。

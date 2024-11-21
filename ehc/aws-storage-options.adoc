@@ -1,0 +1,57 @@
+---
+sidebar: sidebar 
+permalink: ehc/aws-storage-options.html 
+keywords: aws, netapp, fsxn, storage, options, nfs, supplemental, cvo 
+summary: NetApp 儲存設備可附加至 Azure VMware 服務，做為來賓連線或補充儲存設備。 
+---
+= Amazon Web Services ：使用 NetApp 儲存設備的選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp 儲存設備可以附加至 Amazon Web Services ，做為來賓連線或補充儲存設備。
+
+
+
+== Amazon FSX for NetApp ONTAP （ FSX ONTAP ）做為補充 NFS 資料存放區
+
+Amazon FSX ONTAP 提供絕佳的選項、可部署及管理應用程式工作負載及檔案服務、同時將資料需求無縫地傳送至應用程式層、進而降低 TCO 。無論使用案例為何、選擇 VMware Cloud on AWS 搭配 Amazon FSX ONTAP 、即可快速實現雲端效益、一致的基礎架構、以及從內部部署到 AWS 的作業、工作負載的雙向可攜性、以及企業級的容量與效能。這是用來連接儲存設備的熟悉程序和程序。
+
+如需更多資訊，請造訪：
+
+* link:aws-native-overview.html["FSX ONTAP 支援補充NFS資料存放區：總覽"]
+* link:aws-native-nfs-datastore-option.html["Amazon FSX for ONTAP 做為補充資料存放區"]
+
+
+
+
+== Amazon FSX for NetApp ONTAP 做為來賓連線儲存設備
+
+Amazon FSX ONTAP 是一項完全託管的服務、可提供高度可靠、可擴充、高效能且功能豐富的檔案儲存設備、這些儲存設備均建置於 NetApp 的熱門 ONTAP 檔案系統之上。FSX ONTAP 結合了 NetApp 檔案系統熟悉的功能、效能、功能和 API 作業、以及完全託管的 AWS 服務的敏捷度、擴充性和簡易性。
+
+FSX ONTAP 提供功能豐富、快速且靈活的共享檔案儲存設備、可從在 AWS 或內部部署中執行的 Linux 、 Windows 和 macOS 運算執行個體廣泛存取。FSX ONTAP 提供高效能固態硬碟（ SSD ）儲存設備、延遲低於毫秒。有了 FSX ONTAP 、您就能為工作負載達到 SSD 等級的效能、而只需支付少量資料的 SSD 儲存費用。
+
+只要按一下按鈕、就能快照、複製及複寫檔案、因此使用 FSX ONTAP 管理資料變得更簡單。此外、 FSX ONTAP 會自動將您的資料分層、以降低成本、靈活儲存、減少配置或管理容量的需求。
+
+此外、 FSX ONTAP 還提供高可用度且持久的儲存設備、並提供完全託管的備份與跨區域災難恢復支援。為了讓資料更容易保護和保護、 FSX ONTAP 支援常見的資料安全和防毒應用程式。
+
+如需更多資訊，請造訪link:aws-guest.html#fsx-ontap["FSX ONTAP 不支援來賓連線儲存設備"]
+
+
+
+== 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
+
+NetApp以NetApp的整套儲存軟體為基礎、是領先業界的雲端資料管理解決方案、原生可在Amazon Web Services（AWS）、Microsoft Azure和Google Cloud Platform（GCP）上使用。Cloud Volumes ONTAP ONTAP
+
+這是ONTAP 由軟體定義的版本、會消耗雲端原生儲存設備、讓您在雲端和內部環境中擁有相同的儲存軟體、減少重新訓練IT人員以全新方法管理資料的需求。
+
+CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端和移回、將混合式雲端整合在一起、所有這些都是透過單一窗格管理主控台NetApp Cloud Manager進行管理。
+
+根據設計， CVO 提供極致效能和進階資料管理功能，即使是雲端最嚴苛的應用程式也能滿足需求。
+
+如需更多資訊link:aws-guest.html#aws-cvo["CVO做為來賓連線儲存設備"]，請造訪。
