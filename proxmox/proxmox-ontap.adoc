@@ -16,7 +16,7 @@ summary: Proxmox Virtual Environment （ VE ）中的共享儲存設備可縮短
 [role="lead"]
 Proxmox Virtual Environment （ VE ）中的共享儲存設備可縮短 VM 即時移轉的時間、並可在整個環境中建立更好的備份目標和一致的範本。ONTAP 儲存設備可滿足 Proxmox VE 主機環境的需求、也能滿足來賓檔案、區塊和物件儲存需求。
 
-Proxmox VE 主機需要將 FC 、乙太網路或其他支援的介面連接到交換器、並與 ONTAP 邏輯介面進行通訊。
+Proxmox VE 主機需要將 FC 、乙太網路或其他支援的介面連接到交換器、並與 ONTAP 邏輯介面進行通訊。請務必檢查 https://mysupport.netapp.com/matrix/#welcome["互通性對照表工具"]支援的組態。
 
 
 
@@ -142,6 +142,8 @@ NAS 傳輸協定（ NFS/SMB ）支援 Proxmox VE 的所有內容類型、通常�
 
 NOTE: 密碼將儲存為純文字檔、且只能由 root 使用者存取。請參閱 link:https://pve.proxmox.com/pve-docs/chapter-pvesm.html#storage_cifs["Proxmox VE 文件"]。
 
+.使用 ONTAP 的 SMB 共享儲存池
+video::5b4ae54a-08d2-4f7d-95ec-b22d015f6035[panopto,width=360]
 .<strong> 的 Admin </strong>
 [%collapsible]
 ====
@@ -200,6 +202,8 @@ ONTAP 支援 Proxmox VE 支援的所有 NFS 版本。為了提供容錯能力和
 
 如果是 ONTAP 新手、請使用系統管理員介面來完成這些工作、以獲得更好的體驗。
 
+.ONTAP 的 NFS nconnect 選項
+video::f6c9aba3-b070-45d6-8048-b22e001acfd4[panopto,width=360]
 .<strong> 的 Admin </strong>
 [%collapsible]
 ====
@@ -248,12 +252,14 @@ image:proxmox-ontap-image12.png["NFS 的儲存組態檔案"]
 
 == 使用 iSCSI 的 LVM
 
+.使用 ONTAP 與 iSCSI 共用 LVM 集區
+video::d66ef67f-bcc2-4ced-848e-b22e01588e8c[panopto,width=360]
 若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
 
 .<strong> 的 Admin </strong>
 [%collapsible]
 ====
-. 請確定已在各自的乙太網路 NIC 上設定兩個 Linux 橋接器（最好是在不同的 VLAN 上）。
+. 請確定兩個 Linux VLAN 介面可用。
 . 確保所有 Proxmox VE 主機上都安裝了多重路徑工具。確保它在開機時啟動。
 +
 [source, shell]
@@ -319,14 +325,16 @@ image:proxmox-ontap-image19.png["LVM iSCSI 組態"]
 ====
 
 
-=== 含 NVMe / TCP 的 LVM
+== 含 NVMe / TCP 的 LVM
 
+.使用 ONTAP 的 NVMe / TCP 共用 LVM 集區
+video::80164fe4-06db-4c21-a25d-b22e0179c3d2[panopto,width=360]
 若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
 
 .<strong> 的 Admin </strong>
 [%collapsible]
 ====
-. 請確定已設定兩個 Linux 橋接器、每個橋接器都有自己的乙太網路裝置（最好是在不同的 VLAN 上）。
+. 請確定兩個 Linux VLAN 介面可用。
 . 在叢集上的每個 Proxmox 主機上、執行下列命令以收集主機啟動器資訊。
 +
 [source, shell]
