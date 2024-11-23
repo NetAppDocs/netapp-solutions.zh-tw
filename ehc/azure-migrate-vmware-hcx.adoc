@@ -56,7 +56,7 @@ NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援�
 * 使用現有的Azure VMware解決方案軟體定義資料中心（SDDC）、或使用此功能建立私有雲端 link:azure-setup.html["NetApp連結"^] 或是這種情況 https://docs.microsoft.com/en-us/azure/azure-vmware/deploy-azure-vmware-solution?tabs=azure-portal["Microsoft連結"^]。
 * 若要從內部部署的VMware vSphere資料中心移轉VM及相關資料、需要從資料中心連線至SDDC環境。移轉工作負載之前、 https://docs.microsoft.com/en-us/azure/azure-vmware/tutorial-expressroute-global-reach-private-cloud["設定站台對站台VPN或Express路由全域連線連線"^] 在內部部署環境與各自私有雲端之間。
 * 從內部部署VMware vCenter Server環境到Azure VMware解決方案私有雲的網路路徑、必須支援使用VMotion移轉VM。
-* 請確定所需的 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-A631101E-8564-4173-8442-1D294B731CEB.html["防火牆規則和連接埠"^] 允許內部部署vCenter Server與SDDC vCenter之間的VMotion流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。
+* 確保內部部署 vCenter Server 和 SDDC vCenter 之間的 VMotion 流量允許所需的 https://learn.microsoft.com/en-us/azure/azure-vmware/tutorial-network-checklist?source=recommendations["防火牆規則和連接埠"^]流量。在私有雲端上、預設會設定VMotion網路上的路由傳送。
 * 應在Azure VMware解決方案中以資料存放區的形式掛載不適用的NFS Volume。Azure NetApp Files請依照本節詳細說明的步驟進行 https://learn.microsoft.com/en-us/azure/azure-vmware/attach-azure-netapp-files-to-azure-vmware-solution-hosts?tabs=azure-portal["連結"^] 將Azure NetApp Files 不完整的資料存放區附加至Azure VMware解決方案主機。
 
 
@@ -261,7 +261,7 @@ image:anfd-hcx-image15.png["vSphere用戶端互連頁面上完成程序的快照
 ====
 使用各種VMware HCX移轉技術、可在內部部署與Azure SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。
 
-若要深入瞭解各種HCX移轉機制、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["VMware HCX移轉類型"^]。
+若要深入瞭解各種 HCX 移轉機制，請參閱 https://learn.microsoft.com/en-us/azure/azure-vmware/architecture-migrate#vmware-hcx-migration-options["VMware HCX移轉類型"^]。
 
 *大量移轉*
 
@@ -294,7 +294,7 @@ NOTE: 在此移轉期間、Azure NetApp Files 會在目標vCenter內的指定支
 
 image:anfd-hcx-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-如需各種移轉選項的其他詳細資訊、以及如何使用HCX將工作負載從內部部署移轉至Azure VMware解決方案、請參閱 https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-14D48C15-3D75-485B-850F-C5FCB96B5637.html["VMware HCX使用者指南"^]。
+如需各種移轉選項的其他詳細資訊，以及如何使用 HCX 將工作負載從內部部署移轉至 Azure VMware 解決方案，請參閱 https://learn.microsoft.com/en-us/azure/azure-vmware/architecture-migrate["VMware HCX 移轉考量事項"^]。
 
 若要深入瞭解此程序、歡迎觀看下列影片：
 
@@ -348,7 +348,7 @@ https://docs.microsoft.com/en-us/azure/azure-vmware/["https://docs.microsoft.com
 
 https://docs.microsoft.com/en-us/azure/azure-netapp-files/["https://docs.microsoft.com/en-us/azure/azure-netapp-files/"^]
 
-* VMware HCX使用者指南
+* VMware HCX 移轉考量
 
 
-https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["https://docs.vmware.com/en/VMware-HCX/4.4/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html"^]
+https://learn.microsoft.com/en-us/azure/azure-vmware/architecture-migrate["https://learn.microsoft.com/en-us/azure/azure-vmware/architecture-migrate"^]

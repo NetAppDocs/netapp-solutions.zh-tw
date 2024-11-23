@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: ehc/gcp-migrate-vmware-hcx.html 
-keywords: gcp, gcve, hybrid multicloud, migrate, vmware hcx, hcx, google cloud, enterprise, hybrid, cloud, migration 
+keywords: gcp, gcve, hybrid, multicloud, migrate, vmware, hcx, google, cloud, enterprise, hybrid, cloud, migration 
 summary:  
 ---
 = 使用 VMware HCX 快速入門指南，將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區 VMware Engine
@@ -68,7 +68,7 @@ NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援�
 
 image:gcpd-hcx-image1.png["此映像描述此解決方案所使用的高層架構。"]
 
-如需HCX的詳細圖表、請參閱 https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/products/vmw-google-cloud-vmware-engine-logical-design-poster-for-workload-mobility.pdf["VMware連結"^]
+如需搭配 Google 使用 VMware HCX 的詳細資訊，請參閱 https://cloud.google.com/vmware-engine/docs/workloads/howto-migrate-vms-using-hcx["VMware連結"^]
 
 ====
 
@@ -111,7 +111,7 @@ NOTE: 手動啟動虛擬應用裝置。
 
 
 
-如需逐步指示、請參閱 https://docs.vmware.com/en/VMware-HCX/4.5/hcx-user-guide/GUID-47774FEA-6BDA-48E5-9D5F-ABEAD64FDDF7.html["VMware HCX使用者指南"^]。
+如需逐步說明，請參閱 https://cloud.google.com/vmware-engine/docs/workloads/howto-migrate-vms-using-hcx#prepare-for-hcx-manager-installation["Google HCX 文件"^]。
 
 ====
 .步驟3：使用授權金鑰啟動HCX Connector
@@ -230,7 +230,7 @@ image:gcpd-hcx-image14.png["vSphere用戶端互連頁面上HCX應用裝置的快
 ====
 使用各種VMware HCX移轉技術、可在內部部署與GCVC SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。
 
-若要深入瞭解各種HCX移轉機制、請參閱 https://docs.vmware.com/en/VMware-HCX/4.5/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["VMware HCX移轉類型"^]。
+若要深入瞭解各種 HCX 移轉機制，請參閱 https://cloud.google.com/vmware-engine/docs/workloads/howto-migrate-vms-using-hcx["使用 VMware HCX 文件移轉 VMware VM"^]。
 
 HCX-IX應用裝置使用行動代理程式服務來執行VMotion、Cold和Replication輔助VMotion（RAV）移轉。
 
@@ -259,7 +259,7 @@ image:gcpd-hcx-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 . 驗證檢查完成後、按一下「Go（執行）」以啟動移轉。
 +
 
-NOTE: VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及其MAC位址。如需有關HCX VMotion需求與限制的詳細資訊、請參閱 https://docs.vmware.com/en/VMware-HCX/4.5/hcx-user-guide/GUID-517866F6-AF06-4EFC-8FAE-DA067418D584.html["瞭解VMware HCX VMotion和冷移轉"^]。
+NOTE: VMotion傳輸會擷取VM作用中記憶體、其執行狀態、IP位址及其MAC位址。如需 HCX VMotion 需求與限制的詳細資訊，請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-10/vmware-hcx-user-guide-4-10/migrating-virtual-machines-with-vmware-hcx/understanding-vmware-hcx-vmotion-and-cold-migration.html#GUID-517866F6-AF06-4EFC-8FAE-DA067418D584-en["瞭解VMware HCX VMotion和冷移轉"^]。
 
 . 您可以從HCX >移轉儀表板監控VMotion的進度和完成。
 +

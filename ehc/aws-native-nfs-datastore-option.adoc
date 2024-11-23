@@ -16,7 +16,7 @@ summary:
 [role="lead"]
 在 VMware Cloud 就緒並連線至 AWS VPC 之後、您必須將 Amazon FSX ONTAP 部署至新指定的 VPC 、而非原始連線或現有的預設 VPC 。
 
-若要開始、請在 SDDC 所在的相同區域和可用性區域部署額外的 VPC 、然後將 Amazon FSX ONTAP 部署到新的 VPC 。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-6B20CA3B-ABCD-4939-9176-BCEA44473C2B.html["在VMware Cloud中設定SDDC群組"^]主控台可啟用連線至將部署 FSX ONTAP 的新指定 VPC 所需的網路組態選項。
+若要開始、請在 SDDC 所在的相同區域和可用性區域部署額外的 VPC 、然後將 Amazon FSX ONTAP 部署到新的 VPC 。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-networking-security/GUID-C957DBA7-16F5-412B-BB72-15B49B714723.html["在VMware Cloud中設定SDDC群組"^]主控台可啟用連線至將部署 FSX ONTAP 的新指定 VPC 所需的網路組態選項。
 
 
 NOTE: 在 AWS SDDC 上、將 FSX ONTAP 部署在與 VMware Cloud 相同的可用區域。
@@ -171,7 +171,7 @@ image:fsx-nfs-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 .步驟3：設定VMware Transit Connect
 [%collapsible]
 ====
-. 將新建立的指定VPC附加至SDDC群組。選取*外部VPC*索引標籤、然後遵循 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-operations/GUID-A3D03968-350E-4A34-A53E-C0097F5F26A9.html["將外部VPC附加至群組的說明"^]。此程序可能需要10-15分鐘才能完成。
+. 將新建立的指定VPC附加至SDDC群組。選擇 * 外部 VPC* 選項卡，然後按照 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-networking-security/GUID-A3D03968-350E-4A34-A53E-C0097F5F26A9.html["將外部VPC附加至群組的說明"^]。此程序可能需要10-15分鐘才能完成。
 +
 image:fsx-nfs-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
