@@ -20,7 +20,7 @@ Virtual Machine Data Collector （ VMDC ）是一套免費，輕量且簡單的 
 
 == 總覽
 
-VMDC 的主要功能是報告位於 vSphere 環境中的 vCenter ， ESXi 伺服器和虛擬機器（ VM ）組態，包括叢集組態，網路，儲存設備，快照和效能資料。然後，收集到的環境詳細資訊可用來產生有關基礎架構的寶貴見解。報告輸出顯示為試算表樣式的 GUI ，其各個區段都有索引標籤。它提供易於閱讀的報告，並協助識別問題，最佳化資源使用率，以及規劃容量。
+VMDC 的主要功能是報告位於 vSphere 環境中的 vCenter ， ESXi 伺服器和虛擬機器（ VM ）組態，包括叢集組態，網路，儲存設備和效能資料。收集完整的環境資料之後，就可以利用這些資料來產生有關基礎架構的深入資訊。報告輸出顯示為試算表樣式的 GUI ，其各個區段都有多個索引標籤。它提供易於讀取的報告，有助於最佳化資源使用率，並規劃容量。
 
 VMDc 只是一個用來收集快速即時統計資料的步驟，用來預測 VMware 核心授權，以及 vCPU 和 RAM 的最佳化可能性。link:https://docs.netapp.com/us-en/data-infrastructure-insights/["NetApp 資料基礎架構洞見"]這需要安裝 Aus 和資料收集器，這應該是瞭解詳細 VM 拓撲，使用註釋將 VM 分組，以適當調整工作負載大小，並在未來證明基礎架構的明顯下一步。
 
@@ -30,7 +30,7 @@ VMDc 可以下載link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-
 
 == 安裝及設定 VMDC
 
-VMDc 只要安裝 .NET 4.7 ，即可在執行 2022 版的 Windows 2019 上執行。驗證完成後，請從下載 VMDC 套件link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-collector["NetApp 工具箱"]，然後解壓縮套件，並執行批次檔來安裝並啟動服務。
+VMDc 可以在 2022 年 Windows 2019 版上執行。必要的先決條件是從 VMDC 執行個體到指定 vCenter 伺服器的網路連線。驗證完成後，請從下載 VMDC 套件link:https://mysupport.netapp.com/site/tools/tool-eula/vm-data-collector["NetApp 工具箱"]，然後解壓縮套件，並執行批次檔來安裝並啟動服務。
 
 安裝 VMDC 之後，請使用安裝期間提及的 IP 位址來存取 UI 。這將會顯示 VMDC 登入介面，您可以在其中輸入 vCenter Server 的 IP 位址或 DNS 名稱和認證來新增 vCenter 。
 
