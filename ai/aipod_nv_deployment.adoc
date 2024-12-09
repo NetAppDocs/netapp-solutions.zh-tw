@@ -40,7 +40,7 @@ image:aipod_nv_a90_netdetail.png["此圖顯示輸入 / 輸出對話方塊或表�
 | Switch1 連接埠 37-40 | AFF A90-01 到 -04 | 連接埠 e11a 
 
 
-| Switch1 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 e8a 
+| Switch1 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 E2A 
 
 
 | Switch1 連接埠 57-64 | ISL 到交換器 2 | 連接埠 57-64 
@@ -61,7 +61,7 @@ image:aipod_nv_a90_netdetail.png["此圖顯示輸入 / 輸出對話方塊或表�
 | Switch2 連接埠 37-40 | AFF A90-01 到 -04 | 連接埠 e11b. 
 
 
-| Switch2 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 e8b. 
+| Switch2 連接埠 41-44 | AFF A90-01 到 -04 | 連接埠 e2b 
 
 
 | Switch2 連接埠 57-64 | ISL 到交換器 1 | 連接埠 57-64 
@@ -100,7 +100,7 @@ image:aipod_nv_a90_netdetail.png["此圖顯示輸入 / 輸出對話方塊或表�
 . 為兩台交換器上的每對用戶端連接埠和儲存連接埠設定 LACP MLAG
 +
 ** DGX-H100-01 （ enp170s0f1np1 和 enp41s0f1np1 ）、 DGX-H100-02 等各交換器的連接埠 swp17 （ bond1-16 ）
-** 每個交換器上的連接埠 swp41 適用於 AFF A90-01 （ e8a 和 e8b ）、連接埠 swp42 適用於 AFF A90-02 等（ bond17-20 ）
+** 每個交換器上的連接埠 swp41 適用於 AFF A90-01 （ e2a 和 e2b ）、連接埠 swp42 適用於 AFF A90-02 等（ bond17-20 ）
 ** NV Set 介面 bondX bond 成員 swpX
 ** NV Set 介面 bondx bond MLAG id X
 
@@ -201,7 +201,7 @@ image:aipod_nv_a90_logical.png["此圖顯示輸入 / 輸出對話方塊或表示
 . 在每個控制器上設定 ifgrps
 +
 ** NET 連接埠 ifgrp create -node <node> -ifgrp A1A -mode imody_lacp -distr-function 連接埠
-** net 連接埠 ifgrp add-port -node <node> -ifgrp <ifgrp> -ports <node> ： e8a 、 <node> ： e8b
+** net 連接埠 ifgrp add-port -node <node> -ifgrp <ifgrp> -ports <node> ： e2a 、 <node> ： e2b
 
 
 . 在每個控制器上的 ifgrp 上設定管理 VLAN 連接埠
@@ -245,7 +245,7 @@ image:aipod_nv_a90_logical.png["此圖顯示輸入 / 輸出對話方塊或表示
 +
 ** 設定 SVM 以支援 RDMA
 +
-*** vserver modify -vserver baspoe-data -RDMA 已啟用
+*** Vserver NFS 修改 -vserver baspoe-data -RDMA 已啟用
 
 
 ** 建立生命

@@ -24,7 +24,7 @@ summary: NetApp AIPod 搭配 NVIDIA DGX 系統 - 架構
 
 NetApp AIPod 解決方案拓撲 _
 
-image:aipod_nv_A90_topo.png["錯誤：缺少圖形影像"]
+image:aipod_nv_A90_topo.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
@@ -52,7 +52,11 @@ image:aipod_nv_A90_topo.png["錯誤：缺少圖形影像"]
 
 每個 AFF A90 儲存系統都使用每個控制器的六個 200 GbE 連接埠進行連線。每個控制器有四個連接埠用於從 DGX 系統存取工作負載資料、每個控制器有兩個連接埠則設定為 LACP 介面群組、以支援從管理層伺服器存取叢集管理成品和使用者主目錄。儲存系統的所有資料存取都是透過 NFS 提供、其中儲存虛擬機器（ SVM ）專用於 AI 工作負載存取、另有專用於叢集管理用途的獨立 SVM 。
 
-link:ai/aipod_nv_deployment.html["部署詳細資料"]如需儲存系統組態的詳細資訊、請參閱頁面。
+管理 SVM 只需要單一 LIF 、裝載在每個控制器上設定的雙連接埠介面群組上。管理 SVM 上的其他 FlexGroup 磁碟區則是用來存放叢集管理產出工件、例如叢集節點映像、系統監控歷史資料、以及終端使用者主目錄。下圖顯示儲存系統的邏輯組態。
+
+NetApp A90 儲存叢集邏輯組態 _
+
+image:aipod_nv_a90_logical.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
 
 
