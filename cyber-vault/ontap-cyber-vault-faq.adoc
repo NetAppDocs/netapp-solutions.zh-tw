@@ -110,10 +110,27 @@ NetApp 網路資料保險箱的基礎是 SnapMirror 和 SnapLock Compliance 、�
 ONTAP Snapshot 複本預設為不可變的複本、可透過 SnapLock Compliance 進行不變的複本。即使 NetApp 支援也無法刪除 SnapLock Snapshot 複本。更好的問題是、 NetApp 網路資料保險箱比業界其他網路資料保險箱更好。首先、 ONTAP 是全球最安全的儲存設備、並已取得 CSfC 驗證、可在硬體和軟體層儲存機密和機密資料。如需詳細資訊link:https://www.netapp.com/esg/trust-center/compliance/CSfC-Program/["CSfC 可在此找到"^]、請參閱。此外、 ONTAP 也可在儲存層進行無線傳輸、而網路資料保險箱系統則可控制複寫、以便在網路資料保險箱網路中建立無線網路。
 
 ====
-.網路資料保險箱的來源磁碟區是否可以是啟用 ONTAP Fabric Pool 的磁碟區（階層式磁碟區至 ONTAP S3 或 StorageGRID ）？
+.網路資料保險箱上的磁碟區是否可以使用 ONTAP Fabric Pool ？
 [%collapsible%open]
 ====
-否、無論使用的原則為何、都無法將 Fabric Pool 來源 Volume 複寫到 SnapLock Compliance 目的地。
+否，無論原則為何，網路資料保險箱 Volume （ SnapLock Compliance SnapMirror 目的地）都無法使用 Fabric Pool 分層。
+
+image:ontap-cyber-vault-fabric-pool-configurations.png["網路資料保險箱 Fabric Pool 支援的組態"]
+
+
+NOTE: 在多種情況下， Fabric Pool * 無法 * 用於網路資料保險箱。
+
+. Fabric Pool Cold 階層 * 無法 * 使用網路資料保險箱叢集。這是因為啟用 S3 傳輸協定會使網路資料保險箱參考架構的安全特性失效。此外，用於 Fabric Pool 的 S3 儲存區也無法受到保護。
+. 網路資料保險箱上的 SnapLock Compliance Volume * 無法 * 分層至 S3 儲存區，因為資料已鎖定在磁碟區中。
+
+
+image:ontap-cyber-vault-fabric-pool-configurations-p-s-cv.png["適用於串聯關係的網路資料保險箱 Fabric Pool 支援組態"]
+
+====
+.網路資料保險箱是否有 ONTAP S3 Worm ？
+[%collapsible%open]
+====
+否， S3 是一種資料存取傳輸協定，無法驗證參考架構的安全特性。
 
 ====
 .NetApp 網路資料保險箱是否在不同的 ONTAP 個人或設定檔上執行？

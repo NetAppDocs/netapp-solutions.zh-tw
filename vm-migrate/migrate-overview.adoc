@@ -1,0 +1,657 @@
+---
+sidebar: sidebar 
+permalink: vm-migrate/migrate-overview.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+summary:  
+---
+= 在虛擬化環境之間移轉虛擬機器（ VM ）（ Shift Toolkit ）
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+使用 NetApp Shift 工具組，移轉虛擬機器（ VM ）不再是問題。此獨立式產品可將 VM 從 VMware ESXi 快速有效地移轉至 Microsoft Hyper-V 。此外，它還支援不同虛擬磁碟格式之間的磁碟層級轉換。
+
+
+
+== Usecase
+
+現在，每個組織都能看到擁有多重 Hypervisor 環境的好處。隨著市場最近的變化，每個組織都在權衡技術和商業風險，包括將工作負載 VM 移轉至其他 Hypervisor ，並專注於達成業務定義目標，以及控制廠商束縛，以最佳方式營運授權成本，並將 IT 預算延伸到適當的領域，而非將未使用的核心花費在特定 Hypervisor 上。然而，移轉時間和相關停機時間始終是我們面臨的挑戰。
+
+使用 NetApp Shift 工具組，移轉虛擬機器（ VM ）不再是問題。此獨立式產品可將 VM 從 VMware ESXi 快速有效地移轉至 Microsoft Hyper-V 。此外，它還支援不同虛擬磁碟格式之間的磁碟層級轉換。由於 ONTAP 提供現成的功能，因此這些移轉作業可以非常快速，而且停機時間最短。例如，轉換 1TB VMDK 檔案通常需要幾個小時，但使用 Shift 工具組，只要幾秒鐘就能完成。
+
+
+
+== 工具套件概觀
+
+NetApp Shift 工具套件是一種易於使用的圖形化使用者介面（ GUI ）解決方案，可在不同的 Hypervisor 之間移轉虛擬機器（ VM ），並轉換虛擬磁碟格式。它利用 NetApp FlexClone® 技術快速轉換 VM 硬碟。此外，此工具組還可管理目的地 VM 的建立與組態。
+
+Shift 工具組可支援在下列 Hypervisor 之間進行雙向轉換，在多 Hypervisor 環境中提供靈活度：
+
+* VMware ESXi 到 Microsoft Hyper-V
+* Microsoft Hyper-V 至 VMware ESXi （即將推出）
+
+
+Shift 工具套件支援虛擬磁碟在 Hypervisor 之間進行磁碟層級轉換，適用於下列磁碟格式：
+
+* VMware ESX 至 Microsoft Hyper-V （虛擬機器磁碟 [VMDA] 至虛擬硬碟格式 [VHDX ] ）
+* VMware ESX 至 KVM 相容 Hypervisor （ VMDK 至 QCOW2 ）
+
+
+Shift 工具組可下載link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["請按這裡"]，僅適用於 Windows 系統。
+
+
+
+=== VM 可攜性的優點
+
+ONTAP 是任何 Hypervisor 和任何超純量的理想選擇。採用 FlexClone 技術。虛擬機器可攜性只需幾分鐘，遠比等待更長的停機時間或透過直接移轉選項解決更多問題。
+
+Shift 工具組：
+
+* 協助將停機時間降至最低，並提高企業生產力。
+* 透過降低授權成本，鎖定及承諾單一廠商，提供更多選擇與靈活度。
+* 讓想要最佳化虛擬機器授權成本並擴充 IT 預算的組織能夠順利運作。
+* 利用 VM 可攜性來降低虛擬化成本， NetApp 免費提供。
+
+
+
+
+=== Shift 工具組的運作方式
+
+轉換時， Shift 工具組會連線至 Microsoft Hyper-V 和 VMware ESXi 主機，以及共用的 NetApp 儲存設備。Shift 工具套件利用 FlexClone ，使用三項重要的 NetApp 技術，將 VM 硬碟從一個 Hypervisor 轉換成另一個 Hypervisor ：
+
+* 單一磁碟區和多種通訊協定
++
+有了 NetApp ONTAP ，就能輕鬆使用多種傳輸協定來存取單一磁碟區。例如， VMware ESXi 可以存取已啟用網路檔案系統（ NFS ）傳輸協定的磁碟區，而 Microsoft Hyper-V 則可以使用 CIFS/SMB 傳輸協定存取相同的磁碟區。
+
+* FlexClone 技術
++
+FlexClone 可讓您快速複製整個檔案或磁碟區，而無需複製資料。儲存系統上的一般區塊會在多個檔案或磁碟區之間共用。因此，大型 VM 磁碟可以快速複製。
+
+* VM 磁碟轉換
++
+NetApp PowerShell Toolkit and Shift 工具組包含大量工作流程，可用於在 NetApp 儲存控制器上執行各種動作。內含 PowerShell Cmdlet ，可將虛擬磁碟轉換成不同格式。例如， VMware VMDK 可轉換為 Microsoft VHDX ，反之亦然。這些轉換都是使用 FlexClone 來執行，只要一個步驟就能快速複製及轉換磁碟格式。
+
+
+
+image:shift-toolkit-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+==== 通訊協定與通訊方法
+
+在轉換或移轉作業期間， Shift 工具組會使用下列通訊協定。
+
+* HTTPS - 由 Shift 工具組用來與 Data ONTAP 叢集通訊。
+* VI Java （ VI SDK ）， VMware PowerCLI - 用於與 VMware ESXi 進行通訊。
+* Windows PowerShell 模組 - 用於與 Microsoft Hyper-V 通訊
+
+
+
+
+== 安裝及設定 Shift 工具組
+
+若要開始使用此工具組，請在指定的虛擬機器上使用 Windows 作業系統，並確定您符合先決條件，然後安裝套件。
+
+Shift 工具組可在 Windows 2019 和 2022 版本上執行。從下載 Shift 工具組套件套link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["NetApp 工具箱"]件，然後解壓縮套件，並執行批次檔來安裝並啟動服務。
+
+Shift 工具組可以安裝在 Microsoft Hyper-V 伺服器或獨立伺服器（實體或虛擬）上，最好在自己的 VM 上安裝 Shift 工具組。此方法可讓您使用單一 Shift 工具套件伺服器，鎖定不同的 Microsoft Hyper-V 伺服器或 VMware ESXi 伺服器。
+
+
+
+=== 先決條件：
+
+
+
+==== 硬體需求
+
+確保 Shift 伺服器主機符合最低硬體需求。
+
+* CPU - 2vCPUs
+* 記憶體 - 最少 4GB
+* 磁碟空間–最少 10 GB
+
+
+
+
+==== 連線需求
+
+* 確保已設定 Hypervisor 和儲存環境，以便 Shift 工具組能與環境中的所有元件正常互動。
+* Shift 工具組可以安裝在 Microsoft Hyper-V 伺服器或獨立式 Windows 伺服器（實體或虛擬）上。
+* Shift 伺服器， Data ONTAP CIFS 伺服器， Hyper-V 伺服器和來賓作業系統必須位於同一個 Windows 網域上。
+* 當執行 VM 轉換時，可支援多個用於 CIFS 和 NFS 的 Lifs ，以搭配儲存虛擬機器使用。Hyper-V 伺服器和 ESXi 主機會存取儲存虛擬機器（ SVM ），其 IP 位址為這些生命的 IP 位址。
+* 對於 CIFS 作業， Windows 網域控制器和 NetApp 儲存控制器的時間設定必須同步。
+
+
+
+
+=== 建立新的 SVM （建議）
+
+使用 Storage VMotion 將要移轉或轉換的 VM 移至新的指定 Data ONTAP 儲存虛擬機器（ SVM ）。最佳做法是為 VM 設定新的 SVM ，以確保您不會在正式作業 SVM 上轉換 VM 。使用 ONTAP CLI 或系統管理員來建立新的 SVM 。
+
+請依照本文件所提供的步驟link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["連結"]，配置新的 SVM ，同時允許 NFS 和 SMB 傳輸協定。
+
+對於 ESX 到 Hyper-V 的轉換，會指定 CIFS 共用（特別是控制器上的 CIFS qtree ）的完整路徑名稱做為目的地路徑。
+
+附註：建立新的 SVM 是很好的做法，可以確保 SVM 符合 Shift 工具組的需求，而無需以可能會造成中斷的方式修改正式作業 SVM 。注意：目的地路徑必須位於來源 VM 的同一個磁碟區上。附註： Shift 工具組僅支援 NAS 環境（ NFS ）中的 VM 轉換。它不支援轉換位於 SAN 環境（ LUN ）中的 VM 。
+
+
+
+==== 支援的作業系統
+
+請確保使用支援的 Windows 和 Linux 版本來進行轉換，並確保 Shift 工具組支援 ONTAP 版本。
+
+* 支援的 VM 來賓作業系統 *
+
+下列版本的 Windows 支援做為 VM 轉換的客體作業系統：
+
+* Windows Server 2016
+* Windows Server 2019
+* Windows Server 2022
+
+
+支援下列 Linux 版本做為 VM 轉換的客體作業系統：
+
+* Red Hat Enterprise Linux 6.7 或更新版本
+* Red Hat Enterprise Linux 7.2 或更新版本
+* Red Hat Enterprise Linux 8.x
+* Red Hat Enterprise Linux 9.x
+* Ubuntu 2018
+* Ubuntu 2022
+* Ubuntu 2024
+* Debian 10.
+* Debian 11.
+* Debian 12.
+
+
+
+NOTE: 不支援 CentOS Linux/RedHat for Red Hat Enterprise Linux 5 。
+
+* 支援的 ONTAP 版本 *
+
+Shift 工具套件支援執行 ONTAP 9.14.1 或更新版本的平台。
+
+
+
+=== 安裝
+
+. 下載。link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["Shift 工具套件套件"]
++
+image:shift-toolkit-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 將套件解壓縮至指定的資料夾。
++
+image:shift-toolkit-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 按一下 * 安裝 * 批次檔來執行 Shift 工具組套件。
++
+image:shift-toolkit-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 安裝程式將開始安裝程序。這將會開啟命令提示字元，並開始安裝先決條件，包括 MongoDB ， Windows PowerShell 7 ， NetApp ONTAP PowerShell Toolkit ，適用於 Windows PowerShell 的 Hyper-V 模組， VMware.PowerCLI 套件和 Java ，這些都封裝在套件中。
++
+image:shift-toolkit-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 之後，系統會啟用互動式提示中的 CredSSP 。按下 Y 並繼續。
++
+image:shift-toolkit-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 啟用 CredSSP 之後，安裝程式會安裝 Java 套件（ qcow 轉換所需）。
++
+image:shift-toolkit-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 完成後，安裝程式會提示輸入用於存取 Shift 工具組 UI 的 IP 位址。
++
+image:shift-toolkit-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 完成後，請「按任意鍵繼續」以關閉命令提示字元。
++
+image:shift-toolkit-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: 安裝可能需要 8 到 10 分鐘的時間。
+
+
+
+=== 使用GUI
+
+
+
+==== 執行 Shift 工具組
+
+* 使用瀏覽器，輸入以存取 Shift 工具組 UI `http://<IP address specified during installation>:3001` 。
+* 使用預設認證存取 UI ，如下所示：使用者名稱：管理密碼：管理
+
+
+
+NOTE: 您可以使用「變更密碼」選項來變更管理認證。
+
+image:shift-toolkit-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+按一下「接受並繼續」以接受合法的 EULA
+
+image:shift-toolkit-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+==== Shift 工具組組組態
+
+一旦儲存設備與來源和目的地 Hypervisor 的連線均已正確設定，請開始設定 Shift 工具套件，以利用 FlexClone 功能，將虛擬機器 VMDK 的移轉或轉換為適當的格式。
+
+
+
+===== 新增站台
+
+第一步是探索並新增來源 vCenter ，然後將目標 Hyper-V 詳細資料（包括 Hypervisor 和儲存設備）新增至 Shift 工具套件。在支援的瀏覽器中開啟 Shift 工具組，並使用預設的使用者名稱和密碼（ admin/admin ）和新增站台。
+
+image:shift-toolkit-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 您也可以使用「探索」選項新增站台。
+
+新增下列平台：
+
+*資料來源*
+
+* 來源站台詳細資料
++
+** 站台名稱 - 提供站台名稱
+** Hypervisor –選擇 VMware 作為來源（預覽期間僅提供選項）
+** 站台位置–選取預設選項
+** Connector –選擇預設選項
+** 儲存類型–選擇預設選項
+
+
+
+
+填妥後，按一下「繼續」。
+
+image:shift-toolkit-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 來源 vCenter
++
+** 端點 - 輸入 vCenter 伺服器的 IP 位址或 FQDN
+** 使用者名稱 - 存取 vCenter 的使用者名稱（ UPN 格式： username@domain.com ）
+** vCenter 密碼–存取 vCenter 以執行資源清查的密碼。
+** vCenter SSL Thumbprint （選用）
+
+
+
+
+選取「接受自我簽署的憑證」，然後按一下「繼續」。
+
+image:shift-toolkit-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* ONTAP 儲存系統認證
+
+
+image:shift-toolkit-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+新增之後， Shift 工具組會執行自動探索，並顯示 VM 及相關的中繼資料資訊。Shift 工具組會自動偵測 VM 所使用的網路和連接埠群組，並填入這些群組。
+
+image:shift-toolkit-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+若要檢視特定 vCenter 的資料，請前往儀表板，按一下適當站台名稱的「 View VM List 」（檢視 VM 清單）。此頁面會顯示 VM 詳細目錄及 VM 屬性。
+
+image:shift-toolkit-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: VM 清查會每 24 小時重新整理一次。
+
+
+NOTE: Shift 工具套件支援 ESXi 7.0 及更新版本
+
+下一步是新增目的地 Hypervisor 。
+
+*目的地*
+
+image:shift-toolkit-image18.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 目的地站台詳細資料
++
+** 站台名稱 - 提供站台名稱
+** Hypervisor –選取 Hyper-V 或 KVM 作為目標
+** 站台位置–選取預設選項
+** Connector –選擇預設選項
+
+
+
+
+填妥後，按一下「繼續」。
+
+image:shift-toolkit-image19.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+根據 Hypervisor 選擇，填寫必要的詳細資料。
+
+* 目的地 Hyper-V 詳細資料
++
+** Hyper-V Standalone 或容錯移轉叢集管理程式 IP 位址或 FQDN
+** 使用者名稱 - 存取 Hyper-V 的使用者名稱（ UPN 格式： username@domain.com ）密碼–存取 Hyper-V 以執行資源清查的密碼。
+
+
+
+
+image:shift-toolkit-image20.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+完成後，請按一下「繼續」
+
+
+NOTE: 在目前版本中， Shift 工具組無法直接與 System Center 通訊。
+
+
+NOTE: 在目前版本中，只有 Hyper-V 支援端點對端點虛擬機器移轉。
+
+
+NOTE: 在目前版本中，針對 KVM 做為目的地， VMDK 到 qcow2 轉換是唯一支援的工作流程。因此，如果從下拉式清單中選取 KVM ，則不需要 Hypervisor 詳細資料。qcow2 磁碟可用於在 KVM 變體上佈建虛擬機器。
+
+* ONTAP 儲存系統 *
+
+image:shift-toolkit-image21.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 來源與目的地儲存系統應與磁碟格式轉換在 Volume 層級進行相同。
+
+image:shift-toolkit-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+下一步是將所需的虛擬機器分組為其移轉群組，做為資源群組。
+
+
+
+==== 資源分組
+
+新增平台之後，請將您要移轉或轉換成資源群組的虛擬機器分組。移轉工具組資源群組可讓您將一組相關虛擬機器分組為邏輯群組，其中包含開機順序，開機延遲，以及可在恢復時執行的選用應用程式驗證。
+
+若要開始建立資源群組，請按一下「建立新資源群組」功能表項目。
+
+. 存取資源群組，按一下「建立新資源群組」。
++
+image:shift-toolkit-image23.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 在「新資源群組」上，從下拉式清單中選取來源網站，然後按一下「建立」
+. 提供資源群組詳細資料並選取工作流程。工作流程提供兩個選項
++
+.. 複製型移轉：執行虛擬機器從來源 Hypervisor 到目的地 Hypervisor 的端點對端移轉。
+.. Clone Based Conversion （以複本為基礎的轉換）–將磁碟格式轉換為選取的 Hypervisor 類型。
++
+image:shift-toolkit-image24.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+. 按一下「繼續」
+. 使用搜尋選項選取適當的 VM 。預設篩選選項為「 Datastore 」。
++
+
+NOTE: 在轉換之前，將虛擬機器移至新建立的 ONTAP SVM 上的指定資料存放區進行轉換或移轉。這有助於隔離正式作業的 NFS 資料存放區，以及可用於整備虛擬機器的指定資料存放區。
+
++
+image:shift-toolkit-image25.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 選取「目的地站台」，「目的地 Hyper-V 項目」和「資料存放區至 Qtree 」對應，以更新移轉詳細資料。
++
+image:shift-toolkit-image26.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+
+NOTE: 將虛擬機器從 ESX 轉換為 Hyper-V 時，請確定目的地路徑（已轉換的虛擬機器儲存位置）設定為 qtree 。將目的地路徑設定為適當的 qtree 。
+
+. 為所有選取的 VM 選取開機順序和開機延遲（秒）。選取每個虛擬機器並設定其優先順序，以設定開機順序。3 是所有虛擬機器的預設值。
++
+選項如下：
+
++
+1–第一台開機的虛擬機器3–預設5–最後一台開機的虛擬機器
+
++
+image:shift-toolkit-image27.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 按一下「建立資源群組」。
++
+image:shift-toolkit-image28.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+
+===== 藍圖
+
+若要移轉或轉換虛擬機器，必須制定計畫。從下拉式清單中選取來源和目的地 Hypervisor 平台，然後選擇要包含在此藍圖中的資源群組，以及應用程式應如何開機的分組（例如網域控制站，第 1 層，第 2 層等）。這些通常也稱為移轉計畫。若要定義藍圖，請瀏覽至「藍圖」標籤，然後按一下「建立新藍圖」。
+
+若要開始建立藍圖，請按一下「建立新藍圖」。
+
+. 存取藍圖，按一下「建立新藍圖」。
++
+image:shift-toolkit-image29.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 在「新藍圖」上，選擇來源站台，相關 vCenter ，目的地站台及相關的 Hyper-V Hypervisor ，提供規劃名稱，並新增必要的主機對應。
+. 完成對應後，請選取叢集和主機對應。
++
+image:shift-toolkit-image30.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 選取資源群組詳細資料，然後按一下「繼續」
++
+image:shift-toolkit-image31.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 設定資源群組的執行順序。此選項可讓您在存在多個資源群組時，選取作業順序。
+. 完成後，選取「網路對應至適當的虛擬交換器」。虛擬交換器應已在 Hyper-V 中進行佈建
++
+
+NOTE: 虛擬交換器類型「外部」是唯一支援的網路選擇選項。
+
++
+
+NOTE: 雖然 GUI 中提供網路對應功能，但 Shift 工具組在目前版本中並未執行 IP 位址指派，但在即將推出的版本中，「 Retain IP 」是一種選項。在目前版本中，「 Do no configure Network 」是預設選項。轉換磁碟並在 Hyper-V 端購買虛擬機器之後，請手動指派網路交換器，以符合 VM 軟體端的相關連接埠群組和 VLAN 。
+
++
+image:shift-toolkit-image32.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 根據虛擬機器的選擇，系統會自動選取儲存對應。附註：請確定預先配置 qtree ，並指派必要的權限，以便從 SMB 共用建立並開啟虛擬機器。
+. 在 VM 詳細資料下，提供每種作業系統類型的服務帳戶詳細資料。這是用來連線至虛擬機器，以建立和執行移除 VMware 工具和備份 IP 組態詳細資料所需的特定指令碼。
++
+image:shift-toolkit-image33.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 同樣地，在 VM 詳細資料下，選取 IP 組態選項。此版本不支援 IP 位址指派，因此預設會選取「請勿設定」。
+. 下一步是 VM 組態。
++
+** 您也可以調整 VM CPU/ RAM 參數的大小，這對調整大小非常有幫助。
+** 開機順序覆寫：同時修改資源群組中所有選定虛擬機器的開機順序和開機延遲（秒）。如果資源群組開機順序選擇期間所選項目需要任何變更，這是修改開機順序的另一個選項。根據預設，會使用在資源群組選擇期間所選的開機順序，但在此階段可以進行任何修改。* 開機：如果工作流程不應開啟虛擬機器電源，請取消勾選此選項。預設選項為開啟，表示 VM 將會開啟電源。
+** 移除 VMware 工具：移轉工具套件會在轉換前移除 VMware 工具。此選項預設為選取狀態。
+** 世代： Shift 工具組使用下列經驗法則，並預設為適當的一代 > BIOS 和第二代 > EFI 。此選項無法選擇。
+** Retain MAC ：可保留個別 VM 的 MAC 位址，以克服依賴 MAC 的應用程式所面臨的授權挑戰。此選項已停用，因為此版本無法修改網路。
+** 服務帳戶覆寫：如果無法使用全域帳戶，此選項可讓您指定個別的服務帳戶。
++
+image:shift-toolkit-image34.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+. 按一下「建立藍圖」。
+
+
+
+
+==== 移轉
+
+建立藍圖後，即可執行「移轉」選項。在移轉選項期間， Shift 工具組會執行一系列步驟來轉換磁碟格式，並使用轉換的磁碟在藍圖中定義的 Hyper-V 主機上建立虛擬機器。執行的高階步驟如下：
+
+* 在來源處觸發 Blueprint 的 VM 快照
+* 觸發 Volume 快照
+* 透過複製網路組態並移除所有 VM 的 VMware Tools 來準備 VM
++
+** 根據作業系統類型，新增必要的 Hyper-V 驅動程式 <optional>
+
+
+
+
+
+NOTE: 如需詳細資訊，請參閱將 RHEL VM 移轉至 hyper-v 之後，系統在 dracut 中堆出
+
+* 從來源關閉保護群組中的虛擬機器
+* 刪除藍圖中所有 VM 的現有快照
+* 為所有 VM 複製 VMDK 並將其轉換成 VHD 格式
+* 開啟保護群組中的虛擬機器，達到目標
+
+
+若要使用 Blueprint 中指定的組態觸發「移轉」工作流程，請按一下「移轉」。
+
+image:shift-toolkit-image35.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+一旦觸發，準備階段就會進入，轉換程序會執行上述步驟。
+
+
+NOTE: 我們建議從相同的 ESXi 來源到相同的 Hyper-V 目的地，不要觸發超過 10 次的轉換
+
+image:shift-toolkit-image36.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+將 VMDK 轉換為 VHD 只需數秒，因此這種方法是所有可用選項中最快的一種，而且成本更高。這也有助於減少移轉期間的虛擬機器停機時間。
+
+image:shift-toolkit-image37.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+工作完成後，藍圖的狀態會變更為「移轉完成」。
+
+image:shift-toolkit-image38.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+移轉完成後，現在正是驗證 Hyper-V 端虛擬機器的時候了。以下螢幕擷取畫面顯示在建立藍圖時指定的 Hyper-V 主機上執行的 VM 。
+
+image:shift-toolkit-image39.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 轉換之後，除了作業系統磁碟以外的所有 VM 磁碟都將離線。這是因為 NewDiskPolicy 參數預設會在 VMware VM 上設定為 offlineALL 。
+
+
+
+==== 轉換
+
+Clony Based 轉換選項可讓您在 Hypervisor 之間轉換虛擬磁碟，以獲得下列磁碟格式：
+
+* VMware ESX 至 Microsoft Hyper-V （ VMDK 至 VHDX ）
+* VMware ESX 至 Red Hat KVM （ VMDK 至 QCOW2 ）
+
+
+
+
+===== 轉換為 QCOW2 格式
+
+若要使用 NetApp Shift 工具組將虛擬磁碟轉換為 QCOW2 格式，請遵循下列高階步驟：
+
+* 建立指定 Hyper-V 或 KVM 做為 Hypervisor 的目的地站台類型。附註： KVM 不需要 Hypervisor 詳細資料。
++
+image:shift-toolkit-image40.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 使用需要進行磁碟轉換的 VM 建立資源群組
++
+image:shift-toolkit-image41.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image42.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 建立藍圖，將虛擬磁碟轉換為 QCOW2 格式。
++
+image:shift-toolkit-image43.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image44.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 一旦虛擬機器的必要停機時間增加，請選擇「轉換」。
++
+image:shift-toolkit-image45.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 轉換作業會對 VM 和個別磁碟執行每項作業，以產生適當的格式。
++
+image:shift-toolkit-image46.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image47.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 手動建立 VM 並將磁碟附加至該磁碟，以使用轉換後的磁碟。
++
+image:shift-toolkit-image48.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: Shift 工具組僅支援磁碟轉換。它們不支援 VM 轉換。若要在 VM 中使用已轉換的磁碟，必須手動建立 VM ，而且必須將磁碟附加到該 VM 。
+
+
+NOTE: Shift 工具組不支援 KVM Hypervisor 的 VM 層級轉換。不過，它確實支援磁碟轉換為 QCOW2 磁碟格式，這是 KVM Hypervisor 使用的虛擬磁碟格式。
+
+
+
+===== 轉換為 VHDX 格式
+
+若要使用 NetApp Shift 工具組將虛擬磁碟轉換為 VHDX 格式，請遵循下列高階步驟：
+
+* 建立指定 Hyper-V 或 KVM 做為 Hypervisor 的目的地站台類型。
++
+
+NOTE: KVM 不需要 Hypervisor 詳細資料。
+
++
+image:shift-toolkit-image49.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 使用需要進行磁碟轉換的 VM 建立資源群組
++
+image:shift-toolkit-image50.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 建立藍圖，將虛擬磁碟轉換為 VHDX 格式。
++
+image:shift-toolkit-image51.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 一旦虛擬機器的必要停機時間增加，請選擇「轉換」。
++
+image:shift-toolkit-image52.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 轉換作業會對 VM 和個別磁碟執行每項作業，以產生適當的 VHDX 格式。
++
+image:shift-toolkit-image53.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 手動建立 VM 並將磁碟附加至該磁碟，以使用轉換後的磁碟。
++
+image:shift-toolkit-image54.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: 若要在 VM 中使用轉換後的 VHDX 磁碟，必須透過 Hyper-V 管理程式或 PowerShell 命令手動建立 VM ，而且必須將磁碟附加到該磁碟。此外，也應手動對應網路。
+
+
+
+==== 監控與儀表板
+
+使用工作監控來監控工作的狀態。
+
+image:shift-toolkit-image55.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+透過直覺式 UI ，自信地評估移轉，轉換和藍圖的狀態。如此一來，系統管理員就能迅速識別出成功，失敗或部分失敗的計畫，以及移轉或轉換的 VM 數量。
+
+image:shift-toolkit-image56.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+==== SAN 環境
+
+轉換的 VM 必須位於 NAS 環境（ NFS for ESX ），這是 Shift 工具組的主要需求。如果虛擬機器位於 SAN 環境（ iSCSI ， FC ， FCoE ， NVMeFC ），則必須在轉換前將其移轉至 NAS 環境。
+
+image:shift-toolkit-image57.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+上述方法描述了一個典型的 SAN 環境，其中 VM 儲存在 SAN 資料存放區中。要從 ESX 轉換為 Hyper-V 的 VM 及其磁碟，會先透過 VMware vSphere Storage VMotion 移轉至 NFS 資料儲存區。Shift 工具套件使用 FlexClone 將 VM 從 ESX 轉換為 Hyper-V 。轉換後的 VM （連同其磁碟）位於 CIFS 共用上。轉換後的 VM （連同其磁碟）會透過 Hyper-V Storage Live Migration 移轉回啟用 SAN 的 CSV 。
+
+
+
+== 結論
+
+NetApp Shift 工具套件可協助系統管理員快速無縫地將 VM 從 VMware 轉換為 Hyper-V 。它也能在不同的 Hypervisor 之間轉換虛擬磁碟。因此，每當您想要將工作負載從一個 Hypervisor 移到另一個 Hypervisor 時， Shift 工具組都能為您節省數小時的工作時間。組織現在可以主控多重 Hypervisor 環境，而無需擔心工作負載是否與單一 Hypervisor 綁定。這項功能可提高靈活度，降低授權成本，鎖定及承諾單一廠商。
+
+
+
+== 後續步驟
+
+下載 Shift 工具套件套件，開始移轉或轉換虛擬機器或磁碟檔案，以簡化移轉作業，充分發揮 Data ONTAP 的潛力。
+
+若要深入瞭解此程序，請隨時遵循詳細的逐步解說。
+
+.減少從 ESX 移轉至 Hyper-V 的複製作業
+video::dc0d9627-0399-45d9-a843-b1d8010fff80[panopto,width=360]
