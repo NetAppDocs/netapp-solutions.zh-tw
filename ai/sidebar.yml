@@ -29,18 +29,59 @@ entries:
     url: "/ai/tr-4859.html"
 - title: 資料管道、資料湖區與管理
   entries:
-  - title: 適用於 MLOps 的 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）
-    pdf-filename: 適用於 MLOps 的 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）
+  - title: 使用 NetApp 的開放原始碼 MLOps
+    pdf-filename: 使用 NetApp 的開放原始碼 MLOps
     entries:
-    - title: 總覽
-      url: "/ai/mlops_fsxn_intro.html"
-    - title: 第 1 部分：將 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）整合為私有 S3 儲存區、並整合至 AWS
-        SageMaker
-      url: "/ai/mlops_fsxn_s3_integration.html"
-    - title: 第 2 部分：運用 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）做為 SageMaker 模型訓練的資料來源
-      url: "/ai/mlops_fsxn_sagemaker_integration_training.html"
-    - title: 第 3 部分：建立簡化的 MLOps 管道（ CI/CT/CD ）
-      url: "/ai/mlops_fsxn_cictcd.html"
+    - title: 簡介
+      url: "/ai/aicp_introduction.html"
+    - title: 技術總覽
+      url: "/ai/aicp_concepts_and_components.html"
+    - title: 架構
+      url: "/ai/aicp_hardware_and_software_requirements.html"
+    - title: NetApp Trident 組態
+      entries:
+      - title: 適用於 NetApp AIPod 部署的 Trident 後端範例
+        url: "/ai/aicp_example_trident_backends_for_ontap_ai_deployments.html"
+      - title: NetApp AIPod 部署的 Kubernetes StorageClasses 範例
+        url: "/ai/aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html"
+    - title: Apache Airflow
+      entries:
+      - title: Apache Airflow部署
+        url: "/ai/aicp_apache_airflow_deployment.html"
+      - title: 使用 NetApp DataOps 工具套件搭配氣流
+        url: "/ai/aicp_example_apache_airflow_workflows_overview.html"
+    - title: JupyterHub
+      entries:
+      - title: JupyterHub 部署
+        url: "/ai/aicp_jupyterhub_deployment.html"
+      - title: 使用 NetApp DataOps Toolkit 搭配 JupyterHub
+        url: "/ai/aicp_example_jupyterhub_workflows_overview.html"
+    - title: MLflow
+      entries:
+      - title: MLflow 部署
+        url: "/ai/aicp_mlflow_deployment.html"
+      - title: 資料集對模型的追蹤性、可透過 NetApp 和 MLflow 進行
+        url: "/ai/aicp_example_mlflow_traceability.html"
+    - title: Kubeflow
+      entries:
+      - title: Kubeflow部署
+        url: "/ai/aicp_kubeflow_deployment_overview.html"
+      - title: Kubeflow作業與工作範例
+        entries:
+        - title: 為資料科學家或開發人員提供Jupyter筆記型電腦工作區
+          url: "/ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html"
+        - title: 使用 NetApp DataOps Toolkit 搭配 Kubeflow
+          url: "/ai/aicp_example_notebooks_and_pipelines.html"
+        - title: 範例工作流程 - 訓練影像辨識模型
+          url: "/ai/aicp_kubeflow_train_image_recognition.html"
+    - title: Trident作業範例
+      url: "/ai/aicp_example_trident_operations_overview.html"
+    - title: 適用於 AIPod 部署的高效能工作範例
+      entries:
+      - title: 執行單節點AI工作負載
+        url: "/ai/aicp_execute_a_single-node_ai_workload.html"
+      - title: 執行同步分散式AI工作負載
+        url: "/ai/aicp_execute_a_synchronous_distributed_ai_workload.html"
   - title: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps
     pdf-filename: 採用 Domino Data Lab 和 NetApp 的混合式多雲端 MLOps
     entries:
@@ -79,61 +120,20 @@ entries:
         url: "/ai/nvaie_ngc_tensorflow.html"
     - title: 何處可找到其他資訊
       url: "/ai/nvaie_additional_information.html"
+  - title: 適用於 MLOps 的 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）
+    pdf-filename: 適用於 MLOps 的 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）
+    entries:
+    - title: 總覽
+      url: "/ai/mlops_fsxn_intro.html"
+    - title: 第 1 部分：將 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）整合為私有 S3 儲存區、並整合至 AWS
+        SageMaker
+      url: "/ai/mlops_fsxn_s3_integration.html"
+    - title: 第 2 部分：運用 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）做為 SageMaker 模型訓練的資料來源
+      url: "/ai/mlops_fsxn_sagemaker_integration_training.html"
+    - title: 第 3 部分：建立簡化的 MLOps 管道（ CI/CT/CD ）
+      url: "/ai/mlops_fsxn_cictcd.html"
   - title: 適用於StorageGRID 自主駕駛工作負載的NetApp數據湖
     url: "/ai/tr-4851.html"
-  - title: 使用 NetApp 的開放原始碼 MLOps
-    pdf-filename: 使用 NetApp 的開放原始碼 MLOps
-    entries:
-    - title: 簡介
-      url: "/ai/aicp_introduction.html"
-    - title: 技術總覽
-      url: "/ai/aicp_concepts_and_components.html"
-    - title: 架構
-      url: "/ai/aicp_hardware_and_software_requirements.html"
-    - title: NetApp Trident 組態
-      entries:
-      - title: 適用於 NetApp AIPod 部署的 Trident 後端範例
-        url: "/ai/aicp_example_trident_backends_for_ontap_ai_deployments.html"
-      - title: NetApp AIPod 部署的 Kubernetes StorageClasses 範例
-        url: "/ai/aicp_example_kubernetes_storageclasses_for_ontap_ai_deployments.html"
-    - title: Apache Airflow
-      entries:
-      - title: Apache Airflow部署
-        url: "/ai/aicp_apache_airflow_deployment.html"
-      - title: 使用 NetApp DataOps 工具套件搭配氣流
-        url: "/ai/aicp_example_apache_airflow_workflows_overview.html"
-    - title: JupyterHub
-      entries:
-      - title: JupyterHub 部署
-        url: "/ai/aicp_jupyterhub_deployment.html"
-      - title: 使用 NetApp DataOps Toolkit 搭配 JupyterHub
-        url: "/ai/aicp_example_jupyterhub_workflows_overview.html"
-    - title: MLflow
-      entries:
-      - title: MLflow 部署
-        url: "/ai/aicp_mlflow_deployment.html"
-      - title: 資料集對模型的追蹤性、可透過 NetApp 和 MLflow 進行
-        url: "/ai/aicp_example_mlflow_workflows_overview.html"
-    - title: Kubeflow
-      entries:
-      - title: Kubeflow部署
-        url: "/ai/aicp_kubeflow_deployment_overview.html"
-    - title: Kubeflow作業與工作範例
-      entries:
-      - title: 為資料科學家或開發人員提供Jupyter筆記型電腦工作區
-        url: "/ai/aicp_provision_a_jupyter_notebook_workspace_for_data_scientist_or_developer_use.html"
-      - title: 使用 NetApp DataOps Toolkit 搭配 Kubeflow
-        url: "/ai/aicp_example_notebooks_and_pipelines.html"
-      - title: 範例工作流程 - 訓練影像辨識模型
-        url: "/ai/aicp_kubeflow_train_image_recognition.html"
-    - title: Trident作業範例
-      url: "/ai/aicp_example_trident_operations_overview.html"
-    - title: 適用於 AIPod 部署的高效能工作範例
-      entries:
-      - title: 執行單節點AI工作負載
-        url: "/ai/aicp_execute_a_single-node_ai_workload.html"
-      - title: 執行同步分散式AI工作負載
-        url: "/ai/aicp_execute_a_synchronous_distributed_ai_workload.html"
   - title: 採用Iguazio的MLRun Pipeline
     pdf-filename: 採用Iguazio的MLRun Pipeline
     entries:
