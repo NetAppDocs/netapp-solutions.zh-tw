@@ -1,0 +1,64 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmware_vcf_asa_wkld_stretchcluster.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, iscsi 
+summary:  
+---
+= 利用 ONTAP 擴充叢集，以支援 VCF VI 工作負載網域
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+在此案例中，我們將示範如何使用 ONTAP Tools for VMware vSphere （ OTV ）來設定 VCF VI 工作負載網域的延伸叢集。
+
+作者： Suresh ThopPay
+
+
+
+== 案例總覽
+
+VCF 工作負載網域上的資料存放區可透過 SnapMirror 主動式同步保護，以提供延伸叢集解決方案。在 vSphere 叢集層級啟用保護，叢集中的所有 ONTAP 區塊資料存放區都將受到保護。
+
+.工作負載網域上的主要儲存設備
+[%collapsible]
+====
+工作負載網域可以使用 VCF 匯入工具建立匯入，或使用 SDDC 管理程式進行部署。與 SDDC 管理程式一起部署，可提供比匯入現有環境更多的網路選項。
+
+. 使用 FC 上的 VMFS 建立工作負載網域
+. 將工作負載網域 vCenter 登錄至 ONTAP 工具管理員，以部署 vCenter 外掛程式
+. 在 ONTAP 工具上註冊儲存系統
+. 保護 vSphere 叢集
+
+
+
+NOTE: 每當叢集擴充或縮減時，都需要更新 ONTAP 工具上的主機叢集關係，以指示對來源或目標所做的變更。
+
+====
+.工作負載網域上的補充儲存設備
+[%collapsible]
+====
+工作負載網域一旦啟動並執行，就可以使用 ONTAP 工具建立其他資料存放區，以觸發一致性群組擴充。
+
+
+TIP: 如果 vSphere 叢集受到保護，則叢集中的所有資料存放區都將受到保護。
+
+====
+
+
+== 其他資訊
+
+如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
+
+如需設定 VCF 的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]。
+
+
+
+== 此解決方案的影片示範
+
+.利用 ONTAP 工具延伸適用於 VCF 的叢集
+video::569a91a9-2679-4414-b6dc-b25d00ff0c5a[panopto,width=360]

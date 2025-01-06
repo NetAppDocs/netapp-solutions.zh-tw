@@ -16,9 +16,9 @@ summary:
 [role="lead"]
 VMware Cloud Foundation （ VCF ）是整合式軟體定義資料中心（ SDDC ）平台、可提供完整的軟體定義基礎架構堆疊、以便在混合雲環境中執行企業應用程式。它將運算、儲存、網路和管理功能整合到統一的平台中、在私有雲和公有雲之間提供一致的營運體驗。
 
-作者： Josh Powell
+作者： Josh Powell ， Suresh ThopPay
 
-本文件提供 VMware Cloud Foundation 使用 NetApp All Flash SAN 陣列的儲存選項相關資訊。支援的儲存選項在部署 iSCSI 資料存放區做為管理網域的補充儲存設備、以及將 vVol （ iSCSI ）和 NVMe / TCP 資料存放區做為工作負載網域的補充資料存放區的特定指示中有所涵蓋。同時也涵蓋使用 SnapCenter for VMware vSphere 的虛擬機器和資料存放區資料保護。
+本文件提供 VMware Cloud Foundation 使用 NetApp All Flash SAN 陣列的儲存選項相關資訊。支援的儲存選項涵蓋在將 VMFS 資料存放區（ FC/iSCSI ）部署為管理和工作負載網域的主要和補充儲存區（ FC/iSCSI/NVMe of /vVol ）的特定指示中。同時也涵蓋使用 SnapCenter for VMware vSphere 的虛擬機器和資料存放區資料保護。
 
 
 
@@ -71,16 +71,50 @@ image:vmware-vcf-aff-image02.png["Vcf 架構"]
 
 ==== Vcf 儲存選項
 
-VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。VCF 管理網域必須使用 vSAN 做為主要儲存設備。不過、管理網域有許多補充儲存選項、也有 VI 工作負載網域可用的主要儲存選項和補充儲存選項。
+VMware 將 VCF 的儲存選項分為 * 主體 * 和 * 補充 * 儲存。從 VCF 5.2 開始， ONTAP 儲存設備可同時作為管理和工作負載網域的主要儲存設備和補充儲存設備使用，而 VCF 5.2 可選擇將現有的 vSphere 環境轉換為 VCF 管理網域，或將工作負載網域匯入至現有的 VCF 環境。
 
 image:vmware-vcf-aff-image01.png["Vcf 儲存選項"]
 
-* 工作負載網域的主要儲存設備 *
-主要儲存設備是指在 SDDC Manager 中的設定程序中、任何類型的儲存設備都可以直接連線至 VI 工作負載網域。主要儲存設備是以 SDDC 管理程式部署、作為叢集建立協調的一部分、也是第一個為工作負載網域設定的資料存放區。它在光纖通道上包含 vSAN 、 vVols （ VMFS ）、 NFS 和 VMFS 。
+* 管理與工作負載網域的主要儲存設備 * 主要儲存設備是指任何類型的儲存設備，可在網域設定程序中部署或匯入。若要在管理網域中使用 ONTAP 儲存設備做為主要儲存設備，則必須從現有的 vSphere 環境中轉換。支援 FC 或 NFS v3 資料存放區上的 VMFS 選項。
+
+[cols="20% 20% 20% 20% 20%"]
+|===
+| 儲存類型 | 管理網域 - 預設叢集 | 管理網域 - 其他叢集 | VI 工作負載網域 - 預設叢集 | VI 工作負載網域 - 其他叢集 
+
+
+| FC 上的 VMFS | * 導入工具 * | * SDDC API* | 是的 | 是的 
+
+
+| iSCSI 上的 VMFS | 不適用 | 不適用 | 不適用 | 不適用 
+
+
+| VVOL 搭配 FC | 不適用 | 不適用 | 否 | 是的 
+
+
+| VVOL 搭配 iSCSI | 不適用 | 不適用 | 否 | 是的 
+|===
+* NA - 不受 VCF 支援。
+
 
 * 管理與工作負載網域的補充儲存設備 *
 補充儲存設備是一種儲存類型、可在建立叢集之後的任何時間新增至管理或工作負載網域。輔助儲存設備代表最廣泛的支援儲存選項、所有選項均支援 NetApp ASA 陣列。您可以針對大多數的儲存傳輸協定類型、使用適用於 VMware vSphere 的 ONTAP 工具來部署補充儲存設備。
 
+[cols="25% 25% 25% 25%"]
+|===
+| 儲存類型 | 管理網域 - 預設叢集 | 管理網域 - 其他叢集 | VI 工作負載網域 
+
+
+| FC 上的 VMFS | 是的 | 是的 | 是的 
+
+
+| iSCSI 上的 VMFS | 是的 | 是的 | 是的 
+
+
+| VVOL 搭配 FC | 是的 | 是的 | 是的 
+
+
+| VVOL 搭配 iSCSI | 是的 | 是的 | 是的 
+|===
 VMware Cloud Foundation 的其他文件資源：
 * link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]
 * link:https://docs.vmware.com/en/VMware-Cloud-Foundation/5.1/vcf-design/GUID-2156EC66-BBBB-4197-91AD-660315385D2E.html["VMware Cloud Foundation 支援的儲存類型"]
@@ -194,12 +228,14 @@ BlueXP 整合可實現 3-2-1 備份策略、將資料複本延伸到雲端的物
 
 == 解決方案總覽
 
-本文件所述的案例將示範如何使用 ONTAP 儲存系統做為管理和工作負載網域的補充儲存設備。此外、適用於 VMware vSphere 的 SnapCenter 外掛程式也可用來保護 VM 和資料存放區。
+本文件所述的案例將示範如何將 ONTAP 儲存系統作為管理和工作負載網域的主要與補充儲存設備。此外、適用於 VMware vSphere 的 SnapCenter 外掛程式也可用來保護 VM 和資料存放區。
 
 本文件涵蓋的案例：
 
 * * 使用 ONTAP 工具在 VCF 管理網域 * 中部署 iSCSI 資料存放區。按一下 link:vmware_vcf_asa_supp_mgmt_iscsi.html["* 此處 *"] 部署步驟。
 * * 使用 ONTAP 工具在 VI 工作負載網域 * 中部署 vVols （ iSCSI ）資料存放區。按一下 link:vmware_vcf_asa_supp_wkld_vvols.html["* 此處 *"] 部署步驟。
 * * 設定 NVMe over TCP 資料存放區、以用於 VI 工作負載網域 * 。按一下 link:vmware_vcf_asa_supp_wkld_nvme.html["* 此處 *"] 部署步驟。
-* * 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VI 工作負載網域中的虛擬機器 * 。按一下 link:vmware_vcf_asa_scv_wkld.html["* 此處 *"] 部署步驟。
+* * 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VI 工作負載網域中的虛擬機器 * 按一下link:vmware_vcf_asa_scv_wkld.html["* 此處 *"]以取得部署步驟。
+* * 在管理網域中使用含 VMFS 資料存放區的延伸叢集 * 按一下link:vmware_vcf_asa_mgmt_stretchcluster.html["* 此處 *"]以取得部署步驟。
+* * 在 VI 工作負載網域中使用含 VMFS 資料存放區的延伸叢集 * 按一下link:vmware_vcf_asa_wkld_stretchcluster.html["* 此處 *"]以取得部署步驟。
 
