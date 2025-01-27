@@ -40,7 +40,7 @@ image:ontap-cyber-vault-air-gap.png["使用 NetApp ONTAP 的航空網路資料�
 下列命令會 `dstvolB` `SVM2`在 Aggregate 上建立一個名為的 2 GB SnapLock Compliance 磁碟區 `node01_aggr`：
 
 +
-`cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -snaplock-type compliance -type DP -size 2GG`
+`cluster2::> volume create -vserver SVM2 -volume dstvolB -aggregate node01_aggr -snaplock-type compliance -type DP -size 2GB`
 
 . 在目的地叢集上，若要建立氣隙，請設定預設保留期間link:https://docs.netapp.com/us-en/ontap/snaplock/set-default-retention-period-task.html["設定預設保留期間"^]，如所述。做為保存目的地的流通量會指派預設保留期間給它。SnapLock此期間的值一開始設定為 0 年以上、最長 100 年（從 ONTAP 9 開始）。對於較早的 ONTAP 版本、 SnapLock Compliance 磁碟區的值為 0 - 70 。）每個NetApp Snapshot複本一開始就會提交此預設保留期間。必須變更預設保留期間。如果需要、可在稍後延長保留期間、但不可縮短。如需更多資訊、請參閱 link:https://docs.netapp.com/us-en/ontap/snaplock/set-retention-period-task.html["設定保留時間總覽"^]。
 +
