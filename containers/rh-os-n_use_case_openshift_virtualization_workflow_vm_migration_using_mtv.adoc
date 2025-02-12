@@ -14,18 +14,34 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 
 [role="lead"]
-本節說明如何使用 Red Hat OpenShift 虛擬化移轉工具組、將虛擬機器從 VMware 移轉至 OpenShift 叢集。
+本節說明如何使用 Red Hat OpenShift 虛擬化移轉工具組，將虛擬機器從 VMware 移轉至 OpenShift 叢集。涵蓋下列類型的移轉：
 
+.冷移轉
+[%collapsible]
+====
+這是預設的移轉類型。複製資料時，來源虛擬機器會關閉。
+
+====
+.暖移轉
+[%collapsible]
+====
+在此類移轉中，大部分資料會在執行來源虛擬機器（ VM ）的預先複製階段中複製。然後， VM 會關閉，並在轉換階段複製其餘資料。
+
+====
+
+
+== 影片示範
+
+以下影片展示 RHEL VM 從 VMware 冷移轉至 OpenShift 虛擬化的示範，使用 ONTAP SAN 儲存類別進行持續儲存。
+
+.使用 Red Hat MTV 將 VM 移轉至使用 NetApp ONTAP 儲存設備的 OpenShift 虛擬化
+video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
 
 
 == 使用虛擬化移轉工具套件將 VM 從 VMware 移轉至 OpenShift 虛擬化
 
 在本節中、我們將瞭解如何使用移轉工具套件（虛擬化）、將虛擬機器從 VMware 移轉至 OpenShift Container 平台上執行的 OpenShift 虛擬化、並使用 Trident 與 NetApp ONTAP 儲存設備整合。
 
-以下影片示範如何使用 ONTAP SAN 儲存類別將 RHEL VM 從 VMware 移轉至 OpenShift 虛擬化、以供持續儲存之用。
-
-.使用 Red Hat MTV 將 VM 移轉至使用 NetApp ONTAP 儲存設備的 OpenShift 虛擬化
-video::bac58645-dd75-4e92-b5fe-b12b015dc199[panopto,width=360]
 下圖顯示虛擬機器從 VMware 移轉至 Red Hat OpenShift 虛擬化的高階檢視。
 
 image:rh-os-n_use_case_vm_migration_using_mtv.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
@@ -179,7 +195,7 @@ allowVolumeExpansion: true
 ----
 
 
-=== * 安裝 MTV*
+=== 安裝 MTV
 
 現在您可以安裝移轉工具套件（虛擬化）（ MTV ）。請參閱所提供的指示 link:https://access.redhat.com/documentation/en-us/migration_toolkit_for_virtualization/2.5/html/installing_and_using_the_migration_toolkit_for_virtualization/installing-the-operator["請按這裡"] 取得安裝的說明。
 
@@ -225,11 +241,51 @@ NOTE: 虛擬化移轉工具套件（ MTV ）使用 VMware 虛擬磁碟開發套�
 
 image:rh-os-n_use_case_vm_migration_using_mtv_plan_ready.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
+
+
+=== 執行冷移轉
+
 按一下 * 「開始」 * 將會執行一系列步驟、以完成虛擬機器的移轉。
 
 image:rh-os-n_use_case_vm_migration_using_mtv_plan_complete.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
-完成所有步驟後、您可以按一下左側導覽功能表 * 虛擬化 * 下的 * 虛擬機器 * 來查看移轉的虛擬機器。
-提供存取虛擬機器的指示 link:https://docs.openshift.com/container-platform/4.13/virt/virtual_machines/virt-accessing-vm-consoles.html["請按這裡"]。
+完成所有步驟後，您可以按一下左側導覽功能表 * 虛擬化 * 下的 * 虛擬機器 * 來查看移轉的虛擬機器。提供了訪問虛擬機link:https://docs.openshift.com/container-platform/4.13/virt/virtual_machines/virt-accessing-vm-consoles.html["請按這裡"]的說明。
 
 您可以登入虛擬機器並驗證 posgresql 資料庫的內容。資料表中的資料庫、資料表和項目應與在來源 VM 上建立的項目相同。
+
+
+
+=== 執行暖移轉
+
+若要執行暖移轉，在建立上述移轉計畫之後，您必須編輯計畫設定，才能變更預設的移轉類型。按一下冷移轉旁的編輯圖示，然後切換按鈕將其設定為暖移轉。按一下「 ** 儲存 ** 」。現在請按一下「 ** 開始 ** 」開始移轉。
+
+
+NOTE: 確保當您從 VMware 的區塊儲存設備移轉時，已為 OpenShift 虛擬化 VM 選取區塊儲存類別。此外，應將 volumemode 設為區塊，存取模式應為 rwx ，以便稍後執行 VM 的即時移轉。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm1.png["1."]
+
+按一下「已完成的 1 個 VM 中的 **0 」 ** ，展開 VM ，即可查看移轉進度。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm2.png["2."]
+
+過了一段時間後，磁碟傳輸就會完成，移轉作業會等待進入 Cutover 狀態。DataVolume 處於暫停狀態。返回計畫，然後按一下「 **Cutover** 」按鈕。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm3.png["3."]
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm4.png["4."]
+
+目前時間會顯示在對話方塊中。如果您想要排程轉換至稍後時間，請將時間變更為未來時間。如果沒有，若要立即執行轉換，請按一下「 ** 設定轉換 * 」。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm5.png["5."]
+
+幾秒鐘後，當轉換階段開始時， DataVolume 會從暫停狀態變成匯入排程狀態，進入 ImportInProgress 狀態。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm6.png["6."]
+
+轉換階段完成後， DataVolume 會進入「成功」狀態，且 PVC 會受到約束。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm7.png["7."]
+
+移轉計畫會繼續完成 ImageConversion 階段，最後完成 VirtualMachinineCreation 階段。VM 已進入 OpenShift 虛擬化的執行狀態。
+
+image:rh-os-n_use_case_vm_migration_using_mtv_plan_warm8.png["8."]
