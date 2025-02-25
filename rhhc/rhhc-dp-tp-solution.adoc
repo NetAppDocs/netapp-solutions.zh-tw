@@ -33,7 +33,7 @@ Trident Protect 採用 Kubernetes 角色型存取控制（ RBAC ）模式。根�
 
 NOTE: 叢集管理員可以存取預設的 Trident 保護命名空間中的資源，也可以存取所有其他命名空間中的資源。使用者無法在 Trident 保護命名空間中建立應用程式資料管理自訂資源（ CRS ），例如 Snapshot 和 Backup CRS 。最佳實務做法是，使用者必須在應用程式命名空間中建立這些 CRS 。
 
-可安裝 Trident Protect 本節將顯示容器應用程式資料保護和應用程式還原的工作流程。1.快照建立（依排程需求） 2.從 Snapshot 還原（還原至相同和不同的命名空間） 3.備份建立 4.從備份還原
+Trident Protect 可依照文件所提供的指示link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-installation.html["請按這裡"]進行安裝。本節將顯示容器應用程式資料保護和使用 Trident Protect 還原應用程式的工作流程。1.快照建立（依排程需求） 2.從 Snapshot 還原（還原至相同和不同的命名空間） 3.備份建立 4.從備份還原
 
 .先決條件
 [%collapsible]
