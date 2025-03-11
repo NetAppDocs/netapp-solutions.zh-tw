@@ -133,7 +133,7 @@ Shift 工具組可以安裝在 Microsoft Hyper-V 伺服器或獨立伺服器（�
 
 使用 Storage VMotion 將要移轉或轉換的 VM 移至新的指定 Data ONTAP 儲存虛擬機器（ SVM ）。最佳做法是為 VM 設定新的 SVM ，以確保您不會在正式作業 SVM 上轉換 VM 。使用 ONTAP CLI 或系統管理員來建立新的 SVM 。
 
-請依照本文件所提供的步驟link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["連結"]，配置新的 SVM ，同時允許 NFS 和 SMB 傳輸協定。
+請依照本文件所提供的步驟link:https://docs.netapp.com/us-en/ontap/networking/create_svms.html["連結"]，配置新的 SVM ，同時允許 NFS 和 SMB 傳輸協定。
 
 對於 ESX 到 Hyper-V 的轉換，會指定 CIFS 共用（特別是控制器上的 CIFS qtree ）的完整路徑名稱做為目的地路徑。
 
@@ -247,7 +247,7 @@ image:shift-toolkit-image11.png["此圖顯示輸入 / 輸出對話方塊或表�
 
 ===== 新增站台
 
-第一步是探索並新增來源 vCenter ，然後將目標 Hyper-V 詳細資料（包括 Hypervisor 和儲存設備）新增至 Shift 工具套件。在支援的瀏覽器中開啟 Shift 工具組，並使用預設的使用者名稱和密碼（ admin/admin ）和新增站台。
+第一步是探索並新增來源 vCenter ，然後將目標 Hyper-V 詳細資料（包括 Hypervisor 和儲存設備）新增至 Shift 工具套件。在支援的瀏覽器中使用 OpenShift 工具組，並使用預設的使用者名稱和密碼（ admin/admin ）和新增站台。
 
 image:shift-toolkit-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
