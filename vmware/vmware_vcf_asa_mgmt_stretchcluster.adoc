@@ -14,9 +14,11 @@ summary:
 
 
 [role="lead"]
-在此案例中，我們將示範如何使用 ONTAP Tools for VMware vSphere （ OTV ）為 VCF 管理和工作負載網域設定延伸叢集。
+在此案例中，我們將示範如何使用 ONTAP Tools for VMware vSphere （ OTV ）為 VCF 管理網域設定延伸叢集。這被視為單一執行個體 - 多個可用區域。
 
 作者： Suresh ThopPay
+
+image:vmware_vcf_asa_mgmt_stretchcluster_image01.jpg["單一執行個體 - 多個可用區域"]
 
 
 
@@ -24,18 +26,20 @@ summary:
 
 延伸叢集解決方案可在預設叢集上實作，或在 VCF 管理或工作負載網域中的其他叢集上實作。FC 上的 VMFS 同時支援主要資料存放區和補充資料存放區。iSCSI 上的 VMFS 僅支援輔助資料存放區。請參閱 IMT ，以取得 SnapMirror 主動式同步在 NVMe 上支援 VMFS 。
 
+image:vmware_vcf_asa_mgmt_stretchcluster_image02.jpg["利用 ONTAP for VCF 管理網域來擴充叢集"]
+
 .管理網域上的主要儲存設備
 [%collapsible]
 ====
-使用 VCF 5.2 以上版本，無需 VSAN 即可部署管理網域，使用 VCF Import Tool 。VCF 匯入工具的轉換選項可讓現有 vCenter 部署至管理網域。vCenter 中的所有叢集都將成為管理網域的一部分。每個叢集都必須有自己的分散式交換器才能進行轉換。在 VCF 匯入工具支援多個網路設定檔之前，請考慮將延伸 VLAN 用於 VMotion 網路。
+使用 VCF 5.2 以上版本，無需 VSAN 即可部署管理網域，使用 VCF Import Tool 。VCF 匯入工具的轉換選項允許link:vmware_vcf_convert_fc.html["將現有 vCenter 部署至管理網域"]。vCenter 中的所有叢集都將成為管理網域的一部分。
 
 . 部署 vSphere 主機
 . 在本機資料存放區上部署 vCenter 伺服器（ vCenter 需要在要轉換為管理網域的 vSphere 主機上共存）
 . 部署適用於 VMware vSphere 的 ONTAP 工具
 . 部署適用於 VMware vSphere 的 SnapCenter 外掛程式（選用）
 . 建立資料存放區（ FC 區域組態應已就緒）
-. 將 VM 移轉至新建立的資料存放區
 . 保護 vSphere 叢集
+. 將 VM 移轉至新建立的資料存放區
 
 
 
@@ -62,7 +66,7 @@ NOTE: 每當叢集擴充或縮減時，都需要更新 ONTAP 工具上的主機�
 
 如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
 
-如需設定 VCF 的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]。
+如需設定 VCF 的相關資訊link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 5.2 文件"]，請參閱。
 
 
 

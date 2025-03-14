@@ -18,6 +18,8 @@ summary:
 
 作者： Suresh ThopPay
 
+image:vmware_vcf_asa_mgmt_stretchcluster_image01.jpg["單一執行個體 - 多個可用區域"]
+
 
 
 == 案例總覽
@@ -30,9 +32,9 @@ VCF 工作負載網域上的資料存放區可透過 SnapMirror 主動式同步�
 工作負載網域可以使用 VCF 匯入工具建立匯入，或使用 SDDC 管理程式進行部署。與 SDDC 管理程式一起部署，可提供比匯入現有環境更多的網路選項。
 
 . 使用 FC 上的 VMFS 建立工作負載網域
-. 將工作負載網域 vCenter 登錄至 ONTAP 工具管理員，以部署 vCenter 外掛程式
-. 在 ONTAP 工具上註冊儲存系統
-. 保護 vSphere 叢集
+. link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["將工作負載網域 vCenter 登錄至 ONTAP 工具管理員，以部署 vCenter 外掛程式"]
+. link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["在 ONTAP 工具上註冊儲存系統"]
+. link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/protect-cluster.html["保護 vSphere 叢集"]
 
 
 
