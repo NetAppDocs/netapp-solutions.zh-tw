@@ -122,6 +122,7 @@ image:azure_ora_anf_vldb_dg_architecture.png["此映像提供在 ANF 上 Azure �
 * * Azure NetApp Files 組態。 *Azure NetApp Files 在 Azure NetApp 儲存帳戶中配置為 `Capacity Pools`。在這些測試和驗證中，我們部署了 2 個 TiB 容量集區，在東部地區主控 Oracle 主集區，並部署 4 個 TiB 容量集區，在西部 2 區主控待命資料庫和資料庫複製。ANF 容量集區有三種服務層級：標準，高級和 Ultra 。anf 容量集區的 IO 容量取決於容量集區大小及其服務層級。在建立容量集區時，您可以將 QoS 設定為自動或手動，而將資料加密設為 REST 單一或雙。
 * * 調整資料庫磁碟區大小。 *對於正式作業部署， NetApp 建議您從 Oracle AWR 報告中全面評估 Oracle 資料庫處理量需求。為資料庫設定容量時，請同時考量資料庫大小和處理量需求。透過自動 QoS 組態設定，可保證頻寬為每 TiB 128 MIB/s ，並以 Ultra 服務層級配置。較高的處理量可能需要較大的磁碟區規模來滿足需求。
 * * 單一 Volume 或多個 Volume 。 *單一大型磁碟區可提供類似於多個磁碟區的效能層級，其集合大小與 QoS 相同，並根據磁碟區大小和容量集區服務層級嚴格強制執行。建議為 Oracle VLDB 實作多個磁碟區（多個 NFS 裝載點），以更有效地利用共享後端 anf 儲存資源池。在多個 NFS 磁碟區上實作用於 IO 負載平衡的 Oracle ASM 。
+* * 應用程式 Volume 群組 *部署適用於 Oracle 的應用程式 Volume Group （ AVG ）以進行效能最佳化。應用程式 Volume 群組所部署的磁碟區會置於區域或分區基礎架構中，以達到最佳化的應用程式 VM 延遲和處理量。
 * * Azure VM 考量。 *在這些測試和驗證中，我們使用 Azure VM - Standard_B4ms ，搭配 4 個 vCPU 和 16 個 GiB 記憶體。您必須針對需要高處理量的 Oracle VLDB ，適當地選擇 Azure DB VM 。除了 vCPU 數量和 RAM 數量之外， VM 網路頻寬（入口和出口或 NIC 處理量限制）也可能成為達到資料庫儲存容量之前的瓶頸。
 * * DNFS 組態。 *透過使用 DNFS ，在 Azure 虛擬機器上執行的 Oracle 資料庫若搭配 ANF 儲存設備，可提供遠高於原生 NFS 用戶端的 I/O 。確保已套用 Oracle DNFS 修補程式 p32931941 來解決潛在的錯誤。
 
@@ -168,6 +169,7 @@ Vnet 閘道連線狀態：image:azure_ora_anf_dg_vnet_03.png["顯示 Azure 環�
 +
 驗證是否已建立流量傳輸（按一下三個點以開啟頁面）：image:azure_ora_anf_dg_vnet_04.png["顯示 Azure 環境組態的螢幕擷取畫面。"]
 
+. 請參閱本文件link:https://learn.microsoft.com/en-us/azure/azure-netapp-files/application-volume-group-oracle-deploy-volumes["部署適用於 Oracle 的應用程式 Volume 群組"^]，以部署適用於 Oracle 的 Application Volume Group 。
 
 
 ====
