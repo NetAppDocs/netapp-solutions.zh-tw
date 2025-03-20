@@ -1,0 +1,518 @@
+---
+sidebar: sidebar 
+permalink: containers/rh-os-n_use_case_openshift_virtualization_tp_dp_overview.html 
+keywords: OpenShift, OCP, Trident, Trident protect, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, CNV, Container Native Virtualization, Red Hat OpenShift Virtualization,Data Protection, Data Management for VMs, VM protection 
+summary: Red Hat OpenShift NetApp ONTAP 虛擬化資料保護 
+---
+= 在 OpenShift 虛擬化中使用 Trident Protect 保護虛擬機器的資料保護
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+作者： Banu Sundhar 、 NetApp
+
+[role="lead"]
+參考文件的本節提供使用 Trident Protect 建立 VM 快照和備份的詳細資料。
+
+OpenShift 虛擬化環境中的虛擬機器是容器化應用程式、可在 OpenShift Container 平台的工作節點中執行。保護 VM 中繼資料以及 VM 的持續磁碟非常重要、如此一來、當它們遺失或毀損時、您就可以將它們復原。
+
+OpenShift 虛擬化 VM 的持續磁碟可以使用整合至 OpenShift 叢集的 ONTAP 儲存設備作為備份link:https://docs.netapp.com/us-en/trident/["Trident CSI"]。在本節中，我們使用link:https://docs.netapp.com/us-en/trident/trident-protect/learn-about-trident-protect.html["Trident Protect"]來建立 VM 的快照和備份，包括將其資料磁碟區備份到 ONTAP 物件儲存設備。
+
+然後，我們會在需要時從快照或備份還原。
+
+Trident Protect 可在 OpenShift 叢集上為應用程式和 VM 提供快照，備份，還原和災難恢復功能。對於 OpenShift 虛擬化 VM ，可透過 Trident Protect 保護的資料包括與 VM ，持續磁碟區和內部映像相關的 Kubernetes 資源物件。
+
+** 以下是本節中範例所使用的各種元件版本 **
+
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/installing_on_bare_metal/index["OpenShift 叢集 4.17"]
+* link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/virtualization/getting-started#tours-quick-starts_virt-getting-started["OpenShift 虛擬化是透過 Red Hat 提供的 OpenShift 虛擬化營運商所安裝"]
+* link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 25.02"]
+* link:https://docs.netapp.com/us-en/trident/trident-protect/trident-protect-installation.html["Trident Protect 25.02"]
+* link:https://docs.netapp.com/us-en/ontap/["ONTAP 9.16"]
+
+
+.建立 AppVault
+[%collapsible]
+====
+在為應用程式或 VM 建立快照和備份之前，必須先在 Trident Protect 中設定物件儲存設備，以儲存快照和備份。這是使用貯體 CR 來完成的。只有系統管理員才能建立貯體 CR 並加以設定。Bucket CR 在 Trident Protect 中稱為 AppVault 。AppVault 物件是儲存貯體的宣告性 Kubernetes 工作流程表示。AppVault CR 包含用於保護作業（例如備份，快照，還原作業和 SnapMirror 複寫）的儲存庫所需的組態。
+
+在此範例中，我們將顯示 ONTAP S3 作為物件儲存設備的使用。以下是為 ONTAP S3 建立 AppVault CR 的工作流程： 1.在 ONTAP 叢集中的 SVM 中建立 S3 物件儲存伺服器。2.在物件存放區伺服器中建立貯體。3.在 SVM 中建立 S3 使用者。將存取金鑰和秘密金鑰保留在安全的位置。4.在 OpenShift 中，建立儲存 ONTAP S3 認證的秘密。5.為 ONTAP S3 建立 AppVault 物件
+
+** 設定 Trident Protect AppVault for ONTAP S3 *
+
+[source, yaml]
+----
+# alias tp='tridentctl-protect'
+
+# cat appvault-secret.yaml
+apiVersion: v1
+stringData:
+  accessKeyID: "<access key of S3>"
+  secretAccessKey: "<secret access key of S3>"
+# you can also provide base 64 encoded values instead of string values
+#data:
+# base 64 encoded values
+#  accessKeyID: < base 64 encoded access key>
+#  secretAccessKey: <base 64 encoded secretAccess key>
+kind: Secret
+metadata:
+  name: appvault-secret
+  namespace: trident-protect
+type: Opaque
+
+# cat appvault.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: AppVault
+metadata:
+  name: ontap-s3-appvault
+  namespace: trident-protect
+spec:
+  providerConfig:
+    azure:
+      accountName: ""
+      bucketName: ""
+      endpoint: ""
+    gcp:
+      bucketName: ""
+      projectID: ""
+    s3:
+      bucketName: trident-protect
+      endpoint: <lif for S3 access>
+      secure: "false"
+      skipCertValidation: "true"
+  providerCredentials:
+    accessKeyID:
+      valueFromSecret:
+        key: accessKeyID
+        name: appvault-secret
+    secretAccessKey:
+      valueFromSecret:
+        key: secretAccessKey
+        name: appvault-secret
+  providerType: OntapS3
+
+# oc create -f appvault-secret.yaml -n trident-protect
+# oc create -f appvault.yaml -n trident-protect
+----
+image:rh-os-n_use_case_ocpv_tp_dp_8.png["已建立 ONTAP S3 AppVault"]
+
+====
+.在 OpenShift 虛擬化中建立 VM
+[%collapsible]
+====
+下列螢幕擷取畫面顯示使用範本從主控台建立 VM （在命名空間示範中建立 demo-Fedora ）。根磁碟會自動選擇預設儲存類別，因此請確認已適當設定預設儲存類別。在此設定中，預設儲存類別為 **SC-ZoneA-San** 。確保在創建附加磁盤時，選擇儲存類 SC-ZoneA-SAN 並選中 "** 應用優化的儲存設置 **" 複選框。這會將存取模式設定為 rwx ，將 Volume Mode 設為 Block 。
+
+
+NOTE: Trident 在 SAN （ iSCSI ， NVMe / TCP 和 FC ）的區塊 Volume 模式中支援 rwx 存取模式。（這是 NAS 的預設存取模式）。如果您稍後需要即時移轉 VM ，則需要使用 rwx 存取模式。
+
+image:rh-os-n_use_case_ocpv_tp_dp_1.png["預設儲存類別"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_2.png["建立 Fedora VM"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_3.png["範本預設值"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_4.png["自訂"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_5.png["新增磁碟"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_6.png["磁碟已新增"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_7.png["建立 VM ， Pod 和 PVC"]
+
+====
+.建立應用程式
+[%collapsible]
+====
+** 為 VM** 建立 Trident Protect 應用程式
+
+在範例中，示範命名空間有一個 VM ，而且在建立應用程式時會包含命名空間的所有資源。
+
+[source, yaml]
+----
+# alias tp='tridentctl-protect'
+# tp create app demo-vm --namespaces demo -n demo --dry-run > app.yaml
+
+# cat app.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  creationTimestamp: null
+  name: demo-vm
+  namespace: demo
+spec:
+  includedNamespaces:
+  - namespace: demo
+# oc create -f app.yaml -n demo
+----
+image:rh-os-n_use_case_ocpv_tp_dp_9.png["應用程式已建立"]
+
+====
+.建立備份
+[%collapsible]
+====
+** 建立隨選備份 **
+
+為先前建立的應用程式（ demo-VM ）建立備份，其中包含示範命名空間中的所有資源。提供將儲存備份的 appVault 名稱。
+
+[source, yaml]
+----
+# tp create backup demo-vm-backup-on-demand --app demo-vm --appvault ontap-s3-appvault -n demo
+Backup "demo-vm-backup-on-demand" created.
+----
+image:rh-os-n_use_case_ocpv_tp_dp_15.png["已建立隨需備份"]
+
+** 根據排程建立備份 **
+
+建立備份排程，指定要保留的精細度和備份數量。
+
+[source, yaml]
+----
+# tp create schedule backup-schedule1 --app demo-vm --appvault ontap-s3-appvault --granularity Hourly --minute 45 --backup-retention 1 -n demo --dry-run>backup-schedule-demo-vm.yaml
+schedule.protect.trident.netapp.io/backup-schedule1 created
+
+#cat backup-schedule-demo-vm.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  creationTimestamp: null
+  name: backup-schedule1
+  namespace: demo
+spec:
+  appVaultRef: ontap-s3-appvault
+  applicationRef: demo-vm
+  backupRetention: "1"
+  dayOfMonth: ""
+  dayOfWeek: ""
+  enabled: true
+  granularity: Hourly
+  hour: ""
+  minute: "45"
+  recurrenceRule: ""
+  snapshotRetention: "0"
+status: {}
+# oc create -f backup-schedule-demo-vm.yaml -n demo
+----
+image:rh-os-n_use_case_ocpv_tp_dp_16.png["已建立備份排程"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_17.png["隨需及依排程建立備份"]
+
+====
+.從備份還原
+[%collapsible]
+====
+** 將虛擬機器還原至相同的命名空間 **
+
+在範例中，備份示範 -vm-backup-on demand 包含使用 demo-app 備份的 Fedora VM 。
+
+首先，請刪除 VM ，並確保從命名空間「示範」中刪除 PVC ， Pod 和 VM 物件。
+
+image:rh-os-n_use_case_ocpv_tp_dp_19.png["Fedora-VM 已刪除"]
+
+現在，請建立就地備份還原物件。
+
+[source, yaml]
+----
+# tp create bir demo-fedora-restore --backup demo/demo-vm-backup-on-demand -n demo --dry-run>vm-demo-bir.yaml
+
+# cat vm-demo-bir.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupInplaceRestore
+metadata:
+  annotations:
+    protect.trident.netapp.io/max-parallel-restore-jobs: "25"
+  creationTimestamp: null
+  name: demo-fedora-restore
+  namespace: demo
+spec:
+  appArchivePath: demo-vm_cc8adc7a-0c28-460b-a32f-0a7b3d353e13/backups/demo-vm-backup-on-demand_f6af3513-9739-480e-88c7-4cca45808a80
+  appVaultRef: ontap-s3-appvault
+  resourceFilter: {}
+status:
+  postRestoreExecHooksRunResults: null
+  state: ""
+
+# oc create -f vm-demo-bir.yaml -n demo
+backupinplacerestore.protect.trident.netapp.io/demo-fedora-restore created
+----
+image:rh-os-n_use_case_ocpv_tp_dp_20.png["Bir 已建立"]
+
+確認 VM ， Pod 和 PVC 已還原
+
+image:rh-os-n_use_case_ocpv_tp_dp_21.png["VM 已還原"]
+
+** 將虛擬機器還原至不同的命名空間 **
+
+首先建立要還原應用程式的新命名空間，在此範例中為 demo2 。然後建立備份還原物件
+
+[source, yaml]
+----
+# tp create br demo2-fedora-restore --backup demo/hourly-4c094-20250312154500 --namespace-mapping demo:demo2 -n demo2 --dry-run>vm-demo2-br.yaml
+
+# cat vm-demo2-br.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: BackupRestore
+metadata:
+  annotations:
+    protect.trident.netapp.io/max-parallel-restore-jobs: "25"
+  creationTimestamp: null
+  name: demo2-fedora-restore
+  namespace: demo2
+spec:
+  appArchivePath: demo-vm_cc8adc7a-0c28-460b-a32f-0a7b3d353e13/backups/hourly-4c094-20250312154500_aaa14543-a3fa-41f1-a04c-44b1664d0f81
+  appVaultRef: ontap-s3-appvault
+  namespaceMapping:
+  - destination: demo2
+    source: demo
+  resourceFilter: {}
+status:
+  conditions: null
+  postRestoreExecHooksRunResults: null
+  state: ""
+# oc create -f vm-demo2-br.yaml -n demo2
+----
+image:rh-os-n_use_case_ocpv_tp_dp_22.png["br 已建立"]
+
+確認虛擬機器， Pod 和 PVC 是在新的命名空間降級 2 中建立。
+
+image:rh-os-n_use_case_ocpv_tp_dp_23.png["新命名空間中的 VM"]
+
+====
+.建立即時資料
+[%collapsible]
+====
+** 建立隨需快照 ** 為應用程式建立快照，並指定應用程式儲存所需的應用程式資料保險箱。
+
+[source, yaml]
+----
+# tp create snapshot demo-vm-snapshot-ondemand --app demo-vm --appvault ontap-s3-appvault -n demo --dry-run
+# cat demo-vm-snapshot-on-demand.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Snapshot
+metadata:
+  creationTimestamp: null
+  name: demo-vm-snapshot-ondemand
+  namespace: demo
+spec:
+  appVaultRef: ontap-s3-appvault
+  applicationRef: demo-vm
+  completionTimeout: 0s
+  volumeSnapshotsCreatedTimeout: 0s
+  volumeSnapshotsReadyToUseTimeout: 0s
+status:
+  conditions: null
+  postSnapshotExecHooksRunResults: null
+  preSnapshotExecHooksRunResults: null
+  state: ""
+
+# oc create -f demo-vm-snapshot-on-demand.yaml
+snapshot.protect.trident.netapp.io/demo-vm-snapshot-ondemand created
+
+----
+image:rh-os-n_use_case_ocpv_tp_dp_23.png["隨需快照"]
+
+** 建立快照排程 ** 建立快照排程。指定要保留的精細度和快照數量。
+
+[source, yaml]
+----
+# tp create Schedule snapshot-schedule1 --app demo-vm --appvault ontap-s3-appvault --granularity Hourly --minute 50 --snapshot-retention 1 -n demo --dry-run>snapshot-schedule-demo-vm.yaml
+
+# cat snapshot-schedule-demo-vm.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: Schedule
+metadata:
+  creationTimestamp: null
+  name: snapshot-schedule1
+  namespace: demo
+spec:
+  appVaultRef: ontap-s3-appvault
+  applicationRef: demo-vm
+  backupRetention: "0"
+  dayOfMonth: ""
+  dayOfWeek: ""
+  enabled: true
+  granularity: Hourly
+  hour: ""
+  minute: "50"
+  recurrenceRule: ""
+  snapshotRetention: "1"
+status: {}
+
+# oc create -f snapshot-schedule-demo-vm.yaml
+schedule.protect.trident.netapp.io/snapshot-schedule1 created
+----
+image:rh-os-n_use_case_ocpv_tp_dp_25.png["排程快照"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_26.png["排程快照"]
+
+====
+.從 Snapshot 還原
+[%collapsible]
+====
+** 將虛擬機器從快照還原至相同的命名空間 ** 從 demo2 命名空間刪除 VM demo-Fedora 。
+
+image:rh-os-n_use_case_ocpv_tp_dp_30.png["VM 刪除"]
+
+從虛擬機器的快照建立快照就地還原物件。
+
+[source, yaml]
+----
+# tp create sir demo-fedora-restore-from-snapshot --snapshot demo/demo-vm-snapshot-ondemand -n demo --dry-run>vm-demo-sir.yaml
+
+# cat vm-demo-sir.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotInplaceRestore
+metadata:
+  creationTimestamp: null
+  name: demo-fedora-restore-from-snapshot
+  namespace: demo
+spec:
+  appArchivePath: demo-vm_cc8adc7a-0c28-460b-a32f-0a7b3d353e13/snapshots/20250318132959_demo-vm-snapshot-ondemand_e3025972-30c0-4940-828a-47c276d7b034
+  appVaultRef: ontap-s3-appvault
+  resourceFilter: {}
+status:
+  conditions: null
+  postRestoreExecHooksRunResults: null
+  state: ""
+
+# oc create -f vm-demo-sir.yaml
+snapshotinplacerestore.protect.trident.netapp.io/demo-fedora-restore-from-snapshot created
+----
+image:rh-os-n_use_case_ocpv_tp_dp_27.png["主席先生"]
+
+確認虛擬機器及其 PVC 是在示範命名空間中建立的。
+
+image:rh-os-n_use_case_ocpv_tp_dp_31.png["VM 已在相同的命名空間中還原"]
+
+** 將虛擬機器從快照還原至不同的命名空間 **
+
+刪除先前從備份還原的 demo2 命名空間中的 VM 。
+
+image:rh-os-n_use_case_ocpv_tp_dp_28.png["刪除 VM ， PVCS"]
+
+從快照建立快照還原物件，並提供命名空間對應。
+
+[source, yaml]
+----
+# tp create sr demo2-fedora-restore-from-snapshot --snapshot demo/demo-vm-snapshot-ondemand --namespace-mapping demo:demo2 -n demo2 --dry-run>vm-demo2-sr.yaml
+
+# cat vm-demo2-sr.yaml
+apiVersion: protect.trident.netapp.io/v1
+kind: SnapshotRestore
+metadata:
+  creationTimestamp: null
+  name: demo2-fedora-restore-from-snapshot
+  namespace: demo2
+spec:
+  appArchivePath: demo-vm_cc8adc7a-0c28-460b-a32f-0a7b3d353e13/snapshots/20250318132959_demo-vm-snapshot-ondemand_e3025972-30c0-4940-828a-47c276d7b034
+  appVaultRef: ontap-s3-appvault
+  namespaceMapping:
+  - destination: demo2
+    source: demo
+  resourceFilter: {}
+status:
+  postRestoreExecHooksRunResults: null
+  state: ""
+
+# oc create -f vm-demo2-sr.yaml
+snapshotrestore.protect.trident.netapp.io/demo2-fedora-restore-from-snapshot created
+----
+image:rh-os-n_use_case_ocpv_tp_dp_29.png["SR 已建立"]
+
+確認 VM 及其 PVC 已在新的命名空間降級中還原 2 。
+
+image:rh-os-n_use_case_ocpv_tp_dp_32.png["VM 已在新命名空間中還原"]
+
+====
+.在命名空間中選取特定 VM 以建立快照 / 備份及還原
+[%collapsible]
+====
+在上一個範例中，我們在命名空間內只有一個 VM 。將整個命名空間納入備份，就能擷取與該虛擬機器相關的所有資源。在下列範例中，我們將另一個 VM 新增到相同的命名空間，並使用標籤選取器為這個新 VM 建立一個應用程式。
+
+** 在示範命名空間中建立新的 VM （ demo-CentOS VM ） **
+
+image:rh-os-n_use_case_ocpv_tp_dp_10.png["示範命名空間中的 Demo-CentOS VM"]
+
+*** 標記 DEMO - CentOS VM 及其相關資源 ***
+
+image:rh-os-n_use_case_ocpv_tp_dp_11.png["標籤示範 - CentOS VM ， PVC"]
+
+*** 驗證 DEMO - CentOS VM 和 PVCS 是否有標籤 ***
+
+image:rh-os-n_use_case_ocpv_tp_dp_12.png["Demo-CentOS VM 標籤"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_13.png["Demo-CentOS PVC 有標籤"]
+
+** 使用標籤選擇器 * 僅為特定 VM （ demo-CentOS ）建立應用程式
+
+[source, yaml]
+----
+# tp create app demo-centos-app --namespaces 'demo(category=protect-demo-centos)' -n demo --dry-run>demo-centos-app.yaml
+
+# cat demo-centos-app.yaml
+
+apiVersion: protect.trident.netapp.io/v1
+kind: Application
+metadata:
+  creationTimestamp: null
+  name: demo-centos-app
+  namespace: demo
+spec:
+  includedNamespaces:
+  - labelSelector:
+      matchLabels:
+        category: protect-demo-centos
+    namespace: demo
+status:
+  conditions: null
+
+# oc create -f demo-centos-app.yaml -n demo
+application.protect.trident.netapp.io/demo-centos-app created
+----
+image:rh-os-n_use_case_ocpv_tp_dp_14.png["Demo-CentOS PVC 有標籤"]
+
+依需求及排程建立備份與快照的方法與先前所示相同。由於用於建立快照或備份的 Trident 保護應用程式只包含命名空間中的特定 VM ，因此從該應用程式還原只會還原特定 VM 。備份 / 還原作業範例如下所示。
+
+** 使用其對應的應用程式 ** 在命名空間中建立特定 VM 的備份
+
+在前幾個步驟中，我們使用標籤選取器建立應用程式，僅在示範命名空間中包含 CentOS VM 。為此應用程式建立備份（本範例為隨需備份）。
+
+[source, yaml]
+----
+# tp create backup demo-centos-backup-on-demand --app demo-centos-app --appvault ontap-s3-appvault -n demo
+Backup "demo-centos-backup-on-demand" created.
+----
+image:rh-os-n_use_case_ocpv_tp_dp_18.png["已建立特定 VM 的備份"]
+
+** 將特定 VM 還原至相同的命名空間 ** 使用對應的應用程式建立特定 VM （ CentOS ）的備份。如果從這項建立備份原位還原或備份還原，則只會還原此特定 VM 。刪除 CentOS VM 。
+
+image:rh-os-n_use_case_ocpv_tp_dp_33["CentOS VM 存在"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_34["CentOS VM 已刪除"]
+
+從 demo-Centos-backup-on demand 建立就地備份還原，並確認已重新建立 CentOS VM 。
+
+[source, yaml]
+----
+#tp create bir demo-centos-restore --backup demo/demo-centos-backup-on-demand -n demo
+BackupInplaceRestore "demo-centos-restore" created.
+----
+image:rh-os-n_use_case_ocpv_tp_dp_35["建立 CentOS VM bir"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_36["已建立 CentOS VM"]
+
+** 將特定 VM 還原至不同的命名空間 ** 從 demo-Centos-backup-on demand 建立備份還原至不同的命名空間（ demo3 ），並確認已重新建立 CentOS VM 。
+
+[source, yaml]
+----
+# tp create br demo2-centos-restore --backup demo/demo-centos-backup-on-demand --namespace-mapping demo:demo3 -n demo3
+BackupRestore "demo2-centos-restore" created.
+----
+image:rh-os-n_use_case_ocpv_tp_dp_37["建立 CentOS VM bir"]
+
+image:rh-os-n_use_case_ocpv_tp_dp_38["已建立 CentOS VM"]
+
+====
