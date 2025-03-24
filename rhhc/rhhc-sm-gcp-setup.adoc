@@ -62,13 +62,6 @@ NOTE: 在 GCP 中部署 Red Hat OpenShift Container 平台叢集有多種方法�
 * 建立後端和儲存類別。請參閱說明link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"]。
 
 
-.將 GCP 上的 OCP 叢集新增至 Astra Control Center
-* 使用叢集角色建立獨立的 KubeConfig 檔案、其中包含 Astra Control 管理叢集所需的最低權限。您可以找到相關指示
-link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#create-a-cluster-role-kubeconfig["請按這裡"]。
-* 依照指示將叢集新增至 Astra Control Center
-link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster["請按這裡"]
-
-
 .在多區域架構中使用 Trident 的 CSI 拓撲功能
 如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
 

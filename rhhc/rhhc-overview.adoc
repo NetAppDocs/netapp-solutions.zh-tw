@@ -61,6 +61,6 @@ image:rhhc-trident-features.png["此圖顯示輸入 / 輸出對話方塊或表�
 
 NOTE: 應用程式資料除了包含使用者資料外、還包括 Kubernetes 物件：以下是一些範例： - Kubernetes 物件、例如 Pod 規格、 PVC 、部署、服務 - 自訂組態物件、例如組態對應和機密 - 持續性資料、例如 Snapshot 複本、備份、複本 - 自訂資源、例如 CRS 和 CRD
 
-** NetApp Astra Control** 可作為完全託管和自我管理的軟體使用、可協調功能以提供健全的應用程式資料管理。請參閱 link:https://docs.netapp.com/us-en/astra-family/["Astra文件"] 如需 Astra 系列產品的詳細資訊、請參閱。
+** NetApp Trident Protect * 是由 NetApp 維護的開放原始碼免費軟體，提供進階的應用程式資料管理功能，可強化 NetApp ONTAP 儲存系統和 NetApp Trident CSI 儲存資源配置程式所支援的狀態化 Kubernetes 應用程式的功能與可用度。Trident Protect 可簡化跨公有雲和內部部署環境的容器化工作負載管理，保護和移動。它也透過 API 和 CLI 提供自動化功能。
 
-本參考文件提供移轉與保護容器型應用程式的驗證、這些應用程式部署在 RedHat OpenShift Container 平台上、並使用 NetApp Astra Control Center 。此外、此解決方案還提供部署和使用 Red Hat Advanced Cluster Management （ ACM ）來管理容器平台的高階詳細資料。本文件也重點介紹使用 Trident CSI 資源配置程式、將 NetApp 儲存設備與 Red Hat OpenShift 容器平台整合的詳細資料。Astra Control Center 部署在集線器叢集上、用於管理容器應用程式及其持續儲存生命週期。最後、它為 AWS （ ROSA ）中受管理 Red Hat OpenShift 叢集上的容器工作負載提供複寫和容錯移轉及容錯移轉解決方案、使用 Amazon FSX for NetApp ONTAP （ FSX ONTAP ）作為持續儲存設備。
+本參考文件提供容器型應用程式的資料保護驗證，這些應用程式部署在使用 Trident Protect 的 RedHat OpenShift 平台上。此外、此解決方案還提供部署和使用 Red Hat Advanced Cluster Management （ ACM ）來管理容器平台的高階詳細資料。本文件也重點介紹使用 Trident CSI 資源配置程式、將 NetApp 儲存設備與 Red Hat OpenShift 容器平台整合的詳細資料。

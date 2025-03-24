@@ -13,7 +13,7 @@ summary:
 == 在 Azure 上部署及設定 Red Hat OpenShift Container 平台
 
 [role="lead"]
-本節說明如何在 Azure 中設定及管理 OpenShift 叢集、以及如何在其中部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備的使用、並有 Trident / Astra 控制備份程式的協助、以提供持續的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+本節說明如何在 Azure 中設定及管理 OpenShift 叢集、以及如何在其中部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備在 Trident 協助下的使用情形、以提供永續性的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
 
 下圖顯示部署在 Azure 上且使用 VPN 連線至資料中心的叢集。
 
@@ -109,31 +109,8 @@ pullSecret:
 
 
 ====
-.在 Azure 的 OCP 叢集中安裝 Astra Control Provisioner
-[%collapsible]
-====
-* 在此專案中、 Astra Control Provisioner （ ACP ）安裝在所有叢集（內部叢集、部署 Astra Control Center 的內部叢集、以及 Azure 中的叢集）上。深入瞭解 Astra Control 資源配置程式 link:https://docs.netapp.com/us-en/astra-control-center/release-notes/whats-new.html#7-november-2023-23-10-0["請按這裡"]。
-* 建立後端和儲存類別。請參閱說明link:https://docs.netapp.com/us-en/trident/trident-use/backends.html["請按這裡"]。
-
-
-====
-.將 Azure 上的 OCP 叢集新增至 Astra Control Center 。
-[%collapsible]
-====
-* 使用叢集角色建立獨立的 KubeConfig 檔案、其中包含 Astra Control 管理叢集所需的最低權限。您可以找到相關指示
-link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#create-a-cluster-role-kubeconfig["請按這裡"]。
-* 依照指示將叢集新增至 Astra Control Center
-link:https://docs.netapp.com/us-en/astra-control-center/get-started/setup_overview.html#add-cluster["請按這裡"]
-
-
-====
 .在多區域架構中使用 Trident 的 CSI 拓撲功能
 如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
 
 
 NOTE: Kubernetes 支援兩種磁碟區繫結模式： - 當 **_Volume BindingMode_ 設為 _Immediate_** （預設）時、 Trident 會建立磁碟區而不會感知任何拓撲。建立永續性磁碟區時、不會對要求的Pod排程需求有任何相依性。- 當 **_Volume BindingMode_ 設定為 _WaitForFirstConsumer （客戶） ** 時、永久 Volume 的建立與繫結將延遲、直到排程並建立使用 PVC 的 Pod 為止。如此一來、就能建立磁碟區、以符合拓撲需求所強制執行的排程限制。Trident 儲存設備後端可根據可用性區域（可識別拓撲的後端）、選擇性地配置磁碟區。對於使用此類後端的StorageClass、只有在受支援地區/區域中排程的應用程式要求時、才會建立Volume。（可識別拓撲的 StorageClass ）如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
-
-[ 底線 ]#* 示範影片 * #
-
-.使用 Astra Control 進行應用程式的容錯移轉和容錯回復
-video::1546191b-bc46-42eb-ac34-b0d60142c58d[panopto,width=360]

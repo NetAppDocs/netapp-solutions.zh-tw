@@ -62,12 +62,6 @@ NOTE: 連接器也可以安裝在雲端環境中。請參閱 link:https://docs.n
 
 
 ====
-.將 AWS 上的 OCP 叢集新增至 Astra Control Center 。
-[%collapsible]
-====
-將 AWS 中的 OCP 叢集新增至 Astra Control Center 。
-
-====
 .在多區域架構中使用 Trident 的 CSI 拓撲功能
 如今、雲端供應商讓 Kubernetes/OpenShift 叢集管理員能夠為以區域為基礎的叢集建立節點。節點可位於某個區域內的不同可用度區域、或位於不同區域之間。為了協助在多區域架構中為工作負載配置磁碟區、 Trident 使用 CSI 拓撲。使用「csi拓撲」功能、可根據區域和可用性區域、限制對磁碟區的存取、只能存取一部分節點。如需其他詳細資料、請參閱link:https://docs.netapp.com/us-en/trident/trident-use/csi-topology.html["請按這裡"]。
 

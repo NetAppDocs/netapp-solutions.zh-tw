@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-本節說明如何設定和管理 OpenShift 叢集、以及如何管理其上的有狀態應用程式的高階工作流程。它顯示 NetApp ONTAP 儲存陣列在 Trident 協助下的使用情形、以提供持續性的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+本節說明如何設定和管理 OpenShift 叢集、以及如何管理其上的有狀態應用程式的高階工作流程。它顯示 NetApp ONTAP 儲存陣列在 Trident 協助下的使用情形、以提供持續性的磁碟區。
 
 
 NOTE: 部署 Red Hat OpenShift Container 平台叢集有多種方法。此設定的高階說明提供所使用特定方法的文件連結。您可以參閱中提供的相關連結中的其他方法 link:rhhc-resources.html["資源區段"]。
@@ -49,14 +49,6 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 這是使用 Hub 叢集上的進階叢集管理操作員來安裝。請參閱說明 link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/install/installing#doc-wrapper["請按這裡"]。
 
 ====
-.在 Hub 叢集上安裝內部 Red Hat Quay 登錄。
-[%collapsible]
-====
-* 必須有內部登錄才能推送 Astra 映像。使用 Hub 叢集中的「操作員」來安裝 Quay 內部登錄。
-* 請參閱說明 link:https://access.redhat.com/documentation/en-us/red_hat_quay/2.9/html-single/deploy_red_hat_quay_on_openshift/index#installing_red_hat_quay_on_openshift["請按這裡"]
-
-
-====
 .安裝兩個額外的 OCP 叢集（來源和目的地）
 [%collapsible]
 ====
@@ -85,26 +77,10 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 
 
 ====
-.安裝 NetApp Astra Control Center
-[%collapsible]
-====
-* NetApp Astra Control Center 是使用 Hub 叢集上的 Astra 運算子來安裝。
-* 請參閱說明 link:https://docs.netapp.com/us-en/astra-control-center/get-started/acc_operatorhub_install.html["請按這裡"]。
-
-
-值得記住的重點： * 從支援網站下載 NetApp Astra Control Center 映像。* 將映像推送至內部登錄。* 請參閱此處的說明。
-
-====
 .在來源叢集上部署應用程式
 [%collapsible]
 ====
 使用 OpenShift GitOps 部署應用程式。（例如Postgres 、 Ghost ）
 
 ====
-.將來源叢集和目的地叢集新增至 Astra Control Center 。
-[%collapsible]
-====
-將叢集新增至 Astra Control 管理之後、您可以在叢集上安裝應用程式（ Astra Control 之外）、然後前往 Astra Control 中的「應用程式」頁面來定義應用程式及其資源。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/manage-apps.html["開始管理 Astra Control Center 的應用程式區段"]。
-
-====
-下一步是使用 Astra Control Center 從來源叢集到目的地叢集進行資料保護和資料移轉。
+下一步是使用 Trident Protect 保護資料，並將資料從來源叢集移轉至目的地叢集。請參閱link:rhhc/rhhc-dp-tp-solution.html["請按這裡"]以取得指示。
