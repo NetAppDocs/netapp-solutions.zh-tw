@@ -17,7 +17,11 @@ summary: ROSA 上的 Red Hat OpenShift 虛擬化
 
 == 總覽
 
-本節詳細說明如何將 NetApp ONTAP 的 FSX 設定為 ROSA 叢集的預設儲存類別、然後建立將 FSX ONTAP 儲存設備用於其磁碟區的虛擬機器。我們也會考慮使用來賓認證連線至虛擬機器、然後重新啟動 VM 。最後、我們將執行虛擬機器從目前節點即時移轉至新節點的作業。我們將在 VM 重新啓動和實時遷移之後檢查磁盤存儲的內容。
+本節詳細說明如何將 NetApp ONTAP 的 FSX 設定為 ROSA 叢集的預設儲存類別、然後建立將 FSX ONTAP 儲存設備用於其磁碟區的虛擬機器。
+
+我們也會考慮使用來賓認證連線至虛擬機器、然後重新啟動 VM 。最後、我們將執行虛擬機器從目前節點即時移轉至新節點的作業。我們會在 VM 重新啟動和即時移轉之後，檢查磁碟儲存設備的內容。
+
+閱讀部落格作為其他資源：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["解除鎖定無縫 iSCSI 儲存整合：適用於 iSCSI 的 ROSA 叢集上的 FSxN 指南"]
 
 
 
@@ -33,7 +37,19 @@ summary: ROSA 上的 Red Hat OpenShift 虛擬化
 * link:https://docs.openshift.com/rosa/rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html["HCP ROSA 叢集"]（至少有 3 個裸機工作節點）
 * link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/virtualization/installing#virt-aws-bm_preparing-cluster-for-virt["ROSA 叢集上安裝的 OpenShift 虛擬化"]
 * link:https://console.redhat.com/openshift/overview["存取 Red Hat OpenShift Web 主控台"]
+* Trident 25.02 或更新版本您可以利用 Trident 25.02 或更新版本，輕鬆設定 ROSA 叢集的工作節點，以便在 FSxN 儲存設備上執行 iSCSI 作業。使用 node-preper-flag 在 ROSA 叢集上安裝 Trident 25.02 或更新版本
 
+
+....
+#./tridentctl install trident -n trident --node-prep=iscsi
+....
+這會啟動 iscsid 和 multipathd 服務，並在 /etc/multipath.conf 檔案中設定下列項目，為 ROSA 叢集工作節點做好 iSCSI 的準備
+
+image:rh-os-n_use_case_iscsi_node_prep1.png["iscsid 作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep2.png["多路徑作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep3.png["multipath.conf 檔案"]
 
 
 
@@ -112,3 +128,5 @@ $ dd if=/dev/urandom of=random.dat bs=1M count=10240 (to create a file called ra
 磁碟中填滿 11 GB 的資料。image:redhat_openshift_ocpv_rosa_image18.png["OCP-v VM 填滿磁碟"]
 
 使用 vi 建立範例文字檔、供我們測試使用。image:redhat_openshift_ocpv_rosa_image19.png["OCP-v 會建立檔案"]
+
+閱讀部落格作為其他資源：link:https://community.netapp.com/t5/Tech-ONTAP-Blogs/Unlock-Seamless-iSCSI-Storage-Integration-A-Guide-to-FSxN-on-ROSA-Clusters-for/ba-p/459124["解除鎖定無縫 iSCSI 儲存整合：適用於 iSCSI 的 ROSA 叢集上的 FSxN 指南"]

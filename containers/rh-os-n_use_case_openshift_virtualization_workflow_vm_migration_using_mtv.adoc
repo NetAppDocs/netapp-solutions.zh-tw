@@ -86,69 +86,27 @@ NOTE: 請確定您啟動 PostgreSQL 伺服器、並讓服務在開機時啟動�
 
 * OpenShift 叢集 4.13.34
 * link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 23.10"]
-* 叢集節點上啟用 iSCSI 的多重路徑（適用於 ONTAP - SAN 儲存類別）。請參閱提供的 yaml 、以建立在叢集中每個節點上啟用 iSCSI 的精靈集。
+* 叢集節點上啟用 iSCSI 的多重路徑（適用於 ONTAP - SAN 儲存類別）。如果使用 node-preping 標誌安裝 Trident 25.02 ，則可輕鬆啟用多重路徑。若要安裝 Trident 25.02 並為 iSCSI 準備工作節點，您可以使用下列命令
+
+
+[source, yaml]
+----
+#/tridentctl install trident n trident —node-prep=iscsi
+
+----
+
+NOTE: 若要驗證 OpenShift 叢集的工作節點上是否已啟用 iSCSI 工具，請登入工作節點，並驗證您是否看到 iscsid ， multipathd 作用中，以及 multipath.conf 檔案中的項目，如圖所示。
+
+image:rh-os-n_use_case_iscsi_node_prep1.png["iscsid 作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep2.png["多路徑作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep3.png["multipath.conf 檔案"]
+
 * Trident 後端和儲存類別、適用於使用 iSCSI 的 ONTAP SAN 。請參閱提供的 yaml 檔案、瞭解 Trident 後端和儲存類別。
 * link:https://docs.openshift.com/container-platform/4.13/virt/install/installing-virt-web.html["OpenShift虛擬化"]
 
 
-若要在 OpenShift 叢集節點上安裝 iSCSI 和多重路徑、請使用以下提供的 yaml 檔案
-** 準備 iSCSI 的叢集節點 **
-
-[source, yaml]
-----
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  namespace: trident
-  name: trident-iscsi-init
-  labels:
-    name: trident-iscsi-init
-spec:
-  selector:
-    matchLabels:
-      name: trident-iscsi-init
-  template:
-    metadata:
-      labels:
-        name: trident-iscsi-init
-    spec:
-      hostNetwork: true
-      serviceAccount: trident-node-linux
-      initContainers:
-      - name: init-node
-        command:
-          - nsenter
-          - --mount=/proc/1/ns/mnt
-          - --
-          - sh
-          - -c
-        args: ["$(STARTUP_SCRIPT)"]
-        image: alpine:3.7
-        env:
-        - name: STARTUP_SCRIPT
-          value: |
-            #! /bin/bash
-            sudo yum install -y lsscsi iscsi-initiator-utils sg3_utils device-mapper-multipath
-            rpm -q iscsi-initiator-utils
-            sudo sed -i 's/^\(node.session.scan\).*/\1 = manual/' /etc/iscsi/iscsid.conf
-            cat /etc/iscsi/initiatorname.iscsi
-            sudo mpathconf --enable --with_multipathd y --find_multipaths n
-            sudo systemctl enable --now iscsid multipathd
-            sudo systemctl enable --now iscsi
-        securityContext:
-          privileged: true
-      hostPID: true
-      containers:
-      - name: wait
-        image: k8s.gcr.io/pause:3.1
-      hostPID: true
-      hostNetwork: true
-      tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-  updateStrategy:
-    type: RollingUpdate
-----
 使用下列 yaml 檔案建立 Trident 後端組態、以使用 ONTAP SAN 儲存設備
 ** iSCSI 的 Trident 後端 **
 
