@@ -1,8 +1,8 @@
 ---
 sidebar: sidebar 
 permalink: databases/automation_ora_clone_lifecycle.html 
-keywords: Oracle, AWS, FSx ONTAP, Database, Oracle 19c, HA, DR 
-summary: 此解決方案提供 Ansible 型自動化工具組、可將 Oracle 資料庫高可用度和災難恢復（ HA/DR ）與 AWS FSX ONTAP 做為 Oracle 資料庫儲存設備、並將 EC2 執行個體做為 AWS 中的運算執行個體進行設定。 
+keywords: Database, Oracle, DataGuard, AWS, FSx ONTAP, Azure, ANF, 
+summary: 此解決方案提供 Ansible 型自動化工具組，可從主要資料庫設定，複製及重新整理 Oracle 複製資料庫。主要資料庫可以是 Oracle Data Guard 組態中的實體待命 DB 。此解決方案可套用至私有資料中心，或在 NFS 或 ASM 組態中使用 FSX ONTAP 儲存設備的 AWS 雲端，或在 NFS 組態中使用 Azure NetApp Files 儲存設備的 Azure 雲端。 
 ---
 = SnapCenter Oracle Clone Lifecycle Automation
 :hardbreaks:
@@ -16,13 +16,13 @@ summary: 此解決方案提供 Ansible 型自動化工具組、可將 Oracle 資
 NetApp公司的Alleno Cao、Niyazz Mohamed
 
 [role="lead"]
-此解決方案提供 Ansible 型自動化工具組、可將 Oracle 資料庫高可用度和災難恢復（ HA/DR ）與 AWS FSX ONTAP 做為 Oracle 資料庫儲存設備、並將 EC2 執行個體做為 AWS 中的運算執行個體進行設定。
+此解決方案提供 Ansible 型自動化工具組，可從主要資料庫設定，複製及重新整理 Oracle 複製資料庫。主要資料庫可以是 Oracle Data Guard 組態中的實體待命 DB 。此解決方案可套用至私有資料中心，或在 NFS 或 ASM 組態中使用 FSX ONTAP 儲存設備的 AWS 雲端，或在 NFS 組態中使用 Azure NetApp Files 儲存設備的 Azure 雲端。
 
 
 
 == 目的
 
-客戶喜歡 NetApp ONTAP 儲存設備的 FlexClone 功能、因為它能大幅節省儲存成本。這套 Ansible 型工具套件可利用 NetApp SnapCenter 命令列公用程式、將複製的 Oracle 資料庫的設定、複製和重新整理作業自動化、以簡化生命週期管理。此工具套件適用於部署至 ONTAP 儲存設備的 Oracle 資料庫、無論是在預先設定或公有雲、皆可由 NetApp SnapCenter UI 工具管理。
+如果在私有資料中心或公有雲中的特定儲存產品上啟用精簡複製功能，則客戶喜歡 NetApp ONTAP 儲存設備的 FlexClone 功能，可以快速（分鐘）建立大型資料庫複本，並節省額外的儲存成本。這套 Ansible 型工具套件可利用 NetApp SnapCenter 命令列公用程式，自動排程設定，複製及重新整理複製的 Oracle 資料庫，以簡化生命週期管理。此工具套件適用於部署至內部部署或公有雲（ AWS 或 Azure ）的 ONTAP 儲存設備，並由 NetApp SnapCenter UI 工具管理的 Oracle 資料庫。
 
 本解決方案可解決下列使用案例：
 
@@ -74,16 +74,18 @@ Ansible controller:
 ....
 ....
 SnapCenter server:
-  version 5.0
+  version 5.0 and up, 6.1 for Azure NetApp Files
   backup policy configured
   Source database protected with a backup policy
 ....
 ....
 Oracle servers:
-  Source server managed by SnapCenter
-  Target server managed by SnapCenter
-  Target server with identical Oracle software stack as source server installed and configured
+  Source server managed by SnapCenter (In Data Guard, this would be the physical standby serer)
+  Target server managed by SnapCenter (clone DB host)
 ....
+
+NOTE: 為了簡化作業，複製目標 Oracle 伺服器的設定應與備用 Oracle 伺服器相同，例如 Oracle 軟體堆疊，以及 Oracle Home 等目錄配置
+
 ====
 
 
@@ -95,6 +97,9 @@ Oracle servers:
 ----
 git clone https://bitbucket.ngage.netapp.com/scm/ns-bb/na_oracle_clone_lifecycle.git
 ----
+
+NOTE: 此工具組目前只能由具有 BitBucket 存取權限的 NetApp 內部使用者存取。對於有興趣的外部使用者，請向您的客戶團隊申請存取權限，或聯絡 NetApp 解決方案工程團隊。
+
 ====
 
 
@@ -102,7 +107,7 @@ git clone https://bitbucket.ngage.netapp.com/scm/ns-bb/na_oracle_clone_lifecycle
 
 [%collapsible]
 ====
-此工具套件包含主機檔案、可定義 Ansible 教戰手冊執行的目標。通常是目標 Oracle 複製主機。以下是範例檔案。主機項目包括目標主機 IP 位址和 ssh 金鑰、讓管理員使用者存取主機以執行 clone 或 refresh 命令。
+此工具套件包含主機檔案，可定義 Ansible 教戰手冊所執行的目標。通常是目標 Oracle 複製主機。以下是範例檔案。主機項目包括目標主機 IP 位址和 ssh 金鑰、讓管理員使用者存取主機以執行 clone 或 refresh 命令。
 
 #Oracle 複製主機
 
@@ -199,6 +204,9 @@ ansible-playbook -i hosts clone_1_setup.yml -u admin -e @vars/vars.yml
 0 */4 * * * /home/admin/na_oracle_clone_lifecycle/clone_1_refresh.sh
 ----
 
+
+
+NOTE: 將使用者名稱變更為您的 Sudo 使用者以進行 SnapCenter 組態。
 
 對於其他複製資料庫、請建立個別的 clone _n_setup.yml 和 clone n_refresh.yml 、以及 clone n_refresh.sh 。相應地在 host_vars 目錄中配置 Ansible 目標主機和 hostname.yml 文件。
 
