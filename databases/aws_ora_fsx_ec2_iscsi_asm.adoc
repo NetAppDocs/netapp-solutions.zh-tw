@@ -114,7 +114,7 @@ image:aws_ora_fsx_ec2_iscsi_asm_architecture.png["此映像提供在 AWS 公有�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -136,7 +136,7 @@ NOTE: 請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以�
 
 === EC2 執行個體核心組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 在已配置先決條件的情況下、以 EC2 使用者和 Sudo to root 使用者的身分登入 EC2 執行個體、以設定 Linux 核心以進行 Oracle 安裝。
 
@@ -277,7 +277,7 @@ systemctl disable firewalld
 
 === 將資料庫磁碟區和 LUN 配置並對應至 EC2 執行個體主機
 
-[%collapsible]
+[%collapsible%open]
 ====
 透過 ssh 以 fsxadmin 使用者身分登入 FSX 叢集、並使用 FSX 叢集管理 IP 來裝載 Oracle 資料庫二進位、資料和記錄檔、從命令列配置三個磁碟區。
 
@@ -369,7 +369,7 @@ svm_ora    /vol/ora_01_logs/ora_01_logs_02           ora_01        6  iscsi
 
 === 資料庫儲存組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 現在、匯入並設定適用於 Oracle 網格基礎架構的 FSX 儲存設備、以及在 EC2 執行個體主機上安裝資料庫。
 
@@ -640,7 +640,7 @@ systemctl restart multipathd
 
 === Oracle 網格基礎架構安裝
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 以 EC2 使用者的身分透過 SSH 登入 EC2 執行個體、並取消註解以啟用密碼驗證 `PasswordAuthentication yes` 然後留言 `PasswordAuthentication no`。
 +
@@ -818,7 +818,7 @@ ASMCMD-9526: The AFD state is 'LOADED' and filtering is 'ENABLED' on host 'ip-17
 
 === Oracle 資料庫安裝
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 以 Oracle 使用者身分登入、然後取消設定 `$ORACLE_HOME` 和 `$ORACLE_SID` 如果已設定。
 +

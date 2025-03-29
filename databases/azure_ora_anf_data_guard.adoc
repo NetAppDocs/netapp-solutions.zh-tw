@@ -13,8 +13,6 @@ summary: 本解決方案提供使用 Microsoft Azure NetApp Files （ anf ）做
 :imagesdir: ../media/
 
 
-NetApp公司的Alleno Cao、Niyazz Mohamed
-
 [role="lead"]
 本解決方案提供使用 Microsoft Azure NetApp Files （ anf ）做為主要和備用資料庫儲存設備來設定 Oracle Data Guard 的概觀和詳細資料，以降低 Azure 雲端中 Oracle Data Guard HA/DR 解決方案的授權和營運成本。
 
@@ -115,7 +113,7 @@ image:azure_ora_anf_data_guard_architecture.png["此映像提供在 ANF 上 Azur
 === 部署考量的關鍵因素
 
 * * 備用資料庫複製 *從主要資料庫接收及套用交易記錄時，實體待命資料庫可以複製並掛載到 DB VM 上，以支援其他工作負載，例如開發，測試或報告。複本可以是精簡複本或完整複本。目前， anf 僅支援完整的待命資料庫複本複本複本。anf 精簡複製選項將於短期內推出。對於資料庫磁碟區的精簡複製複本，它會共用相同的 DB 待命資料庫磁碟區，並使用寫入時複製技術來服務寫入 IOS 。因此、複本具有極高的儲存效率、可用於許多其他使用案例、並可為新的寫入 IOS 分配最少且遞增的新儲存設備。如此可大幅減少 Active Data Guard 儲存設備佔用空間、進而大幅節省儲存成本。NetApp 建議在資料庫從主要儲存設備切換至待命 anf 儲存設備時，將 FlexClone 活動降至最低，以維持高層級的 Oracle 效能。
-* * Oracle 軟體需求。 * 一般而言、實體待命資料庫必須與主要資料庫具有相同的資料庫首頁版本、包括修補程式集例外（ PSE ）、重大修補程式更新（ CPU ）、 和 Patch Set Update （ PSU ）、除非 Oracle Data Guard 備用先修補套用程序程序正在進行中（如 My Oracle Support 附註 1265700.1 中所述、網址為： link:http://support.oracle.com.["support.oracle.com"^]
+* * Oracle 軟體需求。 *一般而言，實體待命資料庫必須與主要資料庫具有相同的資料庫首頁版本，包括 Patch Set 例外（ PSE ），重大修補程式更新（ CPU ）及修補程式集更新（ PSU ），除非 Oracle Data Guard 待命優先修補程式套用程序正在進行中（如 My Oracle Support note 1265700.1 中所述）link:https://support.oracle.com["support.oracle.com"^]。
 * * 備用資料庫目錄結構考量事項。 * 如果可能、主要和待命系統上的資料檔案、記錄檔和控制檔應具有相同的名稱和路徑名稱、並使用最佳彈性架構（ OFA ）命名慣例。待命資料庫上的歸檔目錄也應在站台之間相同、包括大小和結構。此策略可讓其他作業（例如備份、切換和容錯移轉）執行相同的步驟集、降低維護複雜度。
 * * 強制記錄模式。 * 若要防止無法傳播至待命資料庫的主要資料庫中未記錄的直接寫入，請在執行資料檔案備份以進行待命建立之前，先在主要資料庫中開啟強制記錄功能。
 * * Azure VM 規模調整 *在這些測試和驗證中，我們使用 Azure VM - Standard_B4ms ，搭配 4 個 vCPU 和 16 個 GiB 記憶體。您必須根據實際工作負載需求，適當調整 Azure DB VM 的大小，以符合 vCPU 數量和 RAM 數量。
@@ -135,7 +133,7 @@ image:azure_ora_anf_data_guard_architecture.png["此映像提供在 ANF 上 Azur
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -174,7 +172,7 @@ Vnet 閘道連線狀態：image:azure_ora_anf_dg_vnet_03.png["顯示 Azure 環�
 
 === 準備 Data Guard 的主要資料庫
 
-[%collapsible]
+[%collapsible%open]
 ====
 在本示範中，我們在主要 Azure DB 伺服器上設定了名為 NTAP 的主要 Oracle 資料庫，其中包含三個 NFS 裝載點： Oracle 二進位 /u01 ， Oracle 資料檔案 /u02 ， Oracle 控制檔 /u03 ， Oracle 作用中記錄檔，封存記錄檔和備援 Oracle 控制檔。以下說明設定 Oracle Data Guard 保護主要資料庫的詳細程序。所有步驟均應以 Oracle 資料庫擁有者或預設使用者身分執行 `oracle`。
 
@@ -484,7 +482,7 @@ log_archive_dest_21                  string
 
 === 準備備用資料庫並啟動 Data Guard
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard 需要作業系統核心組態和 Oracle 軟體堆疊，包括待機 DB 伺服器上的修補程式集，才能與主要 DB 伺服器相符。為了便於管理和簡化，備用 DB 伺服器的資料庫儲存組態理想上也應與主要 DB 伺服器相符，例如資料庫目錄配置和 NFS 裝載點的大小。以下是設定備用 Oracle DB 伺服器和啟動 Oracle DataGuard for HA/DR 保護的詳細程序。所有命令都應作爲默認的 Oracle 所有者用戶 ID 執行 `oracle`。
 
@@ -846,7 +844,7 @@ SQL>
 
 === 設定 Data Guard Broker
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard Broker 是一套分散式管理架構、可自動化及集中建立、維護及監控 Oracle Data Guard 組態。以下章節示範如何設定 Data Guard Broker 來管理 Data Guard 環境。
 
@@ -943,7 +941,7 @@ DGMGRL>
 
 === 針對其他使用案例複製待命資料庫
 
-[%collapsible]
+[%collapsible%open]
 ====
 在 Oracle Data Guard 設定的 ANF 上託管 Oracle 待命資料庫的主要優點是，如果啟用精簡複製，它可以快速複製，以提供許多其他使用案例，而且只需額外的儲存投資。NetApp 建議您使用 SnapCenter UI 工具來管理 Oracle DataGuard 資料庫。在下一節中，我們將示範如何使用 NetApp SnapCenter 工具，針對開發，測試，報告等其他用途，在 ANF 上快照及複製掛載及還原待命資料庫磁碟區。
 

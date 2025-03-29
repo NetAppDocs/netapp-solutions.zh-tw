@@ -17,7 +17,7 @@ summary:
 從 VMware vSphere 8.0 U1 （技術預覽）開始、 nconnect 功能可為 NFS v3 資料存放區磁碟區啟用多個 TCP 連線、以達到更高的處理量。使用 NFS 資料存放區的客戶現在可以增加與 NFS 伺服器的連線數量、進而最大化高速網路介面卡的使用率。
 
 
-NOTE: 此功能通常適用於具有 8.0 U2 的 NFS v3 、請參閱上的儲存區一節link:https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vsphere-esxi-802-release-notes/index.html["VMware vSphere 8.0 Update 2 的版本資訊"]。vSphere 8.0 U3 新增 NFS v4.1 支援。如需詳細資訊、請參閱link:https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vsphere-vcenter-server-803-release-notes/index.html["vSphere 8.0 Update 3 版本資訊"]
+NOTE: 此功能通常適用於具有 8.0 U2 的 NFS v3 、請參閱上的儲存區一節link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/release-notes/esxi-update-and-patch-release-notes/vsphere-esxi-802-release-notes.html["VMware vSphere 8.0 Update 2 的版本資訊"]。vSphere 8.0 U3 新增 NFS v4.1 支援。如需詳細資訊、請參閱link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/release-notes/esxi-update-and-patch-release-notes/vsphere-esxi-803-release-notes.html["vSphere 8.0 Update 3 版本資訊"]
 
 
 
@@ -137,7 +137,7 @@ govc host.esxcli storage nfs list
 
 ONTAP 支援的最大連線數量取決於儲存平台機型。請在上尋找 exec_ctx link:https://www.netapp.com/media/10720-tr-4067.pdf["NFS 最佳實務做法與實作指南"] 以取得更多資訊。
 
-隨著每個 NFSv3 資料存放區的連線數量增加、可裝載於該 vSphere 主機上的 NFS 資料存放區數量也會減少。每個 vSphere 主機支援的連線總數為 256 個。檢查 link:https://kb.vmware.com/s/article/91481["VMware 知識庫文章 91481"] 適用於每個 vSphere 主機的資料存放區限制。
+隨著每個 NFSv3 資料存放區的連線數量增加、可裝載於該 vSphere 主機上的 NFS 資料存放區數量也會減少。每個 vSphere 主機支援的連線總數為 256 個。檢查link:https://knowledge.broadcom.com/external/article?legacyId=91481["VMware 知識庫文章 91481"]每個 vSphere 主機的資料存放區限制。
 
 
 NOTE: VVOL 資料存放區不支援 nConnect 功能。但是、傳輸協定端點會計入連線限制。建立 vVol 資料存放區時、會為 SVM 的每個資料 LIF 建立一個傳輸協定端點。

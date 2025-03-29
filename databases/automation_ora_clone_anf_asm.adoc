@@ -58,7 +58,7 @@ NOTE: 對於與此 GitHub 儲存庫中的內容產生及 / 或共用任何衍生
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -85,7 +85,7 @@ NOTE: 為了簡化作業，複製目標 Oracle 伺服器的設定應與備用 Or
 
 === 下載工具組
 
-[%collapsible]
+[%collapsible%open]
 ====
 [source, cli]
 ----
@@ -99,7 +99,7 @@ NOTE: 此工具組目前只能由具有 BitBucket 存取權限的 NetApp 內部�
 
 === Ansible 來源和目標主機檔案組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 此工具套件包含主機檔案，可定義執行 Ansible 教戰手冊的來源和目標 Oracle 主機。通常，它會在 Data Guard 設定中包含待機 DB 主機，以及目標 Oracle 複製主機。以下是範例檔案。主機項目包括目標主機 IP 位址和 ssh 金鑰，供使用者存取主機以執行 clone 或 refresh 命令。Azure NetApp Files 儲存設備是透過 API 進行設定。因此， ANF 連線是透過 HTTP 傳輸協定透過本機主機進行。
 
@@ -120,7 +120,7 @@ localhost ansible_connection=local
 
 === 整體變數組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 以下是典型的全域變數檔案 vars.yml 範例，其中包含適用於全域層級的變數。
 
@@ -196,7 +196,7 @@ sys_pwd: "xxxxxxxx"
 
 === 主機變數組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 主機變數是在 host_vars 目錄中定義，名稱為 ｛ ｛ host_name ｝ ｝ 。僅適用於特定主機。對於此解決方案，只會設定目標複製資料庫主機參數檔案。Oracle 待機 DB 參數是在全域 vars 檔案中設定。以下為目標 Oracle Clone DB 主機變數檔案 orac.yml 的範例，其中顯示典型組態。
 
@@ -219,7 +219,7 @@ asm_sid: +ASM
 
 === 額外的複製目標 Oracle 伺服器組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 Clone 目標 Oracle 伺服器應安裝和修補與來源 Oracle 伺服器相同的 Oracle 軟體堆疊。Oracle 使用者 .bash_profile 有 $oracle_base 、並已設定 $oracle_home 。此外、 $oracle_home 變數應與來源 Oracle 伺服器設定相符。如果目標 Oracle_Home 設定與備用 Oracle 伺服器組態不同，請建立符號連結來解決這些差異。以下是範例。
 
@@ -242,7 +242,7 @@ alias asm='export ORACLE_HOME=$GRID_HOME;export PATH=$PATH:$GRID_HOME/bin;export
 
 === 教戰手冊執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 共有兩本教戰手冊可執行 Oracle 資料庫複製生命週期。資料庫複製或重新整理可以隨需執行，也可以排程為 crontab 工作。
 

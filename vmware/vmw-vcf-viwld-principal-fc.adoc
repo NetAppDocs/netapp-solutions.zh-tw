@@ -1,0 +1,113 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-principal-fc.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, fc 
+summary:  
+---
+= FC 上的 VMFS 是 VI 工作負載網域的主要儲存設備
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+在本案例中，我們將探討如何將 VMFS 資料存放區設定為光纖通道（ FC ）作為主要儲存設備，以便在 VCF 中部署 VI 工作負載網域。如有必要、我們會參閱外部文件、以瞭解必須在 VCF 的 SDDC Manager 中執行的步驟、並涵蓋儲存組態部分的特定步驟。
+
+
+
+== 光纖通道的優點
+
+* 高效能： * FC 提供高速資料傳輸率，非常適合需要快速且可靠地存取大量資料的應用程式。
+
+* 低延遲： * 極低延遲，對於資料庫和虛擬化環境等效能敏感的應用程式而言，這是至關重要的。
+
+* 可靠性： * FC 網路以其穩健性和可靠性而聞名，具備內建備援和錯誤修正等功能。
+
+* 專用頻寬： * FC 為儲存流量提供專用頻寬，降低網路壅塞的風險。
+
+有關在 NetApp 儲存系統上使用 Fibre Channel 的詳細資訊，請 https://docs.netapp.com/us-en/ontap/san-admin/san-provisioning-fc-concept.html["SAN Provisioning with FC"]參閱。
+
+
+
+== 案例總覽
+
+此案例涵蓋下列高層級步驟：
+
+* 使用邏輯介面（生命）來建立儲存虛擬機器（ SVM ）、以進行 FC 流量。
+* 收集要部署之主機的 WWPN 資訊，並在 ONTAP 儲存系統上建立對應的啟動器群組。
+* 在 ONTAP 儲存系統上建立 FC 磁碟區。
+* 對應啟動器群組以建立 FC Volume
+* 在 FC 交換器上使用單一啟動器目標分區。為每個啟動器（單一啟動器區域）建立一個區域。
++
+** 針對每個區域、包括一個目標、該目標是ONTAP SVM的Sf2 FC邏輯介面（WWPN）。每個SVM每個節點至少應有兩個邏輯介面。請勿使用實體連接埠的WWPN。
+
+
+* 在 SDDC Manager 中建立用於 VMotion 流量的網路集區。
+* 委託 VCF 中的主機用於 VI 工作負載網域。
+* 使用 FC 資料存放區做為主要儲存設備、在 VCF 中部署 VI 工作負載網域。
+
+
+
+NOTE: 此解決方案適用於支援 NFS 儲存的 ONTAP 平台，包括 NetApp AFF 和 FAS 。
+
+
+
+== 先決條件
+
+此案例使用下列元件和組態：
+
+* ONTAP AFF 或 ASA 儲存系統，具有連接至 FC 交換器的 FC 連接埠。
+* SVM 是以 FC 生命來建立的。
+* vSphere 搭配 FC HBA 連線至 FC 交換器。
+* 在 FC 交換器上設定單一啟動器目標分區。
+
+
+
+NOTE: NetApp 建議 FC LUN 採用多重路徑。
+
+
+
+== 部署步驟
+
+
+
+=== 管理網域 - 預設叢集
+
+只有 VCF 瀏覽欄位匯入工具支援初始叢集上的 FC 主要儲存設備。如果使用 cloudbuilder 工具（直到版本 5.2.x ）部署 VCF ，則僅支援 VSAN 。如需詳細資訊，請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2/map-for-administering-vcf-5-2/importing-existing-vsphere-environments-admin/convert-or-import-a-vsphere-environment-into-vmware-cloud-foundation-admin.html["將現有 vSphere 環境轉換為管理網域"]。
+
+
+
+=== 管理網域 - 其他叢集
+
+管理網域上的其他 vSphere 叢集可透過下列選項進行部署： * 在 vSphere 環境中有其他叢集，並使用 VCF 瀏覽欄位匯入工具將 vSphere 環境轉換為管理網域。 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html["VMware vSphere適用的工具ONTAP"]， https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["系統管理員或 ONTAP API"]可用於將 VMFS 資料存放區部署至 vSphere 叢集。* 使用 SDDC API 部署額外的叢集。vSphere 主機應已設定 VMFS 資料存放區。用於 https://docs.netapp.com/us-en/ontap/san-admin/provision-storage.html["系統管理員或 ONTAP API"]將 LUN 部署至 vSphere 主機。* 使用 SDDC Manager UI 來部署其他叢集。但此選項只會建立 VSAN 資料存放區，直到版本 5.2.x 為止
+
+
+
+=== VI 工作負載網域 - 預設叢集
+
+管理網域啟動並執行後，即可建立 VI 工作負載網域：
+
+* 使用 SDDC Manager UI 。vSphere 主機應已設定 VMFS 資料存放區。使用系統管理員或 ONTAP API 將 LUN 部署至 vSphere 主機。
+* 將現有 vSphere 環境匯入為新的 VI 工作負載網域。適用於 VMware vSphere ， System Manager 或 ONTAP API 的 ONTAP 工具可用於將 VMFS 資料存放區部署至 vSphere 叢集。
+
+
+
+
+=== VI 工作負載網域 - 其他叢集
+
+VI 工作負載啟動並執行後，可使用下列選項，在 FC LUN 上使用 VMFS 部署其他叢集。
+
+* 使用 VCF 瀏覽欄位匯入工具匯入 vSphere 環境中的其他叢集。適用於 VMware vSphere ， System Manager 或 ONTAP API 的 ONTAP 工具可用於將 VMFS 資料存放區部署至 vSphere 叢集。
+* 使用 SDDC Manager UI 或 API 來部署其他叢集。vSphere 主機應已設定 VMFS 資料存放區。使用系統管理員或 ONTAP API 將 LUN 部署至 vSphere 主機。
+
+
+
+
+== 其他資訊
+
+如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
+
+如需設定 VCF 的相關資訊link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 文件"]，請參閱。

@@ -81,7 +81,7 @@ VMware 儲存選項通常是以傳統的儲存設備和軟體定義儲存產品�
 
 image:vmware-nfs-overview-image01.png["VM 儲存選項"]｛ nbsp ｝
 
-如 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-storage/GUID-F602EB17-8D24-400A-9B05-196CEA66464F.html["vSphere 環境中的儲存設備簡介"]需 VMware vSphere Foundation 支援儲存類型的詳細資訊、請參閱。
+如 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-storage-8-0/introduction-to-storage-in-vsphere-environment.html["vSphere 環境中的儲存設備簡介"]需 VMware vSphere Foundation 支援儲存類型的詳細資訊、請參閱。
 
 
 
@@ -203,7 +203,7 @@ BlueXP 整合可實現 3-2-1 備份策略、將資料複本延伸到雲端的物
 
 如需更多關於使用 BlueXP 的 3-2-1 備份策略的資訊、請造訪 link:../ehc/bxp-scv-hybrid-solution.html["適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原"]。
 
-有關 SnapCenter 插件的逐步部署說明，請參閱解決方案link:vmware_vcf_asa_scv_wkld.html["使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VCF 工作負載網域上的 VM"]。
+有關 SnapCenter 插件的逐步部署說明，請參閱解決方案link:vmw-vcf-scv-wkld.html["使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護 VCF 工作負載網域上的 VM"]。
 
 
 
@@ -245,7 +245,7 @@ NetApp 提供全球最安全的儲存設備。NetApp 可協助保護資料和應
 
 * VMware Live Site Recovery* （以前稱爲 VMware Site Recovery Manager ）提供了簡化的、基於策略的自動化功能，用於保護 vSphere Web Client 中的虛擬機。此解決方案透過儲存複寫介面卡（作為 ONTAP Tools for VMware 的一部分）來運用 NetApp 的進階資料管理技術。透過利用 NetApp SnapMirror 的功能進行陣列式複寫、 VMware 環境可從 ONTAP 最可靠且最成熟的技術中獲益。SnapMirror 只複製變更的檔案系統區塊、而非整個 VM 或資料存放區、以確保資料傳輸安全且高效率。此外、這些區塊也能充分利用節省空間的技術、例如重複資料刪除、壓縮和壓縮。在現代化的 ONTAP 系統中引進不受版本影響的 SnapMirror 、您可以靈活選擇來源叢集和目的地叢集。SnapMirror 已真正成為災難恢復的強大工具、與即時網站恢復相結合、可提供比本機儲存設備更強大的擴充性、效能和成本節約效益。
 
-如需詳細資訊、請參閱 https://docs.vmware.com/en/Site-Recovery-Manager/8.8/srm-installation-and-configuration/GUID-C1E9E7D0-B88F-4D2E-AA15-31897C01AB82.html["VMware Site Recovery Manager 概述"]。
+如需詳細資訊、請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery/site-recovery-manager/8-7/site-recovery-manager-installation-and-configuration-8-7/overview-of-vmware-site-recovery-manager.html["VMware Site Recovery Manager 概述"]。
 
 請參閱 NetApps 解決方案文件中心的完整解決方案：link:vmware_nfs_vlsr.html["NFS 儲存的自主勒索軟體保護"]
 
@@ -262,7 +262,7 @@ NetApp 提供全球最安全的儲存設備。NetApp 可協助保護資料和應
 * *NFS nConnect 功能與 NetApp 和 VMware* 。按一下link:vmware-vsphere8-nfs-nconnect.html["* 此處 *"]以瞭解部署步驟。
 +
 ** * 使用 ONTAP 工具 10 為 vSphere 8* 設定 NFS 資料存放區。按一下link:vmware_nfs_otv10.html["* 此處 *"]以瞭解部署步驟。
-** * 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VMS* 。按一下link:vmware_vcf_asa_scv_wkld.html["* 此處 *"]以瞭解部署步驟。
+** * 部署並使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護及還原 VMS* 。按一下link:vmw-vcf-scv-wkld.html["* 此處 *"]以瞭解部署步驟。
 ** * 利用 VMware Site Recovery Manager* 來災難恢復 NFS 資料存放區。按一下link:vmware_nfs_vlsr.html["* 此處 *"]以瞭解部署步驟。
 ** * NFS 儲存的自主勒索軟體保護 * 。按一下link:../ehc/dr-draas-nfs.html["* 此處 *"]以瞭解部署步驟。
 

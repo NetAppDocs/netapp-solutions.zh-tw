@@ -26,16 +26,16 @@ image:rhhc-on-premises.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 設定程序可分為下列步驟：
 
 .部署及設定 CentOS VM
-[%collapsible]
+[%collapsible%open]
 ====
 * 它部署在 VMware vSphere 環境中。
-* 此 VM 用於部署某些元件、例如 NetApp Trident 和 NetApp Astra 控制中心、以供解決方案使用。
+* 此虛擬機器用於部署某些元件，例如 NetApp Trident 和 NetApp Trident Protect for the 解決方案。
 * 在安裝期間、已在此 VM 上設定 root 使用者。
 
 
 ====
 .在 VMware vSphere （ Hub 叢集）上部署及設定 OpenShift Container Platform 叢集
-[%collapsible]
+[%collapsible%open]
 ====
 請參閱部署 OCP 叢集的方法說明link:https://docs.openshift.com/container-platform/4.17/installing/installing_vsphere/installing-vsphere-assisted-installer.html["輔助部署"]。
 
@@ -44,13 +44,13 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 
 ====
 .在 Hub 叢集上安裝進階叢集管理
-[%collapsible]
+[%collapsible%open]
 ====
 這是使用 Hub 叢集上的進階叢集管理操作員來安裝。請參閱說明 link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/install/installing#doc-wrapper["請按這裡"]。
 
 ====
 .安裝兩個額外的 OCP 叢集（來源和目的地）
-[%collapsible]
+[%collapsible%open]
 ====
 * 您可以使用 Hub 叢集上的 ACM 來部署其他叢集。
 * 請參閱說明 link:https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.7/html/clusters/cluster_mce_overview#vsphere_prerequisites["請按這裡"]。
@@ -58,7 +58,7 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 
 ====
 .設定 NetApp ONTAP 儲存設備
-[%collapsible]
+[%collapsible%open]
 ====
 * 在 VMware 環境中安裝可連線至 OCP VM 的 ONTAP 叢集。
 * 建立 SVM 。
@@ -67,7 +67,7 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 
 ====
 .在 OCP 叢集上安裝 NetApp Trident
-[%collapsible]
+[%collapsible%open]
 ====
 * 在所有三個叢集上安裝 NetApp Trident ：集線器、來源和目的地叢集
 * 請參閱說明 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-operator.html["請按這裡"]。
@@ -78,9 +78,9 @@ TIP: 請記住下列事項： - 建立 ssh 公開金鑰和私密金鑰以提供�
 
 ====
 .在來源叢集上部署應用程式
-[%collapsible]
+[%collapsible%open]
 ====
 使用 OpenShift GitOps 部署應用程式。（例如Postgres 、 Ghost ）
 
 ====
-下一步是使用 Trident Protect 保護資料，並將資料從來源叢集移轉至目的地叢集。請參閱link:rhhc/rhhc-dp-tp-solution.html["請按這裡"]以取得指示。
+下一步是使用 Trident Protect 保護資料，並將資料從來源叢集移轉至目的地叢集。請參閱link:rhhc-dp-tp-solution.html["請按這裡"]以取得指示。

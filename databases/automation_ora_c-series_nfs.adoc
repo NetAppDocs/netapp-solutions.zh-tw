@@ -142,7 +142,7 @@ image:automation_ora_c-series_nfs_archit.png["此映像提供在 AWS 公有雲�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -176,7 +176,7 @@ installer_archives:
 
 === 在適用於 Oracle 的 C 系列上設定 Networking 和 SVM
 
-[%collapsible]
+[%collapsible%open]
 ====
 本節的部署指南示範在 C 系列控制器上使用 ONTAP 系統管理員 UI 、針對具有 NFS 傳輸協定的 Oracle 工作負載、設定網路和儲存虛擬機器（ SVM ）的最佳實務做法。
 
@@ -276,7 +276,7 @@ NOTE: DB Volume 命名慣例應嚴格遵循上述格式、以確保自動化功�
 
 === 自動化參數檔案
 
-[%collapsible]
+[%collapsible%open]
 ====
 Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工作。對於此 Oracle 自動化解決方案、有三個使用者定義的參數檔案需要使用者輸入才能執行教戰手冊。
 
@@ -292,7 +292,7 @@ Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工
 
 === 參數檔組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 . Ansible 目標 `hosts` 檔案組態：
 +
@@ -366,7 +366,7 @@ nfs_lif: 172.30.136.68
 
 === 教戰手冊執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 自動化工具套件共有五本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
 
@@ -430,7 +430,7 @@ ansible-playbook -i hosts 5-destroy.yml -u admin -e @vars/vars.yml
 
 === 執行後驗證
 
-[%collapsible]
+[%collapsible%open]
 ====
 執行教戰手冊後、請登入 Oracle DB 伺服器 VM 、以驗證 Oracle 是否已安裝及設定、以及是否已成功建立容器資料庫。以下是資料庫 VM ora_01 或 ora_02 上的 Oracle 資料庫驗證範例。
 
@@ -662,7 +662,7 @@ image:automation_ora_c-series_nfs_em_01.png["此映像提供 Oracle Enterprise M
 
 === 使用 SnapCenter 進行 Oracle 備份、還原及複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 NetApp 建議使用 SnapCenter UI 工具來管理部署在 C 系列中的 Oracle 資料庫。請參閱 TR-4979 link:aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上使用簡化的自我管理 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
 

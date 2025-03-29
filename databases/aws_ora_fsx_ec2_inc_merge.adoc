@@ -121,7 +121,7 @@ image:aws_ora_fsx_ec2_vldb_architecture.png["此映像提供在 AWS 公有雲中
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -143,7 +143,7 @@ NOTE: 請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以�
 
 === 配置及匯出要掛載至 EC2 DB 執行個體主機的 NFS 磁碟區
 
-[%collapsible]
+[%collapsible%open]
 ====
 在本示範中、我們將示範如何透過 SSH 以 fsxadmin 使用者身分透過 FSx 叢集管理 IP 、從命令列登入至 FSx 叢集、以配置 NFS 磁碟區。或者、也可以使用 AWS FSX 主控台來分配磁碟區。如果設定多個 FSX 檔案系統以容納資料庫大小、請在其他 FSX 檔案系統上重複這些程序。
 
@@ -202,7 +202,7 @@ sudo chown oracle:oinstall /nfsfsxn
 
 === 在 FSX 上設定 Oracle RMAN 遞增合併至影像複本
 
-[%collapsible]
+[%collapsible%open]
 ====
 RMAN 遞增合併會在每個遞增備份 / 合併間隔持續更新整備資料庫資料檔案映像複本。資料庫備份的映像複本將與您執行遞增備份 / 合併的頻率一樣、是最新的。因此、在決定 RMAN 遞增備份與合併的頻率時、請考量資料庫效能、 RTO 和 RPO 目標。
 
@@ -639,7 +639,7 @@ total 70585148
 
 === 將 Oracle DB 切換至映像複本、以快速恢復
 
-[%collapsible]
+[%collapsible%open]
 ====
 如果由於主要儲存問題（例如資料遺失或毀損）而發生故障、資料庫可以快速切換至 FSX ONTAP NFS 掛載上的映像複本、並在不進行資料庫還原的情況下恢復至目前狀態。消除媒體還原可大幅加速 VLDB 的資料庫還原。此使用案例假設資料庫主機執行個體完整無缺、而且資料庫控制檔、封存記錄檔和目前記錄檔都可供還原。
 
@@ -922,7 +922,7 @@ SQL>
 
 === Oracle DB 從映像複本還原至不同的 EC2 DB 執行個體主機
 
-[%collapsible]
+[%collapsible%open]
 ====
 當主要儲存設備和 EC2 DB 執行個體主機同時遺失時、無法從原始伺服器執行還原。幸運的是、備援的 FSX ONTAP NFS 檔案系統上仍有 Oracle 資料庫備份映像複本。您可以快速配置另一個相同的 EC2 DB 執行個體、並透過 NFS 輕鬆將 VLDB 的映像複本掛載到新的 EC2 DB 主機、以執行恢復。在本節中、我們將示範進行此操作的逐步程序。
 
@@ -1664,7 +1664,7 @@ Update the Oracle init file from primary databse init file backup that is restor
 
 === 複製 Oracle 待命映像複本以用於其他使用案例
 
-[%collapsible]
+[%collapsible%open]
 ====
 使用 AWS FSX ONTAP 進行 Oracle VLDB 映像複本的另一個優點是、它可以透過 FlexClould 、以最少的額外儲存投資來滿足許多其他用途。在下列使用案例中、我們示範如何在 FSX ONTAP 上為其他 Oracle 使用案例（例如開發、 UAT 等）建立快照並複製暫存 NFS 磁碟區
 

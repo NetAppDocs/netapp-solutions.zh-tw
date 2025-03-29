@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: rhhc/rhhc-solutions.html 
-keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Astra Control Center, Advanced Cluster Management, ACM, Hub Cluster 
+keywords: NetApp Solutions, hybrid cloud, container workloads, containers, Red Hat OpenShift, RedHat OpenShift, VMware, ROSA, ACC, Trident Protect, Advanced Cluster Management, ACM, Hub Cluster 
 summary:  
 ---
 = 適用於 Red Hat OpenShift Container 工作負載的 NetApp 混合式多雲端支援解決方案
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-本解決方案使用 OpenShift Container 平台（ OCP ）、 OpenShift Advanced Cluster Manager （ ACM ）、 NetApp ONTAP 、 NetApp BlueXP 和 NetApp Astra Control Center （ ACC ）來測試及驗證移轉與集中式資料保護。
+此解決方案使用 OpenShift Container 平台（ OCP ）， OpenShift Advanced Cluster Manager （ ACM ）， NetApp ONTAP ， NetApp BlueXP  和 NetApp Trident Protect （ ACC ）來測試及驗證移轉與集中式資料保護。
 
 對於此解決方案、 NetApp 會測試並驗證下列情境。根據下列特性、將解決方案分成多種情境：
 
@@ -31,7 +31,7 @@ summary:
 
 
 
-== 案例 1 ：使用主動定速控制系統在內部環境中保護資料及移轉
+== 案例 1 ：使用 Trident Protect 在內部部署環境中進行資料保護與移轉
 
 ** 內部部署：自我管理的 OpenShift 叢集與自我管理的 NetApp 儲存設備 **
 
@@ -47,7 +47,7 @@ image:rhhc-on-premises.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 
 
-== 案例 2 ：使用主動定速控制系統、從內部環境到 AWS 環境的資料保護與移轉
+== 案例 2 ：使用 Trident Protect 從內部部署環境到 AWS 環境的資料保護與移轉
 
 ** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 ** AWS Cloud ：自我管理的 OpenShift 叢集與自我管理的儲存設備 **
 
@@ -79,7 +79,7 @@ image:rhhc-rosa-with-fsxn.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 
 
-=== 案例 4 ：使用主動定速控制系統、從內部環境到 GCP 環境的資料保護與移轉
+=== 案例 4 ：使用 Trident Protect 從內部部署環境到 GCP 環境的資料保護與移轉
 
 ** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 **
 ** Google Cloud ：自我管理的 OpenShift 叢集與自我管理的儲存設備 **
@@ -94,7 +94,7 @@ image:rhhc-self-managed-gcp.png["此圖顯示輸入 / 輸出對話方塊或表�
 
 
 
-=== 案例 5 ：使用主動定速控制系統、從內部環境到 Azure 環境的資料保護與移轉
+=== 案例 5 ：使用 Trident Protect 從內部部署環境到 Azure 環境的資料保護與移轉
 
 ** 內部部署：自我管理的 OpenShift 叢集與自我管理的儲存設備 **
 ** Azure Cloud ：自我管理的 OpenShift 叢集與自我管理儲存設備 **

@@ -59,7 +59,7 @@ NOTE: 對於與此 GitHub 儲存庫中的內容產生及 / 或共用任何衍生
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -86,7 +86,7 @@ Network configuration
 
 === 下載工具組
 
-[%collapsible]
+[%collapsible%open]
 ====
 [source, cli]
 ----
@@ -97,7 +97,7 @@ git clone https://github.com/NetApp/na_aws_fsx_ec2_deploy.git
 
 === 連線與驗證
 
-[%collapsible]
+[%collapsible%open]
 ====
 此工具組應從 AWS 雲端 Shell 執行。AWS 雲端 Shell 是瀏覽器型的 Shell 、可讓您輕鬆安全地管理、探索及與 AWS 資源互動。CloudShell 已使用您的主控台認證預先驗證。一般的開發與作業工具已預先安裝、因此不需要進行本機安裝或組態。
 
@@ -106,7 +106,7 @@ git clone https://github.com/NetApp/na_aws_fsx_ec2_deploy.git
 
 === Terraform provider .tf 和 main.tf 檔案組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 provider .tf 定義 Terraform 透過 API 呼叫來配置資源的供應商。main.tf 定義要配置的資源的資源和屬性。以下是一些詳細資料：
 
@@ -143,7 +143,7 @@ main.tf:
 
 === Terraform variables.tf 和 terraform.tfvars 組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 variables.tf 會宣告將用於 main.tf 的變數。terraform.tfvars 包含變數的實際值。以下是一些範例：
 
@@ -182,7 +182,7 @@ root_volume_size        = 30
 
 === 逐步程序 - 依序執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 在 AWS 雲端 Shell 中安裝 Terraform 。
 +

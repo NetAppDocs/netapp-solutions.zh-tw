@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 3-2-1 備份策略是業界公認的資料保護方法、提供全方位的方法來保護寶貴資料。  這項策略是可靠的、即使發生意外的災難、仍會有可用的資料複本。
 
-作者： Josh Powell - NetApp 解決方案工程部
-
 
 
 == 總覽
@@ -85,7 +83,7 @@ image:bxp-scv-hybrid-03.png["串聯拓撲"]
 此外、您也可以使用 NetApp StorageGRID 做為物件儲存備份目標。如需 StorageGRID 的詳細資訊、請參閱 https://www.netapp.com/data-storage/storagegrid["StorageGRID 登陸頁面"]。
 
 .解決方案部署總覽
-[%collapsible]
+[%collapsible%open]
 ====
 此清單提供設定此解決方案、並從選擇控制閥和 BlueXP 備份與恢復執行備份與還原作業所需的高階步驟：
 
@@ -112,7 +110,7 @@ image:bxp-scv-hybrid-03.png["串聯拓撲"]
 
 ====
 .先決條件
-[%collapsible]
+[%collapsible%open]
 ====
 此解決方案的目的是展示在 VMware vSphere 中執行、位於 NetApp ONTAP 託管的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設已設定下列元件、可供使用：
 
@@ -164,7 +162,7 @@ image:bxp-scv-hybrid-04.png["解決方案架構示意圖"]
 必須從 BlueXP 網路主控台完成下列步驟：
 
 .主要和次要 ONTAP 儲存系統的複寫設定
-[%collapsible]
+[%collapsible%open]
 ====
 請先登入 BlueXP 網路主控台、然後瀏覽至 Canvas 。
 
@@ -209,7 +207,7 @@ image:bxp-scv-hybrid-48.png["檢視並開始"]
 所有建立 SnapMirror 關係所需的步驟都可以使用系統管理器或 ONTAP CLI 來完成。下節提供這兩種方法的詳細資訊：
 
 .記錄來源與目的地叢集間邏輯介面
-[%collapsible]
+[%collapsible%open]
 ====
 對於來源和目的地 ONTAP 叢集、您可以從系統管理員或 CLI 擷取叢集間 LIF 資訊。
 
@@ -226,7 +224,7 @@ ONTAP-Dest::> network interface show -role intercluster
 
 ====
 .在 ONTAP 叢集之間建立叢集對等關係
-[%collapsible]
+[%collapsible%open]
 ====
 若要在ONTAP 各個叢集之間建立叢集對等關係、必須ONTAP 在其他對等叢集中確認在起始的叢集上輸入的獨特通關密碼。
 
@@ -261,7 +259,7 @@ ONTAP-Dest::> cluster peer show
 
 ====
 .建立SVM對等關係
-[%collapsible]
+[%collapsible%open]
 ====
 下一步是在包含SnapMirror關係的磁碟區的目的地與來源儲存虛擬機器之間建立SVM關係。
 
@@ -290,7 +288,7 @@ image:dr-vmc-aws-image16.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 ====
 .建立快照保留原則
-[%collapsible]
+[%collapsible%open]
 ====
 可管理主要儲存系統上以快照複本形式存在的備份保留排程。SnapCenter這是SnapCenter 在建立一套以功能為基礎的原則時所建立的。不管理保留在二線儲存系統上的備份保留原則。SnapCenter這些原則是透過在次要FSX叢集上建立的SnapMirror原則來個別管理、並與與來源Volume處於SnapMirror關係中的目的地磁碟區相關聯。
 
@@ -332,7 +330,7 @@ NOTE: 針對每個SnapMirror標籤和要保留的快照數量（保留期間）�
 
 ====
 .建立目的地Volume
-[%collapsible]
+[%collapsible%open]
 ====
 若要在 ONTAP 上建立目的地磁碟區、以接收來源磁碟區的快照複本、請在目的地 ONTAP 叢集上執行下列命令：
 
@@ -341,7 +339,7 @@ ONTAP-Dest::> volume create -vserver DestSVM -volume DestVolName -aggregate Dest
 ....
 ====
 .在來源與目的地磁碟區之間建立SnapMirror關係
-[%collapsible]
+[%collapsible%open]
 ====
 若要在來源和目的地磁碟區之間建立 SnapMirror 關係、請在目的地 ONTAP 叢集上執行下列命令：
 
@@ -350,7 +348,7 @@ ONTAP-Dest::> snapmirror create -source-path OnPremSourceSVM:OnPremSourceVol -de
 ....
 ====
 .初始化SnapMirror關係
-[%collapsible]
+[%collapsible%open]
 ====
 初始化SnapMirror關係。此程序會啟動從來源磁碟區產生的新快照、並將其複製到目的地磁碟區。
 
@@ -371,7 +369,7 @@ ONTAP-Dest::> snapmirror initialize -destination-path DestSVM:DestVol
 若要設定虛擬機器和資料存放區的備份、必須從外掛程式介面完成下列步驟。
 
 .Discovery ONTAP 儲存系統
-[%collapsible]
+[%collapsible%open]
 ====
 探索用於主要和次要備份的 ONTAP 儲存叢集。
 
@@ -388,7 +386,7 @@ image:bxp-scv-hybrid-06.png["新增儲存系統"]
 
 ====
 .建立選擇控制閥備份原則
-[%collapsible]
+[%collapsible%open]
 ====
 原則指定由選擇控制閥管理之備份的保留期間、頻率和複寫選項。
 
@@ -417,7 +415,7 @@ NOTE: 快照標籤非常實用、因為它們可用於制定原則、並在特�
 
 ====
 .建立資源群組
-[%collapsible]
+[%collapsible%open]
 ====
 資源群組包含要納入備份工作的資料存放區和虛擬機器、以及相關的原則和備份排程。
 
@@ -463,7 +461,7 @@ image:bxp-scv-hybrid-13.png["資源群組原則"]
 
 ====
 .執行備份工作
-[%collapsible]
+[%collapsible%open]
 ====
 在此最後一個步驟中、請執行備份工作並監控其進度。至少必須在選擇控制閥中成功完成一個備份工作、才能從 BlueXP 備份與恢復中找到資源。
 
@@ -492,7 +490,7 @@ image:bxp-scv-hybrid-15.png["監控工作進度"]
 若要設定 BlueXP 備份與恢復、以備份由內部部署選擇控制閥管理的資料、請完成下列步驟：
 
 .將工作環境新增至 Canvas
-[%collapsible]
+[%collapsible%open]
 ====
 第一步是將內部部署 ONTAP 儲存系統新增至 BlueXP
 
@@ -512,7 +510,7 @@ image:bxp-scv-hybrid-18.png["新增儲存系統認證"]
 
 ====
 .探索內部部署的選擇控制閥應用裝置和 vCenter
-[%collapsible]
+[%collapsible%open]
 ====
 若要探索內部部署資料存放區和虛擬機器資源、請新增選擇控制閥資料代理程式的資訊、以及 vCenter 管理應用裝置的認證。
 
@@ -540,7 +538,7 @@ image:bxp-scv-hybrid-23.png["檢視可用資源"]
 
 ====
 .建立 BlueXP 備份原則
-[%collapsible]
+[%collapsible%open]
 ====
 在 BlueXP 虛擬機器的備份與還原中、建立原則以指定保留期間、備份來源和歸檔原則。
 
@@ -570,7 +568,7 @@ NOTE: 此處輸入的 SnapMirror 標籤用於識別要套用原則的備份。�
 
 ====
 .將資料存放區備份至 Amazon Web Services
-[%collapsible]
+[%collapsible%open]
 ====
 最後一步是啟動個別資料存放區和虛擬機器的資料保護。下列步驟概述如何啟動備份至 AWS 。
 
@@ -624,7 +622,7 @@ NetApp 提供高度適應的 3-2-1 策略、可針對主要、次要及物件儲
 針對此解決方案、虛擬機器已還原至原始位置和其他位置。本解決方案並未涵蓋選擇控制閥資料恢復功能的所有層面。如需所有選擇控制閥必須提供的詳細資訊、請參閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_restore_vms_from_backups.html["從備份還原VM"] 請參閱產品文件。
 
 .從選擇控制閥恢復虛擬機器
-[%collapsible]
+[%collapsible%open]
 ====
 請完成下列步驟、從主要或次要儲存設備還原虛擬機器。
 
@@ -658,7 +656,7 @@ BlueXP 虛擬機器的備份與還原功能可將虛擬機器還原至其原始�
 如需詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-backup-recovery/task-restore-vm-data.html["從雲端還原虛擬機器資料"]。
 
 .從 BlueXP 備份與還原還原虛擬機器
-[%collapsible]
+[%collapsible%open]
 ====
 若要從 BlueXP 備份與還原還原虛擬機器、請完成下列步驟。
 

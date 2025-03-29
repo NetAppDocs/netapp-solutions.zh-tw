@@ -3,146 +3,121 @@ section: vmware
 title: VMware虛擬化
 url: "/vmware/index.html"
 entries:
-- title: VMware ONTAP 虛擬化技術
-  pdf-filename: VMware ONTAP 虛擬化技術
-  url: "/vmware/vmware-for-ontap.html"
-- title: VMware vSphere Foundation
+- title: NetApp 與 VMware 快速入門
+  pdf-filename: NetApp 與 VMware 快速入門
   entries:
-  - title: vSphere 8 的 NFS 參考指南
-    pdf-filename: vSphere 8 的 NFS 參考指南
-    entries:
-    - title: 總覽
-      url: "/vmware/vmware_nfs_overview.html"
-    - title: NFS nConnect 功能搭配 NetApp 和 VMware
-      url: "/vmware/vmware-vsphere8-nfs-nconnect.html"
-    - title: 使用 OTV 10 管理 NFS 資料存放區
-      url: "/vmware/vmware_nfs_otv10.html"
-    - title: 使用 VMware Site Recovery Manager 進行 NFS 資料存放區的災難恢復
-      url: "/vmware/vmware_nfs_vlsr.html"
-    - title: NFS 儲存的自主勒索軟體保護
-      url: "/vmware/vmware_nfs_arp.html"
-  - title: vSphere 8 的 VVols 參考指南
-    pdf-filename: vSphere 8 的 VVols 參考指南
-    url: "/vmware/vmware-vvol-overview.html"
-  - title: vSphere 8 的 VMFS 部署指南
-    pdf-filename: vSphere 8 的 VMFS 部署指南
-    url: "/vmware/vmfs-deployment.html"
-  - title: NetApp All Flash SAN Array 搭配 VMware vSphere 8
-    pdf-filename: NetApp All Flash SAN Array 搭配 VMware vSphere 8
-    entries:
-    - title: 總覽
-      url: "/vmware/vsphere_ontap_asa_overview.html"
-    - title: VMware vSphere適用的VMware工具ONTAP
-      url: "/vmware/vsphere_ontap_asa_otv.html"
-    - title: Cloud Insights
-      url: "/vmware/vsphere_ontap_asa_insights.html"
-    - title: VMware vSphere Metro Storage Cluster 搭配 SnapMirror 主動式同步
-      url: "/vmware/vmware-vmsc-with-smas.html"
-- title: VMware Cloud Foundation
+  - title: 總覽
+    url: "/vmware/vmw-getting-started-overview.html"
+  - title: NetApp儲存選項
+    url: "/vmware/vmw-getting-started-netapp-storage-options.html"
+  - title: vSphere Metro Storage 叢集
+    url: "/vmware/vmw-getting-started-metro-storage-cluster.html"
+  - title: 適用於 VMware 的 ONTAP 工具（ OTV ）
+    url: "/vmware/vmw-getting-started-ontap-tools-for-vmware.html"
+  - title: VMware Automation with ONTAP
+    url: "/vmware/vmw-getting-started-ontap-apis-automation.html"
+  - title: SnapCenter
+    url: "/vmware/vmw-getting-started-snapcenter.html"
+  - title: 混合式多雲端
+    url: "/vmware/vmw-getting-started-hybrid-multicloud.html"
+  - title: 解決 VMware 工作負載的安全性和勒索軟體問題
+    url: "/vmware/vmw-getting-started-security-ransomware.html"
+  - title: 將 VM 工作負載移轉至 ONTAP
+    url: "/vmware/vmw-getting-started-migration.html"
+  - title: BlueXP  災難恢復（ DRaaS ）
+    url: "/vmware/vmw-getting-started-bluexp-disaster-recovery.html"
+  - title: 資料基礎架構洞見（ DII ）
+    url: "/vmware/vmw-getting-started-data-infrastructure-insights.html"
+  - title: VM Data Collector （ VMDC ）
+    url: "/vmware/vmw-getting-started-vm-data-collector.html"
+- title: NetApp 上的 VMware Cloud Foundation （ VCF ）
+  pdf-filename: NetApp 上的 VMware Cloud Foundation （ VCF ）
   entries:
-  - title: NetApp Storage 搭配 VMware Cloud Foundation
-    pdf-filename: NetApp Storage 搭配 VMware Cloud Foundation
-    url: "/vmware/vmware-vcf-overview.html"
-  - title: Vcf 搭配 NetApp ASA 陣列
-    pdf-filename: Vcf 搭配 NetApp ASA 陣列
+  - title: 總覽
+    url: "/vmware/vmw-vcf-overview.html"
+  - title: 將現有基礎架構移轉至 VCF
     entries:
-    - title: 總覽
-      url: "/vmware/vmware_vcf_asa_overview.html"
-    - title: 在管理網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_mgmt_stretchcluster.html"
-    - title: 在 VI 工作負載網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_wkld_stretchcluster.html"
-    - title: iSCSI 是管理網域的補充儲存設備
-      url: "/vmware/vmware_vcf_asa_supp_mgmt_iscsi.html"
-    - title: VVols 是工作負載網域的補充儲存設備
-      url: "/vmware/vmware_vcf_asa_supp_wkld_vvols.html"
-    - title: FC 為主要儲存設備
-      url: "/vmware/vmware_vcf_asa_prin_fc.html"
-    - title: FC 作為補充儲存設備
-      url: "/vmware/vmware_vcf_asa_supp_fc.html"
-    - title: NVMe / TCP 是工作負載網域的補充儲存設備
-      url: "/vmware/vmware_vcf_asa_supp_wkld_nvme.html"
-    - title: 使用適用於 VMware vSphere 的 SnapCenter 外掛程式來保護工作負載網域
-      url: "/vmware/vmware_vcf_asa_scv_wkld.html"
-  - title: Vcf 搭配 NetApp AFF 陣列
-    pdf-filename: Vcf 搭配 NetApp AFF 陣列
+    - title: 將現有 vCenter 執行個體轉換為 VCF 管理網域（ NFS ）
+      url: "/vmware/vmw-vcf-mgmt-nfs.html"
+    - title: 將 vCenter 執行個體（ FC 資料存放區）轉換為 VCF 管理網域
+      url: "/vmware/vmw-vcf-mgmt-fc.html"
+  - title: 使用主要儲存設備來配置 VCF 環境
     entries:
-    - title: 總覽
-      url: "/vmware/vmware_vcf_aff_overview.html"
-    - title: NFS 是工作負載網域的主要儲存設備
-      url: "/vmware/vmware_vcf_aff_principal_nfs."
-    - title: 在管理網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_mgmt_stretchcluster.html"
-    - title: 在 VI 工作負載網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_wkld_stretchcluster.html"
-    - title: NFS 和 vVols 是工作負載網域的補充儲存設備
-      url: "/vmware/vmware_vcf_aff_supp_wkld_nfs.html"
-    - title: FC 為主要儲存設備
-      url: "/vmware/vmware_vcf_aff_prin_fc.html"
-    - title: FC 作為補充儲存設備
-      url: "/vmware/vmware_vcf_aff_supp_fc.html"
-    - title: 將 vSphere 叢集（ NFS 資料存放區）轉換為 VCF 管理網域
-      url: "/vmware/vmware_vcf_import_nfs.html"
-    - title: 在管理網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_mgmt_stretchcluster.html"
-    - title: 在 VI 工作負載網域上延伸叢集（ FC/iSCSI ）
-      url: "/vmware/vmware_vcf_asa_wkld_stretchcluster.html"
+    - title: 使用 FC 的管理網域
+      url: "/vmware/vmw-vcf-mgmt-principal-fc.html"
+    - title: 使用 NFS 管理網域
+      url: "/vmware/vmw-vcf-mgmt-principal-nfs.html"
+    - title: 使用 FC 的虛擬基礎架構工作負載網域
+      url: "/vmware/vmw-vcf-viwld-principal-fc.html"
+    - title: 使用 NFS 的虛擬基礎架構工作負載網域
+      url: "/vmware/vmw-vcf-viwld-principal-nfs.html"
+  - title: 利用補充儲存設備來擴充 VCF 環境
+    entries:
+    - title: iSCSI 管理網域
+      url: "/vmware/vmw-vcf-mgmt-supplemental-iscsi.html"
+    - title: 使用 FC 的管理網域
+      url: "/vmware/vmw-vcf-mgmt-supplemental-fc.html"
+    - title: 虛擬基礎架構工作負載使用 vVols （ iSCSI ）的網域
+      url: "/vmware/vmw-vcf-viwld-supplemental-vvols.html"
+    - title: 虛擬基礎架構工作負載使用 vVols （ NFS ）的網域
+      url: "/vmware/vmw-vcf-viwld-supplemental-nfs-vvols.html"
+    - title: 採用 NVMe / TCP 的虛擬基礎架構工作負載網域
+      url: "/vmware/vmw-vcf-viwld-supplemental-nvme.html"
+    - title: 使用 FC 的虛擬基礎架構工作負載網域
+      url: "/vmware/vmw-vcf-viwld-supplemental-fc.html"
+  - title: 使用 NetApp SnapCenter 保護工作負載
+    entries:
+    - title: 保護 VCF 工作負載網域
+      url: "/vmware/vmw-vcf-scv-wkld.html"
+    - title: 保護 VCF 多個工作負載網域
+      url: "/vmware/vmw-vcf-scv-multiwkld.html"
+    - title: 使用 NVMe 保護 VCF 工作負載網域
+      url: "/vmware/vmw-vcf-scv-nvme.html"
+    - title: 適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP
+        備份與還原
+      url: "/vmware/vmw-vcf-scv-321.html"
+  - title: VMware vSphere Metro Storage Cluster （ VMSC ）提供高可用度
+    entries:
+    - title: 使用 SnapMirror 主動式同步功能擴充管理網域叢集
+      url: "/vmware/vmw-vcf-vmsc-mgmt-smas.html"
     - title: 使用 MetroCluster 延伸管理網域叢集
       url: "/vmware/vmw-vcf-vmsc-mgmt-mcc.html"
+    - title: 使用 SnapMirror 主動式同步功能擴充 VI 工作負載網域叢集
+      url: "/vmware/vmw-vcf-vmsc-viwld-smas.html"
     - title: 使用 MetroCluster 擴充 VI 工作負載網域的叢集
       url: "/vmware/vmw-vcf-vmsc-viwld-mcc.html"
-    - title: 使用 NetApp SnapCenter 保護工作負載網域
-      url: "/vmware/vmware_vcf_aff_multi_wkld_scv.html"
-    - title: 針對採用 NVMe 型 NetApp 儲存設備的 VMware VCF 提供高效率，可擴充且簡單的資料保護
-      url: "/vmware/vmware_vcf_nvme_scv.html"
-- title: VM 移轉
-  entries:
-  - title: 將 VM 移轉至 ONTAP 資料存放區
-    pdf-filename: 將 VM 移轉至 ONTAP 資料存放區
+  - title: 移轉 VM
     url: "/vmware/migrate-vms-to-ontap-datastore.html"
-  - title: 使用 Amazon FSX for ONTAP 將 VM 移轉至 Amazon EC2
-    pdf-filename: 使用 Amazon FSX for ONTAP 將 VM 移轉至 Amazon EC2
+  - title: 使用 BlueXP  DRaaS 進行災難恢復
     entries:
-    - title: 總覽
-      url: "/vmware/migrate-vms-to-ec2-fsxn.html"
-    - title: 架構與先決條件
-      url: "/vmware/migrate-vms-to-ec2-fsxn-arch.html"
-    - title: 部署程序
-      url: "/vmware/migrate-vms-to-ec2-fsxn-deploy.html"
-    - title: 結論
-      url: "/vmware/migrate-vms-to-ec2-fsxn-wrapup.html"
-- title: 適用於公有雲的VMware
-  url: "/ehc/index.html"
-- title: VMware 混合式多雲端使用案例
+    - title: 災難恢復使用 BlueXP  DRaaS for VMFS 資料存放區
+      url: "/vmware/vmw-dr-draas-vmfs.html"
+    - title: DR 使用 BlueXP  DRaaS for NFS 資料存放區
+      url: "/vmware/vmw-dr-draas-nfs.html"
+  - title: 勒索軟體保護
+    url: "/vmware/vmware_nfs_arp.html"
+  - title: 利用資料基礎架構洞見（ DII ）監控工作負載
+    url: "/vmware/vmw-dii.html"
+- title: NetApp 上的 VMware vSphere Foundation （ VVF ）
+  pdf-filename: NetApp 上的 VMware vSphere Foundation （ VVF ）
   entries:
-  - title: 使用案例總覽
-    url: "/ehc/ehc-use-cases.html"
-- title: VMware vSphere Automation
+  - title: 總覽
+    url: "/vmware/vmware_nfs_overview.html"
+  - title: VMware ONTAP 虛擬化：最佳實務做法
+    url: "/vmware/vmware-for-ontap.html"
+  - title: vSphere 8 的 VMFS 部署指南
+    url: "/vmware/vmfs-deployment.html"
+  - title: NFS nConnect 功能搭配 NetApp 和 VMware
+    url: "/vmware/vmware-vsphere8-nfs-nconnect.html"
+  - title: 使用 OTV 10 管理 NFS 資料存放區
+    url: "/vmware/vmware_nfs_otv10.html"
+  - title: 使用 VMware Site Recovery Manager 進行 NFS 資料存放區的災難恢復
+    url: "/vmware/vmware_nfs_vlsr.html"
+- title: NetApp 上的 VMware 虛擬磁碟區（ vVols ）
+  pdf-filename: NetApp 上的 VMware 虛擬磁碟區（ vVols ）
   entries:
-  - title: 簡介
-    url: "/vmware/vsphere_auto_introduction.html"
-  - title: 傳統區塊儲存資源配置
-    entries:
-    - title: 總覽
-      url: "/vmware/vsphere_ontap_auto_block.html"
-    - title: VMFS -光纖通道
-      url: "/vmware/vsphere_ontap_auto_block_fc.html"
-    - title: VMFS -乙太網路光纖通道
-      url: "/vmware/vsphere_ontap_auto_block_fcoe.html"
-    - title: VMFS - iSCSI
-      url: "/vmware/vsphere_ontap_auto_block_iscsi.html"
-    - title: VMFS - NVMe over Fabric
-      url: "/vmware/vsphere_ontap_auto_block_nvmeof.html"
-  - title: 傳統檔案儲存資源配置
-    entries:
-    - title: 總覽
-      url: "/vmware/vsphere_ontap_auto_file.html"
-    - title: NFS - v3
-      url: "/vmware/vsphere_ontap_auto_file_nfs.html"
-    - title: NFS - v4.1
-      url: "/vmware/vsphere_ontap_auto_file_nfs41.html"
-  - title: VM資料收集器
-    url: "/vmware/vmdc.html"
+  - title: 搭配 ONTAP 使用 vVols
+    url: "/vmware/vmware-vvol-overview.html"
 - title: 示範與教學課程
   entries:
   - title: 影片

@@ -4,7 +4,7 @@ permalink: rhhc/rhhc-sm-data-protection.html
 keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
 summary:  
 ---
-= 使用 Astra Control Center 保護資料
+= 使用 Trident Protect 保護資料
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-此頁面顯示在 VMware vSphere 上或在雲端上使用 Astra Control Center （ ACC ）執行的 Red Hat OpenShift Container 應用程式的資料保護選項。
+此頁面顯示在 VMware vSphere 或雲端上使用 Trident Protect （ ACC ）執行的 Red Hat OpenShift Container 應用程式的資料保護選項。
 
 當使用者使用 Red Hat OpenShift 將應用程式現代化的過程中、應制定資料保護策略、以保護他們不受意外刪除或任何其他人為錯誤的影響。為了保護資料不受萬用者的影響、通常也需要採取保護策略來達到法規或法規遵循的目的。
 
@@ -26,19 +26,21 @@ summary:
 
 == 使用 Acc 進行備份與還原
 
-應用程式擁有者可以檢閱及更新 Acc 探索到的應用程式。主動定速控制系統可以使用 CSI 來製作 Snapshot 複本、並使用時間點 Snapshot 複本來執行備份。備份目的地可以是雲端環境中的物件存放區。您可以針對排程備份和要保留的備份版本數量、設定保護原則。最小 RPO 為一小時。
+應用程式擁有者可以檢閱及更新 Acc 探索到的應用程式。Trident Protect 可以使用 CSI 來取得 Snapshot 複本，並使用時間點 Snapshot 複本來執行備份。備份目的地可以是雲端環境中的物件存放區。您可以針對排程備份和要保留的備份版本數量、設定保護原則。最小 RPO 為一小時。
 
 
 
 === 使用 Acc 從備份還原應用程式
 
-image:rhhc-onprem-dp-br.png["Astra Control Center Restore 選項"]
+image:rhhc-onprem-dp-br.png["Trident Protect Restore 選項"]
 
 
 
 == 應用程式特定的執行攔截器
 
-雖然儲存陣列層級的資料保護功能可供使用、但通常需要額外的步驟才能使備份和還原應用程式一致。應用程式專屬的其他步驟可能是：建立 Snapshot 複本之前或之後。- 建立備份之前或之後。從 Snapshot 複本或備份還原之後。Astra Control 可以執行這些應用程式專屬步驟、這些步驟編碼為稱為執行攔截程式的自訂指令碼。
+雖然儲存陣列層級的資料保護功能可供使用、但通常需要額外的步驟才能使備份和還原應用程式一致。應用程式專屬的其他步驟可能是：建立 Snapshot 複本之前或之後。- 建立備份之前或之後。從 Snapshot 複本或備份還原之後。
+
+Trident Protect 可執行這些應用程式專屬步驟，這些步驟編碼為自訂指令碼，稱為「執行攔截器」。
 
 NetApp 的 link:https://github.com/NetApp/Verda["開放原始碼專案 Verda"] 提供常用雲端原生應用程式的執行掛鉤、讓保護應用程式變得簡單、強大且易於協調。如果您有足夠的資訊可用於儲存庫中未包含的應用程式、請隨時為該專案做出貢獻。
 
@@ -46,19 +48,19 @@ NetApp 的 link:https://github.com/NetApp/Verda["開放原始碼專案 Verda"] �
 
 == Redis 應用程式快照前的執行掛鉤範例。
 
-image:rhhc-onprem-dp-br-hook.png["Astra Control Center 執行掛鉤"]
+image:rhhc-onprem-dp-br-hook.png["Trident 保護執行掛鉤"]
 
 
 
 == 使用 Acc 進行複寫
 
-為了提供區域保護、或是採用低 RPO 和 RTO 解決方案、應用程式可以複寫到另一個在不同站台上執行的 Kubernetes 執行個體、最好是在其他區域。主動定速控制系統採用 ONTAP 非同步 SnapMirror 、 RPO 最短可達 5 分鐘。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["請按這裡"] SnapMirror 安裝說明。
+為了提供區域保護、或是採用低 RPO 和 RTO 解決方案、應用程式可以複寫到另一個在不同站台上執行的 Kubernetes 執行個體、最好是在其他區域。Trident Protect 使用 ONTAP 非同步 SnapMirror ， RPO 最短 5 分鐘。如需 SnapMirror 設定說明，請參閱link:https://docs.netapp.com/us-en/astra-control-center/use/replicate_snapmirror.html["請按這裡"]。
 
 
 
 === SnapMirror 搭配 Acc
 
-image:rhhc-onprem-dp-rep.png["Astra Control Center 複寫"]
+image:rhhc-onprem-dp-rep.png["Trident 保護複寫"]
 
 
 NOTE: SAN 經濟型和 NAS 經濟型儲存驅動程式不支援複寫功能。請參閱 link:https://docs.netapp.com/us-en/astra-control-center/get-started/requirements.html#astra-trident-requirements["請按這裡"] 以取得更多詳細資料。
@@ -67,11 +69,11 @@ NOTE: SAN 經濟型和 NAS 經濟型儲存驅動程式不支援複寫功能。�
 
 === 示範影片：
 
-link:https://www.netapp.tv/details/29504?mcid=35609780286441704190790628065560989458["Astra Control Center 的災難恢復示範影片"]
+link:https://www.netapp.tv/details/29504?mcid=35609780286441704190790628065560989458["使用 Trident Protect 進行災難恢復的示範影片"]
 
-.Astra Control Center 提供資料保護功能
+.使用 Trident Protect 保護資料
 video::0cec0c90-4c6f-4018-9e4f-b09700eefb3a[panopto,width=360]
-我們提供 Astra Control Center 資料保護功能的詳細資訊 link:https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html["請按這裡"]
+我們提供 Trident Protect 資料保護功能的詳細資訊link:https://docs.netapp.com/us-en/astra-control-center/concepts/data-protection.html["請按這裡"]
 
 
 

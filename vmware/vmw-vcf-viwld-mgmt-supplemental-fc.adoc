@@ -1,0 +1,102 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-viwld-mgmt-supplemental-fc.html 
+keywords: netapp, vmware, cloud, foundation, vcf, asa, all-flash, array, ontap tools, otv, sddc, fc 
+summary:  
+---
+= 使用 ONTAP Tools for VMware ，將 FC 上的 VMFS 做為 VI 工作負載和管理網域的補充儲存設備
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+在此案例中，我們將示範如何使用 ONTAP 工具，將 VMFS 資料存放區與光纖通道（ FC ）後端部署在管理和工作負載網域中。
+
+
+
+== 光纖通道的優點
+
+* 高效能： * FC 提供高速資料傳輸率，非常適合需要快速且可靠地存取大量資料的應用程式。
+
+* 低延遲： * 極低延遲，對於資料庫和虛擬化環境等效能敏感的應用程式而言，這是至關重要的。
+
+* 可靠性： * FC 網路以其穩健性和可靠性而聞名，具備內建備援和錯誤修正等功能。
+
+* 專用頻寬： * FC 為儲存流量提供專用頻寬，降低網路壅塞的風險。
+
+有關在 NetApp 儲存系統上使用 Fibre Channel 的詳細資訊，請 https://docs.netapp.com/us-en/ontap/san-admin/san-provisioning-fc-concept.html["SAN Provisioning with FC"]參閱。
+
+
+
+== 案例總覽
+
+Vcf Supplemental 資料存放區是使用 vCenter 進行第 2 天作業的一部分。此案例涵蓋下列高層級步驟：
+
+* 在管理網域上部署 ONTAP 工具
+* 將 VI 工作負載 vCenter 伺服器登錄至 ONTAP 工具
+* 在 VMware vSphere 的 ONTAP 工具外掛程式上定義儲存後端
+* 在 FC 傳輸上配置 VMFS
+
+
+
+
+== 先決條件
+
+此案例需要下列元件和組態：
+
+* ONTAP 儲存系統， FC 連接埠連接至 FC 交換器。
+* SVM 是以 FC 生命來建立的。
+* vSphere 搭配 FC HBA 連線至 FC 交換器。
+* 在 FC 交換器上設定單一啟動器目標分區。
++
+
+NOTE: 在區域組態中使用 SVM FC 邏輯介面，而非在 ONTAP 系統上使用實體 FC 連接埠。
+
+
+
+NetApp 建議 FC LUN 採用多重路徑。
+
+如需在 ONTAP 儲存系統上設定光纖通道的完整資訊，請參閱 https://docs.netapp.com/us-en/ontap/san-management/index.html["SAN 儲存管理"] ONTAP 9 文件中的。
+
+有關將 VMFS 與 ONTAP 儲存系統搭配使用的詳細資訊，請參閱 https://docs.netapp.com/us-en/netapp-solutions/vmware/vmfs-deployment.html["VMFS 部署指南"]。
+
+
+
+== 管理網域的部署步驟
+
+若要部署 ONTAP 工具並使用它在 VCF 管理網域上建立 VMFS 資料存放區、請完成下列步驟：
+
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["在管理網域上部署 ONTAP 工具"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["使用 vSphere 用戶端介面定義儲存後端"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html["在 FC 上配置 VMFS"]
+
+
+
+
+== VI 工作負載網域的部署步驟
+
+若要部署 ONTAP 工具並使用它在 VCF VI 工作負載網域上建立 VMFS 資料存放區，請完成下列步驟：
+
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-vcenter.html["登錄 VI 工作負載 vCenter 以啟用 vCenter 外掛程式"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/add-storage-backend.html["使用 vSphere 用戶端介面定義儲存後端"]
+* link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/configure/create-vvols-datastore.html["在 FC 上配置 VMFS"]
+
+
+
+
+== 其他資訊
+
+如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
+
+如需設定 VCF 的相關資訊link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf/vcf-5-2-and-earlier/5-2.html["VMware Cloud Foundation 文件"]，請參閱。
+
+
+
+== 此解決方案的影片示範
+
+.VMFS （ FC ）資料存放區做為 VCF 管理網域的補充儲存設備
+video::3135c36f-3a13-4c95-aac9-b2a0001816dc[panopto,width=360]

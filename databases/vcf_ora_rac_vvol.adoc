@@ -146,7 +146,7 @@ image:vcf_orarac_vvol_architecture.png["此映像提供在 AWS 公有雲中使�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -165,7 +165,7 @@ NOTE: 請確定您已在 Oracle VM 根 Volume 中至少分配 50 g 、以便有�
 
 === 建立儲存功能設定檔
 
-[%collapsible]
+[%collapsible%open]
 ====
 首先、為裝載 vVols 資料存放區的底線 ONTAP 儲存設備建立自訂儲存功能設定檔。
 
@@ -204,7 +204,7 @@ image:vcf_ora_vvol_scp_07.png["顯示自訂儲存功能設定檔組態的螢幕�
 
 === 建立及設定 vVols 資料存放區
 
-[%collapsible]
+[%collapsible%open]
 ====
 完成先決條件後、透過 vSphere 用戶端以管理員使用者身分登入 VCF 、導覽至工作負載網域。請勿使用內建的 VMware 儲存選項來建立 VVols 。請改用 NetApp ONTAP 工具來建立 vVols 。以下說明建立和設定 VVols 的程序。
 
@@ -258,7 +258,7 @@ image:vcf_orarac_vvol_datastore_07.png["顯示 vVols 資料存放區組態的螢
 
 === 根據儲存功能設定檔建立 VM 儲存原則
 
-[%collapsible]
+[%collapsible%open]
 ====
 在將儲存設備從 vVols 資料存放區配置至資料庫 VM 之前、請根據從上一步建立的儲存功能設定檔、新增 VM 儲存原則。以下是程序。
 
@@ -301,7 +301,7 @@ image:vcf_ora_vvol_vm_policy_07.png["顯示 VM 儲存原則組態的螢幕擷取
 
 === 從 vVols 資料存放區將磁碟分配給 RAC VM 、並設定 DB 儲存設備
 
-[%collapsible]
+[%collapsible%open]
 ====
 從 vSphere 用戶端、透過編輯 VM 設定、將所需磁碟從 vVols 資料存放區新增至資料庫 VM 。然後、登入 VM 以格式化二進位磁碟、並將其掛載至裝載點 /u01 。以下說明確切的步驟和工作。
 
@@ -469,7 +469,7 @@ UUID=aff942c4-b224-4b62-807d-6a5c22f7b623 /boot                   xfs     defaul
 
 === 在 VCF 中部署 Oracle RAC
 
-[%collapsible]
+[%collapsible%open]
 ====
 我們建議您運用 NetApp 自動化工具套件、在 VCF 中使用 vVols 部署 Oracle RAC 。請仔細閱讀隨附的說明（讀我檔案）、並依照工具組中的指示、設定部署參數檔案、例如：部署目標檔案 - hosts 、通用變數檔案 - vars/vars.yml 、以及本機 DB VM 變數檔案 - host_vars/host_name.yml 。以下是逐步程序。
 
@@ -628,7 +628,7 @@ ansible-playbook -i hosts 0-all_playbook.yml -u admin -e @vars/vars.yml
 
 === VCF 中的 Oracle RAC 部署驗證
 
-[%collapsible]
+[%collapsible%open]
 ====
 本節提供 VCF 中 Oracle RAC 部署驗證的詳細資訊、以確保所有 Oracle RAC 資源都能如預期般完整部署、設定及運作。
 
@@ -945,7 +945,7 @@ image:vcf_orarac_vvol_em_01.png["顯示 Oracle EM Express 組態的螢幕擷取�
 
 ==== SnapCenter 設定
 
-[%collapsible]
+[%collapsible%open]
 ====
 SnapCenter 第 6 版比第 5 版有許多功能增強功能、包括支援 VMware vVols 資料存放區。SnapCenter 仰賴資料庫 VM 上的主機端外掛程式來執行應用程式感知的資料保護管理活動。有關 NetApp SnapCenter Plug-in for Oracle 的詳細信息，請參閱本文檔 link:https://docs.netapp.com/us-en/snapcenter/protect-sco/concept_what_you_can_do_with_the_snapcenter_plug_in_for_oracle_database.html["如何使用Oracle資料庫的外掛程式"^]。以下提供在 VCF 中設定 SnapCenter 版本 6 以進行 Oracle RAC 資料庫備份與還原的高階步驟。
 
@@ -1001,7 +1001,7 @@ NOTE: 請確定 SnapCenter 伺服器名稱可以解析為 DB VM 和 vSphere 外�
 
 ==== 資料庫備份
 
-[%collapsible]
+[%collapsible%open]
 ====
 相較於傳統的 RMAN 型方法、 SnapCenter 利用 ONTAP Volume Snapshot 來加快資料庫備份、還原或複製速度。當資料庫在快照之前處於 Oracle 備份模式時、快照的應用程式一致。
 
@@ -1044,7 +1044,7 @@ image:vcf_ora_vvol_snapctr_bkup_10.png["顯示 SnapCenter 組態的螢幕擷取�
 
 ==== 資料庫還原 / 還原
 
-[%collapsible]
+[%collapsible%open]
 ====
 SnapCenter 從快照備份中為 Oracle RAC 資料庫提供許多還原與還原選項。在此範例中、我們示範如何從較舊的快照備份還原、然後將資料庫轉送到最後一個可用的記錄檔。
 

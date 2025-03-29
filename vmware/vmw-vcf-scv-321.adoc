@@ -1,0 +1,699 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-scv-321.html 
+keywords: disaster recovery, vmc, vmware cloud, aws, amazon web services, nfs datastore, fsxn, FSx ONTAP, FSx ONTAP, backup, restore, sql server, oracle 
+summary:  
+---
+= 適用於 VMware 的 3-2-1 Data Protection 、搭配 SnapCenter 外掛程式、以及適用於 VM 的 BlueXP 備份與還原
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+3-2-1 備份策略是業界公認的資料保護方法、提供全方位的方法來保護寶貴資料。  這項策略是可靠的、即使發生意外的災難、仍會有可用的資料複本。
+
+
+
+== 總覽
+
+此策略包含三項基本規則：
+
+. 請至少保留三份資料複本。如此可確保即使有一個複本遺失或毀損、您仍至少還有兩個剩餘的複本要重新放回。
+. 將兩個備份複本儲存在不同的儲存媒體或裝置上。多樣化的儲存媒體有助於防範裝置特定或媒體特定的故障。如果某個裝置受損或某種類型的媒體故障、另一個備份複本則不受影響。
+. 最後、請確定至少有一個備份複本位於異地。異地儲存設備可作為故障防護、避免發生局部災難、例如火災或洪水、使現場複本無法使用。
+
+
+本解決方案文件涵蓋 3-2-1 備份解決方案、使用適用於 VMware vSphere （ SCV ）的 SnapCenter 外掛程式來建立內部部署虛擬機器的主要和次要備份、以及虛擬機器的 BlueXP 備份和還原、以便將我們的資料複本備份到雲端儲存設備或 StorageGRID 。
+
+
+
+== 使用案例
+
+本解決方案可解決下列使用案例：
+
+* 使用適用於 VMware vSphere 的 SnapCenter 外掛程式、備份及還原內部部署虛擬機器和資料存放區。
+* 備份及還原位於 ONTAP 叢集上的內部部署虛擬機器和資料存放區、並使用 BlueXP 備份與還原功能備份至虛擬機器的物件儲存區。
+
+
+
+
+== NetApp ONTAP 資料儲存
+
+ONTAP 是 NetApp 領先業界的儲存解決方案、無論您是透過 SAN 或 NAS 傳輸協定存取、都能提供統一化的儲存設備。3-2-1 備份策略可確保內部部署的資料受到多種媒體類型的保護、而 NetApp 提供的平台範圍從高速快閃到低成本媒體。
+
+image:bxp-scv-hybrid-40.png["ONTAP 資料儲存"]
+
+如需 NetApp 所有硬體平台的詳細資訊、請參閱 https://www.netapp.com/data-storage/["NetApp 資料儲存"]。
+
+
+
+== VMware vSphere的插件SnapCenter
+
+SnapCenter Plugin for VMware vSphere 是一項資料保護產品、與 VMware vSphere 緊密整合、可輕鬆管理虛擬機器的備份與還原。作爲該解決方案的一部分， SnapMirror 提供了一種快速可靠的方法，用於在輔助 ONTAP 存儲羣集上創建虛擬機數據的第二個不可變備份副本。有了這種架構、就能從主要或次要備份位置輕鬆啟動虛擬機器還原作業。
+
+選擇控制閥是使用 OVA 檔案部署為 Linux 虛擬應用裝置。外掛程式現在使用遠端外掛程式
+架構。遠端外掛程式會在 vCenter 伺服器外部執行、並裝載於選擇控制閥虛擬應用裝置上。
+
+如需選擇控制閥的詳細資訊、請參閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["VMware vSphere文件的VMware外掛程式SnapCenter"]。
+
+
+
+== 適用於虛擬機器的 BlueXP 備份與還原
+
+BlueXP 備份與還原是一種雲端型的資料管理工具、可提供單一控制面板、在內部部署和雲端環境中執行各種備份與還原作業。NetApp BlueXP 備份與還原套件的一部分是整合 SnapCenter Plugin for VMware vSphere （內部部署）的功能、可將資料複本延伸至雲端中的物件儲存設備。這會建立第三份資料的異地複本、該複本來自主要或次要儲存備份。BlueXP 備份與還原可讓您輕鬆設定儲存原則、從這兩個內部部署位置中的任一位置傳輸資料複本。
+
+在 BlueXP 備份與還原中選擇主要與次要備份作為來源、將會實作下列兩種拓撲之一：
+
+* 扇出拓撲 * –當 SnapCenter Plug-in for VMware vSphere 啟動備份時、會立即擷取本機快照。然後選擇控制閥啓動 SnapMirror 操作，將最近的快照複製到輔助 ONTAP 羣集。在 BlueXP 備份與還原中、原則會指定主要 ONTAP 叢集做為資料快照複本的來源、以便將資料傳輸至雲端供應商所選的物件儲存設備。
+
+image:bxp-scv-hybrid-01.png["扇出拓撲、 800,418"]
+
+* 層疊拓撲 * –使用選擇控制閥建立主要和次要資料複本、與上述的扇出拓撲相同。不過、這次在 BlueXP 備份與還原中建立原則、指定備份至物件儲存設備將來自次要 ONTAP 叢集。
+
+image:bxp-scv-hybrid-02.png["串聯拓撲"]
+
+BlueXP 備份與還原可建立內部部署 ONTAP 快照的備份複本、以供保存至 AWS Glacier 、 Azure Blob 及 GCP Archive 儲存設備。
+
+image:bxp-scv-hybrid-03.png["串聯拓撲"]
+
+此外、您也可以使用 NetApp StorageGRID 做為物件儲存備份目標。如需 StorageGRID 的詳細資訊、請參閱 https://www.netapp.com/data-storage/storagegrid["StorageGRID 登陸頁面"]。
+
+.解決方案部署總覽
+[%collapsible%open]
+====
+此清單提供設定此解決方案、並從選擇控制閥和 BlueXP 備份與恢復執行備份與還原作業所需的高階步驟：
+
+. 設定用於主要和次要資料複本的 ONTAP 叢集之間的 SnapMirror 關係。
+. 為 VMware vSphere 設定 SnapCenter 外掛程式。
++
+.. 新增儲存系統
+.. 建立備份原則
+.. 建立資源群組
+.. 執行備份第一個備份工作
+
+
+. 設定虛擬機器的 BlueXP 備份與還原
++
+.. 新增工作環境
+.. 探索選擇控制閥和 vCenter 應用裝置
+.. 建立備份原則
+.. 啟動備份
+
+
+. 使用選擇控制閥從主要和次要儲存設備還原虛擬機器。
+. 使用 BlueXP 備份與還原、從物件儲存設備還原虛擬機器。
+
+
+====
+.先決條件
+[%collapsible%open]
+====
+此解決方案的目的是展示在 VMware vSphere ， VCF VI 工作負載網域或 VCF 管理網域中執行的虛擬機器的資料保護功能。此解決方案中的虛擬機器是託管在 NetApp ONTAP 提供的 NFS 資料存放區上。本解決方案假設已設定下列元件、可供使用：
+
+. ONTAP 儲存叢集、具有連接至 VMware vSphere 的 NFS 或 VMFS 資料存放區。NFS 和 VMFS 資料存放區均受支援。此解決方案使用 NFS 資料存放區。
+. 針對用於 NFS 資料存放區的磁碟區建立 SnapMirror 關係的次要 ONTAP 儲存叢集。
+. 安裝適用於雲端供應商的 BlueXP Connector 、用於物件儲存備份。
+. 要備份的虛擬機器位於主要 ONTAP 儲存叢集上的 NFS 資料存放區上。
+. BlueXP 連接器與內部部署 ONTAP 儲存叢集管理介面之間的網路連線。
+. BlueXP 連接器與內部部署的選擇控制閥設備 VM 之間、以及 BlueXP 連線器與 vCenter 之間的網路連線。
+. 內部部署 ONTAP 叢集間的生命體與物件儲存服務之間的網路連線。
+. 在主要和次要 ONTAP 儲存叢集上設定用於管理 SVM 的 DNS 。如需詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap/networking/configure_dns_for_host-name_resolution.html#configure-an-svm-and-data-lifs-for-host-name-resolution-using-an-external-dns-server["設定DNS進行主機名稱解析"]。
+
+
+====
+
+
+== 高層架構
+
+本解決方案的測試/驗證是在實驗室中執行、可能與最終部署環境相符或不相符。
+
+image:bxp-scv-hybrid-04.png["解決方案架構示意圖"]
+
+
+
+== 解決方案部署
+
+在本解決方案中、我們提供詳細說明、說明如何部署和驗證採用 SnapCenter Plug-in for VMware vSphere 的解決方案、以及 BlueXP 備份和還原、以在位於內部部署資料中心的 VMware vSphere 叢集內執行 Windows 和 Linux 虛擬機器的備份和還原。此設定中的虛擬機器儲存在 ONTAP A300 儲存叢集所主控的 NFS 資料存放區上。此外、獨立的 ONTAP A300 儲存叢集可作為使用 SnapMirror 複寫之磁碟區的次要目的地。此外、在 Amazon Web Services 和 Azure Blob 上託管的物件儲存設備也被部署為第三份資料複本的目標。
+
+我們將繼續為由選擇控制閥管理的備份次要複本建立 SnapMirror 關係、並在選擇控制閥和 BlueXP 備份和恢復中設定備份工作。
+
+如需 SnapCenter Plug-in for VMware vSphere 的詳細資訊、請參閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["VMware vSphere文件的VMware外掛程式SnapCenter"]。
+
+如需 BlueXP 備份與還原的詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-backup-recovery/index.html["BlueXP 備份與還原文件"]。
+
+
+
+=== 在 ONTAP 叢集之間建立 SnapMirror 關係
+
+適用於 VMware vSphere 的 SnapCenter 外掛程式使用 ONTAP SnapMirror 技術來管理次要 SnapMirror 和 / 或 SnapVault 複本傳輸至次要 ONTAP 叢集的作業。
+
+選擇控制閥備份原則可選擇使用 SnapMirror 或 SnapVault 關係。主要的差異在於、使用 SnapMirror 選項時、原則中為備份所設定的保留排程、在主要和次要位置會相同。SnapVault 是專為歸檔而設計、使用此選項時、可針對次要 ONTAP 儲存叢集上的快照複本、建立個別的 SnapMirror 保留排程。
+
+可以在 BlueXP 中設定 SnapMirror 關係、其中許多步驟都是自動化的、或者可以使用系統管理員和 ONTAP CLI 來完成。以下將討論所有這些方法。
+
+
+
+=== 與 BlueXP 建立 SnapMirror 關係
+
+必須從 BlueXP 網路主控台完成下列步驟：
+
+.主要和次要 ONTAP 儲存系統的複寫設定
+[%collapsible%open]
+====
+請先登入 BlueXP 網路主控台、然後瀏覽至 Canvas 。
+
+. 將來源（主要） ONTAP 儲存系統拖放到目的地（次要） ONTAP 儲存系統上。
++
+image:bxp-scv-hybrid-41.png["拖放儲存系統"]
+
+. 從出現的功能表中選取 * Replication * 。
++
+image:bxp-scv-hybrid-42.png["選取複寫"]
+
+. 在「 *Destination 對等項設定 * 」頁面上、選取儲存系統之間連線所要使用的目的地叢集間生命。
++
+image:bxp-scv-hybrid-43.png["選擇叢集間的生命"]
+
+. 在 * 目的地 Volume Name* 頁面上、先選取來源 Volume 、然後填寫目的地 Volume 名稱、再選取目的地 SVM 和 Aggregate 。按一下 * 下一步 * 繼續。
++
+image:bxp-scv-hybrid-44.png["選取來源 Volume"]
+
++
+image:bxp-scv-hybrid-45.png["目的地 Volume 詳細資料"]
+
+. 選擇複寫的最大傳輸速率。
++
+image:bxp-scv-hybrid-46.png["最大傳輸率"]
+
+. 選擇決定次要備份保留排程的原則。此原則可事先建立（請參閱以下 * 建立快照保留原則 * 步驟的手動程序）、也可視需要在事後變更。
++
+image:bxp-scv-hybrid-47.png["選取保留原則"]
+
+. 最後、請檢閱所有資訊、然後按一下「 *Go* 」按鈕以開始複寫設定程序。
++
+image:bxp-scv-hybrid-48.png["檢視並開始"]
+
+
+
+====
+
+
+=== 與 System Manager 和 ONTAP CLI 建立 SnapMirror 關係
+
+所有建立 SnapMirror 關係所需的步驟都可以使用系統管理器或 ONTAP CLI 來完成。下節提供這兩種方法的詳細資訊：
+
+.記錄來源與目的地叢集間邏輯介面
+[%collapsible%open]
+====
+對於來源和目的地 ONTAP 叢集、您可以從系統管理員或 CLI 擷取叢集間 LIF 資訊。
+
+. 在「支援系統管理程式」中ONTAP 、瀏覽至「網路總覽」頁面、並擷取「類型：叢集間」的IP位址、這些位址已設定為與安裝FSx的AWS VPC通訊。
++
+image:dr-vmc-aws-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 若要使用 CLI 擷取叢集間 IP 位址、請執行下列命令：
++
+....
+ONTAP-Dest::> network interface show -role intercluster
+....
+
+
+====
+.在 ONTAP 叢集之間建立叢集對等關係
+[%collapsible%open]
+====
+若要在ONTAP 各個叢集之間建立叢集對等關係、必須ONTAP 在其他對等叢集中確認在起始的叢集上輸入的獨特通關密碼。
+
+. 使用在目的地 ONTAP 叢集上設定對等關係 `cluster peer create` 命令。出現提示時、請輸入稍後在來源叢集上使用的唯一密碼、以完成建立程序。
++
+....
+ONTAP-Dest::> cluster peer create -address-family ipv4 -peer-addrs source_intercluster_1, source_intercluster_2
+Enter the passphrase:
+Confirm the passphrase:
+....
+. 在來源叢集上、您可以使用ONTAP SysSystem Manager或CLI建立叢集對等關係。從「系統管理程式」中、瀏覽至「保護」>「總覽」、然後選取「對等叢集」ONTAP 。
++
+image:dr-vmc-aws-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 在對等叢集對話方塊中、填寫必要資訊：
++
+.. 輸入用於在目的地 ONTAP 叢集上建立對等叢集關係的複雜密碼。
+.. 選取「是」以建立加密關係。
+.. 輸入目的地 ONTAP 叢集的叢集間 LIF IP 位址。
+.. 按一下「初始化叢集對等」以完成程序。
++
+image:dr-vmc-aws-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+. 使用下列命令、從目的地 ONTAP 叢集驗證叢集對等關係的狀態：
++
+....
+ONTAP-Dest::> cluster peer show
+....
+
+
+====
+.建立SVM對等關係
+[%collapsible%open]
+====
+下一步是在包含SnapMirror關係的磁碟區的目的地與來源儲存虛擬機器之間建立SVM關係。
+
+. 從目的地 ONTAP 叢集、使用 CLI 中的下列命令建立 SVM 對等關係：
++
+....
+ONTAP-Dest::> vserver peer create -vserver DestSVM -peer-vserver Backup -peer-cluster OnPremSourceSVM -applications snapmirror
+....
+. 從來源ONTAP 的物件叢集、接受與ONTAP SysSystem Manager或CLI的對等關係。
+. 從「支援系統管理程式」移至「保護」>「總覽」、然後在「儲存VM對等端點」下選取「對等儲存VM」ONTAP 。
++
+image:dr-vmc-aws-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 在對等儲存VM對話方塊中、填寫必填欄位：
++
+** 來源儲存VM
+** 目的地叢集
+** 目的地儲存VM
++
+image:dr-vmc-aws-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+. 按一下對等儲存VM以完成SVM對等處理程序。
+
+
+====
+.建立快照保留原則
+[%collapsible%open]
+====
+可管理主要儲存系統上以快照複本形式存在的備份保留排程。SnapCenter這是SnapCenter 在建立一套以功能為基礎的原則時所建立的。不管理保留在二線儲存系統上的備份保留原則。SnapCenter這些原則是透過在次要FSX叢集上建立的SnapMirror原則來個別管理、並與與來源Volume處於SnapMirror關係中的目的地磁碟區相關聯。
+
+建立SnapCenter Eshot原則時、您可以選擇指定次要原則標籤、並將其新增至SnapCenter 擷取此備份時所產生之每個Snapshot的SnapMirror標籤。
+
+
+NOTE: 在二線儲存設備上、這些標籤會符合與目的地Volume相關的原則規則、以強制保留快照。
+
+以下範例顯示SnapMirror標籤、其存在於所有快照上、這些快照是作為每日備份SQL Server資料庫和記錄磁碟區的原則之一。
+
+image:dr-vmc-aws-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+如需建立SnapCenter SQL Server資料庫的各項功能性原則的詳細資訊、請參閱 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_create_backup_policies_for_sql_server_databases.html["本文檔SnapCenter"^]。
+
+您必須先建立SnapMirror原則、其中規定要保留的快照複本數量。
+
+. 在FSX叢集上建立SnapMirror原則。
++
+....
+ONTAP-Dest::> snapmirror policy create -vserver DestSVM -policy PolicyName -type mirror-vault -restart always
+....
+. 使用SnapMirror標籤將規則新增至原則、這些標籤符合SnapCenter 在《保護原則》中指定的次要原則標籤。
++
+....
+ONTAP-Dest::> snapmirror policy add-rule -vserver DestSVM -policy PolicyName -snapmirror-label SnapMirrorLabelName -keep #ofSnapshotsToRetain
+....
++
+下列指令碼提供可新增至原則的規則範例：
+
++
+....
+ONTAP-Dest::> snapmirror policy add-rule -vserver sql_svm_dest -policy Async_SnapCenter_SQL -snapmirror-label sql-ondemand -keep 15
+....
++
+
+NOTE: 針對每個SnapMirror標籤和要保留的快照數量（保留期間）建立其他規則。
+
+
+
+====
+.建立目的地Volume
+[%collapsible%open]
+====
+若要在 ONTAP 上建立目的地磁碟區、以接收來源磁碟區的快照複本、請在目的地 ONTAP 叢集上執行下列命令：
+
+....
+ONTAP-Dest::> volume create -vserver DestSVM -volume DestVolName -aggregate DestAggrName -size VolSize -type DP
+....
+====
+.在來源與目的地磁碟區之間建立SnapMirror關係
+[%collapsible%open]
+====
+若要在來源和目的地磁碟區之間建立 SnapMirror 關係、請在目的地 ONTAP 叢集上執行下列命令：
+
+....
+ONTAP-Dest::> snapmirror create -source-path OnPremSourceSVM:OnPremSourceVol -destination-path DestSVM:DestVol -type XDP -policy PolicyName
+....
+====
+.初始化SnapMirror關係
+[%collapsible%open]
+====
+初始化SnapMirror關係。此程序會啟動從來源磁碟區產生的新快照、並將其複製到目的地磁碟區。
+
+若要建立 Volume 、請在目的地 ONTAP 叢集上執行下列命令：
+
+....
+ONTAP-Dest::> snapmirror initialize -destination-path DestSVM:DestVol
+....
+====
+
+
+=== 設定 VMware vSphere 的 SnapCenter 外掛程式
+
+安裝後、即可從 vCenter Server Appliance Management 介面存取 SnapCenter Plug-in for VMware vSphere 。選擇控制閥將管理安裝在 ESXi 主機上且包含 Windows 和 Linux VM 的 NFS 資料存放區備份。
+
+檢閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_protect_data_overview.html["資料保護工作流程"] 選擇控制閥文件的章節、以取得設定備份所需步驟的詳細資訊。
+
+若要設定虛擬機器和資料存放區的備份、必須從外掛程式介面完成下列步驟。
+
+.Discovery ONTAP 儲存系統
+[%collapsible%open]
+====
+探索用於主要和次要備份的 ONTAP 儲存叢集。
+
+. 在 SnapCenter Plug-in for VMware vSphere 中、瀏覽左側功能表中的 * 儲存系統 * 、然後按一下 * 新增 * 按鈕。
++
+image:bxp-scv-hybrid-05.png["儲存系統"]
+
+. 填寫主要 ONTAP 儲存系統的認證資料與平台類型、然後按一下 * 新增 * 。
++
+image:bxp-scv-hybrid-06.png["新增儲存系統"]
+
+. 對次 ONTAP 儲存系統重複此程序。
+
+
+====
+.建立選擇控制閥備份原則
+[%collapsible%open]
+====
+原則指定由選擇控制閥管理之備份的保留期間、頻率和複寫選項。
+
+檢閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_backup_policies_for_vms_and_datastores.html["為VM和資料存放區建立備份原則"] 如需詳細資訊、請參閱文件的一節。
+
+若要建立備份原則、請完成下列步驟：
+
+. 在 SnapCenter Plug-in for VMware vSphere 中、瀏覽左側功能表中的 * 原則 * 、然後按一下 * 建立 * 按鈕。
++
+image:bxp-scv-hybrid-07.png["原則"]
+
+. 指定原則、保留期間、頻率和複寫選項、以及快照標籤的名稱。
++
+image:bxp-scv-hybrid-08.png["建立原則"]
+
++
+
+NOTE: 在 SnapCenter 外掛程式中建立原則時、您會看到 SnapMirror 和 SnapVault 的選項。如果您選擇 SnapMirror 、原則中指定的保留排程對於主要和次要快照都是相同的。如果您選擇 SnapVault 、次要快照的保留排程將會根據與 SnapMirror 關係一起實作的個別排程而定。當您希望次要備份的保留時間較長時、這項功能非常實用。
+
++
+
+NOTE: 快照標籤非常實用、因為它們可用於制定原則、並在特定保留期間內、將 SnapVault 複本複寫到次要 ONTAP 叢集。搭配 BlueXP 備份與還原使用選擇控制閥時、 Snapshot 標籤欄位必須空白或是 BlueXP 備份原則中指定的標籤 [Underline] #match# 。
+
+. 針對所需的每個原則重複此程序。例如、每日、每週和每月備份的個別原則。
+
+
+====
+.建立資源群組
+[%collapsible%open]
+====
+資源群組包含要納入備份工作的資料存放區和虛擬機器、以及相關的原則和備份排程。
+
+檢閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_create_resource_groups_for_vms_and_datastores.html["建立資源群組"] 如需詳細資訊、請參閱文件的一節。
+
+若要建立資源群組、請完成下列步驟。
+
+. 在 SnapCenter Plug-in for VMware vSphere 中、瀏覽左側功能表中的 * 資源群組 * 、然後按一下 * 建立 * 按鈕。
++
+image:bxp-scv-hybrid-09.png["建立資源群組"]
+
+. 在「建立資源群組」精靈中、輸入群組的名稱和說明、以及接收通知所需的資訊。按一下 * 下一步 *
+. 在下一頁選取要包含在備份工作中的資料存放區和虛擬機器、然後按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-10.png["選取資料存放區和虛擬機器"]
+
++
+
+NOTE: 您可以選擇特定 VM 或整個資料存放區。無論您選擇哪種類型、都會備份整個磁碟區（和資料存放區）、因為備份是建立基礎磁碟區快照的結果。在大多數情況下、選擇整個資料存放區最簡單。不過、如果您希望在還原時限制可用 VM 的清單、則只能選擇一個子集進行備份。
+
+. 選擇多個資料存放區上的 VMDK 虛擬機器跨距資料存放區選項、然後按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-11.png["跨越資料存放區"]
+
++
+
+NOTE: BlueXP 備份與還原目前不支援使用跨多個資料存放區的 VMDK 來備份 VM 。
+
+. 在下一頁中、選取將與資源群組相關聯的原則、然後按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-12.png["資源群組原則"]
+
++
+
+NOTE: 使用 BlueXP 備份和恢復將選擇控制閥管理的快照備份到物件儲存時、每個資源群組只能與單一原則相關聯。
+
+. 選取一個排程、以決定備份的執行時間。按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-13.png["資源群組原則"]
+
+. 最後、請檢閱摘要頁面、然後按 * 完成 * 完成資源群組的建立。
+
+
+====
+.執行備份工作
+[%collapsible%open]
+====
+在此最後一個步驟中、請執行備份工作並監控其進度。至少必須在選擇控制閥中成功完成一個備份工作、才能從 BlueXP 備份與恢復中找到資源。
+
+. 在 SnapCenter Plug-in for VMware vSphere 中、瀏覽左側功能表中的 * 資源群組 * 。
+. 若要啟動備份工作、請選取所需的資源群組、然後按一下 * 立即執行 * 按鈕。
++
+image:bxp-scv-hybrid-14.png["執行備份工作"]
+
+. 若要監控備份工作、請瀏覽左側功能表上的 * 儀表板 * 。在 * 最近的工作活動 * 下、按一下工作 ID 號碼以監控工作進度。
++
+image:bxp-scv-hybrid-15.png["監控工作進度"]
+
+
+
+====
+
+
+=== 在 BlueXP 備份與還原中設定備份至物件儲存設備
+
+為了讓 BlueXP 有效管理資料基礎架構、必須先安裝 Connector 。Connector 會執行探索資源和管理資料作業所涉及的動作。
+
+如需 BlueXP Connector 的詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-setup-admin/concept-connectors.html["深入瞭解連接器"] 在 BlueXP 文件中。
+
+安裝用於雲端供應商的連接器後、即可從 Canvas 檢視物件儲存設備的圖形呈現。
+
+若要設定 BlueXP 備份與恢復、以備份由內部部署選擇控制閥管理的資料、請完成下列步驟：
+
+.將工作環境新增至 Canvas
+[%collapsible%open]
+====
+第一步是將內部部署 ONTAP 儲存系統新增至 BlueXP
+
+. 從 Canvas 選取 * 新增工作環境 * 開始。
++
+image:bxp-scv-hybrid-16.png["新增工作環境"]
+
+. 從選擇的位置選擇 * 內部部署 * 、然後按一下 * 探索 * 按鈕。
++
+image:bxp-scv-hybrid-17.png["選擇內部部署"]
+
+. 填寫 ONTAP 儲存系統的認證資料、然後按一下「 * 探索 * 」按鈕以新增工作環境。
++
+image:bxp-scv-hybrid-18.png["新增儲存系統認證"]
+
+
+
+====
+.探索內部部署的選擇控制閥應用裝置和 vCenter
+[%collapsible%open]
+====
+若要探索內部部署資料存放區和虛擬機器資源、請新增選擇控制閥資料代理程式的資訊、以及 vCenter 管理應用裝置的認證。
+
+. 從 BlueXP 左側功能表選擇 * 保護 > 備份與還原 > 虛擬機器 *
++
+image:bxp-scv-hybrid-19.png["選取虛擬機器"]
+
+. 從虛擬機器主畫面存取 * 設定 * 下拉式功能表、然後選取 * 適用於 VMware vSphere 的 SnapCenter 外掛程式 * 。
++
+image:bxp-scv-hybrid-20.png["設定下拉式功能表"]
+
+. 按一下 * 註冊 * 按鈕、然後輸入 SnapCenter 外掛應用裝置的 IP 位址和連接埠編號、以及 vCenter 管理應用裝置的使用者名稱和密碼。按一下 * 註冊 * 按鈕開始探索程序。
++
+image:bxp-scv-hybrid-21.png["輸入選擇控制閥和 vCenter 資訊"]
+
+. 工作進度可從「工作監控」標籤進行監控。
++
+image:bxp-scv-hybrid-22.png["檢視工作進度"]
+
+. 完成探索後、您將能夠檢視所有探索到的選擇控制閥設備中的資料存放區和虛擬機器。
++
+image:bxp-scv-hybrid-23.png["檢視可用資源"]
+
+
+
+====
+.建立 BlueXP 備份原則
+[%collapsible%open]
+====
+在 BlueXP 虛擬機器的備份與還原中、建立原則以指定保留期間、備份來源和歸檔原則。
+
+如需建立原則的詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-backup-recovery/task-create-policies-vms.html["建立備份資料存放區的原則"]。
+
+. 從 BlueXP 虛擬機器備份與還原主頁、存取 * 設定 * 下拉式功能表、然後選取 * 原則 * 。
++
+image:bxp-scv-hybrid-24.png["選取虛擬機器"]
+
+. 按一下 * 建立原則 * 以存取 * 建立混合式備份原則 * 視窗。
++
+.. 新增原則名稱
+.. 選取所需的保留期間
+.. 選擇備份來源為主要或次要內部部署 ONTAP 儲存系統
+.. 您也可以選擇指定備份層級到歸檔儲存設備的時間期限、以節省額外成本。
++
+image:bxp-scv-hybrid-25.png["建立備份原則"]
+
++
+
+NOTE: 此處輸入的 SnapMirror 標籤用於識別要套用原則的備份。標籤名稱必須與對應的內部部署選擇控制閥政策中的標籤名稱相符。
+
+
+
+. 按一下 * 建立 * 以完成原則建立。
+
+
+====
+.將資料存放區備份至 Amazon Web Services
+[%collapsible%open]
+====
+最後一步是啟動個別資料存放區和虛擬機器的資料保護。下列步驟概述如何啟動備份至 AWS 。
+
+如需詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-backup-recovery/task-backup-vm-data-to-aws.html["將資料存放區備份至Amazon Web Services"]。
+
+. 從 BlueXP 虛擬機器備份與還原主頁、存取要備份的資料存放區的設定下拉式清單、然後選取 * 啟動備份 * 。
++
+image:bxp-scv-hybrid-26.png["啟動備份"]
+
+. 指派用於資料保護作業的原則、然後按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-27.png["指派原則"]
+
+. 在「 * 新增工作環境 * 」頁面上、如果先前發現工作環境、則應顯示具有核取記號的資料存放區和工作環境。如果先前尚未發現工作環境、您可以在此處新增。按一下 * 下一步 * 繼續。
++
+image:bxp-scv-hybrid-28.png["新增工作環境"]
+
+. 在「 * 選擇供應商 * 」頁面上、按一下 AWS 、然後按一下「 * 下一步 * 」按鈕繼續。
++
+image:bxp-scv-hybrid-29.png["選擇雲端供應商"]
+
+. 填寫 AWS 的供應商特定認證資訊、包括使用的 AWS 存取金鑰和秘密金鑰、區域和歸檔層。此外、請為內部部署 ONTAP 儲存系統選取 ONTAP IP 空間。按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-30.png["提供雲端服務認證"]
+
+. 最後、請檢閱備份工作詳細資料、然後按一下 * 啟動備份 * 按鈕、以啟動資料存放區的資料保護。
++
+image:bxp-scv-hybrid-31.png["檢閱並啟動"]
+
++
+
+NOTE: 此時資料傳輸可能不會立即開始。BlueXP 每小時會掃描任何未處理的快照、然後將其傳輸至物件儲存設備。
+
+
+
+====
+
+
+=== 在資料遺失的情況下還原虛擬機器
+
+確保資料安全只是全方位資料保護的一個層面。同樣重要的是、在資料遺失或勒索軟體攻擊時、能夠從任何位置迅速還原資料。這項功能對於維持無縫業務營運和達成恢復點目標至關重要。
+
+NetApp 提供高度適應的 3-2-1 策略、可針對主要、次要及物件儲存位置的保留排程提供自訂控制。這項策略提供彈性、可針對特定需求量身打造資料保護方法。
+
+本節概述 SnapCenter Plug-in for VMware vSphere 的資料還原程序、以及適用於虛擬機器的 BlueXP 備份與還原程序。
+
+
+
+==== 從適用於 VMware vSphere 的 SnapCenter 外掛程式還原虛擬機器
+
+針對此解決方案、虛擬機器已還原至原始位置和其他位置。本解決方案並未涵蓋選擇控制閥資料恢復功能的所有層面。如需所有選擇控制閥必須提供的詳細資訊、請參閱 https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_restore_vms_from_backups.html["從備份還原VM"] 請參閱產品文件。
+
+.從選擇控制閥恢復虛擬機器
+[%collapsible%open]
+====
+請完成下列步驟、從主要或次要儲存設備還原虛擬機器。
+
+. 從 vCenter 用戶端瀏覽至 * 清查 > Storage* 、然後按一下包含您要還原之虛擬機器的資料存放區。
+. 從 * 組態 * 標籤按一下 * 備份 * 以存取可用備份清單。
++
+image:bxp-scv-hybrid-32.png["存取備份清單"]
+
+. 按一下備份以存取虛擬機器清單、然後選取要還原的虛擬機器。按一下 * 還原 * 。
++
+image:bxp-scv-hybrid-33.png["選取要還原的 VM"]
+
+. 從還原精靈中、選取以還原整個虛擬機器或特定 VMDK 。選取以安裝至原始位置或替代位置、在還原後提供 VM 名稱、以及目的地資料存放區。單擊 * 下一步 * 。
++
+image:bxp-scv-hybrid-34.png["提供還原詳細資料"]
+
+. 選擇從主要或次要儲存位置進行備份。
++
+image:bxp-scv-hybrid-35.png["選擇主要或次要"]
+
+. 最後、檢閱備份工作摘要、然後按一下「完成」以開始還原程序。
+
+
+====
+
+
+==== 從 BlueXP 備份還原虛擬機器、並針對虛擬機器進行還原
+
+BlueXP 虛擬機器的備份與還原功能可將虛擬機器還原至其原始位置。還原功能可透過 BlueXP 網路主控台存取。
+
+如需詳細資訊、請參閱 https://docs.netapp.com/us-en/bluexp-backup-recovery/task-restore-vm-data.html["從雲端還原虛擬機器資料"]。
+
+.從 BlueXP 備份與還原還原虛擬機器
+[%collapsible%open]
+====
+若要從 BlueXP 備份與還原還原虛擬機器、請完成下列步驟。
+
+. 瀏覽至 * 保護 > 備份與還原 > 虛擬機器 * 、然後按一下虛擬機器以檢視可供還原的虛擬機器清單。
++
+image:bxp-scv-hybrid-36.png["虛擬機器存取清單"]
+
+. 存取要還原的虛擬機器的設定下拉式功能表、然後選取
++
+image:bxp-scv-hybrid-37.png["選取從設定還原"]
+
+. 選取要還原的備份、然後按一下 * 下一步 * 。
++
+image:bxp-scv-hybrid-38.png["選取備份"]
+
+. 檢閱備份工作摘要、然後按一下 * 還原 * 以開始還原程序。
+. 從 * 工作監控 * 標籤監控還原工作的進度。
++
+image:bxp-scv-hybrid-39.png["從「工作監控」標籤檢閱還原"]
+
+
+
+====
+
+
+== 結論
+
+搭配 SnapCenter Plug-in for VMware vSphere 和 BlueXP 虛擬機器備份與還原實作的 3-2-1 備份策略、可為資料保護提供強大、可靠且具成本效益的解決方案。這項策略不僅確保資料備援和可存取性、還能靈活地從任何位置、以及從內部部署的 ONTAP 儲存系統和雲端型物件儲存設備還原資料。
+
+本文件中的使用案例著重於備受肯定的資料保護技術、強調 NetApp 、 VMware 與領先業界的雲端供應商之間的整合。適用於 VMware vSphere 的 SnapCenter 外掛程式可與 VMware vSphere 無縫整合、有效集中管理資料保護作業。這項整合可簡化虛擬機器的備份與還原程序、在 VMware 生態系統中輕鬆進行排程、監控及靈活的還原作業。BlueXP 虛擬機器的備份與還原功能提供安全無線備份的虛擬機器資料至雲端型物件儲存設備、可在 3-2-1 中提供一（ 1 ）個備份。直覺式介面和邏輯工作流程為重要資料的長期歸檔提供了安全的平台。
+
+
+
+== 其他資訊
+
+若要深入瞭解本解決方案所提供的技術、請參閱下列其他資訊。
+
+* https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/["VMware vSphere文件的VMware外掛程式SnapCenter"]
+* https://docs.netapp.com/us-en/bluexp-family/["BlueXP文件"]
+

@@ -17,13 +17,13 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 本節說明如何使用 Red Hat OpenShift 虛擬化移轉工具組，將虛擬機器從 VMware 移轉至 OpenShift 叢集。涵蓋下列類型的移轉：
 
 .冷移轉
-[%collapsible]
+[%collapsible%open]
 ====
 這是預設的移轉類型。複製資料時，來源虛擬機器會關閉。
 
 ====
 .暖移轉
-[%collapsible]
+[%collapsible%open]
 ====
 在此類移轉中，大部分資料會在執行來源虛擬機器（ VM ）的預先複製階段中複製。然後， VM 會關閉，並在轉換階段複製其餘資料。
 

@@ -142,7 +142,7 @@ image:automation_ora_anf_nfs_archit.png["此映像提供在 AWS 公有雲中使�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -200,7 +200,7 @@ video::d1c859b6-e45a-44c7-8361-b10f012fc89b[panopto,width=360]
 
 === 自動化參數檔案
 
-[%collapsible]
+[%collapsible%open]
 ====
 Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工作。對於此 Oracle 自動化解決方案、有三個使用者定義的參數檔案需要使用者輸入才能執行教戰手冊。
 
@@ -216,7 +216,7 @@ Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工
 
 === 參數檔組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 . Ansible 目標 `hosts` 檔案組態：
 +
@@ -290,7 +290,7 @@ nfs_lif: 172.30.136.68
 
 === 教戰手冊執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 自動化工具套件共有五本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
 
@@ -354,7 +354,7 @@ ansible-playbook -i hosts 5-destroy.yml -u azureuser -e @vars/vars.yml
 
 === 執行後驗證
 
-[%collapsible]
+[%collapsible%open]
 ====
 執行教戰手冊後、請登入 Oracle DB 伺服器 VM 、以驗證 Oracle 是否已安裝及設定、以及是否已成功建立容器資料庫。以下是主機 ora-01 上 Oracle 資料庫驗證的範例。
 
@@ -591,7 +591,7 @@ image:automation_ora_anf_nfs_em_01.png["此映像提供 Oracle Enterprise Manage
 
 === 將 Oracle 資料庫移轉至 Azure
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正確的策略和自動化功能、可以順利完成程序、並將服務中斷和停機時間降至最低。請遵循此詳細指示 link:azure_ora_nfile_migration.html#converting-a-single-instance-non-cdb-to-a-pdb-in-a-multitenant-cdb["資料庫從內部部署移轉至Azure雲端"^] 引導您的資料庫移轉過程。
 
@@ -600,7 +600,7 @@ Oracle 資料庫從內部部署移轉至雲端的工作非常繁重。使用正�
 
 === 使用 SnapCenter 進行 Oracle 備份、還原及複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 NetApp 建議使用 SnapCenter UI 工具來管理部署於 Azure 雲端的 Oracle 資料庫。請參閱 TR-4988 ： link:snapctr_ora_azure_anf.html["Oracle 資料庫備份、恢復及複製、透過 SnapCenter 進行"^] 以取得詳細資料。
 

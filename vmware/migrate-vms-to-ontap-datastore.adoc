@@ -13,10 +13,8 @@ summary:
 :imagesdir: ../media/
 
 
-作者： Suresh ThopPay
-
 [role="lead"]
-VMware vSphere by Broadcom 支援 VMFS 、 NFS 和 vVol 資料存放區、以裝載虛擬機器。客戶可以選擇使用超融合式基礎架構或集中式共享儲存系統來建立這些資料存放區。客戶通常會看到託管 ONTAP 型儲存系統的價值、能夠提供虛擬機器的空間效率快照和複本、靈活選擇跨資料中心和雲端的各種部署模式、監控和警示工具的營運效率、安全性、治理和選擇性的法規遵循工具來檢查 VM 資料、 等等、
+VMware vSphere by Broadcom 支援 VMFS 、 NFS 和 vVol 資料存放區、以裝載虛擬機器。客戶可以選擇使用超融合式基礎架構或集中式共享儲存系統來建立這些資料存放區。客戶通常會看到託管 ONTAP 型儲存系統的價值，能夠提供虛擬機器的空間效率快照和複本，靈活選擇跨資料中心和雲端的各種部署模式，監控和警示工具的營運效率，安全性，治理和選擇性的法規遵循工具來檢查 VM 資料等。
 
 ONTAP 資料存放區上的 VM 可以使用適用於 VMware vSphere 的 SnapCenter 外掛程式（ SCV ）加以保護。選擇控制閥可建立儲存型快照、也可複寫至遠端 ONTAP 儲存系統。可從主要或次要儲存系統執行還原。
 
@@ -25,14 +23,14 @@ ONTAP 資料存放區上的 VM 可以使用適用於 VMware vSphere 的 SnapCent
 客戶可以使用 ONTAP 工具 vCenter 外掛程式輕鬆配置資料存放區、或是將其 API 和 VM 移轉至 ONTAP 資料存放區、即使資料存放區已開機也沒問題。
 
 
-NOTE: 有些 VM 是透過外部管理工具部署、例如 Aria Automation 、 Tanzu （或其他 Kubernetes Flavors ）、通常取決於 VM 儲存原則。如果在同一 VM 儲存原則內的資料存放區之間移轉、對應用程式的影響應該會較小。請洽詢應用程式擁有者、以將這些 VM 正確移轉至新的資料存放區。推出 vSphere 8 https://core.vmware.com/resource/vsphere-vmotion-notifications["VMotion 通知"] 準備應用程式以執行 VMotion 。
+NOTE: 有些 VM 是透過外部管理工具部署、例如 Aria Automation 、 Tanzu （或其他 Kubernetes Flavors ）、通常取決於 VM 儲存原則。如果在同一 VM 儲存原則內的資料存放區之間移轉、對應用程式的影響應該會較小。請洽詢應用程式擁有者，以將這些 VM 正確移轉至新的資料存放區。 vSphere 8 是為了準備應用程式以進行 VMotion 作業而推出的 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/how-to-prepare-an-application-for-vsphere-vmotion.html#:~:text=vSphere%208.0%20introduces%20a%20notification,the%20necessary%20steps%20to%20prepare.["適用於延遲敏感應用程式的 vSphere VMotion 通知"]。
 
 
 
 == 網路需求
 
 .使用 VMotion 移轉虛擬機器
-[%collapsible]
+[%collapsible%open]
 ====
 假設 ONTAP 資料存放區已具備雙儲存網路、可提供連線能力、容錯能力及效能提升。
 
@@ -55,10 +53,10 @@ TIP: 確保至少有兩個高速主動上行鏈路 NIC 可供 VMotion 和 Provis
 無論 VM 的電源狀態為何、 VMotion 通常都會用於移轉 VM 。以下提供特定案例的其他考量與移轉程序。
 
 
-NOTE: 瞭解 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-0540DF43-9963-4AF9-A4DB-254414DC00DA.html["vSphere VMotion 的 VM 狀況與限制"] 繼續進行任何 VM 移轉選項之前。
+NOTE: 在繼續任何 VM 移轉選項之前，請先瞭解 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/migration-with-vmotion-host-management/virtual-machine-conditions-and-limitation-for-vmotion-host-management.html["vSphere VMotion 的 VM 狀況與限制"]相關資訊。
 
 .從特定 vSphere 資料存放區移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
 請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
 
@@ -111,7 +109,7 @@ $vm, $vmdisk | Get-SPBMEntityConfiguration
 ----
 ====
 .在同一個 vSphere 叢集中移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
 請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
 
@@ -167,10 +165,10 @@ TIP: 當資料存放區叢集與全自動儲存 DRS （動態資源排程）搭�
 
 ====
 .跨多個 vSphere 叢集移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
 
-NOTE: 請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-03E7E5F9-06D9-463F-A64F-D4EC20DAF22E.html["CPU 相容性和 vSphere 增強型 VMotion 相容性"] 當來源和目標主機屬於不同的 CPU 系列或機型時。
+NOTE: 當來源和目標主機屬於不同的 CPU 系列或機型時，請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/cpu-compatibility-and-evc-host-management.html["CPU 相容性和 vSphere 增強型 VMotion 相容性"]。
 
 請遵循下列程序、使用 UI 將 VM 移轉至新的資料存放區。
 
@@ -238,12 +236,12 @@ $vm, $vmdisk | Get-SPBMEntityConfiguration
 ----
 ====
 .在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM
-[#vmotion-same-sso%collapsible]
+[#vmotion-same-sso%collapsible%open]
 ====
 請遵循下列程序、將 VM 移轉至同一 vSphere Client UI 上列出的新 vCenter 伺服器。
 
 
-NOTE: 如需來源和目標 vCenter 版本等其他需求、請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-DAD0C40A-7F66-44CF-B6E8-43A0153ABE81.html["vSphere 說明 vCenter 伺服器執行個體之間的 VMotion 需求"]
+NOTE: 如需來源和目標 vCenter 版本等其他需求，請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/requirements-for-migration-across-vcenter-servers-host-management.html["vSphere 說明 vCenter 伺服器執行個體之間的 VMotion 需求"]
 
 . 使用 vSphere Web Client 、從主機和叢集清查中選取叢集、然後按一下 VM 索引標籤。
 +
@@ -309,7 +307,7 @@ $targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
 ----
 ====
 .在不同 SSO 網域的 vCenter 伺服器之間移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
 
 NOTE: 此案例假設 vCenter 伺服器之間存在通訊。否則、請查看下方列出的跨資料中心位置案例。如需先決條件、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-1960B6A6-59CD-4B34-8FE5-42C19EE8422A.html["進階 Cross vCenter VMotion 的 vSphere 文件"]
@@ -330,7 +328,7 @@ image:migrate-vms-to-ontap-image11.png["跨 vCenter Server 匯出"]
 
 +
 
-TIP: VM 也可以從目標 vCenter 伺服器匯入。如需該程序、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-ED703E35-269C-48E0-A34D-CCBB26BFD93E.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
+TIP: VM 也可以從目標 vCenter 伺服器匯入。如需該程序，請檢查 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/migrate-a-virtual-machine-from-an-external-vcenter-server-instance-host-management.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
 
 . 提供 vCenter 認證詳細資料、然後按一下登入。
 +
@@ -392,30 +390,30 @@ $targetvm, $targetvmdisk | Get-SPBMEntityConfiguration
 ----
 ====
 .跨資料中心位置移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
 * 當第 2 層流量透過 NSX 聯盟或其他選項延伸至資料中心時、請遵循在 vCenter 伺服器之間移轉 VM 的程序。
-* HCx 提供各種功能 https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["移轉類型"] 包括跨資料中心的複寫輔助 VMotion 、可在不停機的情況下移動 VM 。
+* HCx 提供多種 https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-11/vmware-hcx-user-guide-4-11/migrating-virtual-machines-with-vmware-hcx/vmware-hcx-migration-types.html["移轉類型"]功能，包括跨資料中心的複寫輔助 VMotion ，可在不停機的情況下移動 VM 。
 * https://docs.vmware.com/en/Site-Recovery-Manager/index.html["Site Recovery Manager（SRM）"] 通常用於災難恢復、也常用於利用儲存陣列型複寫進行計畫性移轉。
-* 持續資料保護（ CDP ）產品的用途 https://core.vmware.com/resource/vmware-vsphere-apis-io-filtering-vaio#section1["適用於 IO （ VAIO ）的 vSphere API"] 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。
+* 持續資料保護（ CDP ）產品用於 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["適用於 IO （ VAIO ）的 vSphere API"]攔截資料，並將複本傳送至遠端位置，以獲得接近零的 RPO 解決方案。
 * 也可以使用備份與還原產品。但通常會導致更長的 RTO 。
 * https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 災難恢復即服務（ DRaaS ）"] 利用儲存陣列型複寫功能、將特定工作自動化、以便在目標站台上恢復 VM 。
 
 
 ====
 .在混合雲環境中移轉 VM
-[%collapsible]
+[%collapsible%open]
 ====
-* https://docs.vmware.com/en/VMware-Cloud/services/vmware-cloud-gateway-administration/GUID-91C57891-4D61-4F4C-B580-74F3000B831D.html["設定混合式連結模式"] 並遵循的程序 link:#vmotion-same-sso["在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/cloud/vmware-cloud/cloud/vmware-cloud-gateway-administration/about-hybrid-linked-mode.html["設定混合式連結模式"]並遵循的程序link:#vmotion-same-sso["在同一個 SSO 網域的 vCenter 伺服器之間移轉 VM"]
 * HCx 提供各種功能 https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-8A31731C-AA28-4714-9C23-D9E924DBB666.html["移轉類型"] 包括跨資料中心的複寫輔助 VMotion 、可在虛擬機器開機時移動虛擬機器。
 +
-** 連結： ../EHC/aws-migrate-vmware-hcx.html [TR 4942 ：使用 VMware HCx] 將工作負載移轉至 FSX ONTAP 資料存放區
-** 連結： ../EHC/azure-migrate-vmware-hcx.html [TR-4940 ：使用 VMware HCX 將工作負載移轉至 Azure NetApp Files 資料存放區 - 快速入門指南 ]
-** 連結： ../EHC/gcp-migrate-vmware-hcx.html [ 使用 VMware HCX 將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區 VMware Engine - 快速入門指南 ]
+** link:../ehc/aws-migrate-vmware-hcx.html["TR 4942：ONTAP 使用VMware HCX將工作負載移轉至FSx支援資料存放區"]
+** link:../ehc/azure-migrate-vmware-hcx.html["TR-4940：Azure NetApp Files 使用VMware HCX -快速入門指南、將工作負載移轉至VMware Infrastructure資料存放區"]
+** link:../ehc/gcp-migrate-vmware-hcx.html["使用 VMware HCX 快速入門指南，將工作負載移轉至 Google Cloud NetApp Volumes 資料存放區 VMware Engine"]
 
 
 * https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["BlueXP 災難恢復即服務（ DRaaS ）"] 利用儲存陣列型複寫功能、將特定工作自動化、以便在目標站台上恢復 VM 。
-* 使用支援的持續資料保護（ CDP ）產品 https://core.vmware.com/resource/vmware-vsphere-apis-io-filtering-vaio#section1["適用於 IO （ VAIO ）的 vSphere API"] 攔截資料並將複本傳送至遠端位置、以獲得接近零的 RPO 解決方案。
+* 支援的持續資料保護（ CDP ）產品可用來 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/7-0/vsphere-storage-7-0/filtering-virtual-machine-i-o-in-vsphere/about-i-o-filters/classes-of-vaio-filters.html["適用於 IO （ VAIO ）的 vSphere API"]攔截資料，並將複本傳送至遠端位置，以獲得近乎零的 RPO 解決方案。
 
 
 
@@ -434,7 +432,7 @@ VM 範本可由 vCenter Server 或內容庫管理。VM 範本、 OVF 和 OVA 範
 
 
 .移轉存放在資料存放區上的 VM 範本
-[%collapsible]
+[%collapsible%open]
 ====
 . 在 vSphere Web Client 中、在 VM and Templates 資料夾檢視下的 VM 範本上按一下滑鼠右鍵、然後選取選項以轉換為 VM 。
 +
@@ -445,7 +443,7 @@ image:migrate-vms-to-ontap-image16.png["將 VM 範本轉換成 VM"]
 
 ====
 .內容庫項目的複本
-[%collapsible]
+[%collapsible%open]
 ====
 . 在 vSphere Web Client 中、選取內容庫
 +
@@ -483,7 +481,7 @@ Get-ContentLibaryItem -ContentLibary (Get-ContentLibary 'CL01' -Server $sourcevc
 ----
 ====
 .將 VM 新增為內容庫中的範本
-[%collapsible]
+[%collapsible%open]
 ====
 . 在 vSphere Web Client 中、選取虛擬機器、然後按一下滑鼠右鍵、選擇「在程式庫中複製為範本」
 +
@@ -499,7 +497,7 @@ image:migrate-vms-to-ontap-image22.png["範本類型選擇"]
 
 +
 
-NOTE: 如需內容庫上 VM 範本的其他詳細資料、請參閱 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vm-administration/GUID-E9EAF7AC-1C08-441A-AB80-0BAA1EAF9F0A.html["vSphere VM 管理指南"]
+NOTE: 如需內容庫上 VM 範本的其他詳細資料，請參閱 https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vsphere-virtual-machine-administration-guide-8-0.html["vSphere VM 管理指南"]
 
 
 
@@ -521,7 +519,7 @@ NOTE: 如需內容庫上 VM 範本的其他詳細資料、請參閱 https://docs
 * 如果無法進行就地升級、則可建立新環境並使用上述移轉選項。
 +
 
-TIP: 在跨 vCenter 移轉選項中、如果來源上沒有匯出選項、則從目標匯入。如需該程序、請檢查 https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-ED703E35-269C-48E0-A34D-CCBB26BFD93E.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
+TIP: 在跨 vCenter 移轉選項中、如果來源上沒有匯出選項、則從目標匯入。如需該程序，請檢查link:https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/vmotion-across-vcenter-server-systems-host-management/migrate-a-virtual-machine-from-an-external-vcenter-server-instance-host-management.html["使用進階 Cross vCenter VMotion 匯入或複製虛擬機器"]
 
 
 
@@ -532,7 +530,7 @@ TIP: 在跨 vCenter 移轉選項中、如果來源上沒有匯出選項、則從
 * 將 VM 從每個 vSphere 叢集移轉至目標工作負載網域。
 +
 
-NOTE: 若要允許與來源 vCenter 上其他叢集上的現有虛擬機器進行網路通訊、請將來源 vCenter vSphere 主機新增至傳輸區域、以延伸 NSX 區段、或使用邊緣上的 L2 橋接器、以允許 VLAN 中的 L2 通訊。請參閱的 NSX 文件 https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-0E28AC86-9A87-47D4-BE25-5E425DAF7585.html["設定用於橋接的 Edge VM"]
+NOTE: 若要允許與來源 vCenter 上其他叢集上的現有虛擬機器進行網路通訊、請將來源 vCenter vSphere 主機新增至傳輸區域、以延伸 NSX 區段、或使用邊緣上的 L2 橋接器、以允許 VLAN 中的 L2 通訊。請參閱的 NSX 文件 https://techdocs.broadcom.com/us/en/vmware-cis/nsx/vmware-nsx/4-2/administration-guide/segments/edge-bridging-extending-overlay-segments-to-vlan/configure-an-edge-vm-for-bridging.html["設定用於橋接的 Edge VM"]
 
 
 
@@ -541,11 +539,10 @@ NOTE: 若要允許與來源 vCenter 上其他叢集上的現有虛擬機器進�
 
 == 其他資源
 
-* https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-vcenter-esxi-management/GUID-FE2B516E-7366-4978-B75C-64BF0AC676EB.html["vSphere 虛擬機器移轉"]
-* https://core.vmware.com/blog/whats-new-vsphere-8-vmotion["vSphere 8 for VMotion 的新功能"]
-* https://core.vmware.com/vmotion["vSphere VMotion 資源"]
-* https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-47F34658-FA46-4160-B2E0-4EAE722B43F0.html["NSX 聯盟中的 Tier-0 閘道組態"]
-* https://docs.vmware.com/en/VMware-HCX/4.8/hcx-user-guide/GUID-BFD7E194-CFE5-4259-B74B-991B26A51758.html["HCx 4.8 使用者指南"]
-* https://docs.vmware.com/en/Site-Recovery-Manager/index.html["VMware Site Recovery Manager文件"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management.html["vSphere 虛擬機器移轉"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0/vcenter-and-host-management-8-0/migrating-virtual-machines-host-management/migration-with-vmotion-host-management.html["使用 vSphere VMotion 移轉虛擬機器"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/nsx/vmware-nsx/4-2/administration-guide/managing-nsx-t-in-multiple-locations/nsx-t-federation/networking-topologies-in-nsx-federation/tier-0-in-federation.html["NSX 聯盟中的 Tier-0 閘道組態"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/hcx/vmware-hcx/4-11/vmware-hcx-user-guide-4-11.html["HCx 4.8 使用者指南"]
+* https://techdocs.broadcom.com/us/en/vmware-cis/live-recovery.html["VMware Live Recovery 說明文件"]
 * https://docs.netapp.com/us-en/bluexp-disaster-recovery/get-started/dr-intro.html["適用於 VMware 的 BlueXP 災難恢復"]
 

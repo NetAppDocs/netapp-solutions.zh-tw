@@ -1,0 +1,46 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-bluexp-disaster-recovery.html 
+keywords: vmware, getting, started, overview, netapp, bluexp, disaster, recovery, draas 
+summary:  
+---
+= BlueXP  災難恢復（ DRaaS ）
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+災難恢復規劃對於 VMware 管理員來說至關重要，可在發生硬體故障，網路攻擊或自然災害時，將停機時間降至最低。
+
+
+
+== 簡介
+
+成功的計畫和技術組合，可確保關鍵資料，應用程式和 VM 的保護。災難恢復的挑戰是確定適當的保護層級和相關成本。
+
+ONTAP 陣列提供內建複寫功能、可將磁碟區資料傳輸、因此也就是位於指定資料存放區 LUN 上的虛擬機器、從一個站台傳輸到另一個站台。BlueXP  DRaaS 可與 vSphere 整合、並自動化整個工作流程、在發生災難時提供無縫容錯移轉和容錯回復。
+
+如需 BlueXP  DRaaS 的詳細資訊，請參閱link:https://docs.netapp.com/us-en/netapp-solutions/ehc/dr-draas-overview.html["BlueXP  DRaaS 總覽"]。
+
+
+
+== 考量
+
+在 VMware vSphere 環境中，災難恢復容錯移轉最耗時的部分，是執行在災難恢復站台上清查，登錄，重新設定及啟動 VM 所需的步驟。理想的解決方案既有低 RPO （以分鐘為單位）、也有低 RTO （以分鐘至小時為單位）。災難恢復解決方案中經常忽略的一個因素、就是能夠定期有效測試災難恢復解決方案。
+
+若要建構災難恢復解決方案、請謹記下列因素：
+
+* 恢復時間目標（ RTO ）。RTO 是指企業從災難中恢復的速度、更具體地說、執行恢復程序需要多長時間才能再次提供商業服務。
+* 恢復點目標（ RPO ）。RPO 是指恢復的資料在可用後的時間、相對於災難發生的時間。
+* 擴充性與適應性：這項因素包括隨需求增加而逐漸增加儲存資源的能力。
+
+
+如需可用解決方案的詳細技術資訊、請參閱：
+
+* link:https://docs.netapp.com/us-en/netapp-solutions/ehc/dr-draas-nfs.html["DR 使用 BlueXP  DRaaS for NFS 資料存放區"]
+* link:https://docs.netapp.com/us-en/netapp-solutions/ehc/dr-draas-vmfs.html["災難恢復使用 BlueXP  DRaaS for VMFS 資料存放區"]
+

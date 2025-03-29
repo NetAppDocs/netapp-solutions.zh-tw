@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 Veeam 備份與複寫是有效且可靠的解決方案、可在 VMware Cloud 中保護資料。此解決方案展示了正確的設定和組態、可讓您使用 Veeam 備份和複寫來備份和還原位於 VMware Cloud 中 FSX ONTAP NFS 資料存放區上的應用程式 VM 。
 
-作者： Josh Powell - NetApp 解決方案工程部
-
 
 
 == 總覽
@@ -47,7 +45,7 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 
 
 .解決方案部署總覽
-[%collapsible]
+[%collapsible%open]
 ====
 此清單提供設定 Veeam 備份與複寫、使用 FSX ONTAP 做為備份儲存庫執行備份與還原工作、以及執行 SQL Server 、 Oracle VM 和資料庫還原所需的高階步驟：
 
@@ -60,7 +58,7 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 
 ====
 .先決條件
-[%collapsible]
+[%collapsible%open]
 ====
 此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX ONTAP 主控的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設已設定下列元件、可供使用：
 
@@ -91,7 +89,7 @@ VMware Cloud （在 AWS 中）支援使用 NFS 資料存放區做為補充儲存
 image:aws-vmc-veeam-00.png["解決方案架構示意圖"]
 
 .硬體/軟體元件
-[%collapsible]
+[%collapsible%open]
 ====
 此解決方案的目的是展示在 VMware Cloud 中執行、位於由 FSX ONTAP 主控的 NFS 資料存放區上的虛擬機器的資料保護功能。本解決方案假設下列元件已設定好可供使用：
 
@@ -137,7 +135,7 @@ Veeam Data Mover 是 Veeam Proxy 伺服器的元件、使用傳輸模式作為�
 在接下來的步驟中、我們將在 VMware Cloud SDDC 中的 Windows VM 上部署 Veeam Proxy Server 。
 
 .部署 Veeam Proxy 以分散備份工作負載
-[%collapsible]
+[%collapsible%open]
 ====
 在此步驟中、 Veeam Proxy 會部署至現有的 Windows VM 。如此可在主要 Veeam Backup Server 和 Veeam Proxy 之間分配備份工作。
 
@@ -185,7 +183,7 @@ image:aws-vmc-veeam-10.png["設定網路流量規則"]
 主要 Veeam 備份伺服器和 Veeam Proxy 伺服器可以直接連線儲存設備的形式存取備份儲存庫。在本節中、我們將介紹如何建立 FSX ONTAP 檔案系統、將 iSCSI LUN 掛載至 Veeam 伺服器、以及建立備份儲存庫。
 
 .建立 FSX ONTAP 檔案系統
-[%collapsible]
+[%collapsible%open]
 ====
 建立將用於裝載 Veeam 備份儲存庫 iSCSI 磁碟區的 FSX ONTAP 檔案系統。
 
@@ -206,7 +204,7 @@ image:aws-vmc-veeam-03.png["填寫檔案系統資訊"]
 
 ====
 .設定及掛載 iSCSI LUN
-[%collapsible]
+[%collapsible%open]
 ====
 在 FSX ONTAP 上建立及設定 iSCSI LUN 、然後掛載至 Veeam 備份與 Proxy 伺服器。這些 LUN 稍後將用於建立 Veeam 備份儲存庫。
 
@@ -257,7 +255,7 @@ image:aws-vmc-veeam-13.png["Windows 磁碟管理"]
 
 ====
 .建立 Veeam 備份儲存庫
-[%collapsible]
+[%collapsible%open]
 ====
 在 Veeam Backup and Replication 主控台中、為 Veeam Backup 和 Veeam Proxy 伺服器建立備份儲存庫。這些儲存庫將作為虛擬機器備份的備份目標。
 
@@ -293,7 +291,7 @@ image:aws-vmc-veeam-16.png["選擇掛載伺服器"]
 
 
 .設定 Veeam 備份工作時的一般考量
-[%collapsible]
+[%collapsible%open]
 ====
 . 啟用應用程式感知處理、以建立一致的備份並執行交易記錄處理。
 . 啟用應用程式感知處理後、請將具有管理員權限的正確認證新增至應用程式、因為這可能與來賓作業系統認證不同。
@@ -329,7 +327,7 @@ Veeam 備份與複寫提供數種還原 SQL Server 資料庫的選項。在此�
 
 
 .使用 Veeam Explorer Instant Recovery 還原 SQL Server 資料庫
-[%collapsible]
+[%collapsible%open]
 ====
 . 在 Veeam 備份與複寫主控台中、瀏覽至 SQL Server 備份清單、在伺服器上按一下滑鼠右鍵、然後選取 * 還原應用程式項目 * 、再選取 * Microsoft SQL Server 資料庫 ... * 。
 +
@@ -369,7 +367,7 @@ Veeam Explorer for Oracle 資料庫提供使用 Instant Recovery 執行標準 Or
 如需使用 Veeam Explorer 執行 Oracle 資料庫還原作業的詳細資訊、請參閱中的 Oracle 一節 https://helpcenter.veeam.com/docs/backup/explorers/veor_user_guide.html?ver=120["Veeam Explorers 使用者指南"]。
 
 .使用 Veeam Explorer 還原 Oracle 資料庫
-[%collapsible]
+[%collapsible%open]
 ====
 在本節中、使用 Veeam Explorer 將 Oracle 資料庫還原至不同的伺服器。
 
@@ -406,7 +404,7 @@ image:aws-vmc-veeam-31.png["特定目標位置"]
 
 ====
 .將 Oracle 資料庫發佈至替代伺服器
-[%collapsible]
+[%collapsible%open]
 ====
 在本節中、資料庫會發佈到替代伺服器、以便在不啟動完整還原的情況下快速存取。
 

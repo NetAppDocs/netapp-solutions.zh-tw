@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/a-w-n_private_registry.html 
-keywords: Advanced Configuration, Private Registry, Trident, OpenShift Registry, NetApp Astra Control Center Registry 
+keywords: Advanced Configuration, Private Registry, Trident, OpenShift Registry 
 summary: 本節旨在建立及設定私有映像登錄、並以 Trident 提供的持續儲存設備作為後盾。 
 ---
 = 建立私有映像登錄
@@ -17,9 +17,6 @@ summary: 本節旨在建立及設定私有映像登錄、並以 Trident 提供�
 對於大部分的Red Hat OpenShift部署、請使用類似的公用登錄 https://quay.io["Quay.IO"] 或 https://hub.docker.com["DockerHub"] 滿足大多數客戶的需求。不過有時候客戶可能想要裝載自己的私有或自訂映像。
 
 本程序說明如何建立私有映像登錄、並以 Trident 和 NetApp ONTAP 提供的持續磁碟區作為後盾。
-
-
-NOTE: Astra Control Center需要登錄來裝載Astra容器所需的映像。下節說明在Red Hat OpenShift叢集上設定私有登錄的步驟、以及推送支援Astra Control Center安裝所需的映像。
 
 
 

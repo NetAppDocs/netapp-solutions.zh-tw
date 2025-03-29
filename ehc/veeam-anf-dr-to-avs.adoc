@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 Azure NetApp Files （ anf ）資料存放區可將儲存設備與運算分離、並釋放任何組織將工作負載移轉至雲端所需的靈活度。它為客戶提供靈活、高效能的儲存基礎架構、可在運算資源之外進行擴充。Azure NetApp Files 資料存放區可簡化並最佳化部署、並將 Azure VMware 解決方案（ AVS ）作為內部部署 VMware 環境的災難恢復站台。
 
-作者： Niyaz Mohamed - NetApp 解決方案工程
-
 
 
 == 總覽
@@ -74,7 +72,7 @@ image:dr-veeam-anf-image1.png["此圖顯示輸入 / 輸出對話方塊或表示�
 === 部署詳細資料
 
 .步驟 1 ：複寫 VM
-[%collapsible]
+[%collapsible%open]
 ====
 Veeam 備份與複寫利用 VMware vSphere 快照功能 / 在複寫期間、 Veeam 備份與複寫要求 VMware vSphere 建立 VM 快照。VM 快照是 VM 的時間點複本、其中包含虛擬磁碟、系統狀態、組態和中繼資料。Veeam 備份與複寫會使用快照做為複寫資料來源。
 
@@ -128,7 +126,7 @@ image:dr-veeam-anf-image9.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 ====
 .步驟 2 ：建立容錯移轉計畫
-[%collapsible]
+[%collapsible%open]
 ====
 當初始複寫或植入完成時、請建立容錯移轉計畫。容錯移轉計畫有助於自動逐一或以群組的方式、為相關的 VM 執行容錯移轉。容錯移轉計畫是 VM 處理順序的藍圖、包括開機延遲。容錯移轉計畫也有助於確保關鍵相依的 VM 已經在執行中。
 
@@ -163,7 +161,7 @@ image:dr-veeam-anf-image12.png["此圖顯示輸入 / 輸出對話方塊或表示
 
 ====
 .步驟 3 ：執行容錯移轉計畫
-[%collapsible]
+[%collapsible%open]
 ====
 在容錯移轉期間、正式作業站台中的來源 VM 會切換至災難恢復站台上的複本。在容錯移轉程序中、 Veeam 備份與複寫會將 VM 複本還原至所需的還原點、並將所有 I/O 活動從來源 VM 移至複本。複本不僅可在發生災難時使用、也可用於模擬災難恢復訓練。在容錯移轉模擬期間、來源 VM 仍在執行中。完成所有必要的測試後、即可復原容錯移轉並恢復正常作業。
 
@@ -191,7 +189,7 @@ NOTE: Veeam 備份與複寫會停止來源 VM 的所有複寫活動、直到其�
 
 ====
 .步驟 4 ：容錯回復至正式作業網站
-[%collapsible]
+[%collapsible%open]
 ====
 當容錯移轉計畫執行時、它會被視為中間步驟、需要根據需求完成。選項包括：
 

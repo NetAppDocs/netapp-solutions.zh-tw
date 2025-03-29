@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 本解決方案涵蓋使用 Amazon FSX ONTAP 在 AWS EC2 上部署 SQL Server 。
 
-作者：Pat Sinthusan和Niyazz Mohamed, NetApp
-
 
 
 == 簡介
@@ -70,7 +68,7 @@ Amazon FSX ONTAP 是在 AWS 中部署 SQL Server 的理想檔案儲存設備。�
 此外、請參閱適用於SQL Server環境的NetApp最佳實務做法、以確保最佳的儲存組態。
 
 .EC2上SQL Server環境的最佳實務組態
-[%collapsible]
+[%collapsible%open]
 ====
 有了FSX ONTAP 功能、採購儲存設備是最簡單的工作、而且可以透過更新檔案系統來執行。這項簡單的程序可視需要進行動態成本與效能最佳化、有助於平衡SQL工作負載、同時也是精簡配置的絕佳推手。FSX ONTAP 支援不中斷資源配置是專為執行SQL Server的EC2執行個體所設計、其邏輯儲存空間比檔案系統中的資源配置更多。儲存空間會隨著資料寫入而動態分配給每個Volume或LUN、而非預先配置空間。在大多數組態中、當刪除磁碟區或LUN中的資料（且未被任何Snapshot複本保留）時、也會釋出可用空間。下表提供動態分配儲存設備的組態設定。
 
@@ -140,7 +138,7 @@ NOTE: 對於任務關鍵型應用程式（例如SQL Server）、即使是最短�
 若要以SnapCenter 支援功能執行SQL Server作業、您必須先為SQL Server建立磁碟區和LUN。
 
 .為SQL Server建立磁碟區和LUN
-[%collapsible]
+[%collapsible%open]
 ====
 若要為SQL Server建立磁碟區和LUN、請完成下列步驟：
 
@@ -288,13 +286,13 @@ Format-Volume -DriveLetter G -FileSystem NTFS -AllocationUnitSize 65536
 一旦定義了磁碟區和LUN、您就必須設定SnapCenter 好支援功能、才能執行資料庫作業。
 
 .概述SnapCenter
-[%collapsible]
+[%collapsible%open]
 ====
 NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應用程式。利用單一窗口管理介面、可自動化並簡化與備份、還原及複製多個資料庫及其他應用程式工作負載相關的手動、複雜且耗時的程序SnapCenter 。NetApp利用NetApp技術、包括NetApp Snapshot、NetApp SnapMirror、SnapMirror和NetApp FlexClone SnapRestore SnapCenter 。這項整合可讓IT組織擴充其儲存基礎架構、滿足日益嚴苛的SLA承諾、並提升整個企業系統管理員的生產力。
 
 ====
 .伺服器需求SnapCenter
-[%collapsible]
+[%collapsible%open]
 ====
 下表列出在SnapCenter Microsoft Windows Server上安裝支援服務器和外掛程式的最低需求。
 
@@ -346,7 +344,7 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 
 ====
 .資料庫儲存配置
-[%collapsible]
+[%collapsible%open]
 ====
 下圖說明使用SnapCenter 還原進行備份時、建立Microsoft SQL Server資料庫儲存配置的一些考量。
 
@@ -375,7 +373,7 @@ NOTE: 當您建立新資料庫時、Microsoft建議您為資料和記錄指定�
 
 ====
 .安裝與設定SnapCenter 以利執行
-[%collapsible]
+[%collapsible%open]
 ====
 請依照 https://docs.netapp.com/us-en/snapcenter/install/task_install_the_snapcenter_server_using_the_install_wizard.html["安裝SnapCenter 此伺服器"^] 和 https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_add_hosts_and_install_snapcenter_plug_ins_package_for_windows.html["安裝SnapCenter 適用於Microsoft SQL Server的功能性外掛程式"^] 以安裝及設定SnapCenter 。
 
@@ -423,7 +421,7 @@ image:sql-awsec2-image18.png["此圖顯示輸入 / 輸出對話方塊或表示�
 現在您已準備好執行SQL Server的備份、還原和複製作業。
 
 .利用功能進行資料庫備份SnapCenter
-[%collapsible]
+[%collapsible%open]
 ====
 將資料庫和記錄檔放在FSX ONTAP 支援LUN上之後、SnapCenter 即可使用支援功能來備份資料庫。下列程序用於建立完整備份。
 
@@ -465,7 +463,7 @@ image:sql-awsec2-image23.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 ====
 .還原資料庫SnapCenter
-[%collapsible]
+[%collapsible%open]
 ====
 在ONTAP EC2上搭配使用FSX功能搭配SQL Server的主要優點之一、就是能夠在每個資料庫層級執行快速且精細的還原。
 
@@ -485,7 +483,7 @@ image:sql-awsec2-image25.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 ====
 .對於擁有大量小型到大型資料庫的執行個體來說、請考量這些考量
-[%collapsible]
+[%collapsible%open]
 ====
 在資源群組中的執行個體或執行個體群組中、可備份大量的大型資料庫SnapCenter 。資料庫的大小並不是備份時間的主要因素。備份的持續時間可能會因每個磁碟區的LUN數量、Microsoft SQL Server上的負載、每個執行個體的資料庫總數、特別是I/O頻寬和使用量而有所不同。在將原則設定為從執行個體或資源群組備份資料庫時、NetApp建議您將每個Snapshot複本備份的資料庫上限限制為每個主機100個。請確定Snapshot複本的總數未超過1,023個複本限制。
 
@@ -516,7 +514,7 @@ NetApp也建議您將資料庫數量分組、而非為每個資料庫或執行�
 
 ====
 .利用SnapCenter 功能複製資料庫
-[%collapsible]
+[%collapsible%open]
 ====
 若要將資料庫還原至開發或測試環境的其他位置、或建立複本以供商業分析之用、NetApp最佳實務做法是運用複製方法、在同一個執行個體或替代執行個體上建立資料庫複本。
 
@@ -527,7 +525,7 @@ NetApp也建議您將資料庫數量分組、而非為每個資料庫或執行�
 利用此功能、您可以將複製複本掛載到所需的磁碟上、以便在次要執行個體上維持資料夾結構的格式、並繼續排程備份工作SnapCenter 。
 
 .將資料庫複製到同一個執行個體中的新資料庫名稱
-[%collapsible]
+[%collapsible%open]
 =====
 下列步驟可用於將資料庫複製到同一個在EC2上執行的SQL Server執行個體中的新資料庫名稱：
 
@@ -539,7 +537,7 @@ NetApp也建議您將資料庫數量分組、而非為每個資料庫或執行�
 
 =====
 .將資料庫複製到EC2上執行的新SQL Server執行個體
-[%collapsible]
+[%collapsible%open]
 =====
 下列步驟可用來將資料庫複製到EC2上執行的新SQL Server執行個體：
 
@@ -570,7 +568,7 @@ video::27f28284-433d-4273-8748-b01200fb3cd7[panopto]
 == 附錄
 
 .附錄A：適用於雲端形成範本的Y反 洗錢檔案
-[%collapsible]
+[%collapsible%open]
 ====
 下列.yaml檔案可與AWS主控台的雲端形成範本搭配使用。
 
@@ -581,7 +579,7 @@ video::27f28284-433d-4273-8748-b01200fb3cd7[panopto]
 
 ====
 .附錄B：用於配置磁碟區和LUN的PowerShell指令碼
-[%collapsible]
+[%collapsible%open]
 ====
 下列指令碼可用來配置磁碟區和LUN、也可根據上述指示來設定iSCSI。有兩個PowerShell指令碼：
 

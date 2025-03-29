@@ -25,7 +25,7 @@ FSX ONTAP 是 AWS 上提供的第一方企業級雲端儲存服務、可提供�
 FSX ONTAP 提供無縫的部署與管理體驗。無需具備任何儲存專業知識即可開始使用。為了簡化監控、您可以使用 AWS lambda 功能（根據臨界值自動調整總儲存容量、磁碟區大小或 LUN 大小）。  本文件提供逐步指南、協助您建立自動設定、定期監控 FSX ONTAP 、並在超過使用者指定的臨界值時通知及調整大小、並通知系統管理員調整大小活動。
 
 .功能
-[%collapsible]
+[%collapsible%open]
 ====
 本解決方案提供下列功能：
 
@@ -48,7 +48,7 @@ FSX ONTAP 提供無縫的部署與管理體驗。無需具備任何儲存專業�
 
 ====
 .先決條件
-[%collapsible]
+[%collapsible%open]
 ====
 開始之前、請先確定符合下列先決條件：
 
@@ -59,7 +59,7 @@ FSX ONTAP 提供無縫的部署與管理體驗。無需具備任何儲存專業�
 
 ====
 .高階架構
-[%collapsible]
+[%collapsible%open]
 ====
 * AWS Lambda 功能會呼叫 FSX ONTAP 以擷取及更新儲存容量、磁碟區和 LUN 的大小。
 * 「 fsxadmin 」密碼會儲存為 AWS SSM 參數儲存區中的安全字串、以增加安全層級。
@@ -84,7 +84,7 @@ NOTE: 涵蓋單一 FSX ONTAP 檔案系統。
 請依照下列步驟完成本解決方案的自動化部署：
 
 .步驟1：複製GitHub儲存庫
-[%collapsible]
+[%collapsible%open]
 ====
 在本機系統上複製GitHub儲存庫：
 
@@ -94,7 +94,7 @@ git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 ----
 ====
 .步驟 2 ：設定 AWS S3 貯體
-[%collapsible]
+[%collapsible%open]
 ====
 . 瀏覽至 AWS 主控台 > * S2* 、然後按一下 * 建立儲存庫 * 。使用預設設定建立貯體。
 . 進入貯體後、按一下 * 上傳 * > * 新增檔案 * 、然後從系統上複製的 GitHub 儲存庫中選取 * Utilities.zip* 。
@@ -105,7 +105,7 @@ image:fsxn-monitoring-resizing-s3-upload-zip-files.png["此影像描述上傳 zi
 
 ====
 .步驟 3 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
-[%collapsible]
+[%collapsible%open]
 ====
 如果您想要部署不需存取網際網路的解決方案、請遵循此步驟（注意：將會增加與 VPC 端點相關的成本）。
 
@@ -122,7 +122,7 @@ image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS 
 
 ====
 .步驟 4 ： AWS CloudForgation 部署
-[%collapsible]
+[%collapsible%open]
 ====
 . 瀏覽至 AWS 主控台 > * CloudForgiate* > Create stack > with New Resources （標準）。
 +
@@ -176,7 +176,7 @@ NOTE: 支援在單一 VPC 中監控多個 FSX ONTAP 檔案系統。
 請依照下列步驟完成本解決方案的手動部署：
 
 .步驟1：複製GitHub儲存庫
-[%collapsible]
+[%collapsible%open]
 ====
 在本機系統上複製GitHub儲存庫：
 
@@ -186,7 +186,7 @@ git clone https://github.com/NetApp/fsxn-monitoring-auto-resizing.git
 ----
 ====
 .步驟 2 ： AWS SES SMTP 設定（如果沒有網際網路存取可用、則需要）
-[%collapsible]
+[%collapsible%open]
 ====
 如果您想要部署不需存取網際網路的解決方案、請遵循此步驟（注意：將會增加與 VPC 端點相關的成本）。
 
@@ -199,7 +199,7 @@ image:fsxn-monitoring-resizing-ses-smtp-creds-addition.png["此影像說明 AWS 
 
 ====
 .步驟 3 ：為 fsxadmin 密碼建立 SSM 參數
-[%collapsible]
+[%collapsible%open]
 ====
 瀏覽至AWS主控台>*參數儲存區*、然後按一下*建立參數*。
 
@@ -220,7 +220,7 @@ image:fsxn-monitoring-resizing-ssm-parameter.png["此影像說明AWS主控台上
 
 ====
 .步驟 4 ：設定電子郵件服務
-[%collapsible]
+[%collapsible%open]
 ====
 瀏覽至AWS主控台>*簡易電子郵件服務（SES）*、然後按一下*建立身分識別*。
 
@@ -237,7 +237,7 @@ image:fsxn-monitoring-resizing-ses.png["此影像說明AWS主控台的SES身分�
 
 ====
 .步驟 5 ：設定 VPC 端點（如果沒有網際網路存取可用、則需要）
-[%collapsible]
+[%collapsible%open]
 ====
 
 NOTE: 只有在部署時沒有網際網路存取時才需要。與 VPC 端點相關的額外成本。
@@ -268,7 +268,7 @@ image:fsxn-monitoring-resizing-vpc-endpoint-create-2.png["此影像說明 VPC �
 
 ====
 .步驟 6 ：建立及設定 AWS Lambda 功能
-[%collapsible]
+[%collapsible%open]
 ====
 . 瀏覽至 AWS Console （ AWS 主控台） > * AWS Lambda* > * Functions * （ * 功能 * ）、然後在與 FSX ONTAP 相同的區域中按一下 * Create Funct職能 * （建立功能 * ）
 . 使用預設的*從頭開始作者*並更新下列欄位：

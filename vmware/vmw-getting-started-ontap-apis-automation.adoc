@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-ontap-apis-automation.html 
+keywords:  
+summary:  
+---
+= 使用 NetApp API 加強 VMware 管理
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+API （應用程式設計介面）可實現虛擬化環境的自動化，整合及簡化管理，在 VMware 管理中扮演重要角色。
+
+
+
+== 簡介
+
+VMware 提供一系列 API ，可讓系統管理員以程式設計方式與各種 VMware 產品和服務互動，進而提升作業效率和一致性。此外， NetApp ONTAP API 還提供一套強大的工具，可讓管理員自動化，整合及最佳化儲存環境的管理，尤其是與 VMware 工作負載搭配使用。這些 API 有助於 ONTAP 儲存系統與 VMware 之間的順暢互動，進而提升效率，效能和資料保護。
+
+
+
+== VMware 型 API
+
+* * VMware vSphere API ： * vSphere API 是一套全方位的 API ，可讓管理員管理及自動化 VMware vSphere 環境。它提供各種 vSphere 功能的存取，包括虛擬機器資源配置，組態，監控和生命週期管理。
+* * VMware vCenter Server REST API ： * vCenter Server REST API 提供現代化的 RESTful 介面，用於管理 vCenter Server 及其相關元件。它可簡化自動化，並與其他系統和工具整合。
+* * VMware Cloud Foundation API ： * VMware 軟體定義資料中心（ SDDC ） API 可透過程式設計方式存取 VMware SDDC 環境中的各種元件和服務。這些 API 可讓系統管理員和開發人員自動化，管理及整合資料中心的不同層面，包括運算，儲存，網路和管理服務。
+* * VMware vSphere 儲存 API - 儲存感知： * VASA 是一組 API ，可將儲存陣列與 vCenter 整合以進行管理。此架構以多個元件為基礎、包括處理 VMware vSphere 與儲存系統之間通訊的 VASA Provider 。透過 ONTAP 、提供者將實作為 VMware vSphere ONTAP 工具的一部分。
+* * VMware vSphere 儲存 API - 陣列整合： * VAAI 是一組 API ，可在 VMware vSphere ESXi 主機和儲存裝置之間進行通訊。API 包含一組主機用來將儲存作業卸載到陣列的原始作業。VAAI 可大幅改善儲存密集工作的效能。
+
+
+
+
+== ONTAP 型 API
+
+* * NetApp ONTAP REST API ： * ONTAP REST API 提供現代化的 RESTful 介面，用於管理 ONTAP 儲存系統。它簡化了儲存工作的自動化，例如資源配置，監控和組態。它可輕鬆整合 VMware vSphere 和其他 VMware 管理工具，直接從 VMware 環境實現自動化儲存作業。它支援多種作業，從基本儲存管理到進階資料保護與複寫工作，都能實現可擴充且靈活的儲存管理。
+* * 適用於 VMware vSphere 的 ONTAP 工具： * 適用於 VMware vSphere 的 ONTAP 工具是整合 ONTAP 和 vSphere 的一組工具。它實作 VASA API 架構的供應商功能。ONTAP 工具也包括 vCenter 外掛程式、適用於 VMware Site Recovery Manager 的儲存複寫介面卡（ SRA ）、以及可用於建置自動化應用程式的 REST API 伺服器。
+
+
+
+
+== 摘要
+
+總而言之，透過 ONTAP API ，系統管理員可以在 VMware 環境中建立及設定資料存放區，確保快速且一致的儲存資源配置。此外，他們也能自動建立，排程及刪除 VMware 虛擬機器的快照，提供有效率的資料保護與還原選項。SnapMirror API 可協助自動化複寫關係的設定與管理，確保為 VMware 工作負載提供健全的災難恢復解決方案。系統管理員也可以實作指令碼來監控儲存效能指標，並在效能臨界值遭到違反時觸發警示或自動動作，確保 VMware 工作負載的最佳儲存效能。透過將 ONTAP API 與 VMware API 整合，例如 vSphere 提供的 API 和 vRealize ，系統管理員可以獲得無縫且高度自動化的管理體驗，進而提升虛擬化基礎架構的整體效率和可靠性。

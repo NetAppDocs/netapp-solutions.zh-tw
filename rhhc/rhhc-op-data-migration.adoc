@@ -4,7 +4,7 @@ permalink: rhhc/rhhc-op-data-migration.html
 keywords: NetApp Solutions, redhat OpenShift, red hat OpenShift, redhat openshift container platform, ocp, openshift container platform, Advanced Cluster Management, ACM, Hub Cluster, containers, container workloads, VMware, customer managed storage, ONTAP 
 summary:  
 ---
-= 使用 Astra Control Center 進行資料移轉
+= 使用 Trident Protect 進行資料移轉
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,9 +14,9 @@ summary:
 
 
 [role="lead"]
-此頁面顯示 Red Hat OpenShift 叢集搭配 Astra Control Center （ ACC ）的容器工作負載資料移轉選項。
+此頁面顯示 Red Hat OpenShift 叢集上具有 Trident Protect 的容器工作負載資料移轉選項。
 
-Kubernetes 應用程式通常需要從一個環境移至另一個環境。若要移轉應用程式及其持續資料、可以使用 NetApp ACC 。
+Kubernetes 應用程式通常需要從一個環境移至另一個環境。若要移轉應用程式及其持續資料，可以使用 NetApp Trident Protect 。
 
 
 
@@ -36,10 +36,7 @@ ACC 支援各種 Kubernetes 口味、包括 Google Anthos 、 Red Hat OpenShift 
 請參閱 link:https://docs.netapp.com/us-en/astra-control-center/use/clone-apps.html["請按這裡"] 如需關於 ** 複製的其他詳細資料 ** 。
 
 
-NOTE: Astra Replication 功能僅支援 Trident Container Storage Interface （ CSI ）。不過、 NAS 經濟型和 SAN 經濟型驅動程式不支援複寫。
-
-
 
 === 使用 Acc 執行資料複寫
 
-image:rhhc-onprem-dp-rep.png["Astra Control Center 複寫"]
+image:rhhc-onprem-dp-rep.png["Trident 保護複寫"]

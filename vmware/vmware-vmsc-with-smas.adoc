@@ -35,9 +35,9 @@ NOTE: 在非統一主機存取模式中、 vSphere HA 會在其他故障網域�
 
 == 先決條件
 
-* link:vmware_vcf_asa_supp_mgmt_iscsi.html#deployment-steps["VMware vSphere 主機部署於每部主機的雙儲存架構（兩個 HBA 或雙 VLAN 用於 iSCSI ）"]。
+* link:vmw-vcf-mgmt-supplemental-iscsi.html["VMware vSphere 主機部署於每部主機的雙儲存架構（兩個 HBA 或雙 VLAN 用於 iSCSI ）"]。
 * link:https://docs.netapp.com/us-en/ontap/networking/combine_physical_ports_to_create_interface_groups.html["儲存陣列是透過資料連接埠的連結集合來部署（適用於 iSCSI ）"]。
-* link:vmware_vcf_asa_supp_mgmt_iscsi.html#deployment-steps["儲存 VM 和生命都可用"]
+* link:vmw-vcf-mgmt-supplemental-iscsi.html["儲存 VM 和生命都可用"]
 * link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/prerequisites-reference.html#networking-environment["叢集間延遲往返時間必須少於 10 毫秒"]。
 * link:https://docs.netapp.com/us-en/ontap/mediator/index.html["ONTAP Mediator VM 部署在不同的故障網域上"]
 * link:https://docs.netapp.com/us-en/ontap/task_dp_prepare_mirror.html["叢集對等關係已建立"]

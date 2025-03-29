@@ -1,0 +1,121 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-vcf-scv-nvme.html 
+keywords: netapp, vmware, nvme, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, sddc, scv, workload, domain, backup 
+summary:  
+---
+= 使用 NVMe 型 NetApp 儲存設備來保護 VCF
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+透過 TCP 的 NVMe （非揮發性記憶體高速）是一種最先進的網路傳輸協定，可在 VMware Cloud Foundation ESXi 伺服器和 NetApp 儲存設備（包括 All Flash FAS （ AFF ）和 All SAN Array （ ASA ））之間加速資料傳輸。
+
+
+
+== 簡介
+
+利用 NVMe over TCP 為嚴苛的工作負載提供低延遲和高傳輸量。NVMe over TCP 與 NetApp SnapCenter Plug-in for VMware vSphere （選擇控制閥）的整合，提供強大的組合，可有效管理資料，強化 VMware 環境中的備份，還原及複製作業。
+
+
+
+== NVMe 優於 TCP 的優點
+
+* 高效能：以低延遲和高資料傳輸率提供卓越效能。這對於要求嚴苛的應用程式和大規模資料作業而言至關重要。
+* 擴充性：支援可擴充的組態，讓 IT 管理員能隨著資料需求的成長，順暢地擴充基礎架構。
+* 效率：加快備份與還原作業速度，減少停機時間並改善整體系統可用度。
+
+
+本文件提供在 VMware Cloud Foundation （ VCF ）環境中部署及管理選擇控制閥的步驟，重點在於運用 NVMe over TCP 以獲得最佳效能。
+
+
+
+== 目標對象
+
+解決方案架構設計師或儲存管理員可確保 VMware VCF 工作負載網域的資料保護與災難恢復。
+
+
+
+== 架構總覽
+
+選擇控制閥是一項功能強大的工具，專為 VMware 環境中的 VM ，資料存放區，檔案和資料夾，提供快速，節省空間，一致當機且 VM 一致的備份與還原作業。選擇控制閥是使用 OVA 檔案部署為 Linux 虛擬應用裝置，並採用遠端外掛架構。
+
+
+
+=== 選擇控制閥部署架構
+
+* 虛擬應用裝置部署：選擇控制閥是使用 OVA 檔案部署為 Linux 虛擬應用裝置。這種部署方法可確保簡化且有效率的設定程序。
+* 遠端外掛架構：選擇控制閥採用遠端外掛架構，可在管理多個執行個體時提供擴充性和靈活度。
+* 一對一關係：每個 VCF 網域都需要專用的選擇控制閥執行個體，以確保隔離且有效率的備份與還原作業。
+
+
+ONTAP 9.10.1 及更新版本 NetApp AFF 支援 NVMe over TCP ASA 。資料位於 AFF 或 ASA 主要系統上，可複寫至 ONTAP AFF 或 ASA 次要系統。選擇控制閥也可搭配 SnapCenter 伺服器使用，在 VMware 環境中支援應用程式型備份與還原作業，以供 SnapCenter 應用程式專用外掛程式使用。如需詳細資訊，請參閱link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/index.html["VMware vSphere文件的VMware外掛程式SnapCenter"]和link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_aff_multi_wkld_scv.html#audience["SnapCenter Plug-in for VMware vSphere 說明文件，並使用 NetApp SnapCenter for VMware vSphere （ SCV ）保護 VCF 管理網域和多個工作負載網域。"]
+
+image:vmware-vcf-aff-image50.png["Vcf 多工作負載網域，含選擇控制閥"]
+
+3-2-1 備份規則是 一種資料保護策略，包括製作三份資料複本，將資料儲存在兩種不同類型的媒體上，以及將一份複本保留在異地。BlueXP 備份與還原是一種雲端型的資料管理工具、可提供單一控制面板、在內部部署和雲端環境中執行各種備份與還原作業。NetApp BlueXP  備份與恢復套件的一部分是與選擇控制閥（內部部署）整合的功能，可將資料複本延伸至雲端中的物件儲存設備。這會建立第三份資料的異地複本、該複本來自主要或次要儲存備份。BlueXP 備份與還原可讓您輕鬆設定儲存原則、從這兩個內部部署位置中的任一位置傳輸資料複本。如需詳細資訊，請參閱link:https://docs.netapp.com/us-en/netapp-solutions/ehc/bxp-scv-hybrid-solution.html["適用於 VMware 的 3-2-1 Data Protection ，搭配 SnapCenter 外掛程式，以及適用於 VM 的 BlueXP  備份與還原功能。"]
+
+
+
+== NVMe 部署步驟上的 VCF 選擇控制閥
+
+link:https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["VMware vSphere適用的工具ONTAP"]（ OTV ）提供功能強大且有效率的解決方案，用於管理 VMware 環境中的 NetApp 儲存設備。透過直接與 vCenter Server 整合， OTV 可簡化儲存管理，增強資料保護，並最佳化效能。雖然是選用的，但部署 OTV 可以大幅改善 VMware 環境的管理功能和整體效率。
+
+* link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_asa_supp_wkld_nvme.html#scenario-overview["為 VCF 工作負載網域建立 NVMe / TCP 儲存設備"]
+* link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware_vcf_aff_multi_wkld_scv.html#architecture-overview["設定 NetApp SnapCenter for VMware vSphere （選擇控制閥）"]
+
+
+.還原 VM ，資料存放區，虛擬磁碟和檔案或資料夾
+[%collapsible%open]
+====
+選擇控制閥可為 VMware 環境提供全方位的備份與還原功能。對於 VMFS 環境，選擇控制閥會搭配 Storage VMotion 使用複製和掛載作業來執行還原作業。如此可確保資料的有效無縫還原。如需詳細資訊，請參閱link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_how_restore_operations_are_performed.html["還原作業的執行方式。"]
+
+* VM 還原您可以將 VM 還原至同一 vCenter Server 內的原始主機，或還原至同一 vCenter Server 所管理的替代 ESXi 主機。
++
+.. 在虛擬機器上按一下滑鼠右鍵，然後在下拉式清單中選取 SnapCenter Plug-in for VMware vSphere ，然後在次要下拉式清單中選取還原以啟動精靈。
+.. 在還原精靈中，選取您要還原的備份 Snapshot ，然後在還原範圍欄位中選取整個虛擬機器，選取還原位置，然後輸入備份應裝載的目的地資訊。在「選取位置」頁面上，選取還原的資料存放區的位置。檢閱「摘要」頁面，然後按一下「完成」。image:vmware-vcf-aff-image66.png["VM Restore"]
+
+
+* 掛載資料存放區如果您想要存取備份中的檔案，可以從備份掛載傳統資料存放區。您可以將備份掛載到建立備份的同一個ESXi主機、或掛載到具有相同類型VM和主機組態的替代ESXi主機。您可以在主機上多次掛載資料存放區。
++
+.. 以滑鼠右鍵按一下資料存放區，然後選取 SnapCenter Plug-in for VMware vSphere > Mount Backup 。
+.. 在 [ 掛載資料存放區 ] 頁面上，選取備份和備份位置（主要或次要），然後按一下 [ 掛載 ] 。
+
+
+
+
+image:vmware-vcf-aff-image67.png["掛載資料存放區"]
+
+* 附加虛擬磁碟您可以將一或多個 VMDK 從備份附加到父虛擬機器，或附加到同一 ESXi 主機上的替代虛擬機器，或是連結模式下由同一個 vCenter 或不同 vCenter 管理的替代 ESXi 主機上的替代虛擬機器。
++
+.. 在虛擬機器上按一下滑鼠右鍵，選取 SnapCenter Plug-in for VMware vSphere > Attach virtual disk(s) （附加虛擬磁碟）。
+.. 在 Attach Virtual Disk （附加虛擬磁碟）視窗中，選取一個備份，然後選取您要附加的一或多個磁碟，以及您要附加的來源（主要或次要）。根據預設、所選的虛擬磁碟會附加至父VM。若要將選取的虛擬磁碟附加至同一 ESXi 主機中的替代 VM ，請選取「按一下這裡以附加至替代 VM 」，然後指定替代 VM 。按一下「附加」。
+
+
+
+
+image:vmware-vcf-aff-image68.png["連接虛擬磁碟"]
+
+* 檔案和資料夾還原步驟可在來賓檔案還原工作階段中還原個別檔案和資料夾，此工作階段會附加虛擬磁碟的備份複本，然後還原選取的檔案或資料夾。檔案和資料夾也可以還原。詳細資料請參閱link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_restore_guest_files_and_folders_overview.html["SnapCenter 檔案與資料夾還原。"]
++
+.. 當您將虛擬附加磁碟用於來賓檔案或資料夾還原作業時，附加的目標 VM 必須先設定認證，才能還原。從  SnapCenter Plug-in for VMware vSphere 的外掛程式中，選取  「來賓檔案還原」和「以認證執行」區段，輸入使用者認證。對於使用者名稱，您必須輸入「 Administrator 」。image:vmware-vcf-aff-image60.png["還原認證"]
+.. 在 vSphere 用戶端的 VM 上按一下滑鼠右鍵，然後選取  SnapCenter Plug-in for VMware vSphere > 客體檔案還原。在  「還原範圍」頁面上，指定備份名稱， VMDK 虛擬磁碟和位置（主要或次要）。按一下摘要以確認。image:vmware-vcf-aff-image69.png["檔案與資料夾還原"]
+
+
+
+
+====
+
+
+== 監控與報告
+
+選擇控制閥提供強大的監控與報告功能，可協助管理員有效管理備份與還原作業。您可以檢視狀態資訊，監控工作，下載工作記錄，存取報告，以取得更多詳細資料檢查link:https://docs.netapp.com/us-en/sc-plugin-vmware-vsphere/scpivs44_view_status_information.html["適用於 VMware vSphere Monitor 和 Report 的 SnapCenter 外掛程式。"]
+
+image:vmware-vcf-aff-image65.png["SCV儀表板"]
+
+透過利用適用於 VMware vSphere 的 NVMe over TCP 和 NetApp SnapCenter 外掛程式的強大功能，組織可以為 VMware Cloud Foundation 工作負載網域實現高效能資料保護和災難恢復。這種方法可確保快速，可靠的備份與還原作業，將停機時間降至最低，並保護重要資料。

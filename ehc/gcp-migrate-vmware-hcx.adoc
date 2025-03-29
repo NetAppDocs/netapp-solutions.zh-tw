@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 Google Cloud VMware Engine和Cloud Volume Service資料存放區最常見的使用案例之一、就是移轉VMware工作負載。VMware HCX是首選選選項、提供各種移轉機制、可將內部部署虛擬機器（VM）及其資料移轉至Cloud Volume Service NFS資料存放區。
 
-作者：NetApp解決方案工程
-
 
 
 == 概述：使用 VMware HCX ， Google Cloud NetApp Volumes 資料存放區和 Google Cloud VMware Engine （ GCVE ）移轉虛擬機器
@@ -30,7 +28,7 @@ VMware HCX主要是一個移轉平台、其設計旨在簡化應用程式移轉�
 NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作業是在VM層級進行。因此、本文件適用於目前打算使用Google Cloud VMware Engine部署Cloud Volume Service的NetApp客戶和非NetApp客戶、以實現具成本效益的VMware雲端部署。
 
 .高階步驟
-[%collapsible]
+[%collapsible%open]
 ====
 此清單提供從內部部署HCX Connector配對與移轉VM至Google Cloud VMware Engine端HCX Cloud Manager所需的高階步驟：
 
@@ -46,7 +44,7 @@ NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作�
 
 ====
 .先決條件
-[%collapsible]
+[%collapsible%open]
 ====
 開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://cloud.google.com/vmware-engine/docs/workloads/howto-migrate-vms-using-hcx["連結"^]。在具備連線能力等先決條件之後、請從Google Cloud VMware Engine入口網站下載HCX授權金鑰。下載OVA安裝程式之後、請繼續執行下列安裝程序。
 
@@ -62,7 +60,7 @@ NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援�
 
 ====
 .高層架構
-[%collapsible]
+[%collapsible%open]
 ====
 為了進行測試、此驗證所使用的內部部署實驗室環境是透過Cloud VPN連線、可在內部部署連線至Google Cloud VPC。
 
@@ -78,7 +76,7 @@ image:gcpd-hcx-image1.png["此映像描述此解決方案所使用的高層架�
 請依照一系列步驟完成本解決方案的部署：
 
 .步驟1：透過Google VMware Engine Portal準備HCX
-[%collapsible]
+[%collapsible%open]
 ====
 HCx Cloud Manager元件會在您使用VMware Engine配置私有雲時自動安裝。若要準備站台配對、請完成下列步驟：
 
@@ -93,7 +91,7 @@ HCx Cloud Manager元件會在您使用VMware Engine配置私有雲時自動安�
 
 ====
 .步驟2：在內部部署vCenter Server中部署安裝程式OVA
-[%collapsible]
+[%collapsible%open]
 ====
 若要讓內部部署連接器連線至Google Cloud VMware Engine中的HCX Manager、請確定內部部署環境中已開啟適當的防火牆連接埠。
 
@@ -115,7 +113,7 @@ NOTE: 手動啟動虛擬應用裝置。
 
 ====
 .步驟3：使用授權金鑰啟動HCX Connector
-[%collapsible]
+[%collapsible%open]
 ====
 在內部部署VMware HCX Connector OVA並啟動應用裝置之後、請完成下列步驟以啟動HCX Connector。從Google Cloud VMware Engine入口網站產生授權金鑰、然後在VMware HCX Manager中啟動。
 
@@ -156,7 +154,7 @@ image:gcpd-hcx-image7.png["顯示完成程序的快照。"]
 
 ====
 .步驟4：將內部部署的VMware HCX Connector與Google Cloud VMware Engine HCX Cloud Manager配對
-[%collapsible]
+[%collapsible%open]
 ====
 在內部部署vCenter上部署和設定HCX Connector之後、請新增配對以建立與Cloud Manager的連線。若要設定站台配對、請完成下列步驟：
 
@@ -185,7 +183,7 @@ image:gcpd-hcx-image10.png["HCX儀表板上已完成程序的快照。"]
 
 ====
 .步驟5：設定網路設定檔、運算設定檔和服務網格
-[%collapsible]
+[%collapsible%open]
 ====
 VMware HCX互連服務應用裝置可透過網際網路提供複寫及vMotion型移轉功能、並可透過私有連線連至目標站台。互連可提供加密、流量工程及VM行動性。若要建立互連服務應用裝置、請完成下列步驟：
 
@@ -226,7 +224,7 @@ image:gcpd-hcx-image14.png["vSphere用戶端互連頁面上HCX應用裝置的快
 
 ====
 .步驟6：移轉工作負載
-[%collapsible]
+[%collapsible%open]
 ====
 使用各種VMware HCX移轉技術、可在內部部署與GCVC SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。
 
@@ -293,7 +291,7 @@ NOTE: 目標 Google Cloud NetApp Volumes （ NetApp Volumes ） NFS 資料存放
 == Google和VMware提供的影片供參考
 
 .來自Google
-[%collapsible]
+[%collapsible%open]
 ====
 * link:https://www.youtube.com/watch?v=xZOtqiHY5Uw["部署HCX Connector搭配GCVE"]
 * link:https://youtu.be/2ObPvekMlqA["設定HCX ServiceMesh搭配GCV"]
@@ -302,7 +300,7 @@ NOTE: 目標 Google Cloud NetApp Volumes （ NetApp Volumes ） NFS 資料存放
 
 ====
 .來自VMware
-[%collapsible]
+[%collapsible%open]
 ====
 * link:https://youtu.be/EFE5ZYFit3M["HCx Connector部署（用於GCVF）"]
 * link:https://youtu.be/uwRFFqbezIE["GCVF的HCx ServiceMesh組態"]

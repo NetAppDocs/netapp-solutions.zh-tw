@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: containers/vtwn_solution_overview.html 
-keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Trident, Astra Control, Astra 
+keywords: VMware Tanzu, Tanzu, DevOps, Netapp, Trident, Trident Protect 
 summary: 本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。 
 ---
 = NVA-1166：採用NetApp的VMware Tanzu
@@ -16,7 +16,7 @@ summary: 本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證
 NetApp公司Alan Cowles和NIKhil M Kulkarni
 
 [role="lead"]
-本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。它也說明與 NetApp 儲存系統和 Trident 儲存協調器的儲存整合、以管理持續儲存設備、以及 Astra 控制中心、以便使用該持續儲存設備備份和複製有狀態的應用程式。最後、文件提供解決方案整合與驗證的影片示範。
+本參考文件提供VMware Tanzu Kubernetes解決方案的部署驗證、可部署成Tanzu Kubernetes Grid（TKG）、Tanzu Kubernetes Grid Service（TKGS）或Tanzu Kubernetes Grid Integrated（TKGi）、以供在多種不同的資料中心環境中使用、並通過NetApp驗證。同時也說明與 NetApp 儲存系統和 Trident 儲存協調器的儲存整合，可用於管理持續儲存設備，以及使用持續儲存設備來備份和複製有狀態應用程式的 Trident Protect 。最後、文件提供解決方案整合與驗證的影片示範。
 
 
 
@@ -26,8 +26,8 @@ NetApp公司Alan Cowles和NIKhil M Kulkarni
 
 * 易於部署和管理VMware Tanzu Kubernetes Grid產品、這些產品部署在VMware vSphere上、並與NetApp儲存系統整合。
 * 結合企業容器與虛擬化工作負載的強大功能、以及VMware Tanzu Kubernetes Grid產品。
-* 實際組態與使用案例、突顯VMware Tanzu與NetApp儲存設備及NetApp Astra產品套件搭配使用時的功能。
-* 應用程式一致的保護或移轉部署在VMware Tanzu Kubernetes Grid叢集上的容器化工作負載、這些叢集的資料使用Astra Control Center存放在NetApp儲存系統上。
+* 實際組態與使用案例，突顯 VMware Tanzu 與 NetApp 儲存設備和 NetApp Trident 產品套件搭配使用時的功能。
+* 應用程式一致的保護或移轉部署在 VMware Tanzu Kubernetes Grid 叢集上的容器化工作負載，其資料位於使用 Trident Protect 的 NetApp 儲存系統上。
 
 
 
@@ -116,10 +116,6 @@ NetApp擁有多種儲存系統、最適合用於企業資料中心和混合雲�
 
 === NetApp儲存整合
 
-NetApp Astra Control Center提供一組豐富的儲存設備與應用程式感知資料管理服務、可處理有狀態的Kubernetes工作負載、部署於內部環境、並採用值得信賴的NetApp資料保護技術。
-
-如需詳細資訊、請造訪NetApp Astra網站 https://cloud.netapp.com/astra["請按這裡"]。
-
 Trident 是一款開放原始碼、完全支援的儲存協調工具、適用於容器和 Kubernetes 發佈套件、包括 VMware Tanzu 。
 
 有關詳細信息，請訪問 Trident 網站 https://docs.netapp.com/us-en/trident/index.html["請按這裡"]。
@@ -135,9 +131,6 @@ Trident 是一款開放原始碼、完全支援的儲存協調工具、適用於
 
 
 | NetApp ONTAP | 儲存設備 | 9.9.1 
-
-
-| NetApp Astra控制中心 | 應用程式感知資料管理 | 22.04 
 
 
 | NetApp Trident | 儲存協調 | 22.04.0 

@@ -13,8 +13,6 @@ summary:
 :imagesdir: ../media/
 
 
-作者： Niyaz Mohammed 、 Carine Ngwekwe - NetApp 解決方案工程
-
 [role="lead"]
 本文件涵蓋在 AWS FSX ONTAP with SnapCenter 上執行 Microsoft SQL Server 備份與還原所需的步驟。其中包括下列資訊：
 
@@ -51,7 +49,7 @@ NetApp 建議使用角色型存取控制（ RBAC ）、將資料保護與管理�
 展開下列各節、查看如何完成每個步驟的詳細指示。
 
 .新增認證資料
-[%collapsible]
+[%collapsible%open]
 ====
 移至 * 設定 * 、選取 * 認證 * 、然後按一下（ * + * ）。
 
@@ -63,7 +61,7 @@ image:sqlsb-aws-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .設定儲存設備
-[%collapsible]
+[%collapsible%open]
 ====
 若要在 SnapCenter 中設定儲存設備、請完成下列步驟：
 
@@ -84,7 +82,7 @@ image:sqlsb-aws-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .將 SQL Server 主機新增至 SnapCenter
-[%collapsible]
+[%collapsible%open]
 ====
 若要新增 SQL Server 主機、請完成下列步驟：
 
@@ -115,7 +113,7 @@ image:sqlsb-aws-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 ====
 .設定記錄目錄
-[%collapsible]
+[%collapsible%open]
 ====
 若要設定主機記錄目錄、請完成下列步驟：
 
@@ -153,7 +151,7 @@ image:sqlsb-aws-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 展開下列各節、查看如何完成每個步驟的詳細指示。
 
 .設定 FCI 資料庫的備份作業
-[%collapsible]
+[%collapsible%open]
 ====
 若要設定 FCI 資料庫的備份原則、請完成下列步驟：
 

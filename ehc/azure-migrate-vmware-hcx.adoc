@@ -16,8 +16,6 @@ summary:
 [role="lead"]
 Azure VMware解決方案與Azure NetApp Files VMware資料存放區最常見的使用案例之一、就是移轉VMware工作負載。VMware HCX是首選的選項、提供各種移轉機制、可將內部部署的虛擬機器（VM）及其資料移至Azure NetApp Files 各個資料存放區。
 
-作者：NetApp解決方案工程
-
 
 
 == 總覽：使用VMware HCX、Azure NetApp Files 不含資料存放區和Azure VMware解決方案來移轉虛擬機器
@@ -30,7 +28,7 @@ VMware HCX主要是一個移轉平台、其設計旨在簡化應用程式移轉�
 NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作業是在VM層級進行。因此、本文件適用於目前打算以Azure NetApp Files Azure VMware解決方案部署VMware解決方案以實現具成本效益的VMware雲端部署的NetApp客戶和非NetApp客戶。
 
 .高階步驟
-[%collapsible]
+[%collapsible%open]
 ====
 此清單提供在Azure雲端端安裝及設定HCX Cloud Manager、以及在內部部署安裝HCX Connector所需的高階步驟：
 
@@ -46,7 +44,7 @@ NOTE: VMware HCX可與任何資料存放區類型搭配使用、因為移轉作�
 
 ====
 .先決條件
-[%collapsible]
+[%collapsible%open]
 ====
 開始之前、請先確定符合下列先決條件。如需詳細資訊、請參閱 https://docs.microsoft.com/en-us/azure/azure-vmware/configure-vmware-hcx["連結"^]。在具備連線能力等先決條件之後、請從Azure VMware解決方案入口網站產生授權金鑰、以設定並啟動HCX。下載OVA安裝程式之後、請繼續執行下列安裝程序。
 
@@ -62,7 +60,7 @@ NOTE: HCx進階為預設選項、VMware HCX Enterprise版本也可透過支援�
 
 ====
 .高層架構
-[%collapsible]
+[%collapsible%open]
 ====
 為了進行測試、此驗證所使用的內部部署實驗室環境是透過站台對站台VPN連線、因此可內部部署連線至Azure VMware解決方案。
 
@@ -76,7 +74,7 @@ image:anfd-hcx-image1.png["此映像描述此解決方案所使用的高層架�
 請依照一系列步驟完成本解決方案的部署：
 
 .步驟1：使用附加元件選項透過Azure Portal安裝HCX
-[%collapsible]
+[%collapsible%open]
 ====
 若要執行安裝、請完成下列步驟：
 
@@ -102,7 +100,7 @@ image:anfd-hcx-image3.png["完成HCX工作負載行動性部分的快照。"]
 
 ====
 .步驟2：在內部部署vCenter Server中部署安裝程式OVA
-[%collapsible]
+[%collapsible%open]
 ====
 若要讓內部部署連接器連線至Azure VMware解決方案中的HCX Manager、請確定內部部署環境中已開啟適當的防火牆連接埠。
 
@@ -139,7 +137,7 @@ NOTE: 手動啟動虛擬應用裝置。
 
 ====
 .步驟3：使用授權金鑰啟動HCX Connector
-[%collapsible]
+[%collapsible%open]
 ====
 在內部部署VMware HCX Connector OVA並啟動應用裝置之後、請完成下列步驟以啟動HCX Connector。從Azure VMware解決方案入口網站產生授權金鑰、並在VMware HCX Manager中啟動。
 
@@ -188,7 +186,7 @@ image:anfd-hcx-image8.png["顯示完成程序的快照。"]
 
 ====
 .步驟4：將內部部署的VMware HCX Connector與Azure VMware解決方案HCX Cloud Manager配對
-[%collapsible]
+[%collapsible%open]
 ====
 在內部部署和Azure VMware解決方案中安裝HCX Connector之後、請新增配對、以設定內部部署的VMware HCX Connector for Azure VMware Solution私有雲。若要設定站台配對、請完成下列步驟：
 
@@ -218,7 +216,7 @@ image:anfd-hcx-image11.png["HCX儀表板上已完成程序的快照。"]
 
 ====
 .步驟5：設定網路設定檔、運算設定檔和服務網格
-[%collapsible]
+[%collapsible%open]
 ====
 VMware HCX互連服務應用裝置可透過網際網路提供複寫及vMotion型移轉功能、並可透過私有連線連至目標站台。互連可提供加密、流量工程及VM行動性。若要建立互連服務應用裝置、請完成下列步驟：
 
@@ -257,7 +255,7 @@ image:anfd-hcx-image15.png["vSphere用戶端互連頁面上完成程序的快照
 
 ====
 .步驟6：移轉工作負載
-[%collapsible]
+[%collapsible%open]
 ====
 使用各種VMware HCX移轉技術、可在內部部署與Azure SDDC之間雙向移轉工作負載。VM可以使用多種移轉技術（例如HCX大量移轉、HCX vMotion、HCX冷移轉、HCX複寫輔助vMotion（適用於HCX Enterprise Edition）、以及HCX OS輔助移轉）（適用於HCX Enterprise Edition）、在VMware HCX啟動的實體之間移動。
 

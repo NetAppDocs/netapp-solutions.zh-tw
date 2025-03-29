@@ -21,7 +21,7 @@ summary:
 設定程序可分為下列步驟：
 
 .註冊資源供應商並建立私有雲
-[%collapsible]
+[%collapsible%open]
 ====
 若要使用Azure VMware解決方案、請先在指定的訂閱中註冊資源供應商：
 
@@ -62,7 +62,7 @@ image:avs-register-create-pc-4.png["此圖顯示輸入 / 輸出對話方塊或�
 
 ====
 .連線至新的或現有的ExpressRoute虛擬網路閘道
-[%collapsible]
+[%collapsible%open]
 ====
 若要建立新的Azure虛擬網路（vnet）、請選取Azure vnet Connect索引標籤。或者、您也可以使用「建立虛擬網路」精靈、從Azure入口網站手動建立一個：
 
@@ -90,7 +90,7 @@ NOTE: 如果您手動建立vnet、請建立一個虛擬網路閘道、並以適�
 
 ====
 .驗證網路連線及存取Azure VMware解決方案私有雲的能力
-[%collapsible]
+[%collapsible%open]
 ====
 Azure VMware解決方案不允許您使用內部部署的VMware vCenter來管理私有雲。而是需要跨接主機才能連線至Azure VMware Solution vCenter執行個體。在指定的資源群組中建立跳接主機、然後登入Azure VMware Solution vCenter。這台跨接主機應該是在為連線所建立的同一個虛擬網路上的Windows VM、並應提供vCenter和NSX Manager的存取權。
 

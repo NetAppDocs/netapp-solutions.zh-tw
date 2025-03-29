@@ -151,7 +151,7 @@ image:aws_ora_fsx_vmc_architecture.png["此映像提供在 AWS 公有雲中使�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -178,7 +178,7 @@ NOTE: 請確定您已在 Oracle VM 根 Volume 中至少分配 50 g 、以便有�
 
 === DB VM 核心組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 在已配置先決條件的情況下、透過 SSH 以管理員使用者身分登入 Oracle VM 、並使用 Sudo 以 root 使用者身分登入、以設定 Linux 核心以進行 Oracle 安裝。Oracle 安裝檔案可分段在 AWS S3 貯體中、並傳輸至 VM 。
 
@@ -398,7 +398,7 @@ chmod 440 /etc/sudoers
 
 === 將 FSX ONTAP LUN 配置並對應至 DB VM
 
-[%collapsible]
+[%collapsible%open]
 ====
 透過 ssh 和 FSX 叢集管理 IP 、以 fsxadmin 使用者身分登入 FSX 叢集、從命令列配置三個磁碟區。在磁碟區內建立 LUN 、以裝載 Oracle 資料庫二進位、資料和記錄檔。
 
@@ -530,7 +530,7 @@ nim        /vol/ora_02_logs/ora_02_u03_02            ora_02        6  iscsi
 
 === DB VM 儲存組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 現在、請匯入並設定用於在 VMC 資料庫 VM 上安裝 Oracle 網格基礎架構和資料庫的 FSX ONTAP 儲存設備。
 
@@ -823,7 +823,7 @@ systemctl restart multipathd
 
 === Oracle 網格基礎架構安裝
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 以管理員使用者身分透過 SSH 登入 DB VM 、並取消註解以啟用密碼驗證 `PasswordAuthentication yes` 然後留言 `PasswordAuthentication no`。
 +
@@ -1084,7 +1084,7 @@ CRS-4638: Oracle High Availability Services is online
 
 === Oracle 資料庫安裝
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 以 Oracle 使用者身分登入、然後取消設定 `$ORACLE_HOME` 和 `$ORACLE_SID` 如果已設定。
 +
@@ -1475,7 +1475,7 @@ alter database open;
 
 ==== SnapCenter 設定
 
-[%collapsible]
+[%collapsible%open]
 ====
 SnapCenter 仰賴資料庫 VM 上的主機端外掛程式來執行應用程式感知的資料保護管理活動。如需 NetApp SnapCenter 外掛程式 for Oracle 的詳細資訊、請參閱本文件 link:https://docs.netapp.com/us-en/snapcenter/protect-sco/concept_what_you_can_do_with_the_snapcenter_plug_in_for_oracle_database.html["如何使用Oracle資料庫的外掛程式"^]。以下提供設定 SnapCenter 以進行 Oracle 資料庫備份、還原及複製的高階步驟。
 
@@ -1516,7 +1516,7 @@ NOTE: 請確定 SnapCenter 伺服器名稱可以解析為 DB VM 的 IP 位址、
 
 ==== 資料庫備份
 
-[%collapsible]
+[%collapsible%open]
 ====
 相較於傳統的 RMAN 型方法、 SnapCenter 利用 FSX ONTAP Volume Snapshot 來加快資料庫備份、還原或複製速度。當資料庫在快照之前處於 Oracle 備份模式時、快照的應用程式一致。
 
@@ -1551,7 +1551,7 @@ image:aws_ora_fsx_vmc_snapctr_11.png["顯示 SnapCenter 組態的螢幕擷取畫
 
 ==== 資料庫恢復
 
-[%collapsible]
+[%collapsible%open]
 ====
 SnapCenter 從快照備份中為 Oracle 資料庫提供許多還原與還原選項。在本範例中、我們會示範時間點還原、以錯誤地恢復掉落的資料表。在 VM ora_02 上、兩個資料庫 cdb3 、 cdb4 共用相同的 +data 和 +logs 磁碟群組。一個資料庫的資料庫還原不會影響其他資料庫的可用性。
 
@@ -1748,7 +1748,7 @@ SQL>
 
 ==== 資料庫複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 在此範例中、相同的備份集是用來在不同的 Oracle_home 中、於同一個 VM 上複製資料庫。如果需要、這些程序同樣適用於從備份複製資料庫、以在 VMC 中分離 VM 。
 

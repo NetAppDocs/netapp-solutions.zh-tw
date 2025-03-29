@@ -14,7 +14,13 @@ summary:
 
 
 [role="lead"]
-VMware 虛擬磁碟區（ vVols ）可滿足應用程式特定的需求、以推動儲存資源配置決策、同時運用儲存陣列所提供的豐富功能集。vSphere API for Storage Aware （ VASA ）可讓 VM 管理員輕鬆使用所需的任何儲存功能來配置 VM 、而無需與儲存團隊互動。在 VASA 之前、 VM 管理員可以定義 VM 儲存原則、但必須與儲存管理員合作、以識別適當的資料存放區、通常是使用文件或命名慣例。有了 VASA 、具有適當權限的 vCenter 管理員就能定義一系列儲存功能、 vCenter 使用者隨後可以使用這些功能來配置 VM 。VM 儲存原則與資料存放區儲存功能設定檔之間的對應可讓 vCenter 顯示相容資料存放區清單以供選擇、並可啟用其他技術、例如 Aria （前身為 vRealize ） Automation 或 Tanzu Kubernetes Grid 、以自動從指派的原則中選取儲存區。這種方法稱為儲存原則型管理。雖然儲存功能設定檔和原則也可用於傳統的資料存放區、但我們的重點是 vVols 資料存放區。適用於 ONTAP 的 VASA 供應商是 VMware vSphere ONTAP 工具的一部分。
+VMware 虛擬磁碟區（ vVols ）可滿足應用程式特定的需求、以推動儲存資源配置決策、同時運用儲存陣列所提供的豐富功能集。
+
+
+
+== 總覽
+
+vSphere API for Storage Aware （ VASA ）可讓 VM 管理員輕鬆使用所需的任何儲存功能來配置 VM 、而無需與儲存團隊互動。在 VASA 之前、 VM 管理員可以定義 VM 儲存原則、但必須與儲存管理員合作、以識別適當的資料存放區、通常是使用文件或命名慣例。有了 VASA 、具有適當權限的 vCenter 管理員就能定義一系列儲存功能、 vCenter 使用者隨後可以使用這些功能來配置 VM 。VM 儲存原則與資料存放區儲存功能設定檔之間的對應可讓 vCenter 顯示相容資料存放區清單以供選擇、並可啟用其他技術、例如 Aria （前身為 vRealize ） Automation 或 Tanzu Kubernetes Grid 、以自動從指派的原則中選取儲存區。這種方法稱為儲存原則型管理。雖然儲存功能設定檔和原則也可用於傳統的資料存放區、但我們的重點是 vVols 資料存放區。適用於 ONTAP 的 VASA 供應商是 VMware vSphere ONTAP 工具的一部分。
 
 將 VASA Provider 從儲存陣列中移出的優點包括：
 
@@ -84,7 +90,9 @@ VMware 虛擬磁碟區（ vVols ）提供下列優點：
 
 通常建議儲存網路採用雙 Fabric 環境、以因應高可用度、效能和容錯能力。VVols 支援 iSCSI 、 FC 、 NFSv3 和 NVMe / FC 。附註：請參閱link:https://imt.netapp.com/matrix["互通性對照表工具IMT （不含）"]以取得支援的 ONTAP 工具版本
 
-連線選項與 VMFS 資料存放區或 NFS 資料存放區選項保持一致。以下為 iSCSI 和 NFS 的 vSphere 網路範例參考資料。image:vmware-vvol-overview-image03.png["iSCSI 網路"]
+連線選項與 VMFS 資料存放區或 NFS 資料存放區選項保持一致。以下為 iSCSI 和 NFS 的 vSphere 網路範例參考資料。
+
+image:vmware-vvol-overview-image03.png["iSCSI 網路"]
 
 image:vmware-vvol-overview-image04.png["NFS 網路"]
 

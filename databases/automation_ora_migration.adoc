@@ -62,7 +62,7 @@ NOTE: 對於與此 GitHub 儲存庫中的內容產生及 / 或共用任何衍生
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -91,7 +91,7 @@ Network connectivity
 
 === 下載工具組
 
-[%collapsible]
+[%collapsible%open]
 ====
 [source, cli]
 ----
@@ -102,7 +102,7 @@ git clone https://github.com/NetApp/na_ora_aws_migration.git
 
 === 主機變數組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 主機變數是在主機 _vars 目錄中定義、名稱為 ｛ ｛ host_name ｝ ｝ 。 yml 。其中包含主機變數檔 host_name.yml 範例、以示範典型組態。以下是主要考量事項：
 
@@ -131,7 +131,7 @@ Target Oracle CDB - define host specific variables for the target CDB including 
 
 === DB 伺服器主機檔案組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 AWS EC2 執行個體預設會使用 IP 位址來命名主機。如果您在主機檔案中使用不同的名稱來進行 Ansible 、請在 /etc/hosts 檔案中為來源伺服器和目標伺服器設定主機命名解析。以下是範例。
 
@@ -146,7 +146,7 @@ AWS EC2 執行個體預設會使用 IP 位址來命名主機。如果您在主�
 
 === 教戰手冊執行 - 依序執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 安裝 Ansible 控制器先決條件。
 +

@@ -33,7 +33,7 @@ CVO讓客戶能夠無縫地將資料從邊緣移至資料中心、移至雲端�
 === 以客體連線儲存設備形式提供的資訊（CVO）Cloud Volumes ONTAP
 
 .在Cloud Volumes ONTAP Google Cloud部署功能（自行部署）
-[%collapsible]
+[%collapsible%open]
 ====
 可從GCVM私有雲端環境中建立的VM掛載支援資源和LUN。Cloud Volumes ONTAP這些磁碟區也可掛載於Linux用戶端、Windows用戶端和LUN、在透過iSCSI掛載時、可在Linux或Windows用戶端上作為區塊裝置存取、因為Cloud Volumes ONTAP 此功能支援iSCSI、SMB及NFS傳輸協定。只需幾個簡單步驟、即可設定各個資料區。Cloud Volumes ONTAP
 
@@ -88,7 +88,7 @@ image:gcve-cvo-guest-9.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .SMB Volume的其他組態
-[%collapsible]
+[%collapsible%open]
 ====
 . 工作環境準備好之後、請確定CIFS伺服器已設定適當的DNS和Active Directory組態參數。您必須先執行此步驟、才能建立SMB Volume。
 +
@@ -126,7 +126,7 @@ image:gcve-cvo-guest-15.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 ====
 .將Cloud Volumes ONTAP 支援的LUN連接到主機
-[%collapsible]
+[%collapsible%open]
 ====
 若要將Cloud Volumes ONTAP LUN連接至主機、請完成下列步驟：
 
@@ -181,7 +181,7 @@ image:gcve-cvo-guest-21.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 ====
 .在Cloud Volumes ONTAP Linux用戶端上掛載不只是NFS磁碟區
-[%collapsible]
+[%collapsible%open]
 ====
 若要從Cloud Volumes ONTAP Google Cloud VMware Engine內的VM掛載支援（DIY）檔案系統、請依照下列步驟進行：
 
@@ -227,7 +227,7 @@ Google Cloud NetApp Volumes （ NetApp Volumes ）是完整的資料服務產品
 === Google Cloud NetApp Volumes （ NetApp Volumes ）做為來賓連線儲存設備
 
 .使用 VMware Engine 設定 NetApp Volume
-[%collapsible]
+[%collapsible%open]
 ====
 Google Cloud NetApp Volumes 共享區可從 VMware Engine 環境中建立的虛擬機器掛載。這些磁碟區也可以掛載到 Linux 用戶端，並在 Windows 用戶端上對應，因為 Google Cloud NetApp Volumes 支援 SMB 和 NFS 傳輸協定。Google Cloud NetApp Volumes Volume 可透過簡單的步驟進行設定。
 
@@ -237,7 +237,7 @@ Google Cloud NetApp Volumes 和 Google Cloud VMware Engine 私有雲必須位於
 
 ====
 .建立 NetApp Volumes NFS Volume 至 GCVE 私有雲
-[%collapsible]
+[%collapsible%open]
 ====
 若要建立及掛載NFS磁碟區、請完成下列步驟：
 
@@ -291,7 +291,7 @@ image:gcve-cvs-guest-10.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 ====
 .將NFS匯出安裝到VMware Engine上執行的VM
-[%collapsible]
+[%collapsible%open]
 ====
 在準備掛載NFS磁碟區之前、請確定私有連線的對等狀態列示為「Active」（作用中）。狀態為「作用中」時、請使用mount命令。
 
@@ -332,7 +332,7 @@ image:gcve-cvs-guest-21.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 ====
 .建立SMB共用並掛載到VMware Engine上執行的VM
-[%collapsible]
+[%collapsible%open]
 ====
 對於SMB磁碟區、請確定在建立SMB磁碟區之前已設定Active Directory連線。
 

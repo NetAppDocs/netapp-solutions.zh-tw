@@ -101,7 +101,7 @@ NOTE: 將 GCVE vCenter 伺服器新增至 Veeam 備份與複寫清查時、 Veea
 請完成下列步驟、使用 NetApp Volumes 為 GCVE 建立及使用 NFS 資料存放區：
 
 .建立 NetApp Volumes NFS Volume
-[%collapsible]
+[%collapsible%open]
 ====
 Google Cloud NetApp Volumes 可從 Google Cloud Platform （ GCP ）主控台存取。
 
@@ -152,7 +152,7 @@ image::dr-veeam-gcnv-image05.png[Volume 內容]
 
 ====
 .在 GCVE 中掛載 NFS 資料存放區
-[%collapsible]
+[%collapsible%open]
 ====
 在撰寫本文時、在 GCVE 中掛載資料存放區的程序需要開啟 GCP 支援服務單、才能將磁碟區掛載為 NFS 資料存放區。
 
@@ -164,7 +164,7 @@ image::dr-veeam-gcnv-image05.png[Volume 內容]
 === 將 VM 複寫到 GCVE 並執行容錯移轉計畫和容錯回復
 
 .將 VM 複寫到 GCVE 中的 NFS 資料存放區
-[%collapsible]
+[%collapsible%open]
 ====
 Veeam 備份與複寫會在複寫期間利用 VMware vSphere 快照功能、 Veeam 備份與複寫會要求 VMware vSphere 建立 VM 快照。VM 快照是 VM 的時間點複本、其中包含虛擬磁碟、系統狀態、組態和中繼資料。Veeam 備份與複寫會使用快照做為複寫資料來源。
 
@@ -257,7 +257,7 @@ image::dr-veeam-gcnv-image15.png[工作狀態視窗]
 
 ====
 .建立容錯移轉計畫
-[%collapsible]
+[%collapsible%open]
 ====
 當初始複寫或植入完成時、請建立容錯移轉計畫。容錯移轉計畫有助於自動逐一或以群組的方式、為相關的 VM 執行容錯移轉。容錯移轉計畫是 VM 處理順序的藍圖、包括開機延遲。容錯移轉計畫也有助於確保關鍵相關 VM 已經在執行中。
 
@@ -313,7 +313,7 @@ image::dr-veeam-gcnv-image19.png[開機順序和延遲]
 
 ====
 .執行容錯移轉計畫
-[%collapsible]
+[%collapsible%open]
 ====
 在容錯移轉期間、正式作業站台中的來源 VM 會切換到災難恢復站台上的複本。在程序中、 Veeam 備份與複寫會將 VM 複本還原至所需的還原點、並將所有 I/O 活動從來源 VM 傳輸至複本。複本不僅適用於實際災難、也適用於模擬災難恢復訓練。在容錯移轉模擬中、來源 VM 會繼續執行。完成必要測試後、容錯移轉即可復原、並將作業恢復正常。
 
@@ -345,7 +345,7 @@ NOTE: Veeam 備份與複寫會停止來源 VM 的所有複寫活動、直到其�
 
 ====
 .容錯回復至正式作業站台
-[%collapsible]
+[%collapsible%open]
 ====
 執行容錯移轉是一項中間步驟、需要根據需求完成。選項包括：
 

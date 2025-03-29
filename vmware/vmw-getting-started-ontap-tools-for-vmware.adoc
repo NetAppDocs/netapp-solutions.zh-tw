@@ -1,0 +1,34 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-ontap-tools-for-vmware.html 
+keywords: vmware, getting, started, overview, netapp, otv, ontap, tools 
+summary:  
+---
+= 適用於 VMware 的 ONTAP 工具（ OTV ）
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+適用於 VMware vSphere 的 ONTAP 工具可為使用 NetApp 儲存系統的 VMware 環境中的虛擬機器提供端點對端點生命週期管理。
+
+
+
+== 簡介
+
+它可讓管理員直接管理 vCenter Server 中的儲存設備，並簡化 VMware 環境的儲存與資料管理。VMware vSphere Client 外掛程式工具的設計是將外掛程式功能整合至 vSphere Client 、而無需在 vCenter Server 中執行。這可提供外掛程式隔離功能、並可在大型 vSphere 環境中運作的外掛程式橫向擴充。
+
+
+
+== ONTAP 工具元件
+
+* * 虛擬儲存主控台（ VSC ） * VSC 包含與 vSphere 用戶端整合的介面，您可以在其中新增儲存控制器，配置資料存放區，監控資料存放區效能，以及檢視和更新 ESXi 主機設定。
+* * VASA Provider* 適用於 ONTAP 的 VMware vSphere API for Storage Aware （ VASA ） Provider 會將 VMware vSphere 使用的儲存設備相關資訊傳送至 vCenter Server ，以利配置 VMware 虛擬磁碟區（ VVols ）資料存放區，建立及使用儲存功能設定檔，法規遵循驗證及效能監控。
+* * 儲存複寫介面卡（ SRA ） * 啟用並搭配 VMware Site Recovery Manager （ SRM ）使用時， SRA 可在發生故障時協助 vCenter Server 資料存放區和虛擬機器的恢復，允許設定受保護的站台和還原站台以進行災難恢復。
+
+
+如需適用於 VMware 的 NetApp ONTAP 工具的詳細資訊、請參閱 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere/index.html["VMware vSphere文件的相關工具ONTAP"]。

@@ -137,7 +137,7 @@ image:azure_ora_anf_vldb_dg_architecture.png["此映像提供在 ANF 上 Azure �
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -177,7 +177,7 @@ Vnet 閘道連線狀態：image:azure_ora_anf_dg_vnet_03.png["顯示 Azure 環�
 
 === Data Guard 的主要 Oracle VLDB 組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 在本示範中，我們已在主要 Azure DB 伺服器上設定名為 NTAP 的主要 Oracle 資料庫，其中有六個 NFS 裝載點： Oracle 二進位 /u01 ， /u02 ， /u04 ， /u05 ， /u06 ， Oracle 資料檔案， Oracle 控制檔 /u03 ， Oracle 作用中記錄檔，封存記錄檔和備援 Oracle 控制檔。此設定可做為參考組態。您的實際部署應考量到容量集區大小，服務層級，資料庫磁碟區數量和每個磁碟區大小等特定需求。
 
@@ -505,7 +505,7 @@ DIRNAME
 
 === Data Guard 的備用 Oracle VLDB 組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard 需要作業系統核心組態和 Oracle 軟體堆疊，包括待機 DB 伺服器上的修補程式集，才能與主要 DB 伺服器相符。為了便於管理和簡化，備用 DB 伺服器的資料庫儲存組態理想上也應與主要 DB 伺服器相符，例如資料庫目錄配置和 NFS 裝載點的大小。
 
@@ -825,7 +825,7 @@ DIRNAME
 
 === 設定 Data Guard Broker
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard Broker 是一套分散式管理架構、可自動化及集中建立、維護及監控 Oracle Data Guard 組態。以下章節示範如何設定 Data Guard Broker 來管理 Data Guard 環境。
 
@@ -922,7 +922,7 @@ DGMGRL>
 
 === 透過自動化複製備用資料庫以用於其他使用案例
 
-[%collapsible]
+[%collapsible%open]
 ====
 請聯絡 NetApp 解決方案工程團隊，取得自動化工具套件，以建立及重新整理複本，以進行完整的複製生命週期管理。
 

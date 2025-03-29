@@ -58,7 +58,7 @@ NOTE: 對於與此 GitHub 儲存庫中的內容產生及 / 或共用任何衍生
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -91,7 +91,7 @@ NOTE: 為了簡化作業，複製目標 Oracle 伺服器的設定應與備用 Or
 
 === 下載工具組
 
-[%collapsible]
+[%collapsible%open]
 ====
 [source, cli]
 ----
@@ -105,7 +105,7 @@ NOTE: 此工具組目前只能由具有 BitBucket 存取權限的 NetApp 內部�
 
 === Ansible 目標主機檔案組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 此工具套件包含主機檔案，可定義 Ansible 教戰手冊所執行的目標。通常是目標 Oracle 複製主機。以下是範例檔案。主機項目包括目標主機 IP 位址和 ssh 金鑰、讓管理員使用者存取主機以執行 clone 或 refresh 命令。
 
@@ -122,7 +122,7 @@ ora_04.cie.netapp.com ansible_host=10.61.180.29 ansible_ssh_private_key_file=ora
 
 === 整體變數組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 Ansible 教戰手冊可從數個可變檔案中取得可變的輸入。以下是通用變數檔案 vars.yml 的範例。
 
@@ -140,7 +140,7 @@ snapctr_pwd: 'xxxxxxxx'
 
 === 主機變數組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 主機變數是在主機 _vars 目錄中定義、名稱為 ｛ ｛ host_name ｝ ｝ 。 yml 。以下是目標 Oracle 主機變數檔案 ora_04.cie.netapp.com.yml 的範例、顯示典型組態。
 
@@ -160,7 +160,7 @@ clone_db_sid: NTAP1DEV
 
 === 額外的複製目標 Oracle 伺服器組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 Clone 目標 Oracle 伺服器應安裝和修補與來源 Oracle 伺服器相同的 Oracle 軟體堆疊。Oracle 使用者 .bash_profile 有 $oracle_base 、並已設定 $oracle_home 。此外、 $oracle_home 變數應與來源 Oracle 伺服器設定相符。以下是範例。
 
@@ -181,7 +181,7 @@ export ORACLE_HOME=/u01/app/oracle/product/19.0.0/NTAP1
 
 === 教戰手冊執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 使用 SnapCenter CLI 公用程式執行 Oracle 資料庫複製生命週期總共有三本教戰手冊。
 

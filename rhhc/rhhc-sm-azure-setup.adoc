@@ -13,7 +13,7 @@ summary:
 == 在 Azure 上部署及設定 Red Hat OpenShift Container 平台
 
 [role="lead"]
-本節說明如何在 Azure 中設定及管理 OpenShift 叢集、以及如何在其中部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備在 Trident 協助下的使用情形、以提供永續性的磁碟區。詳細說明如何使用 Astra Control Center 來執行有狀態應用程式的資料保護和移轉活動。
+本節說明如何在 Azure 中設定及管理 OpenShift 叢集、以及如何在其中部署有狀態應用程式的高階工作流程。它顯示 NetApp Cloud Volumes ONTAP 儲存設備在 Trident 協助下的使用情形、以提供永續性的磁碟區。詳細說明如何使用 Trident Protect 為有狀態的應用程式執行資料保護和移轉活動。
 
 下圖顯示部署在 Azure 上且使用 VPN 連線至資料中心的叢集。
 
@@ -25,7 +25,7 @@ NOTE: 在 Azure 中部署 Red Hat OpenShift Container 平台叢集有多種方�
 設定程序可分為下列步驟：
 
 .從 CLI 在 Azure 上安裝 OCP 叢集。
-[%collapsible]
+[%collapsible%open]
 ====
 * 請確定您已符合上述所有先決條件 link:https://docs.openshift.com/container-platform/4.13/installing/installing_azure/installing-azure-vnet.html["請按這裡"]。
 * 建立 VPN 、子網路和網路安全性群組、以及私有 DNS 區域。建立 VPN 閘道和站台對站台 VPN 連線。
@@ -102,7 +102,7 @@ pullSecret:
 ....
 ====
 .使用 BlueXP 在 Azure 中部署 Cloud Volumes ONTAP 。
-[%collapsible]
+[%collapsible%open]
 ====
 * 在 Azure 中安裝接頭。請參閱指示 https://docs.netapp.com/us-en/bluexp-setup-admin/task-install-connector-azure-bluexp.html["請按這裡"]。
 * 使用 Connector 在 Azure 中部署 CVO 執行個體。請參閱指示連結： https://docs.netapp.com/us-en/bluexp-cloud-volumes-ontap/task-getting-started-azure.html [ 此處。 ]

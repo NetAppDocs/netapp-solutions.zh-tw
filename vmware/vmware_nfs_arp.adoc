@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: vmware/vmware_nfs_arp.html 
-keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, ransomeware 
+keywords: netapp, vmware, cloud, foundation, vcf, aff, all-flash, nfs, vvol, vvols, array, ontap tools, otv, ransomware 
 summary:  
 ---
 = NFS 儲存的自主勒索軟體保護
@@ -14,7 +14,7 @@ summary:
 
 
 [role="lead"]
-儘早偵測勒索軟體是防止勒索軟體擴散和避免代價高昂的停機的關鍵。有效的勒索軟體偵測策略必須在 ESXi 主機和來賓 VM 層級整合多層保護。雖然已實作多項安全措施、以建立全面性的防範勒索軟體攻擊、但 ONTAP 可為整體防禦方法增加更多層級的保護。舉幾個功能來說、它從快照、自主勒索軟體保護、防竄改快照等開始。
+儘早偵測勒索軟體是防止勒索軟體擴散和避免代價高昂的停機的關鍵。有效的勒索軟體偵測策略必須在 ESXi 主機和來賓 VM 層級整合多層保護。雖然已實作多項安全措施、以建立全面性的防範勒索軟體攻擊、但 ONTAP 可為整體防禦方法增加更多層級的保護。舉出幾項功能，首先是快照，自主勒索軟體保護，防竄改快照等。
 
 讓我們來看看上述功能如何與 VMware 合作、以保護和恢復資料、防範勒索軟體。為了保護 vSphere 和來賓 VM 免於遭受攻擊、必須採取多項措施、包括分割、針對端點使用 EDR/XDR/SIEM 、安裝安全更新、並遵守適當的強化準則。位於資料存放區上的每個虛擬機器也會裝載標準作業系統。確保已安裝企業伺服器反惡意軟體產品套件、並定期更新這些套件、這是多層勒索軟體保護策略的重要元件。此外、在資料存放區的 NFS 磁碟區上啟用自主勒索軟體保護（ ARP ）。ARP 利用內建的內建 ML 來查看 Volume 工作負載活動和資料 Entropy 、以自動偵測勒索軟體。ARP 可透過 ONTAP 內建管理介面或系統管理員進行設定、並以每個磁碟區為基礎啟用。
 
@@ -34,7 +34,7 @@ image:nfs-arp-image2.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 如需詳細資訊，請參閱中的「 ARP 與虛擬機器」一節link:https://docs.netapp.com/us-en/ontap/anti-ransomware/use-cases-restrictions-concept.html#supported-configurations["ARP 使用狀況與考量"]。
 
-從檔案移轉到備份資料、勒索軟體攻擊現在越來越以備份和快照恢復點為目標、嘗試在開始加密檔案之前先刪除這些點。不過、使用 ONTAP 、您可以在主要或次要系統上使用建立防竄改快照link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["NetApp Snapshot ™複本鎖定"]、以防止發生這種情況。
+從檔案移轉到備份資料、勒索軟體攻擊現在越來越以備份和快照恢復點為目標、嘗試在開始加密檔案之前先刪除這些點。不過，使用 ONTAP ，您可以在主要或次要系統上使用建立防竄改快照link:https://docs.netapp.com/us-en/ontap/snaplock/snapshot-lock-concept.html["NetApp Snapshot ™複本鎖定"]，以防止發生這種情況。
 
 image:nfs-arp-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
 
@@ -46,7 +46,7 @@ image:nfs-arp-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入
 
 如需其他資訊，請參閱的指南link:https://www.netapp.com/media/7334-tr4572.pdf["NetApp 勒索軟體解決方案"]。
 
-現在、如果所有這些都需要與 SIEM 工具協調和整合、就可以使用 BlueXP  勒索軟體保護等 OFFTAP 服務。這是一項服務、旨在保護資料免受勒索軟體的侵害。此服務可保護 Oracle 、 MySQL 、 VM 資料存放區及內部部署 NFS 儲存設備上的檔案共用等應用程式型工作負載。
+現在，如果所有這些都需要與 SIEM 工具協調和整合，就可以使用 BlueXP  勒索軟體保護等 OFFTAP 服務。這是一項服務、旨在保護資料免受勒索軟體的侵害。此服務可保護 Oracle 、 MySQL 、 VM 資料存放區及內部部署 NFS 儲存設備上的檔案共用等應用程式型工作負載。
 
 在此範例中、 NFS 資料存放區「 src_nfs_DS04 」使用 BlueXP  勒索軟體保護來保護。
 

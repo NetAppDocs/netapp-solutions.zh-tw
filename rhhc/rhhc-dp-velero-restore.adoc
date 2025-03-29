@@ -25,7 +25,7 @@ summary: Red Hat OpenShift Container Application Data Protection with NetApp ONT
 image:redhat_openshift_OADP_app_deleted_image1.png["應用程式已刪除"]
 
 .還原至相同的命名空間
-[%collapsible]
+[%collapsible%open]
 ====
 若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
 
@@ -48,7 +48,7 @@ image:redhat_openshift_OADP_restore_image2.jpg["還原已完成"] image:redhat_o
 
 ====
 .還原至不同的命名空間
-[%collapsible]
+[%collapsible%open]
 ====
 若要將應用程式還原至不同的命名空間、您可以在還原 CR 的 yaml 定義中提供名稱映射。
 
@@ -74,7 +74,7 @@ image:redhat_openshift_OADP_restore_image3.png["還原已完成至新命名空�
 
 ====
 .還原至不同的儲存類別
-[%collapsible]
+[%collapsible%open]
 ====
 Velero 提供一般功能、可在還原期間透過指定 json 修補程式來修改資源。json 修補程式會在還原之前套用至資源。json 修補程式是在 configmap 中指定、組態對應則是在 restore 命令中參照。此功能可讓您使用不同的儲存類別進行還原。
 

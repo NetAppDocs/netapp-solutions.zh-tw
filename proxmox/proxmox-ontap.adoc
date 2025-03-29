@@ -145,7 +145,7 @@ NOTE: 密碼將儲存為純文字檔、且只能由 root 使用者存取。請�
 .使用 ONTAP 的 SMB 共享儲存池
 video::5b4ae54a-08d2-4f7d-95ec-b22d015f6035[panopto,width=360]
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 如果是 ONTAP 新手、請使用系統管理員介面來完成這些工作、以獲得更好的體驗。
 
@@ -171,7 +171,7 @@ image:proxmox-ontap-image03.png["SMB 共享資訊"]
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 收集 SMB 伺服器、共用名稱和認證、以用於共用驗證。
 . 請確定在不同的 VLAN 中至少設定兩個介面（以提供容錯能力）、且 NIC 支援 RSS 。
@@ -205,7 +205,7 @@ ONTAP 支援 Proxmox VE 支援的所有 NFS 版本。為了提供容錯能力和
 .ONTAP 的 NFS nconnect 選項
 video::f6c9aba3-b070-45d6-8048-b22e001acfd4[panopto,width=360]
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 確保 SVM 已啟用 NFS 。請參閱 link:https://docs.netapp.com/us-en/ontap/nfs-config/verify-protocol-enabled-svm-task.html["部分9文件ONTAP"]
 . 每個控制器至少有兩個生命。請依照上述連結中的步驟進行。以下是實驗室使用的生命畫面、供您參考。
@@ -226,7 +226,7 @@ image:proxmox-ontap-image08.png["NFS Volume 資訊"]
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 請確定在不同的 VLAN 中至少設定兩個介面（以提供容錯能力）。使用 NIC 連結。
 . 如果使用管理 UI `https:<proxmox-node>:8006`、請按一下資料中心、選取儲存、按一下新增、然後選取 NFS 。
@@ -257,7 +257,7 @@ video::d66ef67f-bcc2-4ced-848e-b22e01588e8c[panopto,width=360]
 若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
 
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 請確定兩個 Linux VLAN 介面可用。
 . 確保所有 Proxmox VE 主機上都安裝了多重路徑工具。確保它在開機時啟動。
@@ -279,7 +279,7 @@ cat /etc/iscsi/initiator.name
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 如果是 ONTAP 新手、請使用系統管理員以獲得更好的體驗。
 
@@ -298,7 +298,7 @@ image:proxmox-ontap-image14.png["iSCSI LUN 詳細資料"]
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 移至管理 UI `https:<proxmox node>:8006`、按一下資料中心、選取儲存設備、按一下新增、然後選取 iSCSI 。
 +
@@ -332,7 +332,7 @@ video::80164fe4-06db-4c21-a25d-b22e0179c3d2[panopto,width=360]
 若要設定 Logical Volume Manager 以在 Proxmox 主機之間共用儲存設備、請完成下列工作：
 
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 請確定兩個 Linux VLAN 介面可用。
 . 在叢集上的每個 Proxmox 主機上、執行下列命令以收集主機啟動器資訊。
@@ -346,7 +346,7 @@ nvme show-hostnqn
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 如果是 ONTAP 新手、請使用系統管理員以獲得更好的體驗。
 
@@ -361,7 +361,7 @@ image:proxmox-ontap-image20.png["NVMe 命名空間建立"]
 
 ====
 .<strong> 的 Admin </strong>
-[%collapsible]
+[%collapsible%open]
 ====
 . 在叢集中的每個 Proxmox VE 主機上瀏覽至 Shell 、然後建立 /etc/nve/dining.conf 檔案、並更新您環境的特定內容。
 +

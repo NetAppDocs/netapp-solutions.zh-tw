@@ -62,7 +62,7 @@ image:vmware-nfs-srm-image05.png["設定應用裝置"] ｛ nbsp ｝
 
 NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、網路介面卡和主機系統提供容錯能力。根據架構需求、使用單一子網路或多個子網路來部署 NFS 是很常見的做法。
 
-請參閱 https://core.vmware.com/resource/best-practices-running-nfs-vmware-vsphere["使用 VMware vSphere 執行 NFS 的最佳實務做法"] 如需 VMware vSphere 的詳細資訊、請參閱。
+如需 VMware vSphere 的詳細資訊，請參閱 https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["使用 VMware vSphere 執行 NFS 的最佳實務做法"]。
 
 如需搭配 VMware vSphere 使用 ONTAP 的網路指南、請參閱 https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["網路組態 - NFS"] NetApp 企業應用程式文件的一節。
 
@@ -91,7 +91,7 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 完成下列步驟以設定 SRM 應用裝置和 SRA 介面卡。
 
 .連接主要和次要站台的 SRM 應用裝置
-[%collapsible]
+[%collapsible%open]
 ====
 主要站台和次要站台都必須完成下列步驟。
 
@@ -122,7 +122,7 @@ image:vmware-nfs-srm-image03.png["設定應用裝置"]
 
 ====
 .在 SRM 應用裝置上設定 SRA
-[%collapsible]
+[%collapsible%open]
 ====
 完成下列步驟以在 SRM 應用裝置上設定 SRA ：
 
@@ -145,7 +145,7 @@ image:vmware-nfs-srm-image04.png["新增 SRM 介面卡"]
 完成下列步驟以設定站台配對、建立保護群組、
 
 .設定 SRM 的站台配對
-[%collapsible]
+[%collapsible%open]
 ====
 以下步驟已在主要站台的 vCenter 用戶端中完成。
 
@@ -193,7 +193,7 @@ image:vmware-nfs-srm-image11.png["站台配對摘要"]
 
 ====
 .為 SRM 新增陣列配對
-[%collapsible]
+[%collapsible%open]
 ====
 以下步驟是在主要站台的「站台恢復」介面中完成的。
 
@@ -237,7 +237,7 @@ image:vmware-nfs-srm-image16.png["陣列配對"]
 
 ====
 .設定 SRM 的保護群組
-[%collapsible]
+[%collapsible%open]
 ====
 以下步驟是在主要站台的「站台恢復」介面中完成的。
 
@@ -284,7 +284,7 @@ image:vmware-nfs-srm-image22.png["恢復計畫"]
 
 ====
 .設定 SRM 的恢復計畫
-[%collapsible]
+[%collapsible%open]
 ====
 以下步驟是在主要站台的「站台恢復」介面中完成的。
 
@@ -329,7 +329,7 @@ image:vmware-nfs-srm-image26.png["測試網路"]
  https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-srm-operational_best_practices.html["營運最佳實務做法"]如需將 ONTAP 儲存設備與 SRM 災難恢復作業搭配使用的詳細資訊、請參閱。
 
 .使用 SRM 測試容錯移轉
-[%collapsible]
+[%collapsible%open]
 ====
 以下步驟已在 Site Recovery 介面中完成。
 
@@ -362,7 +362,7 @@ image:vmware-nfs-srm-image30.png["新安裝的資料存放區"]
 
 ====
 .使用 SRM 執行恢復計畫
-[%collapsible]
+[%collapsible%open]
 ====
 執行完整還原並容錯移轉至次要站台。
 
@@ -394,4 +394,4 @@ image:vmware-nfs-srm-image32.png["Filover 完成"]
 
 如需設定 ONTAP 儲存系統的相關資訊、請參閱 link:https://docs.netapp.com/us-en/ontap["供應說明文件ONTAP"] 中心。
 
-如需設定 VCF 的詳細資訊、請參閱 link:https://docs.vmware.com/en/VMware-Cloud-Foundation/index.html["VMware Cloud Foundation 文件"]。
+如需設定 VCF 的相關資訊link:https://techdocs.broadcom.com/us/en/vmware-cis/vcf.html["VMware Cloud Foundation 文件"]，請參閱。

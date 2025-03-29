@@ -1,0 +1,136 @@
+---
+sidebar: sidebar 
+permalink: vmware/vmw-getting-started-netapp-storage-options.html 
+keywords: vmware, getting, started, overview, netapp, storage 
+summary:  
+---
+= NetApp儲存選項
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+NetApp 的 FAS （光纖附加儲存設備）， AFF （ All Flash FAS ）， ASA （所有 SAN 陣列）和雲端解決方案提供一系列對 VMware 環境極具效益的功能，包括 VMware Cloud Foundation 和 VMware vSphere 基礎部署。
+
+
+
+== 簡介
+
+這些產品可增強 VMware 管理員的效能，擴充性和資料管理能力。此外，這些平台也採用 ONTAP ，提供統一，可擴充且有效率的資料管理解決方案，可支援各種儲存傳輸協定，增強資料保護功能，並最佳化各種工作負載的效能。
+
+
+
+== NetApp 平台的一般優點
+
+* * VMware 整合： * 所有 NetApp 平台都能與 VMware 進行深度整合，提升儲存環境的效率。內部部署解決方案可運用外掛程式， API ， VAAI 和 VASA 來改善整體資料管理，同時提升基礎架構的多用途性。
+* * 成本最佳化與儲存效率： * 利用 NetApp 儲存設備，可充分運用重複資料刪除，壓縮及精簡配置等原生效率技術，大幅降低儲存消耗與成本，同時最大化容量使用率與效能。此外，這些儲存成本節省也能減輕運算資源的負擔。
+* * 統一化資料管理： * ONTAP 為內部部署與雲端型儲存設備提供單一管理介面，簡化管理並降低複雜度。如此可在內部部署和雲端環境之間順暢地移動和管理資料，為 VMware 工作負載提供靈活度和擴充性。
+* * 多重傳輸協定支援： * ONTAP 支援多種儲存傳輸協定，包括 NFS ， CIFS/SMB ， iSCSI ， FC 和 NVMe ，讓組織能夠在單一平台上整合工作負載，或是利用專為特定用途所打造的 SAN 產品，而無需建立資料封閉環境。
+* * 自動化與協調： * 支援 VMware Cloud Foundation Automation （前身為 VMware Aria Automation ）等自動化工具，並與 Ansible 及其他自動化架構整合，可簡化作業並減少管理成本。
+* * 安全性： * 強大的安全功能，包括靜止與傳輸時的加密，安全的多租戶共享，以及角色型存取控制，確保 VMware 環境保持安全。
+* * 適用於 VMware 的 ONTAP 工具： * 適用於 VMware 的 NetApp ONTAP 工具提供無縫整合與管理功能，透過統一化且直覺化的介面，為 VMware 環境提供高效率的儲存資源配置，資料保護及強化效能。
+* * SnapCenter for VMware vSphere ： * NetApp SnapCenter for VMware vSphere 可簡化及集中 VMware 環境的資料保護，備份及還原作業，確保虛擬機器資料的可靠且有效率的管理。
+* * 高可用度與恢復能力： * RAID-TEC 和 RAID-DP 等功能可為 VMware 環境提供強大的資料保護與高可用度。
+* * 服務品質（ QoS ）： * 可讓系統管理員設定不同 VM 的效能保證，確保關鍵工作負載能獲得必要的資源。
+
+
+附註： NetApp 雲端解決方案的功能可能受到雲端供應商的限制，但對於來賓連線和支援原生 NFS 資料存放區來說，功能仍然非常強大。
+
+
+
+== NetApp ASA （所有 SAN 陣列）的優點
+
+* * 針對 SAN 最佳化： * 專為 SAN 工作負載所設計，為仰賴區塊儲存的 VMware 環境提供高效能和低延遲。
+* * 增強的高可用度： * 主動式控制器和同步複寫等功能可確保持續可用度和資料保護。
+
+
+ASA 系列產品由 A 系列和 C 系列機型組成。
+
+NetApp A 系列全 NVMe 快閃陣列專為高效能工作負載所設計、提供超低延遲和高恢復能力、適合關鍵任務應用程式使用。
+
+image:vmware-asa-image1.png["寬度 =800"]
+
+C 系列 QLC 快閃陣列的目標是提供更高容量的使用案例、以混合式 Flash 的經濟效益提供 Flash 的速度。
+
+image:vmware-asa-image2.png["寬度 =800"]
+
+
+
+=== 儲存傳輸協定支援
+
+ASA 支援所有標準 SAN 傳輸協定、包括 iSCSI 、光纖通道（ FC ）、乙太網路光纖通道（ FCoE ）和 NVMe over Fabric 。
+
+*ISCSI* - NetApp ASA 提供強大的 iSCSI 支援、可透過 IP 網路存取區塊層級的儲存裝置。它提供與 iSCSI 啟動器的無縫整合、可有效配置及管理 iSCSI LUN 。ONTAP 的進階功能、例如多重路徑、 CHAP 驗證和 ALUA 支援。
+
+如需 iSCSI 組態的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/san-config/configure-iscsi-san-hosts-ha-pairs-reference.html["SAN 組態參考文件"]。
+
+* 光纖通道 * - NetApp ASA 提供對光纖通道 (FC) 的全面支援，這是儲存區域網路 (SAN) 中常用的高速網路技術。ONTAP 可與 FC 基礎架構無縫整合、提供可靠且有效率的區塊層級儲存設備存取。它提供分區、多路徑和架構登入（ FLOGI ）等功能、可在 FC 環境中最佳化效能、增強安全性、並確保無縫連線。
+
+如需光纖通道組態的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/san-config/fc-config-concept.html["SAN 組態參考文件"]。
+
+* NVMe over Fabrics * ： NetApp ONTAP 和 ASA 支援 NVMe over Fabrics 。NVMe / FC 可透過光纖通道基礎架構使用 NVMe 儲存裝置、以及透過儲存 IP 網路使用 NVMe / TCP 。
+
+如需 NVMe 的設計指南、請參閱 https://docs.netapp.com/us-en/ontap/nvme/support-limitations.html["NVMe 組態、支援和限制"]
+｛ nbsp ｝
+
+
+
+=== 主動式技術
+
+NetApp All Flash SAN Array 可透過兩個控制器提供雙主動式路徑、無需主機作業系統等待作用中路徑故障後再啟動替代路徑。這表示主機可以使用所有控制器上的所有可用路徑、無論系統是處於穩定狀態、還是正在進行控制器容錯移轉作業、都能確保使用中的路徑永遠存在。
+
+此外、 NetApp ASA 還提供獨特功能、可大幅提升 SAN 容錯移轉的速度。每個控制器都會持續將重要的 LUN 中繼資料複寫給合作夥伴。因此、如果合作夥伴突然故障、每位控制器都準備好接管資料服務職責。這種整備是可能的、因為控制器已經擁有必要的資訊、可以開始使用先前由故障控制器管理的磁碟機。
+
+使用雙主動式路徑時、計畫性和非計畫性的移轉都會有 2-3 秒的 IO 恢復時間。
+
+如需詳細資訊、請參閱 https://www.netapp.com/pdf.html?item=/media/85671-tr-4968.pdf["TR-4968 、 NetApp 全 SAS 陣列– NetApp ASA 的資料可用度與完整性"]。
+｛ nbsp ｝
+
+如需詳細資訊、請參閱 https://www.netapp.com/data-storage/all-flash-san-storage-array["NetApp ASA 登陸頁面"]。
+｛ nbsp ｝
+
+
+
+== NetApp AFF （ All Flash FAS ）的優點
+
+* * 極致效能： * 利用 All Flash 儲存設備提供低於毫秒的延遲和高 IOPS ，是效能敏感的 VMware 工作負載的理想選擇。
+* * 一致的低延遲： * 確保關鍵應用程式和虛擬機器的可預測效能，對於維護 SLA 至關重要。
+
+
+如需 NetApp AFF A 系列儲存陣列的詳細資訊、請參閱 link:https://www.netapp.com/data-storage/aff-a-series/["NetApp AFF A系列"] 登陸頁面。
+
+如需 NetApp C 系列儲存陣列的詳細資訊、請參閱 link:https://www.netapp.com/data-storage/aff-c-series/["NetApp AFF C 系列"] 登陸頁面。
+
+｛ nbsp ｝
+
+
+
+== NetApp FAS （光纖附加儲存設備）的優點
+
+* * 統一化儲存架構： * 同時支援 SAN （區塊層級）和 NAS （檔案層級）傳輸協定，使其適用於各種 VMware 工作負載。
+* * 具成本效益： * 適合需要在效能與成本之間取得平衡的環境，提供 HDD 與 SSD 的組合。
+
+
+
+
+== 雲端解決方案的優點
+
+* * 雲端原生資料管理： * 利用雲端原生產品來增強 VMware 工作負載的資料移動性，備份和災難恢復能力。支援 VMware 雲端工作負載的原生 NFS 資料存放區，如下所示：
++
+** VMware Cloud on AWS 搭配 Amazon FSX for NetApp ONTAP
+** Azure VMware Service with Azure NetApp Files
+** Google Cloud VMware Engine 搭配 Google Cloud NetApp Volume -
+
+
+* * 混合雲靈活度： * 內部部署與雲端環境之間的無縫整合，為跨多個位置的 VMware 工作負載提供靈活度。
+
+
+
+
+== 摘要
+
+總而言之， ONTAP 和 NetApp 平台為 VMware 工作負載提供了一整套完整的優勢，可提升效能，擴充性和資料管理。雖然通用功能提供穩固的基礎，但每個平台都能提供專為特定需求量身打造的差異化優勢，無論是 FAS 的具成本效益儲存設備， AFF 的高效能， ASA 的最佳化 SAN 效能，或是 NetApp 雲端產品的混合雲靈活度。

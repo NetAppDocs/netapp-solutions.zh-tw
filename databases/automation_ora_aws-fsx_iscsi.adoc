@@ -137,7 +137,7 @@ image:automation_ora_aws-fsx_iscsi_archit.png["此映像提供在 AWS 公有雲�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -185,7 +185,7 @@ video::81e389a0-d9b8-495c-883b-b0d701710847[panopto,width=360]
 
 === 自動化參數檔案
 
-[%collapsible]
+[%collapsible%open]
 ====
 Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工作。對於此 Oracle 自動化解決方案、有三個使用者定義的參數檔案需要使用者輸入才能執行教戰手冊。
 
@@ -201,7 +201,7 @@ Ansible 教戰手冊使用預先定義的參數執行資料庫安裝和組態工
 
 === 參數檔組態
 
-[%collapsible]
+[%collapsible%open]
 ====
 . Ansible 目標 `hosts` 檔案組態：
 +
@@ -277,7 +277,7 @@ memory_limit: 8192
 
 === 教戰手冊執行
 
-[%collapsible]
+[%collapsible%open]
 ====
 自動化工具套件共有六本教戰手冊。每個工作區塊都會執行不同的工作區塊、並提供不同的用途。
 
@@ -352,7 +352,7 @@ ansible-playbook -i hosts 5-destroy.yml -u ec2-user -e @vars/vars.yml
 
 === 執行後驗證
 
-[%collapsible]
+[%collapsible%open]
 ====
 執行教戰手冊後、以 Oracle 使用者身分登入 Oracle DB 伺服器、以驗證 Oracle 網格基礎架構和資料庫是否已成功建立。以下是主機 ora_01 上 Oracle 資料庫驗證的範例。
 
@@ -574,7 +574,7 @@ image:automation_ora_aws-fsx_iscsi_em_01.png["此映像提供 Oracle Enterprise 
 
 === 使用 SnapCenter 進行 Oracle 備份、還原及複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 請參閱 TR-4979 link:aws_ora_fsx_vmc_guestmount.html#oracle-backup-restore-and-clone-with-snapcenter["在 VMware Cloud 上使用來賓安裝的 FSX ONTAP 、在 AWS 上簡化、自我管理的 Oracle"^] 區段 `Oracle backup, restore, and clone with SnapCenter` 如需設定 SnapCenter 及執行資料庫備份、還原及複製工作流程的詳細資訊、
 

@@ -52,7 +52,7 @@ image:vmware-nfs-otv10-image29.png["otv10 架構"]
 
 NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、網路介面卡和主機系統提供容錯能力。根據架構需求、使用單一子網路或多個子網路來部署 NFS 是很常見的做法。
 
-請參閱 https://core.vmware.com/resource/best-practices-running-nfs-vmware-vsphere["使用 VMware vSphere 執行 NFS 的最佳實務做法"] 如需 VMware vSphere 的詳細資訊、請參閱。
+如需 VMware vSphere 的詳細資訊，請參閱 https://www.vmware.com/docs/vmw-best-practices-running-nfs-vmware-vsphere["使用 VMware vSphere 執行 NFS 的最佳實務做法"]。
 
 如需搭配 VMware vSphere 使用 ONTAP 的網路指南、請參閱 https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware-vsphere-network.html#nfs["網路組態 - NFS"] NetApp 企業應用程式文件的一節。
 
@@ -71,7 +71,7 @@ NetApp 建議使用 NFS 的備援網路設計、為儲存系統、交換器、�
 下列步驟是在 ONTAP 系統管理員中執行。
 
 .建立儲存 VM 和生命
-[%collapsible]
+[%collapsible%open]
 ====
 請完成下列步驟、為 NFS 流量建立 SVM 和多個生命期。
 
@@ -111,7 +111,7 @@ image:vmware-vcf-asa-image04.png["啟用 SVM 帳戶並完成"]
 以下步驟是使用 vSphere 用戶端在 VI 工作負載網域叢集上執行的。在此案例中、正在使用 vCenter 單一登入、因此 vSphere 用戶端在管理和工作負載網域中是通用的。
 
 .為 NFS 流量建立分散式連接埠群組
-[%collapsible]
+[%collapsible%open]
 ====
 完成下列步驟、為網路建立新的分散式連接埠群組、以傳輸 NFS 流量：
 
@@ -150,7 +150,7 @@ image:vmware-nfs-otv10-image02.png["DPG - 團隊上行鏈路"]
 
 ====
 .在每個 ESXi 主機上建立 VMkernel 介面卡
-[%collapsible]
+[%collapsible%open]
 ====
 在工作負載網域中的每個 ESXi 主機上重複此程序。
 
@@ -199,7 +199,7 @@ image:vmware-nfs-otv10-image06.png["檢閱 VMkernel 選擇"]
 有關部署和使用適用於 VMware vSphere 10 的 ONTAP 工具的完整文檔 https://docs.netapp.com/us-en/ontap-tools-vmware-vsphere-10/deploy/ontap-tools-deployment.html["部署適用於 VMware vSphere 的 ONTAP 工具"]，請參閱。
 
 .部署適用於 VMware vSphere 10 的 ONTAP 工具
-[%collapsible]
+[%collapsible%open]
 ====
 適用於 VMware vSphere 10 的 ONTAP 工具會部署為 VM 應用裝置、並提供整合式 vCenter UI 來管理 ONTAP 儲存設備。ONTAP 工具 10 採用全新的全球管理入口網站、可管理多個 vCenter 伺服器和 ONTAP 儲存設備後端的連線。
 
@@ -282,7 +282,7 @@ image:vmware-nfs-otv10-image12.png["自訂 OTV 範本 2."]
 
 ====
 .將儲存後端和 vCenter Server 連線至 ONTAP 工具 10 。
-[%collapsible]
+[%collapsible%open]
 ====
 ONTAP 工具管理員用於設定 ONTAP 工具 10 的全域設定。
 
@@ -360,7 +360,7 @@ image:vmware-nfs-otv10-image22.png["ONTAP 工具儀表板"]
 
 ====
 .使用 ONTAP 工具 10 建立 NFS 資料存放區
-[%collapsible]
+[%collapsible%open]
 ====
 請完成下列步驟、使用 ONTAP 工具 10 部署在 NFS 上執行的 ONTAP 資料存放區。
 
@@ -407,7 +407,7 @@ image:vmware-nfs-otv10-image28.png["檢視摘要和完成"]
 
 ====
 .使用 ONTAP 工具調整 NFS 資料存放區大小 10.
-[%collapsible]
+[%collapsible%open]
 ====
 請完成下列步驟、使用 ONTAP 工具 10 調整現有 NFS 資料存放區的大小。
 

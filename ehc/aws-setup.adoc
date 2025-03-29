@@ -24,7 +24,7 @@ NOTE: 客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功
 設定程序可分為下列步驟：
 
 .部署及設定適用於AWS的VMware Cloud
-[%collapsible]
+[%collapsible%open]
 ====
 link:https://www.vmware.com/products/vmc-on-aws.html["AWS上的VMware Cloud"] 在AWS生態系統中為VMware工作負載提供雲端原生體驗。每個VMware軟體定義資料中心（SDDC）都會在Amazon Virtual Private Cloud（VPC）上執行、並提供完整的VMware堆疊（包括vCenter Server）、NSX-T軟體定義網路、vSAN軟體定義儲存設備、以及一或多個ESXi主機、為您的工作負載提供運算與儲存資源。
 
@@ -36,7 +36,7 @@ NOTE: 客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功
 設定程序可分為三個部分：
 
 .註冊AWS帳戶
-[%collapsible]
+[%collapsible%open]
 =====
 註冊以取得 link:https://aws.amazon.com/["Amazon Web Services帳戶"]。
 
@@ -44,7 +44,7 @@ NOTE: 客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功
 
 =====
 .註冊My VMware帳戶
-[%collapsible]
+[%collapsible%open]
 =====
 註冊以取得 link:https://customerconnect.vmware.com/home["我的VMware"] 帳戶。
 
@@ -52,7 +52,7 @@ NOTE: 客體內儲存設備是目前唯一支援的連線Cloud Volumes ONTAP 功
 
 =====
 .在VMware Cloud中配置SDDC
-[%collapsible]
+[%collapsible%open]
 =====
 設定VMware帳戶並執行適當規模調整之後、部署軟體定義的資料中心是在AWS服務上使用VMware Cloud的下一步。若要建立SDDC、請挑選一個AWS區域來裝載它、為SDDC命名、然後指定您希望SDDC包含多少ESXi主機。如果您尚未擁有AWS帳戶、您仍可建立包含單一ESXi主機的入門組態SDDC。
 
@@ -101,7 +101,7 @@ image:aws-config-11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入�
 =====
 ====
 .將VMware Cloud連接至FSX ONTAP VMware
-[%collapsible]
+[%collapsible%open]
 ====
 若要將VMware Cloud連接至FSXVMware ONTAP 、請完成下列步驟：
 

@@ -142,7 +142,7 @@ image:automation_ora_anf_nfs_archit.png["此映像提供在 AWS 公有雲中使�
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要在 Azure 的 ANF 上執行現有的 Oracle 資料庫。如果沒有、請依照下列步驟建立兩個 Oracle 資料庫以進行解決方案驗證。如需在 Azure 雲端以自動化技術部署 Oracle 資料庫的詳細資訊、請參閱 TR-4987 ： link:automation_ora_anf_nfs.html["Azure NetApp Files with NFS 上簡化的自動化 Oracle 部署"^]
 
@@ -196,7 +196,7 @@ video::960fb370-c6e0-4406-b6d5-b110014130e8[panopto,width=360]
 
 === SnapCenter 安裝與設定
 
-[%collapsible]
+[%collapsible%open]
 ====
 我們建議您上網瀏覽 link:https://docs.netapp.com/us-en/snapcenter/index.html["軟件文檔SnapCenter"^] 繼續 SnapCenter 安裝和組態之前：。以下提供在 Azure anf 上安裝及設定 SnapCenter 軟體的高階步驟摘要。
 
@@ -249,7 +249,7 @@ image:snapctr_ora_azure_anf_setup_05.png["此映像提供 SnapCenter 伺服器�
 
 === 資料庫備份
 
-[%collapsible]
+[%collapsible%open]
 ====
 NetApp 快照備份會建立資料庫磁碟區的時間點映像、以便在系統故障或資料遺失時進行還原。Snapshot 備份所需時間很少、通常不到一分鐘。備份映像會佔用最少的儲存空間、而且效能成本可忽略不計、因為它只會記錄自上次執行快照複本之後對檔案所做的變更。下節說明在 SnapCenter 中實作 Oracle 資料庫備份的快照。
 
@@ -308,7 +308,7 @@ image:snapctr_ora_azure_anf_bkup_13.png["此映像可為 SnapCenter 伺服器提
 
 === 資料庫恢復
 
-[%collapsible]
+[%collapsible%open]
 ====
 透過 SnapCenter 進行資料庫還原可還原資料庫 Volume 映像時間點的快照複本。接著、資料庫會依 SCN/timestamp 或備份集中可用的歸檔記錄所允許的點、向前捲動至所需的點。下節說明使用 SnapCenter UI 進行資料庫還原的工作流程。
 
@@ -351,7 +351,7 @@ image:snapctr_ora_azure_anf_restore_08.png["此映像可為 SnapCenter 伺服器
 
 === 資料庫複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 透過 SnapCenter 複製資料庫是透過從磁碟區快照建立新的磁碟區來完成。系統會使用快照資訊、在擷取快照時使用磁碟區上的資料來複製新的磁碟區。更重要的是、相較於其他方法、製作正式作業資料庫的複本以支援開發或測試的速度很快（幾分鐘）、而且效率很高。因此、可大幅改善資料庫應用程式生命週期管理。下節說明使用 SnapCenter UI 複製資料庫的工作流程。
 

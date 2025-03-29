@@ -25,7 +25,7 @@ NOTE: 在 AWS SDDC 上、將 FSX ONTAP 部署在與 VMware Cloud 相同的可用
 NOTE: 您無法在連線的 VPC 中部署 FSX ONTAP 。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。
 
 .步驟 1 ：在新的指定 VPC 中建立 Amazon FSX ONTAP
-[%collapsible]
+[%collapsible%open]
 ====
 若要建立並掛載 Amazon FSX ONTAP 檔案系統、請完成下列步驟：
 
@@ -150,7 +150,7 @@ NOTE: 重複上述步驟、根據容量和效能需求、建立更多儲存虛�
 
 ====
 .步驟2：建立SDDC群組
-[%collapsible]
+[%collapsible%open]
 ====
 建立檔案系統和SVM之後、請使用VMware Console建立SDDC群組、並設定VMware Transit Connect。若要這麼做、請完成下列步驟、並記住您必須在VMware Cloud Console和AWS主控台之間進行瀏覽。
 
@@ -169,7 +169,7 @@ image:fsx-nfs-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .步驟3：設定VMware Transit Connect
-[%collapsible]
+[%collapsible%open]
 ====
 . 將新建立的指定VPC附加至SDDC群組。選擇 * 外部 VPC* 選項卡，然後按照 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-networking-security/GUID-A3D03968-350E-4A34-A53E-C0097F5F26A9.html["將外部VPC附加至群組的說明"^]。此程序可能需要10-15分鐘才能完成。
 +
@@ -198,7 +198,7 @@ image:fsx-nfs-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .步驟4：建立傳輸閘道附加
-[%collapsible]
+[%collapsible%open]
 ====
 . 在AWS主控台中、前往VPC服務頁面、然後瀏覽至用於配置FSX檔案系統的VPC。您可在此處按一下右側導覽窗格上的* Transit Gateway附件*、以建立傳輸閘道附件。
 . 在 * VPC 附件 * 下、確定已勾選 DNS 支援、並選取要部署 FSX ONTAP 的 VPC 。
@@ -236,7 +236,7 @@ image:fsx-nfs-image22.png["此圖顯示輸入 / 輸出對話方塊或表示寫�
 
 ====
 .步驟5：設定路由（AWS VPC和SDDC）和安全性群組
-[%collapsible]
+[%collapsible%open]
 ====
 . 在AWS主控台中、找出VPC服務頁面中的VPC、然後選取VPC的*主*路由表、以建立返回SDDC的路由。
 . 瀏覽至下方面板中的路由表、然後按一下*編輯路由*。
@@ -266,7 +266,7 @@ NOTE: 更新安全性群組以接受NFS流量。
 
 ====
 .步驟6：將NFS磁碟區作為資料存放區附加至SDDC叢集
-[%collapsible]
+[%collapsible%open]
 ====
 在檔案系統佈建且連線到位之後、請存取VMware Cloud Console來掛載NFS資料存放區。
 

@@ -137,7 +137,7 @@ image:aws_ora_fsx_data_guard_architecture.png["此映像提供使用 FSX ONTAP �
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -160,7 +160,7 @@ NOTE: 請確定您已在 EC2 執行個體根磁碟區中至少分配 50g 、以�
 
 === 準備 Data Guard 的主要資料庫
 
-[%collapsible]
+[%collapsible%open]
 ====
 在本示範中、我們已在主要 EC2 DB 執行個體上設定名為 db1 的主要 Oracle 資料庫、並在獨立式重新啟動組態中設定兩個 ASM 磁碟群組、其中包含 ASM 磁碟群組中的資料檔案、以及 ASM 磁碟群組 + 記錄中的資料和 Flash 恢復區域。以下說明設定 Data Guard 主要資料庫的詳細程序。所有步驟均應以資料庫擁有者 - Oracle 使用者的身分執行。
 
@@ -404,7 +404,7 @@ srvctl start database -d db1
 
 === 準備備用資料庫並啟動 Data Guard
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard 需要作業系統核心組態和 Oracle 軟體堆疊、包括待機 EC2 DB 執行個體上的修補集、以符合主要 EC2 DB 執行個體。為了便於管理和簡化、備援的 EC2 DB 執行個體資料庫儲存組態理想上也應與主要的 EC2 DB 執行個體相符、例如 ASM 磁碟群組的名稱、數量和大小。以下是設定 Data Guard 的待機 EC2 DB 執行個體的詳細程序。所有命令均應以 Oracle 擁有者使用者 ID 執行。
 
@@ -704,7 +704,7 @@ SQL>
 
 === 設定 Data Guard Broker
 
-[%collapsible]
+[%collapsible%open]
 ====
 Oracle Data Guard Broker 是一套分散式管理架構、可自動化及集中建立、維護及監控 Oracle Data Guard 組態。以下章節示範如何設定 Data Guard Broker 來管理 Data Guard 環境。
 
@@ -799,7 +799,7 @@ DGMGRL>
 
 === 針對其他使用案例複製待命資料庫
 
-[%collapsible]
+[%collapsible%open]
 ====
 在 Data Guard 中、在 AWS FSX ONTAP 上暫存備用資料庫的主要優點是可以透過 FlexClould 來處理許多其他使用案例、而且只需最少的額外儲存投資。在下一節中、我們將示範如何在 FSX ONTAP 上快照及複製掛載及還原中的備用資料庫磁碟區、以用於其他用途、例如開發、測試、報告等。 使用 NetApp SnapCenter 工具。
 

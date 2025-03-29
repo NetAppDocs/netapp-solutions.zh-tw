@@ -121,7 +121,7 @@ video::48adf2d8-3f5e-4ab3-b25c-b04a014635ac[panopto]
 
 === SnapCenter 服務部署的必要條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -136,7 +136,7 @@ video::48adf2d8-3f5e-4ab3-b25c-b04a014635ac[panopto]
 
 === 開始準備 BlueXP
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 使用連結 link:https://console.bluexp.netapp.com/["NetApp BlueXP"] 註冊 BlueXP 主控台存取。
 . 建立 Azure 使用者帳戶或 Active Directory 服務原則、並在 Azure 入口網站中授予 Azure Connector 部署角色的權限。
@@ -149,7 +149,7 @@ video::48adf2d8-3f5e-4ab3-b25c-b04a014635ac[panopto]
 
 === 部署 SnapCenter 服務的連接器
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 登入 BlueXP 主控台。
 +
@@ -198,7 +198,7 @@ image:snapctr_svcs_connector_11-azure.png["GUI 中顯示此步驟的螢幕擷取
 
 === 在 BlueXP 中定義用於 Azure 資源存取的認證
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 按一下 BlueXP 主控台右上角的設定圖示以開啟 * 帳戶認證 * 頁面、按一下 * 新增認證 * 以啟動認證組態工作流程。
 +
@@ -221,7 +221,7 @@ image:snapctr_svcs_credential_03-azure.png["GUI 中顯示此步驟的螢幕擷�
 
 === SnapCenter 服務設定
 
-[%collapsible]
+[%collapsible%open]
 ====
 設定 Azure 認證之後、即可透過下列程序來設定 SnapCenter 服務：
 
@@ -282,7 +282,7 @@ image:snapctr_svcs_setup_19-azure.png["GUI 中顯示此步驟的螢幕擷取畫�
 
 === Oracle 資料庫備份
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 我們在 Azure VM 中的測試 Oracle 資料庫設定了三個磁碟區、總儲存容量約 1.6 TiB 。這提供了有關此大小資料庫的快照備份、還原和複製時間的內容。
 
@@ -339,7 +339,7 @@ image:snapctr_svcs_bkup_06-azure.png["GUI 中顯示此步驟的螢幕擷取畫�
 
 === Oracle 資料庫還原與還原
 
-[%collapsible]
+[%collapsible%open]
 ====
 . 若要進行資料庫還原、請按一下 * 應用程式 * 中要還原之特定資料庫的三點下拉式功能表、然後按一下 * 還原 * 以啟動資料庫還原與還原工作流程。
 +
@@ -372,7 +372,7 @@ image:snapctr_svcs_restore_06-azure.png["GUI 中顯示此步驟的螢幕擷取�
 
 === Oracle 資料庫複製
 
-[%collapsible]
+[%collapsible%open]
 ====
 資料庫複製程序與還原類似、但與預先安裝及設定相同 Oracle 軟體堆疊的替代 Azure VM 相似。
 

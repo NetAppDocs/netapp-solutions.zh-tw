@@ -116,7 +116,7 @@ image:azure_ora_anf_vldb_architecture.png["此映像提供在 Azure 公有雲與
 
 === 部署的先決條件
 
-[%collapsible]
+[%collapsible%open]
 ====
 部署需要下列先決條件。
 
@@ -133,7 +133,7 @@ NOTE: 請確定您已在 Azure VM 根 Volume 中至少分配 128G 、以便有�
 
 === 配置及匯出要掛載於主 Oracle VLDB 伺服器上的 NFS 磁碟區
 
-[%collapsible]
+[%collapsible%open]
 ====
 在本節中、我們將透過 Azure 入口網站主控台、從 ANF 容量集區配置 NFS Volume 。如果設定了多個 ANF 容量集區以容納資料庫的大小、請在其他 ANF 容量集區上重複這些程序。
 
@@ -185,7 +185,7 @@ sudo chown oracle:oinstall /nfsanf
 
 === 在 anf 上設定 Oracle RMAN 遞增合併至影像複本
 
-[%collapsible]
+[%collapsible%open]
 ====
 RMAN 遞增合併會在每個遞增備份 / 合併間隔持續更新整備資料庫資料檔案映像複本。資料庫備份的映像複本將與您執行遞增備份 / 合併的頻率一樣、是最新的。因此、在決定 RMAN 遞增備份與合併的頻率時、請考量資料庫效能、 RTO 和 RPO 目標。
 
@@ -812,7 +812,7 @@ total 399482176
 
 === 將 Oracle VLDB 切換至映像複本、以快速恢復
 
-[%collapsible]
+[%collapsible%open]
 ====
 如果由於主要儲存問題（例如資料遺失或毀損）而發生故障、資料庫可以快速切換至 anf NFS 掛載上的映像複本、並在不進行資料庫還原的情況下恢復至目前狀態。消除媒體還原可大幅加速 VLDB 的資料庫還原。此使用案例假設 Oracle VLDB DB 伺服器完整無缺、而且資料庫控制檔、歸檔和目前的記錄都可供還原。
 
@@ -1094,7 +1094,7 @@ SQL>
 
 === Oracle VLDB 可從映像複本恢復到備用 DB 伺服器
 
-[%collapsible]
+[%collapsible%open]
 ====
 如果主儲存設備和主要 DB 伺服器主機都遺失、則無法從原始伺服器執行還原。不過、在 ANF NFS 檔案系統上提供的 Oracle 資料庫備份映像複本非常實用。您可以使用備份映像複本、將主要資料庫快速恢復至備用 DB 伺服器（如果有）。在本節中、我們將示範此類恢復的逐步程序。
 

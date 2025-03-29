@@ -16,8 +16,6 @@ summary: 災難恢復至雲端是一種彈性且具成本效益的方法、可�
 [role="lead"]
 災難恢復至雲端是一種彈性且具成本效益的方法、可保護工作負載、避免站台中斷運作、以及勒索軟體等資料毀損事件。有了NetApp SnapMirror、使用來賓連線儲存設備的內部部署VMware工作負載可以複寫到Cloud Volumes ONTAP 在Google Cloud上執行的NetApp VMware。
 
-作者：NetApp Suresh ThopPay
-
 
 
 == 總覽
@@ -72,7 +70,7 @@ NOTE: 將內部部署資料中心連線至Google Cloud的選項有多種、讓�
 === 部署詳細資料
 
 .在Google Cloud上設定CVO、並將磁碟區複寫至CVO
-[%collapsible]
+[%collapsible%open]
 ====
 第一步是在 Google Cloud 上設定 Cloud Volumes ONTAP （link:gcp-guest.html#gcp-cvo["CVO"^]）並以Cloud Volumes ONTAP 所需的頻率和快照保留量、將所需的Volume複製到不間斷的地方。
 
@@ -84,7 +82,7 @@ image:dr-cvo-gcve-image2.png["此圖顯示輸入 / 輸出對話方塊或表示�
 video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
 ====
 .設定GCVO主機和CVO資料存取
-[%collapsible]
+[%collapsible%open]
 ====
 部署SDDC時、需要考量的兩個重要因素是GCVE解決方案中SDDC叢集的大小、以及SDDC持續運作的時間。這兩項災難恢復解決方案的關鍵考量、有助於降低整體營運成本。SDDC可只有三部主機、在全規模部署中、一直到多主機叢集為止。
 
@@ -96,13 +94,13 @@ video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
 
 ====
 .安裝Veeam元件
-[%collapsible]
+[%collapsible%open]
 ====
 根據部署案例、需要部署的Veeam備份伺服器、備份儲存庫和備份Proxy。在此使用案例中、不需要為Veeam部署物件存放區、也不需要橫向擴充儲存庫。https://helpcenter.veeam.com/docs/backup/qsg_vsphere/deployment_scenarios.html["如需安裝程序、請參閱Veeam文件"]
 
 ====
 .使用Veeam設定VM複寫
-[%collapsible]
+[%collapsible%open]
 ====
 內部部署的vCenter和GCVE- vCenter都需要向Veeam註冊。 https://helpcenter.veeam.com/docs/backup/qsg_vsphere/replication_job.html["設定vSphere VM複寫工作"] 在精靈的「來賓處理」步驟中、選取「停用應用程式處理」、因為我們將使用SnapCenter 支援應用程式的功能來進行應用程式感知備份與還原。
 
@@ -110,7 +108,7 @@ video::395e33db-0d63-4e48-8898-b01200f006ca[panopto]
 video::8b7e4a9b-7de1-4d48-a8e2-b01200f00692[panopto]
 ====
 .容錯移轉Microsoft SQL Server VM
-[%collapsible]
+[%collapsible%open]
 ====
 .容錯移轉Microsoft SQL Server VM
 video::9762dc99-081b-41a2-ac68-b01200f00ac0[panopto]

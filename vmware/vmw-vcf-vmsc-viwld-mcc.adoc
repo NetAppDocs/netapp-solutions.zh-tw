@@ -16,7 +16,11 @@ summary:
 [role="lead"]
 VCF 上的工作負載受到 vSphere Metro Storage Cluster （ VMSC ）保護。採用 FC 或 IP 部署的 ONTAP MetroCluster 通常用於提供 VMFS 和 NFS 資料存放區的容錯能力。
 
-image:vmw-vcf-vmsc-viwld-mcc-image01.png["VMSC 的 Vcf VI 工作負載網域"]
+image:vmw-vcf-vmsc-viwld-mcc-image01.png["Vcf VI Workload Domain 搭配 VMSC ， width=500"]
+
+
+
+== 簡介
 
 在本解決方案中，我們將示範如何使用 ONTAP MetroCluster 將 St蝕 刻的 VCF VI 工作負載網域與 NFS 實作為主要資料存放區。VI 工作負載網域可以使用 SDDC Manager 進行部署，或將現有 vSphere 環境匯入為 VI 工作負載網域。
 
@@ -97,7 +101,7 @@ image:vmw-vcf-vmsc-mgmt-mcc-image17.png["故障網域 2 上的 SVM"]
 使用從 Broadcom 支援入口網站下載的 ISO ，或使用 vSphere 主機的現有部署選項，在主機上部署 vSphere 。
 
 .將 NFS 資料存放區裝載至主機 VM
-[%collapsible]
+[%collapsible%open]
 ====
 在此步驟中，我們會建立 NFS 磁碟區，並將其裝載為資料存放區，以裝載 VM 。
 
@@ -137,7 +141,7 @@ VCF Import Tool （由 Broadcom 提供）是 vCenter 應用裝置和 SDDC 管理
 如需詳細資訊、請 https://docs.vmware.com/en/VMware-Cloud-Foundation/5.2/vcf-admin/GUID-44CBCB85-C001-41B2-BBB4-E71928B8D955.html["Vcf Import 工具選項和參數"]參閱。
 
 .複製並擷取 VCF 匯入工具
-[%collapsible]
+[%collapsible%open]
 ====
 VCF 匯入工具用於 vCenter 應用裝置，以驗證 vSphere 叢集是否處於 VCF 轉換或匯入程序的健全狀態。
 
@@ -153,7 +157,7 @@ tar -xvf vcf-brownfield-import-<buildnumber>.tar.gz
 
 ====
 .驗證 vCenter 應用裝置
-[%collapsible]
+[%collapsible%open]
 ====
 在匯入為 VI 工作負載網域之前，請使用 VCF 匯入工具驗證 vCenter 應用裝置。
 
@@ -162,7 +166,7 @@ tar -xvf vcf-brownfield-import-<buildnumber>.tar.gz
 
 ====
 .為 NSX 部署建立 JSON 檔案
-[%collapsible]
+[%collapsible%open]
 ====
 若要在將 vSphere 環境匯入或轉換為 VMware Cloud Foundation 時部署 NSX Manager ，請建立 NSX 部署規格。NSX 部署至少需要 3 台主機。
 
@@ -206,7 +210,7 @@ NOTE: 在轉換或匯入作業中部署 NSX Manager 叢集時，會使用 NSX VL
 
 ====
 .將軟體上傳至 SDDC Manager
-[%collapsible]
+[%collapsible%open]
 ====
 將 VCF Import Tool 複製到 vcf 使用者的主資料夾，並將 NSX 部署套件複製到 SDDC Manager 上的 /NFS/VMware/vcf/NFS-mount/bundle/ 資料夾。
 
@@ -214,7 +218,7 @@ NOTE: 在轉換或匯入作業中部署 NSX Manager 叢集時，會使用 NSX VL
 
 ====
 .轉換前詳細檢查 vCenter
-[%collapsible]
+[%collapsible%open]
 ====
 在執行管理網域轉換作業或 VI 工作負載網域匯入作業之前，您必須執行詳細檢查，以確保現有 vSphere 環境的組態支援進行轉換或匯入。。以使用者 vcf 的形式將 SSH 傳送至 SDDC Manager 應用裝置。。瀏覽至複製 VCF 匯入工具的目錄。。執行下列命令，檢查 vSphere 環境是否可以轉換
 
@@ -225,7 +229,7 @@ image:vmw-vcf-vmsc-viwld-mcc-image08.png["vcf 檢查 vc"]
 
 ====
 .將 vSphere 叢集轉換為 VCF VI 工作負載網域
-[%collapsible]
+[%collapsible%open]
 ====
 VCF 匯入工具用於執行轉換程序。
 
@@ -246,7 +250,7 @@ SDDC Manager 會顯示以提供的名稱建立的 VI 工作負載網域，以及
 
 ====
 .新增 VCF 授權
-[%collapsible]
+[%collapsible%open]
 ====
 完成轉換後，必須將授權新增至環境。
 
