@@ -84,20 +84,50 @@ image:redhat_openshift_container_rosa_image2.png["FSxN 已建立"]
 
 **2. 安裝及設定 ROSA 叢集的 Trident CSI 驅動程式 **
 
-a. 新增 Trident Helm 儲存庫 **
+** b.Install Trident *
 
-[source]
-----
-$ helm repo add netapp-trident https://netapp.github.io/trident-helm-chart
-----
-** b 。使用 helm** 安裝 Trident
+ROSA 叢集工作節點預先設定了 NFS 工具，可讓您使用 NAS 傳輸協定進行儲存資源配置和存取。
 
-[source]
-----
-$ helm install trident netapp-trident/trident-operator --version 100.2406.0 --create-namespace --namespace trident
-----
+如果您想改用 iSCSI ，則需要為 iSCSI 準備工作節點。從 Trident 25.02 版本開始，您可以輕鬆準備 ROSA 叢集（或任何 OpenShift 叢集）的工作節點，以便在 FSxN 儲存設備上執行 iSCSI 作業。安裝 Trident 25.02 （或更新版本）有兩種簡單的方法，可自動為 iSCSI 準備工作節點。1. 使用 tridentctl 工具從命令列使用 node-preper-flag 。2.使用營運商中樞的 Red Hat 認證 Trident 營運商並進行自訂。使用 Helm 。
 
-NOTE: 視您安裝的版本而定、需要在所示命令中變更版本參數。請參閱link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-helm.html["文件"]以取得正確的版本編號。有關安裝 Trident link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["文件"]的其他方法，請參閱 Trident 。
+
+NOTE: 在不啟用節點準備的情況下使用上述任何方法，只能使用 NAS 傳輸協定來在 FSxN 上配置儲存設備。
+
+** 方法 1 ：使用 tridentctl 工具 **
+
+使用 node-prepRep 標誌並安裝 Trident ，如圖所示。在發出 install 命令之前，您應該已經下載安裝程式套件。請參閱 link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy-tridentctl.html#step-1-download-the-trident-installer-package["此處的文件"]。
+
+[source, yaml]
+----
+#./tridentctl install trident -n trident --node-prep=iscsi
+----
+** 方法 2 ：使用 Red Hat 認證的 Trident 操作員並從 OperatorHub 自訂 ** ，找出 Red Hat 認證的 Trident 操作員並加以安裝。
+
+image:rh-os-n_use_case_operator_img1.png["駕駛員在駕駛員中樞"]
+
+image:rh-os-n_use_case_operator_img2.png["安裝操作員 1"]
+
+image:rh-os-n_use_case_operator_img3.png["安裝操作員 2."]
+
+image:rh-os-n_use_case_operator_img4.png["已安裝操作員"]
+
+接下來，建立 Trident Orchestrator 執行個體。使用 YAML 檢視來設定任何自訂值，或在安裝期間啟用 iSCSI 節點準備。
+
+image:rh-os-n_use_case_operator_img5.png["Orchestrator 建立"]
+
+image:rh-os-n_use_case_operator_img6.png["啟用 NodePrep"]
+
+image:rh-os-n_use_case_operator_img7.png["Orchestrator 已安裝"]
+
+image:rh-os-n_use_case_operator_img8.png["已安裝 Trident"]
+
+使用上述任一方法安裝 Trident ，將會啟動 iscsid 和 multipathd 服務，並在 /etc/multipath.conf 檔案中設定下列項目，以準備用於 iSCSI 的 ROSA 叢集工作節點
+
+image:rh-os-n_use_case_iscsi_node_prep1.png["iscsid 作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep2.png["多路徑作用中"]
+
+image:rh-os-n_use_case_iscsi_node_prep3.png["multipath.conf 檔案"]
 
 **c. 驗證所有 Trident Pod 是否都處於運行狀態 **
 
@@ -208,6 +238,47 @@ spec:
  You can issue the following commands to create a pvc and verify that it has been created.
 image:redhat_openshift_container_rosa_image11.png["使用 Trident 建立測試 PVC"]
 
+
+NOTE: 若要使用 iSCSI ，您應該已在工作節點上啟用先前所示的 iSCSI ，而且需要建立 iSCSI 後端和儲存類別。以下是一些範例 yaml 檔案。
+
+[source, yaml]
+----
+cat tbc.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: backend-tbc-ontap-san-secret
+type: Opaque
+stringData:
+  username: fsxadmin
+  password: <password for the fsxN filesystem>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: backend-tbc-ontap-san
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  managementLIF: <management lif of fsxN filesystem>
+  backendName: backend-tbc-ontap-san
+  svm: svm_FSxNForROSAiSCSI
+  credentials:
+    name: backend-tbc-ontap-san-secret
+
+cat sc.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: trident-csi
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  media: "ssd"
+  provisioningType: "thin"
+  snapshots: "true"
+allowVolumeExpansion: true
+----
 **5.部署 PostgreSQL 有狀態應用程式的範例 **
 
 **a.使用 helm 來安裝 PostgreSQL *
