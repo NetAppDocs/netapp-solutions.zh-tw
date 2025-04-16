@@ -96,6 +96,76 @@ link:https://docs.netapp.com/us-en/snapcenter/install/concept_snapcenter_license
 
 Ansible控制器的自動化功能也可用於強化SnapCenter 某些工作的功能、例如中斷SnapMirror執行個體以啟動正式作業的DR資料複本。
 
-請依照下列指示、為 RedHat 或 CentOS 機器設定 Ansible 控制節點：包括：：：： _include/Automation 、 rhel_CentOS_setup.adoc []
+請遵循下列指示、為RedHat或CentOS機器設定Ansible控制節點：
 
-請依照下列指示、為 Ubuntu 或 Debian 機器設定您的 Ansible 控制節點：包括：：：：： include/Automation 、 Ubuntu _debian_setup.adoc []
+. Ansible控制節點的需求：
++
+.. 安裝下列套件的RHEL/CentOS機器：
++
+... Python3.
+... 管路3.
+... Ansible（版本高於2.10.0）
+... Git
+
+
+
+
+
+
+如果您有一部全新的RHEL/CentOS機器、但未安裝上述需求、請依照下列步驟將該機器設定為「Ansible Control Node（可控制節點）」：
+
+. 啟用RHEL-8/RHEL-7的Ansible儲存庫
++
+.. 適用於RHEL-8（以root執行下列命令）
++
+[source, cli]
+----
+subscription-manager repos --enable ansible-2.9-for-rhel-8-x86_64-rpms
+----
+.. 適用於RHEL-7（以root執行下列命令）
++
+[source, cli]
+----
+subscription-manager repos --enable rhel-7-server-ansible-2.9-rpms
+----
+
+
+. 將下列內容貼到終端機中
++
+[source, cli]
+----
+sudo yum -y install python3 >> install.log
+sudo yum -y install python3-pip >> install.log
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> install.log
+sudo yum -y install git >> install.log
+----
+
+
+請遵循下列指示、為Ubuntu或Debian機器設定Ansible控制節點：
+
+. Ansible控制節點的需求：
++
+.. 安裝下列套件的Ubuntu / Debian機器：
++
+... Python3.
+... 管路3.
+... Ansible（版本高於2.10.0）
+... Git
+
+
+
+
+
+
+如果您有新安裝的Ubuntu / Debian機器、但未安裝上述要求、請依照下列步驟將該機器設定為Ansible控制節點：
+
+. 將下列內容貼到對講機中
++
+[source, cli]
+----
+sudo apt-get -y install python3 >> outputlog.txt
+sudo apt-get -y install python3-pip >> outputlog.txt
+python3 -W ignore -m pip --disable-pip-version-check install ansible >> outputlog.txt
+sudo apt-get -y install git >> outputlog.txt
+----
+
