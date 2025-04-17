@@ -14,7 +14,7 @@ summary: 本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同
 
 
 [role="lead"]
-本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同步雙向複寫可延伸容錯移轉叢集、讓多站台應用程式資料（例如、 MSSQL 和 Oracle ）能夠在兩個站台之間主動存取並同步。
+本白皮書說明 Microsoft 彈性容錯移轉叢集之間的 SnapMirror 主動式同步技術同步雙向複寫，可讓多站台應用程式資料（例如， MSSQL 和 Oracle ）在兩個站台之間主動存取並同步。
 
 
 
@@ -28,7 +28,7 @@ summary: 本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同
 * 改善效能：使用對稱式主動 / 主動式組態、將負載分散到多個儲存系統、縮短回應時間並提升整體系統效能。
 
 
-本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同步雙向複寫可延伸容錯移轉叢集、讓多站台應用程式資料（例如、 MSSQL 和 Oracle ）能夠在兩個站台之間主動存取並同步。如果發生故障、應用程式會立即重新導向至其餘的作用中站台、不會遺失資料、也不會遺失存取、提供高可用度、災難恢復和地理備援。
+本白皮書說明 Microsoft 彈性容錯移轉叢集之間的 SnapMirror 主動式同步技術同步雙向複寫，可讓多站台應用程式資料（例如， MSSQL 和 Oracle ）在兩個站台之間主動存取並同步。如果發生故障、應用程式會立即重新導向至其餘的作用中站台、不會遺失資料、也不會遺失存取、提供高可用度、災難恢復和地理備援。
 
 
 
@@ -39,7 +39,7 @@ summary: 本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同
 SnapMirror 主動同步提供下列使用案例：
 
 .零恢復時間物件（ RTO ）的應用程式部署
-在 SnapMirror 主動式同步部署中、您有一個主叢集和鏡射叢集。主叢集中的 LUN （ \L1P ）在次要叢集上有鏡射（ L1S ）；本機站台會根據熱近接設定、將讀寫功能提供給主機。
+在 SnapMirror 主動式同步部署中、您有一個主叢集和鏡射叢集。主叢集中的 LUN （ L1P ）在次要叢集上有鏡射（ L1S ）；本機站台會根據熱近接設定，將讀寫功能提供給主機。
 
 .應用程式部署、實現零 RTO 或 TAF
 透明應用程式容錯移轉（ TAF ）是以主機 MPIO 軟體路徑容錯移轉為基礎、以實現不中斷的儲存存取。兩個 LUN 複本（例如、主要（ L1P ）和鏡像複本（ L1S ））都具有相同的身分識別（序號）、並報告為可寫入主機讀取。
@@ -57,12 +57,12 @@ SnapMirror 主動式同步功能提供靈活度、應用程式層級的精細度
 
 == 解決方案架構
 
-Microsoft 容錯移轉延伸叢集在每個站台上都有兩個 Hyper-V 節點。這兩個節點共用 NetApp 儲存設備、並使用 SnapMirror Active Sync 對稱雙主動式、在兩個站台之間複寫磁碟區。一致性群組可確保資料集的所有磁碟區都會處於靜默狀態、然後精確地在同一時間點對齊。如此可在支援資料集的磁碟區之間提供資料一致的還原點。ONTAP Mediator 會接收有關協調的 ONTAP 叢集和節點的健全狀況資訊、在兩者之間協調、並判斷每個節點 / 叢集是否正常運作。
+Microsoft Stretch 叢集在每個站台上都有兩個 Hyper-V 節點。這兩個節點共用 NetApp 儲存設備、並使用 SnapMirror Active Sync 對稱雙主動式、在兩個站台之間複寫磁碟區。一致性群組可確保資料集的所有磁碟區都會處於靜默狀態、然後精確地在同一時間點對齊。如此可在支援資料集的磁碟區之間提供資料一致的還原點。ONTAP Mediator 會接收有關協調的 ONTAP 叢集和節點的健全狀況資訊、在兩者之間協調、並判斷每個節點 / 叢集是否正常運作。
 
 解決方案元件：
 
 * 兩個 NetApp 儲存系統 ONTAP 9 。 15.1 ：第一個和第二個故障網域
-* 適用於 ONTAP 中介者的 Re該 8.7 VM
+* 適用於 ONTAP 中介者的 Redhat 8.7 VM
 * Windows 2022 上的三個 Hyper-V 容錯移轉叢集：
 +
 ** 站台 1 、應用程式站台 2
@@ -82,7 +82,7 @@ image:hyperv-smas-image1.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 以下是設定 Windows Stretch 叢集的逐步指南：
 
-. 在所有四部伺服器的 hyperv1 、 hyperv2 、 hyperv3 和 hyperv4 上安裝 Windows 2022
+. 在所有四部伺服器的 hyperv1 ， hyperv2 ， hyperv3 和 hyperv4 上安裝 Windows 2022 。
 . 將所有四部伺服器加入相同的 Active Directory 網域： HyperV.local 。
 . 在每部伺服器上安裝 Windows 功能容錯移轉叢集、 Hyper-V 、 Hyper-V_PowerShell 和 MPIO 。
 +
@@ -147,7 +147,7 @@ image:hyperv-smas-image7.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 ONTAP Mediator 會接收有關協調的 ONTAP 叢集和節點的健全狀況資訊、在兩者之間協調、並判斷每個節點 / 叢集是否正常運作。SM-AS 可讓資料一寫入來源磁碟區、就能立即複寫到目標。中介者必須部署在第三個故障網域。先決條件
 
-* 硬體規格： 8GB RAM 、 2x2GHz CPU 、 1Gb 網路（ <125ms RTT ）
+* 硬體規格： 8GB RAM ， 2x2GHz CPU ， 1Gb 網路（ <125ms RTT ）。
 * 已安裝 Red Hat 8.7 作業系統、請檢查link:https://docs.netapp.com/us-en/ontap/mediator/index.html["ONTAP Mediator 版本和支援的 Linux 版本"]。
 * 設定 Mediator Linux 主機：網路設定和防火牆連接埠 31784 和 3260
 * 安裝 yum 公用程式套件
@@ -247,7 +247,7 @@ image:hyperv-smas-image12.png["此圖顯示輸入 / 輸出對話方塊或表示�
 Hyper-V 容錯移轉叢集需求包括：
 
 * SnapMirror 主動同步關係必須同步。
-* 當不中斷營運進行中時、您無法啟動計畫性的容錯移轉。不中斷營運包括 Volume 搬移、集合重新定位和儲存容錯移轉。
+* 在不中斷營運的情況下，您無法啟動計畫性的容錯移轉。不中斷營運包括 Volume 搬移，集合重新定位和儲存容錯移轉。
 * ONTAP Mediator 必須設定、連線、並且達到仲裁。
 * 每個站台上至少有兩個具有 CPU 處理器的 Hyper-V 叢集節點屬於同一個 CPU 系列、以最佳化 VM 移轉程序。CPU 應該是支援硬體輔助虛擬化和硬體型資料執行防止（ DEP ）的 CPU 。
 * Hyper-V 叢集節點應為相同的 Active Directory 網域成員、以確保恢復能力。
@@ -269,7 +269,6 @@ image:hyperv-smas-image13.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 
 .單一站台的儲存設備故障
-* 離線磁碟區動作： cluster1 ：：： > 磁碟區離線 vol1 預期結果： ONTAP 將離線偵測主要站台磁碟區、叢集將與中介器通訊、並偵測儲存設備的狀態。主站台 Hyper-V 與鏡射站台儲存磁碟區通訊、實現零 RPO 和零 RTO 。
 * 在主要站台上停止 SVM 動作：停止 iSCSI SVM 預期結果： Hyper-V 主叢集已連線至鏡射站台、且 SnapMirror Active Sync 對稱式雙主動 / 主動式、不會影響工作負載、無 RPO 和零 RTO 。
 
 
