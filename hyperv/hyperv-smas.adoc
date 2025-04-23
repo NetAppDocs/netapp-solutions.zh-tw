@@ -2,7 +2,7 @@
 sidebar: sidebar 
 permalink: hyperv/hyperv-smas.html 
 keywords: hyperv, hyper-v, snapmirror, active, sync, stretch, cluster, netapp, virtualization 
-summary: 本白皮書說明 Microsoft 之間的 SnapMirror 主動同步技術同步雙向複寫可延伸容錯移轉叢集、讓多站台應用程式資料（例如、 MSSQL 和 Oracle ）能夠在兩個站台之間主動存取並同步。 
+summary: 本白皮書說明 Microsoft 彈性叢集之間的 SnapMirror 主動式同步技術同步雙向複寫，可讓多站台應用程式資料（例如， MSSQL 和 Oracle ）在兩個站台之間主動存取並同步。 
 ---
 = SnapMirror Active Sync 搭配 Microsoft Stretch 叢集
 :hardbreaks:
@@ -269,7 +269,7 @@ image:hyperv-smas-image13.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 
 .單一站台的儲存設備故障
-* 在主要站台上停止 SVM 動作：停止 iSCSI SVM 預期結果： Hyper-V 主叢集已連線至鏡射站台、且 SnapMirror Active Sync 對稱式雙主動 / 主動式、不會影響工作負載、無 RPO 和零 RTO 。
+* 在主要站台上停止 SVM 動作：停止 iSCSI SVM 預期結果： Hyper-V 主叢集已連線至鏡射站台，且 SnapMirror Active Sync 對稱式雙主動 / 主動式，不會對工作負載造成任何影響，不會產生零 RPO 和零 RTO 。
 
 
 .成功標準
@@ -288,4 +288,4 @@ image:hyperv-smas-image13.png["此圖顯示輸入 / 輸出對話方塊或表示�
 
 == 摘要
 
-SnapMirror 主動式同步可協助多站台應用程式資料、例如、可在兩個站台之間主動存取並同步處理 MSSQL 和 Oracle 。如果發生故障、應用程式會立即重新導向至其餘的作用中站台、不會遺失資料、也不會遺失存取權。
+SnapMirror 主動式同步可協助多站台應用程式資料，例如，可在兩個站台之間主動存取並同步處理 MSSQL 和 Oracle 。如果發生故障、應用程式會立即重新導向至其餘的作用中站台、不會遺失資料、也不會遺失存取權。
