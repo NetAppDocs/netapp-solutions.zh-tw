@@ -91,7 +91,7 @@ NOTE: 請確定您啟動 PostgreSQL 伺服器、並讓服務在開機時啟動�
 
 [source, yaml]
 ----
-#/tridentctl install trident n trident —node-prep=iscsi
+#./tridentctl install trident n trident —node-prep=iscsi
 
 ----
 
@@ -107,8 +107,7 @@ image:rh-os-n_use_case_iscsi_node_prep3.png["multipath.conf 檔案"]
 * link:https://docs.openshift.com/container-platform/4.13/virt/install/installing-virt-web.html["OpenShift虛擬化"]
 
 
-使用下列 yaml 檔案建立 Trident 後端組態、以使用 ONTAP SAN 儲存設備
-** iSCSI 的 Trident 後端 **
+** Trident backend for iSCSI** 樣本 yaml 檔案，可為採用 iSCSI 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 後端組態
 
 [source, yaml]
 ----
@@ -134,8 +133,7 @@ spec:
   credentials:
     name: backend-tbc-ontap-san-secret
 ----
-使用下列 yaml 檔案建立 Trident 儲存類別組態、以使用 ONTAP SAN 儲存設備
-** iSCSI 的 Trident 儲存等級 **
+用於 iSCSI 的 Trident 儲存類別 ** 範例 yaml 檔案，可為採用 iSCSI 傳輸協定的 ONTAP SAN 儲存裝置建立 Trident 儲存類別組態
 
 [source, yaml]
 ----
@@ -148,6 +146,53 @@ parameters:
   backendType: "ontap-san"
   media: "ssd"
   provisioningType: "thin"
+  snapshots: "true"
+allowVolumeExpansion: true
+----
+** 安裝 FC 後端和儲存類別 ** 範例 yaml 檔案，為採用 FC 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 後端組態
+
+[source, yaml]
+----
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tbc-fc-secret
+type: Opaque
+stringData:
+  username: admin
+  password: <cluster password>
+---
+apiVersion: trident.netapp.io/v1
+kind: TridentBackendConfig
+metadata:
+  name: tbc-fc
+spec:
+  version: 1
+  storageDriverName: ontap-san
+  managementLIF: <cluster management lif>
+  backendName: tbc-fc
+  svm: openshift-fc
+  sanType: fcp
+  storagePrefix: demofc
+  defaults:
+    nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
+  credentials:
+    name: tbc-fc-secret
+----
+範例 yaml 檔案可為採用 FC 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 儲存類別組態 ** 適用於 FC** 的 Trident 儲存類別
+
+[source, yaml]
+----
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: sc-fc
+provisioner: csi.trident.netapp.io
+parameters:
+  backendType: "ontap-san"
+  media: "ssd"
+  provisioningType: "thin"
+  fsType: ext4
   snapshots: "true"
 allowVolumeExpansion: true
 ----
