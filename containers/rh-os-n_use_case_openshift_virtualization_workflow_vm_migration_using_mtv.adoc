@@ -84,118 +84,12 @@ NOTE: 請確定您啟動 PostgreSQL 伺服器、並讓服務在開機時啟動�
 
 下列安裝已在安裝 MTV 之前完成：
 
-* OpenShift 叢集 4.13.34
-* link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["Trident 23.10"]
-* 叢集節點上啟用 iSCSI 的多重路徑（適用於 ONTAP - SAN 儲存類別）。如果使用 node-preping 標誌安裝 Trident 25.02 ，則可輕鬆啟用多重路徑。若要安裝 Trident 25.02 並為 iSCSI 準備工作節點，您可以使用下列命令
-
-
-[source, yaml]
-----
-#./tridentctl install trident n trident —node-prep=iscsi
-
-----
-
-NOTE: 若要驗證 OpenShift 叢集的工作節點上是否已啟用 iSCSI 工具，請登入工作節點，並驗證您是否看到 iscsid ， multipathd 作用中，以及 multipath.conf 檔案中的項目，如圖所示。
-
-image:rh-os-n_use_case_iscsi_node_prep1.png["iscsid 作用中"]
-
-image:rh-os-n_use_case_iscsi_node_prep2.png["多路徑作用中"]
-
-image:rh-os-n_use_case_iscsi_node_prep3.png["multipath.conf 檔案"]
-
-* Trident 後端和儲存類別、適用於使用 iSCSI 的 ONTAP SAN 。請參閱提供的 yaml 檔案、瞭解 Trident 後端和儲存類別。
+* OpenShift Cluster 4.17 或更新版本
+* 叢集節點上啟用 iSCSI 的多重路徑（適用於 ONTAP - SAN 儲存類別）。如果使用 node-preping 標誌安裝 Trident 25.02 ，則可輕鬆啟用多重路徑。如需詳細資訊，請參閱link:rh-os-n_use_case_openshift_virtualization_trident_install.html["Trident 安裝章節"]。
+* 安裝所需的後端和儲存類別，以及 Snapshot 類別。如需詳細資訊、請參閱 link:rh-os-n_use_case_openshift_virtualization_trident_install.html["Trident 安裝章節"] 。
 * link:https://docs.openshift.com/container-platform/4.13/virt/install/installing-virt-web.html["OpenShift虛擬化"]
 
 
-** Trident backend for iSCSI** 樣本 yaml 檔案，可為採用 iSCSI 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 後端組態
-
-[source, yaml]
-----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: backend-tbc-ontap-san-secret
-type: Opaque
-stringData:
-  username: <username>
-  password: <password>
----
-apiVersion: trident.netapp.io/v1
-kind: TridentBackendConfig
-metadata:
-  name: ontap-san
-spec:
-  version: 1
-  storageDriverName: ontap-san
-  managementLIF: <management LIF>
-  backendName: ontap-san
-  svm: <SVM name>
-  credentials:
-    name: backend-tbc-ontap-san-secret
-----
-用於 iSCSI 的 Trident 儲存類別 ** 範例 yaml 檔案，可為採用 iSCSI 傳輸協定的 ONTAP SAN 儲存裝置建立 Trident 儲存類別組態
-
-[source, yaml]
-----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ontap-san
-provisioner: csi.trident.netapp.io
-parameters:
-  backendType: "ontap-san"
-  media: "ssd"
-  provisioningType: "thin"
-  snapshots: "true"
-allowVolumeExpansion: true
-----
-** 安裝 FC 後端和儲存類別 ** 範例 yaml 檔案，為採用 FC 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 後端組態
-
-[source, yaml]
-----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: tbc-fc-secret
-type: Opaque
-stringData:
-  username: admin
-  password: <cluster password>
----
-apiVersion: trident.netapp.io/v1
-kind: TridentBackendConfig
-metadata:
-  name: tbc-fc
-spec:
-  version: 1
-  storageDriverName: ontap-san
-  managementLIF: <cluster management lif>
-  backendName: tbc-fc
-  svm: openshift-fc
-  sanType: fcp
-  storagePrefix: demofc
-  defaults:
-    nameTemplate: "{{ .config.StoragePrefix }}_{{ .volume.Namespace }}_{{ .volume.RequestName }}"
-  credentials:
-    name: tbc-fc-secret
-----
-範例 yaml 檔案可為採用 FC 傳輸協定的 ONTAP SAN 儲存設備建立 Trident 儲存類別組態 ** 適用於 FC** 的 Trident 儲存類別
-
-[source, yaml]
-----
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: sc-fc
-provisioner: csi.trident.netapp.io
-parameters:
-  backendType: "ontap-san"
-  media: "ssd"
-  provisioningType: "thin"
-  fsType: ext4
-  snapshots: "true"
-allowVolumeExpansion: true
-----
 
 
 === 安裝 MTV

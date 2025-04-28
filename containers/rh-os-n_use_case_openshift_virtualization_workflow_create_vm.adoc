@@ -14,7 +14,7 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 
 [role="lead"]
-本節說明如何使用 Red Hat OpenShift Virtualization 建立虛擬機器。
+本節說明如何使用 Red Hat OpenShift Virtualization 建立虛擬機器。做為先決條件，您應該已經建立 Trident 後端，儲存類別和 Volume Snapshot 類別物件。如需詳細資訊，請參閱link:rh-os-n_use_case_openshift_virtualization_trident_install.html["Trident 安裝章節"]。
 
 
 
@@ -38,7 +38,7 @@ image:redhat_openshift_image52.png["建立VM架構"]
 若要在叢集上設定 ONTAP SAN 儲存類別，請參閱link:rh-os-n_use_case_openshift_virtualization_workflow_vm_migration_using_mtv.html["將 VM 從 VMware 移轉至 OpenShift 虛擬化的章節"]。
 
 
-NOTE: 您可以將 ONTAP NAS 或 iSCSI 設定為叢集的預設儲存類別。按一下快速建立虛擬機器將使用預設儲存類別、為 VM 的可開機根磁碟建立 PVC 和 PV 。如果您的預設儲存類別不是 ONTAP - NAS 或 ONTAP - SAN 、您可以選取磁碟的儲存類別、方法是選取「自訂虛擬機器」 > 「自訂虛擬機器參數」 > 「磁碟」、然後編輯磁碟以使用所需的儲存類別。
+NOTE: 按一下快速建立虛擬機器將使用預設儲存類別、為 VM 的可開機根磁碟建立 PVC 和 PV 。您可以為磁碟選取不同的儲存類別，方法是選取「自訂虛擬機器」 > 「自訂虛擬機器參數」 > 「磁碟」，然後編輯磁碟以使用所需的儲存類別。
 
 在配置 VM 磁碟時、通常會偏好區塊存取模式、而非檔案系統。
 

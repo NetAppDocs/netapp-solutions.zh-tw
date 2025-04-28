@@ -924,7 +924,14 @@ DGMGRL>
 
 [%collapsible%open]
 ====
-請聯絡 NetApp 解決方案工程團隊，取得自動化工具套件，以建立及重新整理複本，以進行完整的複製生命週期管理。
+下列自動化工具套件是專為建立或重新整理 Oracle Data Guard 待命 DB 的複本而設計，部署至使用 NFS/ASM 組態的 ANF ，以進行完整的複製生命週期管理。
+
+[source, cli]
+----
+git clone https://bitbucket.ngage.netapp.com/scm/ns-bb/na_oracle_clone_anf.git
+----
+
+NOTE: 此工具組目前只能由具有 BitBucket 存取權限的 NetApp 內部使用者存取。對於有興趣的外部使用者，請向您的客戶團隊申請存取權限，或聯絡 NetApp 解決方案工程團隊。
 
 ====
 
