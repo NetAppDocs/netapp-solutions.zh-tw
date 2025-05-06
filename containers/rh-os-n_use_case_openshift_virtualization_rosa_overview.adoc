@@ -34,7 +34,7 @@ summary: ROSA 上的 Red Hat OpenShift 虛擬化
 * link:https://docs.aws.amazon.com/eks/latest/userguide/helm.html["船舵 3 文件"]
 * link:https://docs.openshift.com/rosa/rosa_hcp/rosa-hcp-sts-creating-a-cluster-quickly.html["HCP ROSA 叢集"]（至少有 3 個裸機工作節點）
 * link:https://console.redhat.com/openshift/overview["存取 Red Hat OpenShift Web 主控台"]
-* Trident 25.02 或更新版本
+* Trident 25.02 或更新版本如需上述 Trident 必要條件，請參閱link:rh-os-n_use_case_openshift_virtualization_trident_install.html["Trident 安裝章節"]以取得詳細資料。
 * link:https://docs.redhat.com/en/documentation/openshift_container_platform/4.17/html/virtualization/installing#virt-aws-bm_preparing-cluster-for-virt["ROSA 叢集上安裝的 OpenShift 虛擬化"]
 
 
@@ -99,10 +99,6 @@ deletionPolicy: Retain
 #oc create -f snapshot-class.yaml
 ----
 安裝 OpenShift 虛擬化之前，請確定儲存類別和 Volume Snapshot 類別已設定為預設值。如需如何設定預設值的詳細資訊，請參閱link:rh-os-n_use_case_openshift_virtualization_trident_install.html["使用 Trident 儲存設備和快照類別區段設定預設值"]以取得詳細資料。
-
-確保預設儲存類別設定為 Trident CSIimage:redhat_openshift_ocpv_rosa_image1.png["OCP-v 預設儲存等級"]
-
-確保預設的 Volume SnapShotClasses 已如圖所示設定image:redhat_openshift_ocpv_rosa_image2.png["OCP-v 預設 Volume Snapshot 類別"]
 
 
 

@@ -4,7 +4,7 @@ permalink: containers/rh-os-n_use_case_openshift_virtualization_trident_install.
 keywords: OpenShift, OCP, Trident, Trident protect, NetApp ONTAP, Red Hat OpenShift, OpenShift Virtualization, Red Hat OpenShift Virtualization 
 summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品 
 ---
-= Trident 安裝和 Trident 物件建立。
+= Trident 安裝和 Trident 物件建立
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -14,19 +14,33 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 
 [role="lead"]
-本節詳細說明如何安裝 Trident ，以準備工作節點進行區塊存取。它提供建立 Trident 後端和儲存類別物件的逐步指示。Trident 後端物件包含連線至後端 ONTAP 儲存系統所需的所有詳細資料，並在 ONTAP 中針對指定的傳輸協定動態配置磁碟區。儲存類別物件可讓容器應用程式和 VM 僅使用類型和容量來要求儲存設備，而不需要任何連線和其他後端詳細資料。
+本節詳細說明如何使用 OpenShift 叢集上的 Red Hat 認證 Trident 操作員來安裝 Trident ，以及準備工作節點（在 Trident 安裝時）進行區塊存取。對於內部部署的 OpenShift 叢集，雲端以及使用 FSx for NetApp ONTAP （ FSxN ）儲存設備的 AWS （ ROSA ）中管理的 Red OpenShift 叢集，程序相同。本節也提供逐步說明，可在 OpenShift 叢集中使用 ONTAP 或 FSxN 作為容器和 VM 的備份儲存區時，建立 Trident 後端和儲存類別物件。Trident 後端物件包含連線至後端 ONTAP 或 FSxN 儲存系統所需的所有詳細資料，並使用指定的傳輸協定動態配置磁碟區。儲存類別物件可讓容器應用程式和 VM 僅使用類型和容量來要求儲存設備，而不需要任何連線和其他後端詳細資料。
 
 
-NOTE: 如果您需要在 OpenShift 虛擬化中建立 VM ，則必須先安裝 Trident ，並在叢集上安裝 OpenShift 虛擬化之前，在 openShift 叢集中建立後端物件和儲存類別物件。必須將預設儲存類別和預設 Volume Snapshot 類別設定為 Trident 儲存設備和叢集中的 Snapshot 類別。只有設定此選項後， OpenShift 虛擬化才能下載黃金版影像，並使用範本建立 VM 。
+NOTE: 如果您需要在 OpenShift 虛擬化中建立 VM ，則必須先安裝 Trident ，並在 OpenShift 叢集中建立後端物件和儲存類別物件，然後才能在叢集上安裝 OpenShift 虛擬化（內部部署和 ROSA ）。必須將預設儲存類別和預設 Volume Snapshot 類別設定為 Trident 儲存設備和叢集中的 Snapshot 類別。只有在設定此選項時， OpenShift 虛擬化才能使用範本在本機建立黃金映像，以供虛擬機器建立使用。
+
+
+NOTE: 如果在安裝 Trident 之前安裝了 OpenShift 虛擬化運算子，您可以使用下列命令刪除使用不同儲存類別建立的黃金映像，然後讓 OpenShift 虛擬化使用 Trident 儲存類別來建立黃金映像，確保已設定 Trident 儲存和 Volume Snapshot 類別的預設值。
+
+[source, yaml]
+----
+oc delete dv,VolumeSnapshot -n openshift-virtualization-os-images --selector=cdi.kubevirt.io/dataImportCron
+----
+
+NOTE: 若要取得範例 yaml 檔案以建立 Trident 物件以用於 ROSA 叢集的 FSxN 儲存區，以及取得 VolumeSnapshotClass 的範例 yaml 檔案，請向下捲動此頁面。
 
 ** 正在安裝 Trident
 
 .使用 Red Hat 認證營運商安裝 Trident
 [%collapsible%open]
 ====
-本節提供使用 Red Hat 認證 Trident 操作員安裝 Trident 的詳細資訊。link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請參閱 Trident 文件"]以取得其他安裝 Trident 的方法。隨著 Trident 25.02 的推出， Red Hat OpenShift 中的 Trident 使用者可在內部部署，雲端和託管服務（例如 AWS 上的 Red Hat OpenShift 服務）中安裝，現在可以使用 Operator Hub 的 Trident 認證營運者來安裝 Trident 。這對 OpenShift 使用者社群而言意義重大，因為 Trident 先前僅提供社群營運者身分。
+在本節中，我們提供使用 Red Hat 認證 Trident 操作員安裝 Trident 的詳細資訊link:https://docs.netapp.com/us-en/trident/trident-get-started/kubernetes-deploy.html["請參閱 Trident 文件"]，以瞭解其他安裝 Trident 的方法。隨著 Trident 25.02 的推出， Red Hat OpenShift 中的 Trident 使用者可在內部部署，雲端和託管服務（例如 AWS 上的 Red Hat OpenShift 服務）中安裝，現在可以使用 Operator Hub 的 Trident 認證營運者來安裝 Trident 。這對 OpenShift 使用者社群而言意義重大，因為 Trident 先前僅提供社群營運者身分。
 
-Red Hat 認證 Trident 營運商的優勢在於，與 OpenShift 搭配使用時（無論是內部部署，雲端或託管服務）， NetApp 都能為營運者及其容器提供完整支援。此外，不需客戶付費，因此您只需要使用經過驗證的認證營運商來安裝 NetApp Trident ，該營運商已通過驗證，可與 Red Hat OpenShift 無縫搭配運作，並可套裝以輕鬆管理生命週期。
+Red Hat 認證 Trident 營運商的優勢在於，與 OpenShift 搭配使用（無論是內部部署，雲端或是透過 ROSA 託管服務）時， NetApp 都能為營運者及其容器提供完整支援。此外，不需客戶付費，因此您只需要使用經過驗證的認證營運商來安裝 NetApp Trident ，該營運商已通過驗證，可與 Red Hat OpenShift 無縫搭配運作，並可套裝以輕鬆管理生命週期。
+
+此外， Trident 25.02 營運商（及未來版本）也提供為 iSCSI 準備工作節點的選擇性優點。如果您計畫在 ROSA 叢集上部署工作負載，並打算搭配 FSxN 使用 iSCSI 傳輸協定，尤其是在 OpenShift 虛擬化 VM 工作負載上，這項功能就特別有用。在叢集上安裝 Trident 時，使用 FSxN 的 ROSA 叢集上的工作節點 iSCSI 準備工作所面臨的挑戰已經減輕。
+
+無論是在內部叢集或 ROSA 上安裝，使用運算子的安裝步驟都一樣。
 
 若要使用操作員安裝 Trident ，請按一下「操作員中樞」，然後選取「認證 NetApp Trident 」。在「安裝」頁面中，預設會選取最新版本。按一下「安裝」。image:rh-os-n_use_case_openshift_virtualization_trident_install_img1.png["駕駛員中樞"]
 
@@ -47,7 +61,17 @@ image:rh-os-n_use_case_openshift_virtualization_trident_install_img6.png["多路
 image:rh-os-n_use_case_openshift_virtualization_trident_install_img7.png["多路徑設定檔正在執行中"]
 
 ====
-**On-prim OpenShift 叢集的 Trident 組態 **
+
+
+== 影片示範
+
+以下影片示範如何使用 Red Hat 認證 Trident 營運商安裝 Trident
+
+.在 OpenShift 中使用認證的 Trident 操作員安裝 Trident 25.02.1
+video::15c225f3-13ef-41ba-b255-b2d500f927c0[panopto,width=360]
+
+
+== 內部部署 OpenShift 叢集的 Trident 組態
 
 .適用於 NAS 的 Trident 後端和儲存類別
 [%collapsible%open]
@@ -235,7 +259,9 @@ parameters:
 allowVolumeExpansion: true
 ----
 ====
-** 使用 FSxN 儲存設備的 ROSA 叢集的 Trident 組態 **
+
+
+== 使用 FSxN 儲存設備的 ROSA 叢集的 Trident 組態
 
 .適用於 FSxN NAS 的 Trident 後端和儲存類別
 [%collapsible%open]
@@ -328,7 +354,9 @@ parameters:
 allowVolumeExpansion: true
 ----
 ====
-** Trident Volume Snapshot Class**
+
+
+== 正在建立 Trident Volume Snapshot 類別
 
 .Trident Volume Snapshot 類別
 [%collapsible%open]
@@ -352,14 +380,16 @@ oc create -f <backend-filename.yaml> -n trident
 oc create -f < storageclass-filename.yaml>
 oc create -f <snapshotclass-filename.yaml>
 ----
-** 使用 Trident 儲存設備和 Snapshot Class** 設定預設值
+
+
+== 使用 Trident 儲存設備和快照類別設定預設值
 
 .使用 Trident 儲存設備和快照類別設定預設值
 [%collapsible%open]
 ====
-現在，您可以將所需的 Trident 儲存類別和 Volume Snapshot 類別設為 OpenShift 叢集中的預設類別。如前所述，設定儲存類別和 Volume Snapshot 類別是必要的，以允許 OpenShift 虛擬化讓黃金影像來源可從預設範本建立 VM 。
+現在，您可以將所需的 Trident 儲存類別和 Volume Snapshot 類別設為 OpenShift 叢集中的預設類別。如前所述，設定預設儲存類別和 Volume Snapshot 類別是必要的，以允許 OpenShift Virtualization 讓黃金影像來源可從預設範本建立 VM 。
 
-您可以從主控台編輯註釋，或從命令列進行修補，將儲存類別和快照類別設為預設值：
+您可以從主控台編輯註釋，或從命令列進行修補，將 Trident 儲存類別和快照類別設為預設值。
 
 [source, yaml]
 ----
@@ -370,5 +400,11 @@ kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storagecla
 storageclass.kubevirt.io/is-default-virt-class: true
 or
 kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubevirt.io/is-default-virt-class": "true"}}}'
+----
+設定完成後，您可以使用下列命令刪除任何預先存在的 dv 和 VolumeSnapShot 物件：
+
+[source, yaml]
+----
+oc delete dv,VolumeSnapshot -n openshift-virtualization-os-images --selector=cdi.kubevirt.io/dataImportCron
 ----
 ====

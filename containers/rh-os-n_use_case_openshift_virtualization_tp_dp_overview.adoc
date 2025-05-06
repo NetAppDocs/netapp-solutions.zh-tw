@@ -33,6 +33,10 @@ Trident Protect 可在 OpenShift 叢集上為應用程式和 VM 提供快照，�
 * link:https://docs.netapp.com/us-en/ontap/["ONTAP 9.16"]
 
 
+
+
+== 為物件儲存建立 App Vault
+
 .建立 AppVault
 [%collapsible%open]
 ====
@@ -99,6 +103,10 @@ spec:
 image:rh-os-n_use_case_ocpv_tp_dp_8.png["已建立 ONTAP S3 AppVault"]
 
 ====
+
+
+== 在 OpenShift 虛擬化中建立 VM
+
 .在 OpenShift 虛擬化中建立 VM
 [%collapsible%open]
 ====
@@ -122,6 +130,10 @@ image:rh-os-n_use_case_ocpv_tp_dp_6.png["磁碟已新增"]
 image:rh-os-n_use_case_ocpv_tp_dp_7.png["建立 VM ， Pod 和 PVC"]
 
 ====
+
+
+== 建立應用程式
+
 .建立應用程式
 [%collapsible%open]
 ====
@@ -149,6 +161,10 @@ spec:
 image:rh-os-n_use_case_ocpv_tp_dp_9.png["應用程式已建立"]
 
 ====
+
+
+== 建立備份以保護應用程式
+
 .建立備份
 [%collapsible%open]
 ====
@@ -199,6 +215,10 @@ image:rh-os-n_use_case_ocpv_tp_dp_16.png["已建立備份排程"]
 image:rh-os-n_use_case_ocpv_tp_dp_17.png["隨需及依排程建立備份"]
 
 ====
+
+
+== 從備份還原
+
 .從備份還原
 [%collapsible%open]
 ====
@@ -279,6 +299,10 @@ image:rh-os-n_use_case_ocpv_tp_dp_22.png["br 已建立"]
 image:rh-os-n_use_case_ocpv_tp_dp_23.png["新命名空間中的 VM"]
 
 ====
+
+
+== 使用 Snapshot 保護應用程式
+
 .建立即時資料
 [%collapsible%open]
 ====
@@ -347,6 +371,10 @@ image:rh-os-n_use_case_ocpv_tp_dp_25.png["排程快照"]
 image:rh-os-n_use_case_ocpv_tp_dp_26.png["排程快照"]
 
 ====
+
+
+== 從 Snapshot 還原
+
 .從 Snapshot 還原
 [%collapsible%open]
 ====
@@ -425,6 +453,10 @@ image:rh-os-n_use_case_ocpv_tp_dp_29.png["SR 已建立"]
 image:rh-os-n_use_case_ocpv_tp_dp_32.png["VM 已在新命名空間中還原"]
 
 ====
+
+
+== 還原特定 VM
+
 .在命名空間中選取特定 VM 以建立快照 / 備份及還原
 [%collapsible%open]
 ====
@@ -514,3 +546,11 @@ image:rh-os-n_use_case_ocpv_tp_dp_37.png["建立 CentOS VM bir"]
 image:rh-os-n_use_case_ocpv_tp_dp_38.png["已建立 CentOS VM"]
 
 ====
+
+
+== 影片示範
+
+以下影片示範如何使用 Snapshot 保護 VM
+
+.保護 VM
+video::4670e188-3d67-4207-84c5-b2d500f934a0[panopto,width=360]

@@ -22,10 +22,14 @@ summary: Red Hat OpenShift虛擬化搭配NetApp ONTAP 產品
 
 * Red Hat OpenShift叢集（高於版本4.6）安裝在裸機基礎架構上、並具有RHCOOS工作節點
 * 部署機器健全狀況檢查以維護VM的HA
-* NetApp ONTAP 的叢集
+* NetApp ONTAP 叢集，其中 SVM 已設定正確的傳輸協定。
 * OpenShift 叢集上安裝的 Trident
-* Trident後端在ONTAP 叢集上設定SVM
+* 已建立 Trident 後端組態
 * 在 OpenShift 叢集上以 Trident 做為資源配置程式設定的 StorageClass
+
+
+如需上述 Trident 必要條件，請參閱link:rh-os-n_use_case_openshift_virtualization_trident_install.html["Trident 安裝章節"]以取得詳細資料。
+
 * 叢集管理存取Red Hat OpenShift叢集
 * 管理員存取NetApp ONTAP 解決方案叢集
 * 安裝了tridentctl和occ工具並新增至$path的管理工作站

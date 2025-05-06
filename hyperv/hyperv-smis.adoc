@@ -1,7 +1,7 @@
 ---
 sidebar: sidebar 
 permalink: hyperv/hyperv-smis.html 
-keywords: hyperv, hyper-v, SMI-S, SCVMM, netapp, virtualization, iscsi, SMB,microsoft 
+keywords: hyperv, hyper-v, SMI-S, SCVMM, netapp, virtualization 
 summary: 本白皮書說明如何安裝及管理 NetApp SMI-S Provider ，以及如何使用 Microsoft SCVMM 配置儲存設備。 
 ---
 = 適用於 Microsoft Hyper-V 的 NetApp SMI-S Provider
@@ -146,3 +146,101 @@ image:hyperv-smis-image12.png["追蹤設定"]
 == 結論
 
 NetApp SMI-S Provider 是儲存管理員不可或缺的工具，提供標準化，有效率且全方位的儲存系統管理與監控解決方案。透過運用業界標準的通訊協定和架構，可確保相容性，並簡化與儲存網路管理相關的複雜性。
+
+[]
+====
+'''
+側邊列：側邊列永久連結： HyperV/hyperv-smis.html 關鍵字： HyperV ， Hyper-v ， SMI-S ， SCVMM ， NetApp ，虛擬化， iSCSI ， SMB ， Microsoft 摘要：「本白皮書說明如何安裝及管理 NetApp SMI-S Provider ，以及如何使用 Microsoft SCVMM 配置儲存設備。" ---
+
+= 適用於 Microsoft Hyper-V 的 NetApp SMI-S Provider ：硬中斷：：無頁尾：：：圖示：字型： linkatt特點 ：：：： imagesdir ： ../media/
+
+[role="lead"]
+本白皮書說明如何安裝及管理 NetApp SMI-S Provider ，以及如何使用 Microsoft SCVMM 配置儲存設備。
+
+= 簡介
+
+NetApp 儲存管理計畫規格（ SMI-S ）是管理與監控儲存系統的強大工具。NetApp SMI-S 利用網路型企業管理（ WBEM ）傳輸協定，為各種管理工作提供統一的介面，包括 LUN ，磁碟區， CIMOM 組態設定和 CIM 伺服器使用者的處理。如需詳細資料，請參閱link:https://docs.netapp.com/us-en/smis-provider["NetApp SMI-S Provider 產品文件。"]
+
+=== 主要功能與優點：•儲存系統偵測與管理：偵測執行 ONTAP 軟體的儲存系統，並提供有效管理的工具。•簡化管理：提供單一命令型介面，簡化儲存系統的管理。•監控與報告：提供強大的監控與報告功能，可追蹤儲存元件及其效能。
+
+image:hyperv-smis-image1.png["採用 Hyper-V 架構的 NetApp SMI-S"]
+
+= 準備好進行 SMI-S Provider 部署
+
+若要與現有儲存系統無縫整合，必須正確安裝及組態 SMI-S Provider 。
+
+* SMI-S Provider 5.2.7 支援 Windows Server SCVMM 2025 ， 2022 ， 2019 和 2016 ，以及 Windows Server 2025 ， 2022 ， 2019 和 2016 。此版本與Windows Server 2012或System Center Virtual Machine Manager（SCVMM）2012不相容。
+* NetApp SMI-S 供應商支援 ONTAP 9.7 及更新版本的 FAS 和 AFF 系統。
+* NetApp ONTAP One 授權涵蓋 SMI-S 供應商的所有授權需求。
++
+** 在儲存系統上建立LUN時、需要FCP、iSCSI或兩者的FCP和iSCSI授權。
+** 在支援ONTAP 的功能區儲存系統上建立檔案共用時、需要CIFS授權。
+** 需要FlexClone授權、才能在執行支援ONTAP 的版本的叢集式儲存系統上建立LUN複製。
+
+
+
+
+= SMI-S 虛擬機器硬體需求下表顯示 SMI-S 供應商 VM 硬體需求。
+
+image:hyperv-smis-image2.png["SMI-S 供應商硬體需求"]
+
+=== 安裝 SMI-S Provider
+
+在開始 SMI-S 供應商部署之前，您需要先部署
+
+* 含 SCVMM 的 Microsoft Hyper-V
+* NetApp FAS 或 AFF 儲存系統
+* 對於 SMI-S http 和 https 連線，防火牆連接埠 5988 和 5989 應為開啟，以允許 SMI-S Provider 和 SCVMM 之間進行通訊
+
+
+請務必瞭解命令型介面，以便執行各種管理工作，請檢查link:https://docs.netapp.com/us-en/smis-provider/concept-smi-s-provider-commands-overview.html["NetApp SMI-S Provider 命令。"]
+
+. 從 NetApp 下載網站取得 SMI-S ，並安裝在支援版本的 Window 伺服器上。
+. 確認 SMI-S 伺服器正在執行。image:hyperv-smis-image3.png["確認 SMI-S 伺服器正在執行"]
+. 若要新增 NetApp 儲存系統，請確定您擁有儲存虛擬機器（ SVM ）的管理 IP 位址主機名稱，以及 vsadmin 使用者的認證。image:hyperv-smis-image4.png["註冊 SVM"]
+
+
+=== 使用 SCVMM 連接 SMI-S Provider
+
+. 在導覽器中展開「 Fabric 」 > 「 Storage 」。在 * Providers* 上按一下滑鼠右鍵，然後按一下 * 新增儲存裝置 * 。選取 * SMI-S 供應商發現並管理的 SAN 和 NAS 裝置 * 。image:hyperv-smis-image5.png["新增儲存裝置"]
+. 選擇 SMI-S CIMXML 作為傳輸協定。輸入安裝 SMI-S Agent 之伺服器的 IP 位址或 FQDN ，然後輸入您建立的 SMI-S 帳戶。image:hyperv-smis-image6.png["安裝 SMI-S Agent"]
+. 按一下 * 下一步 * ，從您的 NetApp 儲存系統取得磁碟區清單
+. 選取儲存裝置，分類和主機群組，檢閱摘要，然後按一下 * 完成 * 。image:hyperv-smis-image7.png["選擇分類"]
+. 若要檢閱 SMI-S 連線，請按一下 * Fabric * > * Overview * ，查看儲存摘要，分類使用量，每個陣列的邏輯單元，以及主機群組儲存設備。image:hyperv-smis-image11.png["檢查 SVM 容量"]
+
+
+=== 使用 SMI-S Provider 提供 SCVMM
+
+SCVMM 使用 SMI-S Provider 與儲存系統互動，讓您直接從 SCVMM 建立及管理儲存資源。
+
+=== iSCSI 儲存設備。在 SCVMM 控制檯中，選擇 Fabric > Storage （架構 > 儲存），右鍵單擊 * Classifications and Pools* （分類和池），然後選擇 *Create Logical Unit* （創建邏輯單元 * ）。選擇儲存池和分類，然後輸入邏輯單元的名稱，說明，大小和主機群組。image:hyperv-smis-image9.png["建立邏輯單元儲存設備"]
+
+=== SMB 儲存設備。選取 * Fabric * > * Storage* > 在 * 檔案伺服器 * 上按一下滑鼠右鍵，然後選擇 * 建立檔案共用 * ，選取 * 檔案伺服器 * ，輸入名稱，儲存類型，儲存池和分類。image:hyperv-smis-image10.png["建立檔案共用"]
+
+= 記錄與追蹤資料您可以設定 SMI-S Provider 如何管理記錄與追蹤檔案，例如指定要記錄的訊息層級，以及要儲存記錄的目錄。您也可以指定要追蹤的元件、要寫入追蹤訊息的目標、追蹤層級、以及追蹤檔案位置。
+
+=== 日誌設置默認情況下，將記錄所有系統消息，系統消息日誌位於安裝 NetApp SMI-S Provider 的目錄中的 logs 目錄中。您可以變更寫入 CIM 伺服器記錄檔的系統訊息位置和層級。
+
+* 您可以從「追蹤」，「資訊」，「警告」，「嚴重」，「致命」中選擇記錄層級。若要變更系統訊息記錄層級，請使用下列命令：
+
+
+[]
+=====
+cimconfig -s logLevel=new_log_level -p
+
+=====
+* 變更系統訊息記錄目錄
+
+
+[]
+=====
+cimconfig -s logdir=new_log_directory -p
+
+=====
+=== 追蹤設定image:hyperv-smis-image12.png["追蹤設定"]
+
+= 結論
+
+NetApp SMI-S Provider 是儲存管理員不可或缺的工具，提供標準化，有效率且全方位的儲存系統管理與監控解決方案。透過運用業界標準的通訊協定和架構，可確保相容性，並簡化與儲存網路管理相關的複雜性。
+
+====
