@@ -387,7 +387,9 @@ oc create -f <snapshotclass-filename.yaml>
 .使用 Trident 儲存設備和快照類別設定預設值
 [%collapsible%open]
 ====
-現在，您可以將所需的 Trident 儲存類別和 Volume Snapshot 類別設為 OpenShift 叢集中的預設類別。如前所述，設定預設儲存類別和 Volume Snapshot 類別是必要的，以允許 OpenShift Virtualization 讓黃金影像來源可從預設範本建立 VM 。
+現在，您可以將所需的 Trident 儲存類別和 Volume Snapshot 類別設為 OpenShift 叢集中的預設類別。
+
+如前所述，設定預設儲存類別和 Volume Snapshot 類別是必要的，以允許 OpenShift Virtualization 讓黃金影像來源可從預設範本建立 VM 。
 
 您可以從主控台編輯註釋，或從命令列進行修補，將 Trident 儲存類別和快照類別設為預設值。
 
