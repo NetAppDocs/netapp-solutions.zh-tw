@@ -197,6 +197,9 @@ sys_pwd: "XXXXXXXX"
 # Data Guard mode - MaxAvailability or MaxPerformance
 dg_mode: MaxAvailability
 ....
+
+NOTE: 為了更安全的自動化部署，可使用 Ansible Vault 來加密密碼，存取權杖或金鑰等敏感資訊。解決方案不涵蓋 Ansible Vault 實作，但在 Ansible 文件中已有詳細記錄。詳情請參閱link:https://docs.ansible.com/ansible/latest/vault_guide/index.html["使用 Ansible 資料保險箱保護敏感資料"^]。
+
 ====
 
 

@@ -1,0 +1,127 @@
+---
+sidebar: sidebar 
+permalink: vm-migrate/shift-toolkit-migration.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+summary:  
+---
+= 使用 Shift Toolkit 執行 VM 移轉
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節詳細說明如何使用 Shift Toolkit 執行 VM 移轉。
+
+
+
+== 移轉
+
+建立藍圖後，即可執行「移轉」選項。在移轉選項期間， Shift 工具組會執行一系列步驟來轉換磁碟格式，並使用轉換的磁碟在藍圖中定義的 Hyper-V 主機上建立虛擬機器。
+
+執行的高階步驟如下：
+
+先決條件：在開始移轉之前，請確保虛擬機器（ VM ）正常關機，無論移轉是臨機操作，還是根據規劃的維護時間排程。確認虛擬機器已完全關機；如果作業系統擱置更新，則只有在虛擬機器完全關機後才觸發移轉。
+
+* 刪除藍圖中所有 VM 的現有快照
+* 在來源處觸發 Blueprint 的 VM 快照
+* 在磁碟轉換之前觸發 Volume Snapshot
+* 針對所有 VM 複製 VMDK 並將其轉換為 VHD 格式
+* 開啟保護群組中的虛擬機器，達到目標
+* 在每個 VM 上註冊網路
+* 根據作業系統類型，移除 VMware 工具並使用觸發指令碼或 cron 工作指派 IP 位址
+
+
+
+
+=== 需要考量的因素
+
+在開始移轉之前，請確定所有先決條件均已符合（本文件的先決條件一節將詳細說明）。以下是重點回顧的快速檢查清單：
+
+* 確保 Shift VM 是網域的一部分
+* 確保 CIFS 共用已設定適當的權限
+* 用於移轉或轉換的 qtree 具有正確的安全樣式
+* 快速測試時，請嘗試從叢集中的任何 Hyper-V 主機使用 Hyper-V 管理程式來建立 VM ，並將 VHDX 放在 CIFS 共用區（請參閱項目符號 A ）。在 Shift 工具套件 VM 中加入 Hyper-V 管理工具（透過「程式和功能」或使用「 PowerShell 」（加載 Windows 功能 RSAT - Hyper-v 工具），即可嘗試相同的方法
+
+
+
+NOTE: 如果發生故障，link:https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/manage/remotely-manage-hyper-v-hosts["使用任何驗證傳輸協定來啟用委派"]。
+
+
+
+=== 網路秘訣與考量
+
+必須考量下列網路考量：
+
+* 確保靜態 IP 位址可用，且未指派給其他 VM
+
+
+對於 Windows VM ：
+
+* 準備指令碼會複製網路組態詳細資料（ IP 位址空間，閘道位址， DNS 伺服器），並在移轉期間（移轉期間）重新套用網路設定，無論是以藍圖對應為基礎的單一 NIC 或多個 NIC 。
+* 移轉之後， Windows 裝置管理員仍可能會顯示移轉前的舊網路介面卡資訊。雖然這不會影響移轉後建立的新網路介面卡，也不會造成 IP 衝突，但指令碼目前不會刪除此舊登錄，因此仍會保持可見。
+
+
+對於 Linux VM ：
+
+* Prepare 指令碼會複製網路組態詳細資料（ IP 位址空間，路由， DNS 伺服器，網路裝置名稱），並根據 Linux 套裝作業系統來識別所使用的網路類型並套用 IP 設定。網路重新指派指令碼是使用 crontab 設定為 cron 工作，並在開機時觸發。例如， cronjob 會在執行個體上執行指令碼（移轉後），以重新套用網路設定，無論是以藍圖對應為基礎的單一 NIC 或多個 NIC 。
+* 在某些情況下，轉換後的 Hyper-V VM 會有 eth0 或 eth1 等介面名稱，而不是位於來源端的 ens192 或 33 。在這種情況下，指令碼會更新網路組態詳細資料，以符合新介面名稱。如果使用可預測的名稱（例如現代系統），且介面名稱保留在 Hyper-V 端，指令碼會略過其網路端，只會移除 VMware 工具，然後重新啟動 VM 。
+* Shift 工具套件目前支援 NetworkManager ， Netplan 和 ifconfig 機制，並保留藍圖中指定的 IP 。
+
+
+
+
+=== 階段和選項
+
+以下是移轉程序的關鍵階段和選項。
+
+. 準備 VM –準備 VM 進行移轉，確保所有先決條件都已完全完成。
+. 移轉：準備完成後，選取 VMware VM 並將其移轉至 Hyper-V 。移轉完成後，請確認 VM 已成功開機，資料已正確移轉。
+. 測試移轉：測試移轉會將 VMDK 轉換為 VHDX ，並使用駐留在 SMB 共用上的轉換 VHDX 檔案來建立 Hyper-V VM ，藉此模擬移轉作業。測試移轉不允許網路對應組態；此工作通常應手動執行至泡泡網路。
+. 重試移轉–如果移轉失敗， Shift 工具組會提供重試選項。此功能可讓移轉工作從故障點恢復。在重新嘗試操作之前，請務必檢閱並修正任何錯誤訊息。
+
+
+
+NOTE: Shift 工具套件不會改變來源 VM ，只是複製 VM 準備所需的指令碼。這可在轉換失敗時快速復原。
+
+若要以 Blueprint 中指定的組態觸發「移轉」工作流程，請按一下「移轉」。
+
+image:shift-toolkit-image50.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+啟動後，工作流程即會啟動，轉換程序會遵循所述步驟來登錄 VM 。如果藍圖中的虛擬機器未關機， Shift 工具組會在繼續之前提示是否正常關機。
+
+image:shift-toolkit-image51.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 我們建議從同一個 ESXi 來源到同一個 Hyper-V 目的地，同時觸發的轉換次數不超過 10 次
+
+image:shift-toolkit-image52.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+將 VMDK 轉換為 VHD 只需數秒，因此這種方法是所有可用選項中最快的一種，而且成本更高。這也有助於減少移轉期間的虛擬機器停機時間。
+
+image:shift-toolkit-image53.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+工作完成後，藍圖的狀態會變更為「移轉完成」。
+
+image:shift-toolkit-image54.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+移轉完成後，現在正是驗證 Hyper-V 端虛擬機器的時候了。以下螢幕擷取畫面顯示在建立藍圖時指定的 Hyper-V 主機上執行的 VM 。
+
+image:shift-toolkit-image55.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: Shift 工具套件使用開機時執行的 cron 工作。在 Hyper-V 主機上購買 VM 後，就不會為 Linux 型 VM 建立 ssh 連線或等效的連線。
+
+image:shift-toolkit-image56.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 對於 Windows VM ， Shift 工具套件使用 PowerShell Direct 連線到這些 Windows 型來賓 VM 。PowerShell Direct 可讓您連線至 Windows 型來賓 VM ，無論其網路組態或遠端管理設定為何。
+
+
+NOTE: 轉換之後， Windows 作業系統上的所有 VM 磁碟（ OS 磁碟除外）都將離線。這是因為 NewDiskPolicy 參數預設會在 VMware VM 上設定為 offlineALL 。此問題是由預設的 Microsoft Windows SAN 原則所造成。此原則旨在防止在多部伺服器存取 LUN 時啟動 Windows Server 。這樣做是為了避免任何潛在的資料毀損問題。這可以透過執行 PowerShell 命令來處理： Set-StorageSetting -NewDiskPolicy OnlineAll
+
+
+NOTE: 利用多個磁碟區來整備虛擬機器，表示應視需要將虛擬機器移轉至不同的磁碟區。如果資源群組包含具有大型 VMDK 的虛擬機器，請將它們分散到不同的磁碟區進行轉換。此方法可在個別磁碟區平行執行複製作業，同時在背景執行複製分割，藉此協助防止快照忙碌錯誤。

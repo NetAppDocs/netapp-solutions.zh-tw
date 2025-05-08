@@ -1,0 +1,133 @@
+---
+sidebar: sidebar 
+permalink: vm-migrate/shift-toolkit-conversion.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+summary:  
+---
+= 使用 Shift Toolkit 執行 VM 轉換
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節詳細說明如何使用 Shift Toolkit 執行 VM 轉換。
+
+
+
+== 轉換
+
+Clony Based 轉換選項可讓您在 Hypervisor 之間轉換虛擬磁碟，以獲得下列磁碟格式：
+
+* VMware ESX 至 Microsoft Hyper-V （ VMDK 至 VHDX ）
+* VMware ESX 至 Red Hat KVM （ VMDK 至 QCOW2 ）
+
+
+轉換後的 qcow2 檔案與任何 KVM Hypervisor 相容。例如， qcow2 檔案可與 RHEL 型 KVM 搭配使用，使用 virt 管理程式來建立 VM ，以及使用 Ubuntu KVM ， Rocky Linux 型 KVM 等。使用 NetApp Trident 匯入後，也可以搭配使用具有 tweak 和 OpenShift 虛擬化的 Oracle Linux 虛擬化管理程式。目標是提供磁碟（以秒為單位轉換為分鐘），然後將其整合至組織用來佈建 VM 和指派網路的現有自動化指令碼中。這種方法有助於縮短整體移轉時間，因為磁碟轉換是由 Shift 工具組 API 處理，其餘指令碼則會啟動 VM 。
+
+在未來的版本中， Shift 工具套件將支援從 VMware 端對端移轉至其他相容的 KVM Hypervisor 。不過，在目前版本中，轉換可以透過 UI 或 API 執行。
+
+
+
+=== 轉換為 QCOW2 格式
+
+若要使用 NetApp Shift 工具組將虛擬磁碟轉換為 QCOW2 格式，請遵循下列高階步驟：
+
+* 建立指定 KVM 做為 Hypervisor 的目的地站台類型。
++
+
+NOTE: KVM 不需要 Hypervisor 詳細資料。
+
++
+image:shift-toolkit-image57.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 使用需要進行磁碟轉換的 VM 建立資源群組
++
+image:shift-toolkit-image58.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image59.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image60.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 建立藍圖，將虛擬磁碟轉換為 QCOW2 格式。
++
+image:shift-toolkit-image61.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image62.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image63.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 使用排程選項指定插槽。如果要臨時執行轉換，請取消核取排程選項。
++
+image:shift-toolkit-image64.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 建立藍圖後，會啟動預先準備好的 VM 工作，並自動在來源 VM 上執行指令碼，以準備進行轉換。
++
+image:shift-toolkit-image65.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 在預先準備好的 VM 工作成功完成（如下面的螢幕擷取畫面所示）之後，與 VM 相關的 VM 磁碟即已準備好進行轉換，且藍圖狀態將更新為「 Active 」（作用中）。
+* 排程虛擬機器所需的停機時間後，按一下「轉換」。
++
+image:shift-toolkit-image66.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 轉換作業使用時間點快照。視需要關閉虛擬機器電源，然後重新啟動作業。
++
+image:shift-toolkit-image67.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+** 轉換作業會對 VM 和個別磁碟執行每項作業，以產生適當的格式。
++
+image:shift-toolkit-image68.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+* 手動建立 VM 並將磁碟附加至該磁碟，以使用轉換後的磁碟。
++
+image:shift-toolkit-image69.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: Shift 工具組僅支援 qcow2 格式的磁碟轉換。它不支援建立或登錄 VM 。若要使用已轉換的磁碟，請手動建立 VM 並附加磁碟。
+
+
+
+=== 轉換為 VHDX 格式
+
+若要使用 NetApp Shift 工具組將虛擬磁碟轉換為 VHDX 格式，請遵循下列高階步驟：
+
+* 建立指定 Hyper-V 為 Hypervisor 的目的地站台類型。
+* 使用需要進行磁碟轉換的 VM 建立資源群組
++
+image:shift-toolkit-image70.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+image:shift-toolkit-image71.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 建立藍圖，將虛擬磁碟轉換為 VHDX 格式。建立藍圖後，系統會自動啟動準備工作。
++
+image:shift-toolkit-image72.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 排程虛擬機器所需的停機時間後，請選擇「轉換」。
++
+image:shift-toolkit-image73.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 轉換作業會對 VM 和個別磁碟執行每項作業，以產生適當的 VHDX 格式。
++
+image:shift-toolkit-image74.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+* 手動建立 VM 並將磁碟附加至該磁碟，以使用轉換後的磁碟。
++
+image:shift-toolkit-image75.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: 若要在 VM 中使用轉換後的 VHDX 磁碟，必須透過 Hyper-V 管理程式或 PowerShell 命令手動建立 VM ，而且必須將磁碟附加到該磁碟。此外，也應手動對應網路。

@@ -1,0 +1,279 @@
+---
+sidebar: sidebar 
+permalink: vm-migrate/shift-toolkit-install.html 
+keywords: netapp, vmware, esxi, vm, migration, openshift, virtualization, hyper-v, proxmox 
+summary:  
+---
+= 安裝及設定 Shift Toolkit
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+若要開始使用此工具組，請在指定的虛擬機器上使用 Windows 作業系統，並確定您符合先決條件，然後安裝套件。
+
+
+
+== 準備安裝
+
+Shift 工具組可在 Windows 2019 和 2022 版本上執行。
+
+* 從下載 Shift 工具組套件link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["NetApp 工具箱"]
+* 解壓縮套件
+* 執行 exe 以安裝並啟動服務
+
+
+Shift 工具套件提供 2 個套件：
+
+* 線上（約 130 MB 大小），和
+* 離線（大小約 1.1GB ）。
+
+
+如名稱所示，線上安裝程式套件會透過 Shift 工具組擁有的 S3 儲存庫，透過網際網路下載並安裝必要的先決條件。
+
+image:shift-toolkit-image3.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+線上安裝提供便利性，而離線安裝則可更有效地控制安裝程序。使用離線安裝套件時，套件中會隨附所有必要的先決條件，以安裝 Shift 工具套件。離線安裝的一個主要優點是，它允許在沒有網際網路連線的虛擬機器上安裝 Shift 工具組。
+
+
+TIP: 使用適當的套件進行部署。在離線模式下，您不需要修改 Proxy 設定，因為所有必要的先決條件和檔案都已隨附在一起。
+
+只要來源環境和目標環境之間有連線能力，即可在執行 VMware 或 Microsoft Hyper-V 伺服器的虛擬機器上安裝 Shift 工具組，最佳做法是在自己的 VM 上安裝 Shift 工具組。此方法可讓您使用單一 Shift 工具套件伺服器，鎖定不同的 Microsoft Hyper-V 伺服器或 VMware ESXi 伺服器。
+
+
+NOTE: 在專用 VM 上安裝 Shift 工具套件。
+
+
+
+== 安裝先決條件
+
+
+
+=== 硬體需求
+
+確保 Shift 伺服器主機符合最低硬體需求。
+
+硬體需求：
+
+* CPU ： 4 個 vCPU
+* 記憶體：最低 8 GB
+* 磁碟空間：至少 100 GB
+
+
+
+NOTE: 必須有 650 MB 的磁碟空間可供安裝。
+
+
+
+=== 連線需求
+
+* 確保已設定 Hypervisor 和儲存環境，以便 Shift 工具組能與環境中的所有元件正常互動。
+* Shift 工具組必須安裝在獨立的 Windows 伺服器（實體或虛擬）上。
+* Shift 伺服器， Data ONTAP CIFS 伺服器和 Hyper-V 伺服器必須位於相同的 Windows Active Directory 網域。
+* 當執行 VM 轉換時，可支援多個用於 CIFS 和 NFS 的 Lifs ，以搭配儲存虛擬機器使用。Hyper-V 伺服器和 ESXi 主機會存取儲存虛擬機器（ SVM ），其 IP 位址為這些生命的 IP 位址。
+* 對於 CIFS 作業， Windows 網域控制器和 NetApp 儲存控制器的時間設定必須同步。
+
+
+
+
+== ONTAP 儲存組態
+
+
+
+=== 建立新的 SVM （建議）
+
+雖然 Shift 工具組允許使用現有的 SVM ，但建立新的 SVM 是 NetApp 最佳實務做法。使用 Storage VMotion 將要移轉或轉換的 VM 移至位於專用 Data ONTAP 儲存虛擬機器（ SVM ）上的新指定 NFS v3 資料存放區。這項以動態方式進行的移轉作業，不會造成 VM 停機。使用這種方法，指定要移轉的虛擬機器不會位於正式作業 SVM 上。使用 ONTAP CLI ， NetApp PowerShell 工具組或系統管理員來建立新的 SVM 。
+
+請依照本文件所提供的步驟link:https://docs.netapp.com/us-en/ontap/networking/create_svms.html["連結"]，配置新的 SVM ，同時允許 NFS 和 SMB 傳輸協定。
+
+
+NOTE: 建立新的 SVM 是很好的做法，可確保 SVM 符合 Shift 工具組的要求，而無需以可能造成中斷的方式修改正式作業 SVM 。
+
+
+NOTE: 對於 Hyper-V 移轉，新的 SVM 應該同時啟用 NFS 和 SMB 傳輸協定。已配置的 Volume 也應同時啟用 NFS 和 SMB 。如果目標是以 KVM 為基礎的 Hypervisor ，則 SVM 必須啟用 NFS 傳輸協定。
+
+
+
+=== qtree 要求
+
+應該在磁碟區上建立 qtree ，用於裝載要從 VMware 轉換為 Hyper-V 的 VM ，以便隔離和儲存 VHDX 檔案，或是用於將從 VMDK 轉換的 qcow2 或 VHDX 檔案。
+
+* 對於 ESX 到 Hyper-V 的轉換， Shift 工具套件會將轉換後的 VHDX 放在同一個磁碟區內的 qtree （具有 NTFS 安全樣式）上。
+* 對於 ESX VMDK 至 QCOW2 轉換，應使用具有 UNIX 安全風格的 qtree 。
+
+
+Shift 工具套件無法驗證 qtree 的安全樣式。因此，請務必根據目標 Hypervisor 和磁碟類型，以適當的安全樣式來建立 qtree 。
+
+
+NOTE: 目的地路徑必須位於來源 VM 的同一個磁碟區上。
+
+
+NOTE: 根據目標 Hypervisor 類型和磁碟格式，將正確的安全樣式指派給 qtree 。
+
+
+NOTE: 如果轉換後的 qcow2 檔案是用於 OpenShift 虛擬化，則有一個例外：這些檔案可以直接放在磁碟區上，而無需使用 qtree 。若要達成此目標，請使用 Shift 工具組 API 將 VMDK 檔案轉換為 qcow2 格式，並將其直接放入 Volume 中。
+
+請遵循本文件中提供的步驟link:https://docs.netapp.com/us-en/ontap/nfs-config/create-qtree-task.html["連結"]，建立具有正確安全風格的 qtree 。
+
+image:shift-toolkit-image4.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+=== CIFS 共用需求：
+
+對於 Hyper-V 移轉，請建立一個共享區，將轉換後的 VM 資料儲存在其中。請確定 NFS 共用（用於儲存要轉換的 VM ）和目的地共用（用於儲存轉換的 VM ）位於同一個磁碟區。Shift 工具組不支援跨距於多個磁碟區。
+
+請遵循本文件中提供的步驟link:https://docs.netapp.com/us-en/ontap/smb-config/create-share-task.html["連結"]，以適當的內容建立共用區。請務必選擇持續可用性內容和其他預設內容。
+
+image:shift-toolkit-image5.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+image:shift-toolkit-image6.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: SMB 3.0 必須啟用，預設為啟用。
+
+
+NOTE: 確保已啟用持續可用的內容。
+
+
+NOTE: 必須在儲存虛擬機器（ SVM ）上停用 SMB 的匯出原則
+
+
+NOTE: CIFS伺服器和Hyper-V伺服器所屬的網域必須同時允許Kerberos和NTLMv2驗證。
+
+
+NOTE: ONTAP 會以 Windows 預設的「所有人」 / 「完全控制」共用權限來建立共用區。
+
+
+
+== 支援的作業系統
+
+確保使用支援的 Windows 和 Linux 來賓作業系統版本進行轉換，且 Shift 工具組支援 ONTAP 版本。
+
+* 支援的 VM 來賓作業系統 *
+
+下列版本的 Windows 支援做為 VM 轉換的客體作業系統：
+
+* Windows 10
+* Windows 11
+* Windows Server 2016
+* Windows Server 2019
+* Windows Server 2022
+* Windows Server 2025
+
+
+支援下列 Linux 版本做為 VM 轉換的客體作業系統：
+
+* CentOS Linux 7.x
+* Red Hat Enterprise Linux 6.7 或更新版本
+* Red Hat Enterprise Linux 7.2 或更新版本
+* Red Hat Enterprise Linux 8.x
+* Red Hat Enterprise Linux 9.x
+* Ubuntu 2018
+* Ubuntu 2022
+* Ubuntu 2024
+* Debian 10.
+* Debian 11.
+* Debian 12.
+* SUSE 12.
+* SUSE 15.
+
+
+
+NOTE: 不支援 CentOS Linux/RedHat for Red Hat Enterprise Linux 5 。
+
+
+NOTE: 不支援 Windows Server 2008 ，但轉換程序應該可以正常運作。請自行承擔風險；不過，我們已收到成功使用 Shift 工具組來轉換 Windows 2008 VM 的客戶報告。移轉後更新 IP 位址很重要，因為用於自動指派 IP 的 PowerShell 版本與在 Windows Server 2008 上執行的舊版不相容。
+
+* 支援的 ONTAP 版本 *
+
+Shift 工具套件支援執行 ONTAP 9.14.1 或更新版本的平台
+
+* 受支援版本的 Hypervisor *
+
+VMware ：移轉工具組已通過 vSphere 7.0.3 及更新版本 Hyper-V 的驗證：移轉工具組已通過驗證，可與 Windows Server 2019 ， Windows Server 2022 及 Windows Server 2025 上執行的 Hyper-V 角色相較
+
+
+NOTE: 在目前版本中，只有 Hyper-V 支援端點對端點虛擬機器移轉。
+
+
+NOTE: 在目前版本中，針對 KVM 做為目的地， VMDK 到 qcow2 轉換是唯一支援的工作流程。因此，如果從下拉式清單中選取 KVM ，則不需要 Hypervisor 詳細資料。qcow2 磁碟可用於在 KVM 變體上佈建虛擬機器。
+
+
+
+== 安裝
+
+. 下載link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit["Shift 工具套件套件"]並解壓縮。
++
+image:shift-toolkit-image7.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 按兩下下載的 .exe 檔案，啟動 Shift 工具組安裝。
++
+image:shift-toolkit-image8.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+
+NOTE: 系統會執行所有預先檢查，如果未達到最低要求，則會顯示適當的錯誤或警告訊息。
+
+. 安裝程式將開始安裝程序。選取適當的位置或使用預設位置，然後按一下「下一步」。
++
+image:shift-toolkit-image9.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 安裝程式會提示您選取要用於存取 Shift 工具組 UI 的 IP 位址。
++
+image:shift-toolkit-image10.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
++
+
+NOTE: 如果虛擬機器已指派多個 NIC ，則設定程序可讓您使用下拉式選項來選取正確的 IP 位址。
+
+. 在此步驟中，安裝程式會顯示所有必要元件，這些元件將會在程序中自動下載及安裝。以下是為了正常運作 Shift 工具組所需安裝的必要元件： MongoDB ， Windows PowerShell 7 ， NetApp ONTAP PowerShell Toolkit ，原則檔案編輯器，認證管理， VMware.PowerCLI 套件和 Java OpenJDK ，這些全都封裝在套件中。
++
+單擊*下一步*
+
++
+image:shift-toolkit-image11.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 檢閱 Java OpenJDK GNU 授權資訊。按一下「下一步」
++
+image:shift-toolkit-image12.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 保留建立桌面捷徑的預設值，然後按一下「下一步」。
++
+image:shift-toolkit-image13.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 安裝程式現在已準備好繼續安裝。按一下「安裝」。
++
+image:shift-toolkit-image14.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 安裝隨即開始，程序將下載所需的元件並加以安裝。完成後，按一下「完成」。
++
+image:shift-toolkit-image15.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+
+
+NOTE: 如果 Shift 工具組 VM 沒有網際網路，則離線安裝程式會執行相同的步驟，但會使用執行檔中包含的套件來安裝元件。
+
+image:shift-toolkit-image16.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+
+NOTE: 安裝可能需要 8 到 10 分鐘的時間。
+
+
+
+== 執行升級
+
+請從「 update 」開始下載link:https://mysupport.netapp.com/site/tools/tool-eula/netapp-shift-toolkit/download["升級套件"]，並依照下列步驟進行：
+
+image:shift-toolkit-image17.png["此圖顯示輸入 / 輸出對話方塊或表示寫入內容"]
+
+. 將檔案解壓縮至指定的資料夾。
+. 擷取後，停止 NetApp Shift 服務。
+. 將解壓縮資料夾中的所有檔案複製到安裝目錄，並在出現提示時覆寫檔案。
+. 完成後，請使用「以系統管理員身分執行」選項執行 update.bat ，並在出現提示時輸入 Shift Toolkit VM IP 。
+. 此程序將會升級並啟動 Shift 服務。
+
