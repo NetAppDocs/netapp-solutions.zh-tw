@@ -28,11 +28,11 @@ OpenShift 虛擬化 VM 的持續磁碟可以使用整合至 OpenShift 叢集的 
 
 OADP 可在 OpenShift 叢集上備份、還原及災難恢復應用程式。可以使用 OADP 保護的資料包括 Kubernetes 資源物件、持續磁碟區和內部映像。
 
-image:redhat_openshift_OADP_image1.jpg["用於資料保護的 OpenShift API"]
+image:redhat_openshift_OADP_image1.png["用於資料保護的 OpenShift API"]
 
 Red Hat OpenShift 已運用開放原始碼社群開發的解決方案來保護資料。 link:https://velero.io/["Velero"] 是一種開放原始碼工具、可安全地備份與還原、執行災難恢復、以及移轉 Kubernetes 叢集資源與持續磁碟區。為了輕鬆使用 Velero 、 OpenShift 開發了 OADP 運算子和 Velero 外掛程式、以與 CSI 儲存驅動程式整合。公開的 OADP API 核心是以 Velero API 為基礎。安裝 OADP 運算子並進行設定後、可執行的備份 / 還原作業會根據 Velero API 所公開的作業而定。
 
-image:redhat_openshift_OADP_image2.jpg["用於資料保護的 OpenShift API"]
+image:redhat_openshift_OADP_image2.png["用於資料保護的 OpenShift API"]
 
 OADP 1.3 可從 OpenShift 叢集 4.12 及更新版本的運算中心取得。它內建 Data Mover 、可將 CSI Volume 快照移至遠端物件儲存區。如此可在備份期間將快照移至物件儲存位置、提供可攜性和耐用性。然後、快照便可在災難發生後進行還原。
 

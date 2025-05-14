@@ -4,7 +4,7 @@ permalink: ehc/aws-native-nfs-datastore-option.html
 keywords:  
 summary:  
 ---
-= AWS中的補充NFS資料存放區選項
+= 在 AWS 中建立補充 NFS 資料存放區
 :hardbreaks:
 :allow-uri-read: 
 :nofooter: 
@@ -19,7 +19,7 @@ summary:
 若要開始、請在 SDDC 所在的相同區域和可用性區域部署額外的 VPC 、然後將 Amazon FSX ONTAP 部署到新的 VPC 。 https://docs.vmware.com/en/VMware-Cloud-on-AWS/services/com.vmware.vmc-aws-networking-security/GUID-C957DBA7-16F5-412B-BB72-15B49B714723.html["在VMware Cloud中設定SDDC群組"^]主控台可啟用連線至將部署 FSX ONTAP 的新指定 VPC 所需的網路組態選項。
 
 
-NOTE: 在 AWS SDDC 上、將 FSX ONTAP 部署在與 VMware Cloud 相同的可用區域。
+NOTE: 在 AWS SDDC 上，將 FSX ONTAP 部署在與 VMware Cloud 相同的可用性區域。
 
 
 NOTE: 您無法在連線的 VPC 中部署 FSX ONTAP 。您必須改在新的指定VPC中部署VPC、然後透過SDDC群組將VPC連接到VMware託管運輸閘道（vTGW）。

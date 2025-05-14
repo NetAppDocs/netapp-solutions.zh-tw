@@ -20,7 +20,7 @@ summary: 使用NetApp在Red Hat OpenShift上設定多租戶共享
 . 瀏覽至Storage（儲存設備）> Storage VM（儲存設備VM）、然後按一下Add提供所需的詳細資料、建立兩個SVM、一個用於專案1、另一個用於專案2。也可建立vsadmin帳戶來管理SVM及其資源。
 
 
-image:redhat_openshift_image41.jpg["SVM建立ONTAP 於此"]
+image:redhat_openshift_image41.png["SVM建立ONTAP 於此"]
 
 . 以儲存管理員身分登入Red Hat OpenShift叢集。
 . 建立專案1的後端、並將其對應至專案專用的SVM。NetApp建議使用SVM的vsadmin帳戶、將後端連線至SVM、而非ONTAP 使用該叢集管理員。

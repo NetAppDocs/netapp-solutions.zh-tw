@@ -29,7 +29,7 @@ image:redhat_openshift_OADP_app_deleted_image1.png["應用程式已刪除"]
 ====
 若要從我們剛建立的備份還原、我們需要建立還原自訂資源（ CR ）。我們需要提供名稱、提供我們想要還原的備份名稱、並將重複 PVs 設為 true 。您可以如所示設定其他參數 link:https://docs.openshift.com/container-platform/4.14/backup_and_restore/application_backup_and_restore/backing_up_and_restoring/restoring-applications.html["文件"]。按一下「建立」按鈕。
 
-image:redhat_openshift_OADP_restore_image1.jpg["建立還原 CR"]
+image:redhat_openshift_OADP_restore_image1.png["建立還原 CR"]
 
 ....
 apiVersion: velero.io/v1
@@ -44,7 +44,7 @@ spec:
 ....
 當階段顯示為已完成時、您可以看到應用程式已還原至拍攝快照時的狀態。應用程式會還原至相同的命名空間。
 
-image:redhat_openshift_OADP_restore_image2.jpg["還原已完成"] image:redhat_openshift_OADP_restore_image2a.png["已還原至相同的命名空間"]
+image:redhat_openshift_OADP_restore_image2.png["還原已完成"] image:redhat_openshift_OADP_restore_image2a.png["已還原至相同的命名空間"]
 
 ====
 .還原至不同的命名空間
