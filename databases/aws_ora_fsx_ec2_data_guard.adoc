@@ -111,7 +111,7 @@ image:aws_ora_fsx_data_guard_architecture.png["此映像提供使用 FSX ONTAP �
 === 部署考量的關鍵因素
 
 * * Oracle 備用資料庫 FlexClone 的運作方式。 * AWS FSX ONTAP FlexClone 提供可寫入的相同待命資料庫磁碟區的共用複本。這些磁碟區的複本實際上是連結回原始資料區塊的指標、直到新的寫入作業在複本上啟動為止。然後、 ONTAP 會為新的寫入作業配置新的儲存區塊。任何讀取的 IOS 都由原始資料區塊在作用中複寫下提供服務。因此、複本具有極高的儲存效率、可用於許多其他使用案例、並可為新的寫入 IOS 分配最少且遞增的新儲存設備。如此可大幅減少 Active Data Guard 儲存設備佔用空間、進而大幅節省儲存成本。NetApp 建議在資料庫從主要儲存設備切換至待命的 FSX 儲存設備時、將 FlexClone 活動降至最低、以維持 Oracle 高效能。
-* * Oracle 軟體需求。 * 一般而言、實體待命資料庫必須與主要資料庫具有相同的資料庫首頁版本、包括修補程式集例外（ PSE ）、重大修補程式更新（ CPU ）、 和 Patch Set Update （ PSU ）、除非 Oracle Data Guard 備用先修補套用程序程序正在進行中（如 My Oracle Support 附註 1265700.1 中所述、網址為： link:http://support.oracle.com.["support.oracle.com"^]
+* * Oracle 軟體需求。 *一般而言，實體備用資料庫必須具有與主資料庫相同的資料庫主版本，包括補丁集異常 (PSE)、關鍵修補程式更新 (CPU) 和修補程式集更新 (PSU)，除非正在進行 Oracle Data Guard 備用優先補丁應用程式（如 My Oracle Support 說明 1265700.1 所述，網址為link:https://support.oracle.com.["support.oracle.com"^]
 * * 備用資料庫目錄結構考量事項。 * 如果可能、主要和待命系統上的資料檔案、記錄檔和控制檔應具有相同的名稱和路徑名稱、並使用最佳彈性架構（ OFA ）命名慣例。待命資料庫上的歸檔目錄也應在站台之間相同、包括大小和結構。此策略可讓其他作業（例如備份、切換和容錯移轉）執行相同的步驟集、降低維護複雜度。
 * * 強制記錄模式。 * 若要防止無法傳播至待命資料庫的主要資料庫中未記錄的直接寫入，請在執行資料檔案備份以進行待命建立之前，先在主要資料庫中開啟強制記錄功能。
 * * 資料庫儲存管理。 * 為了簡化作業、 Oracle 建議您在 Oracle Data Guard 組態中設定 Oracle 自動儲存管理（ Oracle ASM ）和 Oracle 託管檔案（ OMF ）、以便在主要和待命資料庫上對稱地設定。

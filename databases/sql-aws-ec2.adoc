@@ -43,7 +43,7 @@ Amazon FSX ONTAP 是在 AWS 中部署 SQL Server 的理想檔案儲存設備。�
 * 在重大版本或修補程式更新之後找出根本原因、藉此減少MTTR
 
 
-將SQL Server資料庫部署在FSX ONTAP 支援iSCSI傳輸協定的基礎上、如同內部部署一般、提供理想的資料庫儲存環境、具備優異的效能、儲存效率及資料管理功能。若使用多個iSCSI工作階段（假設工作集大小為5%）、則搭配Flash Cache可透過FSX ONTAP 支援服務提供超過100K的IOPs。此組態可為要求最嚴苛的應用程式提供完整的效能控制。在連接至 FSX ONTAP 的較小 EC2 執行個體上執行的 SQL Server 、其執行效能與在較大 EC2 執行個體上執行的 SQL Server 相同、因為只會針對 FSX ONTAP 套用網路頻寬限制。減少執行個體的大小也能降低運算成本、提供TCO最佳化的部署。結合使用 iSCSI 的 SQL 、 SMB3.0 與 FSX ONTAP 上的多通道、持續可用度共享、為 SQL 工作負載提供絕佳優勢。
+將SQL Server資料庫部署在FSX ONTAP 支援iSCSI傳輸協定的基礎上、如同內部部署一般、提供理想的資料庫儲存環境、具備優異的效能、儲存效率及資料管理功能。若使用多個iSCSI工作階段（假設工作集大小為5%）、則搭配Flash Cache可透過FSX ONTAP 支援服務提供超過100K的IOPs。此組態可為要求最嚴苛的應用程式提供完整的效能控制。在連接至 FSX ONTAP 的較小 EC2 執行個體上執行的 SQL Server 、其執行效能與在較大 EC2 執行個體上執行的 SQL Server 相同、因為只會針對 FSX ONTAP 套用網路頻寬限制。減少實例的大小也會降低計算成本，從而提供 TCO 最佳化的部署。結合使用 iSCSI 的 SQL 、 SMB3.0 與 FSX ONTAP 上的多通道、持續可用度共享、為 SQL 工作負載提供絕佳優勢。
 
 
 
@@ -338,7 +338,7 @@ NetApp SnapCenter 支援新一代資料保護軟體、適用於第1層企業應�
 
 
 |===
-如需詳細資訊、請參閱 link:https://docs.netapp.com/us-en/snapcenter/install/reference_space_and_sizing_requirements.html["空間和規模需求"]。
+如需詳細資訊link:https://docs.netapp.com/us-en/snapcenter/protect-scsql/task_install_snapcenter_plug_in_for_microsoft_sql_server_database.html["空間和規模需求"]、請參閱。
 
 如需版本相容性、請參閱 https://mysupport.netapp.com/matrix/["NetApp 互通性對照表工具"^]。
 

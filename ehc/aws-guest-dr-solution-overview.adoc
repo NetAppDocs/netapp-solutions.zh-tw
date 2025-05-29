@@ -32,7 +32,7 @@ image:dr-vmc-aws-image1.png["此圖顯示輸入 / 輸出對話方塊或表示寫
 
 在部署此解決方案之前、請先檢閱元件的總覽、部署解決方案所需的先決條件、以及記錄此解決方案時所做的假設。
 
-link:aws-guest-dr-solution-prereqs.html["災難恢復解決方案要求、預先要求和規劃"]
+link:aws-guest-dr-solution-prereqs.html["DR 解決方案需求、先決條件與規劃"]
 
 
 
@@ -222,7 +222,7 @@ FSx-Dest::> snapmirror initialize -destination-path DestSVM:DestVol
 ====
 此解決方案使用NetApp SnapCenter 解決方案來執行SQL Server和Oracle資料庫的應用程式一致備份。搭配使用Veeam備份與複寫來備份虛擬機器VMDK、可為內部部署與雲端型資料中心提供全方位的災難恢復解決方案。
 
-NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://docs.netapp.com/us-en/snapcenter/install/install_workflow.html["NetApp文件中心"^]。
+NetApp 支援網站提供 SnapCenter 軟體，可安裝在位於網域或工作群組中的 Microsoft Windows 系統上。詳細的規劃指南和安裝說明可以在 https://docs.netapp.com/us-en/snapcenter/install/requirements-to-install-snapcenter-server.html["NetApp文件中心"^] 。
 
 您可SnapCenter 從取得此軟體 https://mysupport.netapp.com["此連結"^]。
 
@@ -430,7 +430,7 @@ image:dr-vmc-aws-image39.png["此圖顯示輸入 / 輸出對話方塊或表示�
 ====
 支援VMware Cloud SDDC部署的VMware伺服器、或安裝在VPC中的EC2執行個體上、並可透過網路連線至VMware Cloud環境。SnapCenter
 
-NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組的Microsoft Windows系統上。SnapCenter如需詳細的規劃指南和安裝指示、請參閱 https://docs.netapp.com/us-en/snapcenter/install/install_workflow.html["NetApp文件中心"^]。
+NetApp 支援網站提供 SnapCenter 軟體，可安裝在位於網域或工作群組中的 Microsoft Windows 系統上。詳細的規劃指南和安裝說明可以在 https://docs.netapp.com/us-en/snapcenter/install/requirements-to-install-snapcenter-server.html["NetApp文件中心"^] 。
 
 您可以在找到SnapCenter 該軟件 https://mysupport.netapp.com["此連結"^]。
 
@@ -476,7 +476,7 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 
 === 適用於災難恢復的資料庫備份SnapCenter
 
-支援基礎MySQL資料庫及組態資料的備份與還原、以便在發生災難時恢復該伺服器。SnapCenter SnapCenter就我們的解決方案而言、我們在SnapCenter VPC內的AWS EC2執行個體上恢復了該資料庫和組態。有關 SnapCenter 災難恢復的詳細信息，請參閱 https://docs.netapp.com/us-en/snapcenter/concept/concept_disaster_recovery.html["此連結"^]。
+支援基礎MySQL資料庫及組態資料的備份與還原、以便在發生災難時恢復該伺服器。SnapCenter SnapCenter就我們的解決方案而言、我們在SnapCenter VPC內的AWS EC2執行個體上恢復了該資料庫和組態。有關 SnapCenter 災難恢復的詳細信息，請參閱 https://docs.netapp.com/us-en/snapcenter/index.html["此連結"^]。
 
 .支援需求SnapCenter
 [%collapsible%open]
@@ -509,7 +509,7 @@ NetApp支援網站提供支援軟體、可安裝在位於網域或工作群組�
 .備份SnapCenter 還原資料庫與組態
 [%collapsible%open]
 ====
-支援執行REST API命令的Web用戶端介面。SnapCenter有關通過 Swagger 訪問 REST API 的信息，請參閱 SnapCenter 文檔，網址爲 https://docs.netapp.com/us-en/snapcenter/concept/concept_snapcenter_rest_apis.html["此連結"^]（英文）。
+支援執行REST API命令的Web用戶端介面。SnapCenter有關通過 Swagger 訪問 REST API 的信息，請參閱 SnapCenter 文檔，網址爲 https://docs.netapp.com/us-en/snapcenter/sc-automation/overview_rest_apis.html["此連結"^]（英文）。
 
 .登入Swagger並取得授權權杖
 [%collapsible%open]

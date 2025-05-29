@@ -5,12 +5,30 @@ keywords: NetApp Solutions, vMSC, Metro Storage Cluster, SnapMirror active sync,
 summary:  
 ---
 = 使用 VMware vSphere Metro Storage Cluster 將 SM 主動式同步從非對稱轉換為對稱式主動 / 主動式
+:hardbreaks:
 :allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
 
 
-link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/["NetApp SnapMirror 主動式同步（ SM 主動式同步）"]是一款強大的解決方案，可在虛擬化環境中實現零恢復時間目標（ RTO ）和零恢復點目標（ RPO ）。link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware_vmsc_overview.html["VMware vSphere Metro儲存叢集（VMSC）"]是橫跨不同故障網域的延伸叢集解決方案，可讓虛擬機器（ VM ）分散在兩個地理位置不同的站台，即使一個站台發生故障，仍能持續提供可用度。將 VMSC 與 SM 主動式同步結合，確保兩個站台之間的資料一致性和即時容錯移轉功能。對於無法接受任何資料遺失或停機的關鍵任務應用程式而言，這項設定尤其重要。
+[role="lead"]
+本文詳細介紹如何使用 VMware vSphere Metro Storage Cluster (VMSC) 將 SnapMirror 主動同步從非對稱轉換為對稱主動/主動。
 
-SM Active Sync （前身為 SnapMirror Business Continuity （ SMBC ））可讓業務服務持續運作，即使整個站台發生故障，也能支援應用程式使用次要複本進行透明容錯移轉。從 ONTAP 9.15.1 開始， SM 主動式同步支援對稱式主動 / 主動式功能。對稱式雙主動 / 主動式可從受保護 LUN 的兩個複本進行讀取和寫入 I/O 作業，並提供雙向同步複寫，讓兩個 LUN 複本都能在本機上執行 I/O 作業。本文件說明如何在 VMware 彈性叢集環境中將 SM 主動式同步非對稱式雙主動 / 主動式轉換為 SM 主動式同步對稱式雙主動 / 主動式，換句話說，將 SM 主動式同步從自動容錯移轉原則轉換為自動容錯移轉雙工原則。有關如何使用系統管理器和 ONTAP 工具設置 VMSC 與 SnapMirror 活動同步（ SM-AS ）的詳細信息，請查看link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware-vmsc-with-smas.html["VMware vSphere Metro Storage Cluster 搭配 SnapMirror 主動式同步"]。
+
+
+== 總覽
+
+link:https://docs.netapp.com/us-en/ontap/snapmirror-active-sync/["NetApp SnapMirror 主動式同步（ SM 主動式同步）"]是一款強大的解決方案，可在虛擬化環境中實現零恢復時間目標（ RTO ）和零恢復點目標（ RPO ）。
+
+link:https://docs.netapp.com/us-en/ontap-apps-dbs/vmware/vmware_vmsc_overview.html["VMware vSphere Metro儲存叢集（VMSC）"]是橫跨不同故障網域的延伸叢集解決方案，可讓虛擬機器（ VM ）分散在兩個地理位置不同的站台，即使一個站台發生故障，仍能持續提供可用度。
+
+將 VMSC 與 SM 主動式同步結合，確保兩個站台之間的資料一致性和即時容錯移轉功能。對於無法接受任何資料遺失或停機的關鍵任務應用程式而言，這項設定尤其重要。
+
+SM Active Sync （前身為 SnapMirror Business Continuity （ SMBC ））可讓業務服務持續運作，即使整個站台發生故障，也能支援應用程式使用次要複本進行透明容錯移轉。從 ONTAP 9.15.1 開始， SM 主動式同步支援對稱式主動 / 主動式功能。對稱式雙主動 / 主動式可從受保護 LUN 的兩個複本進行讀取和寫入 I/O 作業，並提供雙向同步複寫，讓兩個 LUN 複本都能在本機上執行 I/O 作業。
+
+本文件說明如何在 VMware 彈性叢集環境中將 SM 主動式同步非對稱式雙主動 / 主動式轉換為 SM 主動式同步對稱式雙主動 / 主動式，換句話說，將 SM 主動式同步從自動容錯移轉原則轉換為自動容錯移轉雙工原則。有關如何使用系統管理器和 ONTAP 工具設置 VMSC 與 SnapMirror 活動同步（ SM-AS ）的詳細信息，請查看link:https://docs.netapp.com/us-en/netapp-solutions/vmware/vmware-vmsc-with-smas.html["VMware vSphere Metro Storage Cluster 搭配 SnapMirror 主動式同步"]。
 
 
 
