@@ -1,0 +1,254 @@
+---
+sidebar: sidebar 
+permalink: ehc/evs-mount-fsxn-nfs.html 
+keywords: Amazon, AWS, EVS, Elastic VMware Service, ONTAP, FSx, nfs 
+summary: 本節將介紹如何將 FSx for ONTAP 部署為 NFS 資料儲存區。部署 iSCSI 資料儲存區的步驟將在下一節中詳細介紹。 
+---
+= 使用 FSx for ONTAP 作為 NFS 資料儲存庫的部署過程
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+本節將介紹如何將 FSx for ONTAP 部署為 NFS 資料儲存區。部署 iSCSI 資料儲存區的步驟將在下一節中詳細介紹。
+
+
+
+== 進階部署步驟
+
+部署 FSx for ONTAP 檔案系統作為 Amazon EVS 的 NFS 資料儲存並在兩種服務之間建立連線將包括下列步驟：
+
+* 在 Amazon EVS VCF 環境所在的相同 VPC 中設定 FSx for ONTAP 檔案系統。
+* 驗證安全群組和路由表。
+* 連接 FSx for ONTAP 儲存磁碟區以用作 Amazon EVS 的 NFS 資料儲存。
+
+
+
+
+== 先決條件
+
+在開始將 FSx for ONTAP 設定為 Amazon EVS 的 NFS 資料儲存之前，應滿足以下先決條件：
+
+* Amazon EVS 虛擬化環境。有關如何操作的更多信息，請參閱link:https://docs.aws.amazon.com/evs/latest/userguide/what-is-evs.html["Amazon EVS 入門指南"] 。
+* 使用適當的 SSD 儲存容量、預先配置的 IOPS 和吞吐量為 ONTAP 建立單一可用區 (AZ) FSx。
+* 為了獲得最佳效能，請將 FSx for ONTAP 檔案系統與 Amazon EVS 執行個體部署在同一 VPC 中。請注意，即使 FSx for ONTAP 部署在不同 VPC 中，VPC 對等連線也支援。
+* 根據效能需求，選擇單可用區 FSx for ONTAP 檔案系統所需的正確 IOPS 和吞吐量。請參閱link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["FSx for ONTAP 的效能規格詳情"]了解每個可用選項提供的吞吐量和 IOPS。
+
+
+
+NOTE: 在本指南中，我們將在與服務存取子網路相同的子網路中部署 FSx for ONTAP 檔案系統。
+
+在 VPC 中部署 Amazon EVS 虛擬化環境後，您可以繼續設定將用作 NFS 資料儲存的單一可用區 FSx for ONTAP 檔案系統。
+
+
+NOTE: 您的 FSx for ONTAP 檔案系統應部署在與 Amazon EVS SDDC 相同的 AZ 中。
+
+
+
+== 為 ONTAP 檔案系統建立 FSX
+
+以下步驟將向您展示如何設定和掛載 FSx for ONTAP 檔案系統：
+
+. 前往 Amazon FSx 主控台 `https://console.aws.amazon.com/fsx/`使用您的網際網路瀏覽器並使用您的憑證登入。
+. 在控制台中，選擇“建立檔案系統”。這將啟動設定精靈，以建立 FSx for ONTAP 檔案系統。
+. 首先，選擇檔案系統類型。從可用的檔案系統選項中選擇“Amazon FSx for NetApp ONTAP”，然後點擊“下一步”按鈕。
++
+image:evs-mount-fsxn-02.png["此圖表示選擇檔案系統類型對話框"]
+
+. 您將在“快速建立”和“標準建立”選項之間進行選擇。「快速建立」提供預先定義的配置，而「標準建立」可讓您自訂配置。
++
+選擇“標準創建”選項。
+
++
+image:evs-mount-fsxn-03.png["此圖表示選擇檔案系統類型、標準建立對話框"]
+
++
+現在您將進入標準建立檔案系統設定精靈。在檔案系統詳細資料頁面中，選擇並輸入如下圖所示的資訊：
+
++
+image:evs-mount-fsxn-04.png["此圖表示選擇檔案系統類型、標準建立精靈"]
+
+. 向下捲動到標有“網路和安全”的部分。在此部分中，您將設定子網路和 VPC 的詳細資訊。在本指南中，我們從下拉式選單中選擇了“EVS-VPC”，並選擇服務存取子網路（未標記的 VLAN）作為 EVS 虛擬環境的子網路。
++
+
+NOTE: 子網路可以是 VPC 中任何未標記的私有子網路。它也可以位於透過 VPC 對等互連連接的其他 VPC/子網路中，只要已配置正確的路由即可。
+
++
+image:evs-mount-fsxn-05.png["網路安全對話框"]
+
+. 向下捲動，您將看到“安全性和加密”部分。在這裡，從下拉式選單中選擇加密金鑰。這些金鑰由 AWS 金鑰管理服務 (AWS KMS) 提供，將保護 FSx for ONTAP 檔案系統中的靜態資料。
++
+接下來，在「檔案系統管理密碼」設定中，為將管理檔案系統的 fsxadmin 使用者指定一個唯一的密碼。
+
++
+image:evs-mount-fsxn-06.png["表示安全和加密對話框的圖"]
+
+. 接下來，您將向下捲動到標題為「預設儲存虛擬機器配置」的部分。在這裡，您需要為儲存虛擬機器 (SVM) 提供一個名稱。
++
+image:evs-mount-fsxn-07.png["此圖表示預設儲存虛擬機器配置對話框"]
+
+. 接下來，向下捲動到標題為「預設磁碟區配置」的部分。在這裡，您需要輸入磁碟區的名稱並設定磁碟區大小。磁碟區協定應為 NFS v3（​​預設為啟用）。按一下此選項可啟用儲存效率功能（壓縮、重複資料刪除和壓縮），以降低整體儲存使用量和成本。
++
+image:evs-mount-fsxn-08.png["此圖表示預設磁碟區配置對話框"]
+
+. 對於儲存分層選項，從下拉式選單中選擇“僅快照”，並設定分層策略冷卻期。預設值為 31 天，但在本例中，我們設定了 2 天的冷卻期。
++
+image:evs-mount-fsxn-09.png["該圖表示“存儲分層”對話框"]
+
+. 建立磁碟區後，使用 ONTAP 命令列介面 (ONTAP CLI) 修改下列參數：
++
+[cols="50%, 50%"]
+|===
+| * 設定 * | *組態* 
+
+
+| Volume保證 | 無（精簡配置） 
+
+
+| 分數保留 | 0% 
+
+
+| Snap_Reserve | 0% 
+
+
+| 自動調整規模 | 大幅縮減 
+
+
+| 儲存效率 | 已啟用 
+
+
+| Volume分層原則 | 僅適用於Snapshot 
+
+
+| 存取時間更新（-atime-update） | 錯 
+
+
+| 最小預先讀取（-min-readahead） | 錯 
+
+
+| Snapshot原則 | 無 
+|===
+. 在可選的「備份和維護」步驟中，停用每日自動備份並為每週維護視窗選擇「無首選項」。
++
+完成後按一下“下一步”。
+
++
+image:evs-mount-fsxn-10.png["此圖表示檔案系統建立對話方塊的完成"]
+
+. 現在，您將看到按照上述步驟設定的整個檔案系統配置的概覽。檢查所有參數是否正確，然後點擊「建立檔案系統」按鈕完成設定。
++
+image:evs-mount-fsxn-11.png["該圖表示檔案系統建立對話框"]
+
++
+image:evs-mount-fsxn-12.png["該圖表示檔案系統建立對話框"]
+
++
+
+NOTE: 若要建立其他 FSx for ONTAP 檔案系統，您可以按照上述詳細步驟操作，並根據需要調整影響效能和磁碟容量的值。要了解有關 FSx for ONTAP 效能選項的更多信息，請參閱link:https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/performance.html["此文件頁面"] 。
+
+
+
+
+
+== 驗證 VPC 和虛擬化環境路由和安全性群組
+
+驗證 VPC 和 SDDC 路由和安全群組對於確保 Amazon EVS 虛擬化環境和 FSx for ONTAP 檔案系統元件能夠正常協同工作非常重要。
+
+. 瀏覽至 Elastic VMware 服務 > 虛擬化環境 > [您的 Amazon EVS 環境] 並選擇服務存取子網，如下方綠色箭頭所示：
++
+image:evs-mount-fsxn-13.png["該圖表示上述步驟的對話框"]
+
+. 這將打開子網面板。在此面板上找到“路由”表並單擊它。
++
+在此範例中，FSxN ONTAP 檔案系統與 Amazon EVS VCF 環境位於相同 VPC 中，因此預設路由就足夠了。
+
++
+image:evs-mount-fsxn-14.png["該圖表示上述步驟的對話框"]
+
++
+如果 FSx for ONTAP 檔案系統位於其他 VPC 中，請檢查是否已新增指向該 VPC 的路由。在本例中，已新增指向 FSx for ONTAP 系統所在 VPC 的 VPC 對等連接的路由。
+
++
+image:evs-mount-fsxn-15.png["該圖表示上述步驟的對話框"]
+
+. 接下來，您需要檢查連接到 FSx for ONTAP 檔案系統的安全性群組（即連接到彈性網路介面 (ENI) 的安全群組）是否允許存取 NFS 連接埠。
++
+有關 NFS 和 iSCSI 協定連接埠的完整列表，請參閱連結：https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/limit-access-security-groups.html]使用 Amazon VPC 文件進行檔案系統存取控制]。
+
++
+若要驗證您的 FSx for ONTAP 檔案系統是否與安全性群組關聯：
+
++
+.. 在 AWS 控制台中，導覽至 FSx > 檔案系統 > [您的 FSx for ONTAP 檔案系統]。
+.. 在網路和安全性標籤中，按一下 ENI。
+.. 找到網路介面詳細資訊下列出的與 ENI 關聯的安全群組（如下圖中的綠色箭頭所示）。
++
+image:evs-mount-fsxn-16.png["該圖表示上述步驟的對話框"]
+
+.. 驗證連接埠。在以下螢幕截圖所示的範例中，所有流量均被允許。但是，您可以將這些流量限制在 NFS 連接埠上。以下是連接埠列表：
++
+*** 連接埠 111 TCP：連接埠對映器，用於協商在 NFS 請求中使用哪些連接埠。
+*** 連接埠 635 TCP：Mountd，用於接收傳入的掛載請求。
+*** 連接埠 2049 TCP：NFS，用於處理 NFS 流量。
+*** 連接埠 4045 TCP：網路鎖定管理器 (NLM)，處理鎖定請求。
+*** 連接埠 4046 TCP：網路狀態監視器 (NSM)，當伺服器重新啟動以進行鎖定管理時，它會發送 NFS 用戶端通知。
++
+image:evs-mount-fsxn-17.png["該圖表示上述步驟的對話框"]
+
+
+
+
+
+
+
+
+
+== 將 FSx for ONTAP NFS 磁碟區附加到 Amazon EVS 以用作資料存儲
+
+現在，您的 FSx for ONTAP 檔案系統已預置完畢，並且所有正確的連線參數都已驗證，接下來就可以將 FSx for ONTAP 儲存磁碟區連接到 Amazon EVS 了。以下步驟將介紹如何存取 vCenter 並將 FSx for ONTAP 磁碟區掛載為 NFS 資料儲存：
+
+. 在 vSphere 用戶端中，前往「資料儲存」標籤。找到資料中心，導航至“儲存”>“新資料儲存”，如下所示：
++
+image:evs-mount-fsxn-18.png["該圖表示上述步驟的對話框"]
+
+. 現在您將進入「新資料儲存」精靈。在「類型」步驟中，您將選擇資料儲存類型。選擇“NFS”，然後點擊“下一步”繼續。
++
+image:evs-mount-fsxn-19.png["該圖表示上述步驟的對話框"]
+
+. 在「NFS 版本」步驟中，您將選擇一個 NFS 版本。
++
+為了本例的目的，我們將選擇“NFS 3”，但請注意，也可以使用 NFS v4.1。
+
++
+image:evs-mount-fsxn-20.png["該圖表示上述步驟的對話框"]
+
+. 在「名稱和配置」步驟中，您將：
++
+.. 命名資料儲存。
+.. 命名資料夾。使用 NFS 磁碟區的連接路徑。
+.. 命名伺服器。使用 SVM 的 NFS DNS 名稱或 NFS 的 IP 位址。
++
+按一下“下一步”繼續。
+
++
+image:evs-mount-fsxn-21.png["該圖表示上述步驟的對話框"]
+
+
+
+. 在「主機可存取性」步驟中，選擇所有需要存取資料儲存的主機，然後按一下「下一步」繼續。
++
+image:evs-mount-fsxn-22.png["該圖表示上述步驟的對話框"]
+
+. 在「準備完成」步驟中，檢查資料並按一下「完成」以完成設定。
++
+image:evs-mount-fsxn-23.png["該圖表示上述步驟的對話框"]
+
+. 透過存取 vCenter 驗證 NFS 資料儲存是否已連接，如下所示：
++
+image:evs-mount-fsxn-24.png["該圖表示上述步驟的對話框"]
+
+

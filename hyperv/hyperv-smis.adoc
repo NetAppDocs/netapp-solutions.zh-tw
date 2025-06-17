@@ -73,7 +73,8 @@ image:hyperv-smis-image2.png["SMI-S 供應商硬體需求"]
 
 . 從 NetApp 下載網站取得 SMI-S ，並安裝在支援版本的 Window 伺服器上。
 . 確認 SMI-S 伺服器正在執行。image:hyperv-smis-image3.png["確認 SMI-S 伺服器正在執行"]
-. 若要新增 NetApp 儲存系統，請確定您擁有儲存虛擬機器（ SVM ）的管理 IP 位址主機名稱，以及 vsadmin 使用者的認證。image:hyperv-smis-image4.png["註冊 SVM"]
+. 新增一個 CIM 伺服器用戶，該 sim 用戶應該在 Windows SMIS 伺服器中具有管理員權限，並且您需要使用該用戶向 SCVMM 註冊。 image:hyperv-smis-image13.png["新增 CIM 用戶"]
+. 若要新增 NetApp 儲存系統，請確保您擁有儲存虛擬機器 (SVM) 的管理 IP 位址的主機名，以及 vsadmin 使用者的憑證。注意：SMI-S 不支援 SVM 管理 IP 位址，僅支援主機名稱。 image:hyperv-smis-image4.png["註冊 SVM"]
 
 
 
