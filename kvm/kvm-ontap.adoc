@@ -1,0 +1,353 @@
+---
+sidebar: sidebar 
+permalink: kvm/kvm-ontap.html 
+keywords: netapp, kvm, libvirt, all-flash, nfs, iscsi, ontap, storage, aff 
+summary: KVM 主機中的共用儲存可縮短虛擬機器即時遷移的時間，並有助於在整個環境中更好地備份和保持一致的模板。 ONTAP儲存不僅可以滿足 KVM 主機環境的需求，還可以滿足客戶端文件、區塊和物件儲存的需求。 
+---
+= 使用 ONTAP 進行 KVM 虛擬化
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ../media/
+
+
+[role="lead"]
+KVM 主機中的共用儲存可縮短虛擬機器即時遷移的時間，並有助於在整個環境中更好地備份和保持一致的模板。 ONTAP儲存不僅可以滿足 KVM 主機環境的需求，還可以滿足客戶端文件、區塊和物件儲存的需求。
+
+KVM 主機需要將 FC、乙太網路或其他支援的介面連接到交換機，並與 ONTAP 邏輯介面進行通訊。
+
+請務必檢查 https://mysupport.netapp.com/matrix/#welcome["互通性對照表工具"]支援的組態。
+
+
+
+== 高階 ONTAP 功能
+
+* 通用功能 *
+
+* 橫向擴充叢集
+* 安全驗證和 RBAC 支援
+* 零信任多重管理支援
+* 安全的多租戶共享
+* 使用 SnapMirror 複寫資料。
+* 使用 Snapshot 的時間點複本。
+* 節省空間的複本。
+* 儲存效率功能、例如重複資料刪除、壓縮等
+* Trident CSI 支援 Kubernetes
+* SnapLock
+* 防止竄改的Snapshot複本鎖定
+* 加密支援
+* FabricPool 將冷資料分層儲存至物件儲存區。
+* BlueXP 和資料基礎設施洞察整合。
+* Microsoft 卸載資料傳輸（ ODX ）
+
+
+* NAS *
+
+* FlexGroup Volume 是橫向擴充的 NAS 容器、可提供高效能、以及負載分配和擴充性。
+* FlexCache 可將資料以全域方式散佈、同時仍提供本機讀取和寫入資料的存取權。
+* 多重傳輸協定支援可透過 SMB 和 NFS 存取相同的資料。
+* NFS nConnect 允許每個 TCP 連線有多個 TCP 工作階段、以提高網路處理量。如此可提高現代伺服器上可用的高速 NIC 的使用率。
+* NFS 工作階段主幹可提高資料傳輸速度、高可用度及容錯能力。
+* pNFS 用於優化資料路徑連接。
+* SMB 多通道提供更快的資料傳輸速度、高可用度和容錯能力。
+* 與 Active directory/LDAP 整合以取得檔案權限。
+* 透過 TLS 與 NFS 進行安全連線。
+* NFS Kerberos 支援。
+* NFS over RDMA 。
+* Windows 與 Unix 身分識別之間的名稱對應。
+* 自主勒索軟體保護。
+* 檔案系統分析：
+
+
+* SAN*
+
+* 透過 SnapMirror 主動式同步、在故障網域之間延伸叢集。
+* ASA 機型提供主動 / 主動式多重路徑和快速路徑容錯移轉。
+* 支援 FC 、 iSCSI 、 NVMe 等傳輸協定。
+* 支援 iSCSI CHAP 相互驗證。
+* 選擇性 LUN 對應和 PortSet 。
+
+
+
+
+== 帶有 ONTAP 儲存的 Libvirt
+
+Libvirt 可用於管理利用 NetApp ONTAP 儲存體來儲存磁碟映像和資料的虛擬機器。透過此集成，您可以在基於 Libvirt 的虛擬化環境中受益於 ONTAP 的高級儲存功能，例如資料保護、儲存效率和效能最佳化。以下是 Libvirt 與 ONTAP 的互動方式以及您可以執行的操作：
+
+. 儲存池管理：
++
+** 將 ONTAP 儲存定義為 Libvirt 儲存池：您可以設定 Libvirt 儲存池以透過 NFS、iSCSI 或光纖通道等協定指向 ONTAP 磁碟區或 LUN。
+** Libvirt 管理池內的磁碟區：一旦定義了儲存池，Libvirt 就可以管理該池內與 ONTAP LUN 或檔案相對應的磁碟區的建立、刪除、複製和快照。
++
+*** 範例：NFS 儲存池：如果您的 Libvirt 主機從 ONTAP 掛載 NFS 共用，則可以在 Libvirt 中定義基於 NFS 的儲存池，它會將共用中的檔案列為可用於 VM 磁碟的磁碟區。
+
+
+
+
+. 虛擬機器磁碟儲存：
++
+** 在 ONTAP 上儲存虛擬機器磁碟映像：您可以在 ONTAP 儲存支援的 Libvirt 儲存池中建立虛擬機器磁碟映像（例如，qcow2、raw）。
+** 受益於 ONTAP 的儲存功能：當 VM 磁碟儲存在 ONTAP 磁碟區上時，它們會自動受益於 ONTAP 的資料保護（快照、SnapMirror、SnapVault）、儲存效率（重複資料刪除、壓縮）和效能功能。
+
+
+. 資料保護：
++
+** 自動資料保護：ONTAP 提供自動資料保護功能，包括快照和 SnapMirror 等功能，可透過將您寶貴的資料複製到其他 ONTAP 儲存（無論是在本地、遠端站點還是在雲端）來保護您的寶貴資料。
+** RPO 和 RTO：您可以使用 ONTAP 的資料保護功能來實現低復原點目標 (RPO) 和快速復原時間目標 (RTO)。
+** MetroCluster/SnapMirror 主動同步：為了實現自動零 RPO（恢復點目標）和站點到站點可用性，您可以使用 ONTAP MetroCluster 或 SMas，這使得能夠在站點之間建立延伸叢集。
+
+
+. 性能和效率：
++
+** Virtio 驅動程式：在客戶虛擬機器中使用 Virtio 網路和磁碟裝置驅動程序，以提升效能。這些驅動程式旨在與虛擬機器管理程式協作，並提供半虛擬化優勢。
+** Virtio-SCSI：為了實現可擴充性和進階儲存功能，請使用 Virtio-SCSI，它能夠直接連接到 SCSI LUN 並處理大量設備。
+** 儲存效率：ONTAP 的儲存效率功能（例如重複資料刪除、壓縮和壓縮）可以幫助減少虛擬機器磁碟的儲存空間，從而節省成本。
+
+
+. ONTAP Select 整合：
++
+** KVM 上的 ONTAP Select：ONTAP Select 是 NetApp 的軟體定義儲存解決方案，可部署在 KVM 主機上，為基於 Libvirt 的虛擬機器提供靈活且可擴展的儲存平台。
+** ONTAP Select Deploy：ONTAP Select Deploy 是用來建立和管理 ONTAP Select 叢集的工具。它可以作為虛擬機器在 KVM 或 VMware ESXi 上運行。
+
+
+
+
+本質上，將 Libvirt 與 ONTAP 結合使用，您可以將基於 Libvirt 的虛擬化的靈活性和可擴展性與 ONTAP 的企業級資料管理功能相結合，為您的虛擬化環境提供強大而高效的解決方案。
+
+
+
+== 基於檔案的儲存池（使用 SMB 或 NFS）
+
+dir 和 netfs 類型的儲存池適用於基於檔案的儲存。
+
+[cols="20% 10% 10% 10% 10% 10% 10% 10%"]
+|===
+| 儲存協定 | 目錄 | 檔案系統 | 淨文件系統 | 邏輯 | 磁碟 | iSCSI | iscsi直接 | mpath 
+
+
+| SMB/CIFS | 是的 | 否 | 是的 | 否 | 否 | 否 | 否 | 否 
+
+
+| NFS | 是的 | 否 | 是的 | 否 | 否 | 否 | 否 | 否 
+|===
+使用 netfs 時，libvirt 將掛載檔案系統，並且支援的掛載選項有限。使用 dir 儲存池時，檔案系統的掛載需要在主機外部處理。可以使用 fstab 或 automounter 來實現此目的。要使用 automounter，需要安裝 autofs 軟體包。 Autofs特別適合按需掛載網路共享，與 fstab 中的靜態掛載相比，這可以提高系統效能和資源利用率。它會在一段時間不活動後自動卸載共享。
+
+根據所使用的儲存協議，驗證主機上是否安裝了所需的套件。
+
+[cols="40% 20% 20% 20%"]
+|===
+| 儲存協定 | Fedora | DEBIAN | 吃豆人 
+
+
+| SMB/CIFS | samba 客戶端/cifs-utils | smbclient/cifs實用程式 | smbclient/cifs實用程式 
+
+
+| NFS | nfs實用程式 | nfs-通用 | nfs實用程式 
+|===
+NFS 因其在 Linux 中的原生支援和效能而廣受歡迎，而 SMB 則是與 Microsoft 環境整合的可行選項。在生產環境中使用前，請務必檢查其支援清單。
+
+根據選擇的協議，請按照適當的步驟建立 SMB 共享或 NFS 導出。 https://docs.netapp.com/us-en/ontap-system-manager-classic/smb-config/index.html["SMB 共享建立"]https://docs.netapp.com/us-en/ontap-system-manager-classic/nfs-config/index.html["NFS 導出創建"]
+
+在 fstab 或自動掛載程式設定檔中包含掛載選項。例如，使用 autofs 時，我們在 /etc/auto.master 中新增了以下行，以便使用檔案 auto.kvmfs01 和 auto.kvmsmb01 進行直接映射
+
+/- /etc/auto.kvmnfs01 --timeout=60 /- /etc/auto.kvmsmb01 --timeout=60 --ghost
+
+在 /etc/auto.kvmnfs01 檔案中，我們有 /mnt/kvmnfs01 -trunkdiscovery,nconnect=4 172.21.35.11,172.21.36.11(100):/kvmnfs01
+
+對於 smb，在 /etc/auto.kvmsmb01 中，我們有 /mnt/kvmsmb01 -fstype=cifs,credentials=/root/smbpass,multichannel,max_channels=8 ://kvmfs01.sddc.netapp.com/kvmsmb01
+
+使用池類型為 dir 的 virsh 定義儲存池。
+
+[source, shell]
+----
+virsh pool-define-as --name kvmnfs01 --type dir --target /mnt/kvmnfs01
+virsh pool-autostart kvmnfs01
+virsh pool-start kvmnfs01
+----
+可以使用
+
+[source, shell]
+----
+virsh vol-list kvmnfs01
+----
+為了優化基於 NFS 掛載的 Libvirt 儲存池的效能，會話中繼、pNFS 和 nconnect 掛載選項這三個選項都可以發揮作用，但它們的有效性取決於您的特定需求和環境。以下是一些細分，可幫助您選擇最佳方法：
+
+. n連接：
++
+** 最適合：透過使用多個 TCP 連線對 NFS 掛載本身進行簡單、直接的最佳化。
+** 工作原理：nconnect 掛載選項可讓您指定 NFS 用戶端與 NFS 端點（伺服器）建立的 TCP 連線數。這可以顯著提高受益於多個並發連接的工作負載的吞吐量。
+** 好處：
++
+*** 易於配置：只需將 nconnect=<number_of_connections> 新增至您的 NFS 掛載選項即可。
+*** 提高吞吐量：增加 NFS 流量的「管道寬度」。
+*** 對各種工作負載有效：適用於通用虛擬機器工作負載。
+
+
+** 限制：
++
+*** 客戶端/伺服器支援：需要客戶端（Linux 核心）和 NFS 伺服器（例如 ONTAP）上都支援 nconnect。
+*** 飽和度：設定非常高的 nconnect 值可能會使您的網路線路飽和。
+*** 每次掛載設定：nconnect 值是為初始掛載設定的，並且所有後續掛載到同一伺服器和版本都會繼承此值。
+
+
+
+
+. 會話中繼：
++
+** 最適合：透過利用多個網路介面 (LIF) 到 NFS 伺服器來增強吞吐量並提供一定程度的彈性。
+** 工作原理：會話中繼允許 NFS 用戶端開啟與 NFS 伺服器上不同 LIF 的多個連接，從而有效地聚合多個網路路徑的頻寬。
+** 好處：
++
+*** 提高資料傳輸速度：透過利用多條網路路徑。
+*** 彈性：如果網路路徑發生故障，其他路徑仍然可以使用，儘管故障路徑上正在進行的操作可能會掛起，直到重新建立連線。
+
+
+** 限制：仍然是單一 NFS 會話：雖然它使用多個網路路徑，但它不會改變傳統 NFS 的基本單會話性質。
+** 設定複雜性：需要在 ONTAP 伺服器上設定中繼群組和 LIF。網路設定：需要合適的網路基礎架構來支援多路徑。
+** 使用 nConnect 選項：僅第一個介面會套用 nConnect 選項。其餘介面將採用單一連接。
+
+
+. pNFS：
++
+** 最適合：高效能、橫向擴展工作負載，可從平行資料存取和儲存設備的直接 I/O 中受益。
+** 如何運作：pNFS 分離元資料和資料路徑，允許客戶端直接從儲存存取數據，從而可能繞過 NFS 伺服器進行資料存取。
+** 好處：
++
+*** 提高可擴展性和效能：對於受益於並行 I/O 的特定工作負載（如 HPC 和 AI/ML）。
+*** 直接數據存取：允許客戶端直接從儲存讀取/寫入數據，從而減少延遲並提高效能。
+*** 使用 nConnect 選項：所有連線都會套用 nConnect 以最大化網路頻寬。
+
+
+** 限制：
++
+*** 複雜性：pNFS 的設定和管理比傳統 NFS 或 nconnect 更複雜。
+*** 特定於工作負載：並非所有工作負載都能從 pNFS 中受益匪淺。
+*** 客戶端支援：需要客戶端支援pNFS。
+
+
+
+
+
+
+建議：* 對於 NFS 上的通用 Libvirt 儲存池：從 nconnect 掛載選項開始。它相對容易實現，並且可以透過增加連接數來顯著提升效能。* 如果您需要更高的吞吐量和彈性：除了 nconnect 之外，還可以考慮使用會話中繼 (Session Trunking) 來取代它。這在 Libvirt 主機和 ONTAP 系統之間有多個網路介面的環境中非常有用。* 對於需要從並行 I/O 中獲益的苛刻工作負載：如果您正在運行 HPC 或 AI/ML 等可以利用並行資料存取的工作負載，那麼 pNFS 可能是您的最佳選擇。但是，請做好設定和配置複雜性增加的準備。請務必使用不同的掛載選項和設定來測試和監控 NFS 效能，以確定適合您特定 Libvirt 儲存池和工作負載的最佳配置。
+
+
+
+== 基於區塊的儲存池（帶有 iSCSI、FC 或 NVMe-oF）
+
+目錄池類型通常在共用 LUN 或命名空間上的叢集檔案系統（如 OCFS2 或 GFS2）上使用。
+
+根據所使用的儲存協定驗證主機是否安裝了必要的軟體包。
+
+[cols="40% 20% 20% 20%"]
+|===
+| 儲存協定 | Fedora | DEBIAN | 吃豆人 
+
+
+| iSCSI | iscsi 啟動器實用程式、裝置映射器多路徑、ocfs2 工具/gfs2 實用程式 | open-iscsi、多路徑工具、ocfs2 工具/gfs2 實用程式 | open-iscsi、多路徑工具、ocfs2 工具/gfs2 實用程式 
+
+
+| FC | 裝置映射器多路徑，ocfs2 工具/gfs2 實用程式 | 多路徑工具、ocfs2 工具/gfs2 實用程式 | 多路徑工具、ocfs2 工具/gfs2 實用程式 
+
+
+| NVMe | nvme-cli、ocfs2-工具/gfs2-utils | nvme-cli、ocfs2-工具/gfs2-utils | nvme-cli、ocfs2-工具/gfs2-utils 
+|===
+收集主機iqn/wwpn/nqn。
+
+[source, shell]
+----
+# To view host iqn
+cat /etc/iscsi/initiatorname.iscsi
+# To view wwpn
+systool -c fc_host -v
+# or if you have ONTAP Linux Host Utility installed
+sanlun fcp show adapter -v
+# To view nqn
+sudo nvme show-hostnqn
+----
+請參閱對應部分來建立 LUN 或命名空間。
+
+https://docs.netapp.com/us-en/ontap-system-manager-classic/iscsi-config-rhel/index.html["為 iSCSI 主機建立 LUN"] https://docs.netapp.com/us-en/ontap-system-manager-classic/fc-config-rhel/index.html["為 FC 主機建立 LUN"] https://docs.netapp.com/us-en/ontap/san-admin/create-nvme-namespace-subsystem-task.html["為 NVMe-oF 主機建立命名空間"]
+
+確保 FC 分割區或乙太網路設備配置為與 ONTAP 邏輯介面通訊。
+
+對於 iSCSI，
+
+[source, shell]
+----
+# Register the target portal
+iscsiadm -m discovery -t st -p 172.21.37.14
+# Login to all interfaces
+iscsiadm -m node -L all
+# Ensure iSCSI service is enabled
+sudo systemctl enable iscsi.service
+# Verify the multipath device info
+multipath -ll
+# OCFS2 configuration we used.
+o2cb add-cluster kvmcl01
+o2cb add-node kvm02.sddc.netapp.com
+o2cb cluster-status
+mkfs.ocfs2 -L vmdata -N 4  --cluster-name=kvmcl01 --cluster-stack=o2cb -F /dev/mapper/3600a098038314c57312b58387638574f
+mount -t ocfs2 /dev/mapper/3600a098038314c57312b58387638574f1 /mnt/kvmiscsi01/
+mounted.ocfs2 -d
+# For libvirt storage pool
+virsh pool-define-as --name kvmiscsi01 --type dir --target /mnt/kvmiscsi01
+virsh pool-autostart kvmiscsi01
+virsh pool-start kvmiscsi01
+----
+對於 NVMe/TCP，我們使用
+
+[source, shell]
+----
+# Listing the NVMe discovery
+cat /etc/nvme/discovery.conf
+# Used for extracting default parameters for discovery
+#
+# Example:
+# --transport=<trtype> --traddr=<traddr> --trsvcid=<trsvcid> --host-traddr=<host-traddr> --host-iface=<host-iface>
+-t tcp -l 1800 -a 172.21.37.16
+-t tcp -l 1800 -a 172.21.37.17
+-t tcp -l 1800 -a 172.21.38.19
+-t tcp -l 1800 -a 172.21.38.20
+# Login to all interfaces
+nvme connect-all
+nvme list
+# Verify the multipath device info
+nvme show-topology
+# OCFS2 configuration we used.
+o2cb add-cluster kvmcl01
+o2cb add-node kvm02.sddc.netapp.com
+o2cb cluster-status
+mkfs.ocfs2 -L vmdata1 -N 4  --cluster-name=kvmcl01 --cluster-stack=o2cb -F /dev/nvme2n1
+mount -t ocfs2 /dev/nvme2n1 /mnt/kvmns01/
+mounted.ocfs2 -d
+# To change label
+tunefs.ocfs2 -L tme /dev/nvme2n1
+# For libvirt storage pool
+virsh pool-define-as --name kvmns01 --type dir --target /mnt/kvmns01
+virsh pool-autostart kvmns01
+virsh pool-start kvmns01
+----
+對於 FC，
+
+[source, shell]
+----
+# Verify the multipath device info
+multipath -ll
+# OCFS2 configuration we used.
+o2cb add-cluster kvmcl01
+o2cb add-node kvm02.sddc.netapp.com
+o2cb cluster-status
+mkfs.ocfs2 -L vmdata2 -N 4  --cluster-name=kvmcl01 --cluster-stack=o2cb -F /dev/mapper/3600a098038314c57312b583876385751
+mount -t ocfs2 /dev/mapper/3600a098038314c57312b583876385751 /mnt/kvmfc01/
+mounted.ocfs2 -d
+# For libvirt storage pool
+virsh pool-define-as --name kvmfc01 --type dir --target /mnt/kvmfc01
+virsh pool-autostart kvmfc01
+virsh pool-start kvmfc01
+----
+注意：裝置掛載應包含在 /etc/fstab 中或使用自動掛載對映檔案。
+
+Libvirt 在叢集檔案系統之上管理虛擬磁碟（檔案）。它依賴叢集檔案系統（OCFS2 或 GFS2）來處理底層共用區塊存取和資料完整性。 OCFS2或 GFS2 可作為 Libvirt 主機和共用區塊儲存之間的抽象層，提供必要的鎖定和協調，以允許安全地並發存取儲存在該共用儲存上的虛擬磁碟映像。
