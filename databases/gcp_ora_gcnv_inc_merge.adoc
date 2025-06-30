@@ -4056,11 +4056,11 @@ NAME
 ====
 從 GCNV 上的備份映像副本複製新的 Oracle VLDB 類似於將主資料庫按時間點還原到新的資料庫伺服器。 NetApp解決方案工程團隊提供了一個自動化工具包，以簡化整個流程，使其快速（幾分鐘內）輕鬆實施。
 
-以下自動化工具包包含一個劇本，可用於透過 NFS 掛載從儲存在 GCNV 儲存上的主資料庫備份映像副本建立或刷新 Oracle VLDB 的克隆，以實現完整的克隆生命週期管理。
+以下自動化工具包包含一個劇本，可用於透過 NFS 掛載從儲存在 GCNV 儲存上的主資料庫備份映像副本建立或刷新 Oracle VLDB 的克隆，以實現完整的克隆生命週期管理。詳細內容請參考文件： link:https://docs.netapp.com/us-en/netapp-solutions/databases/automation_ora_bkup_clone.html["透過伺服器內映像備份實現 Oracle VLDB 克隆生命週期自動化"^] 。
 
 [source, cli]
 ----
-https://bitbucket.ngage.netapp.com/projects/NS-BB/repos/na_oracle_clone_gcnv/browse
+https://bitbucket.ngage.netapp.com/mvc/projects/NS-BB/repos/na_oracle_bkup_clone/browse
 ----
 
 NOTE: 此工具組目前只能由具有 BitBucket 存取權限的 NetApp 內部使用者存取。對於有興趣的外部使用者，請向您的客戶團隊申請存取權限，或聯絡 NetApp 解決方案工程團隊。

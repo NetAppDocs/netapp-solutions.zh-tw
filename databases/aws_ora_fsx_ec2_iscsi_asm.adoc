@@ -694,7 +694,7 @@ unzip -q /tmp/archive/p6880880_190000_Linux-x86-64.zip
 ....
 vi cv/admin/cvu_config
 ....
-. 準備 `gridsetup.rsp` 用於無訊息安裝的檔案、並將 rsp 檔案放入 `/tmp/archive` 目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：
+. 更新 `gridsetup.rsp`文件進行靜默安裝，並將 rsp 檔案放在 `/tmp/archive`目錄。rsp 檔案應涵蓋 A 、 B 和 G 區段、並提供下列資訊：
 +
 ....
 INVENTORY_LOCATION=/u01/app/oraInventory
@@ -774,7 +774,7 @@ systemctl restart multipathd
 ....
 /u01/app/oracle/product/19.0.0/grid/gridSetup.sh -executeConfigTools -responseFile /tmp/archive/gridsetup.rsp -silent
 ....
-. 身為 Oracle 使用者、請建立記錄磁碟群組。
+. 以 Oracle 使用者身份，從 $GRID_HOME 建立 LOGS 磁碟組。
 +
 ....
 bin/asmca -silent -sysAsmPassword 'yourPWD' -asmsnmpPassword 'yourPWD' -createDiskGroup -diskGroupName LOGS -disk 'AFD:LOGS*' -redundancy EXTERNAL -au_size 4
@@ -857,7 +857,7 @@ vi cv/admin/cvu_config
 ....
 unzip p34765931_190000_Linux-x86-64.zip
 ....
-. 在中準備 DB 無訊息安裝 rsp 檔案 `/tmp/archive/dbinstall.rsp` 具有下列值的目錄：
+. 更新 DB 靜默安裝標準 rsp 文件 `/tmp/archive/dbinstall.rsp`目錄中的相關部分具有以下值：
 +
 ....
 oracle.install.option=INSTALL_DB_SWONLY
@@ -884,7 +884,7 @@ oracle.install.db.rootconfig.executeRootScript=false
 ....
 /u01/app/oracle/product/19.0.0/db1/root.sh
 ....
-. 身為 Oracle 使用者、請建立 `dbca.rsp` 包含下列項目的檔案：
+. 以 Oracle 使用者身分更新標準 `dbca.rsp`文件的相關部分包含以下條目：
 +
 ....
 gdbName=db1.demo.netapp.com
@@ -909,7 +909,7 @@ databaseType=MULTIPURPOSE
 automaticMemoryManagement=false
 totalMemory=8192
 ....
-. 身為 Oracle 使用者、請使用 dbca 來建立資料庫。
+. 以 Oracle 使用者身份，從 $ORACLE_HOME 目錄，使用 dbca 啟動 DB 建立。
 +
 ....
 bin/dbca -silent -createDatabase -responseFile /tmp/archive/dbca.rsp
@@ -984,7 +984,7 @@ alias asm='export ORACLE_HOME=/u01/app/oracle/product/19.0.0/grid;export ORACLE_
 . 驗證建立的 CDB/PDB 。
 +
 ....
-/home/oracle/.bash_profile
+source /home/oracle/.bash_profile
 
 sqlplus / as sysdba
 

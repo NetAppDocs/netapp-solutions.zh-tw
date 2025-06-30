@@ -382,7 +382,7 @@ dd if=/dev/zero of=/oradata/asm/nfs_data_disk02 bs=1M count=20480 oflag=direct
 dd if=/dev/zero of=/oradata/asm/nfs_data_disk03 bs=1M count=20480 oflag=direct
 dd if=/dev/zero of=/oradata/asm/nfs_data_disk04 bs=1M count=20480 oflag=direct
 ....
-. 身為 root 使用者、將資料磁碟檔案權限變更為 640
+. 修改資料盤檔案權限為640
 +
 ....
 chmod 640 /oradata/asm/*
@@ -393,7 +393,7 @@ chmod 640 /oradata/asm/*
 dd if=/dev/zero of=/oralogs/asm/nfs_logs_disk01 bs=1M count=40960 oflag=direct
 dd if=/dev/zero of=/oralogs/asm/nfs_logs_disk02 bs=1M count=40960 oflag=direct
 ....
-. 以 root 使用者身分、將記錄磁碟檔案權限變更為 640
+. 將日誌檔案權限變更為 640
 +
 ....
 chmod 640 /oralogs/asm/*
