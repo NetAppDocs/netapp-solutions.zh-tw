@@ -14,22 +14,28 @@ summary: 本白皮書說明如何安裝及管理 NetApp SMI-S Provider ，以及
 
 
 [role="lead"]
-本白皮書說明如何安裝及管理 NetApp SMI-S Provider ，以及如何使用 Microsoft SCVMM 配置儲存設備。
+本文介紹如何安裝和管理NetApp SMI-S Provider，以及如何使用 Microsoft System Center Virtual Machine Manager (SCVMM) 設定儲存。
 
 
 
 == 簡介
 
-NetApp 儲存管理計畫規格（ SMI-S ）是管理與監控儲存系統的強大工具。NetApp SMI-S 利用網路型企業管理（ WBEM ）傳輸協定，為各種管理工作提供統一的介面，包括 LUN ，磁碟區， CIMOM 組態設定和 CIM 伺服器使用者的處理。如需詳細資料，請參閱link:https://docs.netapp.com/us-en/smis-provider["NetApp SMI-S Provider 產品文件。"]
+NetApp 儲存管理計畫規格（ SMI-S ）是管理與監控儲存系統的強大工具。NetApp SMI-S 利用網路型企業管理（ WBEM ）傳輸協定，為各種管理工作提供統一的介面，包括 LUN ，磁碟區， CIMOM 組態設定和 CIM 伺服器使用者的處理。
+
+SCVMM 是虛擬化資料中心的全面管理解決方案。 SCVMM能夠透過儲存管理計畫規格 (SMI-S) 與各種儲存系統整合。
 
 
 
-==== 主要特色與優點：
+=== NetApp SMI-S Provider與 SCVMM 結合使用的優勢
+
+將NetApp SMI-S Provider與 SCVMM 相集成，可為儲存管理提供標準化接口，從而使組織能夠在虛擬化資料中心中更有效地管理儲存資源。
 
 * 儲存系統偵測與管理：偵測執行 ONTAP 軟體的儲存系統，並提供有效管理的工具。
 * 簡化管理：提供單一命令型介面，簡化儲存系統的管理。
 * 監控與報告：提供強大的監控與報告功能，可追蹤儲存元件及其效能。
 
+
+如需詳細資料，請參閱link:https://docs.netapp.com/us-en/smis-provider["NetApp SMI-S Provider 產品文件。"]
 
 image:hyperv-smis-image1.png["採用 Hyper-V 架構的 NetApp SMI-S"]
 
@@ -37,11 +43,12 @@ image:hyperv-smis-image1.png["採用 Hyper-V 架構的 NetApp SMI-S"]
 
 == 準備好進行 SMI-S Provider 部署
 
-若要與現有儲存系統無縫整合，必須正確安裝及組態 SMI-S Provider 。
+與現有儲存系統的無縫整合需要正確安裝和配置NetApp SMI-S Provider。
 
-* SMI-S Provider 5.2.7 支援 Windows Server SCVMM 2025 ， 2022 ， 2019 和 2016 ，以及 Windows Server 2025 ， 2022 ， 2019 和 2016 。此版本與Windows Server 2012或System Center Virtual Machine Manager（SCVMM）2012不相容。
-* NetApp SMI-S 供應商支援 ONTAP 9.7 及更新版本的 FAS 和 AFF 系統。
-* NetApp ONTAP One 授權涵蓋 SMI-S 供應商的所有授權需求。
+* NetApp SMI-S Provider 5.2.7 支援 Windows Server SCVMM 2025、2022、2019 和 2016 以及 Windows Server 2025、2022、2019 和 2016。此版本與Windows Server 2012或System Center Virtual Machine Manager（SCVMM）2012不相容。
+* NetApp SMI-S Provider 5.2.7 沒有可用的升級路徑。您必須將NetApp SMI-S Provider 5.2.7 部署為全新安裝。
+* NetApp SMI-S 供應商支援 ONTAP 9 及更新版本的 FAS 和 AFF 系統。
+* NetApp ONTAP One 授權涵蓋 SMI-S 供應商的所有授權需求。如果沒有此許可證，您需要以下許可證：
 +
 ** 在儲存系統上建立LUN時、需要FCP、iSCSI或兩者的FCP和iSCSI授權。
 ** 在支援ONTAP 的功能區儲存系統上建立檔案共用時、需要CIFS授權。
@@ -54,7 +61,7 @@ image:hyperv-smis-image1.png["採用 Hyper-V 架構的 NetApp SMI-S"]
 
 === SMI-S 虛擬機器硬體需求
 
-下表顯示 SMI-S 供應商 VM 硬體需求。
+下表顯示了NetApp SMI-S 供應商 VM 硬體需求。
 
 image:hyperv-smis-image2.png["SMI-S 供應商硬體需求"]
 
@@ -62,35 +69,50 @@ image:hyperv-smis-image2.png["SMI-S 供應商硬體需求"]
 
 === 安裝 SMI-S Provider
 
-在開始 SMI-S 供應商部署之前，您需要先部署
+在開始 SMI-S 提供者部署之前，您需要部署具有 SCVMM 的 Microsoft Hyper-V 和NetApp 9 以上FAS或AFF儲存系統。請務必瞭解命令型介面，以便執行各種管理工作，請檢查link:https://docs.netapp.com/us-en/smis-provider/concept-smi-s-provider-commands-overview.html["NetApp SMI-S Provider 命令。"]
 
-* 含 SCVMM 的 Microsoft Hyper-V
-* NetApp FAS 或 AFF 儲存系統
-* 對於 SMI-S http 和 https 連線，防火牆連接埠 5988 和 5989 應為開啟，以允許 SMI-S Provider 和 SCVMM 之間進行通訊
+[]
+====
+最佳實務： NetApp建議使用專用的 Windows Server 來安裝NetApp SMI-S Provider，不要安裝在 SCVMM 伺服器上，以防止幹擾、最佳化效能並簡化故障排除。
 
-
-請務必瞭解命令型介面，以便執行各種管理工作，請檢查link:https://docs.netapp.com/us-en/smis-provider/concept-smi-s-provider-commands-overview.html["NetApp SMI-S Provider 命令。"]
-
-. 從 NetApp 下載網站取得 SMI-S ，並安裝在支援版本的 Window 伺服器上。
-. 確認 SMI-S 伺服器正在執行。image:hyperv-smis-image3.png["確認 SMI-S 伺服器正在執行"]
-. 新增一個 CIM 伺服器用戶，該 sim 用戶應該在 Windows SMIS 伺服器中具有管理員權限，並且您需要使用該用戶向 SCVMM 註冊。 image:hyperv-smis-image13.png["新增 CIM 用戶"]
-. 若要新增 NetApp 儲存系統，請確保您擁有儲存虛擬機器 (SVM) 的管理 IP 位址的主機名，以及 vsadmin 使用者的憑證。注意：SMI-S 不支援 SVM 管理 IP 位址，僅支援主機名稱。 image:hyperv-smis-image4.png["註冊 SVM"]
+====
+. 在支援 SMI-S 的 Windows 伺服器虛擬機器中，從下載NetApp SMI-S Provider版本 5.2.7 link:https://mysupport.netapp.com/site/global/dashboard["NetApp軟體下載網站"]並將檔案儲存為 smisprovider-5-2-7.msi。
+. 導覽至包含NetApp SMI-S Provider軟體套件的目錄並雙擊套件 smisprovider-5-2-7.msi，依照安裝精靈中的步驟完成安裝。
+. 在「開始」功能表中，導覽至NetApp SMI-S Provider，右鍵並選擇「以管理員身分執行」。當命令列提示符開啟時，執行命令「smis cimserver status」以驗證NetApp SMI-S Provider是否正在執行。 image:hyperv-smis-image3.png["確認 SMI-S 伺服器正在執行"]
+. 新增一個 CIM 伺服器用戶，此 SMI-S 用戶應在 Windows SMI-S 伺服器中擁有管理員權限，並且您需要使用此用戶向 SCVMM 註冊。此 SMI-S 使用者可以是本機使用者或網域使用者。 image:hyperv-smis-image13.png["新增 CIM 用戶"]
+. 若要新增NetApp儲存系統，您可以使用儲存虛擬機器 (SVM) 的管理 IP 位址或 DNS 可解析主機名，以及 vsadmin 使用者的憑證。 image:hyperv-smis-image4.png["註冊 SVM"]
 
 
 
 
 === 使用 SCVMM 連線 SMI-S Provider
 
-. 在導覽器中展開「 Fabric 」 > 「 Storage 」。在 * Providers* 上按一下滑鼠右鍵，然後按一下 * 新增儲存裝置 * 。選取 * SMI-S 供應商發現並管理的 SAN 和 NAS 裝置 * 。image:hyperv-smis-image5.png["新增儲存裝置"]
-. 選擇 SMI-S CIMXML 作為傳輸協定。輸入安裝 SMI-S Agent 之伺服器的 IP 位址或 FQDN ，然後輸入您建立的 SMI-S 帳戶。image:hyperv-smis-image6.png["安裝 SMI-S Agent"]
-. 按一下 * 下一步 * ，從您的 NetApp 儲存系統取得磁碟區清單
-. 選取儲存裝置，分類和主機群組，檢閱摘要，然後按一下 * 完成 * 。image:hyperv-smis-image7.png["選擇分類"]
-. 若要檢閱 SMI-S 連線，請按一下 * Fabric * > * Overview * ，查看儲存摘要，分類使用量，每個陣列的邏輯單元，以及主機群組儲存設備。image:hyperv-smis-image11.png["檢查 SVM 容量"]
+要在 SCVMM 中新增遠端儲存裝置並連接到 SMI-S 提供程序，您需要確保滿足以下先決條件和步驟：
+
+* 網路存取：確保 SCVMM 伺服器可以透過其 IP 位址或完全限定網域名稱 (FQDN) 透過網路存取 SMI-S 提供者。
+* 通訊連接埠：驗證 SCVMM 和 SMI-S 提供者是否可以使用適當的連接埠透過網路進行通訊：
++
+** 連接埠 5989 上的 HTTPS
+** 連接埠 5988 上的 HTTP
 
 
 
 
-=== 使用 SMI-S Provider 提供 SCVMM
+[]
+====
+在安裝 SMI-S 提供者時放置了過期的憑證。因此，在 System Center Virtual Machine Manager (SCVMM) 中，透過「新增儲存設備」連接到 SMI-S 提供者的 SSL 連線失敗。解決方案是link:https://kb.netapp.com/data-mgmt/SMI-S/SMI-S_Issues/CSMIS-3["為 CIM 伺服器產生自簽名證書"]然後重新啟動 SMI-S 服務。更多信息，請參閱知識庫文章link:https://kb.netapp.com/data-mgmt/SMI-S/SMI-S_Issues/CSMIS-3["CSMIS-3： NetApp SMI-S Provider 5.2.7 中的 cimom.cert 在安裝時已過期。"]
+
+====
+. 在 SCVMM 中，按一下「Fabric」>「Storage」>「Providers」>「Add Storage Devices」。選擇「由 SMI-S 提供者發現和管理的 SAN 和 NAS 設備」。 image:hyperv-smis-image5.png["新增儲存裝置"]
+. 在指定發現範圍中，選擇 SMI-S CIMXML 作為協議，輸入安裝 SMI-S 代理程式的伺服器的 IP 位址或 FQDN，如果需要，選擇 SSL 連線選項，並輸入在 SMI-S 伺服器上建立的 SMI-S 帳戶。 image:hyperv-smis-image6.png["安裝 SMI-S Agent"]
+. 在「收集資訊」中，SCVMM 會自動發現並匯入儲存設備資訊。如果上一步選擇了 SSL 連接，則需要匯入安全性憑證。 image:hyperv-smis-image15.png["導入證書"]
+. 選擇儲存設備、分類和主機群組，查看摘要並按完成。 image:hyperv-smis-image7.png["選擇分類"]
+. 若要查看 SMI-S 連接，請按一下 Fabric > Overview，檢查儲存摘要、分類使用情況、每個陣列的邏輯單元和主機群組儲存。 image:hyperv-smis-image11.png["檢查 SVM 容量"]
+
+
+
+
+=== 使用 SMI-S 提供者透過 SCVMM 設定存儲
 
 SCVMM 使用 SMI-S Provider 與儲存系統互動，讓您直接從 SCVMM 建立及管理儲存資源。
 
@@ -98,14 +120,15 @@ SCVMM 使用 SMI-S Provider 與儲存系統互動，讓您直接從 SCVMM 建立
 
 ==== iSCSI儲存設備
 
-. 在 SCVMM 控制檯中，選擇 Fabric > Storage （架構 > 儲存），右鍵單擊 * Classifications and Pools* （分類和池），然後選擇 *Create Logical Unit* （創建邏輯單元 * ）。選擇儲存池和分類，然後輸入邏輯單元的名稱，說明，大小和主機群組。image:hyperv-smis-image9.png["建立邏輯單元儲存設備"]
+. 在 SCVMM 控制台中，選擇 Fabric > Storage，右鍵點選 Classifications and Pools，然後選擇 Create Logical Unit。選擇儲存池和分類，然後輸入邏輯單元的名稱，說明，大小和主機群組。image:hyperv-smis-image9.png["建立邏輯單元儲存設備"]
 
 
 
 
 ==== SMB 儲存設備
 
-. 選取 * Fabric * > * Storage* > 在 * 檔案伺服器 * 上按一下滑鼠右鍵，然後選擇 * 建立檔案共用 * ，選取 * 檔案伺服器 * ，輸入名稱，儲存類型，儲存池和分類。image:hyperv-smis-image10.png["建立檔案共用"]
+. 選擇 Fabric > Storage > 右鍵點選 File Servers 並選擇 Create File Share，選擇 File server，輸入名稱、儲存類型、儲存池和分類。 image:hyperv-smis-image10.png["建立檔案共用"]
+. 要將 SMB 檔案共用用於 Hyper-V，您需要將 SMB 檔案共用新增至 Hyper-V 主機叢集。在 SCVMM 中，按一下「伺服器」>「所有主機」>「[主機群組]」。右鍵單擊群集名稱並選擇“屬性”。在「檔案共用儲存」標籤中，按一下「新增」並輸入 SMB 路徑。 image:hyperv-smis-image14.png["將 SMB 檔案共用新增至 Hyper-V 主機叢集"]
 
 
 
